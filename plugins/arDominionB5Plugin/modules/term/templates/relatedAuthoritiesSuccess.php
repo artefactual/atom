@@ -78,7 +78,7 @@
       </a>
     <?php } ?>
 
-    <div class="d-flex flex-wrap gap-2 ms-auto">
+    <div class="d-flex flex-wrap gap-2 ms-auto mb-3">
       <?php echo get_partial('default/sortPickers', ['options' => [
           'lastUpdated' => __('Date modified'),
           'alphabetic' => __('Name'),
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  <div id="content">
+  <div id="content" class="p-0">
 
     <?php echo get_partial('term/directTerms', [
         'resource' => $resource,
@@ -102,8 +102,8 @@
 
     <?php } else { ?>
 
-      <div>
-        <h2><?php echo __('We couldn\'t find any results matching your search.'); ?></h2>
+      <div class="p-3">
+        <?php echo __('We couldn\'t find any results matching your search.'); ?>
       </div>
 
     <?php } ?>
