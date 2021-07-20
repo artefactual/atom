@@ -122,7 +122,7 @@
       ]]); ?>
     </div>
 
-    <div id="content" class="browse-content">
+    <div id="content" class="p-0">
 
       <?php foreach ($pager->getResults() as $hit) { ?>
         <?php $doc = $hit->getData(); ?>
