@@ -12,7 +12,7 @@
     </li>
     <?php foreach ($quickLinks as $child) { ?>
       <?php if ('login' != $child->getName() && 'logout' != $child->getName() && 'myProfile' != $child->getName()) { ?>
-        <li>
+        <li <?php echo isset($child->name) ? 'id="node_'.$child->name.'"' : ''; ?>>
           <?php echo link_to(
               $child->getLabel(['cultureFallback' => true]),
               $child->getPath(['getUrl' => true, 'resolveAlias' => true]),
