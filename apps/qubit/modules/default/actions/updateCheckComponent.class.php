@@ -62,7 +62,7 @@ class DefaultUpdateCheckComponent extends sfComponent
 
         // If the client does not support JavaScript we try to access to the service
         // using sfWebBrowser, a wrapper for php_curl/fopen/sockets (in that order)
-        if (!$request->getCookie('has_js')) {
+        if (!$request->getCookie('has_js') || sfConfig::get('app_b5_theme', false)) {
             if (null === ($this->lastVersion = $this->context->user->getAttribute('last_version'))) {
                 try {
                     $browser = new sfWebBrowser();

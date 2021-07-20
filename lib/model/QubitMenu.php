@@ -443,4 +443,18 @@ class QubitMenu extends BaseMenu
 
         return implode($li);
     }
+
+    public function checkUserAccess()
+    {
+        $context = sfContext::getInstance();
+
+        // Parse module and action from path
+        $path = $this->getPath(['getUrl' => true, 'resolveAlias' => true]);
+        $route = $context->getRouting()->findRoute($path);
+        $module = $route['parameters']['module'];
+        $action = $route['parameters']['action'];
+
+        // Check access from security.yml rules
+        return $context->getUser()->checkModuleActionAccess($module, $action);
+    }
 }

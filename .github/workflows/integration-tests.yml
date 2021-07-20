@@ -53,10 +53,7 @@ jobs:
         echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
           > apps/qubit/config/gearman.yml
     - name: Compile themes CSS
-      run: |
-        sudo npm install -g "less@<4.0.0"
-        make -C plugins/arDominionPlugin
-        make -C plugins/arArchivesCanadaPlugin
+      run: php symfony tools:build-css
     - name: Run the installer
       run: |
         php symfony tools:install \

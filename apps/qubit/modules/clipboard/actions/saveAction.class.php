@@ -39,7 +39,7 @@ class ClipboardSaveAction extends sfAction
             $itemsCount = count($validatedSlugs['informationObject']) + count($validatedSlugs['actor']) + count($validatedSlugs['repository']);
 
             $loadUrl = $this->context->routing->generate(null, ['module' => 'clipboard', 'action' => 'load']);
-            $message = $this->context->i18n->__('Clipboard saved with %1% items. Clipboard ID is <b>%2%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a href="%3%">Load clipboard</a>, and enter this number in the Clipboard ID field.', ['%1%' => $itemsCount, '%2%' => $password, '%3%' => $loadUrl]);
+            $message = $this->context->i18n->__('Clipboard saved with %1% items. Clipboard ID is <b>%2%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a class="alert-link" href="%3%">Load clipboard</a>, and enter this number in the Clipboard ID field.', ['%1%' => $itemsCount, '%2%' => $password, '%3%' => $loadUrl]);
 
             $this->response->setStatusCode(200);
             $responseData = ['success' => $message];

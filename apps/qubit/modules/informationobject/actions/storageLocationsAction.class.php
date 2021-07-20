@@ -68,7 +68,7 @@ class InformationObjectStorageLocationsAction extends sfAction
 
         $reportsUrl = url_for([$this->resource, 'module' => 'informationobject', 'action' => 'reports']);
         $message = $this->context->i18n->__(
-            'Report generation has started, please check the <a href="%1">reports</a> page again soon.',
+            'Report generation has started, please check the <a class="alert-link" href="%1">reports</a> page again soon.',
             ['%1' => $reportsUrl]
         );
 

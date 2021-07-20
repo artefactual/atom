@@ -142,7 +142,7 @@ class QubitRepository extends BaseRepository
             // Let user know related descriptions update has started
             $jobsUrl = $context->routing->generate(null, ['module' => 'jobs', 'action' => 'browse']);
             $messageParams = ['%1' => $operationDescription, '%2' => $jobsUrl];
-            $message = $context->i18n->__('Your repository has been %1. Its related descriptions are being updated asynchronously – check the <a href="%2">job scheduler page</a> for status and details.', $messageParams);
+            $message = $context->i18n->__('Your repository has been %1. Its related descriptions are being updated asynchronously – check the <a class="alert-link" href="%2">job scheduler page</a> for status and details.', $messageParams);
             $context->user->setFlash('notice', $message);
 
             // Update asynchronously the saved IOs ids

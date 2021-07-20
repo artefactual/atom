@@ -100,6 +100,6 @@ class UserLoginAction extends sfAction
             'publicationStatus' => QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
         ]);
 
-        return $this->context->i18n->__('%1% draft(s) available (visit %2%newest additions%3% page to browse them)', ['%1%' => $draftCount, '%2%' => '<a href="'.$draftUrl.'">', '%3%' => '</a>']);
+        return $this->context->i18n->__('%1% draft(s) available (visit %2%newest additions%3% page to browse them)', ['%1%' => $draftCount, '%2%' => '<a class="alert-link" href="'.$draftUrl.'">', '%3%' => '</a>']);
     }
 }

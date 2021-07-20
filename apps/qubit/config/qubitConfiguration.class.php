@@ -22,13 +22,6 @@ class qubitConfiguration extends sfApplicationConfiguration
     // Required format: x.y.z
     public const VERSION = '2.6.0';
 
-    public function responseFilterContent(sfEvent $event, $content)
-    {
-        ProjectConfiguration::getActive()->loadHelpers('Javascript');
-
-        return str_ireplace('</head>', javascript_tag('jQuery.extend(Qubit, '.json_encode(['relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot()]).');').'</head>', $content);
-    }
-
     public function listenToChangeCultureEvent(sfEvent $event)
     {
         setcookie('atom_culture', $event['culture'], ['path' => '/']);
@@ -39,8 +32,6 @@ class qubitConfiguration extends sfApplicationConfiguration
      */
     public function configure()
     {
-        $this->dispatcher->connect('response.filter_content', [$this, 'responseFilterContent']);
-
         $this->dispatcher->connect('access_log.view', ['QubitAccessLogObserver', 'view']);
 
         $this->dispatcher->connect('user.change_culture', [$this, 'listenToChangeCultureEvent']);

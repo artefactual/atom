@@ -64,7 +64,51 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                     }
                 }
 
-                $this->configuration->enablePlugins($pluginNames);
+                // Check cookie and request to see if a different theme is
+                // requested, validate it exists and it's actually a theme.
+                // Give priority to request parameter and update cookie.
+                $requestedTheme = null;
+                $fromRequest = false;
+
+                if (isset(
+                    $_COOKIE['atom_theme'],
+                    $pluginPaths[$_COOKIE['atom_theme']]
+                )) {
+                    $requestedTheme = $_COOKIE['atom_theme'];
+                }
+
+                if (isset(
+                    $_REQUEST['theme'],
+                    $pluginPaths[$_REQUEST['theme']]
+                )) {
+                    $requestedTheme = $_REQUEST['theme'];
+                    $fromRequest = true;
+                }
+
+                if (isset($requestedTheme)) {
+                    $themeConfigClass = $requestedTheme.'Configuration';
+                    $themeConfigPath = $pluginPaths[$requestedTheme]
+                        .'/config/'.$themeConfigClass.'.class.php';
+
+                    if (is_readable($themeConfigPath)) {
+                        require_once $themeConfigPath;
+
+                        if (
+                            isset($themeConfigClass::$summary)
+                            && 1 === preg_match(
+                                '/theme/i',
+                                $themeConfigClass::$summary
+                            )
+                        ) {
+                            $pluginNames[] = $requestedTheme;
+
+                            if ($fromRequest) {
+                                // Set it as a cookie for following requests
+                                setcookie('atom_theme', $requestedTheme, ['path' => '/']);
+                            }
+                        }
+                    }
+                }
 
                 foreach ($pluginNames as $name) {
                     if (!isset($pluginPaths[$name])) {
@@ -77,6 +121,21 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                         $configuration = new sfPluginConfigurationGeneric($this->configuration, $pluginPaths[$name], $name);
                     } else {
                         require_once $path;
+
+                        // Do not enable other themes if there
+                        // is a theme plugin requested.
+                        if (
+                            isset($requestedTheme)
+                            && $requestedTheme != $name
+                            && isset($className::$summary)
+                            && 1 === preg_match(
+                                '/theme/i',
+                                $className::$summary
+                            )
+                        ) {
+                            continue;
+                        }
+
                         $configuration = new $className($this->configuration, $pluginPaths[$name], $name);
                     }
 
@@ -84,6 +143,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                     $configuration->initializeAutoload();
                     $configuration->initialize();
 
+                    $this->configuration->enablePlugins([$name]);
                     $this->configuration->pluginConfigurations[$name] = $configuration;
                 }
 
