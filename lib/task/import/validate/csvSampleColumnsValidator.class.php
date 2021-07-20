@@ -25,7 +25,7 @@
  */
 class CsvSampleValuesValidator extends CsvBaseValidator
 {
-    const TITLE = 'Sample Values';
+    public const TITLE = 'Sample Values';
 
     protected $values = [];
 

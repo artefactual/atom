@@ -27,8 +27,8 @@
  */
 class CsvDigitalObjectPathValidator extends CsvBaseValidator
 {
-    const TITLE = 'Digital Object Path Test';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'Digital Object Path Test';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     // Do not reset between CSVs.
     protected $fileList = [];

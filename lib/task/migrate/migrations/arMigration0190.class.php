@@ -25,8 +25,8 @@
  */
 class arMigration0190
 {
-    const VERSION = 190;
-    const MIN_MILESTONE = 2;
+    public const VERSION = 190;
+    public const MIN_MILESTONE = 2;
 
     public function up($configuration)
     {

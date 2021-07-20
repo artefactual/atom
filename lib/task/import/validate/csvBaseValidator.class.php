@@ -31,8 +31,8 @@
  */
 abstract class CsvBaseValidator
 {
-    const HEADER_PLACEHOLDER = 'EXTRA_COLUMN';
-    const LIMIT_TO = [];
+    public const HEADER_PLACEHOLDER = 'EXTRA_COLUMN';
+    public const LIMIT_TO = [];
 
     protected $filename = '';
     protected $displayFilename = '';

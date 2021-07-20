@@ -25,8 +25,8 @@
  */
 class CsvScriptValidator extends CsvBaseValidator
 {
-    const TITLE = 'Script of Description Check';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'Script of Description Check';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     protected $scriptOfDescriptionList = [];
     protected $scriptOfDescriptionColumnPresent;

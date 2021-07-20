@@ -24,7 +24,7 @@
  */
 class CsvDuplicateColumnNameValidator extends CsvBaseValidator
 {
-    const TITLE = 'Duplicate Column Name Check';
+    public const TITLE = 'Duplicate Column Name Check';
 
     protected $columnFrequency = [];
 
