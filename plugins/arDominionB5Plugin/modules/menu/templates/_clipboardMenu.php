@@ -23,7 +23,7 @@
     </li>
     <?php foreach ($menu->getChildren() as $child) { ?>
       <?php if ($child->checkUserAccess()) { ?>
-        <li>
+        <li <?php echo isset($child->name) ? 'id="node_'.$child->name.'"' : ''; ?>>
           <?php echo link_to(
               $child->getLabel(['cultureFallback' => true]),
               $child->getPath(['getUrl' => true, 'resolveAlias' => true]),
