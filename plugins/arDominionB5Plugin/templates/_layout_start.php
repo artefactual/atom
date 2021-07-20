@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico'); ?>"/>
     <!-- TODO: Move other CSS to SCSS build (some not possible due to https://github.com/sass/sass/issues/2535) -->
     <link rel="stylesheet" href="/node_modules/mediaelement/build/mediaelementplayer.min.css">
+    <link rel="stylesheet" href="/node_modules/jstree/dist/themes/default/style.min.css">
     <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
   </head>
   <body class="<?php echo $sf_context->getModuleName(); ?> <?php echo $sf_context->getActionName(); ?>">
