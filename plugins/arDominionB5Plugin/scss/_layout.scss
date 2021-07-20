@@ -90,3 +90,14 @@
   display: none;
   visibility: hidden;
 }
+
+@include media-breakpoint-down(sm) {
+  .dropdown-menu {
+    min-width: auto;
+
+    .dropdown-item,
+    .text-nowrap {
+      white-space: normal !important;
+    }
+  }
+}
