@@ -47,9 +47,11 @@
 
 // Other components (CSS files)
 @import "../../../vendor/uppy/uppy-bundle";
+@import "../../../node_modules/jquery-ui-dist/jquery-ui.min";
 
 // Custom
 @import "layout";
 @import "buttons";
 @import "autocomplete";
+@import "fullwidthtreeview";
 @import "tmp";
