@@ -25,8 +25,8 @@
  */
 class CsvRepoValidator extends CsvBaseValidator
 {
-    const TITLE = 'Repository Check';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'Repository Check';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     protected $existingRepositories = [];
     protected $newRepositories = [];

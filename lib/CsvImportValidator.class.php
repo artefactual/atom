@@ -26,13 +26,13 @@ require_once __DIR__.'/../vendor/composer/autoload.php';
  */
 class CsvImportValidator
 {
-    const UTF8_BOM = "\xEF\xBB\xBF";
-    const UTF16_LITTLE_ENDIAN_BOM = "\xFF\xFE";
-    const UTF16_BIG_ENDIAN_BOM = "\xFE\xFF";
-    const UTF32_LITTLE_ENDIAN_BOM = "\xFF\xFE\x00\x00";
-    const UTF32_BIG_ENDIAN_BOM = "\x00\x00\xFE\xFF";
+    public const UTF8_BOM = "\xEF\xBB\xBF";
+    public const UTF16_LITTLE_ENDIAN_BOM = "\xFF\xFE";
+    public const UTF16_BIG_ENDIAN_BOM = "\xFE\xFF";
+    public const UTF32_LITTLE_ENDIAN_BOM = "\xFF\xFE\x00\x00";
+    public const UTF32_BIG_ENDIAN_BOM = "\x00\x00\xFE\xFF";
     // List of valid classNames
-    const DEFAULT_CSV_CLASS_NAME_LIST = [
+    public const DEFAULT_CSV_CLASS_NAME_LIST = [
         'QubitInformationObject',
         'QubitActor',
         'QubitAccession',

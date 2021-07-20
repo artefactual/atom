@@ -28,8 +28,8 @@
  */
 class CsvEventValuesValidator extends CsvBaseValidator
 {
-    const TITLE = 'Event Value Count Test';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'Event Value Count Test';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     protected $matchList = [
         'eventTypes',

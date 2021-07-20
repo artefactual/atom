@@ -26,7 +26,7 @@
  */
 class CsvEmptyRowValidator extends CsvBaseValidator
 {
-    const TITLE = 'CSV Empty Row Check';
+    public const TITLE = 'CSV Empty Row Check';
 
     protected $headerIsBlank;
     protected $blankRowSummary = [];

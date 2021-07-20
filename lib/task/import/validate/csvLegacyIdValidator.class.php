@@ -25,8 +25,8 @@
  */
 class CsvLegacyIdValidator extends CsvBaseValidator
 {
-    const TITLE = 'LegacyId check';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'LegacyId check';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     // Persist across multiple CSVs.
     protected $legacyIdValues = [];

@@ -24,7 +24,7 @@
  */
 class CsvLanguageValidator extends CsvBaseValidator
 {
-    const TITLE = 'Language Check';
+    public const TITLE = 'Language Check';
 
     protected $languages = [];
     protected $languageColumnPresent;

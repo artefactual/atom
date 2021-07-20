@@ -19,9 +19,9 @@
 
 class SettingsCsvValidatorAction extends SettingsEditAction
 {
-    const VALIDATOR_OFF = 0;
-    const VALIDATOR_PERMISSIVE = 1;
-    const VALIDATOR_STRICT = 2;
+    public const VALIDATOR_OFF = 0;
+    public const VALIDATOR_PERMISSIVE = 1;
+    public const VALIDATOR_STRICT = 2;
 
     public static $NAMES = [
         'csv_validator_default_import_behaviour',
