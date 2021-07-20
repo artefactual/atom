@@ -33,18 +33,19 @@
   &.active {
     background-color: $gray-300;
     border-color: $gray-400;
+  }
 
-    &.clipboard {
-      background-color: $primary;
-      border-color: $primary;
+  &.clipboard.added {
+    background-color: $primary;
+    border-color: $primary;
 
-      i {
-        color: $white;
-      }
+    &,
+    i {
+      color: $white;
+    }
 
-      &:focus {
-        box-shadow: $btn-focus-box-shadow;
-      }
+    &:focus {
+      box-shadow: $btn-focus-box-shadow;
     }
   }
 }

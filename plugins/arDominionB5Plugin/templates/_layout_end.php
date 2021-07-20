@@ -14,6 +14,7 @@
     <script src="/plugins/arDominionB5Plugin/js/imageflow.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/aggregations.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/expander.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/clipboard.js"></script>
     <script src="/js/editingHistory.js"></script>
   </body>
 </html>
