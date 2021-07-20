@@ -1,8 +1,16 @@
-"use strict";
-
 (function ($) {
 
-  $(loadTreeView);
+  "use strict";
+
+  $(function()
+  {
+    var $node = $('.browse.hierarchy');
+
+    if ($node.length)
+    {
+      loadTreeView();
+    }
+  });
 
   function startActivity()
   {
@@ -135,7 +143,7 @@
       .bind('select_node.jstree', selectNodeListener);
 
     // Clicking "more" will add next page of results to tree
-    $moreButton.click(function() {
+    $moreButton.on("click", function() {
       pager.next();
       startActivity();
       pager.getAndAppendNodes(function() {
@@ -146,7 +154,7 @@
     });
 
     // Clicking reset link will reset paging and tree state
-    $resetButton.click(function()
+    $resetButton.on("click", function()
     {
       pager.reset($moreButton);
     });
