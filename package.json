@@ -9,6 +9,8 @@
     "bootstrap-autocomplete": "^2.3.7",
     "jquery": "^3.6.0",
     "jquery-expander": "^2.0.1",
+    "jquery-ui-dist": "^1.12.1",
+    "jstree": "^3.3.11",
     "masonry-layout": "^4.2.2",
     "mediaelement": "^4.2.16"
   },
