@@ -81,7 +81,7 @@
       <?php } ?>
 
 
-      <div class="d-flex flex-wrap gap-2 ms-auto">
+      <div class="d-flex flex-wrap gap-2 ms-auto mb-3">
         <?php echo get_partial('default/sortPickers', ['options' => [
             'lastUpdated' => __('Date modified'),
             'alphabetic' => __('Title'),
@@ -92,7 +92,7 @@
     </div>
 
 
-    <div id="content">
+    <div id="content" class="p-0">
 
       <?php echo get_partial('term/directTerms', [
           'resource' => $resource,
