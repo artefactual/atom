@@ -5,8 +5,7 @@
   function Clipboard(element)
   {
     this.$element = element;
-    this.$menuButton = this.$element.find('> button');
-    this.$menuHeaderCount = this.$element.find('.top-dropdown-header > span');
+    this.$menuHeaderCount = this.$element.closest('li').find('#counts-block');
     this.onClipboardPage = $('body').is('.clipboard.view');
 
     this.storage = localStorage;
@@ -33,8 +32,7 @@
     init: function()
     {
       // Listeners added to the document to affect elements added dynamically
-      $(document).on('click', 'button.clipboard', $.proxy(this.toggle, this, true));
-      $(document).on('click', 'button.clipboard-wide', $.proxy(this.toggle, this, false));
+      $(document).on('click', 'button.clipboard', $.proxy(this.toggle, this));
       $(document).on('click', 'button#clipboard-clear, li#node_clearClipboard a', $.proxy(this.clear, this));
       $(document).on('click', 'a#clipboard-save, li#node_saveClipboard a', $.proxy(this.save, this));
       $(document).on('click', 'button#clipboard-send', $.proxy(this.send, this));
@@ -124,8 +122,16 @@
           // Replace page content
           $('body > #wrapper').replaceWith($(data).filter('#wrapper'));
 
-          // Attach expander from qubit.js and other behaviors to new content
-          Drupal.attachBehaviors('#wrapper');
+          // TODO: Use modules (or less idially a global)
+          // to share this code from expander.js.
+          var $i18n = $('#js-i18n #read-more-less-links');
+          $('.search-result .text-block')
+          .expander({
+            slicePoint: 255,
+            expandText: $i18n.data('read-more-text'),
+            userCollapseText: $i18n.data('read-less-text'),
+          })
+          .removeClass('d-none');
 
           this.updateAllButtons();
         },
@@ -150,7 +156,7 @@
       }
 
       $.ajax({
-        url: $(event.target).attr('href'),
+        url: $(event.target).closest('a').attr('href'),
         type: 'POST',
         cache: false,
         data: { slugs: this.items },
@@ -307,18 +313,19 @@
         error: function(xhr)
         {
           var data = JSON.parse(xhr.responseText);
-          this.showAlert(data.error, 'alert-error');
+          this.showAlert(data.error, 'alert-danger');
         }
       });
     },
-    toggle: function(reloadTooltip, event)
+    toggle: function(event)
     {
       if (typeof event.preventDefault === 'function')
       {
         event.preventDefault();
       }
 
-      var $button = $(event.target);
+      var $button = $(event.target).closest('button');
+      var reloadTooltip = $button.data('tooltip') != undefined;
 
       if (reloadTooltip)
       {
@@ -386,14 +393,15 @@
 
         $button.attr('data-alt-title', label);
         $button.attr('data-title', altLabel);
-        $button.text(altLabel);
+        $button.find('span').text(altLabel);
 
         // Fix tooltip only in small buttons
         if (reloadTooltip)
         {
-          $button.tooltip()
-            .attr('data-original-title', altLabel)
-            .tooltip('fixTitle');
+          new bootstrap.Tooltip($button, {
+            title: altLabel,
+            placement: 'left',
+          });
         }
       }
     },
@@ -405,10 +413,17 @@
       var totalCount = iosCount + actorsCount + reposCount;
       
       // Menu button count
-      var $buttonSpan = this.$menuButton.find('> span');
+      var $buttonSpan = this.$element.find('> span.clipboard-count');
       if (!$buttonSpan.length && totalCount > 0)
       {
-        this.$menuButton.append('<span>' + totalCount + '</span>');
+        this.$element.append(
+          '<span class="clipboard-count position-absolute top-0 start-0'
+          + ' badge rounded-pill bg-primary">'
+          + totalCount
+          + '<span class="visually-hidden">'
+          + this.$element.data('total-count-label')
+          + '</span></span>'
+        );
       }
       else if (totalCount > 0)
       {
@@ -431,19 +446,25 @@
     },
     updateAllButtons: function()
     {
-      $('button.clipboard').tooltip({'placement': 'bottom', 'container': 'body'});
-
       var self = this;
 
-      $('button[class*="clipboard"]').each(function()
+      $('button.clipboard').each(function()
       {
         var $button = $(this);
+        var showTooltip = $button.data('tooltip') != undefined;
+
+        if (showTooltip) {
+          bootstrap.Tooltip.getOrCreateInstance($button, {
+            title: $button.data('title'),
+            placement: 'left',
+          });
+        }
+
         var type = $button.data('clipboard-type');
         var slug = $button.data('clipboard-slug');
-        var reloadTooltip = $button.hasClass('clipboard');
         var added = self.items[type].indexOf(slug) !== -1;
 
-        self.updateButton($button, added, reloadTooltip);
+        self.updateButton($button, added, showTooltip);
       });
     },
     showAlert: function(message, type, deleteUrl)
@@ -467,16 +488,17 @@
         $alert.append(closeButton);
       }
 
-      $alert.prependTo($('#wrapper.container'));
+      $alert.prependTo($('body > #wrapper'));
+      window.scrollTo({top: 0})
 
       return $alert;
     },
     showRemoveAlert: function()
     {
       // Show remove alert only in clipboard page if it is not already added
-      if (this.onClipboardPage && $('#wrapper.container > .alert-clipboard-remove').length == 0)
+      if (this.onClipboardPage && $('body > #wrapper > .alert-clipboard-remove').length == 0)
       {
-        this.showAlert(this.$element.data('delete-alert-message'), 'alert-clipboard-remove');
+        this.showAlert(this.$element.data('delete-alert-message'), 'alert-danger alert-clipboard-remove');
       }
     }
   };

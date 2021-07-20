@@ -3,7 +3,7 @@
 <?php if ($sf_request->isMethod('get')) { ?>
   <?php slot('title'); ?>
     <div class="multiline-header d-flex align-items-center mb-3">
-      <i class="fas fa-3x fa-file-alt me-3" aria-hidden="true"></i>
+      <i class="fas fa-3x fa-paperclip me-3" aria-hidden="true"></i>
       <div class="d-flex flex-column">
         <h1 class="mb-0" aria-describedby="results-label">
           <?php echo __('Loading ...'); ?>
@@ -19,7 +19,7 @@
     <?php echo get_partial('default/printPreviewBar'); ?>
 
     <div class="multiline-header d-flex align-items-center mb-3">
-      <i class="fas fa-3x fa-file-alt me-3" aria-hidden="true"></i>
+      <i class="fas fa-3x fa-paperclip me-3" aria-hidden="true"></i>
       <div class="d-flex flex-column">
         <h1 class="mb-0" aria-describedby="results-label">
           <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
@@ -48,9 +48,9 @@
   <?php end_slot(); ?>
 
   <?php slot('content'); ?>
-    <div id="content">
+    <div id="content" class="p-0">
       <?php if (!isset($pager) || !$pager->getNbResults()) { ?>
-        <div class="text-section">
+        <div class="text-section p-3">
           <?php echo __('No results for this entity type.'); ?>
         </div>
       <?php } ?>

@@ -6,6 +6,7 @@
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
+    data-total-count-label="<?php echo __('records added'); ?>"
     data-alert-close="<?php echo __('Close'); ?>"
     data-load-alert-message="<?php echo __('There was an error loading the clipboard content.'); ?>"
     data-export-alert-message="<?php echo __('The clipboard is empty for this entity type.'); ?>"
@@ -20,6 +21,14 @@
       <h6 class="dropdown-header">
         <?php echo $menu->getLabel(['cultureFallback' => true]); ?>
       </h6>
+    </li>
+    <li class="text-muted text-nowrap px-3 pb-2">
+      <span
+        id="counts-block"
+        data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject'); ?>"
+        data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor'); ?>"
+        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository'); ?>">
+      </span>
     </li>
     <?php foreach ($menu->getChildren() as $child) { ?>
       <?php if ($child->checkUserAccess()) { ?>
