@@ -1,8 +1,16 @@
-"use strict";
-
 (function ($) {
 
-  $(loadTreeView);
+  "use strict";
+
+  $(function()
+  {
+    var $node = $('#treeview');
+
+    if ($node.length)
+    {
+      loadTreeView();
+    }
+  });
 
   function makeFullTreeviewCollapsible ($treeViewConfig, $mainHeader, $fwTreeViewRow)
   {
@@ -24,7 +32,7 @@
     $fwTreeViewRow.appendTo($wrapper);
 
     // Activate toggle button
-    $toggleButton.click(function() {
+    $toggleButton.on('click', function() {
       // Determine appropriate toggle button text
       var toggleText = $treeViewConfig.data('opened-text');
 
@@ -199,7 +207,7 @@
         $('#main-column .breadcrumb').after($(response.find('#main-column > div.messages.error')));
 
         // Attach the Drupal Behaviour so blank.js does its thing
-        Drupal.attachBehaviors(document)
+        Drupal.attachBehaviors(document);
 
         // Update clipboard buttons
         if (jQuery('#clipboard-menu').data('clipboard') !== undefined)
@@ -289,7 +297,7 @@
       .bind('move_node.jstree', moveNodeListener);
 
     // Clicking "more" will add next page of results to tree
-    $moreButton.click(function() {
+    $moreButton.on('click', function() {
       pager.next();
       pager.getAndAppendNodes(function() {
         // Queue is empty so update paging link
@@ -298,12 +306,12 @@
     });
 
     // Clicking reset link will reset paging and tree state
-    $('#fullwidth-treeview-reset-button').click(function()
+    $('#fullwidth-treeview-reset-button').on('click', function()
     {
       pager.reset($moreButton, $resetButton);
     });
 
     // TODO restore window.history states
-    $(window).bind('popstate', function() {});
+    $(window).on('popstate', function() {});
   }
 })(jQuery);
