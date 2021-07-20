@@ -26,7 +26,7 @@
  */
 class CsvColumnNameValidator extends CsvBaseValidator
 {
-    const TITLE = 'Column Name Validation';
+    public const TITLE = 'Column Name Validation';
 
     // Do not reset in between multiple CSVs.
     protected $validColumnNames = [];

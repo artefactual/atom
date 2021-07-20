@@ -25,7 +25,7 @@
  */
 class CsvCultureValidator extends CsvBaseValidator
 {
-    const TITLE = 'Culture Check';
+    public const TITLE = 'Culture Check';
 
     protected $cultureColumnPresent;
     protected $rowsWithBlankCulture = 0;

@@ -25,14 +25,14 @@
 class CsvValidatorResult
 {
     // Integer type to allow comparison of severity values.
-    const RESULT_INFO = 0;
-    const RESULT_WARN = 1;
-    const RESULT_ERROR = 2;
+    public const RESULT_INFO = 0;
+    public const RESULT_WARN = 1;
+    public const RESULT_ERROR = 2;
 
-    const TEST_TITLE = 'title';
-    const TEST_STATUS = 'status';
-    const TEST_RESULTS = 'results';
-    const TEST_DETAILS = 'details';
+    public const TEST_TITLE = 'title';
+    public const TEST_STATUS = 'status';
+    public const TEST_RESULTS = 'results';
+    public const TEST_DETAILS = 'details';
 
     protected $testData = [];
     protected $filename;

@@ -27,8 +27,8 @@
  */
 class CsvDigitalObjectUriValidator extends CsvBaseValidator
 {
-    const TITLE = 'Digital Object URI Test';
-    const LIMIT_TO = ['QubitInformationObject'];
+    public const TITLE = 'Digital Object URI Test';
+    public const LIMIT_TO = ['QubitInformationObject'];
 
     protected $digitalObjectUriColumnPresent;
     protected $digitalObjectUses = [];

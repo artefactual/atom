@@ -24,7 +24,7 @@
  */
 class CsvColumnCountValidator extends CsvBaseValidator
 {
-    const TITLE = 'CSV Column Count Check';
+    public const TITLE = 'CSV Column Count Check';
 
     protected $headerCount;
     protected $rowCountSummary = [];

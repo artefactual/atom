@@ -24,7 +24,7 @@
  */
 class CsvFileEncodingValidator extends CsvBaseValidator
 {
-    const TITLE = 'UTF-8 File Encoding Check';
+    public const TITLE = 'UTF-8 File Encoding Check';
 
     protected $utf8BomPresent;
     protected $utf8Compatible = true;
