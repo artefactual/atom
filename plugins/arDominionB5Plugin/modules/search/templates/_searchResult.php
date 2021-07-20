@@ -54,7 +54,7 @@
       <?php echo get_component('clipboard', 'button', [
           'slug' => $doc['slug'],
           'type' => 'informationObject',
-          'showText' => false,
+          'wide' => false,
       ]); ?>
     </div>
 
