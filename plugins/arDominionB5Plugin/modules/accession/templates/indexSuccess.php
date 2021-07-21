@@ -43,7 +43,7 @@
 
 <div class="section" id="donorArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Donor/Transferring body area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'donorArea', 'title' => __('Edit donor/transferring body area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Donor/Transferring body area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'donor-collapse', 'title' => __('Edit donor/transferring body area')]); ?>
 
   <?php foreach (QubitRelation::getRelationsBySubjectId($resource->id, ['typeId' => QubitTerm::DONOR_ID]) as $item) { ?>
 
@@ -59,7 +59,7 @@
 
 <div class="section" id="administrativeArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Administrative area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'administrativeArea', 'title' => __('Edit administrative area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Administrative area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'admin-collapse', 'title' => __('Edit administrative area')]); ?>
 
   <?php echo render_show(__('Acquisition type'), render_value($resource->acquisitionType)); ?>
 
@@ -155,7 +155,7 @@
 
 <div class="section" id="rightsArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Rights area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'rightsArea', 'title' => __('Edit rights area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Rights area').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'io-collapse', 'title' => __('Edit rights area')]); ?>
 
   <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
 

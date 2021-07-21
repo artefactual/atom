@@ -4,7 +4,11 @@
 
   var page = 1;
 
-  $(loadEditingHistory);
+  $(() => {
+    if ($('body').is('.user.index')) {
+      $(loadEditingHistory);
+    }
+  });
 
   function startActivity()
   {
