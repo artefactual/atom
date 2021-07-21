@@ -28,11 +28,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="basic-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#basic-collapse" aria-expanded="true" aria-controls="basic-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#basic-collapse" aria-expanded="false" aria-controls="basic-collapse">
             <?php echo __('Basic info'); ?>
           </button>
         </h2>
-        <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
+        <div id="basic-collapse" class="accordion-collapse collapse" aria-labelledby="basic-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->help(__('Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository'))

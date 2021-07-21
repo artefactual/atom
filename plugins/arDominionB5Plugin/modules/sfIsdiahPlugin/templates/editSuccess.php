@@ -13,7 +13,7 @@
   <?php echo $form->renderGlobalErrors(); ?>
 
   <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-    <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'repository', 'action' => 'edit'])); ?>
+    <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'repository', 'action' => 'edit']), ['id' => 'editForm']); ?>
   <?php } else { ?>
     <?php echo $form->renderFormTag(url_for(['module' => 'repository', 'action' => 'add'])); ?>
   <?php } ?>
@@ -23,11 +23,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="false" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
+        <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->help(__('"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)'))
