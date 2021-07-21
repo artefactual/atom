@@ -34,11 +34,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="title-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#title-collapse" aria-expanded="true" aria-controls="title-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#title-collapse" aria-expanded="false" aria-controls="title-collapse">
             <?php echo __('Title and statement of responsibility area'); ?>
           </button>
         </h2>
-        <div id="title-collapse" class="accordion-collapse collapse show" aria-labelledby="title-heading">
+        <div id="title-collapse" class="accordion-collapse collapse" aria-labelledby="title-heading">
           <div class="accordion-body">
             <?php echo render_field($form->title
                 ->help(__('Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))

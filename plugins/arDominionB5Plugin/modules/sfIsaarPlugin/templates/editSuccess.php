@@ -23,11 +23,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="false" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
+        <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->entityType
                 ->help(__('"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.'))
