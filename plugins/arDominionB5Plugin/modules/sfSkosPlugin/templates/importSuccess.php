@@ -60,11 +60,11 @@
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header" id="select-heading">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#select-collapse" aria-expanded="false" aria-controls="select-collapse">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#select-collapse" aria-expanded="true" aria-controls="select-collapse">
             <?php echo __('Select source'); ?>
           </button>
         </h2>
-        <div id="select-collapse" class="accordion-collapse collapse" aria-labelledby="select-heading">
+        <div id="select-collapse" class="accordion-collapse collapse show" aria-labelledby="select-heading">
           <div class="accordion-body">
             <?php echo $form->file
                 ->label(__('Select a file to import'))
