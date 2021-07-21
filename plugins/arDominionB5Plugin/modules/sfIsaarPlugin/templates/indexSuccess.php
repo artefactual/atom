@@ -66,7 +66,7 @@
 
 <section id="identityArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'identityArea', 'title' => __('Edit identity area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area')]); ?>
 
   <?php echo render_show(__('Type of entity'), render_value($resource->entityType)); ?>
 
@@ -111,7 +111,7 @@
 
 <section id="descriptionArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Description area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'descriptionArea', 'title' => __('Edit description area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Description area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area')]); ?>
 
   <?php echo render_show(__('Dates of existence'), render_value($resource->getDatesOfExistence(['cultureFallback' => true]))); ?>
 
@@ -133,7 +133,7 @@
 
 <section id="relationshipsArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Relationships area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'relationshipsArea', 'title' => __('Edit relationships area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Relationships area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area')]); ?>
 
   <?php foreach ($resource->getActorRelations() as $item) { ?>
     <?php $relatedEntity = $item->getOpposedObject($resource->id); ?>
@@ -173,7 +173,7 @@
 
 <section id="accessPointsArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Access points area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'accessPointsArea', 'title' => __('Edit access points area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Access points area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access points area')]); ?>
 
   <div class="subjectAccessPoints">
     <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
@@ -202,7 +202,7 @@
 
 <section id="controlArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'controlArea', 'title' => __('Edit control area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area')]); ?>
 
   <?php echo render_show(__('Authority record identifier'), $resource->descriptionIdentifier); ?>
 

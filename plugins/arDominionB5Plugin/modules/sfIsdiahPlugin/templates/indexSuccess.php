@@ -82,7 +82,7 @@
 
 <section id="identifyArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identityArea', 'title' => __('Edit identity area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area')]); ?>
 
   <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
@@ -125,7 +125,7 @@
 
 <section id="contactArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Contact area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contactArea', 'title' => __('Edit contact area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Contact area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area')]); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
@@ -135,7 +135,7 @@
 
 <section id="descriptionArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Description area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'descriptionArea', 'title' => __('Edit description area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Description area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area')]); ?>
 
   <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
 
@@ -157,7 +157,7 @@
 
 <section id="accessArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'accessArea', 'title' => __('Edit access area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access area')]); ?>
 
   <?php echo render_show(__('Opening times'), render_value($resource->getOpeningTimes(['cultureFallback' => true]))); ?>
 
@@ -169,7 +169,7 @@
 
 <section id="servicesArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Services area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'servicesArea', 'title' => __('Edit services area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Services area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'services-collapse', 'title' => __('Edit services area')]); ?>
 
   <?php echo render_show(__('Research services'), render_value($resource->getResearchServices(['cultureFallback' => true]))); ?>
 
@@ -181,7 +181,7 @@
 
 <section id="controlArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'controlArea', 'title' => __('Edit control area')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area')]); ?>
 
   <?php echo render_show(__('Description identifier'), render_value($resource->descIdentifier)); ?>
 
@@ -225,7 +225,7 @@
 
 <section id="accessPointsArea">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access points').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'accessPointsArea', 'title' => __('Edit access points')]); ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access points').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'points-collapse', 'title' => __('Edit access points')]); ?>
   <div class="field">
     <h3><?php echo __('Access Points'); ?></h3>
     <div>
