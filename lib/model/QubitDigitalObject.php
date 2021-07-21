@@ -1214,10 +1214,6 @@ class QubitDigitalObject extends BaseDigitalObject
 
         // Delete children
         foreach ($children as $child) {
-            foreach (QubitRelation::getBySubjectOrObjectId($this->id) as $item) {
-                $item->delete();
-            }
-
             $child->delete();
         }
 
