@@ -34,7 +34,7 @@
 
 <div class="section" id="identityArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'identityArea', 'title' => __('Edit identity area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area')]); ?>
 
   <?php echo render_show(__('Type'), render_value($resource->type)); ?>
 
@@ -68,7 +68,7 @@
 
 <div class="section" id="contextArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Context area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'contextArea', 'title' => __('Edit context area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Context area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'context-collapse', 'title' => __('Edit context area')]); ?>
 
   <?php echo render_show(__('Dates'), render_value($resource->getDates(['cultureFallback' => true]))); ?>
 
@@ -82,7 +82,7 @@
 
 <div class="section" id="relationshipsArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Relationships area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'relationshipsArea', 'title' => __('Edit relationships area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Relationships area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area')]); ?>
 
   <?php foreach ($isdf->relatedFunction as $item) { ?>
     <div class="field">
@@ -148,7 +148,7 @@
 
 <div class="section" id="controlArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'controlArea', 'title' => __('Edit control area')]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area')]); ?>
 
   <?php echo render_show(__('Description identifier'), render_value($resource->descriptionIdentifier)); ?>
 
