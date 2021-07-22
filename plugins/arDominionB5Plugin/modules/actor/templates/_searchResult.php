@@ -33,7 +33,7 @@
               ['allowEmpty' => false, 'culture' => $culture]
           )),
           ['module' => 'actor', 'slug' => $doc['slug']],
-          ['class' => 'lead text-truncate'],
+          ['class' => 'h5 mb-0 text-truncate'],
       ); ?>
 
       <?php echo get_component('clipboard', 'button', [
