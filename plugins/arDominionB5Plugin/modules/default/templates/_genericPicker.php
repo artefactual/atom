@@ -9,8 +9,8 @@
 ?>
 
 <div class="dropdown d-inline-block">
-  <button class="btn btn-sm atom-btn-white dropdown-toggle" type="button" id="<?php echo $param; ?>-button" data-bs-toggle="dropdown" aria-expanded="false">
-    <?php echo $sf_data->getRaw('label'); ?>
+  <button class="btn btn-sm atom-btn-white dropdown-toggle text-wrap" type="button" id="<?php echo $param; ?>-button" data-bs-toggle="dropdown" aria-expanded="false">
+    <?php echo $sf_data->getRaw('label').': '.$options[$active]; ?>
   </button>
   <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="<?php echo $param; ?>-button">
     <?php foreach ($options as $key => $value) { ?>
