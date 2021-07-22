@@ -91,15 +91,13 @@
       </div>
     </div>
 
-
     <div id="content" class="p-0">
-
       <?php echo get_partial('term/directTerms', [
           'resource' => $resource,
-          'aggs' => $aggs, ]); ?>
+          'aggs' => $aggs,
+      ]); ?>
 
       <?php echo get_partial('search/searchResults', ['pager' => $pager, 'culture' => $culture]); ?>
-
     </div>
   <?php } ?>
 
