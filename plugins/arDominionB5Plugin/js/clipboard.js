@@ -10,13 +10,15 @@
 
     this.storage = localStorage;
     this.types = ['informationObject', 'actor', 'repository'];
-    this.initialItems = {'informationObject': [], 'actor': [], 'repository': []};
+    this.initialItems = JSON.stringify(
+      {'informationObject': [], 'actor': [], 'repository': []}
+    );
     this.items = JSON.parse(this.storage.getItem('clipboard'));
     this.exportTokens = JSON.parse(this.storage.getItem('exportTokens'));
 
     if (!this.items)
     {
-      this.items = this.initialItems;
+      this.items = JSON.parse(this.initialItems);
     }
 
     if (!this.exportTokens)
@@ -365,7 +367,7 @@
       }
       else
       {
-        this.items = this.initialItems;
+        this.items = JSON.parse(this.initialItems);
       }
 
       this.storage.setItem('clipboard', JSON.stringify(this.items));
