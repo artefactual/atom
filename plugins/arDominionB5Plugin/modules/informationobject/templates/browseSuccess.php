@@ -198,13 +198,45 @@
       </div>
     </div>
 
-    <div id="content" class="p-0">
-      <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['doc_count']) { ?>
-        <div class="d-grid d-sm-flex gap-2 align-items-center p-3 border-bottom">
-          <?php echo __(
-              '%1% results with digital objects',
-              ['%1%' => $aggs['digitalobjects']['doc_count']]
-          ); ?>
+    <?php if ($view === $tableView) { ?>
+      <div id="content" class="p-0">
+        <?php if (
+            !isset($sf_request->onlyMedia)
+            && isset($aggs['digitalobjects'])
+            && 0 < $aggs['digitalobjects']['doc_count']
+        ) { ?>
+          <div class="d-grid d-sm-flex gap-2 align-items-center p-3 border-bottom">
+            <?php echo __(
+                '%1% results with digital objects',
+                ['%1%' => $aggs['digitalobjects']['doc_count']]
+            ); ?>
+            <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
+            <?php unset($params['page']); ?>
+            <a
+              class="btn btn-sm atom-btn-white ms-auto text-wrap"
+              href="<?php echo url_for(
+                  ['module' => 'informationobject', 'action' => 'browse']
+                  + $params
+                  + ['onlyMedia' => true]
+              ); ?>">
+              <i class="fas fa-search me-1" aria-hidden="true"></i>
+              <?php echo __('Show results with digital objects'); ?>
+            </a>
+          </div>
+        <?php } ?>
+
+        <?php echo get_partial(
+            'informationobject/tableViewResults',
+            ['pager' => $pager, 'selectedCulture' => $selectedCulture]
+        ); ?>
+      </div>
+    <?php } elseif ($view === $cardView) { ?>
+      <?php if (
+          !isset($sf_request->onlyMedia)
+          && isset($aggs['digitalobjects'])
+          && 0 < $aggs['digitalobjects']['doc_count']
+      ) { ?>
+        <div class="d-flex mb-3">
           <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
           <?php unset($params['page']); ?>
           <a
@@ -215,18 +247,19 @@
                 + ['onlyMedia' => true]
             ); ?>">
             <i class="fas fa-search me-1" aria-hidden="true"></i>
-            <?php echo __('Show results with digital objects'); ?>
+            <?php echo __(
+                'Show %1% results with digital objects',
+                ['%1%' => $aggs['digitalobjects']['doc_count']]
+            ); ?>
           </a>
         </div>
       <?php } ?>
 
-      <?php if ($view === $tableView) { ?>
-        <?php echo get_partial('informationobject/tableViewResults', ['pager' => $pager, 'selectedCulture' => $selectedCulture]); ?>
-      <?php } elseif ($view === $cardView) { ?>
-        <?php echo get_partial('informationobject/cardViewResults', ['pager' => $pager, 'selectedCulture' => $selectedCulture]); ?>
-      <?php } ?>
-    </div>
-
+      <?php echo get_partial(
+          'informationobject/cardViewResults',
+          ['pager' => $pager, 'selectedCulture' => $selectedCulture]
+      ); ?>
+    <?php } ?>
   <?php } ?>
 
 <?php end_slot(); ?>
