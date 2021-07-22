@@ -91,7 +91,8 @@
 
     <?php echo get_partial('term/directTerms', [
         'resource' => $resource,
-        'aggs' => $aggs, ]); ?>
+        'aggs' => $aggs,
+    ]); ?>
 
     <?php if ($pager->getNbResults()) { ?>
 
