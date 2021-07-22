@@ -22,25 +22,22 @@
       <a href="<?php echo url_for(
           ['module' => 'informationobject', 'slug' => $doc['slug']]
       ); ?>">
-        <?php echo image_tag(
-            $imagePath,
-            [
-                'alt' => $doc['digitalObject']['digitalObjectAltText'] ?: strip_markdown(
-                    get_search_i18n(
-                        $doc,
-                        'title',
-                        ['allowEmpty' => false, 'culture' => $culture]
-                    )
-                ),
-                'class' => 'img-thumbnail',
-            ]
-        ); ?>
+        <?php echo image_tag($imagePath, [
+            'alt' => $doc['digitalObject']['digitalObjectAltText'] ?: strip_markdown(
+                get_search_i18n(
+                    $doc,
+                    'title',
+                    ['allowEmpty' => false, 'culture' => $culture]
+                )
+            ),
+            'class' => 'img-thumbnail',
+        ]); ?>
       </a>
     </div>
   <?php } ?>
 
   <div class="col-12<?php echo empty($doc['hasDigitalObject']) ? '' : ' col-lg-9'; ?> d-flex flex-column gap-1">
-    <div class="d-flex align-items-center gap-2 mw-100">
+    <div class="d-flex align-items-center gap-2">
       <?php echo link_to(
           render_title(get_search_i18n(
               $doc,
