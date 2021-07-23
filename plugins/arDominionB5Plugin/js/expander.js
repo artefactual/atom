@@ -16,6 +16,4 @@
     }
   };
 
-  $(() => Drupal.behaviors.expander.attach());
-
 })(jQuery);
