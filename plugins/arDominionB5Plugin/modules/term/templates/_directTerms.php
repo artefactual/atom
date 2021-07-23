@@ -13,10 +13,10 @@
     <a
       class="btn btn-sm atom-btn-white ms-auto text-wrap"
       href="<?php echo url_for(
-          [$resource, 'module' => 'term']
+          [$resource, 'module' => 'term', 'action' => $sf_request->getParameter('action')]
           + $params
-          + ['onlyDirect' => true,
-          ]); ?>">
+          + ['onlyDirect' => true]
+      ); ?>">
       <i class="fas fa-search me-1" aria-hidden="true"></i>
       <?php echo __('Exclude narrower terms'); ?>
     </a>
