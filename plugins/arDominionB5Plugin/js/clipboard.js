@@ -124,16 +124,8 @@
           // Replace page content
           $('body > #wrapper').replaceWith($(data).filter('#wrapper'));
 
-          // TODO: Use modules (or less idially a global)
-          // to share this code from expander.js.
-          var $i18n = $('#js-i18n #read-more-less-links');
-          $('.search-result .text-block')
-          .expander({
-            slicePoint: 255,
-            expandText: $i18n.data('read-more-text'),
-            userCollapseText: $i18n.data('read-less-text'),
-          })
-          .removeClass('d-none');
+          // Attach behaviors to new content
+          Drupal.attachBehaviors('#wrapper');
 
           this.updateAllButtons();
         },
