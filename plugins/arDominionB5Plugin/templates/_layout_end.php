@@ -20,5 +20,6 @@
     <script src="/plugins/arDominionB5Plugin/js/collapse.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/masonry.js"></script>
     <script src="/js/editingHistory.js"></script>
+    <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
   </body>
 </html>
