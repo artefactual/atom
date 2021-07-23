@@ -64,7 +64,7 @@
       <?php unset($params['page']); ?>
       <a 
         href="<?php echo url_for(
-            [$resource, 'module' => 'term']
+            [$resource, 'module' => 'term', 'action' => 'relatedAuthorities']
             + $params
         ); ?>"
         class="btn btn-sm atom-btn-white align-self-start mw-100 filter-tag d-flex">
