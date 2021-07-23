@@ -1,7 +1,7 @@
 // Maintain Qubit and Drupal global variables
 // for legacy reasons. Used to share functions
 // and prototypes, and to be able to trigger
-// JS functions over dinamically loaded content.
+// JS functions over dynamically loaded content.
 var Qubit = {};
 var Drupal = {behaviors: {}};
 
