@@ -40,6 +40,9 @@
 @import "../../../node_modules/@accessible360/accessible-slick/slick/slick";
 @import "../../../node_modules/@accessible360/accessible-slick/slick/slick-theme";
 
+// sfTranslatePlugin
+@import "../../../plugins/sfTranslatePlugin/css/l10n_client";
+
 // Other components (CSS files)
 @import "../../../vendor/uppy/uppy-bundle";
 

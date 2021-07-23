@@ -37,8 +37,11 @@
 <?php $l10nSourceMessages = json_encode(array_keys($sf_data->getRaw('messages'))); ?>
 <?php $l10nTargetMessages = json_encode(array_values($sf_data->getRaw('messages'))); ?>
 <?php echo javascript_tag(<<<EOF
-jQuery.extend(Drupal, {
-  l10nSourceMessages: {$l10nSourceMessages},
-  l10nTargetMessages: {$l10nTargetMessages}});
+jQuery(function($) {
+  $.extend(Drupal, {
+    l10nSourceMessages: {$l10nSourceMessages},
+    l10nTargetMessages: {$l10nTargetMessages}
+  });
+});
 EOF
 ); ?>
