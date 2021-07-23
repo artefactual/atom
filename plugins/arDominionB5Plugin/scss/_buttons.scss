@@ -15,14 +15,19 @@
 
 .atom-btn-white {
   @include button-variant($white, $border-color);
+  $color: $gray-900;
 
   i {
-    color: $primary;
+    color: $gray-600;
   }
 
   &:hover,
   &:focus {
     background-color: $gray-200;
+
+    i {
+      color: $primary;
+    }  
   }
 
   &:focus,
@@ -33,6 +38,12 @@
   &.active {
     background-color: $gray-300;
     border-color: $gray-400;
+    $color: $gray-900;
+
+    &:hover i,
+    &:focus i {
+      color: $gray-600;
+    }
   }
 
   &.clipboard.added {
@@ -42,6 +53,12 @@
     &,
     i {
       color: $white;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $orange-600;
+      border-color: $orange-600;
     }
 
     &:focus {
