@@ -186,7 +186,7 @@
 
         update: function()
         {
-          var selectValue = jQuery(this).attr('value').match('[^/]*$')[0];
+          var selectValue = this.value.match('[^/]*$')[0];
           jQuery.each(BasisSelect.fieldsets, function(value, fields) {
             fields.toggle(selectValue == value);
           });
