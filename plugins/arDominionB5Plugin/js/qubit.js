@@ -13,3 +13,6 @@ Drupal.attachBehaviors = context => {
     this.attach(context);
   });
 };
+
+// Attach all behaviors on document ready
+$(() => Drupal.attachBehaviors(document));
