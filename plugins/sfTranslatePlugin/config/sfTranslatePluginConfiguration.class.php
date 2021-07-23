@@ -16,8 +16,10 @@ class sfTranslatePluginConfiguration extends sfPluginConfiguration
             return;
         }
 
-        $context->response->addJavaScript('/plugins/sfTranslatePlugin/js/l10n_client', 'last');
-        $context->response->addStylesheet('/plugins/sfTranslatePlugin/css/l10n_client', 'last');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $context->response->addJavaScript('/plugins/sfTranslatePlugin/js/l10n_client', 'last');
+            $context->response->addStylesheet('/plugins/sfTranslatePlugin/css/l10n_client', 'last');
+        }
     }
 
     /**
