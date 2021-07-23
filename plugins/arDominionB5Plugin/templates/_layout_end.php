@@ -7,6 +7,7 @@
     <script src="/node_modules/@accessible360/accessible-slick/slick/slick.min.js"></script>
     <script src="/node_modules/jquery-expander/jquery.expander.min.js"></script>
     <script src="/vendor/uppy/uppy-bundle.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/qubit.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/privacyMessage.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/multiFileUpload.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/tooltip.js"></script>
