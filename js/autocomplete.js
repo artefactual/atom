@@ -301,9 +301,15 @@
           // Share <select/> with nested scopes
           var $select = $(this);
 
-          // Make autocomplete <input/>, copy @class from <select/>, copy
-          // @id from <select/> so <label for="..."/> is correct
-          var $input = $('<input type="text" class="' + $(this).attr('class') + '" id="' + $(this).attr('id') + '"/>').insertAfter(this);
+          // Make autocomplete <input/>, copy @class from <select/>, copy @id from <select/>
+          // so <label for="..."/> is correct, and copy aria-describedby attribute.
+          var $input = $('<input type="text" class="' + $select.attr('class') + '" id="' + $select.attr('id') + '"/>');
+          
+          if ($select.attr('aria-describedby')) {
+            $input.attr('aria-describedby', $select.attr('aria-describedby'))
+          }
+          
+          $input.insertAfter(this);
 
           if ($(this).attr('multiple')) {
             // If multiple <select/>, make <ul/> of selected <option/>s
@@ -597,9 +603,8 @@
 
             // Support for data-link-existing="true"
             if ($add.data('link-existing') === true) {
-              var u = new URI(uri);
-              u.addQuery('linkExisting', true);
-              uri = u.toString();
+              // No need to care for '#', param existence nor encoding
+              uri += (uri.match(/[\?]/g) ? '&' : '?') + 'linkExisting=true';
             }
 
             // The following applies to both single and multiple <select/>
