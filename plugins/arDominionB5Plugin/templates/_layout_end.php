@@ -1,5 +1,6 @@
     <?php include_slot('post'); ?>
     <?php echo get_partial('footer'); ?>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/node_modules/bootstrap-autocomplete/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script src="/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>

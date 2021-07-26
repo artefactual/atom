@@ -9,8 +9,6 @@
     <!-- TODO: Move other CSS to SCSS build (some not possible due to https://github.com/sass/sass/issues/2535) -->
     <link rel="stylesheet" href="/node_modules/mediaelement/build/mediaelementplayer.min.css">
     <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
-    <!-- TODO: Move jQuery after footer when all JS is also there -->
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   </head>
   <body class="<?php echo $sf_context->getModuleName(); ?> <?php echo $sf_context->getActionName(); ?>">
     <?php echo get_component('default', 'tagManager', ['code' => 'noscript']); ?>
