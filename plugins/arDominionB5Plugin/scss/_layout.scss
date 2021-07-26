@@ -92,6 +92,10 @@
   visibility: hidden;
 }
 
+body > iframe {
+  display: none;
+}
+
 @include media-breakpoint-down(sm) {
   .dropdown-menu {
     min-width: auto;

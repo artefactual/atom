@@ -132,15 +132,21 @@
               </div>
             <?php } ?>
 
-            <div class="filter-row">
-              <div class="filter">
-                <?php echo $form->collection
-                    ->label(__('Top-level description'))
-                    ->renderLabel(); ?>
-                <?php echo $form->collection->render(['class' => 'form-autocomplete']); ?>
-                <input class="list" type="hidden" value="<?php echo url_for(['module' => 'informationobject', 'action' => 'autocomplete', 'parent' => QubitInformationObject::ROOT_ID, 'filterDrafts' => true]); ?>"/>
-              </div>
-            </div>
+            <?php echo render_field(
+                $form->collection->label(__('Top-level description')),
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="list" type="hidden" value="'
+                        .url_for([
+                            'module' => 'informationobject',
+                            'action' => 'autocomplete',
+                            'parent' => QubitInformationObject::ROOT_ID,
+                            'filterDrafts' => true,
+                        ])
+                        .'">',
+                ]
+            ); ?>
 
           </div>
 
