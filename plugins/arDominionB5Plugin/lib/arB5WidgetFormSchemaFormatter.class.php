@@ -19,8 +19,6 @@
 
 class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
 {
-    protected $rowFormat = "<div class=\"mb-3\">\n  %label%\n  %field%\n"
-        ."  %error%\n  %help%\n  %hidden_fields%\n</div>";
     protected $errorListFormatInARow = '<div class="invalid-feedback"'
         ." id=\"%errors_id%\">\n  %errors%\n</div>\n";
     protected $errorRowFormatInARow = "<span>%error%</span>\n";
@@ -63,5 +61,25 @@ class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
             $this->helpFormat,
             ['%help_id%' => $this->name.'-help']
         );
+    }
+
+    public function getRowFormat()
+    {
+        // HACK ->formatRow() lacks access to lots of information about the field,
+        // including the name.  So to add the name to the row markup, we must
+        // either,
+        //  * Add it outside ->formatRow(), perhaps using FluentDOM
+        //  * Extract the name from the field markup with regex
+        //  * Take advantage that ->renderRow() always calls ->renderLabel(), which
+        //    calls ->generateLabel(), before ->renderRow()
+        return <<<return
+<div class="mb-3 form-row-{$this->name}">
+  %label%
+  %error%%field%
+  %help%
+  %hidden_fields%
+</div>
+
+return;
     }
 }

@@ -56,7 +56,7 @@
                 ->help(__('The country or other political body that has enacted the statute.'))
                 ->renderRow(); ?>
 
-            <div class="form-item form-item-statuteCitation">
+            <div class="form-row form-row-statuteCitation">
               <?php echo $form->statuteCitation->renderLabel(); ?>
               <?php echo $form->statuteCitation->render(['class' => 'form-autocomplete']); ?>
               <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'createTerm')) { ?>
@@ -184,5 +184,90 @@
     </ul>
 
   </form>
+
+  <script type="text/javascript">
+    (function(){
+
+      // Basis drop-down.
+
+      let BasisSelect = {
+        fieldsets: {
+          copyright: jQuery('#wrapper form div[class *= form-row-copyright]'),
+          license: jQuery('#wrapper div[class *= form-row-license]'),
+          statute: jQuery('#wrapper div[class *= form-row-statute]'),
+        },
+        onChange: function()
+        {
+          var selectValue = this.value.match('[^/]*$')[0];
+          jQuery.each(BasisSelect.fieldsets, function(value, fields) {
+            fields.toggle(selectValue == value);
+          });
+        }
+      }
+
+      jQuery('#right_basis').on('change', BasisSelect.onChange).trigger('change');
+
+      // ...
+
+      $blank = jQuery('#blank');
+      $blank.hide();
+
+      var updateGrantedRightsNamesAndIds = function() {
+        jQuery('fieldset.grantedRights fieldset').each(function(fsetindex) {
+          if(jQuery(this).attr('id') == 'blank') { return true; }
+          jQuery(this).find('[name]').each(function(fieldindex) {
+            $this = jQuery(this);
+
+            // in case we're working on the blank template
+            $this.attr('name', $this.attr('name').replace('[blank]', '[grantedRights]['+fsetindex+']'));
+            $this.attr('id', $this.attr('id').replace('_blank_', '_grantedRights_'+fsetindex+'_'));
+
+            $this.attr('name', $this.attr('name').replace(/\[\d+\]/, '[' + fsetindex + ']'));
+            $this.attr('id', $this.attr('id').replace(/_\d+_/, '_' + fsetindex + '_'));
+          });
+        });
+      }
+
+      jQuery('#wrapper').on('click', 'a.newItem', function(){
+        var added = $blank.clone().insertBefore($blank);
+
+        // fix the added fieldset: name attributes, etc
+        added.removeAttr('id');
+        added.find('legend').replaceWith('<legend><?php echo __('New granted right'); ?></legend>');
+
+        // yank out the fieldset-wrapper dic that collapse adds
+        // because it is about to add another. =(
+        var fswrapper = added.find('.fieldset-wrapper');
+        html = fswrapper.html()
+        fswrapper.replaceWith(html);
+
+        updateGrantedRightsNamesAndIds();
+        added.show(400);
+      });
+
+      // Granted Rights Delete X
+      jQuery('#wrapper').on('click', '.c-btn-delete', function(){
+        var fieldset = jQuery(this).parents('fieldset').first()
+
+        // check if this right has been saved / has an id
+        var id = fieldset.find('[name*=id]').attr('value');
+
+        if(id === '0') // unsaved granted right
+        {
+          fieldset.hide(400, function(){
+            this.remove();
+            updateGrantedRightsNamesAndIds();
+          });
+        }
+        else
+        {
+          // saved granted right
+          fieldset.find('[name*=delete]').attr('value', 'true');
+          fieldset.hide(400);
+        }
+      });
+
+    })();
+  </script>
 
 <?php end_slot(); ?>
