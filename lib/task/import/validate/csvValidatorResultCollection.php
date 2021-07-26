@@ -155,6 +155,11 @@ class CsvValidatorResultCollection implements Iterator
                 } else {
                     $outputString .= sprintf("\nNo issues detected.\n");
                 }
+
+                // Add double line divider unless there are no results to display.
+                if ($verbose || (!empty($warnCount) || !empty($errorCount))) {
+                    $outputString .= sprintf("%s\n%s\n", str_repeat('-', 80), str_repeat('-', 80));
+                }
             }
 
             if (CsvValidatorResult::RESULT_INFO === $result->getStatus() && !$verbose) {
@@ -181,7 +186,7 @@ class CsvValidatorResultCollection implements Iterator
     {
         $outputString = '';
 
-        $outputString .= sprintf("\n%s - %s\n", $result->getTitle(), CsvValidatorResult::formatStatus($result->getStatus()));
+        $outputString .= sprintf("\n%s - %s\n", strtoupper(CsvValidatorResult::formatStatus($result->getStatus())), $result->getTitle());
         $outputString .= sprintf("%s\n", str_repeat('-', strlen($result->getTitle())));
 
         $results = $result->getResults();

@@ -78,9 +78,7 @@ class CsvColumnNameValidator extends CsvBaseValidator
         if (0 < count($this->unknownColumnNames)) {
             $this->testData->setStatusWarn();
             $this->testData->addResult('Unrecognized columns will be ignored by AtoM when the CSV is imported.');
-            foreach ($this->unknownColumnNames as $unknownColumnName) {
-                $this->testData->addDetail(sprintf('Unrecognized column: %s', $unknownColumnName));
-            }
+            $this->testData->addResult(sprintf('Unrecognized column names: %s', implode(',', $this->unknownColumnNames)));
         }
 
         if (0 < count($this->trimIssuesColumnNames)) {
@@ -91,7 +89,7 @@ class CsvColumnNameValidator extends CsvBaseValidator
 
         if (0 < count($this->caseIssuesColumnNameMap)) {
             $this->testData->setStatusWarn();
-            $this->testData->addResult(sprintf('Number of unrecognized columns that may be case related: %s', count($this->caseIssuesColumnNameMap)));
+            $this->testData->addResult(sprintf('Number of unrecognized columns that may be letter case related: %s', count($this->caseIssuesColumnNameMap)));
             foreach ($this->caseIssuesColumnNameMap as $key => $value) {
                 $this->testData->addDetail(sprintf('Possible match for %s: %s', $key, $value));
             }

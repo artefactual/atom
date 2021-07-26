@@ -18,6 +18,7 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectUri,culture';
+        $this->csvHeaderDupedUri = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectUri,digitalObjectUri,culture';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -45,11 +46,23 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
             '"", "DJ003", "ID5", "Title Four", "","", "","","ftp://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg", "en"',
         ];
 
+        $this->csvDataWithDigitalObjectColsPopulatedDupedUri = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","a.png","","",""',
+            '"A10101","","","Chemise","","","","A.PNG","","","fr"',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "","b.png","https://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg","", ""',
+            '"", "DJ003", "ID4", "Title Four", "","", "","a.png","","", "en"',
+            '"E10101 "," DJ004","ID1 ","Some Photographs","","Extent and medium 1","","b.png","https://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg", "",""',
+            '"G30303","","","Sweater","","","","d.png","","" ,"fr"',
+            '"F20202", "DJ005", "", "Voûte, étagère 0074", "", "", "","","www.google.com","" , ""',
+            '"", "DJ003", "ID5", "Title Four", "","", "","","ftp://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg", "", "en"',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_with_digital_object_cols.csv' => $this->csvHeaderWithDigitalObjectCols."\n".implode("\n", $this->csvDataWithDigitalObjectCols),
             'unix_csv_with_digital_object_cols_populated.csv' => $this->csvHeaderWithDigitalObjectCols."\n".implode("\n", $this->csvDataWithDigitalObjectColsPopulated),
+            'unix_csv_with_digital_object_cols_populated_duped_uri.csv' => $this->csvHeaderDupedUri."\n".implode("\n", $this->csvDataWithDigitalObjectColsPopulatedDupedUri),
             'digital_objects' => [
                 'a.png' => random_bytes(100),
                 'b.png' => random_bytes(100),
@@ -153,6 +166,27 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
                         "Number of duplicates for URI 'https://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg': 2",
                         'Invalid URI: www.google.com',
                         'Invalid URI: ftp://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvDigitalObjectUriValidator-digitalObjectUriPopulatedDupedUri' => [
+                    'csvValidatorClasses' => 'CsvDigitalObjectUriValidator',
+                    'filename' => '/unix_csv_with_digital_object_cols_populated_duped_uri.csv',
+                    'testname' => 'CsvDigitalObjectUriValidator',
+                    'validatorOptions' => [
+                        'source' => 'testsourcefile.csv',
+                        'className' => 'QubitInformationObject',
+                        'pathToDigitalObjects' => 'vfs://root/digital_objects',
+                    ],
+                    CsvValidatorResult::TEST_TITLE => CsvDigitalObjectUriValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'digitalObjectUri\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

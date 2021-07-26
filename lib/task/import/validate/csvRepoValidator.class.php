@@ -30,18 +30,17 @@ class CsvRepoValidator extends CsvBaseValidator
 
     protected $existingRepositories = [];
     protected $newRepositories = [];
-    protected $repositoryColumnPresent;
 
     public function __construct(?array $options = null)
     {
         $this->setTitle(self::TITLE);
-
         parent::__construct($options);
+
+        $this->setRequiredColumns(['repository']);
     }
 
     public function reset()
     {
-        $this->repositoryColumnPresent = null;
         $this->newRepositories = [];
 
         parent::reset();
@@ -49,15 +48,13 @@ class CsvRepoValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        // Set if repository column is present.
-        if (!isset($this->repositoryColumnPresent)) {
-            $this->repositoryColumnPresent = isset($row['repository']);
+        if (!parent::testRow($header, $row)) {
+            return;
         }
 
-        if (!$this->repositoryColumnPresent || empty($row['repository'])) {
+        $row = $this->combineRow($header, $row);
+
+        if (empty($row['repository'])) {
             return;
         }
 
@@ -68,9 +65,15 @@ class CsvRepoValidator extends CsvBaseValidator
 
     public function getTestResult()
     {
-        if (!$this->repositoryColumnPresent) {
+        if (!$this->columnPresent('repository')) {
             // Repository column not present in file.
             $this->testData->addResult(sprintf("'repository' column not present in file."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('repository')) {
+            $this->appendDuplicatedColumnError('repository');
 
             return parent::getTestResult();
         }

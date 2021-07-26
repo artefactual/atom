@@ -27,7 +27,6 @@ class CsvCultureValidator extends CsvBaseValidator
 {
     public const TITLE = 'Culture Check';
 
-    protected $cultureColumnPresent;
     protected $rowsWithBlankCulture = 0;
     protected $rowsWithPipeFoundInCulture = 0;
     protected $rowsWithInvalidCulture = 0;
@@ -36,13 +35,13 @@ class CsvCultureValidator extends CsvBaseValidator
     public function __construct(?array $options = null)
     {
         $this->setTitle(self::TITLE);
-
         parent::__construct($options);
+
+        $this->setRequiredColumns(['culture']);
     }
 
     public function reset()
     {
-        $this->cultureColumnPresent = null;
         $this->rowsWithBlankCulture = 0;
         $this->rowsWithPipeFoundInCulture = 0;
         $this->rowsWithInvalidCulture = 0;
@@ -53,17 +52,11 @@ class CsvCultureValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        // Set if culture column is present.
-        if (!isset($this->cultureColumnPresent)) {
-            $this->cultureColumnPresent = isset($row['culture']);
-        }
-
-        if (!$this->cultureColumnPresent) {
+        if (!parent::testRow($header, $row)) {
             return;
         }
+
+        $row = $this->combineRow($header, $row);
 
         // If present check contents.
         if (empty($row['culture'])) {
@@ -94,11 +87,17 @@ class CsvCultureValidator extends CsvBaseValidator
 
     public function getTestResult()
     {
-        if (!$this->cultureColumnPresent) {
+        if (!$this->columnPresent('culture')) {
             // culture column not present in file.
             $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf("'culture' column not present in file."));
             $this->testData->addResult(sprintf("Rows without a valid culture value will be imported using AtoM's default source culture."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('culture')) {
+            $this->appendDuplicatedColumnError('culture');
 
             return parent::getTestResult();
         }

@@ -42,6 +42,11 @@ abstract class CsvBaseValidator
     protected $options = [];
     protected $ormClasses = [];
     protected $testData;
+    protected $columnPresent = [];
+    protected $columnDuplicated = [];
+    protected $requiredColumns = [];
+    protected $header = [];
+    protected $proceedWithRowValidation;
 
     public function __construct(?array $options = null)
     {
@@ -52,16 +57,97 @@ abstract class CsvBaseValidator
         $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->displayFilename, $this->getClassName());
     }
 
+    public function columnPresent(string $columnName)
+    {
+        if (isset($this->columnPresent[$columnName])) {
+            return $this->columnPresent[$columnName];
+        }
+
+        if (null !== $this->header) {
+            return $this->columnPresent[$columnName] = in_array($columnName, $this->header);
+        }
+
+        return false;
+    }
+
+    public function columnDuplicated(string $columnName)
+    {
+        if (!$this->columnPresent($columnName)) {
+            return false;
+        }
+
+        if (isset($this->columnDuplicated[$columnName])) {
+            return $this->columnDuplicated[$columnName];
+        }
+
+        if (null !== $this->header) {
+            return $this->columnDuplicated[$columnName] = count(array_keys($this->header, $columnName)) > 1;
+        }
+
+        return false;
+    }
+
+    public function appendDuplicatedColumnError(string $columnName)
+    {
+        $this->testData->setStatusError();
+        $this->testData->addResult(sprintf("'%s' column appears more than once in file.", $columnName));
+        $this->testData->addResult(sprintf('Unable to validate because of duplicated columns in CSV.'));
+    }
+
+    public function setHeader(array $header)
+    {
+        $this->header = $header;
+    }
+
+    // Specify required columns to trigger basic checks - presence, duplication.
+    public function setRequiredColumns(array $requiredColumns)
+    {
+        $this->requiredColumns = $requiredColumns;
+    }
+
     public function testRow(array $header, array $row)
     {
         ++$this->rowNumber;
+
+        // Save copy of header when processing first row of CSV.
+        if (empty($this->header)) {
+            $this->setHeader($header);
+        }
+
+        // Test required columns for presence and duplication. Return false if
+        // column is absent or duplicated.
+        if (isset($this->proceedWithRowValidation)) {
+            return $this->proceedWithRowValidation;
+        }
+
+        $this->proceedWithRowValidation = true;
+
+        foreach ($this->requiredColumns as $column) {
+            if (!$this->columnPresent($column)) {
+                $this->proceedWithRowValidation = false;
+            }
+
+            if ($this->columnDuplicated($column)) {
+                $this->proceedWithRowValidation = false;
+            }
+        }
+
+        return $this->proceedWithRowValidation;
     }
 
+    /**
+     *  Called between CSV files when more than one CSV file is specified on
+     *  the command line.
+     */
     public function reset()
     {
         $this->filename = '';
         $this->displayFilename = '';
         $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->displayFilename, $this->getClassName());
+        $this->columnPresent = [];
+        $this->columnDuplicated = [];
+        $this->header = [];
+        $this->proceedWithRowValidation = null;
     }
 
     public function setOrmClasses(array $classes)

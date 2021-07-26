@@ -58,4 +58,22 @@ class CsvBaseValidatorTest extends \PHPUnit\Framework\TestCase
         $csvValidator = new CsvMockValidator([]);
         $this->assertSame('CsvMockValidator', $csvValidator->getClassname());
     }
+
+    public function testColumnPresent()
+    {
+        $csvValidator = new CsvMockValidator([]);
+        $csvValidator->setHeader(['test1', 'test2', 'test3']);
+        $this->assertSame(true, $csvValidator->columnPresent('test1'));
+        $this->assertSame(false, $csvValidator->columnPresent('test0'));
+    }
+
+    public function testColumnDuplicated()
+    {
+        $csvValidator = new CsvMockValidator([]);
+        $csvValidator->setHeader(['test1', 'test2', 'test3']);
+        $this->assertSame(false, $csvValidator->columnDuplicated('test1', ['test1', 'test2', 'test3']));
+        $this->assertSame(false, $csvValidator->columnDuplicated('test5', ['test1', 'test2', 'test3']));
+        $csvValidator->setHeader(['test0', 'test2', 'test0']);
+        $this->assertSame(true, $csvValidator->columnDuplicated('test0', ['test0', 'test2', 'test0']));
+    }
 }

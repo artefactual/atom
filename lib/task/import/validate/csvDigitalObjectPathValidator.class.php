@@ -34,8 +34,6 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
     protected $fileList = [];
     protected $pathToDigitalObjects = '';
     // Reset between files.
-    protected $digitalObjectPathColumnPresent;
-    protected $digitalObjectUriColumnPresent;
     protected $digitalObjectUses = [];
     protected $overriddenByUriCount = 0;
 
@@ -45,13 +43,12 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
         parent::__construct($options);
 
         $this->setPathToDigitalObjects($this->options['pathToDigitalObjects']);
+        $this->setRequiredColumns(['digitalObjectPath']);
     }
 
     public function reset()
     {
-        $this->digitalObjectPathColumnPresent = null;
         $this->digitalObjectUses = [];
-        $this->digitalObjectUriColumnPresent = null;
         $this->overriddenByUriCount = 0;
 
         parent::reset();
@@ -59,35 +56,34 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
+        if (!parent::testRow($header, $row)) {
+            return;
+        }
+
         $row = $this->combineRow($header, $row);
 
-        if (!isset($this->digitalObjectPathColumnPresent)) {
-            $this->digitalObjectPathColumnPresent = isset($row['digitalObjectPath']);
+        if (!empty($row['digitalObjectPath'])) {
+            $this->addToUsageSummary($row['digitalObjectPath']);
         }
 
-        if (!isset($this->digitalObjectUriColumnPresent)) {
-            $this->digitalObjectUriColumnPresent = isset($row['digitalObjectUri']);
-        }
-
-        if ($this->digitalObjectPathColumnPresent) {
-            if (!empty($row['digitalObjectPath'])) {
-                $this->addToUsageSummary($row['digitalObjectPath']);
-            }
-
-            // URI is preferred by import CLI task if both path and uri are populated.
-            if ($this->digitalObjectUriColumnPresent) {
-                if (!empty($row['digitalObjectPath']) && !empty($row['digitalObjectUri'])) {
-                    ++$this->overriddenByUriCount;
-                }
+        // URI is preferred by import CLI task if both path and uri are populated.
+        if ($this->columnPresent('digitalObjectUri', $header)) {
+            if (!empty($row['digitalObjectPath']) && !empty($row['digitalObjectUri'])) {
+                ++$this->overriddenByUriCount;
             }
         }
     }
 
     public function getTestResult()
     {
-        if (false === $this->digitalObjectPathColumnPresent) {
+        if (false === $this->columnPresent('digitalObjectPath')) {
             $this->testData->addResult(sprintf("Column 'digitalObjectPath' not present in CSV. Nothing to verify."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('digitalObjectPath')) {
+            $this->appendDuplicatedColumnError('digitalObjectPath');
 
             return parent::getTestResult();
         }

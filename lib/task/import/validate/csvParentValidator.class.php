@@ -32,9 +32,6 @@ class CsvParentValidator extends CsvBaseValidator
     protected $legacyIdList = [];
     // Reset after every CSV.
     protected $orphanRowsFound = false;
-    protected $parentIdColumnPresent;
-    protected $qubitParentSlugColumnPresent;
-    protected $legacyIdColumnPresent;
     protected $unmatchedCount = 0;
     protected $rowsWithParentId = 0;
     protected $rowsWithQubitParentSlug = 0;
@@ -51,9 +48,6 @@ class CsvParentValidator extends CsvBaseValidator
     public function reset()
     {
         $this->orphanRowsFound = false;
-        $this->parentIdColumnPresent = null;
-        $this->qubitParentSlugColumnPresent = null;
-        $this->legacyIdColumnPresent = null;
         $this->unmatchedCount = 0;
         $this->rowsWithParentId = 0;
         $this->rowsWithQubitParentSlug = 0;
@@ -68,23 +62,8 @@ class CsvParentValidator extends CsvBaseValidator
         parent::testRow($header, $row);
         $row = $this->combineRow($header, $row);
 
-        // Is qubitParentSlug column present?
-        if (!isset($this->qubitParentSlugColumnPresent)) {
-            $this->qubitParentSlugColumnPresent = isset($row['qubitParentSlug']);
-        }
-
-        // Is parentId column present?
-        if (!isset($this->parentIdColumnPresent)) {
-            $this->parentIdColumnPresent = isset($row['parentId']);
-        }
-
-        // Is legacyId column present?
-        if (!isset($this->legacyIdColumnPresent)) {
-            $this->legacyIdColumnPresent = isset($row['legacyId']);
-        }
-
         // When both are present, qubitParentSlug will override parentId.
-        if ($this->qubitParentSlugColumnPresent && !empty($row['qubitParentSlug'])) {
+        if ($this->columnPresent('qubitParentSlug') && !empty($row['qubitParentSlug'])) {
             ++$this->rowsWithQubitParentSlug;
 
             if (!$this->canFindBySlug($row['qubitParentSlug'], $this->options['className'])) {
@@ -94,7 +73,7 @@ class CsvParentValidator extends CsvBaseValidator
                 // Add row that triggered this to the output.
                 $this->testData->addDetail(implode(',', $row));
             }
-        } elseif ($this->parentIdColumnPresent && !empty($row['parentId'])) {
+        } elseif ($this->columnPresent('parentId') && !empty($row['parentId'])) {
             ++$this->rowsWithParentId;
 
             if (!$this->canFindByParentId($row['parentId'], $this->options['source'])) {
@@ -107,76 +86,119 @@ class CsvParentValidator extends CsvBaseValidator
         }
 
         if (
-            $this->parentIdColumnPresent
+            $this->columnDuplicated('parentId')
+            || $this->columnDuplicated('qubitParentSlug')
+            || $this->columnDuplicated('legacyId')
+        ) {
+            return;
+        }
+
+        if (
+            $this->columnPresent('parentId')
             && empty($row['parentId'])
-            && $this->qubitParentSlugColumnPresent
+            && $this->columnPresent('qubitParentSlug')
             && empty($row['qubitParentSlug'])
         ) {
             ++$this->rowsWithoutParentIdQubitParentSlug;
         }
 
         if (
-            $this->parentIdColumnPresent
+            $this->columnPresent('parentId')
             && !empty($row['parentId'])
-            && $this->qubitParentSlugColumnPresent
+            && $this->columnPresent('qubitParentSlug')
             && !empty($row['qubitParentSlug'])
         ) {
             ++$this->rowsWithParentIdQubitParentSlug;
         }
 
-        if ($this->legacyIdColumnPresent) {
+        if ($this->columnPresent('legacyId')) {
             $this->legacyIdList[] = $row['legacyId'];
         }
     }
 
     public function getTestResult()
     {
-        if (!$this->parentIdColumnPresent && !$this->qubitParentSlugColumnPresent) {
+        if (!$this->columnPresent('parentId') && !$this->columnPresent('qubitParentSlug')) {
             $this->testData->setStatusWarn();
-            $this->testData->addResult(sprintf("'parentId' and 'qubitParentSlug' columns not present. CSV contents will be imported as top level records."));
-        } else {
-            if ($this->parentIdColumnPresent) {
-                $this->testData->addResult(sprintf('Rows with parentId populated: %s', $this->rowsWithParentId));
-            }
+            $this->testData->addResult(
+                sprintf("'parentId' and 'qubitParentSlug' columns not present. CSV contents will be imported as top level records.")
+            );
 
-            if ($this->qubitParentSlugColumnPresent) {
-                $this->testData->addResult(sprintf('Rows with qubitParentSlug populated: %s', $this->rowsWithQubitParentSlug));
-            }
+            return parent::getTestResult();
+        }
 
-            // Rows exist with both parentId and qubitParentSlug populated. Warn that qubitParentSlug will override.
-            if (0 < $this->rowsWithParentIdQubitParentSlug) {
-                $this->testData->setStatusWarn();
-                $this->testData->addResult(sprintf("Rows with both 'parentId' and 'qubitParentSlug' populated: %s", $this->rowsWithParentIdQubitParentSlug));
-                $this->testData->addResult(sprintf("Column 'qubitParentSlug' will override 'parentId' if both are populated."));
-            }
+        if ($this->columnDuplicated('parentId')) {
+            $this->appendDuplicatedColumnError('parentId');
 
-            // If parentId is present, then it would be an error if legacyId was not present.
-            if (!$this->legacyIdColumnPresent && 0 < $this->rowsWithParentId) {
-                $this->testData->setStatusError();
-                $this->testData->addResult(sprintf("'legacyId' column not found. Unable to verify parentId values."));
-            }
+            return parent::getTestResult();
+        }
 
-            // If unable to find a parentId in the DB, and source was not specified, display a message as this is a possible cause.
-            if (
-                empty($this->options['source'])
-                && $this->parentIdColumnPresent
-                && $this->orphanRowsFound
-            ) {
-                $this->testData->addResult(sprintf('Verifying parentId values against legacyId values in this file.'));
-            }
+        if ($this->columnDuplicated('qubitParentSlug')) {
+            $this->appendDuplicatedColumnError('qubitParentSlug');
 
-            if (
-                !empty($this->options['source'])
-                && $this->parentIdColumnPresent
-                && $this->orphanRowsFound
-            ) {
-                $this->testData->addResult(sprintf('Verifying parentId values against legacyId values in this file, and AtoM database.'));
-            }
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('legacyId')) {
+            $this->appendDuplicatedColumnError('legacyId');
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnPresent('parentId')) {
+            $this->testData->addResult(sprintf('Rows with parentId populated: %s', $this->rowsWithParentId));
+        }
+
+        if ($this->columnPresent('qubitParentSlug')) {
+            $this->testData->addResult(sprintf('Rows with qubitParentSlug populated: %s', $this->rowsWithQubitParentSlug));
+        }
+
+        // Rows exist with both parentId and qubitParentSlug populated. Warn that qubitParentSlug will override.
+        if (0 < $this->rowsWithParentIdQubitParentSlug) {
+            $this->testData->setStatusWarn();
+            $this->testData->addResult(
+                sprintf("Rows with both 'parentId' and 'qubitParentSlug' populated: %s", $this->rowsWithParentIdQubitParentSlug)
+            );
+            $this->testData->addResult(
+                sprintf("Column 'qubitParentSlug' will override 'parentId' if both are populated.")
+            );
+        }
+
+        // If parentId is present, then it would be an error if legacyId was not present.
+        if (!$this->columnPresent('legacyId') && 0 < $this->rowsWithParentId) {
+            $this->testData->setStatusError();
+            $this->testData->addResult(sprintf("'legacyId' column not found. Unable to verify parentId values."));
+        }
+
+        // If unable to find a parentId in the DB, and source was not specified, display a message as this is a possible cause.
+        if (
+            empty($this->options['source'])
+            && $this->columnPresent('parentId')
+            && $this->orphanRowsFound
+        ) {
+            $this->testData->addResult(
+                sprintf('Verifying parentId values against legacyId values in this file.')
+            );
+        }
+
+        if (
+            !empty($this->options['source'])
+            && $this->columnPresent('parentId')
+            && $this->orphanRowsFound
+        ) {
+            $this->testData->addResult(
+                sprintf('Verifying parentId values against legacyId values in this file, and AtoM database.')
+            );
         }
 
         if ($this->orphanRowsFound) {
             $this->testData->setStatusError();
-            $this->testData->addResult(sprintf('Number of parentID values found for which there is no matching legacyID (will import as top level records): %s', $this->unmatchedCount));
+            $this->testData->addResult(
+                sprintf(
+                    'Number of parentID values found for which there is no matching legacyID (will import as top level records): %s',
+                    $this->unmatchedCount
+                )
+            );
         }
 
         return parent::getTestResult();

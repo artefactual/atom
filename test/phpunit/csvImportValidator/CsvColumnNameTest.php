@@ -125,9 +125,9 @@ class CsvColumnNameTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of unrecognized column names found in CSV: 1',
                         'Unrecognized columns will be ignored by AtoM when the CSV is imported.',
+                        'Unrecognized column names: levilOfDescrooption',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'Unrecognized column: levilOfDescrooption',
                     ],
                 ],
             ],
@@ -146,12 +146,11 @@ class CsvColumnNameTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of unrecognized column names found in CSV: 2',
                         'Unrecognized columns will be ignored by AtoM when the CSV is imported.',
+                        'Unrecognized column names:  identifier,Title',
                         'Number of column names with leading or trailing whitespace characters: 1',
-                        'Number of unrecognized columns that may be case related: 1',
+                        'Number of unrecognized columns that may be letter case related: 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'Unrecognized column:  identifier',
-                        'Unrecognized column: Title',
                         'Column names with leading or trailing whitespace: identifier',
                         'Possible match for Title: title',
                     ],

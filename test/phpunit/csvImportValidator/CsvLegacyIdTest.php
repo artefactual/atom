@@ -18,6 +18,7 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderMissingLegacyId = 'parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+        $this->csvHeaderDupedLegacyId = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,legacyId';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -42,12 +43,20 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
             '"DJ003", "ID4", "Title Four", "","", "", "en"',
         ];
 
+        $this->csvDataDuplicatedLegacyIdColumn = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","", ""',
+            '"","","","Chemise","","","","fr", ""',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "", "D20202"',
+            '"B10101", "DJ003", "ID4", "Title Four", "","", "", "en", ""',
+            '"B10101", "DJ005", "ID5", "Title Five", "","", "", "en", "B10101"',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
-
             'unix_csv_with_duplicated_legacy_id.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataDuplicatedLegacyId),
             'unix_csv_missing_legacy_id.csv' => $this->csvHeaderMissingLegacyId."\n".implode("\n", $this->csvDataMissingLegacyId),
+            'unix_csv_with_duplicated_legacy_id_column.csv' => $this->csvHeaderDupedLegacyId."\n".implode("\n", $this->csvDataDuplicatedLegacyIdColumn),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -138,6 +147,22 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_DETAILS => [
                         ',,,Chemise,,,,fr',
                         'Non-unique \'legacyId\' values: B10101',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvLegacyTest-DuplicatedLegacyId' => [
+                    'csvValidatorClasses' => 'CsvLegacyIdValidator',
+                    'filename' => '/unix_csv_with_duplicated_legacy_id_column.csv',
+                    'testname' => 'CsvLegacyIdValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvLegacyIdValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'legacyId\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

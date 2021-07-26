@@ -18,6 +18,7 @@ class CsvRepoTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,culture';
         $this->csvHeaderWithRepo = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+        $this->csvHeaderDupedRepo = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,repository';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -41,11 +42,19 @@ class CsvRepoTest extends \PHPUnit\Framework\TestCase
             '"", "DJ003", "ID4", "Title Four", "","", "new repo 1", "en"',
         ];
 
+        $this->csvDataDupedRepo = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","new repo 1","es ",""',
+            '"","","","Chemise","","","Existing Repository","fr", ""',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "new repo 2", "de", ""',
+            '"", "DJ003", "ID4", "Title Four", "","", "new repo 1", "en",""',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_valid_repos.csv' => $this->csvHeaderWithRepo."\n".implode("\n", $this->csvDataValidRepos),
             'unix_csv_repos_some_invalid.csv' => $this->csvHeaderWithRepo."\n".implode("\n", $this->csvDataReposSomeInvalid),
+            'unix_csv_duped_repo.csv' => $this->csvHeaderDupedRepo."\n".implode("\n", $this->csvDataDupedRepo),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -136,6 +145,22 @@ class CsvRepoTest extends \PHPUnit\Framework\TestCase
                         'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,new repo 1,es',
                         'D20202,DJ002,,Voûte, étagère 0074,,,new repo 2,de',
                         ',DJ003,ID4,Title Four,,,new repo 1,en',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvRepoValidator-DupedRepo' => [
+                    'csvValidatorClasses' => 'CsvRepoValidator',
+                    'filename' => '/unix_csv_duped_repo.csv',
+                    'testname' => 'CsvRepoValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvRepoValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'repository\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

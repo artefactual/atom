@@ -22,6 +22,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
         $this->csvHeaderMissingParentIdLegacyId = 'identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithQubitParentSlug = 'legacyId,qubitParentSlug,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithParentIdQubitParentSlug = 'legacyId,parentId,qubitParentSlug,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+        $this->csvHeaderDupedParentId = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,parentId';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -88,10 +89,17 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
             '"X7","", "parent-slug-again", "ID4", "Title Four", "","", "", "en"',
         ];
 
+        $this->csvDataDupedParentId = [
+            // Note: leading and trailing whitespace in first row is intentional
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","",""',
+            '"","","","Chemise","","","","fr", ""',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "","" ',
+            '"", "DJ003", "ID4", "Title Four", "","", "", "en",""',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
-
             'unix_csv_missing_parent_id.csv' => $this->csvHeaderMissingParentId."\n".implode("\n", $this->csvDataMissingParentId),
             'unix_csv_missing_legacy_id.csv' => $this->csvHeaderMissingLegacyId."\n".implode("\n", $this->csvDataMissingLegacyId),
             'unix_csv_missing_parent_id_legacy_id.csv' => $this->csvHeaderMissingParentIdLegacyId."\n".implode("\n", $this->csvDataMissingParentIdLegacyId),
@@ -100,6 +108,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
             'unix_csv_parent_id_matches_in_keymap.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataParentIdMatchesInKeymap),
             'unix_csv_qubit_parent_slug.csv' => $this->csvHeaderWithQubitParentSlug."\n".implode("\n", $this->csvDataQubitParentSlug),
             'unix_csv_parent_id_and_qubit_parent_slug.csv' => $this->csvHeaderWithParentIdQubitParentSlug."\n".implode("\n", $this->csvDataParentIdAndQubitParentSlug),
+            'unix_csv_duped_parent_id.csv' => $this->csvHeaderDupedParentId."\n".implode("\n", $this->csvDataDupedParentId),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -325,6 +334,22 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                         'Rows with qubitParentSlug populated: 2',
                         'Rows with both \'parentId\' and \'qubitParentSlug\' populated: 1',
                         'Column \'qubitParentSlug\' will override \'parentId\' if both are populated.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
+                    ],
+                ],
+            ],
+
+            [
+                'CsvParentValidator-DupedParentId' => [
+                    'csvValidatorClasses' => 'CsvParentValidator',
+                    'filename' => '/unix_csv_duped_parent_id.csv',
+                    'testname' => 'CsvParentValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvParentValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'parentId\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],

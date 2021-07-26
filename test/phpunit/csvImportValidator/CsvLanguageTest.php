@@ -18,6 +18,7 @@ class CsvLanguageTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithLanguage = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,language';
+        $this->csvHeaderWithDupedLanguage = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,language,language';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -41,11 +42,19 @@ class CsvLanguageTest extends \PHPUnit\Framework\TestCase
             '"", "DJ003", "ID4", "Title Four", "","", "", "en"," en_gb"',
         ];
 
+        $this->csvDataDupedLanguage = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","es ", "es",""',
+            '"","","","Chemise","","","","fr","fr", ""',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "de","en ", ""',
+            '"", "DJ003", "ID4", "Title Four", "","", "", "en"," en", ""',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_valid_languages.csv' => $this->csvHeaderWithLanguage."\n".implode("\n", $this->csvDataValidLanguages),
             'unix_csv_languages_some_invalid.csv' => $this->csvHeaderWithLanguage."\n".implode("\n", $this->csvDataLanguagesSomeInvalid),
+            'unix_csv_duped_language.csv' => $this->csvHeaderWithDupedLanguage."\n".implode("\n", $this->csvDataDupedLanguage),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -130,6 +139,22 @@ class CsvLanguageTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_DETAILS => [
                         'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,es,Spanish',
                         ',DJ003,ID4,Title Four,,,,en,en_gb',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvLanguageValidator-DupedLanguage' => [
+                    'csvValidatorClasses' => 'CsvLanguageValidator',
+                    'filename' => '/unix_csv_duped_language.csv',
+                    'testname' => 'CsvLanguageValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvLanguageValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'language\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

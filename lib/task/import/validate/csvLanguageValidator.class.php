@@ -25,9 +25,9 @@
 class CsvLanguageValidator extends CsvBaseValidator
 {
     public const TITLE = 'Language Check';
+    public const LIMIT_TO = ['QubitInformationObject', 'QubitRepository'];
 
     protected $languages = [];
-    protected $languageColumnPresent;
     protected $rowsWithInvalidLanguage = 0;
     protected $invalidLanguages = [];
 
@@ -37,11 +37,11 @@ class CsvLanguageValidator extends CsvBaseValidator
         parent::__construct($options);
 
         $this->languages = array_keys(sfCultureInfo::getInstance()->getLanguages());
+        $this->setRequiredColumns(['language']);
     }
 
     public function reset()
     {
-        $this->languageColumnPresent = null;
         $this->rowsWithPipeFoundInLanguage = 0;
         $this->rowsWithInvalidLanguage = 0;
         $this->invalidLanguages = [];
@@ -51,15 +51,13 @@ class CsvLanguageValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        // Set if language column is present.
-        if (!isset($this->languageColumnPresent)) {
-            $this->languageColumnPresent = isset($row['language']);
+        if (!parent::testRow($header, $row)) {
+            return;
         }
 
-        if (!$this->languageColumnPresent || empty($row['language'])) {
+        $row = $this->combineRow($header, $row);
+
+        if (empty($row['language'])) {
             return;
         }
 
@@ -85,9 +83,15 @@ class CsvLanguageValidator extends CsvBaseValidator
 
     public function getTestResult()
     {
-        if (!$this->languageColumnPresent) {
+        if (!$this->columnPresent('language')) {
             // language column not present in file.
             $this->testData->addResult(sprintf("'language' column not present in file."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('language')) {
+            $this->appendDuplicatedColumnError('language');
 
             return parent::getTestResult();
         }

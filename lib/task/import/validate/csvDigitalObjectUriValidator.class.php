@@ -30,44 +30,46 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
     public const TITLE = 'Digital Object URI Test';
     public const LIMIT_TO = ['QubitInformationObject'];
 
-    protected $digitalObjectUriColumnPresent;
     protected $digitalObjectUses = [];
 
     public function __construct(?array $options = null)
     {
         $this->setTitle(self::TITLE);
-
         parent::__construct($options);
+
+        $this->setRequiredColumns(['digitalObjectUri']);
     }
 
     public function reset()
     {
         $this->digitalObjectUses = [];
-        $this->digitalObjectUriColumnPresent = null;
 
         parent::reset();
     }
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        if (!isset($this->digitalObjectUriColumnPresent)) {
-            $this->digitalObjectUriColumnPresent = isset($row['digitalObjectUri']);
+        if (!parent::testRow($header, $row)) {
+            return;
         }
 
-        if ($this->digitalObjectUriColumnPresent) {
-            if (!empty($row['digitalObjectUri'])) {
-                $this->addToUsageSummary($row['digitalObjectUri']);
-            }
+        $row = $this->combineRow($header, $row);
+
+        if (!empty($row['digitalObjectUri'])) {
+            $this->addToUsageSummary($row['digitalObjectUri']);
         }
     }
 
     public function getTestResult()
     {
-        if (false === $this->digitalObjectUriColumnPresent) {
+        if (false === $this->columnPresent('digitalObjectUri')) {
             $this->testData->addResult(sprintf("Column 'digitalObjectUri' not present in CSV. Nothing to verify."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('digitalObjectUri')) {
+            $this->appendDuplicatedColumnError('digitalObjectUri');
 
             return parent::getTestResult();
         }

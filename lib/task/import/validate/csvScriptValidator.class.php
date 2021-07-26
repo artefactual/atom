@@ -29,7 +29,6 @@ class CsvScriptValidator extends CsvBaseValidator
     public const LIMIT_TO = ['QubitInformationObject'];
 
     protected $scriptOfDescriptionList = [];
-    protected $scriptOfDescriptionColumnPresent;
     protected $rowsWithInvalidScriptOfDescription = 0;
     protected $invalidScriptOfDescriptionList = [];
 
@@ -38,12 +37,12 @@ class CsvScriptValidator extends CsvBaseValidator
         $this->setTitle(self::TITLE);
         parent::__construct($options);
 
+        $this->setRequiredColumns(['scriptOfDescription']);
         $this->scriptOfDescriptionList = array_keys(sfCultureInfo::getInstance()->getScripts());
     }
 
     public function reset()
     {
-        $this->scriptOfDescriptionColumnPresent = null;
         $this->rowsWithInvalidScriptOfDescription = 0;
         $this->invalidScriptOfDescriptionList = [];
 
@@ -52,15 +51,13 @@ class CsvScriptValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        // Set if scriptOfDescription column is present.
-        if (!isset($this->scriptOfDescriptionColumnPresent)) {
-            $this->scriptOfDescriptionColumnPresent = isset($row['scriptOfDescription']);
+        if (!parent::testRow($header, $row)) {
+            return;
         }
 
-        if (!$this->scriptOfDescriptionColumnPresent || empty($row['scriptOfDescription'])) {
+        $row = $this->combineRow($header, $row);
+
+        if (empty($row['scriptOfDescription'])) {
             return;
         }
 
@@ -86,9 +83,15 @@ class CsvScriptValidator extends CsvBaseValidator
 
     public function getTestResult()
     {
-        if (!$this->scriptOfDescriptionColumnPresent) {
+        if (!$this->columnPresent('scriptOfDescription')) {
             // scriptOfDescription column not present in file.
             $this->testData->addResult(sprintf("'scriptOfDescription' column not present in file."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('scriptOfDescription')) {
+            $this->appendDuplicatedColumnError('scriptOfDescription');
 
             return parent::getTestResult();
         }

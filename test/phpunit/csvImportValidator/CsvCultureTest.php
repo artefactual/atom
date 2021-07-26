@@ -18,6 +18,7 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderMissingCulture = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository';
+        $this->csvHeaderDupedCulture = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,culture';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -49,6 +50,14 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
             '"F20202", "DJ004", "DD8989", "pdf documents", "","", "", ""',
         ];
 
+        $this->csvDataDupedCulturesSomeInvalid = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","es ","fr"',
+            '"","","","Chemise","","","","fr|en","fr"',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "gg","fr"',
+            '"E20202", "DJ003", "ID4", "Title Four", "","", "", "en","fr"',
+            '"F20202", "DJ004", "DD8989", "pdf documents", "","", "", "","fr"',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
@@ -56,6 +65,7 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
             'unix_csv_missing_culture.csv' => $this->csvHeaderMissingCulture."\n".implode("\n", $this->csvDataMissingCulture),
             'unix_csv_valid_cultures.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataValidCultures),
             'unix_csv_cultures_some_invalid.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataCulturesSomeInvalid),
+            'unix_csv_duped_culture.csv' => $this->csvHeaderDupedCulture."\n".implode("\n", $this->csvDataDupedCulturesSomeInvalid),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -145,6 +155,22 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_DETAILS => [
                         ',,,Chemise,,,,fr|en',
                         'D20202,DJ002,,Voûte, étagère 0074,,,,gg',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvCultureValidator-DupedCulture' => [
+                    'csvValidatorClasses' => 'CsvCultureValidator',
+                    'filename' => '/unix_csv_duped_culture.csv',
+                    'testname' => 'CsvCultureValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvCultureValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'culture\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

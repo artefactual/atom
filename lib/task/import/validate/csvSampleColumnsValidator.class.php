@@ -19,7 +19,9 @@
 
 /**
  * CSV Sample Values test. Output column names and a sample value from first
- * populated row found. Only populated columns are included.
+ * populated row found. Include list containing unpopulated columns.
+ *
+ * Output error if duplicate column names detected.
  *
  * @author     Steve Breker <sbreker@artefactual.com>
  */
@@ -28,6 +30,8 @@ class CsvSampleValuesValidator extends CsvBaseValidator
     public const TITLE = 'Sample Values';
 
     protected $values = [];
+    protected $duplicatedColumnNames;
+    protected $emptyColumnNames;
 
     public function __construct(?array $options = null)
     {
@@ -39,6 +43,8 @@ class CsvSampleValuesValidator extends CsvBaseValidator
     public function reset()
     {
         $this->values = [];
+        $this->duplicatedColumnNames = null;
+        $this->emptyColumnNames = null;
 
         parent::reset();
     }
@@ -48,16 +54,41 @@ class CsvSampleValuesValidator extends CsvBaseValidator
         parent::testRow($header, $row);
         $row = $this->combineRow($header, $row);
 
+        if (!isset($this->emptyColumnNames)) {
+            $this->emptyColumnNames = $row;
+        }
+
+        // Check for dupe column names.
+        if (!isset($this->duplicatedColumnNames)) {
+            $this->duplicatedColumnNames = [];
+
+            foreach ($header as $value) {
+                if ($this->columnDuplicated($value)) {
+                    $this->duplicatedColumnNames[$value] = $value;
+                }
+            }
+        }
+
+        // Create sample values array.
         foreach ($row as $columnName => $value) {
-            // Create sample values array.
             if (!isset($this->values[$columnName]) && !empty($value)) {
                 $this->values[$columnName] = $value;
+                unset($this->emptyColumnNames[$columnName]);
             }
         }
     }
 
     public function getTestResult()
     {
+        if (isset($this->emptyColumnNames) && !empty($this->emptyColumnNames)) {
+            $this->testData->addResult(sprintf('Empty columns detected: %s', implode(',', array_keys($this->emptyColumnNames))));
+        }
+
+        if (isset($this->duplicatedColumnNames) && !empty($this->duplicatedColumnNames)) {
+            $this->testData->setStatusError();
+            $this->testData->addResult(sprintf('Duplicate column names detected: %s', implode(',', $this->duplicatedColumnNames)));
+        }
+
         foreach ($this->values as $columnName => $sampleValue) {
             $this->testData->addResult(sprintf('%s:  %s', $columnName, $sampleValue));
         }

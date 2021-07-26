@@ -31,20 +31,19 @@ class CsvLegacyIdValidator extends CsvBaseValidator
     // Persist across multiple CSVs.
     protected $legacyIdValues = [];
     // Reset after every CSV.
-    protected $legacyIdColumnPresent;
     protected $rowsWithoutLegacyId = 0;
     protected $nonUniqueLegacyIdValues = [];
 
     public function __construct(?array $options = null)
     {
         $this->setTitle(self::TITLE);
-
         parent::__construct($options);
+
+        $this->setRequiredColumns(['legacyId']);
     }
 
     public function reset()
     {
-        $this->legacyIdColumnPresent = null;
         $this->rowsWithoutLegacyId = 0;
         $this->nonUniqueLegacyIdValues = [];
 
@@ -53,17 +52,11 @@ class CsvLegacyIdValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
-        parent::testRow($header, $row);
-        $row = $this->combineRow($header, $row);
-
-        // Is legacyId column present?
-        if (!isset($this->legacyIdColumnPresent)) {
-            $this->legacyIdColumnPresent = isset($row['legacyId']);
-        }
-
-        if (!$this->legacyIdColumnPresent) {
+        if (!parent::testRow($header, $row)) {
             return;
         }
+
+        $row = $this->combineRow($header, $row);
 
         if (empty($row['legacyId'])) {
             ++$this->rowsWithoutLegacyId;
@@ -87,9 +80,15 @@ class CsvLegacyIdValidator extends CsvBaseValidator
 
     public function getTestResult()
     {
-        if (!$this->legacyIdColumnPresent) {
+        if (!$this->columnPresent('legacyId')) {
             $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf("'legacyId' column not present. Future CSV updates may not match these records."));
+
+            return parent::getTestResult();
+        }
+
+        if ($this->columnDuplicated('legacyId')) {
+            $this->appendDuplicatedColumnError('legacyId');
 
             return parent::getTestResult();
         }

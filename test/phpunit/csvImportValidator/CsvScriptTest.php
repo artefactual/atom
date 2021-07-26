@@ -18,6 +18,7 @@ class CsvScriptTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithScript = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,scriptOfDescription';
+        $this->csvHeaderDupedScript = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,scriptOfDescription,scriptOfDescription';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -41,11 +42,19 @@ class CsvScriptTest extends \PHPUnit\Framework\TestCase
             '"", "DJ003", "ID4", "Title Four", "","", "", "en"," LATN"',
         ];
 
+        $this->csvDataDupedScripts = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","es ", "Latin",""',
+            '"","","","Chemise","","","","fr","Copt|Latin", ""',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "de","Gggg|HGGG", "DGGG"',
+            '"", "DJ003", "ID4", "Title Four", "","", "", "en"," LATN",""',
+        ];
+
         // define virtual file system
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_valid_scripts.csv' => $this->csvHeaderWithScript."\n".implode("\n", $this->csvDataValidScripts),
             'unix_csv_scripts_some_invalid.csv' => $this->csvHeaderWithScript."\n".implode("\n", $this->csvDataScriptsSomeInvalid),
+            'unix_csv_duped_scripts.csv' => $this->csvHeaderDupedScript."\n".implode("\n", $this->csvDataDupedScripts),
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -132,6 +141,22 @@ class CsvScriptTest extends \PHPUnit\Framework\TestCase
                         ',,,Chemise,,,,fr,Copt|Latin',
                         'D20202,DJ002,,Voûte, étagère 0074,,,,de,Gggg|HGGG',
                         ',DJ003,ID4,Title Four,,,,en,LATN',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvScriptValidator-DupedScript' => [
+                    'csvValidatorClasses' => 'CsvScriptValidator',
+                    'filename' => '/unix_csv_duped_scripts.csv',
+                    'testname' => 'CsvScriptValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvScriptValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        '\'scriptOfDescription\' column appears more than once in file.',
+                        'Unable to validate because of duplicated columns in CSV.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],
