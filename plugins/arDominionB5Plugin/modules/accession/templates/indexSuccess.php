@@ -31,15 +31,21 @@
 
 <?php end_slot(); ?>
 
-<?php echo render_show(__('Accession number'), $resource->identifier); ?>
+<div class="section" id="basicInfo">
 
-<?php echo get_partial('accession/alternativeIdentifiersIndex', ['resource' => $resource]); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Basic info').'</h2>', [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'basic-collapse', 'title' => __('Edit basic info')]); ?>
 
-<?php echo render_show(__('Acquisition date'), render_value(Qubit::renderDate($resource->date))); ?>
+  <?php echo render_show(__('Accession number'), $resource->identifier); ?>
 
-<?php echo render_show(__('Immediate source of acquisition'), render_value($resource->getSourceOfAcquisition(['cultureFallback' => true]))); ?>
+  <?php echo get_partial('accession/alternativeIdentifiersIndex', ['resource' => $resource]); ?>
 
-<?php echo render_show(__('Location information'), render_value($resource->getLocationInformation(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Acquisition date'), render_value(Qubit::renderDate($resource->date))); ?>
+
+  <?php echo render_show(__('Immediate source of acquisition'), render_value($resource->getSourceOfAcquisition(['cultureFallback' => true]))); ?>
+
+  <?php echo render_show(__('Location information'), render_value($resource->getLocationInformation(['cultureFallback' => true]))); ?>
+
+</div> <!-- /.section#basicInfo -->
 
 <div class="section" id="donorArea">
 
