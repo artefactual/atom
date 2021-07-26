@@ -1,3 +1,17 @@
+<h1><?php echo __('User %1%', ['%1%' => render_title($resource)]); ?></h1>
+
+<?php echo get_component('user', 'aclMenu'); ?>
+
+<?php if (!$resource->active) { ?>
+  <div class="messages error">
+    <ul>
+      <?php if (!$resource->active) { ?>
+        <li><?php echo __('This user is inactive'); ?></li>
+      <?php } ?>
+    </ul>
+  </div>
+<?php } ?>
+
 <section id="content">
 
   <section id="userDetails">
