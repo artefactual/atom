@@ -118,27 +118,64 @@
         </h2>
         <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <?php echo $form->subjectAccessPoints
-                  ->label(__('Subject access points'))
-                  ->renderLabel(); ?>
-              <?php echo $form->subjectAccessPoints->render(['class' => 'form-autocomplete']); ?>
-              <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'createTerm')) { ?>
-                <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'term', 'action' => 'add', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy'])]); ?> #name"/>
-              <?php } ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy'])]); ?>"/>
-            </div>
+            <?php
+                // Add extra inputs checking permissions
+                $extraInputs = '<input class="list" type="hidden" value="'
+                    .url_for([
+                        'module' => 'term',
+                        'action' => 'autocomplete',
+                        'taxonomy' => url_for([
+                            QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID),
+                            'module' => 'taxonomy',
+                        ]),
+                    ])
+                    .'">';
+                if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'createTerm')) {
+                    $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
+                        .url_for([
+                            'module' => 'term',
+                            'action' => 'add',
+                            'taxonomy' => url_for([
+                                QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID),
+                                'module' => 'taxonomy',
+                            ]),
+                        ])
+                        .' #name">';
+                }
+                echo render_field(
+                    $form->subjectAccessPoints->label(__('Subject access points')),
+                    null,
+                    ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+                );
 
-            <div class="form-item">
-              <?php echo $form->placeAccessPoints
-                  ->label(__('Place access points'))
-                  ->renderLabel(); ?>
-              <?php echo $form->placeAccessPoints->render(['class' => 'form-autocomplete']); ?>
-              <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')) { ?>
-                <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'term', 'action' => 'add', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy'])]); ?> #name"/>
-              <?php } ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy'])]); ?>"/>
-            </div>
+                $extraInputs = '<input class="list" type="hidden" value="'
+                    .url_for([
+                        'module' => 'term',
+                        'action' => 'autocomplete',
+                        'taxonomy' => url_for([
+                            QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID),
+                            'module' => 'taxonomy',
+                        ]),
+                    ])
+                    .'">';
+                if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')) {
+                    $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
+                        .url_for([
+                            'module' => 'term',
+                            'action' => 'add',
+                            'taxonomy' => url_for([
+                                QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID),
+                                'module' => 'taxonomy',
+                            ]),
+                        ])
+                        .' #name">';
+                }
+                echo render_field(
+                    $form->placeAccessPoints->label(__('Place access points')),
+                    null,
+                    ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+                );
+            ?>
 
             <?php echo get_partial('actor/occupations', $sf_data->getRaw('occupationsComponent')->getVarHolder()->getAll()); ?>
           </div>
@@ -156,15 +193,21 @@
                 ->help(__('"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)'))
                 ->label(__('Authority record identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
 
-            <div class="form-item">
-              <?php echo $form->maintainingRepository->label(__('Maintaining repository'))->renderLabel(); ?>
-              <?php echo $form->maintainingRepository->render(['class' => 'form-autocomplete']); ?>
-              <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'repository', 'action' => 'add']); ?> #authorizedFormOfName"/>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'repository', 'action' => 'autocomplete']); ?>"/>
-              <?php echo $form->maintainingRepository
-                  ->help(__('"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)'))
-                  ->renderHelp(); ?>
-            </div>
+            <?php echo render_field(
+                $form->maintainingRepository
+                    ->label(__('Maintaining repository'))
+                    ->help(__('"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)')),
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="add" type="hidden" data-link-existing="true" value="'
+                        .url_for(['module' => 'repository', 'action' => 'add'])
+                        .' #authorizedFormOfName">'
+                        .'<input class="list" type="hidden" value="'
+                        .url_for(['module' => 'repository', 'action' => 'autocomplete'])
+                        .'">',
+                ]
+            ); ?>
 
             <?php echo render_field($form->institutionResponsibleIdentifier
                 ->help(__('"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)'))
@@ -197,15 +240,21 @@
               </div>
             <?php } ?>
 
-            <?php echo $form->language
-                ->help(__('Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)'))
-                ->label('Language(s)')
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->language
+                    ->label('Language(s)')
+                    ->help(__('Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php echo $form->script
-                ->help(__('Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)'))
-                ->label('Script(s)')
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->script
+                    ->label('Script(s)')
+                    ->help(__('Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
             <?php echo render_field($form->sources
                 ->help(__('"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)')), $resource, ['class' => 'resizable']); ?>
