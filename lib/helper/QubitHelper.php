@@ -141,10 +141,18 @@ function render_b5_field($field, $translation = null, $options = [])
             .'</div>';
     }
 
+    // Autocomplete extra inputs
+    $extraInputs = '';
+    if (isset($options['extraInputs'])) {
+        $extraInputs = $options['extraInputs'];
+        unset($options['extraInputs']);
+    }
+
     return '<div class="mb-3">'
         .$label
         .$translation
         .$field->render($options)
+        .$extraInputs
         .$field->renderError()
         .$help
         .'</div>';
