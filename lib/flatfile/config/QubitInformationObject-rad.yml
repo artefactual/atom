@@ -89,6 +89,7 @@ columnNames:
   - eventActors
   - eventActorHistories
   - eventPlaces
+  - slug
   - culture
 
 # Columns that map to information object properties

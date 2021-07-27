@@ -56,4 +56,5 @@ columnNames:
   - eventActors
   - eventActorHistories
   - eventPlaces
+  - slug
   - culture

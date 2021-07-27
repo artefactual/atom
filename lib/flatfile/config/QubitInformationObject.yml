@@ -125,6 +125,7 @@ direct:
   - script
   - languageOfDescription
   - scriptOfDescription
+  - slug
 
 # Columns that map to information object properties
 map:
