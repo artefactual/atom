@@ -24,6 +24,7 @@
     <script src="/plugins/arDominionB5Plugin/js/clipboard.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/collapse.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/masonry.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/aclModal.js"></script>
     <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
     <script src="/js/editingHistory.js"></script>
     <script src="/js/autocomplete.js"></script>
