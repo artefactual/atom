@@ -1,3 +1,9 @@
+<?php echo get_partial('aclGroup/aclModal', [
+    'entityType' => 'taxonomy',
+    'label' => 'Taxonomy',
+    'basicActions' => $termActions,
+]); ?>
+
 <?php echo $form->renderGlobalErrors(); ?>
 
 <?php echo $form->renderFormTag(url_for([$resource, 'module' => $sf_context->getModuleName(), 'action' => 'editTermAcl']), ['id' => 'editForm']); ?>
@@ -13,39 +19,11 @@
       </h2>
       <div id="all-collapse" class="accordion-collapse collapse show" aria-labelledby="all-heading">
         <div class="accordion-body">
-          <div class="form-item">
-
-            <table id="allTerms" class="table table-bordered">
-              <caption><em><?php echo __('All %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_term'))]); ?></em></caption>
-              <thead>
-                <tr>
-                  <th scope="col"><?php echo __('Action'); ?></th>
-                  <th scope="col"><?php echo __('Permission'); ?></th>
-                </tr>
-              </thead><tbody>
-                <?php foreach ($termActions as $key => $item) { ?>
-                  <tr class="<?php echo (0 == @++$row % 2) ? 'even' : 'odd'; ?>">
-                    <td><?php echo __($item); ?></td>
-                    <td>
-                      <ul class="radio inline">
-                        <?php if (isset($rootPermissions[$key])) { ?>
-                          <li><input type="radio" name="acl[<?php echo $rootPermissions[$key]->id; ?>]" value="<?php echo QubitAcl::GRANT; ?>"<?php echo (1 == $rootPermissions[$key]->grantDeny) ? ' checked="checked"' : ''; ?>><?php echo __('Grant'); ?></li>
-                          <li><input type="radio" name="acl[<?php echo $rootPermissions[$key]->id; ?>]" value="<?php echo QubitAcl::DENY; ?>"<?php echo (0 == $rootPermissions[$key]->grantDeny) ? ' checked="checked"' : ''; ?>><?php echo __('Deny'); ?></li>
-                          <li><input type="radio" name="acl[<?php echo $rootPermissions[$key]->id; ?>]" value="<?php echo QubitAcl::INHERIT; ?>"><?php echo __('Inherit'); ?></li>
-                        <?php } else { ?>
-                          <?php $rootTermUrl = url_for([QubitTerm::getById(QubitTerm::ROOT_ID), 'module' => 'term']); ?>
-                          <li><input type="radio" name="acl[<?php echo $key; ?>_<?php echo $rootTermUrl; ?>]" value="<?php echo QubitAcl::GRANT; ?>"><?php echo __('Grant'); ?></li>
-                          <li><input type="radio" name="acl[<?php echo $key; ?>_<?php echo $rootTermUrl; ?> ?>]" value="<?php echo QubitAcl::DENY; ?>"><?php echo __('Deny'); ?></li>
-                          <li><input type="radio" name="acl[<?php echo $key; ?>_<?php echo $rootTermUrl; ?> ?>]" value="<?php echo QubitAcl::INHERIT; ?>" checked="checked"><?php echo __('Inherit'); ?></li>
-                        <?php } ?>
-                      </ul>
-                    </td>
-                  </tr>
-                <?php } ?>
-              </tbody>
-            </table>
-
-          </div>
+          <?php echo get_component('aclGroup', 'aclTable', [
+              'object' => QubitTerm::getById(QubitTerm::ROOT_ID),
+              'permissions' => $rootPermissions,
+              'actions' => $termActions,
+          ]); ?>
         </div>
       </div>
     </div>
@@ -57,58 +35,23 @@
       </h2>
       <div id="taxonomy-collapse" class="accordion-collapse collapse" aria-labelledby="taxonomy-heading">
         <div class="accordion-body">
-          <?php if (0 < count($taxonomyPermissions)) { ?>
-
-            <?php foreach ($taxonomyPermissions as $key => $item) { ?>
-
-              <div class="form-item">
-                <table id="acl_<?php echo $key; ?>" class="table table-bordered">
-                  <caption><?php echo render_title(QubitTaxonomy::getBySlug($key)); ?></caption>
-                  <thead>
-                    <tr>
-                      <th scope="col"><?php echo __('Action'); ?></th>
-                      <th scope="col"><?php echo __('Permission'); ?></th>
-                    </tr>
-                  </thead><tbody>
-                    <?php foreach ($termActions as $action => $label) { ?>
-                      <tr>
-                        <td><?php echo __($label); ?></td>
-                        <td id="<?php echo 'repo_'.$key.'_'.$action; ?>">
-                          <ul class="radio inline">
-                            <?php if (isset($item[$action])) { ?>
-                              <li><input type="radio" name="acl[<?php echo $item[$action]->id; ?>]" value="<?php echo QubitAcl::GRANT; ?>"<?php echo (1 == $item[$action]->grantDeny) ? ' checked="checked"' : ''; ?>><?php echo __('Grant'); ?></li>
-                              <li><input type="radio" name="acl[<?php echo $item[$action]->id; ?>]" value="<?php echo QubitAcl::DENY; ?>"<?php echo (0 == $item[$action]->grantDeny) ? ' checked="checked"' : ''; ?>><?php echo __('Deny'); ?></li>
-                              <li><input type="radio" name="acl[<?php echo $item[$action]->id; ?>]" value="<?php echo QubitAcl::INHERIT; ?>"><?php echo __('Inherit'); ?></li>
-                            <?php } else { ?>
-                              <?php $rootTermUrl = url_for([QubitTerm::getById(QubitTerm::ROOT_ID), 'module' => 'term']); ?>
-                              <li><input type="radio" name="acl[<?php echo $action.'_'.$rootTermUrl; ?>]" value="<?php echo QubitAcl::GRANT; ?>"><?php echo __('Grant'); ?></li>
-                              <li><input type="radio" name="acl[<?php echo $action.'_'.$rootTermUrl; ?>]" value="<?php echo QubitAcl::DENY; ?>"><?php echo __('Deny'); ?></li>
-                              <li><input type="radio" name="acl[<?php echo $action.'_'.$rootTermUrl; ?>]" value="<?php echo QubitAcl::INHERIT; ?>" checked="checked"><?php echo __('Inherit'); ?></li>
-                            <?php } ?>
-                          </ul>
-                        </td>
-                      </tr>
-                    <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-
-            <?php } ?>
-
+          <?php foreach ($taxonomyPermissions as $key => $item) { ?>
+            <?php echo get_component('aclGroup', 'aclTable', [
+                'object' => QubitTaxonomy::getBySlug($key),
+                'permissions' => $item,
+                'actions' => $termActions,
+            ]); ?>
           <?php } ?>
 
-          <!-- Add taxonomy div - cut by aclDialog.js
-          <div class="form-item" id="addTaxonomy">
-            <?php echo $form->taxonomy->
-              label(__('Taxonomy name'))->
-              renderRow(['class' => 'form-autocomplete']); ?>
-          </div>
-          -->
-
-          <div class="form-item">
-            <label for="addTaxonomyLink"><?php echo __('Add permissions by taxonomy'); ?></label>
-            <a id="addTaxonomyLink" href="#"><?php echo __('Add taxonomy'); ?></a>
-          </div>
+          <button
+            class="btn atom-btn-white text-wrap"
+            type="button"
+            id="acl-add-taxonomy"
+            data-bs-toggle="modal"
+            data-bs-target="#acl-modal-container-taxonomy">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __('Add permissions by taxonomy'); ?>
+          </button>
         </div>
       </div>
     </div>
