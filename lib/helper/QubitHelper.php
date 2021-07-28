@@ -160,6 +160,10 @@ function render_b5_field($field, $translation = null, $options = [])
 
 function render_show($label, $value, $options = [])
 {
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_show($label, $value, $options);
+    }
+
     // Optional labels in the div class containing this field, to help with data mining.
     $fieldLabel = isset($options['fieldLabel']) ? ' class="'.$options['fieldLabel'].'"' : '';
 
@@ -172,6 +176,99 @@ function render_show($label, $value, $options = [])
 </div>
 
 contents;
+}
+
+function render_b5_show_field_css_classes($options = [])
+{
+    return 'row g-0';
+}
+
+function render_b5_show_subfield_css_classes($options = [])
+{
+    return 'd-flex flex-wrap';
+}
+
+function render_b5_show($label, $value, $options = [])
+{
+    $tag = 'div';
+    $cssClasses = 'field';
+    if (!isset($options['isSubField'])) {
+        $cssClasses .= ' '.render_b5_show_field_css_classes($options);
+    } else {
+        $cssClasses .= ' '.render_b5_show_subfield_css_classes($options);
+    }
+
+    $labelContainer = render_b5_show_label($label, $options);
+    $valuecontainer = render_b5_show_value($value, $options);
+
+    return render_b5_show_container(
+        $tag, $labelContainer.$valuecontainer, $cssClasses, $options
+    );
+}
+
+function render_b5_show_container($tag, $content, $cssClasses = '', $options = [])
+{
+    $cssClass = $cssClasses ? ' class="'.$cssClasses.'"' : '';
+
+    return "<{$tag}{$cssClass}>{$content}</{$tag}>";
+}
+
+function render_b5_show_label_css_classes($options = [])
+{
+    $result = 'h6 m-0 text-muted text-break';
+    if (!isset($options['isSubField'])) {
+        $result .= ' col-3 border-end text-end p-2';
+    } else {
+        $result .= ' me-1 p-1';
+    }
+
+    return $result;
+}
+
+function render_b5_show_label($label, $options = [])
+{
+    $tag = isset($options['isSubField']) ? 'h4' : 'h3';
+    $cssClasses = render_b5_show_label_css_classes($options);
+
+    return render_b5_show_container($tag, $label, $cssClasses, $options);
+}
+
+function render_b5_show_value_css_classes($options = [])
+{
+    $result = 'h6 m-0';
+    if (!isset($options['isSubField'])) {
+        $result .= ' col-9 p-2';
+    } else {
+        $result .= ' p-1';
+    }
+
+    return $result;
+}
+
+function render_b5_show_value($value, $options = [])
+{
+    $tag = 'div';
+    $cssClasses = render_b5_show_value_css_classes($options);
+
+    return render_b5_show_container($tag, $value, $cssClasses, $options);
+}
+
+function render_b5_section_label_css_classes($options = [])
+{
+    return 'border-bottom h5 m-0 p-3 text-primary';
+}
+
+function render_b5_section_label($label, $options = [])
+{
+    $tag = 'h2';
+    $cssClasses = render_b5_section_label_css_classes($options);
+
+    return render_b5_show_container($tag, $label, $cssClasses, $options);
+}
+
+function render_b5_show_list_css_classes($options = [])
+{
+    return 'm-0 ps-3';
 }
 
 function render_show_repository($label, $resource)
