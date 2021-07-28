@@ -4,9 +4,9 @@
   <section>
 
     <?php if ($relatedToIo) { ?>
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationobject'), '<h2>'.__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]).'</h2>', [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))])]); ?>
+      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationobject'), render_b5_section_label(__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
     <?php } elseif ($relatedToActor) { ?>
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), '<h2>'.__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]).'</h2>', [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))])]); ?>
+      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), render_b5_section_label(__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
     <?php } ?>
 
     <div class="accordion">
@@ -20,90 +20,94 @@
             </button>
           </h3>
           <div id="preservation-collapse" class="accordion-collapse collapse show" aria-labelledby="preservation-heading">
-            <div class="accordion-body">
+            <div class="accordion-body p-0">
               <?php if ($showOriginalFileMetadata) { ?>
 
-                <div class="digital-object-metadata-header">
-                  <h3><?php echo __('Original file'); ?> <i class="fa fa-archive<?php if (!$canAccessOriginalFile) { ?> inactive<?php } ?>" aria-hidden="true"></i></h3>
-                </div>
+                <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                <div class="digital-object-metadata-body">
-                  <?php if ($showOriginalFileName) { ?>
-                    <?php echo render_show(__('Filename'), render_value($resource->object->originalFileName), ['fieldLabel' => 'originalFileName']); ?>
-                  <?php } ?>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Original file'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessOriginalFile) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
-                  <?php if ($showOriginalFormatName) { ?>
-                    <?php echo render_show(__('Format name'), render_value($resource->object->formatName), ['fieldLabel' => 'originalFileFormatName']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFormatVersion) { ?>
-                    <?php echo render_show(__('Format version'), render_value($resource->object->formatVersion), ['fieldLabel' => 'originalFileFormatVersion']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFormatRegistryKey) { ?>
-                    <?php echo render_show(__('Format registry key'), render_value($resource->object->formatRegistryKey), ['fieldLabel' => 'originalFileFormatRegistryKey']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFormatRegistryName) { ?>
-                    <?php echo render_show(__('Format registry name'), render_value($resource->object->formatRegistryName), ['fieldLabel' => 'originalFileFormatRegistryName']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFileSize) { ?>
-                    <?php echo render_show(__('Filesize'), hr_filesize(intval((string) $resource->object->originalFileSize)), ['fieldLabel' => 'originalFileSize']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFileIngestedAt) { ?>
-                    <?php echo render_show(__('Ingested'), format_date($originalFileIngestedAt, 'f'), ['fieldLabel' => 'originalFileIngestedAt']); ?>
-                  <?php } ?>
-
-                  <?php if ($showOriginalFilePermissions) { ?>
-                    <?php echo render_show(__('Permissions'), render_value($accessStatement), ['fieldLabel' => 'originalFilePermissions']); ?>
-                  <?php } ?>
-
-                  <?php if ($sf_user->isAuthenticated() && $relatedToIo) { ?>
-                    <?php if ($storageServicePluginEnabled) { ?>
-                      <?php include_partial(
-                        'arStorageService/aipDownload', ['resource' => $resource]
-                      ); ?>
-                    <?php } else { ?>
-                      <?php echo render_show(
-                        __('File UUID'),
-                        render_value($resource->object->objectUUID),
-                        ['fieldLabel' => 'objectUUID']
-                      ); ?>
-                      <?php echo render_show(
-                        __('AIP UUID'),
-                        render_value($resource->object->aipUUID),
-                        ['fieldLabel' => 'aipUUID']
-                      ); ?>
+                  <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
+                    <?php if ($showOriginalFileName) { ?>
+                      <?php echo render_show(__('Filename'), render_value_inline($resource->object->originalFileName), ['fieldLabel' => 'originalFileName', 'isSubField' => true]); ?>
                     <?php } ?>
-                  <?php } ?>
+
+                    <?php if ($showOriginalFormatName) { ?>
+                      <?php echo render_show(__('Format name'), render_value_inline($resource->object->formatName), ['fieldLabel' => 'originalFileFormatName', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFormatVersion) { ?>
+                      <?php echo render_show(__('Format version'), render_value_inline($resource->object->formatVersion), ['fieldLabel' => 'originalFileFormatVersion', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFormatRegistryKey) { ?>
+                      <?php echo render_show(__('Format registry key'), render_value_inline($resource->object->formatRegistryKey), ['fieldLabel' => 'originalFileFormatRegistryKey', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFormatRegistryName) { ?>
+                      <?php echo render_show(__('Format registry name'), render_value_inline($resource->object->formatRegistryName), ['fieldLabel' => 'originalFileFormatRegistryName', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFileSize) { ?>
+                      <?php echo render_show(__('Filesize'), hr_filesize(intval((string) $resource->object->originalFileSize)), ['fieldLabel' => 'originalFileSize', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFileIngestedAt) { ?>
+                      <?php echo render_show(__('Ingested'), format_date($originalFileIngestedAt, 'f'), ['fieldLabel' => 'originalFileIngestedAt', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showOriginalFilePermissions) { ?>
+                      <?php echo render_show(__('Permissions'), render_value($accessStatement), ['fieldLabel' => 'originalFilePermissions', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($sf_user->isAuthenticated() && $relatedToIo) { ?>
+                      <?php if ($storageServicePluginEnabled) { ?>
+                        <?php include_partial(
+                          'arStorageService/aipDownload', ['resource' => $resource]
+                        ); ?>
+                      <?php } else { ?>
+                        <?php echo render_show(
+                          __('File UUID'),
+                          render_value_inline($resource->object->objectUUID),
+                          ['fieldLabel' => 'objectUUID', 'isSubField' => true]
+                        ); ?>
+                        <?php echo render_show(
+                          __('AIP UUID'),
+                          render_value_inline($resource->object->aipUUID),
+                          ['fieldLabel' => 'aipUUID', 'isSubField' => true]
+                        ); ?>
+                      <?php } ?>
+                    <?php } ?>
+                   </div>
+
                 </div>
 
               <?php } ?>
 
               <?php if ($showPreservationCopyMetadata) { ?>
 
-                <div class="digital-object-metadata-header">
-                  <h3><?php echo __('Preservation copy'); ?> <i class="fa fa-archive<?php if (!$canAccessPreservationCopy) { ?> inactive<?php } ?>" aria-hidden="true"></i></h3>
-                </div>
+                <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                <div class="digital-object-metadata-body">
-                  <?php if ($showPreservationCopyFileName) { ?>
-                    <?php echo render_show(__('Filename'), render_value($resource->object->preservationCopyFileName), ['fieldLabel' => 'preservationCopyFileName']); ?>
-                  <?php } ?>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Preservation copy'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessPreservationCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
-                  <?php if ($showPreservationCopyFileSize) { ?>
-                    <?php echo render_show(__('Filesize'), hr_filesize(intval((string) $resource->object->preservationCopyFileSize)), ['fieldLabel' => 'preservationCopyFileSize']); ?>
-                  <?php } ?>
+                  <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
+                    <?php if ($showPreservationCopyFileName) { ?>
+                      <?php echo render_show(__('Filename'), render_value_inline($resource->object->preservationCopyFileName), ['fieldLabel' => 'preservationCopyFileName', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showPreservationCopyNormalizedAt) { ?>
-                    <?php echo render_show(__('Normalized'), format_date($preservationCopyNormalizedAt, 'f'), ['fieldLabel' => 'preservactionCopyNormalizedAt']); ?>
-                  <?php } ?>
+                    <?php if ($showPreservationCopyFileSize) { ?>
+                      <?php echo render_show(__('Filesize'), hr_filesize(intval((string) $resource->object->preservationCopyFileSize)), ['fieldLabel' => 'preservationCopyFileSize', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showPreservationCopyPermissions) { ?>
-                    <?php echo render_show(__('Permissions'), render_value($accessStatement), ['fieldLabel' => 'preservationCopyPermissions']); ?>
-                  <?php } ?>
+                    <?php if ($showPreservationCopyNormalizedAt) { ?>
+                      <?php echo render_show(__('Normalized'), format_date($preservationCopyNormalizedAt, 'f'), ['fieldLabel' => 'preservactionCopyNormalizedAt', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showPreservationCopyPermissions) { ?>
+                      <?php echo render_show(__('Permissions'), render_value($accessStatement), ['fieldLabel' => 'preservationCopyPermissions', 'isSubField' => true]); ?>
+                    <?php } ?>
+                  </div>
+
                 </div>
 
               <?php } ?>
@@ -122,130 +126,136 @@
             </button>
           </h3>
           <div id="access-collapse" class="accordion-collapse collapse<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? '' : ' show'; ?>" aria-labelledby="access-heading">
-            <div class="accordion-body">
+            <div class="accordion-body p-0">
               <?php if ($showMasterFileMetadata) { ?>
 
-                <div class="digital-object-metadata-header">
-                  <h3><?php echo __('Master file'); ?> <i class="fa fa-file<?php if (!$canAccessMasterFile) { ?> inactive<?php } ?>" aria-hidden="true"></i></h3>
-                </div>
+                <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                <div class="digital-object-metadata-body">
-                  <?php if ($showMasterFileGoogleMap) { ?>
-                    <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
-                  <?php } ?>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Master file'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessMasterFile) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
-                  <?php if ($showMasterFileGeolocation) { ?>
-                    <?php echo render_show(__('Latitude'), render_value($latitude), ['fieldLabel' => 'latitude']); ?>
-                    <?php echo render_show(__('Longitude'), render_value($longitude), ['fieldLabel' => 'longitude']); ?>
-                  <?php } ?>
-
-                  <?php if ($showMasterFileURL) { ?>
-                    <?php echo render_show(__('URL'), render_value($resource->path), ['fieldLabel' => 'url']); ?>
-                  <?php } ?>
-
-                  <?php if ($showMasterFileName) { ?>
-                    <?php if ($canAccessMasterFile) { ?>
-                      <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename']); ?>
-                    <?php } else { ?>
-                      <?php echo render_show(__('Filename'), render_value($resource->name), ['fieldLabel' => 'filename']); ?>
+                  <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
+                    <?php if ($showMasterFileGoogleMap) { ?>
+                      <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
                     <?php } ?>
-                  <?php } ?>
 
-                  <?php if ($showMasterFileMediaType) { ?>
-                    <?php echo render_show(__('Media type'), render_value($resource->mediaType), ['fieldLabel' => 'mediaType']); ?>
-                  <?php } ?>
+                    <?php if ($showMasterFileGeolocation) { ?>
+                      <?php echo render_show(__('Latitude'), render_value_inline($latitude), ['fieldLabel' => 'latitude', 'isSubField' => true]); ?>
+                      <?php echo render_show(__('Longitude'), render_value_inline($longitude), ['fieldLabel' => 'longitude', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showMasterFileMimeType) { ?>
-                    <?php echo render_show(__('Mime-type'), render_value($resource->mimeType), ['fieldLabel' => 'mimeType']); ?>
-                  <?php } ?>
+                    <?php if ($showMasterFileURL) { ?>
+                      <?php echo render_show(__('URL'), render_value($resource->path), ['fieldLabel' => 'url', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showMasterFileSize) { ?>
-                    <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize), ['fieldLabel' => 'filesize']); ?>
-                  <?php } ?>
+                    <?php if ($showMasterFileName) { ?>
+                      <?php if ($canAccessMasterFile) { ?>
+                        <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                      <?php } else { ?>
+                        <?php echo render_show(__('Filename'), render_value_inline($resource->name), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                      <?php } ?>
+                    <?php } ?>
 
-                  <?php if ($showMasterFileCreatedAt) { ?>
-                    <?php echo render_show(__('Uploaded'), format_date($resource->createdAt, 'f'), ['fieldLabel' => 'uploaded']); ?>
-                  <?php } ?>
+                    <?php if ($showMasterFileMediaType) { ?>
+                      <?php echo render_show(__('Media type'), render_value_inline($resource->mediaType), ['fieldLabel' => 'mediaType', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showMasterFilePermissions) { ?>
-                    <?php echo render_show(__('Permissions'), render_value($masterFileDenyReason), ['fieldLabel' => 'masterFilePermissions']); ?>
-                  <?php } ?>
+                    <?php if ($showMasterFileMimeType) { ?>
+                      <?php echo render_show(__('Mime-type'), render_value_inline($resource->mimeType), ['fieldLabel' => 'mimeType', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showMasterFileSize) { ?>
+                      <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize), ['fieldLabel' => 'filesize', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showMasterFileCreatedAt) { ?>
+                      <?php echo render_show(__('Uploaded'), format_date($resource->createdAt, 'f'), ['fieldLabel' => 'uploaded', 'isSubField' => true]); ?>
+                    <?php } ?>
+
+                    <?php if ($showMasterFilePermissions) { ?>
+                      <?php echo render_show(__('Permissions'), render_value($masterFileDenyReason), ['fieldLabel' => 'masterFilePermissions', 'isSubField' => true]); ?>
+                    <?php } ?>
+                  </div>
+
                 </div>
 
               <?php } ?>
 
               <?php if ($showReferenceCopyMetadata) { ?>
 
-                <div class="digital-object-metadata-header">
-                  <h3><?php echo __('Reference copy'); ?> <i class="fa fa-file<?php if (!$canAccessReferenceCopy) { ?> inactive<?php } ?>" aria-hidden="true"></i></h3>
-                </div>
+                <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                <div class="digital-object-metadata-body">
-                  <?php if ($showReferenceCopyFileName) { ?>
-                    <?php if ($canAccessReferenceCopy && $sf_user->isAuthenticated()) { ?>
-                      <?php echo render_show(__('Filename'), link_to(render_value_inline($referenceCopy->name), $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName']); ?>
-                    <?php } else { ?>
-                      <?php echo render_show(__('Filename'), render_value($referenceCopy->name), ['fieldLabel' => 'referenceCopyFileName']); ?>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Reference copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessReferenceCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+
+                  <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
+                    <?php if ($showReferenceCopyFileName) { ?>
+                      <?php if ($canAccessReferenceCopy && $sf_user->isAuthenticated()) { ?>
+                        <?php echo render_show(__('Filename'), link_to(render_value_inline($referenceCopy->name), $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
+                      <?php } else { ?>
+                        <?php echo render_show(__('Filename'), render_value_inline($referenceCopy->name), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
+                      <?php } ?>
                     <?php } ?>
-                  <?php } ?>
 
-                  <?php if ($showReferenceCopyMediaType) { ?>
-                    <?php echo render_show(__('Media type'), render_value($referenceCopy->mediaType), ['fieldLabel' => 'referenceCopyFileName']); ?>
-                  <?php } ?>
+                    <?php if ($showReferenceCopyMediaType) { ?>
+                      <?php echo render_show(__('Media type'), render_value_inline($referenceCopy->mediaType), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showReferenceCopyMimeType) { ?>
-                    <?php echo render_show(__('Mime-type'), render_value($referenceCopy->mimeType), ['fieldLabel' => 'referenceCopyMimeType']); ?>
-                  <?php } ?>
+                    <?php if ($showReferenceCopyMimeType) { ?>
+                      <?php echo render_show(__('Mime-type'), render_value_inline($referenceCopy->mimeType), ['fieldLabel' => 'referenceCopyMimeType', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showReferenceCopyFileSize) { ?>
-                    <?php echo render_show(__('Filesize'), hr_filesize($referenceCopy->byteSize), ['fieldLabel' => 'referenceCopyFileSize']); ?>
-                  <?php } ?>
+                    <?php if ($showReferenceCopyFileSize) { ?>
+                      <?php echo render_show(__('Filesize'), hr_filesize($referenceCopy->byteSize), ['fieldLabel' => 'referenceCopyFileSize', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showReferenceCopyCreatedAt) { ?>
-                    <?php echo render_show(__('Uploaded'), format_date($referenceCopy->createdAt, 'f'), ['fieldLabel' => 'referenceCopyUploaded']); ?>
-                  <?php } ?>
+                    <?php if ($showReferenceCopyCreatedAt) { ?>
+                      <?php echo render_show(__('Uploaded'), format_date($referenceCopy->createdAt, 'f'), ['fieldLabel' => 'referenceCopyUploaded', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showReferenceCopyPermissions) { ?>
-                    <?php echo render_show(__('Permissions'), render_value($referenceCopyDenyReason), ['fieldLabel' => 'referenceCopyPermissions']); ?>
-                  <?php } ?>
+                    <?php if ($showReferenceCopyPermissions) { ?>
+                      <?php echo render_show(__('Permissions'), render_value($referenceCopyDenyReason), ['fieldLabel' => 'referenceCopyPermissions', 'isSubField' => true]); ?>
+                    <?php } ?>
+                  </div>
+
                 </div>
 
               <?php } ?>
 
               <?php if ($showThumbnailCopyMetadata) { ?>
 
-                <div class="digital-object-metadata-header">
-                  <h3><?php echo __('Thumbnail copy'); ?> <i class="fa fa-file<?php if (!$canAccessThumbnailCopy) { ?> inactive<?php } ?>" aria-hidden="true"></i></h3>
-                </div>
+                <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                <div class="digital-object-metadata-body">
-                  <?php if ($showThumbnailCopyFileName) { ?>
-                    <?php if ($canAccessThumbnailCopy) { ?>
-                      <?php echo render_show(__('Filename'), link_to(render_value_inline($thumbnailCopy->name), $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
-                    <?php } else { ?>
-                      <?php echo render_show(__('Filename'), render_value($thumbnailCopy->name), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Thumbnail copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessThumbnailCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+
+                  <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
+                    <?php if ($showThumbnailCopyFileName) { ?>
+                      <?php if ($canAccessThumbnailCopy) { ?>
+                        <?php echo render_show(__('Filename'), link_to(render_value_inline($thumbnailCopy->name), $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
+                      <?php } else { ?>
+                        <?php echo render_show(__('Filename'), render_value_inline($thumbnailCopy->name), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
+                      <?php } ?>
                     <?php } ?>
-                  <?php } ?>
 
-                  <?php if ($showThumbnailCopyMediaType) { ?>
-                    <?php echo render_show(__('Media type'), render_value($thumbnailCopy->mediaType), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
-                  <?php } ?>
+                    <?php if ($showThumbnailCopyMediaType) { ?>
+                      <?php echo render_show(__('Media type'), render_value_inline($thumbnailCopy->mediaType), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showThumbnailCopyMimeType) { ?>
-                    <?php echo render_show(__('Mime-type'), render_value($thumbnailCopy->mimeType), ['fieldLabel' => 'thumbnailCopyMimeType']); ?>
-                  <?php } ?>
+                    <?php if ($showThumbnailCopyMimeType) { ?>
+                      <?php echo render_show(__('Mime-type'), render_value_inline($thumbnailCopy->mimeType), ['fieldLabel' => 'thumbnailCopyMimeType', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showThumbnailCopyFileSize) { ?>
-                    <?php echo render_show(__('Filesize'), hr_filesize($thumbnailCopy->byteSize), ['fieldLabel' => 'thumbnailCopyFileSize']); ?>
-                  <?php } ?>
+                    <?php if ($showThumbnailCopyFileSize) { ?>
+                      <?php echo render_show(__('Filesize'), hr_filesize($thumbnailCopy->byteSize), ['fieldLabel' => 'thumbnailCopyFileSize', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if ($showThumbnailCopyCreatedAt) { ?>
-                    <?php echo render_show(__('Uploaded'), format_date($thumbnailCopy->createdAt, 'f'), ['fieldLabel' => 'thumbnailCopyUploaded']); ?>
-                  <?php } ?>
+                    <?php if ($showThumbnailCopyCreatedAt) { ?>
+                      <?php echo render_show(__('Uploaded'), format_date($thumbnailCopy->createdAt, 'f'), ['fieldLabel' => 'thumbnailCopyUploaded', 'isSubField' => true]); ?>
+                    <?php } ?>
 
-                  <?php if (!empty($thumbnailCopyDenyReason)) { ?>
-                    <?php echo render_show(__('Permissions'), render_value($thumbnailCopyDenyReason), ['fieldLabel' => 'thumbnailCopyPermissions']); ?>
-                  <?php } ?>
+                    <?php if (!empty($thumbnailCopyDenyReason)) { ?>
+                      <?php echo render_show(__('Permissions'), render_value($thumbnailCopyDenyReason), ['fieldLabel' => 'thumbnailCopyPermissions', 'isSubField' => true]); ?>
+                    <?php } ?>
+                  </div>
+
                 </div>
 
               <?php } ?>

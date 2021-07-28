@@ -6,7 +6,7 @@
     attach: () => {
       // Get i18n text for read more/less links from footer
       var $i18n = $('#js-i18n #read-more-less-links');
-      $('.search-result .text-block')
+      $('.search-result .text-block, div.field:not(:has(div.field)) > div')
       .expander({
         slicePoint: 255,
         expandText: $i18n.data('read-more-text'),
