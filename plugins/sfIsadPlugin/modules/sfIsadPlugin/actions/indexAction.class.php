@@ -60,9 +60,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     'This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-1#3.2.1">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.2.1">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -80,9 +80,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['invalid' => $this->context->i18n->__(
                     '%1%Date(s)%2% - are not consistent with %3%higher levels%2%.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.3">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.3">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="%ancestor%">',
+                        '%3%' => '<a class="alert-link" href="%ancestor%">',
                     ]
                 )]
             );
@@ -93,9 +93,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Date(s)%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.3">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.3">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -107,9 +107,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Extent and medium%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.5">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.5">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -121,9 +121,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Identifier%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.1">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.1">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -131,8 +131,8 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
             $values['identifier'] = $this->resource->identifier;
 
             $this->addField($validatorSchema, 'levelOfDescription');
-            $validatorSchema->levelOfDescription->setMessage('forbidden', $this->context->i18n->__('%1%Level of description%2% - Value "%value%" is not consistent with higher levels.', ['%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.4">', '%2%' => '</a>']));
-            $validatorSchema->levelOfDescription->setMessage('required', $this->context->i18n->__('%1%Level of description%2% - This is a %3%mandatory%4% element.', ['%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.4">', '%2%' => '</a>', '%3%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">', '%4%' => '</a>']));
+            $validatorSchema->levelOfDescription->setMessage('forbidden', $this->context->i18n->__('%1%Level of description%2% - Value "%value%" is not consistent with higher levels.', ['%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.4">', '%2%' => '</a>']));
+            $validatorSchema->levelOfDescription->setMessage('required', $this->context->i18n->__('%1%Level of description%2% - This is a %3%mandatory%4% element.', ['%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.4">', '%2%' => '</a>', '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">', '%4%' => '</a>']));
 
             if (isset($this->resource->levelOfDescription)) {
                 $values['levelOfDescription'] = $this->resource->levelOfDescription->getName(['sourceCulture' => true]);
@@ -143,9 +143,9 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Title%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-1#3.1.2">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.2">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-1#I.12">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#I.12">',
                         '%4%' => '</a>',
                     ]
                 )]
