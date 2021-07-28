@@ -1,5 +1,11 @@
 <h1><?php echo __('Edit %1% permissions of %2%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor')), '%2%' => render_title($resource)]); ?></h1>
 
+<?php echo get_partial('aclGroup/aclModal', [
+    'entityType' => 'actor',
+    'label' => sfConfig::get('app_ui_label_actor'),
+    'basicActions' => $basicActions,
+]); ?>
+
 <?php echo $form->renderGlobalErrors(); ?>
 
 <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'user', 'action' => 'editActorAcl']), ['id' => 'editForm']); ?>
@@ -16,15 +22,25 @@
       <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
         <div class="accordion-body">
           <?php foreach ($actors as $key => $item) { ?>
-            <div class="form-item">
-              <?php echo get_component('aclGroup', 'aclTable', ['object' => QubitActor::getById($key), 'permissions' => $item, 'actions' => $basicActions]); ?>
-            </div>
+            <?php echo get_component('aclGroup', 'aclTable', [
+                'object' => QubitActor::getById($key),
+                'permissions' => $item,
+                'actions' => $basicActions,
+            ]); ?>
           <?php } ?>
 
-          <div class="form-item">
-            <label for="addActorLink"><?php echo __('Add permissions by %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor'))]); ?></label>
-            <a id="addActorLink" href="#"><?php echo __('Add %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor'))]); ?></a>
-          </div>
+          <button
+            class="btn atom-btn-white text-wrap"
+            type="button"
+            id="acl-add-actor"
+            data-bs-toggle="modal"
+            data-bs-target="#acl-modal-container-actor">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __(
+                'Add permissions by %1%',
+                ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor'))]
+            ); ?>
+          </button>
         </div>
       </div>
     </div>

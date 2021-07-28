@@ -1,7 +1,10 @@
-<h1 class="multiline">
-  <?php echo __('Edit %1% permissions', ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository'))]); ?>
-  <span class="sub"><?php echo render_title($resource); ?></span>
-</h1>
+<h1><?php echo __('Edit %1% permissions of %2%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository')), '%2%' => render_title($resource)]); ?></h1>
+
+<?php echo get_partial('aclGroup/aclModal', [
+    'entityType' => 'repository',
+    'label' => sfConfig::get('app_ui_label_repository'),
+    'basicActions' => $basicActions,
+]); ?>
 
 <?php echo $form->renderGlobalErrors(); ?>
 
@@ -19,15 +22,25 @@
       <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
         <div class="accordion-body">
           <?php foreach ($repositories as $key => $item) { ?>
-            <div class="form-item">
-              <?php echo get_component('aclGroup', 'aclTable', ['object' => QubitRepository::getById($key), 'permissions' => $item, 'actions' => $basicActions]); ?>
-            </div>
+            <?php echo get_component('aclGroup', 'aclTable', [
+                'object' => QubitRepository::getById($key),
+                'permissions' => $item,
+                'actions' => $basicActions,
+            ]); ?>
           <?php } ?>
 
-          <div class="form-item">
-            <label for="addRepositoryLink"><?php echo __('Add permissions by %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository'))]); ?></label>
-            <a id="addRepositoryLink" href="#"><?php echo __('Add %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository'))]); ?></a>
-          </div>
+          <button
+            class="btn atom-btn-white text-wrap"
+            type="button"
+            id="acl-add-repository"
+            data-bs-toggle="modal"
+            data-bs-target="#acl-modal-container-repository">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __(
+                'Add permissions by %1%',
+                ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository'))]
+            ); ?>
+          </button>
         </div>
       </div>
     </div>
