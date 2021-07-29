@@ -1,7 +1,5 @@
 <h1><?php echo __('User %1%', ['%1%' => render_title($resource)]); ?></h1>
 
-<?php echo get_component('user', 'aclMenu'); ?>
-
 <?php if (!$resource->active) { ?>
   <div class="messages error">
     <ul>
@@ -11,6 +9,8 @@
     </ul>
   </div>
 <?php } ?>
+
+<?php echo get_component('user', 'aclMenu'); ?>
 
 <section id="content">
 
