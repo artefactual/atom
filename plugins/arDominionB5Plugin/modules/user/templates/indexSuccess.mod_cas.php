@@ -68,7 +68,7 @@
         <div class="accordion accordion-flush border-top hidden" id="editingHistory">
           <div class="accordion-item">
             <h2 class="accordion-header" id="history-heading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
+              <button class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
                 <?php echo __('Editing history'); ?>
                 <span id="editingHistoryActivityIndicator">
                   <i class="fas fa-spinner fa-spin ms-2" aria-hidden="true"></i>
