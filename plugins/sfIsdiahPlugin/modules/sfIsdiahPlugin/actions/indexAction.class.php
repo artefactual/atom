@@ -55,9 +55,9 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Authorized form of name%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.1.2">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#5.1.2">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -69,9 +69,9 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Identifier%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.1.1">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#5.1.1">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -110,9 +110,9 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
                             .' the following location or address fields: city, country, postal'
                             .' code, region or street address.',
                             [
-                                '%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.2.1">',
+                                '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#5.2.1">',
                                 '%2%' => '</a>',
-                                '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">',
+                                '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#4.7">',
                                 '%4%' => '</a>',
                             ]
                         )]
@@ -122,9 +122,9 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Contact information%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.2.1">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#5.2.1">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
