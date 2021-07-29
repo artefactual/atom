@@ -50,9 +50,9 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Authorized form of name%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.1.2">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#5.1.2">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -64,9 +64,9 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Dates of existence%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.2.1">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#5.2.1">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -79,9 +79,9 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
                     ['required' => $this->context->i18n->__(
                         '%1%Authority record identifier%2% - This is a %3%mandatory%4% element.',
                         [
-                            '%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.4.1">',
+                            '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#5.4.1">',
                             '%2%' => '</a>',
-                            '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">',
+                            '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#4.7">',
                             '%4%' => '</a>',
                         ]
                     )]
@@ -95,9 +95,9 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Type of entity%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.1.1">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#5.1.1">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-2#4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
