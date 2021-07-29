@@ -1,7 +1,7 @@
 <nav>
-  <ul class="nav nav-pills mb-2">
+  <ul class="nav nav-pills mb-2 d-flex gap-2">
   <?php foreach ($groupsMenu->getChildren() as $child) { ?>
-      <?php $options = ['class' => 'nav-link']; ?>
+      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
       <?php if (
           str_replace('%currentId%', $sf_request->id, $child->path)
           == $sf_context->getRouting()->getCurrentInternalUri()
