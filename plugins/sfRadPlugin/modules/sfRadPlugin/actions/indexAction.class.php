@@ -60,7 +60,7 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                 ['invalid' => $this->context->i18n->__(
                     'Date(s) - are not consistent with %1%higher levels%2%.',
                     [
-                        '%1%' => '<a href="%ancestor%">',
+                        '%1%' => '<a class="alert-link" href="%ancestor%">',
                         '%2%' => '</a>',
                     ]
                 )]
