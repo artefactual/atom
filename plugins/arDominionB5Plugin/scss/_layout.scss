@@ -78,18 +78,6 @@
   border-radius: $border-radius;
 }
 
-.digitalObjectMetadata h3 button,
-.aggregation h2 button,
-#editingHistory h2 button  {
-  &:not(.collapsed) {
-    background-color: $white;
-  }
-}
-
-.aggregation h2 button {
-  font-weight: 500;
-}
-
 .actions {
   background-color: $secondary;
   border-radius: $border-radius;
