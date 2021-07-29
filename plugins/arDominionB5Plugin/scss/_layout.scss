@@ -41,32 +41,6 @@
   margin-bottom: $spacer;
 }
 
-.search-result {
-  &:last-child {
-    border-bottom: 0 !important;
-  }
-
-  .text-block :last-child {
-    margin-bottom: 0;
-  }
-}
-
-.default-translation {
-  padding: math.div($spacer, 2);
-  margin-bottom: math.div($spacer, 2);
-  margin-top: 0;
-  background: #ffffe0;
-  border: $border-width dashed gold;
-  border-radius: $border-radius;
-}
-
-.actions {
-  background-color: $secondary;
-  border-radius: $border-radius;
-  margin-top: $spacer;
-  padding: $spacer;
-}
-
 #atom-digital-object-carousel {
   .slick-track {
     display: flex;
@@ -87,13 +61,48 @@
   }
 }
 
-.hidden {
-  display: none;
-  visibility: hidden;
+.search-result {
+  &:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .text-block :last-child {
+    margin-bottom: 0;
+  }
 }
 
+.default-translation {
+  padding: math.div($spacer, 2);
+  margin-bottom: math.div($spacer, 2);
+  margin-top: 0;
+  background: #ffffe0;
+  border: $border-width dashed gold;
+  border-radius: $border-radius;
+}
+
+.digitalObjectMetadata h3 button,
+.aggregation h2 button,
+#editingHistory h2 button  {
+  &:not(.collapsed) {
+    background-color: $white;
+  }
+}
+
+.aggregation h2 button {
+  font-weight: 500;
+}
+
+.actions {
+  background-color: $secondary;
+  border-radius: $border-radius;
+  margin-top: $spacer;
+  padding: $spacer;
+}
+
+.hidden,
 body > iframe {
   display: none;
+  visibility: hidden;
 }
 
 @include media-breakpoint-down(sm) {
