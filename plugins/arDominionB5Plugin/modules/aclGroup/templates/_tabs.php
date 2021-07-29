@@ -1,13 +1,9 @@
 <nav>
   <ul class="nav nav-pills mb-2">
-    <?php foreach ($userAclMenu->getChildren() as $item) { ?>
+  <?php foreach ($groupsMenu->getChildren() as $child) { ?>
       <?php $options = ['class' => 'nav-link']; ?>
       <?php if (
-          str_replace(
-              '%currentSlug%',
-              $sf_request->getAttribute('sf_route')->resource->slug,
-              $item->path
-          )
+          str_replace('%currentId%', $sf_request->id, $child->path)
           == $sf_context->getRouting()->getCurrentInternalUri()
       ) { ?>
         <?php $options['class'] .= ' active'; ?>
@@ -15,8 +11,8 @@
       <?php } ?>
       <li class="nav-item">
         <?php echo link_to(
-            $item->getLabel(['cultureFallback' => true]),
-            $item->getPath(['getUrl' => true, 'resolveAlias' => true]),
+            $child->getLabel(['cultureFallback' => true]),
+            $child->getPath(['getUrl' => true, 'resolveAlias' => true]),
             $options
         ); ?>
       </li>
