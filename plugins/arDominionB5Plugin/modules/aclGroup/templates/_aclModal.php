@@ -3,11 +3,10 @@
   id="acl-modal-container-<?php echo $entityType; ?>"
   data-trigger-button="acl-add-<?php echo $entityType; ?>"
   data-bs-backdrop="static"
-  data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="acl-modal-heading-<?php echo $entityType; ?>"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="acl-modal-heading-<?php echo $entityType; ?>">
