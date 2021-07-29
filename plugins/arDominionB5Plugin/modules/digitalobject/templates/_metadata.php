@@ -9,7 +9,7 @@
       <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), render_b5_section_label(__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
     <?php } ?>
 
-    <div class="accordion">
+    <div class="accordion accordion-flush">
 
       <?php if ($showOriginalFileMetadata || $showPreservationCopyMetadata) { ?>
 
