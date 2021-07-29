@@ -340,7 +340,7 @@
 
     <?php } ?>
 
-    <section id="accessionArea">
+    <section id="accessionArea" class="border-bottom">
 
       <?php echo render_b5_section_label(__('Accession area')); ?>
 
