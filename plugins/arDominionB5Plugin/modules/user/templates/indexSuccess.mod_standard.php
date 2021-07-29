@@ -12,84 +12,66 @@
 
 <?php echo get_component('user', 'aclMenu'); ?>
 
-<section id="content">
+<section id="content" class="p-0">
 
   <section id="userDetails">
 
-    <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('User details').'</h2>', [$resource, 'module' => 'user', 'action' => 'edit']); ?>
+    <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('User details')), [$resource, 'module' => 'user', 'action' => 'edit'], ['class' => 'text-primary']); ?>
 
-    <?php echo render_show(__('User name'), render_value($resource->username.($sf_user->user === $resource ? ' ('.__('you').')' : ''))); ?>
+    <?php echo render_show(__('User name'), render_value_inline($resource->username.($sf_user->user === $resource ? ' ('.__('you').')' : ''))); ?>
 
     <?php echo render_show(__('Email'), $resource->email); ?>
 
     <?php if (!$sf_user->isAdministrator()) { ?>
-      <div class="field">
-        <h3><?php echo __('Password'); ?></h3>
-        <div><?php echo link_to(__('Reset password'), [$resource, 'module' => 'user', 'action' => 'passwordEdit']); ?></div>
-      </div>
+      <?php echo render_show(__('Password'), link_to(__('Reset password'), [$resource, 'module' => 'user', 'action' => 'passwordEdit'])); ?>
     <?php } ?>
 
     <?php if (0 < count($groups = $resource->getAclGroups())) { ?>
-      <div class="field">
-        <h3><?php echo __('User groups'); ?></h3>
-        <div>
-          <ul>
+      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+        <?php echo render_b5_show_label(__('User groups')); ?>
+        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
             <?php foreach ($groups as $item) { ?>
-              <?php if (100 <= $item->id) { ?>
-                <li><?php echo $item->__toString(); ?></li>
-              <?php } else { ?>
-                <li><span class="note2"><?php echo $item->__toString(); ?></li>
-              <?php } ?>
+              <li><?php echo $item->__toString(); ?></li>
             <?php } ?>
           </ul>
         </div>
       </div>
     <?php } ?>
 
-    <?php if (sfConfig::get('app_multi_repository')) { ?>
-      <?php if (0 < count($repositories = $resource->getRepositories())) { ?>
-        <div class="field">
-          <h3><?php echo __('Repository affiliation'); ?></h3>
-          <div>
-            <ul>
-              <?php foreach ($repositories as $item) { ?>
-                <li><?php echo render_title($item); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
+    <?php if (
+        sfConfig::get('app_multi_repository')
+        && 0 < count($repositories = $resource->getRepositories())
+    ) { ?>
+      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+        <?php echo render_b5_show_label(__('Repository affiliation')); ?>
+        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
+            <?php foreach ($repositories as $item) { ?>
+              <li><?php echo render_title($item); ?></li>
+            <?php } ?>
+          </ul>
         </div>
-      <?php } ?>
+      </div>
     <?php } ?>
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin')) { ?>
-      <div class="field">
-        <h3><?php echo __('REST API key'); ?></h3>
-        <div>
-          <?php if (isset($restApiKey)) { ?>
-            <code><?php echo $restApiKey; ?></code>
-          <?php } else { ?>
-            <?php echo __('Not generated yet.'); ?>
-          <?php } ?>
-        </div>
-      </div>
+      <?php echo render_show(
+          __('OAI-PMH API key'),
+          isset($restApiKey) ? '<code>'.$restApiKey.'</code>' : __('Not generated yet.')
+      ); ?>
     <?php } ?>
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')) { ?>
-      <div class="field">
-        <h3><?php echo __('OAI-PMH API key'); ?></h3>
-        <div>
-          <?php if (isset($oaiApiKey)) { ?>
-            <code><?php echo $oaiApiKey; ?></code>
-          <?php } else { ?>
-            <?php echo __('Not generated yet.'); ?>
-          <?php } ?>
-        </div>
-      </div>
+      <?php echo render_show(
+          __('OAI-PMH API key'),
+          isset($oaiApiKey) ? '<code>'.$oaiApiKey.'</code>' : __('Not generated yet.')
+      ); ?>
     <?php } ?>
 
     <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
       <div id="editing-history-wrapper">
-        <div class="accordion hidden" id="editingHistory">
+        <div class="accordion accordion-flush border-top hidden" id="editingHistory">
           <div class="accordion-item">
             <h2 class="accordion-header" id="history-heading">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
@@ -102,7 +84,7 @@
             </h2>
             <div id="history-collapse" class="accordion-collapse collapse" aria-labelledby="history-heading">
               <div class="accordion-body table-responsive">
-                <table class="table table-bordered table-striped sticky-enabled">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>
@@ -122,7 +104,7 @@
 
                 <div class="text-end">
                   <input class="btn atom-btn-white" type="button" id='previousButton' value='<?php echo __('Previous'); ?>'>
-                  <input class="btn atom-btn-white" type="button" id='nextButton' value='<?php echo __('Next'); ?>'>
+                  <input class="btn atom-btn-white ms-2" type="button" id='nextButton' value='<?php echo __('Next'); ?>'>
                 </div>
               </div>
             </div>
