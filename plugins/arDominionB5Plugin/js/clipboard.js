@@ -371,8 +371,8 @@
     {
       // If previous and current status don't match,
       // change status, tooltip and button content
-      if ((!$button.hasClass('added') && added)
-        || ($button.hasClass('added') && !added))
+      if ((!$button.hasClass('active') && added)
+        || ($button.hasClass('active') && !added))
       {
         // Show alert when removing
         if (!added)
@@ -380,7 +380,7 @@
           this.showRemoveAlert();
         }
 
-        $button.toggleClass('added');
+        $button.toggleClass('active');
 
         var label = $button.attr('data-title');
         var altLabel = $button.attr('data-alt-title');
