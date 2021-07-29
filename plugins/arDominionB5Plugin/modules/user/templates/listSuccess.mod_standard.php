@@ -8,10 +8,36 @@
   ]); ?>
 </div>
 
-<ul class="nav nav-pills">
-  <li<?php if ('onlyInactive' != $sf_request->filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Show active only'), ['filter' => 'onlyActive'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
-  <li<?php if ('onlyInactive' == $sf_request->filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Show inactive only'), ['filter' => 'onlyInactive'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
-</ul>
+<nav>
+  <ul class="nav nav-pills mb-2">
+    <?php $options = ['class' => 'nav-link']; ?>
+    <?php if ('onlyInactive' != $sf_request->filter) { ?>
+      <?php $options['class'] .= ' active'; ?>
+      <?php $options['aria-current'] = 'page'; ?>
+    <?php } ?>
+    <li class="nav-item">
+      <?php echo link_to(
+          __('Show active only'),
+          ['filter' => 'onlyActive']
+          + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+          $options
+      ); ?>
+    </li>
+    <?php $options = ['class' => 'nav-link']; ?>
+    <?php if ('onlyInactive' == $sf_request->filter) { ?>
+      <?php $options['class'] .= ' active'; ?>
+      <?php $options['aria-current'] = 'page'; ?>
+    <?php } ?>
+    <li class="nav-item">
+      <?php echo link_to(
+          __('Show inactive only'),
+          ['filter' => 'onlyInactive']
+          + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+          $options
+      ); ?>
+    </li>
+  </ul>
+</nav>
 
 <table class="table table-bordered sticky-enabled">
   <thead>
