@@ -84,6 +84,10 @@ class RepositoryUploadLimitComponent extends sfComponent
         if ('limited' == $this->quotaType) {
             // Calc percent
             $dup = $this->diskUsage / floatval($this->resource->uploadLimit) * 100;
+            $this->diskUsageFloat = $dup;
+            if ($this->diskUsageFloat > 100) {
+                $this->diskUsageFloat = 100;
+            }
 
             // Get display values
             if (0 <= $dup && 1 > $dup) {
