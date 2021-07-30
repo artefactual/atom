@@ -27,6 +27,7 @@
     <script src="/plugins/arDominionB5Plugin/js/collapse.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/masonry.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/aclModal.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/uploadLimitModal.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/sidebarPaginatedList.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/maps.js"></script>
     <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
