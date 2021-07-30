@@ -3,6 +3,11 @@
 
   $(() => {
     const $modal = $("#upload-limit-modal");
+
+    if (!$modal.length) {
+      return;
+    }
+
     const $form = $("#upload-limit-form", $modal);
     const $submitButton = $(".btn-success", $modal);
     const $limitNumberInput = $("input#uploadLimit_value", $modal);
