@@ -135,7 +135,9 @@
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showMasterFileGoogleMap) { ?>
-                      <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
+                      <div class="p-1">
+                        <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
+                      </div>
                     <?php } ?>
 
                     <?php if ($showMasterFileGeolocation) { ?>
