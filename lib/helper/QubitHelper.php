@@ -192,6 +192,9 @@ function render_b5_show($label, $value, $options = [])
 {
     $tag = 'div';
     $cssClasses = 'field';
+    if (isset($options['fieldClass'])) {
+        $cssClasses .= ' '.$options['fieldClass'];
+    }
     if (!isset($options['isSubField'])) {
         $cssClasses .= ' '.render_b5_show_field_css_classes($options);
     } else {
@@ -229,6 +232,9 @@ function render_b5_show_label($label, $options = [])
 {
     $tag = isset($options['isSubField']) ? 'h4' : 'h3';
     $cssClasses = render_b5_show_label_css_classes($options);
+    if (isset($options['labelClass'])) {
+        $cssClasses .= ' '.$options['labelClass'];
+    }
 
     return render_b5_show_container($tag, $label, $cssClasses, $options);
 }
@@ -249,6 +255,9 @@ function render_b5_show_value($value, $options = [])
 {
     $tag = 'div';
     $cssClasses = render_b5_show_value_css_classes($options);
+    if (isset($options['valueClass'])) {
+       $cssClasses .= ' '.$options['valueClass'];
+    }
 
     return render_b5_show_container($tag, $value, $cssClasses, $options);
 }
