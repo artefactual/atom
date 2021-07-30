@@ -303,7 +303,7 @@ function render_b5_section_label($label, $options = [])
 
 function render_b5_show_list_css_classes($options = [])
 {
-    return 'm-0 ps-3';
+    return 'm-0 ms-1 ps-3';
 }
 
 function render_show_repository($label, $resource)
