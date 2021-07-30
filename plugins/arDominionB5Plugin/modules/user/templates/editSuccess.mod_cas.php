@@ -26,9 +26,7 @@
           </h2>
           <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
             <div class="accordion-body">
-                <?php echo $form->active
-                    ->label(__('Active'))
-                    ->renderRow(); ?>
+              <?php echo render_field($form->active->label(__('Active'))); ?>
             </div>
           </div>
         </div>
@@ -41,24 +39,28 @@
         </h2>
         <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
-            <?php echo $form->groups
-                ->label(__('User groups'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->groups->label(__('User groups')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php echo $form->translate
-                ->label(__('Allowed languages for translation'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->translate->label(__('Allowed languages for translation')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php if ($restEnabled) { ?>
-              <?php echo $form->restApiKey
-                ->label(__('REST API access key'.((isset($restApiKey)) ? ': <code>'.$restApiKey.'</code>' : '')))
-                ->renderRow(); ?>
+            <?php if (!$restEnabled) { ?>
+              <?php echo render_field($form->restApiKey->label(
+                  __('REST API access key'.((isset($restApiKey)) ? ': <code class="ms-2">'.$restApiKey.'</code>' : ''))
+              )); ?>
             <?php } ?>
 
-            <?php if ($oaiEnabled) { ?>
-              <?php echo $form->oaiApiKey
-                ->label(__('OAI-PMH API access key'.((isset($oaiApiKey)) ? ': <code>'.$oaiApiKey.'</code>' : '')))
-                ->renderRow(); ?>
+            <?php if (!$oaiEnabled) { ?>
+              <?php echo render_field($form->oaiApiKey->label(
+                  __('OAI-PMH API access key'.((isset($oaiApiKey)) ? ': <code class="ms-2">'.$oaiApiKey.'</code>' : ''))
+              )); ?>
             <?php } ?>
           </div>
         </div>

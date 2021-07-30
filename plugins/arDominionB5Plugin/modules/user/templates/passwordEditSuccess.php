@@ -15,20 +15,20 @@
 
     <?php echo $form->renderHiddenFields(); ?>
     
-    <?php $settings = json_encode([
-        'password' => [
-            'strengthTitle' => __('Password strength:'),
-            'hasWeaknesses' => __('To make your password stronger:'),
-            'tooShort' => __('Make it at least six characters'),
-            'addLowerCase' => __('Add lowercase letters'),
-            'addUpperCase' => __('Add uppercase letters'),
-            'addNumbers' => __('Add numbers'),
-            'addPunctuation' => __('Add punctuation'),
-            'sameAsUsername' => __('Make it different from your username'),
-            'confirmSuccess' => __('Yes'),
-            'confirmFailure' => __('No'),
-            'confirmTitle' => __('Passwords match:'),
-            'username' => '', ], ]); ?>
+    <?php $settings = json_encode(['password' => [
+        'strengthTitle' => __('Password strength:'),
+        'hasWeaknesses' => __('To make your password stronger:'),
+        'tooShort' => __('Make it at least six characters'),
+        'addLowerCase' => __('Add lowercase letters'),
+        'addUpperCase' => __('Add uppercase letters'),
+        'addNumbers' => __('Add numbers'),
+        'addPunctuation' => __('Add punctuation'),
+        'sameAsUsername' => __('Make it different from your username'),
+        'confirmSuccess' => __('Yes'),
+        'confirmFailure' => __('No'),
+        'confirmTitle' => __('Passwords match:'),
+        'username' => '',
+    ]]); ?>
 
     <div class="accordion">
       <div class="accordion-item">
@@ -39,21 +39,8 @@
         </h2>
         <div id="password-collapse" class="accordion-collapse collapse show" aria-labelledby="password-heading">
           <div class="accordion-body">
-            <?php echo $form->password->renderError(); ?>
-
-            <div class="form-item password-parent">
-              <?php echo $form->password
-                  ->label(__('New password'))
-                  ->renderLabel(); ?>
-              <?php echo $form->password->render(['class' => 'password-field']); ?>
-            </div>
-
-            <div class="form-item confirm-parent">
-              <?php echo $form->confirmPassword
-                  ->label(__('Confirm password'))
-                  ->renderLabel(); ?>
-              <?php echo $form->confirmPassword->render(['class' => 'password-confirm']); ?>
-            </div>
+            <?php echo render_field($form->password->label(__('New password'))); ?>
+            <?php echo render_field($form->confirmPassword->label(__('Confirm password'))); ?>
           </div>
         </div>
       </div>
