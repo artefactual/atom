@@ -113,6 +113,10 @@ class sfWidgetFormSelectRadio extends sfWidgetFormChoiceBase
 
   public function formatter($widget, $inputs)
   {
+    if (sfConfig::get('app_b5_theme', false)) {
+      return $this->formatterB5($widget, $inputs);
+    }
+  
     $rows = array();
     foreach ($inputs as $input)
     {
@@ -120,5 +124,16 @@ class sfWidgetFormSelectRadio extends sfWidgetFormChoiceBase
     }
 
     return !$rows ? '' : $this->renderContentTag('ul', implode($this->getOption('separator'), $rows), array('class' => $this->getOption('class')));
+  }
+
+  public function formatterB5($widget, $inputs)
+  {
+    $rows = array();
+    foreach ($inputs as $input)
+    {
+      $rows[] = $this->renderContentTag('div', $input['input'].$this->getOption('label_separator').$input['label'], ['class' => 'form-check']);
+    }
+
+    return implode($this->getOption('separator'), $rows);
   }
 }
