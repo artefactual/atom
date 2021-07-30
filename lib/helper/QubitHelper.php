@@ -277,7 +277,7 @@ function render_b5_show_value($value, $options = [])
     }
 
     $finalValue = $value;
-    if (is_array($value)) {
+    if (is_array($value) || $value instanceof sfOutputEscaperObjectDecorator || $value instanceof sfOutputEscaperArrayDecorator) {
         $finalValue = '<ul class="'.render_b5_show_list_css_classes().'">';
         foreach ($value as $item) {
             $finalValue .= '<li>'.$item.'</li>';
