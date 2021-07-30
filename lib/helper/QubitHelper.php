@@ -256,7 +256,7 @@ function render_b5_show_value($value, $options = [])
     $tag = 'div';
     $cssClasses = render_b5_show_value_css_classes($options);
     if (isset($options['valueClass'])) {
-       $cssClasses .= ' '.$options['valueClass'];
+        $cssClasses .= ' '.$options['valueClass'];
     }
 
     return render_b5_show_container($tag, $value, $cssClasses, $options);
