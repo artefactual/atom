@@ -25,54 +25,35 @@
         </h2>
         <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
           <div class="accordion-body">
-            <?php echo $form->username->renderRow(); ?>
+            <?php echo render_field($form->username); ?>
 
-            <?php echo $form->email->renderRow(); ?>
+            <?php echo render_field($form->email); ?>
 
-            <?php $settings = json_encode([
-                'password' => [
-                    'strengthTitle' => __('Password strength:'),
-                    'hasWeaknesses' => __('To make your password stronger:'),
-                    'tooShort' => __('Make it at least six characters'),
-                    'addLowerCase' => __('Add lowercase letters'),
-                    'addUpperCase' => __('Add uppercase letters'),
-                    'addNumbers' => __('Add numbers'),
-                    'addPunctuation' => __('Add punctuation'),
-                    'sameAsUsername' => __('Make it different from your username'),
-                    'confirmSuccess' => __('Yes'),
-                    'confirmFailure' => __('No'),
-                    'confirmTitle' => __('Passwords match:'),
-                    'username' => '', ], ]); ?>
+            <?php $settings = json_encode(['password' => [
+                'strengthTitle' => __('Password strength:'),
+                'hasWeaknesses' => __('To make your password stronger:'),
+                'tooShort' => __('Make it at least six characters'),
+                'addLowerCase' => __('Add lowercase letters'),
+                'addUpperCase' => __('Add uppercase letters'),
+                'addNumbers' => __('Add numbers'),
+                'addPunctuation' => __('Add punctuation'),
+                'sameAsUsername' => __('Make it different from your username'),
+                'confirmSuccess' => __('Yes'),
+                'confirmFailure' => __('No'),
+                'confirmTitle' => __('Passwords match:'),
+                'username' => '',
+            ]]); ?>
 
-            <?php echo $form->password->renderError(); ?>
+            <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+              <?php echo render_field($form->password->label(__('Change password'))); ?>
+            <?php } else { ?>
+              <?php echo render_field($form->password->label(__('Password'))); ?>
+            <?php } ?>
 
-            <div class="form-item password-parent">
-
-              <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-                <?php echo $form->password
-                  ->label(__('Change password'))
-                  ->renderLabel(); ?>
-              <?php } else { ?>
-                <?php echo $form->password
-                  ->label(__('Password'))
-                  ->renderLabel(); ?>
-              <?php } ?>
-
-              <?php echo $form->password->render(['class' => 'password-field']); ?>
-
-            </div>
-
-            <div class="form-item confirm-parent">
-              <?php echo $form->password
-                  ->label(__('Confirm password'))
-                  ->renderLabel(); ?>
-              <?php echo $form->confirmPassword->render(['class' => 'password-confirm']); ?>
-            </div>
+            <?php echo render_field($form->password->label(__('Confirm password'))); ?>
 
             <?php if ($sf_user->user != $resource) { ?>
-              <?php echo $form->active
-                ->label(__('Active'))
-                ->renderRow(); ?>
+              <?php echo render_field($form->active->label(__('Active'))); ?>
             <?php } ?>
           </div>
         </div>
@@ -85,24 +66,28 @@
         </h2>
         <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
-            <?php echo $form->groups
-                ->label(__('User groups'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->groups->label(__('User groups')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php echo $form->translate
-                ->label(__('Allowed languages for translation'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->translate->label(__('Allowed languages for translation')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php if ($restEnabled) { ?>
-              <?php echo $form->restApiKey
-                ->label(__('REST API access key'.((isset($restApiKey)) ? ': <code>'.$restApiKey.'</code>' : '')))
-                ->renderRow(); ?>
+            <?php if (!$restEnabled) { ?>
+              <?php echo render_field($form->restApiKey->label(
+                  __('REST API access key'.((isset($restApiKey)) ? ': <code class="ms-2">'.$restApiKey.'</code>' : ''))
+              )); ?>
             <?php } ?>
 
-            <?php if ($oaiEnabled) { ?>
-              <?php echo $form->oaiApiKey
-                ->label(__('OAI-PMH API access key'.((isset($oaiApiKey)) ? ': <code>'.$oaiApiKey.'</code>' : '')))
-                ->renderRow(); ?>
+            <?php if (!$oaiEnabled) { ?>
+              <?php echo render_field($form->oaiApiKey->label(
+                  __('OAI-PMH API access key'.((isset($oaiApiKey)) ? ': <code class="ms-2">'.$oaiApiKey.'</code>' : ''))
+              )); ?>
             <?php } ?>
           </div>
         </div>
