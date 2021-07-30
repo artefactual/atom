@@ -82,6 +82,10 @@
   border-radius: $border-radius;
 }
 
+.accordion-body > .mb-3:last-child {
+  margin-bottom: 0 !important;
+}
+
 .actions {
   background-color: $secondary;
   border-radius: $border-radius;
