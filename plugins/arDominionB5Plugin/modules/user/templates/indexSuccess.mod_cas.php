@@ -1,12 +1,8 @@
 <h1><?php echo __('User %1%', ['%1%' => render_title($resource)]); ?></h1>
 
 <?php if (!$resource->active) { ?>
-  <div class="messages error">
-    <ul>
-      <?php if (!$resource->active) { ?>
-        <li><?php echo __('This user is inactive'); ?></li>
-      <?php } ?>
-    </ul>
+  <div class="alert alert-danger" role="alert">
+    <?php echo __('This user is inactive'); ?>
   </div>
 <?php } ?>
 
