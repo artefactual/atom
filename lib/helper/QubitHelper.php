@@ -132,6 +132,23 @@ function render_b5_field($field, $translation = null, $options = [])
         }
     }
 
+    // Special case for grouped radio buttons
+    if ($field->getWidget() instanceof sfWidgetFormChoice) {
+        return '<div class="mb-3">'
+            .'<fieldset'
+            .($options['aria-describedby']
+                ? ' aria-describedby="'.$options['aria-describedby'].'"'
+                : '')
+            .'><legend class="fs-6">'
+            .$field->renderLabelName()
+            .'</legend>'
+            .$field->render(['class' => 'form-check-input'])
+            .'</fieldset>'
+            .$field->renderError()
+            .$help
+            .'</div>';
+    }
+
     if ($isFormCheck) {
         return '<div class="form-check mb-3">'
             .$field->render($options)
@@ -259,7 +276,16 @@ function render_b5_show_value($value, $options = [])
         $cssClasses .= ' '.$options['valueClass'];
     }
 
-    return render_b5_show_container($tag, $value, $cssClasses, $options);
+    $finalValue = $value;
+    if (is_array($value)) {
+        $finalValue = '<ul class="'.render_b5_show_list_css_classes().'">';
+        foreach ($value as $item) {
+            $finalValue .= '<li>'.$item.'</li>';
+        }
+        $finalValue .= '</ul>';
+    }
+
+    return render_b5_show_container($tag, $finalValue, $cssClasses, $options);
 }
 
 function render_b5_section_label_css_classes($options = [])
