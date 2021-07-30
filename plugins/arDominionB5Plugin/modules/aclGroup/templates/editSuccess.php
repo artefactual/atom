@@ -26,8 +26,8 @@
         <div id="main-collapse" class="accordion-collapse collapse show" aria-labelledby="main-heading">
           <div class="accordion-body">
             <?php echo render_field($form->name, $group); ?>
-            <?php echo render_field($form->description, $group, ['class' => 'resizable']); ?>
-            <?php echo $form->translate->renderRow(['class' => 'asdf']); ?>
+            <?php echo render_field($form->description, $group); ?>
+            <?php echo render_field($form->translate); ?>
           </div>
         </div>
       </div>
