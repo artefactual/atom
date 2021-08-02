@@ -45,7 +45,7 @@ class sfDcPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Identifier%2% - This is a mandatory element.',
                     [
-                        '%1%' => '<a href="http://dublincore.org/documents/dcmi-terms/#elements-identifier">',
+                        '%1%' => '<a class="alert-link" href="http://dublincore.org/documents/dcmi-terms/#elements-identifier">',
                         '%2%' => '</a>',
                     ]
                 )]
@@ -57,7 +57,7 @@ class sfDcPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Title%2% - This is a mandatory element.',
                     [
-                        '%1%' => '<a href="http://dublincore.org/documents/dcmi-terms/#elements-title">',
+                        '%1%' => '<a class="alert-link" href="http://dublincore.org/documents/dcmi-terms/#elements-title">',
                         '%2%' => '</a>',
                     ]
                 )]
@@ -69,9 +69,9 @@ class sfDcPluginIndexAction extends InformationObjectIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).',
                     [
-                        '%1%' => '<a href="http://dublincore.org/documents/dcmi-terms/#elements-relation">',
+                        '%1%' => '<a class="alert-link" href="http://dublincore.org/documents/dcmi-terms/#elements-relation">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://dublincore.org/groups/collections/collection-application-profile/#colcldisLocatedAt">',
+                        '%3%' => '<a class="alert-link" href="http://dublincore.org/groups/collections/collection-application-profile/#colcldisLocatedAt">',
                         '%4%' => '</a>',
                     ]
                 )]
