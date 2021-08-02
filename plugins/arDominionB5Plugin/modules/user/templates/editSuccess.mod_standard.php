@@ -78,13 +78,13 @@
                 ['class' => 'form-autocomplete']
             ); ?>
 
-            <?php if (!$restEnabled) { ?>
+            <?php if ($restEnabled) { ?>
               <?php echo render_field($form->restApiKey->label(
                   __('REST API access key'.((isset($restApiKey)) ? ': <code class="ms-2">'.$restApiKey.'</code>' : ''))
               )); ?>
             <?php } ?>
 
-            <?php if (!$oaiEnabled) { ?>
+            <?php if ($oaiEnabled) { ?>
               <?php echo render_field($form->oaiApiKey->label(
                   __('OAI-PMH API access key'.((isset($oaiApiKey)) ? ': <code class="ms-2">'.$oaiApiKey.'</code>' : ''))
               )); ?>
