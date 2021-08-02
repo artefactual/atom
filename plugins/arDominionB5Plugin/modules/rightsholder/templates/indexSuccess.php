@@ -10,10 +10,11 @@
 <?php slot('before-content'); ?>
 
   <?php if (isset($errorSchema)) { ?>
-    <div class="messages error">
-      <ul>
+    <div class="messages error alert alert-danger" role="alert">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($errorSchema as $error) { ?>
-          <li><?php echo $error; ?></li>
+          <?php $error = sfOutputEscaper::unescape($error); ?>
+          <li><?php echo $error->getMessage(); ?></li>
         <?php } ?>
       </ul>
     </div>
@@ -23,11 +24,17 @@
 
 <?php end_slot(); ?>
 
-<?php echo render_show(__('Authorized form of name'), render_value($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
+<div class="section border-bottom" id="identityArea">
 
-<div class="section" id="contactArea">
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'rightsholder', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
 
-  <h2><?php echo __('Contact area'); ?></h2>
+  <?php echo render_show(__('Authorized form of name'), render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
+
+</div> <!-- /.section#identityArea -->
+
+<div class="section border-bottom" id="contactArea">
+
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'rightsholder', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
