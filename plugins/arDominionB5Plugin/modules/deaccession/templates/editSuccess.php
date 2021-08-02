@@ -22,11 +22,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="deaccession-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#deaccession-collapse" aria-expanded="true" aria-controls="deaccession-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deaccession-collapse" aria-expanded="false" aria-controls="deaccession-collapse">
             <?php echo __('Deaccession area'); ?>
           </button>
         </h2>
-        <div id="deaccession-collapse" class="accordion-collapse collapse show" aria-labelledby="deaccession-heading">
+        <div id="deaccession-collapse" class="accordion-collapse collapse" aria-labelledby="deaccession-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->label(__('Deaccession number').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
