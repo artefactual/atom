@@ -48,7 +48,7 @@
   <?php end_slot(); ?>
 
   <?php slot('content'); ?>
-    <div id="content" class="p-0">
+    <div id="content">
       <?php if (!isset($pager) || !$pager->getNbResults()) { ?>
         <div class="text-section p-3">
           <?php echo __('No results for this entity type.'); ?>
