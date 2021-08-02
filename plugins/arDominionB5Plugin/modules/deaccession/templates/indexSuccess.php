@@ -10,10 +10,11 @@
 <?php slot('before-content'); ?>
 
   <?php if (isset($errorSchema)) { ?>
-    <div class="messages error">
-      <ul>
+    <div class="messages error alert alert-danger" role="alert">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($errorSchema as $error) { ?>
-          <li><?php echo $error; ?></li>
+          <?php $error = sfOutputEscaper::unescape($error); ?>
+          <li><?php echo $error->getMessage(); ?></li>
         <?php } ?>
       </ul>
     </div>
@@ -23,18 +24,15 @@
 
 <?php end_slot(); ?>
 
-<div class="field">
-  <h3>Accession record</h3>
-  <div class="value">
-    <?php echo link_to(render_title($resource->accession, false), [$resource->accession, 'module' => 'accession']); ?>
-  </div>
-</div>
+<?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Deaccession area')), [$resource, 'module' => 'deaccession', 'action' => 'edit'], ['anchor' => 'deaccession-collapse', 'title' => __('Edit deaccession area'), 'class' => 'text-primary']); ?>
+
+<?php echo render_show(__('Accession record'), link_to(render_title($resource->accession, false), [$resource->accession, 'module' => 'accession'])); ?>
 
 <?php echo render_show(__('Deaccession number'), $resource->identifier); ?>
 
-<?php echo render_show(__('Scope'), render_value($resource->scope)); ?>
+<?php echo render_show(__('Scope'), render_value_inline($resource->scope)); ?>
 
-<?php echo render_show(__('Date'), render_value(Qubit::renderDate($resource->date))); ?>
+<?php echo render_show(__('Date'), render_value_inline(Qubit::renderDate($resource->date))); ?>
 
 <?php echo render_show(__('Description'), render_value($resource->description)); ?>
 
