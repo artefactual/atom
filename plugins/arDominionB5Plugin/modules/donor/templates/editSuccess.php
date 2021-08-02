@@ -22,11 +22,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="false" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
+        <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo render_field($form->authorizedFormOfName
                 ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
