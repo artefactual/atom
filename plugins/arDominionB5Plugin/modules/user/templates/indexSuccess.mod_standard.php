@@ -23,32 +23,20 @@
     <?php } ?>
 
     <?php if (0 < count($groups = $resource->getAclGroups())) { ?>
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('User groups')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($groups as $item) { ?>
-              <li><?php echo $item->__toString(); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php echo render_show(__('User groups'), $groups); ?>
     <?php } ?>
 
     <?php if (
         sfConfig::get('app_multi_repository')
         && 0 < count($repositories = $resource->getRepositories())
     ) { ?>
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Repository affiliation')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($repositories as $item) { ?>
-              <li><?php echo render_title($item); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $repos = [];
+          foreach ($repositories as $item) {
+              $repos[] = render_title($item);
+          }
+          echo render_show(__('Repository affiliation'), $repos);
+      ?>
     <?php } ?>
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin')) { ?>

@@ -151,27 +151,21 @@
 
       <?php echo render_show(__('Conditions governing reproduction'), render_value($resource->getReproductionConditions(['cultureFallback' => true])), ['fieldLabel' => 'conditionsGoverningReproduction']); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Language of material')); ?>
-        <div class="languageOfMaterial <?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->language as $code) { ?>
-              <li><?php echo format_language($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $languages = [];
+          foreach ($resource->language as $code) {
+              $languages[] = format_language($code);
+          }
+          echo render_show(__('Language of material'), $languages);
+      ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Script of material')); ?>
-        <div class="scriptOfMaterial <?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->script as $code) { ?>
-              <li><?php echo format_script($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $scripts = [];
+          foreach ($resource->script as $code) {
+              $scripts[] = format_script($code);
+          }
+          echo render_show(__('Script of material'), $scripts);
+      ?>
 
       <?php echo render_show(__('Language and script notes'), render_value($isad->languageNotes), ['fieldLabel' => 'languageAndScriptNotes']); ?>
 
@@ -277,29 +271,23 @@
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_isad_control_languages')) { ?>
-        <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-          <?php echo render_b5_show_label(__('Language(s)')); ?>
-          <div class="languages <?php echo render_b5_show_value_css_classes(); ?>">
-            <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-              <?php foreach ($resource->languageOfDescription as $code) { ?>
-                <li><?php echo format_language($code); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-        </div>
+        <?php
+            $languages = [];
+            foreach ($resource->languageOfDescription as $code) {
+                $languages[] = format_language($code);
+            }
+            echo render_show(__('Language(s)'), $languages);
+        ?>
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_isad_control_scripts')) { ?>
-        <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-          <?php echo render_b5_show_label(__('Script(s)')); ?>
-          <div class="scripts <?php echo render_b5_show_value_css_classes(); ?>">
-            <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-              <?php foreach ($resource->scriptOfDescription as $code) { ?>
-                <li><?php echo format_script($code); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-        </div>
+        <?php
+            $scripts = [];
+            foreach ($resource->scriptOfDescription as $code) {
+                $scripts[] = format_script($code);
+            }
+            echo render_show(__('Script(s)'), $scripts);
+        ?>
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_isad_control_sources')) { ?>
