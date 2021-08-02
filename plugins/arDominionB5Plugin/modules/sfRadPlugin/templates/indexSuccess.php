@@ -67,17 +67,13 @@
 
       <?php echo render_show(__('Title proper'), render_value_inline($resource->getTitle(['cultureFallback' => true])), ['fieldLabel' => 'title']); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('General material designation')); ?>
-        <div class="generalMaterialDesignation <?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->getMaterialTypes() as $materialType) { ?>
-              <li><?php echo render_value_inline($materialType->term); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
-
+      <?php
+          $terms = [];
+          foreach ($resource->getMaterialTypes() as $materialType) {
+              $terms[] = $materialType->term;
+          }
+          echo render_show(__('General material designation'), $terms);
+      ?>
 
       <?php echo render_show(__('Parallel title'), render_value_inline($resource->getAlternateTitle(['cultureFallback' => true])), ['fieldLabel' => 'parallelTitle']); ?>
 
@@ -212,27 +208,21 @@
 
       <?php echo render_show(__('Arrangement'), render_value($resource->getArrangement(['cultureFallback' => true])), ['fieldLabel' => 'arrangement']); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Language of material')); ?>
-        <div class="languageOfMaterial <?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->language as $code) { ?>
-              <li><?php echo format_language($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $languages = [];
+          foreach ($resource->language as $code) {
+              $languages[] = format_language($code);
+          }
+          echo render_show(__('Language of material'), $languages);
+      ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Script of material')); ?>
-        <div class="scriptOfMaterial <?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->script as $code) { ?>
-              <li><?php echo format_script($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $scripts = [];
+          foreach ($resource->script as $code) {
+              $scripts[] = format_script($code);
+          }
+          echo render_show(__('Script of material'), $scripts);
+      ?>
 
       <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID]) as $item) { ?>
         <?php echo render_show(__('Language and script note'), render_value($item->getContent(['cultureFallback' => true])), ['fieldLabel' => 'languageAndScriptNote']); ?>
@@ -356,29 +346,23 @@
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_rad_control_language')) { ?>
-        <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-          <?php echo render_b5_show_label(__('Language of description')); ?>
-          <div class="languageOfDescription <?php echo render_b5_show_value_css_classes(); ?>">
-            <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-              <?php foreach ($resource->languageOfDescription as $code) { ?>
-                <li><?php echo format_language($code); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-        </div>
+        <?php
+            $languages = [];
+            foreach ($resource->languageOfDescription as $code) {
+                $languages[] = format_language($code);
+            }
+            echo render_show(__('Language of description'), $languages);
+        ?>
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_rad_control_script')) { ?>
-        <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-          <?php echo render_b5_show_label(__('Script of description')); ?>
-          <div class="scriptOfDescription <?php echo render_b5_show_value_css_classes(); ?>">
-            <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-              <?php foreach ($resource->scriptOfDescription as $code) { ?>
-                <li><?php echo format_script($code); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-        </div>
+        <?php
+            $scripts = [];
+            foreach ($resource->scriptOfDescription as $code) {
+                $scripts[] = format_script($code);
+            }
+            echo render_show(__('Script of description'), $scripts);
+        ?>
       <?php } ?>
 
       <?php if (check_field_visibility('app_element_visibility_rad_control_sources')) { ?>
