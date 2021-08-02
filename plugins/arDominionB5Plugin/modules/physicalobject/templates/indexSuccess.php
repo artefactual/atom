@@ -19,31 +19,27 @@
   <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
 <?php end_slot(); ?>
 
-<?php echo render_show(__('Type'), render_value($resource->type)); ?>
+<?php echo link_to(render_b5_section_label(sfConfig::get('app_ui_label_physicalobject')), [$resource, 'module' => 'physicalobject', 'action' => 'edit'], ['anchor' => 'edit-collapse', 'title' => __('Edit %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]), 'class' => 'text-primary']); ?>
 
-<?php echo render_show(__('Location'), render_value($resource->getLocation(['cultureFallback' => true]))); ?>
+<?php echo render_show(__('Type'), render_value_inline($resource->type)); ?>
 
-<div class="field">
-  <h3><?php echo __('Related resources'); ?></h3>
-  <div>
-    <ul>
-      <?php foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) { ?>
-        <li><?php echo link_to(render_title($item), [$item, 'module' => 'informationobject']); ?></li>
-      <?php } ?>
-    </ul>
-  </div>
-</div>
+<?php echo render_show(__('Location'), render_value_inline($resource->getLocation(['cultureFallback' => true]))); ?>
 
-<div class="field">
-  <h3><?php echo __('Related accessions'); ?></h3>
-  <div>
-    <ul>
-      <?php foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitAccession', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) { ?>
-        <li><?php echo link_to(render_title($item), [$item, 'module' => 'accession']); ?></li>
-      <?php } ?>
-    </ul>
-  </div>
-</div>
+<?php
+    $resources = [];
+    foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
+        $resources[] = link_to(render_title($item), [$item, 'module' => 'informationobject']);
+    }
+    echo render_show(__('Related resources'), $resources, ['valueClass' => 'field']);
+?>
+
+<?php
+    $accessions = [];
+    foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitAccession', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
+        $accesssions[] = link_to(render_title($item), [$item, 'module' => 'accession']);
+    }
+    echo render_show(__('Related accessions'), $accessions, ['valueClass' => 'field']);
+?>
 
 <?php slot('after-content'); ?>
   <ul class="actions nav gap-2">
