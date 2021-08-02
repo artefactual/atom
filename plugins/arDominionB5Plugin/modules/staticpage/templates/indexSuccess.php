@@ -12,7 +12,7 @@
   <h1><?php echo render_title($resource->getTitle(['cultureFallback' => true])); ?></h1>
 <?php end_slot(); ?>
 
-<div class="page">
+<div class="page p-3">
 
   <div>
     <?php echo render_value_html($sf_data->getRaw('content')); ?>

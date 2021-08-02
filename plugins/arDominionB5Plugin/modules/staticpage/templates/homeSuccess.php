@@ -24,14 +24,14 @@
 
 <?php end_slot(); ?>
 
-<div class="page">
+<div class="page p-3">
   <?php echo render_value_html($sf_data->getRaw('content')); ?>
 </div>
 
 <?php if (QubitAcl::check($resource, 'update')) { ?>
   <?php slot('after-content'); ?>
     <section class="actions">
-      <?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?>
     </section>
   <?php end_slot(); ?>
 <?php } ?>

@@ -60,176 +60,168 @@
 
 <?php end_slot(); ?>
 
-<?php slot('content'); ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
+  <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
+<?php } ?>
 
-  <div id="content" class="p-0">
+<section id="identityArea" class="border-bottom">
 
-    <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
-      <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
-    <?php } ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
 
-    <section id="identityArea" class="border-bottom">
+  <?php echo render_show(__('Type of entity'), render_value_inline($resource->entityType)); ?>
 
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Authorized form of name'), render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Type of entity'), render_value_inline($resource->entityType)); ?>
+  <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
 
-      <?php echo render_show(__('Authorized form of name'), render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Standardized form(s) of name according to other rules'), $resource->getOtherNames(['typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID])); ?>
 
-      <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
+  <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
 
-      <?php echo render_show(__('Standardized form(s) of name according to other rules'), $resource->getOtherNames(['typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID])); ?>
+  <?php echo render_show(__('Identifiers for corporate bodies'), $resource->corporateBodyIdentifiers); ?>
 
-      <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
+</section> <!-- /section#identityArea -->
 
-      <?php echo render_show(__('Identifiers for corporate bodies'), $resource->corporateBodyIdentifiers); ?>
+<section id="descriptionArea" class="border-bottom">
 
-    </section> <!-- /section#identityArea -->
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
 
-    <section id="descriptionArea" class="border-bottom">
+  <?php echo render_show(__('Dates of existence'), render_value_inline($resource->getDatesOfExistence(['cultureFallback' => true]))); ?>
 
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Dates of existence'), render_value_inline($resource->getDatesOfExistence(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Places'), render_value($resource->getPlaces(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Legal status'), render_value($resource->getLegalStatus(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Places'), render_value($resource->getPlaces(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Functions, occupations and activities'), render_value($resource->getFunctions(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Legal status'), render_value($resource->getLegalStatus(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Mandates/sources of authority'), render_value($resource->getMandates(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Functions, occupations and activities'), render_value($resource->getFunctions(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Internal structures/genealogy'), render_value($resource->getInternalStructures(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Mandates/sources of authority'), render_value($resource->getMandates(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('General context'), render_value($resource->getGeneralContext(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Internal structures/genealogy'), render_value($resource->getInternalStructures(['cultureFallback' => true]))); ?>
+</section> <!-- /section#descriptionArea -->
 
-      <?php echo render_show(__('General context'), render_value($resource->getGeneralContext(['cultureFallback' => true]))); ?>
+<section id="relationshipsArea" class="border-bottom">
 
-    </section> <!-- /section#descriptionArea -->
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Relationships area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area'), 'class' => 'text-primary']); ?>
 
-    <section id="relationshipsArea" class="border-bottom">
+  <?php foreach ($resource->getActorRelations() as $item) { ?>
+    <?php $relatedEntity = $item->getOpposedObject($resource->id); ?>
+    <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+      <?php echo render_b5_show_label(__('Related entity')); ?>
+      <div class="<?php echo render_b5_show_value_css_classes(); ?>">
 
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Relationships area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area'), 'class' => 'text-primary']); ?>
+        <?php echo link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']); ?><?php if (isset($relatedEntity->datesOfExistence)) { ?> <span class="note2">(<?php echo render_value_inline($relatedEntity->getDatesOfExistence(['cultureFallback' => true])); ?>)</span><?php } ?>
 
-      <?php foreach ($resource->getActorRelations() as $item) { ?>
-        <?php $relatedEntity = $item->getOpposedObject($resource->id); ?>
-        <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-          <?php echo render_b5_show_label(__('Related entity')); ?>
-          <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+        <?php echo render_show(__('Identifier of related entity'), render_value_inline($relatedEntity->descriptionIdentifier), ['isSubField' => true]); ?>
 
-            <?php echo link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']); ?><?php if (isset($relatedEntity->datesOfExistence)) { ?> <span class="note2">(<?php echo render_value_inline($relatedEntity->getDatesOfExistence(['cultureFallback' => true])); ?>)</span><?php } ?>
+        <?php if (QubitTerm::ROOT_ID == $item->type->parentId) { ?>
+          <?php echo render_show(__('Category of relationship'), render_value_inline($item->type), ['isSubField' => true]); ?>
+        <?php } else { ?>
+          <?php echo render_show(__('Category of relationship'), render_value_inline($item->type->parent), ['isSubField' => true]); ?>
 
-            <?php echo render_show(__('Identifier of related entity'), render_value_inline($relatedEntity->descriptionIdentifier), ['isSubField' => true]); ?>
-
-            <?php if (QubitTerm::ROOT_ID == $item->type->parentId) { ?>
-              <?php echo render_show(__('Category of relationship'), render_value_inline($item->type), ['isSubField' => true]); ?>
-            <?php } else { ?>
-              <?php echo render_show(__('Category of relationship'), render_value_inline($item->type->parent), ['isSubField' => true]); ?>
-
-              <?php if ($resource->id != $item->objectId) { ?>
-                <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']).' '.render_value_inline($item->type).' '.render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true])), ['isSubField' => true]); ?>
-              <?php } elseif (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($item->type->id, ['typeId' => QubitTerm::CONVERSE_TERM_ID]))) { ?>
-                <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']).' '.render_value_inline($converseTerms[0]->getOpposedObject($item->type)).' '.render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true])), ['isSubField' => true]); ?>
-              <?php } ?>
-            <?php } ?>
-
-            <?php echo render_show(__('Dates of relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)), ['isSubField' => true]); ?>
-
-            <?php echo render_show(__('Description of relationship'), render_value_inline($item->description), ['isSubField' => true]); ?>
-
-          </div>
-        </div>
-      <?php } ?>
-
-      <?php foreach ($functions as $item) { ?>
-        <?php echo render_show(__('Related function'), link_to(render_title($item), [$item, 'module' => 'function'])); ?>
-      <?php } ?>
-
-    </section> <!-- /section#relationshipsArea -->
-
-    <section id="accessPointsArea" class="border-bottom">
-
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Access points area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access points area'), 'class' => 'text-primary']); ?>
-
-      <div class="subjectAccessPoints">
-        <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
-      </div>
-
-      <div class="placeAccessPoints">
-        <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource]); ?>
-      </div>
-
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Occupations')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <?php foreach ($resource->getOccupations() as $item) { ?>
-            <div>
-              <?php echo link_to(render_title($item->term), [$item->term, 'module' => 'term']); ?>
-              <?php $note = $item->getNotesByType(['noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID])->offsetGet(0); ?>
-              <?php if (isset($note)) { ?>
-                <?php echo render_show(__('Note'), render_value($note->getContent(['cultureFallback' => true])), ['isSubField' => true]); ?>
-              <?php } ?>
-            </div>
+          <?php if ($resource->id != $item->objectId) { ?>
+            <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']).' '.render_value_inline($item->type).' '.render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true])), ['isSubField' => true]); ?>
+          <?php } elseif (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($item->type->id, ['typeId' => QubitTerm::CONVERSE_TERM_ID]))) { ?>
+            <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), [$relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor']).' '.render_value_inline($converseTerms[0]->getOpposedObject($item->type)).' '.render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true])), ['isSubField' => true]); ?>
           <?php } ?>
-        </div>
+        <?php } ?>
+
+        <?php echo render_show(__('Dates of relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)), ['isSubField' => true]); ?>
+
+        <?php echo render_show(__('Description of relationship'), render_value_inline($item->description), ['isSubField' => true]); ?>
+
       </div>
+    </div>
+  <?php } ?>
 
-    </section> <!-- /section#accessPointsArea -->
+  <?php foreach ($functions as $item) { ?>
+    <?php echo render_show(__('Related function'), link_to(render_title($item), [$item, 'module' => 'function'])); ?>
+  <?php } ?>
 
-    <section id="controlArea" class="border-bottom">
+</section> <!-- /section#relationshipsArea -->
 
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+<section id="accessPointsArea" class="border-bottom">
 
-      <?php echo render_show(__('Authority record identifier'), $resource->descriptionIdentifier); ?>
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Access points area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access points area'), 'class' => 'text-primary']); ?>
 
-      <?php if (null !== $repository = $resource->getMaintainingRepository()) { ?>
-        <?php echo render_show(__('Maintained by'), link_to(render_title($repository), [$repository, 'module' => 'repository'])); ?>
-      <?php } ?>
-
-      <?php echo render_show(__('Institution identifier'), render_value_inline($resource->getInstitutionResponsibleIdentifier(['cultureFallback' => true]))); ?>
-
-      <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(['cultureFallback' => true]))); ?>
-
-      <?php echo render_show(__('Status'), render_value_inline($resource->descriptionStatus)); ?>
-
-      <?php echo render_show(__('Level of detail'), render_value_inline($resource->descriptionDetail)); ?>
-
-      <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getRevisionHistory(['cultureFallback' => true]))); ?>
-
-      <?php
-          $languages = [];
-          foreach ($resource->language as $code) {
-              $languages[] = format_language($code);
-          }
-          echo render_show(__('Language(s)'), $languages);
-      ?>
-
-      <?php
-          $scripts = [];
-          foreach ($resource->script as $code) {
-              $scripts[] = format_script($code);
-          }
-          echo render_show(__('Script(s)'), $scripts);
-      ?>
-
-      <?php echo render_show(__('Sources'), render_value($resource->getSources(['cultureFallback' => true]))); ?>
-
-      <?php echo render_show(__('Maintenance notes'), render_value($isaar->_maintenanceNote)); ?>
-
-    </section> <!-- /section#controlArea -->
-
-    <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
-
-      <div class="digitalObjectMetadata">
-        <?php echo get_component('digitalobject', 'metadata', ['resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource]); ?>
-      </div>
-
-    <?php } ?>
-
+  <div class="subjectAccessPoints">
+    <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
   </div>
 
-<?php end_slot(); ?>
+  <div class="placeAccessPoints">
+    <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource]); ?>
+  </div>
+
+  <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+    <?php echo render_b5_show_label(__('Occupations')); ?>
+    <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+      <?php foreach ($resource->getOccupations() as $item) { ?>
+        <div>
+          <?php echo link_to(render_title($item->term), [$item->term, 'module' => 'term']); ?>
+          <?php $note = $item->getNotesByType(['noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID])->offsetGet(0); ?>
+          <?php if (isset($note)) { ?>
+            <?php echo render_show(__('Note'), render_value($note->getContent(['cultureFallback' => true])), ['isSubField' => true]); ?>
+          <?php } ?>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+
+</section> <!-- /section#accessPointsArea -->
+
+<section id="controlArea" class="border-bottom">
+
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+
+  <?php echo render_show(__('Authority record identifier'), $resource->descriptionIdentifier); ?>
+
+  <?php if (null !== $repository = $resource->getMaintainingRepository()) { ?>
+    <?php echo render_show(__('Maintained by'), link_to(render_title($repository), [$repository, 'module' => 'repository'])); ?>
+  <?php } ?>
+
+  <?php echo render_show(__('Institution identifier'), render_value_inline($resource->getInstitutionResponsibleIdentifier(['cultureFallback' => true]))); ?>
+
+  <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(['cultureFallback' => true]))); ?>
+
+  <?php echo render_show(__('Status'), render_value_inline($resource->descriptionStatus)); ?>
+
+  <?php echo render_show(__('Level of detail'), render_value_inline($resource->descriptionDetail)); ?>
+
+  <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getRevisionHistory(['cultureFallback' => true]))); ?>
+
+  <?php
+      $languages = [];
+      foreach ($resource->language as $code) {
+          $languages[] = format_language($code);
+      }
+      echo render_show(__('Language(s)'), $languages);
+  ?>
+
+  <?php
+      $scripts = [];
+      foreach ($resource->script as $code) {
+          $scripts[] = format_script($code);
+      }
+      echo render_show(__('Script(s)'), $scripts);
+  ?>
+
+  <?php echo render_show(__('Sources'), render_value($resource->getSources(['cultureFallback' => true]))); ?>
+
+  <?php echo render_show(__('Maintenance notes'), render_value($isaar->_maintenanceNote)); ?>
+
+</section> <!-- /section#controlArea -->
+
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
+
+  <div class="digitalObjectMetadata">
+    <?php echo get_component('digitalobject', 'metadata', ['resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource]); ?>
+  </div>
+
+<?php } ?>
 
 <?php slot('after-content'); ?>
 
