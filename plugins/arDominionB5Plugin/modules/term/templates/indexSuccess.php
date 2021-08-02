@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <div id="content" class="p-0">
+    <div id="content">
       <?php echo get_partial('term/directTerms', [
           'resource' => $resource,
           'aggs' => $aggs,

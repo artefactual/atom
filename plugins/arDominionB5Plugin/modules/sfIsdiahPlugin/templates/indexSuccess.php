@@ -76,155 +76,147 @@
 
 <?php end_slot(); ?>
 
-<?php slot('content'); ?>
+<?php if (isset($latitude, $longitude) && $mapApiKey = sfConfig::get('app_google_maps_api_key')) { ?>
+  <div class="p-1 border-bottom">
+    <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
+  </div>
+<?php } ?>
 
-  <div id="content" class="p-0">
+<section id="identifyArea" class="border-bottom">
 
-    <?php if (isset($latitude, $longitude) && $mapApiKey = sfConfig::get('app_google_maps_api_key')) { ?>
-      <div class="p-1 border-bottom">
-        <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
-      </div>
-    <?php } ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
 
-    <section id="identifyArea" class="border-bottom">
+  <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Authorized form of name'), render_value_inline($resource)); ?>
 
-      <?php echo render_show(__('Identifier'), $resource->identifier); ?>
+  <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
 
-      <?php echo render_show(__('Authorized form of name'), render_value_inline($resource)); ?>
+  <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
 
-      <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
+  <?php
+      $terms = [];
+      foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) {
+          $terms[] = $item->term;
+      }
+      echo render_show(__('Type'), $terms);
+  ?>
 
-      <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
+</section>
 
-      <?php
-          $terms = [];
-          foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) {
-              $terms[] = $item->term;
-          }
-          echo render_show(__('Type'), $terms);
-      ?>
+<section id="contactArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
 
-    <section id="contactArea" class="border-bottom">
+  <?php foreach ($resource->contactInformations as $contactItem) { ?>
+    <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
+  <?php } ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
+</section>
 
-      <?php foreach ($resource->contactInformations as $contactItem) { ?>
-        <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
-      <?php } ?>
+<section id="descriptionArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
 
-    <section id="descriptionArea" class="border-bottom">
+  <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Geographical and cultural context'), render_value($resource->getGeoculturalContext(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Mandates/Sources of authority'), render_value($resource->getMandates(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Geographical and cultural context'), render_value($resource->getGeoculturalContext(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Administrative structure'), render_value($resource->getInternalStructures(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Mandates/Sources of authority'), render_value($resource->getMandates(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Records management and collecting policies'), render_value($resource->getCollectingPolicies(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Administrative structure'), render_value($resource->getInternalStructures(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Buildings'), render_value($resource->getBuildings(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Records management and collecting policies'), render_value($resource->getCollectingPolicies(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Holdings'), render_value($resource->getHoldings(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Buildings'), render_value($resource->getBuildings(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Finding aids, guides and publications'), render_value($resource->getFindingAids(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Holdings'), render_value($resource->getHoldings(['cultureFallback' => true]))); ?>
+</section>
 
-      <?php echo render_show(__('Finding aids, guides and publications'), render_value($resource->getFindingAids(['cultureFallback' => true]))); ?>
+<section id="accessArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access area'), 'class' => 'text-primary']); ?>
 
-    <section id="accessArea" class="border-bottom">
+  <?php echo render_show(__('Opening times'), render_value($resource->getOpeningTimes(['cultureFallback' => true]))); ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Access conditions and requirements'), render_value($resource->getAccessConditions(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Opening times'), render_value($resource->getOpeningTimes(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Accessibility'), render_value($resource->getDisabledAccess(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Access conditions and requirements'), render_value($resource->getAccessConditions(['cultureFallback' => true]))); ?>
+</section>
 
-      <?php echo render_show(__('Accessibility'), render_value($resource->getDisabledAccess(['cultureFallback' => true]))); ?>
+<section id="servicesArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Services area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'services-collapse', 'title' => __('Edit services area'), 'class' => 'text-primary']); ?>
 
-    <section id="servicesArea" class="border-bottom">
+  <?php echo render_show(__('Research services'), render_value($resource->getResearchServices(['cultureFallback' => true]))); ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Services area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'services-collapse', 'title' => __('Edit services area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Reproduction services'), render_value($resource->getReproductionServices(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Research services'), render_value($resource->getResearchServices(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Public areas'), render_value($resource->getPublicFacilities(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Reproduction services'), render_value($resource->getReproductionServices(['cultureFallback' => true]))); ?>
+</section>
 
-      <?php echo render_show(__('Public areas'), render_value($resource->getPublicFacilities(['cultureFallback' => true]))); ?>
+<section id="controlArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
 
-    <section id="controlArea" class="border-bottom">
+  <?php echo render_show(__('Description identifier'), render_value_inline($resource->descIdentifier)); ?>
 
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+  <?php echo render_show(__('Institution identifier'), render_value_inline($resource->getDescInstitutionIdentifier(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Description identifier'), render_value_inline($resource->descIdentifier)); ?>
+  <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getDescRules(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Institution identifier'), render_value_inline($resource->getDescInstitutionIdentifier(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Status'), render_value_inline($resource->descStatus)); ?>
 
-      <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getDescRules(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Level of detail'), render_value_inline($resource->descDetail)); ?>
 
-      <?php echo render_show(__('Status'), render_value_inline($resource->descStatus)); ?>
+  <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getDescRevisionHistory(['cultureFallback' => true]))); ?>
 
-      <?php echo render_show(__('Level of detail'), render_value_inline($resource->descDetail)); ?>
+  <?php
+      $languages = [];
+      foreach ($resource->language as $code) {
+          $languages[] = format_language($code);
+      }
+      echo render_show(__('Language(s)'), $languages);
+  ?>
 
-      <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getDescRevisionHistory(['cultureFallback' => true]))); ?>
+  <?php
+      $scripts = [];
+      foreach ($resource->script as $code) {
+          $scripts[] = format_script($code);
+      }
+      echo render_show(__('Script(s)'), $scripts);
+  ?>
 
-      <?php
-          $languages = [];
-          foreach ($resource->language as $code) {
-              $languages[] = format_language($code);
-          }
-          echo render_show(__('Language(s)'), $languages);
-      ?>
+  <?php echo render_show(__('Sources'), render_value($resource->getDescSources(['cultureFallback' => true]))); ?>
 
-      <?php
-          $scripts = [];
-          foreach ($resource->script as $code) {
-              $scripts[] = format_script($code);
-          }
-          echo render_show(__('Script(s)'), $scripts);
-      ?>
+  <?php echo render_show(__('Maintenance notes'), render_value($isdiah->_maintenanceNote)); ?>
 
-      <?php echo render_show(__('Sources'), render_value($resource->getDescSources(['cultureFallback' => true]))); ?>
+</section>
 
-      <?php echo render_show(__('Maintenance notes'), render_value($isdiah->_maintenanceNote)); ?>
+<section id="accessPointsArea" class="border-bottom">
 
-    </section>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access points')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'points-collapse', 'title' => __('Edit access points'), 'class' => 'text-primary']); ?>
 
-    <section id="accessPointsArea" class="border-bottom">
-
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access points')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'points-collapse', 'title' => __('Edit access points'), 'class' => 'text-primary']); ?>
-
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Access Points')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item) { ?>
-              <li><?php echo __(render_value_inline($item->term)); ?> (Thematic area)</li>
-            <?php } ?>
-            <?php foreach ($resource->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item) { ?>
-              <li><?php echo __(render_value_inline($item->term)); ?> (Geographic subregion)</li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
-
-    </section>
-
+  <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+    <?php echo render_b5_show_label(__('Access Points')); ?>
+    <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
+        <?php foreach ($resource->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item) { ?>
+          <li><?php echo __(render_value_inline($item->term)); ?> (Thematic area)</li>
+        <?php } ?>
+        <?php foreach ($resource->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item) { ?>
+          <li><?php echo __(render_value_inline($item->term)); ?> (Geographic subregion)</li>
+        <?php } ?>
+      </ul>
+    </div>
   </div>
 
-<?php end_slot(); ?>
+</section>
 
 <?php if (QubitAcl::check($resource, ['update', 'delete', 'create'])) { ?>
 
