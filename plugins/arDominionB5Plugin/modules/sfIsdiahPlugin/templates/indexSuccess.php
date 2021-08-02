@@ -94,38 +94,17 @@
 
       <?php echo render_show(__('Authorized form of name'), render_value_inline($resource)); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Parallel form(s) of name')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID]) as $item) { ?>
-              <li><?php echo render_value_inline($item->__toString()); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Other form(s) of name')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID]) as $item) { ?>
-              <li><?php echo render_value_inline($item->__toString()); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Type')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) { ?>
-              <li><?php echo render_value_inline($item->term->__toString()); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $terms = [];
+          foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) {
+              $terms[] = $item->term;
+          }
+          echo render_show(__('Type'), $terms);
+      ?>
 
     </section>
 
@@ -201,28 +180,21 @@
 
       <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getDescRevisionHistory(['cultureFallback' => true]))); ?>
 
+      <?php
+          $languages = [];
+          foreach ($resource->language as $code) {
+              $languages[] = format_language($code);
+          }
+          echo render_show(__('Language(s)'), $languages);
+      ?>
 
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Language(s)')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->language as $code) { ?>
-              <li><?php echo format_language($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
-
-      <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
-        <?php echo render_b5_show_label(__('Script(s)')); ?>
-        <div class="<?php echo render_b5_show_value_css_classes(); ?>">
-          <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
-            <?php foreach ($resource->script as $code) { ?>
-              <li><?php echo format_script($code); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
+      <?php
+          $scripts = [];
+          foreach ($resource->script as $code) {
+              $scripts[] = format_script($code);
+          }
+          echo render_show(__('Script(s)'), $scripts);
+      ?>
 
       <?php echo render_show(__('Sources'), render_value($resource->getDescSources(['cultureFallback' => true]))); ?>
 
