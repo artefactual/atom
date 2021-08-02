@@ -10,10 +10,11 @@
 <?php slot('before-content'); ?>
 
   <?php if (isset($errorSchema)) { ?>
-    <div class="messages error">
-      <ul>
+    <div class="messages error alert alert-danger" role="alert">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($errorSchema as $error) { ?>
-          <li><?php echo $error; ?></li>
+          <?php $error = sfOutputEscaper::unescape($error); ?>
+          <li><?php echo $error->getMessage(); ?></li>
         <?php } ?>
       </ul>
     </div>
@@ -23,11 +24,17 @@
 
 <?php end_slot(); ?>
 
-<?php echo render_show(__('Authorized form of name'), render_value($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
+<div class="section border-bottom" id="basicInfo">
 
-<div class="section" id="contactArea">
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Basic info')), [$resource, 'module' => 'donor', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit basic info'), 'class' => 'text-primary']); ?>
 
-  <h2><?php echo __('Contact area'); ?></h2>
+  <?php echo render_show(__('Authorized form of name'), render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
+
+</div>
+
+<div class="section border-bottom" id="contactArea">
+
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'donor', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
@@ -37,21 +44,15 @@
 
 <div class="section" id="accessionArea">
 
-  <h2><?php echo __('Accession area'); ?></h2>
+  <?php echo render_b5_section_label(__('Accession area')); ?>
 
-  <div class="field">
-
-    <h3><?php echo __('Related accession(s)'); ?></h3>
-
-    <div>
-      <ul>
-        <?php foreach (QubitRelation::getRelationsByObjectId($resource->id, ['typeId' => QubitTerm::DONOR_ID]) as $item) { ?>
-          <li><?php echo link_to(render_title($item->subject), [$item->subject, 'module' => 'accession']); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-
-  </div>
+  <?php
+      $relatedAccessions = [];
+      foreach (QubitRelation::getRelationsByObjectId($resource->id, ['typeId' => QubitTerm::DONOR_ID]) as $item) {
+          $relatedAccessions[] = link_to(render_title($item->subject), [$item->subject, 'module' => 'accession']);
+      }
+      echo render_show(__('Related accession(s)'), $relatedAccessions);
+  ?>
 
 </div> <!-- /.section#accessionArea -->
 
