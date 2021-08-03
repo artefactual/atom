@@ -49,30 +49,38 @@
 
 <?php end_slot(); ?>
 
-<section id="elementsArea">
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
+  <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
+<?php } ?>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'elements-collapse', 'title' => __('Edit elements area')]); ?>
+<section id="elementsArea" class="border-bottom">
 
-  <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
-    <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
-  <?php } ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Elements area')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'elements-collapse', 'title' => __('Edit elements area'), 'class' => 'text-primary']); ?>
 
   <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
-  <?php echo render_show(__('Title'), render_value($resource->getTitle(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Title'), render_value_inline($resource->getTitle(['cultureFallback' => true]))); ?>
 
   <?php echo get_partial('informationobject/dates', ['resource' => $resource]); ?>
 
-  <?php foreach ($mods->typeOfResource as $item) { ?>
-    <?php echo render_show(__('Type of resource'), render_value($item->term)); ?>
-  <?php } ?>
+  <?php
+      $types = [];
+      foreach ($mods->typeOfResource as $item) {
+          $types[] = $item->term;
+      }
+      echo render_show(__('Types of resource'), $types);
+  ?>
 
-  <?php foreach ($resource->language as $code) { ?>
-    <?php echo render_show(__('Language'), format_language($code)); ?>
-  <?php } ?>
+  <?php
+      $languages = [];
+      foreach ($resource->language as $code) {
+          $languages[] = format_language($code);
+      }
+      echo render_show(__('Languages'), $languages);
+  ?>
 
   <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
-    <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjectsRelatedByobjectId[0]->mimeType)); ?>
+    <?php echo render_show(__('Internet media type'), render_value_inline($resource->digitalObjectsRelatedByobjectId[0]->mimeType)); ?>
   <?php } ?>
 
   <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'mods' => true]); ?>
@@ -84,12 +92,12 @@
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(['cultureFallback' => true]))); ?>
 
   <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
-    <?php echo render_show(__('URL'), link_to(null, $resource->getDigitalObjectPublicUrl())); ?>
+    <?php echo render_show(__('URL'), link_to(null, $resource->getDigitalObjectPublicUrl()), ['valueClass' => 'text-break']); ?>
   <?php } ?>
 
-  <div class="field">
-    <h3><?php echo __('Physical location'); ?></h3>
-    <div>
+  <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+    <?php echo render_b5_show_label(__('Physical location')); ?>
+    <div class="<?php echo render_b5_show_value_css_classes(); ?>">
       <?php if (isset($resource->repository)) { ?>
 
         <?php if (isset($resource->repository->identifier)) { ?>
@@ -124,10 +132,10 @@
 
 <?php if ($sf_user->isAuthenticated()) { ?>
 
-  <section id="rightsArea">
+  <section id="rightsArea" class="border-bottom">
 
     <?php if (QubitAcl::check($resource, 'update')) { ?>
-      <h2><?php echo __('Rights area'); ?> </h2>
+      <?php echo render_b5_section_label(__('Rights area')); ?>
     <?php } ?>
 
     <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
@@ -144,9 +152,9 @@
 
 <?php } ?>
 
-<section id="accessionArea">
+<section id="accessionArea" class="border-bottom">
 
-  <h2><?php echo __('Accession area'); ?></h2>
+  <?php echo render_b5_section_label(__('Accession area')); ?>
 
   <?php echo get_component('informationobject', 'accessions', ['resource' => $resource]); ?>
 
