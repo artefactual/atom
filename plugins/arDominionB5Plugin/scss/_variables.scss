@@ -64,6 +64,9 @@ $accordion-button-focus-box-shadow: $atom-gray-box-shadow !default;
 $accordion-bg: $white !default;
 $table-bg: $white !default;
 $table-striped-bg: $gray-200 !default;
+$breadcrumb-divider: quote("»") !default;
+$breadcrumb-divider-flipped: quote("«") !default;
+$breadcrumb-divider-color: $orange !default;
 
 // Font Awesome
 $fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
@@ -74,8 +77,3 @@ $slick-loader-path: "../../../../node_modules/@accessible360/accessible-slick/sl
 $slick-dot-color: $white !default;
 $slick-dot-color-active: $primary !default;
 $slick-dot-size: 1rem !default;
-
-// Breadcrumb
-$breadcrumb-divider: quote("»");
-$breadcrumb-divider-flipped: quote("«");
-$breadcrumb-divider-color: $orange;
