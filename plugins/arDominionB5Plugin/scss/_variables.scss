@@ -74,3 +74,8 @@ $slick-loader-path: "../../../../node_modules/@accessible360/accessible-slick/sl
 $slick-dot-color: $white !default;
 $slick-dot-color-active: $primary !default;
 $slick-dot-size: 1rem !default;
+
+// Breadcrumb
+$breadcrumb-divider: quote("»");
+$breadcrumb-divider-flipped: quote("«");
+$breadcrumb-divider-color: $orange;
