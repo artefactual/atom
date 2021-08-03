@@ -20,12 +20,12 @@
     </div>
   <?php } ?>
 
-  <section class="breadcrumb">
-    <ul>
-      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), ['module' => 'repository', 'action' => 'browse']); ?></li>
-      <li><span><?php echo render_title($resource); ?></span></li>
-    </ul>
-  </section>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), ['module' => 'repository', 'action' => 'browse']); ?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo render_title($resource); ?></li>
+    </ol>
+  </nav>
 
   <?php if ($resource->existsBanner()) { ?>
     <div class="row" id="repository-banner">

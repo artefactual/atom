@@ -28,19 +28,18 @@
     </div>
   </div>
 
-  <section class="breadcrumb">
-    <ul>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
       <?php foreach ($parent->ancestors as $item) { ?>
         <?php if (isset($item->parent)) { ?>
-          <li><?php echo link_to(render_title($item), [$resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug]); ?></li>
+          <li class="breadcrumb-item"><?php echo link_to(render_title($item), [$resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug]); ?></li>
         <?php } ?>
       <?php } ?>
-
       <?php if (isset($parent->parent)) { ?>
-        <li class="active"><span><?php echo render_title($parent); ?></span></li>
+        <li class="breadcrumb-item active" aria-current="page"><?php echo render_title($parent); ?></li>
       <?php } ?>
-    </ul>
-  </section>
+    </ol>
+  </nav>
 
 <?php end_slot(); ?>
 
