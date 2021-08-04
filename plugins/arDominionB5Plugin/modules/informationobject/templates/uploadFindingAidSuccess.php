@@ -30,8 +30,8 @@
         <div id="load-collapse" class="accordion-collapse collapse show" aria-labelledby="load-heading">
           <div class="accordion-body">
             <?php if (isset($errorMessage)) { ?>
-              <div class="messages error">
-                <ul>
+              <div class="messages error alert alert-danger" role="alert">
+                <ul class="list-unstyled m-0">
                   <li><?php echo $errorMessage; ?></li>
                 </ul>
               </div>
