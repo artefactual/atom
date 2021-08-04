@@ -32,6 +32,7 @@
     <script src="/plugins/arDominionB5Plugin/js/maps.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/multiRow.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/date.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/treeView.js"></script>
     <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
     <script src="/js/blank.js"></script>
     <script src="/js/editingHistory.js"></script>
