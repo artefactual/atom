@@ -35,7 +35,7 @@
                 ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
                 ->renderRow(); ?>
             <?php } else { ?>
-              <div class="messages error">
+             <div class="messages error alert alert-danger" role="alert">
                 <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.'); ?>
               </div>
             <?php } ?><br />
