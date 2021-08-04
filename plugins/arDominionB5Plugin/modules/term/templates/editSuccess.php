@@ -9,9 +9,9 @@
   <?php echo $form->renderGlobalErrors(); ?>
 
   <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-    <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'term', 'action' => 'edit'])); ?>
+    <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'term', 'action' => 'edit']), ['id' => 'editForm']); ?>
   <?php } else { ?>
-    <?php echo $form->renderFormTag(url_for(['module' => 'term', 'action' => 'add'])); ?>
+    <?php echo $form->renderFormTag(url_for(['module' => 'term', 'action' => 'add']), ['id' => 'editForm']); ?>
   <?php } ?>
 
     <?php echo $form->renderHiddenFields(); ?>
@@ -19,11 +19,11 @@
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="elements-heading">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#elements-collapse" aria-expanded="true" aria-controls="elements-collapse">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#elements-collapse" aria-expanded="false" aria-controls="elements-collapse">
             <?php echo __('Elements area'); ?>
           </button>
         </h2>
-        <div id="elements-collapse" class="accordion-collapse collapse show" aria-labelledby="elements-heading">
+        <div id="elements-collapse" class="accordion-collapse collapse" aria-labelledby="elements-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->taxonomy->renderLabel(); ?>
