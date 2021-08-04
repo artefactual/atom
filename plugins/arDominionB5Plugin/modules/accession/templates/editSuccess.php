@@ -34,20 +34,20 @@
         </h2>
         <div id="basic-collapse" class="accordion-collapse collapse" aria-labelledby="basic-heading">
           <div class="accordion-body">
-            <?php echo $form->identifier
+            <?php echo render_field($form->identifier
                 ->help(__('Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository'))
                 ->label(__('Accession number'))
-                ->renderRow(); ?>
+            ); ?>
 
             <div id="identifier-check-server-error" class="alert alert-danger hidden"><?php echo __('Server error while checking identifer availability.'); ?></div>
 
             <?php echo get_partial('informationobject/identifierOptions', ['hideGenerateButton' => true]); ?>
             <?php echo get_component('accession', 'alternativeIdentifiers', ['resource' => $resource]); ?>
 
-            <?php echo $form->date
+            <?php echo render_field($form->date
                 ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
                 ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->sourceOfAcquisition
                 ->help(__('Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.'))
@@ -79,30 +79,39 @@
         </h2>
         <div id="admin-collapse" class="accordion-collapse collapse" aria-labelledby="admin-heading">
           <div class="accordion-body">
-            <?php echo $form->acquisitionType
+            <?php echo render_field($form->acquisitionType
                 ->help(__('Term describing the type of accession transaction and referring to the way in which the accession was acquired.'))
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->resourceType
+            <?php echo render_field($form->resourceType
                 ->help(__('Select the type of resource represented in the accession, either public or private.'))
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->title
                 ->help(__('The title of the accession, usually the creator name and term describing the format of the accession materials.')), $resource); ?>
 
-            <div class="form-item">
-              <?php echo $form->creators
-                  ->label(__('Creators'))
-                  ->renderLabel(); ?>
-              <?php echo $form->creators->render(['class' => 'form-autocomplete']); ?>
-              <?php echo $form->creators
-                  ->help(__('The name of the creator of the accession or the name of the department that created the accession.'))
-                  ->renderHelp(); ?>
-              <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')) { ?>
-                <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'actor', 'action' => 'add']); ?> #authorizedFormOfName"/>
-              <?php } ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true']); ?>"/>
-            </div>
+            <?php
+                // Add extra inputs checking permissions
+                $extraInputs = '<input class="list" type="hidden" value="'
+                    .url_for([
+                        'module' => 'actor',
+                        'action' => 'autocomplete',
+                        'showOnlyActors' => 'true',
+                    ])
+                    .'">';
+                if (QubitAcl::check(QubitActor::getRoot(), 'create')) {
+                    $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
+                        .url_for(['module' => 'actor', 'action' => 'add'])
+                        .' #authorizedFormOfName">';
+                }
+                echo render_field(
+                    $form->creators
+                        ->label(__('Creators'))
+                        ->help(__('The name of the creator of the accession or the name of the department that created the accession.')),
+                    null,
+                    ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+                );
+            ?>
 
             <?php echo get_partial('sfIsadPlugin/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll() + ['help' => __('"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.')]); ?>
 
@@ -127,13 +136,13 @@
                 ->help(__('The number of units as a whole number and the measurement of the received volume of records in the accession.'))
                 ->label(__('Received extent units')), $resource, ['class' => 'resizable']); ?>
 
-            <?php echo $form->processingStatus
+            <?php echo render_field($form->processingStatus
                 ->help(__('An indicator of the accessioning process.'))
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->processingPriority
+            <?php echo render_field($form->processingPriority
                 ->help(__('Indicates the priority the repository assigns to completing the processing of the accession.'))
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->processingNotes
                 ->help(__('Notes about the processing plan, describing what needs to be done for the accession to be processed completely.')), $resource, ['class' => 'resizable']); ?>
@@ -148,16 +157,25 @@
         </h2>
         <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <?php echo $form->informationObjects
-                  ->label(sfConfig::get('app_ui_label_informationobject'))
-                  ->renderLabel(); ?>
-              <?php echo $form->informationObjects->render(['class' => 'form-autocomplete']); ?>
-              <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')) { ?>
-                <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'informationobject', 'action' => 'add']); ?> #title"/>
-              <?php } ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'informationobject', 'action' => 'autocomplete']); ?>"/>
-            </div>
+            <?php
+                // Add extra inputs checking permissions
+                $extraInputs = '<input class="list" type="hidden" value="'
+                    .url_for([
+                        'module' => 'informationobject',
+                        'action' => 'autocomplete',
+                    ])
+                    .'">';
+                if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) {
+                    $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
+                        .url_for(['module' => 'informationobject', 'action' => 'add'])
+                        .' #title">';
+                }
+                echo render_field(
+                    $form->informationObjects->label(sfConfig::get('app_ui_label_informationobject')),
+                    null,
+                    ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+                );
+            ?>
           </div>
         </div>
       </div>
