@@ -132,7 +132,9 @@ class AccessionEventsComponent extends sfComponent
             case 'note':
                 $this->form->setValidator($name, new sfValidatorString());
                 $widget = new sfWidgetFormTextarea(['label' => false]);
-                $widget->setAttribute('placeholder', $this->context->i18n->__('Notes'));
+                if (!sfConfig::get('app_b5_theme', false)) {
+                    $widget->setAttribute('placeholder', $this->context->i18n->__('Notes'));
+                }
                 $this->form->setWidget($name, $widget);
 
                 break;
