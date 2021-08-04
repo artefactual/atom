@@ -1,6 +1,6 @@
 <h1><?php echo __('Upload limit exceeded'); ?></h1>
 
-<div class="messages error">
+<div class="messages error alert alert-danger" role="alert">
   <?php echo __('The upload limit of %1% GB for <a href="%2%">%3%</a> has been exceeded (%4% GB currently used)', [
       '%1%' => $resource->uploadLimit,
       '%2%' => url_for([$resource, 'module' => 'repository']),
