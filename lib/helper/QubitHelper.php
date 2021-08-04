@@ -402,8 +402,107 @@ function hr_filesize($val)
 
 function render_treeview_node($item, array $classes = [], array $options = [])
 {
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_treeview_node($item, $classes, $options);
+    }
+
     // Build array of classes
     $_classes = [];
+    foreach ($classes as $key => $value) {
+        if ($value) {
+            $_classes[$key] = $key;
+        }
+    }
+
+    // Start HTML list element
+    $node = '<li';
+
+    // Create class attribute from $classes array
+    if (0 < count($_classes)) {
+        $node .= ' class="'.implode(' ', $_classes).'"';
+    }
+
+    // Add data-xhr-location if exists
+    if (isset($options['xhr-location'])) {
+        $node .= ' data-xhr-location="'.esc_entities($options['xhr-location']).'"';
+    }
+
+    if ($item instanceof QubitInformationObject) {
+        $dataTitle = [];
+
+        if (isset($item->levelOfDescription)) {
+            $dataTitle[] = render_title($item->levelOfDescription);
+        }
+
+        if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId) {
+            $dataTitle[] = render_title($item->getPublicationStatus());
+        }
+
+        if (0 < count($dataTitle)) {
+            $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
+        }
+    } elseif ($item instanceof QubitTerm) {
+        $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
+    }
+
+    $node .= ' data-content="'.strip_markdown($item).'"';
+
+    // Close tag
+    $node .= '>';
+
+    // Add <i> tag if the node is expandable
+    if (isset($_classes['expand']) || isset($_classes['ancestor'])) {
+        $node .= '<i></i>&nbsp;';
+    }
+
+    if (isset($_classes['more'])) {
+        $node .= '<a href="#">';
+
+        if (isset($options['numSiblingsLeft'])) {
+            $node .= sfContext::getInstance()->i18n->__('%1% more', ['%1%' => abs($options['numSiblingsLeft'])]);
+        }
+
+        $node .= '...</a>';
+    } else {
+        $rawItem = sfOutputEscaper::unescape($item);
+        if ($rawItem instanceof QubitInformationObject) {
+            // Level of description
+            if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId)) {
+                $node .= '<span class="levelOfDescription">'.render_value_inline($levelOfDescription->getName()).'</span>';
+            }
+
+            // Title
+            $title = '';
+            if ($item->identifier) {
+                $title = $item->identifier.'&nbsp;-&nbsp;';
+            }
+            $title .= render_title($item);
+
+            // Add link
+            $node .= link_to($title, [$item, 'module' => 'informationobject'], ['title' => null]);
+
+            // Publication status
+            if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId) {
+                $node .= '<span class="pubStatus">('.render_value_inline($status->__toString()).')</span>';
+            }
+        } elseif ($rawItem instanceof QubitTerm) {
+            $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
+
+            // Add link
+            $node .= link_to(render_title($item), [$item, 'module' => 'term', 'action' => $action]);
+        }
+    }
+
+    // Close node tag
+    $node .= '</li>';
+
+    return $node;
+}
+
+function render_b5_treeview_node($item, array $classes = [], array $options = [])
+{
+    // Build array of classes
+    $_classes = ['list-group-item'];
     foreach ($classes as $key => $value) {
         if ($value) {
             $_classes[$key] = $key;
