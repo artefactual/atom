@@ -1,4 +1,4 @@
-<?php decorate_with('layout_3col'); ?> 
+<?php decorate_with('layout_3col'); ?>
 <?php use_helper('Date'); ?>
 
 <?php slot('sidebar'); ?>
@@ -33,11 +33,13 @@
 
 <?php slot('context-menu'); ?>
 
-  <div class="sidebar">
+  <nav>
+
     <?php echo get_partial('term/format', ['resource' => $resource]); ?>
 
     <?php echo get_partial('term/rightContextMenu', ['resource' => $resource, 'results' => $pager->getNbResults()]); ?>
-  </div>
+
+  </nav>
 
 <?php end_slot(); ?>
 
@@ -62,7 +64,7 @@
       <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
       <?php unset($params['onlyDirect']); ?>
       <?php unset($params['page']); ?>
-      <a 
+      <a
         href="<?php echo url_for(
             [$resource, 'module' => 'term', 'action' => 'relatedAuthorities']
             + $params
