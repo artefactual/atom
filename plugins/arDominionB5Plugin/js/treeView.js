@@ -55,41 +55,38 @@
     return -1;
   }
 
-  var Treeview = function (element) {
-    this.$element = element;
+  class Treeview {
+    constructor(element) {
+      this.$element = element;
 
-    // Used to control loading status and block interface if needed
-    this.setLoading(false);
+      // Used to control loading status and block interface if needed
+      this.setLoading(false);
 
-    // Regular nodes selector
-    this.nodesSelector = "li:not(.ancestor, .more)";
+      // Regular nodes selector
+      this.nodesSelector = "li:not(.ancestor, .more)";
 
-    // Store the current resource id to highlight it
-    // during the treeview browsing
-    this.resourceId = this.$element.data("current-id");
+      // Store the current resource id to highlight it
+      // during the treeview browsing
+      this.resourceId = this.$element.data("current-id");
 
-    // Check if the treeview is sortable
-    this.sortable =
-      undefined !== this.$element.data("sortable") &&
-      !!this.$element.data("sortable");
+      // Check if the treeview is sortable
+      this.sortable =
+        undefined !== this.$element.data("sortable") &&
+        !!this.$element.data("sortable");
 
-    // Check if the treeview is used in the browser page
-    this.browser =
-      undefined !== this.$element.data("browser") &&
-      !!this.$element.data("browser");
+      // Check if the treeview is used in the browser page
+      this.browser =
+        undefined !== this.$element.data("browser") &&
+        !!this.$element.data("browser");
 
-    // Menu (tabs) and search box
-    this.$menu = this.$element.prev("#treeview-menu");
-    this.$search = this.$element.siblings("#treeview-search");
-    this.$list = this.$element.siblings("#treeview-list");
+      // Menu (tabs) and search box
+      this.$menu = this.$element.prev("#treeview-menu");
+      this.$search = this.$element.siblings("#treeview-search");
+      this.$list = this.$element.siblings("#treeview-list");
 
-    this.init();
-  };
-
-  Treeview.prototype = {
-    constructor: Treeview,
-
-    init: function () {
+      this.init();
+    }
+    init() {
       this.$element
         .on("click.treeview.atom", "li", $.proxy(this.click, this))
         .on("mousedown.treeview.atom", "li", $.proxy(this.mousedownup, this))
@@ -122,9 +119,8 @@
       });
 
       this.installSortableBehavior();
-    },
-
-    setLoading: function (status, $node) {
+    }
+    setLoading(status, $node) {
       this.loading = status;
 
       if (this.loading) {
@@ -153,9 +149,8 @@
       }
 
       return this;
-    },
-
-    installSortableBehavior: function () {
+    }
+    installSortableBehavior() {
       // Create jquery-ui sortable object
       if (!this.sortable) {
         return this;
@@ -173,9 +168,8 @@
       this.$element.disableSelection();
 
       this.showGrip();
-    },
-
-    refreshSortableBehavior: function () {
+    }
+    refreshSortableBehavior() {
       // Create jquery-ui sortable object
       if (!this.sortable) {
         return this;
@@ -190,9 +184,8 @@
       this.showGrip();
 
       return this;
-    },
-
-    showGrip: function () {
+    }
+    showGrip() {
       this.$element
         .find(".grip")
         .remove()
@@ -201,9 +194,8 @@
         .prepend('<small class="grip"></small>');
 
       return this;
-    },
-
-    mouseenter: function (e) {
+    }
+    mouseenter(e) {
       var $li =
         "LI" === e.target.tagName ? $(e.target) : $(e.target).closest("li");
 
@@ -220,33 +212,29 @@
       $li.popover("show");
 
       return this;
-    },
-
-    mousedownup: function (e) {
+    }
+    mousedownup(e) {
       if (this.loading) {
         killEvent(e);
       }
 
       return this;
-    },
-
-    mouseleave: function (e) {
+    }
+    mouseleave(e) {
       var $li =
         "LI" === e.target.tagName ? $(e.target) : $(e.target).closest("li");
 
       $li.popover("hide");
 
       return this;
-    },
-
-    drag: function (e, ui) {
+    }
+    drag(e, ui) {
       this._position = ui.item.prev().index();
 
       // Remove popups
       $(".popover").remove();
-    },
-
-    drop: function (e, ui) {
+    }
+    drop(e, ui) {
       if (this._position == ui.item.prev().index()) {
         return this;
       }
@@ -290,9 +278,8 @@
       });
 
       return this;
-    },
-
-    mousewheel: function (e, delta, deltaX, deltaY) {
+    }
+    mousewheel(e, delta, deltaX, deltaY) {
       var top = this.$element.scrollTop(),
         height;
       if (deltaY > 0 && top - deltaY <= 0) {
@@ -310,15 +297,13 @@
         );
         killEvent(e);
       }
-    },
-
-    scroll: function (e) {
+    }
+    scroll(e) {
       if (indexOf(e.target, this.$element.get()) >= 0) {
         this.notify(e);
       }
-    },
-
-    debouncedScroll: function (e) {
+    }
+    debouncedScroll(e) {
       var $target = $(e.target);
 
       e.preventDefault();
@@ -342,9 +327,8 @@
           $more.trigger("click");
         }, 250);
       }
-    },
-
-    click: function (e) {
+    }
+    click(e) {
       var $li =
         "LI" === e.target.tagName ? $(e.target) : $(e.target).closest("li");
 
@@ -360,6 +344,7 @@
 
         return this.showMore($li);
       }
+
       // When the arrow is clicked
       else if ("I" === e.target.tagName) {
         if ($li.hasClass("root")) {
@@ -372,9 +357,8 @@
       }
 
       return this;
-    },
-
-    showItem: function ($element) {
+    }
+    showItem($element) {
       this.setLoading(true, $element);
 
       // Figure out if the user is try to collapse looking at the ancestor class
@@ -451,9 +435,8 @@
         });
 
       return this;
-    },
-
-    showMore: function ($element) {
+    }
+    showMore($element) {
       var $a = $element.find("a");
       var loadingId = window.setInterval(function () {
         $a.append(".");
@@ -487,9 +470,8 @@
         },
         error: function () {},
       });
-    },
-
-    clickMenu: function (event) {
+    }
+    clickMenu(event) {
       event.stopPropagation();
       event.preventDefault();
 
@@ -509,9 +491,8 @@
           this.$search.find("input").focus();
         }
       }
-    },
-
-    search: function (event) {
+    }
+    search(event) {
       event.preventDefault();
 
       var query = event.target.query.value;
@@ -618,17 +599,15 @@
         });
 
       return this;
-    },
-
-    searchChange: function (event) {
+    }
+    searchChange(event) {
       switch (event.which) {
         case 27:
           this.$search.find(".list-menu, .no-results").remove();
           $(event.target).attr("value", "");
       }
-    },
-
-    clickPagerButton: function (event) {
+    }
+    clickPagerButton(event) {
       event.preventDefault();
 
       this.setLoading(true);
@@ -670,8 +649,8 @@
         });
 
       return this;
-    },
-  };
+    }
+  }
 
   $.fn.treeview = function () {
     var $this = this;
