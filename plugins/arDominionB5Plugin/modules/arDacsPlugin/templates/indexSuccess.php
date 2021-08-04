@@ -29,19 +29,23 @@
 
 <?php slot('context-menu'); ?>
 
-  <?php echo get_partial('informationobject/actionIcons', ['resource' => $resource]); ?>
+  <nav>
 
-  <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+    <?php echo get_partial('informationobject/actionIcons', ['resource' => $resource]); ?>
 
-  <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+    <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php echo get_partial('informationobject/genreAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+    <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+    <?php echo get_partial('informationobject/genreAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
-    <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
-  <?php } ?>
+    <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+
+    <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
+      <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
+    <?php } ?>
+
+  </nav>
 
 <?php end_slot(); ?>
 

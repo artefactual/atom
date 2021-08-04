@@ -10,7 +10,9 @@
 <?php slot('context-menu'); ?>
 
   <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
-    <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
+    <nav>
+      <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
+    </nav>
   <?php } ?>
 
 <?php end_slot(); ?>

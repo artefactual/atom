@@ -48,31 +48,35 @@
 <?php end_slot(); ?>
 
 <?php slot('context-menu'); ?>
-  <ul>
-    <li>
-      <?php echo __('Clipboard'); ?>
-    </li>
-  </ul>
-  <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'repository']); ?>
 
-  <?php if (isset($primaryContact)) { ?>
-    <section id="primary-contact">
-      <h4><?php echo __('Primary contact'); ?></h4>
-      <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
-      <div class="context-actions">
-        <?php if (null !== $website = $primaryContact->getWebsite()) { ?>
-          <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
-            <?php $website = 'http://'.$website; ?>
+  <nav>
+
+    <h4 class="h5 mb-2"><?php echo __('Clipboard'); ?></h4>
+    <ul class="list-unstyled">
+      <li>
+        <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'informationObject']); ?>
+      </li>
+    </ul>
+
+    <?php if (isset($primaryContact)) { ?>
+      <section id="primary-contact">
+        <h4 class="h5 mb-2"><?php echo __('Primary contact'); ?></h4>
+        <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
+        <div class="d-flex gap-2">
+          <?php if (null !== $website = $primaryContact->getWebsite()) { ?>
+            <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
+              <?php $website = 'http://'.$website; ?>
+            <?php } ?>
+            <a class="btn btn-small atom-btn-white flex-fill" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
           <?php } ?>
+          <?php if (null !== $email = $primaryContact->email) { ?>
+            <a class="btn btn-small atom-btn-white flex-fill" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
+          <?php } ?>
+        </div>
+      </section>
+    <?php } ?>
 
-          <a class="btn btn-small" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
-        <?php } ?>
-        <?php if (null !== $email = $primaryContact->email) { ?>
-          <a class="btn btn-small" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
-        <?php } ?>
-      </div>
-    </section>
-  <?php } ?>
+  </nav>
 
 <?php end_slot(); ?>
 
