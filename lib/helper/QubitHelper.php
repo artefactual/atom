@@ -120,6 +120,22 @@ function render_b5_field($field, $translation = null, $options = [])
         }
     }
 
+    // Autocomplete extra inputs
+    $extraInputs = '';
+    if (isset($options['extraInputs'])) {
+        $extraInputs = $options['extraInputs'];
+        unset($options['extraInputs']);
+    }
+
+    if ($options['onlyInputs']) {
+        unset($options['onlyInputs']);
+
+        return $translation
+            .$field->render($options)
+            .$extraInputs
+            .$field->renderError();
+    }
+
     // We need to render the label first to set the input name in
     // arB5WidgetFormSchemaFormatter as it's used for the help id.
     $label = $field->renderLabel(null, ['class' => $labelClass]);
@@ -156,13 +172,6 @@ function render_b5_field($field, $translation = null, $options = [])
             .$field->renderError()
             .$help
             .'</div>';
-    }
-
-    // Autocomplete extra inputs
-    $extraInputs = '';
-    if (isset($options['extraInputs'])) {
-        $extraInputs = $options['extraInputs'];
-        unset($options['extraInputs']);
     }
 
     return '<div class="mb-3">'
