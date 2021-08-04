@@ -5,7 +5,7 @@
 
     if ($(node).length) {
       $('#atom-slider-images').slick({
-        slidesToShow: 3,
+        slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '#atom-slider-title',
         dots: true,
