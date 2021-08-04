@@ -32,13 +32,15 @@
 
 <?php slot('context-menu'); ?>
 
-  <div class="sidebar">
+  <nav>
+
     <?php echo get_partial('term/format', ['resource' => $resource]); ?>
 
     <?php if ($addBrowseElements) { ?>
       <?php echo get_partial('term/rightContextMenu', ['resource' => $resource, 'results' => $pager->getNbResults()]); ?>
     <?php } ?>
-  </div>
+
+  </nav>
 
 <?php end_slot(); ?>
 

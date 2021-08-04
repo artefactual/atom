@@ -1,7 +1,7 @@
 <div class="field<?php echo isset($sidebar) ? '' : ' '.render_b5_show_field_css_classes(); ?>">
 
   <?php if (isset($sidebar)) { ?>
-    <h4><?php echo __('Related people and organizations'); ?></h4>
+    <h4 class="h5 mb-2"><?php echo __('Related people and organizations'); ?></h4>
   <?php } elseif (isset($mods)) { ?>
     <?php echo render_b5_show_label(__('Names')); ?>
   <?php } else { ?>
@@ -9,7 +9,7 @@
   <?php } ?>
 
   <div<?php echo isset($sidebar) ? '' : ' class="'.render_b5_show_value_css_classes().'"'; ?>>
-    <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
+    <ul class="<?php echo isset($sidebar) ? 'list-unstyled' : render_b5_show_list_css_classes(); ?>">
       <?php if (isset($showActorEvents) || isset($sidebar)) { ?>
         <?php $actorsShown = []; ?>
         <?php foreach ($resource->getActorEvents() as $item) { ?>
