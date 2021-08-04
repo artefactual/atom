@@ -44,10 +44,6 @@ class arArchivesCanadaPluginConfiguration extends sfPluginConfiguration
         $decoratorDirs[] = $this->rootDir.'/templates';
         sfConfig::set('sf_decorator_dirs', $decoratorDirs);
 
-        $moduleDirs = sfConfig::get('sf_module_dirs');
-        $moduleDirs[$this->rootDir.'/modules'] = false;
-        sfConfig::set('sf_module_dirs', $moduleDirs);
-
         // Move this plugin to the top to allow overwriting
         // controllers and views from other plugin modules.
         $plugins = $this->configuration->getPlugins();
