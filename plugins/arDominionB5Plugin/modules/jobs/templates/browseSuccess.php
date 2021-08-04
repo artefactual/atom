@@ -87,8 +87,8 @@
 <?php } ?>
 
 <?php if (!$jobs->count()) { ?>
-  <div class="messages error" id="job-error-box">
-    <ul>
+  <div class="messages error alert alert-info">
+    <ul class="list-unstyled m-0">
       <li><?php echo __('There are no jobs to report on.'); ?></li>
     </ul>
   </div>
