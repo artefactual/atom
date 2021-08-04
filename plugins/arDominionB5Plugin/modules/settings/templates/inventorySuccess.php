@@ -30,7 +30,7 @@
         <div id="inventory-collapse" class="accordion-collapse collapse show" aria-labelledby="inventory-heading">
           <div class="accordion-body">
             <?php if (!empty($unknownValueDetected)) { ?>
-              <div class="messages error">
+              <div class="messages error alert alert-danger" role="alert">
                 <?php echo __('Unknown value detected.'); ?><br />
               </div>
             <?php } ?>
