@@ -24,21 +24,22 @@ class arDominionB5PluginConfiguration extends sfPluginConfiguration
 
     public function initialize()
     {
+        // Avoid $this->name and $this->rootDir to use this class
+        // values when this method is called from child classes.
         $decoratorDirs = sfConfig::get('sf_decorator_dirs');
-        $decoratorDirs[] = $this->rootDir.'/templates';
+        $decoratorDirs[] = sfConfig::get('sf_plugins_dir')
+            .'/arDominionB5Plugin/templates';
         sfConfig::set('sf_decorator_dirs', $decoratorDirs);
-
-        $moduleDirs = sfConfig::get('sf_module_dirs');
-        $moduleDirs[$this->rootDir.'/modules'] = false;
-        sfConfig::set('sf_module_dirs', $moduleDirs);
 
         // Move this plugin to the top to allow overwriting
         // controllers and views from other plugin modules.
         $plugins = $this->configuration->getPlugins();
-        if (false !== $key = array_search($this->name, $plugins)) {
+        if (false !== $key = array_search('arDominionB5Plugin', $plugins)) {
             unset($plugins[$key]);
         }
-        $this->configuration->setPlugins(array_merge([$this->name], $plugins));
+        $this->configuration->setPlugins(
+            array_merge(['arDominionB5Plugin'], $plugins)
+        );
 
         // Indicate this is a Bootstrap 5 theme in sfConfig,
         // used to render with different classes, etc.
