@@ -34,27 +34,30 @@
 
   <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEacPlugin')) { ?>
 
-    <section id="action-icons">
-      <ul>
-        <li class="separator"><h4><?php echo __('Clipboard'); ?></h4></li>
+    <nav>
 
-        <li class="clipboard">
+      <h4 class="h5 mb-2"><?php echo __('Clipboard'); ?></h4>
+      <ul class="list-unstyled">
+        <li>
           <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'actor']); ?>
         </li>
+      </ul>
 
-        <li class="separator"><h4><?php echo __('Export'); ?></h4></li>
-
+      <h4 class="h5 mb-2"><?php echo __('Export'); ?></h4>
+      <ul class="list-unstyled">
         <li>
           <a href="<?php echo url_for([$resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml']); ?>">
-            <i class="fa fa-upload"></i>
+            <i class="fas fa-fw fa-upload text-muted" aria-hidden="true"></i>
             <?php echo __('EAC'); ?>
           </a>
         </li>
       </ul>
-    </section>
 
-    <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
-    <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+      <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+
+      <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
+
+    </nav>
 
   <?php } ?>
 
