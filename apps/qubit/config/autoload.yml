@@ -19,3 +19,6 @@ autoload:
 
   ParseDown:
     path: %SF_ROOT_DIR%/vendor/parsedown
+
+  arDominionB5Plugin:
+    path: %SF_PLUGINS_DIR%/arDominionB5Plugin/lib/
