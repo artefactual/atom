@@ -1,13 +1,25 @@
 <h1><?php echo __('Manage jobs'); ?></h1>
 
-<div>
-  <ul class="nav nav-tabs" id="job-tabs">
-    <li<?php if ('all' === $filter) { ?> class="active"<?php } ?>><?php echo link_to(__('All jobs'), ['filter' => 'all'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
-    <li<?php if ('active' === $filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Active jobs'), ['filter' => 'active'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
+<nav>
+  <ul class="nav nav-pills mb-3 d-flex gap-2">
+    <li class="nav-item">
+      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
+      <?php if ('all' === $filter) { ?>
+        <?php $options['class'] .= ' active'; ?>
+        <?php $options['aria-current'] = 'page'; ?>
+      <?php } ?>
+      <?php echo link_to(__('All jobs'), ['filter' => 'all'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), $options); ?>
+    </li>
+    <li class="nav-item">
+      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
+      <?php if ('active' === $filter) { ?>
+        <?php $options['class'] .= ' active'; ?>
+        <?php $options['aria-current'] = 'page'; ?>
+      <?php } ?>
+      <?php echo link_to(__('Active jobs'), ['filter' => 'active'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), $options); ?>
+    </li>
   </ul>
-</div>
-
-<br />
+</nav>
 
 <div class="tab-content">
   <table class="table table-bordered sticky-enabled">
@@ -38,11 +50,11 @@
         <!-- Job status -->
         <td>
           <?php if (QubitTerm::JOB_STATUS_COMPLETED_ID == $job->statusId) { ?>
-            <i class="fa fa-check-square" id="job-check-color"></i>
+            <i aria-hidden="true" class="fa fa-check-square me-1 text-success"></i>
           <?php } elseif (QubitTerm::JOB_STATUS_ERROR_ID == $job->statusId) { ?>
-            <i class="fa fa-exclamation-triangle" id="job-warning-color"></i>
+            <i aria-hidden="true" class="fa fa-exclamation-triangle me-1 text-danger"></i>
           <?php } elseif (QubitTerm::JOB_STATUS_IN_PROGRESS_ID == $job->statusId) { ?>
-            <i class="fa fa-cogs" id="job-cogs-color"></i>
+            <i aria-hidden="true" class="fa fa-cogs me-1 text-secondary"></i>
           <?php } ?>
 
           <?php echo $job->getStatusString(); ?>
@@ -57,15 +69,15 @@
         <!-- Job notes -->
         <td>
           <?php foreach ($job->getNotes() as $note) { ?>
-            <p><?php echo $note->__toString(); ?></p>
+            <p class="mb-2"><?php echo $note->__toString(); ?></p>
           <?php } ?>
           <?php if (isset($job->downloadPath)) { ?>
-            <?php echo link_to(__('Download'), public_path($job->downloadPath), ['class' => 'job-link']); ?>
-            (<?php echo hr_filesize(filesize($job->downloadPath)); ?>)
+            <p class="mb-2">
+              <?php echo link_to(__('Download'), public_path($job->downloadPath)); ?>
+              (<?php echo hr_filesize(filesize($job->downloadPath)); ?>)
+            </p>
           <?php } ?>
-
-          <?php echo link_to(__('Full report'), ['module' => 'jobs', 'action' => 'report', 'id' => $job->id],
-            ['class' => 'job-link']); ?>
+          <?php echo link_to(__('Full report'), ['module' => 'jobs', 'action' => 'report', 'id' => $job->id]); ?>
         </td>
 
         <!-- User who created the job -->
