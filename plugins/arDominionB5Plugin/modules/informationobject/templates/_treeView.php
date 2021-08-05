@@ -1,13 +1,13 @@
-<ul id="treeview-menu" class="nav nav-tabs">
+<ul id="treeview-menu" class="nav nav-tabs border-0">
   <?php if ('sidebar' == $treeviewType) { ?>
-    <li class="active">
-      <a href="#treeview" data-toggle="#treeview">
+    <li class="nav-item">
+      <a href="#treeview" data-toggle="#treeview" class="nav-link active" aria-current="page">
         <?php echo __('Holdings'); ?>
       </a>
     </li>
   <?php } ?>
-  <li <?php echo ('sidebar' != $treeviewType) ? 'class="active"' : ''; ?>>
-    <a href="#treeview-search" data-toggle="#treeview-search">
+  <li class="nav-item <?php echo ('sidebar' != $treeviewType) ? 'class="active"' : ''; ?>">
+    <a href="#treeview-search" data-toggle="#treeview-search" class="nav-link">
       <?php echo __('Quick search'); ?>
     </a>
   </li>
@@ -17,7 +17,7 @@
 
   <?php if ('sidebar' == $treeviewType) { ?>
 
-    <ul class="unstyled">
+    <ul class="list-group rounded-0">
 
       <?php foreach ($ancestors as $ancestor) { ?>
         <?php if (QubitInformationObject::ROOT_ID == $ancestor->id) { ?>
