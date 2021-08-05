@@ -40,6 +40,6 @@
     <script src="/js/pager.js"></script>
     <script src="/js/treeViewPager.js"></script>
     <script src="/js/hierarchy.js"></script>
-    <script src="/js/fullWidthTreeView.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/fullWidthTreeView.js"></script>
   </body>
 </html>
