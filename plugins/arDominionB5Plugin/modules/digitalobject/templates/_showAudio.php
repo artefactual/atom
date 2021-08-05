@@ -9,31 +9,34 @@
 <?php } elseif (QubitTerm::REFERENCE_ID == $usageType) { ?>
 
   <?php if ($showMediaPlayer) { ?>
-    <audio class="mejs__player" data-mejsoptions='{"pluginPath": "node_modules/mediaelement/build/", "renderers": ["html5", "flash_video"], "alwaysShowControls": "true", "stretching": "responsive"}' src="<?php echo public_path($representation->getFullPath()); ?>">
+    <audio class="mejs__player mw-100" data-mejsoptions='{"pluginPath": "node_modules/mediaelement/build/", "renderers": ["html5", "flash_video"], "alwaysShowControls": "true", "stretching": "responsive"}' src="<?php echo public_path($representation->getFullPath()); ?>">
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::CHAPTERS_ID]); ?>
     </audio>
   <?php } else { ?>
-    <div style="text-align: center">
-      <?php echo image_tag($representation->getFullPath(), ['style' => 'border: #999 1px solid', 'alt' => '']); ?>
+    <div class="text-center">
+      <?php echo image_tag($representation->getFullPath(), ['class' => 'img-thumbnail', 'alt' => '']); ?>
     </div>
   <?php }?>
 
   <?php if (isset($link) && QubitAcl::check($resource->object, 'readMaster')) { ?>
-    <?php echo link_to(__('Download audio'), $link, ['class' => 'download']); ?>
+    <a href="<?php echo $link; ?>" class="btn btn-sm atom-btn-white mt-3">
+      <i class="fas fa-download me-1" aria-hidden="true"></i>
+      <?php echo __('Download audio'); ?>
+    </a>
   <?php } ?>
 
 <?php } elseif (QubitTerm::THUMBNAIL_ID == $usageType && isset($link)) { ?>
 
   <?php if ($iconOnly) { ?>
 
-    <?php echo link_to(image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]), $link); ?>
+    <?php echo link_to(image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]), 'class' => 'img-thumbnail']), $link); ?>
 
   <?php } else { ?>
 
     <div class="resource">
 
       <div class="resourceRep">
-        <?php echo link_to(image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]), $link); ?>
+        <?php echo link_to(image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]), 'class' => 'img-thumbnail']), $link); ?>
       </div>
 
       <div class="resourceDesc">
@@ -48,7 +51,7 @@
 
   <div class="resource">
 
-    <?php echo image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+    <?php echo image_tag('play', ['alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]), 'class' => 'img-thumbnail']); ?>
 
   </div>
 
