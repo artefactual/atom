@@ -55,7 +55,7 @@
             'topLod' => false,
             'view' => 'card',
             'onlyMedia' => true, ]); ?>">
-          <i class="fas fa-fw fa-picture-o text-muted" aria-hidden="true"></i>
+          <i class="fas fa-fw fa-image text-muted" aria-hidden="true"></i>
           <?php echo __('Browse digital objects'); ?>
         </a>
       </li>
