@@ -1,6 +1,8 @@
 (function ($) {
   "use strict";
 
+  $(() => new Treeview($("#treeview")));
+
   /**
    * Debounces a function. Returns a function that calls the original fn function only if no invocations have been made
    * within the last quietMillis milliseconds.
@@ -56,8 +58,12 @@
   }
 
   class Treeview {
-    constructor(element) {
-      this.$element = element;
+    constructor($element) {
+      this.$element = $element;
+
+      if (!this.$element.length) {
+        return;
+      }
 
       // Used to control loading status and block interface if needed
       this.setLoading(false);
@@ -651,23 +657,6 @@
       return this;
     }
   }
-
-  $.fn.treeview = function () {
-    var $this = this;
-    var data = $this.data("treeview");
-    if (!data) {
-      $this.data("treeview", new Treeview(this));
-    }
-  };
-
-  $.fn.treeview.Constructor = Treeview;
-
-  $(function () {
-    var $treeview = $("#treeview");
-    if (0 < $treeview.length) {
-      $treeview.treeview();
-    }
-  });
 })(window.jQuery);
 
 /*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
