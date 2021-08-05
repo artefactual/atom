@@ -8,19 +8,28 @@
 
   <?php echo get_component('menu', 'staticPagesMenu'); ?>
 
-  <section>
-    <h2><?php echo __('Browse by'); ?></h2>
-    <ul>
-      <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID); ?>
-      <?php if ($browseMenu->hasChildren()) { ?>
+  <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID); ?>
+  <?php if ($browseMenu->hasChildren()) { ?>
+    <section class="card mb-3">
+      <h2 class="h5 p-3 mb-0">
+        <?php echo __('Browse by'); ?>
+      </h2>
+      <div class="list-group list-group-flush">
         <?php foreach ($browseMenu->getChildren() as $item) { ?>
-          <li><a href="<?php echo url_for($item->getPath(['getUrl' => true, 'resolveAlias' => true])); ?>"><?php echo esc_specialchars($item->getLabel(['cultureFallback' => true])); ?></a></li>
+          <a
+            class="list-group-item list-group-item-action"
+            href="<?php echo url_for($item->getPath(['getUrl' => true, 'resolveAlias' => true])); ?>">
+            <?php echo esc_specialchars($item->getLabel(['cultureFallback' => true])); ?>
+          </a>
         <?php } ?>
-      <?php } ?>
-    </ul>
-  </section>
+      </div>
+    </section>
+  <?php } ?>
 
-  <?php echo get_component('default', 'popular', ['limit' => 10, 'sf_cache_key' => $sf_user->getCulture()]); ?>
+  <?php echo get_component('default', 'popular', [
+      'limit' => 10,
+      'sf_cache_key' => $sf_user->getCulture(),
+  ]); ?>
 
 <?php end_slot(); ?>
 
