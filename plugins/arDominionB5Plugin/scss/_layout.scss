@@ -51,6 +51,8 @@
 
   .slick-dots {
     position: relative;
+    bottom: 0;
+    margin-top: $spacer * .25;
   }
 
   .slick-arrow.slick-prev {
