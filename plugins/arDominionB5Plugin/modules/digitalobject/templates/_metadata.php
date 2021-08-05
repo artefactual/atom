@@ -15,7 +15,7 @@
 
         <div class="accordion-item">
           <h3 class="accordion-header" id="preservation-heading">
-            <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#preservation-collapse" aria-expanded="true" aria-controls="preservation-collapse">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#preservation-collapse" aria-expanded="true" aria-controls="preservation-collapse">
               <?php echo __('Preservation Copies'); ?>
             </button>
           </h3>
@@ -121,7 +121,7 @@
 
         <div class="accordion-item">
           <h3 class="accordion-header" id="access-heading">
-            <button class="accordion-button<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? ' collapsed' : ''; ?> bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#access-collapse" aria-expanded="<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? 'false' : 'true'; ?>" aria-controls="access-collapse">
+            <button class="accordion-button<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? ' collapsed' : ''; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#access-collapse" aria-expanded="<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? 'false' : 'true'; ?>" aria-controls="access-collapse">
               <?php echo __('Access Copies'); ?>
             </button>
           </h3>
