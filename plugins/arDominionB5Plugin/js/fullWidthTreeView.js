@@ -1,8 +1,16 @@
-"use strict";
-
 (function ($) {
 
-  $(loadTreeView);
+  "use strict";
+
+  $(function()
+  {
+    var $node = $('.index #fullwidth-treeview');
+
+    if ($node.length)
+    {
+      loadTreeView();
+    }
+  });
 
   function makeFullTreeviewCollapsible ($treeViewConfig, $mainHeader, $fwTreeViewRow)
   {
@@ -24,7 +32,7 @@
     $fwTreeViewRow.appendTo($wrapper);
 
     // Activate toggle button
-    $toggleButton.click(function() {
+    $toggleButton.on('click', function() {
       // Determine appropriate toggle button text
       var toggleText = $treeViewConfig.data('opened-text');
 
@@ -45,7 +53,6 @@
     var treeViewCollapseEnabled = $treeViewConfig.data('collapse-enabled') == 'yes';
     var collectionUrl = $treeViewConfig.data('collection-url');
     var itemsPerPage = $treeViewConfig.data('items-per-page');
-    var dndEnabled = $treeViewConfig.data('enable-dnd') == 'yes';
     var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -82,11 +89,10 @@
         // - Multiple node drag
         // - Root node drag
         'copy': false,
-        'touch': 'selected',
         'open_timeout': 0,
         'drag_selection': false,
         'is_draggable': function (nodes) {
-          return dndEnabled && nodes[0].parent !== '#';
+          return nodes[0].parent !== '#';
         }
       },
       'core': {
@@ -201,7 +207,7 @@
         $('#main-column .breadcrumb').after($(response.find('#main-column > div.messages.error')));
 
         // Attach the Drupal Behaviour so blank.js does its thing
-        Drupal.attachBehaviors(document)
+        Drupal.attachBehaviors(document);
 
         // Update clipboard buttons
         if (jQuery('#clipboard-menu').data('clipboard') !== undefined)
@@ -291,7 +297,7 @@
       .bind('move_node.jstree', moveNodeListener);
 
     // Clicking "more" will add next page of results to tree
-    $moreButton.click(function() {
+    $moreButton.on('click', function() {
       pager.next();
       pager.getAndAppendNodes(function() {
         // Queue is empty so update paging link
@@ -300,12 +306,12 @@
     });
 
     // Clicking reset link will reset paging and tree state
-    $('#fullwidth-treeview-reset-button').click(function()
+    $('#fullwidth-treeview-reset-button').on('click', function()
     {
       pager.reset($moreButton, $resetButton);
     });
 
     // TODO restore window.history states
-    $(window).bind('popstate', function() {});
+    $(window).on('popstate', function() {});
   }
 })(jQuery);
