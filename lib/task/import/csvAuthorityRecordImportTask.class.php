@@ -65,6 +65,42 @@ EOF;
             QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes',
         ]);
 
+        // Define helper function used in post-save logic
+        $relateTermFunction = function ($import, $column, $taxonomyId) {
+            if (empty($import->rowStatusVars[$column])) {
+                return;
+            }
+
+            $terms = explode('|', $import->rowStatusVars[$column]);
+
+            for ($i = 0; $i < count($terms); ++$i) {
+                if (empty($terms[$i])) {
+                    continue;
+                }
+
+                // Attempt to create relation to term object
+                $relation = QubitActor::setTermRelationByName(
+                    $terms[$i],
+                    [
+                        'taxonomyId' => $taxonomyId,
+                        'culture' => $import->columnValue('culture'),
+                    ]
+                );
+
+                if (null === $relation) {
+                    continue;
+                }
+
+                // If a relation to term object could be created, associate it with this actor and save
+                $relationAlreadyExists = QubitFlatfileImport::objectTermRelationExists($import->object->id, $relation->termId);
+
+                if (!$relationAlreadyExists) {
+                    $relation->object = $import->object;
+                    $relation->save();
+                }
+            }
+        };
+
         // Define import
         $import = new QubitFlatfileImport([
             // Pass context
@@ -88,6 +124,7 @@ EOF;
                 'detailLevelTypes' => $termData['detailLevelTypes'],
                 'aliases' => $aliases,
                 'actorNames' => [],
+                'relateTermFunction' => $relateTermFunction,
             ],
 
             // Import columns that map directory to QubitActor properties
@@ -276,35 +313,9 @@ EOF;
                         $info->save();
                     }
 
-                    // Add placeAccessPoints
-                    if (!empty($self->rowStatusVars['placeAccessPoints'])) {
-                        $places = explode('|', $self->rowStatusVars['placeAccessPoints']);
-                        for ($i = 0; $i < count($places); ++$i) {
-                            if (empty($places[$i])) {
-                                continue;
-                            }
-
-                            if (null !== $relation = QubitActor::setTermRelationByName($places[$i], $options = ['taxonomyId' => QubitTaxonomy::PLACE_ID, 'culture' => $self->columnValue('culture')])) {
-                                $relation->object = $self->object;
-                                $relation->save();
-                            }
-                        }
-                    }
-
-                    // Add subjectAccessPoints
-                    if (!empty($self->rowStatusVars['subjectAccessPoints'])) {
-                        $subjects = explode('|', $self->rowStatusVars['subjectAccessPoints']);
-                        for ($i = 0; $i < count($subjects); ++$i) {
-                            if (empty($subjects[$i])) {
-                                continue;
-                            }
-
-                            if (null !== $relation = QubitActor::setTermRelationByName($subjects[$i], $options = ['taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'culture' => $self->columnValue('culture')])) {
-                                $relation->object = $self->object;
-                                $relation->save();
-                            }
-                        }
-                    }
+                    // Add placeAccessPoints and subjectAccessPoints
+                    $self->status['relateTermFunction']($self, 'placeAccessPoints', QubitTaxonomy::PLACE_ID);
+                    $self->status['relateTermFunction']($self, 'subjectAccessPoints', QubitTaxonomy::SUBJECT_ID);
 
                     // Add occupations
                     if (!empty($self->rowStatusVars['actorOccupations'])) {
