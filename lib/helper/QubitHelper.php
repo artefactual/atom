@@ -248,7 +248,7 @@ function render_b5_show_label_css_classes($options = [])
     if (!isset($options['isSubField'])) {
         $result .= ' col-3 border-end text-end p-2';
     } else {
-        $result .= ' me-1 p-1';
+        $result .= ' me-1 px-1 pb-2';
     }
 
     return $result;
@@ -271,7 +271,7 @@ function render_b5_show_value_css_classes($options = [])
     if (!isset($options['isSubField'])) {
         $result .= ' col-9 p-2';
     } else {
-        $result .= ' p-1';
+        $result .= ' px-1 pb-2';
     }
 
     return $result;
