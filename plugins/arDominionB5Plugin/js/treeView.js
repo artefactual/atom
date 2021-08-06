@@ -94,29 +94,29 @@
     }
     init() {
       this.$element
-        .on("click.treeview.atom", "li", $.proxy(this.click, this))
-        .on("mousedown.treeview.atom", "li", $.proxy(this.mousedownup, this))
-        .on("mouseup.treeview.atom", "li", $.proxy(this.mousedownup, this))
-        .on("mouseenter.treeview.atom", "li", $.proxy(this.mouseenter, this))
-        .on("mouseleave.treeview.atom", "li", $.proxy(this.mouseleave, this))
-        .bind("scroll", $.proxy(this.scroll, this))
-        .bind("scroll-debounced", $.proxy(this.debouncedScroll, this));
+        .on("click.treeview.atom", "li", this.click.bind(this))
+        .on("mousedown.treeview.atom", "li", this.mousedownup.bind(this))
+        .on("mouseup.treeview.atom", "li", this.mousedownup.bind(this))
+        .on("mouseenter.treeview.atom", "li", this.mouseenter.bind(this))
+        .on("mouseleave.treeview.atom", "li", this.mouseleave.bind(this))
+        .bind("scroll", this.scroll.bind(this))
+        .bind("scroll-debounced", this.debouncedScroll.bind(this));
 
-      this.$menu.on("click.treeview.atom", "a", $.proxy(this.clickMenu, this));
+      this.$menu.on("click.treeview.atom", "a", this.clickMenu.bind(this));
 
       this.$search
-        .on("submit.treeview.atom", "form", $.proxy(this.search, this))
-        .on("keydown.treeview.atom", "input", $.proxy(this.searchChange, this));
+        .on("submit.treeview.atom", "form", this.search.bind(this))
+        .on("keydown.treeview.atom", "input", this.searchChange.bind(this));
 
       this.$list.on(
         "click.treeview.atom",
         ".pager a",
-        $.proxy(this.clickPagerButton, this)
+        this.clickPagerButton.bind(this)
       );
 
       // Prevent out-of-bounds scrollings via mousewheel
       if ($.fn.mousewheel) {
-        this.$element.bind("mousewheel", $.proxy(this.mousewheel, this));
+        this.$element.bind("mousewheel", this.mousewheel.bind(this));
       }
 
       var self = this;
@@ -166,8 +166,8 @@
         items: this.nodesSelector,
         placeholder: "placeholder",
         forcePlaceholderSize: true,
-        start: $.proxy(this.drag, this),
-        stop: $.proxy(this.drop, this),
+        start: this.drag.bind(this),
+        stop: this.drop.bind(this),
         axis: "y",
       });
 
