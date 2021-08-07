@@ -75,7 +75,8 @@
           this.listItemMouseLeave.bind(this)
         )
         .bind("scroll", this.scroll.bind(this))
-        .bind("scroll-debounced", this.debouncedScroll.bind(this));
+        .bind("scroll-debounced", this.debouncedScroll.bind(this))
+        .bind("mousewheel", this.mousewheel.bind(this));
 
       this.$menu.on("click.treeview.atom", "a", this.clickMenu.bind(this));
 
@@ -98,11 +99,6 @@
         ".pager a",
         this.clickPagerButton.bind(this)
       );
-
-      // Prevent out-of-bounds scrollings via mousewheel
-      if ($.fn.mousewheel) {
-        this.$element.bind("mousewheel", this.mousewheel.bind(this));
-      }
 
       var self = this;
       this.notify = debounce(80, function (e) {
@@ -247,6 +243,7 @@
 
       return this;
     }
+    // Prevent out-of-bounds scrollings via mousewheel.
     mousewheel(e, delta, deltaX, deltaY) {
       var top = this.$element.scrollTop();
       if (deltaY > 0 && top - deltaY <= 0) {
