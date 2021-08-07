@@ -253,8 +253,7 @@
       return this;
     }
     mousewheel(e, delta, deltaX, deltaY) {
-      var top = this.$element.scrollTop(),
-        height;
+      var top = this.$element.scrollTop();
       if (deltaY > 0 && top - deltaY <= 0) {
         this.$element.scrollTop(0);
         killEvent(e);
