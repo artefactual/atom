@@ -191,6 +191,10 @@
     drag(e, ui) {
       this._position = ui.item.prev().index();
 
+      // Left position needs to be reset.
+      const left = ui.item.parents("ul").offset().left;
+      ui.item.css("left", left);
+
       const popover = bootstrap.Popover.getInstance(ui.item.get(0));
       if (!popover) {
         return;
