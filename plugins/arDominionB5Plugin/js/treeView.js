@@ -64,8 +64,16 @@
         .on("click.treeview.atom", "li", this.click.bind(this))
         .on("mousedown.treeview.atom", "li", this.mousedownup.bind(this))
         .on("mouseup.treeview.atom", "li", this.mousedownup.bind(this))
-        .on("mouseenter.treeview.atom", "li", this.mouseenter.bind(this))
-        .on("mouseleave.treeview.atom", "li", this.mouseleave.bind(this))
+        .on(
+          "mouseenter.treeview.atom",
+          "li",
+          this.listItemMouseEnter.bind(this)
+        )
+        .on(
+          "mouseleave.treeview.atom",
+          "li",
+          this.listItemMouseLeave.bind(this)
+        )
         .bind("scroll", this.scroll.bind(this))
         .bind("scroll-debounced", this.debouncedScroll.bind(this));
 
@@ -73,7 +81,17 @@
 
       this.$search
         .on("submit.treeview.atom", "form", this.search.bind(this))
-        .on("keydown.treeview.atom", "input", this.searchChange.bind(this));
+        .on("keydown.treeview.atom", "input", this.searchChange.bind(this))
+        .on(
+          "mouseenter.treeview.atom",
+          "li",
+          this.listItemMouseEnter.bind(this)
+        )
+        .on(
+          "mouseleave.treeview.atom",
+          "li",
+          this.listItemMouseLeave.bind(this)
+        );
 
       this.$list.on(
         "click.treeview.atom",
@@ -116,9 +134,6 @@
             .children("i")
             .css("visibility", "visible");
         }
-
-        // Remove popups
-        $(".popover").remove();
       }
 
       return this;
@@ -168,44 +183,20 @@
 
       return this;
     }
-    mouseenter(e) {
-      var $li =
-        "LI" === e.target.tagName ? $(e.target) : $(e.target).closest("li");
-
-      // Pass function so the placement is computed every time
-      $li.popover({
-        html: true,
-        placement: function (popover, element) {
-          return $(window).innerWidth() - $(element).offset().left < 550
-            ? "left"
-            : "right";
-        },
-      });
-
-      $li.popover("show");
-
-      return this;
-    }
     mousedownup(e) {
       if (this.loading) {
         killEvent(e);
       }
-
-      return this;
-    }
-    mouseleave(e) {
-      var $li =
-        "LI" === e.target.tagName ? $(e.target) : $(e.target).closest("li");
-
-      $li.popover("hide");
-
-      return this;
     }
     drag(e, ui) {
       this._position = ui.item.prev().index();
 
-      // Remove popups
-      $(".popover").remove();
+      const popover = bootstrap.Popover.getInstance(ui.item.get(0));
+      if (!popover) {
+        return;
+      }
+
+      popover.hide();
     }
     drop(e, ui) {
       if (this._position == ui.item.prev().index()) {
@@ -414,7 +405,7 @@
         $a.append(".");
       }, 125);
 
-      var showAction = $element.nextAll(":not(.popover):first").is("LI")
+      var showAction = $element.next().is("LI")
         ? "prevSiblings"
         : "nextSiblings";
 
@@ -532,35 +523,6 @@
           }
 
           this.$search.find(".list-menu").addClass("open");
-
-          // Show popover on mouse enter
-          this.$search.on("mouseenter", "li", function (e) {
-            var $li =
-              "LI" === e.target.tagName
-                ? $(e.target)
-                : $(e.target).closest("li");
-
-            // Pass function so the placement is computed every time
-            $li.popover({
-              placement: function (popover, element) {
-                return $(window).innerWidth() - $(element).offset().left < 550
-                  ? "left"
-                  : "right";
-              },
-            });
-
-            $li.popover("show");
-          });
-
-          // Hide popover on mouse leave
-          this.$search.on("mouseleave", "li", function (e) {
-            var $li =
-              "LI" === e.target.tagName
-                ? $(e.target)
-                : $(e.target).closest("li");
-
-            $li.popover("hide");
-          });
         })
 
         .always(function (data) {
@@ -578,6 +540,36 @@
           this.$search.find(".list-menu, .no-results").remove();
           $(event.target).attr("value", "");
       }
+    }
+    // Create and show the popover.
+    listItemMouseEnter(event) {
+      const target = event.target;
+      const listItem = "LI" === target.tagName ? target : target.closest("li");
+
+      // This is happening but I can't tell why.
+      if (!listItem.dataset.content) {
+        return;
+      }
+
+      const popover = bootstrap.Popover.getOrCreateInstance(listItem, {
+        html: true,
+        placement: "auto",
+        content: listItem.dataset.content,
+      });
+
+      popover.show();
+    }
+    // hide the popover.
+    listItemMouseLeave(event) {
+      const target = event.target;
+      const listItem = "LI" === target.tagName ? target : target.closest("li");
+
+      const popover = bootstrap.Popover.getInstance(listItem);
+      if (!popover) {
+        return;
+      }
+
+      popover.hide();
     }
     clickPagerButton(event) {
       event.preventDefault();
