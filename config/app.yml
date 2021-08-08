@@ -59,3 +59,8 @@ all:
 
   # Maximum allowed value for full-width treeview "items per page" setting
   treeview_items_per_page_max: 10000
+
+  # Preservica credentials
+  preservica_username: someuser
+  preservica_password: somepass
+  preservica_host: somehost
