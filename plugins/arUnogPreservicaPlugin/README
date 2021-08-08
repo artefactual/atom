@@ -1,0 +1,86 @@
+UNOG Preservica Plugin
+======================
+
+This plugin does the following:
+
+* Adds REST API endpoint to create AtoM digital objects representing Preservica
+  digital objects
+
+* Adds REST API endpoint to update alternative identifiers
+
+* Adds ability for AtoM users to stream downloads, from Preservica, of master
+  representations of Preservica digital objects
+
+* Overrides default AtoM digital object metadata template to provide a link
+  to the streamed download
+
+
+Configuration
+-------------
+
+1. Enable the arUnogPreservicaPlugin plugin using the plugin administration
+   page (/sfPluginAdminPlugin/plugins).
+
+2. Enable the arRestApiPlugin plugin also (as the arUnogPreservicaPlugin
+   leverages some of its functionality).
+
+3. Generate an AtoM REST API key by doing the following:
+   a. Navigate to the the list users page (/user/list)
+   b. Click on a username to view the user's details
+   c. Clicking the "Edit" button
+   d. Select "(Re)generate API key" in the "REST API access key" select field
+
+4. Set Preservica credentials in AtoM's config/app.yml file (until we get a
+   proper application token to use instead):
+   a. Set "preservica_username"
+   b. Set "preservica_password"
+   c. Set "preservica_host"
+
+5. Clear AtoM's cache (clearing the dummy Preservica credential values.
+
+
+Creating AtoM Digital Objects Representing Preservica Digital Objects
+---------------------------------------------------------------------
+
+A REST API call can be used to create an AtoM digital object representing a
+Preservica digital object.
+
+The /api/preservica/digitalobjects REST API endpoint will do the following when
+a POST request with valid data is made:
+
+1. Download Preservica digital object's thumbnail (large) to use as a
+   a digital object's representation derivative
+
+2. Attempt to retrieve a transcript for the Preservica digital object (likely
+   only for PDFs, etc.)
+
+3. Create digital object with no master
+
+4. Add a Preservica UUID alternative label property to indicate that the
+   digital object represents a Preservica digital object
+
+5. Re-index the information object the digital object is associated with
+   (so terms from the transcript can be searched for)
+
+Example REST API call using curl:
+
+    curl \
+      -H "REST-API-Key: 6baa2ef58fdcb044" \
+      -H "Content-Type: application/json" \
+      -d '{"slug": "example-fonds", "uuid": "36923433-4b72-42cc-b508-a7a8eba1db95"}' \
+      http://10.10.10.10/api/preservica/digitalobjects
+
+
+Updating AtoM alternative Identifiers
+-------------------------------------
+
+The /api/preservica/altIdentifier REST API endpoint will allow you to replace
+an alternative identifier with another.
+
+Example REST API call using curl:
+
+    curl \
+      -H "REST-API-Key: 7ae856228cefbda7" \
+      -H "Content-Type: application/json" \
+      -d '{"label": "SCOPE", "current_id": "1234", "new_id": "567"}' \
+      "http://10.10.10.10/api/preservica/altIdentifier"
