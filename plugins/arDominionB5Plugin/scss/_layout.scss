@@ -138,3 +138,8 @@ body > iframe {
     box-shadow: $atom-gray-box-shadow;
   }
 }
+
+// Hide the treeview tabs menu when there is just a single navigation item.
+#treeview-menu .nav-item:only-child {
+  display: none;
+}

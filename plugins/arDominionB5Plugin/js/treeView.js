@@ -53,7 +53,7 @@
         !!this.$element.data("browser");
 
       // Menu (tabs) and search box
-      this.$menu = this.$element.prev("#treeview-menu");
+      this.$menu = this.$element.parent().prev("#treeview-menu");
       this.$search = this.$element.siblings("#treeview-search");
       this.$list = this.$element.siblings("#treeview-list");
 
@@ -78,8 +78,6 @@
         .bind("scroll-debounced", this.debouncedScroll.bind(this))
         .bind("mousewheel", this.mousewheel.bind(this));
 
-      this.$menu.on("click.treeview.atom", "a", this.clickMenu.bind(this));
-
       this.$search
         .on("submit.treeview.atom", "form", this.search.bind(this))
         .on("keydown.treeview.atom", "input", this.searchChange.bind(this))
@@ -99,6 +97,11 @@
         ".pager a",
         this.clickPagerButton.bind(this)
       );
+
+      // Search box auto focus.
+      this.$menu.on("shown.bs.tab", "#treeview-search-tab", (event) => {
+        this.$search.find("input").focus();
+      });
 
       var self = this;
       this.notify = debounce(80, function (e) {
@@ -434,27 +437,6 @@
         },
         error: function () {},
       });
-    }
-    clickMenu(event) {
-      event.stopPropagation();
-      event.preventDefault();
-
-      var $link = $(event.target);
-      var $li = $link.parent();
-
-      if (!$li.hasClass("active")) {
-        this.$menu.find("li").removeClass("active");
-        $li.addClass("active");
-        this.$element.hide();
-        this.$search.hide();
-        this.$list.hide();
-
-        $($link.data("toggle")).show();
-
-        if ($link.data("toggle") == "#treeview-search") {
-          this.$search.find("input").focus();
-        }
-      }
     }
     search(event) {
       event.preventDefault();
