@@ -569,6 +569,7 @@
         html: true,
         placement: "auto",
         content: listItem.dataset.content,
+        title: listItem.dataset.title ?? "", // Not always defined.
       });
 
       popover.show();
