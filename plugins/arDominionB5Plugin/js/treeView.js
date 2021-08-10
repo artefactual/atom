@@ -66,12 +66,12 @@
         .on("mouseup.treeview.atom", "li", this.mousedownup.bind(this))
         .on(
           "mouseenter.treeview.atom",
-          "li",
+          ".list-group-item",
           this.listItemMouseEnter.bind(this)
         )
         .on(
           "mouseleave.treeview.atom",
-          "li",
+          ".list-group-item",
           this.listItemMouseLeave.bind(this)
         )
         .bind("scroll", this.scroll.bind(this))
@@ -83,12 +83,12 @@
         .on("keydown.treeview.atom", "input", this.searchChange.bind(this))
         .on(
           "mouseenter.treeview.atom",
-          "li",
+          ".list-group-item",
           this.listItemMouseEnter.bind(this)
         )
         .on(
           "mouseleave.treeview.atom",
-          "li",
+          ".list-group-item",
           this.listItemMouseLeave.bind(this)
         );
 
@@ -438,6 +438,18 @@
         error: function () {},
       });
     }
+    clearSearchResults() {
+      this.$search.find(".list-group, .no-results").remove();
+    }
+    showSearchAlert(message, bsAlertClass = "alert-warning") {
+      const $alert = $(
+        '<div class="no-results alert rounded-0 rounded-bottom border-top-0" role="alert"></div>'
+      )
+        .html(message)
+        .addClass(bsAlertClass);
+
+      this.$search.append($alert);
+    }
     search(event) {
       event.preventDefault();
 
@@ -466,46 +478,61 @@
         data: data,
       })
 
+        .always(function (data) {
+          this.clearSearchResults();
+        })
+
         .fail(function (fail) {
           if (404 == fail.status) {
-            this.$search.find(".list-menu, .no-results").remove();
-            this.$search.append(
-              '<div class="no-results">' +
-                event.target.getAttribute("data-not-found") +
-                "</div>"
+            this.showSearchAlert(event.target.getAttribute("data-not-found"));
+          } else {
+            this.showSearchAlert(
+              event.target.getAttribute("data-error"),
+              "alert-warning"
             );
           }
         })
 
         .done(function (data) {
-          // Add new .list-menu
-          this.$search.find(".list-menu, .no-results").remove();
-          this.$search.append('<div class="list-menu"><ul></ul></div>');
+          // Add new list
+          this.$search.append(
+            '<ul class="list-group list-group-flush rounded-0 border border-top-0"></ul>'
+          );
 
-          // Inject results, can we avoid .each()
-          var $list = this.$search.find(".list-menu ul");
+          const $listItemTmpl = $(
+            '<a href="#" class="list-group-item list-group-item-action"></a>'
+          );
+
+          // Inject results
+          var $list = this.$search.find(".list-group");
           for (var i in data.results) {
-            var item = data.results[i];
-            var link = '<a href="' + item.url + '">' + item.title + "</a>";
-            $list
-              .append(
-                '<li data-title="' +
-                  item.level +
-                  '" data-content="' +
-                  item.identifier +
-                  item.title +
-                  '"></li>'
-              )
-              .children(":last-child")
-              .append(link);
+            const item = data.results[i];
+            const $listItem = $listItemTmpl
+              .clone()
+              .attr("href", item.url)
+              .attr("data-title", item.level)
+              .attr("data-content", item.identifier + item.title)
+              .html(item.title);
+            $list.append($listItem);
           }
 
-          // Show more
+          // Inject the browse link, which is part of the server payload.
           if (undefined !== data.more) {
-            $list.after(data.more);
-          }
+            const $serverLink = $(data.more).children("a");
 
-          this.$search.find(".list-menu").addClass("open");
+            // New link from scratch.
+            const href = $serverLink.attr("href");
+            const text = $serverLink.text().trim();
+            $list.append(
+              $(
+                '<a class="btn btn-sm atom-btn-white w-100 border-0 rounded-0">' +
+                  '<i class="fas fa-search me-1" aria-hidden="true"></i>' +
+                  "</a>"
+              )
+                .attr("href", href)
+                .append(text)
+            );
+          }
         })
 
         .always(function (data) {
@@ -517,17 +544,21 @@
 
       return this;
     }
+    // Clear search input when the escape key is pressed.
     searchChange(event) {
       switch (event.which) {
         case 27:
-          this.$search.find(".list-menu, .no-results").remove();
-          $(event.target).attr("value", "");
+          this.clearSearchResults();
+          event.target.value = "";
       }
     }
     // Create and show the popover.
     listItemMouseEnter(event) {
       const target = event.target;
-      const listItem = "LI" === target.tagName ? target : target.closest("li");
+      const listItem =
+        target.tagName in ["LI", "A"]
+          ? target
+          : target.closest(".list-group-item");
 
       // This is happening but I can't tell why.
       if (!listItem.dataset.content) {
@@ -545,7 +576,10 @@
     // hide the popover.
     listItemMouseLeave(event) {
       const target = event.target;
-      const listItem = "LI" === target.tagName ? target : target.closest("li");
+      const listItem =
+        target.tagName in ["LI", "A"]
+          ? target
+          : target.closest(".list-group-item");
 
       const popover = bootstrap.Popover.getInstance(listItem);
       if (!popover) {

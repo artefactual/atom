@@ -200,18 +200,39 @@
 
     <div class="tab-pane fade" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
 
-      <form method="get" role="search" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-not-found="<?php echo __('No results found.'); ?>" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
-        <div class="search-box">
-          <input type="text" name="query" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" />
-          <button type="submit" aria-label="<?php echo __('Search'); ?>"><i aria-hidden="true" class="fa fa-search"></i></button>
-          <button id="treeview-search-settings" aria-label="<?php echo __('Settings'); ?>" href="#"><i aria-hidden="true" class="fa fa-cog"></i></button>
-        </div>
-        <div class="animateNicely" id="field-options" style="display: none;">
-          <ul>
-            <li><label><input type="radio" name="queryField" value="All labels" checked><?php echo __('All labels'); ?></label></li>
-            <li><label><input type="radio" name="queryField" value="Preferred label"><?php echo __('Preferred label'); ?></label></li>
-            <li><label><input type="radio" name="queryField" value="\'Use for\' labels"><?php echo __('\'Use for\' labels'); ?></label></li>
-          </ul>
+      <form method="get" role="search" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-error="<?php echo __('Search error.'); ?>" data-not-found="<?php echo __('No results found.'); ?>" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
+        <div class="input-group p-2 bg-gray border">
+          <button class="btn atom-btn-secondary dropdown-toggle" type="button" id="treeview-search-settings" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <i aria-hidden="true" class="fas fa-cog"></i>
+            <span class="visually-hidden"><?php echo __('Search options'); ?></span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="treeview-search-settings">
+            <div class="mx-3 my-2">
+              <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-1" value="All labels" checked>
+                <label class="form-check-label" for="treeview-search-query-field-1">
+                  <?php echo __('All labels'); ?>
+                </label>
+              </div>
+              <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-2" value="Preferred label">
+                <label class="form-check-label" for="treeview-search-query-field-2">
+                  <?php echo __('Preferred label'); ?>
+                </label>
+              </div>
+              <div class="form-check pb-2">
+                <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-3" value="\'Use for\' labels">
+                <label class="form-check-label" for="treeview-search-query-field-3">
+                  <?php echo __('\'Use for\' labels'); ?>
+                </label>
+              </div>
+            </div>
+          </div>
+          <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" />
+          <button class="btn atom-btn-secondary" type="submit" id="treeview-search-submit-button" aria-label="<?php echo __('Search'); ?>">
+            <i aria-hidden="true" class="fas fa-search"></i>
+            <span class="visually-hidden"><?php echo __('Search'); ?></span>
+          </button>
         </div>
       </form>
 

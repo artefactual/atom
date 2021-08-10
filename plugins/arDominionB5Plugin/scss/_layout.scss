@@ -143,3 +143,8 @@ body > iframe {
 #treeview-menu .nav-item:only-child {
   display: none;
 }
+
+// Better integration of alerts within the treeview sidebar search box.
+#treeview-search .alert {
+  border-color: $border-color !important;
+}
