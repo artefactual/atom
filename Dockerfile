@@ -13,6 +13,7 @@ RUN set -xe \
       libzip-dev \
       oniguruma-dev \
       autoconf \
+      bsd-compat-headers \
       build-base \
     && docker-php-ext-install \
       calendar \
@@ -25,12 +26,14 @@ RUN set -xe \
       sockets \
       xsl \
       zip \
-    && pecl install apcu pcov \
+    && curl -Ls http://downloads.sourceforge.net/project/judy/judy/Judy-1.0.5/Judy-1.0.5.tar.gz | tar xz -C / \
+    && cd /judy-1.0.5 && ./configure && make && make install \
+    && pecl install apcu memprof pcov \
     && curl -Ls https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.tar.gz | tar xz -C / \
     && cd /pecl-memcache-NON_BLOCKING_IO_php7 \
     && phpize && ./configure && make && make install \
-    && cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
-    && docker-php-ext-enable apcu memcache pcov \
+    && cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 /judy-1.0.5 \
+    && docker-php-ext-enable apcu memcache memprof pcov \
     && apk add --no-cache --virtual .phpext-rundeps \
       gettext \
       libxslt \
