@@ -357,6 +357,10 @@
         },
       })
 
+        .always(function (data) {
+          this.clearPopovers();
+        })
+
         .fail(function (fail) {
           // Hide the expand icon if not found
           if (404 == fail.status) {
@@ -439,9 +443,12 @@
         error: function () {},
       });
     }
+    clearPopovers() {
+      $(".popover.bs-popover-end").remove();
+    }
     clearSearchResults() {
       this.$search.children("form").nextAll().remove();
-      $(".popover.bs-popover-end").remove();
+      this.clearPopovers();
     }
     showAlert($container, message, classes) {
       const $alert = $(
@@ -597,7 +604,7 @@
     }
     clearListResults() {
       this.$list.children().remove();
-      $(".popover.bs-popover-end").remove();
+      this.clearPopovers();
     }
     clickPagerButton(event) {
       event.preventDefault();
