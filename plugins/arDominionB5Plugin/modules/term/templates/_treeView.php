@@ -1,6 +1,8 @@
 <?php
   // TODO: this check should be moved to the component.
-  if (!isset($resource)) { return; }
+  if (!isset($resource)) {
+      return;
+  }
 ?>
 
 <ul class="nav nav-tabs border-0" id="treeview-menu" role="tablist">
@@ -149,8 +151,10 @@
           <?php foreach ($pager->getResults() as $hit) { ?>
             <?php $doc = $hit->getData(); ?>
 
-            <?php $linkOptions = ["class" => "list-group-item list-group-item-action text-truncate"]; ?>
-            <?php if ($doc['isProtected']) $linkOptions["class"] += " readOnly"; ?>
+            <?php $linkOptions = ['class' => 'list-group-item list-group-item-action text-truncate']; ?>
+            <?php if ($doc['isProtected']) {
+                $linkOptions['class'] += ' readOnly';
+            } ?>
 
             <?php echo link_to(
               render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])),
@@ -161,7 +165,7 @@
         </div>
 
         <?php if ($pager->haveToPaginate()) { ?>
-          <nav aria-label="<?php echo __('Pagination') ?>" class="p-2 bg-white border border-top-0">
+          <nav aria-label="<?php echo __('Pagination'); ?>" class="p-2 bg-white border border-top-0">
 
             <p class="text-center mb-1 small result-count">
               <?php echo __('Results %1% to %2% of %3%', ['%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults()]); ?>
@@ -230,7 +234,3 @@
   <?php } ?>
 
 </div>
-
-
-
-
