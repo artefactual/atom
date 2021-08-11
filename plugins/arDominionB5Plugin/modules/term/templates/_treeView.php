@@ -142,56 +142,45 @@
 
   <?php if (isset($tabs) && $tabs) { ?>
 
-    <div class="tab-pane fade" id="treeview-list" role="tabpanel" aria-labelledby="treeview-list-tab">
+    <div class="tab-pane fade" id="treeview-list" role="tabpanel" aria-labelledby="treeview-list-tab" data-error="<?php echo __('List error.'); ?>">
 
       <?php if (isset($pager)) { ?>
-        <ul>
-
+        <div class="list-group list-group-flush rounded-0 border">
           <?php foreach ($pager->getResults() as $hit) { ?>
             <?php $doc = $hit->getData(); ?>
 
-            <li>
-              <?php if ($doc['isProtected']) { ?>
-                <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']], ['class' => 'readOnly']); ?>
-              <?php } else { ?>
-                <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']]); ?>
-              <?php } ?>
-            </li>
+            <?php $linkOptions = ["class" => "list-group-item list-group-item-action"]; ?>
+            <?php if ($doc['isProtected']) $linkOptions["class"] += " readOnly"; ?>
 
+            <?php echo link_to(
+              render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])),
+              ['module' => 'term', 'slug' => $doc['slug']],
+              $linkOptions,
+            ); ?>
           <?php } ?>
-
-        </ul>
+        </div>
 
         <?php if ($pager->haveToPaginate()) { ?>
+          <nav aria-label="<?php echo __('Pagination') ?>" class="p-2 bg-white border border-top-0">
 
-          <section>
-
-            <div class="result-count">
+            <p class="text-center mb-1 small result-count">
               <?php echo __('Results %1% to %2% of %3%', ['%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults()]); ?>
-            </div>
+            </p>
 
-            <div>
-              <div class="pager">
-                <ul>
+            <ul class="pagination pagination-sm justify-content-center mb-2">
+              <li class="page-item disabled previous">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><?php echo __('Previous'); ?></a>
+              </li>
+              <li class="page-item next">
+                <?php echo link_to(
+                  __('Next'),
+                  ['listPage' => $pager->getPage() + 1] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+                  ['class' => 'page-link']
+                ); ?>
+              </li>
+            </ul>
 
-                  <?php if (1 < $pager->getPage()) { ?>
-                    <li class="previous">
-                      <?php echo link_to('&laquo; '.__('Previous'), ['listPage' => $pager->getPage() - 1] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?>
-                    </li>
-                  <?php } ?>
-
-                  <?php if ($pager->getLastPage() > $pager->getPage()) { ?>
-                    <li class="next">
-                      <?php echo link_to(__('Next').' &raquo;', ['listPage' => $pager->getPage() + 1] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?>
-                    </li>
-                  <?php } ?>
-
-                </ul>
-              </div>
-            </div>
-
-          </section>
-
+          </nav>
         <?php } ?>
 
       <?php } ?>

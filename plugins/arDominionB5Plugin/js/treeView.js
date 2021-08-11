@@ -56,6 +56,7 @@
       this.$menu = this.$element.parent().prev("#treeview-menu");
       this.$search = this.$element.siblings("#treeview-search");
       this.$list = this.$element.siblings("#treeview-list");
+      this.$listNavTmpl = this.$list.find("nav").clone();
 
       this.init();
     }
@@ -94,7 +95,7 @@
 
       this.$list.on(
         "click.treeview.atom",
-        ".pager a",
+        ".pagination a",
         this.clickPagerButton.bind(this)
       );
 
@@ -439,16 +440,17 @@
       });
     }
     clearSearchResults() {
-      this.$search.find(".list-group, .no-results").remove();
+      this.$search.children("form").nextAll().remove();
+      $(".popover.bs-popover-end").remove();
     }
-    showSearchAlert(message, bsAlertClass = "alert-warning") {
+    showAlert($container, message, classes) {
       const $alert = $(
-        '<div class="no-results alert rounded-0 rounded-bottom border-top-0" role="alert"></div>'
+        '<div class="no-results alert rounded-0 rounded-bottom" role="alert"></div>'
       )
         .html(message)
-        .addClass(bsAlertClass);
+        .addClass(classes);
 
-      this.$search.append($alert);
+      $container.append($alert);
     }
     search(event) {
       event.preventDefault();
@@ -484,28 +486,30 @@
 
         .fail(function (fail) {
           if (404 == fail.status) {
-            this.showSearchAlert(event.target.getAttribute("data-not-found"));
+            this.showAlert(
+              this.$search,
+              event.target.getAttribute("data-not-found"),
+              ["border-top-0", "alert-warning"]
+            );
           } else {
-            this.showSearchAlert(
+            this.showAlert(
+              this.$search,
               event.target.getAttribute("data-error"),
-              "alert-warning"
+              ["border-top-0", "alert-warning"]
             );
           }
         })
 
         .done(function (data) {
-          // Add new list
-          this.$search.append(
-            '<ul class="list-group list-group-flush rounded-0 border border-top-0"></ul>'
+          const $listGroup = $(
+            '<div class="list-group list-group-flush rounded-0 border border-top-0"></div>'
           );
-
           const $listItemTmpl = $(
             '<a href="#" class="list-group-item list-group-item-action"></a>'
           );
 
           // Inject results
-          var $list = this.$search.find(".list-group");
-          for (var i in data.results) {
+          for (const i in data.results) {
             const item = data.results[i];
             const $listItem = $listItemTmpl
               .clone()
@@ -513,7 +517,7 @@
               .attr("data-title", item.level)
               .attr("data-content", item.identifier + item.title)
               .html(item.title);
-            $list.append($listItem);
+            $listGroup.append($listItem);
           }
 
           // Inject the browse link, which is part of the server payload.
@@ -523,7 +527,7 @@
             // New link from scratch.
             const href = $serverLink.attr("href");
             const text = $serverLink.text().trim();
-            $list.append(
+            $listGroup.append(
               $(
                 '<a class="btn btn-sm atom-btn-white w-100 border-0 rounded-0">' +
                   '<i class="fas fa-search me-1" aria-hidden="true"></i>' +
@@ -533,6 +537,8 @@
                 .append(text)
             );
           }
+
+          this.$search.append($listGroup);
         })
 
         .always(function (data) {
@@ -589,6 +595,10 @@
 
       popover.hide();
     }
+    clearListResults() {
+      this.$list.children().remove();
+      $(".popover.bs-popover-end").remove();
+    }
     clickPagerButton(event) {
       event.preventDefault();
 
@@ -600,26 +610,41 @@
         dataType: "json",
       })
 
+        .always(function (data) {
+          this.clearListResults();
+        })
+
         .fail(function (fail) {
-          if (404 == fail.status) {
-            this.$list.find("ul, section").remove();
-          }
+          this.showAlert(this.$list, this.$list.attr("data-error"), [
+            "alert-danger",
+          ]);
         })
 
         .done(function (data) {
-          this.$list.find("ul, section").remove();
-          this.$list.append("<ul></ul>");
+          const $listGroup = $(
+            '<div class="list-group list-group-flush rounded-0 border"></div>'
+          );
+          const $listItemTmpl = $(
+            '<a href="#" class="list-group-item list-group-item-action"></a>'
+          );
 
-          var $list = this.$list.find("ul");
-          for (var i in data.results) {
-            var item = data.results[i];
-            var link = '<a href="' + item.url + '">' + item.title + "</a>";
-            $list.append("<li></li>").children(":last-child").append(link);
+          // Inject results
+          for (const i in data.results) {
+            const item = data.results[i];
+            const $li = $listItemTmpl
+              .clone()
+              .attr("href", item.url)
+              .html(item.title);
+            $listGroup.append($li);
           }
 
-          // Show more
+          this.$list.append($listGroup);
+
+          // Inject the browse link, which is part of the server payload.
           if (undefined !== data.more) {
-            $list.after(data.more);
+            const $htmlPager = $(data.more);
+            const $pager = this.generatePager($htmlPager);
+            this.$list.append($pager);
           }
         })
 
@@ -631,6 +656,37 @@
         });
 
       return this;
+    }
+    // Generate a B5 pager using the old server layout as the data source.
+    generatePager($htmlPager) {
+      const resultCountMessage = $htmlPager.find(".result-count").text().trim();
+      const $prevLink = $htmlPager.find(".previous").children("a");
+      const $nextLink = $htmlPager.find(".next").children("a");
+      const $nav = this.$listNavTmpl.clone();
+
+      $nav.find(".result-count").html(resultCountMessage);
+
+      const updatePagerLink = ($link, href, state) => {
+        $link
+          .toggleClass("disabled", !state)
+          .children("a")
+          .attr("href", state ? href : "#")
+          .attr("tabindex", state ? null : "-1")
+          .attr("aria-disabled", !state ? "true" : "false");
+      };
+
+      updatePagerLink(
+        $nav.find(".previous"),
+        $prevLink.attr("href"),
+        $prevLink.length > 0
+      );
+      updatePagerLink(
+        $nav.find(".next"),
+        $nextLink.attr("href"),
+        $nextLink.length > 0
+      );
+
+      return $nav;
     }
   }
 })(window.jQuery);
