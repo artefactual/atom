@@ -35,7 +35,7 @@
 <div class="tab-content" id="treeview-content">
 
   <?php if ('sidebar' == $treeviewType) { ?>
-    <div class="tab-pane fade show active" id="treeview" role="tabpanel" aria-labelledby="treeview-tab">
+    <div class="tab-pane fade show active" id="treeview" role="tabpanel" aria-labelledby="treeview-tab" data-current-id="<?php echo $resource->id; ?>" data-sortable="<?php echo empty($sortable) ? 'false' : 'true'; ?>">
 
       <ul class="list-group rounded-0">
 
