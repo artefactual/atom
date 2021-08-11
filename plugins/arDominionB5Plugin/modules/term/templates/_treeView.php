@@ -217,7 +217,7 @@
               </div>
             </div>
           </div>
-          <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" />
+          <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" required>
           <button class="btn atom-btn-secondary" type="submit" id="treeview-search-submit-button" aria-label="<?php echo __('Search'); ?>">
             <i aria-hidden="true" class="fas fa-search"></i>
             <span class="visually-hidden"><?php echo __('Search'); ?></span>
