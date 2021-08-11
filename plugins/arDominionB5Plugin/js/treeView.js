@@ -505,7 +505,7 @@
             '<div class="list-group list-group-flush rounded-0 border border-top-0"></div>'
           );
           const $listItemTmpl = $(
-            '<a href="#" class="list-group-item list-group-item-action"></a>'
+            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
           );
 
           // Inject results
@@ -625,7 +625,7 @@
             '<div class="list-group list-group-flush rounded-0 border"></div>'
           );
           const $listItemTmpl = $(
-            '<a href="#" class="list-group-item list-group-item-action"></a>'
+            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
           );
 
           // Inject results

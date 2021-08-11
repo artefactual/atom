@@ -149,7 +149,7 @@
           <?php foreach ($pager->getResults() as $hit) { ?>
             <?php $doc = $hit->getData(); ?>
 
-            <?php $linkOptions = ["class" => "list-group-item list-group-item-action"]; ?>
+            <?php $linkOptions = ["class" => "list-group-item list-group-item-action text-truncate"]; ?>
             <?php if ($doc['isProtected']) $linkOptions["class"] += " readOnly"; ?>
 
             <?php echo link_to(

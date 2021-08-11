@@ -502,7 +502,7 @@ function render_treeview_node($item, array $classes = [], array $options = [])
 function render_b5_treeview_node($item, array $classes = [], array $options = [])
 {
     // Build array of classes
-    $_classes = ['list-group-item'];
+    $_classes = ['list-group-item', 'text-truncate'];
     foreach ($classes as $key => $value) {
         if ($value) {
             $_classes[$key] = $key;
