@@ -563,7 +563,7 @@ function render_b5_treeview_node($item, array $classes = [], array $options = []
         if ($rawItem instanceof QubitInformationObject) {
             // Level of description
             if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId)) {
-                $node .= '<span class="levelOfDescription">'.render_value_inline($levelOfDescription->getName()).'</span>';
+                $node .= '<span class="me-1 text-dark">'.render_value_inline($levelOfDescription->getName()).'</span>';
             }
 
             // Title
@@ -578,7 +578,7 @@ function render_b5_treeview_node($item, array $classes = [], array $options = []
 
             // Publication status
             if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId) {
-                $node .= '<span class="pubStatus">('.render_value_inline($status->__toString()).')</span>';
+                $node .= '<span class="ms-1 text-muted">('.render_value_inline($status->__toString()).')</span>';
             }
         } elseif ($rawItem instanceof QubitTerm) {
             $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
