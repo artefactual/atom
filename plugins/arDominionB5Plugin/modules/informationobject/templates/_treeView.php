@@ -137,7 +137,7 @@
     <form method="get" role="search" action="<?php echo url_for(['module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id]); ?>" data-not-found="<?php echo __('No results found.'); ?>">
       <div class="input-group p-2 bg-gray border">
         <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search hierarchy'); ?>" placeholder="<?php echo __('Search hierarchy'); ?>" aria-describedby="treeview-search-submit-button" required>
-        <button class="btn atom-btn-secondary" type="submit" id="treeview-search-submit-button">
+        <button class="btn atom-btn-white" type="submit" id="treeview-search-submit-button">
           <i aria-hidden="true" class="fas fa-search"></i>
           <span class="visually-hidden"><?php echo __('Search'); ?></span>
         </button>

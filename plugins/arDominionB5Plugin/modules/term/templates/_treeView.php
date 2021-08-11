@@ -191,7 +191,7 @@
 
       <form method="get" role="search" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-error="<?php echo __('Search error.'); ?>" data-not-found="<?php echo __('No results found.'); ?>" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
         <div class="input-group p-2 bg-gray border">
-          <button class="btn atom-btn-secondary dropdown-toggle" type="button" id="treeview-search-settings" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <button class="btn atom-btn-white dropdown-toggle" type="button" id="treeview-search-settings" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
             <i aria-hidden="true" class="fas fa-cog"></i>
             <span class="visually-hidden"><?php echo __('Search options'); ?></span>
           </button>
@@ -218,7 +218,7 @@
             </div>
           </div>
           <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" required>
-          <button class="btn atom-btn-secondary" type="submit" id="treeview-search-submit-button" aria-label="<?php echo __('Search'); ?>">
+          <button class="btn atom-btn-white" type="submit" id="treeview-search-submit-button" aria-label="<?php echo __('Search'); ?>">
             <i aria-hidden="true" class="fas fa-search"></i>
             <span class="visually-hidden"><?php echo __('Search'); ?></span>
           </button>
