@@ -137,6 +137,11 @@ body > iframe {
     border: 1px solid $border-color;
     box-shadow: $atom-gray-box-shadow;
   }
+
+  &.loading,
+  &.loading * {
+    cursor: wait !important;
+  }
 }
 
 // Hide the treeview tabs menu when there is just a single navigation item.
