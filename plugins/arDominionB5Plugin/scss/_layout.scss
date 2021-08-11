@@ -150,15 +150,17 @@ body > iframe {
   .list-group-item {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-start;
     align-items: baseline;
+  }
+
+  .grip,
+  .arrow {
+    min-width: 14px;
   }
 
   // Grip (sortable functionality).
   .grip {
-    min-width: 20px;
     cursor: move;
-    text-align: center;
     margin-left: auto;
     @extend .text-muted;
   }
@@ -174,19 +176,24 @@ body > iframe {
 
   // Compensation when the left arrow is unused.
   .text:first-child {
-    margin-left: 20px;
+    margin-left: 22px;
   }
 
-  // Arrow sprites.
+  // Arrow sprites and cursors;
   .arrow {
-    min-width: 10px;
-    width: 10px;
-    height: 10px;
-    vertical-align: middle;
-    margin-right: 10px;
-    background-color: transparent;
-    background-image: url(../../../../images/arrow-sprites.png);
-    background-repeat: no-repeat;
+    @extend .me-2;
+    @extend .fas;
+    @extend .fa-fw;
+    @extend .fa-xs;
+  }
+  .ancestor .arrow:before,
+  .ancestor.expand:hover .arrow:before,
+  .ancestor.root:hover .arrow:before {
+    content: "\f078"; // ↓
+  }
+  .expand .arrow:before,
+  .ancestor:hover .arrow:before {
+    content: "\f054"; // →
   }
   .root .arrow {
     cursor: default !important;
@@ -194,17 +201,6 @@ body > iframe {
   .ancestor .arrow,
   .expand .arrow {
     cursor: pointer;
-  }
-  .root:hover .arrow {
-    background-position: 0px 0px !important; // ↓
-  }
-  .ancestor .arrow,
-  .expand:hover .arrow {
-    background-position: 0px 0px; // ↓
-  }
-  .expand .arrow,
-  .ancestor:hover .arrow {
-    background-position: -20px 0px; // →
   }
 }
 
