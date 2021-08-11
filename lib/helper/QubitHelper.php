@@ -502,7 +502,7 @@ function render_treeview_node($item, array $classes = [], array $options = [])
 function render_b5_treeview_node($item, array $classes = [], array $options = [])
 {
     // Build array of classes
-    $_classes = ['list-group-item', 'text-truncate'];
+    $_classes = ['list-group-item'];
     foreach ($classes as $key => $value) {
         if ($value) {
             $_classes[$key] = $key;
@@ -547,8 +547,10 @@ function render_b5_treeview_node($item, array $classes = [], array $options = []
 
     // Add <i> tag if the node is expandable
     if (isset($_classes['expand']) || isset($_classes['ancestor'])) {
-        $node .= '<i></i>&nbsp;';
+        $node .= '<i class="arrow" aria-hidden="true"></i>';
     }
+
+    $node .= '<span class="text text-truncate">';
 
     if (isset($_classes['more'])) {
         $node .= '<a href="#">';
@@ -588,8 +590,7 @@ function render_b5_treeview_node($item, array $classes = [], array $options = []
         }
     }
 
-    // Close node tag
-    $node .= '</li>';
+    $node .= '</span></li>';
 
     return $node;
 }

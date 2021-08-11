@@ -128,19 +128,83 @@ body > iframe {
   max-height: 36rem;
   overflow: hidden auto;
 
+  // Sortable placeholder.
   .placeholder {
     background-color: rgba(255, 255, 255, 0.8);
   }
 
+  // Sortable helper.
   .ui-sortable-helper {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid $border-color;
     box-shadow: $atom-gray-box-shadow;
   }
 
+  // Loading state shows the wait cursor.
   &.loading,
   &.loading * {
     cursor: wait !important;
+  }
+
+  // Each sortable/expandable treeview row.
+  .list-group-item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+
+  // Grip (sortable functionality).
+  .grip {
+    min-width: 20px;
+    cursor: move;
+    text-align: center;
+    margin-left: auto;
+    @extend .text-muted;
+  }
+  .list-group-item.ui-sortable-helper .grip,
+  .list-group-item:hover .grip {
+    visibility: visible;
+  }
+
+  // Ancestors show darker rows.
+  .ancestor {
+    background-color: $gray-200;
+  }
+
+  // Compensation when the left arrow is unused.
+  .text:first-child {
+    margin-left: 20px;
+  }
+
+  // Arrow sprites.
+  .arrow {
+    min-width: 10px;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-color: transparent;
+    background-image: url(../../../../images/arrow-sprites.png);
+    background-repeat: no-repeat;
+  }
+  .root .arrow {
+    cursor: default !important;
+  }
+  .ancestor .arrow,
+  .expand .arrow {
+    cursor: pointer;
+  }
+  .root:hover .arrow {
+    background-position: 0px 0px !important; // ↓
+  }
+  .ancestor .arrow,
+  .expand:hover .arrow {
+    background-position: 0px 0px; // ↓
+  }
+  .expand .arrow,
+  .ancestor:hover .arrow {
+    background-position: -20px 0px; // →
   }
 }
 

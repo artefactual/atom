@@ -179,7 +179,9 @@
         .remove()
         .end()
         .find(this.nodesSelector)
-        .prepend('<small class="grip"></small>');
+        .append(
+          '<i class="grip fas fa-xs fa-grip-lines" aria-hidden="true"></i>'
+        );
 
       return this;
     }
