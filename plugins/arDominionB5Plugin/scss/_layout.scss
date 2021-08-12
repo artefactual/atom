@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @include media-breakpoint-up(lg) {
   #navbar-content.wrapped {
     > .flex-grow-1 {
@@ -52,7 +54,7 @@
   .slick-dots {
     position: relative;
     bottom: 0;
-    margin-top: $spacer * .25;
+    margin-top: $spacer * 0.25;
   }
 
   .slick-arrow.slick-prev {
@@ -80,8 +82,8 @@
 }
 
 .default-translation {
-  padding: $spacer * .5;
-  margin-bottom: $spacer * .5;
+  padding: $spacer * 0.5;
+  margin-bottom: $spacer * 0.5;
   margin-top: 0;
   background: #ffffe0;
   border: $border-width dashed gold;
@@ -89,7 +91,7 @@
 }
 
 .accordion-body > .mb-3:last-child {
-  margin-bottom: $spacer * .5 !important;
+  margin-bottom: $spacer * 0.5 !important;
 }
 
 .actions {
@@ -130,12 +132,12 @@ body > iframe {
 
   // Sortable placeholder.
   .placeholder {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: color.adjust($white, $alpha: -0.2);
   }
 
   // Sortable helper.
   .ui-sortable-helper {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: color.adjust($white, $alpha: -0.2);
     border: 1px solid $border-color;
     box-shadow: $atom-gray-box-shadow;
   }
@@ -155,7 +157,7 @@ body > iframe {
 
   .grip,
   .arrow {
-    min-width: 14px;
+    min-width: $spacer;
   }
 
   // Grip (sortable functionality).
@@ -176,7 +178,7 @@ body > iframe {
 
   // Compensation when the left arrow is unused.
   .text:first-child {
-    margin-left: 22px;
+    margin-left: $spacer * 1.25;
   }
 
   // Arrow sprites and cursors;

@@ -32,27 +32,27 @@
         return;
       }
 
-      // Used to control loading status and block interface if needed
+      // Used to control loading status and block interface if needed.
       this.setLoading(false);
 
       // Regular nodes selector
       this.nodesSelector = "li:not(.ancestor, .more)";
 
       // Store the current resource id to highlight it
-      // during the treeview browsing
+      // during the treeview browsing.
       this.resourceId = this.$element.data("current-id");
 
-      // Check if the treeview is sortable
+      // Check if the treeview is sortable.
       this.sortable =
         undefined !== this.$element.data("sortable") &&
         !!this.$element.data("sortable");
 
-      // Check if the treeview is used in the browser page
+      // Check if the treeview is used in the browser page.
       this.browser =
         undefined !== this.$element.data("browser") &&
         !!this.$element.data("browser");
 
-      // Menu (tabs) and search box
+      // Menu (tabs) and search box.
       this.$menu = this.$element.parent().prev("#treeview-menu");
       this.$search = this.$element.siblings("#treeview-search");
       this.$list = this.$element.siblings("#treeview-list");
@@ -118,7 +118,7 @@
         this.$element.addClass("loading");
 
         if ($node) {
-          // Add loading icon
+          // Add loading icon.
           $node.append('<div class="loading" />');
           $node.children("i").css("visibility", "hidden");
         }
@@ -126,7 +126,7 @@
         this.$element.removeClass("loading");
 
         if ($node) {
-          // Remove loading icon
+          // Remove loading icon.
           $node
             .children(".loading")
             .remove()
@@ -138,8 +138,8 @@
 
       return this;
     }
+    // Create jquery-ui sortable object.
     installSortableBehavior() {
-      // Create jquery-ui sortable object
       if (!this.sortable) {
         return this;
       }
@@ -157,8 +157,8 @@
 
       this.showGrip();
     }
+    // Ensure that the jquery-ui sortable object is available.
     refreshSortableBehavior() {
-      // Create jquery-ui sortable object
       if (!this.sortable) {
         return this;
       }
@@ -229,20 +229,20 @@
           this.setLoading(true, ui.item);
         },
         success: function () {
-          // Green highlight effect
+          // Green highlight effect.
           ui.item.effect("highlight", { color: "#dff0d8" }, 500);
         },
         complete: function () {
           this.setLoading(false, ui.item);
         },
         error: function (jqXHR, textStatus, thrownError) {
-          // Cancel event if HTTP error
-          // Item will be moved back to its original position
+          // Cancel event if HTTP error.
+          // Item will be moved back to its original position.
           if (thrownError.length) {
             this.$element.sortable("cancel");
           }
 
-          // Red highlight effect
+          // Red highlight effect.
           ui.item.effect("highlight", { color: "#f2dede" }, 500);
         },
       });
@@ -278,18 +278,18 @@
 
       e.preventDefault();
 
-      // Detect when users scrolls to the bottom
+      // Detect when users scrolls to the bottom.
       if (
         $target.scrollTop() + $target.innerHeight() >=
         $target.get(0).scrollHeight
       ) {
         var self = this;
 
-        // Delay the trigger
+        // Delay the trigger.
         window.setTimeout(function () {
           var $more = self.$element.find(".more:last");
 
-          // Make sure that we have selected the nextSiblings button
+          // Make sure that we have selected the nextSiblings button.
           if (0 < $more.next().length) {
             return;
           }
@@ -308,14 +308,14 @@
         return;
       }
 
-      // When the [...] button is clicked
+      // When the [...] button is clicked.
       if ($li.hasClass("more")) {
         killEvent(e);
 
         return this.showMore($li);
       }
 
-      // When the arrow is clicked
+      // When the arrow is clicked.
       else if ("I" === e.target.tagName) {
         if ($li.hasClass("root")) {
           killEvent(e);
@@ -331,13 +331,13 @@
     showItem($element) {
       this.setLoading(true, $element);
 
-      // Figure out if the user is try to collapse looking at the ancestor class
+      // Figure out if the user is try to collapse looking at the ancestor class.
       var collapse = $element.hasClass("ancestor");
 
-      // Check if the element has a previous ancestor
+      // Check if the element has a previous ancestor.
       var hasAncestor = $element.prev().hasClass("ancestor");
 
-      // When collapsing a top-level item show prev and next siblings
+      // When collapsing a top-level item show prev and next siblings.
       if (collapse && !hasAncestor) {
         var show = "itemAndSiblings";
         var url = $element.data("xhr-location");
@@ -364,7 +364,7 @@
         })
 
         .fail(function (fail) {
-          // Hide the expand icon if not found
+          // Hide the expand icon if not found.
           if (404 == fail.status) {
             $element.removeClass("expand").children("i").remove();
           }
@@ -382,7 +382,7 @@
             var nodes = this.$element.find(this.nodesSelector);
             var lastAncestor = nodes.eq(0).prev();
 
-            // Check if is really an ancestor
+            // Check if is really an ancestor.
             if (lastAncestor.hasClass("ancestor")) {
               nodes.remove();
               this.$element.find(".more").remove();
@@ -469,7 +469,7 @@
         return this;
       }
 
-      // Obtain queryField value
+      // Obtain queryField value.
       var queryField = this.$search.find(
         'input[type="radio"][name="queryField"]:checked'
       );
@@ -517,7 +517,7 @@
             '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
           );
 
-          // Inject results
+          // Inject results.
           for (const i in data.results) {
             const item = data.results[i];
             const $listItem = $listItemTmpl
@@ -589,7 +589,7 @@
 
       popover.show();
     }
-    // hide the popover.
+    // Hide the popover.
     listItemMouseLeave(event) {
       const target = event.target;
       const listItem =
@@ -637,7 +637,7 @@
             '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
           );
 
-          // Inject results
+          // Inject results.
           for (const i in data.results) {
             const item = data.results[i];
             const $li = $listItemTmpl
