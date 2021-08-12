@@ -32,7 +32,7 @@
 
 </ul>
 
-<div class="tab-content" id="treeview-content">
+<div class="tab-content mb-3" id="treeview-content">
 
   <?php if ('sidebar' == $treeviewType) { ?>
     <div class="tab-pane fade show active" id="treeview" role="tabpanel" aria-labelledby="treeview-tab" data-current-id="<?php echo $resource->id; ?>" data-sortable="<?php echo empty($sortable) ? 'false' : 'true'; ?>">
