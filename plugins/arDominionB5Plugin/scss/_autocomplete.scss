@@ -1,6 +1,6 @@
 .yui-ac {
   > ul {
-    margin: 0 0 $spacer * .5 0;
+    margin: 0 0 $spacer * 0.5 0;
 
     li {
       cursor: pointer;
@@ -12,7 +12,7 @@
 
       .yui-ac-input {
         width: 100%;
-        margin: $spacer * .25 0;
+        margin: $spacer * 0.25 0;
         padding: $input-padding-y-sm $input-padding-x-sm;
         border: $input-border-width solid $input-border-color;
         border-radius: $input-border-radius;
@@ -28,22 +28,22 @@
 
   .yui-ac-content {
     position: absolute;
-    margin-top: $spacer * .25;
+    margin-top: $spacer * 0.25;
     width: 100%;
     border: $border-width solid $border-color;
     border-radius: $border-radius;
     background: $white;
     z-index: 1000;
-  
+
     ul {
       margin: 0;
       padding: 0;
 
       li {
-        padding: $spacer * .25 $spacer;
+        padding: $spacer * 0.25 $spacer;
         list-style: none;
         cursor: pointer;
-    
+
         &:hover {
           background-color: $gray-200;
         }
