@@ -21,3 +21,20 @@ jobs:
       run: composer install
     - name: Run php-cs-fixer
       run: composer php-cs-fixer -- fix --dry-run
+  prettier:
+    runs-on: ubuntu-20.04
+    name: Prettier
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/Cypress
+        key: npm-${{ hashFiles('package-lock.json') }}
+    - name: Install dependencies
+      run: npm ci
+    - name: Run Prettier
+      run: npm run check-format
