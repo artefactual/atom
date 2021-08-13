@@ -1,9 +1,12 @@
 (($) => {
   "use strict";
 
-  $(() => {
-    // Data attributes trigger doesn't work properly
-    $(".masonry").masonry({
+  const $container = $(".masonry");
+
+  // Rely on imagesloaded to init Masonry once all images have loaded.
+  // DOMContentLoaded triggers too early, window.onload triggers too late.
+  $container.imagesLoaded().always(() => {
+    $container.masonry({
       itemSelector: ".masonry-item",
       percentPosition: true,
     });
