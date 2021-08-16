@@ -24,27 +24,11 @@
         </h2>
         <div id="style-collapse" class="accordion-collapse collapse show" aria-labelledby="style-heading">
           <div class="accordion-body">
-            <?php echo $form->backgroundColor
-                ->label(__('Background color'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->backgroundColor); ?>
 
-            <div class="form-item form-item-banner">
-              <?php echo $form->banner->renderLabel(); ?>
-              <div>
-                <?php echo $form->banner->render(); ?>
-                <?php echo $form->banner->renderError(); ?>
-                <?php echo $form->getWidget('banner')->getHelp(); ?>
-              </div>
-            </div>
+            <?php echo render_field($form->banner); ?>
 
-            <div class="form-item form-item-logo">
-              <?php echo $form->logo->renderLabel(); ?>
-              <div>
-                <?php echo $form->logo->render(); ?>
-                <?php echo $form->logo->renderError(); ?>
-                <?php echo $form->getWidget('logo')->getHelp(); ?>
-              </div>
-            </div>
+            <?php echo render_field($form->logo); ?>
           </div>
         </div>
       </div>
