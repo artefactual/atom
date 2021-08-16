@@ -19,8 +19,8 @@
 
   <?php echo get_partial('default/sidebarPager', ['pager' => $list['pager']]); ?>
 
-  <div class="card-body p-0 bg-light">
-    <a class="btn btn-sm atom-btn-white border-0 w-100" href="<?php echo $list['moreUrl']; ?>">
+  <div class="card-body p-0">
+    <a class="btn atom-btn-white border-0 w-100" href="<?php echo $list['moreUrl']; ?>">
       <i class="fas fa-search" aria-hidden="true"></i>
       <?php echo __('Browse %1% results', ['%1%' => $list['pager']->getNbResults()]); ?>
     </a>

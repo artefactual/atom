@@ -2,7 +2,7 @@
 
   <nav class="card-body border-bottom p-2 small" aria-label="<?php echo __('Pagination'); ?>">
 
-    <p class="text-center mb-1 small">
+    <p class="text-center mb-1">
       <?php echo __('Results <span class="result-start">%1%</span> to <span class="result-end">%2%</span> of %3%',
         ['%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults()]); ?>
     </p>
