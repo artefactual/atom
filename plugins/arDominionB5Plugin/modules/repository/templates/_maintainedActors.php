@@ -1,4 +1,4 @@
-<section class="card sidebar-paginated-list mb-4"
+<section class="card sidebar-paginated-list mb-3"
   data-total-pages="<?php echo $list['pager']->getLastPage(); ?>"
   data-url="<?php echo $list['dataUrl']; ?>">
 

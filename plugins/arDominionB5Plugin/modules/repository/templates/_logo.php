@@ -1,7 +1,7 @@
 <?php use_helper('Text'); ?>
 
 <?php if ($resource->existsLogo()) { ?>
-  <div class="repository-logo mb-4 mx-auto">
+  <div class="repository-logo mb-3 mx-auto">
     <a class="text-decoration-none" href="<?php echo url_for([$resource, 'module' => 'repository']); ?>">
       <?php echo image_tag(
         $resource->getLogoPath(),
@@ -13,7 +13,7 @@
     </a>
   </div>
 <?php } else { ?>
-  <div class="repository-logo-text mb-4">
+  <div class="repository-logo-text mb-3">
     <a class="text-decoration-none" href="<?php echo url_for([$resource, 'module' => 'repository']); ?>">
       <h2 class="h4 p-2 text-muted text-start border border-4 shadow-sm bg-white mx-auto">
         <?php echo render_title($resource); ?>
@@ -21,4 +21,3 @@
     </a>
   </div>
 <?php } ?>
-
