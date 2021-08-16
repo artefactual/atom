@@ -153,8 +153,7 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
                         'Rows with a blank culture value will be imported using AtoM\'s default source culture.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        ',,,Chemise,,,,fr|en',
-                        'D20202,DJ002,,Voûte, étagère 0074,,,,gg',
+                        'CSV row numbers where issues were found: 3, 4',
                     ],
                 ],
             ],

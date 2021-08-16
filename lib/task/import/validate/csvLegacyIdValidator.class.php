@@ -31,8 +31,10 @@ class CsvLegacyIdValidator extends CsvBaseValidator
     // Persist across multiple CSVs.
     protected $legacyIdValues = [];
     // Reset after every CSV.
-    protected $rowsWithoutLegacyId = 0;
+    protected $rowsWithoutLegacyId = [];
     protected $nonUniqueLegacyIdValues = [];
+    protected $prevRowLegacyId = 0;
+    protected $prevRowCulture = '';
 
     public function __construct(?array $options = null)
     {
@@ -44,8 +46,10 @@ class CsvLegacyIdValidator extends CsvBaseValidator
 
     public function reset()
     {
-        $this->rowsWithoutLegacyId = 0;
+        $this->rowsWithoutLegacyId = [];
         $this->nonUniqueLegacyIdValues = [];
+        $this->prevRowLegacyId = 0;
+        $this->prevRowCulture = '';
 
         parent::reset();
     }
@@ -59,10 +63,21 @@ class CsvLegacyIdValidator extends CsvBaseValidator
         $row = $this->combineRow($header, $row);
 
         if (empty($row['legacyId'])) {
-            ++$this->rowsWithoutLegacyId;
-            $this->testData->addDetail(implode(',', $row));
+            $this->rowsWithoutLegacyId[] = $this->rowNumber;
 
             return;
+        }
+
+        if ($this->columnPresent('culture')) {
+            if (
+                $row['legacyId'] === $this->prevRowLegacyId
+                && $row['culture'] === $this->prevRowCulture
+            ) {
+                $this->duplicateTranslationRows[] = sprintf('legacyId: %s; culture: %s', $row['legacyId'], $row['culture']);
+            }
+
+            $this->prevRowLegacyId = $row['legacyId'];
+            $this->prevRowCulture = $row['culture'];
         }
 
         if (in_array($row['legacyId'], $this->legacyIdValues)) {
@@ -93,22 +108,33 @@ class CsvLegacyIdValidator extends CsvBaseValidator
             return parent::getTestResult();
         }
 
-        // Rows exist with non unique legacyId. Warn that this will complicate/break future CSV update matching.
+        // Rows exist with non unique legacyId.
         if (0 < count($this->nonUniqueLegacyIdValues)) {
-            $this->testData->setStatusError();
+            $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf("Rows with non-unique 'legacyId' values: %s", count($this->nonUniqueLegacyIdValues)));
             $this->testData->addDetail(sprintf("Non-unique 'legacyId' values: %s", implode(', ', $this->nonUniqueLegacyIdValues)));
         } else {
             $this->testData->addResult(sprintf("'legacyId' values are all unique."));
         }
 
-        // Rows exist with both parentId and qubitParentSlug populated. Warn that qubitParentSlug will override.
-        if (0 < $this->rowsWithoutLegacyId) {
-            $this->testData->setStatusWarn();
-            $this->testData->addResult(sprintf("Rows with empty 'legacyId' column: %s", $this->rowsWithoutLegacyId));
+        // If this legacyid and culture matches prev row, this will
+        // trigger CSV import translation row errors.
+        if (!empty($this->duplicateTranslationRows)) {
+            $this->testData->setStatusError();
+            $this->testData->addResult('Consecutive CSV rows with matching legacyId and culture will trigger errors during CSV import.');
+            foreach ($this->duplicateTranslationRows as $value) {
+                $this->testData->addDetail(sprintf('Duplicate translation values for: %s', $value));
+            }
         }
 
-        if (0 < $this->rowsWithoutLegacyId || 0 < count($this->nonUniqueLegacyIdValues)) {
+        // Rows exist with blank legacyId.
+        if (!empty($this->rowsWithoutLegacyId)) {
+            $this->testData->setStatusWarn();
+            $this->testData->addResult(sprintf("Rows with empty 'legacyId' column: %s", count($this->rowsWithoutLegacyId)));
+            $this->testData->addDetail(sprintf("CSV row numbers missing 'legacyId': %s", implode(', ', $this->rowsWithoutLegacyId)));
+        }
+
+        if (!empty($this->rowsWithoutLegacyId) || 0 < count($this->nonUniqueLegacyIdValues)) {
             $this->testData->addResult(sprintf('Future CSV updates may not match these records.'));
         }
 

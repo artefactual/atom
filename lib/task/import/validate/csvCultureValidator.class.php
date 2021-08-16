@@ -78,10 +78,10 @@ class CsvCultureValidator extends CsvBaseValidator
         // Check if contains pipe.
         if (0 < strpos($row['culture'], '|')) {
             ++$this->rowsWithPipeFoundInCulture;
-            $this->testData->addDetail(implode(',', $row));
+            $this->appendToCsvRowList();
         } else {
             ++$this->rowsWithInvalidCulture;
-            $this->testData->addDetail(implode(',', $row));
+            $this->appendToCsvRowList();
         }
     }
 
@@ -141,6 +141,10 @@ class CsvCultureValidator extends CsvBaseValidator
             && 0 === $this->rowsWithPipeFoundInCulture
         ) {
             $this->testData->addResult(sprintf("'culture' column values are all valid."));
+        }
+
+        if (!empty($this->getCsvRowList())) {
+            $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
         }
 
         return parent::getTestResult();

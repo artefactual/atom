@@ -31,12 +31,11 @@ class CsvParentValidator extends CsvBaseValidator
     // Persist across multiple CSVs.
     protected $legacyIdList = [];
     // Reset after every CSV.
-    protected $orphanRowsFound = false;
-    protected $unmatchedCount = 0;
+    protected $unmatchedParentIdCount = 0;
+    protected $unmatchedQubitParentSlugCount = 0;
     protected $rowsWithParentId = 0;
     protected $rowsWithQubitParentSlug = 0;
     protected $rowsWithParentIdQubitParentSlug = 0;
-    protected $rowsWithoutParentIdQubitParentSlug = 0;
 
     public function __construct(?array $options = null)
     {
@@ -47,12 +46,11 @@ class CsvParentValidator extends CsvBaseValidator
 
     public function reset()
     {
-        $this->orphanRowsFound = false;
-        $this->unmatchedCount = 0;
+        $this->unmatchedParentIdCount = 0;
+        $this->unmatchedQubitParentSlugCount = 0;
         $this->rowsWithParentId = 0;
         $this->rowsWithQubitParentSlug = 0;
         $this->rowsWithParentIdQubitParentSlug = 0;
-        $this->rowsWithoutParentIdQubitParentSlug = 0;
 
         parent::reset();
     }
@@ -67,21 +65,19 @@ class CsvParentValidator extends CsvBaseValidator
             ++$this->rowsWithQubitParentSlug;
 
             if (!$this->canFindBySlug($row['qubitParentSlug'], $this->options['className'])) {
-                $this->orphanRowsFound = true;
-                ++$this->unmatchedCount;
+                ++$this->unmatchedQubitParentSlugCount;
 
                 // Add row that triggered this to the output.
-                $this->testData->addDetail(implode(',', $row));
+                $this->appendToCsvRowList();
             }
         } elseif ($this->columnPresent('parentId') && !empty($row['parentId'])) {
             ++$this->rowsWithParentId;
 
             if (!$this->canFindByParentId($row['parentId'], $this->options['source'])) {
-                $this->orphanRowsFound = true;
-                ++$this->unmatchedCount;
+                ++$this->unmatchedParentIdCount;
 
                 // Add row that triggered this to the output.
-                $this->testData->addDetail(implode(',', $row));
+                $this->appendToCsvRowList();
             }
         }
 
@@ -91,15 +87,6 @@ class CsvParentValidator extends CsvBaseValidator
             || $this->columnDuplicated('legacyId')
         ) {
             return;
-        }
-
-        if (
-            $this->columnPresent('parentId')
-            && empty($row['parentId'])
-            && $this->columnPresent('qubitParentSlug')
-            && empty($row['qubitParentSlug'])
-        ) {
-            ++$this->rowsWithoutParentIdQubitParentSlug;
         }
 
         if (
@@ -114,6 +101,11 @@ class CsvParentValidator extends CsvBaseValidator
         if ($this->columnPresent('legacyId')) {
             $this->legacyIdList[] = $row['legacyId'];
         }
+    }
+
+    public function getTotalUnmatchedCount(): int
+    {
+        return $this->unmatchedParentIdCount + $this->unmatchedQubitParentSlugCount;
     }
 
     public function getTestResult()
@@ -170,11 +162,9 @@ class CsvParentValidator extends CsvBaseValidator
             $this->testData->addResult(sprintf("'legacyId' column not found. Unable to verify parentId values."));
         }
 
-        // If unable to find a parentId in the DB, and source was not specified, display a message as this is a possible cause.
         if (
             empty($this->options['source'])
-            && $this->columnPresent('parentId')
-            && $this->orphanRowsFound
+            && 0 < $this->rowsWithParentId
         ) {
             $this->testData->addResult(
                 sprintf('Verifying parentId values against legacyId values in this file.')
@@ -183,22 +173,41 @@ class CsvParentValidator extends CsvBaseValidator
 
         if (
             !empty($this->options['source'])
-            && $this->columnPresent('parentId')
-            && $this->orphanRowsFound
+            && 0 < $this->rowsWithParentId
         ) {
             $this->testData->addResult(
                 sprintf('Verifying parentId values against legacyId values in this file, and AtoM database.')
             );
         }
 
-        if ($this->orphanRowsFound) {
+        if (0 < $this->unmatchedParentIdCount) {
             $this->testData->setStatusError();
             $this->testData->addResult(
                 sprintf(
-                    'Number of parentID values found for which there is no matching legacyID (will import as top level records): %s',
-                    $this->unmatchedCount
+                    'Number of parentId values found for which there is no matching legacyID (will import as top level records): %s',
+                    $this->unmatchedParentIdCount
                 )
             );
+        }
+
+        if (0 < $this->rowsWithQubitParentSlug) {
+            $this->testData->addResult(
+                sprintf('Verifying qubitParentSlug values against object slugs in the AtoM database.')
+            );
+        }
+
+        if (0 < $this->unmatchedQubitParentSlugCount) {
+            $this->testData->setStatusError();
+            $this->testData->addResult(
+                sprintf(
+                    'Number of qubitParentSlug values found for which there is no matching slug (will import as top level records): %s',
+                    $this->unmatchedQubitParentSlugCount
+                )
+            );
+        }
+
+        if (0 < $this->getTotalUnmatchedCount()) {
+            $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
         }
 
         return parent::getTestResult();

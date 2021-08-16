@@ -142,8 +142,11 @@ class CsvFileEncodingTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'File encoding does not appear to be UTF-8 compatible.',
+                        'Count of UTF-8 incompatible CSV rows: 1',
                     ],
-                    CsvValidatorResult::TEST_DETAILS => [implode(',', str_getcsv(mb_convert_encoding('"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""', 'Windows-1252', 'UTF-8')))],
+                    CsvValidatorResult::TEST_DETAILS => [
+                        'Affected row numbers (first 10): 4',
+                    ],
                 ],
             ],
 
@@ -156,8 +159,11 @@ class CsvFileEncodingTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'File encoding does not appear to be UTF-8 compatible.',
+                        'Count of UTF-8 incompatible CSV rows: 1',
                     ],
-                    CsvValidatorResult::TEST_DETAILS => [implode(',', str_getcsv(mb_convert_encoding('"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""', 'Windows-1252', 'UTF-8')))],
+                    CsvValidatorResult::TEST_DETAILS => [
+                        'Affected row numbers (first 10): 4',
+                    ],
                 ],
             ],
 

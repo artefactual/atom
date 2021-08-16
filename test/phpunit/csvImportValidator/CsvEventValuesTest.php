@@ -138,7 +138,7 @@ class CsvEventValuesTest extends \PHPUnit\Framework\TestCase
                         'Event value mismatches found: 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        ',,,Chemise,,,creation|donation,2010,01-01-2010,,,fr',
+                        'CSV row numbers where issues were found: 3',
                     ],
                 ],
             ],

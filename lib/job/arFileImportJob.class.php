@@ -173,10 +173,10 @@ class arFileImportJob extends arBaseJob
         $this->warnCount = $results->getWarnCount();
         $this->errorCount = $results->getErrorCount();
 
-        $this->verboseReportContents = CsvValidatorResultCollection::renderResultsAsText($results, true);
+        $this->verboseReportContents = $results->renderResultsAsText(true);
 
         // Return short report.
-        return CsvValidatorResultCollection::renderResultsAsText($results, false);
+        return $results->renderResultsAsText(false);
     }
 
     /**

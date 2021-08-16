@@ -47,6 +47,7 @@ abstract class CsvBaseValidator
     protected $requiredColumns = [];
     protected $header = [];
     protected $proceedWithRowValidation;
+    protected $rowNumberList = [];
 
     public function __construct(?array $options = null)
     {
@@ -148,6 +149,17 @@ abstract class CsvBaseValidator
         $this->columnDuplicated = [];
         $this->header = [];
         $this->proceedWithRowValidation = null;
+        $this->rowNumberList = [];
+    }
+
+    public function appendToCsvRowList()
+    {
+        $this->rowNumberList[] = $this->rowNumber;
+    }
+
+    public function getCsvRowList(): array
+    {
+        return $this->rowNumberList;
     }
 
     public function setOrmClasses(array $classes)

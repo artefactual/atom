@@ -76,6 +76,6 @@ class CsvValidatorResultCollectionTest extends \PHPUnit\Framework\TestCase
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);
 
-        $this->assertIsString($resultCollection->renderResultsAsText($resultCollection));
+        $this->assertIsString($resultCollection->renderResultsAsText(true));
     }
 }

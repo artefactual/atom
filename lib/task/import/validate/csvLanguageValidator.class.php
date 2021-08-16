@@ -70,7 +70,7 @@ class CsvLanguageValidator extends CsvBaseValidator
 
             if (!$errorDetailAdded) {
                 ++$this->rowsWithInvalidLanguage;
-                $this->testData->addDetail(implode(',', $row));
+                $this->appendToCsvRowList();
                 $errorDetailAdded = true;
             }
 
@@ -105,6 +105,10 @@ class CsvLanguageValidator extends CsvBaseValidator
 
         if (0 === $this->rowsWithInvalidLanguage) {
             $this->testData->addResult(sprintf("'language' column values are all valid."));
+        }
+
+        if (!empty($this->getCsvRowList())) {
+            $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
         }
 
         return parent::getTestResult();

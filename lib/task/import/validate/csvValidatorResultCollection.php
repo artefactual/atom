@@ -25,6 +25,7 @@
 class CsvValidatorResultCollection implements Iterator
 {
     protected $results = [];
+    protected $resultCounterList = [];
     private $index = 0;
 
     public function __construct()
@@ -123,13 +124,12 @@ class CsvValidatorResultCollection implements Iterator
         $this->results = array_values($this->results);
     }
 
-    public static function renderResultsAsText(CsvValidatorResultCollection $results, bool $verbose = false): string
+    public function renderResultsAsText(bool $verbose = false): string
     {
-        $outputString = '';
+        $this->resetResultCounterList();
+        $outputString = "CSV Results:\n";
 
-        $outputString .= "CSV Results:\n";
-
-        foreach ($results as $result) {
+        foreach ($this->results as $result) {
             if ($filename !== $result->getFilename()) {
                 if (!empty($filename)) {
                     $outputString .= "\n";
@@ -142,8 +142,8 @@ class CsvValidatorResultCollection implements Iterator
                 $outputString .= sprintf("%s\n", $fileStr);
                 $outputString .= sprintf("%s\n", str_repeat('-', strlen($fileStr)));
 
-                $errorCount = $results->getErrorCount($filename);
-                $warnCount = $results->getWarnCount($filename);
+                $errorCount = $this->getErrorCount($filename);
+                $warnCount = $this->getWarnCount($filename);
 
                 $outputString .= sprintf("Errors: %s\n", $errorCount);
                 $outputString .= sprintf("Warnings: %s\n", $warnCount);
@@ -166,7 +166,7 @@ class CsvValidatorResultCollection implements Iterator
                 continue;
             }
 
-            $outputString .= CsvValidatorResultCollection::renderResultAsText($result, $verbose);
+            $outputString .= $this->renderResultAsText($result, $verbose);
         }
         $outputString .= "\n";
 
@@ -182,11 +182,22 @@ class CsvValidatorResultCollection implements Iterator
         return $filename === $resultFilename;
     }
 
-    protected static function renderResultAsText(CsvValidatorResult $result, bool $verbose = false): string
+    protected function renderResultAsText(CsvValidatorResult $result, bool $verbose = false): string
     {
         $outputString = '';
 
-        $outputString .= sprintf("\n%s - %s\n", strtoupper(CsvValidatorResult::formatStatus($result->getStatus())), $result->getTitle());
+        $resultNumber = $this->getNextResultNumber($result->getStatus());
+
+        if ($resultNumber && CsvValidatorResult::RESULT_INFO != $result->getStatus()) {
+            $outputString .= sprintf(
+                "\n%s %d - %s\n", strtoupper(CsvValidatorResult::formatStatus($result->getStatus())), $resultNumber, $result->getTitle()
+            );
+        } else {
+            $outputString .= sprintf(
+                "\n%s - %s\n", strtoupper(CsvValidatorResult::formatStatus($result->getStatus())), $result->getTitle()
+            );
+        }
+
         $outputString .= sprintf("%s\n", str_repeat('-', strlen($result->getTitle())));
 
         $results = $result->getResults();
@@ -218,5 +229,19 @@ class CsvValidatorResultCollection implements Iterator
         }
 
         return ($a->getDisplayFilename() < $b->getDisplayFilename()) ? -1 : 1;
+    }
+
+    protected function getNextResultNumber(int $status)
+    {
+        if (!isset($this->resultCounterList[$status])) {
+            return $this->resultCounterList[$status] = 1;
+        }
+
+        return ++$this->resultCounterList[$status];
+    }
+
+    protected function resetResultCounterList()
+    {
+        $this->resultCounterList = [];
     }
 }

@@ -34,7 +34,7 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
     protected $fileList = [];
     protected $pathToDigitalObjects = '';
     // Reset between files.
-    protected $digitalObjectUses = [];
+    protected $digitalObjectUseCountList = [];
     protected $overriddenByUriCount = 0;
 
     public function __construct(?array $options = null)
@@ -48,7 +48,7 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
 
     public function reset()
     {
-        $this->digitalObjectUses = [];
+        $this->digitalObjectUseCountList = [];
         $this->overriddenByUriCount = 0;
 
         parent::reset();
@@ -67,8 +67,8 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
         }
 
         // URI is preferred by import CLI task if both path and uri are populated.
-        if ($this->columnPresent('digitalObjectUri', $header)) {
-            if (!empty($row['digitalObjectPath']) && !empty($row['digitalObjectUri'])) {
+        if ($this->columnPresent('digitalObjectURI', $header)) {
+            if (!empty($row['digitalObjectPath']) && !empty($row['digitalObjectURI'])) {
                 ++$this->overriddenByUriCount;
             }
         }
@@ -90,6 +90,8 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
 
         $this->testData->addResult(sprintf("Column 'digitalObjectPath' found."));
 
+        $missingFiles = $this->getMissingDigitalObjects();
+
         // Digital object folder option not passed/is invalid.
         if (empty($this->pathToDigitalObjects)) {
             // Option was not supplied.
@@ -100,18 +102,10 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
             else {
                 $this->testData->addResult(sprintf('Unable to open digital object folder path: %s', $this->options['pathToDigitalObjects']));
             }
-
-            // If digitalObjectPath column is populated in CSV, this is an error.
-            if (0 < count($this->digitalObjectUses)) {
-                $this->testData->setStatusError();
-                $this->testData->addResult(sprintf('Unable to locate files specified in digitalObjectPath column of CSV.'));
-            }
-
-            return parent::getTestResult();
         }
 
-        if (empty($this->digitalObjectUses)) {
-            $this->testData->addResult(sprintf("Column 'digitalObjectPath' is empty."));
+        if (empty($this->digitalObjectUseCountList)) {
+            $this->testData->addResult(sprintf("Column 'digitalObjectPath' is empty - nothing to validate."));
 
             return parent::getTestResult();
         }
@@ -119,8 +113,8 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
         // Check for Paths that will be overridden by URI.
         if (0 < $this->overriddenByUriCount) {
             $this->testData->setStatusWarn();
-            $this->testData->addResult(sprintf("'digitalObjectPath' will be overridden by 'digitalObjectUri' if both are populated."));
-            $this->testData->addResult(sprintf("'digitalObjectPath' values that will be overridden by digitalObjectUri: %s", $this->overriddenByUriCount));
+            $this->testData->addResult(sprintf("'digitalObjectPath' will be overridden by 'digitalObjectURI' if both are populated."));
+            $this->testData->addResult(sprintf("'digitalObjectPath' values that will be overridden by 'digitalObjectURI': %s", $this->overriddenByUriCount));
         }
 
         $digitalObjectPathsUsedMoreThanOnce = $this->getUsedMoreThanOnce();
@@ -130,7 +124,7 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
             $this->testData->addResult(sprintf('Number of duplicated digital object paths found in CSV: %s', count($digitalObjectPathsUsedMoreThanOnce)));
 
             foreach ($digitalObjectPathsUsedMoreThanOnce as $path) {
-                $this->testData->addDetail(sprintf("Number of duplicates for path '%s': %s", $path, $this->digitalObjectUses[$path]));
+                $this->testData->addDetail(sprintf("Number of duplicates for path '%s': %s", $path, $this->digitalObjectUseCountList[$path]));
             }
         }
 
@@ -145,14 +139,12 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
             }
         }
 
-        $missingFiles = $this->getMissingDigitalObjects();
-
         if (!empty($missingFiles)) {
             $this->testData->setStatusError();
-            $this->testData->addResult(sprintf('Digital object referenced by CSV not found in folder: %s', count($missingFiles)));
+            $this->testData->addResult(sprintf('Digital objects referenced by CSV not found in folder: %s', count($missingFiles)));
 
             foreach ($missingFiles as $file) {
-                $this->testData->addDetail(sprintf('Unable to locate digital object: %s/%s', $this->pathToDigitalObjects, $file));
+                $this->testData->addDetail(sprintf('Unable to locate digital object: %s', $file));
             }
         }
 
@@ -172,14 +164,15 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
 
     protected function addToUsageSummary($value)
     {
-        $this->digitalObjectUses[$value] = (!isset($this->digitalObjectUses[$value])) ? 1 : $this->digitalObjectUses[$value] + 1;
+        $this->digitalObjectUseCountList[$value] =
+            (!isset($this->digitalObjectUseCountList[$value])) ? 1 : $this->digitalObjectUseCountList[$value] + 1;
     }
 
     protected function getUsedMoreThanOnce()
     {
         $usedMoreThanOnce = [];
 
-        foreach ($this->digitalObjectUses as $digitalObjectName => $uses) {
+        foreach ($this->digitalObjectUseCountList as $digitalObjectName => $uses) {
             if ($uses > 1) {
                 array_push($usedMoreThanOnce, $digitalObjectName);
             }
@@ -193,7 +186,7 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
         $unusedFiles = [];
 
         foreach ($this->fileList as $file) {
-            if (!isset($this->digitalObjectUses[$file])) {
+            if (!isset($this->digitalObjectUseCountList[$file])) {
                 array_push($unusedFiles, $file);
             }
         }
@@ -205,7 +198,7 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
     {
         $missingDigitalObjects = [];
 
-        foreach ($this->digitalObjectUses as $file => $uses) {
+        foreach ($this->digitalObjectUseCountList as $file => $uses) {
             if (!file_exists($this->pathToDigitalObjects.'/'.$file)) {
                 array_push($missingDigitalObjects, $file);
             }

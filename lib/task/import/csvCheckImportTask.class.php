@@ -52,8 +52,7 @@ class csvCheckImportTask extends arBaseTask
         $validator->setShowDisplayProgress(true);
         $validator->setFilenames($filenames);
         $results = $validator->validate();
-
-        $output = CsvValidatorResultCollection::renderResultsAsText($results, $this->verbose);
+        $output = $results->renderResultsAsText($this->verbose);
         echo $output;
 
         unset($validator);

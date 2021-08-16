@@ -59,7 +59,7 @@ class CsvRepoValidator extends CsvBaseValidator
         }
 
         if (!$this->repositoryExists($row['repository'])) {
-            $this->testData->addDetail(implode(',', $row));
+            $this->appendToCsvRowList();
         }
     }
 
@@ -84,6 +84,10 @@ class CsvRepoValidator extends CsvBaseValidator
             $this->testData->addResult(sprintf('New repository records will be created for: %s', implode(',', $this->newRepositories)));
         } else {
             $this->testData->addResult('No issues detected with repository values.');
+        }
+
+        if (!empty($this->getCsvRowList())) {
+            $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
         }
 
         return parent::getTestResult();

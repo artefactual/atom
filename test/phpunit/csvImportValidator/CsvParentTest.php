@@ -191,12 +191,10 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                         'Rows with parentId populated: 3',
                         '\'legacyId\' column not found. Unable to verify parentId values.',
                         'Verifying parentId values against legacyId values in this file.',
-                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 3',
+                        'Number of parentId values found for which there is no matching legacyID (will import as top level records): 3',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'DJ001,ID1,Some Photographs,,Extent and medium 1,,',
-                        'DJ002,,Voûte, étagère 0074,,,,',
-                        'DJ003,ID4,Title Four,,,,en',
+                        'CSV row numbers where issues were found: 2, 4, 5',
                     ],
                 ],
             ],
@@ -226,12 +224,10 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 3',
                         'Verifying parentId values against legacyId values in this file.',
-                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 3',
+                        'Number of parentId values found for which there is no matching legacyID (will import as top level records): 3',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,',
-                        'D20202,DJ002,,Voûte, étagère 0074,,,,',
-                        ',DJ003,ID4,Title Four,,,,en',
+                        'CSV row numbers where issues were found: 2, 4, 5',
                     ],
                 ],
             ],
@@ -245,6 +241,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 1',
+                        'Verifying parentId values against legacyId values in this file.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -263,6 +260,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 1',
+                        'Verifying parentId values against legacyId values in this file, and AtoM database.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -279,10 +277,10 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 1',
                         'Verifying parentId values against legacyId values in this file.',
-                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 1',
+                        'Number of parentId values found for which there is no matching legacyID (will import as top level records): 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'D20202,A10101,,Voûte, étagère 0074,,,,',
+                        'CSV row numbers where issues were found: 4',
                     ],
                 ],
             ],
@@ -299,6 +297,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 1',
+                        'Verifying parentId values against legacyId values in this file, and AtoM database.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -314,10 +313,11 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with qubitParentSlug populated: 2',
-                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 1',
+                        'Verifying qubitParentSlug values against object slugs in the AtoM database.',
+                        'Number of qubitParentSlug values found for which there is no matching slug (will import as top level records): 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'X7,missing-slug,TY99,Some stuff,,,,en',
+                        'CSV row numbers where issues were found: 6',
                     ],
                 ],
             ],
@@ -334,6 +334,8 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                         'Rows with qubitParentSlug populated: 2',
                         'Rows with both \'parentId\' and \'qubitParentSlug\' populated: 1',
                         'Column \'qubitParentSlug\' will override \'parentId\' if both are populated.',
+                        'Verifying parentId values against legacyId values in this file.',
+                        'Verifying qubitParentSlug values against object slugs in the AtoM database.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],

@@ -17,8 +17,8 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
         $this->vdbcon = $this->createMock(DebugPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
-        $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectUri,culture';
-        $this->csvHeaderDupedPath = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectPath,digitalObjectUri,culture';
+        $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectURI,culture';
+        $this->csvHeaderDupedPath = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectPath,digitalObjectURI,culture';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -111,7 +111,7 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
              * -- duplicated file path
              * -- invalid file path
              * -- empty value
-             * -- digitalObjectUri column present and populated
+             * -- digitalObjectURI column present and populated
              */
             [
                 'CsvDigitalObjectPathValidator-digitalObjectPathMissing' => [
@@ -136,8 +136,9 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectPathValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Column 'digitalObjectPath' found.",
+                        'Column \'digitalObjectPath\' found.',
                         'Digital object folder location not specified.',
+                        'Column \'digitalObjectPath\' is empty - nothing to validate.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -157,8 +158,8 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectPathValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Column 'digitalObjectPath' found.",
-                        "Column 'digitalObjectPath' is empty.",
+                        'Column \'digitalObjectPath\' found.',
+                        'Column \'digitalObjectPath\' is empty - nothing to validate.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -179,18 +180,18 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         "Column 'digitalObjectPath' found.",
-                        "'digitalObjectPath' will be overridden by 'digitalObjectUri' if both are populated.",
-                        "'digitalObjectPath' values that will be overridden by digitalObjectUri: 2",
+                        "'digitalObjectPath' will be overridden by 'digitalObjectURI' if both are populated.",
+                        "'digitalObjectPath' values that will be overridden by 'digitalObjectURI': 2",
                         'Number of duplicated digital object paths found in CSV: 2',
                         'Digital objects in folder not referenced by CSV: 1',
-                        'Digital object referenced by CSV not found in folder: 2',
+                        'Digital objects referenced by CSV not found in folder: 2',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         "Number of duplicates for path 'a.png': 2",
                         "Number of duplicates for path 'b.png': 2",
                         'Unreferenced digital object: c.png',
-                        'Unable to locate digital object: vfs://root/digital_objects/A.PNG',
-                        'Unable to locate digital object: vfs://root/digital_objects/d.png',
+                        'Unable to locate digital object: A.PNG',
+                        'Unable to locate digital object: d.png',
                     ],
                 ],
             ],

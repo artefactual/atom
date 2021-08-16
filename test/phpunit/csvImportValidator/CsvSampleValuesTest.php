@@ -76,6 +76,7 @@ class CsvSampleValuesTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Empty columns detected: levelOfDescription,repository',
+                        '',
                         'legacyId:  B10101',
                         'parentId:  DJ001',
                         'identifier:  ID1',

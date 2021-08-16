@@ -137,8 +137,7 @@ class CsvLanguageTest extends \PHPUnit\Framework\TestCase
                         'Invalid language values: Spanish, en_gb',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,es,Spanish',
-                        ',DJ003,ID4,Title Four,,,,en,en_gb',
+                        'CSV row numbers where issues were found: 2, 5',
                     ],
                 ],
             ],

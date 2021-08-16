@@ -32,6 +32,14 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
             '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
             '"","","","Chemise","","","","fr"',
             '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+            '"B10101", "DJ003", "ID4", "Title Four", "","", "", "fr"',
+            '"B10101", "DJ005", "ID5", "Title Five", "","", "", "en"',
+        ];
+
+        $this->csvDataDuplicatedLegacyIdCulture = [
+            '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+            '"","","","Chemise","","","","fr"',
+            '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
             '"B10101", "DJ003", "ID4", "Title Four", "","", "", "en"',
             '"B10101", "DJ005", "ID5", "Title Five", "","", "", "en"',
         ];
@@ -47,7 +55,7 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
             '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","", ""',
             '"","","","Chemise","","","","fr", ""',
             '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", "", "D20202"',
-            '"B10101", "DJ003", "ID4", "Title Four", "","", "", "en", ""',
+            '"B10101", "DJ003", "ID4", "Title Four", "","", "", "fr", ""',
             '"B10101", "DJ005", "ID5", "Title Five", "","", "", "en", "B10101"',
         ];
 
@@ -55,6 +63,7 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
         $directory = [
             'unix_csv_without_utf8_bom.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_with_duplicated_legacy_id.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataDuplicatedLegacyId),
+            'unix_csv_with_duplicated_legacy_id_culture.csv' => $this->csvHeader."\n".implode("\n", $this->csvDataDuplicatedLegacyIdCulture),
             'unix_csv_missing_legacy_id.csv' => $this->csvHeaderMissingLegacyId."\n".implode("\n", $this->csvDataMissingLegacyId),
             'unix_csv_with_duplicated_legacy_id_column.csv' => $this->csvHeaderDupedLegacyId."\n".implode("\n", $this->csvDataDuplicatedLegacyIdColumn),
         ];
@@ -126,8 +135,7 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
                         'Future CSV updates may not match these records.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        ',,,Chemise,,,,fr',
-                        ',DJ003,ID4,Title Four,,,,en',
+                        'CSV row numbers missing \'legacyId\': 3, 5',
                     ],
                 ],
             ],
@@ -138,15 +146,36 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
                     'filename' => '/unix_csv_with_duplicated_legacy_id.csv',
                     'testname' => 'CsvLegacyIdValidator',
                     CsvValidatorResult::TEST_TITLE => CsvLegacyIdValidator::TITLE,
-                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_WARN,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with non-unique \'legacyId\' values: 1',
                         'Rows with empty \'legacyId\' column: 1',
                         'Future CSV updates may not match these records.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        ',,,Chemise,,,,fr',
                         'Non-unique \'legacyId\' values: B10101',
+                        'CSV row numbers missing \'legacyId\': 3',
+                    ],
+                ],
+            ],
+
+            [
+                'CsvLegacyTest-DuplicatedLegacyIdCulture' => [
+                    'csvValidatorClasses' => 'CsvLegacyIdValidator',
+                    'filename' => '/unix_csv_with_duplicated_legacy_id_culture.csv',
+                    'testname' => 'CsvLegacyIdValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvLegacyIdValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        'Rows with non-unique \'legacyId\' values: 1',
+                        'Consecutive CSV rows with matching legacyId and culture will trigger errors during CSV import.',
+                        'Rows with empty \'legacyId\' column: 1',
+                        'Future CSV updates may not match these records.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
+                        'Non-unique \'legacyId\' values: B10101',
+                        'Duplicate translation values for: legacyId: B10101; culture: en',
+                        'CSV row numbers missing \'legacyId\': 3',
                     ],
                 ],
             ],

@@ -93,8 +93,7 @@ class CsvEventValuesValidator extends CsvBaseValidator
         // If the number of fields differ within a row's event fields, count it.
         if (!empty($fieldCounts) && 1 != count(array_unique($fieldCounts))) {
             ++$this->countMismatchedRows;
-
-            $this->testData->addDetail(implode(',', $row));
+            $this->appendToCsvRowList();
         }
     }
 
@@ -109,6 +108,10 @@ class CsvEventValuesValidator extends CsvBaseValidator
         if (0 < $this->countMismatchedRows) {
             $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf('Event value mismatches found: %s', $this->countMismatchedRows));
+        }
+
+        if (!empty($this->getCsvRowList())) {
+            $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
         }
 
         return parent::getTestResult();

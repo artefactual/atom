@@ -142,9 +142,7 @@ class CsvRepoTest extends \PHPUnit\Framework\TestCase
                         'New repository records will be created for: new repo 1,new repo 2',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,new repo 1,es',
-                        'D20202,DJ002,,Voûte, étagère 0074,,,new repo 2,de',
-                        ',DJ003,ID4,Title Four,,,new repo 1,en',
+                        'CSV row numbers where issues were found: 2, 4, 5',
                     ],
                 ],
             ],

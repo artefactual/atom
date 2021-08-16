@@ -137,10 +137,7 @@ class CsvScriptTest extends \PHPUnit\Framework\TestCase
                         'Invalid scriptOfDescription values: Latin, Gggg, HGGG, LATN',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                        'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,es,Latin',
-                        ',,,Chemise,,,,fr,Copt|Latin',
-                        'D20202,DJ002,,Voûte, étagère 0074,,,,de,Gggg|HGGG',
-                        ',DJ003,ID4,Title Four,,,,en,LATN',
+                        'CSV row numbers where issues were found: 2, 3, 4, 5',
                     ],
                 ],
             ],

@@ -58,8 +58,8 @@ class CsvFileEncodingValidator extends CsvBaseValidator
         if (!$this->isRowUtf8EncodingCompatible($row)) {
             $this->utf8Compatible = false;
 
-            // Add row that triggered this to the output.
-            $this->testData->addDetail(implode(',', $row));
+            // Add row number that triggered this to the output.
+            $this->appendToCsvRowList();
         }
     }
 
@@ -106,7 +106,15 @@ class CsvFileEncodingValidator extends CsvBaseValidator
             $this->testData->addResult('File encoding is UTF-8 compatible.');
         } else {
             $this->testData->addResult('File encoding does not appear to be UTF-8 compatible.');
+            $this->testData->addResult(sprintf('Count of UTF-8 incompatible CSV rows: %s', count($this->getCsvRowList())));
             $this->testData->setStatusError();
+            // Detail lines: comma sep string of first ten row numbers affected.
+            $this->testData->addDetail(
+                sprintf(
+                    'Affected row numbers (first 10): %s',
+                    implode(', ', array_slice($this->getCsvRowList(), 0, 10, true))
+                )
+            );
         }
 
         if (null !== $this->utf8BomPresent && false !== $this->utf8BomPresent) {

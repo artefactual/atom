@@ -89,10 +89,10 @@ class arValidateCsvJob extends arBaseJob
         $validator->setFilenames([$file['name'] => $file['tmp_name']]);
         $results = $validator->validate();
 
-        $this->verboseReportContents = CsvValidatorResultCollection::renderResultsAsText($results, true);
+        $this->verboseReportContents = $results->renderResultsAsText(true);
 
         // Return short report.
-        return CsvValidatorResultCollection::renderResultsAsText($results, false);
+        return $results->renderResultsAsText(false);
     }
 
     public static function setOptions($options = [])

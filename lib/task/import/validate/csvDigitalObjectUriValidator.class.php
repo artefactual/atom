@@ -37,7 +37,7 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
         $this->setTitle(self::TITLE);
         parent::__construct($options);
 
-        $this->setRequiredColumns(['digitalObjectUri']);
+        $this->setRequiredColumns(['digitalObjectURI']);
     }
 
     public function reset()
@@ -55,40 +55,40 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
 
         $row = $this->combineRow($header, $row);
 
-        if (!empty($row['digitalObjectUri'])) {
-            $this->addToUsageSummary($row['digitalObjectUri']);
+        if (!empty($row['digitalObjectURI'])) {
+            $this->addToUsageSummary($row['digitalObjectURI']);
         }
     }
 
     public function getTestResult()
     {
-        if (false === $this->columnPresent('digitalObjectUri')) {
-            $this->testData->addResult(sprintf("Column 'digitalObjectUri' not present in CSV. Nothing to verify."));
+        if (false === $this->columnPresent('digitalObjectURI')) {
+            $this->testData->addResult(sprintf("Column 'digitalObjectURI' not present in CSV. Nothing to verify."));
 
             return parent::getTestResult();
         }
 
-        if ($this->columnDuplicated('digitalObjectUri')) {
-            $this->appendDuplicatedColumnError('digitalObjectUri');
+        if ($this->columnDuplicated('digitalObjectURI')) {
+            $this->appendDuplicatedColumnError('digitalObjectURI');
 
             return parent::getTestResult();
         }
 
-        $this->testData->addResult(sprintf("Column 'digitalObjectUri' found."));
+        $this->testData->addResult(sprintf("Column 'digitalObjectURI' found."));
 
         if (empty($this->digitalObjectUses)) {
-            $this->testData->addResult(sprintf("Column 'digitalObjectUri' is empty."));
+            $this->testData->addResult(sprintf("Column 'digitalObjectURI' is empty."));
 
             return parent::getTestResult();
         }
 
-        $digitalObjectUrisUsedMoreThanOnce = $this->getUsedMoreThanOnce();
+        $digitalObjectURIsUsedMoreThanOnce = $this->getUsedMoreThanOnce();
 
-        if (!empty($digitalObjectUrisUsedMoreThanOnce)) {
+        if (!empty($digitalObjectURIsUsedMoreThanOnce)) {
             $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf('Repeating Digital object URIs found in CSV.'));
 
-            foreach ($digitalObjectUrisUsedMoreThanOnce as $uri) {
+            foreach ($digitalObjectURIsUsedMoreThanOnce as $uri) {
                 $this->testData->addDetail(sprintf("Number of duplicates for URI '%s': %s", $uri, $this->digitalObjectUses[$uri]));
             }
         }
@@ -97,7 +97,7 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
 
         if (!empty($invalidUris)) {
             $this->testData->setStatusError();
-            $this->testData->addResult(sprintf('Invalid digitalObjectUri values detected: %s', count($invalidUris)));
+            $this->testData->addResult(sprintf('Invalid digitalObjectURI values detected: %s', count($invalidUris)));
 
             foreach ($invalidUris as $file) {
                 $this->testData->addDetail(sprintf('Invalid URI: %s', $file));
@@ -111,9 +111,9 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
     {
         $usedMoreThanOnce = [];
 
-        foreach ($this->digitalObjectUses as $digitalObjectUri => $uses) {
+        foreach ($this->digitalObjectUses as $digitalObjectURI => $uses) {
             if ($uses > 1) {
-                array_push($usedMoreThanOnce, $digitalObjectUri);
+                array_push($usedMoreThanOnce, $digitalObjectURI);
             }
         }
 

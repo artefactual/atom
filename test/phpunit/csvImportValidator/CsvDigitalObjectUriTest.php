@@ -17,8 +17,8 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
         $this->vdbcon = $this->createMock(DebugPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
-        $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectUri,culture';
-        $this->csvHeaderDupedUri = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectUri,digitalObjectUri,culture';
+        $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectURI,culture';
+        $this->csvHeaderDupedUri = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectURI,digitalObjectURI,culture';
 
         $this->csvData = [
             // Note: leading and trailing whitespace in first row is intentional
@@ -104,25 +104,25 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
              * Test CsvDigitalObjectUriValidator.class.php
              *
              * Tests:
-             * - digitalObjectUri column missing
-             * - digitalObjectUri column present but empty
-             * - digitalObjectUri column present and populated with:
+             * - digitalObjectURI column missing
+             * - digitalObjectURI column present but empty
+             * - digitalObjectURI column present and populated with:
              * -- valid URI
              * -- incorrect scheme URI (e.g. ftp://)
              * -- duplicated URI
              * -- invalid URI
              * -- empty value
-             * -- digitalObjectUri column present and populated
+             * -- digitalObjectURI column present and populated
              */
             [
-                'CsvDigitalObjectUriValidator-digitalObjectUriMissing' => [
+                'CsvDigitalObjectUriValidator-digitalObjectURIMissing' => [
                     'csvValidatorClasses' => 'CsvDigitalObjectUriValidator',
                     'filename' => '/unix_csv_without_utf8_bom.csv',
                     'testname' => 'CsvDigitalObjectUriValidator',
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectUriValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Column 'digitalObjectUri' not present in CSV. Nothing to verify.",
+                        "Column 'digitalObjectURI' not present in CSV. Nothing to verify.",
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -130,15 +130,15 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
             ],
 
             [
-                'CsvDigitalObjectUriValidator-digitalObjectUriEmpty' => [
+                'CsvDigitalObjectUriValidator-digitalObjectURIEmpty' => [
                     'csvValidatorClasses' => 'CsvDigitalObjectUriValidator',
                     'filename' => '/unix_csv_with_digital_object_cols.csv',
                     'testname' => 'CsvDigitalObjectUriValidator',
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectUriValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Column 'digitalObjectUri' found.",
-                        "Column 'digitalObjectUri' is empty.",
+                        "Column 'digitalObjectURI' found.",
+                        "Column 'digitalObjectURI' is empty.",
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -146,7 +146,7 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
             ],
 
             [
-                'CsvDigitalObjectUriValidator-digitalObjectUriPopulatedWithDOFolder' => [
+                'CsvDigitalObjectUriValidator-digitalObjectURIPopulatedWithDOFolder' => [
                     'csvValidatorClasses' => 'CsvDigitalObjectUriValidator',
                     'filename' => '/unix_csv_with_digital_object_cols_populated.csv',
                     'testname' => 'CsvDigitalObjectUriValidator',
@@ -158,9 +158,9 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectUriValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Column 'digitalObjectUri' found.",
+                        "Column 'digitalObjectURI' found.",
                         'Repeating Digital object URIs found in CSV.',
-                        'Invalid digitalObjectUri values detected: 2',
+                        'Invalid digitalObjectURI values detected: 2',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         "Number of duplicates for URI 'https://www.artefactual.com/wp-content/uploads/2018/08/artefactual-logo-white.svg': 2",
@@ -171,7 +171,7 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
             ],
 
             [
-                'CsvDigitalObjectUriValidator-digitalObjectUriPopulatedDupedUri' => [
+                'CsvDigitalObjectUriValidator-digitalObjectURIPopulatedDupedUri' => [
                     'csvValidatorClasses' => 'CsvDigitalObjectUriValidator',
                     'filename' => '/unix_csv_with_digital_object_cols_populated_duped_uri.csv',
                     'testname' => 'CsvDigitalObjectUriValidator',
@@ -183,7 +183,7 @@ class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvDigitalObjectUriValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
-                        '\'digitalObjectUri\' column appears more than once in file.',
+                        '\'digitalObjectURI\' column appears more than once in file.',
                         'Unable to validate because of duplicated columns in CSV.',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [

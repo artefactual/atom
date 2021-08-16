@@ -82,11 +82,13 @@ class CsvSampleValuesValidator extends CsvBaseValidator
     {
         if (isset($this->emptyColumnNames) && !empty($this->emptyColumnNames)) {
             $this->testData->addResult(sprintf('Empty columns detected: %s', implode(',', array_keys($this->emptyColumnNames))));
+            $this->testData->addResult('');
         }
 
         if (isset($this->duplicatedColumnNames) && !empty($this->duplicatedColumnNames)) {
             $this->testData->setStatusError();
             $this->testData->addResult(sprintf('Duplicate column names detected: %s', implode(',', $this->duplicatedColumnNames)));
+            $this->testData->addResult('');
         }
 
         foreach ($this->values as $columnName => $sampleValue) {
