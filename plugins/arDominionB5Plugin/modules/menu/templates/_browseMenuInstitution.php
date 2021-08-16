@@ -1,5 +1,5 @@
 <div class="dropdown d-grid">
-  <button class="btn atom-btn-white dropdown-toggle" type="button" id="browse-menu-institution-button" data-bs-toggle="dropdown" aria-expanded="false">
+  <button class="btn atom-btn-white dropdown-toggle text-wrap" type="button" id="browse-menu-institution-button" data-bs-toggle="dropdown" aria-expanded="false">
     <?php echo $browseMenuInstitution->getLabel(['cultureFallback' => true]); ?>
   </button>
   <ul class="dropdown-menu" aria-labelledby="browse-menu-institution-button">
