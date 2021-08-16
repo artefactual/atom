@@ -214,9 +214,8 @@ body > iframe {
   border-color: $border-color !important;
 }
 
-// Repository logo with an approximate shape of a square.
+// Limit repo logo/text width.
 .repository-logo,
 .repository-logo-text h2 {
-  min-height: 180px;
   max-width: 220px;
 }
