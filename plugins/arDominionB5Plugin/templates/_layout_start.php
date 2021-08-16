@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/node_modules/mediaelement/build/mediaelementplayer.min.css">
     <link rel="stylesheet" href="/node_modules/jstree/dist/themes/default/style.min.css">
     <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
+    <?php echo get_component_slot('css'); ?>
   </head>
   <body class="<?php echo $sf_context->getModuleName(); ?> <?php echo $sf_context->getActionName(); ?>">
     <?php echo get_component('default', 'tagManager', ['code' => 'noscript']); ?>
