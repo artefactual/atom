@@ -401,6 +401,10 @@ class QubitMenu extends BaseMenu
                 $anchorOptions['data-toggle'] = 'dropdown';
             }
 
+            if (isset($options['anchorClasses'])) {
+                $anchorOptions['class'] .= $options['anchorClasses'];
+            }
+
             // Construct the link
             $a = link_to($anchorLabel, $anchorPath, $anchorOptions);
 
