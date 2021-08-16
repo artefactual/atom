@@ -19,8 +19,8 @@
 
   <?php echo get_partial('default/sidebarPager', ['pager' => $pager]); ?>
 
-  <div class="card-body p-0 bg-light">
-    <a class="btn btn-sm atom-btn-white border-0 w-100" href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id]); ?>">
+  <div class="card-body p-0">
+    <a class="btn atom-btn-white border-0 w-100" href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id]); ?>">
       <i class="fas fa-search" aria-hidden="true"></i>
       <?php echo __('Browse %1% holdings', ['%1%' => $pager->getNbResults()]); ?>
     </a>
