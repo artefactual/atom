@@ -62,7 +62,7 @@
       <section id="primary-contact">
         <h4 class="h5 mb-2"><?php echo __('Primary contact'); ?></h4>
         <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap">
           <?php if (null !== $website = $primaryContact->getWebsite()) { ?>
             <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
               <?php $website = 'http://'.$website; ?>
