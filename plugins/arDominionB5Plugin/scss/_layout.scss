@@ -213,3 +213,10 @@ body > iframe {
 #treeview-search .alert {
   border-color: $border-color !important;
 }
+
+// Repository logo with an approximate shape of a square.
+.repository-logo,
+.repository-logo-text h2 {
+  min-height: 180px;
+  max-width: 220px;
+}
