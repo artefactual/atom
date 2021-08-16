@@ -1,4 +1,4 @@
-<section class="card sidebar-paginated-list mb-4"
+<section class="card sidebar-paginated-list mb-3"
   data-total-pages="<?php echo $pager->getLastPage(); ?>"
   data-url="<?php echo url_for(['module' => 'repository', 'action' => 'holdings', 'id' => $resource->id]); ?>">
 
