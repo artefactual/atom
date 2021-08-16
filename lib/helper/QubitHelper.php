@@ -90,11 +90,19 @@ function render_b5_field($field, $translation = null, $options = [])
 
     // TODO: this should be the field id
     $name = $field->getName();
+    $widget = $field->getWidget();
 
     if (in_array($field->type, ['checkbox', 'radio'])) {
         $isFormCheck = true;
         $inputClass = 'form-check-input';
         $labelClass = 'form-check-label';
+    }
+
+    if (
+        $widget instanceof sfWidgetFormSelect
+        || $widget instanceof sfWidgetFormI18nChoiceCountry
+    ) {
+        $inputClass = 'form-select';
     }
 
     if (empty($options['class'])) {
@@ -148,24 +156,24 @@ function render_b5_field($field, $translation = null, $options = [])
         }
     }
 
-    // Special case for grouped radio buttons
-    if ($field->getWidget() instanceof sfWidgetFormChoice) {
-        return '<div class="mb-3">'
-            .'<fieldset'
-            .($options['aria-describedby']
-                ? ' aria-describedby="'.$options['aria-describedby'].'"'
-                : '')
-            .'><legend class="fs-6">'
-            .$field->renderLabelName()
-            .'</legend>'
-            .$field->render(['class' => 'form-check-input'])
-            .'</fieldset>'
-            .$field->renderError()
-            .$help
-            .'</div>';
-    }
-
     if ($isFormCheck) {
+        // Special case for grouped radio buttons
+        if ($widget instanceof sfWidgetFormChoice) {
+            return '<div class="mb-3">'
+                .'<fieldset'
+                .($options['aria-describedby']
+                    ? ' aria-describedby="'.$options['aria-describedby'].'"'
+                    : '')
+                .'><legend class="fs-6">'
+                .$field->renderLabelName()
+                .'</legend>'
+                .$field->render(['class' => 'form-check-input'])
+                .'</fieldset>'
+                .$field->renderError()
+                .$help
+                .'</div>';
+        }
+
         return '<div class="form-check mb-3">'
             .$field->render($options)
             .$label
