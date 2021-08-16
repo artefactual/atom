@@ -1,6 +1,6 @@
 <section class="card mb-3">
   <div class="card-body">
-    <?php include_component('repository', 'logo'); ?>
+    <?php include_component('repository', 'logo', ['resource' => $resource]); ?>
 
     <form class="mb-3" role="search" aria-label="<?php echo sfConfig::get('app_ui_label_institutionSearchHoldings'); ?>" action="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse']); ?>">
       <input type="hidden" name="repos" value="<?php echo $resource->id; ?>">
