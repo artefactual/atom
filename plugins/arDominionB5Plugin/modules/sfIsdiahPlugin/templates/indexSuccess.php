@@ -28,9 +28,9 @@
   </nav>
 
   <?php if ($resource->existsBanner()) { ?>
-    <div class="row" id="repository-banner">
-      <div class="span7">
-        <?php echo image_tag($resource->getBannerPath(), ['alt' => '']); ?>
+    <div class="row mb-3" id="repository-banner">
+      <div class="col-md-9">
+        <?php echo image_tag($resource->getBannerPath(), ['alt' => '', 'class' => 'img-fluid rounded']); ?>
       </div>
     </div>
   <?php } ?>
