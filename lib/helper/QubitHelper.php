@@ -96,6 +96,8 @@ function render_b5_field($field, $translation = null, $options = [])
         $isFormCheck = true;
         $inputClass = 'form-check-input';
         $labelClass = 'form-check-label';
+    } elseif ('color' == $field->type) {
+        $inputClass .= ' form-control-color';
     }
 
     if (
