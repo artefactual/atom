@@ -11,7 +11,7 @@
 <?php slot('content'); ?>
 
   <noscript>
-    <div class="messages warning">
+    <div class="alert alert-warning" role="alert">
       <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', ['%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>']); ?>
     </div>
 
@@ -23,7 +23,7 @@
   <?php if (QubitDigitalObject::reachedAppUploadLimit()) { ?>
 
     <div id="upload_limit_reached">
-      <div class="messages warning">
+      <div class="alert alert-warning" role="alert">
         <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.', ['%1%' => sfConfig::get('app_upload_limit')]); ?>
       </div>
 

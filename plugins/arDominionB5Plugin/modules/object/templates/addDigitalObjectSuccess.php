@@ -11,7 +11,7 @@
 
   <?php if (QubitDigitalObject::reachedAppUploadLimit()) { ?>
 
-    <div class="messages warning">
+    <div class="alert alert-warning" role="alert">
       <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.', ['%1%' => sfConfig::get('app_upload_limit')]); ?>
     </div>
 
@@ -42,7 +42,7 @@
 
               <?php } elseif (0 == $repository->uploadLimit) { ?>
 
-                <div class="messages warning">
+                <div class="alert alert-warning" role="alert">
                   <?php echo __('Uploads for <a href="%1%">%2%</a> are disabled', [
                       '%1%' => url_for([$repository, 'module' => 'repository']),
                       '%2%' => $repository->__toString(), ]); ?>
@@ -50,7 +50,7 @@
 
               <?php } else { ?>
 
-                <div class="messages warning">
+                <div class="alert alert-warning" role="alert">
                   <?php echo __('The upload limit of %1% GB for <a href="%2%">%3%</a> has been reached', [
                       '%1%' => $repository->uploadLimit,
                       '%2%' => url_for([$repository, 'module' => 'repository']),

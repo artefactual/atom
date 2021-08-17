@@ -12,7 +12,7 @@
   <?php echo get_component('informationobject', 'descriptionHeader', ['resource' => $resource, 'title' => (string) $rad]); ?>
 
   <?php if (isset($sf_request->source)) { ?>
-    <div class="messages status">
+    <div class="alert alert-info" role="alert">
       <?php echo __('This is a duplicate of record %1%', ['%1%' => $sourceInformationObjectLabel]); ?>
     </div>
   <?php } ?>
