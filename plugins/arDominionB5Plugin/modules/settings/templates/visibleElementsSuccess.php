@@ -24,12 +24,7 @@
             <?php foreach ([
                 'global_login_button' => __('Login button'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -53,12 +48,7 @@
                 'isad_access_points_area' => __('Access points'),
                 'isad_description_control_area' => __('Description control area'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -89,12 +79,7 @@
                 'isad_control_sources' => __('Sources'),
                 'isad_control_archivists_notes' => __('Archivist\'s notes'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -121,12 +106,7 @@
                 'rad_access_points_area' => __('Access points'),
                 'rad_description_control_area' => __('Control area'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -157,12 +137,7 @@
                 'rad_control_script' => __('Script'),
                 'rad_control_sources' => __('Sources'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -186,12 +161,7 @@
                 'dacs_control_area' => __('Description control area'),
                 'dacs_access_points_area' => __('Access points'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -208,12 +178,7 @@
             <?php foreach ([
                 'dacs_physical_access' => __('Physical access'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -237,12 +202,7 @@
                 'digital_object_preservation_system_original_ingested' => __('Ingested'),
                 'digital_object_preservation_system_original_permissions' => __('Permissions'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -262,12 +222,7 @@
                 'digital_object_preservation_system_preservation_normalized' => __('Normalized'),
                 'digital_object_preservation_system_preservation_permissions' => __('Permissions'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -291,12 +246,7 @@
                 'digital_object_uploaded' => __('Uploaded'),
                 'digital_object_permissions' => _('Permissions'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -318,12 +268,7 @@
                 'digital_object_reference_uploaded' => __('Uploaded'),
                 'digital_object_reference_permissions' => _('Permissions'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -345,12 +290,7 @@
                 'digital_object_thumbnail_uploaded' => __('Uploaded'),
                 'digital_object_thumbnail_permissions' => _('Permissions'), ] as $key => $value) { ?>
 
-              <div class="form-item form-item-checkbox">
-                <?php echo $form[$key]; ?>
-                <?php echo $form[$key]
-                    ->label($value)
-                    ->renderLabel(); ?>
-              </div>
+              <?php echo render_field($form[$key]->label($value)); ?>
 
             <?php } ?>
           </div>
@@ -365,10 +305,7 @@
         <div id="storage-collapse" class="accordion-collapse collapse" aria-labelledby="storage-heading">
           <div class="accordion-body">
             <div class="form-item form-item-checkbox">
-              <?php echo $form['physical_storage']; ?>
-              <?php echo $form['physical_storage']
-                  ->label('Physical storage')
-                  ->renderLabel(); ?>
+              <?php echo render_field($form['physical_storage']->label(__('Physical storage'))); ?>
             </div>
           </div>
         </div>
