@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" id="breadcrumb">
   <ol class="breadcrumb">
     <?php foreach ($objects as $object) { ?>
       <?php if (isset($object->parent)) { ?>
