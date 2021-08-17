@@ -10,7 +10,7 @@
 <?php slot('content'); ?>
 
   <?php if (isset($accession)) { ?>
-    <div class="messages status">
+    <div class="alert alert-info" role="alert">
       <?php echo __('You are creating an accrual to accession %1%', ['%1%' => $accession]); ?>
     </div>
   <?php } ?>
