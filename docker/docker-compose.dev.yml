@@ -23,6 +23,7 @@ services:
     env_file: etc/environment
     environment:
       - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
+      - MEMPROF_PROFILE=dump_on_limit
     depends_on:
       - gearmand
       - percona
