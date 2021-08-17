@@ -195,20 +195,18 @@
 
         // Add empty breadcrumb section if current page has none, but response does
         if (
-          !$("#main-column .breadcrumb").length &&
-          $(response.find("#main-column .breadcrumb").length)
+          !$("#breadcrumb").length &&
+          $(response.find("#breadcrumb").length)
         ) {
           var breadcrumbDestinationSelector = treeViewCollapseEnabled
             ? ".full-treeview-section"
             : "#fullwidth-treeview-row";
 
           $(breadcrumbDestinationSelector).after(
-            $("<section>", { class: "breadcrumb" })
+            $("<nav>", { id: "breadcrumb" })
           );
         }
-        $("#main-column .breadcrumb").replaceWith(
-          $(response.find("#main-column .breadcrumb"))
-        );
+        $("#breadcrumb").replaceWith($(response.find("#breadcrumb")));
 
         // Replace description content
         $("#main-column .row").replaceWith(
@@ -221,7 +219,7 @@
           response.find(".translation-links").length &&
           !$(".translation-links").length
         ) {
-          $("section.breadcrumb").after(
+          $("#breadcrumb").after(
             $('<div class="btn-group translation-links"></div>')
           );
         }
@@ -230,10 +228,8 @@
         );
 
         // Replace error message
-        $("#main-column > div.messages.error").remove();
-        $("#main-column .breadcrumb").after(
-          $(response.find("#main-column > div.messages.error"))
-        );
+        $("#main-column > .alert").remove();
+        $("#breadcrumb").before(response.find("#main-column > .alert"));
 
         // Attach the Drupal Behaviour so blank.js does its thing
         Drupal.attachBehaviors(document);
