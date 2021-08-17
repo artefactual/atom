@@ -5,7 +5,7 @@
 
 <div class="table-responsive mb-2">
   <table class="table table-bordered mb-0 multi-row">
-    <thead>
+    <thead class="table-light">
       <tr>
         <th id="isad-events-type-head" style="width: 25%">
           <?php echo __('Type'); ?>
