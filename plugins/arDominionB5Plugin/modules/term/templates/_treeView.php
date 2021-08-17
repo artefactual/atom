@@ -5,7 +5,7 @@
   }
 ?>
 
-<ul class="nav nav-tabs border-0" id="treeview-menu" role="tablist">
+<ul class="nav nav-tabs border-0 hideable" id="treeview-menu" role="tablist">
 
   <li class="nav-item" role="presentation">
     <button
