@@ -4,7 +4,7 @@
 
 <div class="table-responsive mb-2">
   <table class="table table-bordered mb-0 multi-row">
-    <thead>
+    <thead class="table-light">
       <tr>
         <th id="accession-events-type-head" style="width: 20%">
           <?php echo __('Type'); ?>
