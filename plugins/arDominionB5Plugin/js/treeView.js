@@ -27,8 +27,9 @@
   class Treeview {
     constructor($element) {
       this.$element = $element;
+      this.$search = $("#treeview-search");
 
-      if (!this.$element.length) {
+      if (!this.$element.length && !this.$search.length) {
         return;
       }
 
@@ -54,7 +55,6 @@
 
       // Menu (tabs) and search box.
       this.$menu = this.$element.parent().prev("#treeview-menu");
-      this.$search = this.$element.siblings("#treeview-search");
       this.$list = this.$element.siblings("#treeview-list");
       this.$listNavTmpl = this.$list.find("nav").clone();
 
