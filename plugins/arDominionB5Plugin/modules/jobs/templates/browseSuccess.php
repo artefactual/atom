@@ -99,7 +99,7 @@
 <?php } ?>
 
 <?php if (!$jobs->count()) { ?>
-  <div class="messages error alert alert-info">
+  <div class="alert alert-info" role="alert">
     <ul class="list-unstyled m-0">
       <li><?php echo __('There are no jobs to report on.'); ?></li>
     </ul>
