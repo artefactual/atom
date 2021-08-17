@@ -16,7 +16,7 @@
 <?php slot('content'); ?>
 
   <?php if ($form->hasGlobalErrors()) { ?>
-    <div class="messages error alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert">
       <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($form->getGlobalErrors() as $error) { ?>
           <?php $error = sfOutputEscaper::unescape($error); ?>
@@ -53,7 +53,7 @@
             <?php } else { ?>
               <?php echo $form->taxonomy->renderLabel(); ?>
               <?php echo $form->taxonomy->renderError(); ?>
-              <?php echo $form->taxonomy->render(); ?> 
+              <?php echo $form->taxonomy->render(); ?>
               <input class="list" type="hidden" value="<?php echo url_for(['module' => 'taxonomy', 'action' => 'autocomplete']); ?>"/>
             <?php } ?>
           </div>
