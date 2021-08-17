@@ -118,7 +118,7 @@
 
     </div>
   <?php } else { ?>
-    <div hidden>
+    <div class="d-flex justify-content-end flex-wrap gap-2 ms-auto" id="fullwidth-treeview">
       <input type="button" id="fullwidth-treeview-reset-button" value="<?php echo __('Reset'); ?>" />
       <input type="button" id="fullwidth-treeview-more-button" data-label="<?php echo __('%1% more'); ?>" value="" />
       <span
