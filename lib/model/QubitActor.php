@@ -178,6 +178,7 @@ class QubitActor extends BaseActor
                         'ioIds' => $creationIoIds,
                         'updateIos' => true,
                         'updateDescendants' => true,
+                        'objectId' => $this->id,
                     ];
                     QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
                 }
@@ -187,6 +188,7 @@ class QubitActor extends BaseActor
                         'ioIds' => $otherIoIds,
                         'updateIos' => true,
                         'updateDescendants' => false,
+                        'objectId' => $this->id,
                     ];
                     QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
                 }
@@ -739,7 +741,7 @@ class QubitActor extends BaseActor
         if (!empty($actorIds)) {
             // Update, in Elasticsearch, relations of actors previously related to actor
             if (!in_array(sfContext::getInstance()->getConfiguration()->getEnvironment(), ['cli', 'worker'])) {
-                QubitJob::runJob('arUpdateEsActorRelationsJob', ['actorIds' => $actorIds]);
+                QubitJob::runJob('arUpdateEsActorRelationsJob', ['actorIds' => $actorIds, 'objectId' => $this->id]);
             } else {
                 foreach ($actorIds as $actorId) {
                     $actor = QubitActor::getById($actorId);

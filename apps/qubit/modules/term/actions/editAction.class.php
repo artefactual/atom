@@ -533,6 +533,7 @@ class TermEditAction extends DefaultEditAction
             'ioIds' => $ioIds,
             'updateIos' => true,
             'updateDescendants' => false,
+            'objectId' => $this->resource->id,
         ];
         QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
 

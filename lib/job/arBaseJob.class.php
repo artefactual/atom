@@ -102,6 +102,8 @@ class arBaseJob extends Net_Gearman_Job_Common
                 $this->deleteOldUnauthenticatedJobs();
             }
 
+            $this->logger->info($this->i18n->__('Parameters: '.json_encode($parameters)));
+
             $this->runJob($parameters);
 
             QubitSearch::getInstance()->flushBatch();

@@ -130,6 +130,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             'ioIds' => [$object->id],
             'updateIos' => false,
             'updateDescendants' => true,
+            'objectId' => $object->id,
         ];
         QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
 

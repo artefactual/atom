@@ -25,7 +25,7 @@ class arUpdateEsActorRelationsJob extends arBaseJob
     /**
      * @see arBaseJob::$requiredParameters
      */
-    protected $extraRequiredParameters = ['actorIds'];
+    protected $extraRequiredParameters = ['actorIds', 'objectId'];
 
     public function runJob($parameters)
     {
@@ -35,12 +35,25 @@ class arUpdateEsActorRelationsJob extends arBaseJob
             return false;
         }
 
-        $message = $this->i18n->__('Updating the relationships of %1 actor(s).', ['%1' => count($parameters['actorIds'])]);
+        $resource = QubitActor::getById($parameters['objectId']);
+
+        if (!isset($resource)) {
+            $this->error($this->i18n->__('Called arUpdateEsActorRelationsJob but object ID %1 is not valid.', ['%1' => $parameters['objectId']]));
+
+            return false;
+        }
+
+        $message = $this->i18n->__('Updating the Elasticsearch documents related to %1.', ['%1' => $resource->__toString()]);
 
         $this->job->addNoteText($message);
         $this->info($message);
 
-        $count = 0;
+        self::updateActorRelationships($resource);
+
+        $message = $this->i18n->__('Updating the Elasticsearch documents for %1 related actor(s).', ['%1' => count($parameters['actorIds'])]);
+        $this->info($message);
+
+        $count = 1;
         foreach ($parameters['actorIds'] as $id) {
             if (null === $object = QubitActor::getById($id)) {
                 $this->info($this->i18n->__('Invalid actor id: %1', ['%1' => $id]));
@@ -52,7 +65,7 @@ class arUpdateEsActorRelationsJob extends arBaseJob
             ++$count;
 
             self::updateActorRelationships($object);
-            $message = $this->i18n->__('Updated %1 actors(s).', ['%1' => $count]);
+            $message = $this->i18n->__('Updated Elasticsearch documents for %1 actor(s).', ['%1' => $count]);
 
             // Minimize memory use in case we're dealing with a large number of information objects
             Qubit::clearClassCaches();
@@ -111,7 +124,6 @@ class arUpdateEsActorRelationsJob extends arBaseJob
         $actors = [];
 
         foreach ($relationData as $relation) {
-            $actors[] = $relation['objectId'];
             $actors[] = $relation['subjectId'];
         }
 

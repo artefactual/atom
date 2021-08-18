@@ -25,7 +25,7 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
     /**
      * @see arBaseJob::$requiredParameters
      */
-    protected $extraRequiredParameters = ['ioIds', 'updateIos', 'updateDescendants'];
+    protected $extraRequiredParameters = ['ioIds', 'updateIos', 'updateDescendants', 'objectId'];
 
     public function runJob($parameters)
     {
@@ -35,6 +35,19 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
             return false;
         }
 
+        $resource = QubitObject::getById($parameters['objectId']);
+
+        if (!isset($resource)) {
+            $this->error($this->i18n->__('Called arUpdateEsIoDocumentsJob but object ID %1 is not valid.', ['%1' => $parameters['objectId']]));
+
+            return false;
+        }
+
+        $message = $this->i18n->__('Updating description(s) related to %1.', ['%1' => $resource->__toString()]);
+
+        $this->job->addNoteText($message);
+        $this->info($message);
+
         if ($parameters['updateIos'] && $parameters['updateDescendants']) {
             $message = $this->i18n->__('Updating %1 description(s) and their descendants.', ['%1' => count($parameters['ioIds'])]);
         } elseif ($parameters['updateIos']) {
@@ -43,7 +56,6 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
             $message = $this->i18n->__('Updating descendants of %1 description(s).', ['%1' => count($parameters['ioIds'])]);
         }
 
-        $this->job->addNoteText($message);
         $this->info($message);
 
         $count = 0;
