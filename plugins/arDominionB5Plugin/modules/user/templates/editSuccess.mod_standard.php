@@ -27,30 +27,46 @@
           <div class="accordion-body">
             <?php echo render_field($form->username); ?>
 
-            <?php echo render_field($form->email); ?>
+            <?php echo render_field($form->email, null, ['type' => 'email']); ?>
 
-            <?php $settings = json_encode(['password' => [
-                'strengthTitle' => __('Password strength:'),
-                'hasWeaknesses' => __('To make your password stronger:'),
-                'tooShort' => __('Make it at least six characters'),
-                'addLowerCase' => __('Add lowercase letters'),
-                'addUpperCase' => __('Add uppercase letters'),
-                'addNumbers' => __('Add numbers'),
-                'addPunctuation' => __('Add punctuation'),
-                'sameAsUsername' => __('Make it different from your username'),
-                'confirmSuccess' => __('Yes'),
-                'confirmFailure' => __('No'),
-                'confirmTitle' => __('Passwords match:'),
-                'username' => '',
-            ]]); ?>
+            <div class="row">
 
-            <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-              <?php echo render_field($form->password->label(__('Change password'))); ?>
-            <?php } else { ?>
-              <?php echo render_field($form->password->label(__('Password'))); ?>
-            <?php } ?>
+              <div class="col-md-6">
 
-            <?php echo render_field($form->password->label(__('Confirm password'))); ?>
+                <div
+                  hidden
+                  class="password-strength-settings"
+                  data-not-strong="<?php echo __('Your password is not strong enough.'); ?>"
+                  data-strength-title="<?php echo __('Password strength:'); ?>"
+                  data-require-strong-password="<?php echo sfConfig::get('app_require_strong_passwords', false); ?>"
+                  data-too-short="<?php echo __('Make it at least six characters'); ?>"
+                  data-add-lower-case="<?php echo __('Add lowercase letters'); ?>"
+                  data-add-upper-case="<?php echo __('Add uppercase letters'); ?>"
+                  data-add-numbers="<?php echo __('Add numbers'); ?>"
+                  data-add-punctuation="<?php echo __('Add punctuation'); ?>"
+                  data-same-as-username="<?php echo __('Make it different from your username'); ?>"
+                  data-confirm-failure="<?php echo __('Your password confirmation did not match your password.'); ?>"
+                >
+                </div>
+
+                <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+                  <?php echo render_field($form->password->label(__('Change password')), null, ['class' => 'password-strength']); ?>
+                <?php } else { ?>
+                  <?php echo render_field($form->password->label(__('Password')), null, ['class' => 'password-strength']); ?>
+                <?php } ?>
+
+                <?php echo render_field($form->confirmPassword->label(__('Confirm password')), null, ['class' => 'password-confirm']); ?>
+
+              </div>
+
+              <div class="col-md-6 template" hidden>
+                <div class="mb-3 bg-light p-3 rounded border-start border-4">
+                  <label class="form-label"><?php echo __('Password strength:'); ?></label>
+                  <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
 
             <?php if ($sf_user->user != $resource) { ?>
               <?php echo render_field($form->active->label(__('Active'))); ?>
