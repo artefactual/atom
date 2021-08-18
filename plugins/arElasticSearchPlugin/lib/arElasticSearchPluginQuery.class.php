@@ -380,6 +380,16 @@ class arElasticSearchPluginQuery
 
                 break;
 
+            case 'alternativeIdentifiersLabel':
+                $fields = ['alternativeIdentifiers.label' => 1];
+
+                break;
+
+            case 'alternativeIdentifiersIdentifier':
+                $fields = ['alternativeIdentifiers.identifier' => 1];
+
+                break;
+
             case 'findingAidTranscript':
                 $fields = ['findingAid.transcript' => 1];
 
