@@ -58,7 +58,8 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
                     $this->event = $params['_sf_route']->resource;
                     array_push($finalEventIds, $this->event->id);
                 } else {
-                    $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent();
+                    $this->event = new QubitEvent();
+                    $this->resource->eventsRelatedByobjectId[] = $this->event;
                 }
 
                 foreach ($this->form as $field) {
@@ -76,19 +77,24 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
             }
         }
 
-        // Delete the old events if they don't appear in the table (removed by multiRow.js)
-        // Check date events as they are the only ones added in this table
+        // Delete the old events if they don't appear in the table (removed by
+        // multiRow.js) Check date events as they are the only ones added in
+        // this table
         foreach ($this->resource->getDates() as $item) {
-            if (isset($item->id) && false === array_search($item->id, $finalEventIds)) {
+            if (
+                isset($item->id)
+                && false === array_search($item->id, $finalEventIds)
+            ) {
                 // Will be indexed when description is saved
                 $item->indexOnSave = false;
 
                 // Only delete event if it has no associated actor
-                if (null === $item->actor) {
+                if (!isset($item->actor)) {
                     $item->indexOnSave = false;
                     $item->delete();
                 } else {
-                    // Handle specially as data wasn't created using ISAD template
+                    // Handle specially as data wasn't created using ISAD
+                    // template
                     $item->startDate = null;
                     $item->endDate = null;
                     $item->date = null;
@@ -111,14 +117,25 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
                 foreach ($eventTypes as $item) {
                     // Default event type is creation
                     if (QubitTerm::CREATION_ID == $item->id) {
-                        $this->form->setDefault('type', $this->context->routing->generate(null, [$item, 'module' => 'term']));
+                        $this->form->setDefault(
+                            'type',
+                            $this->context->routing->generate(
+                                null, [$item, 'module' => 'term']
+                            )
+                        );
                     }
 
-                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item->__toString();
+                    $choices[
+                        $this->context->routing->generate(
+                            null, [$item, 'module' => 'term']
+                        )
+                    ] = $item->__toString();
                 }
 
                 $this->form->setValidator('type', new sfValidatorString());
-                $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => $choices]));
+                $this->form->setWidget('type', new sfWidgetFormSelect(
+                    ['choices' => $choices])
+                );
 
                 break;
 
