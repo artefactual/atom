@@ -49,6 +49,8 @@
                 <option value="digitalObjectTranscript"<?php echo 'digitalObjectTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Digital object text'); ?></option>
                 <option value="findingAidTranscript"<?php echo 'findingAidTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Finding aid text'); ?></option>
                 <option value="creator"<?php echo 'creator' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Creator'); ?></option>
+                <option value="alternativeIdentifiersLabel"<?php echo 'alternativeIdentifiersLabel' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Alternative identifier label'); ?></option>
+                <option value="alternativeIdentifiersIdentifier"<?php echo 'alternativeIdentifiersIdentifier' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Alternative identifier'); ?></option>
                 <option value="allExceptFindingAidTranscript"<?php echo 'allExceptFindingAidTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Any field except finding aid text'); ?></option>
               </select>
 
