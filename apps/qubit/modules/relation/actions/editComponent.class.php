@@ -42,13 +42,19 @@ class RelationEditComponent extends sfComponent
                 continue;
             }
 
+            // Bind event form data
             $this->form->bind($item);
+
             if ($this->form->isValid()) {
                 if (isset($item['id'])) {
-                    $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
+                    $params = $this->context->routing->parse(
+                        Qubit::pathInfo($item['id'])
+                    );
                     $this->relation = $params['_sf_route']->resource;
                 } else {
-                    $this->resource->relationsRelatedBysubjectId[] = $this->relation = new QubitRelation();
+                    $this->relation = new QubitRelation();
+                    $this->resource->relationsRelatedBysubjectId[] =
+                        $this->relation;
                 }
 
                 foreach ($this->form as $field) {
@@ -116,9 +122,18 @@ class RelationEditComponent extends sfComponent
             case 'resource':
                 $this->form->setValidator('resource', new sfValidatorAnd([
                     new sfValidatorString(),
-                    new QubitValidatorForbiddenValues(['forbidden_values' => [$this->context->routing->generate(null, $this->resource)]]),
+                    new QubitValidatorForbiddenValues(
+                        [
+                            'forbidden_values' => [
+                                $this->context->routing->generate(
+                                    null, $this->resource
+                                ),
+                            ],
+                        ]
+                    ),
                 ], ['required' => true]));
-                $this->form->setWidget('resource', new sfWidgetFormSelect(['choices' => []]));
+                $this->form->setWidget('resource',
+                    new sfWidgetFormSelect(['choices' => []]));
 
                 break;
         }
@@ -132,7 +147,8 @@ class RelationEditComponent extends sfComponent
 
                 $value = $this->form->getValue('resource');
                 if (isset($value)) {
-                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    $params =
+                        $this->context->routing->parse(Qubit::pathInfo($value));
                     $this->relation->object = $params['_sf_route']->resource;
                 }
 
@@ -143,14 +159,16 @@ class RelationEditComponent extends sfComponent
 
                 $value = $this->form->getValue('type');
                 if (isset($value)) {
-                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    $params =
+                        $this->context->routing->parse(Qubit::pathInfo($value));
                     $this->relation->type = $params['_sf_route']->resource;
                 }
 
                 break;
 
             default:
-                $this->relation[$field->getName()] = $this->form->getValue($field->getName());
+                $this->relation[$field->getName()] =
+                    $this->form->getValue($field->getName());
         }
     }
 }

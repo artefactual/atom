@@ -152,13 +152,26 @@ class InformationObjectNotesComponent extends sfComponent
     public function processForm()
     {
         $params = [];
+
         if (isset($this->request->{$this->arrayName})) {
             $params = $this->request->{$this->arrayName};
         }
 
         $finalNotes = [];
+
         foreach ($params as $item) {
-            $this->note = null;
+            // If the note has no content, then skip this item
+            if (empty($item['content'])) {
+                continue;
+            }
+
+            // Bind $item data to form for validation and processing
+            $this->form->bind($item);
+
+            if (!$this->form->isValid()) {
+                continue;
+            }
+
             if (isset($item['id'])) {
                 $this->note = QubitNote::getById($item['id']);
 
@@ -166,35 +179,29 @@ class InformationObjectNotesComponent extends sfComponent
                 $finalNotes[] = $this->note->id;
             }
 
-            // Continue only if user typed something
-            if (1 > strlen($item['content'])) {
-                // TODO: if the user is in translation mode and nothing is typed,
-                // the type changes won't be saved
-                continue;
+            if (is_null($this->note)) {
+                // Create new blank note object
+                $this->resource->notes[] = $this->note = new QubitNote();
+                $this->note->objectId = $this->resource->id;
             }
 
-            $this->form->bind($item);
-            if ($this->form->isValid()) {
-                if (is_null($this->note)) {
-                    $this->resource->notes[] = $this->note = new QubitNote();
-                }
+            if (isset($item['type'])) {
+                $this->note['typeId'] = $item['type'];
+            }
 
-                if (isset($item['type'])) {
-                    $this->note['typeId'] = $item['type'];
-                }
-                if (isset($item['content'])) {
-                    $this->note['content'] = $item['content'];
-                }
+            if (isset($item['content'])) {
+                $this->note['content'] = $item['content'];
+            }
 
-                // Save the old notes, because adding a new note with "$this->resource->notes[] ="
-                // overrides the unsaved changes.
-                //
-                // We also do an additional check against resource id and note objectId; if they do
-                // not match, we're in duplicate record mode and want to avoid modifying the original
-                // record's notes.
-                if (isset($item['id']) && $this->note->objectId == $this->resource->id) {
-                    $this->note->save();
-                }
+            // Save the old notes, because adding a new note with "$this->resource->notes[] ="
+            // overrides the unsaved changes.
+            //
+            // We also do an additional check against resource id and note objectId; if they do
+            // not match, we're in duplicate record mode and want to avoid modifying the original
+            // record's notes.
+            if (isset($item['id']) && $this->note->objectId ===
+                $this->resource->id) {
+                $this->note->save();
             }
         }
 

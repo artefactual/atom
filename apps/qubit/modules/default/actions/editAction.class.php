@@ -26,7 +26,7 @@ class DefaultEditAction extends sfAction
             $this->forward404();
         }
 
-        $this->form = new sfForm();
+        $this->form = new QubitForm();
 
         // Call early execute logic, if defined by a child class
         if (method_exists($this, 'earlyExecute')) {

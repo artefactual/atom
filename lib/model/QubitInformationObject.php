@@ -213,7 +213,10 @@ class QubitInformationObject extends BaseInformationObject
 
             // TODO Needed if $this is new, should be transparent
             $item->object = $this;
-            $item->save($connection);
+
+            if (!$item->deleted) {
+                $item->save($connection);
+            }
         }
 
         // Save new digital objects

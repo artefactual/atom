@@ -61,12 +61,18 @@ class ContactInformationEditComponent extends sfComponent
                 continue;
             }
 
+            // Bind event form data
             $this->form->bind($item);
+
             if ($this->form->isValid()) {
                 if (isset($item['id'])) {
-                    $this->contactInformation = QubitContactInformation::getById(preg_replace('/^.*\/(\d+)$/', '$1', $item['id']));
+                    $this->contactInformation =
+                        QubitContactInformation::getById(preg_replace('/^.*\/(\d+)$/',
+                        '$1', $item['id']));
                 } else {
-                    $this->resource->contactInformations[] = $this->contactInformation = new QubitContactInformation();
+                    $this->resource->contactInformations[] =
+                        $this->contactInformation =
+                        new QubitContactInformation();
                 }
 
                 foreach ($this->form as $field) {
@@ -112,15 +118,25 @@ class ContactInformationEditComponent extends sfComponent
     {
         switch ($name) {
             case 'countryCode':
-                $this->form->setValidator('countryCode', new sfValidatorI18nChoiceCountry());
-                $this->form->setWidget('countryCode', new sfWidgetFormI18nChoiceCountry(['add_empty' => true, 'culture' => $this->context->user->getCulture()]));
+                $this->form->setValidator(
+                    'countryCode',
+                    new sfValidatorI18nChoiceCountry()
+                );
+                $this->form->setWidget('countryCode',
+                    new sfWidgetFormI18nChoiceCountry([
+                        'add_empty' => true,
+                        'culture' => $this->context->user->getCulture(),
+                    ])
+                );
 
                 break;
 
             case 'primaryContact':
                 $this->form->setDefault('primaryContact', false);
-                $this->form->setValidator('primaryContact', new sfValidatorBoolean());
-                $this->form->setWidget('primaryContact', new sfWidgetFormInputCheckbox());
+                $this->form->setValidator('primaryContact',
+                    new sfValidatorBoolean());
+                $this->form->setWidget('primaryContact',
+                    new sfWidgetFormInputCheckbox());
 
                 break;
 
@@ -134,7 +150,8 @@ class ContactInformationEditComponent extends sfComponent
             case 'streetAddress':
             case 'note':
                 $this->form->setValidator($name, new sfValidatorString());
-                $this->form->setWidget($name, new sfWidgetFormTextArea([], ['rows' => 2]));
+                $this->form->setWidget($name, new sfWidgetFormTextArea([],
+                    ['rows' => 2]));
 
                 break;
 
@@ -148,6 +165,7 @@ class ContactInformationEditComponent extends sfComponent
 
     protected function processField($field)
     {
-        $this->contactInformation[$field->getName()] = $this->form->getValue($field->getName());
+        $this->contactInformation[$field->getName()] =
+            $this->form->getValue($field->getName());
     }
 }

@@ -90,6 +90,7 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
 
         $this->eventComponent = new sfIsadPluginEventComponent($this->context, 'sfIsadPlugin', 'event');
         $this->eventComponent->resource = $this->resource;
+        $this->eventComponent->form = $this->form;
         $this->eventComponent->execute($this->request);
 
         $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
@@ -199,14 +200,14 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
 
         $this->alternativeIdentifiersComponent->processForm();
 
-        $this->eventComponent->processForm();
-
         $this->publicationNotesComponent->processForm();
 
         $this->notesComponent->processForm();
 
         $this->archivistsNotesComponent->processForm();
 
-        return parent::processForm();
+        parent::processForm();
+
+        $this->eventComponent->processForm();
     }
 }

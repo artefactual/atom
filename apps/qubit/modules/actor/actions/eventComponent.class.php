@@ -18,19 +18,19 @@
  */
 
 /**
- * Form for adding and editing related events.
+ * Add, edit and delete actor events.
  *
  * @author     David Juhasz <david@artefactual.com>
  */
-class InformationObjectEventComponent extends EventEditComponent
+class ActorEventComponent extends EventEditComponent
 {
-    // Don't update the search index when saving an event object
-    public $indexOnSave = false;
+    // Update the search index when saving an event object
+    public $indexOnSave = true;
 
     // Arrays not allowed in class constants
     public static $NAMES = [
         'id',
-        'actor',
+        'object',
         'date',
         'endDate',
         'startDate',
@@ -40,18 +40,37 @@ class InformationObjectEventComponent extends EventEditComponent
     ];
 
     /**
-     * Add event to QubitInformationObject::eventsRelatedByobjectId[] list
-     * to ensure the event object is create after the QubitInformatinObject.
+     * Add event to QubitActor::events[] list to ensure the event object is
+     * create after the QubitActor object.
      */
     public function addEvent(QubitEvent $event): QubitEvent
     {
-        $this->resource->eventsRelatedByobjectId[] = $event;
+        $this->resource->events[] = $event;
 
         return $event;
     }
 
-    public function getEvents()
+    public function processEventForm($form, $data)
     {
-        return $this->resource->eventsRelatedByobjectId;
+        parent::processEventForm($form, $data);
+    }
+
+    public function processField($field)
+    {
+        switch ($field->getName()) {
+            case 'object':
+                unset($this->event->object);
+
+                $value = $this->form->getValue('object');
+                if (isset($value)) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    $this->event->object = $params['_sf_route']->resource;
+                }
+
+                break;
+
+            default:
+                return parent::processField($field);
+        }
     }
 }

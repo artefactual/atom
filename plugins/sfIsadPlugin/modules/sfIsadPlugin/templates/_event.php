@@ -17,57 +17,34 @@
           <?php echo __('End'); ?>
         </th>
       </tr>
-    </thead><tbody>
-
-      <?php $i = 0; foreach ($resource->getDates() as $item) { ?>
-
-        <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]"); ++$i; ?>
-
-        <tr class="date <?php echo 0 == ++$i % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $item->id; ?>">
+    </thead>
+    <tbody>
+      <?php $i = 0; ?>
+      <?php foreach ($events->getEmbeddedForms() as $item) { ?>
+        <tr class="date <?php echo (0 == $i % 2) ? 'even' : 'odd'; ?>
+          related_obj_<?php echo $i; ?>">
           <td>
-            <div class="animateNicely">
-              <input name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>" type="hidden" value="<?php echo url_for([$item, 'module' => 'event']); ?>"/>
-              <?php $save = $form->type->choices; $form->type->choices += [url_for([$item->type, 'module' => 'term']) => $item->type]; echo $form->getWidgetSchema()->renderField('type', url_for([$item->type, 'module' => 'term'])); $form->type->choices = $save; ?>
-            </div>
+            <?php echo $item['type']->renderError(); ?>
+            <?php echo $item['type']->render(); ?>
           </td><td>
-            <div class="animateNicely">
-              <?php echo $form->getWidgetSchema()->renderField('date', $item->getDate(['cultureFallback' => true])); ?>
-            </div>
+            <?php echo $item['date']->renderError(); ?>
+            <?php echo $item['date']->render(); ?>
           </td><td>
-            <div class="animateNicely">
-              <?php echo $form->getWidgetSchema()->renderField('startDate', Qubit::renderDate($item->startDate)); ?>
-            </div>
+            <?php echo $item['startDate']->renderError(); ?>
+            <?php echo $item['startDate']->render(); ?>
           </td><td>
-            <div class="animateNicely">
-              <?php echo $form->getWidgetSchema()->renderField('endDate', Qubit::renderDate($item->endDate)); ?>
-            </div>
+            <?php echo $item['endDate']->renderError(); ?>
+            <?php echo $item['endDate']->render(); ?>
           </td>
         </tr>
-
+        <?php ++$i; ?>
       <?php } ?>
-
-      <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]"); ++$i; ?>
-
-      <tr class="date <?php echo 0 == ++$i % 2 ? 'even' : 'odd'; ?>">
-        <td>
-          <div class="animateNicely">
-            <?php echo $form->type; ?>
-          </div>
-        </td><td>
-          <?php echo $form->date; ?>
-        </td><td>
-          <?php echo $form->startDate; ?>
-        </td><td>
-          <?php echo $form->endDate; ?>
-        </td>
-      </tr>
-
-      <tfoot>
-        <tr>
-          <td colspan="5"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
-        </tr>
-      </tfoot>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+      </tr>
+    </tfoot>
   </table>
 
   <?php if (isset($help)) { ?>

@@ -39,6 +39,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
         if ($request->isMethod('post')) {
             $this->form->bind($request->getPostParameters());
+
             if ($this->form->isValid()) {
                 $this->processForm();
 
