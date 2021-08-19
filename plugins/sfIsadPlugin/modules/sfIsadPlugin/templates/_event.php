@@ -1,5 +1,8 @@
 <?php $sf_response->addJavaScript('date', 'last'); ?>
 
+<?php echo $form->renderHiddenFields(); ?>
+<?php echo $form->renderGlobalErrors(); ?>
+
 <div class="section">
 
   <h3><?php echo __('Date(s)'); ?> <span class="form-required" title="<?php echo __('This is a mandatory element.'); ?>">*</span></h3>

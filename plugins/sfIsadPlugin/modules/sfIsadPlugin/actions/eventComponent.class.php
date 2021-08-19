@@ -39,41 +39,47 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         $finalEventIds = [];
 
         foreach ($params as $item) {
-            // Continue only if user typed something
             if (
-                1 > strlen($item['date'])
-                && 1 > strlen($item['endDate'])
-                && 1 > strlen($item['startDate'])
+                empty($item['date'])
+                && empty($item['endDate'])
+                && empty($item['startDate'])
             ) {
+                // Skip this row if there is no date data
                 continue;
             }
 
-            $this->form->bind($item);
-            if ($this->form->isValid()) {
-                if (!isset($this->request->sourceId) && isset($item['id'])) {
-                    $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
+            // Bind event form CSRF token and data
+            $this->form->bind(['_csrf_token' => $this->getCsrfToken()] + $item);
 
-                    // Do not add exiting events to the eventsRelatedByobjectId
-                    // array, as they could be deleted before saving the resource
-                    $this->event = $params['_sf_route']->resource;
-                    array_push($finalEventIds, $this->event->id);
-                } else {
-                    $this->event = new QubitEvent();
-                    $this->resource->eventsRelatedByobjectId[] = $this->event;
-                }
+            if (!$this->form->isValid()) {
+                continue;
+            }
 
-                foreach ($this->form as $field) {
-                    if (isset($item[$field->getName()])) {
-                        $this->processField($field);
-                    }
-                }
+            if (!isset($this->request->sourceId) && isset($item['id'])) {
+                $params = $this->context->routing->parse(
+                    Qubit::pathInfo($item['id'])
+                );
 
-                // Save existing events as they are not attached
-                // to the eventsRelatedByobjectId array
-                if (isset($this->event->id)) {
-                    $this->event->indexOnSave = false;
-                    $this->event->save();
+                // Do not add exiting events to the eventsRelatedByobjectId
+                // array, as they could be deleted before saving the resource
+                $this->event = $params['_sf_route']->resource;
+                array_push($finalEventIds, $this->event->id);
+            } else {
+                $this->event = new QubitEvent();
+                $this->resource->eventsRelatedByobjectId[] = $this->event;
+            }
+
+            foreach ($this->form as $field) {
+                if (isset($item[$field->getName()])) {
+                    $this->processField($field);
                 }
+            }
+
+            // Save existing events as they are not attached
+            // to the eventsRelatedByobjectId array
+            if (isset($this->event->id)) {
+                $this->event->indexOnSave = false;
+                $this->event->save();
             }
         }
 

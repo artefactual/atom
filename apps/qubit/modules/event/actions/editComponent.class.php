@@ -46,36 +46,40 @@ class EventEditComponent extends sfComponent
                 continue;
             }
 
-            $this->form->bind($item);
-            if ($this->form->isValid()) {
-                if (isset($item['id'])) {
-                    $params = $this->context->routing->parse(
-                        Qubit::pathInfo($item['id'])
-                    );
+            // Bind event form CSRF token and data
+            $this->form->bind(['_csrf_token' => $this->getCsrfToken()] + $item);
 
-                    // Do not add exiting events to the eventsRelatedByobjectId
-                    // or events array, as they could be deleted before saving
-                    // the resource
-                    $this->event = $params['_sf_route']->resource;
-                } elseif ($this->resource instanceof QubitActor) {
-                    $this->resource->events[] = $this->event = new QubitEvent();
-                } else {
-                    $this->resource->eventsRelatedByobjectId[] =
-                        $this->event = new QubitEvent();
-                }
+            if (!$this->form->isValid()) {
+                continue;
+            }
 
-                foreach ($this->form as $field) {
-                    if (isset($item[$field->getName()])) {
-                        $this->processField($field);
-                    }
-                }
+            if (!isset($this->request->sourceId) && isset($item['id'])) {
+                $params = $this->context->routing->parse(
+                    Qubit::pathInfo($item['id'])
+                );
 
-                // Save existing events as they are not attached
-                // to the eventsRelatedByobjectId or events array
-                if (isset($this->event->id)) {
-                    $this->event->indexOnSave = $indexOnSave;
-                    $this->event->save();
+                // Do not add exiting events to the eventsRelatedByobjectId
+                // or events array, as they could be deleted before saving
+                // the resource
+                $this->event = $params['_sf_route']->resource;
+            } elseif ($this->resource instanceof QubitActor) {
+                $this->resource->events[] = $this->event = new QubitEvent();
+            } else {
+                $this->resource->eventsRelatedByobjectId[] =
+                    $this->event = new QubitEvent();
+            }
+
+            foreach ($this->form as $field) {
+                if (isset($item[$field->getName()])) {
+                    $this->processField($field);
                 }
+            }
+
+            // Save existing events as they are not attached
+            // to the eventsRelatedByobjectId or events array
+            if (isset($this->event->id)) {
+                $this->event->indexOnSave = $indexOnSave;
+                $this->event->save();
             }
         }
 
@@ -186,7 +190,7 @@ class EventEditComponent extends sfComponent
                     $choices += [
                         $this->context->routing->generate(
                             null, [$item, 'module' => 'term']
-                        ) => $item->__toString()
+                        ) => $item->__toString(),
                     ];
                 }
 
@@ -243,5 +247,14 @@ class EventEditComponent extends sfComponent
                     $field->getName()
                 );
         }
+    }
+
+    protected function getCsrfToken()
+    {
+        if (isset($this->request->editEvent['_csrf_token'])) {
+            return $this->request->editEvent['_csrf_token'];
+        }
+
+        return null;
     }
 }
