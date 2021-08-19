@@ -1,7 +1,8 @@
 <div
   class="atom-table-modal"
   data-current-resource="<?php echo url_for([$resource]); ?>"
-  data-required-fields="<?php echo $form->resource->renderId(); ?>">
+  data-required-fields="<?php echo $form->resource->renderId(); ?>"
+  data-iframe-error="<?php echo __('The following resources could not be created:'); ?>">
   <h3 class="fs-6 mb-2">
     <?php echo __('Related donors'); ?>
   </h3>
@@ -73,7 +74,7 @@
     tabindex="-1"
     aria-labelledby="related-donor-heading"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="h5 modal-title" id="related-donor-heading">

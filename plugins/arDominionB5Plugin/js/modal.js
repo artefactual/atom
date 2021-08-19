@@ -19,6 +19,7 @@
       this.b5Modal = bootstrap.Modal.getOrCreateInstance(this.$modal);
       this.currentResource = this.$element.data("current-resource");
       this.requiredFields = this.$element.data("required-fields").split(",");
+      this.iframeError = this.$element.data("iframe-error");
       this.currentRowId = undefined;
       this.newRowsCounter = 0;
       this.rowsData = {};
@@ -31,7 +32,7 @@
       this.$element.on("click", ".delete-row", this.deleteRow.bind(this));
       this.$modal.on("hidden.bs.modal", this.clearModal.bind(this));
       this.$element.on("click", ".modal-submit", this.submitModal.bind(this));
-      this.$form.on("submit", this.prepareFormSubmit.bind(this));
+      this.$form.on("submit", this.prepareAndSubmit.bind(this));
 
       // Extra listener for related donor autocomplete
       this.$modal.on(
@@ -126,12 +127,16 @@
       }
       // Delete loaded data and iframe if they exist
       if (this.rowsData[rowId]) delete this.rowsData[rowId];
-      if (this.iframes[rowId]) delete this.iframes[rowId];
+      if (this.iframes[rowId]) {
+        this.iframes[rowId].$iframe.remove();
+        delete this.iframes[rowId];
+      }
       // Remove row
       $row.hide(250, () => $row.remove());
     }
 
     clearModal(keepInputs = []) {
+      // Restore inputs, except those in keepInputs
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
         if ($.inArray($input.attr("id"), keepInputs) === -1) {
@@ -216,7 +221,7 @@
             // Allow adding new values via iframe
             var $addInput = $input.siblings(".add");
             if ($addInput.length) {
-              // Check related iframe
+              // Check existing iframe data
               if (this.iframes[this.currentRowId]) {
                 if (data[key]["uri"].length || !data[key]["text"].length) {
                   // Delete if we already have an URI or not value
@@ -226,13 +231,19 @@
                   this.iframes[this.currentRowId]["value"] = data[key]["text"];
                 }
               } else if (!data[key]["uri"].length && data[key]["text"].length) {
-                // Create new iframe if there is no URI
+                // Create new iframe if there is value but not URI
                 var addParts = $addInput.val().split(" ");
+                var $iframe = $(
+                  '<iframe src="' + addParts[0] + '" class="d-none">'
+                );
+                // Add it to the body directly to trigger initial load
+                $iframe.appendTo("body");
+                // Save data for submit
                 this.iframes[this.currentRowId] = {
                   key: key,
                   value: data[key]["text"],
-                  uri: addParts[0],
                   selector: addParts[1],
+                  $iframe: $iframe,
                 };
               }
             }
@@ -261,88 +272,129 @@
       this.b5Modal.hide();
     }
 
-    prepareFormSubmit() {
-      // Prevent submit if the modal is openned
-      if (this.b5Modal._isShown) {
-        return false;
-      }
+    prepareAndSubmit(event, prepared = false) {
+      // Submit form if it's already prepared
+      if (prepared) return;
 
-      console.log("Before iframes submit:");
-      console.log(this.rowsData);
-      // Create and submit autocomplete iframes
-      // TODO: create a promise pool/queue from iframe submit requests,
-      // make sure they are executed sync and the rowsData is updated
-      // with the final URIs.
+      // Prevent form submit otherwise
+      event.preventDefault();
+
+      // Nothing else to do if the modal is open
+      if (this.b5Modal._isShown) return;
+
+      // Submit autocomplete iframes
+      var iframeSubmits = [];
       $.each(this.iframes, (relationId, data) => {
-        var $iframe = $('<iframe src="' + data.uri + '" class="d-none">');
-        $iframe.appendTo("body");
+        // Create an itereable of promises that are resolved on iframe
+        // load after form submission, or rejected on iframe error.
+        iframeSubmits.push(
+          new Promise((resolve, reject) => {
+            data.$iframe.on("load", (event) => {
+              // Load is triggered in case of submit failure instead of error,
+              // check loaded URI against iframe source to know the result.
+              var loadedUri = event.target.contentWindow.location.pathname;
+              if (loadedUri === data.$iframe.attr("src")) {
+                // Reject with autocomplete text to show alert on error
+                reject(data.value);
+              } else {
+                // Update relation data URI value with location pathname
+                this.rowsData[relationId][data.key]["uri"] = loadedUri;
+                resolve();
+              }
+            });
+          })
+        );
+        // Add autocomplete value to iframe and submit form
+        $(data.$iframe[0].contentWindow.document)
+          .find(data.selector)
+          .val(data.value)
+          .closest("form")
+          .trigger("submit");
       });
-      console.log("After iframes submit:");
-      console.log(this.rowsData);
-      return false;
 
-      var counter = 0;
-      var prefix = "dialog";
-      if (this.prefix.length) {
-        prefix = this.prefix + "s";
-      }
-
-      // Add rows data as hidden inputs to the main form
-      $.each(this.rowsData, (relationId, data) => {
-        // Add id of existing relations
-        if (!relationId.startsWith("new_relation_")) {
-          var name = prefix + "[" + counter + "][id]";
-          this.$form.append(
-            '<input type="hidden" name="' +
-              name +
-              '" value="' +
-              relationId +
-              '">'
-          );
+      // Continue after all promises are resolved/rejected
+      Promise.allSettled(iframeSubmits).then((results) => {
+        // Check results and show alert if any iframe submit failed
+        var $list = $("<ul>", { class: "mb-0 mt-2" });
+        $.each(results, (_, result) => {
+          if (result.status === "rejected") {
+            $("<li>").text(result.reason).appendTo($list);
+          }
+        });
+        if ($list.children().length) {
+          $("<div>", { class: "alert alert-danger mt-3", role: "alert" })
+            .append($("<p>").text(this.iframeError))
+            .append($list)
+            .insertBefore(".actions");
+          return;
         }
 
-        // Add hidden inputs
-        this.$hiddenInputs.each((_, input) => {
-          var $input = $(input);
-          // Except those from autocomplete fields
-          if (!$input.parent(".yui-ac").length) {
-            // Clone after checking parent and before updating name
-            $input = $input.clone();
-            var name = $input.attr("name");
-            name = name.replace(this.prefix, prefix + "[" + counter + "]");
-            $input.attr("name", name);
-            this.$form.append($input);
+        var counter = 0;
+        var prefix = "dialog";
+        if (this.prefix.length) {
+          prefix = this.prefix + "s";
+        }
+
+        // Add rows data as hidden inputs to the main form
+        $.each(this.rowsData, (relationId, data) => {
+          // Add id of existing relations
+          if (!relationId.startsWith("new_relation_")) {
+            var name = prefix + "[" + counter + "][id]";
+            this.$form.append(
+              '<input type="hidden" name="' +
+                name +
+                '" value="' +
+                relationId +
+                '">'
+            );
           }
+
+          // Add hidden inputs
+          this.$hiddenInputs.each((_, input) => {
+            var $input = $(input);
+            // Except those from autocomplete fields
+            if (!$input.parent(".yui-ac").length) {
+              // Clone after checking parent and before updating name
+              $input = $input.clone();
+              var name = $input.attr("name");
+              name = name.replace(this.prefix, prefix + "[" + counter + "]");
+              $input.attr("name", name);
+              this.$form.append($input);
+            }
+          });
+
+          // Add relation data
+          $.each(data, (fieldId, value) => {
+            var name = prefix + "[" + counter + "][" + fieldId + "]";
+            // Use URI for autocomplete fields
+            if (typeof value === "object" && value) {
+              value = value.uri;
+            }
+            this.$form.append(
+              '<input type="hidden" name="' + name + '" value="' + value + '">'
+            );
+          });
+
+          counter++;
         });
 
-        // Add relation data
-        $.each(data, (fieldId, value) => {
-          var name = prefix + "[" + counter + "][" + fieldId + "]";
-          // Use URI for autocomplete fields
-          if (typeof value === "object" && value) {
-            value = value.uri;
-          }
+        // Add hidden inputs to delete relations
+        $.each(this.deleteRows, (index, rowId) => {
           this.$form.append(
-            '<input type="hidden" name="' + name + '" value="' + value + '">'
+            '<input type="hidden" name="deleteRelations[' +
+              index +
+              ']" value="' +
+              rowId +
+              '"/>'
           );
         });
 
-        counter++;
-      });
+        // Remove modal to avoid default inputs submit
+        this.$modal.remove();
 
-      // Add hidden inputs to delete relations
-      $.each(this.deleteRows, (index, rowId) => {
-        this.$form.append(
-          '<input type="hidden" name="deleteRelations[' +
-            index +
-            ']" value="' +
-            rowId +
-            '"/>'
-        );
+        // Trigger final submit
+        this.$form.trigger("submit", true);
       });
-
-      // Remove modal to avoid default inputs submit
-      this.$modal.remove();
     }
 
     updateContactInformation(event) {
