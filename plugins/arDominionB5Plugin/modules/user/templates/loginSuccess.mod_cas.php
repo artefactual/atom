@@ -3,34 +3,16 @@
 
 <?php slot('content'); ?>
 
-  <div class="row">
+  <?php echo $form->renderGlobalErrors(); ?>
 
-    <div class="offset4 span4">
+  <?php echo $form->renderFormTag(url_for(['module' => 'cas', 'action' => 'login'])); ?>
 
-      <div id="content">
+    <?php echo $form->renderHiddenFields(); ?>
 
-        <?php if ('user' != $sf_request->module || 'login' != $sf_request->action) { ?>
-          <h1><?php echo __('Please log in to access that page'); ?></h1>
-        <?php } else { ?>
-          <h1><?php echo __('Log in'); ?></h1>
-        <?php } ?>
+    <ul class="actions nav gap-2">
+      <button type="submit" class="btn atom-btn-outline-success"><?php echo __('Log in with CAS'); ?></button>
+    </ul>
 
-        <?php if ($form->hasErrors()) { ?>
-          <?php echo $form->renderGlobalErrors(); ?>
-        <?php } ?>
-
-        <?php echo $form->renderFormTag(url_for(['module' => 'user', 'action' => 'login'])); ?>
-
-          <?php echo $form->renderHiddenFields(); ?>
-
-          <button type="submit" class="btn atom-btn-secondary"><?php echo __('Log in'); ?></button>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
+  </form>
 
 <?php end_slot(); ?>

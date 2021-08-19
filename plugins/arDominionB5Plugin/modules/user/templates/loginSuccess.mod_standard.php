@@ -3,38 +3,37 @@
 
 <?php slot('content'); ?>
 
-  <div class="row">
+  <?php echo $form->renderGlobalErrors(); ?>
 
-    <div class="offset4 span4">
+  <?php echo $form->renderFormTag(url_for(['module' => 'user', 'action' => 'login'])); ?>
 
-      <div id="content">
+    <?php echo $form->renderHiddenFields(); ?>
 
-        <?php if ('user' != $sf_request->module || 'login' != $sf_request->action) { ?>
-          <h1><?php echo __('Please log in to access that page'); ?></h1>
-        <?php } else { ?>
-          <h1><?php echo __('Log in'); ?></h1>
-        <?php } ?>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="login-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#login-collapse" aria-expanded="true" aria-controls="login-collapse">
+            <?php if ('user' != $sf_request->module || 'login' != $sf_request->action) { ?>
+              <?php echo __('Please log in to access that page'); ?>
+            <?php } else { ?>
+              <?php echo __('Log in'); ?>
+            <?php } ?>
+          </button>
+        </h2>
+        <div id="login-collapse" class="accordion-collapse collapse show" aria-labelledby="login-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->email, null, array('type' => 'email', 'autofocus' => 'autofocus', 'required' => 'required')); ?>
 
-        <?php if ($form->hasErrors()) { ?>
-          <?php echo $form->renderGlobalErrors(); ?>
-        <?php } ?>
-
-        <?php echo $form->renderFormTag(url_for(['module' => 'user', 'action' => 'login'])); ?>
-
-          <?php echo $form->renderHiddenFields(); ?>
-
-          <?php echo render_field($form->email, null, ['autofocus' => 'autofocus']); ?>
-
-          <?php echo render_field($form->password, null, ['autocomplete' => 'off']); ?>
-
-          <button type="submit" class="btn atom-btn-secondary"><?php echo __('Log in'); ?></button>
-
-        </form>
-
+            <?php echo render_field($form->password, null, array('type' => 'password', 'autocomplete' => 'off', 'required' => 'required')); ?>
+          </div>
+        </div>
       </div>
-
     </div>
 
-  </div>
+    <ul class="actions nav gap-2">
+      <button type="submit" class="btn atom-btn-outline-success"><?php echo __('Log in'); ?></button>
+    </ul>
+
+  </form>
 
 <?php end_slot(); ?>
