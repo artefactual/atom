@@ -115,6 +115,7 @@ function render_b5_field($field, $translation = null, $options = [])
 
     if ($field->hasError()) {
         $options['class'] .= ' is-invalid';
+        $options['aria-invalid'] = 'true';
         if (isset($options['aria-describedby'])) {
             $options['aria-describedby'] .= ' '.$name.'-errors';
         } else {
