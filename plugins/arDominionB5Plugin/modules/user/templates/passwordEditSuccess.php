@@ -34,7 +34,7 @@
                     data-add-upper-case="<?php echo __('Add uppercase letters'); ?>"
                     data-add-numbers="<?php echo __('Add numbers'); ?>"
                     data-add-punctuation="<?php echo __('Add punctuation'); ?>"
-                    data-username="<?php echo $resource->username ?>"
+                    data-username="<?php echo $resource->username; ?>"
                     data-same-as-username="<?php echo __('Make it different from your username'); ?>"
                     data-confirm-failure="<?php echo __('Your password confirmation did not match your password.'); ?>"
                   >
