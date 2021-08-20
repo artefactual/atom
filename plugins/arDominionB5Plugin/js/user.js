@@ -13,10 +13,12 @@
       this.$form = $element.parents("form");
       this.$passwordInput = $element;
       this.$confirmInput = $("input.password-confirm", this.$form);
-      this.$usernameInput = $("input[name=username]", this.$form);
       this.settings = this.$form
         .find(".password-strength-settings")
         .get(0).dataset;
+      this.requireStrongPassword = !!JSON.parse(
+        this.settings.requireStrongPassword
+      );
 
       // Prevent the form from running its validation logic when the form is
       // submitted. Otherwise our submit handler will not be executed if
@@ -37,7 +39,7 @@
       const password = input.value;
       const score = PasswordStrength.score(
         password,
-        this.$usernameInput.val(),
+        this.settings.username,
         this.settings
       );
 
@@ -88,14 +90,14 @@
     // Prevent submission when fields are invalid.
     submit(event) {
       let input = this.$form.find("input[name=email]").get(0);
-      if (input.validity.typeMismatch) {
+      if (input && input.validity.typeMismatch) {
         input.reportValidity();
         event.preventDefault();
         return;
       }
 
       input = this.$form.find("input[name=password]").get(0);
-      if (!input.validity.valid && !!this.settings.requireStrongPassword) {
+      if (!input.validity.valid && this.requireStrongPassword) {
         input.reportValidity();
         event.preventDefault();
         return;
