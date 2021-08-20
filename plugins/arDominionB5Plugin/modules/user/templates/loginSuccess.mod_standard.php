@@ -22,9 +22,9 @@
         </h2>
         <div id="login-collapse" class="accordion-collapse collapse show" aria-labelledby="login-heading">
           <div class="accordion-body">
-            <?php echo render_field($form->email, null, array('type' => 'email', 'autofocus' => 'autofocus', 'required' => 'required')); ?>
+            <?php echo render_field($form->email, null, ['type' => 'email', 'autofocus' => 'autofocus', 'required' => 'required']); ?>
 
-            <?php echo render_field($form->password, null, array('type' => 'password', 'autocomplete' => 'off', 'required' => 'required')); ?>
+            <?php echo render_field($form->password, null, ['type' => 'password', 'autocomplete' => 'off', 'required' => 'required']); ?>
           </div>
         </div>
       </div>
