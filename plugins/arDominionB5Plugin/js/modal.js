@@ -164,7 +164,10 @@
 
       // Hide validation error alert and is-invalid classes
       this.$validationError.addClass("d-none");
-      this.$modal.find(".is-invalid").removeClass("is-invalid");
+      this.$modal
+        .find(".is-invalid")
+        .removeClass("is-invalid")
+        .removeAttr("aria-invalid");
 
       // Unset current row id
       this.currentRowId = undefined;
@@ -177,7 +180,7 @@
         var $input = this.$modal.find("#" + fieldId);
         if (!$input.val().length) {
           avoidSubmit = true;
-          $input.addClass("is-invalid");
+          $input.addClass("is-invalid").attr("aria-invalid", true);
         }
       });
 
