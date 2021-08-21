@@ -3,7 +3,7 @@
 
   $(() =>
     $(".sidebar-paginated-list").each(
-      (_, element) => new paginatedListView($(element))
+      (_, element) => new PaginatedListView($(element))
     )
   );
 
@@ -11,7 +11,7 @@
   const BUSY_THRESHOLD = 200;
   const PAGE_TYPING_THRESHOLD = 650;
 
-  class paginatedListView {
+  class PaginatedListView {
     constructor($element) {
       this.$element = $element;
       this.url = this.$element.data("url");
