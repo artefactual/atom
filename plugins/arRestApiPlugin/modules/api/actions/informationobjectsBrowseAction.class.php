@@ -111,6 +111,15 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
             }
 
             $this->addItemToArray($result, 'slug', $doc['slug']);
+
+            if (QubitInformationObject::ROOT_ID != $doc['parentId']) {
+                $parent = QubitInformationObject::getById($doc['parentId']);
+
+                if (null !== $parent) {
+                    $this->addItemToArray($result, 'parentSlug', $parent->slug);
+                }
+            }
+
             $this->addItemToArray($result, 'title', get_search_i18n($doc, 'title'));
             $this->addItemToArray($result, 'physical_characteristics', get_search_i18n($doc, 'physicalCharacteristics'));
 
