@@ -1,7 +1,7 @@
 (($) => {
   "use strict";
 
-  class tableModal {
+  class TableModal {
     constructor(element) {
       // jQuery elements
       this.$element = $(element);
@@ -410,5 +410,5 @@
     }
   }
 
-  $(() => $(".atom-table-modal").each((_, el) => new tableModal(el)));
+  $(() => $(".atom-table-modal").each((_, el) => new TableModal(el)));
 })(jQuery);
