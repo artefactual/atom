@@ -619,8 +619,8 @@
                   // Create iframe which will be submitted to create a new
                   // related resource from the "unmatched" value
 
-                  // Exclude new additions to be handled by dialog.js
-                  if ($input.parents('div.yui-dialog').length == 0) {
+                  // Exclude new additions to be handled by dialog.js and arDominionB5Plugin modal.js
+                  if ($input.parents('div.yui-dialog, .atom-table-modal').length == 0) {
                     $relatedResourceForm = getRelatedResourceForm($input, $hidden, uri, rrFormInputId);
                   }
                 } else {
