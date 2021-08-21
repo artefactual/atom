@@ -54,7 +54,7 @@
     editRow(event) {
       var rowId = $(event.target).closest("tr").attr("id");
       if (!rowId) return;
-
+      console.log(rowId);
       // Use existing relation data
       if (this.rowsData[rowId]) {
         this.loadModal(rowId);
@@ -141,20 +141,20 @@
       // Restore inputs, except those in keepInputs
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
-        if (keepInputs.includes($input.attr("id"))) {
-          if (
-            $input.attr("type") === "text" ||
-            $input.prop("tagName") === "TEXTAREA"
-          ) {
-            $input.val("");
-            // Clear previous hidden input in autocompletes
-            if ($input.hasClass("form-autocomplete")) {
-              $input.prev("input[type=hidden]").val("");
-            }
-          } else if ($input.prop("tagName") === "SELECT") {
-            // Select first option
-            $input.val($input.find("option:first").val());
+        if (keepInputs.includes($input.attr("id"))) return;
+
+        if (
+          $input.attr("type") === "text" ||
+          $input.prop("tagName") === "TEXTAREA"
+        ) {
+          $input.val("");
+          // Clear previous hidden input in autocompletes
+          if ($input.hasClass("form-autocomplete")) {
+            $input.prev("input[type=hidden]").val("");
           }
+        } else if ($input.prop("tagName") === "SELECT") {
+          // Select first option
+          $input.val($input.find("option:first").val());
         }
       });
 
