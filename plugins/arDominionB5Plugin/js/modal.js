@@ -137,7 +137,7 @@
       $row.hide(250, () => $row.remove());
     }
 
-    clearModal(keepInputs = []) {
+    clearModal(_, keepInputs = []) {
       // Restore inputs, except those in keepInputs
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
@@ -405,9 +405,9 @@
       if (uri) {
         $.get(uri + "/donor/primaryContact")
           .done((res) => this.updateModalInputs(res))
-          .fail(() => this.clearModal(["relatedDonor_resource"]));
+          .fail(() => this.clearModal(event, ["relatedDonor_resource"]));
       } else {
-        this.clearModal(["relatedDonor_resource"]);
+        this.clearModal(event, ["relatedDonor_resource"]);
       }
     }
   }
