@@ -43,8 +43,9 @@
     }
 
     addRow() {
-      // Focus first input after modal show
-      this.$modal.on("shown.bs.modal", () =>
+      // Focus first input after modal show, using `one()` to remove
+      // the listener after this load and avoid the focus on edit.
+      this.$modal.one("shown.bs.modal", () =>
         this.$modal.find("input:focusable:first").trigger("focus")
       );
       this.b5Modal.show();
@@ -88,8 +89,6 @@
       if (this.rowsData[rowId]) {
         this.updateModalInputs(this.rowsData[rowId]);
       }
-      // Remove modal shown event listener
-      this.$modal.off("shown.bs.modal");
       this.b5Modal.show();
     }
 
