@@ -100,7 +100,7 @@
         if ($input.length) {
           if (
             $input.attr("type") === "text" ||
-            $.inArray($input.prop("tagName"), ["TEXTAREA", "SELECT"]) > -1
+            ["TEXTAREA", "SELECT"].includes($input.prop("tagName"))
           ) {
             // Use text and URI values to update autocomplete fields
             if (
@@ -139,7 +139,7 @@
       // Restore inputs, except those in keepInputs
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
-        if ($.inArray($input.attr("id"), keepInputs) === -1) {
+        if (keepInputs.includes($input.attr("id"))) {
           if (
             $input.attr("type") === "text" ||
             $input.prop("tagName") === "TEXTAREA"
@@ -208,7 +208,7 @@
         }
         if (
           $input.attr("type") === "text" ||
-          $.inArray($input.prop("tagName"), ["TEXTAREA", "SELECT"]) > -1
+          ["TEXTAREA", "SELECT"].includes($input.prop("tagName"))
         ) {
           data[key] = $input.val();
           // Save autocomplete fields as objects with text and URI
