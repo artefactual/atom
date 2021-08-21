@@ -52,31 +52,34 @@
 
     editRow(event) {
       var rowId = $(event.target).closest("tr").attr("id");
-      if (rowId && !this.rowsData[rowId]) {
-        // Fetch relation data
-        $.get(rowId)
-          .done((res) => {
-            // Transform response data
-            res = JSON.parse(res);
-            res.resource = { uri: res.object, text: res.objectDisplay };
-            // If the current resource is the relation object, use the subject
-            if (this.currentResource === res.object) {
-              res.resource = { uri: res.subject, text: res.subjectDisplay };
-            }
-            // Remove no longer needed data
-            ["object", "objectDisplay", "subject", "subjectDisplay"].forEach(
-              (key) => delete res[key]
-            );
-            this.rowsData[rowId] = res;
-            this.loadModal(rowId);
-          })
-          .fail(() => {
-            this.$loadError.removeClass("d-none");
-          });
-      } else if (rowId) {
-        // Use existing relation data
+      if (!rowId) return;
+
+      // Use existing relation data
+      if (this.rowsData[rowId]) {
         this.loadModal(rowId);
+        return;
       }
+
+      // Fetch relation data
+      $.get(rowId)
+        .done((res) => {
+          // Transform response data
+          res = JSON.parse(res);
+          res.resource = { uri: res.object, text: res.objectDisplay };
+          // If the current resource is the relation object, use the subject
+          if (this.currentResource === res.object) {
+            res.resource = { uri: res.subject, text: res.subjectDisplay };
+          }
+          // Remove no longer needed data
+          ["object", "objectDisplay", "subject", "subjectDisplay"].forEach(
+            (key) => delete res[key]
+          );
+          this.rowsData[rowId] = res;
+          this.loadModal(rowId);
+        })
+        .fail(() => {
+          this.$loadError.removeClass("d-none");
+        });
     }
 
     loadModal(rowId) {
