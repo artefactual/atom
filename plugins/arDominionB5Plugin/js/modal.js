@@ -18,8 +18,12 @@
       this.prefix = inputId.substr(0, inputId.indexOf("_"));
       this.b5Modal = bootstrap.Modal.getOrCreateInstance(this.$modal);
       this.currentResource = this.$element.data("current-resource");
-      this.requiredFields = this.$element.data("required-fields").split(",");
+      this.requiredFields = this.$element.data("required-fields")
+        ? this.$element.data("required-fields").split(",")
+        : [];
       this.deleteFieldName = this.$element.data("delete-field-name");
+      this.checkedText = this.$element.data("checked-text");
+      this.uncheckedText = this.$element.data("unchecked-text");
       this.iframeError = this.$element.data("iframe-error");
       this.currentRowId = undefined;
       this.newRowsCounter = 0;
@@ -103,12 +107,28 @@
     updateInputs(data) {
       $.each(data, (key, value) => {
         // Prepend prefix to data key to match field id
+        var id = key;
         if (this.prefix.length) {
-          key = this.prefix + "_" + key;
+          id = this.prefix + "_" + key;
         }
 
-        var $input = this.$modal.find("[id=" + key + "]");
+        var $input = this.$modal.find("[id=" + id + "]");
         if (!$input.length) return;
+
+        // Add source culture div for translations
+        if (
+          !value &&
+          data["_sourceCulture"] &&
+          data["_sourceCulture"]["fields"][key]
+        ) {
+          var $translation = $("<div>", { class: "default-translation" }).text(
+            data["_sourceCulture"]["fields"][key]
+          );
+          if (data["_sourceCulture"]["direction"]) {
+            $translation.attr("dir", data["_sourceCulture"]["direction"]);
+          }
+          $input.before($translation);
+        }
 
         if (
           $input.attr("type") === "text" ||
@@ -122,9 +142,11 @@
           ) {
             $input.val(value.text);
             $input.prev("input[type=hidden]").val(value.uri);
-          } else {
+          } else if (value) {
             $input.val(value);
           }
+        } else if ($input.attr("type") === "checkbox") {
+          $input.prop("checked", value);
         }
       });
     }
@@ -161,6 +183,9 @@
         .removeClass("is-invalid")
         .removeAttr("aria-invalid");
 
+      // Remove translations
+      this.$modal.find(".default-translation").remove();
+
       // Unset current row id
       this.currentRowId = undefined;
     }
@@ -183,6 +208,8 @@
         } else if ($input.prop("tagName") === "SELECT") {
           // Select first option
           $input.val($input.find("option:first").val());
+        } else if ($input.attr("type") === "checkbox") {
+          $input.prop("checked", false);
         }
       });
     }
@@ -226,57 +253,60 @@
         if (key && this.prefix.length) {
           key = key.substr(this.prefix.length + 1, key.length);
         }
-        if (
+
+        // Save autocomplete fields as objects with text and URI
+        if ($input.hasClass("form-autocomplete")) {
+          data[key] = {
+            text: $input.val(),
+            uri: $input.prev("input[type=hidden]").val(),
+          };
+          displayValues[key] = data[key]["text"];
+
+          // Allow adding new values via iframe
+          var $addInput = $input.siblings(".add");
+          if ($addInput.length) {
+            // Check existing iframe data
+            this.iframes[this.currentRowId] =
+              this.iframes[this.currentRowId] || {};
+            if (this.iframes[this.currentRowId][key]) {
+              if (data[key]["uri"].length || !data[key]["text"].length) {
+                // Delete if we already have an URI or not value
+                delete this.iframes[this.currentRowId][key];
+              } else {
+                // Update value
+                this.iframes[this.currentRowId][key]["value"] =
+                  data[key]["text"];
+              }
+            } else if (!data[key]["uri"].length && data[key]["text"].length) {
+              // Create new iframe if there is value but not URI
+              var addParts = $addInput.val().split(" ");
+              var $iframe = $(
+                '<iframe src="' + addParts[0] + '" class="d-none">'
+              );
+              // Add it to the body directly to trigger initial load
+              $iframe.appendTo("body");
+              // Save data for submit
+              this.iframes[this.currentRowId][key] = {
+                value: data[key]["text"],
+                selector: addParts[1],
+                $iframe: $iframe,
+              };
+            }
+          }
+        } else if (
           $input.attr("type") === "text" ||
-          ["TEXTAREA", "SELECT"].includes($input.prop("tagName"))
+          $input.prop("tagName") === "TEXTAREA"
         ) {
           data[key] = $input.val();
           displayValues[key] = data[key];
-
-          // Save select option text for display
-          if ($input.prop("tagName") === "SELECT") {
-            displayValues[key] = $input.find("option:selected").text();
-          }
-
-          // Save autocomplete fields as objects with text and URI
-          if ($input.hasClass("form-autocomplete")) {
-            data[key] = {
-              text: $input.val(),
-              uri: $input.prev("input[type=hidden]").val(),
-            };
-
-            // Allow adding new values via iframe
-            var $addInput = $input.siblings(".add");
-            if ($addInput.length) {
-              // Check existing iframe data
-              this.iframes[this.currentRowId] =
-                this.iframes[this.currentRowId] || {};
-              if (this.iframes[this.currentRowId][key]) {
-                if (data[key]["uri"].length || !data[key]["text"].length) {
-                  // Delete if we already have an URI or not value
-                  delete this.iframes[this.currentRowId][key];
-                } else {
-                  // Update value
-                  this.iframes[this.currentRowId][key]["value"] =
-                    data[key]["text"];
-                }
-              } else if (!data[key]["uri"].length && data[key]["text"].length) {
-                // Create new iframe if there is value but not URI
-                var addParts = $addInput.val().split(" ");
-                var $iframe = $(
-                  '<iframe src="' + addParts[0] + '" class="d-none">'
-                );
-                // Add it to the body directly to trigger initial load
-                $iframe.appendTo("body");
-                // Save data for submit
-                this.iframes[this.currentRowId][key] = {
-                  value: data[key]["text"],
-                  selector: addParts[1],
-                  $iframe: $iframe,
-                };
-              }
-            }
-          }
+        } else if ($input.prop("tagName") === "SELECT") {
+          data[key] = $input.val();
+          displayValues[key] = $input.find("option:selected").text();
+        } else if ($input.attr("type") === "checkbox") {
+          data[key] = $input.is(":checked");
+          displayValues[key] = data[key]
+            ? this.checkedText
+            : this.uncheckedText;
         }
       });
       this.rowsData[this.currentRowId] = data;
@@ -408,6 +438,10 @@
 
         // Add hidden inputs to delete relations
         $.each(this.deleteRows, (index, rowId) => {
+          // Special case for contact information URIs
+          if (rowId.includes("/id/")) {
+            rowId = rowId.split("/id/")[1];
+          }
           this.$form.append(
             '<input type="hidden" name="' +
               this.deleteFieldName +
