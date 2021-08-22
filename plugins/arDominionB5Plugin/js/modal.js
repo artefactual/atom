@@ -446,6 +446,7 @@
             '<input type="hidden" name="' +
               this.deleteFieldName +
               "[" +
+              this.prefix +
               index +
               ']" value="' +
               rowId +
