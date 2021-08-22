@@ -1,4 +1,4 @@
-<div class="accordion mb-3" role="search">
+<div class="accordion mb-3 adv-search" role="search">
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading-adv-search">
       <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search">
@@ -13,34 +13,46 @@
             <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
           <?php } ?>
 
-          <p><?php echo __('Find results with:'); ?></p>
+          <h5><?php echo __('Find results with:'); ?></h5>
 
-          <div class="criteria">
+          <div class="criteria mb-4">
 
             <?php if (isset($criteria)) { ?>
 
               <?php foreach ($criteria as $key => $item) { ?>
 
-                <div class="criterion">
+                <div class="criterion row align-items-center">
 
-                  <select class="boolean" name="so<?php echo $key; ?>">
-                    <option value="and"<?php echo 'and' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('and'); ?></option>
-                    <option value="or"<?php echo 'or' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('or'); ?></option>
-                    <option value="not"<?php echo 'not' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('not'); ?></option>
-                  </select>
+                  <div class="col-xl-auto mb-3">
+                    <select class="form-select boolean" name="so<?php echo $key; ?>" aria-label="<?php echo __('Boolean'); ?>">
+                      <option value="and"<?php echo 'and' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('and'); ?></option>
+                      <option value="or"<?php echo 'or' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('or'); ?></option>
+                      <option value="not"<?php echo 'not' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('not'); ?></option>
+                    </select>
+                  </div>
 
-                  <input class="query" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $key; ?>" value="<?php echo $item['query']; ?>"/>
+                  <div class="col-xl-auto flex-grow-1 mb-3">
+                    <input class="form-control" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $key; ?>" value="<?php echo $item['query']; ?>">
+                  </div>
 
-                  <span><?php echo __('in'); ?></span>
+                  <div class="col-xl-auto mb-3 text-center">
+                    <span class="form-text"><?php echo __('in'); ?></span>
+                  </div>
 
-                  <select class="field" name="sf<?php echo $key; ?>">
-                    <option value=""<?php echo '' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Any field'); ?></option>
-                    <?php foreach ($fieldOptions as $name => $label) { ?>
-                      <option value="<?php echo $name; ?>"<?php echo $item['field'] == $name ? ' selected="selected"' : ''; ?>><?php echo $label; ?></option>
-                    <?php } ?>
-                  </select>
+                  <div class="col-xl-auto mb-3">
+                    <select class="form-select" name="sf<?php echo $key; ?>">
+                      <option value=""<?php echo '' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Any field'); ?></option>
+                      <?php foreach ($fieldOptions as $name => $label) { ?>
+                        <option value="<?php echo $name; ?>"<?php echo $item['field'] == $name ? ' selected="selected"' : ''; ?>><?php echo $label; ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
 
-                  <a href="#" class="delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
+                  <div class="col-xl-auto mb-3">
+                    <a href="#" class="delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>">
+                      <i aria-hidden="true" class="fas fa-times text-muted"></i>
+                    </a>
+                  </div>
 
                 </div>
 
@@ -50,112 +62,109 @@
 
             <?php $count = isset($key) ? $key++ : 0; ?>
 
-            <div class="criterion">
+            <div class="criterion row align-items-center">
 
-              <select class="boolean" name="so<?php echo $count; ?>">
-                <option value="and"><?php echo __('and'); ?></option>
-                <option value="or"><?php echo __('or'); ?></option>
-                <option value="not"><?php echo __('not'); ?></option>
-              </select>
+              <div class="col-xl-auto mb-3">
+                <select class="form-select boolean" name="so<?php echo $count; ?>" aria-label="<?php echo __('Boolean'); ?>">
+                  <option value="and"><?php echo __('and'); ?></option>
+                  <option value="or"><?php echo __('or'); ?></option>
+                  <option value="not"><?php echo __('not'); ?></option>
+                </select>
+              </div>
 
-              <input class="query" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $count; ?>"/>
+              <div class="col-xl-auto flex-grow-1 mb-3">
+                <input class="form-control" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $count; ?>">
+              </div>
 
-              <span><?php echo __('in'); ?></span>
+              <div class="col-xl-auto mb-3 text-center">
+                <span class="form-text"><?php echo __('in'); ?></span>
+              </div>
 
-              <select class="field" name="sf<?php echo $count; ?>">
-                <option value=""><?php echo __('Any field'); ?></option>
-                <?php foreach ($fieldOptions as $name => $label) { ?>
-                  <option value="<?php echo $name; ?>"><?php echo $label; ?></option>
-                <?php } ?>
-              </select>
+              <div class="col-xl-auto mb-3">
+                <select class="form-select" name="sf<?php echo $count; ?>">
+                  <option value=""><?php echo __('Any field'); ?></option>
+                  <?php foreach ($fieldOptions as $name => $label) { ?>
+                    <option value="<?php echo $name; ?>"><?php echo $label; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
 
-              <a href="#" class="delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
+              <div class="col-xl-auto mb-3">
+                <a href="#" class="d-none d-xl-block delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>">
+                  <i aria-hidden="true" class="fas fa-times text-muted"></i>
+                </a>
+                <a href="#" class="d-xl-none delete-criterion btn btn-outline-danger w-100 mb-3">
+                  <?php echo __('Delete criterion'); ?>
+                </a>
+              </div>
 
             </div>
 
-            <div class="add-new-criteria">
-              <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <?php echo __('Add new criteria'); ?><span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" id="add-criterion-and"><?php echo __('And'); ?></a></li>
-                  <li><a href="#" id="add-criterion-or"><?php echo __('Or'); ?></a></li>
-                  <li><a href="#" id="add-criterion-not"><?php echo __('Not'); ?></a></li>
-                </ul>
-              </div>
+            <div class="add-new-criteria mb-3">
+              <a id="add-criterion-dropdown-menu" class="btn atom-btn-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo __('Add new criteria'); ?></a>
+              <ul class="dropdown-menu" aria-labelledby="add-criterion-dropdown-menu">
+                <li><a class="dropdown-item" href="#" id="add-criterion-and"><?php echo __('And'); ?></a></li>
+                <li><a class="dropdown-item" href="#" id="add-criterion-or"><?php echo __('Or'); ?></a></li>
+                <li><a class="dropdown-item" href="#" id="add-criterion-not"><?php echo __('Not'); ?></a></li>
+              </ul>
             </div>
 
           </div>
-          <p><?php echo __('Limit results to:'); ?></p>
 
           <?php if (sfConfig::get('app_multi_repository')) { ?>
-            <div class="criteria">
+            <h5><?php echo __('Limit results to:'); ?></h5>
 
-              <div class="filter-row">
-                <div class="filter">
-                  <?php echo $form->repository
-                      ->label(__('Repository'))
-                      ->renderRow(); ?>
-                </div>
-              </div>
-
+            <div class="criteria mb-4">
+              <?php echo render_field($form->repository->label(__('Repository'))); ?>
             </div>
           <?php } ?>
 
-          <p><?php echo __('Filter results by:'); ?></p>
+          <h5><?php echo __('Filter results by:'); ?></h5>
 
-          <div class="criteria">
+          <div class="criteria row mb-4">
 
-            <div class="filter-row triple">
-
-              <div class="filter-left">
-                <?php echo $form->hasDigitalObject
-                    ->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))
-                    ->renderRow(); ?>
-              </div>
-
-              <div class="filter-center">
-                <?php echo $form->entityType
-                    ->label(__('%1% available', ['%1%' => __('Entity type')]))
-                    ->renderRow(); ?>
-              </div>
-
-              <div class="filter-right">
-                <?php echo $form->emptyField
-                    ->label(__('Empty field'))
-                    ->renderRow(); ?>
-              </div>
-
+            <div class="col-md-4">
+              <?php echo render_field($form->relatedType->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))); ?>
             </div>
+
+            <div class="col-md-4">
+              <?php echo render_field($form->entityType->label(__('%1% available', ['%1%' => __('Entity type')]))); ?>
+            </div>
+
+            <div class="col-md-4">
+              <?php echo render_field($form->emptyField->label(__('Empty field'))); ?>
+            </div>
+
           </div>
 
-          <p><?php echo __('Find results where:'); ?></p>
+          <h5><?php echo __('Find results where:'); ?></h5>
 
-          <div class="criteria">
+          <div class="criteria row">
 
-            <div class="filter-row">
-
-              <div class="filter-left relation">
-                <?php echo $form->relatedType
-                    ->label(__('Relationship'))
-                    ->renderRow(); ?>
-              </div>
-
-              <div class="filter-right relation">
-                <?php echo $form->relatedAuthority
-                    ->label(__('Related %1%', ['%1%' => sfConfig::get('app_ui_label_actor')]))
-                    ->renderLabel(); ?>
-                <?php echo $form->relatedAuthority->render(['class' => 'form-autocomplete']); ?>
-                <input class="list" type="hidden" value="<?php echo url_for(['module' => 'actor', 'action' => 'autocomplete']); ?>"/>
-              </div>
-
+            <div class="col-md-3">
+              <?php echo render_field($form->relatedType->label(__('Relationship'))); ?>
             </div>
+
+            <div class="col-md-9">
+              <?php echo render_field(
+                $form->relatedAuthority->label(__('Related %1%', ['%1%' => sfConfig::get('app_ui_label_actor')])),
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="list" type="hidden" value="'
+                        .url_for([
+                            'module' => 'actor',
+                            'action' => 'autocomplete',
+                        ])
+                        .'">',
+                ]); ?>
+            </div>
+
           </div>
 
           <ul class="actions nav gap-2 justify-content-center">
+            <li><input type="button" class="btn atom-btn-outline-danger reset" value="<?php echo __('Reset'); ?>"></li>
             <li><input type="submit" class="btn atom-btn-outline-light" value="<?php echo __('Search'); ?>"></li>
-            <li><input type="button" class="btn atom-btn-outline-light reset" value="<?php echo __('Reset'); ?>"></li>
           </ul>
 
         </form>

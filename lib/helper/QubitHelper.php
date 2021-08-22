@@ -144,7 +144,7 @@ function render_b5_field($field, $translation = null, $options = [])
         unset($options['extraInputs']);
     }
 
-    if ($options['onlyInputs']) {
+    if (isset($options['onlyInputs']) && $options['onlyInputs']) {
         unset($options['onlyInputs']);
 
         return $translation
