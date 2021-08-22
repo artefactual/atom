@@ -1,12 +1,13 @@
+<h3 class="fs-6 mb-2">
+  <?php echo __('Related donors'); ?>
+</h3>
+
 <div
   class="atom-table-modal"
   data-current-resource="<?php echo url_for([$resource]); ?>"
   data-required-fields="<?php echo $form->resource->renderId(); ?>"
+  data-delete-field-name="deleteRelations"
   data-iframe-error="<?php echo __('The following resources could not be created:'); ?>">
-  <h3 class="fs-6 mb-2">
-    <?php echo __('Related donors'); ?>
-  </h3>
-
   <div class="alert alert-danger d-none load-error" role="alert">
     <?php echo __('Could not load relation data.'); ?>
   </div>
@@ -15,7 +16,7 @@
     <table class="table table-bordered mb-0">
       <thead class="table-light">
         <tr>
-          <th  style="width: 100%">
+          <th style="width: 100%">
             <?php echo __('Name'); ?>
           </th>
           <th>

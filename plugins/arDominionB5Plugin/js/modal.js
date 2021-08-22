@@ -19,6 +19,7 @@
       this.b5Modal = bootstrap.Modal.getOrCreateInstance(this.$modal);
       this.currentResource = this.$element.data("current-resource");
       this.requiredFields = this.$element.data("required-fields").split(",");
+      this.deleteFieldName = this.$element.data("delete-field-name");
       this.iframeError = this.$element.data("iframe-error");
       this.currentRowId = undefined;
       this.newRowsCounter = 0;
@@ -71,10 +72,17 @@
           if (this.currentResource === res.object) {
             res.resource = { uri: res.subject, text: res.subjectDisplay };
           }
+          res.actor = { uri: res.actor, text: res.actorDisplay };
+          res.place = { uri: res.place, text: res.placeDisplay };
           // Remove no longer needed data
-          ["object", "objectDisplay", "subject", "subjectDisplay"].forEach(
-            (key) => delete res[key]
-          );
+          [
+            "object",
+            "objectDisplay",
+            "subject",
+            "subjectDisplay",
+            "actorDisplay",
+            "placeDisplay",
+          ].forEach((key) => delete res[key]);
           this.rowsData[rowId] = res;
           this.loadModal(rowId);
         })
@@ -131,7 +139,7 @@
       // Delete loaded data and iframe if they exist
       if (this.rowsData[rowId]) delete this.rowsData[rowId];
       if (this.iframes[rowId]) {
-        this.iframes[rowId].$iframe.remove();
+        $.each(this.iframes[rowId], (_, iframe) => iframe.remove());
         delete this.iframes[rowId];
       }
       // Remove row
@@ -208,8 +216,9 @@
         var $row = this.$table.find('[id="' + this.currentRowId + '"]');
       }
 
-      // Add/update row data
+      // Add/update row data and save display values for row content
       var data = {};
+      var displayValues = {};
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
         // Remove prefix from field id to match data keys
@@ -222,6 +231,13 @@
           ["TEXTAREA", "SELECT"].includes($input.prop("tagName"))
         ) {
           data[key] = $input.val();
+          displayValues[key] = data[key];
+
+          // Save select option text for display
+          if ($input.prop("tagName") === "SELECT") {
+            displayValues[key] = $input.find("option:selected").text();
+          }
+
           // Save autocomplete fields as objects with text and URI
           if ($input.hasClass("form-autocomplete")) {
             data[key] = {
@@ -233,13 +249,16 @@
             var $addInput = $input.siblings(".add");
             if ($addInput.length) {
               // Check existing iframe data
-              if (this.iframes[this.currentRowId]) {
+              this.iframes[this.currentRowId] =
+                this.iframes[this.currentRowId] || {};
+              if (this.iframes[this.currentRowId][key]) {
                 if (data[key]["uri"].length || !data[key]["text"].length) {
                   // Delete if we already have an URI or not value
-                  delete this.iframes[this.currentRowId];
+                  delete this.iframes[this.currentRowId][key];
                 } else {
                   // Update value
-                  this.iframes[this.currentRowId]["value"] = data[key]["text"];
+                  this.iframes[this.currentRowId][key]["value"] =
+                    data[key]["text"];
                 }
               } else if (!data[key]["uri"].length && data[key]["text"].length) {
                 // Create new iframe if there is value but not URI
@@ -250,8 +269,7 @@
                 // Add it to the body directly to trigger initial load
                 $iframe.appendTo("body");
                 // Save data for submit
-                this.iframes[this.currentRowId] = {
-                  key: key,
+                this.iframes[this.currentRowId][key] = {
                   value: data[key]["text"],
                   selector: addParts[1],
                   $iframe: $iframe,
@@ -272,11 +290,7 @@
           if (this.prefix.length) {
             fieldId = fieldId.substr(this.prefix.length + 1, fieldId.length);
           }
-          if (typeof data[fieldId] === "object" && data[fieldId]) {
-            $td.text(data[fieldId]["text"]);
-          } else {
-            $td.text(data[fieldId]);
-          }
+          $td.text(displayValues[fieldId]);
         }
       });
 
@@ -295,32 +309,35 @@
 
       // Submit autocomplete iframes
       var iframeSubmits = [];
-      $.each(this.iframes, (relationId, data) => {
-        // Create an iterable of promises that are resolved on iframe
-        // load after form submission, or rejected on iframe error.
-        iframeSubmits.push(
-          new Promise((resolve, reject) => {
-            data.$iframe.on("load", (event) => {
-              // Load is triggered in case of submit failure instead of error,
-              // check loaded URI against iframe source to know the result.
-              var loadedUri = event.target.contentWindow.location.pathname;
-              if (loadedUri === data.$iframe.attr("src")) {
-                // Reject with autocomplete text to show alert on error
-                reject(data.value);
-              } else {
-                // Update relation data URI value with location pathname
-                this.rowsData[relationId][data.key]["uri"] = loadedUri;
-                resolve();
-              }
-            });
-          })
-        );
-        // Add autocomplete value to iframe and submit form
-        $(data.$iframe[0].contentWindow.document)
-          .find(data.selector)
-          .val(data.value)
-          .closest("form")
-          .trigger("submit");
+      $.each(this.iframes, (relationId, fieldData) => {
+        $.each(fieldData, (key, data) => {
+          // Create an iterable of promises that are resolved on iframe
+          // load after form submission, or rejected on iframe error.
+          iframeSubmits.push(
+            new Promise((resolve, reject) => {
+              data.$iframe.on("load", (event) => {
+                // Load is triggered in case of submit failure instead of error,
+                // check loaded URI against iframe source to know the result.
+                var loadedUri = event.target.contentWindow.location.pathname;
+                if (loadedUri === data.$iframe.attr("src")) {
+                  // Reject with autocomplete text to show alert on error
+                  reject(data.value);
+                } else {
+                  // Update relation data URI value with location pathname
+                  this.rowsData[relationId][key]["uri"] = loadedUri;
+                  resolve();
+                }
+              });
+            })
+          );
+
+          // Add autocomplete value to iframe and submit form
+          $(data.$iframe[0].contentWindow.document)
+            .find(data.selector)
+            .val(data.value)
+            .closest("form")
+            .trigger("submit");
+        });
       });
 
       // Continue after all promises are resolved/rejected
@@ -392,7 +409,9 @@
         // Add hidden inputs to delete relations
         $.each(this.deleteRows, (index, rowId) => {
           this.$form.append(
-            '<input type="hidden" name="deleteRelations[' +
+            '<input type="hidden" name="' +
+              this.deleteFieldName +
+              "[" +
               index +
               ']" value="' +
               rowId +
