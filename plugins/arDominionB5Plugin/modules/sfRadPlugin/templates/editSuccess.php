@@ -147,12 +147,13 @@
         </h2>
         <div id="dates-collapse" class="accordion-collapse collapse" aria-labelledby="dates-heading">
           <div class="accordion-body">
-            <?php echo get_partial('informationobject/relatedEvents', ['resource' => $resource]); ?>
-
-            <div class="section">
-              <h3><?php echo __('Add new name and/or date(s)'); ?></h3>
-              <?php echo get_partial('informationobject/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()); ?>
-            </div>
+            <h3 class="fs-6 mb-2">
+              <?php echo __('Names and dates'); ?>
+            </h3>
+            <?php echo get_partial(
+                'informationobject/event',
+                $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()
+            ); ?>
           </div>
         </div>
       </div>
