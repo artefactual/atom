@@ -58,7 +58,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="2">
             <button type="button" class="btn atom-btn-white add-row">
               <i class="fas fa-plus me-1" aria-hidden="true"></i>
               <?php echo __('Add new'); ?>
