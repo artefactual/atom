@@ -129,3 +129,8 @@ body > iframe {
 .repository-logo-text h2 {
   max-width: 220px;
 }
+
+// Hide the first boolean field in the advanced search criterions.
+.adv-search .criteria:first-of-type .criterion:first-of-type div:first-of-type {
+  display: none;
+}

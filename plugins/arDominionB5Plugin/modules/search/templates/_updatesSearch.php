@@ -1,4 +1,4 @@
-<div class="accordion mb-3" role="search">
+<div class="accordion mb-3 adv-search" role="search">
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading-adv-search">
       <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search">
@@ -11,94 +11,79 @@
 
           <input type="hidden" name="showForm" value="1"/>
 
-          <p><?php echo __('Filter results by:'); ?></p>
+          <h5><?php echo __('Filter results by:'); ?></h5>
 
-          <div class="criteria">
+          <div class="criteria row mb-4">
 
-            <div class="filter-row double">
-
-              <div class="filter-left">
-                <?php echo $form->className
-                    ->label(__('Type'))
-                    ->renderRow(); ?>
-              </div>
-
-              <div class="filter-right">
-                <label class="date-of-label"><?php echo __('Date of'); ?></label>
-                <div class="date-of">
-                  <?php foreach ($form->getWidgetSchema()->dateOf->getChoices() as $value => $translatedText) { ?>
-                    <label>
-                      <input type="radio" name="dateOf" value="<?php echo $value; ?>" <?php echo $form->getValue('dateOf') == $value ? 'checked' : ''; ?>>
-                      <?php echo $translatedText; ?>
-                    </label>
-                  <?php } ?>
-                </div>
-              </div>
-
+            <div class="col-md-6">
+              <?php echo render_field($form->className->label(__('Type'))); ?>
             </div>
 
-            <div class="filter-row double io-options">
-
-              <?php if (sfConfig::get('app_multi_repository')) { ?>
-                <div class="filter-left">
-                  <?php echo $form->repository
-                      ->label(__('Repository'))
-                      ->renderRow(); ?>
+            <fieldset class="col-md-6">
+              <legend class="fs-6"><?php echo __('Date of'); ?></legend>
+              <?php foreach ($form->getWidgetSchema()->dateOf->getChoices() as $value => $translatedText) { ?>
+                <div class="form-check d-inline-block me-2">
+                  <?php $radioID = 'dateOf-'.QubitSlug::slugify($value); ?>
+                  <label class="form-check-label" for="<?php echo $radioID; ?>"><?php echo $translatedText; ?></label>
+                  <input class="form-check-input" id="<?php echo $radioID; ?>" type="radio" name="dateOf" value="<?php echo $value; ?>" <?php echo $form->getValue('dateOf') == $value ? 'checked' : ''; ?>>
                 </div>
-                <div class="filter-right">
-              <?php } else { ?>
-                <div class="filter-left">
               <?php } ?>
-                <label class="publication-status-label"><?php echo __('Publication status'); ?></label>
-                <div class="publication-status">
-                  <?php foreach ($form->getWidgetSchema()->publicationStatus->getChoices() as $value => $translatedText) { ?>
-                    <label>
-                      <input type="radio" name="publicationStatus" value="<?php echo $value; ?>" <?php echo $form->getValue('publicationStatus') == $value ? 'checked' : ''; ?>>
-                      <?php echo $translatedText; ?>
-                    </label>
-                  <?php } ?>
-                </div>
-              </div>
+            </fieldset>
 
-            </div>
-
-            <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
-              <div class="filter-row io-options">
-                <div class="filter-left">
-                  <?php echo $form->user
-                      ->label(__('User'))
-                      ->renderLabel(); ?>
-                  <?php echo $form->user->render(['class' => 'form-autocomplete']); ?>
-                  <input class="list" type="hidden" value="<?php echo url_for(['module' => 'user', 'action' => 'autocomplete']); ?>"/>
-
-                  <?php if (isset($user)) { ?>
-                    <div class="filter-description">
-                      <?php echo __('Currently displaying:'); ?> <?php echo $user->getUsername(); ?></em>
-                    </div>
-                  <?php } ?>
-                </div>
+            <?php if (sfConfig::get('app_multi_repository')) { ?>
+              <div class="col-md-6">
+                <?php echo render_field($form->repository->label(__('Repository'))); ?>
               </div>
             <?php } ?>
+
+            <fieldset class="col-md-6">
+              <legend class="fs-6"><?php echo __('Publication status'); ?></legend>
+              <?php foreach ($form->getWidgetSchema()->publicationStatus->getChoices() as $value => $translatedText) { ?>
+                <div class="form-check d-inline-block me-2">
+                  <?php $radioID = 'publicationStatus-'.QubitSlug::slugify($value); ?>
+                  <label class="form-check-label" for="<?php echo $radioID; ?>"><?php echo $translatedText; ?></label>
+                  <input class="form-check-input" id="<?php echo $radioID; ?>" type="radio" name="publicationStatus" value="<?php echo $value; ?>" <?php echo $form->getValue('publicationStatus') == $value ? 'checked' : ''; ?>>
+                </div>
+              <?php } ?>
+            </fieldset>
+
+            <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
+              <div class="col-md-6">
+                <?php echo render_field(
+                  $form->user->label(__('User')),
+                  null,
+                  [
+                      'class' => 'form-autocomplete',
+                      'extraInputs' => '<input class="list" type="hidden" value="'
+                          .url_for([
+                              'module' => 'user',
+                              'action' => 'autocomplete',
+                          ])
+                          .'">',
+                  ]
+                ); ?>
+                <?php if (isset($user)) { ?>
+                  <div class="form-text">
+                    <?php echo __('Currently displaying:'); ?> <?php echo $user->getUsername(); ?></em>
+                  </div>
+                <?php } ?>
+              </div>
+            <?php } ?>
+
           </div>
 
-          <p><?php echo __('Filter by date range:'); ?></p>
+          <h5><?php echo __('Filter by date range:'); ?></h5>
 
-          <div class="criteria">
+          <div class="criteria row mb-4">
 
-            <div class="filter-row double">
-
-              <div class="filter-left">
-                <?php echo $form->startDate
-                    ->label(__('Start'))
-                    ->renderRow(); ?>
-              </div>
-
-              <div class="filter-right">
-                <?php echo $form->endDate
-                    ->label(__('End'))
-                    ->renderRow(); ?>
-              </div>
+            <div class="col-md-6 start-date">
+              <?php echo render_field($form->startDate->label(__('Start')), null, ['type' => 'date']); ?>
             </div>
+
+            <div class="col-md-6 end-date">
+              <?php echo render_field($form->endDate->label(__('End')), null, ['type' => 'date']); ?>
+            </div>
+
           </div>
 
           <ul class="actions nav gap-2 justify-content-center">
