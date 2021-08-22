@@ -302,11 +302,15 @@
           var $select = $(this);
 
           // Make autocomplete <input/>, copy @class from <select/>, copy @id from <select/>
-          // so <label for="..."/> is correct, and copy aria-describedby attribute.
+          // so <label for="..."/> is correct, and copy aria-describedby and disabled attribute.
           var $input = $('<input type="text" class="' + $select.attr('class') + '" id="' + $select.attr('id') + '"/>');
           
           if ($select.attr('aria-describedby')) {
             $input.attr('aria-describedby', $select.attr('aria-describedby'))
+          }
+
+          if ($select.attr('disabled')) {
+            $input.attr('disabled', $select.attr('disabled'))
           }
           
           $input.insertAfter(this);
