@@ -18,6 +18,7 @@
       this.prefix = inputId.substr(0, inputId.indexOf("_"));
       this.b5Modal = bootstrap.Modal.getOrCreateInstance(this.$modal);
       this.currentResource = this.$element.data("current-resource");
+      this.currentResourceText = this.$element.data("current-resource-text");
       this.requiredFields = this.$element.data("required-fields")
         ? this.$element.data("required-fields").split(",")
         : [];
@@ -44,6 +45,13 @@
         "change",
         'input[name="relatedDonor[resource]"]',
         this.updateContactInformation.bind(this)
+      );
+
+      // Extra listener for related actor relation type
+      this.$modal.on(
+        "change",
+        'select[name="relatedAuthorityRecord[type]"]',
+        this.toggleSubTypeInput.bind(this)
       );
     }
 
@@ -72,9 +80,19 @@
           // Transform response data
           res = JSON.parse(res);
           res.resource = { uri: res.object, text: res.objectDisplay };
-          // If the current resource is the relation object, use the subject
+          res.subType = { uri: res.subType, text: res.subTypeDisplay };
+          // If the current resource is the relation object,
+          // use the subject and the converse sub type.
           if (this.currentResource === res.object) {
             res.resource = { uri: res.subject, text: res.subjectDisplay };
+            res.subType = {
+              uri: res.converseSubType,
+              text: res.converseSubTypeDisplay,
+            };
+          }
+          // Append current resource text to sub type display
+          if (res.subType.text) {
+            res.subType.text += " " + this.currentResourceText;
           }
           res.actor = { uri: res.actor, text: res.actorDisplay };
           res.place = { uri: res.place, text: res.placeDisplay };
@@ -86,6 +104,9 @@
             "subjectDisplay",
             "actorDisplay",
             "placeDisplay",
+            "subTypeDisplay",
+            "converseSubType",
+            "converseSubTypeDisplay",
           ].forEach((key) => delete res[key]);
           this.rowsData[rowId] = res;
           this.loadModal(rowId);
@@ -148,6 +169,13 @@
         } else if ($input.attr("type") === "checkbox") {
           $input.prop("checked", value);
         }
+
+        // Enable related actor sub type input if type has vale
+        if (id === "relatedAuthorityRecord_type" && value) {
+          this.$modal
+            .find("#relatedAuthorityRecord_subType")
+            .removeAttr("disabled");
+        }
       });
     }
 
@@ -194,7 +222,8 @@
       // Restore inputs, except those in keep
       this.$modal.find(":input").each((_, input) => {
         var $input = $(input);
-        if (keep.includes($input.attr("id"))) return;
+        var inputId = $input.attr("id");
+        if (keep.includes(inputId)) return;
 
         if (
           $input.attr("type") === "text" ||
@@ -210,6 +239,11 @@
           $input.val($input.find("option:first").val());
         } else if ($input.attr("type") === "checkbox") {
           $input.prop("checked", false);
+        }
+
+        // Disable related actor sub type input
+        if (inputId === "relatedAuthorityRecord_subType") {
+          $input.attr("disabled", "disabled");
         }
       });
     }
@@ -471,6 +505,18 @@
           .fail(() => this.clearInputs(["relatedDonor_resource"]));
       } else {
         this.clearInputs(["relatedDonor_resource"]);
+      }
+    }
+
+    toggleSubTypeInput(event) {
+      var type = $(event.target).val();
+      var $subType = this.$modal.find("#relatedAuthorityRecord_subType");
+      $subType.val("");
+      $subType.prev("input[type=hidden]").val("");
+      if (type) {
+        $subType.removeAttr("disabled");
+      } else {
+        $subType.attr("disabled", "disabled");
       }
     }
   }
