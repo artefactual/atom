@@ -57,10 +57,13 @@ class RelationIndexAction extends sfAction
             ) {
                 $value['type'] = $this->context->routing->generate(null, [$this->resource->type->parent, 'module' => 'term']);
                 $value['subType'] = $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']);
+                $value['subTypeDisplay'] = strval($this->resource->type);
 
                 $value['converseSubType'] = '';
                 if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($this->resource->type->id, ['typeId' => QubitTerm::CONVERSE_TERM_ID]))) {
-                    $value['converseSubType'] = $this->context->routing->generate(null, [$converseTerms[0]->getOpposedObject($this->resource->type), 'module' => 'term']);
+                    $converseSubType = $converseTerms[0]->getOpposedObject($this->resource->type);
+                    $value['converseSubType'] = $this->context->routing->generate(null, [$converseSubType, 'module' => 'term']);
+                    $value['converseSubTypeDisplay'] = strval($converseSubType);
                 }
             } else {
                 $value['type'] = $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']);
