@@ -47,6 +47,7 @@ class EventIndexAction extends sfAction
 
         if (isset($this->resource->object)) {
             $value['informationObject'] = $this->context->routing->generate(null, [$this->resource->object, 'module' => 'informationobject']);
+            $value['informationObjectDisplay'] = $this->resource->object->getTitle(['cultureFallback' => true]);
         }
 
         $place = $this->resource->getPlace();
