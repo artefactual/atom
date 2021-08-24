@@ -38,7 +38,7 @@ class PhysicalObjectBrowseAction extends sfAction
         if (isset($request->subquery)) {
             // Get physical object data for culture
             $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
-            $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
+            #$criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
 
             // Get physical object's type term data for culture
             $criteria->addJoin(QubitPhysicalObject::TYPE_ID, QubitTerm::ID);
