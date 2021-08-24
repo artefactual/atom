@@ -26,18 +26,24 @@
       this.checkedText = this.$element.data("checked-text");
       this.uncheckedText = this.$element.data("unchecked-text");
       this.iframeError = this.$element.data("iframe-error");
+      this.lazyLoadUrl = this.$element.data("lazy-load-url");
+      this.lazyLoadCount = 0;
       this.currentRowId = undefined;
       this.newRowsCounter = 0;
       this.rowsData = {};
       this.iframes = {};
       this.deleteRows = [];
 
+      // Initial data load
+      this.lazyLoad();
+
       // Listeners
       this.$element.on("click", ".add-row", this.addRow.bind(this));
       this.$element.on("click", ".edit-row", this.editRow.bind(this));
       this.$element.on("click", ".delete-row", this.deleteRow.bind(this));
-      this.$modal.on("hidden.bs.modal", this.clearModal.bind(this));
       this.$element.on("click", ".modal-submit", this.submitModal.bind(this));
+      this.$element.on("click", ".show-more", this.lazyLoad.bind(this));
+      this.$modal.on("hidden.bs.modal", this.clearModal.bind(this));
       this.$form.on("submit", this.prepareAndSubmit.bind(this));
 
       // Extra listener for related donor autocomplete
@@ -53,6 +59,48 @@
         'select[name="relatedAuthorityRecord[type]"]',
         this.toggleSubTypeInput.bind(this)
       );
+    }
+
+    lazyLoad() {
+      if (!this.lazyLoadUrl) return;
+
+      // Skip already loaded data, limit is set in the URL
+      $.get(this.lazyLoadUrl, { skip: this.lazyLoadCount })
+        .done((res) => {
+          $.each(res.data, (_, data) => {
+            // Create and append new row with relation URL as id
+            var $row = this.$rowTemplate
+              .clone()
+              .removeClass()
+              .attr("id", data.url)
+              .appendTo(this.$table.find("tbody"));
+            // Transform data to match row fields and update row
+            data.informationObject = data.title;
+            this.updateRowContent($row, data);
+            this.lazyLoadCount++;
+          });
+          // Remove show more button after all relations are loaded
+          if (this.lazyLoadCount >= res.total) {
+            this.$element.find(".show-more").remove();
+          }
+        })
+        .fail(() => {
+          this.$loadError.removeClass("d-none");
+        });
+    }
+
+    updateRowContent($row, data) {
+      $row.find("td").each((_, td) => {
+        var $td = $(td);
+        var fieldId = $td.data("field-id");
+        if (!fieldId) return;
+
+        // Remove prefix from field id
+        if (this.prefix.length) {
+          fieldId = fieldId.substr(this.prefix.length + 1, fieldId.length);
+        }
+        $td.text(data[fieldId]);
+      });
     }
 
     addRow() {
@@ -96,6 +144,10 @@
           }
           res.actor = { uri: res.actor, text: res.actorDisplay };
           res.place = { uri: res.place, text: res.placeDisplay };
+          res.informationObject = {
+            uri: res.informationObject,
+            text: res.informationObjectDisplay,
+          };
           // Remove no longer needed data
           [
             "object",
@@ -107,6 +159,7 @@
             "subTypeDisplay",
             "converseSubType",
             "converseSubTypeDisplay",
+            "informationObjectDisplay",
           ].forEach((key) => delete res[key]);
           this.rowsData[rowId] = res;
           this.loadModal(rowId);
@@ -343,21 +396,10 @@
             : this.uncheckedText;
         }
       });
+
+      // Update row data and content and hide modal
       this.rowsData[this.currentRowId] = data;
-
-      // Update row content
-      $row.find("td").each((_, td) => {
-        var $td = $(td);
-        var fieldId = $td.data("field-id");
-        if (fieldId) {
-          // Remove prefix from field id
-          if (this.prefix.length) {
-            fieldId = fieldId.substr(this.prefix.length + 1, fieldId.length);
-          }
-          $td.text(displayValues[fieldId]);
-        }
-      });
-
+      this.updateRowContent($row, displayValues);
       this.b5Modal.hide();
     }
 
