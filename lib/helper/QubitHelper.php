@@ -101,8 +101,14 @@ function render_b5_field($field, $translation = null, $options = [])
     }
 
     if (
-        $widget instanceof sfWidgetFormSelect
-        || $widget instanceof sfWidgetFormI18nChoiceCountry
+        (
+            empty($options['class'])
+            || false === strpos($options['class'], 'form-autocomplete')
+        )
+        && (
+            $widget instanceof sfWidgetFormSelect
+            || $widget instanceof sfWidgetFormI18nChoiceCountry
+        )
     ) {
         $inputClass = 'form-select';
     }
