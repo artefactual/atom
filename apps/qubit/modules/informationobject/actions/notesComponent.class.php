@@ -163,13 +163,15 @@ class InformationObjectNotesComponent extends sfComponent
             }
 
             // Bind note form CSRF token and data
-            $this->form->bind(['_csrf_token' => $this->form->getCsrfToken()] + $item);
+            $this->form->bind(
+                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+            );
 
             if (!$this->form->isValid()) {
                 continue;
             }
 
-            if (isset($item['id'])) {                
+            if (isset($item['id'])) {
                 $this->note = QubitNote::getById($item['id']);
 
                 // Store notes that haven't been deleted by multiRow.js
@@ -196,7 +198,7 @@ class InformationObjectNotesComponent extends sfComponent
             // record's notes.
             if ($this->note->objectId === $this->resource->id) {
                 $this->note->save();
-            }            
+            }
         }
 
         // Delete the old notes if they don't appear in the table (removed by multiRow.js)

@@ -47,7 +47,9 @@ class EventEditComponent extends sfComponent
             }
 
             // Bind event form CSRF token and data
-            $this->form->bind(['_csrf_token' => $this->getCsrfToken()] + $item);
+            $this->form->bind(
+                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+            );
 
             if (!$this->form->isValid()) {
                 continue;
@@ -247,14 +249,5 @@ class EventEditComponent extends sfComponent
                     $field->getName()
                 );
         }
-    }
-
-    protected function getCsrfToken()
-    {
-        if (isset($this->request->editEvent['_csrf_token'])) {
-            return $this->request->editEvent['_csrf_token'];
-        }
-
-        return null;
     }
 }
