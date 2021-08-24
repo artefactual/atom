@@ -155,7 +155,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of rows with 7 columns: 1',
                         'Number of rows with 8 columns: 4',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],
@@ -171,7 +171,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of rows with 9 columns: 1',
                         'Number of rows with 8 columns: 4',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],
@@ -187,7 +187,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of rows with 8 columns: 4',
                         'Number of rows with 7 columns: 1',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],
@@ -203,7 +203,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_RESULTS => [
                         'Number of rows with 8 columns: 4',
                         'Number of rows with 9 columns: 1',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],
@@ -220,7 +220,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                         'Number of rows with 8 columns: 3',
                         'Number of rows with 7 columns: 1',
                         'Number of rows with 6 columns: 1',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],
@@ -237,7 +237,7 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
                         'Number of rows with 8 columns: 3',
                         'Number of rows with 11 columns: 1',
                         'Number of rows with 9 columns: 1',
-                        'CSV rows with different lengths detected - check CSV enclosure option matches file.',
+                        'CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [],
                 ],

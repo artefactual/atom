@@ -78,7 +78,7 @@ class CsvColumnCountValidator extends CsvBaseValidator
             $this->testData->addResult(sprintf('Number of rows with %s columns: %s', $columnCount, $numOccurrences));
         }
 
-        $this->testData->addResult('CSV rows with different lengths detected - check CSV enclosure option matches file.');
+        $this->testData->addResult('CSV rows with different lengths detected - ensure CSV enclosure character is double quote (\'"\').');
 
         return parent::getTestResult();
     }
