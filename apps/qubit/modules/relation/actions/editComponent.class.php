@@ -42,7 +42,7 @@ class RelationEditComponent extends sfComponent
                 continue;
             }
 
-            $this->form->bind($item);
+            $this->form->bind(['_csrf_token' => $this->form->getCsrfToken()] + $item);
             if ($this->form->isValid()) {
                 if (isset($item['id'])) {
                     $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
