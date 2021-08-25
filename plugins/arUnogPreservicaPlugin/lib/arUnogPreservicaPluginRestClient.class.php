@@ -53,6 +53,22 @@ class arUnogPreservicaPluginRestClient
         }
     }
 
+    public function getObjectDetailsXml($objectUrl)
+    {
+        $url = $this->baseUrl().$objectUrl;
+
+        $curlSession = curl_init($url);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, $this->accessHeaders('application/xml'));
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        $returnData = curl_exec($curlSession);
+        $this->httpStatusCode = curl_getinfo($curlSession, CURLINFO_HTTP_CODE);
+
+        curl_close($curlSession);
+
+        return $returnData;
+    }
+
     public function getObjectDetailsPropertyByName($objectData, $name)
     {
         foreach ($objectData->value->properties as $data) {
@@ -148,6 +164,78 @@ class arUnogPreservicaPluginRestClient
 
         $response = curl_exec($ch);
         curl_close($ch);
+    }
+
+    public function deletePreservicaResource($url)
+    {
+        $curlSession = curl_init($url);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, $this->accessHeaders('application/json'));
+        curl_setopt($curlSession, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($curlSession);
+
+        $this->httpStatusCode = curl_getinfo($curlSession, CURLINFO_HTTP_CODE);
+        curl_close($curlSession);
+    }
+
+    public function postDescriptiveMetadata($objectUrl, $payload)
+    {
+        $url = $this->baseUrl().$objectUrl.'/metadata';
+
+        $curlSession = curl_init($url);
+        curl_setopt($curlSession, CURLOPT_POST, true);
+        curl_setopt($curlSession, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, $this->accessHeaders('application/xml'));
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($curlSession);
+
+        $this->httpStatusCode = curl_getinfo($curlSession, CURLINFO_HTTP_CODE);
+        curl_close($curlSession);
+    }
+
+    public function putObjectDetails($objectUrl, $resourceType, $uuid, $title, $description, $securityTag, $parent = null)
+    {
+        $url = $this->baseUrl().$objectUrl;
+
+        if (null === $resourceType) {
+            $resourceType = 'InformationObject';
+        }
+
+        if (!empty($parent)) {
+            $payload = <<<EOT
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <{$resourceType} xmlns="http://preservica.com/XIP/v6.3">
+                <Ref>{$uuid}</Ref>
+                <Title>{$title}</Title>
+                <Description>{$description}</Description>
+                <SecurityTag>{$securityTag}</SecurityTag>
+                <Parent>{$parent}</Parent>
+            </{$resourceType}>
+            EOT;
+        } else {
+            $payload = <<<EOT
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <{$resourceType} xmlns="http://preservica.com/XIP/v6.3">
+                <Ref>{$uuid}</Ref>
+                <Title>{$title}</Title>
+                <Description>{$description}</Description>
+                <SecurityTag>{$securityTag}</SecurityTag>
+            </{$resourceType}>
+            EOT;
+        }
+
+        $curlSession = curl_init($url);
+        curl_setopt($curlSession, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($curlSession, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, $this->accessHeaders('application/xml'));
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($curlSession);
+
+        $this->{$httpStatusCode} = curl_getinfo($curlSession, CURLINFO_HTTP_CODE);
+        curl_close($curlSession);
     }
 
     private function baseUrl()
