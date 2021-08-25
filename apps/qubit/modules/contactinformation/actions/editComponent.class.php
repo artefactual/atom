@@ -61,7 +61,10 @@ class ContactInformationEditComponent extends sfComponent
                 continue;
             }
 
-            $this->form->bind($item);
+            $this->form->bind(
+                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+            );
+
             if ($this->form->isValid()) {
                 if (isset($item['id'])) {
                     $this->contactInformation = QubitContactInformation::getById(preg_replace('/^.*\/(\d+)$/', '$1', $item['id']));

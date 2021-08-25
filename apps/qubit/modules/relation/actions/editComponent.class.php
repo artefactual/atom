@@ -42,13 +42,18 @@ class RelationEditComponent extends sfComponent
                 continue;
             }
 
-            $this->form->bind(['_csrf_token' => $this->form->getCsrfToken()] + $item);
+            $this->form->bind(
+                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+            );
+
             if ($this->form->isValid()) {
                 if (isset($item['id'])) {
                     $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
                     $this->relation = $params['_sf_route']->resource;
                 } else {
-                    $this->resource->relationsRelatedBysubjectId[] = $this->relation = new QubitRelation();
+                    $this->relation = new QubitRelation();
+                    $this->resource->relationsRelatedBysubjectId[] =
+                        $this->relation;
                 }
 
                 foreach ($this->form as $field) {
