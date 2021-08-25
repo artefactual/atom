@@ -42,8 +42,10 @@ class RelationEditComponent extends sfComponent
                 continue;
             }
 
+            // Bind event form CSRF token and data
             $this->form->bind(
-                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+                ['_csrf_token' =>
+                    $this->request->getPostParameter('_csrf_token')] + $item
             );
 
             if ($this->form->isValid()) {

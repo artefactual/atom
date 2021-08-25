@@ -61,6 +61,7 @@ class ContactInformationEditComponent extends sfComponent
                 continue;
             }
 
+            // Bind event form CSRF token and data
             $this->form->bind(
                 ['_csrf_token' => $this->form->getCsrfToken()] + $item
             );

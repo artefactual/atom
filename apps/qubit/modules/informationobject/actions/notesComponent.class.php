@@ -151,11 +151,13 @@ class InformationObjectNotesComponent extends sfComponent
     public function processForm()
     {
         $params = [];
+
         if (isset($this->request->{$this->arrayName})) {
             $params = $this->request->{$this->arrayName};
         }
 
         $finalNotes = [];
+
         foreach ($params as $item) {
             // If the note has no content, then skip this item
             if (empty($item['content'])) {
@@ -164,7 +166,8 @@ class InformationObjectNotesComponent extends sfComponent
 
             // Bind note form CSRF token and data
             $this->form->bind(
-                ['_csrf_token' => $this->form->getCsrfToken()] + $item
+                ['_csrf_token' =>
+                    $this->request->getPostParameter('_csrf_token')] + $item
             );
 
             if (!$this->form->isValid()) {
@@ -176,7 +179,9 @@ class InformationObjectNotesComponent extends sfComponent
 
                 // Store notes that haven't been deleted by multiRow.js
                 $finalNotes[] = $this->note->id;
-            } else {
+            }
+
+            if (is_null($this->note)) {
                 // Create new blank note object
                 $this->resource->notes[] = $this->note = new QubitNote();
                 $this->note->objectId = $this->resource->id;
@@ -196,7 +201,8 @@ class InformationObjectNotesComponent extends sfComponent
             // We also do an additional check against resource id and note objectId; if they do
             // not match, we're in duplicate record mode and want to avoid modifying the original
             // record's notes.
-            if ($this->note->objectId === $this->resource->id) {
+            if (isset($item['id']) && $this->note->objectId ===
+                $this->resource->id) {
                 $this->note->save();
             }
         }
