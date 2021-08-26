@@ -12,14 +12,16 @@
   <div class="multiline-header d-flex align-items-center mb-3">
     <i class="fas fa-3x fa-file-alt me-3" aria-hidden="true"></i>
     <div class="d-flex flex-column">
-      <h1 class="mb-0" aria-describedby="results-label">
+      <h1 class="mb-0" aria-describedby="heading-label">
         <?php if (isset($pager) && $pager->getNbResults()) { ?>
           <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
         <?php } else { ?>
           <?php echo __('No results found'); ?>
         <?php } ?>
       </h1>
-      <span class="small" id="results-label"><?php echo sfConfig::get('app_ui_label_informationobject'); ?></span>
+      <span class="small" id="heading-label">
+        <?php echo sfConfig::get('app_ui_label_informationobject'); ?>
+      </span>
     </div>
   </div>
 <?php end_slot(); ?>
