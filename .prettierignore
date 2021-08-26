@@ -2,4 +2,6 @@
 !/plugins
 /plugins/*
 !/plugins/arDominionB5Plugin
+!/plugins/arUnogPlugin
 /plugins/arDominionB5Plugin/build
+/plugins/arUnogPlugin/build
