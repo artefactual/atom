@@ -54,12 +54,6 @@
       color: $white;
     }
 
-    &:hover,
-    &:focus {
-      background-color: $orange-600;
-      border-color: $orange-600;
-    }
-
     &:focus {
       box-shadow: $btn-focus-box-shadow;
     }
