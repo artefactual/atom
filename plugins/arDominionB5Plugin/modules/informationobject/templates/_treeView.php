@@ -132,7 +132,7 @@
     </div>
   <?php } ?>
 
-  <div class="tab-pane fade<?php echo ('sidebar' != $treeviewType) ? ' show active' : ''; ?>" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
+  <div class="tab-pane fade bg-white<?php echo ('sidebar' != $treeviewType) ? ' show active' : ''; ?>" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
 
     <form method="get" role="search" action="<?php echo url_for(['module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id]); ?>" data-not-found="<?php echo __('No results found.'); ?>">
       <div class="input-group p-2 bg-gray border">
