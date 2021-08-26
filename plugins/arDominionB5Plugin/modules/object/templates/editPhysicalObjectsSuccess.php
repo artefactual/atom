@@ -1,15 +1,17 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo render_title($resource); ?>
-    <span class="sub">
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo render_title($resource); ?>
+    </h1>
+    <span class="small" id="heading-label">
       <?php echo __(
           'Link %1%',
           ['%1%' => sfConfig::get('app_ui_label_physicalobject')]
       ); ?>
     </span>
-  </h1>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
