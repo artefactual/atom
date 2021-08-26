@@ -164,11 +164,8 @@ class InformationObjectNotesComponent extends sfComponent
                 continue;
             }
 
-            // Bind note form CSRF token and data
-            $this->form->bind(
-                ['_csrf_token' =>
-                    $this->request->getPostParameter('_csrf_token')] + $item
-            );
+            // Bind $item data to form for validation and processing
+            $this->form->bind($item);
 
             if (!$this->form->isValid()) {
                 continue;

@@ -48,11 +48,8 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
                 continue;
             }
 
-            // Bind event form CSRF token and data
-            $this->form->bind(
-                ['_csrf_token' =>
-                $this->request->editEvent['_csrf_token']] + $item
-            );
+            // Bind $item data to form
+            $this->form->bind($item);
 
             if (!$this->form->isValid()) {
                 continue;

@@ -1,6 +1,5 @@
 <?php $sf_response->addJavaScript('date', 'last'); ?>
 
-<?php echo $form->renderHiddenFields(); ?>
 <?php echo $form->renderGlobalErrors(); ?>
 
 <div class="section">
