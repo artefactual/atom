@@ -1,15 +1,18 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
-
-    <?php if ($resource->object instanceof QubitInformationObject) { ?>
-      <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($object)); ?></span>
-    <?php } elseif ($resource->object instanceof QubitActor) { ?>
-      <span class="sub"><?php echo render_title($object); ?></span>
-    <?php } ?>
-  </h1>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php if ($object instanceof QubitInformationObject) { ?>
+        <?php echo render_title(QubitInformationObject::getStandardsBasedInstance($object)); ?>
+      <?php } else { ?>
+        <?php echo render_title($object); ?>
+      <?php } ?>
+    </span>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
