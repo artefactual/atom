@@ -1,0 +1,30 @@
+$unogBlue: #009edb;
+$unogDarkGrey: #333333;
+$unogGrey: #4d4d4d;
+$unogLightGrey: #f2f2f2;
+$unogRed: #c63629;
+$unogBeige: #e5d8bb;
+
+// arDominionB5Plugin overrides
+$primary: $unogBlue;
+$secondary: $unogGrey;
+$body-bg: #fff;
+$link-color: $primary;
+$font-family-sans-serif: "Roboto", sans-serif;
+$breadcrumb-divider-color: $unogRed;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": #198754,
+  "info": $unogBlue,
+  "warning": #ffc107,
+  "danger": $unogRed,
+  "light": $unogLightGrey,
+  "dark": #212529,
+  "unog-red": $unogRed,
+  "unog-beige": $unogBeige,
+  "unog-light-grey": $unogLightGrey,
+  "dark-50": rgba(0, 0, 0, 0.5),
+  "dark-75": rgba(0, 0, 0, 0.75),
+);
