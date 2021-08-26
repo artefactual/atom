@@ -20,9 +20,8 @@
 
   <form action="<?php echo url_for('settings/security'); ?>" method="post">
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered mb-0">
         <thead>
           <tr>
             <th width="30%"><?php echo __('Name'); ?></th>
@@ -33,7 +32,6 @@
           <?php echo $form; ?>
         </tbody>
       </table>
-
     </div>
 
     <section class="actions">
