@@ -8,7 +8,7 @@
   <div class="accordion-item aggregation">
     <h2 class="accordion-header" id="heading-<?php echo $name; ?>">
       <button class="accordion-button<?php echo $openned ? '' : ' collapsed'; ?> fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?php echo $name; ?>" aria-expanded="<?php echo $openned ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo $name; ?>">
-        <?php echo $label; ?>
+        <span><?php echo $label; ?></span>
       </button>
     </h2>
     <div id="collapse-<?php echo $name; ?>" class="accordion-collapse collapse<?php echo $openned ? ' show' : ''; ?> list-group list-group-flush" aria-labelledby="heading-<?php echo $name; ?>">
