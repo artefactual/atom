@@ -30,7 +30,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->name, $resource); ?>
             <?php echo render_field($form->location, $resource); ?>
-            <?php echo $form->type->renderRow(); ?>
+            <?php echo render_field($form->type); ?>
           </div>
         </div>
       </div>
