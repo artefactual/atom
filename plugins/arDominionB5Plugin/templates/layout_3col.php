@@ -1,6 +1,6 @@
 <?php echo get_partial('layout_start'); ?>
 
-<div id="wrapper" class="container-xxl my-3" role="main">
+<div id="wrapper" class="container-xxl my-3 flex-grow-1" role="main">
   <?php echo get_partial('alerts'); ?>
   <div class="row">
     <div id="sidebar" class="col-md-3">
