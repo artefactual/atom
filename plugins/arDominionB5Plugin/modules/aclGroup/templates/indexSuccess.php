@@ -2,7 +2,7 @@
 
 <?php echo get_component('aclGroup', 'tabs'); ?>
 
-<section id="content" class="p-0">
+<section id="content">
 
   <section id="groupDetails">
 

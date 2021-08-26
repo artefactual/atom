@@ -12,31 +12,31 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <?php if (0 < count($resource->deaccessions) || 0 < count($accruals)) { ?>
+      <div id="content" class="p-3">
 
-      <?php if (0 < count($resource->deaccessions)) { ?>
-        <h2><?php echo __('It has %1% deaccessions that will also be deleted:', ['%1%' => count($resource->deaccessions)]); ?></h2>
-        <div class="delete-list">
-          <ul>
+        <?php if (0 < count($resource->deaccessions)) { ?>
+          <?php echo __('It has %1% deaccessions that will also be deleted:', ['%1%' => count($resource->deaccessions)]); ?>
+          <ul class="mb-0">
             <?php foreach ($resource->deaccessions as $item) { ?>
               <li><?php echo link_to(render_title($item), [$item, 'module' => 'deaccession']); ?></li>
             <?php } ?>
           </ul>
-        </div>
-      <?php } ?>
+        <?php } ?>
 
-      <?php if (0 < count($accruals)) { ?>
-        <h2><?php echo __('It has %1% accruals. They will not be deleted.', ['%1%' => count($accruals)]); ?></h2>
-        <div class="delete-list">
-          <ul>
-            <?php foreach ($accruals as $item) { ?>
-              <li><?php echo link_to(render_title($item), [$item, 'module' => 'accession']); ?></li>
-            <?php } ?>
-          </ul>
-        </div>
-      <?php } ?>
+        <?php if (0 < count($accruals)) { ?>
+          <div class="mt-3">
+            <?php echo __('It has %1% accruals. They will not be deleted.', ['%1%' => count($accruals)]); ?>
+            <ul class="mb-0">
+              <?php foreach ($accruals as $item) { ?>
+                <li><?php echo link_to(render_title($item), [$item, 'module' => 'accession']); ?></li>
+              <?php } ?>
+            </ul>
+          </div>
+        <?php } ?>
 
-    </div>
+      </div>
+    <?php } ?>
 
     <ul class="actions nav gap-2">
       <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'accession'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
