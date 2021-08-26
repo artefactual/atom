@@ -5,10 +5,12 @@
     <div class="multiline-header d-inline-flex align-items-center me-2">
       <i class="fas fa-3x fa-list-alt me-3" aria-hidden="true"></i>
       <div class="d-flex flex-column">
-        <h1 class="mb-0" aria-describedby="results-label">
+        <h1 class="mb-0" aria-describedby="heading-label">
           <?php echo render_title($resource); ?>
         </h1>
-        <span class="small" id="results-label"><?php echo __('Inventory list'); ?></span>
+        <span class="small" id="heading-label">
+          <?php echo __('Inventory list'); ?>
+        </span>
       </div>
     </div>
 

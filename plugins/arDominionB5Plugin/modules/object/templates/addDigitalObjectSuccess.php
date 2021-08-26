@@ -1,10 +1,17 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo __('Link %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
-    <span class="sub"><?php echo $resourceDescription; ?></span>
-  </h1>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo __(
+          'Link %1%',
+          ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]
+      ); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo $resourceDescription; ?>
+    </span>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>

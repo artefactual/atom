@@ -3,10 +3,12 @@
 <?php slot('title'); ?>
   <?php if (isset($resource) && 'QubitTerm' == $resource->getClass()) { ?>
     <div class="multiline-header d-flex flex-column mb-3">
-      <h1 class="mb-0" aria-describedby="results-label">
+      <h1 class="mb-0" aria-describedby="heading-label">
         <?php echo __('SKOS import'); ?>
       </h1>
-      <span class="small" id="results-label"><?php echo render_title($parent); ?></span>
+      <span class="small" id="heading-label">
+        <?php echo render_title($parent); ?>
+      </span>
     </div>
   <?php } else { ?>
     <h1><?php echo __('SKOS import'); ?></h1>
