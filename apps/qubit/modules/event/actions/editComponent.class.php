@@ -46,10 +46,6 @@ class EventEditComponent extends sfComponent
                 continue;
             }
 
-            // This component's parent page will validate the CSRF token, so we
-            // don't need to do it again in this sub-form
-            $this->form->disableLocalCSRFProtection();
-
             // Bind request data to form
             $this->form->bind($item);
 
@@ -106,7 +102,9 @@ class EventEditComponent extends sfComponent
 
     public function execute($request)
     {
-        $this->form = new sfForm();
+        // Disable CSRF protection for this sub-form, because the parent form
+        // will block CSRF attacks
+        $this->form = new sfForm([], [], false);
 
         $this->form->getValidatorSchema()->setOption(
             'allow_extra_fields', true
