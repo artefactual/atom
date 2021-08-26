@@ -56,6 +56,7 @@ class sfI18nPluginExtract extends sfI18nExtract
     }
 
     $this->extractFromPhpFiles($this->parameters['path'].'/lib');
+    $this->extractFromPhpFiles($this->parameters['path'].'/templates');
   }
 
   /**

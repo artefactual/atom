@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@accessible360/accessible-slick": "^1.0.1",
+    "@fontsource/roboto": "^4.5.0",
+    "@fontsource/roboto-condensed": "^4.5.0",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@uppy/core": "^2.0.3",
     "@uppy/dashboard": "^2.0.3",
@@ -38,6 +40,8 @@
     "build": "webpack",
     "watch": "webpack watch",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "build-unog": "sass --style=compressed plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css",
+    "watch-unog": "sass --watch plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css"
   }
 }
