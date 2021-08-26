@@ -29,9 +29,7 @@
         </h2>
         <div id="validator-collapse" class="accordion-collapse collapse show" aria-labelledby="validator-heading">
           <div class="accordion-body">
-            <?php echo $form->csv_validator_default_import_behaviour
-                ->label(__('CSV Validator default behaviour when CSV Import is run'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->csv_validator_default_import_behaviour->label(__('CSV Validator default behaviour when CSV Import is run'))); ?>
           </div>
         </div>
       </div>
