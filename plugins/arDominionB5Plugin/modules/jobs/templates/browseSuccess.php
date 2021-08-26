@@ -3,7 +3,7 @@
 <nav>
   <ul class="nav nav-pills mb-3 d-flex gap-2">
     <li class="nav-item">
-      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
+      <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
       <?php if ('all' === $filter) { ?>
         <?php $options['class'] .= ' active'; ?>
         <?php $options['aria-current'] = 'page'; ?>
@@ -11,7 +11,7 @@
       <?php echo link_to(__('All jobs'), ['filter' => 'all'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), $options); ?>
     </li>
     <li class="nav-item">
-      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
+      <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
       <?php if ('active' === $filter) { ?>
         <?php $options['class'] .= ' active'; ?>
         <?php $options['aria-current'] = 'page'; ?>
