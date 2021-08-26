@@ -344,7 +344,7 @@
       $("button.clipboard").each((_, button) => {
         var $button = $(button);
         var added = $button.hasClass("active");
-        if (!added && add || added && !add) $button.trigger("click");
+        if ((!added && add) || (added && !add)) $button.trigger("click");
       });
     }
 
