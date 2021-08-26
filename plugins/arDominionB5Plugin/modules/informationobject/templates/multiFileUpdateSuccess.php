@@ -13,13 +13,12 @@
   <?php echo $digitalObjectTitleForm->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'multiFileUpdate', 'items' => $sf_request->items]), ['method' => 'post', 'id' => 'bulk-title-update-form']); ?>
     <?php echo $digitalObjectTitleForm->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered mb-0">
         <thead>
           <tr>
             <th><?php echo __('Object'); ?></th>
-            <th><?php echo __('Title'); ?></th>
+            <th id="title-label"><?php echo __('Title'); ?></th>
           </tr>
         </thead>
         <tbody>
@@ -31,21 +30,24 @@
                       (null !== $thumbnail = $do->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID))
                       && QubitAcl::check($io, 'readThumbnail')
                   ) { ?>
-                    <?php echo image_tag($thumbnail->getFullPath(), ['alt' => __($do->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+                    <?php echo image_tag($thumbnail->getFullPath(), ['alt' => __($do->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]), 'class' => 'img-thumbnail']); ?>
                   <?php } else { ?>
-                    <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($do->mediaTypeId), ['alt' => __($do->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+                    <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($do->mediaTypeId), ['alt' => __($do->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]), 'class' => 'img-thumbnail']); ?>
                   <?php } ?>
                 <?php } ?>
               </td>
               <td>
                 <?php if ($sf_user->getCulture() != $io->getSourceCulture() && !strlen($io->title)) { ?>
                   <div class="default-translation">
-                    <?php echo render_value($digitalObjectTitleForm[$io->id]->getValue(), $io); ?>
+                    <?php echo render_value_inline($digitalObjectTitleForm[$io->id]->getValue(), $io); ?>
                   </div>
                 <?php } ?>
 
-                <?php echo $digitalObjectTitleForm[$io->id]
-                    ->label(__('Title')); ?>
+                <?php echo render_field(
+                    $digitalObjectTitleForm[$io->id],
+                    null,
+                    ['onlyInputs' => true, 'aria-labelledby' => 'title-label', 'class' => 'mb-2']
+                ); ?>
                 <?php echo __($io->digitalObjectsRelatedByobjectId[0]->name); ?>
                 <?php echo render_show(__('Level of description'), render_value_inline($io->levelOfDescription)); ?>
               </td>

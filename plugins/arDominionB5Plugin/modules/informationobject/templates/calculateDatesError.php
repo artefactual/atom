@@ -5,38 +5,25 @@
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
-
   <h1><?php echo __('Calculate dates - Error'); ?></h1>
-
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
   <?php echo $form->renderFormTag(url_for([
       $resource, 'module' => 'informationobject', 'action' => 'calculateDates', ]
   )); ?>
-
-    <div id="content">
-
-    <?php if (1 == $resource->rgt - $resource->lft) { ?>
-      <legend class="collapse-processed"><?php echo __('No children found'); ?></legend>
-
-      <div class="alert alert-warning">
-        <?php echo __(
+    <?php if (1 == $resource->rgt - $resource->lft || 0 == count($descendantEventTypes)) { ?>
+      <div id="content" class="p-3">
+        <?php if (1 == $resource->rgt - $resource->lft) { ?>
+            <?php echo __(
                 'Cannot calculate accumulated dates because this %1% has no children',
                 ['%1%' => sfConfig::get('app_ui_label_informationobject')]
-              );
-        ?>
-      </div>
-    <?php } elseif (0 == count($descendantEventTypes)) { ?>
-      <legend class="collapse-processed"><?php echo __('No lower level dates found'); ?></legend>
-
-      <div class="alert alert-warning">
-        <?php echo __('Cannot calculate accumulated dates because no lower level dates exist'); ?>
+            ); ?>
+        <?php } else { ?>
+          <?php echo __('Cannot calculate accumulated dates because no lower level dates exist'); ?>
+        <?php } ?>
       </div>
     <?php } ?>
-
-    </div>
 
     <section class="actions">
       <?php echo link_to(
@@ -45,7 +32,5 @@
           ['class' => 'btn atom-btn-outline-light', 'role' => 'button']
       ); ?>
     </section>
-
   </form>
-
 <?php end_slot(); ?>

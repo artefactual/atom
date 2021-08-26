@@ -8,7 +8,7 @@
 
 <?php echo get_component('user', 'aclMenu'); ?>
 
-<section id="content" class="p-0">
+<section id="content">
 
   <section id="userDetails">
 
