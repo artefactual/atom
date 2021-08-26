@@ -7,10 +7,12 @@
       <span class="visually-hidden"><?php echo __('Print'); ?></span>
     </a>
     <div class="d-flex flex-column">
-      <h1 class="mb-0" aria-describedby="results-label">
+      <h1 class="mb-0" aria-describedby="heading-label">
         <?php echo render_title($resource); ?>
       </h1>
-      <span class="small" id="results-label"><?php echo __('View %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]); ?></span>
+      <span class="small" id="heading-label">
+        <?php echo __('View %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]); ?>
+      </span>
     </div>
   </div>
 <?php end_slot(); ?>

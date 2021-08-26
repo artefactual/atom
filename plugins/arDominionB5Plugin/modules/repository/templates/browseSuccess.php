@@ -5,10 +5,12 @@
   <div class="multiline-header d-flex align-items-center mb-3">
     <i class="fas fa-3x fa-university me-3" aria-hidden="true"></i>
     <div class="d-flex flex-column">
-      <h1 class="mb-0" aria-describedby="results-label">
+      <h1 class="mb-0" aria-describedby="heading-label">
         <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
       </h1>
-      <span class="small" id="results-label"><?php echo sfConfig::get('app_ui_label_repository'); ?></span>
+      <span class="small" id="heading-label">
+        <?php echo sfConfig::get('app_ui_label_repository'); ?>
+      </span>
     </div>
   </div>
 <?php end_slot(); ?>

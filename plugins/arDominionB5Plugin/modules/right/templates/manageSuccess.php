@@ -1,10 +1,14 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo render_title($resource); ?>
-    <span class="sub"><?php __('Manage rights inheritance'); ?></span>
-  </h1>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo render_title($resource); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo __('Manage rights inheritance'); ?>
+    </span>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
