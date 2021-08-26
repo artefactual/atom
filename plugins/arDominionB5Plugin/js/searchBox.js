@@ -3,6 +3,9 @@
 
   $(() => {
     var $input = $("#search-box-input");
+    if (!$input.length) {
+      return;
+    }
     var $results = $("#search-box-results");
     var dropdown = bootstrap.Dropdown.getOrCreateInstance($input);
 
