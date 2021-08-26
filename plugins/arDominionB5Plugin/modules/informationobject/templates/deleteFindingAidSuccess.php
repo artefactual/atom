@@ -12,17 +12,13 @@
 
     <?php echo $form->renderHiddenFields(); ?>
     
-    <div id="content">
+    <div id="content" class="p-3">
+      <?php echo __('The following file will be deleted from the file system:'); ?>
 
-      <h2><?php echo __('The following file will be deleted from the file system:'); ?></h2>
-
-      <div class="delete-list">
-        <ul>
-          <li><a href="<?php echo public_path($path); ?>" target="_blank"><?php echo $filename; ?></a></li>
-          <li><?php echo __('If the finding aid is an uploaded PDF, the transcript will be deleted too.'); ?></li>
-        </ul>
-      </div>
-
+      <ul class="mb-0">
+        <li><a href="<?php echo public_path($path); ?>" target="_blank"><?php echo $filename; ?></a></li>
+        <li><?php echo __('If the finding aid is an uploaded PDF, the transcript will be deleted too.'); ?></li>
+      </ul>
     </div>
 
     <ul class="actions nav gap-2">

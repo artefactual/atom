@@ -18,9 +18,8 @@
 
     <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).'); ?></p>
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered mb-0">
         <thead>
           <tr>
             <th width="30%"><?php echo __('Name'); ?></th>
@@ -31,7 +30,6 @@
           <?php echo $oaiRepositoryForm; ?>
         </tbody>
       </table>
-
     </div>
 
     <section class="actions">
