@@ -1,7 +1,7 @@
 <nav>
   <ul class="nav nav-pills mb-2 d-flex gap-2">
     <?php foreach ($userAclMenu->getChildren() as $item) { ?>
-      <?php $options = ['class' => 'btn atom-btn-white active-orange text-wrap']; ?>
+      <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
       <?php if (
           str_replace(
               '%currentSlug%',

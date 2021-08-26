@@ -121,7 +121,7 @@
           <ul class="nav nav-pills mb-3 d-flex gap-2" role="tablist">
             <li class="nav-item" role="presentation">
               <button
-                class="btn atom-btn-white active-orange text-wrap active"
+                class="btn atom-btn-white active-primary text-wrap active"
                 id="pills-main-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-main"
@@ -134,7 +134,7 @@
             </li>
             <li class="nav-item" role="presentation">
               <button
-                class="btn atom-btn-white active-orange text-wrap"
+                class="btn atom-btn-white active-primary text-wrap"
                 id="pills-phys-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-phys"
@@ -147,7 +147,7 @@
             </li>
             <li class="nav-item" role="presentation">
               <button
-                class="btn atom-btn-white active-orange text-wrap"
+                class="btn atom-btn-white active-primary text-wrap"
                 id="pills-other-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-other"
