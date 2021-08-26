@@ -20,9 +20,8 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered mb-0">
         <thead>
           <tr>
             <th><?php echo __('Name'); ?></th>
@@ -36,7 +35,6 @@
           </tr>
         </tbody>
       </table>
-
     </div>
 
     <section class="actions">
