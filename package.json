@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@accessible360/accessible-slick": "^1.0.1",
+    "@fontsource/roboto": "^4.5.0",
+    "@fontsource/roboto-condensed": "^4.5.0",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^5.0.1",
     "bootstrap-autocomplete": "^2.3.7",
@@ -32,6 +34,8 @@
     "build-dominion-b5": "sass --style=compressed plugins/arDominionB5Plugin/scss/main.scss plugins/arDominionB5Plugin/build/css/min.css",
     "watch-dominion-b5": "sass --watch plugins/arDominionB5Plugin/scss/main.scss plugins/arDominionB5Plugin/build/css/min.css",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "build-unog": "sass --style=compressed plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css",
+    "watch-unog": "sass --watch plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css"
   }
 }

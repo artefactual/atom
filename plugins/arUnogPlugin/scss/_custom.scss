@@ -1,0 +1,191 @@
+.atom-btn-secondary {
+  &:hover,
+  &:focus {
+    background-color: $unogDarkGrey;
+    border-color: $unogDarkGrey;
+  }
+}
+
+#brand-bar {
+  font-size: 13px;
+}
+
+#logos img {
+  max-height: 6rem;
+}
+
+.clipboard-count {
+  background-color: $secondary !important;
+}
+
+body {
+  .navbar-dark .navbar-nav .nav-link {
+    color: $white;
+    &:hover, &:active, &:focus {
+      color: $primary;
+      background-color: $white;
+    }
+  }
+}
+
+body.home {
+  > nav {
+    background-color: $white !important;
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: $primary;
+    &:hover, &:active, &:focus {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    #search-box {
+      max-width: initial;
+    }
+  }
+
+  #search-box-results {
+    transform: translate(0, 33px) !important;
+  }
+
+  #content {
+    border: none;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .jumbotron {
+      background-image: url('/plugins/arUnogPlugin/images/jumbotron.jpg');
+      background-position: center 70%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      h1 {
+        color: $white;
+      }
+    }
+  }
+
+  .browse-menu, .browse-menu .list-group-item {
+    font-weight: bold;
+  }
+
+  .browse-menu .list-group-item {
+    border-left: none;
+    border-right: none;
+    text-transform: uppercase;
+    color: $white;
+  }
+
+  .browse-menu .list-group {
+    border-radius: 0;
+  }
+
+  .browse-menu .list-group-item-action:hover,
+  .browse-menu .list-group-item-action:active,
+  .browse-menu .list-group-item-action:focus {
+    background-color: $white !important;
+    color: $primary;
+  }
+
+  .ask-an-archivist {
+    background-image: url('/plugins/arUnogPlugin/images/ask-an-archivist.jpg');
+    background-position: center middle;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .visit-the-archives {
+    background-image: url('/plugins/arUnogPlugin/images/visit-the-archives.jpg');
+    background-position: center middle;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .featured-project a:hover span {
+    text-decoration: underline;
+  }
+
+  .carousel-item {
+    height: 40rem;
+    text-align: center;
+  }
+
+  .carousel-item-image > img {
+    height: 100%;
+  }
+
+  .carousel-caption {
+    left: 5%;
+    right: 5%;
+  }
+
+  @include media-breakpoint-up(md) {
+    .carousel-caption {
+      left: 15%;
+      right: 15%;
+    }
+  }
+
+  .popular-last-month {
+    overflow-x: auto;
+  }
+
+  .popular-last-month .carousel-item-image {
+    height: 10rem;
+  }
+
+  .popular-last-month .carousel-item-image a > img {
+    height: 10rem;
+  }
+
+}
+
+footer {
+  .footer-main ul li a {
+    height: 45px;
+    width: 45px;
+  }
+
+  .footer-ownership {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 0.75rem;
+
+    a {
+      color: $black;
+      &:hover {
+        color: $black;
+        text-decoration: underline $primary;
+      }
+    }
+  }
+}
+
+h1,
+body.index #content h2,
+body.index #content h2 button,
+body.index #atom-digital-object-carousel .accordion-button {
+  font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+#sidebar .accordion-button span {
+  text-transform: uppercase;
+}
+
+#sidebar .accordion-button span::after,
+body.index #content h2::after,
+body.index #atom-digital-object-carousel .accordion-button span::after {
+  content: "";
+  display: block;
+  border-top: $primary solid 3px;
+  margin-top: 0.25rem;
+}
+
+#sidebar .accordion-button span::after,
+body.index #atom-digital-object-carousel .accordion-button span::after,
+body.index #content h2::after {
+  width: 3rem;
+}
