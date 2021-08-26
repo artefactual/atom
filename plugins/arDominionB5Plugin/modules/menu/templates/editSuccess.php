@@ -1,16 +1,18 @@
 <?php decorate_with('layout_1col'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php if (isset($sf_request->id)) { ?>
-      <?php echo __('Edit menu'); ?>
-    <?php } else { ?>
-      <?php echo __('Add new menu'); ?>
-    <?php } ?>
-    <?php if (isset($sf_request->id)) { ?>
-      <span class="sub"><?php echo $menu->getName(['sourceCulture' => true]); ?></h1>
-    <?php } ?>
-  </h1>
+  <?php if (isset($sf_request->id)) { ?>
+    <div class="multiline-header d-flex flex-column mb-3">
+      <h1 class="mb-0" aria-describedby="heading-label">
+        <?php echo __('Edit menu'); ?>
+      </h1>
+      <span class="small" id="heading-label">
+        <?php echo $menu->getName(['sourceCulture' => true]); ?>
+      </span>
+    </div>
+  <?php } else { ?>
+    <h1><?php echo __('Add new menu'); ?></h1>
+  <?php } ?>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>

@@ -2,10 +2,14 @@
 
 <?php slot('title'); ?>
   <?php if (isset($resource)) { ?>
-    <h1 class="multiline">
-      <?php echo $title; ?>
-      <span class="sub"><?php echo render_title($resource); ?></span>
-    </h1>
+    <div class="multiline-header d-flex flex-column mb-3">
+      <h1 class="mb-0" aria-describedby="heading-label">
+        <?php echo $title; ?>
+      </h1>
+      <span class="small" id="heading-label">
+        <?php echo render_title($resource); ?>
+      </span>
+    </div>
   <?php } else { ?>
     <h1><?php echo $title; ?></h1>
   <?php } ?>

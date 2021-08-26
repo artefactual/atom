@@ -2,10 +2,14 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo __('Edit %1% - ISAAR', ['%1%' => sfConfig::get('app_ui_label_actor')]); ?>
-    <span class="sub"><?php echo render_title($resource); ?></span>
-  </h1>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo __('Edit %1% - ISAAR', ['%1%' => sfConfig::get('app_ui_label_actor')]); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo render_title($resource); ?>
+    </span>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
