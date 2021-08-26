@@ -16,10 +16,12 @@
       <i class="fas fa-3x fa-<?php echo $icon; ?> me-3" aria-hidden="true"></i>
     <?php } ?>
     <div class="d-flex flex-column">
-      <h1 class="mb-0" aria-describedby="results-label">
+      <h1 class="mb-0" aria-describedby="heading-label">
         <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
       </h1>
-      <span class="small" id="results-label"><?php echo render_title($resource); ?></span>
+      <span class="small" id="heading-label">
+        <?php echo render_title($resource); ?>
+      </span>
     </div>
   </div>
 <?php end_slot(); ?>
