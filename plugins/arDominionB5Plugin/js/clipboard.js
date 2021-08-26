@@ -1,60 +1,57 @@
 (function ($) {
   "use strict";
 
-  function Clipboard(element) {
-    this.$element = element;
-    this.$menuHeaderCount = this.$element.closest("li").find("#counts-block");
-    this.onClipboardPage = $("body").is(".clipboard.view");
+  class Clipboard {
+    constructor(element) {
+      this.$element = element;
+      this.$menuHeaderCount = this.$element.closest("li").find("#counts-block");
+      this.onClipboardPage = $("body").is(".clipboard.view");
 
-    this.storage = localStorage;
-    this.types = ["informationObject", "actor", "repository"];
-    this.initialItems = JSON.stringify({
-      informationObject: [],
-      actor: [],
-      repository: [],
-    });
-    this.items = JSON.parse(this.storage.getItem("clipboard"));
-    this.exportTokens = JSON.parse(this.storage.getItem("exportTokens"));
+      this.storage = localStorage;
+      this.types = ["informationObject", "actor", "repository"];
+      this.initialItems = JSON.stringify({
+        informationObject: [],
+        actor: [],
+        repository: [],
+      });
+      this.items = JSON.parse(this.storage.getItem("clipboard"));
+      this.exportTokens = JSON.parse(this.storage.getItem("exportTokens"));
 
-    if (!this.items) {
-      this.items = JSON.parse(this.initialItems);
+      if (!this.items) {
+        this.items = JSON.parse(this.initialItems);
+      }
+
+      if (!this.exportTokens) {
+        this.exportTokens = [];
+      }
+
+      this.init();
     }
 
-    if (!this.exportTokens) {
-      this.exportTokens = [];
-    }
-
-    this.init();
-  }
-
-  Clipboard.prototype = {
-    init: function () {
+    init() {
       // Listeners added to the document to affect elements added dynamically
-      $(document).on("click", "button.clipboard", $.proxy(this.toggle, this));
+      $(document).on("click", "button.clipboard", this.toggle.bind(this));
       $(document).on(
         "click",
         "button#clipboard-clear, li#node_clearClipboard a",
-        $.proxy(this.clear, this)
+        this.clear.bind(this)
       );
       $(document).on(
         "click",
         "a#clipboard-save, li#node_saveClipboard a",
-        $.proxy(this.save, this)
+        this.save.bind(this)
       );
-      $(document).on(
-        "click",
-        "button#clipboard-send",
-        $.proxy(this.send, this)
-      );
-      $(document).on(
-        "submit",
-        "#clipboard-load-form",
-        $.proxy(this.load, this)
-      );
+      $(document).on("click", "button#clipboard-send", this.send.bind(this));
+      $(document).on("submit", "#clipboard-load-form", this.load.bind(this));
       $(document).on(
         "submit",
         "#clipboard-export-form",
-        $.proxy(this.export, this)
+        this.export.bind(this)
+      );
+      $(document).on(
+        "click",
+        ".clipboard-all, .clipboard-none",
+        this.toggleAll.bind(this)
       );
 
       this.updateCounts();
@@ -66,8 +63,9 @@
       }
 
       this.checkExports();
-    },
-    load: function (event) {
+    }
+
+    load(event) {
       event.preventDefault();
 
       var $form = $(event.target);
@@ -103,8 +101,9 @@
           this.showAlert(data.error, "alert-danger");
         },
       });
-    },
-    loadClipboardContent: function () {
+    }
+
+    loadClipboardContent() {
       var url = new URL(window.location.href);
       var type = url.searchParams.get("type");
 
@@ -136,8 +135,9 @@
           );
         },
       });
-    },
-    save: function (event) {
+    }
+
+    save(event) {
       event.preventDefault();
 
       // Avoid request if there are no slugs in the clipboard
@@ -163,8 +163,9 @@
           this.showAlert(data.error, "alert-danger");
         },
       });
-    },
-    send: function (event) {
+    }
+
+    send(event) {
       var $sendButton = $(event.target);
 
       // Avoid request if there are no slugs in the clipboard
@@ -212,8 +213,9 @@
           $sendingAlert.remove();
         },
       });
-    },
-    export: function (event) {
+    }
+
+    export(event) {
       event.preventDefault();
 
       var $form = $(event.target);
@@ -258,8 +260,9 @@
           this.showAlert(data.error, "alert-danger");
         },
       });
-    },
-    checkExports: function () {
+    }
+
+    checkExports() {
       if (this.exportTokens.length === 0) {
         return;
       }
@@ -305,8 +308,9 @@
           this.showAlert(data.error, "alert-danger");
         },
       });
-    },
-    toggle: function (event) {
+    }
+
+    toggle(event) {
       if (typeof event.preventDefault === "function") {
         event.preventDefault();
       }
@@ -332,8 +336,19 @@
 
       this.storage.setItem("clipboard", JSON.stringify(this.items));
       this.updateCounts();
-    },
-    clear: function (event) {
+    }
+
+    toggleAll(event) {
+      event.preventDefault();
+      var add = $(event.target).hasClass("clipboard-all");
+      $("button.clipboard").each((_, button) => {
+        var $button = $(button);
+        var added = $button.hasClass("active");
+        if (!added && add || added && !add) $button.trigger("click");
+      });
+    }
+
+    clear(event) {
       event.preventDefault();
 
       this.showRemoveAlert();
@@ -351,8 +366,9 @@
 
       this.updateCounts();
       this.updateAllButtons();
-    },
-    updateButton: function ($button, added, reloadTooltip) {
+    }
+
+    updateButton($button, added, reloadTooltip) {
       // If previous and current status don't match,
       // change status, tooltip and button content
       if (
@@ -381,8 +397,9 @@
           });
         }
       }
-    },
-    updateCounts: function () {
+    }
+
+    updateCounts() {
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
@@ -414,8 +431,9 @@
       countText += " count: " + reposCount + "<br />";
 
       this.$menuHeaderCount.html(countText);
-    },
-    updateAllButtons: function () {
+    }
+
+    updateAllButtons() {
       var self = this;
 
       $("button.clipboard").each(function () {
@@ -435,8 +453,9 @@
 
         self.updateButton($button, added, showTooltip);
       });
-    },
-    showAlert: function (message, type, deleteUrl) {
+    }
+
+    showAlert(message, type, deleteUrl) {
       if (!type) {
         type = "";
       }
@@ -461,8 +480,9 @@
       window.scrollTo({ top: 0 });
 
       return $alert;
-    },
-    showRemoveAlert: function () {
+    }
+
+    showRemoveAlert() {
       // Show remove alert only in clipboard page if it is not already added
       if (
         this.onClipboardPage &&
@@ -473,14 +493,11 @@
           "alert-danger alert-clipboard-remove"
         );
       }
-    },
-  };
-
-  $(function () {
-    var $clipboard = $("#clipboard-menu");
-
-    if ($clipboard.length) {
-      $clipboard.data("clipboard", new Clipboard($clipboard));
     }
+  }
+
+  $(() => {
+    var $clipboard = $("#clipboard-menu");
+    if ($clipboard.length) new Clipboard($clipboard);
   });
 })(jQuery);
