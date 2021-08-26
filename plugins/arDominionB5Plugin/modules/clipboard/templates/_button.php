@@ -1,5 +1,5 @@
 <button
-  class="btn atom-btn-white ms-auto active-orange clipboard"
+  class="btn atom-btn-white ms-auto active-primary clipboard"
   data-clipboard-slug="<?php echo $slug; ?>"
   data-clipboard-type="<?php echo $type; ?>"
   <?php echo $wide ? '' : 'data-tooltip="true"'; ?>
