@@ -6,10 +6,10 @@
 
 <?php slot('content'); ?>
   <?php if ($noteCount = $resource->getNotes()->count()) { ?>
-    <div id="content"><h2>
+    <div id="content" class="p-3">
       <?php echo __('This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.',
                     ['%1%' => $noteCount]); ?>
-    </h2></div>
+    </div>
   <?php } ?>
 
   <?php echo $form->renderGlobalErrors(); ?>
