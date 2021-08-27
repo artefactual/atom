@@ -101,6 +101,11 @@ body {
   border-radius: $border-radius;
   margin-top: $spacer;
   padding: $spacer;
+
+  a,
+  button {
+    @extend .text-wrap;
+  }
 }
 
 .hidden,
