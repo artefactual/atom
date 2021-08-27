@@ -19,48 +19,49 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Accession number'); ?>
-        </th>
-        <th>
-          <?php echo __('Title'); ?>
-        </th>
-        <th>
-          <?php echo __('Acquisition date'); ?>
-        </th>
-        <?php if ('lastUpdated' == $sf_request->sort) { ?>
-          <th>
-            <?php echo __('Updated'); ?>
-          </th>
-        <?php } ?>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $hit) { ?>
-        <?php $doc = $hit->getData(); ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td width="20%">
-            <?php echo link_to($doc['identifier'], ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-          </td>
-          <td>
-            <?php echo link_to(render_title(get_search_i18n($doc, 'title')), ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-          </td>
-          <td width="20%">
-            <?php echo format_date($doc['date'], 'i'); ?>
-          </td>
+          <th>
+            <?php echo __('Accession number'); ?>
+          </th>
+          <th>
+            <?php echo __('Title'); ?>
+          </th>
+          <th>
+            <?php echo __('Acquisition date'); ?>
+          </th>
           <?php if ('lastUpdated' == $sf_request->sort) { ?>
-            <td width="20%">
-              <?php echo format_date($doc['updatedAt'], 'f'); ?>
-            </td>
+            <th>
+              <?php echo __('Updated'); ?>
+            </th>
           <?php } ?>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $hit) { ?>
+          <?php $doc = $hit->getData(); ?>
+          <tr>
+            <td width="20%">
+              <?php echo link_to($doc['identifier'], ['module' => 'accession', 'slug' => $doc['slug']]); ?>
+            </td>
+            <td>
+              <?php echo link_to(render_title(get_search_i18n($doc, 'title')), ['module' => 'accession', 'slug' => $doc['slug']]); ?>
+            </td>
+            <td width="20%">
+              <?php echo format_date($doc['date'], 'i'); ?>
+            </td>
+            <?php if ('lastUpdated' == $sf_request->sort) { ?>
+              <td width="20%">
+                <?php echo format_date($doc['updatedAt'], 'f'); ?>
+              </td>
+            <?php } ?>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
