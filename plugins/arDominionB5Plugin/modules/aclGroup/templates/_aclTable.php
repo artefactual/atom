@@ -1,7 +1,5 @@
 <div class="table-responsive mb-3 acl-table-container">
-  <table 
-    id="<?php echo 'acl_'.$object->slug; ?>"
-    class="table table-bordered caption-top mb-0">
+  <table class="table table-bordered mb-0 caption-top" id="<?php echo 'acl_'.$object->slug; ?>">
     <caption class="pt-0">
       <span class="d-inline-block">
         <?php if ($object->id != constant(get_class($sf_data->getRaw('object')).'::ROOT_ID')) { ?>
@@ -21,7 +19,8 @@
         <th scope="col"><?php echo __('Action'); ?></th>
         <th scope="col"><?php echo __('Permission'); ?></th>
       </tr>
-    </thead><tbody>
+    </thead>
+    <tbody>
       <?php foreach ($actions as $key => $item) { ?>
         <tr>
           <td><?php echo __($item); ?></td>

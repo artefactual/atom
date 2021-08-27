@@ -67,24 +67,26 @@
               </button>
             </h2>
             <div id="history-collapse" class="accordion-collapse collapse" aria-labelledby="history-heading">
-              <div class="accordion-body table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>
-                        <?php echo __('Title'); ?>
-                      </th>
-                      <th>
-                        <?php echo __('Date'); ?>
-                      </th>
-                      <th>
-                        <?php echo __('Type'); ?>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="editingHistoryRows">
-                  </tbody>
-                </table>
+              <div class="accordion-body">
+                <div class="table-responsive mb-3">
+                  <table class="table table-bordered mb-0">
+                    <thead>
+                      <tr>
+                        <th>
+                          <?php echo __('Title'); ?>
+                        </th>
+                        <th>
+                          <?php echo __('Date'); ?>
+                        </th>
+                        <th>
+                          <?php echo __('Type'); ?>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="editingHistoryRows">
+                    </tbody>
+                  </table>
+                </div>
 
                 <div class="text-end">
                   <input class="btn atom-btn-white" type="button" id='previousButton' value='<?php echo __('Previous'); ?>'>

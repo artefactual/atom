@@ -53,71 +53,72 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('%1% term', ['%1%' => render_title($resource)]); ?>
-        </th><th>
-          <?php echo __('Scope note'); ?>
-        </th>
-        <?php if ($addIoCountColumn) { ?>
-          <th><?php echo __('%1 count', ['%1' => sfConfig::get('app_ui_label_informationobject')]); ?></th>
-        <?php } ?>
-        <?php if ($addActorCountColumn) { ?>
-          <th><?php echo __('%1 count', ['%1' => sfConfig::get('app_ui_label_actor')]); ?></th>
-        <?php } ?>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $hit) { ?>
-        <?php $doc = $hit->getData(); ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td>
-            <?php if ($doc['isProtected']) { ?>
-              <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']], ['class' => 'readOnly']); ?>
-            <?php } else { ?>
-              <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']]); ?>
-            <?php } ?>
-
-            <?php if (0 < $doc['numberOfDescendants']) { ?>
-              <span class="note2">(<?php echo $doc['numberOfDescendants']; ?>)</span>
-            <?php } ?>
-
-            <?php if (isset($doc['useFor']) && count($doc['useFor']) > 0) { ?>
-              <p>
-                <?php $labels = []; ?>
-                <?php echo __('Use for: '); ?>
-
-                <?php foreach ($doc['useFor'] as $label) { ?>
-                  <?php $labels[] = render_value_inline(get_search_i18n($label, 'name', ['allowEmpty' => false])); ?>
-                <?php } ?>
-
-                <?php echo implode(', ', $labels); ?>
-              </p>
-            <?php } ?>
-
-          </td><td>
-            <?php if (isset($doc['scopeNotes']) && count($doc['scopeNotes']) > 0) { ?>
-              <ul>
-                <?php foreach ($doc['scopeNotes'] as $note) { ?>
-                  <li><?php echo render_value_inline(get_search_i18n($note, 'content')); ?></li>
-                <?php } ?>
-              </ul>
-            <?php } ?>
-
-          </td>
+          <th>
+            <?php echo __('%1% term', ['%1%' => render_title($resource)]); ?>
+          </th><th>
+            <?php echo __('Scope note'); ?>
+          </th>
           <?php if ($addIoCountColumn) { ?>
-            <td><?php echo QubitTerm::countRelatedInformationObjects($hit->getId()); ?></td>
+            <th><?php echo __('%1 count', ['%1' => sfConfig::get('app_ui_label_informationobject')]); ?></th>
           <?php } ?>
           <?php if ($addActorCountColumn) { ?>
-            <td><?php echo TermNavigateRelatedComponent::getEsDocsRelatedToTermCount('QubitActor', $hit->getId()); ?></td>
+            <th><?php echo __('%1 count', ['%1' => sfConfig::get('app_ui_label_actor')]); ?></th>
           <?php } ?>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $hit) { ?>
+          <?php $doc = $hit->getData(); ?>
+          <tr>
+            <td>
+              <?php if ($doc['isProtected']) { ?>
+                <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']], ['class' => 'readOnly']); ?>
+              <?php } else { ?>
+                <?php echo link_to(render_title(get_search_i18n($doc, 'name', ['allowEmpty' => false])), ['module' => 'term', 'slug' => $doc['slug']]); ?>
+              <?php } ?>
 
+              <?php if (0 < $doc['numberOfDescendants']) { ?>
+                <span class="note2">(<?php echo $doc['numberOfDescendants']; ?>)</span>
+              <?php } ?>
+
+              <?php if (isset($doc['useFor']) && count($doc['useFor']) > 0) { ?>
+                <p>
+                  <?php $labels = []; ?>
+                  <?php echo __('Use for: '); ?>
+
+                  <?php foreach ($doc['useFor'] as $label) { ?>
+                    <?php $labels[] = render_value_inline(get_search_i18n($label, 'name', ['allowEmpty' => false])); ?>
+                  <?php } ?>
+
+                  <?php echo implode(', ', $labels); ?>
+                </p>
+              <?php } ?>
+
+            </td><td>
+              <?php if (isset($doc['scopeNotes']) && count($doc['scopeNotes']) > 0) { ?>
+                <ul>
+                  <?php foreach ($doc['scopeNotes'] as $note) { ?>
+                    <li><?php echo render_value_inline(get_search_i18n($note, 'content')); ?></li>
+                  <?php } ?>
+                </ul>
+              <?php } ?>
+
+            </td>
+            <?php if ($addIoCountColumn) { ?>
+              <td><?php echo QubitTerm::countRelatedInformationObjects($hit->getId()); ?></td>
+            <?php } ?>
+            <?php if ($addActorCountColumn) { ?>
+              <td><?php echo TermNavigateRelatedComponent::getEsDocsRelatedToTermCount('QubitActor', $hit->getId()); ?></td>
+            <?php } ?>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>

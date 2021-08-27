@@ -30,33 +30,36 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Name'); ?>
-        </th>
-        <?php if ('alphabetic' != $sf_request->sort) { ?>
-          <th>
-            <?php echo __('Updated'); ?>
-          </th>
-        <?php } ?>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $item) { ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td>
-            <?php echo link_to(render_title($item), [$item, 'module' => 'rightsholder']); ?>
-          </td>
+          <th>
+            <?php echo __('Name'); ?>
+          </th>
           <?php if ('alphabetic' != $sf_request->sort) { ?>
-            <td>
-              <?php echo format_date($item->updatedAt, 'f'); ?>
-            </td>
+            <th>
+              <?php echo __('Updated'); ?>
+            </th>
           <?php } ?>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $item) { ?>
+          <tr>
+            <td>
+              <?php echo link_to(render_title($item), [$item, 'module' => 'rightsholder']); ?>
+            </td>
+            <?php if ('alphabetic' != $sf_request->sort) { ?>
+              <td>
+                <?php echo format_date($item->updatedAt, 'f'); ?>
+              </td>
+            <?php } ?>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
