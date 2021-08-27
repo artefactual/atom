@@ -92,6 +92,10 @@ class sfWidgetFormSelectCheckbox extends sfWidgetFormChoiceBase
 
   protected function formatChoices($name, $value, $choices, $attributes)
   {
+    if (sfConfig::get('app_b5_theme', false)) {
+      return $this->formatChoicesB5($name, $value, $choices, $attributes);
+    }
+
     $inputs = array();
     foreach ($choices as $key => $option)
     {
@@ -116,8 +120,40 @@ class sfWidgetFormSelectCheckbox extends sfWidgetFormChoiceBase
     return call_user_func($this->getOption('formatter'), $this, $inputs);
   }
 
+  protected function formatChoicesB5($name, $value, $choices, $attributes)
+  {
+    $attributes['class'] = 'form-check-input';
+
+    $inputs = array();
+    foreach ($choices as $key => $option)
+    {
+      $baseAttributes = array(
+        'name'  => $name,
+        'type'  => 'checkbox',
+        'value' => self::escapeOnce($key),
+        'id'    => $id = $this->generateId($name, self::escapeOnce($key)),
+      );
+
+      if ((is_array($value) && in_array(strval($key), $value)) || (is_string($value) && strval($key) == strval($value)))
+      {
+        $baseAttributes['checked'] = 'checked';
+      }
+
+      $inputs[$id] = array(
+        'input' => $this->renderTag('input', array_merge($baseAttributes, $attributes)),
+        'label' => $this->renderContentTag('label', self::escapeOnce($option), array('for' => $id, 'class' => 'form-check-label')),
+      );
+    }
+
+    return call_user_func($this->getOption('formatter'), $this, $inputs);
+  }
+
   public function formatter($widget, $inputs)
   {
+    if (sfConfig::get('app_b5_theme', false)) {
+      return $this->formatterB5($widget, $inputs);
+    }
+
     $rows = array();
     foreach ($inputs as $input)
     {
@@ -125,5 +161,16 @@ class sfWidgetFormSelectCheckbox extends sfWidgetFormChoiceBase
     }
 
     return !$rows ? '' : $this->renderContentTag('ul', implode($this->getOption('separator'), $rows), array('class' => $this->getOption('class')));
+  }
+
+  public function formatterB5($widget, $inputs)
+  {
+    $rows = array();
+    foreach ($inputs as $input)
+    {
+      $rows[] = $this->renderContentTag('div', $input['input'].$this->getOption('label_separator').$input['label'], ['class' => 'form-check']);
+    }
+
+    return implode('', $rows);
   }
 }
