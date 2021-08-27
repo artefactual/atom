@@ -39,9 +39,9 @@
             <input type="hidden" name="importType" value="<?php echo esc_entities($type); ?>"/>
 
             <?php if ('csv' == $type) { ?>
-              <div class="form-item">
-                <label><?php echo __('Type'); ?></label>
-                <select name="objectType">
+              <div class="mb-3">
+                <label class="form-label" for="object-type-select"><?php echo __('Type'); ?></label>
+                <select class="form-select" name="objectType" id="object-type-select">
                   <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject'); ?></option>
                   <option value="accession"><?php echo sfConfig::get('app_ui_label_accession', __('Accession')); ?></option>
                   <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor'); ?></option>
@@ -53,26 +53,24 @@
             <?php } ?>
 
             <?php if ('csv' != $type) { ?>
-              <div class="form-item">
-                <label><?php echo __('Type'); ?></label>
-                <select name="objectType">
+              <p class="alert alert-info text-center"><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', ['%1%' => link_to(__('SKOS import page'), ['module' => 'sfSkosPlugin', 'action' => 'import'], ['class' => 'alert-link'])]); ?></p>
+              <div class="mb-3">
+                <label for="object-type-select" class="form-label"><?php echo __('Type'); ?></label>
+                <select class="form-select" name="objectType" id="object-type-select">
                   <option value="ead"><?php echo __('EAD 2002'); ?></option>
                   <option value="eac-cpf"><?php echo __('EAC CPF'); ?></option>
                   <option value="mods"><?php echo __('MODS'); ?></option>
                   <option value="dc"><?php echo __('DC'); ?></option>
                 </select>
-
-                <p class="alert alert-info text-center"><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', ['%1%' => link_to(__('SKOS import page'), ['module' => 'sfSkosPlugin', 'action' => 'import'], ['class' => 'alert-link'])]); ?></p>
               </div>
             <?php } ?>
-
 
             <div id="updateBlock">
 
               <?php if ('csv' == $type) { ?>
-                <div class="form-item">
-                  <label><?php echo __('Update behaviours'); ?></label>
-                  <select name="updateType">
+                <div class="mb-3">
+                  <label class="form-label" for="update-type-select"><?php echo __('Update behaviours'); ?></label>
+                  <select class="form-select" name="updateType" id="update-type-select">
                     <option value="import-as-new"><?php echo __('Ignore matches and create new records on import'); ?></option>
                     <option value="match-and-update"><?php echo __('Update matches ignoring blank fields in CSV'); ?></option>
                     <option value="delete-and-replace"><?php echo __('Delete matches and replace with imported records'); ?></option>
@@ -81,9 +79,9 @@
               <?php } ?>
 
               <?php if ('csv' != $type) { ?>
-                <div class="form-item">
-                  <label><?php echo __('Update behaviours'); ?></label>
-                  <select name="updateType">
+                <div class="mb-3">
+                  <label class="form-label" for="update-type-select"><?php echo __('Update behaviours'); ?></label>
+                  <select class="form-select" name="updateType" id="update-type-select">
                     <option value="import-as-new"><?php echo __('Ignore matches and import as new'); ?></option>
                     <option value="delete-and-replace"><?php echo __('Delete matches and replace with imports'); ?></option>
                   </select>
@@ -91,31 +89,34 @@
               <?php } ?>
 
               <div class="form-item">
-
                 <div class="panel panel-default" id="matchingOptions" style="display:none;">
                   <div class="panel-body">
-                    <label>
-                      <input name="skipUnmatched" type="checkbox"/>
-                      <?php echo __('Skip unmatched records'); ?>
-                    </label>
+                    <div class="mb-3 form-check">
+                      <input class="form-check-input" name="skipUnmatched" id="skip-unmatched-input" type="checkbox"/>
+                      <label class="form-check-label" for="skip-unmatched-input"><?php echo __('Skip unmatched records'); ?></label>
+                    </div>
 
                     <div class="criteria">
-                      <div class="filter-row repos-limit">
-                        <div class="filter">
-                          <?php echo $form->repos
-                              ->label(__('Limit matches to:'))
-                              ->renderRow(); ?>
-                        </div>
+                      <div class="repos-limit">
+                        <?php echo render_field($form->repos->label(__('Limit matches to:'))); ?>
                       </div>
 
-                      <div class="filter-row collection-limit">
-                        <div class="filter">
-                          <?php echo $form->collection
-                              ->label(__('Top-level description'))
-                              ->renderLabel(); ?>
-                          <?php echo $form->collection->render(['class' => 'form-autocomplete']); ?>
-                          <input class="list" type="hidden" value="<?php echo url_for(['module' => 'informationobject', 'action' => 'autocomplete', 'parent' => QubitInformationObject::ROOT_ID, 'filterDrafts' => true]); ?>"/>
-                        </div>
+                      <div class="collection-limit">
+                        <?php echo render_field(
+                          $form->collection->label(__('Top-level description')),
+                          null,
+                          [
+                              'class' => 'form-autocomplete',
+                              'extraInputs' => '<input class="list" type="hidden" value="'
+                                  .url_for([
+                                      'module' => 'informationobject',
+                                      'action' => 'autocomplete',
+                                      'parent' => QubitInformationObject::ROOT_ID,
+                                      'filterDrafts' => true,
+                                  ])
+                                  .'">',
+                          ]
+                        ); ?>
                       </div>
                     </div>
                   </div>
@@ -123,47 +124,42 @@
 
                 <div class="panel panel-default" id="importAsNewOptions">
                   <div class="panel-body">
-                    <label>
-                      <input name="skipMatched" type="checkbox"/>
-                      <?php echo __('Skip matched records'); ?>
-                    </label>
+                    <div class="mb-3 form-check">
+                      <input class="form-check-input" name="skipMatched" id="skip-matched-input" type="checkbox"/>
+                      <label class="form-check-label" for="skip-matched-input"><?php echo __('Skip matched records'); ?></label>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="form-item" id="noIndex">
-              <label>
-                <input name="noIndex" type="checkbox"/>
-                <?php echo __('Do not index imported items'); ?>
-              </label>
+            <div class="mb-3 form-check" id="noIndex">
+              <input class="form-check-input" name="noIndex" id="no-index-input" type="checkbox"/>
+              <label class="form-check-label" for="no-index-input"><?php echo __('Do not index imported items'); ?></label>
             </div>
 
             <?php if ('csv' == $type && sfConfig::get('app_csv_transform_script_name')) { ?>
-              <div class="form-item">
-                <label>
-                  <input name="doCsvTransform" type="checkbox"/>
-                  <?php echo __('Include transformation script'); ?>
-                  <div class="pull-right">
-                    <?php echo __(sfConfig::get('app_csv_transform_script_name')); ?>
-                  </div>
-                </label>
+              <div class="mb-3 form-check">
+                <input class="form-check-input" name="doCsvTransform" id="do-csv-transform-input" type="checkbox"/>
+                <label class="form-check-label" for="do-csv-transform-input" aria-described-by="do-csv-transform-help"><?php echo __('Include transformation script'); ?></label>
+                <div class="form-text" id="do-csv-transform-help"><?php echo __(sfConfig::get('app_csv_transform_script_name')); ?></div>
               </div>
             <?php } ?>
+
           </div>
         </div>
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header" id="file-heading">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#file-collapse" aria-expanded="false" aria-controls="file-collapse">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#file-collapse" aria-expanded="true" aria-controls="file-collapse">
             <?php echo __('Select file'); ?>
           </button>
         </h2>
-        <div id="file-collapse" class="accordion-collapse collapse" aria-labelledby="file-heading">
+        <div id="file-collapse" class="accordion-collapse collapse show" aria-labelledby="file-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <label><?php echo __('Select a file to import'); ?></label>
-              <input name="file" type="file"/>
+            <div class="mb-3">
+              <label for="import-file" class="form-label"><?php echo __('Select a file to import'); ?></label>
+              <input class="form-control" type="file" id="import-file">
             </div>
           </div>
         </div>
