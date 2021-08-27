@@ -12,49 +12,50 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Name'); ?>
-        </th><th>
-          <?php echo __('Label'); ?>
-        </th>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($menuTree as $item) { ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td<?php if (QubitMenu::ROOT_ID == $item['parentId']) { ?> style="font-weight: bold"<?php } ?>>
-
-            <?php echo str_repeat('&nbsp;&nbsp;', ($item['depth'] - 1)); ?>
-
-            <?php if (isset($item['prev'])) { ?>
-              <?php echo link_to(image_tag('up.gif', ['alt' => __('Move up')]), ['module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'before' => $item['prev']], ['title' => __('Move item up in list')]); ?>
-            <?php } else { ?>
-              &nbsp;&nbsp;
-            <?php } ?>
-
-            <?php if (isset($item['next'])) { ?>
-              <?php echo link_to(image_tag('down.gif', ['alt' => __('Move down')]), ['module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'after' => $item['next']], ['title' => __('Move item down in list')]); ?>
-            <?php } else { ?>
-              &nbsp;&nbsp;
-            <?php } ?>
-
-            <?php if ($item['protected']) { ?>
-              <?php echo link_to($item['name'], [QubitMenu::getById($item['id']), 'module' => 'menu', 'action' => 'edit'], ['class' => 'readOnly', 'title' => __('Edit menu')]); ?>
-            <?php } else { ?>
-              <?php echo link_to($item['name'], [QubitMenu::getById($item['id']), 'module' => 'menu', 'action' => 'edit'], ['title' => __('Edit menu')]); ?>
-            <?php } ?>
-
-          </td><td>
-            <?php echo $item['label']; ?>
-          </td>
+          <th>
+            <?php echo __('Name'); ?>
+          </th><th>
+            <?php echo __('Label'); ?>
+          </th>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($menuTree as $item) { ?>
+          <tr>
+            <td<?php if (QubitMenu::ROOT_ID == $item['parentId']) { ?> style="font-weight: bold"<?php } ?>>
 
+              <?php echo str_repeat('&nbsp;&nbsp;', ($item['depth'] - 1)); ?>
+
+              <?php if (isset($item['prev'])) { ?>
+                <?php echo link_to(image_tag('up.gif', ['alt' => __('Move up')]), ['module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'before' => $item['prev']], ['title' => __('Move item up in list')]); ?>
+              <?php } else { ?>
+                &nbsp;&nbsp;
+              <?php } ?>
+
+              <?php if (isset($item['next'])) { ?>
+                <?php echo link_to(image_tag('down.gif', ['alt' => __('Move down')]), ['module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'after' => $item['next']], ['title' => __('Move item down in list')]); ?>
+              <?php } else { ?>
+                &nbsp;&nbsp;
+              <?php } ?>
+
+              <?php if ($item['protected']) { ?>
+                <?php echo link_to($item['name'], [QubitMenu::getById($item['id']), 'module' => 'menu', 'action' => 'edit'], ['class' => 'readOnly', 'title' => __('Edit menu')]); ?>
+              <?php } else { ?>
+                <?php echo link_to($item['name'], [QubitMenu::getById($item['id']), 'module' => 'menu', 'action' => 'edit'], ['title' => __('Edit menu')]); ?>
+              <?php } ?>
+
+            </td><td>
+              <?php echo $item['label']; ?>
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
