@@ -39,85 +39,89 @@
                 ->label(__('PREMIS act'))
                 ->renderRow(); ?>
 
-            <table>
-              <caption>
-                <?php echo __('Permissions'); ?>
-              </caption>
-              <thead>
-                <tr>
-                  <th>&nbsp;</th>
-                  <th>Allow</th>
-                  <th>Conditional</th>
-                  <th>Disallow</th>
-                </tr>
-                <tr>
-                  <th class="premis-permissions-basis">Basis</th>
-                  <th class="premis-permissions-mrt">
-                    <div>
-                      <ul>
-                        <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                      </ul>
-                    </div>
-                  </th>
-                  <th class="premis-permissions-mrt">
-                    <div>
-                      <ul>
-                        <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                      </ul>
-                    </div>
-                  </th>
-                  <th class="premis-permissions-mrt">
-                    <div>
-                      <ul>
-                        <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                        <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                      </ul>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($permissionsForm['permissions'] as $k => $sf) { ?>
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered mb-0 caption-top">
+                <caption class="pt-0">
+                  <span class="d-inline-block">
+                    <?php echo __('Permissions'); ?>
+                  </span>
+                </caption>
+                <thead>
                   <tr>
-                    <td class="premis-permissions-basis-value">
-                      <span><?php echo $basis[$k]; ?></span>
-                    </td>
-                    <td class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li class="cbx"><?php echo $sf['allow_master']; ?></li>
-                          <li class="cbx"><?php echo $sf['allow_reference']; ?></li>
-                          <li class="cbx"><?php echo $sf['allow_thumb']; ?></li>
-                        </ul>
-                      </div>
-                    </td>
-                    <td class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li class="cbx"><?php echo $sf['conditional_master']; ?></li>
-                          <li class="cbx"><?php echo $sf['conditional_reference']; ?></li>
-                          <li class="cbx"><?php echo $sf['conditional_thumb']; ?></li>
-                        </ul>
-                      </div>
-                    </td>
-                    <td class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li class="cbx"><?php echo $sf['disallow_master']; ?></li>
-                          <li class="cbx"><?php echo $sf['disallow_reference']; ?></li>
-                          <li class="cbx"><?php echo $sf['disallow_thumb']; ?></li>
-                        </ul>
-                      </div>
-                    </td>
+                    <th>&nbsp;</th>
+                    <th>Allow</th>
+                    <th>Conditional</th>
+                    <th>Disallow</th>
                   </tr>
-                <?php } ?>
-              </tbody>
-            </table>
+                  <tr>
+                    <th class="premis-permissions-basis">Basis</th>
+                    <th class="premis-permissions-mrt">
+                      <div>
+                        <ul>
+                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
+                        </ul>
+                      </div>
+                    </th>
+                    <th class="premis-permissions-mrt">
+                      <div>
+                        <ul>
+                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
+                        </ul>
+                      </div>
+                    </th>
+                    <th class="premis-permissions-mrt">
+                      <div>
+                        <ul>
+                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
+                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
+                        </ul>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($permissionsForm['permissions'] as $k => $sf) { ?>
+                    <tr>
+                      <td class="premis-permissions-basis-value">
+                        <span><?php echo $basis[$k]; ?></span>
+                      </td>
+                      <td class="premis-permissions-mrt">
+                        <div>
+                          <ul>
+                            <li class="cbx"><?php echo $sf['allow_master']; ?></li>
+                            <li class="cbx"><?php echo $sf['allow_reference']; ?></li>
+                            <li class="cbx"><?php echo $sf['allow_thumb']; ?></li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td class="premis-permissions-mrt">
+                        <div>
+                          <ul>
+                            <li class="cbx"><?php echo $sf['conditional_master']; ?></li>
+                            <li class="cbx"><?php echo $sf['conditional_reference']; ?></li>
+                            <li class="cbx"><?php echo $sf['conditional_thumb']; ?></li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td class="premis-permissions-mrt">
+                        <div>
+                          <ul>
+                            <li class="cbx"><?php echo $sf['disallow_master']; ?></li>
+                            <li class="cbx"><?php echo $sf['disallow_reference']; ?></li>
+                            <li class="cbx"><?php echo $sf['disallow_thumb']; ?></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
 
             <ul class="premis-permissions-toggle">
               <li><a href="#" class="all">All</a></li>

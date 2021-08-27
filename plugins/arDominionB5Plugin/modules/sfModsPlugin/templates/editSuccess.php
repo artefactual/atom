@@ -62,11 +62,10 @@
                 ->label(__('Type of resource'))
                 ->renderRow(); ?>
 
-            <section>
+            <h3><?php echo __('Add new child levels (if describing a collection)'); ?></h3>
 
-              <h3><?php echo __('Add new child levels (if describing a collection)'); ?></h3>
-
-              <table class="table table-bordered multiRow">
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered mb-0 multiRow">
                 <thead>
                   <tr>
                     <th style="width: 20%">
@@ -75,7 +74,8 @@
                       <?php echo __('Title'); ?>
                     </th>
                   </tr>
-                </thead><tbody>
+                </thead>
+                <tbody>
                   <tr>
                     <td>
                       <input type="text" name="updateChildLevels[0][identifier]"/>
@@ -90,14 +90,12 @@
                     <td colspan="3"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
                   </tr>
                 </tfoot>
-
               </table>
+            </div>
 
-              <div class="description">
-                <?php echo __('Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.'); ?>
-              </div>
-
-            </section>
+            <div class="description">
+              <?php echo __('Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.'); ?>
+            </div>
 
             <?php echo $form->language
                 ->help(__('A designation of the language in which the content of a resource is expressed. Select as many languages as required.'))

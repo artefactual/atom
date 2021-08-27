@@ -39,40 +39,43 @@
   </ul>
 </nav>
 
-<table class="table table-bordered sticky-enabled">
-  <thead>
-    <tr>
-      <th>
-        <?php echo __('User name'); ?>
-      </th><th>
-        <?php echo __('Email'); ?>
-      </th><th>
-        <?php echo __('User groups'); ?>
-      </th>
-    </tr>
-  </thead><tbody>
-    <?php foreach ($users as $item) { ?>
+<div class="table-responsive mb-3">
+  <table class="table table-bordered mb-0">
+    <thead>
       <tr>
-        <td>
-          <?php echo link_to($item->username, [$item, 'module' => 'user']); ?>
-          <?php if (!$item->active) { ?>
-            (<?php echo __('inactive'); ?>)
-          <?php } ?>
-          <?php if ($sf_user->user === $item) { ?>
-            (<?php echo __('you'); ?>)
-          <?php } ?>
-        </td><td>
-          <?php echo $item->email; ?>
-        </td><td>
-          <ul>
-            <?php foreach ($item->getAclGroups() as $group) { ?>
-              <li><?php echo render_title($group); ?></li>
-            <?php } ?>
-          </ul>
-        </td>
+        <th>
+          <?php echo __('User name'); ?>
+        </th><th>
+          <?php echo __('Email'); ?>
+        </th><th>
+          <?php echo __('User groups'); ?>
+        </th>
       </tr>
-    <?php } ?>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <?php foreach ($users as $item) { ?>
+        <tr>
+          <td>
+            <?php echo link_to($item->username, [$item, 'module' => 'user']); ?>
+            <?php if (!$item->active) { ?>
+              (<?php echo __('inactive'); ?>)
+            <?php } ?>
+            <?php if ($sf_user->user === $item) { ?>
+              (<?php echo __('you'); ?>)
+            <?php } ?>
+          </td><td>
+            <?php echo $item->email; ?>
+          </td><td>
+            <ul>
+              <?php foreach ($item->getAclGroups() as $group) { ?>
+                <li><?php echo render_title($group); ?></li>
+              <?php } ?>
+            </ul>
+          </td>
+        </tr>
+      <?php } ?>
+    </tbody>
+  </table>
+</div>
 
 <?php echo get_partial('default/pager', ['pager' => $pager]); ?>

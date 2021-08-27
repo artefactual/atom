@@ -83,11 +83,10 @@
                 ->help(__('<p>The nature or genre of the resource.</p><p>Assign as many types as applicable. The <em>Type</em> options are limited to the DCMI Type vocabulary.</p><p>Assign the <em>Collection</em> value if this resource is the top-level for a set of lower-level (child) resources.</p><p>Please note: if this resource is linked to a digital object, the <em>image</em>, <em>text</em>, <em>sound</em> or <em>moving image</em> types are added automatically upon output, so do not duplicate those values here.</p>'))
                 ->renderRow(); ?>
 
-            <section>
+            <h3><?php echo __('Child levels (if describing a collection)'); ?></h3>
 
-              <h3><?php echo __('Child levels (if describing a collection)'); ?></h3>
-
-              <table class="table table-bordered multiRow">
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered mb-0 multiRow">
                 <thead>
                   <tr>
                     <th style="width: 20%">
@@ -96,7 +95,8 @@
                       <?php echo __('Title'); ?>
                     </th>
                   </tr>
-                </thead><tbody>
+                </thead>
+                <tbody>
                   <tr>
                     <td>
                       <input type="text" name="updateChildLevels[0][identifier]"/>
@@ -111,14 +111,12 @@
                     <td colspan="3"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
                   </tr>
                 </tfoot>
-
               </table>
+            </div>
 
-              <div class="description">
-                <?php echo __('<p><strong>Child levels</strong><br/>Use these two fields to add lower levels to a collection level description. Click <em>Add new</em> to create as many child levels as necessary.</p><p>These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.</p><p><em>Identifier</em>: The unambiguous reference code used to uniquely identify the child-level resource.</p><p><em>Title</em>: The name given to the child-level resource.</p>'); ?>
-              </div>
-
-            </section>
+            <div class="description">
+              <?php echo __('<p><strong>Child levels</strong><br/>Use these two fields to add lower levels to a collection level description. Click <em>Add new</em> to create as many child levels as necessary.</p><p>These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.</p><p><em>Identifier</em>: The unambiguous reference code used to uniquely identify the child-level resource.</p><p><em>Title</em>: The name given to the child-level resource.</p>'); ?>
+            </div>
 
             <?php echo render_field($form->extentAndMedium
                 ->help(__('<p>The file format, physical medium, or dimensions of the resource.</p><p>Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don\'t duplicate those values here.</p>'))
