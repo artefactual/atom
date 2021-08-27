@@ -5,27 +5,46 @@
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('%1 - report criteria', ['%1' => $type]); ?></h1>
-  <h2><?php echo render_title($resource); ?></h2>
-<?php end_slot(); ?>
-
-<?php slot('before-content'); ?>
-  <?php echo $form->renderGlobalErrors(); ?>
-  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'storageLocations', 'type' => $type]), ['class' => 'form-inline']); ?>
-  <?php echo $form->renderHiddenFields(); ?>
-<?php end_slot(); ?>
-
-<fieldset class="single">
-  <div class="fieldset-wrapper">
-    <?php echo render_field($form->format->label(__('Format')), $resource); ?>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo __('%1 - report criteria', ['%1' => $type]); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo render_title($resource); ?>
+    </span>
   </div>
-</fieldset>
+<?php end_slot(); ?>
 
-<?php slot('after-content'); ?>
-  <ul class="actions nav gap-2">
-    <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Continue'); ?>"></li>
-    <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
-  </ul>
+<?php slot('content'); ?>
+
+  <?php echo $form->renderGlobalErrors(); ?>
+
+  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'storageLocations', 'type' => $type]), ['class' => 'form-inline']); ?>
+
+    <?php echo $form->renderHiddenFields(); ?>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="report-criteria-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#report-criteria-collapse" aria-expanded="true" aria-controls="report-criteria-collapse">
+            <?php echo __('Report criteria'); ?>
+          </button>
+        </h2>
+        <div id="report-criteria-collapse" class="accordion-collapse collapse show" aria-labelledby="report-criteria-heading">
+          <div class="accordion-body">
+
+            <?php echo render_field($form->format->label(__('Format')), $resource); ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Continue'); ?>"></li>
+    </ul>
 
   </form>
+
 <?php end_slot(); ?>
