@@ -48,14 +48,17 @@
 </div>
 
 <div class="table-responsive mb-3 acl-table-container d-none">
-  <table class="table table-bordered caption-top mb-0">
-    <caption class="pt-0"><span class="d-inline-block"></span></caption>
+  <table class="table table-bordered mb-0 caption-top">
+    <caption class="pt-0">
+      <span class="d-inline-block"></span>
+    </caption>
     <thead class="table-light">
       <tr>
         <th scope="col"><?php echo __('Action'); ?></th>
         <th scope="col"><?php echo __('Permission'); ?></th>
       </tr>
-    </thead><tbody>
+    </thead>
+    <tbody>
       <?php foreach ($basicActions as $key => $item) { ?>
         <tr>
           <td><?php echo __($item); ?></td>
