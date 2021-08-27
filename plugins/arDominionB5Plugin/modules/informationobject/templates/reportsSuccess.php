@@ -5,50 +5,61 @@
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('Reports'); ?></h1>
-  <h2><?php echo render_title($resource); ?></h2>
-<?php end_slot(); ?>
-
-<?php slot('before-content'); ?>
-  <?php echo $form->renderGlobalErrors(); ?>
-  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'reports']), ['class' => 'form-inline']); ?>
-  <?php echo $form->renderHiddenFields(); ?>
-<?php end_slot(); ?>
-
-<?php if (count($existingReports)) { ?>
-  <fieldset class="single">
-    <div class="fieldset-wrapper">
-      <?php echo __('Existing reports:'); ?>
-      <ul class="job-report-list">
-        <?php foreach ($existingReports as $report) { ?>
-          <li>
-            <?php echo link_to($report['type'].' ('.$report['format'].')', $report['path']); ?>
-          </li>
-        <?php } ?>
-      </ul>
-    </div>
-  </fieldset>
-<?php } ?>
-
-<fieldset class="single">
-
-  <div class="fieldset-wrapper">
-
-  <?php if ($reportsAvailable) { ?>
-    <?php echo render_field($form->report->label(__('Select new report to generate:')), $resource); ?>
-  <?php } else { ?>
-    <?php echo __('There are no relevant reports for this item'); ?>
-  <?php } ?>
-
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo __('Reports'); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo render_title($resource); ?>
+    </span>
   </div>
+<?php end_slot(); ?>
 
-</fieldset>
+<?php slot('content'); ?>
 
-<?php slot('after-content'); ?>
-  <ul class="actions nav gap-2">
-    <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Continue'); ?>"></li>
-    <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
-  </ul>
+  <?php echo $form->renderGlobalErrors(); ?>
+
+  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'reports']), ['class' => 'form-inline']); ?>
+
+    <?php echo $form->renderHiddenFields(); ?>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="reports-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#reports-collapse" aria-expanded="true" aria-controls="reports-collapse">
+            <?php echo __('Reports'); ?>
+          </button>
+        </h2>
+        <div id="reports-collapse" class="accordion-collapse collapse show" aria-labelledby="reports-heading">
+          <div class="accordion-body">
+
+            <?php if (count($existingReports)) { ?>
+              <?php echo __('Existing reports:'); ?>
+                <ul class="job-report-list">
+                  <?php foreach ($existingReports as $report) { ?>
+                    <li>
+                      <?php echo link_to($report['type'].' ('.$report['format'].')', $report['path']); ?>
+                    </li>
+                  <?php } ?>
+                </ul>
+            <?php } ?>
+
+            <?php if ($reportsAvailable) { ?>
+              <?php echo render_field($form->report->label(__('Select new report to generate:')), $resource); ?>
+            <?php } else { ?>
+              <?php echo __('There are no relevant reports for this item'); ?>
+            <?php } ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Continue'); ?>"></li>
+    </ul>
 
   </form>
+
 <?php end_slot(); ?>
