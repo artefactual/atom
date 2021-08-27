@@ -92,7 +92,11 @@ function render_b5_field($field, $translation = null, $options = [])
     $name = $field->getName();
     $widget = $field->getWidget();
 
-    if (in_array($field->type, ['checkbox', 'radio']) || $widget instanceof sfWidgetFormSelectRadio) {
+    if (
+      in_array($field->type, ['checkbox', 'radio'])
+      || $widget instanceof sfWidgetFormSelectRadio
+      || $widget instanceof sfWidgetFormChoice
+    ) {
         $isFormCheck = true;
         $inputClass = 'form-check-input';
         $labelClass = 'form-check-label';
@@ -167,8 +171,10 @@ function render_b5_field($field, $translation = null, $options = [])
 
     if ($isFormCheck) {
         // Special case for grouped radio buttons
-        if ($widget instanceof sfWidgetFormChoice
-        || $widget instanceof sfWidgetFormSelectRadio) {
+        if (
+          $widget instanceof sfWidgetFormChoice
+          || $widget instanceof sfWidgetFormSelectRadio
+        ) {
             return '<div class="mb-3">'
                 .'<fieldset'
                 .($options['aria-describedby']
