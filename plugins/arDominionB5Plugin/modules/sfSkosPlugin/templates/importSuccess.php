@@ -47,16 +47,22 @@
           <div class="accordion-body">
             <?php if (isset($resource)) { ?>
               <div class="form-item">
-                <?php echo $form->taxonomy->renderLabel(); ?>
-                <?php echo $form->taxonomy->renderError(); ?>
-                <?php echo $form->taxonomy->render(); ?>
-                <?php echo render_title($taxonomy); ?>
+                <?php echo render_field($form->taxonomy); ?>
               </div>
             <?php } else { ?>
-              <?php echo $form->taxonomy->renderLabel(); ?>
-              <?php echo $form->taxonomy->renderError(); ?>
-              <?php echo $form->taxonomy->render(); ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'taxonomy', 'action' => 'autocomplete']); ?>"/>
+              <?php echo render_field(
+                  $form->taxonomy,
+                  null,
+                  [
+                      'class' => 'form-autocomplete',
+                      'extraInputs' => '<input class="list" type="hidden" value="'
+                          .url_for([
+                              'module' => 'informationobject',
+                              'action' => 'autocomplete',
+                          ])
+                          .'">',
+                  ]
+                ); ?>
             <?php } ?>
           </div>
         </div>
@@ -69,15 +75,9 @@
         </h2>
         <div id="select-collapse" class="accordion-collapse collapse show" aria-labelledby="select-heading">
           <div class="accordion-body">
-            <?php echo $form->file
-                ->label(__('Select a file to import'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->file->label(__('Select a file to import'))); ?>
 
-            <br /> <!-- Not ideal! -->
-
-            <?php echo $form->url
-                ->label(__('Or a remote resource'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->url->label(__('Or a remote resource'))); ?>
           </div>
         </div>
       </div>
