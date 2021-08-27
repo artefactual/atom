@@ -15,43 +15,46 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th class="sortable">
-          <?php echo link_to(__('Name'), ['sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __('Sort'), 'class' => 'sortable']); ?>
-          <?php if ('nameUp' == $sf_request->sort) { ?>
-            <?php echo image_tag('up.gif', ['alt' => __('Sort ascending')]); ?>
-          <?php } elseif ('nameDown' == $sf_request->sort) { ?>
-            <?php echo image_tag('down.gif', ['alt' => __('Sort descending')]); ?>
-          <?php } ?>
-        </th><th class="sortable">
-          <?php echo link_to(__('Location'), ['sort' => ('locationUp' == $sf_request->sort) ? 'locationDown' : 'locationUp'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __('Sort'), 'class' => 'sortable']); ?>
-          <?php if ('locationUp' == $sf_request->sort) { ?>
-            <?php echo image_tag('up.gif', ['alt' => __('Sort ascending')]); ?>
-          <?php } elseif ('locationDown' == $sf_request->sort) { ?>
-            <?php echo image_tag('down.gif', ['alt' => __('Sort descending')]); ?>
-          <?php } ?>
-        </th><th>
-          <?php echo __('Type'); ?>
-        </th>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $item) { ?>
-        <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?>">
-          <td>
-            <?php echo link_to(render_title($item), [$item, 'module' => 'physicalobject']); ?>
-          </td>
-          <td>
-            <?php echo render_value_inline($item->getLocation(['cultureFallback' => true])); ?>
-          </td>
-          <td>
-            <?php echo render_value_inline($item->type); ?>
-          </td>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
+        <tr>
+          <th class="sortable">
+            <?php echo link_to(__('Name'), ['sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __('Sort'), 'class' => 'sortable']); ?>
+            <?php if ('nameUp' == $sf_request->sort) { ?>
+              <?php echo image_tag('up.gif', ['alt' => __('Sort ascending')]); ?>
+            <?php } elseif ('nameDown' == $sf_request->sort) { ?>
+              <?php echo image_tag('down.gif', ['alt' => __('Sort descending')]); ?>
+            <?php } ?>
+          </th><th class="sortable">
+            <?php echo link_to(__('Location'), ['sort' => ('locationUp' == $sf_request->sort) ? 'locationDown' : 'locationUp'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __('Sort'), 'class' => 'sortable']); ?>
+            <?php if ('locationUp' == $sf_request->sort) { ?>
+              <?php echo image_tag('up.gif', ['alt' => __('Sort ascending')]); ?>
+            <?php } elseif ('locationDown' == $sf_request->sort) { ?>
+              <?php echo image_tag('down.gif', ['alt' => __('Sort descending')]); ?>
+            <?php } ?>
+          </th><th>
+            <?php echo __('Type'); ?>
+          </th>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $item) { ?>
+          <tr>
+            <td>
+              <?php echo link_to(render_title($item), [$item, 'module' => 'physicalobject']); ?>
+            </td>
+            <td>
+              <?php echo render_value_inline($item->getLocation(['cultureFallback' => true])); ?>
+            </td>
+            <td>
+              <?php echo render_value_inline($item->type); ?>
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>

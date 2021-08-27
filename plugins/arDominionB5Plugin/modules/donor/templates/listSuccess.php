@@ -1,15 +1,17 @@
-<?php use_helper('Date'); ?>
 <?php decorate_with('layout_1col'); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('List %1%', ['%1%' => sfConfig::get('app_ui_label_function')]); ?></h1>
+  <h1><?php echo __('List donor'); ?></h1>
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
-  <div class="d-inline-block mb-3">
-    <?php echo get_component('search', 'inlineSearch', [
-        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
-    ]); ?>
+  <div class="nav">
+    <div class="search">
+      <form action="<?php echo url_for(['module' => 'donor', 'action' => 'list']); ?>">
+        <input name="subquery" value="<?php echo $sf_request->subquery; ?>"/>
+        <input class="form-submit" type="submit" value="<?php echo __('Search donor'); ?>"/>
+      </form>
+    </div>
   </div>
 <?php end_slot(); ?>
 
@@ -20,18 +22,14 @@
         <tr>
           <th>
             <?php echo __('Name'); ?>
-          </th><th>
-            <?php echo __('Updated'); ?>
           </th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($pager->getResults() as $item) { ?>
+        <?php foreach ($donors as $item) { ?>
           <tr>
             <td>
-              <?php echo link_to(render_title($item), $item); ?>
-            </td><td>
-              <?php echo format_date($item->updatedAt, 'f'); ?>
+              <?php echo link_to(render_title($item), [$item, 'module' => 'donor']); ?>
             </td>
           </tr>
         <?php } ?>

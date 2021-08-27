@@ -13,27 +13,21 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
+        <tr>
+          <th><?php echo __('Name'); ?></th>
+          <th><?php echo __('Value'); ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $globalForm; ?>
+      </tbody>
+    </table>
+  </div>
 
-  <form action="<?php echo url_for('settings/global'); ?>" method="post">
-
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $globalForm; ?>
-        </tbody>
-      </table>
-    </div>
-
-    <section class="actions">
-      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
-    </section>
-
-  </form>
-
+  <section class="actions">
+    <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
+  </section>
 <?php end_slot(); ?>
