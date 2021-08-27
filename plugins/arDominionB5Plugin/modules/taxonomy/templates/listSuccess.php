@@ -1,16 +1,7 @@
-<?php use_helper('Date'); ?>
 <?php decorate_with('layout_1col'); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('List %1%', ['%1%' => sfConfig::get('app_ui_label_function')]); ?></h1>
-<?php end_slot(); ?>
-
-<?php slot('before-content'); ?>
-  <div class="d-inline-block mb-3">
-    <?php echo get_component('search', 'inlineSearch', [
-        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
-    ]); ?>
-  </div>
+  <h1><?php echo __('List taxonomies'); ?></h1>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
@@ -21,17 +12,17 @@
           <th>
             <?php echo __('Name'); ?>
           </th><th>
-            <?php echo __('Updated'); ?>
+            <?php echo __('Note'); ?>
           </th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($pager->getResults() as $item) { ?>
+        <?php foreach ($taxonomies as $item) { ?>
           <tr>
             <td>
-              <?php echo link_to(render_title($item), $item); ?>
+              <?php echo link_to(render_title($item), [$item, 'module' => 'taxonomy']); ?>
             </td><td>
-              <?php echo format_date($item->updatedAt, 'f'); ?>
+              <?php echo render_value_inline($item->getNote(['cultureFallback' => true])); ?>
             </td>
           </tr>
         <?php } ?>

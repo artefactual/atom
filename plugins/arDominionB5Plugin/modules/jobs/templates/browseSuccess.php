@@ -22,71 +22,73 @@
 </nav>
 
 <div class="tab-content">
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th style="width: 15%"><?php echo __('Start date'); ?></th>
-        <th style="width: 15%"><?php echo __('End date'); ?></th>
-        <th style="width: 20%"><?php echo __('Job name'); ?></th>
-        <th style="width: 10%"><?php echo __('Job status'); ?></th>
-        <th style="width: 30%"><?php echo __('Info'); ?></th>
-        <th style="width: 10%"><?php echo __('User'); ?></th>
-      </tr>
-    </thead>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
+        <tr>
+          <th style="width: 15%"><?php echo __('Start date'); ?></th>
+          <th style="width: 15%"><?php echo __('End date'); ?></th>
+          <th style="width: 20%"><?php echo __('Job name'); ?></th>
+          <th style="width: 10%"><?php echo __('Job status'); ?></th>
+          <th style="width: 30%"><?php echo __('Info'); ?></th>
+          <th style="width: 10%"><?php echo __('User'); ?></th>
+        </tr>
+      </thead>
 
-    <?php $jobs = $pager->getResults(); ?>
+      <?php $jobs = $pager->getResults(); ?>
 
-    <?php foreach ($jobs as $job) { ?>
-      <tr>
-        <!-- Creation date -->
-        <td><?php echo $job->getCreationDateString(); ?></td>
+      <?php foreach ($jobs as $job) { ?>
+        <tr>
+          <!-- Creation date -->
+          <td><?php echo $job->getCreationDateString(); ?></td>
 
-        <!-- End date -->
-        <td><?php echo $job->getCompletionDateString(); ?></td>
+          <!-- End date -->
+          <td><?php echo $job->getCompletionDateString(); ?></td>
 
-        <!-- Job name -->
-        <td><?php echo $job; ?></td>
+          <!-- Job name -->
+          <td><?php echo $job; ?></td>
 
-        <!-- Job status -->
-        <td>
-          <?php if (QubitTerm::JOB_STATUS_COMPLETED_ID == $job->statusId) { ?>
-            <i aria-hidden="true" class="fa fa-check-square me-1 text-success"></i>
-          <?php } elseif (QubitTerm::JOB_STATUS_ERROR_ID == $job->statusId) { ?>
-            <i aria-hidden="true" class="fa fa-exclamation-triangle me-1 text-danger"></i>
-          <?php } elseif (QubitTerm::JOB_STATUS_IN_PROGRESS_ID == $job->statusId) { ?>
-            <i aria-hidden="true" class="fa fa-cogs me-1 text-secondary"></i>
-          <?php } ?>
+          <!-- Job status -->
+          <td>
+            <?php if (QubitTerm::JOB_STATUS_COMPLETED_ID == $job->statusId) { ?>
+              <i aria-hidden="true" class="fa fa-check-square me-1 text-success"></i>
+            <?php } elseif (QubitTerm::JOB_STATUS_ERROR_ID == $job->statusId) { ?>
+              <i aria-hidden="true" class="fa fa-exclamation-triangle me-1 text-danger"></i>
+            <?php } elseif (QubitTerm::JOB_STATUS_IN_PROGRESS_ID == $job->statusId) { ?>
+              <i aria-hidden="true" class="fa fa-cogs me-1 text-secondary"></i>
+            <?php } ?>
 
-          <?php echo $job->getStatusString(); ?>
+            <?php echo $job->getStatusString(); ?>
 
-          <?php if ($job->getObjectModule() && $job->getObjectSlug()) { ?>
-            <a href="<?php echo url_for(['module' => $job->getObjectModule(),
-                'slug' => $job->getObjectSlug(), ]); ?>" class="fa fa-share"></a>
+            <?php if ($job->getObjectModule() && $job->getObjectSlug()) { ?>
+              <a href="<?php echo url_for(['module' => $job->getObjectModule(),
+                  'slug' => $job->getObjectSlug(), ]); ?>" class="fa fa-share"></a>
 
-          <?php } ?>
-        </td>
+            <?php } ?>
+          </td>
 
-        <!-- Job notes -->
-        <td>
-          <?php foreach ($job->getNotes() as $note) { ?>
-            <p class="mb-2"><?php echo $note->__toString(); ?></p>
-          <?php } ?>
-          <?php if (isset($job->downloadPath)) { ?>
-            <p class="mb-2">
-              <?php echo link_to(__('Download'), public_path($job->downloadPath)); ?>
-              (<?php echo hr_filesize(filesize($job->downloadPath)); ?>)
-            </p>
-          <?php } ?>
-          <?php echo link_to(__('Full report'), ['module' => 'jobs', 'action' => 'report', 'id' => $job->id]); ?>
-        </td>
+          <!-- Job notes -->
+          <td>
+            <?php foreach ($job->getNotes() as $note) { ?>
+              <p class="mb-2"><?php echo $note->__toString(); ?></p>
+            <?php } ?>
+            <?php if (isset($job->downloadPath)) { ?>
+              <p class="mb-2">
+                <?php echo link_to(__('Download'), public_path($job->downloadPath)); ?>
+                (<?php echo hr_filesize(filesize($job->downloadPath)); ?>)
+              </p>
+            <?php } ?>
+            <?php echo link_to(__('Full report'), ['module' => 'jobs', 'action' => 'report', 'id' => $job->id]); ?>
+          </td>
 
-        <!-- User who created the job -->
-        <td>
-          <?php echo esc_entities(QubitJob::getUserString($job)); ?>
-        </td>
-      </tr>
-    <?php } ?>
-  </table>
+          <!-- User who created the job -->
+          <td>
+            <?php echo esc_entities(QubitJob::getUserString($job)); ?>
+          </td>
+        </tr>
+      <?php } ?>
+    </table>
+  </div>
 </div>
 
 <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
