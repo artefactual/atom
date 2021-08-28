@@ -21,6 +21,8 @@ class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
 {
     protected $rowFormat = "<div class=\"mb-3\">\n  %label%\n  %field%\n"
         ."  %error%\n  %help%\n  %hidden_fields%\n</div>";
+    protected $formErrorListFormat = '<div class="alert alert-danger"'
+        ." role=\"alert\">\n  %errors%\n</div>\n";
     protected $errorListFormatInARow = '<div class="invalid-feedback"'
         ." id=\"%errors_id%\">\n  %errors%\n</div>\n";
     protected $errorRowFormatInARow = "<span>%error%</span>\n";
@@ -51,6 +53,11 @@ class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
 
     public function getErrorListFormatInARow()
     {
+        // An error that is not specific to a field is a form error.
+        if (is_null($this->name)) {
+            return $this->formErrorListFormat;
+        }
+
         return strtr(
             $this->errorListFormatInARow,
             ['%errors_id%' => $this->name.'-errors']
