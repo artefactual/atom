@@ -93,9 +93,9 @@ function render_b5_field($field, $translation = null, $options = [])
     $widget = $field->getWidget();
 
     if (
-      in_array($field->type, ['checkbox', 'radio'])
-      || $widget instanceof sfWidgetFormSelectRadio
-      || $widget instanceof sfWidgetFormChoice
+        in_array($field->type, ['checkbox', 'radio'])
+        || $widget instanceof sfWidgetFormSelectRadio
+        || $widget instanceof sfWidgetFormChoice
     ) {
         $isFormCheck = true;
         $inputClass = 'form-check-input';
