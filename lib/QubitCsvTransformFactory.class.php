@@ -30,6 +30,7 @@ class QubitCsvTransformFactory
     public $setupLogic;
     public $transformLogic;
     public $preserveOrder;
+    public $levelsOfDescription;
     public $convertWindowsEncoding;
 
     public function __construct($options = [])
@@ -46,6 +47,7 @@ class QubitCsvTransformFactory
             'setupLogic',
             'transformLogic',
             'preserveOrder',
+            'levelsOfDescription',
             'convertWindowsEncoding',
         ];
 
@@ -80,6 +82,7 @@ class QubitCsvTransformFactory
             ],
 
             'preserveOrder' => $this->preserveOrder,
+            'levelsOfDescription' => $this->levelsOfDescription,
             'convertWindowsEncoding' => $this->convertWindowsEncoding,
 
             'setupLogic' => $this->setupLogic,
@@ -132,6 +135,7 @@ class QubitCsvTransformFactory
                     ],
 
                     'preserveOrder' => $self->preserveOrder,
+                    'levelsOfDescription' => $self->levelsOfDescription,
                     'convertWindowsEncoding' => $self->convertWindowsEncoding,
 
                     'errorLog' => $self->errorLog,
