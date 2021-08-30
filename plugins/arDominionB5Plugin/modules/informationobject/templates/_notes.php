@@ -75,7 +75,7 @@
     </tfoot>
 
   </table>
-<div>
+</div>
 
 <div class="description">
   <?php echo $help; ?>
