@@ -26,6 +26,10 @@ class DigitalObjectMetadataComponent extends sfComponent
 {
     public function execute($request)
     {
+        if (!isset($this->resource)) {
+            return;
+        }
+
         // Check related object type to display IO properties in the template
         $this->relatedToIo = $this->resource->object instanceof QubitInformationObject;
         $this->relatedToActor = $this->resource->object instanceof QubitActor;
@@ -36,7 +40,6 @@ class DigitalObjectMetadataComponent extends sfComponent
             && arStorageServiceUtils::getAipDownloadEnabled()
         );
 
-        $this->masterCopy = $this->resource->getRepresentationByUsage(QubitTerm::MASTER_ID);
         $this->referenceCopy = $this->resource->getRepresentationByUsage(QubitTerm::REFERENCE_ID);
         $this->thumbnailCopy = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
 
@@ -195,7 +198,7 @@ class DigitalObjectMetadataComponent extends sfComponent
             && !$this->isEmpty($this->masterFileDenyReason)
         );
 
-        return (
+        return
             $this->showMasterFileGoogleMap
             || $this->showMasterFileGeolocation
             || $this->showMasterFileURL
@@ -204,7 +207,7 @@ class DigitalObjectMetadataComponent extends sfComponent
             || $this->showMasterFileMimeType
             || $this->showMasterFileSize
             || $this->showMasterFileCreatedAt
-        ) && null !== $this->masterCopy;
+        ;
     }
 
     protected function setReferenceCopyShowProperties()
