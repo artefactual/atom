@@ -24,7 +24,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 {
     public const REGEX_UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
     public const REGEX_ID = '\d+';
-    public const REGEX_SLUG = '[0-9A-Za-z-]+';
 
     public static $summary = 'REST API plugin';
     public static $version = '1.0.0';
@@ -59,31 +58,31 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
         $this->addRoute('GET', '/api/informationobjects/:slug', [
             'module' => 'api',
             'action' => 'informationobjectsRead',
-            'params' => ['slug' => self::REGEX_SLUG],
+            'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('GET', '/api/informationobjects/:slug/digitalobject', [
             'module' => 'api',
             'action' => 'informationobjectsDownloadDigitalObject',
-            'params' => ['slug' => self::REGEX_SLUG],
+            'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('GET', '/api/informationobjects/tree/:parent_slug', [
             'module' => 'api',
             'action' => 'informationobjectsTree',
-            'params' => ['parent_slug' => self::REGEX_SLUG],
+            'params' => ['parent_slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('PUT', '/api/informationobjects/:slug', [
             'module' => 'api',
             'action' => 'informationobjectsUpdate',
-            'params' => ['slug' => self::REGEX_SLUG],
+            'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('DELETE', '/api/informationobjects/:slug', [
             'module' => 'api',
             'action' => 'informationobjectsDelete',
-            'params' => ['slug' => self::REGEX_SLUG],
+            'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('POST', '/api/informationobjects', [

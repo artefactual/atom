@@ -25,6 +25,19 @@ class QubitSlug extends BaseSlug
     public const SLUG_BASIS_IDENTIFIER = 3;
     public const SLUG_RESTRICTIVE = 0;
     public const SLUG_PERMISSIVE = 1;
+    public const SLUG_RESTRICTIVE_CHARS = '0-9a-z-';
+
+    // From RFC 3987 IRI allowed chars. Not guaranteed to match \p{L}\p{Nd}.
+    public const SLUG_RFC_3987_CHARS = "\u{00A0}-\u{D7FF}"."\u{F900}-\u{FDCF}"
+        ."\u{FDF0}-\u{FFEF}"."\u{10000}-\u{1FFFD}"."\u{20000}-\u{2FFFD}"
+        ."\u{30000}-\u{3FFFD}"."\u{40000}-\u{4FFFD}"."\u{50000}-\u{5FFFD}"
+        ."\u{60000}-\u{6FFFD}"."\u{70000}-\u{7FFFD}"."\u{80000}-\u{8FFFD}"
+        ."\u{90000}-\u{9FFFD}"."\u{A0000}-\u{AFFFD}"."\u{B0000}-\u{BFFFD}"
+        ."\u{C0000}-\u{CFFFD}"."\u{D0000}-\u{DFFFD}"."\u{E0000}-\u{EFFFD}";
+
+    public const SLUG_PERMISSIVE_CHARS = self::SLUG_RFC_3987_CHARS.'0-9A-Za-z-_~:;,=*@';
+
+    public static $validSlugChars;
 
     public static function random($length = 12)
     {
@@ -64,16 +77,13 @@ class QubitSlug extends BaseSlug
         // 0, 1, or null
         $slugCreation = (null === $creationType) ? sfConfig::get('app_permissive_slug_creation', QubitSlug::SLUG_RESTRICTIVE) : $creationType;
 
+        // Remove apostrophes from slug
+        $slug = preg_replace('/\'/', '', $slug);
+
         switch ($slugCreation) {
             case QubitSlug::SLUG_PERMISSIVE:
-                // Remove apostrophes
-                $slug = preg_replace('/\'/', '', $slug);
                 // Whitelist - ASCII A-Za-z0-9, unicode letters, - _ ~ : ; , = * @
-                $asciiSet = 'a-zA-Z0-9';
-                $extraSet = '\-_~\:;,=\*@';
-                $slug = preg_replace('/[^'.$asciiSet.self::getRfc3987Set().$extraSet.']+/u', '-', $slug);
-                // Remove repeating dashes - replace with single dash.
-                $slug = preg_replace('/-+/u', '-', $slug);
+                $slug = preg_replace('/[^'.self::SLUG_PERMISSIVE_CHARS.']+/', '-', $slug);
 
                 break;
 
@@ -85,15 +95,14 @@ class QubitSlug extends BaseSlug
                     $slug = $result;
                 }
 
-                // Remove apostrophes
-                $slug = preg_replace('/\'/', '', $slug);
                 $slug = strtolower($slug);
                 // Allow only digits, letters, and dashes.  Replace sequences of other
                 // characters with dash
-                $slug = preg_replace('/[^0-9a-z]+/', '-', $slug);
+                $slug = preg_replace('/[^'.self::SLUG_RESTRICTIVE_CHARS.']+/', '-', $slug);
         }
 
-        $slug = "-{$slug}-";
+        // Replace repeating dashes in slug with single dash.
+        $slug = preg_replace('/-+/', '-', $slug);
 
         return trim($slug, '-');
     }
@@ -132,14 +141,21 @@ class QubitSlug extends BaseSlug
         }
     }
 
-    public static function getRfc3987Set()
+    public static function getValidSlugChars()
     {
-        // From RFC 3987 IRI allowed chars. Not guaranteed to match \p{L}\p{Nd}.
-        return '\x{00A0}-\x{D7FF}'.'\x{F900}-\x{FDCF}'.'\x{FDF0}-\x{FFEF}'
-            .'\x{10000}-\x{1FFFD}'.'\x{20000}-\x{2FFFD}'.'\x{30000}-\x{3FFFD}'
-            .'\x{40000}-\x{4FFFD}'.'\x{50000}-\x{5FFFD}'.'\x{60000}-\x{6FFFD}'
-            .'\x{70000}-\x{7FFFD}'.'\x{80000}-\x{8FFFD}'.'\x{90000}-\x{9FFFD}'
-            .'\x{A0000}-\x{AFFFD}'.'\x{B0000}-\x{BFFFD}'.'\x{C0000}-\x{CFFFD}'
-            .'\x{D0000}-\x{DFFFD}'.'\x{E0000}-\x{EFFFD}';
+        if (isset(self::$validSlugChars)) {
+            return self::$validSlugChars;
+        }
+
+        // Default is restrictive set
+        self::$validSlugChars = self::SLUG_RESTRICTIVE_CHARS;
+
+        if (QubitSlug::SLUG_PERMISSIVE
+            == QubitSetting::getByName('permissive_slug_creation')
+        ) {
+            self::$validSlugChars = self::SLUG_PERMISSIVE_CHARS;
+        }
+
+        return self::$validSlugChars;
     }
 }
