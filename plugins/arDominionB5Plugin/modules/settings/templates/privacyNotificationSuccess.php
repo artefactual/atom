@@ -29,16 +29,13 @@
         </h2>
         <div id="privacy-collapse" class="accordion-collapse collapse show" aria-labelledby="privacy-heading">
           <div class="accordion-body">
-            <?php echo $form->privacy_notification_enabled
-                ->label(__('Display Privacy Notification on first visit to site'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->privacy_notification_enabled
+                ->label(__('Display Privacy Notification on first visit to site'))); ?>
 
-            <?php echo get_partial('settings/i18n_form_field',
-              [
-                  'name' => 'privacy_notification',
-                  'label' => __('Privacy Notification Message'),
-                  'settings' => $settings,
-                  'form' => $form, ]); ?>
+            <?php echo render_field(
+                $form->privacy_notification
+                    ->label(__('Privacy Notification Message')),
+                $settings['privacy_notification']); ?>
           </div>
         </div>
       </div>
