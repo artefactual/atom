@@ -30,20 +30,26 @@
         <div id="derivatives-collapse" class="accordion-collapse collapse show" aria-labelledby="derivatives-heading">
           <div class="accordion-body">
             <?php if ($pdfinfoAvailable) { ?>
-              <?php echo $form->digital_object_derivatives_pdf_page_number
-                ->label(__('PDF page number for image derivative'))
-                ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
-                ->renderRow(); ?>
+              <?php echo render_field(
+                  $form->digital_object_derivatives_pdf_page_number
+                      ->label(__('PDF page number for image derivative'))
+                      ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.')),
+                  null,
+                  ['type' => 'number']
+              ); ?>
             <?php } else { ?>
-             <div class="alert alert-danger" role="alert">
+              <div class="alert alert-danger" role="alert">
                 <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.'); ?>
               </div>
-            <?php } ?><br />
+            <?php } ?>
 
-            <?php echo $form->reference_image_maxwidth
-                ->label(__('Maximum length on longest edge (pixels)'))
-                ->help(__('The maximum number of pixels on the longest edge for derived reference images.'))
-                ->renderRow(); ?>
+            <?php echo render_field(
+                $form->reference_image_maxwidth
+                    ->label(__('Maximum length on longest edge (pixels)'))
+                    ->help(__('The maximum number of pixels on the longest edge for derived reference images.')),
+                null,
+                ['type' => 'number']
+            ); ?>
           </div>
         </div>
       </div>
