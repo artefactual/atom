@@ -181,7 +181,7 @@ function render_b5_field($field, $translation = null, $options = [])
         ) {
             return '<div class="mb-3">'
                 .'<fieldset'
-                .($options['aria-describedby']
+                .(isset($options['aria-describedby'])
                     ? ' aria-describedby="'.$options['aria-describedby'].'"'
                     : '')
                 .'><legend class="fs-6">'
