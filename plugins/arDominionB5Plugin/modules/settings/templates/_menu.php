@@ -1,4 +1,4 @@
-<nav class="list-group">
+<nav id="settings-menu" class="list-group mb-3 sticky-top">
   <?php foreach ($nodes as $node) { ?>
     <?php echo link_to(
       $node['label'],
