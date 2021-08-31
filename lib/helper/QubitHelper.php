@@ -39,6 +39,10 @@ function render_field($field, $resource = null, array $options = [])
 
     $resourceRaw = sfOutputEscaper::unescape($resource);
     if (isset($resourceRaw) && $culture != $resourceRaw->sourceCulture) {
+        if ($resourceRaw instanceof QubitSetting) {
+            $options['name'] = 'value';
+        }
+
         try {
             $source = $resourceRaw->__get($options['name'], ['sourceCulture' => true]);
             $fallback = $resourceRaw->__get($options['name']);
