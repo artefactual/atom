@@ -34,25 +34,20 @@
             <div class="row">
 
               <div class="col-md-6">
-                <?php echo $form->type
-                    ->label(__('Type'))
-                    ->renderRow(); ?>
+                <?php echo render_field($form->type->label(__('Type'))); ?>
               </div>
 
               <div class="col-md-6">
-                <?php echo $form->showBrowseHierarchyPage
+                <?php echo render_field($form->showBrowseHierarchyPage
                     ->label(__('Show browse hierarchy page'))
-                    ->help(__('Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages'))
-                    ->renderRow(); ?>
+                    ->help(__('Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages'))); ?>
               </div>
 
+              <div class="col-md-6">
+                <?php echo render_field($form->allowFullWidthTreeviewCollapse
+                    ->label(__('Make full width treeview collapsible on description pages'))); ?>
+              </div>
             </div>
-
-            <p>
-              <?php echo $form->allowFullWidthTreeviewCollapse
-                  ->label(__('Make full width treeview collapsible on description pages'))
-                  ->renderRow(); ?>
-            </p>
           </div>
         </div>
       </div>
@@ -64,10 +59,9 @@
         </h2>
         <div id="sidebar-collapse" class="accordion-collapse collapse" aria-labelledby="sidebar-heading">
           <div class="accordion-body">
-            <?php echo $form->ioSort
+            <?php echo render_field($form->ioSort
                 ->label(__('Sort (information object)'))
-                ->help(__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'))
-                ->renderRow(); ?>
+                ->help(__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'))); ?>
           </div>
         </div>
       </div>
@@ -82,40 +76,38 @@
             <div class="row">
 
               <div class="col-md-4">
-                <?php echo $form->showIdentifier
-                    ->label(__('Show identifier'))
-                    ->renderRow(); ?>
+                <?php echo render_field($form->showIdentifier
+                    ->label(__('Show identifier'))); ?>
               </div>
 
               <div class="col-md-4">
-                <?php echo $form->showLevelOfDescription
-                    ->label(__('Show level of description'))
-                    ->renderRow(); ?>
+                <?php echo render_field($form->showLevelOfDescription
+                    ->label(__('Show level of description'))); ?>
               </div>
 
               <div class="col-md-4">
-                <?php echo $form->showDates
-                    ->label(__('Show dates'))
-                    ->renderRow(); ?>
+                <?php echo render_field($form->showDates
+                    ->label(__('Show dates'))); ?>
+              </div>
+
+              <div class="col-md-12">
+                <?php echo render_field(
+                    $form->fullItemsPerPage
+                        ->label(__('Items per page'))
+                        ->help(__(
+                            'Items per page can be a minimum of %1% and a maximum of %2%',
+                            [
+                                '%1%' => format_number(10),
+                                '%2%' => format_number(
+                                    sfConfig::get('app_treeview_items_per_page_max', 10000)
+                                ),
+                            ])),
+                    null,
+                    ['type' => 'number'],
+                ); ?>
               </div>
 
             </div>
-
-            <p>
-              <?php echo $form->fullItemsPerPage
-                  ->label(__('Items per page'))
-                  ->help(
-                    __('Items per page can be a minimum of %1% and a maximum of %2%',
-                      [
-                          '%1%' => format_number(10),
-                          '%2%' => format_number(
-                            sfConfig::get('app_treeview_items_per_page_max', 10000)
-                          ),
-                      ]
-                    )
-                  )
-                  ->renderRow(); ?>
-            </p>
           </div>
         </div>
       </div>
