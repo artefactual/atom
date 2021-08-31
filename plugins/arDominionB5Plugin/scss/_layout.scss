@@ -143,3 +143,8 @@ body > iframe {
 .adv-search .criteria:first-of-type .criterion:first-of-type div:first-of-type {
   display: none;
 }
+
+// Add some space between the Fixed-top settings menu and the main navbar.
+#settings-menu {
+  top: 16px;
+}
