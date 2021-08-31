@@ -29,10 +29,13 @@
         </h2>
         <div id="saving-collapse" class="accordion-collapse collapse show" aria-labelledby="saving-heading">
           <div class="accordion-body">
-            <?php echo $form->clipboard_save_max_age
-                ->label(__('Saved clipboard maximum age (in days)'))
-                ->help(__('The number of days a saved clipboard should be retained before it is eligible for deletion'))
-                ->renderRow(); ?>
+            <?php echo render_field(
+                $form->clipboard_save_max_age
+                    ->label(__('Saved clipboard maximum age (in days)'))
+                    ->help(__('The number of days a saved clipboard should be retained before it is eligible for deletion')),
+                null,
+                ['type' => 'number'],
+            ); ?>
           </div>
         </div>
       </div>
@@ -44,31 +47,24 @@
         </h2>
         <div id="sending-collapse" class="accordion-collapse collapse" aria-labelledby="sending-heading">
           <div class="accordion-body">
-            <?php echo $form->clipboard_send_enabled
-                ->label(__('Enable clipboard send functionality'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->clipboard_send_enabled
+                ->label(__('Enable clipboard send functionality'))); ?>
 
-            <?php echo $form->clipboard_send_url
-                ->label(__('External URL to send clipboard contents to'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->clipboard_send_url
+                ->label(__('External URL to send clipboard contents to'))); ?>
 
-            <?php echo get_partial('settings/i18n_form_field',
-              [
-                  'name' => 'clipboard_send_button_text',
-                  'label' => __('Send button text'),
-                  'settings' => $settings,
-                  'form' => $form, ]); ?>
+            <?php echo render_field(
+                $form->clipboard_send_button_text
+                    ->label(__('Send button text')),
+                $settings['clipboard_send_button_text']); ?>
 
-            <?php echo get_partial('settings/i18n_form_field',
-              [
-                  'name' => 'clipboard_send_message_html',
-                  'label' => __('Text or HTML to display when sending clipboard contents'),
-                  'settings' => $settings,
-                  'form' => $form, ]); ?>
+            <?php echo render_field(
+                $form->clipboard_send_message_html
+                    ->label(__('Text or HTML to display when sending clipboard contents')),
+                $settings['clipboard_send_message_html']); ?>
 
-            <?php echo $form->clipboard_send_http_method
-                ->label(__('HTTP method to use when sending clipboard contents'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->clipboard_send_http_method
+                ->label(__('HTTP method to use when sending clipboard contents'))); ?>
           </div>
         </div>
       </div>
@@ -80,9 +76,8 @@
         </h2>
         <div id="export-collapse" class="accordion-collapse collapse" aria-labelledby="export-heading">
           <div class="accordion-body">
-            <?php echo $form->clipboard_export_digitalobjects_enabled
-                ->label(__('Enable digital object export'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->clipboard_export_digitalobjects_enabled
+                ->label(__('Enable digital object export'))); ?>
           </div>
         </div>
       </div>
