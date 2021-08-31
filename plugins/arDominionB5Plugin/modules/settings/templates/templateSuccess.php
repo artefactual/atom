@@ -16,18 +16,23 @@
 
   <form action="<?php echo url_for('settings/template'); ?>" method="post">
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $defaultTemplateForm; ?>
-        </tbody>
-      </table>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="default-template-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#default-template-collapse" aria-expanded="true" aria-controls="default-template-collapse">
+            <?php echo __('Default template settings'); ?>
+          </button>
+        </h2>
+        <div id="default-template-collapse" class="accordion-collapse collapse show" aria-labelledby="default-template-heading">
+          <div class="accordion-body">
+            <?php echo render_field($defaultTemplateForm->informationobject); ?>
+
+            <?php echo render_field($defaultTemplateForm->actor); ?>
+
+            <?php echo render_field($defaultTemplateForm->repository); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
