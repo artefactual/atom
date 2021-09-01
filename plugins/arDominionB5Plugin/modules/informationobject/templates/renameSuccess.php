@@ -14,20 +14,26 @@
 
 <?php slot('content'); ?>
 
-  <div class="modal hide" id="rename-slug-warning">
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">×</a>
-      <h3><?php echo __('Slug in use'); ?></h3>
-    </div>
-
-    <div class="modal-body">
-      <?php echo __('A slug based on this title already exists so a number has been added to pad the slug.'); ?>
-    </div>
-
-    <div class="modal-footer">
-      <section class="actions">
-        <button id="renameModalCancel" class="btn atom-btn-outline-light" data-dismiss="modal"><?php echo __('Close'); ?></button>
-      </section>
+  <div class="modal fade" id="rename-slug-warning" tabindex="-1" aria-labelledby="rename-modal-heading" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rename-modal-heading">
+            <?php echo __('Slug in use'); ?>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+            <span class="visually-hidden"><?php echo __('Close'); ?></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php echo __('A slug based on this title already exists so a number has been added to pad the slug.'); ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <?php echo __('Close'); ?>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   
