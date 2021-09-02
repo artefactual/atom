@@ -25,21 +25,20 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?php echo $form->enabled->label(__('Enable Markdown support'))->renderLabel(); ?></td>
-            <td><?php echo $form->enabled; ?></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="markdown-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#markdown-collapse" aria-expanded="true" aria-controls="markdown-collapse">
+            <?php echo __('Markdown settings'); ?>
+          </button>
+        </h2>
+        <div id="markdown-collapse" class="accordion-collapse collapse show" aria-labelledby="markdown-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->enabled
+                ->label(__('Enable Markdown support'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
