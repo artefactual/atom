@@ -16,20 +16,33 @@
 
   <form action="<?php echo url_for('settings/oai'); ?>" method="post">
 
-    <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).'); ?></p>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="oai-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#oai-collapse" aria-expanded="true" aria-controls="oai-collapse">
+            <?php echo __('OAI repository settings'); ?>
+          </button>
+        </h2>
+        <div id="oai-collapse" class="accordion-collapse collapse show" aria-labelledby="oai-heading">
+          <div class="accordion-body">
+            <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).'); ?></p>
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th width="30%"><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $oaiRepositoryForm; ?>
-        </tbody>
-      </table>
+            <?php echo render_field($oaiRepositoryForm->oai_authentication_enabled); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_repository_code); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_admin_emails); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_repository_identifier); ?>
+
+            <?php echo render_field($oaiRepositoryForm->sample_oai_identifier); ?>
+
+            <?php echo render_field($oaiRepositoryForm->resumption_token_limit, null, ['type' => 'number']); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_additional_sets_enabled); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
