@@ -20,31 +20,22 @@
 
     <?php echo $uiLabelForm->renderHiddenFields(); ?>
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($uiLabelForm->getSettings() as $setting) { ?>
-            <tr>
-              <td>
-                <?php if ($sf_user->getCulture() != $setting->getSourceCulture() && !strlen($setting->getValue())) { ?>
-                  <div class="default-translation"><?php echo $setting->getName(); ?></div>
-                <?php } else { ?>
-                  <?php echo $setting->getName(); ?>
-                <?php } ?>
-              </td>
-              <td>
-                <?php echo $uiLabelForm[$setting->getName()]; ?>
-              </td>
-            </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="interface-label-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#interface-label-collapse" aria-expanded="true" aria-controls="interface-label-collapse">
+            <?php echo __('User interface labels'); ?>
+          </button>
+        </h2>
+        <div id="interface-label-collapse" class="accordion-collapse collapse show" aria-labelledby="interface-label-heading">
+          <div class="accordion-body">
+            <?php foreach ($uiLabelForm->getSettings() as $setting) { ?>
+              <?php $name = $setting->getName(); ?>
+              <?php echo render_field($uiLabelForm->{$name}->label('<code>'.$name.'</code>'), $setting); ?>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
