@@ -52,9 +52,11 @@ class SettingsFindingAidForm extends sfForm
         $this->validatorSchema['public_finding_aid'] = new sfValidatorInteger(['required' => false]);
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-        $this->widgetSchema->addFormFormatter('list', $decorator);
-        $this->widgetSchema->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+            $this->widgetSchema->addFormFormatter('list', $decorator);
+            $this->widgetSchema->setFormFormatterName('list');
+        }
 
         // Set wrapper text for Finding Aid settings
         $this->widgetSchema->setNameFormat('finding_aid[%s]');

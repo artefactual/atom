@@ -84,9 +84,11 @@ class SettingsDefaultTemplateForm extends sfForm
         $this->validatorSchema['repository'] = new sfValidatorString();
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-        $this->widgetSchema->addFormFormatter('list', $decorator);
-        $this->widgetSchema->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+            $this->widgetSchema->addFormFormatter('list', $decorator);
+            $this->widgetSchema->setFormFormatterName('list');
+        }
 
         // Set wrapper text for global form settings
         $this->widgetSchema->setNameFormat('default_template[%s]');
