@@ -41,11 +41,13 @@ class SettingsUploadsAction extends SettingsEditAction
         ];
 
         // Set form decorator
-        $this->form->getWidgetSchema()->addFormFormatter(
-            'list',
-            new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema())
-        );
-        $this->form->getWidgetSchema()->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $this->form->getWidgetSchema()->addFormFormatter(
+                'list',
+                new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema())
+            );
+            $this->form->getWidgetSchema()->setFormFormatterName('list');
+        }
     }
 
     protected function addField($name)

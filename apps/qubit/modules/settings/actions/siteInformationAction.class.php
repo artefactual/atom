@@ -45,9 +45,11 @@ class SettingsSiteInformationAction extends SettingsEditAction
         $this->updateMessage = $this->i18n->__('Site information saved.');
 
         // Set form decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
-        $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
-        $this->form->getWidgetSchema()->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
+            $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
+            $this->form->getWidgetSchema()->setFormFormatterName('list');
+        }
     }
 
     protected function addField($name)
