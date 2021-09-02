@@ -86,9 +86,11 @@ class SettingsOaiRepositoryForm extends sfForm
         $this->validatorSchema['oai_additional_sets_enabled'] = new sfValidatorInteger(['required' => false]);
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-        $this->widgetSchema->addFormFormatter('list', $decorator);
-        $this->widgetSchema->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+            $this->widgetSchema->addFormFormatter('list', $decorator);
+            $this->widgetSchema->setFormFormatterName('list');
+        }
 
         // Set wrapper text for OAI Harvesting form settings
         $this->widgetSchema->setNameFormat('oai_repository[%s]');
