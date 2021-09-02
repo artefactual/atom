@@ -21,6 +21,10 @@ class arWidgetFormUploadQuota extends sfWidgetFormInput
 {
     public function render($name, $value = null, $attributes = [], $errors = [])
     {
+        if (sfConfig::get('app_b5_theme', false)) {
+            return $this->renderB5($name, $value, $attributes, $errors);
+        }
+
         $uploadLimit = (int) sfConfig::get('app_upload_limit');
 
         if (0 === $uploadLimit) {
@@ -44,6 +48,32 @@ class arWidgetFormUploadQuota extends sfWidgetFormInput
                 ]
             )
             .'</label>';
+    }
+
+    public function renderB5($name, $value = null, $attributes = [], $errors = [])
+    {
+        $uploadLimit = (int) sfConfig::get('app_upload_limit');
+
+        if (0 === $uploadLimit) {
+            $label = __('%1% upload is disabled', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]);
+        } elseif (-1 === $uploadLimit) {
+            $label = __('Unlimited');
+        } else {
+            $label = __('The uploads directory has not been created yet.');
+
+            $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
+            if ($size >= 0) {
+                $label = __(
+                    '%1% used of %2%',
+                    [
+                        '%1%' => hr_filesize($size),
+                        '%2%' => $uploadLimit.' GB',
+                    ]
+                );
+            }
+        }
+
+        return '<input class="form-control" type="text" value="'.$label.'" aria-label="'.$label.'" disabled readonly>';
     }
 
     protected function configure($options = [], $attributes = [])
