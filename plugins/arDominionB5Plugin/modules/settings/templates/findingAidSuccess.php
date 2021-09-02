@@ -16,18 +16,23 @@
 
   <form action="<?php echo url_for('settings/findingAid'); ?>" method="post">
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $findingAidForm; ?>
-        </tbody>
-      </table>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="finding-aid-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#finding-aid-collapse" aria-expanded="true" aria-controls="finding-aid-collapse">
+            <?php echo __('Finding Aid settings'); ?>
+          </button>
+        </h2>
+        <div id="finding-aid-collapse" class="accordion-collapse collapse show" aria-labelledby="finding-aid-heading">
+          <div class="accordion-body">
+            <?php echo render_field($findingAidForm->finding_aid_format); ?>
+
+            <?php echo render_field($findingAidForm->finding_aid_model); ?>
+
+            <?php echo render_field($findingAidForm->public_finding_aid); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
