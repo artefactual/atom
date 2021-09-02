@@ -22,70 +22,54 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="settings-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#settings-collapse" aria-expanded="true" aria-controls="settings-collapse">
+            <?php echo __('Upload settings'); ?>
+          </button>
+        </h2>
+        <div id="settings-collapse" class="accordion-collapse collapse show" aria-labelledby="settings-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->upload_quota
+                ->label(__('Total space available for uploads'))); ?>
 
-        <tbody>
+            <?php echo render_field($form->enable_repository_quotas
+                ->label(
+                  __('%1% upload limits',
+                  [
+                      '%1%' => sfConfig::get('app_ui_label_repository'),
+                  ]
+                ))
+                ->help(__(
+                  'When enabled, an &quot;Upload limit&quot; meter is displayed'
+                  .' for authenticated users on the %1% view page, and'
+                  .' administrators can limit the disk space each %1% is allowed'
+                  .' for %2% uploads',
+                  [
+                      '%1%' => strtolower(sfConfig::get('app_ui_label_repository')),
+                      '%2%' => strtolower(sfConfig::get('app_ui_label_digitalobject')),
+                  ]))); ?>
 
-          <?php echo $form
-              ->upload_quota
-              ->label(__('Total space available for uploads'))
-              ->renderRow();
-          ?>
+            <?php echo render_field($form->repository_quota
+                ->label(__(
+                    'Default %1% upload limit (GB)',
+                    ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]
+                ))
+                ->help(__(
+                    'Default %1% upload limit for a new %2%.  A value of &quot;0'
+                    .'&quot; (zero) disables file upload.  A value of &quot;-1'
+                    .'&quot; allows unlimited uploads',
+                    [
+                        '%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')),
+                        '%2%' => strtolower(sfConfig::get('app_ui_label_repository')),
+                    ]))); ?>
 
-          <?php echo $form
-              ->enable_repository_quotas
-              ->label(
-                __('%1% upload limits',
-                [
-                    '%1%' => sfConfig::get('app_ui_label_repository'),
-                ]
-              ))
-              ->help(__(
-                'When enabled, an &quot;Upload limit&quot; meter is displayed'
-                .' for authenticated users on the %1% view page, and'
-                .' administrators can limit the disk space each %1% is allowed'
-                .' for %2% uploads',
-                [
-                    '%1%' => strtolower(sfConfig::get('app_ui_label_repository')),
-                    '%2%' => strtolower(sfConfig::get('app_ui_label_digitalobject')),
-                ]
-              ))
-              ->renderRow();
-          ?>
-
-          <?php echo $form
-              ->repository_quota
-              ->label(__(
-              'Default %1% upload limit (GB)',
-              ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]
-            ))
-              ->help(__(
-                'Default %1% upload limit for a new %2%.  A value of &quot;0'
-                .'&quot; (zero) disables file upload.  A value of &quot;-1'
-                .'&quot; allows unlimited uploads',
-                [
-                    '%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')),
-                    '%2%' => strtolower(sfConfig::get('app_ui_label_repository')),
-                ]
-              ))
-              ->renderRow();
-          ?>
-
-          <?php echo $form
-              ->explode_multipage_files
-              ->label(__('Upload multi-page files as multiple descriptions'))
-              ->renderRow();
-          ?>
-
-        </tbody>
-      </table>
+            <?php echo render_field($form->explode_multipage_files
+                ->label(__('Upload multi-page files as multiple descriptions'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
