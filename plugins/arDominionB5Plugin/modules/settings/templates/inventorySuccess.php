@@ -35,10 +35,13 @@
               </div>
             <?php } ?>
 
-            <?php echo $form->levels
-                ->label(__('Levels of description'))
-                ->help(__('Select the levels of description to be included in the inventory list. If no levels are selected, the inventory list link will not be displayed. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu.'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->levels
+                    ->label(__('Levels of description'))
+                    ->help(__('Select the levels of description to be included in the inventory list. If no levels are selected, the inventory list link will not be displayed. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu.')),
+                null,
+                ['class' => 'form-autocomplete'],
+            ); ?>
 
             <br />
             <?php $taxonomy = QubitTaxonomy::getById(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID); ?>
