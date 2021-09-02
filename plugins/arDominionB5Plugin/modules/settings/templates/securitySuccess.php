@@ -20,18 +20,21 @@
 
   <form action="<?php echo url_for('settings/security'); ?>" method="post">
 
-    <div class="table-responsive mb-3">
-      <table class="table table-bordered mb-0">
-        <thead>
-          <tr>
-            <th width="30%"><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $form; ?>
-        </tbody>
-      </table>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="security-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#security-collapse" aria-expanded="true" aria-controls="security-collapse">
+            <?php echo __('Security settings'); ?>
+          </button>
+        </h2>
+        <div id="security-collapse" class="accordion-collapse collapse show" aria-labelledby="security-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->limit_admin_ip); ?>
+            <?php echo render_field($form->require_ssl_admin); ?>
+            <?php echo render_field($form->require_strong_passwords); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="actions">
