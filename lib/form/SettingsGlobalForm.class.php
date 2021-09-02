@@ -136,9 +136,11 @@ class SettingsGlobalForm extends sfForm
         $this->validatorSchema['cache_xml_on_save'] = new sfValidatorInteger(['required' => false]);
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-        $this->widgetSchema->addFormFormatter('list', $decorator);
-        $this->widgetSchema->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+            $this->widgetSchema->addFormFormatter('list', $decorator);
+            $this->widgetSchema->setFormFormatterName('list');
+        }
 
         // Set wrapper text for global form settings
         $this->widgetSchema->setNameFormat('global_settings[%s]');
