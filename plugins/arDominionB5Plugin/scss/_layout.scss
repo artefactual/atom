@@ -148,3 +148,18 @@ body > iframe {
 #settings-menu {
   top: 16px;
 }
+
+// Permissions settings.
+.settings.permissions #permissions-collapse td {
+  &,
+  input {
+    cursor: pointer;
+  }
+  background-color: rgba($danger, 0.1);
+  &:hover {
+    background-color: $light;
+  }
+  &.checked {
+    background-color: rgba($success, 0.1);
+  }
+}
