@@ -32,6 +32,14 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
     protected $indexByName;
     protected $orderByNames;
 
+    public function __destruct()
+    {
+        if (isset($this->statement)) {
+            //$this->statement = null;
+            $this->statement->closeCursor();
+        }
+    }
+
     public function __isset($name)
     {
         list($objects, $sorted) = $this->getData($this);
