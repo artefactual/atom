@@ -35,9 +35,7 @@
         </h2>
         <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
           <div class="accordion-body">
-            <?php echo $permissionsForm['granted_right']
-                ->label(__('PREMIS act'))
-                ->renderRow(); ?>
+            <?php echo render_field($permissionsForm['granted_right']->label(__('PREMIS act'))); ?>
 
             <div class="table-responsive mb-3">
               <table class="table table-bordered mb-0 caption-top">
@@ -46,88 +44,50 @@
                     <?php echo __('Permissions'); ?>
                   </span>
                 </caption>
-                <thead>
+                <colgroup><col></colgroup>
+                <colgroup span="3"></colgroup>
+                <colgroup span="3"></colgroup>
+                <colgroup span="3"></colgroup>
+                <tr>
+                  <th rowspan="2" scope="colgroup" class="text-center"><?php echo __('Basis'); ?></th>
+                  <th colspan="3" scope="colgroup" class="text-center"><?php echo __('Allow'); ?></th>
+                  <th colspan="3" scope="colgroup" class="text-center"><?php echo __('Conditional'); ?></th>
+                  <th colspan="3" scope="colgroup" class="text-center"><?php echo __('Disallow'); ?></th>
+                </tr>
+                <tr>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Master'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Reference'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Thumb'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Master'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Reference'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Thumb'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Master'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Reference'); ?></button></th>
+                  <th scope="col"><button class="btn btn-sm atom-btn-white w-100"><?php echo __('Thumb'); ?></button></th>
+                </tr>
+                <?php foreach ($permissionsForm['permissions'] as $k => $sf) { ?>
                   <tr>
-                    <th>&nbsp;</th>
-                    <th>Allow</th>
-                    <th>Conditional</th>
-                    <th>Disallow</th>
-                  </tr>
-                  <tr>
-                    <th class="premis-permissions-basis">Basis</th>
-                    <th class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                        </ul>
-                      </div>
-                    </th>
-                    <th class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                        </ul>
-                      </div>
-                    </th>
-                    <th class="premis-permissions-mrt">
-                      <div>
-                        <ul>
-                          <li><a href="#" class="btn btn-small btn-check-col">Master</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Reference</a></li>
-                          <li><a href="#" class="btn btn-small btn-check-col">Thumb</a></li>
-                        </ul>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach ($permissionsForm['permissions'] as $k => $sf) { ?>
-                    <tr>
-                      <td class="premis-permissions-basis-value">
-                        <span><?php echo $basis[$k]; ?></span>
-                      </td>
-                      <td class="premis-permissions-mrt">
-                        <div>
-                          <ul>
-                            <li class="cbx"><?php echo $sf['allow_master']; ?></li>
-                            <li class="cbx"><?php echo $sf['allow_reference']; ?></li>
-                            <li class="cbx"><?php echo $sf['allow_thumb']; ?></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="premis-permissions-mrt">
-                        <div>
-                          <ul>
-                            <li class="cbx"><?php echo $sf['conditional_master']; ?></li>
-                            <li class="cbx"><?php echo $sf['conditional_reference']; ?></li>
-                            <li class="cbx"><?php echo $sf['conditional_thumb']; ?></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td class="premis-permissions-mrt">
-                        <div>
-                          <ul>
-                            <li class="cbx"><?php echo $sf['disallow_master']; ?></li>
-                            <li class="cbx"><?php echo $sf['disallow_reference']; ?></li>
-                            <li class="cbx"><?php echo $sf['disallow_thumb']; ?></li>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
+                    <th class="text-end" scope="row"><?php echo $basis[$k]; ?></th>
+                    <td class="text-center"><?php echo $sf['allow_master']; ?></td>
+                    <td class="text-center"><?php echo $sf['allow_reference']; ?></td>
+                    <td class="text-center"><?php echo $sf['allow_thumb']; ?></td>
+                    <td class="text-center"><?php echo $sf['conditional_master']; ?></td>
+                    <td class="text-center"><?php echo $sf['conditional_reference']; ?></td>
+                    <td class="text-center"><?php echo $sf['conditional_thumb']; ?></td>
+                    <td class="text-center"><?php echo $sf['disallow_master']; ?></td>
+                    <td class="text-center"><?php echo $sf['disallow_reference']; ?></td>
+                    <td class="text-center"><?php echo $sf['disallow_thumb']; ?></td>
                   <?php } ?>
                 </tbody>
               </table>
             </div>
 
-            <ul class="premis-permissions-toggle">
-              <li><a href="#" class="all">All</a></li>
-              <li class="separator">/</li>
-              <li><a href="#" class="none">None</a></li>
-            </ul>
+            <div class="text-end">
+              <div class="btn-group" role="group" aria-label="<?php echo __('Permission toggles'); ?>">
+                <button type="button" class="btn btn-sm atom-btn-white all"><?php echo __('All'); ?></button>
+                <button type="button" class="btn btn-sm atom-btn-white none"><?php echo __('None'); ?></button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -139,27 +99,49 @@
         </h2>
         <div id="statements-collapse" class="accordion-collapse collapse" aria-labelledby="statements-heading">
           <div class="accordion-body">
-            <div class="tabbable tabs-left">
-              <ul class="nav nav-tabs">
-                <?php foreach ($basis as $basisSlug => $basisName) { ?>
-                  <li><a href="<?php echo "#tab{$basisSlug}"; ?>" data-toggle="tab"><?php echo $basisName; ?></a></li>
-                <?php } ?>
-              </ul>
-              <div class="tab-content">
-                <?php $settings = $permissionsAccessStatementsForm->getSettings(); ?>
-                <?php foreach ($basis as $basisSlug => $basisName) { ?>
-                  <div class="tab-pane" id="<?php echo "tab{$basisSlug}"; ?>">
-                    <?php $name = "{$basisSlug}_disallow"; ?>
-                    <?php $field = $permissionsAccessStatementsForm[$name]; ?>
-                    <?php echo render_field($field->label(__('Disallow statement')), $settings[$name], ['name' => 'value', 'class' => 'resizable']); ?>
 
-                    <?php $name = "{$basisSlug}_conditional"; ?>
-                    <?php $field = $permissionsAccessStatementsForm[$name]; ?>
-                    <?php echo render_field($field->label(__('Conditional statement')), $settings[$name], ['name' => 'value', 'class' => 'resizable']); ?>
-                  </div>
-                <?php } ?>
-              </div>
+            <?php $firstKey = array_key_first($basis->getRawValue()); ?>
+
+            <ul class="nav nav-tabs mb-3" role="tablist">
+              <?php foreach ($basis as $basisSlug => $basisName) { ?>
+                <li class="nav-item" role="presentation">
+                  <?php $isFirst = $firstKey === $basisSlug; ?>
+                  <button
+                    class="nav-link<?php echo $isFirst ? ' active' : ''; ?>"
+                    id="<?php echo "{$basisSlug}-tab"; ?>"
+                    type="button"
+                    role="tab"
+                    aria-controls="<?php echo "{$basisSlug}-pane"; ?>"
+                    aria-selected="<?php echo $isFirst ? 'true' : 'false'; ?>"
+                    data-bs-toggle="tab"
+                    data-bs-target="<?php echo "#{$basisSlug}-pane"; ?>">
+                    <?php echo $basisName; ?>
+                  </button>
+                </li>
+              <?php } ?>
+            </ul>
+
+            <div class="tab-content">
+              <?php $settings = $permissionsAccessStatementsForm->getSettings(); ?>
+              <?php foreach ($basis as $basisSlug => $basisName) { ?>
+                <?php $isFirst = $firstKey === $basisSlug; ?>
+                <div
+                  class="tab-pane fade<?php echo $isFirst ? ' show active' : ''; ?>"
+                  id="<?php echo "{$basisSlug}-pane"; ?>"
+                  role="tabpanel"
+                  aria-labelledby="<?php echo "{$basisSlug}-tab"; ?>"
+                >
+                  <?php $name = "{$basisSlug}_disallow"; ?>
+                  <?php $field = $permissionsAccessStatementsForm[$name]; ?>
+                  <?php echo render_field($field->label(__('Disallow statement')), $settings[$name], ['name' => 'value', 'class' => 'resizable']); ?>
+
+                  <?php $name = "{$basisSlug}_conditional"; ?>
+                  <?php $field = $permissionsAccessStatementsForm[$name]; ?>
+                  <?php echo render_field($field->label(__('Conditional statement')), $settings[$name], ['name' => 'value', 'class' => 'resizable']); ?>
+                </div>
+              <?php } ?>
             </div>
+
           </div>
         </div>
       </div>
@@ -171,19 +153,20 @@
         </h2>
         <div id="copyright-collapse" class="accordion-collapse collapse" aria-labelledby="copyright-heading">
           <div class="accordion-body">
-            <?php echo $permissionsCopyrightStatementForm->copyrightStatementEnabled
-                ->label(__('Enable copyright statement'))
-                ->renderRow(); ?>
+            <?php echo render_field(
+                $permissionsCopyrightStatementForm
+                    ->copyrightStatementEnabled
+                    ->label(__('Enable copyright statement'))); ?>
 
-            <br />
-            <div class="alert alert-info">
-              <?php echo __('When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
-            </div>
+            <?php echo render_field(
+                $permissionsCopyrightStatementForm
+                    ->copyrightStatement
+                    ->label(__('Copyright statement'))
+                    ->help(__('When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))])),
+                $copyrightStatementSetting,
+                ['name' => 'value', 'class' => 'resizable']); ?>
 
-            <?php echo render_field($permissionsCopyrightStatementForm->copyrightStatement
-                ->label(__('Copyright statement')), $copyrightStatementSetting, ['name' => 'value', 'class' => 'resizable']); ?>
-
-            <input class="btn" type="submit" name="preview" value="<?php echo __('Preview'); ?>"/>
+            <input class="btn atom-btn-white" type="submit" name="preview" value="<?php echo __('Preview'); ?>"/>
           </div>
         </div>
       </div>
@@ -195,17 +178,18 @@
         </h2>
         <div id="preservation-collapse" class="accordion-collapse collapse" aria-labelledby="preservation-heading">
           <div class="accordion-body">
-            <?php echo $permissionsPreservationSystemAccessStatementForm->preservationSystemAccessStatementEnabled
-                ->label(__('Enable access statement'))
-                ->renderRow(); ?>
+            <?php echo render_field(
+                $permissionsPreservationSystemAccessStatementForm
+                    ->preservationSystemAccessStatementEnabled
+                    ->label(__('Enable access statement'))); ?>
 
-            <br />
-            <div class="alert alert-info">
-              <?php echo __('When enabled the following text will appear in the %1% metadata section to describe how a user may access the original and preservation copy of the file stored in a linked digital preservation system. The text appears in the "Permissions" field. When disabled, the "Permissions" field is not displayed.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
-            </div>
-
-            <?php echo render_field($permissionsPreservationSystemAccessStatementForm->preservationSystemAccessStatement
-                ->label(__('Access statement')), $preservationSystemAccessStatementSetting, ['name' => 'value', 'class' => 'resizable']); ?>
+            <?php echo render_field(
+                $permissionsPreservationSystemAccessStatementForm
+                    ->preservationSystemAccessStatement
+                    ->label(__('Access statement'))
+                    ->help(__('When enabled the text above will appear in the %1% metadata section to describe how a user may access the original and preservation copy of the file stored in a linked digital preservation system. The text appears in the "Permissions" field. When disabled, the "Permissions" field is not displayed.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))])),
+                $preservationSystemAccessStatementSetting,
+                ['name' => 'value', 'class' => 'resizable']); ?>
           </div>
         </div>
       </div>
