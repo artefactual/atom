@@ -73,7 +73,7 @@ class InformationObjectReportsAction extends sfAction
                     $choices = [];
                 }
 
-                if ($this->getUser()->isAuthenticated()) {
+                if ($this->getUser()->isAuthenticated() && count($this->resource->getPhysicalObjects())) {
                     $choices[$this->context->routing->generate(null, [$this->resource, 'module' => 'informationobject', 'action' => 'storageLocations'])] = $this->context->i18n->__('Physical storage locations');
                     $choices[$this->context->routing->generate(null, [$this->resource, 'module' => 'informationobject', 'action' => 'boxLabel'])] = $this->context->i18n->__('Box label');
                 }
