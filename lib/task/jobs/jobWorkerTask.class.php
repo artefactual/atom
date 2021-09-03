@@ -62,6 +62,10 @@ EOF;
         $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
         $context = sfContext::createInstance($configuration);
 
+        
+        sfContext::getInstance()->getLogger()->err('SBSBSB jobWorkerTask getenv: ' . json_encode(getenv("MEMPROF_PROFILE")));
+        //memprof_enable();
+
         // Using the current context, get the event dispatcher and suscribe an event in it
         $context->getEventDispatcher()->connect('gearman.worker.log', [$this, 'gearmanWorkerLogger']);
 
@@ -111,7 +115,7 @@ EOF;
         $this->activateTerminationHandlers();
 
         $counter = 0;
-
+        $start_time = microtime(true);
         // The worker loop!
         $worker->beginWork(
             // Pass a callback that pings the database every ~30 seconds
@@ -120,11 +124,15 @@ EOF;
             // Another option would be to catch the ProperException from the worker
             // and restablish the connection when needed. Also, the persistent mode
             // could be disabled for this worker. See issue #4182.
-            function () use (&$counter) {
+            function () use (&$counter, &$start_time) {
                 if (30 == $counter++) {
                     $counter = 0;
 
                     QubitPdo::prepareAndExecute('SELECT 1');
+
+                    $end_time = microtime(true);
+                    preg_match('/^VmRSS:\s(.*)/m', file_get_contents('/proc/self/status'), $m);
+                    sfContext::getInstance()->getLogger()->err(sprintf("%d secs - %.2fMb - %s\n", ($end_time - $start_time), memory_get_usage(true) / 1024 / 1024, trim($m[1])));
                 }
             }
         );
@@ -157,6 +165,15 @@ EOF;
         // Define shutdown function
         register_shutdown_function(function () {
             $this->log('Job worker stopped.');
+
+            sfContext::getInstance()->getLogger()->err('jobWorkerTask testing memprof...');
+            if (memprof_enabled()) {
+                sfContext::getInstance()->getLogger()->err('jobWorkerTask memprof enabled - outputting file...');
+                memprof_dump_callgrind(fopen("/vagrant/memprof_callgrind.out", "w"));
+            }
+            else {
+                sfContext::getInstance()->getLogger()->err('jobWorkerTask memprof DISABLED');
+            }
         });
     }
 }
