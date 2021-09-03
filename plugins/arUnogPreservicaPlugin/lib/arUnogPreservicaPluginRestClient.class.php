@@ -31,7 +31,7 @@ class arUnogPreservicaPluginRestClient
 
     public function getHttpStatus()
     {
-        return $this->httpStatus;
+        return $this->httpStatusCode;
     }
 
     public function getObjectDetails($uuid)

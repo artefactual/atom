@@ -62,7 +62,7 @@ class arUnogPreservicaPluginDigitalObjectsCreateAction extends QubitApiAction
 
         // Fail if no object with that UUID exists
         if (empty($objectData = $client->getObjectDetails($uuid))) {
-            $message = $this->context->i18n->__('Error fetching object data.');
+            $message = $this->context->i18n->__('Error fetching object data from Preservica.');
 
             throw new QubitApiUnknownException($message);
         }
@@ -131,13 +131,12 @@ class arUnogPreservicaPluginDigitalObjectsCreateAction extends QubitApiAction
         $criteria->add(QubitProperty::OBJECT_ID, $doId);
 
         $criteria->add(QubitProperty::NAME, 'transcript');
-        $criteria->add(QubitProperty::SCOPE, 'Text extracted from source PDF file\'s text layer using pdftotext');
 
         if (null === $property = QubitProperty::getOne($criteria)) {
             $property = new QubitProperty();
             $property->objectId = $doId;
             $property->name = 'transcript';
-            $property->scope = 'Text extracted from source PDF file\'s text layer using pdftotext';
+            $property->scope = 'Text extracted from source PDF file\'s text layer using Preservica API';
         }
 
         $property->value = $text;

@@ -27,6 +27,18 @@ class arUnogPreservicaPluginDownloadMasterAction extends sfAction
             $this->forward404();
         }
 
+        // Check, if I.O. isn't published, that user is authorized to access drafts
+        $publicationStatusId = $this->resource->getPublicationStatus()->statusId;
+
+        if (
+            QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID != $publicationStatusId
+            && !QubitAcl::check($this->resource, 'viewDraft')
+        ) {
+            $this->getResponse()->setStatusCode(403);
+
+            return sfView::NONE;
+        }
+
         // Attempt to fetch information object's digital object
         if (empty($do = $this->resource->getDigitalObject())) {
             $this->forward404();
