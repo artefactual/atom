@@ -443,6 +443,8 @@ class BasePeer
 			$con = Propel::getConnection($criteria->getDbName(), Propel::CONNECTION_READ);
 		}
 
+		//$con->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+
 		$stmt = null;
 
 		if ($criteria->isUseTransaction()) $con->beginTransaction();
