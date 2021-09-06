@@ -8,12 +8,15 @@
   data-required-fields="<?php echo $form->informationObject->renderId().','.$form->type->renderId(); ?>"
   data-delete-field-name="deleteRelations"
   data-iframe-error="<?php echo __('The following resources could not be created:'); ?>"
-  data-lazy-load-url="<?php echo url_for([
-      'module' => 'sfIsaarPlugin',
-      'action' => 'actorEvents',
-      'slug' => $resource->slug,
-      'limit' => sfConfig::get('app_hits_per_page', 10),
-  ]); ?>">
+  <?php if (isset($resource->slug)) { ?>
+    data-lazy-load-url="<?php echo url_for([
+        'module' => 'sfIsaarPlugin',
+        'action' => 'actorEvents',
+        'slug' => $resource->slug,
+        'limit' => sfConfig::get('app_hits_per_page', 10),
+    ]); ?>"
+  <?php } ?>
+  data-iframe-error="<?php echo __('The following resources could not be created:'); ?>">
   <div class="alert alert-danger d-none load-error" role="alert">
     <?php echo __('Could not load relation data.'); ?>
   </div>
