@@ -62,7 +62,10 @@
     }
 
     lazyLoad() {
-      if (!this.lazyLoadUrl) return;
+      if (!this.lazyLoadUrl) {
+        this.$element.find(".show-more").remove();
+        return;
+      }
 
       // Skip already loaded data, limit is set in the URL
       $.get(this.lazyLoadUrl, { skip: this.lazyLoadCount })
