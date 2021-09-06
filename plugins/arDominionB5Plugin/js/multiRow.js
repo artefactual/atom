@@ -19,7 +19,7 @@
             .shift()
         );
 
-        // Replace yui div with form-autocomplete elements
+        // Replace YUI div with form-autocomplete elements
         $newRow.find(".yui-ac").each(function () {
           var $this = $(this);
           var name = $this.children("input[name]:first").attr("name");
@@ -27,13 +27,16 @@
           var inputAdd = $this.children("input[class=add]")[0];
           var inputList = $this.children("input[class=list]")[0];
           $this.replaceWith(
-            '<select name="' +
-              name +
-              '" class="form-autocomplete" id="' +
-              id +
-              '"></select>' +
-              inputAdd.outerHTML +
-              inputList.outerHTML
+            $("<div>")
+              .append(
+                $("<select>", {
+                  id: id,
+                  name: name,
+                  class: "form-autocomplete form-control",
+                })
+              )
+              .append(inputAdd)
+              .append(inputList)
           );
         });
 
@@ -71,10 +74,11 @@
           }
         });
 
-        // Append to table, show and trigger focus on first input
+        // Append, attach autocomplete, show and trigger focus on first input
         $table.children("tbody").append($newRow);
+        Drupal.behaviors.autocomplete.attach();
         $newRow.show(250, () =>
-          $newRow.find("select, input, textarea").first().trigger("focus")
+          $newRow.find(":input:focusable").first().trigger("focus")
         );
       });
 
