@@ -482,18 +482,15 @@ EOF;
                         } elseif (null !== QubitInformationObject::getById($self->rowStatusVars['parentId'])) {
                             $parentId = $self->rowStatusVars['parentId'];
                         } else {
+                            $parentId = $self->status['defaultParentId'];
+
                             $error = sprintf(
-                                'legacyId %s: could not find parentId %s in key_map table or existing data. Setting parent to root...',
+                                'legacyId %s: could not find parentId %s in key_map table or existing data. Setting parent to default...',
                                 $self->rowStatusVars['legacyId'],
                                 $self->rowStatusVars['parentId']
                             );
 
                             echo $self->logError($error);
-
-                            // Set parent if not importing an QubitInformationObjectI18n translation row
-                            if ($notImportingTranslation) {
-                                $self->object->parentId = QubitInformationObject::ROOT_ID;
-                            }
                         }
                     }
                 }

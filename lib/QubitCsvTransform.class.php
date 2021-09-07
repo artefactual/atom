@@ -23,6 +23,7 @@ class QubitCsvTransform extends QubitFlatfileImport
     public $transformLogic;
     public $rowsPerFile = 1000;
     public $preserveOrder = false;
+    public $levelsOfDescription;
     public $convertWindowsEncoding = false;
 
     private $link;
@@ -60,16 +61,25 @@ class QubitCsvTransform extends QubitFlatfileImport
         }
         $this->status['headersWritten'] = false;
 
-        // Load levels of description from database
-        $criteria = new Criteria();
-        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
-        $criteria->add(QubitTermI18n::CULTURE, 'en');
-        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-        $criteria->addAscendingOrderByColumn('lft');
-
+        // Set levels of description
         $this->levelsOfDescription = [];
-        foreach (QubitTerm::get($criteria) as $term) {
-            $this->levelsOfDescription[] = strtolower($term->name);
+
+        if (!empty($options['levelsOfDescription'])) {
+            // Use abritrary list of levels of description
+            foreach ($options['levelsOfDescription'] as $name) {
+                $this->levelsOfDescription[] = strtolower($name);
+            }
+        } else {
+            // Load levels of description from database
+            $criteria = new Criteria();
+            $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+            $criteria->add(QubitTermI18n::CULTURE, 'en');
+            $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+            $criteria->addAscendingOrderByColumn('lft');
+
+            foreach (QubitTerm::get($criteria) as $term) {
+                $this->levelsOfDescription[] = strtolower($term->name);
+            }
         }
     }
 
@@ -134,13 +144,17 @@ class QubitCsvTransform extends QubitFlatfileImport
         }
     }
 
-    public function numberedFilePathVariation($filename, $number)
+    public static function numberedFilePathVariation($filename, $number)
     {
         $parts = pathinfo($filename);
-        $base = $parts['filename'];
-        $path = $parts['dirname'];
 
-        return $path.'/'.$base.'_'.$number.'.'.$parts['extension'];
+        return sprintf(
+            '%s/%s_%04d.%s',
+            $parts['dirname'],
+            $parts['filename'],
+            $number,
+            $parts['extension']
+        );
     }
 
     public function writeMySQLRowsToCsvFilePath($filepath)

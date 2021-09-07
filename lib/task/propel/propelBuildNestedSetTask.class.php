@@ -93,6 +93,11 @@ class propelBuildNestedSetTask extends sfBaseTask
             $this->conn->commit();
         }
 
+        $this->logSection(
+            'propel',
+            'Note: you will need to rebuild your search index for updates to show up properly in search results.'
+        );
+
         $this->logSection('propel', 'Done!');
     }
 

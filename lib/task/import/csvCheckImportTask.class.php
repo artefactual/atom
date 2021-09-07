@@ -62,7 +62,7 @@ class csvCheckImportTask extends arBaseTask
     {
         $this->addArguments([
             new sfCommandArgument('filename', sfCommandArgument::REQUIRED,
-              'The input file name (csv format).'),
+              'The input file name (CSV format) or directory of CSV files.'),
         ]);
 
         $this->addOptions([
@@ -137,6 +137,11 @@ EOF;
 
     protected function setCsvValidatorFilenames($filenameString)
     {
+        // If a directory's provided return an array of file paths
+        if (is_dir($filenameString) && is_readable($filenameString)) {
+            return $this->getFilePathsFromDirectory($filenameString);
+        }
+
         // Could be a comma separated list of filenames or just one.
         foreach (explode(',', $filenameString) as $filename) {
             CsvImportValidator::validateFileName($filename);
@@ -146,6 +151,31 @@ EOF;
         }
 
         return $filenames;
+    }
+
+    protected function getFilePathsFromDirectory($directory)
+    {
+        $filePaths = [];
+
+        if (!is_dir($directory) || !is_readable($directory)) {
+            $errorMessage = sprintf('%s requires a readable directory.', __FUNCTION__);
+
+            throw new UnexpectedValueException($errorMessage);
+        }
+
+        $files = array_diff(scandir($directory), ['..', '.']);
+
+        foreach ($files as $file) {
+            $filePath = $directory.DIRECTORY_SEPARATOR.$file;
+
+            if (is_file($filePath) && is_readable($filePath)) {
+                $filePaths[] = $filePath;
+            }
+        }
+
+        natsort($filePaths);
+
+        return $filePaths;
     }
 
     protected function setOptions($options = [])

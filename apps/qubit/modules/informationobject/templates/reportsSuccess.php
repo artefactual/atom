@@ -47,7 +47,9 @@
 <?php slot('after-content'); ?>
   <section class="actions">
     <ul class="clearfix links">
-      <li><input class="form-submit c-btn c-btn-submit" type="submit" value="<?php echo __('Continue'); ?>"/></li>
+      <?php if ($reportsAvailable) { ?>
+        <li><input class="form-submit c-btn c-btn-submit" type="submit" value="<?php echo __('Continue'); ?>"/></li>
+      <?php } ?>
       <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
     </ul>
   </section>
