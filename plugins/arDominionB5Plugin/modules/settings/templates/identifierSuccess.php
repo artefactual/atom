@@ -47,7 +47,7 @@
             <?php echo render_field($form->identifier_mask_enabled
                 ->label(__('Identifier mask enabled'))); ?>
 
-            <?php echo render_field($form->accession_mask
+            <?php echo render_field($form->identifier_mask
                 ->label(__('Identifier mask'))); ?>
 
           <?php echo render_field($form->identifier_counter

@@ -16,8 +16,8 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/siteInformation'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'siteInformation'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
     <div class="accordion">
