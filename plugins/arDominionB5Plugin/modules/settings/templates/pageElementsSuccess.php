@@ -16,8 +16,8 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/pageElements'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'pageElements'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
     <div class="accordion">

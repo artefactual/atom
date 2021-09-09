@@ -14,7 +14,11 @@
 
 <?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/oai'); ?>" method="post">
+  <?php echo $oaiRepositoryForm->renderGlobalErrors(); ?>
+
+  <?php echo $oaiRepositoryForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'oai'])); ?>
+
+    <?php echo $oaiRepositoryForm->renderHiddenFields(); ?>
 
     <div class="accordion">
       <div class="accordion-item">

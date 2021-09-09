@@ -16,8 +16,8 @@
 
   <?php echo $uiLabelForm->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/interfaceLabel'); ?>" method="post">
-
+  <?php echo $uiLabelForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'interfaceLabel'])); ?>
+    
     <?php echo $uiLabelForm->renderHiddenFields(); ?>
 
     <div class="accordion">
