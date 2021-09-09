@@ -14,7 +14,11 @@
 
 <?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/template'); ?>" method="post">
+  <?php echo $defaultTemplateForm->renderGlobalErrors(); ?>
+
+  <?php echo $defaultTemplateForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'template'])); ?>
+
+    <?php echo $defaultTemplateForm->renderHiddenFields(); ?>
 
     <div class="accordion">
       <div class="accordion-item">

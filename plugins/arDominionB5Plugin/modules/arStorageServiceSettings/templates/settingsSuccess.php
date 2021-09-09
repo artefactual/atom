@@ -31,22 +31,17 @@
         </h2>
         <div id="credentials-collapse" class="accordion-collapse collapse show" aria-labelledby="credentials-heading">
           <div class="accordion-body">
-            <?php echo $form->storage_service_api_url
-                ->label(__(
-                    'Storage Service API endpoint, e.g. "http://localhost:62081/api/v2"'
-                ))
-                ->renderRow(); ?>
+            <?php echo render_field($form->storage_service_api_url->label(__(
+                'Storage Service API endpoint, e.g. "http://localhost:62081/api/v2"'
+            ))); ?>
 
-            <?php echo $form->storage_service_username
-                ->label(__('Storage Service username, e.g. "atom"'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->storage_service_username->label(__(
+                'Storage Service username, e.g. "atom"'
+            ))); ?>
 
-            <?php echo $form->storage_service_api_key
-                ->label(__(
-                    'Storage Service API key, e.g.'
-                    .'"2ef7bde608ce5404e97d5f042f95f89f1c232871"'
-                ))
-                ->renderRow(); ?>
+            <?php echo render_field($form->storage_service_api_key->label(__(
+                'Storage Service API key, e.g. "2ef7bde608ce5404e97d5f042f95f89f1c232871"'
+            ))); ?>
           </div>
         </div>
       </div>
@@ -58,13 +53,10 @@
         </h2>
         <div id="aip-collapse" class="accordion-collapse collapse" aria-labelledby="aip-heading">
           <div class="accordion-body">
-            <?php echo $form->download_aip_enabled
-                ->label(__('Enable AIP download'))
-                ->help(__(
-                    'Allow authorized users to download a linked AIP or AIP file from'
-                    .' the configured Archivematica Storage Service'
-                ))
-                ->renderRow(); ?>
+            <?php echo render_field($form->download_aip_enabled->label(__('Enable AIP download'))->help(__(
+                'Allow authorized users to download a linked AIP or AIP file from'
+                .' the configured Archivematica Storage Service'
+            ))); ?>
           </div>
         </div>
       </div>
