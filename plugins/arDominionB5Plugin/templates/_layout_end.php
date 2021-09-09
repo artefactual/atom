@@ -39,6 +39,7 @@
     <script src="/plugins/arDominionB5Plugin/js/modal.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/advancedSearch.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/permissionSettings.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/mediaelement.js"></script>
     <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
     <script src="/js/blank.js"></script>
     <script src="/js/editingHistory.js"></script>

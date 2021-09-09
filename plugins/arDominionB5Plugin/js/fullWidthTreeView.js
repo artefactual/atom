@@ -2,7 +2,7 @@
   "use strict";
 
   $(function () {
-    var $node = $(".index #fullwidth-treeview");
+    var $node = $(".index #fullwidth-treeview-capable");
 
     if ($node.length) {
       loadTreeView();
@@ -163,18 +163,50 @@
       },
     };
 
-    // Declare listeners
-    // On ready: scroll to active node
-    var readyListener = function () {
-      var $activeNode = $('li[selected_on_load="true"]')[0];
+    function scrollToActive() {
+      var $activeNode;
 
+      $activeNode = $("li > a.jstree-clicked")[0];
       pager.updateMoreLink($moreButton, $resetButton);
 
       // Override default scrolling
       if ($activeNode !== undefined) {
-        $activeNode.scrollIntoView(true);
-        $("body")[0].scrollIntoView(true);
+        $activeNode.scrollIntoView(false);
       }
+    }
+
+    var showAlert = function (message, type) {
+      if (!type) {
+        type = "";
+      }
+
+      var $alert = $(
+        '<div class="alert ' +
+          type +
+          ' alert-dismissible fade show" role="alert">'
+      ).append(message);
+
+      var closeButton =
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
+        $(".index #fullwidth-treeview-capable").data("treeview-alert-close") +
+        '"></button>';
+
+      $alert.append(closeButton);
+
+      $alert.prependTo($("body > #wrapper"));
+      window.scrollTo({ top: 0 });
+
+      return $alert;
+    };
+
+    var deleteAlerts = function () {
+      $("body > #wrapper > .alert").remove();
+    };
+
+    // Declare listeners
+    // On ready: scroll to active node
+    var readyListener = function () {
+      scrollToActive();
     };
 
     // On node selection: load the informationobject's page and insert the current page
@@ -210,7 +242,7 @@
 
         // Replace description content
         $("#main-column .row").replaceWith(
-          $(response.find("#main-column .row"))
+          $(response.find("#main-column .row").first())
         );
 
         // If translation links exist in the response page, create element, if necessary,
@@ -244,28 +276,9 @@
       });
     };
 
-    // On node hover: configure tooltip. A reminder is needed each time
-    // a node is hovered to make it appear after node changes. It must
-    // use the #fullwidth-treeview container to allow a higher
-    // height than the node in multiple lines tooltips
-    var hoverNodeListener = function (e, data) {
-      $("a.jstree-anchor").tooltip({
-        delay: 250,
-        container: "#fullwidth-treeview",
-      });
-    };
-
-    // On node open: remove tooltip after a node is selected, the
-    // node is reloaded and the first tooltip is never removed
-    var openNodeListener = function (e, data) {
-      $("#fullwidth-treeview .tooltip").remove();
-    };
-
-    // On node move: remove persistent tooltip and execute
-    // Ajax request to update the hierarchy in the backend
+    // On node move execute Ajax request to update the hierarchy in the
+    // backend.
     var moveNodeListener = function (e, data) {
-      $("#fullwidth-treeview .tooltip").remove();
-
       // Avoid request if new and old positions are the same,
       // this can't be avoided in the check_callback function
       // because we don't have both positions in there
@@ -286,24 +299,16 @@
         }).responseText
       );
 
+      deleteAlerts();
+
       // Show alert with request result
       if (moveResponse.error) {
-        $(
-          '<div class="alert">' +
-            '<button type="button" data-dismiss="alert" class="close">&times;</button>'
-        )
-          .append(moveResponse.error)
-          .prependTo($("#wrapper.container"));
+        showAlert(moveResponse.error, "alert-danger");
 
         // Reload treeview if failed
         data.instance.refresh();
-      } else if (moveResponse.success) {
-        $(
-          '<div class="alert">' +
-            '<button type="button" data-dismiss="alert" class="close">&times;</button>'
-        )
-          .append(moveResponse.success)
-          .prependTo($("#wrapper.container"));
+      } else if ((moveResponse.success, "alert")) {
+        showAlert(moveResponse.success, "alert-info");
       }
     };
 
@@ -312,8 +317,6 @@
       .jstree(options)
       .bind("ready.jstree", readyListener)
       .bind("select_node.jstree", selectNodeListener)
-      .bind("hover_node.jstree", hoverNodeListener)
-      .bind("open_node.jstree", openNodeListener)
       .bind("move_node.jstree", moveNodeListener);
 
     // Clicking "more" will add next page of results to tree
