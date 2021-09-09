@@ -1,57 +1,42 @@
 // From css/fullWidthTreeView.css
-#fullwidth-treeview-header {
-  border: 1px solid #ddd;
-  border-bottom: none;
-  height: 20px;
-}
-
-#fullwidth-treeview-header div {
-  float: left;
-  background-color: #eee;
-  padding-left: 7px;
-}
-
 #fullwidth-treeview-row {
-  margin-bottom: 30px;
-  border: 1px solid #ddd;
   clear: both;
 }
 
 #fullwidth-treeview {
   overflow-x: hidden;
   height: 100%;
-  background-color: #ffffff;
+  background-color: $white;
+  border: $border-width solid $border-color;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  margin-bottom: $spacer;
+}
+
+#fullwidth-treeview-row {
+  margin-bottom: $spacer * 1.5;
+  clear: both;
 }
 
 .ui-resizable-s {
   background-image: url("/images/resizable_grip.png");
-  height: 9px;
-  border: 1px solid #ddd;
+  height: $spacer * 0.75;
+  border: $border-width solid $border-color;
+  border-bottom-right-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
   cursor: ns-resize;
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: #eee;
-  bottom: -11px;
-  left: -1px;
-  margin: -1px;
-}
-
-.fullwidth-treeview-toggle.active {
-  border: 1px inset #eee;
-}
-
-#fullwidth-treeview-loading {
-  float: right;
-  margin-right: 110px;
-  margin-top: 4px;
+  background-color: $gray-200;
+  bottom: -$spacer * 0.7;
 }
 
 .ui-resizable-s:hover {
-  background-color: #ddd;
+  background-color: $gray-300;
 }
 
 #treeview-menu li.disabled a {
-  color: #ddd;
+  color: $gray-300;
 }
 
 #fullwidth-treeview-row a.jstree-anchor {
@@ -60,18 +45,19 @@
   text-overflow: ellipsis;
 }
 
+.jstree-default .jstree-clicked {
+  background-color: $gray-400 !important;
+}
+
+.jstree-anchor {
+  &:hover {
+    background-color: $gray-200;
+  }
+}
+
 .hierarchy > .container > input[type="button"],
 #main-column > input[type="button"] {
   margin-top: 14px;
   margin-left: 6px;
   float: right;
-}
-
-// From search.less
-.full-treeview-section {
-  background-color: $gray-200;
-  border: 1px solid $black;
-  .actions {
-    margin-bottom: -20px;
-  }
 }
