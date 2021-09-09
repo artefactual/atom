@@ -14,7 +14,11 @@
 
 <?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/findingAid'); ?>" method="post">
+  <?php echo $findingAidForm->renderGlobalErrors(); ?>
+
+  <?php echo $findingAidForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'findingAid'])); ?>
+
+    <?php echo $findingAidForm->renderHiddenFields(); ?>
 
     <div class="accordion">
       <div class="accordion-item">
