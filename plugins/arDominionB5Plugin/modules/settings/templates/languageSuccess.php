@@ -21,8 +21,8 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/language'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'language'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
     <div class="accordion">

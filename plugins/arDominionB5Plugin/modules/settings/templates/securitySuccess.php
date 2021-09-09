@@ -18,7 +18,11 @@
     <?php echo __('Note: Incorrect security settings can result in the AtoM web UI becoming inaccessible.'); ?>
   </div>
 
-  <form action="<?php echo url_for('settings/security'); ?>" method="post">
+  <?php echo $form->renderGlobalErrors(); ?>
+
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'security'])); ?>
+
+    <?php echo $form->renderHiddenFields(); ?>
 
     <div class="accordion">
       <div class="accordion-item">

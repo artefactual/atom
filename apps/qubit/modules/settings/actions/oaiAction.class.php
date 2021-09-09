@@ -46,6 +46,12 @@ class SettingsOaiAction extends sfAction
                 if ($this->oaiRepositoryForm->isValid()) {
                     // Do update and redirect to avoid repeat submit wackiness
                     $this->updateOaiRepositorySettings($this->oaiRepositoryForm);
+
+                    $this->getUser()->setFlash(
+                        'notice',
+                        sfContext::getInstance()->i18n->__('OAI repository settings saved.')
+                    );
+
                     $this->redirect('settings/oai');
                 }
             }

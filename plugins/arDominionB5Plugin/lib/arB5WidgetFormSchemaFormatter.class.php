@@ -53,8 +53,11 @@ class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
 
     public function getErrorListFormatInARow()
     {
-        // An error that is not specific to a field is a form error.
-        if (is_null($this->name)) {
+        // CSRF and non field related are global errors
+        if (
+            is_null($this->name)
+            || $this->form->getCSRFFieldName() == $this->name
+        ) {
             return $this->formErrorListFormat;
         }
 

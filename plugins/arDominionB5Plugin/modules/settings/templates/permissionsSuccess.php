@@ -19,8 +19,11 @@
   <?php echo $permissionsCopyrightStatementForm->renderGlobalErrors(); ?>
   <?php echo $permissionsPreservationSystemAccessStatementForm->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/permissions'); ?>" method="post" autocomplete="off">
-
+  <?php echo $permissionsForm->renderFormTag(
+      url_for(['module' => 'settings', 'action' => 'permissions']),
+      ['autocomplete' => 'off']
+  ); ?>
+  
     <?php echo $permissionsForm->renderHiddenFields(); ?>
     <?php echo $permissionsAccessStatementsForm->renderHiddenFields(); ?>
     <?php echo $permissionsCopyrightStatementForm->renderHiddenFields(); ?>
