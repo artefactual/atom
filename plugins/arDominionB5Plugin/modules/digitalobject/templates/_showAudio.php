@@ -9,7 +9,7 @@
 <?php } elseif (QubitTerm::REFERENCE_ID == $usageType) { ?>
 
   <?php if ($showMediaPlayer) { ?>
-    <audio class="mejs__player mw-100" data-mejsoptions='{"pluginPath": "node_modules/mediaelement/build/", "renderers": ["html5", "flash_video"], "alwaysShowControls": "true", "stretching": "responsive"}' src="<?php echo public_path($representation->getFullPath()); ?>">
+    <audio class="mw-100" src="<?php echo public_path($representation->getFullPath()); ?>">
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::CHAPTERS_ID]); ?>
     </audio>
   <?php } else { ?>
