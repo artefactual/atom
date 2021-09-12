@@ -1,70 +1,124 @@
-<h3><?php echo __('Date(s)'); ?></h3>
+<h3 class="fs-6 mb-2">
+  <?php echo __('Date(s)'); ?>
+</h3>
 
-<div class="table-responsive mb-3">
-  <table class="table table-bordered mb-0 multiRow">
-    <thead>
+<div class="table-responsive mb-2">
+  <table class="table table-bordered mb-0 multi-row">
+    <thead class="table-light">
       <tr>
-        <th style="width: 40%">
+        <th id="dc-dates-date-head" style="width: 40%">
           <?php echo __('Date'); ?>
-        </th><th style="width: 30%">
+        </th>
+        <th id="dc-dates-start-head" style="width: 30%">
           <?php echo __('Start'); ?>
-        </th><th style="width: 30%">
+        </th>
+        <th id="dc-dates-end-head" style="width: 30%">
           <?php echo __('End'); ?>
+        </th>
+        <th>
+          <span class="visually-hidden"><?php echo __('Delete'); ?></span>
         </th>
       </tr>
     </thead>
     <tbody>
       <?php $i = 0; foreach ($resource->getDates() as $item) { ?>
+        <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]"); ++$i; ?>
 
-        <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]"); ?>
-
-        <tr class="related_obj_<?php echo $item->id; ?> date">
+        <tr class="date related_obj_<?php echo $item->id; ?>">
           <td>
-            <div class="animateNicely">
-              <input type="hidden" name="editDates[<?php echo $i; ?>][id]" value="<?php echo $item->id; ?>"/>
-              <?php echo $form->getWidgetSchema()->renderField('date', $item->getDate(['cultureFallback' => true])); ?>
-            </div>
-          </td><td>
-            <div class="animateNicely">
-              <?php echo $form->getWidgetSchema()->renderField('startDate', Qubit::renderDate($item->startDate)); ?>
-            </div>
-          </td><td>
-            <div class="animateNicely">
-              <?php echo $form->getWidgetSchema()->renderField('endDate', Qubit::renderDate($item->endDate)); ?>
-            </div>
+            <input
+              type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
+              value="<?php echo $item->id; ?>">
+            <?php $form->setDefault('date', $item->getDate(['cultureFallback' => true])); ?>
+            <?php echo render_field($form->date, null, [
+                'aria-labelledby' => 'dc-dates-date-head',
+                'aria-describedby' => 'dc-dates-table-help',
+                'onlyInputs' => true,
+            ]); ?>
+          </td>
+          <td>
+            <?php $form->setDefault('startDate', Qubit::renderDate($item->startDate)); ?>
+            <?php echo render_field($form->startDate, null, [
+                'aria-labelledby' => 'dc-dates-start-head',
+                'aria-describedby' => 'dc-dates-table-help',
+                'onlyInputs' => true,
+            ]); ?>
+          </td>
+          <td>
+            <?php $form->setDefault('endDate', Qubit::renderDate($item->endDate)); ?>
+            <?php echo render_field($form->endDate, null, [
+                'aria-labelledby' => 'dc-dates-end-head',
+                'aria-describedby' => 'dc-dates-table-help',
+                'onlyInputs' => true,
+            ]); ?>
+          </td>
+          <td>
+            <button type="button" class="multi-row-delete btn atom-btn-white">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
           </td>
         </tr>
-
-        <?php ++$i; ?>
       <?php } ?>
 
       <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]"); ?>
 
-      <tr>
+      <tr class="date">
         <td>
-          <div class="animateNicely">
-            <?php echo $form->date; ?>
-          </div>
-        </td><td>
-          <div class="animateNicely">
-            <?php echo $form->startDate; ?>
-          </div>
-        </td><td>
-          <div class="animateNicely">
-            <?php echo $form->endDate; ?>
-          </div>
+          <?php $form->setDefault('date', ''); ?>
+          <?php echo render_field($form->date, null, [
+              'aria-labelledby' => 'dc-dates-date-head',
+              'aria-describedby' => 'dc-dates-table-help',
+              'onlyInputs' => true,
+          ]); ?>
+        </td>
+        <td>
+          <?php $form->setDefault('startDate', ''); ?>
+          <?php echo render_field($form->startDate, null, [
+              'aria-labelledby' => 'dc-dates-start-head',
+              'aria-describedby' => 'dc-dates-table-help',
+              'onlyInputs' => true,
+          ]); ?>
+        </td>
+        <td>
+          <?php $form->setDefault('endDate', ''); ?>
+          <?php echo render_field($form->endDate, null, [
+              'aria-labelledby' => 'dc-dates-end-head',
+              'aria-describedby' => 'dc-dates-table-help',
+              'onlyInputs' => true,
+          ]); ?>
+        </td>
+        <td>
+          <button type="button" class="multi-row-delete btn atom-btn-white">
+            <i class="fas fa-times" aria-hidden="true"></i>
+            <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+          </button>
         </td>
       </tr>
     </tbody>
-
     <tfoot>
       <tr>
-        <td colspan="4"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+        <td colspan="4">
+          <button type="button" class="multi-row-add btn atom-btn-white">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __('Add new'); ?>
+          </button>
+        </td>
       </tr>
     </tfoot>
   </table>
 </div>
 
-<div class="description">
-  <?php echo __('Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'); ?>
+<div class="form-text mb-3" id="dc-dates-table-help">
+  <?php echo __(
+      'Identify and record the date(s) of the unit of description.'
+      .' Identify the type of date given. Record as a single date or a'
+      .' range of dates as appropriate. The Date display field can be'
+      .' used to enter free-text date information, including typographical'
+      .' marks to express approximation, uncertainty, or qualification.'
+      .' Use the start and end fields to make the dates searchable. Do not'
+      .' use any qualifiers or typographical symbols to express uncertainty.'
+      .' Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'
+  ); ?>
 </div>

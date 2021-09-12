@@ -44,11 +44,12 @@
         $newRow.find("input, select, textarea").each(function (i) {
           var $this = $(this);
 
-          // Input values are removed except hidden ones (not in childsTable)
+          // Input values are removed, except those hidden
+          // that are not related to start/end dates.
           if (
             $this.is("input, textarea") &&
             ($this.attr("type") != "hidden" ||
-              $table.attr("id") == "childsTable")
+              ($this.attr("id") && $this.attr("id").endsWith("Date")))
           ) {
             $this.val("");
           } else if ($this.is("select")) {
