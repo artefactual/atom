@@ -5,23 +5,22 @@
   }
 ?>
 
-<ul class="nav nav-tabs border-0 hideable" id="treeview-menu" role="tablist">
+<?php if (isset($tabs) && $tabs) { ?>
+  <ul class="nav nav-tabs border-0" id="treeview-menu" role="tablist">
 
-  <li class="nav-item" role="presentation">
-    <button
-      class="nav-link active"
-      id="treeview-tab"
-      data-bs-toggle="tab"
-      data-bs-target="#treeview"
-      type="button"
-      role="tab"
-      aria-controls="treeview"
-      aria-selected="true">
-      <?php echo __('Treeview'); ?>
-    </button>
-  </li>
-
-  <?php if (isset($tabs) && $tabs) { ?>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="treeview-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#treeview"
+        type="button"
+        role="tab"
+        aria-controls="treeview"
+        aria-selected="true">
+        <?php echo __('Treeview'); ?>
+      </button>
+    </li>
 
     <li class="nav-item" role="presentation">
       <button
@@ -51,16 +50,17 @@
       </button>
     </li>
 
-  <?php } ?>
-
-</ul>
+  </ul>
+<?php } ?>
 
 <div class="tab-content mb-3" id="treeview-content">
 
   <div class="tab-pane fade show active" id="treeview" role="tabpanel" aria-labelledby="treeview-tab" data-current-id="<?php echo $resource->id; ?>" data-browser="<?php echo $browser ? 'true' : 'false'; ?>">
 
     <div id="treeview-header">
-      <h3 class="h5 mb-0 p-3 border border-bottom-0"><?php echo render_title($resource->taxonomy); ?></h3>
+      <h3 class="h5 mb-0 p-3 border border-bottom-0 bg-white">
+        <?php echo render_title($resource->taxonomy); ?>
+      </h3>
     </div>
 
     <ul class="list-group rounded-0">
@@ -193,8 +193,8 @@
 
     <div class="tab-pane fade" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
 
-      <form method="get" role="search" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-error="<?php echo __('Search error.'); ?>" data-not-found="<?php echo __('No results found.'); ?>" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
-        <div class="input-group p-2 bg-gray border">
+      <form method="get" role="search" class="p-2 bg-white border" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-error="<?php echo __('Search error.'); ?>" data-not-found="<?php echo __('No results found.'); ?>" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
+        <div class="input-group">
           <button class="btn atom-btn-white dropdown-toggle" type="button" id="treeview-search-settings" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
             <i aria-hidden="true" class="fas fa-cog"></i>
             <span class="visually-hidden"><?php echo __('Search options'); ?></span>
