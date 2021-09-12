@@ -2,11 +2,11 @@
   <?php if ($menu && ('add' == $menu->getName() || 'manage' == $menu->getName()) || $sf_user->isAdministrator()) { ?>
     <li class="nav-item dropdown d-flex flex-column">
       <a class="nav-link dropdown-toggle d-flex align-items-center p-0" href="#" id="<?php echo $menu->getName(); ?>-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-2x fa-<?php echo $icons[$menu->getName()]; ?> px-0 px-lg-2 py-2" aria-hidden="true" data-tooltip="<?php echo $menu->getLabel(['cultureFallback' => true]); ?>"></i>
-        <span class="d-lg-none ms-2" aria-hidden="true"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
+        <i class="fas fa-2x fa-fw fa-<?php echo $icons[$menu->getName()]; ?> px-0 px-lg-2 py-2" aria-hidden="true" data-tooltip="<?php echo $menu->getLabel(['cultureFallback' => true]); ?>"></i>
+        <span class="d-lg-none mx-1" aria-hidden="true"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
         <span class="visually-hidden"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
       </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="<?php echo $menu->getName(); ?>-menu">
+      <ul class="dropdown-menu dropdown-menu-end mb-2" aria-labelledby="<?php echo $menu->getName(); ?>-menu">
         <li>
           <h6 class="dropdown-header">
             <?php echo $menu->getLabel(['cultureFallback' => true]); ?>
