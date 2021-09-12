@@ -62,39 +62,72 @@
                 ->label(__('Type of resource'))
                 ->renderRow(); ?>
 
-            <h3><?php echo __('Add new child levels (if describing a collection)'); ?></h3>
+            <h3 class="fs-6 mb-2">
+              <?php echo __('Add new child levels (if describing a collection)'); ?>
+            </h3>
 
-            <div class="table-responsive mb-3">
-              <table class="table table-bordered mb-0 multiRow">
-                <thead>
+            <div class="table-responsive mb-2">
+              <table class="table table-bordered mb-0 multi-row">
+                <thead class="table-light">
                   <tr>
-                    <th style="width: 20%">
+                    <th id="child-identifier-head" style="width: 20%">
                       <?php echo __('Identifier'); ?>
-                    </th><th style="width: 80%">
+                    </th>
+                    <th id="child-title-head" style="width: 80%">
                       <?php echo __('Title'); ?>
+                    </th>
+                    <th>
+                      <span class="visually-hidden"><?php echo __('Delete'); ?></span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      <input type="text" name="updateChildLevels[0][identifier]"/>
-                    </td><td>
-                      <input type="text" name="updateChildLevels[0][title]"/>
+                      <input
+                        type="text"
+                        name="updateChildLevels[0][identifier]"
+                        aria-labelledby="child-identifier-head"
+                        aria-describedby="child-table-help"
+                        class="form-control">
+                    </td>
+                    <td>
+                    <input
+                        type="text"
+                        name="updateChildLevels[0][title]"
+                        aria-labelledby="child-identifier-title"
+                        aria-describedby="child-table-help"
+                        class="form-control">
+                    </td>
+                    <td>
+                      <button type="button" class="multi-row-delete btn atom-btn-white">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                        <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
-
                 <tfoot>
                   <tr>
-                    <td colspan="3"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+                    <td colspan="3">
+                      <button type="button" class="multi-row-add btn atom-btn-white">
+                        <i class="fas fa-plus me-1" aria-hidden="true"></i>
+                        <?php echo __('Add new'); ?>
+                      </button>
+                    </td>
                   </tr>
                 </tfoot>
               </table>
             </div>
 
-            <div class="description">
-              <?php echo __('Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.'); ?>
+            <div class="form-text mb-3" id="child-table-help">
+              <?php echo __(
+                  'Use these two fields to add lower levels to a collection-level description.'
+                  .' Click Add new to add as many child levels as necessary. Identifer: enter'
+                  .' a unique standard number or code that distinctively identifies the resource.'
+                  .' Title: enter A word, phrase, character, or group of characters, normally'
+                  .' appearing in a resource, that names it or the work contained in it.'
+              ); ?>
             </div>
 
             <?php echo $form->language
