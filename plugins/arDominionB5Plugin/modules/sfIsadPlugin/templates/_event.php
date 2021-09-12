@@ -31,8 +31,8 @@
         <tr class="date related_obj_<?php echo $item->id; ?>">
           <td>
             <input
-              name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
               type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
               value="<?php echo url_for([$item, 'module' => 'event']); ?>">
             <?php
                 $save = $form->type->choices;
@@ -57,7 +57,7 @@
           <td>
             <?php $form->setDefault('startDate', Qubit::renderDate($item->startDate)); ?>
             <?php echo render_field($form->startDate, null, [
-                'aria-labelledby' => 'isad-events-end-head',
+                'aria-labelledby' => 'isad-events-start-head',
                 'aria-describedby' => 'isad-events-table-help',
                 'onlyInputs' => true,
             ]); ?>
@@ -65,7 +65,7 @@
           <td>
             <?php $form->setDefault('endDate', Qubit::renderDate($item->endDate)); ?>
             <?php echo render_field($form->endDate, null, [
-                'aria-labelledby' => 'isad-events-start-head',
+                'aria-labelledby' => 'isad-events-end-head',
                 'aria-describedby' => 'isad-events-table-help',
                 'onlyInputs' => true,
             ]); ?>
@@ -101,7 +101,7 @@
         <td>
           <?php $form->setDefault('startDate', ''); ?>
           <?php echo render_field($form->startDate, null, [
-              'aria-labelledby' => 'isad-events-end-head',
+              'aria-labelledby' => 'isad-events-start-head',
               'aria-describedby' => 'isad-events-table-help',
               'onlyInputs' => true,
           ]); ?>
@@ -109,7 +109,7 @@
         <td>
           <?php $form->setDefault('endDate', ''); ?>
           <?php echo render_field($form->endDate, null, [
-              'aria-labelledby' => 'isad-events-start-head',
+              'aria-labelledby' => 'isad-events-end-head',
               'aria-describedby' => 'isad-events-table-help',
               'onlyInputs' => true,
           ]); ?>

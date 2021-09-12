@@ -1,82 +1,114 @@
-<div class="table-responsive mb-3">
-  <table class="table table-bordered mb-0 multiRow">
-    <thead>
+<div class="table-responsive mb-2">
+  <table class="table table-bordered mb-0 multi-row">
+    <thead class="table-light">
       <tr>
         <?php if ($hiddenType) { ?>
-          <th style="width: 100%">
+          <th id="<?php echo $arrayName; ?>-content-head" style="width: 100%">
             <?php echo $tableName; ?>
           </th>
         <?php } else { ?>
-          <th style="width: 65%">
+          <th id="<?php echo $arrayName; ?>-content-head" style="width: 70%">
             <?php echo $tableName; ?>
           </th>
-          <th style="width: 30%">
+          <th id="<?php echo $arrayName; ?>-type-head" style="width: 30%">
             <?php echo __('Note type'); ?>
           </th>
         <?php } ?>
+        <th>
+          <span class="visually-hidden"><?php echo __('Delete'); ?></span>
+        </th>
       </tr>
     </thead>
     <tbody>
-
       <?php $i = 0; foreach ($notes as $item) { ?>
-
-        <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ?>
+        <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ++$i; ?>
 
         <tr class="related_obj_<?php echo $item->id; ?>">
           <td>
-            <div class="animateNicely">
-              <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][id]" value="<?php echo $item->id; ?>"/>
-              <?php if ($hiddenType) { ?>
-                <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][type]" value="<?php echo $hiddenTypeId; ?>"/>
-              <?php } ?>
-              <?php $form->setDefault('content', $item->getContent()); ?>
-              <?php echo render_field($form->content, $item, ['onlyInput' => true, 'class' => 'resizable']); ?>
-            </div>
+            <input
+              type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
+              value="<?php echo $item->id; ?>">
+            <?php if ($hiddenType) { ?>
+              <input
+                type="hidden"
+                name="<?php echo $form->getWidgetSchema()->generateName('type'); ?>"
+                value="<?php echo $hiddenTypeId; ?>">
+            <?php } ?>
+            <?php $form->setDefault('content', $item->getContent()); ?>
+            <?php echo render_field($form->content, $item, [
+                'aria-labelledby' => $arrayName.'-content-head',
+                'aria-describedby' => $arrayName.'-table-help',
+                'onlyInputs' => true,
+            ]); ?>
           </td>
           <?php if (!$hiddenType) { ?>
             <td>
-              <div class="animateNicely">
-                <?php echo $form->getWidgetSchema()->renderField('type', $item->typeId); ?>
-              </div>
+              <?php $form->setDefault('type', $item->typeId); ?>
+              <?php echo render_field($form->type, null, [
+                  'aria-labelledby' => $arrayName.'-type-head',
+                  'aria-describedby' => $arrayName.'-table-help',
+                  'onlyInputs' => true,
+              ]); ?>
             </td>
           <?php } ?>
+          <td>
+            <button type="button" class="multi-row-delete btn atom-btn-white">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
+          </td>
         </tr>
-
-        <?php ++$i; ?>
       <?php } ?>
 
       <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ?>
 
       <tr>
         <td>
-          <div class="animateNicely">
-            <?php if ($hiddenType) { ?>
-              <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][type]" value="<?php echo $hiddenTypeId; ?>"/>
-            <?php } ?>
-            <?php $form->setDefault('content', ''); ?>
-            <?php echo $form->content->render(['class' => 'resizable']); ?>
-          </div>
+          <?php if ($hiddenType) { ?>
+            <input
+              type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('type'); ?>"
+              value="<?php echo $hiddenTypeId; ?>">
+          <?php } ?>
+          <?php $form->setDefault('content', ''); ?>
+          <?php echo render_field($form->content, null, [
+              'aria-labelledby' => $arrayName.'-content-head',
+              'aria-describedby' => $arrayName.'-table-help',
+              'onlyInputs' => true,
+          ]); ?>
         </td>
         <?php if (!$hiddenType) { ?>
           <td>
-            <div class="animateNicely">
-              <?php echo $form->type; ?>
-            </div>
+            <?php $form->setDefault('type', ''); ?>
+            <?php echo render_field($form->type, null, [
+                'aria-labelledby' => $arrayName.'-type-head',
+                'aria-describedby' => $arrayName.'-table-help',
+                'onlyInputs' => true,
+            ]); ?>
           </td>
         <?php } ?>
+        <td>
+          <button type="button" class="multi-row-delete btn atom-btn-white">
+            <i class="fas fa-times" aria-hidden="true"></i>
+            <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+          </button>
+        </td>
       </tr>
-
     </tbody>
-
     <tfoot>
       <tr>
-        <td colspan="<?php echo $hiddenType ? 2 : 3; ?>"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+        <td colspan="<?php echo $hiddenType ? '2' : '3'; ?>">
+          <button type="button" class="multi-row-add btn atom-btn-white">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __('Add new'); ?>
+          </button>
+        </td>
       </tr>
     </tfoot>
-
   </table>
 </div>
 
-<div class="description">
+<div class="form-text mb-3" id="<?php echo $arrayName; ?>-table-help">
   <?php echo $help; ?>
 </div>

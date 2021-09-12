@@ -51,15 +51,9 @@
                 ->help(__('The name given to this resource.'))
                 ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
 
-            <section>
+            <?php echo get_partial('dcNames', $sf_data->getRaw('dcNamesComponent')->getVarHolder()->getAll()); ?>
 
-              <h3><?php echo __('Names and dates'); ?></h3>
-
-              <?php echo get_partial('dcNames', $sf_data->getRaw('dcNamesComponent')->getVarHolder()->getAll()); ?>
-
-              <?php echo get_partial('dcDates', $sf_data->getRaw('dcDatesComponent')->getVarHolder()->getAll()); ?>
-
-            </section>
+            <?php echo get_partial('dcDates', $sf_data->getRaw('dcDatesComponent')->getVarHolder()->getAll()); ?>
 
             <div class="form-item">
               <?php echo $form->subjectAccessPoints
@@ -83,39 +77,76 @@
                 ->help(__('<p>The nature or genre of the resource.</p><p>Assign as many types as applicable. The <em>Type</em> options are limited to the DCMI Type vocabulary.</p><p>Assign the <em>Collection</em> value if this resource is the top-level for a set of lower-level (child) resources.</p><p>Please note: if this resource is linked to a digital object, the <em>image</em>, <em>text</em>, <em>sound</em> or <em>moving image</em> types are added automatically upon output, so do not duplicate those values here.</p>'))
                 ->renderRow(); ?>
 
-            <h3><?php echo __('Child levels (if describing a collection)'); ?></h3>
+            <h3 class="fs-6 mb-2">
+              <?php echo __('Add new child levels (if describing a collection)'); ?>
+            </h3>
 
-            <div class="table-responsive mb-3">
-              <table class="table table-bordered mb-0 multiRow">
-                <thead>
+            <div class="table-responsive mb-2">
+              <table class="table table-bordered mb-0 multi-row">
+                <thead class="table-light">
                   <tr>
-                    <th style="width: 20%">
+                    <th id="child-identifier-head" style="width: 20%">
                       <?php echo __('Identifier'); ?>
-                    </th><th style="width: 80%">
+                    </th>
+                    <th id="child-title-head" style="width: 80%">
                       <?php echo __('Title'); ?>
+                    </th>
+                    <th>
+                      <span class="visually-hidden"><?php echo __('Delete'); ?></span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      <input type="text" name="updateChildLevels[0][identifier]"/>
-                    </td><td>
-                      <input type="text" name="updateChildLevels[0][title]"/>
+                      <input
+                        type="text"
+                        name="updateChildLevels[0][identifier]"
+                        aria-labelledby="child-identifier-head"
+                        aria-describedby="child-table-help"
+                        class="form-control">
+                    </td>
+                    <td>
+                    <input
+                        type="text"
+                        name="updateChildLevels[0][title]"
+                        aria-labelledby="child-identifier-title"
+                        aria-describedby="child-table-help"
+                        class="form-control">
+                    </td>
+                    <td>
+                      <button type="button" class="multi-row-delete btn atom-btn-white">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                        <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
-
                 <tfoot>
                   <tr>
-                    <td colspan="3"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+                    <td colspan="3">
+                      <button type="button" class="multi-row-add btn atom-btn-white">
+                        <i class="fas fa-plus me-1" aria-hidden="true"></i>
+                        <?php echo __('Add new'); ?>
+                      </button>
+                    </td>
                   </tr>
                 </tfoot>
               </table>
             </div>
 
-            <div class="description">
-              <?php echo __('<p><strong>Child levels</strong><br/>Use these two fields to add lower levels to a collection level description. Click <em>Add new</em> to create as many child levels as necessary.</p><p>These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.</p><p><em>Identifier</em>: The unambiguous reference code used to uniquely identify the child-level resource.</p><p><em>Title</em>: The name given to the child-level resource.</p>'); ?>
+            <div class="form-text mb-3" id="child-table-help">
+              <?php echo __(
+                  '<p><strong>Child levels</strong><br/>Use these two fields to add lower'
+                  .' levels to a collection level description. Click <em>Add new</em> to'
+                  .' create as many child levels as necessary.</p><p>These fields can also'
+                  .' be used to add any number of intermediate levels of description (e.g.'
+                  .' series, file, etc) between the top and bottom levels in a descriptive'
+                  .' hierarchy. Use the hierarchy treeview to re-order hierarchy levels as'
+                  .' necessary.</p><p><em>Identifier</em>: The unambiguous reference code'
+                  .' used to uniquely identify the child-level resource.</p><p><em>Title</em>:'
+                  .' The name given to the child-level resource.</p>'
+              ); ?>
             </div>
 
             <?php echo render_field($form->extentAndMedium
