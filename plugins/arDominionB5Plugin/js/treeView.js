@@ -538,12 +538,12 @@
             const text = $serverLink.text().trim();
             $listGroup.append(
               $(
-                '<a class="btn btn-sm atom-btn-white w-100 border-0 rounded-0">' +
+                '<a class="btn atom-btn-white w-100 border-0 rounded-0">' +
                   '<i class="fas fa-search me-1" aria-hidden="true"></i>' +
                   "</a>"
               )
                 .attr("href", href)
-                .append(text)
+                .append(" " + text)
             );
           }
 
