@@ -132,10 +132,10 @@
     </div>
   <?php } ?>
 
-  <div class="tab-pane fade bg-white<?php echo ('sidebar' != $treeviewType) ? ' show active' : ''; ?>" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
+  <div class="tab-pane fade<?php echo ('sidebar' != $treeviewType) ? ' show active' : ''; ?>" id="treeview-search" role="tabpanel" aria-labelledby="treeview-search-tab">
 
-    <form method="get" role="search" action="<?php echo url_for(['module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id]); ?>" data-not-found="<?php echo __('No results found.'); ?>">
-      <div class="input-group p-2 bg-gray border">
+    <form method="get" role="search" class="p-2 bg-white border" action="<?php echo url_for(['module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id]); ?>" data-not-found="<?php echo __('No results found.'); ?>">
+      <div class="input-group">
         <input type="text" name="query" class="form-control" aria-label="<?php echo __('Search hierarchy'); ?>" placeholder="<?php echo __('Search hierarchy'); ?>" aria-describedby="treeview-search-submit-button" required>
         <button class="btn atom-btn-white" type="submit" id="treeview-search-submit-button">
           <i aria-hidden="true" class="fas fa-search"></i>
