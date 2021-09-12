@@ -1,18 +1,23 @@
 <div id="alternative-identifiers-table"<?php echo 0 < count($alternativeIdentifierData) ? '' : ' class="d-none"'; ?>>
-
   <h3 class="fs-6 mb-2">
     <?php echo __('Alternative identifier(s)'); ?>
   </h3>
 
-  <div class="table-responsive mb-3">
-    <table class="table table-bordered mb-0 multiRow">
+  <div class="table-responsive mb-2">
+    <table class="table table-bordered mb-0 multi-row">
       <thead class="table-light">
         <tr>
-          <th style="width: 50%">
+          <th id="alt-identifiers-type-head" style="width: 30%">
             <?php echo __('Type'); ?>
           </th>
-          <th style="width: 50%">
+          <th id="alt-identifiers-identifier-head" style="width: 35%">
             <?php echo __('Identifier'); ?>
+          </th>
+          <th id="alt-identifiers-note-head" style="width: 35%">
+            <?php echo __('Notes'); ?>
+          </th>
+          <th>
+            <span class="visually-hidden"><?php echo __('Delete'); ?></span>
           </th>
         </tr>
       </thead>
@@ -22,21 +27,38 @@
 
           <tr class="related_obj_<?php echo $identifier['id']; ?>">
             <td>
-              <div class="animateNicely">
-                <input type="hidden" name="alternativeIdentifiers[<?php echo $i; ?>][id]" value="<?php echo $identifier['id']; ?>"/>
-                <?php $form->setDefault('identifierType', $identifier['typeId']); ?>
-                <?php echo $form->identifierType; ?>
-              </div>
+              <input
+                type="hidden"
+                name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
+                value="<?php echo $identifier['id']; ?>">
+              <?php $form->setDefault('identifierType', $identifier['typeId']); ?>
+              <?php echo render_field($form->identifierType, null, [
+                  'aria-labelledby' => 'alt-identifiers-type-head',
+                  'aria-describedby' => 'alt-identifiers-table-help',
+                  'onlyInputs' => true,
+              ]); ?>
             </td>
             <td>
-              <div class="animateNicely">
-                <?php $form->setDefault('identifier', $identifier['value']); ?>
-                <?php echo $form->identifier; ?>
-              </div>
-              <div class="animateNicely">
-                <?php $form->setDefault('note', $identifier['note']); ?>
-                <?php echo render_field($form->note, $identifier['object']); ?>
-              </div>
+              <?php $form->setDefault('identifier', $identifier['value']); ?>
+              <?php echo render_field($form->identifier, null, [
+                  'aria-labelledby' => 'alt-identifiers-identifier-head',
+                  'aria-describedby' => 'alt-identifiers-table-help',
+                  'onlyInputs' => true,
+              ]); ?>
+            </td>
+            <td>
+              <?php $form->setDefault('note', $identifier['note']); ?>
+              <?php echo render_field($form->note, $identifier['object'], [
+                  'aria-labelledby' => 'alt-identifiers-note-head',
+                  'aria-describedby' => 'alt-identifiers-table-help',
+                  'onlyInputs' => true,
+              ]); ?>
+            </td>
+            <td>
+              <button type="button" class="multi-row-delete btn atom-btn-white">
+                <i class="fas fa-times" aria-hidden="true"></i>
+                <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+              </button>
             </td>
           </tr>
         <?php } ?>
@@ -45,32 +67,56 @@
 
         <tr>
           <td>
-            <div class="animateNicely">
-              <?php $form->setDefault('identifierType', ''); ?>
-              <?php echo $form->identifierType; ?>
-            </div>
+            <?php $form->setDefault('identifierType', ''); ?>
+            <?php echo render_field($form->identifierType, null, [
+                'aria-labelledby' => 'alt-identifiers-type-head',
+                'aria-describedby' => 'alt-identifiers-table-help',
+                'onlyInputs' => true,
+            ]); ?>
           </td>
           <td>
-            <div class="animateNicely">
-              <?php $form->setDefault('identifier', ''); ?>
-              <?php echo $form->identifier; ?>
-            </div>
-            <div class="animateNicely">
-              <?php $form->setDefault('note', ''); ?>
-              <?php echo $form->note; ?>
-            </div>
+            <?php $form->setDefault('identifier', ''); ?>
+            <?php echo render_field($form->identifier, null, [
+                'aria-labelledby' => 'alt-identifiers-identifier-head',
+                'aria-describedby' => 'alt-identifiers-table-help',
+                'onlyInputs' => true,
+            ]); ?>
+          </td>
+          <td>
+            <?php $form->setDefault('note', ''); ?>
+            <?php echo render_field($form->note, null, [
+                'aria-labelledby' => 'alt-identifiers-note-head',
+                'aria-describedby' => 'alt-identifiers-table-help',
+                'onlyInputs' => true,
+            ]); ?>
+          </td>
+          <td>
+            <button type="button" class="multi-row-delete btn atom-btn-white">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+          <td colspan="4">
+            <button type="button" class="multi-row-add btn atom-btn-white">
+              <i class="fas fa-plus me-1" aria-hidden="true"></i>
+              <?php echo __('Add new'); ?>
+            </button>
+          </td>
         </tr>
       </tfoot>
     </table>
   </div>
 
-  <div class="description">
-    <?php echo __('<strong>Type:</strong> Enter a name for the alternative identifier field that indicates its purpose and usage.<br/><strong>Identifier:</strong> Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.'); ?>
+  <div class="form-text mb-3" id="alt-identifiers-table-help">
+    <?php echo __(
+        '<strong>Type:</strong> Enter a name for the alternative identifier field that'
+        .' indicates its purpose and usage.<br/><strong>Identifier:</strong> Enter a'
+        .' legacy reference code, alternative identifier, or any other alpha-numeric'
+        .' string associated with the record.'
+    ); ?>
   </div>
 </div>
