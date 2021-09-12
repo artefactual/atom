@@ -32,6 +32,7 @@ class AccessionAlternativeIdentifiersComponent extends sfComponent
 
         // Define form used to add/edit identifiers
         $this->form = new sfForm();
+        $this->form->disableCSRFProtection();
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
         $this->addField('identifierType');

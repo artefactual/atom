@@ -93,6 +93,7 @@ class EventEditComponent extends sfComponent
     public function execute($request)
     {
         $this->form = new sfForm();
+        $this->form->disableCSRFProtection();
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
         $this->form->getWidgetSchema()->setNameFormat('editEvent[%s]');
 
