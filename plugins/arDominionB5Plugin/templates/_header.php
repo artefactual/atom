@@ -8,7 +8,7 @@
   </div>
 <?php } ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header id="top-bar" class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
   <div class="container-fluid">
     <?php if (sfConfig::get('app_toggleLogo') || sfConfig::get('app_toggleTitle')) { ?>
       <a class="navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('Home'); ?>" rel="home">
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-</nav>
+</header>
 
 <?php if (sfConfig::get('app_toggleDescription') && !empty(sfConfig::get('app_siteDescription'))) { ?>
   <div class="bg-secondary text-white">
