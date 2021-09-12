@@ -21,7 +21,7 @@
 
   <div class="card-body p-0">
     <a class="btn atom-btn-white border-0 w-100" href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id]); ?>">
-      <i class="fas fa-search" aria-hidden="true"></i>
+      <i class="fas fa-search me-1" aria-hidden="true"></i>
       <?php echo __('Browse %1% holdings', ['%1%' => $pager->getNbResults()]); ?>
     </a>
   </div>
