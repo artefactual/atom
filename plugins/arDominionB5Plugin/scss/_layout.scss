@@ -27,8 +27,13 @@ body {
   overflow-x: hidden;
 }
 
+#navbar-content i.fa-2x {
+  font-size: $spacer * 1.75;
+  width: $spacer * 2.75;
+}
+
 .dropdown-header {
-  font-size: 1.25rem;
+  font-size: $spacer * 1.25;
 }
 
 .filter-tag:last-child {
