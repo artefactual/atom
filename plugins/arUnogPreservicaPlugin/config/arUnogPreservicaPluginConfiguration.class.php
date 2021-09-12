@@ -60,6 +60,22 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
             new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
         );
 
+        // Use friendly URL for alternative identifier search endpoint
+        $defaults = [
+            'module' => 'arUnogPreservicaPlugin',
+            'action' => 'altIdentifierSearch',
+        ];
+
+        $requirements = [
+            'sf_method' => 'GET',
+        ];
+
+        $this->routing->insertRouteBefore(
+            'slug/default',
+            'preservica_api_search_altidentifier',
+            new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
+        );
+
         // Make Preserica digital object download a Qubit resource route
         $defaults = [
             'module' => 'arUnogPreservicaPlugin',
