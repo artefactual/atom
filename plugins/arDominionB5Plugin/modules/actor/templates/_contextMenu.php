@@ -25,7 +25,7 @@
 
     <div class="card-body p-0">
       <a class="btn atom-btn-white border-0 w-100" href="<?php echo $list['moreUrl']; ?>">
-        <i class="fas fa-search" aria-hidden="true"></i>
+        <i class="fas fa-search me-1" aria-hidden="true"></i>
         <?php echo __('Browse %1% results', ['%1%' => $pager->getNbResults()]); ?>
       </a>
     </div>
