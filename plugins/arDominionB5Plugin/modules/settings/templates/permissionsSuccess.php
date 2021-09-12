@@ -40,13 +40,12 @@
           <div class="accordion-body">
             <?php echo render_field($permissionsForm['granted_right']->label(__('PREMIS act'))); ?>
 
+            <h3 class="fs-6 mb-2">
+              <?php echo __('Permissions'); ?>
+            </h3>
+
             <div class="table-responsive mb-3">
-              <table class="table table-bordered mb-0 caption-top">
-                <caption class="pt-0">
-                  <span class="d-inline-block">
-                    <?php echo __('Permissions'); ?>
-                  </span>
-                </caption>
+              <table class="table table-bordered mb-0">
                 <colgroup><col></colgroup>
                 <colgroup span="3"></colgroup>
                 <colgroup span="3"></colgroup>
