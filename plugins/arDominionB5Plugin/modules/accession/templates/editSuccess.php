@@ -97,13 +97,8 @@
                 ->help(__('The title of the accession, usually the creator name and term describing the format of the accession materials.')), $resource); ?>
 
             <?php
-                // Add extra inputs checking permissions
                 $extraInputs = '<input class="list" type="hidden" value="'
-                    .url_for([
-                        'module' => 'actor',
-                        'action' => 'autocomplete',
-                        'showOnlyActors' => 'true',
-                    ])
+                    .url_for(['module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true'])
                     .'">';
                 if (QubitAcl::check(QubitActor::getRoot(), 'create')) {
                     $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
@@ -111,9 +106,9 @@
                         .' #authorizedFormOfName">';
                 }
                 echo render_field(
-                    $form->creators
-                        ->label(__('Creators'))
-                        ->help(__('The name of the creator of the accession or the name of the department that created the accession.')),
+                    $form->creators->label(__('Creators'))->help(__(
+                        'The name of the creator of the accession or the name of the department that created the accession.'
+                    )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
                 );
@@ -164,12 +159,8 @@
         <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading">
           <div class="accordion-body">
             <?php
-                // Add extra inputs checking permissions
                 $extraInputs = '<input class="list" type="hidden" value="'
-                    .url_for([
-                        'module' => 'informationobject',
-                        'action' => 'autocomplete',
-                    ])
+                    .url_for(['module' => 'informationobject', 'action' => 'autocomplete'])
                     .'">';
                 if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) {
                     $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
