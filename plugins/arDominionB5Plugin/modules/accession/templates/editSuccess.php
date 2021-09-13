@@ -47,9 +47,12 @@
 
             <?php echo get_component('accession', 'alternativeIdentifiers', ['resource' => $resource]); ?>
 
-            <?php echo render_field($form->date
-                ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
-                ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+            <?php echo render_field(
+                $form->date
+                    ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
+                    ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'),
+                null,
+                ['type' => 'date']
             ); ?>
 
             <?php echo render_field($form->sourceOfAcquisition
