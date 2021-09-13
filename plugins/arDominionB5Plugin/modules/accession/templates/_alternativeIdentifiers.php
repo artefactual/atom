@@ -1,4 +1,19 @@
-<div id="alternative-identifiers-table"<?php echo 0 < count($alternativeIdentifierData) ? '' : ' class="d-none"'; ?>>
+<div class="text-end mb-3">
+  <button
+    class="btn atom-btn-white text-wrap<?php echo 0 < count($alternativeIdentifierData) ? '' : ' collapsed'; ?>"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#alternative-identifiers-table"
+    aria-expanded="<?php echo 0 < count($alternativeIdentifierData) ? 'true' : 'false'; ?>"
+    aria-controls="alternative-identifiers-table">
+    <i class="fas fa-plus me-1" aria-hidden="true"></i>
+    <?php echo __('Add alternative identifier(s)'); ?>
+  </button>
+</div>
+
+<div
+  id="alternative-identifiers-table"
+  class="collapse<?php echo 0 < count($alternativeIdentifierData) ? ' show' : ''; ?>">
   <h3 class="fs-6 mb-2">
     <?php echo __('Alternative identifier(s)'); ?>
   </h3>
