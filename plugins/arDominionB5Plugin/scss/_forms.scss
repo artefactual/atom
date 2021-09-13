@@ -51,3 +51,14 @@ ul.multiInput,
     }
   }
 }
+
+#export-options {
+  .generic-help {
+    display: none;
+  }
+
+  .muted {
+    background-color: $gray-100;
+    color: $gray-600;
+  }
+}
