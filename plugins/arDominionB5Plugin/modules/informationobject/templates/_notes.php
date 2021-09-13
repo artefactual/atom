@@ -1,17 +1,21 @@
+<h3 class="fs-6 mb-2">
+  <?php echo $tableName; ?>
+</h3>
+
 <div class="table-responsive mb-2">
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
         <?php if ($hiddenType) { ?>
           <th id="<?php echo $arrayName; ?>-content-head" style="width: 100%">
-            <?php echo $tableName; ?>
+            <?php echo __('Content'); ?>
           </th>
         <?php } else { ?>
           <th id="<?php echo $arrayName; ?>-content-head" style="width: 70%">
-            <?php echo $tableName; ?>
+            <?php echo __('Content'); ?>
           </th>
           <th id="<?php echo $arrayName; ?>-type-head" style="width: 30%">
-            <?php echo __('Note type'); ?>
+            <?php echo __('Type'); ?>
           </th>
         <?php } ?>
         <th>
