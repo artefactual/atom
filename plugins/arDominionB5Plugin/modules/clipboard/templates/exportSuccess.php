@@ -34,36 +34,40 @@
               <?php echo render_field($form->type); ?>
               <?php echo render_field($form->format); ?>
               <?php if ($showOptions) { ?>
-                <div class="panel panel-default" id="exportOptions">
-                  <div class="panel-body">
-                    <?php if (!empty($helpMessages)) { ?>
-                      <div class="generic-help-box">
-                        <a href="#" class="generic-help-icon" aria-expanded="false" aria-label="<?php echo __('Help'); ?>"><i class="fa fa-question-circle pull-right" aria-hidden="true"></i></a>
-                      </div>
-                    <?php } ?>
-                    <?php if (isset($form->includeDescendants)) { ?>
-                      <?php echo render_field($form->includeDescendants); ?>
-                    <?php } ?>
-                    <?php if (isset($form->includeAllLevels)) { ?>
+                <div id="exportOptions">
+                  <?php if (!empty($helpMessages)) { ?>
+                    <div class="generic-help-box">
+                      <a href="#" class="generic-help-icon" aria-expanded="false" aria-label="<?php echo __('Help'); ?>">
+                        <i class="fa fa-question-circle float-end pt-1" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  <?php } ?>
+                  <?php if (isset($form->includeDrafts)) { ?>
+                    <?php echo render_field($form->includeDrafts); ?>
+                  <?php } ?>
+                  <?php if (isset($form->includeDescendants)) { ?>
+                    <?php echo render_field($form->includeDescendants); ?>
+                  <?php } ?>
+                  <?php if (isset($form->includeAllLevels)) { ?>
+                    <div>
                       <?php echo render_field($form->includeAllLevels); ?>
-                    <?php } ?>
-                    <?php if (isset($form->levels)) { ?>
+                    </div>
+                  <?php } ?>
+                  <?php if (isset($form->levels)) { ?>
+                    <div id="exportLevels">
                       <?php echo render_field($form->levels); ?>
-                    <?php } ?>
-                    <?php if (isset($form->includeDigitalObjects)) { ?>
-                      <?php echo render_field($form->includeDigitalObjects); ?>
-                    <?php } ?>
-                    <?php if (isset($form->includeDrafts)) { ?>
-                      <?php echo render_field($form->includeDrafts); ?>
-                    <?php } ?>
-                    <?php if (!empty($helpMessages)) { ?>
-                      <div class="alert alert-info generic-help animateNicely">
-                        <?php foreach ($sf_data->getRaw('helpMessages') as $helpMessage) { ?>
-                          <p><?php echo $helpMessage; ?></p>
-                        <?php } ?>
-                      </div>
-                    <?php } ?>
-                  </div>
+                    </div>
+                  <?php } ?>
+                  <?php if (isset($form->includeDigitalObjects)) { ?>
+                    <?php echo render_field($form->includeDigitalObjects); ?>
+                  <?php } ?>
+                  <?php if (!empty($helpMessages)) { ?>
+                    <div class="alert alert-info generic-help animateNicely">
+                      <?php foreach ($sf_data->getRaw('helpMessages') as $helpMessage) { ?>
+                        <p><?php echo $helpMessage; ?></p>
+                      <?php } ?>
+                    </div>
+                  <?php } ?>
                 </div>
               <?php } ?>
             </div>
