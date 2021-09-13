@@ -32,24 +32,24 @@
         </h2>
         <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
-            <?php echo $form->type
+            <?php echo render_field($form->type
                 ->help(__('"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.'))
                 ->label(__('Type').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->authorizedFormOfName
                 ->help(__('"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)'))
                 ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
 
-            <?php echo $form->parallelName
+            <?php echo render_field($form->parallelName
                 ->help(__('"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)'))
                 ->label(__('Parallel form(s) of name'))
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->otherName
+            <?php echo render_field($form->otherName
                 ->help(__('"Record any other names for the function being described." (ISDF 5.1.4)'))
                 ->label(__('Other form(s) of name'))
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->classification
                 ->help(__('"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)')), $resource); ?>
@@ -112,29 +112,35 @@
                 ->help(__('"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)'))
                 ->label(__('Rules and/or conventions used')), $resource, ['class' => 'resizable']); ?>
 
-            <?php echo $form->descriptionStatus
+            <?php echo render_field($form->descriptionStatus
                 ->help(__('The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.'))
                 ->label(__('Status'))
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->descriptionDetail
+            <?php echo render_field($form->descriptionDetail
                 ->help(__('Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)'))
                 ->label(__('Level of detail'))
-                ->renderRow(); ?>
+            ); ?>
 
             <?php echo render_field($form->revisionHistory
                 ->help(__('"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)'))
                 ->label(__('Dates of creation, revision or deletion')), $resource, ['class' => 'resizable']); ?>
 
-            <?php echo $form->language
-                ->help(__('Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)'))
-                ->label(__('Language(s)'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->language
+                    ->label('Language(s)')
+                    ->help(__('Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
-            <?php echo $form->script
-                ->help(__('Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)'))
-                ->label(__('Script(s)'))
-                ->renderRow(['class' => 'form-autocomplete']); ?>
+            <?php echo render_field(
+                $form->script
+                    ->label('Script(s)')
+                    ->help(__('Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)')),
+                null,
+                ['class' => 'form-autocomplete']
+            ); ?>
 
             <?php echo render_field($form->sources
                 ->help(__('"Record the sources consulted in establishing the function description." (ISDF 5.4.8)')), $resource, ['class' => 'resizable']); ?>
