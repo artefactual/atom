@@ -89,7 +89,7 @@
           {
             this.setDescendantsState(false);
             this.setDigitalObjectsState(true);
-            if (!this.$includeAllLevelsHolder.is(':animated'))
+            if (!this.$includeAllLevelsHolder || !this.$includeAllLevelsHolder.is(':animated'))
             {
               collapseLevels = true;
             }
@@ -101,7 +101,7 @@
 
           break;
       }
-      if(collapseLevels)
+      if (collapseLevels && this.$includeAllLevelsHolder)
       {
         var o = this;
         this.$includeAllLevelsHolder.slideUp(this.animationMS).promise().done(function()
@@ -120,7 +120,7 @@
       }
       else
       {
-        this.$includeDescendants.attr('checked', false);
+        this.$includeDescendants.prop('checked', false);
         o.addClass('muted');
       }
     },
@@ -136,7 +136,7 @@
         }
         else
         {
-          this.$includeDigitalObjects.attr('checked', false);
+          this.$includeDigitalObjects.prop('checked', false);
           o.addClass('muted');
         }
       }
@@ -147,7 +147,7 @@
       if (undefined != this.$includeAllLevelsHolder && 0 != this.$includeAllLevelsHolder.length)
       {
         this.$includeAllLevelsHolder.hide();
-        this.$includeAllLevels.attr('checked', true);
+        this.$includeAllLevels.prop('checked', true);
       }
       if (undefined != this.$levelDiv && 0 != this.$levelDiv.length)
       {
@@ -222,7 +222,7 @@
 
   $(function ()
   {
-    var $node = $('body');
+    var $node = $('body.clipboard.export');
     if (0 < $node.length)
     {
       new ExportOptions($node.get(0));
