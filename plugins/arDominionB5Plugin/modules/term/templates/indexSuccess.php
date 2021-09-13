@@ -24,10 +24,8 @@
     <?php echo include_partial('default/breadcrumb', ['resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft')]); ?>
   <?php } ?>
 
-<?php end_slot(); ?>
-
-<?php slot('before-content'); ?>
   <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
+
 <?php end_slot(); ?>
 
 <?php slot('context-menu'); ?>
