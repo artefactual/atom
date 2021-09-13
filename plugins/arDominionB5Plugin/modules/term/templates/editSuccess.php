@@ -25,36 +25,32 @@
         </h2>
         <div id="elements-collapse" class="accordion-collapse collapse" aria-labelledby="elements-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <?php echo $form->taxonomy->renderLabel(); ?>
-              <?php echo $form->taxonomy->renderError(); ?>
-              <?php echo $form->taxonomy->render(['class' => 'form-autocomplete']); ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'taxonomy', 'action' => 'autocomplete']); ?>"/>
-            </div>
+            <?php echo render_field(
+                $form->taxonomy,
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="list" type="hidden" value="'
+                        .url_for(['module' => 'taxonomy', 'action' => 'autocomplete'])
+                        .'">',
+                ]
+            ); ?>
 
             <?php if (QubitTerm::isProtected($resource->id)) { ?>
-              <?php echo $form->name->renderRow(['class' => 'readOnly', 'disabled' => 'disabled']); ?>
+              <?php echo render_field($form->name, null, ['disabled' => 'disabled']); ?>
             <?php } else { ?>
               <?php echo render_field($form->name, $resource); ?>
             <?php } ?>
 
-            <?php echo $form->useFor
-                ->label(__('Use for'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->useFor->label(__('Use for'))); ?>
 
             <?php echo render_field($form->code, $resource); ?>
 
-            <?php echo $form->scopeNote
-                ->label(__('Scope note(s)'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->scopeNote->label(__('Scope note(s)'))); ?>
 
-            <?php echo $form->sourceNote
-                ->label(__('Source note(s)'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->sourceNote->label(__('Source note(s)'))); ?>
 
-            <?php echo $form->displayNote
-                ->label(__('Display note(s)'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->displayNote->label(__('Display note(s)'))); ?>
           </div>
         </div>
       </div>
@@ -66,42 +62,57 @@
         </h2>
         <div id="relationships-collapse" class="accordion-collapse collapse" aria-labelledby="relationships-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <?php echo $form->parent
-                  ->label(__('Broad term'))
-                  ->renderLabel(); ?>
-              <?php echo $form->parent->render(['class' => 'form-autocomplete']); ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete']); ?>"/>
-            </div>
-
-            <div class="form-item">
-              <?php echo $form->relatedTerms
-                  ->label(__('Related term(s)'))
-                  ->renderLabel(); ?>
-              <?php echo $form->relatedTerms->render(['class' => 'form-autocomplete']); ?>
-              <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete']); ?>"/>
-            </div>
+            <?php echo render_field(
+                $form->parent->label(__('Broad term')),
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="list" type="hidden" value="'
+                        .url_for(['module' => 'term', 'action' => 'autocomplete'])
+                        .'">',
+                ]
+            ); ?>
+            
+            <?php echo render_field(
+                $form->relatedTerms->label(__('Related term(s)')),
+                null,
+                [
+                    'class' => 'form-autocomplete',
+                    'extraInputs' => '<input class="list" type="hidden" value="'
+                        .url_for(['module' => 'term', 'action' => 'autocomplete'])
+                        .'">',
+                ]
+            ); ?>
 
             <div class="row">
-
-              <div class="span9">
-                <?php echo $form->converseTerm
-                    ->label(__('Converse term'))
-                    ->renderLabel(); ?>
-                <?php echo $form->converseTerm->render(['class' => 'form-autocomplete']); ?>
-                <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'term', 'action' => 'add', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'module' => 'taxonomy'])]); ?> #name"/>
-                <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete']); ?>"/>
+              <div class="col-md-9">
+                <?php echo render_field(
+                    $form->converseTerm->label(__('Converse term')),
+                    null,
+                    [
+                        'class' => 'form-autocomplete',
+                        'extraInputs' => '<input class="list" type="hidden" value="'
+                            .url_for(['module' => 'term', 'action' => 'autocomplete'])
+                            .'"><input class="add" type="hidden" data-link-existing="true" value="'
+                            .url_for([
+                                'module' => 'term',
+                                'action' => 'add',
+                                'taxonomy' => url_for([
+                                    QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID),
+                                    'module' => 'taxonomy',
+                                ]),
+                            ])
+                            .' #name">',
+                    ]
+                ); ?>
               </div>
 
-              <div class="span2 field-lowering pull-right">
-                <?php echo $form->selfReciprocal->label(__('Self-reciprocal'))->renderRow(); ?>
+              <div class="col-md-3 pb-md-2 d-flex align-items-end">
+                <?php echo render_field($form->selfReciprocal->label(__('Self-reciprocal'))); ?>
               </div>
-
             </div>
 
-            <?php echo $form->narrowTerms
-                ->label(__('Add new narrow terms'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->narrowTerms->label(__('Add new narrow terms'))); ?>
           </div>
         </div>
       </div>
