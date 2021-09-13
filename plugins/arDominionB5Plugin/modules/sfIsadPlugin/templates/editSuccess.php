@@ -45,8 +45,10 @@
                 ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
                 ->renderRow(); ?>
 
-            <?php echo get_partial('informationobject/identifierOptions', ['mask' => $mask]); ?>
-            <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial(
+                'informationobject/identifierOptions',
+                ['mask' => $mask] + $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()
+            ); ?>
 
             <?php echo render_field($form->title
                 ->help(__('Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)'))
