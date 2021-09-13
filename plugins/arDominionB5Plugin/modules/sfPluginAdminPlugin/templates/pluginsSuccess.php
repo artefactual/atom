@@ -12,9 +12,11 @@
         <tr>
           <th>
             <?php echo __('Name'); ?>
-          </th><th>
+          </th>
+          <th>
             <?php echo __('Version'); ?>
-          </th><th>
+          </th>
+          <th id="plugins-enabled-head">
             <?php echo __('Enabled'); ?>
           </th>
         </tr>
@@ -24,29 +26,39 @@
           <tr>
             <td>
               <?php if (file_exists($plugin->getRootDir().'/images/image.png')) { ?>
-                <?php echo image_tag('/plugins/'.$name.'/images/image', ['alt' => $name]); ?>
+                <?php echo image_tag('/plugins/'.$name.'/images/image', ['alt' => $name, 'class' => 'mb-2']); ?>
               <?php } ?>
-              <p class="plugin-name"><?php echo $name; ?></p>
-              <div class="plugin-description">
+              <p class="mb-2"><?php echo $name; ?></p>
+              <span class="small text-muted">
                 <?php echo $plugin::$summary; ?>
-              </div>
-            </td><td>
+              </span>
+            </td>
+            <td>
               <?php echo $plugin::$version; ?>
-            </td><td align="center">
+            </td>
+            <td align="center">
               <input
-                <?php if ($form->isBound() && in_array($name, $form->getValue('enabled'))
-                            || !$form->isBound() && in_array($name, $form->getDefault('enabled'))) { ?>
+                <?php if (
+                    $form->isBound() && in_array($name, $form->getValue('enabled'))
+                    || !$form->isBound() && in_array($name, $form->getDefault('enabled'))
+                ) { ?>
                   checked="checked"
                 <?php } ?>
-                <?php if ('sfIsdiahPlugin' == $name
-                          || 'sfIsaarPlugin' == $name
-                          || ('sfIsadPlugin' == $name && 'isad' == $defaultTemplate)
-                          || ('sfRadPlugin' == $name && 'rad' == $defaultTemplate)
-                          || ('sfDcPlugin' == $name && 'dc' == $defaultTemplate)
-                          || ('sfModsPlugin' == $name && 'mods' == $defaultTemplate)) { ?>
+                <?php if (
+                    'sfIsdiahPlugin' == $name
+                    || 'sfIsaarPlugin' == $name
+                    || ('sfIsadPlugin' == $name && 'isad' == $defaultTemplate)
+                    || ('sfRadPlugin' == $name && 'rad' == $defaultTemplate)
+                    || ('sfDcPlugin' == $name && 'dc' == $defaultTemplate)
+                    || ('sfModsPlugin' == $name && 'mods' == $defaultTemplate)
+                ) { ?>
                   disabled="disabled"
                 <?php } ?>
-                name="enabled[]" type="checkbox" value="<?php echo $name; ?>"
+                class="form-check-input"
+                arial-labelledby="plugins-enabled-head"
+                name="enabled[]"
+                type="checkbox"
+                value="<?php echo $name; ?>">
             </td>
           </tr>
         <?php } ?>
