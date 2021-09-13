@@ -12,9 +12,11 @@
         <tr>
           <th>
             <?php echo __('Name'); ?>
-          </th><th>
+          </th>
+          <th>
             <?php echo __('Version'); ?>
-          </th><th>
+          </th>
+          <th id="theme-enabled-head">
             <?php echo __('Enabled'); ?>
           </th>
         </tr>
@@ -24,16 +26,31 @@
           <tr>
             <td>
               <?php if (file_exists($plugin->getRootDir().'/images/image.png')) { ?>
-                <a href="#" class="plugin-screenshot"><?php echo image_tag('/plugins/'.$name.'/images/image', ['alt' => $name]); ?></a>
+                <?php echo image_tag('/plugins/'.$name.'/images/image', ['alt' => $name, 'class' => 'mb-2']); ?>
               <?php } ?>
-              <p class="plugin-name"><?php echo $name; ?></p>
-              <div class="plugin-description">
+              <p class="mb-2"><?php echo $name; ?></p>
+              <div class="small text-muted">
                 <?php echo $plugin::$summary; ?>
               </div>
-            </td><td>
+            </td>
+            <td>
               <?php echo $plugin::$version; ?>
-            </td><td align="center">
-              <input<?php if ($form->isBound() && in_array($name, $form->getValue('enabled')) || !$form->isBound() && in_array($name, $form->getDefault('enabled'))) { ?> checked="checked"<?php } ?> name="enabled[]" type="radio" value="<?php echo $name; ?>"
+            </td>
+            <td align="center">
+              <input
+                <?php if (
+                    $form->isBound()
+                    && in_array($name, $form->getValue('enabled'))
+                    || !$form->isBound()
+                    && in_array($name, $form->getDefault('enabled'))
+                ) { ?>
+                  checked="checked"
+                <?php } ?>
+                class="form-check-input"
+                arial-labelledby="theme-enabled-head"
+                name="enabled[]"
+                type="radio"
+                value="<?php echo $name; ?>">
             </td>
           </tr>
         <?php } ?>
