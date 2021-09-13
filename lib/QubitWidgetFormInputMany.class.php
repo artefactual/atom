@@ -65,7 +65,7 @@ EOF;
             $inputStr .= "</ul>\n";
         }
 
-        $attributes['class'] = (isset($attributes['class'])) ? $attributes['class'] + ' multiInput' : 'multiInput';
+        $attributes['class'] = (isset($attributes['class'])) ? $attributes['class'].' multiInput' : 'multiInput';
 
         // Add a new value
         $new = $this->renderTag('input', array_merge(['name' => $name.'[new]', 'type' => $this->getOption('type')], $attributes));

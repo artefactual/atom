@@ -49,6 +49,7 @@
     <script src="/js/hierarchy.js"></script>
     <script src="/js/checkReposFilter.js"></script>
     <script src="/js/generateIdentifier.js"></script>
+    <script src="/js/multiInput.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/fullWidthTreeView.js"></script>
   </body>
 </html>
