@@ -21,23 +21,23 @@
         </h2>
         <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading">
           <div class="accordion-body">
-            <div class="form-item">
-              <div class="panel panel-default" id="exportOptions">
-                <div class="panel-body">
-                  <label>
-                    <input name="includeEmpty" type="checkbox" checked="checked" />
-                    <?php echo __('Include unlinked containers'); ?>
-                  </label>
-                  <label>
-                    <input name="includeAccessions" type="checkbox" checked="checked" />
-                    <?php echo __('Include containers linked to accessions'); ?>
-                  </label>
-                  <label>
-                    <input name="includeDescriptions" type="checkbox" checked="checked" />
-                    <?php echo __('Include containers linked to descriptions'); ?>
-                  </label>
-                </div>
-              </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" checked="checked" name="includeEmpty" class="form-check-input" id="includeEmpty">
+              <label class="form-check-label" for="includeEmpty">
+                <?php echo __('Include unlinked containers'); ?>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" checked="checked" name="includeAccessions" class="form-check-input" id="includeAccessions">
+              <label class="form-check-label" for="includeAccessions">
+                <?php echo __('Include containers linked to accessions'); ?>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" checked="checked" name="includeDescriptions" class="form-check-input" id="includeDescriptions">
+              <label class="form-check-label" for="includeDescriptions">
+                <?php echo __('Include containers linked to descriptions'); ?>
+              </label>
             </div>
           </div>
         </div>
