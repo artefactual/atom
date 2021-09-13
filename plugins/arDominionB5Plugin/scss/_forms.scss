@@ -1,0 +1,53 @@
+ul.multiInput,
+.yui-ac > ul {
+  margin: 0 0 $spacer * 0.5 0;
+
+  li {
+    cursor: pointer;
+    font-size: $font-size-sm;
+
+    &:hover {
+      list-style-image: url(../../../../images/delete.png);
+    }
+
+    input {
+      width: 100%;
+      margin: $spacer * 0.25 0;
+      padding: $input-padding-y-sm $input-padding-x-sm;
+      border: $input-border-width solid $input-border-color;
+      border-radius: $input-border-radius;
+      font-size: $font-size-sm;
+
+      &:focus {
+        outline: none;
+        border-color: $input-focus-border-color;
+        box-shadow: $input-focus-box-shadow;
+      }
+    }
+  }
+}
+
+.yui-ac-content {
+  position: absolute;
+  margin-top: $spacer * 0.25;
+  width: 100%;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  background: $white;
+  z-index: 1000;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: $spacer * 0.25 $spacer;
+      list-style: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $gray-200;
+      }
+    }
+  }
+}
