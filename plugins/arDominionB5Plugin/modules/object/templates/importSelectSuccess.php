@@ -159,7 +159,7 @@
           <div class="accordion-body">
             <div class="mb-3">
               <label for="import-file" class="form-label"><?php echo __('Select a file to import'); ?></label>
-              <input class="form-control" type="file" id="import-file">
+              <input class="form-control" type="file" id="import-file" name="file">
             </div>
           </div>
         </div>
