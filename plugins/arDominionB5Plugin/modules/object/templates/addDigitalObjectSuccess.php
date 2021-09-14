@@ -45,20 +45,21 @@
             <div class="accordion-body">
               <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)) { ?>
 
-                <?php echo $form->file->renderRow(); ?>
+                <?php echo render_field($form->file); ?>
 
               <?php } elseif (0 == $repository->uploadLimit) { ?>
 
                 <div class="alert alert-warning" role="alert">
-                  <?php echo __('Uploads for <a href="%1%">%2%</a> are disabled', [
+                  <?php echo __('Uploads for <a class="alert-link" href="%1%">%2%</a> are disabled', [
                       '%1%' => url_for([$repository, 'module' => 'repository']),
-                      '%2%' => $repository->__toString(), ]); ?>
+                      '%2%' => $repository->__toString(),
+                  ]); ?>
                 </div>
 
               <?php } else { ?>
 
                 <div class="alert alert-warning" role="alert">
-                  <?php echo __('The upload limit of %1% GB for <a href="%2%">%3%</a> has been reached', [
+                  <?php echo __('The upload limit of %1% GB for <a class="alert-link" href="%2%">%3%</a> has been reached', [
                       '%1%' => $repository->uploadLimit,
                       '%2%' => url_for([$repository, 'module' => 'repository']),
                       '%3%' => $repository->__toString(), ]); ?>
@@ -76,7 +77,7 @@
           </h2>
           <div id="external-collapse" class="accordion-collapse collapse" aria-labelledby="external-heading">
             <div class="accordion-body">
-              <?php echo $form->url->renderRow(); ?>
+              <?php echo render_field($form->url); ?>
             </div>
           </div>
         </div>
