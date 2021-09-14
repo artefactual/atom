@@ -100,16 +100,18 @@
                   <p><?php echo __('You will also be able to review and individually modify each description title on the next page after clicking "Upload."'); ?></p>
                 </div>
 
-                <?php echo $form->title
+                <?php echo render_field($form->title
                     ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
                     ->label(__('Title'))
-                    ->renderRow(); ?>
+                ); ?>
 
-                <?php echo $form->levelOfDescription
+                <?php echo render_field($form->levelOfDescription
                     ->label(__('Level of description'))
-                    ->renderRow(); ?>
+                ); ?>
 
-                <h3><?php echo __('Digital objects'); ?></h3>
+                <h3 class="fs-6 mb-2">
+                  <?php echo __('Digital objects'); ?>
+                </h3>
 
                 <div id="uploads"></div>
 
