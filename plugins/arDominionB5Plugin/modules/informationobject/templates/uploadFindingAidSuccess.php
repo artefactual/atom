@@ -31,13 +31,11 @@
           <div class="accordion-body">
             <?php if (isset($errorMessage)) { ?>
               <div class="alert alert-danger" role="alert">
-                <ul class="list-unstyled m-0">
-                  <li><?php echo $errorMessage; ?></li>
-                </ul>
+                <?php echo $errorMessage; ?></li>
               </div>
             <?php } ?>
 
-            <?php echo $form->file->label(__('%1% file', ['%1%' => strtoupper($format)]))->renderRow(); ?>
+            <?php echo render_field($form->file->label(__('%1% file', ['%1%' => strtoupper($format)]))); ?>
           </div>
         </div>
       </div>
