@@ -29,10 +29,10 @@
         </h2>
         <div id="pub-status-collapse" class="accordion-collapse collapse show" aria-labelledby="pub-status-heading">
           <div class="accordion-body">
-            <?php echo $form->publicationStatus->label(__('Publication status'))->renderRow(); ?>
+            <?php echo render_field($form->publicationStatus->label(__('Publication status'))); ?>
 
             <?php if ($resource->rgt - $resource->lft > 1) { ?>
-              <?php echo $form->updateDescendants->label(__('Update descendants'))->renderRow(); ?>
+              <?php echo render_field($form->updateDescendants->label(__('Update descendants'))); ?>
             <?php } ?>
           </div>
         </div>

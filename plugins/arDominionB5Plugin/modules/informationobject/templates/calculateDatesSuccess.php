@@ -28,13 +28,27 @@
           </h2>
           <div id="existing-collapse" class="accordion-collapse collapse show" aria-labelledby="existing-heading">
             <div class="accordion-body">
-              <p><?php echo __('Select a date range to overwrite:'); ?></p>
-
-              <?php foreach ($events as $eventId => $eventName) { ?>
-                <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId; ?>"><?php echo $eventName; ?></p>
-              <?php } ?>
-
-              <div class="alert alert-warning mb-0" role="alert">
+              <div class="mb-3">
+                <fieldset aria-describedby="calculate-dates-alert">
+                  <legend class="fs-6">
+                    <?php echo __('Select a date range to overwrite:'); ?>
+                  </legend>
+                  <?php foreach ($events as $eventId => $eventName) { ?>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        name="eventIdOrTypeId"
+                        class="form-check-input"
+                        id="eventIdOrTypeId-<?php echo $eventId; ?>"
+                        value="<?php echo $eventId; ?>">
+                      <label for="eventIdOrTypeId-<?php echo $eventId; ?>" class="form-check-label">
+                        <?php echo $eventName; ?>
+                      </label>
+                    </div>
+                  <?php } ?>
+                </fieldset>
+              </div>
+              <div class="alert alert-warning mb-2" id="calculate-dates-alert">
                 <?php echo __('Updating an existing date range will permanently overwrite the current dates.'); ?>
               </div>
             </div>
@@ -50,11 +64,26 @@
           </h2>
           <div id="create-collapse" class="accordion-collapse collapse<?php echo count($events) ? '' : ' show'; ?>" aria-labelledby="create-heading">
             <div class="accordion-body">
-              <p><?php echo __('Select the new date type:'); ?></p>
-
-              <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
-                <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId; ?>"><?php echo $eventTypeName; ?></p>
-              <?php } ?>
+              <div class="mb-2">
+                <fieldset>
+                  <legend class="fs-6">
+                    <?php echo __('Select the new date type:'); ?>
+                  </legend>
+                  <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        name="eventIdOrTypeId"
+                        class="form-check-input"
+                        id="eventIdOrTypeId-<?php echo $eventTypeId; ?>"
+                        value="<?php echo $eventTypeId; ?>">
+                      <label for="eventIdOrTypeId-<?php echo $eventTypeId; ?>" class="form-check-label">
+                        <?php echo $eventTypeName; ?>
+                      </label>
+                    </div>
+                  <?php } ?>
+                </fieldset>
+              </div>
             </div>
           </div>
         </div>

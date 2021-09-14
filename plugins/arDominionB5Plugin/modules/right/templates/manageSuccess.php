@@ -29,16 +29,16 @@
         <div id="inheritance-collapse" class="accordion-collapse collapse show" aria-labelledby="inheritance-heading">
           <div class="accordion-body">
             <div class="well">
-              <?php echo $form->all_or_digital_only
+              <?php echo render_field($form->all_or_digital_only
                   ->label(__('All descendants or just digital objects'))
-                  ->renderRow(); ?>
+              ); ?>
             </div>
 
             <div class="well">
-              <?php echo $form->overwrite_or_combine
+              <?php echo render_field($form->overwrite_or_combine
                   ->help(__('Set if you want to combine the current set of rights with any existing rights, or remove the existing rights and apply these new rights'))
                   ->label(__('Overwrite or combine rights'))
-                  ->renderRow(); ?>
+              ); ?>
             </div>
           </div>
         </div>
