@@ -36,23 +36,42 @@
         </h2>
         <div id="master-collapse" class="accordion-collapse collapse show" aria-labelledby="master-heading">
           <div class="accordion-body">
-            <?php echo render_show(__('Filename'), render_value($resource->name)); ?>
-
-            <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize)); ?>
-
-            <?php echo $form->mediaType->renderRow(); ?>
-
-            <?php echo $form->digitalObjectAltText->label(__('Alt text'))->renderRow(); ?>
-
-            <?php if ($showCompoundObjectToggle) { ?>
-              <?php echo $form->displayAsCompound
-                ->label(__('View children as a compound %1%?', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]))
-                ->renderRow(); ?>
+            <?php if (isset($resource->name)) { ?>
+              <div class="mb-3">
+                <h3 class="fs-6 mb-2">
+                  <?php echo __('Filename'); ?>
+                </h3>
+                <span class="text-muted">
+                  <?php echo render_value($resource->name); ?>
+                </span>
+              </div>
             <?php } ?>
 
-            <?php echo $form->latitude->label('Latitude')->renderRow(); ?>
+            <?php if (isset($resource->byteSize)) { ?>
+              <div class="mb-3">
+                <h3 class="fs-6 mb-2">
+                  <?php echo __('Filesize'); ?>
+                </h3>
+                <span class="text-muted">
+                  <?php echo hr_filesize($resource->byteSize); ?>
+                </span>
+              </div>
+            <?php } ?>
 
-            <?php echo $form->longitude->label('Longitude')->renderRow(); ?>
+            <?php echo render_field($form->mediaType); ?>
+
+            <?php echo render_field($form->digitalObjectAltText->label(__('Alt text'))); ?>
+
+            <?php if ($showCompoundObjectToggle) { ?>
+              <?php echo render_field($form->displayAsCompound->label(__(
+                  'View children as a compound %1%?',
+                  ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]
+              ))); ?>
+            <?php } ?>
+
+            <?php echo render_field($form->latitude->label(__('Latitude'))); ?>
+
+            <?php echo render_field($form->longitude->label(__('Longitude'))); ?>
           </div>
         </div>
       </div>
@@ -71,16 +90,16 @@
 
               <?php } else { ?>
 
-                <?php echo $form["repFile_{$usageId}"]
-                    ->label(__('Select a %1% to upload', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]))
-                    ->renderRow(); ?>
+                <?php echo render_field($form["repFile_{$usageId}"]->label(__(
+                    'Select a %1% to upload',
+                    ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]
+                ))); ?>
 
                 <?php if ($resource->canThumbnail()) { ?>
-                  <?php echo $form["generateDerivative_{$usageId}"]
-                    ->label('Or auto-generate a new representation from master image')
-                    ->renderRow(); ?>
+                  <?php echo render_field($form["generateDerivative_{$usageId}"]->label(__(
+                      'Or auto-generate a new representation from master image'
+                  ))); ?>
                 <?php } ?>
-
               <?php } ?>
             </div>
           </div>
@@ -105,15 +124,11 @@
               <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>">
                 <div class="accordion-body">
                   <?php if (isset($videoTrack)) { ?>
-                    
                     <?php echo get_component('digitalobject', 'editRepresentation', ['resource' => $resource, 'representation' => $videoTrack]); ?>
-
                   <?php } else { ?>
-
-                    <?php echo $form["trackFile_{$usageId}"]
-                        ->label(__('Select a file to upload (.vtt|.srt)'))
-                        ->renderRow(); ?>
-                
+                    <?php echo render_field($form["trackFile_{$usageId}"]->label(__(
+                        'Select a file to upload (.vtt|.srt)'
+                    ))); ?>
                   <?php } ?>
                 </div>
               </div>

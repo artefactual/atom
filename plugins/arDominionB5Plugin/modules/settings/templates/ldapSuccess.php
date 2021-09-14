@@ -29,21 +29,13 @@
         </h2>
         <div id="ldap-collapse" class="accordion-collapse collapse show" aria-labelledby="ldap-heading">
           <div class="accordion-body">
-            <?php echo $form->ldapHost
-                ->label(__('Host'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->ldapHost->label(__('Host'))); ?>
 
-            <?php echo $form->ldapPort
-                ->label(__('Port'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->ldapPort->label(__('Port'))); ?>
 
-            <?php echo $form->ldapBaseDn
-                ->label(__('Base DN'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->ldapBaseDn->label(__('Base DN'))); ?>
 
-            <?php echo $form->ldapBindAttribute
-                ->label(__('Bind Lookup Attribute'))
-                ->renderRow(); ?>
+            <?php echo render_field($form->ldapBindAttribute->label(__('Bind Lookup Attribute'))); ?>
           </div>
         </div>
       </div>

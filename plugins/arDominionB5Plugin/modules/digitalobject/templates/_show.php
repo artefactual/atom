@@ -8,7 +8,7 @@
   <?php } ?>
     
 <?php } else { ?>
-  <div class="digital-object-reference p-3 border-bottom text-center">
+  <div class="digital-object-reference p-3 text-center<?php echo $hideBorder ? '' : ' border-bottom'; ?>">
     <?php if (!empty($accessWarning)) { ?>
       <div class="access-warning">
         <?php echo $accessWarning; ?>
