@@ -49,7 +49,7 @@
           <td><?php echo $job; ?></td>
 
           <!-- Job status -->
-          <td>
+          <td class="text-nowrap">
             <?php if (QubitTerm::JOB_STATUS_COMPLETED_ID == $job->statusId) { ?>
               <i aria-hidden="true" class="fa fa-check-square me-1 text-success"></i>
             <?php } elseif (QubitTerm::JOB_STATUS_ERROR_ID == $job->statusId) { ?>
@@ -61,9 +61,17 @@
             <?php echo $job->getStatusString(); ?>
 
             <?php if ($job->getObjectModule() && $job->getObjectSlug()) { ?>
-              <a href="<?php echo url_for(['module' => $job->getObjectModule(),
-                  'slug' => $job->getObjectSlug(), ]); ?>" class="fa fa-share"></a>
-
+              <a
+                href="<?php echo url_for([
+                    'module' => $job->getObjectModule(),
+                    'slug' => $job->getObjectSlug(),
+                ]); ?>"
+                class="text-decoration-none ms-1">
+                <i class="fa fa-share" aria-hidden="true"></i>
+                <span class="visually-hidden">
+                  <?php echo __('Go to related resource'); ?>
+                </span>
+              </a>
             <?php } ?>
           </td>
 
