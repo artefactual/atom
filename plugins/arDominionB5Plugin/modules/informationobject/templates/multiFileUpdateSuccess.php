@@ -50,10 +50,30 @@
                 <?php echo render_field(
                     $digitalObjectTitleForm[$io->id],
                     null,
-                    ['onlyInputs' => true, 'aria-labelledby' => 'title-label', 'class' => 'mb-2']
+                    ['onlyInputs' => true, 'aria-labelledby' => 'title-label', 'class' => 'mb-3']
                 ); ?>
-                <?php echo __($io->digitalObjectsRelatedByobjectId[0]->name); ?>
-                <?php echo render_show(__('Level of description'), render_value_inline($io->levelOfDescription)); ?>
+
+                <?php if (isset($io->digitalObjectsRelatedByobjectId[0]->name)) { ?>
+                  <div class="mb-3">
+                    <h3 class="fs-6 mb-2">
+                      <?php echo __('Filename'); ?>
+                    </h3>
+                    <span class="text-muted">
+                      <?php echo $io->digitalObjectsRelatedByobjectId[0]->name; ?>
+                    </span>
+                  </div>
+                <?php } ?>
+
+                <?php if (isset($io->levelOfDescription)) { ?>
+                  <div class="mb-3">
+                    <h3 class="fs-6 mb-2">
+                      <?php echo __('Level of description'); ?>
+                    </h3>
+                    <span class="text-muted">
+                      <?php echo render_value_inline($io->levelOfDescription); ?>
+                    </span>
+                  </div>
+                <?php } ?>
               </td>
             </tr>
           <?php } ?>

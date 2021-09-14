@@ -32,19 +32,25 @@
         </h2>
         <div id="deaccession-collapse" class="accordion-collapse collapse" aria-labelledby="deaccession-heading">
           <div class="accordion-body">
-            <?php echo $form->identifier
+            <?php echo render_field($form->identifier
                 ->label(__('Deaccession number').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->scope
+            <?php echo render_field($form->scope
                 ->help(__('Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.'))
                 ->label(__('Scope').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-                ->renderRow(); ?>
+            ); ?>
 
-            <?php echo $form->date
-                ->help(__('Date of deaccession'))
-                ->label(__('Date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-                ->renderRow(); ?>
+            <?php echo render_field(
+                $form->date->help(__('Date of deaccession'))->label(
+                    __('Date')
+                    .' <span class="form-required" title="'
+                    .__('This is a mandatory element.')
+                    .'">*</span>'
+                ),
+                null,
+                ['type' => 'date']
+            ); ?>
 
             <?php echo render_field($form->description
                 ->help(__('Identify what materials are being deaccessioned.'))
