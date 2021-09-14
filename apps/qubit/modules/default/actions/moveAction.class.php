@@ -122,14 +122,16 @@ class DefaultMoveAction extends sfAction
 
         $this->queryBool = new \Elastica\Query\BoolQuery();
 
-        if (isset($request->query)) {
+        if (isset($request->query) || isset($request->subquery)) {
             $fields = [
                 'identifier' => 1,
                 'referenceCode' => 1,
                 sprintf('i18n.%s.title', sfContext::getInstance()->user->getCulture()) => 1,
             ];
             $this->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString($request->query, $fields)
+                arElasticSearchPluginUtil::generateBoolQueryString(
+                    $request->query ?: $request->subquery, $fields
+                )
             );
         } else {
             $query = new \Elastica\Query\Term();
