@@ -32,8 +32,12 @@ body {
   width: $spacer * 2.75;
 }
 
-.dropdown-header {
-  font-size: $spacer * 1.25;
+.dropdown-menu {
+  box-shadow: $box-shadow;
+  
+  .dropdown-header {
+    font-size: $spacer * 1.25;
+  }
 }
 
 .filter-tag:last-child {
