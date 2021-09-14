@@ -5,42 +5,28 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
-
-  <div class="row">
-    <div class="inline-search span6" role="search" aria-label="<?php echo __(sfConfig::get('app_ui_label_informationobject')); ?>">
-      <form action="<?php echo url_for([$resource, 'module' => 'default', 'action' => 'move']); ?>">
-        <div class="input-append">
-          <?php if (isset($sf_request->query)) { ?>
-            <input type="text" aria-label="<?php echo __('Search title or identifier'); ?>" name="query" value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search title or identifier'); ?>" />
-            <a class="btn" href="<?php echo url_for([$resource, 'module' => 'default', 'action' => 'move']); ?>" aria-label=<?php echo __('Reset search'); ?>>
-              <i aria-hidden="true" class="fa fa-undo"></i>
-            </a>
-          <?php } else { ?>
-            <input type="text" name="query" aria-label="<?php echo __('Search title or identifier'); ?>" placeholder="<?php echo __('Search title or identifier'); ?>" />
-          <?php } ?>
-          <div class="btn-group">
-            <button class="btn" type="submit" aria-label=<?php echo __('Search'); ?>>
-              <i aria-hidden="true" class="fa fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+  <div class="d-inline-block mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search title or identifier'),
+        'landmarkLabel' => sfConfig::get('app_ui_label_informationobject'),
+        'route' => url_for([$resource, 'module' => 'default', 'action' => 'move']),
+    ]); ?>
   </div>
 
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <?php foreach ($parent->ancestors as $item) { ?>
-        <?php if (isset($item->parent)) { ?>
-          <li class="breadcrumb-item"><?php echo link_to(render_title($item), [$resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug]); ?></li>
+  <?php if (0 < count($parent->ancestors)) { ?>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <?php foreach ($parent->ancestors as $item) { ?>
+          <?php if (isset($item->parent)) { ?>
+            <li class="breadcrumb-item"><?php echo link_to(render_title($item), [$resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug]); ?></li>
+          <?php } ?>
         <?php } ?>
-      <?php } ?>
-      <?php if (isset($parent->parent)) { ?>
-        <li class="breadcrumb-item active" aria-current="page"><?php echo render_title($parent); ?></li>
-      <?php } ?>
-    </ol>
-  </nav>
-
+        <?php if (isset($parent->parent)) { ?>
+          <li class="breadcrumb-item active" aria-current="page"><?php echo render_title($parent); ?></li>
+        <?php } ?>
+      </ol>
+    </nav>
+  <?php } ?>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
