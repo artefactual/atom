@@ -19,7 +19,7 @@
             'book-dead',
             'heart-broken',
             'dizzy',
-            'robot'
+            'robot',
         ]; ?>
         <h2 class="mb-4">
           <i class="fas fa-lg fa-<?php echo $icons[array_rand($icons)]; ?> me-2" aria-hidden="true"></i>
