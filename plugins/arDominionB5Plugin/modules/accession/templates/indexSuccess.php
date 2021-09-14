@@ -204,14 +204,13 @@
     <?php if (!isset($accrued)) { ?>
       <li><?php echo link_to(__('Add accrual'), ['module' => 'accession', 'action' => 'add', 'accession' => url_for([$resource, 'module' => 'accession'])], ['class' => 'btn atom-btn-outline-light']); ?></li>
     <?php } ?>
-
-    <li><?php echo link_to(__('Create %1%', ['%1%' => sfConfig::get('app_ui_label_informationobject')]), [$resource, 'module' => 'accession', 'action' => 'addInformationObject'], ['class' => 'btn atom-btn-outline-light']); ?></li>
     <li>
       <div class="btn-group dropup">
         <button type="button" class="btn atom-btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           <?php echo __('More'); ?>
         </button>
         <ul class="dropdown-menu">
+          <li><?php echo link_to(__('Create %1%', ['%1%' => sfConfig::get('app_ui_label_informationobject')]), [$resource, 'module' => 'accession', 'action' => 'addInformationObject'], ['class' => 'dropdown-item']); ?></li>
           <li><?php echo link_to(__('Create new rights'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
           <li><?php echo link_to(__('Link physical storage'), [$resource, 'module' => 'object', 'action' => 'editPhysicalObjects'], ['class' => 'dropdown-item']); ?></li>
         </ul>
