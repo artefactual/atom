@@ -3,7 +3,7 @@
     <i class="fas fa-globe-europe me-1" aria-hidden="true"></i>
     <?php echo __('Other languages available'); ?>
   </button>
-  <ul class="dropdown-menu mt-2 shadow" aria-labelledby="translation-links-button">
+  <ul class="dropdown-menu mt-2" aria-labelledby="translation-links-button">
     <?php foreach ($translations as $code => $value) { ?>
       <li>
         <?php echo link_to(
