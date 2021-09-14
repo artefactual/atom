@@ -277,7 +277,13 @@ class sfException extends Exception
       __DIR__.'/data',
     );
 
-    $template = sprintf('%s.%s.php', $debug ? 'exception' : 'error', $format);
+    $filename = $debug ? 'exception' : 'error';
+    if (sfConfig::get('app_b5_theme', false) && !$debug)
+    {
+      $filename .= 'B5';
+    }
+
+    $template = sprintf('%s.%s.php', $filename, $format);
     foreach ($templatePaths as $path)
     {
       if (null !== $path && is_readable($file = $path.'/'.$template))
