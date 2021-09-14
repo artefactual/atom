@@ -23,7 +23,7 @@
 
         <div class="tips">
           <p>
-            Try again a little later or ask in the <a href="http://groups.google.ca/group/ica-atom-users">discussion group</a>.<br />
+            Try again a little later or ask in the <a href="https://groups.google.com/g/ica-atom-users">discussion group</a>.<br />
             <a href="javascript:history.go(-1)">Back to previous page.</a>
           </p>
         </div>
