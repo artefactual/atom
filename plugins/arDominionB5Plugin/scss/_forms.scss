@@ -34,7 +34,8 @@ ul.multiInput,
   border: $border-width solid $border-color;
   border-radius: $border-radius;
   background: $white;
-  z-index: 1000;
+  box-shadow: $box-shadow;
+  z-index: $zindex-dropdown;
 
   ul {
     margin: 0;
