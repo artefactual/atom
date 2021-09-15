@@ -36,7 +36,7 @@
               <div class="col-md-3">
                 <div class="rename-form-field-toggle form-check">
                   <input class="form-check-input" type="checkbox" id="rename_enable_title" checked>
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" for="rename_enable_title">
                     <?php echo __('Update title'); ?>
                   </label>
                 </div>
@@ -50,14 +50,14 @@
             </div>
             <hr />
 
-            <div id="rename-slug-warning" class="alert alert-danger" style="display: none;">
+            <div id="rename-slug-warning" class="alert alert-danger" role="alert" style="display: none;">
               <?php echo __('A slug based on this title already exists so a number has been added to pad the slug.'); ?>
             </div>
             <div class="row mb-3">
               <div class="col-md-3">
                 <div class="rename-form-field-toggle form-check">
                   <input class="form-check-input" type="checkbox" id="rename_enable_slug" checked>
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" for="rename_enable_slug">
                     <?php echo __('Update slug'); ?>
                   </label>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="col-md-3">
                   <div class="rename-form-field-toggle form-check">
                     <input class="form-check-input" type="checkbox" id="rename_enable_filename" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
+                    <label class="form-check-label" for="rename_enable_filename">
                       <?php echo __('Update filename'); ?>
                     </label>
                   </div>
