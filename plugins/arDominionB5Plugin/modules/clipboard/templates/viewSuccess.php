@@ -34,7 +34,7 @@
   <?php end_slot(); ?>
 
   <?php slot('before-content'); ?>
-    <div class="d-flex flex-wrap gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2 mb-3 d-print-none">
       <?php echo get_partial('default/printPreviewButton'); ?>
 
       <div class="d-flex flex-wrap gap-2 ms-auto">

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
     <?php echo get_component_slot('css'); ?>
   </head>
-  <body class="d-flex flex-column min-vh-100 <?php echo $sf_context->getModuleName(); ?> <?php echo $sf_context->getActionName(); ?>">
+  <body class="d-flex flex-column min-vh-100<?php if ('print' == $sf_request->getParameter('media')) { ?> print-preview<?php } ?> <?php echo $sf_context->getModuleName(); ?> <?php echo $sf_context->getActionName(); ?>">
     <?php echo get_component('default', 'tagManager', ['code' => 'noscript']); ?>
     <?php echo get_partial('header'); ?>
     <?php include_slot('pre'); ?>

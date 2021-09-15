@@ -160,7 +160,7 @@
 
   <?php if (isset($pager) && $pager->getNbResults()) { ?>
 
-    <div class="d-flex flex-wrap gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2 mb-3 d-print-none">
       <?php echo get_partial('default/printPreviewButton'); ?>
 
       <?php if ('yes' === sfConfig::get('app_treeview_show_browse_hierarchy_page', 'no')) { ?>
@@ -215,7 +215,7 @@
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
             <?php unset($params['page']); ?>
             <a
-              class="btn btn-sm atom-btn-white ms-auto text-wrap"
+              class="btn btn-sm atom-btn-white ms-auto text-wrap d-print-none"
               href="<?php echo url_for(
                   ['module' => 'informationobject', 'action' => 'browse']
                   + $params
