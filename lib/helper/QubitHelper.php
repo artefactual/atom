@@ -325,7 +325,7 @@ function render_b5_show_value($value, $options = [])
 
 function render_b5_section_label_css_classes($options = [])
 {
-    return 'border-bottom h5 m-0 p-3 text-primary';
+    return 'border-bottom h5 m-0 p-3 text-primary atom-section-button';
 }
 
 function render_b5_section_label($label, $options = [])
