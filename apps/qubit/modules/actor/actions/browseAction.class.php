@@ -375,8 +375,10 @@ class ActorBrowseAction extends DefaultBrowseAction
         // Set label for has digital object filter tag
         if (filter_var($request->hasDigitalObject, FILTER_VALIDATE_BOOLEAN)) {
             $this->setFilterTagLabel('hasDigitalObject', $this->i18n->__('With digital objects'));
-        } else {
+        } elseif ('0' === $request->hasDigitalObject) {
             $this->setFilterTagLabel('hasDigitalObject', $this->i18n->__('Without digital objects'));
+        } else {
+            unset($request->hasDigitalObject);
         }
 
         if (!empty($request->emptyField)) {

@@ -503,8 +503,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         // Set label for has digital object filter tag
         if (filter_var($request->onlyMedia, FILTER_VALIDATE_BOOLEAN)) {
             $this->setFilterTagLabel('onlyMedia', $i18n->__('With digital objects'));
-        } else {
+        } elseif ('0' === $request->onlyMedia) {
             $this->setFilterTagLabel('onlyMedia', $i18n->__('Without digital objects'));
+        } else {
+            unset($request->onlyMedia);
         }
 
         // Set label for languages filter tag
