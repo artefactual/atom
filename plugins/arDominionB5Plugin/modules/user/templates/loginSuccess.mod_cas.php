@@ -9,7 +9,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <button type="submit" class="btn atom-btn-outline-success"><?php echo __('Log in with CAS'); ?></button>
     </ul>
 

@@ -20,7 +20,7 @@
 
   <?php echo $form->renderHiddenFields(); ?>
 
-  <div class="accordion">
+  <div class="accordion mb-3">
     <div class="accordion-item">
       <h2 class="accordion-header" id="all-heading">
         <button
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <ul class="actions nav gap-2">
+  <ul class="actions mb-3 nav gap-2">
     <li>
       <?php echo link_to(
           __('Cancel'),

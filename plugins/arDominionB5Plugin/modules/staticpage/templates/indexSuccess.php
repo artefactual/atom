@@ -22,7 +22,7 @@
 
 <?php if (QubitAcl::check($resource, 'update')) { ?>
   <?php slot('after-content'); ?>
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php if (QubitAcl::check($resource, 'delete')) { ?>
         <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'staticpage', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger']); ?></li>

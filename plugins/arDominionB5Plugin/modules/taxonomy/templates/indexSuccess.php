@@ -126,7 +126,7 @@
   <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
   <?php if (QubitAcl::check($resource, 'createTerm')) { ?>
-    <section class="actions">
+    <section class="actions mb-3">
       <?php echo link_to(__('Add new'), ['module' => 'term', 'action' => 'add', 'taxonomy' => url_for([$resource, 'module' => 'taxonomy'])], ['class' => 'btn atom-btn-outline-light']); ?>
     </section>
   <?php } ?>

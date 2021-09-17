@@ -121,7 +121,7 @@
 
           <h5><?php echo __('Filter results by:'); ?></h5>
 
-          <div class="criteria row mb-4">
+          <div class="criteria row mb-2">
 
             <div class="col-md-4">
               <?php echo render_field($form->relatedType->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))); ?>
@@ -139,7 +139,7 @@
 
           <h5><?php echo __('Find results where:'); ?></h5>
 
-          <div class="criteria row">
+          <div class="criteria row mb-2">
 
             <div class="col-md-3">
               <?php echo render_field($form->relatedType->label(__('Relationship'))); ?>
@@ -162,7 +162,7 @@
 
           </div>
 
-          <ul class="actions nav gap-2 justify-content-center">
+          <ul class="actions mb-1 nav gap-2 justify-content-center">
             <li><input type="button" class="btn atom-btn-outline-danger reset" value="<?php echo __('Reset'); ?>"></li>
             <li><input type="submit" class="btn atom-btn-outline-light" value="<?php echo __('Search'); ?>"></li>
           </ul>

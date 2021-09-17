@@ -16,6 +16,6 @@
   </ul>
 </div>
 
-<section class="actions">
+<section class="actions mb-3">
   <a class="btn atom-btn-outline-light" href="#" onClick="history.back(); return false;"><?php echo __('Back'); ?></a>
 </section>
