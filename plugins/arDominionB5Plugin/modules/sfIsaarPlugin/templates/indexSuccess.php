@@ -46,9 +46,9 @@
       <h4 class="h5 mb-2"><?php echo __('Export'); ?></h4>
       <ul class="list-unstyled">
         <li>
-          <a href="<?php echo url_for([$resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml']); ?>">
-            <i class="fas fa-fw fa-upload text-muted" aria-hidden="true"></i>
-            <?php echo __('EAC'); ?>
+          <a class="atom-icon-link" href="<?php echo url_for([$resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml']); ?>">
+            <i class="fas fa-fw fa-upload me-1" aria-hidden="true">
+            </i><?php echo __('EAC'); ?>
           </a>
         </li>
       </ul>
