@@ -2,8 +2,10 @@
   <?php echo render_b5_show_label(__('Related right')); ?>
   <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <?php if (QubitAcl::check($relatedObject, 'update')) { ?>
-      <a href="<?php echo url_for(['module' => 'right', 'action' => 'edit', 'slug' => $resource->slug]); ?>">&nbsp;Edit</a> |
-      <a href="<?php echo url_for(['module' => 'right', 'action' => 'delete', 'slug' => $resource->slug]); ?>">Delete</a>
+      <div>
+        <a href="<?php echo url_for(['module' => 'right', 'action' => 'edit', 'slug' => $resource->slug]); ?>"><?php echo __('Edit'); ?></a> |
+        <a href="<?php echo url_for(['module' => 'right', 'action' => 'delete', 'slug' => $resource->slug]); ?>"><?php echo __('Delete'); ?></a>
+      </div>
     <?php } ?>
 
     <div>
@@ -61,13 +63,15 @@
 
       <?php } ?>
 
-      <blockquote class="border-top m-0">
+      <blockquote class="border-bottom m-0 mt-1">
         <?php foreach ($resource->grantedRights as $grantedRight) { ?>
-          <?php echo render_show(__('Act'), render_value_inline($grantedRight->act), ['isSubField' => true]); ?>
-          <?php echo render_show(__('Restriction'), render_value_inline(QubitGrantedRight::getRestrictionString($grantedRight->restriction)), ['isSubField' => true]); ?>
-          <?php echo render_show(__('Start date'), render_value_inline(Qubit::renderDate($grantedRight->startDate)), ['isSubField' => true]); ?>
-          <?php echo render_show(__('End date'), render_value_inline(Qubit::renderDate($grantedRight->endDate)), ['isSubField' => true]); ?>
-          <?php echo render_show(__('Notes'), render_value_inline($grantedRight->notes), ['isSubField' => true]); ?>
+          <div class="border border-bottom-0 px-2 py-1">
+            <?php echo render_show(__('Act'), render_value_inline($grantedRight->act), ['isSubField' => true]); ?>
+            <?php echo render_show(__('Restriction'), render_value_inline(QubitGrantedRight::getRestrictionString($grantedRight->restriction)), ['isSubField' => true]); ?>
+            <?php echo render_show(__('Start date'), render_value_inline(Qubit::renderDate($grantedRight->startDate)), ['isSubField' => true]); ?>
+            <?php echo render_show(__('End date'), render_value_inline(Qubit::renderDate($grantedRight->endDate)), ['isSubField' => true]); ?>
+            <?php echo render_show(__('Notes'), render_value_inline($grantedRight->notes), ['isSubField' => true]); ?>
+          </div>
         <?php } ?>
       </blockquote>
     </div>
