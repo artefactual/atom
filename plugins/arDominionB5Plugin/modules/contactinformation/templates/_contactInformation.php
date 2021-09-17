@@ -1,5 +1,4 @@
-<section class="vcard border-bottom">
-
+<section class="contact-info">
   <?php if (!empty($contactInformation->contactPerson)) { ?>
     <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
       <?php echo render_b5_show_label(''); ?>
@@ -45,5 +44,4 @@
   <?php echo render_show(__('URL'), render_value_inline($contactInformation->website), ['valueClass' => 'url']); ?>
 
   <?php echo render_show(__('Note'), render_value($contactInformation->getNote(['cultureFallback' => true])), ['valueClass' => 'note']); ?>
-
 </section>
