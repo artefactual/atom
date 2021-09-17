@@ -4,7 +4,7 @@
     <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
   <?php } ?>
 
-  <div class="row">
+  <div class="row mb-4">
 
     <div class="col-md-4">
       <label class="form-label" for="thematicAreas"><?php echo __('Thematic area'); ?></label>
@@ -47,7 +47,7 @@
 
   </div>
 
-  <ul class="actions nav gap-2 justify-content-center">
+  <ul class="actions mb-1 nav gap-2 justify-content-center">
     <li><input type="submit" class="btn atom-btn-outline-light" value="<?php echo __('Set filters'); ?>"></li>
   </ul>
 

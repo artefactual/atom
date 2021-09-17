@@ -117,7 +117,7 @@
 <?php } ?>
 
 <!-- Action buttons -->
-<ul class="actions nav gap-2">
+<ul class="actions mb-3 nav gap-2">
   <li>
     <a class="btn atom-btn-outline-light" onClick="window.location.reload()" href="#">
       <i class="fas fa-sync-alt me-1" aria-hidden="true"></i>

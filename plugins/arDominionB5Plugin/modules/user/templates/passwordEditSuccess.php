@@ -12,7 +12,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="password-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#password-collapse" aria-expanded="true" aria-controls="password-collapse">
@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'user'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
       <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
     </ul>

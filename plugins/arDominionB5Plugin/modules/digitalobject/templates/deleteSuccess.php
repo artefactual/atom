@@ -20,7 +20,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <?php if (isset($resource->parent)) { ?>
         <li><?php echo link_to(__('Cancel'), [$resource->parent, 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
       <?php } else { ?>

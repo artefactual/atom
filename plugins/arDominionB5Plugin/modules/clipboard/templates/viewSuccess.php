@@ -73,7 +73,7 @@
     <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
     <?php if (isset($pager) && $pager->getNbResults()) { ?>
-      <ul class="actions nav gap-2">
+      <ul class="actions mb-3 nav gap-2">
         <li><button class="btn atom-btn-outline-danger" id="clipboard-clear" data-clipboard-type="<?php echo $type; ?>"><?php echo __('Clear %1 clipboard', ['%1' => lcfirst($uiLabels[$type])]); ?></button></li>
         <li><?php echo link_to(__('Save'), ['module' => 'clipboard', 'action' => 'save'], ['class' => 'btn atom-btn-outline-light', 'id' => 'clipboard-save']); ?></li>
         <li><?php echo link_to(__('Export'), ['module' => 'clipboard', 'action' => 'export', 'type' => $type], ['class' => 'btn atom-btn-outline-light']); ?></li>

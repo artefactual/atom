@@ -62,7 +62,7 @@
 
 <?php slot('after-content'); ?>
   <?php if (QubitAcl::check($resource, ['update', 'delete', 'create'])) { ?>
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <?php if (QubitAcl::check($resource, 'update')) { ?>
         <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'donor', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
