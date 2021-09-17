@@ -1,5 +1,5 @@
 <?php if (QubitAcl::check($resource->taxonomy, 'createTerm') || (QubitAcl::check($resource, ['update', 'delete', 'translate']) && !QubitTerm::isProtected($resource->id))) { ?>
-  <ul class="actions nav gap-2">
+  <ul class="actions mb-3 nav gap-2">
 
     <?php if ((QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) && !QubitTerm::isProtected($resource->id)) { ?>
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'term', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>

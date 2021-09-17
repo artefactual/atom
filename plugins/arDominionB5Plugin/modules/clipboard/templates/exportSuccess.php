@@ -22,7 +22,7 @@
     <?php echo $form->renderHiddenFields(); ?>
 
     <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>" data-export-alert-close="<?php echo __('Close'); ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.', ['%1%' => '<strong>', '%2%' => '</strong>']); ?>">
-      <div class="accordion">
+      <div class="accordion mb-3">
         <div class="accordion-item">
           <h2 class="accordion-header" id="export-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#export-collapse" aria-expanded="true" aria-controls="export-collapse">
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><input class="btn atom-btn-outline-success" type="submit" id="exportSubmit" value="<?php echo __('Export'); ?>"></li>
       <li><?php echo link_to(__('Cancel'), !empty($sf_request->getReferer()) ? $sf_request->getReferer() : ['module' => 'clipboard', 'action' => 'view'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
     </ul>
