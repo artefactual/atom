@@ -53,6 +53,10 @@ body {
   .field p:last-child {
     margin-bottom: 0;
   }
+
+  .contact-info:not(:last-child) {
+    border-bottom: $border-width solid $border-color;
+  }
 }
 
 #atom-digital-object-carousel {
