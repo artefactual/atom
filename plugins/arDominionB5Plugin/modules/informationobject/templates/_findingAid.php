@@ -3,36 +3,34 @@
 
   <?php if ($showStatus) { ?>
     <li>
-      <a>
-        <i class="fas fa-fw fa-info-circle text-muted" aria-hidden="true"></i>
-        <?php echo __('Status: %1', ['%1' => $status]); ?>
-      </a>
+      <i class="fas fa-fw fa-info-circle me-1 text-muted" aria-hidden="true">
+      </i><?php echo __('Status: %1', ['%1' => $status]); ?>
     </li>
   <?php } ?>
 
   <?php if ($showGenerate) { ?>
     <li>
-      <a href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'generateFindingAid']); ?>">
-        <i class="fas fa-fw fa-cogs text-muted" aria-hidden="true"></i>
-        <?php echo __('Generate'); ?>
+      <a class="atom-icon-link" href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'generateFindingAid']); ?>">
+        <i class="fas fa-fw fa-cogs me-1" aria-hidden="true">
+        </i><?php echo __('Generate'); ?>
       </a>
     </li>
   <?php } ?>
 
   <?php if ($showUpload) { ?>
     <li>
-      <a href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'uploadFindingAid']); ?>">
-        <i class="fas fa-fw fa-upload text-muted" aria-hidden="true"></i>
-        <?php echo __('Upload'); ?>
+      <a class="atom-icon-link" href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'uploadFindingAid']); ?>">
+        <i class="fas fa-fw fa-upload me-1" aria-hidden="true">
+        </i><?php echo __('Upload'); ?>
       </a>
     </li>
   <?php } ?>
 
   <?php if ($showDelete) { ?>
     <li>
-      <a href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'deleteFindingAid']); ?>">
-        <i class="fas fa-fw fa-times text-muted" aria-hidden="true"></i>
-        <?php echo __('Delete'); ?>
+      <a class="atom-icon-link" href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'deleteFindingAid']); ?>">
+        <i class="fas fa-fw fa-times me-1" aria-hidden="true">
+        </i><?php echo __('Delete'); ?>
       </a>
     </li>
   <?php } ?>

@@ -79,3 +79,16 @@
     }
   }
 }
+
+.atom-icon-link {
+  i {
+    color: $gray-600;
+  }
+
+  &:hover,
+  &:focus {
+    i {
+      color: $primary;
+    }
+  }
+}

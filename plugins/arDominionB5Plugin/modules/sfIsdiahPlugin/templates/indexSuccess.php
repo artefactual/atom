@@ -59,7 +59,7 @@
     </ul>
 
     <?php if (isset($primaryContact)) { ?>
-      <section id="primary-contact">
+      <section id="primary-contact" class="mb-3">
         <h4 class="h5 mb-2"><?php echo __('Primary contact'); ?></h4>
         <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
         <div class="d-flex gap-2 flex-wrap">
@@ -67,10 +67,10 @@
             <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
               <?php $website = 'http://'.$website; ?>
             <?php } ?>
-            <a class="btn btn-small atom-btn-white flex-fill" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
+            <a class="btn atom-btn-white" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
           <?php } ?>
           <?php if (null !== $email = $primaryContact->email) { ?>
-            <a class="btn btn-small atom-btn-white flex-fill" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
+            <a class="btn atom-btn-white" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
           <?php } ?>
         </div>
       </section>
