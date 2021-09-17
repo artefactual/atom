@@ -250,7 +250,7 @@ function render_b5_show_subfield_css_classes($options = [])
 function render_b5_show($label, $value, $options = [])
 {
     $tag = 'div';
-    $cssClasses = 'field';
+    $cssClasses = 'field text-break';
     if (isset($options['fieldClass'])) {
         $cssClasses .= ' '.$options['fieldClass'];
     }
@@ -277,7 +277,7 @@ function render_b5_show_container($tag, $content, $cssClasses = '', $options = [
 
 function render_b5_show_label_css_classes($options = [])
 {
-    $result = 'h6 lh-base m-0 text-muted text-break';
+    $result = 'h6 lh-base m-0 text-muted';
     if (!isset($options['isSubField'])) {
         $result .= ' col-3 border-end text-end p-2';
     } else {
