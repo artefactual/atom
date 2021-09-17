@@ -277,11 +277,11 @@ function render_b5_show_container($tag, $content, $cssClasses = '', $options = [
 
 function render_b5_show_label_css_classes($options = [])
 {
-    $result = 'h6 m-0 text-muted text-break';
+    $result = 'h6 lh-base m-0 text-muted text-break';
     if (!isset($options['isSubField'])) {
         $result .= ' col-3 border-end text-end p-2';
     } else {
-        $result .= ' me-1 px-1 pb-2';
+        $result .= ' me-2';
     }
 
     return $result;
@@ -300,14 +300,7 @@ function render_b5_show_label($label, $options = [])
 
 function render_b5_show_value_css_classes($options = [])
 {
-    $result = 'h6 m-0';
-    if (!isset($options['isSubField'])) {
-        $result .= ' col-9 p-2';
-    } else {
-        $result .= ' px-1 pb-2';
-    }
-
-    return $result;
+    return isset($options['isSubField']) ? '' : 'col-9 p-2';
 }
 
 function render_b5_show_value($value, $options = [])

@@ -49,6 +49,10 @@ body {
   border: $border-width solid $border-color;
   border-radius: $border-radius;
   margin-bottom: $spacer;
+
+  .field p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 #atom-digital-object-carousel {
