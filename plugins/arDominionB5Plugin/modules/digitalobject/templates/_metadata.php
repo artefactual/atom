@@ -25,7 +25,7 @@
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Original file'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessOriginalFile) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Original file'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessOriginalFile) { ?> text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showOriginalFileName) { ?>
@@ -88,7 +88,7 @@
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Preservation copy'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessPreservationCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Preservation copy'); ?><i class="fa fa-archive ms-2 text-dark<?php if (!$canAccessPreservationCopy) { ?> text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showPreservationCopyFileName) { ?>
@@ -131,7 +131,7 @@
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Master file'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessMasterFile) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Master file'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessMasterFile) { ?> text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showMasterFileGoogleMap) { ?>
@@ -186,7 +186,7 @@
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Reference copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessReferenceCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Reference copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessReferenceCopy) { ?> text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showReferenceCopyFileName) { ?>
@@ -226,7 +226,7 @@
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
-                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Thumbnail copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessThumbnailCopy) { ?> inactive text-muted<?php } ?>" aria-hidden="true"></i></h3>
+                  <h3 class="<?php echo render_b5_show_label_css_classes(); ?>"><?php echo __('Thumbnail copy'); ?><i class="fa fa-file ms-2 text-dark<?php if (!$canAccessThumbnailCopy) { ?> text-muted<?php } ?>" aria-hidden="true"></i></h3>
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showThumbnailCopyFileName) { ?>
