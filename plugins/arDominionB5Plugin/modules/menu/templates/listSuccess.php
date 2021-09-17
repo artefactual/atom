@@ -59,7 +59,7 @@
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
-  <section class="actions">
+  <section class="actions mb-3">
     <?php echo link_to(__('Add new'), ['module' => 'menu', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?>
   </section>
 <?php end_slot(); ?>

@@ -23,7 +23,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="edit-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#edit-collapse" aria-expanded="false" aria-controls="edit-collapse">
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <?php if (null !== $next = $form->getValue('next')) { ?>
         <li><?php echo link_to(__('Cancel'), $next, ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
       <?php } elseif (isset($sf_request->getAttribute('sf_route')->resource)) { ?>

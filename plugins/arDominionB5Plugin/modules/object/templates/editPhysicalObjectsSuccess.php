@@ -63,7 +63,7 @@
       </div>
     <?php } ?>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item<?php echo count($relations) ? ' rounded-0' : ''; ?>">
         <h2 class="accordion-header" id="add-heading">
           <button
@@ -130,7 +130,7 @@
       </div>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li>
         <?php echo link_to(
             __('Cancel'),

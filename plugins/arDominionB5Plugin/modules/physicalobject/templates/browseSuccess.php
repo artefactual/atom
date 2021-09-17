@@ -61,7 +61,7 @@
   <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
   <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><?php echo link_to(__('Add new'), ['module' => 'physicalobject', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <li><?php echo link_to(__('Export storage report'), ['module' => 'physicalobject', 'action' => 'holdingsReportExport'], ['class' => 'btn atom-btn-outline-light']); ?></li>
     </ul>

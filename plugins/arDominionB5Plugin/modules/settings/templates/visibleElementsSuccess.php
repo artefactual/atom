@@ -12,7 +12,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="global-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#global-collapse" aria-expanded="false" aria-controls="global-collapse">
@@ -312,7 +312,7 @@
       </div>
     </div>
 
-    <section class="actions">
+    <section class="actions mb-3">
       <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 

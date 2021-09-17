@@ -65,7 +65,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Move here'); ?>"></li>
       <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
     </ul>

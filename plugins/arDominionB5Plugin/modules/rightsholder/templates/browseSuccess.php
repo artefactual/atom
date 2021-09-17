@@ -66,7 +66,7 @@
 
   <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
-  <section class="actions">
+  <section class="actions mb-3">
     <?php echo link_to(__('Add new'), ['module' => 'rightsholder', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?>
   </section>
 

@@ -81,7 +81,7 @@
       </table>
     </div>
 
-    <section class="actions">
+    <section class="actions mb-3">
       <input class="btn atom-btn-outline-success" id="rename-form-submit" type="submit" value="<?php echo __('Save'); ?>">
     </section>
   </form>

@@ -12,7 +12,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>">
+    <div class="accordion mb-3" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>">
       <div class="accordion-item">
         <h2 class="accordion-header" id="export-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#export-collapse" aria-expanded="true" aria-controls="export-collapse">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><?php echo link_to(__('Cancel'), ['module' => 'physicalobject', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
       <li><input class="btn atom-btn-outline-success" type="submit" id="exportSubmit" value="<?php echo __('Export'); ?>"></li>
     </ul>
