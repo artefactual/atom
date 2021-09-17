@@ -11,18 +11,18 @@
             <?php if ('dc' !== sfConfig::get('app_default_template_informationobject')) { ?>
               <span class="date-type">(<?php echo render_value_inline($item->type->__toString()); ?>)</span>
             <?php } ?>
-            <dl>
+            <dl class="mb-0">
               <?php if (isset($item->actor) && null !== $item->type->getRole()) { ?>
-                <dt class="text-muted"><?php echo render_value_inline($item->type->getRole()); ?></dt>
-                <dd><?php echo render_title($item->actor); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo render_value_inline($item->type->getRole()); ?></dt>
+                <dd class="mb-0"><?php echo render_title($item->actor); ?></dd>
               <?php } ?>
               <?php if (null !== $item->getPlace()) { ?>
-                <dt class="text-muted"><?php echo __('Place'); ?></dt>
-                <dd><?php echo render_value_inline($item->getPlace()); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo __('Place'); ?></dt>
+                <dd class="mb-0"><?php echo render_value_inline($item->getPlace()); ?></dd>
               <?php } ?>
               <?php if (0 < strlen($item->description)) { ?>
-                <dt class="text-muted"><?php echo __('Note'); ?></dt>
-                <dd><?php echo render_value_inline($item->description); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo __('Note'); ?></dt>
+                <dd class="mb-0"><?php echo render_value_inline($item->description); ?></dd>
               <?php } ?>
             </dl>
 
