@@ -25,7 +25,7 @@
       </div>
     <?php } ?>
 
-    <section class="actions">
+    <section class="actions mb-3">
       <?php echo link_to(
           __('Cancel'),
           [$resource, 'module' => 'informationobject'],

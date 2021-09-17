@@ -44,7 +44,7 @@
 ?>
 
 <?php slot('after-content'); ?>
-  <ul class="actions nav gap-2">
+  <ul class="actions mb-3 nav gap-2">
     <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'physicalobject', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
     <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'physicalobject', 'action' => 'delete', 'next' => $sf_request->getReferer()], ['class' => 'btn atom-btn-outline-danger']); ?></li>
   </ul>

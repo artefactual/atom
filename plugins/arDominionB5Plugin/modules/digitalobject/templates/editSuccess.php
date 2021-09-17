@@ -27,7 +27,7 @@
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID]); ?>
     </section>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item rounded-0">
         <h2 class="accordion-header" id="master-heading">
           <button class="accordion-button rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#master-collapse" aria-expanded="true" aria-controls="master-collapse">
@@ -138,7 +138,7 @@
       <?php } ?>
     </div>
 
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
         <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'digitalobject', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger', 'role' => 'button']); ?></li>
       <?php } ?>

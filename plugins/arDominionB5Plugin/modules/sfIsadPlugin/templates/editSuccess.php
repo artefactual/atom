@@ -29,7 +29,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion">
+    <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="false" aria-controls="identity-collapse">

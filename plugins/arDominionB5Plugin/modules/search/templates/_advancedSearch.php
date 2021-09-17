@@ -221,7 +221,7 @@
 
           <h5><?php echo __('Filter by date range:'); ?></h5>
 
-          <div class="criteria row mb-4">
+          <div class="criteria row mb-2">
 
             <div class="col-md-4 start-date">
               <?php echo render_field($form->startDate->label(__('Start')), null, ['type' => 'date']); ?>
@@ -258,7 +258,7 @@
 
           </div>
 
-          <ul class="actions nav gap-2 justify-content-center">
+          <ul class="actions mb-1 nav gap-2 justify-content-center">
             <li><input type="button" class="btn atom-btn-outline-light reset" value="<?php echo __('Reset'); ?>"></li>
             <li><input type="submit" class="btn atom-btn-outline-light" value="<?php echo __('Search'); ?>"></li>
           </ul>

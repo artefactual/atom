@@ -61,7 +61,7 @@
 </section>
 
 <?php slot('after-content'); ?>
-  <section class="actions">
+  <section class="actions mb-3">
     <?php echo link_to(__('Return to jobs management page'), ['module' => 'jobs', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light']); ?>
   </section>
 <?php end_slot(); ?>
