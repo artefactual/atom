@@ -12,7 +12,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
     
-    <ul class="actions nav gap-2">
+    <ul class="actions mb-3 nav gap-2">
       <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'staticpage'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
       <li><input class="btn atom-btn-outline-danger" type="submit" value="<?php echo __('Delete'); ?>"></li>
     </ul>

@@ -1,5 +1,5 @@
 <?php if (QubitAcl::check($resource, ['create', 'update', 'delete', 'list'])) { ?>
-  <ul class="actions nav gap-2">
+  <ul class="actions mb-3 nav gap-2">
 
     <?php if (QubitAcl::check($resource, 'update')) { ?>
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'user', 'action' => str_replace('index', 'edit', $sf_context->getActionName())], ['class' => 'btn atom-btn-outline-light']); ?></li>

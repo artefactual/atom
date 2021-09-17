@@ -1,6 +1,6 @@
 <?php if (QubitAcl::check($group, ['create', 'update', 'delete', 'list'])) { ?>
 
-  <ul class="actions nav gap-2">
+  <ul class="actions mb-3 nav gap-2">
 
     <?php if (QubitAcl::check($group, 'update')) { ?>
       <li><?php echo link_to(__('Edit'), [$group, 'module' => 'aclGroup', 'action' => str_replace('index', 'edit', $sf_context->getActionName())], ['class' => 'btn atom-btn-outline-light']); ?></li>
