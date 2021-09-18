@@ -24,6 +24,7 @@ class QubitCsvTransform extends QubitFlatfileImport
     public $rowsPerFile = 1000;
     public $preserveOrder = false;
     public $levelsOfDescription;
+    public $sortOrderCallback;
     public $convertWindowsEncoding = false;
 
     private $link;
