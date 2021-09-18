@@ -88,7 +88,7 @@
       this.cloneLastCriterion()
         .insertAfter(this.$form.find(".criterion:last"))
         .show()
-        .find("select.boolean")
+        .find(".adv-search-boolean select")
         .val(event.target.id.replace("add-criterion-", ""))
         .end()
         .find("input")
