@@ -14,7 +14,7 @@
 }
 
 #fullwidth-treeview-row {
-  margin-bottom: $spacer * 1.5;
+  margin-bottom: $spacer * 1.75;
   clear: both;
 }
 
@@ -57,7 +57,7 @@
 
 .hierarchy > .container > input[type="button"],
 #main-column > input[type="button"] {
-  margin-top: 14px;
-  margin-left: 6px;
+  margin-top: $spacer;
+  margin-left: $spacer * 0.5;
   float: right;
 }

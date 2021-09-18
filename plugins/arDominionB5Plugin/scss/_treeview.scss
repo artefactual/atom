@@ -10,7 +10,7 @@
   // Sortable helper.
   .ui-sortable-helper {
     background-color: rgba($white, 0.8);
-    border: 1px solid $border-color;
+    border: $border-width solid $border-color;
     box-shadow: $atom-gray-box-shadow;
   }
 
