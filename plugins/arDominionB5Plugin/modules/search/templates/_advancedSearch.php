@@ -23,8 +23,8 @@
 
                 <div class="criterion row align-items-center">
 
-                  <div class="col-xl-auto mb-3">
-                    <select class="form-select boolean" name="so<?php echo $key; ?>">
+                  <div class="col-xl-auto mb-3 adv-search-boolean">
+                    <select class="form-select" name="so<?php echo $key; ?>">
                       <option value="and"<?php echo 'and' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('and'); ?></option>
                       <option value="or"<?php echo 'or' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('or'); ?></option>
                       <option value="not"<?php echo 'not' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('not'); ?></option>
@@ -79,8 +79,8 @@
 
             <div class="criterion row align-items-center">
 
-              <div class="col-xl-auto mb-3">
-                <select class="form-select boolean" name="so<?php echo $count; ?>">
+              <div class="col-xl-auto mb-3 adv-search-boolean">
+                <select class="form-select" name="so<?php echo $count; ?>">
                   <option value="and"><?php echo __('and'); ?></option>
                   <option value="or"><?php echo __('or'); ?></option>
                   <option value="not"><?php echo __('not'); ?></option>
