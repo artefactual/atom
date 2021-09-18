@@ -1,3 +1,109 @@
+body {
+  overflow-x: hidden;
+}
+
+header i.fa-2x {
+  font-size: $spacer * 1.75;
+  width: $spacer * 2.75;
+}
+
+.dropdown-menu {
+  box-shadow: $box-shadow;
+
+  .dropdown-header {
+    font-size: $spacer * 1.25;
+  }
+}
+
+.alert {
+  .alert-link {
+    text-decoration: underline;
+  }
+
+  > p:last-of-type,
+  > pre:last-of-type {
+    margin-bottom: 0;
+
+    & + p,
+    & + pre {
+      margin-top: $spacer;
+    }
+  }
+}
+
+.filter-tag:last-child {
+  margin-bottom: $spacer;
+}
+
+#sidebar {
+  .repository-logo,
+  .repository-logo-text h2 {
+    max-width: 220px;
+  }
+
+  #settings-menu {
+    top: $spacer;
+  }
+}
+
+#content {
+  background-color: $white;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  margin-bottom: $spacer;
+
+  .field {
+    ul {
+      margin-left: $spacer * 0.25;
+      padding-left: $spacer;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .contact-info:not(:last-child) {
+    border-bottom: $border-width solid $border-color;
+  }
+
+  #front-map {
+    height: 200px;
+  }
+
+  .search-result {
+    &:last-child {
+      border-bottom: 0 !important;
+    }
+
+    .text-block :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.actions {
+  background-color: $secondary;
+  border-radius: $border-radius;
+  padding: $spacer;
+
+  a,
+  button {
+    @extend .text-wrap;
+  }
+}
+
+.hidden,
+body > iframe,
+#print-date,
+#node_globalReplace {
+  display: none;
+}
+
 @include media-breakpoint-up(lg) {
   #navbar-content.wrapped {
     > .flex-grow-1 {
@@ -23,124 +129,6 @@
   }
 }
 
-body {
-  overflow-x: hidden;
-}
-
-#navbar-content i.fa-2x {
-  font-size: $spacer * 1.75;
-  width: $spacer * 2.75;
-}
-
-.dropdown-menu {
-  box-shadow: $box-shadow;
-
-  .dropdown-header {
-    font-size: $spacer * 1.25;
-  }
-}
-
-.filter-tag:last-child {
-  margin-bottom: $spacer;
-}
-
-#content {
-  background-color: $white;
-  border: $border-width solid $border-color;
-  border-radius: $border-radius;
-  margin-bottom: $spacer;
-
-  .field {
-    ul {
-      margin-left: $spacer * 0.25;
-      padding-left: $spacer;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-    
-    p:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .contact-info:not(:last-child) {
-    border-bottom: $border-width solid $border-color;
-  }
-}
-
-#atom-digital-object-carousel {
-  .slick-track {
-    display: flex;
-    align-items: center;
-
-    img {
-      max-width: 400px;
-      max-height: 300px;
-    }
-  }
-
-  .slick-dots {
-    position: relative;
-    bottom: 0;
-    margin-top: $spacer * 0.25;
-  }
-
-  .slick-arrow.slick-prev {
-    left: -30px;
-  }
-
-  .slick-arrow.slick-next {
-    right: -30px;
-  }
-
-  + #content {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-}
-
-.search-result {
-  &:last-child {
-    border-bottom: 0 !important;
-  }
-
-  .text-block :last-child {
-    margin-bottom: 0;
-  }
-}
-
-.default-translation {
-  padding: $spacer * 0.5;
-  margin-bottom: $spacer * 0.5;
-  margin-top: 0;
-  background: #ffffe0;
-  border: $border-width dashed gold;
-  border-radius: $border-radius;
-}
-
-.accordion-body > .mb-3:last-child {
-  margin-bottom: $spacer * 0.5 !important;
-}
-
-.actions {
-  background-color: $secondary;
-  border-radius: $border-radius;
-  padding: $spacer;
-
-  a,
-  button {
-    @extend .text-wrap;
-  }
-}
-
-.hidden,
-body > iframe {
-  display: none;
-  visibility: hidden;
-}
-
 @include media-breakpoint-down(sm) {
   .dropdown-menu {
     min-width: auto;
@@ -149,44 +137,5 @@ body > iframe {
     .text-nowrap {
       white-space: normal !important;
     }
-  }
-}
-
-.alert .alert-link {
-  text-decoration: underline;
-}
-
-#front-map {
-  height: 200px;
-}
-
-// Limit repo logo/text width.
-.repository-logo,
-.repository-logo-text h2 {
-  max-width: 220px;
-}
-
-// Hide the first boolean field in the advanced search criterions.
-.adv-search .criteria:first-of-type .criterion:first-of-type div:first-of-type {
-  display: none;
-}
-
-// Add some space between the Fixed-top settings menu and the main navbar.
-#settings-menu {
-  top: $spacer;
-}
-
-// Permissions settings.
-.settings.permissions #permissions-collapse td {
-  &,
-  input {
-    cursor: pointer;
-  }
-  background-color: rgba($danger, 0.1);
-  &:hover {
-    background-color: $light;
-  }
-  &.checked {
-    background-color: rgba($success, 0.1);
   }
 }
