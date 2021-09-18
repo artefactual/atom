@@ -50,8 +50,19 @@ body {
   border-radius: $border-radius;
   margin-bottom: $spacer;
 
-  .field p:last-child {
-    margin-bottom: 0;
+  .field {
+    ul {
+      margin-left: $spacer * 0.25;
+      padding-left: $spacer;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .contact-info:not(:last-child) {
