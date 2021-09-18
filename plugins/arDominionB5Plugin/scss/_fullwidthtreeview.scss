@@ -1,63 +1,44 @@
-// From css/fullWidthTreeView.css
-#fullwidth-treeview-row {
-  clear: both;
-}
-
-#fullwidth-treeview {
-  overflow-x: hidden;
-  height: 100%;
-  background-color: $white;
-  border: $border-width solid $border-color;
-  border-top-left-radius: $border-radius;
-  border-top-right-radius: $border-radius;
-  margin-bottom: $spacer;
-}
-
 #fullwidth-treeview-row {
   margin-bottom: $spacer * 1.75;
-  clear: both;
-}
 
-.ui-resizable-s {
-  background-image: url("/images/resizable_grip.png");
-  height: $spacer * 0.75;
-  border: $border-width solid $border-color;
-  border-bottom-right-radius: $border-radius;
-  border-bottom-left-radius: $border-radius;
-  cursor: ns-resize;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: $gray-200;
-  bottom: -$spacer * 0.7;
-}
+  #fullwidth-treeview {
+    height: 100%;
+    background-color: $white;
+    border: $border-width solid $border-color;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    overflow-x: hidden;
 
-.ui-resizable-s:hover {
-  background-color: $gray-300;
-}
+    .jstree-anchor {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-#treeview-menu li.disabled a {
-  color: $gray-300;
-}
+      &:hover,
+      &:focus {
+        background-color: $gray-200;
+      }
 
-#fullwidth-treeview-row a.jstree-anchor {
-  width: 96.5%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.jstree-default .jstree-clicked {
-  background-color: $gray-400 !important;
-}
-
-.jstree-anchor {
-  &:hover {
-    background-color: $gray-200;
+      &.jstree-clicked {
+        background-color: $gray-300;
+      }
+    }
   }
-}
 
-.hierarchy > .container > input[type="button"],
-#main-column > input[type="button"] {
-  margin-top: $spacer;
-  margin-left: $spacer * 0.5;
-  float: right;
+  .ui-resizable-s {
+    background-image: url("/images/resizable_grip.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: $gray-200;
+    height: $spacer * 0.75;
+    bottom: -$spacer * 0.7;
+    border: $border-width solid $border-color;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    cursor: ns-resize;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+  }
 }
