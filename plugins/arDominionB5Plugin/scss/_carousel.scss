@@ -1,0 +1,30 @@
+#atom-digital-object-carousel {
+  .slick-track {
+    display: flex;
+    align-items: center;
+
+    img {
+      max-width: 400px;
+      max-height: 300px;
+    }
+  }
+
+  .slick-dots {
+    position: relative;
+    bottom: 0;
+    margin-top: $spacer * 0.25;
+  }
+
+  .slick-arrow.slick-prev {
+    left: -30px;
+  }
+
+  .slick-arrow.slick-next {
+    right: -30px;
+  }
+
+  + #content {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

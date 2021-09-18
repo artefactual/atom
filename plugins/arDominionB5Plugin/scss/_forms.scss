@@ -53,13 +53,40 @@ ul.multiInput,
   }
 }
 
-#export-options {
-  .generic-help {
-    display: none;
+.default-translation {
+  padding: $spacer * 0.5;
+  margin-bottom: $spacer * 0.5;
+  background: #ffffe0;
+  border: $border-width dashed gold;
+  border-radius: $border-radius;
+}
+
+#export-options .muted {
+  background-color: $gray-100;
+  color: $gray-600;
+}
+
+.settings.permissions #permissions-collapse td {
+  background-color: rgba($danger, 0.1);
+
+  &,
+  input {
+    cursor: pointer;
   }
 
-  .muted {
-    background-color: $gray-100;
-    color: $gray-600;
+  &:hover {
+    background-color: $light;
   }
+
+  &.checked {
+    background-color: rgba($success, 0.1);
+  }
+}
+
+.criterion:first-child .adv-search-boolean {
+  display: none;
+}
+
+.accordion-body > .mb-3:last-child {
+  margin-bottom: 0 !important;
 }

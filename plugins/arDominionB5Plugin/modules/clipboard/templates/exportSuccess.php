@@ -62,7 +62,7 @@
                     <?php echo render_field($form->includeDigitalObjects); ?>
                   <?php } ?>
                   <?php if (!empty($helpMessages)) { ?>
-                    <div class="alert alert-info generic-help animateNicely">
+                    <div class="alert alert-info generic-help animateNicely hidden">
                       <?php foreach ($sf_data->getRaw('helpMessages') as $helpMessage) { ?>
                         <p><?php echo $helpMessage; ?></p>
                       <?php } ?>
