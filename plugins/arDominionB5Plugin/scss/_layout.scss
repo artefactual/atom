@@ -173,7 +173,7 @@ body > iframe {
 
 // Add some space between the Fixed-top settings menu and the main navbar.
 #settings-menu {
-  top: 16px;
+  top: $spacer;
 }
 
 // Permissions settings.
