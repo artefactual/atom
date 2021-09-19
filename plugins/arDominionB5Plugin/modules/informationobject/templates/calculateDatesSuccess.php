@@ -48,7 +48,7 @@
                   <?php } ?>
                 </fieldset>
               </div>
-              <div class="alert alert-warning mb-2" id="calculate-dates-alert">
+              <div class="alert alert-warning mb-0" id="calculate-dates-alert">
                 <?php echo __('Updating an existing date range will permanently overwrite the current dates.'); ?>
               </div>
             </div>
@@ -64,33 +64,31 @@
           </h2>
           <div id="create-collapse" class="accordion-collapse collapse<?php echo count($events) ? '' : ' show'; ?>" aria-labelledby="create-heading">
             <div class="accordion-body">
-              <div class="mb-2">
-                <fieldset>
-                  <legend class="fs-6">
-                    <?php echo __('Select the new date type:'); ?>
-                  </legend>
-                  <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
-                    <div class="form-check">
-                      <input
-                        type="radio"
-                        name="eventIdOrTypeId"
-                        class="form-check-input"
-                        id="eventIdOrTypeId-<?php echo $eventTypeId; ?>"
-                        value="<?php echo $eventTypeId; ?>">
-                      <label for="eventIdOrTypeId-<?php echo $eventTypeId; ?>" class="form-check-label">
-                        <?php echo $eventTypeName; ?>
-                      </label>
-                    </div>
-                  <?php } ?>
-                </fieldset>
-              </div>
+              <fieldset>
+                <legend class="fs-6">
+                  <?php echo __('Select the new date type:'); ?>
+                </legend>
+                <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      name="eventIdOrTypeId"
+                      class="form-check-input"
+                      id="eventIdOrTypeId-<?php echo $eventTypeId; ?>"
+                      value="<?php echo $eventTypeId; ?>">
+                    <label for="eventIdOrTypeId-<?php echo $eventTypeId; ?>" class="form-check-label">
+                      <?php echo $eventTypeName; ?>
+                    </label>
+                  </div>
+                <?php } ?>
+              </fieldset>
             </div>
           </div>
         </div>
       <?php } ?>
     </div>
     
-    <div class="alert alert-info mt-3" role="alert">
+    <div class="alert alert-info" role="alert">
       <?php echo __('Note: While the date range update is running, the selected description should not be edited.'); ?>
       <?php echo __('You can check %1% page to determine the current status of the update job.',
         ['%1%' => link_to(__('Manage jobs'), ['module' => 'jobs', 'action' => 'browse'], ['class' => 'alert-link'])]); ?>

@@ -102,7 +102,7 @@
 
             <div class="add-new-criteria mb-3">
               <a id="add-criterion-dropdown-menu" class="btn atom-btn-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo __('Add new criteria'); ?></a>
-              <ul class="dropdown-menu" aria-labelledby="add-criterion-dropdown-menu">
+              <ul class="dropdown-menu mt-2" aria-labelledby="add-criterion-dropdown-menu">
                 <li><a class="dropdown-item" href="#" id="add-criterion-and"><?php echo __('And'); ?></a></li>
                 <li><a class="dropdown-item" href="#" id="add-criterion-or"><?php echo __('Or'); ?></a></li>
                 <li><a class="dropdown-item" href="#" id="add-criterion-not"><?php echo __('Not'); ?></a></li>
