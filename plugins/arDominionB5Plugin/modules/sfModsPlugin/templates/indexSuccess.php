@@ -59,7 +59,12 @@
 
 <section id="elementsArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Elements area')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'elements-collapse', 'title' => __('Edit elements area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Elements area'),
+      SecurityPrivileges::editCredentials($sf_user, 'informationObject'),
+      [$resource, 'module' => 'informationobject', 'action' => 'edit'],
+      ['anchor' => 'elements-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
@@ -138,9 +143,7 @@
 
   <section id="rightsArea" class="border-bottom">
 
-    <?php if (QubitAcl::check($resource, 'update')) { ?>
-      <?php echo render_b5_section_label(__('Rights area')); ?>
-    <?php } ?>
+    <?php echo render_b5_section_heading(__('Rights area')); ?>
 
     <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
 
@@ -158,7 +161,7 @@
 
 <section id="accessionArea" class="border-bottom">
 
-  <?php echo render_b5_section_label(__('Accession area')); ?>
+  <?php echo render_b5_section_heading(__('Accession area')); ?>
 
   <?php echo get_component('informationobject', 'accessions', ['resource' => $resource]); ?>
 

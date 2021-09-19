@@ -23,8 +23,9 @@
     right: -30px;
   }
 
-  + #content {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  + #content,
+  + #content .atom-heading-link {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 }
