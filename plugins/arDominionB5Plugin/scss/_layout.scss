@@ -52,6 +52,10 @@ header i.fa-2x {
   border-radius: $border-radius;
   margin-bottom: $spacer;
 
+  > .border-bottom:last-child {
+    border-bottom: none !important;
+  }
+
   .field {
     ul {
       margin-left: $spacer * 0.25;
