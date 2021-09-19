@@ -67,9 +67,23 @@
   <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
 <?php } ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = QubitAcl::check($resource, 'update');
+    $headingsUrl = [$resource, 'module' => 'actor', 'action' => 'edit'];
+?>
+
 <section id="identityArea" class="border-bottom">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Identity area'),
+      $headingsCondition,
+      $headingsUrl,
+      [
+          'anchor' => 'identity-collapse',
+          'class' => 0 < count($resource->digitalObjectsRelatedByobjectId) ? '' : 'rounded-top',
+      ]
+  ); ?>
 
   <?php echo render_show(__('Type of entity'), render_value_inline($resource->entityType)); ?>
 
@@ -87,7 +101,12 @@
 
 <section id="descriptionArea" class="border-bottom">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Description area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'description-collapse']
+  ); ?>
 
   <?php echo render_show(__('Dates of existence'), render_value_inline($resource->getDatesOfExistence(['cultureFallback' => true]))); ?>
 
@@ -109,7 +128,12 @@
 
 <section id="relationshipsArea" class="border-bottom">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Relationships area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Relationships area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'relationships-collapse']
+  ); ?>
 
   <?php foreach ($resource->getActorRelations() as $item) { ?>
     <?php $relatedEntity = $item->getOpposedObject($resource->id); ?>
@@ -149,7 +173,12 @@
 
 <section id="accessPointsArea" class="border-bottom">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Access points area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access points area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Access points area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'access-collapse']
+  ); ?>
 
   <div class="subjectAccessPoints">
     <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
@@ -178,7 +207,12 @@
 
 <section id="controlArea" class="border-bottom">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'actor', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Control area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'control-collapse']
+  ); ?>
 
   <?php echo render_show(__('Authority record identifier'), $resource->descriptionIdentifier); ?>
 

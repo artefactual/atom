@@ -4,10 +4,19 @@
   <section>
 
     <?php if ($relatedToIo) { ?>
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationobject'), render_b5_section_label(__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
+      <?php $headingCondition = SecurityPrivileges::editCredentials($sf_user, 'informationobject'); ?>
     <?php } elseif ($relatedToActor) { ?>
-      <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), render_b5_section_label(__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
+      <?php $headingCondition = SecurityPrivileges::editCredentials($sf_user, 'actor'); ?>
     <?php } ?>
+    <?php echo render_b5_section_heading(
+        __('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]),
+        $headingCondition,
+        [$resource, 'module' => 'digitalobject', 'action' => 'edit'],
+        [
+            'anchor' => 'content-collapse',
+            'title' => __('Edit %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]),
+        ]
+    ); ?>
 
     <div class="accordion accordion-flush">
 
