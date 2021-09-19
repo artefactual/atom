@@ -86,9 +86,20 @@
   </div>
 <?php } ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = SecurityPrivileges::editCredentials($sf_user, 'repository');
+    $headingsUrl = [$resource, 'module' => 'repository', 'action' => 'edit'];
+?>
+
 <section id="identifyArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Identity area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'identity-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
@@ -110,7 +121,12 @@
 
 <section id="contactArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Contact area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'contact-collapse']
+  ); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
@@ -120,7 +136,12 @@
 
 <section id="descriptionArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Description area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Description area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'description-collapse']
+  ); ?>
 
   <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
 
@@ -142,7 +163,12 @@
 
 <section id="accessArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Access area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'access-collapse']
+  ); ?>
 
   <?php echo render_show(__('Opening times'), render_value($resource->getOpeningTimes(['cultureFallback' => true]))); ?>
 
@@ -154,7 +180,12 @@
 
 <section id="servicesArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Services area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'services-collapse', 'title' => __('Edit services area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Services area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'services-collapse']
+  ); ?>
 
   <?php echo render_show(__('Research services'), render_value($resource->getResearchServices(['cultureFallback' => true]))); ?>
 
@@ -166,7 +197,12 @@
 
 <section id="controlArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Control area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'control-collapse']
+  ); ?>
 
   <?php echo render_show(__('Description identifier'), render_value_inline($resource->descIdentifier)); ?>
 
@@ -204,7 +240,12 @@
 
 <section id="accessPointsArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), render_b5_section_label(__('Access points')), [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'points-collapse', 'title' => __('Edit access points'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Access points'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'points-collapse']
+  ); ?>
 
   <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
     <?php echo render_b5_show_label(__('Access Points')); ?>

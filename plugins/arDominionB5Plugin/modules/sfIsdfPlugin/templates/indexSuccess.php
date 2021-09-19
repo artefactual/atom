@@ -32,9 +32,20 @@
 
 <?php end_slot(); ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = QubitAcl::check($resource, 'update');
+    $headingsUrl = [$resource, 'module' => 'function', 'action' => 'edit'];
+?>
+
 <div class="section border-bottom" id="identityArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Identity area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'identity-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Type'), render_value_inline($resource->type)); ?>
 
@@ -50,7 +61,12 @@
 
 <div class="section border-bottom" id="contextArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Context area')), [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'context-collapse', 'title' => __('Edit context area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Context area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'context-collapse']
+  ); ?>
 
   <?php echo render_show(__('Dates'), render_value_inline($resource->getDates(['cultureFallback' => true]))); ?>
 
@@ -64,7 +80,12 @@
 
 <div class="section border-bottom" id="relationshipsArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Relationships area')), [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'relationships-collapse', 'title' => __('Edit relationships area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Relationships area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'relationships-collapse']
+  ); ?>
 
   <?php foreach ($isdf->relatedFunction as $item) { ?>
     <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
@@ -130,7 +151,12 @@
 
 <div class="section border-bottom" id="controlArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Control area')), [$resource, 'module' => 'function', 'action' => 'edit'], ['anchor' => 'control-collapse', 'title' => __('Edit control area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Control area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'control-collapse']
+  ); ?>
 
   <?php echo render_show(__('Description identifier'), render_value_inline($resource->descriptionIdentifier)); ?>
 
