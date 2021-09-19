@@ -80,18 +80,20 @@
   }
 }
 
-// Index page section right facing arrows
-#content a .atom-section-button {
-  display: flex;
-  align-items: center;
+.accordion-button {
+  font-size: $h5-font-size;
+
+  &:hover,
+  &:focus {
+    background-color: $gray-200;
+  }
+}
+
+.atom-heading-link {
+  @extend .accordion-button;
 
   &::after {
-    background-image: escape-svg($accordion-button-icon);
-    transform: rotate(-90deg);
-    width: $accordion-icon-width;
-    height: $accordion-icon-width;
-    margin-left: auto;
-    content: "";
+    transform: rotate(-90deg) !important;
   }
 }
 

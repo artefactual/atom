@@ -45,7 +45,12 @@
 <?php slot('content'); ?>
 
   <div id="content">
-    <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Elements area')), [$resource, 'module' => 'term', 'action' => 'edit'], ['anchor' => 'elements-collapse', 'title' => __('Edit elements area'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Elements area'),
+        QubitAcl::check($resource, 'update'),
+        [$resource, 'module' => 'term', 'action' => 'edit'],
+        ['anchor' => 'elements-collapse', 'class' => 'rounded-top']
+    ); ?>
 
     <?php echo get_partial('term/fields', ['resource' => $resource]); ?>
   </div>

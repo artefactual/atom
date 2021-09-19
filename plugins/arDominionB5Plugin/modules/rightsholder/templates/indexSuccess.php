@@ -28,9 +28,20 @@
 
 <?php end_slot(); ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = QubitAcl::check($resource, 'update');
+    $headingsUrl = [$resource, 'module' => 'rightsholder', 'action' => 'edit'];
+?>
+
 <div class="section border-bottom" id="identityArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Identity area')), [$resource, 'module' => 'rightsholder', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Identity area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'identity-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Authorized form of name'), render_value_inline($resource->getAuthorizedFormOfName(['cultureFallback' => true]))); ?>
 
@@ -38,7 +49,12 @@
 
 <div class="section border-bottom" id="contactArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Contact area')), [$resource, 'module' => 'rightsholder', 'action' => 'edit'], ['anchor' => 'contact-collapse', 'title' => __('Edit contact area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Contact area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'contact-collapse']
+  ); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>

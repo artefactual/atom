@@ -59,10 +59,24 @@
   <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
 <?php } ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = SecurityPrivileges::editCredentials($sf_user, 'informationObject');
+    $headingsUrl = [$resource, 'module' => 'informationobject', 'action' => 'edit'];
+?>
+
 <section id="identityArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_identity_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Identity elements')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'identity-collapse', 'title' => __('Edit identity elements'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Identity elements'),
+        $headingsCondition,
+        $headingsUrl,
+        [
+            'anchor' => 'identity-collapse',
+            'class' => 0 < count($resource->digitalObjectsRelatedByobjectId) ? '' : 'rounded-top',
+        ]
+    ); ?>
   <?php } ?>
 
   <?php echo render_show(__('Reference code'), $dacs->referenceCode); ?>
@@ -103,7 +117,12 @@
 <section id="contentAndStructureArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_content_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Content and structure elements')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'content-collapse', 'title' => __('Edit context and structure elements'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Content and structure elements'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'content-collapse']
+    ); ?>
   <?php } ?>
 
   <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(['cultureFallback' => true]))); ?>
@@ -115,7 +134,12 @@
 <section id="conditionsOfAccessAndUseArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_conditions_of_access_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Conditions of access and use elements')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'conditions-collapse', 'title' => __('Edit conditions of access and use elements'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Conditions of access and use elements'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'conditions-collapse']
+    ); ?>
   <?php } ?>
 
   <?php echo render_show(__('Conditions governing access'), render_value($resource->getAccessConditions(['cultureFallback' => true]))); ?>
@@ -155,7 +179,12 @@
 <section id="acquisitionAndAppraisalArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_acquisition_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Acquisition and appraisal elements')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'acquisition-collapse', 'title' => __('Edit acquisition and appraisal elements'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Acquisition and appraisal elements'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'acquisition-collapse']
+    ); ?>
   <?php } ?>
 
   <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(['cultureFallback' => true]))); ?>
@@ -175,7 +204,12 @@
 <section id="alliedMaterialsArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_materials_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Related materials elements')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'related-collapse', 'title' => __('Edit related materials elements'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Related materials elements'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'related-collapse']
+    ); ?>
   <?php } ?>
 
   <?php echo render_show(__('Existence and location of originals'), render_value($resource->getLocationOfOriginals(['cultureFallback' => true]))); ?>
@@ -195,7 +229,12 @@
 <section id="notesArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_notes_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Notes element')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'notes-collapse', 'title' => __('Edit notes element'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Notes element'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'notes-collapse']
+    ); ?>
   <?php } ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_notes')) { ?>
@@ -224,7 +263,12 @@
 <section id="descriptionControlArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_control_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Description control element')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'description-collapse', 'title' => __('Edit description control element'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Description control element'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'description-collapse']
+    ); ?>
   <?php } ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_rules_conventions')) { ?>
@@ -248,7 +292,12 @@
 <section id="accessPointsArea" class="border-bottom">
 
   <?php if (check_field_visibility('app_element_visibility_dacs_access_points_area')) { ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('Access points')), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'access-collapse', 'title' => __('Edit access points'), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Access points'),
+        $headingsCondition,
+        $headingsUrl,
+        ['anchor' => 'access-collapse']
+    ); ?>
   <?php } ?>
 
   <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
@@ -266,7 +315,7 @@
   <div class="section border-bottom" id="rightsArea">
 
     <?php if (QubitAcl::check($resource, 'update')) { ?>
-      <?php echo render_b5_section_label(__('Rights area')); ?>
+      <?php echo render_b5_section_heading(__('Rights area')); ?>
     <?php } ?>
 
     <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
@@ -285,7 +334,7 @@
 
 <section id="accessionArea" class="border-bottom">
 
-  <?php echo render_b5_section_label(__('Accession area')); ?>
+  <?php echo render_b5_section_heading(__('Accession area')); ?>
 
   <?php echo get_component('informationobject', 'accessions', ['resource' => $resource]); ?>
 

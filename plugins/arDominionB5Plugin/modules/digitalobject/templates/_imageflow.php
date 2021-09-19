@@ -9,7 +9,7 @@
   data-carousel-title-region-label="<?php echo __('Archival description title link'); ?>">
   <div class="accordion-item border-0">
     <h2 class="accordion-header rounded-0 rounded-top border border-bottom-0" id="heading-carousel">
-      <button class="accordion-button rounded-0 rounded-top fs-5 mb-0 p-3 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-carousel" aria-expanded="true" aria-controls="collapse-carousel">
+      <button class="accordion-button rounded-0 rounded-top text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-carousel" aria-expanded="true" aria-controls="collapse-carousel">
         <span><?php echo __('Image carousel'); ?></span>
       </button>
     </h2>
