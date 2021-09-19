@@ -1,6 +1,18 @@
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = SecurityPrivileges::editCredentials($sf_user, 'informationObject');
+    $headingsUrl = [$resource, 'module' => 'digitalobject', 'action' => 'edit'];
+    $headingsTitle = __('Edit %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]);
+?>
+
 <section>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $resource->usage])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $resource->usage]),
+      $headingsCondition,
+      $headingsUrl,
+      ['title' => $headingsTitle]
+  ); ?>
 
   <?php foreach ($resource->getRights() as $item) { ?>
 
@@ -14,7 +26,12 @@
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::REFERENCE_ID)) { ?>
 
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage]),
+        $headingsCondition,
+        $headingsUrl,
+        ['title' => $headingsTitle]
+    ); ?>
 
     <?php foreach ($child->getRights() as $item) { ?>
 
@@ -30,7 +47,12 @@
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::THUMBNAIL_ID)) { ?>
 
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), render_b5_section_label(__('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage])), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), 'class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('%1% (%2%) rights area', ['%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage]),
+        $headingsCondition,
+        $headingsUrl,
+        ['title' => $headingsTitle]
+    ); ?>
 
     <?php foreach ($child->getRights() as $item) { ?>
 

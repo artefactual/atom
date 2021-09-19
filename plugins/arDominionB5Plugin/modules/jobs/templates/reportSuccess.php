@@ -5,7 +5,7 @@
 <?php end_slot(); ?>
 
 <section id="report-overview-area" class="border-bottom">
-  <?php echo render_b5_section_label(__('Overview')); ?>
+  <?php echo render_b5_section_heading(__('Overview')); ?>
 
   <?php echo render_show(__('Name'), render_value_inline($job->name)); ?>
 
@@ -42,14 +42,14 @@
 <section id="log-area" class="border-bottom">
   <?php if (!empty($errorOutput)) { ?>
     <div class="border-bottom">
-      <?php echo render_b5_section_label(__('Error(s)')); ?>
+      <?php echo render_b5_section_heading(__('Error(s)')); ?>
       <div class="alert alert-danger m-2" role="alert">
         <pre id="job-log-error-output"><?php echo render_value_inline($errorOutput); ?></pre>
       </div>
     </div>
   <?php } ?>
 
-  <?php echo render_b5_section_label(__('Log')); ?>
+  <?php echo render_b5_section_heading(__('Log')); ?>
   <div class="bg-secondary text-white rounded p-3 m-2">
     <?php $output = trim($job->output); ?>
     <?php if (0 < strlen($output)) { ?>

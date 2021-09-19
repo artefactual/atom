@@ -28,7 +28,12 @@
 
 <?php end_slot(); ?>
 
-<?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Deaccession area')), [$resource, 'module' => 'deaccession', 'action' => 'edit'], ['anchor' => 'deaccession-collapse', 'title' => __('Edit deaccession area'), 'class' => 'text-primary']); ?>
+<?php echo render_b5_section_heading(
+    __('Deaccession area'),
+    QubitAcl::check($resource, 'update'),
+    [$resource, 'module' => 'deaccession', 'action' => 'edit'],
+    ['anchor' => 'deaccession-collapse', 'class' => 'rounded-top']
+); ?>
 
 <?php echo render_show(__('Accession record'), link_to(render_title($resource->accession, false), [$resource->accession, 'module' => 'accession'])); ?>
 

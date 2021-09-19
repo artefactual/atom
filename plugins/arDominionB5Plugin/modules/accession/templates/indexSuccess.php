@@ -38,9 +38,20 @@
 
 <?php end_slot(); ?>
 
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = QubitAcl::check($resource, 'update');
+    $headingsUrl = [$resource, 'module' => 'accession', 'action' => 'edit'];
+?>
+
 <div class="section border-bottom" id="basicInfo">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Basic info')), [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'basic-collapse', 'title' => __('Edit basic info'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Basic info'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'basic-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Accession number'), $resource->identifier); ?>
 
@@ -56,7 +67,12 @@
 
 <div class="section border-bottom" id="donorArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Donor/Transferring body area')), [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'donor-collapse', 'title' => __('Edit donor/transferring body area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Donor/Transferring body area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'donor-collapse']
+  ); ?>
 
   <?php foreach (QubitRelation::getRelationsBySubjectId($resource->id, ['typeId' => QubitTerm::DONOR_ID]) as $item) { ?>
 
@@ -72,7 +88,12 @@
 
 <div class="section border-bottom" id="administrativeArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('Administrative area')), [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'admin-collapse', 'title' => __('Edit administrative area'), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('Administrative area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'admin-collapse']
+  ); ?>
 
   <?php echo render_show(__('Acquisition type'), render_value_inline($resource->acquisitionType)); ?>
 
@@ -159,7 +180,7 @@
 
 <div class="section border-bottom" id="rightsArea">
 
-  <?php echo render_b5_section_label(__('Rights area')); ?>
+  <?php echo render_b5_section_heading(__('Rights area')); ?>
 
   <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
 
@@ -167,7 +188,12 @@
 
 <div class="section border-bottom" id="informationObjectArea">
 
-  <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('%1% area', ['%1%' => sfConfig::get('app_ui_label_informationobject')])), [$resource, 'module' => 'accession', 'action' => 'edit'], ['anchor' => 'io-collapse', 'title' => __('Edit %1% area', ['%1%' => sfConfig::get('app_ui_label_informationobject')]), 'class' => 'text-primary']); ?>
+  <?php echo render_b5_section_heading(
+      __('%1% area', ['%1%' => sfConfig::get('app_ui_label_informationobject')]),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'io-collapse']
+  ); ?>
 
   <?php foreach (QubitRelation::getRelationsByObjectId($resource->id, ['typeId' => QubitTerm::ACCESSION_ID]) as $item) { ?>
 
@@ -179,7 +205,7 @@
 
 <div class="section border-bottom" id="deaccessionArea">
 
-  <?php echo render_b5_section_label(__('Deaccession area')); ?>
+  <?php echo render_b5_section_heading(__('Deaccession area')); ?>
 
   <?php foreach ($resource->deaccessions as $item) { ?>
 

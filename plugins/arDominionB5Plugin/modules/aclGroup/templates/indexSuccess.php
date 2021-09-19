@@ -6,7 +6,12 @@
 
   <section id="groupDetails">
 
-    <?php echo link_to_if(QubitAcl::check($group, 'update'), render_b5_section_label(__('Group details')), [$group, 'module' => 'aclGroup', 'action' => 'edit'], ['class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('Group details'),
+        QubitAcl::check($group, 'update'),
+        [$group, 'module' => 'aclGroup', 'action' => 'edit'],
+        ['class' => 'rounded-top']
+    ); ?>
 
     <?php echo render_show(__('Name'), render_value_inline($group->name)); ?>
 

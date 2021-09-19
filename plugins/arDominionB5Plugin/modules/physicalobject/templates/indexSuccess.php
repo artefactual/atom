@@ -21,7 +21,12 @@
   <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
 <?php end_slot(); ?>
 
-<?php echo link_to(render_b5_section_label(sfConfig::get('app_ui_label_physicalobject')), [$resource, 'module' => 'physicalobject', 'action' => 'edit'], ['anchor' => 'edit-collapse', 'title' => __('Edit %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]), 'class' => 'text-primary']); ?>
+<?php echo render_b5_section_heading(
+    sfConfig::get('app_ui_label_physicalobject'),
+    true,
+    [$resource, 'module' => 'physicalobject', 'action' => 'edit'],
+    ['anchor' => 'edit-collapse', 'class' => 'rounded-top']
+); ?>
 
 <?php echo render_show(__('Type'), render_value_inline($resource->type)); ?>
 

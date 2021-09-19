@@ -323,17 +323,28 @@ function render_b5_show_value($value, $options = [])
     return render_b5_show_container($tag, $finalValue, $cssClasses, $options);
 }
 
-function render_b5_section_label_css_classes($options = [])
-{
-    return 'border-bottom h5 m-0 p-3 text-primary atom-section-button';
-}
+function render_b5_section_heading(
+    $text,
+    $condition = false,
+    $url = null,
+    $linkOptions = []
+) {
+    if ($condition) {
+        $linkClasses = 'atom-heading-link text-primary text-decoration-none';
+        $linkOptions['class'] = $linkOptions['class']
+            ? $linkOptions['class'].' '.$linkClasses
+            : $linkClasses;
+        $linkOptions['title'] = $linkOptions['title'] ?: __('Edit').' '.$text;
+        $content = link_to($text, $url, $linkOptions);
+    } else {
+        $content = render_b5_show_container(
+            'span',
+            $text,
+            'd-flex p-3 border-bottom text-primary'
+        );
+    }
 
-function render_b5_section_label($label, $options = [])
-{
-    $tag = 'h2';
-    $cssClasses = render_b5_section_label_css_classes($options);
-
-    return render_b5_show_container($tag, $label, $cssClasses, $options);
+    return render_b5_show_container('h2', $content, 'h5 mb-0');
 }
 
 function render_b5_show_list_css_classes($options = [])
