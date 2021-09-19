@@ -20,11 +20,11 @@
       <li><?php echo link_to(__('Move'), [$resource, 'module' => 'default', 'action' => 'move'], ['class' => 'btn atom-btn-outline-light']); ?></li>
 
       <li>
-        <div class="btn-group dropup">
+        <div class="dropup">
           <button type="button" class="btn atom-btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo __('More'); ?>
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu mb-2">
 
             <li><?php echo link_to(__('Rename'), [$resource, 'module' => 'informationobject', 'action' => 'rename'], ['class' => 'dropdown-item']); ?></li>
 

@@ -34,9 +34,9 @@
         <span class="visually-hidden"><?php echo __('Search options'); ?></span>
       </button>
       <div class="dropdown-menu mt-2" aria-labelledby="inline-search-options">
-        <div class="mx-3 mt-2">
+        <div class="px-3 py-2">
           <?php foreach ($fields as $value => $text) { ?>
-            <div class="form-check pb-2">
+            <div class="form-check">
               <input
                 class="form-check-input"
                 type="radio"
