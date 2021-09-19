@@ -58,7 +58,7 @@
   <?php echo get_partial('term/actions', ['resource' => $resource]); ?>
 
   <?php if ($addBrowseElements) { ?>
-    <h1 class="mt-3">
+    <h1>
       <?php echo __('%1% %2% results for %3%', [
           '%1%' => $pager->getNbResults(),
           '%2%' => sfConfig::get('app_ui_label_informationobject'),

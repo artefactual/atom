@@ -2,7 +2,7 @@
   <?php echo __('Occupation(s)'); ?>
 </h3>
 
-<div class="table-responsive mb-2">
+<div class="table-responsive">
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
