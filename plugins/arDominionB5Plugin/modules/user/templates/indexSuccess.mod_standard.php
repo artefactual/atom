@@ -12,7 +12,12 @@
 
   <section id="userDetails">
 
-    <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_b5_section_label(__('User details')), [$resource, 'module' => 'user', 'action' => 'edit'], ['class' => 'text-primary']); ?>
+    <?php echo render_b5_section_heading(
+        __('User details'),
+        QubitAcl::check($resource, 'update'),
+        [$resource, 'module' => 'user', 'action' => 'edit'],
+        ['class' => 'rounded-top']
+    ); ?>
 
     <?php echo render_show(__('User name'), render_value_inline($resource->username.($sf_user->user === $resource ? ' ('.__('you').')' : ''))); ?>
 
@@ -58,7 +63,7 @@
         <div class="accordion accordion-flush border-top hidden" id="editingHistory">
           <div class="accordion-item">
             <h2 class="accordion-header" id="history-heading">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
+              <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
                 <?php echo __('Editing history'); ?>
                 <span id="editingHistoryActivityIndicator">
                   <i class="fas fa-spinner fa-spin ms-2" aria-hidden="true"></i>
