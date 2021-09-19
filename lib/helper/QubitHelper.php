@@ -329,6 +329,9 @@ function render_b5_section_heading(
     $url = null,
     $linkOptions = []
 ) {
+    // Add extra span to allow inline styling
+    $text = render_b5_show_container('span', $text);
+
     if ($condition) {
         $linkClasses = 'atom-heading-link text-primary text-decoration-none';
         $linkOptions['class'] = $linkOptions['class']
