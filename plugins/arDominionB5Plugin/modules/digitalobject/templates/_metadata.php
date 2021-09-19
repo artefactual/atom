@@ -22,7 +22,7 @@
 
       <?php if ($showOriginalFileMetadata || $showPreservationCopyMetadata) { ?>
 
-        <div class="accordion-item">
+        <div class="accordion-item<?php echo ($showMasterFileMetadata || $showReferenceCopyMetadata || $showThumbnailCopyMetadata) ? '' : ' rounded-bottom'; ?>">
           <h3 class="accordion-header" id="preservation-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#preservation-collapse" aria-expanded="true" aria-controls="preservation-collapse">
               <?php echo __('Preservation Copies'); ?>
@@ -128,7 +128,7 @@
 
       <?php if ($showMasterFileMetadata || $showReferenceCopyMetadata || $showThumbnailCopyMetadata) { ?>
 
-        <div class="accordion-item">
+        <div class="accordion-item rounded-bottom">
           <h3 class="accordion-header" id="access-heading">
             <button class="accordion-button<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? ' collapsed' : ''; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#access-collapse" aria-expanded="<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? 'false' : 'true'; ?>" aria-controls="access-collapse">
               <?php echo __('Access Copies'); ?>
