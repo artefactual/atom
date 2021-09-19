@@ -55,7 +55,7 @@
     <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
       <div id="editing-history-wrapper">
         <div class="accordion accordion-flush border-top hidden" id="editingHistory">
-          <div class="accordion-item">
+          <div class="accordion-item rounded-bottom">
             <h2 class="accordion-header" id="history-heading">
               <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
                 <?php echo __('Editing history'); ?>
