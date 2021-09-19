@@ -280,12 +280,12 @@
 
       <?php if (QubitAcl::check($resource, 'update') || sfContext::getInstance()->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)) { ?>
         <li>
-          <div class="btn-group dropup">
+          <div class="dropup">
             <button type="button" class="btn atom-btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <?php echo __('More'); ?>
             </button>
 
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu mb-2">
               <?php if (0 < count($resource->digitalObjectsRelatedByobjectId) && QubitDigitalObject::isUploadAllowed()) { ?>
                 <li><?php echo link_to(__('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), [$resource->digitalObjectsRelatedByobjectId[0], 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
               <?php } elseif (QubitDigitalObject::isUploadAllowed()) { ?>

@@ -13,7 +13,7 @@
     <?php echo __('Could not load contact information data.'); ?>
   </div>
 
-  <div class="table-responsive mb-2">
+  <div class="table-responsive">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
         <tr>

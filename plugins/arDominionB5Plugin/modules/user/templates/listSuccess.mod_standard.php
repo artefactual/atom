@@ -9,7 +9,7 @@
 </div>
 
 <nav>
-  <ul class="nav nav-pills mb-2 d-flex gap-2">
+  <ul class="nav nav-pills mb-3 d-flex gap-2">
     <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
     <?php if ('onlyInactive' != $sf_request->filter) { ?>
       <?php $options['class'] .= ' active'; ?>

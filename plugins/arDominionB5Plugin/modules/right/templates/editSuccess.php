@@ -153,7 +153,7 @@
               <?php echo __('Documentation Identifier'); ?>
             </h3>
 
-            <div class="border rounded p-3 mb-2">
+            <div class="border rounded p-3">
               <?php echo render_field($form->identifierType->help(__(
                   'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).'
                   .' Used to identify the granting agreement uniquely within the repository system.'

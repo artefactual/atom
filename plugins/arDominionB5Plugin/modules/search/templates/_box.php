@@ -19,8 +19,8 @@
     </button>
     <div class="dropdown-menu mt-2" aria-labelledby="search-box-options">
       <?php if (sfConfig::get('app_multi_repository')) { ?>
-        <div class="mx-3 my-2">
-          <div class="form-check pb-2">
+        <div class="px-3 py-2">
+          <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
@@ -33,7 +33,7 @@
             </label>
           </div>
           <?php if (isset($repository)) { ?>
-            <div class="form-check pb-2">
+            <div class="form-check">
               <input
                 class="form-check-input"
                 type="radio"
@@ -47,7 +47,7 @@
             </div>
           <?php } ?>
           <?php if (isset($altRepository)) { ?>
-            <div class="form-check pb-2">
+            <div class="form-check">
               <input
                 class="form-check-input"
                 type="radio"

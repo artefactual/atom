@@ -207,21 +207,21 @@
               <i aria-hidden="true" class="fas fa-cog"></i>
               <span class="visually-hidden"><?php echo __('Search options'); ?></span>
             </button>
-            <div class="dropdown-menu" aria-labelledby="treeview-search-settings">
-              <div class="mx-3 my-2">
-                <div class="form-check pb-2">
+            <div class="dropdown-menu mt-2" aria-labelledby="treeview-search-settings">
+              <div class="px-3 py-2">
+                <div class="form-check">
                   <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-1" value="All labels" checked>
                   <label class="form-check-label" for="treeview-search-query-field-1">
                     <?php echo __('All labels'); ?>
                   </label>
                 </div>
-                <div class="form-check pb-2">
+                <div class="form-check">
                   <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-2" value="Preferred label">
                   <label class="form-check-label" for="treeview-search-query-field-2">
                     <?php echo __('Preferred label'); ?>
                   </label>
                 </div>
-                <div class="form-check pb-2">
+                <div class="form-check">
                   <input class="form-check-input" type="radio" name="queryField" id="treeview-search-query-field-3" value="\'Use for\' labels">
                   <label class="form-check-label" for="treeview-search-query-field-3">
                     <?php echo __('\'Use for\' labels'); ?>
