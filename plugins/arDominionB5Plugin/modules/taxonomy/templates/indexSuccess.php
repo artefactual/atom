@@ -1,13 +1,7 @@
 <?php decorate_with('layout_2col'); ?>
 
 <?php slot('sidebar'); ?>
-  <div class="sidebar-lowering">
-
-    <h2><?php echo __('Browse %1%:', ['%1%' => render_title($resource)]); ?></h2>
-
-    <?php echo get_component('term', 'treeView', ['browser' => false]); ?>
-
- </div>
+  <?php echo get_component('term', 'treeView', ['browser' => false]); ?>
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
