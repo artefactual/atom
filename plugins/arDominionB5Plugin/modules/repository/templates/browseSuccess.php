@@ -18,7 +18,13 @@
 <?php slot('sidebar'); ?>
 
   <h2 class="d-grid">
-    <button class="btn btn-lg atom-btn-white collapsed text-wrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-aggregations" aria-expanded="false" aria-controls="collapse-aggregations">
+    <button
+      class="btn btn-lg atom-btn-white collapsed text-wrap"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapse-aggregations"
+      aria-expanded="false"
+      aria-controls="collapse-aggregations">
       <?php echo sfConfig::get('app_ui_label_facetstitle'); ?>
     </button>
   </h2>
