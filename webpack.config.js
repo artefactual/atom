@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const mode = process.env.NODE_ENV || "production";
+const devMode = mode === "development";
 
 module.exports = {
   mode: mode,
@@ -13,7 +15,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/i,
         use: [
-          "style-loader",
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "resolve-url-loader",
           {
@@ -33,5 +35,13 @@ module.exports = {
       inject: false,
       minify: false,
     }),
-  ],
+  ].concat(
+    devMode
+      ? []
+      : [
+          new MiniCssExtractPlugin({
+            filename: "css/bundle.[contenthash].css",
+          }),
+        ]
+  ),
 };
