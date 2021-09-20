@@ -23,7 +23,9 @@
     "less": "^3.13.1",
     "less-plugin-clean-css": "^1.5.1",
     "prettier": "^2.3.2",
-    "sass": "^1.35.1"
+    "sass": "^1.35.1",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
   },
   "scripts": {
     "build-all": "php symfony tools:build-css",
