@@ -45,7 +45,7 @@
 
               <div class="col-md-6">
                 <?php echo render_field($form->allowFullWidthTreeviewCollapse
-                    ->label(__('Make full width treeview collapsible on description pages'))); ?>
+                    ->label(__('Make full width treeview collapsed on description pages'))); ?>
               </div>
             </div>
           </div>
@@ -103,10 +103,9 @@
                                 ),
                             ])),
                     null,
-                    ['type' => 'number'],
+                    ['type' => 'number']
                 ); ?>
               </div>
-
             </div>
           </div>
         </div>
