@@ -73,7 +73,7 @@
     // Declare jsTree options
     var options = {
       'plugins': ['types', 'dnd'],
-      'types': treeviewTypes,
+      'types': Qubit.treeviewTypes,
       'dnd': {
         // Drag and drop configuration, disable:
         // - Node copy on drag
