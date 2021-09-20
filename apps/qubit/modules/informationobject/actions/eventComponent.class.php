@@ -40,6 +40,14 @@ class InformationObjectEventComponent extends EventEditComponent
     ];
 
     /**
+     * Get related events.
+     */
+    public function getRelatedEvents()
+    {
+        return $this->resource->eventsRelatedByobjectId;
+    }
+
+    /**
      * Add event to QubitInformationObject::eventsRelatedByobjectId[] list
      * to ensure the event object is create after the QubitInformatinObject.
      */
@@ -48,10 +56,5 @@ class InformationObjectEventComponent extends EventEditComponent
         $this->resource->eventsRelatedByobjectId[] = $event;
 
         return $event;
-    }
-
-    public function getEvents()
-    {
-        return $this->resource->eventsRelatedByobjectId;
     }
 }

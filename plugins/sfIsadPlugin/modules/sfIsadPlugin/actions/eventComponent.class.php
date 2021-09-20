@@ -62,8 +62,10 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
      */
     protected function getFormDefaults(QubitEvent $event)
     {
+        sfApplicationConfiguration::getActive()->loadHelpers(['Url']);
+
         return [
-            'id' => $event->id,
+            'id' => url_for([$event, 'module' => 'event']),
             'date' => $event->date,
             'startDate' => Qubit::renderDate($event->startDate),
             'endDate' => Qubit::renderDate($event->endDate),
@@ -119,6 +121,16 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
      */
     protected function addEventForms()
     {
+        // Create empty "events" form to hold "event" sub-forms
+        $this->events = new QubitForm();
+        $this->events->getValidatorSchema()->setOption(
+            'allow_extra_fields', true
+        );
+
+        // Embed "events" form in the main page form
+        $this->form->embedForm('events', $this->events);
+
+        // Add embedded events sub-forms
         if ($this->request->isMethod('post')) {
             $this->addPostEventForms();
         } else {

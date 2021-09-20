@@ -104,14 +104,12 @@ class sfRadPluginEditAction extends InformationObjectEditAction
         $this->alternativeIdentifiersComponent->resource = $this->resource;
         $this->alternativeIdentifiersComponent->execute($this->request);
 
-        $this->eventComponent = new InformationObjectEventComponent($this->context, 'informationobject', 'event');
+        $this->eventComponent = new InformationObjectEventComponent(
+            $this->context, 'informationobject', 'event'
+        );
         $this->eventComponent->resource = $this->resource;
+        $this->eventComponent->form = $this->form;
         $this->eventComponent->execute($this->request);
-
-        $this->eventComponent->form->getWidgetSchema()->date->setHelp($this->context->i18n->__('"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.'));
-        $this->eventComponent->form->getWidgetSchema()->description->setHelp($this->context->i18n->__('"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)'));
-        $this->eventComponent->form->getWidgetSchema()->place->setHelp($this->context->i18n->__("\"For an item, transcribe a place of publication, distribution, etc., in the form and the grammatical case in which it appears.\" (RAD 1.4C1) {$this->eventComponent->form->getWidgetSchema()->place->getHelp()}"));
-        $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)'));
 
         $this->titleNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
         $this->titleNotesComponent->resource = $this->resource;
@@ -251,15 +249,11 @@ class sfRadPluginEditAction extends InformationObjectEditAction
         $this->resource->sourceStandard = 'RAD version Jul2008';
 
         $this->alternativeIdentifiersComponent->processForm();
-
         $this->eventComponent->processForm();
-
         $this->titleNotesComponent->processForm();
-
         $this->notesComponent->processForm();
-
         $this->otherNotesComponent->processForm();
 
-        return parent::processForm();
+        parent::processForm();
     }
 }

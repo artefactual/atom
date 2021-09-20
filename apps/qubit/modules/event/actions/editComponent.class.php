@@ -28,14 +28,6 @@ class EventEditComponent extends sfComponent
      */
     public function execute($request)
     {
-        // Create empty "events" form to hold "event" sub-forms
-        $this->events = new QubitForm();
-        $this->events->getValidatorSchema()->setOption(
-            'allow_extra_fields', true
-        );
-
-        // Embed "events" form (and sub-forms) in the main form for the page
-        $this->form->embedForm('events', $this->events);
         $this->addEventForms();
     }
 
@@ -81,7 +73,10 @@ class EventEditComponent extends sfComponent
             $this->addEvent($event);
         } else {
             // Get the existing QubitEvent object
-            $event = QubitEvent::getById($form['id']->getValue());
+            $params = $this->context->routing->parse(
+                Qubit::pathInfo($form['id']->getValue())
+            );
+            $event = $params['_sf_route']->resource;
 
             // If the event doesn't exist in the database, skip this form
             if (!isset($event)) {
@@ -104,6 +99,8 @@ class EventEditComponent extends sfComponent
      */
     public function processForm()
     {
+        $this->events->bind($this->request->getPostParameter('events'));
+
         foreach ($this->events as $i => $form) {
             $this->processEventForm($form);
         }
@@ -124,7 +121,7 @@ class EventEditComponent extends sfComponent
      */
     public function setHelps($form)
     {
-        $this->context->getConfiguration()->loadHelpers(['I18N']);
+        sfApplicationConfiguration::getActive()->loadHelpers(['I18N']);
         $form->getWidgetSchema()->setHelps([
             'actor' => __(
 <<<'EOL'
@@ -151,6 +148,55 @@ EOL
         ]);
     }
 
+    protected function addPostEventForms()
+    {
+        $i = 0;
+        $events = $this->request->getPostParameter('events');
+
+        if (empty($events)) {
+            return;
+        }
+
+        foreach ($events as $event) {
+            $form = new EventForm();
+            $this->events->embedForm($i++, $form);
+        }
+    }
+
+    protected function addNewEventForm()
+    {
+        // Add a blank event form for the event modal, but don't embed the form
+        // because we can't validate it, and there is no data to bind.
+        $this->event = new EventForm(['type' => $this->getEventTypeDefault()]);
+        $this->setHelps($this->event);
+    }
+
+    /**
+     * Add event sub-forms to $this->events form.
+     *
+     * Add one event sub-form for each event linked to $resource, plus one blank
+     * event sub-form for adding a new linked event.
+     */
+    protected function addEventForms()
+    {
+        if ($this->request->isMethod('post')) {
+            // Create empty "events" form to hold "event" sub-forms
+            $this->events = new QubitForm();
+            $this->events->getValidatorSchema()->setOption(
+                'allow_extra_fields', true
+            );
+
+            // CSRF check is already done by main page form
+            $this->events->disableCSRFProtection();
+
+            // Add one EventForm per POST "event"
+            $this->addPostEventForms();
+        }
+
+        // Always include the new event form
+        $this->addNewEventForm();
+    }
+
     /**
      * Delete events indicated by "deleteEvent" form fields.
      */
@@ -166,7 +212,7 @@ EOL
             );
             $event = $params['_sf_route']->resource;
 
-            if (isset($event) && QubitEvent::class === class_name($event)) {
+            if (isset($event) && QubitEvent::class === get_class($event)) {
                 $event->indexOnSave = $this->indexOnSave;
                 $event->delete();
             }
@@ -204,14 +250,15 @@ EOL
      */
     protected function processField($field, $event)
     {
+        $value = $field->getValue();
+
         switch ($field->getName()) {
             case 'actor':
-                unset($this->event->actor);
-
-                $value = $this->form->getValue('actor');
                 if (isset($value)) {
                     $params = $this->context->routing->parse(Qubit::pathInfo($value));
-                    $this->event->actor = $params['_sf_route']->resource;
+                    $event->actor = $params['_sf_route']->resource;
+                } else {
+                    unset($event->actor);
                 }
 
                 break;
@@ -222,8 +269,6 @@ EOL
 
             case 'endDate':
             case 'startDate':
-                $value = $field->getValue();
-
                 if (empty($value)) {
                     $event[$field->getName()] = null;
 
@@ -247,15 +292,14 @@ EOL
 
             case 'place':
                 // Get related term id
-                $value = $this->form->getValue('place');
                 if (!empty($value)) {
                     $params = $this->context->routing->parse(Qubit::pathInfo($value));
                     $termId = $params['_sf_route']->resource->id;
                 }
 
                 // Get term relation
-                if (isset($this->event->id)) {
-                    $relation = QubitObjectTermRelation::getOneByObjectId($this->event->id);
+                if (isset($event->id)) {
+                    $relation = QubitObjectTermRelation::getOneByObjectId($event->id);
                 }
 
                 // Nothing to do
@@ -284,29 +328,26 @@ EOL
                 $relation = new QubitObjectTermRelation();
                 $relation->termId = $termId;
 
-                $this->event->objectTermRelationsRelatedByobjectId[] = $relation;
+                $event->objectTermRelationsRelatedByobjectId[] = $relation;
 
                 break;
 
             case 'resourceType':
             case 'type':
-                unset($event->type);
-
-                $value = $field->getValue();
-
                 if (!empty($value)) {
                     $route = $this->context->routing->parse(
                         Qubit::pathInfo($value)
                     );
                     $term = $route['_sf_route']->resource;
+                    $event->type = $term;
+                } else {
+                    unset($event->type);
                 }
-
-                $event->type = $term;
 
                 break;
 
             default:
-                $event[$field->getName()] = $field->getValue();
+                $event[$field->getName()] = $value;
         }
     }
 }

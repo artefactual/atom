@@ -134,7 +134,7 @@ class QubitForm extends sfForm
         // Concatenate embedded form hidden field to output string
         if (!empty($this->embeddedForms)) {
             foreach ($this->embeddedForms as $name => $form) {
-                $output .= $form->renderHiddenFields($recursive);
+                $output .= $form->renderHiddenFields(false);
             }
         }
 
