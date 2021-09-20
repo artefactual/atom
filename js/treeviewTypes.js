@@ -1,4 +1,4 @@
-var treeviewTypes = {
+Qubit.treeviewTypes = {
   'default':    {'icon': 'fa fa-folder-o'},
   'Item':       {'icon': 'fa fa-file-text-o'},
   'File':       {'icon': 'fa fa-file-text-o'},
