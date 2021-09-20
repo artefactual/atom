@@ -24,6 +24,7 @@
     "html-webpack-plugin": "^5.3.2",
     "less": "^3.13.1",
     "less-plugin-clean-css": "^1.5.1",
+    "mini-css-extract-plugin": "^2.3.0",
     "prettier": "^2.3.2",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.35.1",
