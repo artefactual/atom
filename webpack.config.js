@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const mode = process.env.NODE_ENV || "production";
 
 module.exports = {
-  mode: "development",
+  mode: mode,
   entry: "./plugins/arDominionB5Plugin/webpack.entry.js",
   output: {
     path: __dirname + "/plugins/arDominionB5Plugin/build",
