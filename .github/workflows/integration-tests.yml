@@ -47,7 +47,7 @@ jobs:
           ~/.cache/Cypress
         key: npm-${{ hashFiles('package-lock.json') }}
     - name: Install NPM dependencies
-      run: npm ci
+      run: sudo npm install -g npm && npm ci
     - name: Modify Gearman config
       run: |
         echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \

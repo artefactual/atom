@@ -35,6 +35,6 @@ jobs:
           ~/.cache/Cypress
         key: npm-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
-      run: npm ci
+      run: sudo npm install -g npm && npm ci
     - name: Run Prettier
       run: npm run check-format
