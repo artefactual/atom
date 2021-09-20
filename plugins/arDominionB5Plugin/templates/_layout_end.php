@@ -17,6 +17,5 @@
     <script src="/vendor/yui/datasource/datasource-min.js"></script>
     <script src="/vendor/yui/autocomplete/autocomplete-min.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/qubit.js"></script>
-    <script src="/plugins/arDominionB5Plugin/build/js/bundle.js"></script>
   </body>
 </html>
