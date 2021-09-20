@@ -31,6 +31,7 @@ module.exports = {
       filename: "../templates/_layout_start.php",
       publicPath: "/plugins/arDominionB5Plugin/build",
       inject: false,
+      minify: false,
     }),
   ],
 };
