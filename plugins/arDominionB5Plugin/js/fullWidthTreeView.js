@@ -2,48 +2,53 @@
   "use strict";
 
   $(function () {
-    var $node = $(".index #fullwidth-treeview-capable");
+    var $node = $(".index #fullwidth-treeview-active");
 
     if ($node.length) {
       loadTreeView();
     }
   });
 
-  function makeFullTreeviewCollapsible(
-    $treeViewConfig,
-    $mainHeader,
-    $fwTreeViewRow
-  ) {
-    var $wrapper = $('<section class="full-treeview-section"></section>');
-    var $toggleButton = $('<a href="#" class="fullview-treeview-toggle"></a>');
+  function addTreeviewToAccordion($mainHeader, $fwTreeViewRow) {
+    var $accordionWrapper = $("<section>", {
+      class: "accordion full-treeview-section",
+    });
+    var $accordionItem = $("<div>", {
+      class: "accordion-item",
+    });
+    var $accordionHeader = $("<h2>", {
+      id: "heading-treeview",
+      class: "accordion-header",
+    });
+    var $accordionButton = $("<button>", {
+      class: "accordion-button",
+      type: "button",
+      "data-bs-toggle": "collapse",
+      "data-bs-target": "#collapse-treeview",
+      "aria-expanded": "true",
+      "aria-controls": "collapse-treeview",
+    });
+    var $accordionCollapsibleSection = $("<div>", {
+      id: "collapse-treeview",
+      class: "accordion-collapse collapse",
+      "aria-labelledby": "heading-treeview",
+    });
 
     // Adjust bottom margins
     var bottomMargin = $fwTreeViewRow.css("margin-bottom");
     $fwTreeViewRow.css("margin-bottom", "0px");
-    $wrapper.css("margin-bottom", bottomMargin);
-
-    // Set toggle button text and add to wrapper
-    $toggleButton.text($treeViewConfig.data("closed-text"));
-    $toggleButton.appendTo($wrapper);
+    $accordionWrapper.css("margin-bottom", bottomMargin);
 
     // Add wrapper to the DOM then hide the treeview and add it to the wrapper
-    $mainHeader.after($wrapper);
+    $mainHeader.after($accordionWrapper);
     $fwTreeViewRow.hide();
-    $fwTreeViewRow.appendTo($wrapper);
 
-    // Activate toggle button
-    $toggleButton.on("click", function () {
-      // Determine appropriate toggle button text
-      var toggleText = $treeViewConfig.data("opened-text");
-
-      if ($fwTreeViewRow.css("display") != "none") {
-        toggleText = $treeViewConfig.data("closed-text");
-      }
-
-      // Toggle treeview and set toggle button text
-      $fwTreeViewRow.toggle(400);
-      $toggleButton.text(toggleText);
-    });
+    $accordionButton.appendTo($accordionHeader);
+    $accordionHeader.appendTo($accordionItem);
+    $fwTreeViewRow.appendTo($accordionCollapsibleSection);
+    $accordionCollapsibleSection.appendTo($accordionItem);
+    $accordionItem.appendTo($accordionWrapper);
+    $fwTreeViewRow.show();
   }
 
   function loadTreeView() {
@@ -75,10 +80,7 @@
     $mainHeader.before($resetButton);
     $mainHeader.before($moreButton);
 
-    // Optionally wrap treeview in a collapsible container
-    if (treeViewCollapseEnabled) {
-      makeFullTreeviewCollapsible($treeViewConfig, $mainHeader, $fwTreeViewRow);
-    }
+    addTreeviewToAccordion($mainHeader, $fwTreeViewRow);
 
     // Declare jsTree options
     var options = {
@@ -188,7 +190,7 @@
 
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
-        $(".index #fullwidth-treeview-capable").data("treeview-alert-close") +
+        $(".index #fullwidth-treeview-active").data("treeview-alert-close") +
         '"></button>';
 
       $alert.append(closeButton);
@@ -230,9 +232,7 @@
           !$("#breadcrumb").length &&
           $(response.find("#breadcrumb").length)
         ) {
-          var breadcrumbDestinationSelector = treeViewCollapseEnabled
-            ? ".full-treeview-section"
-            : "#fullwidth-treeview-row";
+          var breadcrumbDestinationSelector = ".full-treeview-section";
 
           $(breadcrumbDestinationSelector).after(
             $("<nav>", { id: "breadcrumb" })
@@ -331,6 +331,11 @@
     // Clicking reset link will reset paging and tree state
     $("#fullwidth-treeview-reset-button").on("click", function () {
       pager.reset($moreButton, $resetButton);
+    });
+
+    // This will scroll every time the accordion is opened.
+    $(".full-treeview-section div.accordion-item").one("shown.bs.collapse", (e) => {
+      scrollToActive();
     });
 
     // TODO restore window.history states
