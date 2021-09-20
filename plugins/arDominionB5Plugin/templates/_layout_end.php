@@ -42,11 +42,11 @@
     <script src="/plugins/arDominionB5Plugin/js/mediaelement.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/rename.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/rights.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/fullWidthTreeView.js"></script>
     <script src="/plugins/sfTranslatePlugin/js/l10n_client.js"></script>
     <script src="/js/blank.js"></script>
     <script src="/js/editingHistory.js"></script>
     <script src="/js/autocomplete.js"></script>
-    <script src="/plugins/arDominionB5Plugin/js/treeviewTypes.js"></script>
     <script src="/js/pager.js"></script>
     <script src="/js/treeViewPager.js"></script>
     <script src="/js/hierarchy.js"></script>
@@ -54,6 +54,5 @@
     <script src="/js/generateIdentifier.js"></script>
     <script src="/js/multiInput.js"></script>
     <script src="/js/exportOptions.js"></script>
-    <script src="/plugins/arDominionB5Plugin/js/fullWidthTreeView.js"></script>
   </body>
 </html>
