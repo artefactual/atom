@@ -54,7 +54,7 @@
     // Declare jsTree options
     var options = {
       'plugins': ['state', 'types'],
-      'types': treeviewTypes,
+      'types': Qubit.treeviewTypes,
       'core': {
         'data': {
           'url': function (node) {
