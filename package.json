@@ -20,6 +20,7 @@
     "cypress": "^7.0.0",
     "cypress-file-upload": "^5.0.3",
     "cypress-wait-until": "^1.7.1",
+    "html-webpack-plugin": "^5.3.2",
     "less": "^3.13.1",
     "less-plugin-clean-css": "^1.5.1",
     "prettier": "^2.3.2",
