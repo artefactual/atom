@@ -1,173 +1,222 @@
 (function ($) {
   "use strict";
 
-  $(function () {
-    var $node = $(".index #fullwidth-treeview-capable");
+  class FullWidthTreeView {
+    constructor(element) {
+      this.$element = element;
+      this.$treeViewConfig = $("#fullwidth-treeview-configuration");
+      this.collectionUrl = this.$treeViewConfig.data("collection-url");
+      this.itemsPerPage = this.$treeViewConfig.data("items-per-page");
+      this.pathToApi = "/informationobject/fullWidthTreeView";
+      this.$fwTreeView = $('<div id="fullwidth-treeview"></div>');
+      this.$fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
+      this.$mainHeader = $("#main-column h1").first();
+      this.$moreButton = $("#fullwidth-treeview-more-button");
+      this.$resetButton = $("#fullwidth-treeview-reset-button");
+      this.pager = new Qubit.TreeviewPager(
+        this.itemsPerPage,
+        this.$fwTreeView,
+        this.collectionUrl + this.pathToApi
+      );
+      this.treeViewCollapseEnabled =
+        this.$treeViewConfig.data("collapse-enabled") == "yes";
 
-    if ($node.length) {
-      loadTreeView();
+      // Add tree-view divs after main header, animate and allow resize
+      this.$mainHeader.after(
+        this.$fwTreeViewRow
+          .append(this.$fwTreeView)
+          .animate({ height: "200px" }, 500)
+          .resizable({ handles: "s" })
+      );
+
+      this.$mainHeader.before(this.$resetButton);
+      this.$mainHeader.before(this.$moreButton);
+
+      this.addTreeviewToAccordion(this.$mainHeader, this.$fwTreeViewRow);
+
+      // Declare jsTree options
+      this.options = {
+        plugins: ["types", "dnd"],
+        types: Qubit.treeviewTypes,
+        dnd: {
+          // Drag and drop configuration, disable:
+          // - Node copy on drag
+          // - Load nodes on hover while dragging
+          // - Multiple node drag
+          // - Root node drag
+          copy: false,
+          open_timeout: 0,
+          drag_selection: false,
+          is_draggable: function (nodes) {
+            return nodes[0].parent !== "#";
+          },
+        },
+        core: {
+          data: {
+            url: (node) => {
+              // Get results
+              var queryString =
+                "?nodeLimit=" + (this.pager.getSkip() + this.pager.getLimit());
+
+              return node.id === "#"
+                ? window.location.pathname.match("^[^;]*")[0] +
+                    this.pathToApi +
+                    queryString
+                : node.a_attr.href + this.pathToApi;
+            },
+            data: (node) => {
+              return node.id === "#"
+                ? { firstLoad: true }
+                : {
+                    firstLoad: false,
+                    referenceCode: node.original.referenceCode,
+                  };
+            },
+
+            dataFilter: (response) => {
+              // Data from the initial request for hierarchy data contains
+              // additional data relating to paging so we need to parse to
+              // differentiate it.
+              var data = JSON.parse(response);
+
+              // Note root node's href and set number of available items to page through
+              if (this.pager.rootId == "#") {
+                this.pager.rootId = data.nodes[0].id;
+                this.pager.setTotal(data.nodes[0].total);
+              }
+
+              // Allow for both styles of nodes
+              if (typeof data.nodes === "undefined") {
+                // Data is an array of jsTree node definitions
+                return JSON.stringify(data);
+              } else {
+                // Data includes both nodes and the total number of available nodes
+                return JSON.stringify(data.nodes);
+              }
+            },
+          },
+
+          check_callback: (
+            operation,
+            node,
+            node_parent,
+            node_position,
+            more
+          ) => {
+            // Operations allowed:
+            // - Before and after drag and drop between siblings
+            // - Move core operations (node drop event)
+            return (
+              operation === "create_node" ||
+              (operation === "move_node" &&
+                (more.core ||
+                  (more.dnd &&
+                    node.parent === more.ref.parent &&
+                    more.pos !== "i")))
+            );
+          },
+        },
+      };
+      this.init(this.options);
     }
-  });
 
-  function makeFullTreeviewCollapsible(
-    $treeViewConfig,
-    $mainHeader,
-    $fwTreeViewRow
-  ) {
-    var $wrapper = $('<section class="full-treeview-section"></section>');
-    var $toggleButton = $('<a href="#" class="fullview-treeview-toggle"></a>');
+    init(options) {
+      // Initialize jstree with options and listeners
+      this.$fwTreeView
+        .jstree(options)
+        .bind("ready.jstree", this.readyListener)
+        .bind("select_node.jstree", this.selectNodeListener)
+        .bind("move_node.jstree", this.moveNodeListener);
 
-    // Adjust bottom margins
-    var bottomMargin = $fwTreeViewRow.css("margin-bottom");
-    $fwTreeViewRow.css("margin-bottom", "0px");
-    $wrapper.css("margin-bottom", bottomMargin);
+      // Clicking "more" will add next page of results to tree
+      this.$moreButton.on("click", function () {
+        this.pager.next();
+        this.pager.getAndAppendNodes(function () {
+          // Queue is empty so update paging link
+          this.pager.updateMoreLink(this.$moreButton, this.$resetButton);
+        });
+      });
 
-    // Set toggle button text and add to wrapper
-    $toggleButton.text($treeViewConfig.data("closed-text"));
-    $toggleButton.appendTo($wrapper);
+      // Clicking reset link will reset paging and tree state
+      $("#fullwidth-treeview-reset-button").on("click", function () {
+        this.pager.reset(this.$moreButton, this.$resetButton);
+      });
 
-    // Add wrapper to the DOM then hide the treeview and add it to the wrapper
-    $mainHeader.after($wrapper);
-    $fwTreeViewRow.hide();
-    $fwTreeViewRow.appendTo($wrapper);
+      this.$accordionButton.text(this.$treeViewConfig.data("closed-text"));
 
-    // Activate toggle button
-    $toggleButton.on("click", function () {
-      // Determine appropriate toggle button text
-      var toggleText = $treeViewConfig.data("opened-text");
+      // Set Treeview Accordion title.
+      this.$accordionItem.on("shown.bs.collapse", (e) => {
+        this.$accordionButton.text(this.$treeViewConfig.data("opened-text"));
+      });
+      this.$accordionItem.on("hidden.bs.collapse", (e) => {
+        this.$accordionButton.text(this.$treeViewConfig.data("closed-text"));
+      });
 
-      if ($fwTreeViewRow.css("display") != "none") {
-        toggleText = $treeViewConfig.data("closed-text");
-      }
+      // Set default Open/Close state for the treeview.
+      bootstrap.Collapse.getOrCreateInstance(
+        this.$accordionCollapsibleSection,
+        {
+          toggle: !this.treeViewCollapseEnabled,
+        }
+      );
 
-      // Toggle treeview and set toggle button text
-      $fwTreeViewRow.toggle(400);
-      $toggleButton.text(toggleText);
-    });
-  }
+      // This will scroll every time the accordion is opened.
+      $(".full-treeview-section div.accordion-item").one(
+        "shown.bs.collapse",
+        (e) => {
+          this.scrollToActive();
+        }
+      );
 
-  function loadTreeView() {
-    var $treeViewConfig = $("#fullwidth-treeview-configuration");
-    var treeViewCollapseEnabled =
-      $treeViewConfig.data("collapse-enabled") == "yes";
-    var collectionUrl = $treeViewConfig.data("collection-url");
-    var itemsPerPage = $treeViewConfig.data("items-per-page");
-    var pathToApi = "/informationobject/fullWidthTreeView";
-    var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
-    var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
-    var $mainHeader = $("#main-column h1").first();
-    var $moreButton = $("#fullwidth-treeview-more-button");
-    var $resetButton = $("#fullwidth-treeview-reset-button");
-    var pager = new Qubit.TreeviewPager(
-      itemsPerPage,
-      $fwTreeView,
-      collectionUrl + pathToApi
-    );
-
-    // Add tree-view divs after main header, animate and allow resize
-    $mainHeader.after(
-      $fwTreeViewRow
-        .append($fwTreeView)
-        .animate({ height: "200px" }, 500)
-        .resizable({ handles: "s" })
-    );
-
-    $mainHeader.before($resetButton);
-    $mainHeader.before($moreButton);
-
-    // Optionally wrap treeview in a collapsible container
-    if (treeViewCollapseEnabled) {
-      makeFullTreeviewCollapsible($treeViewConfig, $mainHeader, $fwTreeViewRow);
+      // TODO restore window.history states
+      $(window).on("popstate", function () {});
     }
 
-    // Declare jsTree options
-    var options = {
-      plugins: ["types", "dnd"],
-      types: Qubit.treeviewTypes,
-      dnd: {
-        // Drag and drop configuration, disable:
-        // - Node copy on drag
-        // - Load nodes on hover while dragging
-        // - Multiple node drag
-        // - Root node drag
-        copy: false,
-        open_timeout: 0,
-        drag_selection: false,
-        is_draggable: function (nodes) {
-          return nodes[0].parent !== "#";
-        },
-      },
-      core: {
-        data: {
-          url: function (node) {
-            // Get results
-            var queryString =
-              "?nodeLimit=" + (pager.getSkip() + pager.getLimit());
+    addTreeviewToAccordion() {
+      var $accordionWrapper = $("<section>", {
+        class: "accordion full-treeview-section mb-3",
+      });
+      this.$accordionItem = $("<div>", {
+        class: "accordion-item",
+      });
+      var $accordionHeader = $("<h2>", {
+        id: "heading-treeview",
+        class: "accordion-header",
+      });
+      this.$accordionButton = $("<button>", {
+        class: "accordion-button",
+        type: "button",
+        "data-bs-toggle": "collapse",
+        "data-bs-target": "#collapse-treeview",
+        "aria-expanded": "true",
+        "aria-controls": "collapse-treeview",
+      });
+      this.$accordionCollapsibleSection = $("<div>", {
+        id: "collapse-treeview",
+        class: "accordion-collapse collapse",
+        "aria-labelledby": "heading-treeview",
+      });
 
-            return node.id === "#"
-              ? window.location.pathname.match("^[^;]*")[0] +
-                  pathToApi +
-                  queryString
-              : node.a_attr.href + pathToApi;
-          },
-          data: function (node) {
-            return node.id === "#"
-              ? { firstLoad: true }
-              : {
-                  firstLoad: false,
-                  referenceCode: node.original.referenceCode,
-                };
-          },
+      // Adjust bottom margins
+      this.$fwTreeViewRow.css("margin-bottom", "0px");
 
-          dataFilter: function (response) {
-            // Data from the initial request for hierarchy data contains
-            // additional data relating to paging so we need to parse to
-            // differentiate it.
-            var data = JSON.parse(response);
+      // Add wrapper to the DOM then hide the treeview and add it to the wrapper
+      this.$mainHeader.after($accordionWrapper);
+      this.$fwTreeViewRow.hide();
 
-            // Note root node's href and set number of available items to page through
-            if (pager.rootId == "#") {
-              pager.rootId = data.nodes[0].id;
-              pager.setTotal(data.nodes[0].total);
-            }
+      this.$accordionButton.appendTo($accordionHeader);
+      $accordionHeader.appendTo(this.$accordionItem);
+      this.$fwTreeViewRow.appendTo(this.$accordionCollapsibleSection);
+      this.$accordionCollapsibleSection.appendTo(this.$accordionItem);
+      this.$accordionItem.appendTo($accordionWrapper);
+      this.$fwTreeViewRow.show();
+    }
 
-            // Allow for both styles of nodes
-            if (typeof data.nodes === "undefined") {
-              // Data is an array of jsTree node definitions
-              return JSON.stringify(data);
-            } else {
-              // Data includes both nodes and the total number of available nodes
-              return JSON.stringify(data.nodes);
-            }
-          },
-        },
-        check_callback: function (
-          operation,
-          node,
-          node_parent,
-          node_position,
-          more
-        ) {
-          // Operations allowed:
-          // - Before and after drag and drop between siblings
-          // - Move core operations (node drop event)
-          return (
-            operation === "create_node" ||
-            (operation === "move_node" &&
-              (more.core ||
-                (more.dnd &&
-                  node.parent === more.ref.parent &&
-                  more.pos !== "i")))
-          );
-        },
-      },
-    };
-
-    function scrollToActive() {
+    scrollToActive() {
       var $activeNode;
 
       $activeNode = $("li > a.jstree-clicked")[0];
-      pager.updateMoreLink($moreButton, $resetButton);
+      this.pager.updateMoreLink(this.$moreButton, this.$resetButton);
 
       // Override default scrolling
       if ($activeNode !== undefined) {
@@ -175,7 +224,7 @@
       }
     }
 
-    var showAlert = function (message, type) {
+    showAlert(message, type) {
       if (!type) {
         type = "";
       }
@@ -188,7 +237,7 @@
 
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
-        $(".index #fullwidth-treeview-capable").data("treeview-alert-close") +
+        $(".index #fullwidth-treeview-active").data("treeview-alert-close") +
         '"></button>';
 
       $alert.append(closeButton);
@@ -197,20 +246,20 @@
       window.scrollTo({ top: 0 });
 
       return $alert;
-    };
+    }
 
-    var deleteAlerts = function () {
+    deleteAlerts() {
       $("body > #wrapper > .alert").remove();
-    };
+    }
 
     // Declare listeners
     // On ready: scroll to active node
-    var readyListener = function () {
-      scrollToActive();
+    readyListener = () => {
+      this.scrollToActive();
     };
 
     // On node selection: load the informationobject's page and insert the current page
-    var selectNodeListener = function (e, data) {
+    selectNodeListener = (e, data) => {
       // Open node if possible
       data.instance.open_node(data.node);
 
@@ -230,9 +279,7 @@
           !$("#breadcrumb").length &&
           $(response.find("#breadcrumb").length)
         ) {
-          var breadcrumbDestinationSelector = treeViewCollapseEnabled
-            ? ".full-treeview-section"
-            : "#fullwidth-treeview-row";
+          var breadcrumbDestinationSelector = ".full-treeview-section";
 
           $(breadcrumbDestinationSelector).after(
             $("<nav>", { id: "breadcrumb" })
@@ -278,7 +325,7 @@
 
     // On node move execute Ajax request to update the hierarchy in the
     // backend.
-    var moveNodeListener = function (e, data) {
+    moveNodeListener = (e, data) => {
       // Avoid request if new and old positions are the same,
       // this can't be avoided in the check_callback function
       // because we don't have both positions in there
@@ -299,41 +346,22 @@
         }).responseText
       );
 
-      deleteAlerts();
+      this.deleteAlerts();
 
       // Show alert with request result
       if (moveResponse.error) {
-        showAlert(moveResponse.error, "alert-danger");
+        this.showAlert(moveResponse.error, "alert-danger");
 
         // Reload treeview if failed
         data.instance.refresh();
       } else if ((moveResponse.success, "alert")) {
-        showAlert(moveResponse.success, "alert-info");
+        this.showAlert(moveResponse.success, "alert-info");
       }
     };
-
-    // Initialize jstree with options and listeners
-    $fwTreeView
-      .jstree(options)
-      .bind("ready.jstree", readyListener)
-      .bind("select_node.jstree", selectNodeListener)
-      .bind("move_node.jstree", moveNodeListener);
-
-    // Clicking "more" will add next page of results to tree
-    $moreButton.on("click", function () {
-      pager.next();
-      pager.getAndAppendNodes(function () {
-        // Queue is empty so update paging link
-        pager.updateMoreLink($moreButton, $resetButton);
-      });
-    });
-
-    // Clicking reset link will reset paging and tree state
-    $("#fullwidth-treeview-reset-button").on("click", function () {
-      pager.reset($moreButton, $resetButton);
-    });
-
-    // TODO restore window.history states
-    $(window).on("popstate", function () {});
   }
+
+  $(() => {
+    var $node = $(".index #fullwidth-treeview-active");
+    if ($node.length) new FullWidthTreeView($node);
+  });
 })(jQuery);
