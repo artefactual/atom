@@ -5,8 +5,6 @@
     constructor(element) {
       this.$element = element;
       this.$treeViewConfig = $("#fullwidth-treeview-configuration");
-      this.treeViewCollapseEnabled =
-        this.$treeViewConfig.data("collapse-enabled") == "yes";
       this.collectionUrl = this.$treeViewConfig.data("collection-url");
       this.itemsPerPage = this.$treeViewConfig.data("items-per-page");
       this.pathToApi = "/informationobject/fullWidthTreeView";
@@ -15,7 +13,6 @@
       this.$mainHeader = $("#main-column h1").first();
       this.$moreButton = $("#fullwidth-treeview-more-button");
       this.$resetButton = $("#fullwidth-treeview-reset-button");
-
       this.pager = new Qubit.TreeviewPager(
         this.itemsPerPage,
         this.$fwTreeView,
@@ -54,12 +51,8 @@
         },
         core: {
           data: {
-            pagerSkip: this.pager.getSkip(),
-            //pagerLimit: this.pager.getLimit(),
-            //pathToApi: this.pathToApi,
             url: (node) => {
               // Get results
-              //console.log("a " + this.pagerLimit);
               var queryString =
                 "?nodeLimit=" + (this.pager.getSkip() + this.pager.getLimit());
 
@@ -159,7 +152,7 @@
       $(window).on("popstate", function () {});
     }
 
-    addTreeviewToAccordion(/*$mainHeader, $fwTreeViewRow*/) {
+    addTreeviewToAccordion() {
       var $accordionWrapper = $("<section>", {
         class: "accordion full-treeview-section",
       });

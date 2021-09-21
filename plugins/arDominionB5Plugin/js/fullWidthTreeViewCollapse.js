@@ -26,7 +26,7 @@
 
       // Set default Open/Close state for the treeview.
       bootstrap.Collapse.getOrCreateInstance($accordionCollapsibleSection, {
-        toggle: treeViewCollapseEnabled,
+        toggle: !treeViewCollapseEnabled,
       });
     }
   });
