@@ -22,8 +22,6 @@
     "cypress-file-upload": "^5.0.3",
     "cypress-wait-until": "^1.7.1",
     "html-webpack-plugin": "^5.3.2",
-    "less": "^3.13.1",
-    "less-plugin-clean-css": "^1.5.1",
     "mini-css-extract-plugin": "^2.3.0",
     "prettier": "^2.3.2",
     "resolve-url-loader": "^4.0.0",
@@ -33,9 +31,6 @@
     "webpack-cli": "^4.8.0"
   },
   "scripts": {
-    "build-all": "php symfony tools:build-css",
-    "build-archives-canada": "lessc --rewrite-urls=all --clean-css plugins/arArchivesCanadaPlugin/css/main.less plugins/arArchivesCanadaPlugin/css/min.css",
-    "build-dominion": "lessc --rewrite-urls=all --clean-css plugins/arDominionPlugin/css/main.less plugins/arDominionPlugin/css/min.css",
     "build": "webpack",
     "watch": "webpack watch",
     "format": "prettier --write .",

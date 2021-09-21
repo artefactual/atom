@@ -32,7 +32,7 @@ class arDominionPluginConfiguration extends sfPluginConfiguration
             $context->response->addJavaScript('/vendor/less.js', 'last');
             $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.less', 'last', ['rel' => 'stylesheet/less', 'type' => 'text/css', 'media' => 'all']);
         } else {
-            $context->response->addStylesheet('/plugins/arDominionPlugin/css/min.css', 'last', ['media' => 'all']);
+            $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.css', 'last', ['media' => 'all']);
         }
     }
 
