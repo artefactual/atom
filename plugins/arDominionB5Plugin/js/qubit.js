@@ -13,7 +13,7 @@ var Qubit = {
     "Sous-fonds": { icon: "fas fa-folder" },
     Fonds: { icon: "fas fa-archive" },
     Collection: { icon: "fas fa-archive" },
-  }
+  },
 };
 var Drupal = { behaviors: {} };
 
