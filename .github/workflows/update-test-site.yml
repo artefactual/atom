@@ -52,10 +52,12 @@ jobs:
       run: |
         ssh do 'cd /usr/share/nginx/atom \
           && sudo -u www-data php symfony search:populate'
-    - name: Update themes CSS
+    - name: Build themes
       run: |
         ssh do 'cd /usr/share/nginx/atom \
-          && sudo -u www-data php symfony tools:build-css'
+          && sudo -u www-data make -C plugins/arDominionPlugin
+          && sudo -u www-data make -C plugins/arArchivesCanadaPlugin
+          && sudo -u www-data npm run build'
     - name: Start services
       run: |
         ssh do 'systemctl reset-failed atom-worker \
