@@ -1,4 +1,5 @@
 /*
+!/webpack.config.js
 !/plugins
 /plugins/*
 !/plugins/arDominionB5Plugin
