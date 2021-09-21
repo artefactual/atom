@@ -29,6 +29,9 @@
 /vendor/composer/
 node_modules
 
+# Webpack assets
+assets
+
 # PHPUnit and php-cs-fixer caches and coverage
 /.phpunit.result.cache
 /.php-cs-fixer.cache
