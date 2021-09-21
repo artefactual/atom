@@ -1,10 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const mode = process.env.NODE_ENV || "production";
-const devMode = mode === "development";
 
 module.exports = {
-  mode: mode,
+  mode: process.env.NODE_ENV || "production",
   entry: "./plugins/arDominionB5Plugin/webpack.entry.js",
   output: {
     path: __dirname + "/plugins/arDominionB5Plugin/build",
@@ -15,13 +13,10 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/i,
         use: [
-          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           "css-loader",
           "resolve-url-loader",
-          {
-            loader: "sass-loader",
-            options: { sourceMap: true },
-          },
+          { loader: "sass-loader", options: { sourceMap: true } },
         ],
       },
     ],
@@ -35,13 +30,8 @@ module.exports = {
       inject: false,
       minify: false,
     }),
-  ].concat(
-    devMode
-      ? []
-      : [
-          new MiniCssExtractPlugin({
-            filename: "css/bundle.[contenthash].css",
-          }),
-        ]
-  ),
+    new MiniCssExtractPlugin({
+      filename: "css/bundle.[contenthash].css",
+    }),
+  ],
 };
