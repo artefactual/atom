@@ -25,7 +25,9 @@ import Dashboard from "@uppy/dashboard";
 
     this.$submitButton = this.$element.find('input[type="submit"]');
     this.$cancelButton = this.$element.find('a[title="Cancel"]');
-    this.$retryButton = $('<a class="c-btn" title="retry"/>')
+    this.$retryButton = $(
+      '<a class="btn atom-btn-outline-light" title="retry"/>'
+    )
       .attr("type", "hidden")
       .text(this.$element.data("multifileupload-i18n-retry"))
       .appendTo(".actions");
