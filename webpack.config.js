@@ -3,7 +3,7 @@ const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-// Create an entry and HtmlWebpackPlugin for each AtoM plugin folder with
+// Create an entry and HtmlWebpackPlugin(s) for each AtoM plugin folder with
 // "webpack.entry.js" and "templates/_layout_start_webpack.php" files.
 var entry = {};
 var htmlPlugins = [];
@@ -20,16 +20,29 @@ fs.readdirSync(__dirname + "/plugins")
   )
   .forEach((plugin) => {
     entry[plugin] = "./plugins/" + plugin + "/webpack.entry.js";
-    htmlPlugins.push(
-      new HtmlWebpackPlugin({
-        template:
-          "./plugins/" + plugin + "/templates/_layout_start_webpack.php",
-        filename: "../plugins/" + plugin + "/templates/_layout_start.php",
-        publicPath: "/assets",
-        chunks: [plugin],
-        inject: false,
-        minify: false,
-      })
+    // Layout start template for all plugins
+    templates = [
+      "./plugins/" + plugin + "/templates/_layout_start_webpack.php",
+    ];
+    // Include error and unavailable templates for arDominionB5Plugin
+    if (plugin === "arDominionB5Plugin") {
+      templates.push(
+        "./config/unavailableB5_webpack.php",
+        "./config/error/errorB5_webpack.html.php"
+      );
+    }
+
+    templates.forEach((path) =>
+      htmlPlugins.push(
+        new HtmlWebpackPlugin({
+          template: path,
+          filename: "." + path.replace("_webpack", ""),
+          publicPath: "/assets",
+          chunks: [plugin],
+          inject: false,
+          minify: false,
+        })
+      )
     );
   });
 
