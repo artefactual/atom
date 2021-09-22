@@ -1,10 +1,14 @@
+import Uppy from "@uppy/core";
+import XHRUpload from "@uppy/xhr-upload";
+import Dashboard from "@uppy/dashboard";
+
 (function ($) {
   "use strict";
 
   function MultiFileUpload(element) {
     this.$element = $(element);
 
-    this.uppy = new Uppy.Core({
+    this.uppy = new Uppy({
       debug: false,
       id: "uppy-atom",
       autoProceed: false,
@@ -50,7 +54,7 @@
         );
 
       this.uppy
-        .use(Uppy.Dashboard, {
+        .use(Dashboard, {
           id: "dashboard-atom",
           inline: true,
           target: ".uppy-dashboard",
@@ -141,7 +145,7 @@
             },
           ],
         })
-        .use(Uppy.XHRUpload, {
+        .use(XHRUpload, {
           endpoint: this.$element.data("multifileupload-upload-response-path"),
           formData: true,
           method: "post",
