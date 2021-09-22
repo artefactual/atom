@@ -230,6 +230,11 @@ abstract class sfApplicationConfiguration extends ProjectConfiguration
         $this->getSymfonyLibDir().'/exception/data/unavailable.php',
       );
 
+      if (sfConfig::get('app_b5_theme', false))
+      {
+        $files = [sfConfig::get('sf_config_dir').'/unavailableB5.php'];
+      }
+
       foreach ($files as $file)
       {
         if (is_readable($file))
