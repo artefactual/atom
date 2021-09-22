@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Error</title>
-    <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
   </head>
   <body class="admin error">
     <div id="wrapper" class="container-xxl pt-3 text-center" role="main">
