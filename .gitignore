@@ -31,6 +31,8 @@ node_modules
 
 # Webpack assets
 assets
+config/unavailableB5.php
+config/error/errorB5.html.php
 
 # PHPUnit and php-cs-fixer caches and coverage
 /.phpunit.result.cache
