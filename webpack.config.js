@@ -3,6 +3,9 @@ const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const mode = process.env.NODE_ENV || "production";
+const devMode = mode === "development";
+
 // Create an entry and HtmlWebpackPlugin(s) for each AtoM plugin folder with
 // "webpack.entry.js" and "templates/_layout_start_webpack.php" files.
 var entry = {};
@@ -47,12 +50,13 @@ fs.readdirSync(__dirname + "/plugins")
   });
 
 module.exports = {
-  mode: process.env.NODE_ENV || "production",
+  mode: mode,
   entry: entry,
   output: {
     path: __dirname + "/assets",
     filename: "../plugins/[name]/build/js/bundle.[contenthash].js",
   },
+  devtool: devMode ? "eval-source-map" : "source-map",
   module: {
     rules: [
       {
