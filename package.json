@@ -5,6 +5,9 @@
   "dependencies": {
     "@accessible360/accessible-slick": "^1.0.1",
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@uppy/core": "^2.0.3",
+    "@uppy/dashboard": "^2.0.3",
+    "@uppy/xhr-upload": "^2.0.3",
     "bootstrap": "^5.1.1",
     "bootstrap-autocomplete": "^2.3.7",
     "imagesloaded": "^4.1.4",

@@ -11,7 +11,6 @@
     <script src="/node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
     <script src="/node_modules/jstree/dist/jstree.min.js"></script>
-    <script src="/vendor/uppy/uppy-bundle.js"></script>
     <script src="/vendor/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
     <script src="/vendor/yui/connection/connection-min.js"></script>
     <script src="/vendor/yui/datasource/datasource-min.js"></script>
