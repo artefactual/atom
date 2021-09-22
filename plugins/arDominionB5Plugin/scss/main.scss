@@ -42,7 +42,8 @@
 @import "@fortawesome/fontawesome-free/scss/solid";
 
 // Other components (CSS files)
-@import "../../../vendor/uppy/uppy-bundle";
+@import "@uppy/core/dist/style";
+@import "@uppy/dashboard/dist/style";
 @import "jquery-ui-dist/jquery-ui";
 @import "jstree/dist/themes/default/style";
 @import "mediaelement/build/mediaelementplayer";
