@@ -154,7 +154,7 @@
 
     addTreeviewToAccordion() {
       var $accordionWrapper = $("<section>", {
-        class: "accordion full-treeview-section",
+        class: "accordion full-treeview-section mb-3",
       });
       var $accordionItem = $("<div>", {
         class: "accordion-item",
@@ -178,9 +178,7 @@
       });
 
       // Adjust bottom margins
-      var bottomMargin = this.$fwTreeViewRow.css("margin-bottom");
       this.$fwTreeViewRow.css("margin-bottom", "0px");
-      $accordionWrapper.css("margin-bottom", bottomMargin);
 
       // Add wrapper to the DOM then hide the treeview and add it to the wrapper
       this.$mainHeader.after($accordionWrapper);
