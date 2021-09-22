@@ -19,6 +19,7 @@
 
   i {
     color: $gray-600;
+    @include transition($btn-transition);
   }
 
   &:hover,
