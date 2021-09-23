@@ -73,6 +73,7 @@ module.exports = {
   output: {
     path: __dirname + "/assets",
     filename: "../plugins/[name]/build/js/bundle.[contenthash].js",
+    clean: true,
   },
   devtool: devMode ? "eval-source-map" : "source-map",
   module: {
