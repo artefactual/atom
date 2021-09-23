@@ -8,7 +8,7 @@ import "/js/checkReposFilter";
 import "/js/generateIdentifier";
 import "/js/multiInput";
 import "/js/exportOptions";
-import "/plugins/sfTranslatePlugin/js/l10n_client";
+import "./l10n_client";
 import "./privacyMessage";
 import "./multiFileUpload";
 import "./tooltip";
