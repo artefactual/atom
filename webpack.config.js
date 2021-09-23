@@ -58,7 +58,7 @@ fs.readdirSync(__dirname + "/plugins")
         new HtmlWebpackPlugin({
           template: path,
           filename: "." + path.replace("_webpack", ""),
-          publicPath: "/assets",
+          publicPath: "/dist",
           chunks: ["vendor", plugin],
           inject: false,
           minify: false,
@@ -71,8 +71,8 @@ module.exports = {
   mode: mode,
   entry: entry,
   output: {
-    path: __dirname + "/assets",
-    filename: "../plugins/[name]/build/js/bundle.[contenthash].js",
+    path: __dirname + "/dist",
+    filename: "js/[name].bundle.[contenthash].js",
     clean: true,
   },
   devtool: devMode ? "eval-source-map" : "source-map",
@@ -105,7 +105,7 @@ module.exports = {
   },
   plugins: htmlPlugins.concat([
     new MiniCssExtractPlugin({
-      filename: "../plugins/[name]/build/css/bundle.[contenthash].css",
+      filename: "css/[name].bundle.[contenthash].css",
     }),
   ]),
 };
