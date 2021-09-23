@@ -1,3 +1,4 @@
+import "./qubit";
 import "/js/blank";
 import "/js/editingHistory";
 import "/js/autocomplete";

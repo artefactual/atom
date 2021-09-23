@@ -28,3 +28,7 @@ Drupal.attachBehaviors = (context) => {
 
 // Attach all behaviors on document ready
 $(() => Drupal.attachBehaviors(document));
+
+// Explicitly add vars to window for Webpack build
+window.Qubit = Qubit;
+window.Drupal = Drupal;
