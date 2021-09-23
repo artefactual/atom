@@ -30,7 +30,7 @@
 node_modules
 
 # Webpack assets
-assets
+dist
 config/unavailableB5.php
 config/error/errorB5.html.php
 
