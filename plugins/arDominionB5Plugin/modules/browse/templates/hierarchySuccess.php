@@ -10,8 +10,8 @@
   </h1>
 
   <div class="d-flex flex-wrap gap-2 mb-3">
-    <input type="button" id="fullwidth-treeview-reset-button" class="btn btn-sm atom-btn-white" value="<?php echo __('Reset'); ?>" />
-    <input type="button" id="fullwidth-treeview-more-button" class="btn btn-sm atom-btn-white" data-label="<?php echo __('%1% more'); ?>" value="" />
+    <input type="button" id="fullwidth-treeview-reset-button" class="btn atom-btn-white" value="<?php echo __('Reset'); ?>" />
+    <input type="button" id="fullwidth-treeview-more-button" class="btn atom-btn-white" data-label="<?php echo __('%1% more'); ?>" value="" />
   </div>
 
 <?php end_slot(); ?>
