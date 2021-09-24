@@ -363,6 +363,7 @@ class Net_Gearman_Worker
 
         // Force the job's destructor to run
         $job = null;
+        gc_collect_cycles();
 
         return true;
     }

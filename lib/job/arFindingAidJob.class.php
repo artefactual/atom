@@ -32,6 +32,20 @@ class arFindingAidJob extends arBaseJob
     private $resource;
     private $appRoot;
 
+    public function __destruct()
+    {
+        sfContext::getInstance()->getLogger()->err('SBSBSB - arfinding aid job destructor running.');
+        //if (isset($this->statement)) {
+            //$this->statement = null;
+        //    $this->statement->closeCursor();
+        //}
+
+        //unset($this->appRoot);
+        //unset($this->resource);
+        Qubit::clearClassCaches();
+        gc_collect_cycles();
+    }
+
     public function runJob($parameters)
     {
         $this->resource = QubitInformationObject::getById($parameters['objectId']);
@@ -47,22 +61,24 @@ class arFindingAidJob extends arBaseJob
             $findingAid = new QubitFindingAid($this->resource);
             $findingAid->setLogger($this->logger);
             $result = $findingAid->delete();
+            //unset($findingAid);
         } elseif (isset($parameters['uploadPath'])) {
             $findingAid = new QubitFindingAid($this->resource);
             $findingAid->setLogger($this->logger);
             $result = $findingAid->upload($parameters['uploadPath']);
+            //unset($findingAid);
         } else {
             $generator = new QubitFindingAidGenerator($this->resource);
             $generator->setLogger($this->logger);
             $generator->setFormat(QubitFindingAidGenerator::getFormatSetting());
             $generator->setModel(QubitFindingAidGenerator::getModelSetting());
             $result = $generator->generate();
+            //unset($generator);
         }
 
         if (!$result) {
             return false;
         }
-
         $this->job->setStatusCompleted();
         $this->job->save();
 
