@@ -22,15 +22,6 @@
       }
 
       this.checkReposFilter();
-
-      // Initialize tooltips.
-      $('[data-bs-toggle="tooltip"]', this.$form)
-        .each(function (_, el) {
-          return new bootstrap.Tooltip(el);
-        })
-        .on("click", (event) => {
-          event.preventDefault();
-        });
     }
 
     listen() {
