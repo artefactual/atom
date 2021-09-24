@@ -11,10 +11,26 @@
     data-load-alert-message="<?php echo __('There was an error loading the clipboard content.'); ?>"
     data-export-alert-message="<?php echo __('The clipboard is empty for this entity type.'); ?>"
     data-export-check-url="<?php echo url_for(['module' => 'clipboard', 'action' => 'exportCheck']); ?>"
-    data-delete-alert-message="<?php echo __('Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!'); ?>">
-    <i class="fas fa-2x fa-fw fa-paperclip px-0 px-lg-2 py-2" aria-hidden="true" data-tooltip="<?php echo $menu->getLabel(['cultureFallback' => true]); ?>"></i>
-    <span class="d-lg-none mx-1" aria-hidden="true"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
-    <span class="visually-hidden"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
+    data-delete-alert-message="<?php echo __(
+        'Note: clipboard items unclipped in this page will be removed from the clipboard'
+        .' when the page is refreshed. You can re-select them now, or reload the page to'
+        .' remove them completely. Using the sort or print preview buttons will also cause'
+        .' a page reload - so anything currently deselected will be lost!'
+    ); ?>">
+    <i
+      class="fas fa-2x fa-fw fa-paperclip px-0 px-lg-2 py-2"
+      data-bs-toggle="tooltip"
+      data-bs-placement="bottom"
+      data-bs-custom-class="d-none d-lg-block"
+      title="<?php echo $menu->getLabel(['cultureFallback' => true]); ?>"
+      aria-hidden="true">
+    </i>
+    <span class="d-lg-none mx-1" aria-hidden="true">
+      <?php echo $menu->getLabel(['cultureFallback' => true]); ?>
+    </span>
+    <span class="visually-hidden">
+      <?php echo $menu->getLabel(['cultureFallback' => true]); ?>
+    </span>
   </a>
   <ul class="dropdown-menu dropdown-menu-end mb-2" aria-labelledby="<?php echo $menu->getName(); ?>-menu">
     <li>
