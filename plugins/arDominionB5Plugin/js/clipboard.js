@@ -398,7 +398,6 @@ import Tooltip from "bootstrap/js/dist/tooltip";
           placement: "left",
         });
       }
-
     }
 
     updateCounts() {
