@@ -26,6 +26,8 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 {
     public function execute($request)
     {
+        $options = [];
+
         $this->setUpdateParametersFromRequest($request);
 
         // Restrict to top-level descriptions for EAD given children get nested

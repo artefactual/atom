@@ -79,7 +79,12 @@ abstract class arOaiPluginComponent extends sfComponent
         }
     }
 
-    public function getUpdates($options = [])
+    /**
+     * Get OAI-PMH results by collection and updated_at datetime range.
+     *
+     * @param array $options optional parameters
+     */
+    public function getUpdates(array $options = [])
     {
         $presetOptions = [
             'from' => $this->from,
