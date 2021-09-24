@@ -234,15 +234,20 @@
             <fieldset class="col-md-4 date-type">
               <legend class="fs-6">
                 <span><?php echo __('Results'); ?></span>
-                <a
-                  href="#"
-                  class="ms-1"
+                <button
+                  type="button"
+                  class="btn btn-link mb-1"
                   data-bs-toggle="tooltip"
-                  data-bs-trigger="hover focus"
                   data-bs-placement="auto"
-                  title='<?php echo __('Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.'); ?>'>
-                  <i aria-hidden="true" class="fas fa-question-circle text-muted me-2"></i>
-                </a>
+                  title='<?php echo __(
+                      'Use these options to specify how the date range returns results.'
+                      .' "Exact" means that the start and end dates of descriptions returned'
+                      .' must fall entirely within the date range entered. "Overlapping" means'
+                      .' that any description whose start or end dates touch or overlap the'
+                      .' target date range will be returned.'
+                  ); ?>'>
+                  <i aria-hidden="true" class="fas fa-question-circle text-muted"></i>
+                </button>
               </legend>
               <div class="d-grid d-sm-block">
                 <div class="form-check d-inline-block me-2">
