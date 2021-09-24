@@ -1,3 +1,5 @@
+import Tooltip from "bootstrap/js/dist/tooltip";
+
 (function ($) {
   "use strict";
 
@@ -316,22 +318,16 @@
       }
 
       var $button = $(event.target).closest("button");
-      var reloadTooltip = $button.data("tooltip") != undefined;
-
-      if (reloadTooltip) {
-        $button.tooltip("hide");
-      }
-
       var type = $button.data("clipboard-type");
       var slug = $button.data("clipboard-slug");
       var index = this.items[type].indexOf(slug);
 
       if (index === -1) {
         this.items[type].push(slug);
-        this.updateButton($button, true, reloadTooltip);
+        this.updateButton($button, true);
       } else {
         this.items[type].splice(index, 1);
-        this.updateButton($button, false, reloadTooltip);
+        this.updateButton($button, false);
       }
 
       this.storage.setItem("clipboard", JSON.stringify(this.items));
@@ -368,35 +364,41 @@
       this.updateAllButtons();
     }
 
-    updateButton($button, added, reloadTooltip) {
-      // If previous and current status don't match,
-      // change status, tooltip and button content
+    updateButton($button, added) {
+      var showTooltip = $button.data("tooltip") != undefined;
+
+      // If previous and current status don't match
       if (
         (!$button.hasClass("active") && added) ||
         ($button.hasClass("active") && !added)
       ) {
+        // Update button
+        var label = $button.data("title");
+        var altLabel = $button.data("alt-title");
+        $button.data("alt-title", label);
+        $button.data("title", altLabel);
+        $button.find("span").text(altLabel);
+        $button.toggleClass("active");
+
+        // Remove tooltip
+        if (showTooltip) {
+          Tooltip.getOrCreateInstance($button).dispose();
+        }
+
         // Show alert when removing
         if (!added) {
           this.showRemoveAlert();
         }
-
-        $button.toggleClass("active");
-
-        var label = $button.attr("data-title");
-        var altLabel = $button.attr("data-alt-title");
-
-        $button.attr("data-alt-title", label);
-        $button.attr("data-title", altLabel);
-        $button.find("span").text(altLabel);
-
-        // Fix tooltip only in small buttons
-        if (reloadTooltip) {
-          new bootstrap.Tooltip($button, {
-            title: altLabel,
-            placement: "left",
-          });
-        }
       }
+
+      // Add tooltip
+      if (showTooltip) {
+        Tooltip.getOrCreateInstance($button, {
+          title: $button.data("title"),
+          placement: "left",
+        });
+      }
+
     }
 
     updateCounts() {
@@ -438,20 +440,11 @@
 
       $("button.clipboard").each(function () {
         var $button = $(this);
-        var showTooltip = $button.data("tooltip") != undefined;
-
-        if (showTooltip) {
-          bootstrap.Tooltip.getOrCreateInstance($button, {
-            title: $button.data("title"),
-            placement: "left",
-          });
-        }
-
         var type = $button.data("clipboard-type");
         var slug = $button.data("clipboard-slug");
         var added = self.items[type].indexOf(slug) !== -1;
 
-        self.updateButton($button, added, showTooltip);
+        self.updateButton($button, added);
       });
     }
 
