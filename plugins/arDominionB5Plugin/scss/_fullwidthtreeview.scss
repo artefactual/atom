@@ -3,10 +3,6 @@
 
   #fullwidth-treeview {
     height: 100%;
-    background-color: $white;
-    border: $border-width solid $border-color;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
     overflow-x: hidden;
 
     .jstree-anchor {
