@@ -19,4 +19,10 @@
 
 class QubitKeymap extends BaseKeymap
 {
+    public static function getTargetId($sourceName, $sourceId, $targetName = 'information_object')
+    {
+        $sql = 'SELECT target_id FROM keymap WHERE source_name=? AND target_name=? AND source_id=?';
+
+        return QubitPdo::fetchColumn($sql, [$sourceName, $targetName, $sourceId]);
+    }
 }
