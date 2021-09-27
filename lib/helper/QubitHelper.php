@@ -333,7 +333,7 @@ function render_b5_section_heading(
     $text = render_b5_show_container('span', $text);
 
     if ($condition) {
-        $linkClasses = 'atom-heading-link text-primary text-decoration-none';
+        $linkClasses = 'text-primary text-decoration-none';
         $linkOptions['class'] = $linkOptions['class']
             ? $linkOptions['class'].' '.$linkClasses
             : $linkClasses;
@@ -341,13 +341,17 @@ function render_b5_section_heading(
         $content = link_to($text, $url, $linkOptions);
     } else {
         $content = render_b5_show_container(
-            'span',
+            'div',
             $text,
             'd-flex p-3 border-bottom text-primary'
         );
     }
 
-    return render_b5_show_container('h2', $content, 'h5 mb-0');
+    return render_b5_show_container(
+        'h2',
+        $content,
+        'h5 mb-0 atom-section-header'
+    );
 }
 
 function render_b5_show_list_css_classes($options = [])
