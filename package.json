@@ -40,8 +40,6 @@
     "build": "webpack",
     "watch": "webpack watch",
     "format": "prettier --write .",
-    "check-format": "prettier --check .",
-    "build-unog": "sass --style=compressed plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css",
-    "watch-unog": "sass --watch plugins/arUnogPlugin/scss/main.scss plugins/arUnogPlugin/build/css/min.css"
+    "check-format": "prettier --check ."
   }
 }

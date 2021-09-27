@@ -11,7 +11,7 @@
 }
 
 #logos img {
-  max-height: 3.5rem;
+  max-height: 3.5 * $spacer;
 }
 
 .clipboard-count {
@@ -62,6 +62,7 @@ body.home {
       background-repeat: no-repeat;
       h1 {
         color: $white;
+        text-shadow: 1px 1px 2px $black;
       }
     }
   }
@@ -77,10 +78,6 @@ body.home {
     color: $white;
   }
 
-  .browse-menu .list-group {
-    border-radius: 0;
-  }
-
   .browse-menu .list-group-item-action:hover,
   .browse-menu .list-group-item-action:active,
   .browse-menu .list-group-item-action:focus {
@@ -88,55 +85,54 @@ body.home {
     color: $primary;
   }
 
-  .ask-an-archivist {
-    background-image: url('/plugins/arUnogPlugin/images/ask-an-archivist.jpg');
-    background-position: center middle;
+  .sign-up {
+    background-image: url('/plugins/arUnogPlugin/images/sign-up.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-  }
-
-  .visit-the-archives {
-    background-image: url('/plugins/arUnogPlugin/images/visit-the-archives.jpg');
-    background-position: center middle;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  .spotlight a:hover span {
-    text-decoration: underline;
-  }
-
-  .carousel-item {
-    height: 40rem;
-    text-align: center;
-  }
-
-  .carousel-item-image > img {
-    height: 100%;
-  }
-
-  .carousel-caption {
-    left: 5%;
-    right: 5%;
-  }
-
-  @include media-breakpoint-up(md) {
-    .carousel-caption {
-      left: 15%;
-      right: 15%;
+    a {
+      background-color: rgba($unogGrey, 0.5);
     }
   }
 
-  .popular-last-month {
-    overflow-x: auto;
+  .spotlight {
+    figure {
+      position: relative;
+    }
+    @include media-breakpoint-up(sm) {
+      figcaption {
+        position: absolute;
+      }
+    }
   }
 
-  .popular-last-month .carousel-item-image {
-    height: 10rem;
-  }
-
-  .popular-last-month .carousel-item-image a > img {
-    height: 10rem;
+  #unog-carousel {
+    .slick-dotted.slick-slider {
+      margin: 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    .slick-dots {
+      position: relative;
+      bottom: 0;
+    }
+    .slick-arrow {
+      top: calc(100% - 12px);
+    }
+    .slick-autoplay-toggle-button {
+      color: #fff;
+      top: calc(100% - 42px);
+    }
+    /* Accessible slick adds 7px for the tallest slide */
+    .col-md-4 {
+      background-color: $unogGrey;
+      margin-top: -7px;
+      @include media-breakpoint-up(md) {
+        margin-top: 0;
+        margin-bottom: 7px;
+      }
+    }
   }
 
 }
@@ -150,7 +146,7 @@ footer {
   .footer-ownership {
     width: 80%;
     margin: 0 auto;
-    font-size: 0.75rem;
+    font-size: 0.75 * $spacer;
 
     a {
       color: $black;
@@ -175,17 +171,22 @@ body.index #atom-digital-object-carousel .accordion-button {
   text-transform: uppercase;
 }
 
-#sidebar .accordion-button span::after,
-body.index #content h2::after,
-body.index #atom-digital-object-carousel .accordion-button span::after {
-  content: "";
-  display: block;
-  border-top: $primary solid 3px;
-  margin-top: 0.25rem;
+#sidebar .card h2,
+#sidebar .card h5,
+.accordion-button,
+.atom-section-header > * {
+  position: relative;
+  padding-bottom: $spacer * 1.5 !important;
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: $spacer;
+    width: $spacer * 3;
+    border-top: $primary solid 3px;
+  }
 }
 
-#sidebar .accordion-button span::after,
-body.index #atom-digital-object-carousel .accordion-button span::after,
-body.index #content h2::after {
-  width: 3rem;
+.accordion-button::after, .atom-section-header a::after {
+  margin-top: $spacer * 0.5;
 }

@@ -6,8 +6,8 @@
       <div class="row">
         <div class="col-sm-6 col-md-5 col-lg-4">
           <div class="browse-menu p-2 p-md-3 bg-primary">
-            <h2 class="text-white mb-2"><?php echo __('Browse by'); ?></h2>
-            <div class="list-group">
+            <h2 class="text-white mb-2"><?php echo __('Browse'); ?></h2>
+            <div class="list-group rounded-0">
               <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID); ?>
               <?php if ($browseMenu->hasChildren()) { ?>
                 <?php foreach ($browseMenu->getChildren() as $item) { ?>
@@ -29,11 +29,6 @@
 <?php end_slot(); ?>
 
 <div class="row mb-3">
-  <div class="col-12">
-  </div>
-</div>
-
-<div class="row mb-3">
   <div class="col-md-8">
     <div class="page p-3 p-sm-4 bg-unog-beige mb-3 mb-md-0">
       <?php echo render_value_html($sf_data->getRaw('content')); ?>
@@ -45,22 +40,11 @@
     </div>
   </div>
   <div class="col-md-4 d-flex">
-    <div class="d-flex flex-column flex-grow-1 gap-3">
-      <div class="ask-an-archivist d-flex flex-grow-1">
-        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3 bg-dark-50" href="https://ask.unog.ch/archives">
-          <span class="d-block fs-2"><?php echo __('Ask an Archivist'); ?></span>
-          <span class="d-block fs-4"><?php echo __('Help for your research'); ?></span>
-        </a>
-      </div>
-      <div class="d-flex flex-grow-1 bg-unog-red">
-        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3" href="#">
-          <span class="d-block fs-1"><?php echo __('View our Research Guides'); ?><i class="ms-2 fa fa-chevron-circle-right" aria-hidden="true"></i></span>
-        </a>
-      </div>
-      <div class="d-flex flex-grow-1 bg-unog-red">
-        <a class="d-flex flex-column flex-grow-1 text-dark text-center justify-content-center p-3 bg-white border" href="#" target="_blank">
-          <span class="d-block fs-4"><i class="fa fa-envelope me-2" aria-hidden="true"></i><?php echo __('Sign up for'); ?></span>
-          <span class="d-block fs-4"><?php echo __('Advice on conducting research'); ?></span>
+    <div class="d-flex flex-column flex-grow-1">
+      <div class="d-flex flex-grow-1 border border-2 sign-up">
+        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3 text-decoration-none" href="#" target="_blank">
+          <span class="d-block fs-3"><i class="fa fa-envelope me-2" aria-hidden="true"></i><?php echo __('Sign up to be part of'); ?></span>
+          <span class="d-block fs-3"><?php echo __('our research community'); ?></span>
         </a>
       </div>
     </div>
@@ -69,74 +53,51 @@
 
 <div class="row mb-3">
   <div class="col-md-8">
-    <div class="spotlight mb-3 m-md-0">
+    <div class="mb-3 m-md-0 spotlight">
       <a class="" href="https://lontad-project.unog.ch/">
-        <figure class="position-relative m-0">
-          <figcaption class="position-absolute w-100 text-white bg-dark-50 p-3">
+        <figure class="m-0">
+          <figcaption class="w-100 text-white p-3 bg-secondary">
             <span class="d-block fs-3"><?php echo __('Spotlight'); ?></span>
             <span class="d-block fs-3"><?php echo __('Total Digital Access to the League of Nations Archives Project (LONTAD)'); ?></span>
           </figcaption>
-          <?php echo image_tag('/plugins/arUnogPlugin/images/spotlight.jpg', ['class' => 'img-fluid', 'alt' => __('XXX Alt of the spotlight image')]); ?>
+          <?php echo image_tag('/plugins/arUnogPlugin/images/spotlight.jpg', ['class' => 'img-fluid d-none d-sm-block', 'alt' => __('Drawing of the Palais des Nations with a view on the celestial sphere in the foreground.')]); ?>
         </figure>
       </a>
     </div>
   </div>
   <div class="col-md-4 d-flex">
-    <div class="d-flex flex-grow-1">
-      <div class="visit-the-archives d-flex flex-grow-1">
-        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3 bg-dark-50" href="https://www.ungeneva.org/en/knowledge/archives">
-          <span class="d-block fs-2"><?php echo __('Visit the Archives'); ?></span>
-          <span class="d-block fs-4"><?php echo __('Hours and bookings'); ?></span>
+      <div class="d-flex flex-grow-1 border border-2 border-unog-red">
+        <a class="d-flex flex-column flex-grow-1 text-dark text-center justify-content-center p-3 text-decoration-none" href="#">
+          <span class="d-block fs-3"><?php echo __('View our Research Guides'); ?></span>
+          <span class="d-block fs-3"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
         </a>
+      </div>
+  </div>
+</div>
+
+<div id="unog-carousel" class="row mb-3 g-0">
+  <div class="col-md-8">
+    <div id="unog-slider-images">
+      <?php foreach ($carouselItems as $i => $item) { ?>
+        <div>
+          <?php if (!empty($item[$culture]['url'])) { ?><a href="<?php echo $item[$culture]['url'] ?>" class="text-white text-decoration-none"><?php } ?>
+            <?php echo image_tag('/plugins/arUnogPlugin/carousel/'.$i, ['class' => '', 'alt' => strip_markdown($item[$culture]['title'])]); ?>
+          <?php if (!empty($item[$culture]['url'])) { ?></a><?php } ?>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="px-5 py-3 p-md-5">
+      <div id="unog-slider-title">
+        <?php foreach ($carouselItems as $i => $item) { ?>
+          <div class="mb-5 fs-6 text-white">
+            <?php if (!empty($item[$culture]['url'])) { ?><a href="<?php echo $item[$culture]['url'] ?>" class="text-white text-decoration-none"><?php } ?>
+              <?php echo strip_markdown($item[$culture]['title']); ?>
+            <?php if (!empty($item[$culture]['url'])) { ?></a><?php } ?>
+          </div>
+        <?php } ?>
       </div>
     </div>
   </div>
 </div>
-
-<div class="row mb-3">
-  <div id="unogCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <?php $counter = 0; ?>
-      <?php foreach ($carouselItems as $item) { ?>
-        <button type="button" data-bs-target="#unogCarousel" data-bs-slide-to="<?php echo $counter; ?>" <?php if (0 == $counter) { ?>class="active" aria-current="true"<?php }?> aria-label="<?php echo $item[$culture]; ?>"></button>
-        <?php ++$counter; ?>
-      <?php } ?>
-    </div>
-    <div class="carousel-inner">
-      <?php $counter = 0; ?>
-      <?php foreach ($carouselItems as $i => $item) { ?>
-        <div class="carousel-item carousel-item-image position-relative bg-dark-75<?php if ('carousel-01.jpg' == $i) { ?> active<?php } ?>">
-          <?php echo image_tag('/plugins/arUnogPlugin/carousel/'.$i, ['alt' => $item[$culture]]); ?>
-          <div class="carousel-caption bg-dark-75">
-            <span class="d-block h5"><?php echo __('Featured Archive'); ?></span>
-            <span class="d-block h5"><?php echo $item[$culture]; ?></span>
-          </div>
-        </div>
-        <?php ++$counter; ?>
-      <?php } ?>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#unogCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#unogCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-</div>
-
-<?php slot('post'); ?>
-  <?php if (count($mostPopularLastMonth)) { ?>
-    <h2 class="text-center">
-      <?php echo __("See this month's most visited images in our %1%", ['%1%' => link_to(__('Photographs Collection'), ['module' => 'informationobject', 'slug' => $ribbonCollectionSlug])]); ?>
-    </h2>
-    <div class="popular-last-month d-flex border-top border-bottom border-unog-red border-4">
-      <?php foreach ($mostPopularLastMonth as $item) { ?>
-        <div class="carousel-item-image">
-          <?php echo link_to(image_tag($item['path'].DIRECTORY_SEPARATOR.$item['name'], ['class' => 'd-block-inline border-end border-unog-red border-4']), ['module' => 'informationobject', 'slug' => $item['slug']]); ?>
-        </div>
-      <?php } ?>
-    </div>
-  <?php } ?>
-<?php end_slot(); ?>
