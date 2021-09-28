@@ -1,4 +1,4 @@
-<div class="alert alert-primary rounded-0 text-center mb-0" role="alert">
+<div class="alert alert-warning rounded-0 text-center mb-0" role="alert">
   <?php echo __(
       'A %1%release %2% upgrade is available.',
       [
