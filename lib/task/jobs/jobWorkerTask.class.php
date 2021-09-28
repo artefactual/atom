@@ -22,6 +22,9 @@
  */
 class jobWorkerTask extends arBaseTask
 {
+    protected $maxJobCount = 0;
+    public const JOB_LIMIT_RETURN_STATUS = 111;
+
     public function gearmanWorkerLogger(sfEvent $event)
     {
         $this->log($event['message']);
@@ -44,6 +47,7 @@ class jobWorkerTask extends arBaseTask
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'worker'),
             new sfCommandOption('types', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of jobs to perform (check config/gearman.yml for details)', ''),
             new sfCommandOption('abilities', null, sfCommandOption::PARAMETER_REQUIRED, 'A comma separated string indicating which jobs this worker can do.', ''),
+            new sfCommandOption('max-job-count', null, sfCommandOption::PARAMETER_OPTIONAL, 'Maximum number of jobs this worker will run before shutting down.'),
         ]);
 
         $this->addArguments([
@@ -82,9 +86,15 @@ EOF;
             $abilities = arGearman::getAbilities($opts);
         }
 
+        if (isset($options['max-job-count']) && $options['max-job-count'] > 0) {
+            $this->maxJobCount = $options['max-job-count'];
+
+            $this->log(sprintf('Worker will shut down after %u jobs have completed.', $this->maxJobCount));
+        }
+
         $servers = arGearman::getServers();
 
-        $worker = new Net_Gearman_Worker($servers);
+        $worker = new AtomNetGearmanWorker($servers);
 
         // Register abilities (jobs)
         foreach ($abilities as $ability) {
@@ -98,11 +108,13 @@ EOF;
             $worker->addAbility(QubitJob::getJobPrefix().$ability);
         }
 
+        $worker->setMaxJobCount($this->maxJobCount);
+
         $worker->attachCallback(
             function ($handle, $job, $e) {
                 $this->log('Job failed: '.$e->getMessage());
             },
-            Net_Gearman_Worker::JOB_FAIL
+            AtomNetGearmanWorker::JOB_FAIL
         );
 
         $this->log('Running worker...');
@@ -128,6 +140,17 @@ EOF;
                 }
             }
         );
+
+        $jobsCompleted = $worker->getJobsCompleted();
+
+        // Force worker's __destruct() to run.
+        $worker = null;
+
+        if ($this->maxJobCount > 0 && $this->maxJobCount <= $jobsCompleted) {
+            $this->log('Worker shutting down - max-job-count reached.');
+
+            exit(self::JOB_LIMIT_RETURN_STATUS);
+        }
     }
 
     protected function activateTerminationHandlers()
