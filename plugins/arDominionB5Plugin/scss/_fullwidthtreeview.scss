@@ -37,3 +37,9 @@
     }
   }
 }
+
+body.browse.hierarchy #fullwidth-treeview {
+  background-color: $white;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+}
