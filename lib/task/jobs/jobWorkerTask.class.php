@@ -22,6 +22,10 @@
  */
 class jobWorkerTask extends arBaseTask
 {
+    public const JOB_LIMIT_RETURN_STATUS = 111;
+    private $maxJobCount = 0;
+    private $jobsCompleted = 0;
+
     public function gearmanWorkerLogger(sfEvent $event)
     {
         $this->log($event['message']);
@@ -37,6 +41,32 @@ class jobWorkerTask extends arBaseTask
         parent::log(date('Y-m-d H:i:s > ').$message);
     }
 
+    public function maxJobCountReached()
+    {
+        if ($this->getMaxJobCount() > 0 && $this->getJobsCompleted() >= $this->getMaxJobCount()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getMaxJobCount()
+    {
+        return $this->maxJobCount;
+    }
+
+    public function setMaxJobCount(int $maxJobCount)
+    {
+        if ($maxJobCount > 0) {
+            $this->maxJobCount = $maxJobCount;
+        }
+    }
+
+    public function getJobsCompleted()
+    {
+        return $this->jobsCompleted;
+    }
+
     protected function configure()
     {
         $this->addOptions([
@@ -44,6 +74,7 @@ class jobWorkerTask extends arBaseTask
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'worker'),
             new sfCommandOption('types', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of jobs to perform (check config/gearman.yml for details)', ''),
             new sfCommandOption('abilities', null, sfCommandOption::PARAMETER_REQUIRED, 'A comma separated string indicating which jobs this worker can do.', ''),
+            new sfCommandOption('max-job-count', null, sfCommandOption::PARAMETER_OPTIONAL, 'Maximum number of jobs this worker will run before shutting down.'),
         ]);
 
         $this->addArguments([
@@ -82,6 +113,12 @@ EOF;
             $abilities = arGearman::getAbilities($opts);
         }
 
+        if (isset($options['max-job-count']) && $options['max-job-count'] > 0) {
+            $this->setMaxJobCount($options['max-job-count']);
+
+            $this->log(sprintf('Worker will shut down after %u jobs have completed.', $this->getMaxJobCount()));
+        }
+
         $servers = arGearman::getServers();
 
         $worker = new Net_Gearman_Worker($servers);
@@ -105,6 +142,14 @@ EOF;
             Net_Gearman_Worker::JOB_FAIL
         );
 
+        $worker->attachCallback(
+            function ($handle, $job, $e) {
+                ++$this->jobsCompleted;
+                $this->log(sprintf('Jobs completed: %u', $this->getJobsCompleted()));
+            },
+            Net_Gearman_Worker::JOB_COMPLETE
+        );
+
         $this->log('Running worker...');
         $this->log('PID '.getmypid());
 
@@ -114,13 +159,22 @@ EOF;
 
         // The worker loop!
         $worker->beginWork(
-            // Pass a callback that pings the database every ~30 seconds
-            // in order to keep the connection alive. AtoM connects to MySQL in a
-            // persistent way that timeouts when running the worker for a long time.
-            // Another option would be to catch the ProperException from the worker
-            // and restablish the connection when needed. Also, the persistent mode
-            // could be disabled for this worker. See issue #4182.
-            function () use (&$counter) {
+            // This callback function will be called once per second when a
+            // job is not being processed.
+            function ($idle, $lastJob) use (&$counter) {
+                if ($this->maxJobCountReached()) {
+                    $this->log(sprintf('Max job count reached: %u jobs completed.', $this->getJobsCompleted()), sfLogger::INFO);
+
+                    // Notify the worker that beginWork() work loop should exit.
+                    return true;
+                }
+
+                // Ping the database every ~30 seconds in order to keep the
+                // connection alive. AtoM connects to MySQL in a persistent
+                // way that timeouts when running the worker for a long time.
+                // Another option would be to catch the ProperException from the worker
+                // and restablish the connection when needed. Also, the persistent mode
+                // could be disabled for this worker. See issue #4182.
                 if (30 == $counter++) {
                     $counter = 0;
 
@@ -128,6 +182,18 @@ EOF;
                 }
             }
         );
+
+        // Return code '111' when worker shuts down due to reaching max job count.
+        if ($this->maxJobCountReached()) {
+            $this->log('Worker shutting down - max-job-count reached.');
+            // Force worker's __destruct() to run so gearman connection is closed nicely.
+            unset($worker);
+
+            exit(self::JOB_LIMIT_RETURN_STATUS);
+        }
+
+        // Force worker's __destruct() to run so gearman connection is closed nicely.
+        unset($worker);
     }
 
     protected function activateTerminationHandlers()
