@@ -171,7 +171,7 @@
 
   $(function ()
   {
-    var $node = $('body');
+    var $node = $('body.repository.browse');
     if (0 < $node.length)
     {
       new CheckReposFilter($node.get(0));
