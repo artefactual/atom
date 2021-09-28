@@ -24,11 +24,15 @@
   }
 
   $(function () {
+    var $renameForm = $("#rename-form");
+    if (!$renameForm.length) {
+      return;
+    }
+
     // Place cursor in first field of form
     $("#rename-form input:text:visible:first").focus();
 
     // Create references to selectors
-    var $renameForm = $("#rename-form");
     var $renameFormSubmit = $("#rename-form-submit");
     var $slugExistsWarningAlert = $("#rename-slug-warning");
 
