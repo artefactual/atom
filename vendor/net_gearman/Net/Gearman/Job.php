@@ -87,6 +87,7 @@ abstract class Net_Gearman_Job
         }
 
         return $instance;
+        //return new $class($conn, $handle, $initParams);
     }
 }
 

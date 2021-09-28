@@ -76,22 +76,30 @@ EOF;
         define('NET_GEARMAN_JOB_CLASS_PREFIX', '');
 
         if (0 < strlen($options['abilities'])) {
-            $abilities = array_filter(explode(',', $options['abilities']));
+            $this->abilities = array_filter(explode(',', $options['abilities']));
         } else {
             $opts = [];
             if (0 < strlen($options['types'])) {
                 $opts['types'] = $options['types'];
             }
 
-            $abilities = arGearman::getAbilities($opts);
+            $this->abilities = arGearman::getAbilities($opts);
         }
 
+        //while (true) {
+            $this->runWorker();
+            gc_collect_cycles();
+        //}
+    }
+
+    protected function runWorker()
+    {
         $servers = arGearman::getServers();
 
         $worker = new Net_Gearman_Worker($servers);
 
         // Register abilities (jobs)
-        foreach ($abilities as $ability) {
+        foreach ($this->abilities as $ability) {
             if (!class_exists($ability)) {
                 $this->log("Ability not defined: {$ability}. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
 
@@ -109,6 +117,15 @@ EOF;
             Net_Gearman_Worker::JOB_FAIL
         );
 
+        $worker->attachCallback(
+            function ($handle, $job, $e) {
+                //$this->log('Job completed: '.$e->getMessage());
+                sfContext::getInstance()->getLogger()->err("In JOB_COMPLETE callback\n");
+                //$worker = null;
+            },
+            Net_Gearman_Worker::JOB_COMPLETE
+        );
+
         $this->log('Running worker...');
         $this->log('PID '.getmypid());
 
@@ -124,7 +141,10 @@ EOF;
             // Another option would be to catch the ProperException from the worker
             // and restablish the connection when needed. Also, the persistent mode
             // could be disabled for this worker. See issue #4182.
-            function () use (&$counter, &$start_time) {
+            function ($idle, $lastRun) use ($counter, $start_time) {
+                
+                sfContext::getInstance()->getLogger()->err(sprintf("idle: %s", $idle));
+
                 if (30 == $counter++) {
                     $counter = 0;
 
@@ -132,10 +152,16 @@ EOF;
 
                     $end_time = microtime(true);
                     preg_match('/^VmRSS:\s(.*)/m', file_get_contents('/proc/self/status'), $m);
-                    sfContext::getInstance()->getLogger()->err(sprintf("%d secs - %.2fMb - %s\n", ($end_time - $start_time), memory_get_usage(true) / 1024 / 1024, trim($m[1])));
+                    sfContext::getInstance()->getLogger()->err(sprintf("Run time: %d secs - memory_get_usage(): %.2fMb - Process mem: %s\n", ($end_time - $start_time), memory_get_usage(true) / 1024 / 1024, trim($m[1])));
                 }
             }
         );
+
+        $worker->endWork();
+        sfContext::getInstance()->getLogger()->err("WORKER RETURNED.");
+        //$worker = null;
+        unset($worker);
+        sfContext::getInstance()->getLogger()->err("WORKER SET TO NULL.");
     }
 
     protected function activateTerminationHandlers()

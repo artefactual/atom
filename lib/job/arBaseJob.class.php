@@ -49,6 +49,20 @@ class arBaseJob extends Net_Gearman_Job_Common
      */
     private $requiredParameters = ['id', 'name'];
 
+    public function __destruct()
+    {
+        sfContext::getInstance()->getLogger()->err('SBSBSB - arbasejob destructor running.');
+        //if (isset($this->statement)) {
+            //$this->statement = null;
+        //    $this->statement->closeCursor();
+        //}
+
+        //unset($this->appRoot);
+        //unset($this->resource);
+        Qubit::clearClassCaches();
+        gc_collect_cycles();
+    }
+
     public function run($parameters)
     {
         $context = sfContext::getInstance();

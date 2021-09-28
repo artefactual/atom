@@ -35,15 +35,16 @@ class arFindingAidJob extends arBaseJob
     public function __destruct()
     {
         sfContext::getInstance()->getLogger()->err('SBSBSB - arfinding aid job destructor running.');
+        //parent::__destruct();
         //if (isset($this->statement)) {
             //$this->statement = null;
         //    $this->statement->closeCursor();
         //}
 
-        //unset($this->appRoot);
-        //unset($this->resource);
-        Qubit::clearClassCaches();
-        gc_collect_cycles();
+        $this->appRoot = null;
+        $this->resource = null;
+        //Qubit::clearClassCaches();
+        //gc_collect_cycles();
     }
 
     public function runJob($parameters)

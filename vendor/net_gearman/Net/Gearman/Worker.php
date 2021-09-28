@@ -128,6 +128,7 @@ class Net_Gearman_Worker
     const JOB_COMPLETE = 2;
     const JOB_FAIL     = 3;
 
+    protected $jobsCompleted = 0;
     /**
      * Constructor
      *
@@ -298,6 +299,10 @@ class Net_Gearman_Worker
             if (call_user_func($monitor, $idle, $lastJob) == true) {
                 $working = false;
             }
+
+            if ($this->maxJobCountReached()) {
+                $working = false;
+            }
         }
     }
 
@@ -408,6 +413,19 @@ class Net_Gearman_Worker
             call_user_func($callback, $handle, $job, $args);
         }
     }
+    
+    protected function maxJobCountReached()
+    {
+        if ($this->jobsCompleted >= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    protected function incrementJobsCompleted()
+    {
+        ++$this->jobsCompleted;
+    }
 
     /**
      * Run the complete callbacks
@@ -420,6 +438,8 @@ class Net_Gearman_Worker
      */
     protected function complete($handle, $job, array $result)
     {
+        $this->incrementJobsCompleted();
+
         if (count($this->callback[self::JOB_COMPLETE]) == 0) {
             return; // No callbacks to run
         }
