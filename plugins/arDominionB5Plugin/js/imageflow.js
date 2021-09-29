@@ -20,7 +20,7 @@
             instructionsText: $(node).data(
               "carousel-instructions-text-image-link"
             ),
-            regionLabel: $(node).data("data-carousel-images-region-label"),
+            regionLabel: $(node).data("carousel-images-region-label"),
             variableWidth: true,
             centerPadding: "60px",
             nextArrow:
@@ -44,7 +44,7 @@
             instructionsText: $(node).data(
               "carousel-instructions-text-text-link"
             ),
-            regionLabel: $(node).data("data-carousel-title-region-label"),
+            regionLabel: $(node).data("carousel-title-region-label"),
           });
 
           $("#atom-slider-images").slick("slickGoTo", 0);
