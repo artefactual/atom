@@ -245,6 +245,7 @@ class Net_Gearman_Worker
                 $worked = false;
                 try {
                     $worked = $this->doWork($socket);
+                    gc_collect_cycles();
                 } catch (Net_Gearman_Exception $e) {
                     unset($this->conn[$server]);
                     $this->retryConn[$server] = $currentTime;
