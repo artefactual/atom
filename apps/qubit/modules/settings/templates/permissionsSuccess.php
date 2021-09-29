@@ -170,6 +170,17 @@
 
         <input class="btn" type="submit" name="preview" value="<?php echo __('Preview'); ?>"/>
 
+        <br />
+        <br />
+        <?php echo $permissionsCopyrightStatementForm->copyrightStatementApplyGlobally
+            ->label(__('Apply to every %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]))
+            ->renderRow(); ?>
+
+        <br />
+        <div class="alert alert-info">
+          <?php echo __('When enabled, the copyright pop-up will be applied to every %1%, regardless of whether there is an accompanying Rights statement.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
+        </div>
+
       </fieldset>
 
       <fieldset class="collapsible" id="preservationSystemAccessStatementArea">

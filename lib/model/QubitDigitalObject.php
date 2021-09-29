@@ -3136,6 +3136,14 @@ class QubitDigitalObject extends BaseDigitalObject
      */
     public function hasConditionalCopyright()
     {
+        // Check if the copyright statement is enabled and applies globally
+        if (
+            sfConfig::get('app_digitalobject_copyright_statement_enabled', false)
+            && sfConfig::get('app_digitalobject_copyright_statement_apply_globally', false)
+        ) {
+            return true;
+        }
+
         // Only if this is a master image and copyright statement is enabled
         if (
             QubitTerm::MASTER_ID != $this->usageId

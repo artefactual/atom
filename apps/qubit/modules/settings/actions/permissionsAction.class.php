@@ -136,6 +136,20 @@ class SettingsPermissionsAction extends sfAction
                 $setting->save();
             }
 
+            $setting = QubitSetting::getByName('digitalobject_copyright_statement_apply_globally');
+            if (null === $setting) {
+                $setting = new QubitSetting();
+                $setting->name = 'digitalobject_copyright_statement_apply_globally';
+                $setting->sourceCulture = sfConfig::get('sf_default_culture');
+            }
+            $value = $this->permissionsCopyrightStatementForm->getValue('copyrightStatementApplyGlobally');
+            if (!$this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled')) {
+                // Disable applying global copyright if the main setting is disabled too
+                $value = '0';
+            }
+            $setting->setValue($value, ['sourceCulture' => true]);
+            $setting->save();
+
             // Preservation system access statement
             $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled');
             if (null === $setting) {
