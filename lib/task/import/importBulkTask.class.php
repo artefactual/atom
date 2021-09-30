@@ -88,7 +88,7 @@ EOF;
             // Recurse into the import folder
             $files = $this->dir_tree(rtrim($arguments['folder'], '/'));
         } else {
-            $files = [$arguments['folder']];
+            $files = [realpath($arguments['folder'])];
         }
 
         // TODO: Add some colour
