@@ -22,8 +22,9 @@
  */
 class jobWorkerTask extends arBaseTask
 {
-    protected $maxJobCount = 0;
     public const JOB_LIMIT_RETURN_STATUS = 111;
+    private $maxJobCount = 0;
+    private $jobsCompleted = 0;
 
     public function gearmanWorkerLogger(sfEvent $event)
     {
@@ -38,6 +39,32 @@ class jobWorkerTask extends arBaseTask
     public function log($message)
     {
         parent::log(date('Y-m-d H:i:s > ').$message);
+    }
+
+    public function maxJobCountReached()
+    {
+        if ($this->getMaxJobCount() > 0 && $this->getJobsCompleted() >= $this->getMaxJobCount()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getMaxJobCount()
+    {
+        return $this->maxJobCount;
+    }
+
+    public function setMaxJobCount(int $maxJobCount)
+    {
+        if ($maxJobCount > 0) {
+            $this->maxJobCount = $maxJobCount;
+        }
+    }
+
+    public function getJobsCompleted()
+    {
+        return $this->jobsCompleted;
     }
 
     protected function configure()
@@ -87,14 +114,14 @@ EOF;
         }
 
         if (isset($options['max-job-count']) && $options['max-job-count'] > 0) {
-            $this->maxJobCount = $options['max-job-count'];
+            $this->setMaxJobCount($options['max-job-count']);
 
-            $this->log(sprintf('Worker will shut down after %u jobs have completed.', $this->maxJobCount));
+            $this->log(sprintf('Worker will shut down after %u jobs have completed.', $this->getMaxJobCount()));
         }
 
         $servers = arGearman::getServers();
 
-        $worker = new AtomNetGearmanWorker($servers);
+        $worker = new Net_Gearman_Worker($servers);
 
         // Register abilities (jobs)
         foreach ($abilities as $ability) {
@@ -108,13 +135,19 @@ EOF;
             $worker->addAbility(QubitJob::getJobPrefix().$ability);
         }
 
-        $worker->setMaxJobCount($this->maxJobCount);
-
         $worker->attachCallback(
             function ($handle, $job, $e) {
                 $this->log('Job failed: '.$e->getMessage());
             },
-            AtomNetGearmanWorker::JOB_FAIL
+            Net_Gearman_Worker::JOB_FAIL
+        );
+
+        $worker->attachCallback(
+            function ($handle, $job, $e) {
+                ++$this->jobsCompleted;
+                $this->log(sprintf('Jobs completed: %u', $this->getJobsCompleted()));
+            },
+            Net_Gearman_Worker::JOB_COMPLETE
         );
 
         $this->log('Running worker...');
@@ -132,7 +165,14 @@ EOF;
             // Another option would be to catch the ProperException from the worker
             // and restablish the connection when needed. Also, the persistent mode
             // could be disabled for this worker. See issue #4182.
-            function () use (&$counter) {
+            function ($idle, $lastJob) use (&$counter) {
+                if ($this->maxJobCountReached()) {
+                    $this->log(sprintf('Max job count reached: %u jobs completed.', $this->getJobsCompleted()), sfLogger::INFO);
+
+                    // Notify the worker that beginWork() work loop should exit.
+                    return true;
+                }
+
                 if (30 == $counter++) {
                     $counter = 0;
 
@@ -141,16 +181,17 @@ EOF;
             }
         );
 
-        $jobsCompleted = $worker->getJobsCompleted();
-
-        // Force worker's __destruct() to run.
-        $worker = null;
-
-        if ($this->maxJobCount > 0 && $this->maxJobCount <= $jobsCompleted) {
+        // Return code '111' when worker shuts down due to reaching max job count.
+        if ($this->getMaxJobCount() > 0 && $this->maxJobCountReached()) {
             $this->log('Worker shutting down - max-job-count reached.');
+            // Force worker's __destruct() to run so gearman connection is closed nicely.
+            unset($worker);
 
             exit(self::JOB_LIMIT_RETURN_STATUS);
         }
+
+        // Force worker's __destruct() to run so gearman connection is closed nicely.
+        unset($worker);
     }
 
     protected function activateTerminationHandlers()
