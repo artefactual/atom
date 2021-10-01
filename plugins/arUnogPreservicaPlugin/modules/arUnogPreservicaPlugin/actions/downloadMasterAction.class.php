@@ -51,6 +51,20 @@ class arUnogPreservicaPluginDownloadMasterAction extends sfAction
             return sfView::NONE;
         }
 
+        $this->digitalObjectId = $do->id;
+
+        if ($this->needsPopup()) {
+            $this->accessToken = bin2hex(random_bytes(32)); // URL friendly
+            $this->context->user->setAttribute("token-{$this->digitalObjectId}", $this->accessToken, 'symfony/user/sfUser/copyrightStatementTmpAccess');
+
+            $this->response->addMeta('robots', 'noindex,nofollow');
+            $this->setTemplate('viewCopyrightStatement');
+
+            $this->copyrightStatement = sfConfig::get('app_digitalobject_copyright_statement');
+
+            return sfView::SUCCESS;
+        }
+
         // Attempt to fetch Preservia ID
         $propertyName = arUnogPreservicaPluginConfiguration::PRESERVICA_UUID_PROPERTY_NAME;
         $preservicaUUID = $do->getPropertyByName($propertyName)->__toString();
@@ -81,5 +95,33 @@ class arUnogPreservicaPluginDownloadMasterAction extends sfAction
         $filename = $client->getObjectDetailsPropertyByName($objectData, 'cmis:contentStreamFileName');
 
         $client->streamAsset($cmisId, $filename);
+    }
+
+    protected function needsPopup()
+    {
+        // Only if the user is reading the master digital object, and the resource
+        // has a PREMIS conditional copyright restriction
+        if (!$this->resource->getDigitalObject()->hasConditionalCopyright()) {
+            return false;
+        }
+
+        // Show the pop-up if a valid access token was not submitted
+        return false === $this->isAccessTokenValid();
+    }
+
+    private function isAccessTokenValid()
+    {
+        $providedToken = $this->request->token;
+        $internalToken = $this->context->user->getAttribute("token-{$this->digitalObjectId}", null, 'symfony/user/sfUser/copyrightStatementTmpAccess');
+
+        if (empty($providedToken) || empty($internalToken)) {
+            return false;
+        }
+
+        if ($providedToken !== $internalToken) {
+            return false;
+        }
+
+        return true;
     }
 }

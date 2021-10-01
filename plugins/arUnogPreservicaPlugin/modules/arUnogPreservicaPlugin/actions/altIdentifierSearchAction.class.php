@@ -24,6 +24,7 @@ class arUnogPreservicaPluginAltIdentifierSearchAction extends QubitApiAction
         // Require both parameters be set
         if (empty($request->label) || empty($request->id)) {
             $message = "This endpoint requires an 'id' and 'label' parameter to be specified.";
+
             throw new QubitApiBadRequestException($message);
         }
 
