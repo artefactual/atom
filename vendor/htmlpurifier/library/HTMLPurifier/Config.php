@@ -751,14 +751,13 @@ class HTMLPurifier_Config
      * @param array $array $_GET or $_POST array to import
      * @param string|bool $index Index/name that the config variables are in
      * @param array|bool $allowed List of allowed namespaces/directives
-     * @param bool $mq_fix Boolean whether or not to enable magic quotes fix
      * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not global copy
      *
      * @return mixed
      */
-    public static function loadArrayFromForm($array, $index = false, $allowed = true, $mq_fix = true, $schema = null)
+    public static function loadArrayFromForm($array, $index = false, $allowed = true, $schema = null)
     {
-        $ret = HTMLPurifier_Config::prepareArrayFromForm($array, $index, $allowed, $mq_fix, $schema);
+        $ret = HTMLPurifier_Config::prepareArrayFromForm($array, $index, $allowed, $schema);
         $config = HTMLPurifier_Config::create($ret, $schema);
         return $config;
     }
@@ -769,11 +768,10 @@ class HTMLPurifier_Config
      * @param array $array $_GET or $_POST array to import
      * @param string|bool $index Index/name that the config variables are in
      * @param array|bool $allowed List of allowed namespaces/directives
-     * @param bool $mq_fix Boolean whether or not to enable magic quotes fix
      */
-    public function mergeArrayFromForm($array, $index = false, $allowed = true, $mq_fix = true)
+    public function mergeArrayFromForm($array, $index = false, $allowed = true)
     {
-         $ret = HTMLPurifier_Config::prepareArrayFromForm($array, $index, $allowed, $mq_fix, $this->def);
+         $ret = HTMLPurifier_Config::prepareArrayFromForm($array, $index, $allowed, $this->def);
          $this->loadArray($ret);
     }
 
@@ -784,17 +782,15 @@ class HTMLPurifier_Config
      * @param array $array $_GET or $_POST array to import
      * @param string|bool $index Index/name that the config variables are in
      * @param array|bool $allowed List of allowed namespaces/directives
-     * @param bool $mq_fix Boolean whether or not to enable magic quotes fix
      * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not global copy
      *
      * @return array
      */
-    public static function prepareArrayFromForm($array, $index = false, $allowed = true, $mq_fix = true, $schema = null)
+    public static function prepareArrayFromForm($array, $index = false, $allowed = true, $schema = null)
     {
         if ($index !== false) {
             $array = (isset($array[$index]) && is_array($array[$index])) ? $array[$index] : array();
         }
-        $mq = $mq_fix && function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc();
 
         $allowed = HTMLPurifier_Config::getAllowedDirectivesForForm($allowed, $schema);
         $ret = array();
@@ -808,8 +804,7 @@ class HTMLPurifier_Config
             if (!isset($array[$skey])) {
                 continue;
             }
-            $value = $mq ? stripslashes($array[$skey]) : $array[$skey];
-            $ret[$ns][$directive] = $value;
+            $ret[$ns][$directive] = $array[$skey];
         }
         return $ret;
     }
