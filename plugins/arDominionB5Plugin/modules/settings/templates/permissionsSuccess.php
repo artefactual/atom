@@ -168,7 +168,13 @@
                 $copyrightStatementSetting,
                 ['name' => 'value', 'class' => 'resizable']); ?>
 
-            <input class="btn atom-btn-white" type="submit" name="preview" value="<?php echo __('Preview'); ?>"/>
+            <input class="btn atom-btn-white mb-3" type="submit" name="preview" value="<?php echo __('Preview'); ?>"/>
+
+            <?php echo render_field(
+                $permissionsCopyrightStatementForm
+                    ->copyrightStatementApplyGlobally
+                    ->label(__('Apply to every %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]))
+                    ->help(__('When enabled, the copyright pop-up will be applied to every %1%, regardless of whether there is an accompanying Rights statement.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]))); ?>
           </div>
         </div>
       </div>
