@@ -39,7 +39,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'slug/default',
+            'api_endpointNotFound',
             'preservica_api_create_digitalobjects',
             new sfRequestRoute('/api/preservica/digitalobjects', $defaults, $requirements)
         );
@@ -55,7 +55,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'slug/default',
+            'api_endpointNotFound',
             'preservica_api_update_altidentifier',
             new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
         );
@@ -71,7 +71,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'slug/default',
+            'api_endpointNotFound',
             'preservica_api_search_altidentifier',
             new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
         );
