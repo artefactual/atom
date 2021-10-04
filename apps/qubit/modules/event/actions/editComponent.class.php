@@ -21,6 +21,11 @@ class EventEditComponent extends sfComponent
 {
     protected $finalEventIds = [];
 
+    /**
+     * Create forms to add and edit events.
+     *
+     * @param sfWebRequest $request
+     */
     public function execute($request)
     {
         // Create empty "events" form to hold "event" sub-forms
@@ -34,7 +39,12 @@ class EventEditComponent extends sfComponent
         $this->addEventForms();
     }
 
-    public function hasRequiredData($form)
+    /**
+     * Check if $form has data in the required fields.
+     *
+     * @param sfFormFieldSchema $form event form data
+     */
+    public function hasRequiredData(sfFormFieldSchema $form): bool
     {
         foreach ($form as $field) {
             if (!empty($field->getValue())) {
@@ -45,9 +55,14 @@ class EventEditComponent extends sfComponent
         return false;
     }
 
-    public function processEventForm($form)
+    /**
+     * Process event form data.
+     *
+     * @param sfFormFieldSchema $form event form data
+     */
+    public function processEventForm(sfFormFieldSchema $form)
     {
-        // Continue only if user typed something
+        // Continue only if the form has the required field data
         if (!$this->hasRequiredData($form)) {
             return;
         }
@@ -59,33 +74,34 @@ class EventEditComponent extends sfComponent
             // Create a new event if this row doesn't have an id (i.e. it's a
             // new event)
             $event = new QubitEvent();
+
+            // Add this event to the list of events related to $this->resource.
+            // See the actor and informationObject subclasses for the addEvent()
+            // method (the event list is named differently)
+            $this->addEvent($event);
         } else {
             // Get the existing QubitEvent object
             $event = QubitEvent::getById($form['id']->getValue());
-        }
 
-        if (!isset($event)) {
-            return;
-        }
+            // If the event doesn't exist in the database, skip this form
+            if (!isset($event)) {
+                return;
+            }
 
-        // Add this event to the list of events related to $this->resource.
-        // See the actor and informationObject subclasses for the addEvent()
-        // method (the event list is named differently)
-        $this->addEvent($event);
+            $this->finalEventIds[] = $event->id;
+        }
 
         foreach ($form as $i => $field) {
             $this->processField($field, $event);
         }
 
-        // Save existing events as they are not attached to the
-        // eventsRelatedByobjectId or events array
-        if (isset($event->id)) {
-            // Index on save for actors, but not informationObjects
-            $event->indexOnSave = $this->indexOnSave;
-            $event->save();
-        }
+        // Index on save for actors, but not informationObjects
+        $event->indexOnSave = $this->indexOnSave;
     }
 
+    /**
+     * Process event forms.
+     */
     public function processForm()
     {
         foreach ($this->events as $i => $form) {
@@ -101,6 +117,11 @@ class EventEditComponent extends sfComponent
         $this->deleteDeletedEvents();
     }
 
+    /**
+     * Set form help text.
+     *
+     * @param mixed $form
+     */
     public function setHelps($form)
     {
         $this->context->getConfiguration()->loadHelpers(['I18N']);
@@ -131,31 +152,8 @@ EOL
     }
 
     /**
-     * Add event sub-forms to $this->events form.
-     *
-     * Add one event sub-form for each event linked to $resource, plus one blank
-     * event sub-form for adding a new linked event.
+     * Delete events indicated by "deleteEvent" form fields.
      */
-    protected function addEventForms()
-    {
-        $i = 0;
-
-        // Add one event sub-form for each event related to this resource, to
-        // allow editing the existing events
-        foreach ($this->getEvents() as $event) {
-            $form = new EventForm($this->getFormDefaults($event));
-            $this->setHelps($form);
-
-            // Embed the event sub-form into the $this->events form
-            $this->events->embedForm($i++, $form);
-        }
-
-        // Add a blank event sub-form to allow adding a new event
-        $form = new EventForm(['type' => $this->getEventTypeDefault()]);
-        $this->setHelps($form);
-        $this->events->embedForm($i, $form);
-    }
-
     protected function deleteDeletedEvents()
     {
         if (!isset($this->request->deleteEvents)) {
@@ -175,17 +173,11 @@ EOL
         }
     }
 
-    protected function getFormDefaults($event)
-    {
-        return [
-            'id' => $event->id,
-            'date' => $event->date,
-            'startDate' => Qubit::renderDate($event->startDate),
-            'endDate' => Qubit::renderDate($event->endDate),
-            'type' => $this->getEventTypeDefault($event),
-        ];
-    }
-
+    /**
+     * Get pre-selected event type value.
+     *
+     * @param null|QubitEvent $event
+     */
     protected function getEventTypeDefault($event = null)
     {
         if (isset($event, $event->type)) {
@@ -204,7 +196,13 @@ EOL
         );
     }
 
-    protected function processField($field, &$event)
+    /**
+     * Process form field data and map to ORM columns.
+     *
+     * @param sfFormField $field object
+     * @param QubitEvent  $event ORM object
+     */
+    protected function processField($field, $event)
     {
         switch ($field->getName()) {
             case 'actor':

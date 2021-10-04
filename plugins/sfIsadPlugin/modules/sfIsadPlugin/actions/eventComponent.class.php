@@ -29,19 +29,26 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     ];
 
     /**
-     * Get only events that have a date for the ISAD template.
+     * Get related events with dates.
+     *
+     * The ISAD(G) template separates "date" events from "actor" events
      */
-    public function getEvents()
+    public function getRelatedEvents()
     {
         return $this->resource->getDates();
     }
 
-    public function hasRequiredData($event)
+    /**
+     * Check if $form has data in the required fields.
+     *
+     * @param sfFormFieldSchema $form event form data
+     */
+    public function hasRequiredData(sfFormFieldSchema $form): bool
     {
         if (
-            empty($event['date']->getValue())
-            && empty($event['endDate']->getValue())
-            && empty($event['startDate']->getValue())
+            empty($form['date']->getValue())
+            && empty($form['endDate']->getValue())
+            && empty($form['startDate']->getValue())
         ) {
             // Skip this row if there is no date data
             return false;
@@ -51,33 +58,79 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     }
 
     /**
-     * Add event sub-forms to $this->events form.
-     *
-     * Add one event sub-form for each event linked to $resource, plus one blank
-     * event sub-form for adding a new linked event.
+     * Get default form field values.
      */
-    protected function addEventForms()
+    protected function getFormDefaults(QubitEvent $event)
+    {
+        return [
+            'id' => $event->id,
+            'date' => $event->date,
+            'startDate' => Qubit::renderDate($event->startDate),
+            'endDate' => Qubit::renderDate($event->endDate),
+            'type' => $this->getEventTypeDefault($event),
+        ];
+    }
+
+    /**
+     * Add one event form for each event in POST.
+     */
+    protected function addPostEventForms()
+    {
+        $i = 0;
+        $events = $this->request->getPostParameter('events');
+
+        if (empty($events)) {
+            return;
+        }
+
+        foreach ($events as $event) {
+            $form = new sfIsadEventForm();
+            $this->events->embedForm($i++, $form);
+        }
+    }
+
+    /**
+     * Add forms for existing events related to this resource.
+     */
+    protected function addRelatedEventForms()
     {
         $i = 0;
 
         // Add one event sub-form for each event related to this resource, to
         // allow editing the existing events
-        foreach ($this->getEvents() as $event) {
+        foreach ($this->getRelatedEvents() as $event) {
             // Embed the event sub-form into the $this->events form
-            $form = new EventForm($this->getFormDefaults($event));
+            $form = new sfIsadEventForm($this->getFormDefaults($event));
             $this->events->embedForm($i++, $form);
         }
+    }
 
-        // Add a blank event sub-form to allow adding a new event
-        $form = new EventForm(['type' => $this->getEventTypeDefault()]);
-        $this->setHelps($form);
-        $this->events->embedForm('', $form);
+    /**
+     * Add an blank event form to allow creating a new event.
+     */
+    protected function addNewEventForm()
+    {
+        $form = new sfIsadEventForm(['type' => $this->getEventTypeDefault()]);
+        $this->events->embedForm(count($this->events), $form);
+    }
+
+    /**
+     * Add event sub-forms to $this->events form.
+     */
+    protected function addEventForms()
+    {
+        if ($this->request->isMethod('post')) {
+            $this->addPostEventForms();
+        } else {
+            $this->addRelatedEventForms();
+            $this->addNewEventForm();
+        }
     }
 
     protected function deleteDeletedEvents()
     {
         // Delete the old events that were removed from the form by multiRow.js.
-        foreach ($this->getEvents() as $event) {
+        foreach ($this->getRelatedEvents() as $event) {
             if (
                 isset($event->id)
                 && false === array_search($event->id, $this->finalEventIds)

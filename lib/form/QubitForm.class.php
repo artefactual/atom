@@ -120,4 +120,24 @@ class QubitForm extends sfForm
 
         return true;
     }
+
+    /**
+     * Return all hidden fields as a string.
+     *
+     * @param bool $recursive False will prevent hidden fields from embedded
+     *                        forms from rendering
+     */
+    public function renderHiddenFields($recursive = true): string
+    {
+        $output = $this->getFormFieldSchema()->renderHiddenFields($recursive);
+
+        // Concatenate embedded form hidden field to output string
+        if (!empty($this->embeddedForms)) {
+            foreach ($this->embeddedForms as $name => $form) {
+                $output .= $form->renderHiddenFields($recursive);
+            }
+        }
+
+        return $output;
+    }
 }

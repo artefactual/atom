@@ -90,15 +90,26 @@ class EventForm extends QubitForm
         $this->setWidget('place', new sfWidgetFormSelect(['choices' => []]));
     }
 
+    /**
+     * Configure event form.
+     */
     public function configure()
     {
         $this->getWidgetSchema()->setNameFormat('event[%s]');
+        $this->configureFields();
+    }
 
-        // Configure fields included in all event forms
+    /**
+     * Configure general event form fields.
+     */
+    public function configureFields()
+    {
         $this->configureId();
+        $this->configureType();
+        $this->configureActor();
         $this->configureDate();
         $this->configureStartDate();
         $this->configureEndDate();
-        $this->configureType();
+        $this->configureDescription();
     }
 }
