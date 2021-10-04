@@ -19,7 +19,7 @@
 
 class QubitHtmlPurifier
 {
-    protected static $instance = null;
+    protected static $instance;
 
     private $enabled;
 
@@ -32,19 +32,23 @@ class QubitHtmlPurifier
         }
 
         // Prepare htmlpurifier cache directory
-        $purifierCacheDirectory = sfConfig::get('sf_cache_dir').DIRECTORY_SEPARATOR.'htmlpurifier';
+        $purifierCacheDirectory = sfConfig::get('sf_cache_dir').
+            DIRECTORY_SEPARATOR.'htmlpurifier';
+
         if (!file_exists($purifierCacheDirectory)) {
             mkdir($purifierCacheDirectory, 0770, true);
         }
 
         // Load htmlpurifier library
-        require sfConfig::get('sf_root_dir').'/vendor/htmlpurifier/library/HTMLPurifier.includes.php';
+        require sfConfig::get('sf_root_dir').
+            '/vendor/composer/ezyang/htmlpurifier/library/'.
+            'HTMLPurifier.includes.php';
 
         $config = HTMLPurifier_Config::createDefault();
-        $config->set('Core', 'Encoding', sfConfig::get('sf_charset', 'UTF-8'));
+        $config->set('Core.Encoding', sfConfig::get('sf_charset', 'UTF-8'));
         $config->set('Cache.SerializerPath', $purifierCacheDirectory);
         $config->set('AutoFormat.AutoParagraph', true);
-        $config->set('HTML', 'Doctype', 'XHTML 1.1');
+        $config->set('HTML.Doctype', 'XHTML 1.1');
         $config->set('HTML.Allowed', implode(',', [
             'div', 'span', 'p',
             'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
