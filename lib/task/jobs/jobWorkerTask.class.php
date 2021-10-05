@@ -159,12 +159,8 @@ EOF;
 
         // The worker loop!
         $worker->beginWork(
-            // Pass a callback that pings the database every ~30 seconds
-            // in order to keep the connection alive. AtoM connects to MySQL in a
-            // persistent way that timeouts when running the worker for a long time.
-            // Another option would be to catch the ProperException from the worker
-            // and restablish the connection when needed. Also, the persistent mode
-            // could be disabled for this worker. See issue #4182.
+            // This callback function will be called once per second when a
+            // job is not being processed.
             function ($idle, $lastJob) use (&$counter) {
                 if ($this->maxJobCountReached()) {
                     $this->log(sprintf('Max job count reached: %u jobs completed.', $this->getJobsCompleted()), sfLogger::INFO);
@@ -172,7 +168,12 @@ EOF;
                     // Notify the worker that beginWork() work loop should exit.
                     return true;
                 }
-
+                // Ping the database every ~30 seconds in order to keep the
+                // connection alive. AtoM connects to MySQL in a persistent
+                // way that timeouts when running the worker for a long time.
+                // Another option would be to catch the ProperException from the worker
+                // and restablish the connection when needed. Also, the persistent mode
+                // could be disabled for this worker. See issue #4182.
                 if (30 == $counter++) {
                     $counter = 0;
 
@@ -182,7 +183,7 @@ EOF;
         );
 
         // Return code '111' when worker shuts down due to reaching max job count.
-        if ($this->getMaxJobCount() > 0 && $this->maxJobCountReached()) {
+        if ($this->maxJobCountReached()) {
             $this->log('Worker shutting down - max-job-count reached.');
             // Force worker's __destruct() to run so gearman connection is closed nicely.
             unset($worker);
