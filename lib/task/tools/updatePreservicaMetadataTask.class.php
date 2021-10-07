@@ -70,16 +70,16 @@ EOF;
 
     private function fetchPreservicaId($objectId)
     {
-        $sql = 'SELECT value as preservica_id FROM property_i18n pi
+        $sql = 'SELECT value FROM property_i18n pi
             LEFT JOIN property p ON p.id = pi.id
-            LEFT JOIN object o ON o.id = p.object_id
-            WHERE o.class_name IN ("QubitInformationObject", "QubitDigitalObject")
-            AND o.id = '.$objectId.'
-            AND p.name = "'.arUnogPreservicaPluginConfiguration::PRESERVICA_UUID_PROPERTY_NAME.'";';
+            LEFT JOIN digital_object do ON do.id = p.object_id
+            WHERE do.object_id = ?
+            AND p.name = ?;';
 
-        $result = QubitPdo::fetchOne($sql);
-
-        return $result->{'preservica_id'};
+        return QubitPdo::fetchColumn($sql, [
+            $objectId,
+            arUnogPreservicaPluginConfiguration::PRESERVICA_UUID_PROPERTY_NAME,
+        ]);
     }
 
     private function putUpdatedObjectDetails($client, $url, $io, $xml, $preservicaId, $resourceType, $logger)
@@ -262,23 +262,21 @@ EOF;
             $days = $options['days'];
         }
 
-        // TODO: Radda feedback: Use ES to find recently updated records
-        $sql = 'SELECT o.id as object_id, pi.value as preservica_id
+        // Determine updated InformationObjects
+        $sql = 'SELECT o.id
             FROM object o
-            LEFT JOIN property p ON o.id = p.object_id
-            LEFT JOIN property_i18n pi ON p.id = pi.id
-            WHERE o.class_name IN ("QubitInformationObject", "QubitDigitalObject")
+            WHERE o.class_name = "QubitInformationObject"
             AND o.id <> '.QubitInformationObject::ROOT_ID.'
-            AND p.name = "'.arUnogPreservicaPluginConfiguration::PRESERVICA_UUID_PROPERTY_NAME.'"
-            AND o.updated_at >= now() - interval '.$days.' day
+            AND o.updated_at >= now() - interval ? day
             ORDER BY o.updated_at DESC;';
 
-        $updatedDescriptions = QubitPdo::fetchAll($sql);
+        $updatedDescriptions = QubitPdo::fetchAll($sql, [$days], ['fetchMode' => PDO::FETCH_COLUMN]);
 
         if (count($updatedDescriptions)) {
-            foreach ($updatedDescriptions as $description) {
+            foreach ($updatedDescriptions as $updatedObjectId) {
                 $options['logger'] = $logger;
-                $this->update($options, $client, $description->{'object_id'}, $description->{'preservica_id'});
+                $preservicaId = $this->fetchPreservicaId($updatedObjectId);
+                $this->update($options, $client, $updatedObjectId, $preservicaId);
             }
         }
 
