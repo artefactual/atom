@@ -50,13 +50,13 @@ abstract class arOaiPluginComponent extends sfComponent
         if (!isset($request->from)) {
             $this->from = '';
         } else {
-            $this->from = strtotime($request->from);
+            $this->from = $request->from;
         }
 
         if (!isset($request->until)) {
             $this->until = '';
         } else {
-            $this->until = strtotime($request->until);
+            $this->until = $request->until;
         }
 
         if (!isset($request->set)) {
@@ -87,8 +87,8 @@ abstract class arOaiPluginComponent extends sfComponent
     public function getUpdates(array $options = [])
     {
         $presetOptions = [
-            'from' => $this->from,
-            'until' => $this->until,
+            'from' => QubitOai::mysqlDate($this->from),
+            'until' => QubitOai::mysqlDate($this->until),
             'offset' => $this->cursor,
             'limit' => QubitSetting::getByName('resumption_token_limit')->__toString(),
         ];
@@ -106,13 +106,18 @@ abstract class arOaiPluginComponent extends sfComponent
         $this->publishedRecords = $update['data'];
         $this->remaining = $update['remaining'];
         $this->recordsCount = count($this->publishedRecords);
-        $resumptionCursor = $this->cursor + $options['limit'];
-        $this->resumptionToken = base64_encode(json_encode(['from' => $this->from,
-            'until' => $this->until,
-            'cursor' => $resumptionCursor,
-            'metadataPrefix' => $this->metadataPrefix,
-            'set' => $this->set,
-        ]));
+
+        $this->resumptionToken = base64_encode(
+            json_encode(
+                [
+                    'from' => $this->from,
+                    'until' => $this->until,
+                    'cursor' => $this->cursor + $options['limit'],
+                    'metadataPrefix' => $this->metadataPrefix,
+                    'set' => $this->set,
+                ]
+            )
+        );
     }
 
     public function setRequestAttributes($request)

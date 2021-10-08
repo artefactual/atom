@@ -147,7 +147,7 @@ class QubitOai
     }
 
     /**
-     * Returns formated date.
+     * Returns ISO 8601 formatted UTC date.
      *
      * @param string $date optional date value
      *
@@ -160,6 +160,22 @@ class QubitOai
         }
 
         return gmdate('Y-m-d\TH:i:s\Z', strtotime($date));
+    }
+
+    /**
+     * Returns a MySQL formatted date using local AtoM timezone.
+     *
+     * @param string $date in ISO 8601 UTC format
+     *
+     * @return null|string a MySQL formatted local datetime, or null
+     */
+    public static function mysqlDate($date)
+    {
+        if (empty($date)) {
+            return;
+        }
+
+        return date('Y-m-d H:i:s', strtotime($date));
     }
 
     /**
