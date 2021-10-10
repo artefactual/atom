@@ -211,7 +211,8 @@ EOF;
                 if ($self->object) {
                     // Warn or abort if identifier's already been used
                     if (
-                        !empty($identifier = $self->columnValue('descriptionIdentifier'))
+                        $self->columnExists('descriptionIdentifier')
+                        && !empty($identifier = $self->columnValue('descriptionIdentifier'))
                         && QubitValidatorActorDescriptionIdentifier::identifierUsedByAnotherActor($identifier, $self->object)
                     ) {
                         $error = sfContext::getInstance()
