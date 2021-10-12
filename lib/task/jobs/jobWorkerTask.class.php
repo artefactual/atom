@@ -146,6 +146,11 @@ EOF;
             function ($handle, $job, $e) {
                 ++$this->jobsCompleted;
                 $this->log(sprintf('Jobs completed: %u', $this->getJobsCompleted()));
+
+                if (arMemprofUtils::getMemprofEnabled()) {
+                    $memprof_filename = arMemprofUtils::createMemprofGrindFile();
+                    $this->log(sprintf('Memprof enabled. Dumping grind file: %s', $memprof_filename));
+                }
             },
             Net_Gearman_Worker::JOB_COMPLETE
         );
@@ -179,6 +184,11 @@ EOF;
                     $counter = 0;
 
                     QubitPdo::prepareAndExecute('SELECT 1');
+
+                    if (arMemprofUtils::getMemprofEnabled()) {
+                        $this->log(arMemprofUtils::getMemoryUsageString());
+                        $this->log(sprintf('Memprof profile: %s', arMemprofUtils::getMemprofProfile()));
+                    }
                 }
             }
         );
@@ -223,6 +233,11 @@ EOF;
         // Define shutdown function
         register_shutdown_function(function () {
             $this->log('Job worker stopped.');
+
+            if (arMemprofUtils::getMemprofEnabled()) {
+                $memprof_filename = arMemprofUtils::createMemprofGrindFile();
+                $this->log(sprintf('Memprof enabled. Dumping shutdown grind file: %s', $memprof_filename));
+            }
         });
     }
 }
