@@ -25,6 +25,7 @@ class jobWorkerTask extends arBaseTask
     public const JOB_LIMIT_RETURN_STATUS = 111;
     private $maxJobCount = 0;
     private $jobsCompleted = 0;
+    private $memoryProfiler;
 
     public function gearmanWorkerLogger(sfEvent $event)
     {
@@ -65,6 +66,39 @@ class jobWorkerTask extends arBaseTask
     public function getJobsCompleted()
     {
         return $this->jobsCompleted;
+    }
+
+    public function getMemoryUsageString()
+    {
+        return sprintf(
+            "Worker memory usage (PHP - VmRSS): %skB - %dkB\n",
+            $this->getPhpReportedMemoryUsage(),
+            $this->getLinuxReportedMemoryUsage()
+        );
+    }
+
+    /* Get OS reported mem usage from /prod/self/status.
+     * Grabs the memory value from the VmRSS entry in the status file.
+     * VmRSS is the resident mem set size in kB.
+     *
+     * Returns the resident memory in kB. If the lookup fails this function will
+     * return zero and the caller should deal with that as an error.
+     */
+    public function getLinuxReportedMemoryUsage()
+    {
+        try {
+            preg_match('/^VmRSS:\s(.*)/m', file_get_contents('/proc/self/status'), $matches);
+            $memUsage = (int) trim($matches[1]);
+        } catch (Exception $e) {
+            return 0;
+        }
+
+        return $memUsage;
+    }
+
+    public function getPhpReportedMemoryUsage()
+    {
+        return sprintf('%.0f', memory_get_usage(true) / 1024);
     }
 
     protected function configure()
@@ -123,6 +157,10 @@ EOF;
 
         $worker = new Net_Gearman_Worker($servers);
 
+        if (arPhpMemoryProfiler::getMemprofEnabled()) {
+            $this->memoryProfiler = new arPhpMemoryProfiler();
+        }
+
         // Register abilities (jobs)
         foreach ($abilities as $ability) {
             if (!class_exists($ability)) {
@@ -146,12 +184,22 @@ EOF;
             function ($handle, $job, $e) {
                 ++$this->jobsCompleted;
                 $this->log(sprintf('Jobs completed: %u', $this->getJobsCompleted()));
+
+                if (arPhpMemoryProfiler::getMemprofEnabled()) {
+                    $this->log(self::getMemoryUsageString());
+                    $this->log(sprintf('Memprof enabled. Dumping grind file: %s', $this->memoryProfiler->createMemprofGrindFile()));
+                }
             },
             Net_Gearman_Worker::JOB_COMPLETE
         );
 
         $this->log('Running worker...');
         $this->log('PID '.getmypid());
+
+        if (arPhpMemoryProfiler::getMemprofEnabled()) {
+            $this->log(sprintf('Memprof profile: %s', $this->memoryProfiler->getMemprofProfile()));
+            $this->log(self::getMemoryUsageString());
+        }
 
         $this->activateTerminationHandlers();
 
@@ -223,6 +271,10 @@ EOF;
         // Define shutdown function
         register_shutdown_function(function () {
             $this->log('Job worker stopped.');
+
+            if (arPhpMemoryProfiler::getMemprofEnabled()) {
+                $this->log(sprintf('Memprof enabled. Dumping shutdown grind file: %s', $this->memoryProfiler->createMemprofGrindFile()));
+            }
         });
     }
 }

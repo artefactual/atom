@@ -36,6 +36,8 @@ RUN set -xe \
       libxslt \
       libmemcached-libs \
       libzip \
+    && apk add --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted \
+      php8-pecl-memprof \
     && apk del .phpext-builddeps \
     && pecl clear-cache \
     && apk add --no-cache --virtual .atom-deps \
