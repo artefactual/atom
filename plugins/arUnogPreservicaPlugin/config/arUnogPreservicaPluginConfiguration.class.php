@@ -39,7 +39,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'api_endpointNotFound',
+            'slug',
             'preservica_api_create_digitalobjects',
             new sfRequestRoute('/api/preservica/digitalobjects', $defaults, $requirements)
         );
@@ -55,7 +55,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'api_endpointNotFound',
+            'slug',
             'preservica_api_update_altidentifier',
             new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
         );
@@ -71,7 +71,7 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
         ];
 
         $this->routing->insertRouteBefore(
-            'api_endpointNotFound',
+            'slug',
             'preservica_api_search_altidentifier',
             new sfRequestRoute('/api/preservica/altIdentifier', $defaults, $requirements)
         );
@@ -96,6 +96,11 @@ class arUnogPreservicaPluginConfiguration extends sfPluginConfiguration
 
     public function initialize()
     {
+        // Don't initialize plugin unless the REST module is enabled
+        if (!class_exists('QubitApiAction')) {
+          return;
+        }
+
         parent::initialize();
 
         // Connect event listener to add routes
