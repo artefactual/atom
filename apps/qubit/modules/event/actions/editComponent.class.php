@@ -145,6 +145,36 @@ characters of the term name. Alternatively, type a new term to create and link
 to a new place term.
 EOL
             ),
+            'type' => __(
+<<<'EOL'
+Select the type of activity that established the relation between the authority
+record and the archival description (e.g. creation, accumulation, collection,
+publication, etc.)
+EOL
+            ),
+            'startDate' => __(
+<<<'EOL'
+Enter the start year. Do not use any qualifiers or typographical symbols to
+express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM,
+YYYY.
+EOL
+            ),
+            'endDate' => __(
+<<<'EOL'
+Enter the end year. Do not use any qualifiers or typographical symbols to
+express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM,
+YYYY.
+EOL
+            ),
+            'description' => __(
+<<<'EOL'
+Make notes on dates and any details pertaining to the dates of creation,
+publication, or distribution, of the unit being described that are not included
+in the Date(s) of creation, including publication, distribution, etc., area and
+that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of
+accumulation or collection of the unit being described." (RAD 1.8B8a)
+EOL
+            ),
         ]);
     }
 
