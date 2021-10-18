@@ -22,10 +22,11 @@
  */
 class jobWorkerTask extends arBaseTask
 {
-    public const JOB_LIMIT_RETURN_STATUS = 111;
+    public const LIMIT_RETURN_STATUS = 111;
     private $maxJobCount = 0;
     private $jobsCompleted = 0;
     private $memoryProfiler;
+    private $maxMemUsage = 0;
 
     public function gearmanWorkerLogger(sfEvent $event)
     {
@@ -101,6 +102,27 @@ class jobWorkerTask extends arBaseTask
         return sprintf('%.0f', memory_get_usage(true) / 1024);
     }
 
+    public function getMaxMemUsage()
+    {
+        return $this->maxMemUsage;
+    }
+
+    public function setMaxMemUsage(int $maxMemUsage)
+    {
+        if ($maxMemUsage > 0) {
+            $this->maxMemUsage = $maxMemUsage;
+        }
+    }
+
+    public function maxMemUsageReached()
+    {
+        if ($this->getMaxMemUsage() > 0 && $this->getLinuxReportedMemoryUsage() >= $this->getMaxMemUsage()) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected function configure()
     {
         $this->addOptions([
@@ -109,6 +131,7 @@ class jobWorkerTask extends arBaseTask
             new sfCommandOption('types', null, sfCommandOption::PARAMETER_REQUIRED, 'Type of jobs to perform (check config/gearman.yml for details)', ''),
             new sfCommandOption('abilities', null, sfCommandOption::PARAMETER_REQUIRED, 'A comma separated string indicating which jobs this worker can do.', ''),
             new sfCommandOption('max-job-count', null, sfCommandOption::PARAMETER_OPTIONAL, 'Maximum number of jobs this worker will run before shutting down.'),
+            new sfCommandOption('max-mem-usage', null, sfCommandOption::PARAMETER_OPTIONAL, 'Memory threshold this worker will consume before triggering the worker to shut down (value in kB).'),
         ]);
 
         $this->addArguments([
@@ -150,7 +173,23 @@ EOF;
         if (isset($options['max-job-count']) && $options['max-job-count'] > 0) {
             $this->setMaxJobCount($options['max-job-count']);
 
-            $this->log(sprintf('Worker will shut down after %u jobs have completed.', $this->getMaxJobCount()));
+            $this->log(
+                sprintf(
+                    'Worker will shut down after %u jobs have completed.',
+                    $this->getMaxJobCount()
+                )
+            );
+        }
+
+        if (isset($options['max-mem-usage']) && $options['max-mem-usage'] > 0) {
+            $this->setMaxMemUsage($options['max-mem-usage']);
+
+            $this->log(
+                sprintf(
+                    'Worker will shut down if memory consumption exceeds %ukB.',
+                    $this->getMaxMemUsage()
+                )
+            );
         }
 
         $servers = arGearman::getServers();
@@ -187,7 +226,12 @@ EOF;
 
                 if (arPhpMemoryProfiler::getMemprofEnabled()) {
                     $this->log(self::getMemoryUsageString());
-                    $this->log(sprintf('Memprof enabled. Dumping grind file: %s', $this->memoryProfiler->createMemprofGrindFile()));
+                    $this->log(
+                        sprintf(
+                            'Memprof enabled. Dumping grind file: %s',
+                            $this->memoryProfiler->createMemprofGrindFile()
+                        )
+                    );
                 }
             },
             Net_Gearman_Worker::JOB_COMPLETE
@@ -211,7 +255,27 @@ EOF;
             // job is not being processed.
             function ($idle, $lastJob) use (&$counter) {
                 if ($this->maxJobCountReached()) {
-                    $this->log(sprintf('Max job count reached: %u jobs completed.', $this->getJobsCompleted()), sfLogger::INFO);
+                    $this->log(
+                        sprintf(
+                            'Max job count reached: %u jobs completed.',
+                            $this->getJobsCompleted()
+                        ),
+                        sfLogger::INFO
+                    );
+
+                    // Notify the worker that beginWork() work loop should exit.
+                    return true;
+                }
+
+                if ($this->maxMemUsageReached()) {
+                    $this->log(
+                        sprintf(
+                            'Max memory usage reached (%ukB): %ukB in use.',
+                            $this->getMaxMemUsage(),
+                            $this->getLinuxReportedMemoryUsage()
+                        ),
+                        sfLogger::INFO
+                    );
 
                     // Notify the worker that beginWork() work loop should exit.
                     return true;
@@ -234,14 +298,25 @@ EOF;
         // Return code '111' when worker shuts down due to reaching max job count.
         if ($this->maxJobCountReached()) {
             $this->log('Worker shutting down - max-job-count reached.');
-            // Force worker's __destruct() to run so gearman connection is closed nicely.
-            unset($worker);
+            $this->shutdownWorker(self::LIMIT_RETURN_STATUS);
+        }
 
-            exit(self::JOB_LIMIT_RETURN_STATUS);
+        // Return code '111' when worker shuts down due to reaching max mem usage.
+        if ($this->maxMemUsageReached()) {
+            $this->log('Worker shutting down - max-mem-usage reached.');
+            $this->shutdownWorker(self::LIMIT_RETURN_STATUS);
         }
 
         // Force worker's __destruct() to run so gearman connection is closed nicely.
         unset($worker);
+    }
+
+    protected function shutdownWorker(int $exitcode = 0)
+    {
+        // Force worker's __destruct() to run so gearman connection is closed nicely.
+        unset($worker);
+
+        exit($exitcode);
     }
 
     protected function activateTerminationHandlers()
@@ -260,7 +335,7 @@ EOF;
 
             $this->log($messages[$signal]);
 
-            exit();
+            $this->shutdownWorker();
         };
 
         pcntl_signal(SIGINT, $signalHandler);
