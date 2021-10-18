@@ -126,7 +126,9 @@
 
       <?php } ?>
 
-      <?php if ($showMasterFileMetadata || $showReferenceCopyMetadata || $showThumbnailCopyMetadata) { ?>
+      <?php $preservicaUUID = $resource->getPropertyByName(arUnogPreservicaPluginConfiguration::PRESERVICA_UUID_PROPERTY_NAME)->__toString(); ?>
+
+      <?php if ($showMasterFileMetadata || $showReferenceCopyMetadata || $showThumbnailCopyMetadata || $preservicaUUID) { ?>
 
         <div class="accordion-item rounded-bottom">
           <h3 class="accordion-header" id="access-heading">
@@ -136,7 +138,7 @@
           </h3>
           <div id="access-collapse" class="accordion-collapse collapse<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? '' : ' show'; ?>" aria-labelledby="access-heading">
             <div class="accordion-body p-0">
-              <?php if ($showMasterFileMetadata) { ?>
+              <?php if ($showMasterFileMetadata || $preservicaUUID) { ?>
 
                 <div class="<?php echo render_b5_show_field_css_classes(); ?>">
 
@@ -160,7 +162,11 @@
 
                     <?php if ($showMasterFileName) { ?>
                       <?php if ($canAccessMasterFile) { ?>
-                        <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php if (empty($preservicaUUID)) { ?>
+                          <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php } else { ?>
+                          <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), url_for([$resource->object, 'sf_route' => 'preservica_download_master']), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php } ?>
                       <?php } else { ?>
                         <?php echo render_show(__('Filename'), render_value_inline($resource->name), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
                       <?php } ?>
