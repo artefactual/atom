@@ -61,6 +61,6 @@ all:
   treeview_items_per_page_max: 10000
 
   # Preservica credentials
-  preservica_username: someuser
-  preservica_password: somepass
-  preservica_host: somehost
+  #preservica_username: someuser
+  #preservica_password: somepass
+  #preservica_host: somehost
