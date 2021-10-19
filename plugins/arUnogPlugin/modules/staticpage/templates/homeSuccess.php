@@ -60,7 +60,7 @@
             <span class="d-block fs-3"><?php echo __('Spotlight'); ?></span>
             <span class="d-block fs-3"><?php echo __('Total Digital Access to the League of Nations Archives Project (LONTAD)'); ?></span>
           </figcaption>
-          <?php echo image_tag('/plugins/arUnogPlugin/images/spotlight.jpg', ['class' => 'img-fluid d-none d-sm-block', 'alt' => __('Drawing of the Palais des Nations with a view on the celestial sphere in the foreground.')]); ?>
+          <?php echo image_tag('/plugins/arUnogPlugin/images/spotlight.jpg', ['class' => 'img-fluid d-none d-sm-block', 'alt' => __('View of the red seals of the Locarno agreements.')]); ?>
         </figure>
       </a>
     </div>
