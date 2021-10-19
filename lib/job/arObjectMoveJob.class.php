@@ -97,12 +97,14 @@ class arObjectMoveJob extends arBaseJob
                 case 'before':
                     $this->info($this->i18n->__('Moving object before sibling (id: %1)', ['%1' => $targetSiblingId]));
                     $object->moveToPrevSiblingOf($targetSibling);
+                    $this->reindexObjectRange($children, $parameters['newPosition'], $parameters['oldPosition']);
 
                     break;
 
                 case 'after':
                     $this->info($this->i18n->__('Moving object after sibling (id: %1)', ['%1' => $targetSiblingId]));
                     $object->moveToNextSiblingOf($targetSibling);
+                    $this->reindexObjectRange($children, $parameters['oldPosition'], $parameters['newPosition']);
 
                     break;
 
@@ -119,5 +121,26 @@ class arObjectMoveJob extends arBaseJob
         $this->job->save();
 
         return true;
+    }
+
+    public function reindexObjectRange(array $children, int $start, int $end)
+    {
+        // Clear cached lft values on updated information object records.
+        QubitInformationObject::clearCache();
+
+        for ($i = $start; $i <= $end; ++$i) {
+            $objectId = $children[$i]['id'];
+
+            if (null === $obj = QubitInformationObject::getById($objectId)) {
+                continue;
+            }
+
+            $this->info($this->i18n->__('Reindexing object id: %1', ['%1' => $objectId]));
+
+            // Use partial update of ES doc. Requires information object.
+            QubitSearch::getInstance()->partialUpdate(
+                $obj, ['lft' => $obj->lft]
+            );
+        }
     }
 }
