@@ -285,6 +285,8 @@ EOF;
         if (isset($options['older-than'])) {
             return QubitAccessLog::expire($options['older-than']);
         }
+
+        return 0;
     }
 
     private function clipboardExpireData($options)
