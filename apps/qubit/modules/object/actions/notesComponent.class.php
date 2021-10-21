@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectNotesComponent extends sfComponent
+class ObjectNotesComponent extends sfComponent
 {
     public function execute($request, $options = [])
     {
@@ -133,6 +133,33 @@ class InformationObjectNotesComponent extends sfComponent
                     $this->help = $this->context->i18n->__('Record the name(s) of the person(s) who created or revised the description, as well as the creation or revision date. (DACS 8.1.5)');
 
                     break;
+
+                case 'termScopeNotes':
+                    $this->hiddenType = true;
+                    $this->hiddenTypeId = QubitTerm::SCOPE_NOTE_ID;
+                    $this->allNotes = $this->resource->getNotesByType(['noteTypeId' => $this->hiddenTypeId]);
+                    $this->tableName = $this->context->i18n->__('Scope Note(s)');
+                    $this->arrayName = 'termScopeNotes';
+
+                    break;
+
+                case 'termSourceNotes':
+                    $this->hiddenType = true;
+                    $this->hiddenTypeId = QubitTerm::SOURCE_NOTE_ID;
+                    $this->allNotes = $this->resource->getNotesByType(['noteTypeId' => $this->hiddenTypeId]);
+                    $this->tableName = $this->context->i18n->__('Source Note(s)');
+                    $this->arrayName = 'termSourceNotes';
+
+                    break;
+
+                case 'termDisplayNotes':
+                    $this->hiddenType = true;
+                    $this->hiddenTypeId = QubitTerm::DISPLAY_NOTE_ID;
+                    $this->allNotes = $this->resource->getNotesByType(['noteTypeId' => $this->hiddenTypeId]);
+                    $this->tableName = $this->context->i18n->__('Display Note(s)');
+                    $this->arrayName = 'termDisplayNotes';
+
+                    break;
             }
 
             // Ignore notes where the desired translation is not available
@@ -209,7 +236,7 @@ class InformationObjectNotesComponent extends sfComponent
     {
         switch ($name) {
             case 'content':
-                $this->form->setValidator('content', new sfValidatorString());
+                $this->form->setValidator('content', new sfValidatorString(['max_length' => 65535]));
                 $this->form->setWidget('content', new sfWidgetFormTextarea());
 
                 break;

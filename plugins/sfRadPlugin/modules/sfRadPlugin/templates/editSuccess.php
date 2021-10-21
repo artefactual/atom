@@ -58,7 +58,7 @@
             ->help(__('"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)'))
             ->label(__('Statement of responsibility')), $rad); ?>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('titleNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('titleNotesComponent')->getVarHolder()->getAll()); ?>
 
         <?php echo $form->levelOfDescription
             ->help(__('Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.'))
@@ -285,9 +285,9 @@
         <?php echo render_field($form->accruals
             ->help(__('"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)')), $resource, ['class' => 'resizable']); ?>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('otherNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('otherNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- #notesArea -->
 

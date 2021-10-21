@@ -190,7 +190,7 @@
               ->renderHelp(); ?>
         </div>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
 
@@ -198,9 +198,9 @@
 
         <legend><?php echo __('Notes element'); ?></legend>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#notesArea -->
 
@@ -218,7 +218,7 @@
 
         <!-- TODO: Make $archivistsNotesComponent to include ISAD 3.7.3 Date(s) of description as the first note and editable -->
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#descriptionControlArea -->
 

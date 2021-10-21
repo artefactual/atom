@@ -22,7 +22,6 @@ class TermEditAction extends DefaultEditAction
     // Arrays not allowed in class constants
     public static $NAMES = [
         'code',
-        'displayNote',
 
         // This position is intentional because narrowTerms ->processField()
         // and name ->processField() depends on the taxonomy value
@@ -36,9 +35,7 @@ class TermEditAction extends DefaultEditAction
         'converseTerm',
 
         'relatedTerms',
-        'scopeNote',
         'selfReciprocal',
-        'sourceNote',
         'useFor',
     ];
 
@@ -110,6 +107,18 @@ class TermEditAction extends DefaultEditAction
         }
 
         $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
+        $this->scopeNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
+        $this->scopeNotesComponent->resource = $this->resource;
+        $this->scopeNotesComponent->execute($this->request, $options = ['type' => 'termScopeNotes']);
+
+        $this->sourceNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
+        $this->sourceNotesComponent->resource = $this->resource;
+        $this->sourceNotesComponent->execute($this->request, $options = ['type' => 'termSourceNotes']);
+
+        $this->displayNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
+        $this->displayNotesComponent->resource = $this->resource;
+        $this->displayNotesComponent->execute($this->request, $options = ['type' => 'termDisplayNotes']);
     }
 
     protected function addField($name)
@@ -119,40 +128,6 @@ class TermEditAction extends DefaultEditAction
                 $this->form->setDefault('code', $this->resource->code);
                 $this->form->setValidator('code', new sfValidatorString());
                 $this->form->setWidget('code', new sfWidgetFormInput());
-
-                break;
-
-            case 'displayNote':
-            case 'scopeNote':
-            case 'sourceNote':
-                $criteria = new Criteria();
-                $criteria->add(QubitNote::OBJECT_ID, $this->resource->id);
-
-                switch ($name) {
-                    case 'scopeNote':
-                        $criteria->add(QubitNote::TYPE_ID, QubitTerm::SCOPE_NOTE_ID);
-
-                        break;
-
-                    case 'sourceNote':
-                        $criteria->add(QubitNote::TYPE_ID, QubitTerm::SOURCE_NOTE_ID);
-
-                        break;
-
-                    case 'displayNote':
-                        $criteria->add(QubitNote::TYPE_ID, QubitTerm::DISPLAY_NOTE_ID);
-
-                        break;
-                }
-
-                $value = $defaults = [];
-                foreach ($this[$name] = QubitNote::get($criteria) as $item) {
-                    $defaults[$value[] = $item->id] = $item;
-                }
-
-                $this->form->setDefault($name, $value);
-                $this->form->setValidator($name, new sfValidatorPass());
-                $this->form->setWidget($name, new QubitWidgetFormInputMany(['defaults' => $defaults, 'fieldname' => 'content']));
 
                 break;
 
@@ -278,50 +253,6 @@ class TermEditAction extends DefaultEditAction
     protected function processField($field)
     {
         switch ($field->getName()) {
-            case 'displayNote':
-            case 'scopeNote':
-            case 'sourceNote':
-                $value = $filtered = $this->form->getValue($field->getName());
-
-                foreach ($this[$field->getName()] as $item) {
-                    if (!empty($value[$item->id])) {
-                        $item->content = $value[$item->id];
-                        unset($filtered[$item->id]);
-                    } else {
-                        $item->delete();
-                    }
-                }
-
-                foreach ($filtered as $item) {
-                    if (!$item) {
-                        continue;
-                    }
-
-                    $note = new QubitNote();
-                    $note->content = $item;
-
-                    switch ($field->getName()) {
-                        case 'scopeNote':
-                            $note->typeId = QubitTerm::SCOPE_NOTE_ID;
-
-                            break;
-
-                        case 'sourceNote':
-                            $note->typeId = QubitTerm::SOURCE_NOTE_ID;
-
-                            break;
-
-                        case 'displayNote':
-                            $note->typeId = QubitTerm::DISPLAY_NOTE_ID;
-
-                            break;
-                    }
-
-                    $this->resource->notes[] = $note;
-                }
-
-                break;
-
             case 'name':
                 if (!QubitTerm::isProtected($this->resource->id)
                     && $this->resource->name != $this->form->getValue('name')) {
@@ -502,6 +433,10 @@ class TermEditAction extends DefaultEditAction
         if (!isset($this->getRoute()->resource) && !QubitAcl::check($this->resource->taxonomy, 'createTerm')) {
             QubitAcl::forwardUnauthorized();
         }
+
+        $this->scopeNotesComponent->processForm();
+        $this->sourceNotesComponent->processForm();
+        $this->displayNotesComponent->processForm();
 
         // Update related info objects when term labels changes
         if ($this->updatedLabel) {

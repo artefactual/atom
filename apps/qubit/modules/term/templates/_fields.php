@@ -17,9 +17,6 @@
   <div>
     <ul>
       <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SCOPE_NOTE_ID]) as $item) { ?>
-        <?php if ($item->sourceCulture != $sf_user->getCulture()) { ?>
-          <?php continue; ?>
-        <?php } ?>
         <li><?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
       <?php } ?>
     </ul>

@@ -113,15 +113,15 @@ class sfRadPluginEditAction extends InformationObjectEditAction
         $this->eventComponent->form->getWidgetSchema()->place->setHelp($this->context->i18n->__("\"For an item, transcribe a place of publication, distribution, etc., in the form and the grammatical case in which it appears.\" (RAD 1.4C1) {$this->eventComponent->form->getWidgetSchema()->place->getHelp()}"));
         $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)'));
 
-        $this->titleNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->titleNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->titleNotesComponent->resource = $this->resource;
         $this->titleNotesComponent->execute($this->request, $options = ['type' => 'radTitleNotes']);
 
-        $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->notesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->notesComponent->resource = $this->resource;
         $this->notesComponent->execute($this->request, $options = ['type' => 'radNotes']);
 
-        $this->otherNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->otherNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->otherNotesComponent->resource = $this->resource;
         $this->otherNotesComponent->execute($this->request, $options = ['type' => 'radOtherNotes']);
     }

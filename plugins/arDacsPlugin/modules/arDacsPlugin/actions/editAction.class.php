@@ -82,19 +82,19 @@ class arDacsPluginEditAction extends InformationObjectEditAction
         $this->eventComponent->resource = $this->resource;
         $this->eventComponent->execute($this->request);
 
-        $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->publicationNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->publicationNotesComponent->resource = $this->resource;
         $this->publicationNotesComponent->execute($this->request, $options = ['type' => 'dacsPublicationNotes']);
 
-        $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->notesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->notesComponent->resource = $this->resource;
         $this->notesComponent->execute($this->request, $options = ['type' => 'dacsNotes']);
 
-        $this->specializedNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->specializedNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->specializedNotesComponent->resource = $this->resource;
         $this->specializedNotesComponent->execute($this->request, $options = ['type' => 'dacsSpecializedNotes']);
 
-        $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->archivistsNotesComponent = new ObjectNotesComponent($this->context, 'object', 'notes');
         $this->archivistsNotesComponent->resource = $this->resource;
         $this->archivistsNotesComponent->execute($this->request, $options = ['type' => 'dacsArchivistsNotes']);
     }

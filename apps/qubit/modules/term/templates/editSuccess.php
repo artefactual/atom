@@ -41,18 +41,9 @@
 
         <?php echo render_field($form->code, $resource); ?>
 
-        <?php echo $form->scopeNote
-            ->label(__('Scope note(s)'))
-            ->renderRow(); ?>
-
-        <?php echo $form->sourceNote
-            ->label(__('Source note(s)'))
-            ->renderRow(); ?>
-
-        <?php echo $form->displayNote
-            ->label(__('Display note(s)'))
-            ->renderRow(); ?>
-
+        <?php echo get_partial('object/notes', $sf_data->getRaw('scopeNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('sourceNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('displayNotesComponent')->getVarHolder()->getAll()); ?>
       </fieldset>
 
       <fieldset class="collapsible collapsed">

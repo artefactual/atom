@@ -185,7 +185,7 @@
               ->renderHelp(); ?>
         </div>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
 
@@ -193,7 +193,7 @@
 
         <legend><?php echo __('Notes area'); ?></legend>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#notesArea -->
 
@@ -290,7 +290,7 @@
             ->help(__('Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).'))
             ->label(__('Sources')), $resource, ['class' => 'resizable']); ?>
 
-        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
+        <?php echo get_partial('object/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
 
       </fieldset> <!-- /#descriptionControlArea -->
 
