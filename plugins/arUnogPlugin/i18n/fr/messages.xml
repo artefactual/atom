@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Spotlight</source>
-        <target>En vedette</target>
+        <target>Focus</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Facebook</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>Visit the Archives</source>
-        <target>Visiter les archives</target>
+        <target>Se rendre aux Archives</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Services operating hours</source>
