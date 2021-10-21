@@ -48,4 +48,22 @@ class QubitAccessLog extends BaseAccessLog
 
         return $stmt->fetchAll();
     }
+
+    /**
+     * Delete old access_log records.
+     *
+     * @param string $expiryDate "YYYY-MM-DD" date format; rows with an
+     *                           access_date before this will be deleted
+     *
+     * @return int number of rows deleted
+     */
+    public static function expire(string $expiryDate): int
+    {
+        $sql = sprintf(
+            'DELETE FROM %s WHERE access_date < ?;',
+            self::TABLE_NAME
+        );
+
+        return QubitPdo::modify($sql, [$expiryDate]);
+    }
 }

@@ -19,16 +19,26 @@
 
 class expireDataTask extends arBaseTask
 {
+    public const ACCESS_LOG_MAX_AGE_DAYS = 7;
+
     // Arrays not allowed in class constants
     public static $TYPE_SPECIFICATONS = [
+        'access_log' => [
+            'name' => 'access log',
+            'plural_name' => 'access logs',
+            'method_name' => 'accessLogExpireData',
+            'default_max_age' => self::ACCESS_LOG_MAX_AGE_DAYS,
+        ],
         'clipboard' => [
             'name' => 'saved clipboard',
             'plural_name' => 'saved clipboards',
+            'method_name' => 'clipboardExpireData',
             'age_setting_name' => 'app_clipboard_save_max_age',
         ],
         'job' => [
             'name' => 'job (and any related file)',
             'plural_name' => 'jobs (and any related files)',
+            'method_name' => 'jobExpireData',
         ],
     ];
 
@@ -39,17 +49,55 @@ class expireDataTask extends arBaseTask
             $this->supportedTypesDescription()
         );
 
-        $this->addArguments([
-            new sfCommandArgument('data-type', sfCommandArgument::REQUIRED, $dataTypeArgDescription),
-        ]);
+        $this->addArguments(
+            [
+                new sfCommandArgument(
+                    'data-type',
+                    sfCommandArgument::REQUIRED,
+                    $dataTypeArgDescription
+                ),
+            ]
+        );
 
-        $this->addOptions([
-            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('older-than', null, sfCommandOption::PARAMETER_OPTIONAL, 'Expiry date expressed as YYYY-MM-DD'),
-            new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'Delete without confirmation', null),
-        ]);
+        $this->addOptions(
+            [
+                new sfCommandOption(
+                    'application',
+                    null,
+                    sfCommandOption::PARAMETER_OPTIONAL,
+                    'The application name',
+                    true
+                ),
+                new sfCommandOption(
+                    'env',
+                    null,
+                    sfCommandOption::PARAMETER_REQUIRED,
+                    'The environment',
+                    'cli'
+                ),
+                new sfCommandOption(
+                    'connection',
+                    null,
+                    sfCommandOption::PARAMETER_REQUIRED,
+                    'The connection name',
+                    'propel'
+                ),
+                new sfCommandOption(
+                    'older-than',
+                    null,
+                    sfCommandOption::PARAMETER_OPTIONAL,
+                    'Expiry date expressed as YYYY-MM-DD',
+                    null
+                ),
+                new sfCommandOption(
+                    'force',
+                    'f',
+                    sfCommandOption::PARAMETER_NONE,
+                    'Delete without confirmation',
+                    null
+                ),
+            ]
+        );
 
         $this->namespace = 'tools';
         $this->name = 'expire-data';
@@ -69,22 +117,31 @@ EOF;
         foreach ($dataTypes as $dataType) {
             $typeSpec = self::$TYPE_SPECIFICATONS[$dataType];
 
-            $options['older-than'] = $this->determineOlderThanDate($options, $typeSpec);
+            $options['older-than'] = $this->getOlderThanDate(
+                $options,
+                $typeSpec
+            );
 
             // Abort if not forced or confirmed
-            if (!$options['force'] && !$this->getConfirmation($options, $typeSpec['plural_name'])) {
+            if (
+                !$options['force']
+                && !$this->getConfirmation($options, $typeSpec['plural_name'])
+            ) {
                 $this->logSection('expire-data', 'Aborted.');
 
                 return;
             }
 
             // Expire data and report results
-            $methodName = sprintf('%sExpireData', $dataType);
-            $deletedCount = $this->{$methodName}($options);
+            $deletedCount = $this->{$typeSpec['method_name']}($options);
 
             $this->logSection(
                 'expire-data',
-                sprintf('%d %s deleted.', $deletedCount, $typeSpec['plural_name'])
+                sprintf(
+                    '%d %s deleted.',
+                    $deletedCount,
+                    $typeSpec['plural_name']
+                )
             );
         }
 
@@ -108,7 +165,7 @@ EOF;
     {
         foreach ($dataTypes as $dataType) {
             // Abort if data type isn't supported
-            if (!in_array(strtolower($dataType), array_keys(self::$TYPE_SPECIFICATONS))) {
+            if (!in_array($dataType, array_keys(self::$TYPE_SPECIFICATONS))) {
                 throw new sfException(
                     sprintf('Aborted: unsupported data type: "%s".', $dataType)
                 );
@@ -116,43 +173,7 @@ EOF;
         }
     }
 
-    private function determineOlderThanDate($options, $typeSpec)
-    {
-        // Set older than option if not set and a non-zero maximum age is set for data type
-        $maxAge = isset($typeSpec['age_setting_name'])
-            ? sfConfig::get($typeSpec['age_setting_name'])
-            : null;
-
-        if (!isset($options['older-than']) && !empty($maxAge)) {
-            // Throw error if setting value isn't an integer
-            if (!is_numeric($maxAge) || $maxAge < 0) {
-                throw new sfException(
-                    sprintf(
-                        'Error: setting %s value "%s" is not a valid number.',
-                        $typeSpec['age_setting_name'],
-                        $maxAge
-                    )
-                );
-            }
-
-            // Use date type's maximum age setting to calculate older than option
-            $options['older-than'] = $this->calculateOlderThanDate($maxAge);
-
-            // Let user know that date type's maximum age setting was used
-            $this->logSection(
-                'expire-data',
-                sprintf(
-                    'Used %s setting to set expiry date of %s.',
-                    $typeSpec['age_setting_name'],
-                    $options['older-than']
-                )
-            );
-        }
-
-        return $options['older-than'];
-    }
-
-    private function calculateOlderThanDate($maximumAgeInDays)
+    private function calculateExpiryDate($maximumAgeInDays)
     {
         $date = new DateTime();
         $interval = new DateInterval(sprintf('P%dD', $maximumAgeInDays));
@@ -161,17 +182,109 @@ EOF;
         return $date->format('Y-m-d');
     }
 
-    private function getConfirmation($options, $typeNamePlural)
+    private function getDateFromAgeSetting($name)
     {
-        $message = 'Are you sure you want to delete ';
+        $value = sfConfig::get($name);
 
-        if (isset($options['older-than'])) {
-            $message .= sprintf('%s older than %s?', $typeNamePlural, $options['older-than']);
-        } else {
-            $message .= sprintf('all %s?', $typeNamePlural);
+        if (!is_numeric($value) || intval($value) < 0) {
+            // Throw error if setting value isn't an integer
+            throw new sfException(
+                sprintf(
+                    'Error: setting %s value "%s" is not a valid integer.',
+                    $typeSpec['age_setting_name'],
+                    $value
+                )
+            );
         }
 
+        // Use date type's maximum age setting to calculate older than option
+        $date = $this->calculateExpiryDate(intval($value));
+
+        // Let user know that date type's maximum age setting was used
+        $this->logSection(
+            'expire-data',
+            sprintf('Used %s setting to set expiry date of %s.', $name, $date)
+        );
+
+        return $date;
+    }
+
+    private function getDateFromMaxAge($maxAge)
+    {
+        if (!is_numeric($maxAge) || intval($maxAge) < 0) {
+            // Throw error if setting value isn't an integer
+            throw new sfException(
+                sprintf(
+                    'Error: "default_max_age" of "%s" is not a valid integer.',
+                    $maxAge
+                )
+            );
+        }
+
+        // Use date type's maximum age setting to calculate older than option
+        $date = $this->calculateExpiryDate(intval($maxAge));
+
+        // Let user know that date type's maximum age setting was used
+        $this->logSection(
+            'expire-data',
+            sprintf(
+                'Used "default_max_age" setting to set expiry date of %s.',
+                $date
+            )
+        );
+
+        return $date;
+    }
+
+    private function getOlderThanDate($options, $typeSpec)
+    {
+        // If an explicit older-than value is passed, use that
+        if (isset($options['older-than'])) {
+            return $options['older-than'];
+        }
+
+        // Calculate expiry date from max. age application setting (sfConfig)
+        if (isset($typeSpec['age_setting_name'])) {
+            return $this->getDateFromAgeSetting($typeSpec['age_setting_name']);
+        }
+
+        // Calculate expiry date from local 'default_max_age' value
+        if (isset($typeSpec['default_max_age'])) {
+            return $this->getDateFromMaxAge($typeSpec['default_max_age']);
+        }
+    }
+
+    private function getConfirmation($options, $typeNamePlural)
+    {
+        $message = 'Are you sure you want to delete';
+
+        if (isset($options['older-than'])) {
+            $message .= sprintf(
+                ' %s older than %s',
+                $typeNamePlural,
+                $options['older-than']
+            );
+        } else {
+            $message .= sprintf(' all %s', $typeNamePlural);
+        }
+
+        $message .= ' (y/N)?';
+
         return $this->askConfirmation($message, 'QUESTION_LARGE', false);
+    }
+
+    /**
+     * Expire old access_log data.
+     *
+     * @param array $options optional parameters
+     *
+     * @return int number of rows deleted
+     */
+    private function accessLogExpireData(array $options): int
+    {
+        if (isset($options['older-than'])) {
+            return QubitAccessLog::expire($options['older-than']);
+        }
     }
 
     private function clipboardExpireData($options)
@@ -180,7 +293,11 @@ EOF;
         $criteria = new Criteria();
 
         if (isset($options['older-than'])) {
-            $criteria->add(QubitClipboardSave::CREATED_AT, $options['older-than'], Criteria::LESS_THAN);
+            $criteria->add(
+                QubitClipboardSave::CREATED_AT,
+                $options['older-than'],
+                Criteria::LESS_THAN
+            );
         }
 
         // Delete clipbooard saves and save items
@@ -200,16 +317,20 @@ EOF;
         $criteria = new Criteria();
 
         if (isset($options['older-than'])) {
-            $criteria->add(QubitJob::CREATED_AT, $options['older-than'], Criteria::LESS_THAN);
+            $criteria->add(
+                QubitJob::CREATED_AT,
+                $options['older-than'],
+                Criteria::LESS_THAN
+            );
         }
 
         // Delete jobs and save items
         $deletedCount = 0;
 
         foreach (QubitJob::get($criteria) as $job) {
-            // Jobs generate finding aids, which we *don't* want to delete... finding
-            // aids won't be deleted by this logic, however, because the job doesn't
-            // store the path to them after generating them
+            // Jobs generate finding aids, which we *don't* want to delete...
+            // finding aids won't be deleted by this logic, however, because the
+            // job doesn't store the path to them after generating them
             if (!empty($job->downloadPath) && file_exists($job->downloadPath)) {
                 unlink($job->downloadPath);
             }
