@@ -117,7 +117,7 @@ EOF;
         foreach ($dataTypes as $dataType) {
             $typeSpec = self::$TYPE_SPECIFICATONS[$dataType];
 
-            $options['older-than'] = $this->getOlderThanDate(
+            $expiryDate = $this->getOlderThanDate(
                 $options,
                 $typeSpec
             );
@@ -125,7 +125,7 @@ EOF;
             // Abort if not forced or confirmed
             if (
                 !$options['force']
-                && !$this->getConfirmation($options, $typeSpec['plural_name'])
+                && !$this->getConfirmation($expiryDate, $typeSpec['plural_name'])
             ) {
                 $this->logSection('expire-data', 'Aborted.');
 
@@ -133,7 +133,7 @@ EOF;
             }
 
             // Expire data and report results
-            $deletedCount = $this->{$typeSpec['method_name']}($options);
+            $deletedCount = $this->{$typeSpec['method_name']}($expiryDate);
 
             $this->logSection(
                 'expire-data',
@@ -254,15 +254,15 @@ EOF;
         }
     }
 
-    private function getConfirmation($options, $typeNamePlural)
+    private function getConfirmation($expiryDate, $typeNamePlural)
     {
         $message = 'Are you sure you want to delete';
 
-        if (isset($options['older-than'])) {
+        if (isset($expiryDate)) {
             $message .= sprintf(
                 ' %s older than %s',
                 $typeNamePlural,
-                $options['older-than']
+                $expiryDate
             );
         } else {
             $message .= sprintf(' all %s', $typeNamePlural);
@@ -276,28 +276,28 @@ EOF;
     /**
      * Expire old access_log data.
      *
-     * @param array $options optional parameters
+     * @param string $expiryDate access_log rows before this date are deleted
      *
      * @return int number of rows deleted
      */
-    private function accessLogExpireData(array $options): int
+    private function accessLogExpireData(string $expiryDate): int
     {
-        if (isset($options['older-than'])) {
-            return QubitAccessLog::expire($options['older-than']);
+        if (isset($expiryDate)) {
+            return QubitAccessLog::expire($expiryDate);
         }
 
         return 0;
     }
 
-    private function clipboardExpireData($options)
+    private function clipboardExpireData($expiryDate)
     {
         // Assemble criteria
         $criteria = new Criteria();
 
-        if (isset($options['older-than'])) {
+        if (isset($expiryDate)) {
             $criteria->add(
                 QubitClipboardSave::CREATED_AT,
-                $options['older-than'],
+                $expiryDate,
                 Criteria::LESS_THAN
             );
         }
@@ -313,15 +313,15 @@ EOF;
         return $deletedCount;
     }
 
-    private function jobExpireData($options)
+    private function jobExpireData($expiryDate)
     {
         // Assemble criteria
         $criteria = new Criteria();
 
-        if (isset($options['older-than'])) {
+        if (isset($expiryDate)) {
             $criteria->add(
                 QubitJob::CREATED_AT,
-                $options['older-than'],
+                $expiryDate,
                 Criteria::LESS_THAN
             );
         }
