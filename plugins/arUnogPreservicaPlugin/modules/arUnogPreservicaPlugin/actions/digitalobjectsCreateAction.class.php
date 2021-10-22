@@ -69,6 +69,7 @@ class arUnogPreservicaPluginDigitalObjectsCreateAction extends QubitApiAction
 
         $cmisId = $objectData->value->id;
         $filename = $client->getObjectDetailsPropertyByName($objectData, 'cmis:contentStreamFileName');
+        $byteSize = $client->getObjectDetailsPropertyByName($objectData, 'cmis:contentStreamLength');
 
         // Download Preservica digital object's thumbnail to a temp file
         $thumbTempFilePath = $client->downloadThumbnailToTempDir($cmisId, $filename);
@@ -77,6 +78,7 @@ class arUnogPreservicaPluginDigitalObjectsCreateAction extends QubitApiAction
         $do = new QubitDigitalObject();
         $do->objectId = $io->id;
         $do->importFromFile($thumbTempFilePath);
+        $do->byteSize = $byteSize;
         $do->save();
 
         // Remove thumbnail temp dir and file
