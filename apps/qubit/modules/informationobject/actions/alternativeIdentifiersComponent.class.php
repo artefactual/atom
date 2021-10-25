@@ -21,8 +21,7 @@ class InformationObjectAlternativeIdentifiersComponent extends sfComponent
 {
     public function execute($request)
     {
-        $this->form = new sfForm();
-        $this->form->disableCSRFProtection();
+        $this->form = new sfForm([], [], false);
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
         $this->addField('label');
