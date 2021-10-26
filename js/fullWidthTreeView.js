@@ -81,6 +81,7 @@
         // - Multiple node drag
         // - Root node drag
         'copy': false,
+        'touch': 'selected',
         'open_timeout': 0,
         'drag_selection': false,
         'is_draggable': function (nodes) {
