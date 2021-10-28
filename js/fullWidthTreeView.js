@@ -45,6 +45,7 @@
     var treeViewCollapseEnabled = $treeViewConfig.data('collapse-enabled') == 'yes';
     var collectionUrl = $treeViewConfig.data('collection-url');
     var itemsPerPage = $treeViewConfig.data('items-per-page');
+    var dndEnabled = $treeViewConfig.data('enable-dnd') == 'yes';
     var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -85,7 +86,7 @@
         'open_timeout': 0,
         'drag_selection': false,
         'is_draggable': function (nodes) {
-          return nodes[0].parent !== '#';
+          return dndEnabled && nodes[0].parent !== '#';
         }
       },
       'core': {
