@@ -41,7 +41,7 @@ class UserClipboardSaveAction extends sfAction
         $this->saveClipboard($allSlugs, $password);
 
         // Inform user of progress
-        $messageText = 'Clipboard saved. Clipoard ID is <b>%1%</b>. Please write this number down. ';
+        $messageText = 'Clipboard saved. Clipboard ID is <b>%1%</b>. Please write this number down. ';
         $messageText .= 'When you want to reload this clipboard in the future, open the Clipboard menu, ';
         $messageText .= 'select <a href="%2%">Load clipboard</a>, and enter this number in the Clipboard ID field.';
 
