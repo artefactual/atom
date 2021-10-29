@@ -7,6 +7,7 @@
       this.$treeViewConfig = $("#fullwidth-treeview-configuration");
       this.collectionUrl = this.$treeViewConfig.data("collection-url");
       this.itemsPerPage = this.$treeViewConfig.data("items-per-page");
+      this.dndEnabled = this.$treeViewConfig.data("enable-dnd") == "yes";
       this.pathToApi = "/informationobject/fullWidthTreeView";
       this.$fwTreeView = $('<div id="fullwidth-treeview"></div>');
       this.$fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -49,7 +50,7 @@
           open_timeout: 0,
           drag_selection: false,
           is_draggable: function (nodes) {
-            return nodes[0].parent !== "#";
+            return this.dndEnabled && nodes[0].parent !== "#";
           },
         },
         core: {

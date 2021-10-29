@@ -127,7 +127,8 @@
         data-collapse-enabled="<?php echo $collapsible; ?>"
         data-opened-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseOpenedButtonText'); ?>"
         data-closed-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseClosedButtonText'); ?>"
-        data-items-per-page="<?php echo $itemsPerPage; ?>">
+        data-items-per-page="<?php echo $itemsPerPage; ?>"
+        data-enable-dnd="<?php echo $sf_user->isAuthenticated() ? 'yes' : 'no'; ?>">
       </span>
     </div>
   <?php } ?>
