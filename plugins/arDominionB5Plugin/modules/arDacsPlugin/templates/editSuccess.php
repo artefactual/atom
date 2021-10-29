@@ -249,7 +249,7 @@
                 );
             ?>
 
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
@@ -261,8 +261,8 @@
         </h2>
         <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading">
           <div class="accordion-body">
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
@@ -284,7 +284,7 @@
 
             <!-- TODO: Make $archivistsNotesComponent to include ISAD 3.7.3 Date(s) of description as the first note and editable -->
 
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>

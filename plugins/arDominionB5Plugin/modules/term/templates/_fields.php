@@ -15,9 +15,6 @@
 <?php
     $scopeNotes = [];
     foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SCOPE_NOTE_ID]) as $item) {
-        if ($item->sourceCulture != $sf_user->getCulture()) {
-            continue;
-        }
         $scopeNotes[] = $item->getContent(['cultureFallback' => true]);
     }
     echo render_show(__('Scope note(s)'), $scopeNotes);

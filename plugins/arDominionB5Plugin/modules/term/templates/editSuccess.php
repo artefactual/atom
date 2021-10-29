@@ -46,11 +46,11 @@
 
             <?php echo render_field($form->code, $resource); ?>
 
-            <?php echo render_field($form->scopeNote->label(__('Scope note(s)'))); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('scopeNotesComponent')->getVarHolder()->getAll()); ?>
 
-            <?php echo render_field($form->sourceNote->label(__('Source note(s)'))); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('sourceNotesComponent')->getVarHolder()->getAll()); ?>
 
-            <?php echo render_field($form->displayNote->label(__('Display note(s)'))); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('displayNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
