@@ -250,7 +250,7 @@
                 );
             ?>
 
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
@@ -262,7 +262,7 @@
         </h2>
         <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading">
           <div class="accordion-body">
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
@@ -401,7 +401,7 @@
                 ->help(__('Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).'))
                 ->label(__('Sources')), $resource); ?>
 
-            <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
+            <?php echo get_partial('object/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()); ?>
           </div>
         </div>
       </div>
