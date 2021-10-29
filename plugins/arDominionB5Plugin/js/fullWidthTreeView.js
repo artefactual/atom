@@ -45,6 +45,7 @@
           // - Multiple node drag
           // - Root node drag
           copy: false,
+          touch: 'selected',
           open_timeout: 0,
           drag_selection: false,
           is_draggable: function (nodes) {
@@ -60,17 +61,17 @@
 
               return node.id === "#"
                 ? window.location.pathname.match("^[^;]*")[0] +
-                    this.pathToApi +
-                    queryString
+                this.pathToApi +
+                queryString
                 : node.a_attr.href + this.pathToApi;
             },
             data: (node) => {
               return node.id === "#"
                 ? { firstLoad: true }
                 : {
-                    firstLoad: false,
-                    referenceCode: node.original.referenceCode,
-                  };
+                  firstLoad: false,
+                  referenceCode: node.original.referenceCode,
+                };
             },
 
             dataFilter: (response) => {
@@ -169,7 +170,7 @@
       );
 
       // TODO restore window.history states
-      $(window).on("popstate", function () {});
+      $(window).on("popstate", function () { });
     }
 
     addTreeviewToAccordion() {
@@ -231,8 +232,8 @@
 
       var $alert = $(
         '<div class="alert ' +
-          type +
-          ' alert-dismissible fade show" role="alert">'
+        type +
+        ' alert-dismissible fade show" role="alert">'
       ).append(message);
 
       var closeButton =
