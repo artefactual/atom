@@ -40,7 +40,7 @@
           </thead>
           <tbody>
             <?php foreach ($relations as $item) { ?>
-              <tr class="related_obj_<?php echo $item->id; ?>">
+              <tr>
                 <td>
                   <?php echo $item->subject->getLabel(); ?>
                 </td>
@@ -51,7 +51,10 @@
                     <i class="fas fa-fw fa-pencil-alt" aria-hidden="true"></i>
                     <span class="visually-hidden"><?php echo __('Edit row'); ?></span>
                   </a>
-                  <button type="button" class="btn atom-btn-white">
+                  <button
+                    type="button"
+                    class="btn atom-btn-white delete-physical-storage"
+                    id="<?php echo url_for([$item, 'module' => 'relation']); ?>">
                     <i class="fas fa-fw fa-times" aria-hidden="true"></i>
                     <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
                   </button>

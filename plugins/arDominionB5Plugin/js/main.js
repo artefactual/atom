@@ -36,3 +36,4 @@ import "./mediaelement";
 import "./rename";
 import "./rights";
 import "./fullWidthTreeView";
+import "./deletePhysicalStorage";
