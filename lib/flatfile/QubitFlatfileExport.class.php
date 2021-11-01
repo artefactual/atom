@@ -453,7 +453,9 @@ class QubitFlatfileExport
         $digitalObject = $this->getAllowedDigitalObject();
 
         if (!empty($digitalObject)) {
-            $siteUrl = rtrim(QubitSetting::getByName('siteBaseUrl'), '/ ');
+            $siteUrl = !$digitalObject->derivativesGeneratedFromExternalMaster($digitalObject->usageId) ?
+                rtrim(QubitSetting::getByName('siteBaseUrl'), '/ ') :
+                "";
 
             $this->setColumn(
                 'digitalObjectURI',
