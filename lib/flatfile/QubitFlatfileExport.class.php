@@ -453,11 +453,15 @@ class QubitFlatfileExport
         $digitalObject = $this->getAllowedDigitalObject();
 
         if (!empty($digitalObject)) {
-            $siteUrl = rtrim(QubitSetting::getByName('siteBaseUrl'), '/ ');
+            $digitalObjectUri = $digitalObject->getFullPath();
+
+            if (!$digitalObject->derivativesGeneratedFromExternalMaster($digitalObject->usageId)) {
+                $digitalObjectUri = rtrim(QubitSetting::getByName('siteBaseUrl'), '/ ').$digitalObjectUri;
+            }
 
             $this->setColumn(
                 'digitalObjectURI',
-                $siteUrl.$digitalObject->getFullPath()
+                $digitalObjectUri
             );
             $this->setColumn(
                 'digitalObjectChecksum',
