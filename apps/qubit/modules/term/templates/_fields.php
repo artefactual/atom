@@ -78,9 +78,6 @@
       <div>
         <ul>
           <?php foreach ($resource->otherNames as $item) { ?>
-            <?php if ($item->sourceCulture != $sf_user->getCulture()) { ?>
-              <?php continue; ?>
-            <?php } ?>
             <li><?php echo __('UF %1%', ['%1%' => render_title($item)]); ?></li>
           <?php } ?>
         </ul>
