@@ -14,7 +14,7 @@
 
 <div class="page">
 
-  <div>
+  <div class="p-3">
     <?php echo render_value_html($sf_data->getRaw('copyrightStatement')); ?>
   </div>
 
