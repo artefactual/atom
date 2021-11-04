@@ -12,8 +12,8 @@
       this.$fwTreeView = $('<div id="fullwidth-treeview"></div>');
       this.$fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
       this.$mainHeader = $("#main-column h1").first();
-      this.$moreButton = $("#fullwidth-treeview-more-button");
-      this.$resetButton = $("#fullwidth-treeview-reset-button");
+      this.$moreButton = $("#fullwidth-treeview-more-button").hide();
+      this.$resetButton = $("#fullwidth-treeview-reset-button").hide();
       this.pager = new Qubit.TreeviewPager(
         this.itemsPerPage,
         this.$fwTreeView,
@@ -30,10 +30,9 @@
           .resizable({ handles: "s" })
       );
 
-      this.$mainHeader.before(this.$resetButton);
-      this.$mainHeader.before(this.$moreButton);
-
-      this.addTreeviewToAccordion(this.$mainHeader, this.$fwTreeViewRow);
+      this.addTreeviewToAccordion();
+      this.addButtonSection();
+      this.$accordionWrapper.after(this.$buttonSection);
 
       // Declare jsTree options
       this.options = {
@@ -49,7 +48,7 @@
           touch: "selected",
           open_timeout: 0,
           drag_selection: false,
-          is_draggable: function (nodes) {
+          is_draggable: (nodes) => {
             return this.dndEnabled && nodes[0].parent !== "#";
           },
         },
@@ -131,16 +130,16 @@
         .bind("move_node.jstree", this.moveNodeListener);
 
       // Clicking "more" will add next page of results to tree
-      this.$moreButton.on("click", function () {
+      this.$moreButton.on("click", () => {
         this.pager.next();
-        this.pager.getAndAppendNodes(function () {
+        this.pager.getAndAppendNodes(() => {
           // Queue is empty so update paging link
           this.pager.updateMoreLink(this.$moreButton, this.$resetButton);
         });
       });
 
       // Clicking reset link will reset paging and tree state
-      $("#fullwidth-treeview-reset-button").on("click", function () {
+      $("#fullwidth-treeview-reset-button").on("click", () => {
         this.pager.reset(this.$moreButton, this.$resetButton);
       });
 
@@ -174,8 +173,17 @@
       $(window).on("popstate", function () {});
     }
 
+    addButtonSection() {
+      this.$buttonSection = $("<div>", {
+        class: "d-flex flex-wrap gap-2 justify-content-end mb-3",
+      });
+
+      this.$buttonSection.append(this.$resetButton);
+      this.$buttonSection.append(this.$moreButton);
+    }
+
     addTreeviewToAccordion() {
-      var $accordionWrapper = $("<section>", {
+      this.$accordionWrapper = $("<section>", {
         class: "accordion full-treeview-section mb-3",
       });
       this.$accordionItem = $("<div>", {
@@ -203,14 +211,14 @@
       this.$fwTreeViewRow.css("margin-bottom", "0px");
 
       // Add wrapper to the DOM then hide the treeview and add it to the wrapper
-      this.$mainHeader.after($accordionWrapper);
+      this.$mainHeader.after(this.$accordionWrapper);
       this.$fwTreeViewRow.hide();
 
       this.$accordionButton.appendTo($accordionHeader);
       $accordionHeader.appendTo(this.$accordionItem);
       this.$fwTreeViewRow.appendTo(this.$accordionCollapsibleSection);
       this.$accordionCollapsibleSection.appendTo(this.$accordionItem);
-      this.$accordionItem.appendTo($accordionWrapper);
+      this.$accordionItem.appendTo(this.$accordionWrapper);
       this.$fwTreeViewRow.show();
     }
 
