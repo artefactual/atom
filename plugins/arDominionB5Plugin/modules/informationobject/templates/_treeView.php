@@ -119,8 +119,8 @@
     </div>
   <?php } else { ?>
     <div id="fullwidth-treeview-active" data-treeview-alert-close="<?php echo __('Close'); ?>" hidden>
-      <input type="button" id="fullwidth-treeview-reset-button btn atom-btn-white" value="<?php echo __('Reset'); ?>" />
-      <input type="button" id="fullwidth-treeview-more-button btn atom-btn-white" data-label="<?php echo __('%1% more'); ?>" value="" />
+      <input type="button" id="fullwidth-treeview-more-button" class="btn btn-sm atom-btn-white" data-label="<?php echo __('%1% more'); ?>" value="" />
+      <input type="button" id="fullwidth-treeview-reset-button" class="btn btn-sm atom-btn-white" value="<?php echo __('Reset'); ?>" />
       <span
         id="fullwidth-treeview-configuration"
         data-collection-url="<?php echo url_for([$resource->getCollectionRoot(), 'module' => 'informationobject']); ?>"
