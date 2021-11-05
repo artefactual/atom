@@ -636,7 +636,17 @@ class arElasticSearchInformationObjectPdo
 
             foreach ($extendedPlaceIds as $id) {
                 $node = new arElasticSearchTermPdo($id);
-                $serialized['places'][] = $node->serialize();
+
+                $places = [
+                    'id' => $node->id,
+                    'i18n' => arElasticSearchModelBase::serializeI18ns(
+                        $node->id,
+                        ['QubitTerm'],
+                        ['fields' => ['name']]
+                    ),
+                ];
+
+                $serialized['places'][] = $places;
             }
         }
 
@@ -649,7 +659,17 @@ class arElasticSearchInformationObjectPdo
 
             foreach ($extendedSubjectIds as $id) {
                 $node = new arElasticSearchTermPdo($id);
-                $serialized['subjects'][] = $node->serialize();
+
+                $subjects = [
+                    'id' => $node->id,
+                    'i18n' => arElasticSearchModelBase::serializeI18ns(
+                        $node->id,
+                        ['QubitTerm'],
+                        ['fields' => ['name']]
+                    ),
+                ];
+
+                $serialized['subjects'][] = $subjects;
             }
         }
 
@@ -662,7 +682,17 @@ class arElasticSearchInformationObjectPdo
 
             foreach ($extendedGenreIds as $id) {
                 $node = new arElasticSearchTermPdo($id);
-                $serialized['genres'][] = $node->serialize();
+
+                $genres = [
+                    'id' => $node->id,
+                    'i18n' => arElasticSearchModelBase::serializeI18ns(
+                        $node->id,
+                        ['QubitTerm'],
+                        ['fields' => ['name']]
+                    ),
+                ];
+
+                $serialized['genres'][] = $genres;
             }
         }
 
@@ -688,18 +718,39 @@ class arElasticSearchInformationObjectPdo
         // Creators
         foreach ($this->creators as $item) {
             $node = new arElasticSearchActorPdo($item->id);
-            $serialized['creators'][] = $node->serialize();
+
+            $creators = [
+                'id' => $node->id,
+                'i18n' => arElasticSearchModelBase::serializeI18ns(
+                    $node->id,
+                    ['QubitActor'],
+                    ['fields' => ['authorized_form_of_name', 'history']]
+                ),
+            ];
+
+            // Add other names, parallel names, and standardized names
+            $creators += $node->serializeAltNames();
+
+            $serialized['creators'][] = $creators;
         }
 
         // Inherited creators
         foreach ($this->inheritedCreators as $item) {
             $node = new arElasticSearchActorPdo($item->id);
-            $serialized['inheritedCreators'][] = $node->serialize();
-        }
 
-        // Physical objects
-        foreach ($this->getPhysicalObjects() as $item) {
-            $serialized['physicalObjects'][] = arElasticSearchPhysicalObject::serialize($item);
+            $inheritedCreators = [
+                'id' => $node->id,
+                'i18n' => arElasticSearchModelBase::serializeI18ns(
+                    $node->id,
+                    ['QubitActor'],
+                    ['fields' => ['authorized_form_of_name', 'history']]
+                ),
+            ];
+
+            // Add other names, parallel names, and standardized names
+            $inheritedCreators += $node->serializeAltNames();
+
+            $serialized['inheritedCreators'][] = $inheritedCreators;
         }
 
         // Notes
@@ -947,21 +998,6 @@ class arElasticSearchInformationObjectPdo
         self::$statements['aips']->execute([$this->__get('id'), QubitTerm::AIP_RELATION_ID]);
 
         return self::$statements['aips']->fetchAll(PDO::FETCH_OBJ);
-    }
-
-    protected function getPhysicalObjects()
-    {
-        $sql = 'SELECT phys.id, phys.source_culture';
-        $sql .= ' FROM '.QubitPhysicalObject::TABLE_NAME.' phys';
-        $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
-            ON phys.id = relation.subject_id';
-        $sql .= ' WHERE relation.object_id = ?
-            AND relation.type_id = ?';
-
-        self::$statements['physicalObjects'] = self::$conn->prepare($sql);
-        self::$statements['physicalObjects']->execute([$this->__get('id'), QubitTerm::HAS_PHYSICAL_OBJECT_ID]);
-
-        return self::$statements['physicalObjects']->fetchAll(PDO::FETCH_OBJ);
     }
 
     private function getBasisRights()

@@ -161,7 +161,20 @@ class arElasticSearchAccession extends arElasticSearchModelBase
 
         foreach (QubitRelation::getRelationsByObjectId($id, ['typeId' => QubitTerm::CREATION_ID]) as $item) {
             $node = new arElasticSearchActorPdo($item->subject->id);
-            $serialized['creators'][] = $node->serialize();
+
+            $creators = [
+                'id' => $node->id,
+                'i18n' => arElasticSearchModelBase::serializeI18ns(
+                    $node->id,
+                    ['QubitActor'],
+                    ['fields' => ['authorized_form_of_name']]
+                ),
+            ];
+
+            // Add other names, parallel names, and standardized names
+            $creators += $node->serializeAltNames();
+
+            $serialized['creators'][] = $creators;
         }
 
         $serialized['accessionEvents'] = self::getAccessionEvents($id);
