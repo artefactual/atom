@@ -98,7 +98,7 @@ EOF;
         $xipData = $xml->children($xip_ns);
 
         $title = $io->title;
-        $description = $io->scopeAndContent;
+        $refCode = $io->identifier;
 
         // Fetch Security Tag and Parent UUID values from Preservica object XML.
         // If this information is missing or does not match the existing record,
@@ -114,7 +114,7 @@ EOF;
         }
 
         // Update title and description in Preservica record via PUT request
-        $client->putObjectDetails($url, $resourceType, $preservicaId, $title, $description, $securityTag, $parent);
+        $client->putObjectDetails($url, $resourceType, $preservicaId, $title, $refCode, $securityTag, $parent);
         $httpStatus = $client->getHttpStatus();
         if (200 != $httpStatus) {
             $format = 'Error: Unable to PUT title and description for Preservica object: %s. Status code: %s';
@@ -250,6 +250,7 @@ EOF;
 
             return;
         }
+
         $xml = simplexml_load_string($preservicaXml);
 
         $this->putUpdatedObjectDetails($client, $url, $io, $xml, $preservicaId, $resourceType, $logger);

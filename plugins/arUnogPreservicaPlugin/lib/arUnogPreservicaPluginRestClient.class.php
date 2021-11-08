@@ -195,7 +195,7 @@ class arUnogPreservicaPluginRestClient
         curl_close($curlSession);
     }
 
-    public function putObjectDetails($objectUrl, $resourceType, $uuid, $title, $description, $securityTag, $parent = null)
+    public function putObjectDetails($objectUrl, $resourceType, $uuid, $title, $refCode, $securityTag, $parent = null)
     {
         $url = $this->baseUrl().$objectUrl;
 
@@ -208,8 +208,8 @@ class arUnogPreservicaPluginRestClient
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <{$resourceType} xmlns="http://preservica.com/XIP/v6.3">
                 <Ref>{$uuid}</Ref>
-                <Title>{$title}</Title>
-                <Description>{$description}</Description>
+                <Title>{$refCode}</Title>
+                <Description>{$title}</Description>
                 <SecurityTag>{$securityTag}</SecurityTag>
                 <Parent>{$parent}</Parent>
             </{$resourceType}>
@@ -219,8 +219,8 @@ class arUnogPreservicaPluginRestClient
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <{$resourceType} xmlns="http://preservica.com/XIP/v6.3">
                 <Ref>{$uuid}</Ref>
-                <Title>{$title}</Title>
-                <Description>{$description}</Description>
+                <Title>{$refCode}</Title>
+                <Description>{$title}</Description>
                 <SecurityTag>{$securityTag}</SecurityTag>
             </{$resourceType}>
             EOT;
