@@ -136,6 +136,49 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
         return $this;
     }
 
+    /**
+     * Use before saving an entity to detect if the specified fields have
+     * changed compared to the underlying DB values.
+     *
+     * @param string DB table name
+     * @param array  assoc array of object field names => DB field names
+     * @param array  assoc array of object field names => object values
+     * @param bool   flag to add culture clause to PDO query
+     *
+     * @return bool true if any of the specified fields have been changed
+     */
+    public function getFieldsUpdated(string $tableName, array $fieldList, array $values, bool $includeCulture = false): bool
+    {
+        $params = [];
+
+        $sql = 'SELECT '.
+            implode(',', $fieldList).
+            ' FROM '.
+            $tableName.
+            ' WHERE id='.
+            $this->id;
+
+        if ($includeCulture) {
+            $sql .= ' AND culture=?';
+            $culture = sfContext::getInstance()->user->getCulture();
+            $params[] = $culture;
+        }
+
+        $result = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
+
+        if (empty($result)) {
+            return true;
+        }
+
+        foreach ($fieldList as $name => $dbFieldName) {
+            if ($result[0][$dbFieldName] !== $values[$name]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function insertSlug($connection = null)
     {
         if (!isset($connection)) {
