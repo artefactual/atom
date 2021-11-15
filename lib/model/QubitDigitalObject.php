@@ -2066,6 +2066,8 @@ class QubitDigitalObject extends BaseDigitalObject
         $pages = $this->explodeMultiPageAsset();
 
         foreach ($pages as $i => $filepath) {
+            $filename = basename($filepath);
+
             // Create a new information object
             $newInfoObject = new QubitInformationObject();
             $newInfoObject->parentId = $this->getObject()->id;
@@ -2077,6 +2079,7 @@ class QubitDigitalObject extends BaseDigitalObject
             $newDigiObject = new QubitDigitalObject();
             $newDigiObject->parentId = $this->id;
             $newDigiObject->setObjectId($newInfoObject->id);
+            $newDigiObject->setName($filename);
             $newDigiObject->save($connection);
 
             // Derive new file path based on newInfoObject
@@ -2093,18 +2096,13 @@ class QubitDigitalObject extends BaseDigitalObject
                 chmod(sfConfig::get('sf_web_dir').$createPath, 0755);
             }
 
-            // Derive new name for file based on original file name + newDigitalObject
-            // id
-            $filename = basename($filepath);
+            // Move asset to new filepath
             $newFilepath = sfConfig::get('sf_web_dir').$assetPath.'/'.$filename;
-
-            // Move asset to new name and path
             rename($filepath, $newFilepath);
             chmod($newFilepath, 0644);
 
             // Save new file information
             $newDigiObject->setPath("{$assetPath}/");
-            $newDigiObject->setName($filename);
             $newDigiObject->setByteSize(filesize($newFilepath));
             $newDigiObject->usageId = QubitTerm::MASTER_ID;
             $newDigiObject->setMimeType(QubitDigitalObject::deriveMimeType($filename));
