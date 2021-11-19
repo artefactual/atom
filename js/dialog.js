@@ -86,7 +86,7 @@
           });
 
         // Create YUI container for dialog
-        var $yuiDialogWrapper = $('<div id="' + this.table.id + '">'
+        var $yuiDialogWrapper = $('<div id="' + this.table.id + '_yui_wrap">'
           + '  <div class="hd">'
           + '    ' + this.label
           + '  </div><div class="bd">'
