@@ -86,7 +86,7 @@
           });
 
         // Create YUI container for dialog
-        var $yuiDialogWrapper = $('<div id="' + this.table.id + '">'
+        var $yuiDialogWrapper = $('<div id="' + this.table.id + '_yui_wrap">'
           + '  <div class="hd">'
           + '    ' + this.label
           + '  </div><div class="bd">'
@@ -587,11 +587,11 @@
             // Check for special field render handler
             if (undefined !== this.options.handleFieldRender)
             {
-              var render = thisDialog.options.handleFieldRender;
+              var render = this.options.handleFieldRender;
             }
             else
             {
-              var render = thisDialog.renderField;
+              var render = this.renderField;
             }
 
             var tr = newRowTemplate.replace('{' + this.fieldPrefix + '[id]}', this.id);
@@ -610,13 +610,17 @@
               {
                 return rowId == this.id;
               });
+
+            // Hide so we can show the row with an animation later
+            var $tr = $(tr).hide();
+
             if (!$row.length)
             {
-              var $tr = $(tr).appendTo(displayTable);
+              $tr.appendTo(displayTable);
             }
             else
             {
-              var $tr = $(tr).replaceAll($row);
+              $tr.replaceAll($row);
             }
 
             // Bind events
@@ -629,6 +633,8 @@
               {
                 thisDialog.remove($(this).closest('tr').attr('id'));
               });
+
+            $tr.fadeIn();
           }
 
         // Submit dialog

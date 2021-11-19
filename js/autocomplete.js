@@ -509,6 +509,12 @@
               // On single <select/> item select, simply update the
               // value of this input
               $hidden.val(data[1]).trigger('change');
+
+              // Trigger event to load item data if it's needed
+              $input.trigger({
+                type: 'itemSelected',
+                itemValue: $hidden.attr('value')
+              });
             }
 
             // Update the value of the autocomplete <input/> here
