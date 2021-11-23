@@ -67,9 +67,6 @@
     <?php
         $equivalentTerms = [];
         foreach ($resource->otherNames as $item) {
-            if ($item->sourceCulture != $sf_user->getCulture()) {
-                continue;
-            }
             $equivalentTerms[] = __('UF %1%', ['%1%' => render_title($item)]);
         }
         echo render_show(render_title($resource), $equivalentTerms, ['isSubField' => true]);
