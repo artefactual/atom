@@ -42,7 +42,7 @@
   <div class="col-md-4 d-flex">
     <div class="d-flex flex-column flex-grow-1">
       <div class="d-flex flex-grow-1 border border-2 sign-up">
-        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3 text-decoration-none" href="<?php echo url_for(['module' => 'staticpages', 'slug' => 'newsletter']); ?>" target="_blank">
+        <a class="d-flex flex-column flex-grow-1 text-white text-center justify-content-center p-3 text-decoration-none" href="<?php echo url_for(['module' => 'staticpages', 'slug' => 'newsletter']); ?>">
           <span class="d-block fs-3"><i class="fa fa-envelope me-2" aria-hidden="true"></i><?php echo __('Sign up to be part of'); ?></span>
           <span class="d-block fs-3"><?php echo __('our research community'); ?></span>
         </a>
@@ -67,7 +67,7 @@
   </div>
   <div class="col-md-4 d-flex">
       <div class="d-flex flex-grow-1 border border-2 border-unog-red">
-        <a class="d-flex flex-column flex-grow-1 text-dark text-center justify-content-center p-3 text-decoration-none" href="https://libraryresources.unog.ch/">
+        <a class="d-flex flex-column flex-grow-1 text-dark text-center justify-content-center p-3 text-decoration-none" href="https://libraryresources.unog.ch/archives">
           <span class="d-block fs-3"><?php echo __('View our Research Guides'); ?></span>
           <span class="d-block fs-3"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
         </a>
