@@ -42,7 +42,15 @@ class InformationObjectEditAction extends DefaultEditAction
                 $this->resource->save();
                 $this->resource->updateXmlExports();
 
+                $i18n = $this->context->i18n;
+                $message = $i18n->__('Form validation succeeded.');
+                $this->getUser()->setFlash('notice', $message);
+
                 $this->redirect([$this->resource, 'module' => 'informationobject']);
+            } else {
+                $i18n = $this->context->i18n;
+                $message = $i18n->__('Form validation failed.');
+                $this->getUser()->setFlash('notice', $message);
             }
         }
 
