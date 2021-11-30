@@ -191,6 +191,8 @@ class DefaultEditAction extends sfAction
 
             default:
                 $this->resource[$field->getName()] = $this->form->getValue($field->getName());
+                $message = sprintf('Processing field %s with value %s', $field->getName(), $this->form->getValue($field->getName()));
+                $this->logMessage($message);
         }
     }
 
