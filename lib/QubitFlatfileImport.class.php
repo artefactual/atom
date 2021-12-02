@@ -1104,7 +1104,7 @@ class QubitFlatfileImport
             if (null !== $key = QubitFlatfileImport::getTermIndex($rows, $name)) {
                 $terms[] = QubitTerm::getById($rows[$key]['id']);
             } elseif (!isset($termsCreated) || !in_array($name, $termsCreated)) {
-                $terms[] = QubitFlatfileImport::createTerm($taxonomyId, $name, $culture);
+                $terms[] = QubitTerm::createTerm($taxonomyId, $name, $culture);
                 // Don't create duplicates
                 $termsCreated[] = $name;
             }
@@ -1115,27 +1115,6 @@ class QubitFlatfileImport
         }
 
         return $terms;
-    }
-
-    /**
-     * Create a Qubit term.
-     *
-     * @param int    $taxonomyId term taxonomy
-     * @param string $name       name of term
-     * @param string $culture    culture code (defaulting to English)
-     *
-     * @return QubitTerm created term
-     */
-    public static function createTerm($taxonomyId, $name, $culture = 'en')
-    {
-        $term = new QubitTerm();
-        $term->name = $name;
-        $term->taxonomyId = $taxonomyId;
-        $term->parentId = QubitTerm::ROOT_ID;
-        $term->culture = $culture;
-        $term->save();
-
-        return $term;
     }
 
     /**
@@ -1416,28 +1395,59 @@ class QubitFlatfileImport
 
     /**
      * Map a value to its corresponding term name then return the term ID
-     * corresponding to the term name.
+     * corresponding to the term name. This function will create a new term if
+     * not found in taxonomy.
      *
-     * @param string $description        description of subject (for error output)
-     * @param string $value              value that needs to be mapped to a term ID
-     * @param array  $valueToTermNameMap array mapping possible values to term names
-     * @param array  $terms              array mapping term IDs to term names
+     * @param string $taxonomyDescription description of subject (for error output)
+     * @param string $value               value that needs to be mapped to a term ID
+     * @param mixed  $culture             row culture
+     * @param array  $terms               array mapping term IDs to term names.
+     *                                    See QubitFlatfileImport::loadTermsFromTaxonomies.
+     * @param mixed  $taxonomyId          taxonomy id of term to be created
      *
      * @return int term ID
      */
-    public function translateNameToTermId($description, $value, $valueToTermNameMap, $terms)
+    public function createOrFetchTermIdFromName($taxonomyDescription, $value, $culture, &$terms, $taxonomyId)
     {
-        if (isset($valueToTermNameMap[$value]) || 0 == count($valueToTermNameMap)) {
-            $termName = (count($valueToTermNameMap)) ? $valueToTermNameMap[$value] : $value;
+        if (empty($value)) {
+            return;
+        }
 
-            if (in_array($termName, $terms)) {
-                return array_search($termName, $terms);
+        $key = false;
+        if (isset($terms[$culture])) {
+            $key = csvImportBaseTask::arraySearchCaseInsensitive($value, $terms[$culture]);
+        }
+
+        if (false === $key) {
+            // Test if term is present in DB. Retrieve taxonomy terms from term table.
+            $query = "SELECT t.id FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
+                WHERE t.taxonomy_id=? AND ti.culture=? AND ti.name=?";
+
+            if (false !== $result = QubitPdo::fetchOne($query, [$taxonomyId, $culture, $value])) {
+                $terms = csvImportBaseTask::refreshTaxonomyTerms($taxonomyId);
+
+                return $result->id;
             }
 
-            throw new sfException('Could not find "'.$termName.'" in '.$description.' terms array.');
-        } else {
-            throw new sfException('Could not find a way to handle '.$description.' value "'.$value.'".');
+            // Not found in terms array and not in DB.
+            echo "\nTerm {$value} not found in {$taxonomyDescription} taxonomy, creating it...\n";
+            QubitTerm::createTerm(
+                $taxonomyId,
+                $value,
+                $culture
+            );
+
+            // Update reference to terms array contained in import task.
+            $terms = csvImportBaseTask::refreshTaxonomyTerms($taxonomyId);
         }
+
+        if (false !== $key = csvImportBaseTask::arraySearchCaseInsensitive($value, $terms[$culture])) {
+            return $key;
+        }
+
+        throw new sfException(
+            'Could not find "'.$value.'" in '.$taxonomyDescription.' terms array.'
+        );
     }
 
     public static function getIdCorrespondingToSlug($slug)

@@ -162,13 +162,15 @@ EOF;
         ]);
 
         $import->addColumnHandler('scope', function ($self, $data) {
-            $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-                $self,
-                'scopeId',
-                'scope type',
-                $data,
-                $self->status['scopeTypes'][$self->columnValue('culture')]
-            );
+            if ($data && isset($self->object) && $self->object instanceof QubitDeaccession) {
+                $self->object->scopeId = $self->createOrFetchTermIdFromName(
+                    'scope type',
+                    trim($data),
+                    $self->columnValue('culture'),
+                    $self->status['scopeTypes'],
+                    QubitTaxonomy::DEACCESSION_SCOPE_ID
+                );
+            }
         });
 
         $import->csv($fh, $skipRows);

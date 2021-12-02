@@ -406,65 +406,51 @@ EOF;
         });
 
         $import->addColumnHandler('resourceType', function ($self, $data) {
-            if ($data) {
-                $data = trim($data);
-                $resourceTypeId = self::arraySearchCaseInsensitive($data, $self->status['resourceTypes'][$self->columnValue('culture')]);
-
-                if (false === $resourceTypeId) {
-                    echo "\nTerm {$data} not found in resource type taxonomy, creating it...\n";
-                    $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID, $data, $self->columnValue('culture'));
-                    $self->status['resourceTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID);
-                }
-
-                $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-                    $self,
-                    'resourceTypeId',
+            if ($data && isset($self->object) && $self->object instanceof QubitAccession) {
+                $self->object->resourceTypeId = $self->createOrFetchTermIdFromName(
                     'resource type',
-                    $data,
-                    $self->status['resourceTypes'][$self->columnValue('culture')]
+                    trim($data),
+                    $self->columnValue('culture'),
+                    $self->status['resourceTypes'],
+                    QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID
                 );
             }
         });
 
         $import->addColumnHandler('acquisitionType', function ($self, $data) {
-            if ($data) {
-                $data = trim($data);
-                $acquisitionTypeId = self::arraySearchCaseInsensitive($data, $self->status['acquisitionTypes'][$self->columnValue('culture')]);
-
-                if (false === $acquisitionTypeId) {
-                    echo "\nTerm {$data} not found in acquisition type taxonomy, creating it...\n";
-                    $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID, $data, $self->columnValue('culture'));
-                    $self->status['acquisitionTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID);
-                }
-
-                $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-                    $self,
-                    'acquisitionTypeId',
+            if ($data && isset($self->object) && $self->object instanceof QubitAccession) {
+                $self->object->acquisitionTypeId = $self->createOrFetchTermIdFromName(
                     'acquisition type',
-                    $data,
-                    $self->status['acquisitionTypes'][$self->columnValue('culture')]
+                    trim($data),
+                    $self->columnValue('culture'),
+                    $self->status['acquisitionTypes'],
+                    QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID
                 );
             }
         });
 
         $import->addColumnHandler('processingStatus', function ($self, $data) {
-            $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-                $self,
-                'processingStatusId',
-                'processing status',
-                $data,
-                $self->status['processingStatus'][$self->columnValue('culture')]
-            );
+            if ($data && isset($self->object) && $self->object instanceof QubitAccession) {
+                $self->object->processingStatusId = $self->createOrFetchTermIdFromName(
+                    'processing status',
+                    trim($data),
+                    $self->columnValue('culture'),
+                    $self->status['processingStatus'],
+                    QubitTaxonomy::ACCESSION_PROCESSING_STATUS_ID
+                );
+            }
         });
 
         $import->addColumnHandler('processingPriority', function ($self, $data) {
-            $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-                $self,
-                'processingPriorityId',
-                'processing priority',
-                $data,
-                $self->status['processingPriority'][$self->columnValue('culture')]
-            );
+            if ($data && isset($self->object) && $self->object instanceof QubitAccession) {
+                $self->object->processingPriorityId = $self->createOrFetchTermIdFromName(
+                    'processing priority',
+                    trim($data),
+                    $self->columnValue('culture'),
+                    $self->status['processingPriority'],
+                    QubitTaxonomy::ACCESSION_PROCESSING_PRIORITY_ID
+                );
+            }
         });
 
         // Allow search indexing to be enabled via a CLI option

@@ -940,6 +940,27 @@ class QubitTerm extends BaseTerm
         }
     }
 
+    /**
+     * Create a Qubit term.
+     *
+     * @param int    $taxonomyId term taxonomy
+     * @param string $name       name of term
+     * @param string $culture    culture code (defaulting to English)
+     *
+     * @return QubitTerm created term
+     */
+    public static function createTerm($taxonomyId, $name, $culture = 'en')
+    {
+        $term = new QubitTerm();
+        $term->name = $name;
+        $term->taxonomyId = $taxonomyId;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->culture = $culture;
+        $term->save();
+
+        return $term;
+    }
+
     protected function insert($connection = null)
     {
         if (!isset($this->slug)) {

@@ -634,7 +634,7 @@ class QubitActor extends BaseActor
             if (!QubitAcl::check(QubitTaxonomy::getById($options['taxonomyId']), 'createTerm')) {
                 return;
             }
-            $term = QubitFlatfileImport::createTerm($options['taxonomyId'], $name, $culture);
+            $term = QubitTerm::createTerm($options['taxonomyId'], $name, $culture);
         }
 
         $relation = new QubitObjectTermRelation();

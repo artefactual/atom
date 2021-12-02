@@ -235,41 +235,32 @@ EOF;
                         echo $self->logError($error);
                     }
 
-                    if (
-                        isset($self->rowStatusVars['typeOfEntity'])
-                        && $self->rowStatusVars['typeOfEntity']
-                    ) {
-                        $self->object->entityTypeId = $self->translateNameToTermId(
-                            'type of entity',
-                            $self->rowStatusVars['typeOfEntity'],
-                            [],
-                            $self->status['actorTypes'][$self->columnValue('culture')]
-                        );
-                    }
+                    // Handle actor types.
+                    $self->object->entityTypeId = $self->createOrFetchTermIdFromName(
+                        'actor entity type',
+                        $self->rowStatusVars['typeOfEntity'],
+                        $self->columnValue('culture'),
+                        $self->status['actorTypes'],
+                        QubitTaxonomy::ACTOR_ENTITY_TYPE_ID
+                    );
 
-                    if (
-                        isset($self->rowStatusVars['status'])
-                        && $self->rowStatusVars['status']
-                    ) {
-                        $self->object->descriptionStatusId = $self->translateNameToTermId(
-                            'status',
-                            $self->rowStatusVars['status'],
-                            [],
-                            $self->status['descriptionStatusTypes'][$self->columnValue('culture')]
-                        );
-                    }
+                    // Handle description status.
+                    $self->object->descriptionStatusId = $self->createOrFetchTermIdFromName(
+                        'description status',
+                        $self->rowStatusVars['status'],
+                        $self->columnValue('culture'),
+                        $self->status['descriptionStatusTypes'],
+                        QubitTaxonomy::DESCRIPTION_STATUS_ID
+                    );
 
-                    if (
-                        isset($self->rowStatusVars['levelOfDetail'])
-                        && $self->rowStatusVars['levelOfDetail']
-                    ) {
-                        $self->object->descriptionDetailId = $self->translateNameToTermId(
-                            'level of detail',
-                            $self->rowStatusVars['levelOfDetail'],
-                            [],
-                            $self->status['detailLevelTypes'][$self->columnValue('culture')]
-                        );
-                    }
+                    // Handle level of detail.
+                    $self->object->descriptionDetailId = $self->createOrFetchTermIdFromName(
+                        'description detail levels',
+                        $self->rowStatusVars['levelOfDetail'],
+                        $self->columnValue('culture'),
+                        $self->status['detailLevelTypes'],
+                        QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID
+                    );
                 }
             },
 

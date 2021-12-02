@@ -176,19 +176,21 @@ EOF;
                 }
 
                 // Handle description status
-                $self->object->descStatusId = $self->translateNameToTermId(
+                $self->object->descStatusId = $self->createOrFetchTermIdFromName(
                     'description status',
                     $self->rowStatusVars['descriptionStatus'],
-                    [],
-                    $self->status['descriptionStatusTypes'][$self->columnValue('culture')]
+                    $self->columnValue('culture'),
+                    $self->status['descriptionStatusTypes'],
+                    QubitTaxonomy::DESCRIPTION_STATUS_ID
                 );
 
                 // Handle description detail
-                $self->object->descDetailId = $self->translateNameToTermId(
+                $self->object->descDetailId = $self->createOrFetchTermIdFromName(
                     'description detail',
                     $self->rowStatusVars['levelOfDetail'],
-                    [],
-                    $self->status['levelOfDetailTypes'][$self->columnValue('culture')]
+                    $self->columnValue('culture'),
+                    $self->status['levelOfDetailTypes'],
+                    QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID
                 );
             },
 

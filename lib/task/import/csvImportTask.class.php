@@ -403,7 +403,7 @@ EOF;
                     if (false === $levelOfDetailTermId) {
                         echo "\nTerm {$levelOfDetail} not found in description details level taxonomy, creating it...\n";
 
-                        $newTerm = QubitFlatfileImport::createTerm(
+                        $newTerm = QubitTerm::createTerm(
                             QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID,
                             $levelOfDetail,
                             $self->columnValue('culture')
@@ -438,7 +438,7 @@ EOF;
                     } else {
                         echo "\nTerm {$descStatus} not found in description status taxonomy, creating it...\n";
 
-                        $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $self->columnValue('culture'));
+                        $newTerm = QubitTerm::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $self->columnValue('culture'));
                         $self->status['descriptionStatusTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
 
                         $self->object->descriptionStatusId = $newTerm->id;
@@ -849,7 +849,7 @@ EOF;
                     } else {
                         echo "\nTerm {$value} not found in material type taxonomy, creating it...\n";
 
-                        $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $self->columnValue('culture'));
+                        $newTerm = QubitTerm::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $self->columnValue('culture'));
                         $self->status['materialTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
 
                         $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;

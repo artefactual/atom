@@ -225,7 +225,7 @@ abstract class csvImportBaseTask extends arBaseTask
                 if (false === $physicalObjectTypeId) {
                     echo "\nTerm {$type} not found in physical object type taxonomy, creating it...\n";
 
-                    $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
+                    $newTerm = QubitTerm::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
                     $self->status['physicalObjectTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
 
                     $physicalObjectTypeId = $newTerm->id;
@@ -393,20 +393,6 @@ abstract class csvImportBaseTask extends arBaseTask
         // Return the matching event, if one is found
         if (null !== $event = QubitEvent::getOne($criteria)) {
             return $event;
-        }
-    }
-
-    public static function setObjectPropertyToTermIdLookedUpFromTermNameArray(&$self, $property, $propertyDescription, $termName, $termNameArray)
-    {
-        if ($termName) {
-            if (isset($self->object) && is_object($self->object)) {
-                $self->object->{$property} = $self->translateNameToTermId(
-                    $propertyDescription,
-                    $termName,
-                    [],
-                    $termNameArray
-                );
-            }
         }
     }
 
