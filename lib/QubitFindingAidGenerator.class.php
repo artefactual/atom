@@ -25,7 +25,10 @@
 class QubitFindingAidGenerator
 {
     public const XML_STANDARD = 'ead';
-    public const SAXON_PATH = 'lib/task/pdf/saxon9he.jar';
+
+    protected const OASIS_CATALOG_PATH = 'data/xml/catalog.xml';
+    protected const RESOLVER_PATH = 'vendor/resolver.jar';
+    protected const SAXON_PATH = 'vendor/saxon-he-10.6.jar';
 
     private $appRoot;
     private $format;
@@ -313,7 +316,27 @@ class QubitFindingAidGenerator
     }
 
     /**
-     * Get the absolute path of the saxon9he.jar.
+     * Get the absolute path to the OASIS XML catalog file.
+     */
+    public function getCatalogPath(): string
+    {
+        return $this->getAppRoot().'/'.self::OASIS_CATALOG_PATH;
+    }
+
+    /**
+     * Get the absolute path to the XML-Commons resolver.jar.
+     *
+     * The XML-Commons resolver.jar is used by Saxon when generating finding
+     * aids to resolve DTD and schema URIs to local files using an OASIS XML
+     * Catalog.
+     */
+    public function getResolverPath(): string
+    {
+        return $this->getAppRoot().'/'.self::RESOLVER_PATH;
+    }
+
+    /**
+     * Get the absolute path to the Saxon XLST and XQuery Processor jar.
      */
     public function getSaxonPath(): string
     {
@@ -406,8 +429,13 @@ EOL;
         $foFilePath = tempnam(sys_get_temp_dir(), 'ATM');
 
         $cmd = sprintf(
-            "java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1",
-            $this->getSaxonPath(), $eadFilePath, $xslTmpPath, $foFilePath
+            "java -cp '%s:%s' net.sf.saxon.Transform -s:'%s' -xsl:'%s' -o:'%s' -catalog:'%s' 2>&1",
+            $this->getSaxonPath(),
+            $this->getResolverPath(),
+            $eadFilePath,
+            $xslTmpPath,
+            $foFilePath,
+            $this->getCatalogPath(),
         );
 
         $this->logger->info(sprintf('Running: %s', $cmd));

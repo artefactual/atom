@@ -173,11 +173,11 @@ Url: https://github.com/archivesspace/archivesspace/blob/master/stylesheets/as-e
 Copyright: Winona Salesky
 License: Educational Community License, Version 2.0
 
-saxon9he.jar
+The Saxon XSLT and XQuery Processor from Saxonica Limited
 --------
 Url: http://saxon.sourceforge.net/
-Copyright: Saxonica Limited
-License: Mozilla Public License version 1.0
+Copyright: Saxonica Limited (https://www.saxonica.com/)
+License: Mozilla Public License version 2.0
 
 htmlpurifier
 ------------
@@ -226,3 +226,9 @@ Uppy
 Url: https://github.com/transloadit/uppy
 Copyright: 2019 Transloadit (https://transloadit.com)
 License: MIT
+
+Apache XML Commons Resolver
+--------
+URL: https://xerces.apache.org/xml-commons/components/resolver/
+Copyright: 2006 The Apache Software Foundation
+License: Apache 2.0

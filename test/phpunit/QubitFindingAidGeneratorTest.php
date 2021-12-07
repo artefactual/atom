@@ -122,14 +122,36 @@ class QubitFindingAidGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testGetCatalogPath()
+    {
+        $generator = new QubitFindingAidGenerator(new QubitInformationObject());
+        $generator->setAppRoot('/tmp');
+
+        $this->assertSame(
+            '/tmp/vendor/resolver.jar',
+            $generator->getResolverPath()
+        );
+    }
+
     public function testGetSaxonPath()
     {
         $generator = new QubitFindingAidGenerator(new QubitInformationObject());
         $generator->setAppRoot('/tmp');
 
         $this->assertSame(
-            '/tmp/'.QubitFindingAidGenerator::SAXON_PATH,
+            '/tmp/vendor/saxon-he-10.6.jar',
             $generator->getSaxonPath()
+        );
+    }
+
+    public function testGetResolverPath()
+    {
+        $generator = new QubitFindingAidGenerator(new QubitInformationObject());
+        $generator->setAppRoot('/tmp');
+
+        $this->assertSame(
+            '/tmp/data/xml/catalog.xml',
+            $generator->getCatalogPath()
         );
     }
 }
