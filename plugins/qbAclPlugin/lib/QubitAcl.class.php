@@ -821,7 +821,7 @@ class QubitAcl
                 $criterion2 = $criteria->getNewCriterion(
                     constant("{$rootClass}::RGT"),
                     $resource->rgt,
-                    $allow ? Criteria::LESS_EQUAL : Criteria::GREAT_EQUAL
+                    $allow ? Criteria::LESS_EQUAL : Criteria::GREATER_EQUAL
                 );
 
                 $criterion->addAnd($criterion2);
