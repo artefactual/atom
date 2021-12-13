@@ -507,7 +507,7 @@ EOF;
             throw new Exception('This task needs the PHP readline extension.');
         }
 
-        for (;;) {
+        while (true) {
             $this->logSection('upgrade-sql', 'Please enter a new theme choice:');
 
             $n = 0;

@@ -396,9 +396,9 @@ EOF;
      * Import object, associate with information object, and, optionally, log.
      *
      * @param object QubitInformationObject $informationObject Information object
-     * @param string                        $filepath          Path, within DIP, to file
-     * @param bool                          $undoLog           Optional undo log location
-     * @param bool                          $container         Whether information object contains others
+     * @param string $filepath  Path, within DIP, to file
+     * @param bool   $undoLog   Optional undo log location
+     * @param bool   $container Whether information object contains others
      */
     protected function addDigitalObject($informationObject, $filepath, $undoLog = null, $container = false)
     {

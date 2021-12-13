@@ -22,7 +22,7 @@
  */
 class QubitSearch
 {
-    protected static $instance = null;
+    protected static $instance;
 
     // protected function __construct() { }
     // protected function __clone() { }

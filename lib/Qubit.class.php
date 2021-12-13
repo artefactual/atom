@@ -333,7 +333,7 @@ class Qubit
     /**
      * Move the uploaded file to a stable location so it is available post-upload.
      *
-     * @param  $file array
+     * @param $file array
      *
      * @return modified $file array
      */

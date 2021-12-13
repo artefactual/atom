@@ -502,8 +502,8 @@ class QubitRepository extends BaseRepository
      * have the specified field set, iterate over all contacts and return
      * the first one that has the field set.
      *
-     * @param  $getFunction  The get function for the field we want to return.
-     *                       e.g. getFromPrimaryOrFirstValidContact('getCity')
+     * @param       $getFunction The get function for the field we want to return.
+     *                           e.g. getFromPrimaryOrFirstValidContact('getCity')
      * @param mixed $options
      *
      * @return mixed Returns the field if found, null otherwise

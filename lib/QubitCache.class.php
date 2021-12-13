@@ -19,7 +19,7 @@
 
 class QubitCache
 {
-    protected static $instance = null;
+    protected static $instance;
 
     public static function getInstance(array $options = [])
     {

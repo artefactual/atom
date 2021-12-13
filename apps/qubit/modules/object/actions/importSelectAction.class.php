@@ -153,7 +153,7 @@ class ObjectImportSelectAction extends DefaultEditAction
     /**
      * Launch the file import background job and return.
      *
-     * @param  $request data
+     * @param $request data
      */
     protected function doBackgroundImport($request)
     {
