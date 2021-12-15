@@ -22,72 +22,151 @@
  */
 class SettingsFindingAidAction extends sfAction
 {
+    /**
+     * Main business/application logic.
+     *
+     * @see sfComponent::execute()
+     *
+     * @param sfWebRequest $request web request context
+     */
     public function execute($request)
     {
         $this->findingAidForm = new SettingsFindingAidForm();
 
         // Handle POST data (form submit)
         if ($request->isMethod('post')) {
-            QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-            // Handle Finding Aid form submission
-            if (null !== $request->finding_aid) {
-                $this->findingAidForm->bind($request->finding_aid);
-                if ($this->findingAidForm->isValid()) {
-                    // Do update and redirect to avoid repeat submit wackiness
-                    $this->updateFindingAidSettings();
-
-                    $notice = sfContext::getInstance()->i18n->__('Finding aid settings saved.');
-                    $this->getUser()->setFlash('notice', $notice);
-
-                    $this->redirect('settings/findingAid');
-                }
-            }
+            $this->processForm($request);
         }
 
         $this->populateFindingAidForm();
     }
 
     /**
-     * Populate the Finding Aid form.
+     * Get Finding Aid setting data from database or default value.
+     *
+     * @param string $name    QubitSetting column name
+     * @param string $default default value if QubitSetting doesn't exist
+     *
+     * @return string QubitSetting or default value
      */
-    protected function populateFindingAidForm()
+    public function getSetting(string $name, string $default = ''): string
     {
-        $findingAidFormat = QubitSetting::getByName('findingAidFormat');
-        $findingAidModel = QubitSetting::getByName('findingAidModel');
-        $publicFindingAid = QubitSetting::getByName('publicFindingAid');
+        $setting = QubitSetting::getByName($name);
 
-        $this->findingAidForm->setDefaults([
-            'finding_aid_format' => (isset($findingAidFormat)) ? $findingAidFormat->getValue(['sourceCulture' => true]) : 'pdf',
-            'finding_aid_model' => (isset($findingAidModel)) ? $findingAidModel->getValue(['sourceCulture' => true]) : 'inventory-summary',
-            'public_finding_aid' => (isset($publicFindingAid)) ? $publicFindingAid->getValue(['sourceCulture' => true]) : 1,
-        ]);
+        if (isset($setting)) {
+            return $setting->getValue(['sourceCulture' => true]);
+        }
+
+        return $default;
     }
 
     /**
-     * Update the Finding Aid settings.
+     * Save Finding Aid setting to database as QubitSetting.
+     *
+     * @param string $name  QubitSetting column name
+     * @param string $value QubitSetting value to save
      */
-    protected function updateFindingAidSettings()
+    public function setSetting(string $name, ?string $value): void
+    {
+        if (null === $value) {
+            return;
+        }
+
+        $setting = QubitSetting::findAndSave(
+            $name,
+            $value,
+            [
+                'sourceCulture' => true,
+                'createNew' => true,
+            ]
+        );
+    }
+
+    /**
+     * Handle Finding Aid form submission.
+     *
+     * @param sfWebRequest $request web request context
+     */
+    protected function processForm(sfWebRequest $request): void
+    {
+        // Delete settings_i18n cache
+        QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+        if (null === $request->finding_aid) {
+            return;
+        }
+
+        // Bind & validate form data
+        $this->findingAidForm->bind($request->finding_aid);
+
+        if (!$this->findingAidForm->isValid()) {
+            $this->error = 'formInvalid';
+
+            return;
+        }
+
+        // Save settings to database
+        $this->saveFindingAidSettings();
+
+        // Set flash notice to show after redirect
+        $this->getUser()->setFlash(
+            'notice',
+            $this->getContext()->i18n->__('Finding aid settings saved.')
+        );
+
+        // Redirect to avoid repeat submit wackiness
+        $this->redirect('settings/findingAid');
+    }
+
+    /**
+     * Populate the Finding Aid form with database data.
+     */
+    protected function populateFindingAidForm()
+    {
+        $this->findingAidForm->setDefaults(
+            [
+                'finding_aids_enabled' => $this->getSetting(
+                    'findingAidsEnabled', '1'
+                ),
+                'finding_aid_format' => $this->getSetting(
+                    'findingAidFormat', 'pdf'
+                ),
+                'finding_aid_model' => $this->getSetting(
+                    'findingAidModel', 'inventory-summary'
+                ),
+                'public_finding_aid' => $this->getSetting(
+                    'publicFindingAid', '1'
+                ),
+            ]
+        );
+    }
+
+    /**
+     * Save the Finding Aid settings to the database.
+     */
+    protected function saveFindingAidSettings(): self
     {
         $thisForm = $this->findingAidForm;
 
-        if (null !== $findingAidFormat = $thisForm->getValue('finding_aid_format')) {
-            $setting = QubitSetting::getByName('findingAidFormat');
-            $setting->setValue($findingAidFormat, ['sourceCulture' => true]);
-            $setting->save();
-        }
+        $this->setSetting(
+            'findingAidsEnabled',
+            $thisForm->getValue('finding_aids_enabled')
+        );
 
-        if (null !== $findingAidModel = $thisForm->getValue('finding_aid_model')) {
-            $setting = QubitSetting::getByName('findingAidModel');
-            $setting->setValue($findingAidModel, ['sourceCulture' => true]);
-            $setting->save();
-        }
+        $this->setSetting(
+            'findingAidFormat',
+            $thisForm->getValue('finding_aid_format')
+        );
 
-        if (null !== $publicFindingAid = $thisForm->getValue('public_finding_aid')) {
-            $setting = QubitSetting::getByName('publicFindingAid');
-            $setting->setValue($publicFindingAid, ['sourceCulture' => true]);
-            $setting->save();
-        }
+        $this->setSetting(
+            'findingAidModel',
+            $thisForm->getValue('finding_aid_model')
+        );
+
+        $this->setSetting(
+            'publicFindingAid',
+            $thisForm->getValue('public_finding_aid')
+        );
 
         return $this;
     }

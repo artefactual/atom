@@ -216,22 +216,37 @@ class QubitSetting extends BaseSetting
             $criteria->add(QubitSetting::SCOPE, $options['scope']);
         }
 
-        // If setting doesn't already exist, create a new one if
+        $setting = QubitSetting::getOne($criteria);
+
+        // If setting doesn't already exist, create a new one when
         // $options['createNew'] is true
-        if (null === ($setting = QubitSetting::getOne($criteria)) && true === $options['createNew']) {
+        if (!isset($setting) && true == $options['createNew']) {
+            unset($options['createNew']);
+
             $setting = new QubitSetting();
             $setting->setName($name);
+            $setting->setEditable(true); // Default to true
 
+            // If $options['scope'] is different than QubitSetting->scope a new
+            // QubitSetting is created, so this is only necessary here
             if (isset($options['scope'])) {
                 $setting->setScope($options['scope']);
+                unset($options['scope']);
             }
         }
 
-        // Set value and save setting
-        if (null !== $setting) {
-            $setting->setValue($value, $options);
-            $setting->save();
+        if (!isset($setting)) {
+            return;
         }
+
+        // Set values and save setting
+        if (isset($options['editable'])) {
+            $setting->setEditable($options['editable']);
+            unset($options['editable']);
+        }
+
+        $setting->setValue($value, $options);
+        $setting->save();
 
         return $setting;
     }

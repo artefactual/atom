@@ -16,7 +16,19 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'updatePublicationStatus'])); ?>
+  <?php echo $form->renderFormTag(
+    url_for(
+      [
+          $resource,
+          'module' => 'informationobject',
+          'action' => 'updatePublicationStatus',
+      ]
+    ),
+    [
+        'id' => 'update-publication-status-form',
+        'data-cy' => 'update-publication-status-form',
+    ]
+  ); ?>
 
     <?php echo $form->renderHiddenFields(); ?>
 

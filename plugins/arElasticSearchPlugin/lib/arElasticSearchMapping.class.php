@@ -159,7 +159,7 @@ class arElasticSearchMapping
 
         // Ignore models without i18n table that will include i18nExtra (donors)
         if (!class_exists($className)) {
-            return;
+            return [];
         }
 
         $map = new $className();

@@ -150,6 +150,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
             $this->getParameters['query'] = $request->sq0;
         }
 
+        // If finding aids are disabled, remove search options and params
+        if ('1' !== sfConfig::get('app_findingAidsEnabled', '1')) {
+            $this->disableFindingAidSearch();
+        }
+
         // And search box query to the first criterion
         if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)) {
             $request->sq0 = $request->query;
@@ -179,22 +184,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
             $this->getResponse()->addStylesheet('print-preview', 'last');
         }
 
-        // Default to hide the advanced search panel
-        $this->showAdvanced = false;
-        if (filter_var($request->showAdvanced, FILTER_VALIDATE_BOOLEAN)) {
-            $this->showAdvanced = true;
-        }
-
         // Default to show only top level descriptions
         $this->topLod = true;
         if (isset($request->topLod) && !filter_var($request->topLod, FILTER_VALIDATE_BOOLEAN)) {
             $this->topLod = false;
-        }
-
-        // Defaults to inclusive date range type
-        $this->rangeType = 'inclusive';
-        if (isset($request->rangeType)) {
-            $this->rangeType = $request->rangeType;
         }
 
         $this->addHiddenFields($request);
@@ -531,6 +524,33 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
             ];
 
             $this->setFilterTagLabel('findingAidStatus', $labels[$request->findingAidStatus]);
+        }
+    }
+
+    /**
+     * Disable searching by Finding Aid status or for Finding Aid data.
+     */
+    protected function disableFindingAidSearch()
+    {
+        // Remove findingAidStatus from field and filtertag lists
+        unset(
+            self::$NAMES['findingAidStatus'],
+            self::$FILTERTAGS['findingAidStatus']
+        );
+
+        // Delete the findingAidStatus GET parameter to prevent direct searches
+        if (isset($this->getParameters['findingAidStatus'])) {
+            unset($this->getParameters['findingAidStatus']);
+        }
+
+        // Restrict string searches to exclude finding aid transcript data
+        foreach ($this->getParameters as $key => &$val) {
+            if (
+                preg_match('/sf[0-9]+/', $key)
+                && (empty($val) || 'findingAidTranscript' === $val)
+            ) {
+                $val = 'allExceptFindingAidTranscript';
+            }
         }
     }
 

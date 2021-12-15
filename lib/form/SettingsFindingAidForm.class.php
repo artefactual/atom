@@ -27,32 +27,96 @@ class SettingsFindingAidForm extends sfForm
         $i18n = sfContext::getInstance()->i18n;
 
         // Build widgets
-        $this->setWidgets([
-            'finding_aid_format' => new sfWidgetFormSelect(['choices' => ['pdf' => 'PDF', 'rtf' => 'RTF']]),
-            'finding_aid_model' => new sfWidgetFormSelect(['choices' => ['inventory-summary' => 'Inventory summary', 'full-details' => 'Full details']]),
-            'public_finding_aid' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
-        ]);
+        $this->setWidgets(
+            [
+                'finding_aids_enabled' => new sfWidgetFormSelectRadio(
+                    [
+                        'choices' => ['1' => 'Enabled', '0' => 'Disabled'],
+                    ],
+                    ['class' => 'radio']
+                ),
+                'finding_aid_format' => new sfWidgetFormSelect(
+                    ['choices' => ['pdf' => 'PDF', 'rtf' => 'RTF']]
+                ),
+                'finding_aid_model' => new sfWidgetFormSelect(
+                    [
+                        'choices' => [
+                            'inventory-summary' => 'Inventory summary',
+                            'full-details' => 'Full details',
+                        ],
+                    ]
+                ),
+                'public_finding_aid' => new sfWidgetFormSelectRadio(
+                    [
+                        'choices' => ['1' => 'Yes', '0' => 'No'],
+                    ],
+                    ['class' => 'radio']
+                ),
+            ]
+        );
 
         // Add labels
-        $this->widgetSchema->setLabels([
-            'finding_aid_format' => $i18n->__('Finding Aid format'),
-            'finding_aid_model' => $i18n->__('Finding Aid model'),
-            'public_finding_aid' => $i18n->__('Generate Finding Aid as public user'),
-        ]);
+        $this->widgetSchema->setLabels(
+            [
+                'finding_aids_enabled' => $i18n->__('Finding Aids enabled'),
+                'finding_aid_format' => $i18n->__('Finding Aid format'),
+                'finding_aid_model' => $i18n->__('Finding Aid model'),
+                'public_finding_aid' => $i18n->__(
+                    'Generate Finding Aid as public user'
+                ),
+            ]
+        );
 
         // Add helper text
-        $this->widgetSchema->setHelps([
-            'finding_aid_format' => '',
-            'finding_aid_model' => $i18n->__('Finding Aid model: \'Inventory summary\' will include only key details for lower-level descriptions (file, item, part) in a table. \'Full details\' includes full lower-level descriptions in the same format used throughout the finding aid.'),
-            'public_finding_aid' => '',
-        ]);
+        $this->widgetSchema->setHelps(
+            [
+                'finding_aids_enabled' => $i18n->__(
+<<<'EOL'
+When disabled: Finding Aid links are not displayed, Finding Aid generation is
+disabled, and the 'Advanced Search > Finding Aid' filter is hidden.
+EOL
+                ),
+                'finding_aid_format' => $i18n->__(
+<<<'EOL'
+Choose the file format for generated Finding Aids (PDF or 'Rich Text Format')
+EOL
+                ),
+                'finding_aid_model' => $i18n->__(
+<<<'EOL'
+Finding Aid model:
+- Inventory summary: will include only key details for lower-level descriptions
+  (file, item, part) in a table
+- Full details: includes full lower-level descriptions in the same format used
+  throughout the finding aid
+EOL
+                ),
+                'public_finding_aid' => $i18n->__(
+                    "When set to 'yes' generated Finding Aids will exclude Drafts"
+                ),
+            ]
+        );
 
-        $this->validatorSchema['finding_aid_format'] = new sfValidatorString(['required' => false]);
-        $this->validatorSchema['finding_aid_model'] = new sfValidatorString(['required' => false]);
-        $this->validatorSchema['public_finding_aid'] = new sfValidatorInteger(['required' => false]);
+        $this->validatorSchema = new sfValidatorSchema(
+            [
+                'finding_aids_enabled' => new sfValidatorChoice([
+                    'choices' => ['0', '1'],
+                ]),
+                'finding_aid_format' => new sfValidatorChoice([
+                    'choices' => ['pdf', 'rtf'],
+                ]),
+                'finding_aid_model' => new sfValidatorChoice([
+                    'choices' => ['inventory-summary', 'full-details'],
+                ]),
+                'public_finding_aid' => new sfValidatorChoice([
+                    'choices' => ['0', '1'],
+                ]),
+            ]
+        );
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+        $decorator = new QubitWidgetFormSchemaFormatterList(
+            $this->widgetSchema
+        );
         $this->widgetSchema->addFormFormatter('list', $decorator);
         $this->widgetSchema->setFormFormatterName('list');
 

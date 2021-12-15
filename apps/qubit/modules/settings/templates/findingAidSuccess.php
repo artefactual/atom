@@ -14,11 +14,21 @@
 
 <?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/findingAid'); ?>" method="post">
+  <form
+    id="settings-finding-aid-form"
+    action="<?php echo url_for('settings/findingAid'); ?>"
+    method="post"
+    data-cy="settings-finding-aid-form"
+  >
+    <?php if (isset($error) && 'formInvalid' == $error) { ?>
+    <div class="alert alert-error">
+      <?php echo __('There was an error submitting the form.'); ?>
+    </div>
+    <?php } ?>
 
     <div id="content">
 
-      <table class="table sticky-enabled">
+      <table class="table sticky-enabled" id="finding-aid-settings">
         <thead>
           <tr>
             <th><?php echo __('Name'); ?></th>

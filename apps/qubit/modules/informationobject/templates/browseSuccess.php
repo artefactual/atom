@@ -144,14 +144,17 @@
 
 <?php slot('content'); ?>
 
-  <?php echo get_partial('search/advancedSearch', [
-      'criteria' => $search->criteria,
-      'template' => $template,
-      'form' => $form,
-      'show' => $showAdvanced,
-      'topLod' => $topLod,
-      'rangeType' => $rangeType,
-      'hiddenFields' => $hiddenFields, ]); ?>
+  <?php echo get_component(
+    'informationobject',
+    'advancedSearch',
+    [
+        'criteria' => $search->criteria,
+        'template' => $template,
+        'form' => $form,
+        'topLod' => $topLod,
+        'hiddenFields' => $hiddenFields,
+    ]
+  ); ?>
 
   <?php if (isset($pager) && $pager->getNbResults()) { ?>
 

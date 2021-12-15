@@ -31,7 +31,18 @@
               <li><?php echo link_to(__('Rename'), [$resource, 'module' => 'informationobject', 'action' => 'rename']); ?></li>
 
               <?php if (QubitAcl::check($resource, 'publish')) { ?>
-                <li><?php echo link_to(__('Update publication status'), [$resource, 'module' => 'informationobject', 'action' => 'updatePublicationStatus']); ?></li>
+                <li><?php echo link_to(
+                  __('Update publication status'),
+                  [
+                      $resource,
+                      'module' => 'informationobject',
+                      'action' => 'updatePublicationStatus',
+                  ],
+                  [
+                      'id' => 'update-publication-status',
+                      'data-cy' => 'update-publication-status',
+                  ]
+                ); ?></li>
               <?php } ?>
 
               <li class="divider"></li>

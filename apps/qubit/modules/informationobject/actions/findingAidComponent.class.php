@@ -21,6 +21,12 @@ class InformationObjectFindingAidComponent extends sfComponent
 {
     public function execute($request)
     {
+        // If Finding Aids are explicitly disabled in QubitSettings, don't show
+        // this contenxt menu
+        if ('1' !== sfConfig::get('app_findingAidsEnabled', '1')) {
+            return sfView::NONE;
+        }
+
         $this->showDownload = false;
         $this->showStatus = false;
         $this->showUpload = false;
