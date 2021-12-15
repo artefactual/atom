@@ -94,34 +94,36 @@ class QubitRepository extends BaseRepository
 
     public function save($connection = null)
     {
-        // Check if the authorizedFormOfName or identifier has been modified.
-        $updateDescendantsNeeded = $this->getFieldsUpdated(
-            QubitActorI18n::TABLE_NAME,
-            ['authorizedFormOfName' => 'authorized_form_of_name'],
-            ['authorizedFormOfName' => $this->getAuthorizedFormOfName()],
-            true
-        )
-        || $this->getFieldsUpdated(
-            QubitRepository::TABLE_NAME,
-            ['identifier' => 'identifier'],
-            ['identifier' => $this->identifier]
-        );
+        if ($this->indexOnSave) {
+            // Check if the authorizedFormOfName or identifier has been modified.
+            $updateRelatedInformationObjects = $this->getFieldContentsUpdated(
+                QubitActorI18n::TABLE_NAME,
+                ['authorizedFormOfName' => QubitActorI18n::AUTHORIZED_FORM_OF_NAME],
+                ['authorizedFormOfName' => $this->getAuthorizedFormOfName()],
+                ['culture' => sfContext::getInstance()->user->getCulture()]
+            )
+            || $this->getFieldContentsUpdated(
+                QubitRepository::TABLE_NAME,
+                ['identifier' => QubitRepository::IDENTIFIER],
+                ['identifier' => $this->identifier]
+            );
+        }
 
         parent::save($connection);
 
         if ($this->indexOnSave) {
-            $this->updateSearchIndex($updateDescendantsNeeded);
+            $this->updateSearchIndex($updateRelatedInformationObjects);
         }
 
         return $this;
     }
 
-    public function updateSearchIndex(bool $updateDescendantsNeeded = true)
+    public function updateSearchIndex(bool $updateRelatedInformationObjects = true)
     {
         QubitSearch::getInstance()->update($this);
 
         // Trigger updating of associated information objects, if any
-        if ($updateDescendantsNeeded) {
+        if ($updateRelatedInformationObjects) {
             $operationDescription = sfContext::getInstance()->i18n->__('updated');
 
             $this->updateInformationObjects(

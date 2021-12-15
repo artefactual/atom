@@ -129,6 +129,13 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
 
         // Save updated other namnes
         foreach ($this->otherNames as $otherName) {
+
+            sfContext::getInstance()->getLogger()->err('SBSBSB QubitObject::save() othernames:' . $otherName->name . ", " . $otherName->id);
+
+            //if (empty($otherName->name)) {
+            //    $otherName->delete();
+            //}
+
             $otherName->object = $this;
             $otherName->save();
         }
@@ -147,8 +154,12 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
      *
      * @return bool true if any of the specified fields have been changed
      */
-    public function getFieldsUpdated(string $tableName, array $fieldList, array $values, bool $includeCulture = false): bool
+    public function getFieldContentsUpdated(string $tableName, array $fieldList, array $values, array $options = []): bool
     {
+        if (empty($this->id)) {
+            return true;
+        }
+
         $params = [];
 
         $sql = 'SELECT '.
@@ -158,10 +169,9 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
             ' WHERE id='.
             $this->id;
 
-        if ($includeCulture) {
+        if (isset($options['culture'])) {
             $sql .= ' AND culture=?';
-            $culture = sfContext::getInstance()->user->getCulture();
-            $params[] = $culture;
+            $params[] = $options['culture'];
         }
 
         $result = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
@@ -171,12 +181,47 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
         }
 
         foreach ($fieldList as $name => $dbFieldName) {
-            if ($result[0][$dbFieldName] !== $values[$name]) {
+            if ($result[0][substr($dbFieldName, strpos($dbFieldName, ".") + 1)] !== $values[$name]) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public function getRelatedObjectsUpdated(string $tableName, $options = []): bool
+    {
+        $sql = 'SELECT id FROM '.
+            $tableName.
+            ' WHERE object_id = ?';
+        
+        $params = [
+            $this->id
+        ];
+
+        //sfContext::getInstance()->getLogger()->err('SBSBSB actor id: ' . $this->id);
+
+        $result = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_COLUMN]);
+
+        //sfContext::getInstance()->getLogger()->err('SBSBSB object check result: ' . var_export($result, true));
+
+        if (empty($result)) {
+            return true;
+        }
+
+
+
+        return true;
+
+        //foreach (QubitPdo::fetchAll($sql, $params) as $item) {
+            //$serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
+        //}
+
+
+        //$actorsToUpdate = array_unique(array_merge(
+            //    $previouslyRelatedActorIds,
+            //   arUpdateEsActorRelationsJob::relationActorIds($this->id)
+            //));
     }
 
     public function insertSlug($connection = null)

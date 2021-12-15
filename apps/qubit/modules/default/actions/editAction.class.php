@@ -19,6 +19,8 @@
 
 class DefaultEditAction extends sfAction
 {
+    //protected $otherNameMap = array();
+
     public function execute($request)
     {
         // Force subclassing
@@ -152,14 +154,64 @@ class DefaultEditAction extends sfAction
             case 'standardizedName':
                 $value = $filtered = $this->form->getValue($field->getName());
 
+                //foreach ($this->resource->otherNames as $key => $otherName) {
+                //    sfContext::getInstance()->getLogger()->err('SBSBSB Key: ' . $key . ' $otherName Id: ' . $otherName->id);
+                //}
+
+                sfContext::getInstance()->getLogger()->err('SBSBSB FIELD NAME: ' . $field->getName());
+
                 foreach ($this[$field->getName()] as $item) {
+                    sfContext::getInstance()->getLogger()->err('SBSBSB get_class $item: ' . get_class($item));
+                    sfContext::getInstance()->getLogger()->err('SBSBSB $item->id: ' . $item->id);
+                    sfContext::getInstance()->getLogger()->err('SBSBSB $item->name: ' . $item->name);
+                    sfContext::getInstance()->getLogger()->err('SBSBSB submitted value: ' . $value[$item->id]);
+                    
+
+                    // 4 cases in any combination:
+                        // some removed / blanked out
+                            // item will be deleted from db in 'else' below
+                        // some new names added
+                            // contained in $filtered. These are created below.
+                            // when this happens any other updates are OVERWRITTEN and replaced in othernames.
+                            // when new names available, updates do not get saved
+                        // some names updated
+                            // updates written to resource->othernames
+                            // if any new names, resource->othernames is replaced removing any updates.
+                        // some names unchanged
+                            // these are either left in or taken out depending on whether a new item was added
+
+                    // OtherNames should contain all/only updated/new names:
+                        // unchanged - drop from otherNames
+                        // deleted - leave in otherNames (delete in QubitObject)
+                        // updated - leave in otherNames
+                        // new - add to otherNames
+
+                    // In QubitObject names have changed if Othernames is not empty.
+
+
+                    
                     if (!empty($value[$item->id])) {
+                        if ($value[$item->id] !==  $item->name) {
+                            sfContext::getInstance()->getLogger()->err('SBSBSB status: ' . 'CHANGED');
+                        } else {
+                            //sfContext::getInstance()->getLogger()->err('SBSBSB status: ' . 'UNCHANGED' . ' map id: ' . $this->otherNameMap[$item->id]);
+                            //unset($this->resource->otherNames[$this->otherNameMap[$item->id]]);
+                        }
+
                         $item->name = $value[$item->id];
                         unset($filtered[$item->id]);
                     } else {
+                        sfContext::getInstance()->getLogger()->err('SBSBSB status: ' . 'DELETED');
                         $item->delete();
                     }
                 }
+
+                //sfContext::getInstance()->getLogger()->err('SBSBSB filtered: ' . var_export($filtered, true));
+                //foreach($this->resource->otherNames as $otherName) {
+                    //sfContext::getInstance()->getLogger()->err('SBSBSB othername->name: ' . $otherName->name);
+                //}
+
+                sfContext::getInstance()->getLogger()->err('SBSBSB othername COUNT before filtered: ' . count($this->resource->otherNames));
 
                 foreach ($filtered as $item) {
                     if (!$item) {
@@ -185,6 +237,7 @@ class DefaultEditAction extends sfAction
                     }
 
                     $this->resource->otherNames[] = $otherName;
+                    sfContext::getInstance()->getLogger()->err('SBSBSB othername COUNT after filtered: ' . count($this->resource->otherNames));
                 }
 
                 break;
@@ -196,6 +249,11 @@ class DefaultEditAction extends sfAction
 
     protected function processForm()
     {
+        //foreach ($this->resource->otherNames as $key => $otherName) {
+        //    sfContext::getInstance()->getLogger()->err('SBSBSB Key: ' . $key . ' $otherName Id: ' . $otherName->id);
+        //    $this->otherNameMap[$otherName->id] = $key;
+        //}
+
         foreach ($this->form as $field) {
             $this->processField($field);
         }

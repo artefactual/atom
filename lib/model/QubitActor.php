@@ -110,6 +110,33 @@ class QubitActor extends BaseActor
     public function save($connection = null)
     {
         if ($this->indexOnSave && 'QubitActor' == $this->className) {
+            /*
+            - creators.authorizedFormOfName
+            - creators.history
+            - creators.otherNames.name
+            - creators.parallelNames.name
+            - creators.standardizedNames.name
+            */
+            // Check if the authorizedFormOfName or history has been modified.
+            foreach ($this->otherNames as $otherName) {
+                sfContext::getInstance()->getLogger()->err('SBSBSB QubitActor::save() OtherNames: '.$otherName->name.', '.$otherName->id);
+            }
+
+            $updateRelatedInformationObjects = $this->getFieldContentsUpdated(
+                QubitActorI18n::TABLE_NAME,
+                [
+                    'authorizedFormOfName' => QubitActorI18n::AUTHORIZED_FORM_OF_NAME,
+                    'history' => QubitActorI18n::HISTORY,
+                ],
+                [
+                    'authorizedFormOfName' => $this->getAuthorizedFormOfName(),
+                    'history' => $this->history,
+                ],
+                ['culture' => sfContext::getInstance()->user->getCulture()]
+            ) || $this->getRelatedObjectsUpdated(
+                QubitOtherName::TABLE_NAME
+            ) || isset($this->otherNames);
+
             // Take note of which actors are related to the actor about to be updated
             $previouslyRelatedActorIds = !empty($this->id)
                 ? arUpdateEsActorRelationsJob::previousRelationActorIds($this->id)
@@ -172,7 +199,7 @@ class QubitActor extends BaseActor
             // Update asynchronously the saved IOs ids, two jobs may
             // be launched in here as creation events require updating
             // the descendants but other events don't.
-            if (count($creationIoIds) > 0 || count($otherIoIds) > 0) {
+            if (count($creationIoIds) > 0 || count($otherIoIds) > 0 && $updateRelatedInformationObjects) {
                 if (count($creationIoIds) > 0) {
                     $jobOptions = [
                         'ioIds' => $creationIoIds,

@@ -436,6 +436,8 @@ abstract class BaseOtherName implements ArrayAccess
       }
     }
 
+    sfContext::getInstance()->getLogger()->err('SBSBSB inside otherName::save(): ' . $this->id);
+
     $this->new = false;
     $this->values = array();
 
@@ -591,6 +593,8 @@ abstract class BaseOtherName implements ArrayAccess
 
   public function delete($connection = null)
   {
+    sfContext::getInstance()->getLogger()->err('SBSBSB inside otherName::delete(): ' . $this->id);
+
     if ($this->deleted)
     {
       throw new PropelException('This object has already been deleted.');
