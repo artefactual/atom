@@ -233,7 +233,8 @@ class QubitFindingAidGenerator
         // Ensure 'downloads' directory exists
         Qubit::createDownloadsDirIfNeeded();
 
-        // Get the path to this resource's cached EAD file, if caching is enabled
+        // Get the path to this resource's cached EAD file, if caching is
+        // enabled
         $eadFilePath = $this->getEadCacheFilePath();
 
         // Generate an EAD file, if there is no cached EAD file
@@ -245,8 +246,10 @@ class QubitFindingAidGenerator
         $this->path = $this->generateFindingAid($foFilePath);
 
         $findingAid = new QubitFindingAid($this->resource);
+        $findingAid->setLogger($this->logger);
         $findingAid->setPath($this->path);
         $findingAid->setStatus(QubitFindingAid::GENERATED_STATUS);
+        $findingAid->save();
 
         $this->logger->info(
             sprintf('Finding aid generated successfully: %s', $this->path)
@@ -255,8 +258,8 @@ class QubitFindingAidGenerator
         // Delete temporary files
         unlink($foFilePath);
 
-        // Only delete the EAD file if XML caching is disabled, so we don't delete
-        // the cache file
+        // Only delete the EAD file if XML caching is disabled, so we don't
+        // delete the cache file
         if (!$this->isXmlCachingEnabled()) {
             unlink($eadFilePath);
         }
