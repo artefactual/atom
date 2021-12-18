@@ -33,6 +33,8 @@ class QubitFindingAid
     private $resource;
     private $options;
     private $path;
+    private $status;
+    private $transcript;
 
     // Default options
     private $defaults = [
@@ -215,51 +217,70 @@ class QubitFindingAid
      */
     public function setStatus(int $status): void
     {
-        // Search for an existing 'findingAidStatus' property
-        $criteria = new Criteria();
-        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+        $allowed = [self::GENERATED_STATUS, self::UPLOADED_STATUS];
 
-        // Create a related 'findingAidStatus' QubitProperty if this resource
-        // doesn't already have one
-        if (null === $property = QubitProperty::getOne($criteria)) {
-            $property = new QubitProperty();
-            $property->objectId = $this->resource->id;
-            $property->name = 'findingAidStatus';
+        if (!in_array($status, $allowed)) {
+            throw new UnexpectedValueException(
+                sprintf('Value must be one of (%s)', implode(', ', $allowed))
+            );
         }
 
-        // Set the status
-        $property->setValue($status, ['sourceCulture' => true]);
-        $property->indexOnSave = false;
-        $property->save();
-
-        // Update ES document with finding aid status
-        $partialData = [
-            'findingAid' => [
-                'status' => $status,
-            ],
-        ];
-
-        QubitSearch::getInstance()->partialUpdate(
-            $this->resource, $partialData
-        );
+        $this->status = $status;
     }
 
     /**
-     * Set the Finding Aid status.
+     * Get the Finding Aid status.
+     *
+     * @return null|int self::GENERATED_STATUS, self::UPLOADED_STATUS or null
      */
     public function getStatus(): ?int
     {
-        $criteria = new Criteria();
-        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
-        $property = QubitProperty::getOne($criteria);
-
-        if (!isset($property)) {
-            return null;
+        if (!isset($this->status)) {
+            $this->status = $this->loadStatus();
         }
 
-        return $property->getValue(['sourceCulture' => true]);
+        return $this->status;
+    }
+
+    /**
+     * Set transcript value.
+     */
+    public function setTranscript(string $text): void
+    {
+        $this->transcript = $text;
+    }
+
+    /**
+     * Get transcript value.
+     */
+    public function getTranscript(): ?string
+    {
+        if (!isset($this->transcript)) {
+            $this->transcript = $this->extractTranscript();
+        }
+
+        return $this->transcript;
+    }
+
+    /**
+     * Save the Finding Aid data.
+     */
+    public function save()
+    {
+        // Save status to database
+        $this->saveStatus();
+        $esdata['status'] = $this->status;
+
+        // Save the PDF transcript of uploaded finding aids
+        if (self::UPLOADED_STATUS === $this->getStatus()) {
+            $this->saveTranscript();
+            $esdata['transcript'] = $this->transcript;
+        }
+
+        // Update Elasticsearch finding aid fields (status, transcript)
+        QubitSearch::getInstance()->partialUpdate(
+            $this->resource, ['findingAid' => $esdata]
+        );
     }
 
     /**
@@ -340,25 +361,10 @@ class QubitFindingAid
 
         // Set status
         $this->setStatus(self::UPLOADED_STATUS);
+        $this->save();
 
         $this->logger->info(
             sprintf('Finding aid uploaded successfully: %s', $path)
-        );
-
-        // Extract finding aid transcript
-        $transcript = $this->extractTranscript();
-
-        if (!empty($transcript)) {
-            // Write transcript to database
-            $this->saveTranscript($transcript);
-
-            // Update partial data with transcript
-            $partialData['findingAid']['transcript'] = $transcript;
-        }
-
-        // Update ES document with finding aid status and transcript
-        QubitSearch::getInstance()->partialUpdate(
-            $this->resource, $partialData
         );
 
         return true;
@@ -367,7 +373,7 @@ class QubitFindingAid
     /**
      * Extract PDF text.
      */
-    public function extractTranscript(): ?string
+    public function extractTranscript(): string
     {
         $mimeType = 'application/'.$this->getFormat();
 
@@ -379,12 +385,14 @@ class QubitFindingAid
                 )
             );
 
-            return null;
+            return '';
         }
 
-        $this->logger->info('Extracting finding aid text...');
+        $this->logger->info(
+            sprintf('Extracting finding aid text from "%s"', $this->getPath())
+        );
 
-        $command = sprintf('pdftotext %s - 2> /dev/null', $path);
+        $command = sprintf('pdftotext %s - 2> /dev/null', $this->getPath());
         exec($command, $output, $status);
 
         if (0 !== $status) {
@@ -392,7 +400,7 @@ class QubitFindingAid
                 'WARNING(PDFTOTEXT) Extracting finding aid text has failed'
             );
 
-            return null;
+            return '';
         }
 
         if (0 === count($output)) {
@@ -400,23 +408,25 @@ class QubitFindingAid
                 'No finding aid text found in document'
             );
 
-            return null;
+            return '';
         }
 
-        $text = implode(PHP_EOL, $output);
-
-        // Truncate PDF text to <64KB to fit in `property.value` column
-        return mb_strcut($text, 0, 65535);
+        return implode(PHP_EOL, $output);
     }
 
     /**
-     * Save transcript text to `property` table.
-     *
-     * @param $text the transcript text
+     * Extract and save transcript text to `property` table.
      */
-    public function saveTranscript(string $text): void
+    public function saveTranscript(): void
     {
-        // Update or create 'findingAidTranscript' property
+        // Truncate PDF text to <64KB to fit in `property.value` column
+        $text = mb_strcut($this->getTranscript(), 0, 65535);
+
+        $this->logger->info(
+            sprintf('Saving transcript (%u bytes)', mb_strlen($text))
+        );
+
+        // Search for existing transcript property
         $criteria = new Criteria();
         $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
         $criteria->add(QubitProperty::NAME, 'findingAidTranscript');
@@ -426,6 +436,7 @@ class QubitFindingAid
             ' pdftotext'
         );
 
+        // Create a new transcript property, if one doesn't exist already
         if (null === $property = QubitProperty::getOne($criteria)) {
             $property = new QubitProperty();
             $property->objectId = $this->resource->id;
@@ -434,7 +445,51 @@ class QubitFindingAid
                 ' layer using pdftotext';
         }
 
+        // Set transcript value and save property
         $property->setValue($text, ['sourceCulture' => true]);
+        $property->indexOnSave = false;
+        $property->save();
+    }
+
+    /**
+     * Load status from the database.
+     *
+     * @return int self::GENERATED_STATUS, self::UPLOADED_STATUS or null
+     */
+    protected function loadStatus(): ?int
+    {
+        $criteria = new Criteria();
+        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+        $property = QubitProperty::getOne($criteria);
+
+        if (!isset($property)) {
+            return null;
+        }
+
+        return $property->getValue(['sourceCulture' => true]);
+    }
+
+    /**
+     * Save the Finding Aid Status to disk.
+     */
+    protected function saveStatus()
+    {
+        // Search for an existing 'findingAidStatus' property
+        $criteria = new Criteria();
+        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+
+        // Create a related 'findingAidStatus' QubitProperty if this resource
+        // doesn't already have one
+        if (null === $property = QubitProperty::getOne($criteria)) {
+            $property = new QubitProperty();
+            $property->objectId = $this->resource->id;
+            $property->name = 'findingAidStatus';
+        }
+
+        // Set the status
+        $property->setValue($this->status, ['sourceCulture' => true]);
         $property->indexOnSave = false;
         $property->save();
     }

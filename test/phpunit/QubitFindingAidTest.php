@@ -135,4 +135,31 @@ class QubitFindingAidTest extends \PHPUnit\Framework\TestCase
             $findingAid->getFormat()
         );
     }
+
+    public function testSetStatus()
+    {
+        $findingAid = new QubitFindingAid(new QubitInformationObject());
+        $findingAid->setStatus(QubitFindingAid::GENERATED_STATUS);
+
+        $this->assertSame(
+            QubitFindingAid::GENERATED_STATUS,
+            $findingAid->getStatus()
+        );
+    }
+
+    public function testSetStatusInvalidInteger()
+    {
+        $findingAid = new QubitFindingAid(new QubitInformationObject());
+
+        $this->expectException(UnexpectedValueException::class);
+        $findingAid->setStatus(10);
+    }
+
+    public function testSetTranscript()
+    {
+        $findingAid = new QubitFindingAid(new QubitInformationObject());
+        $findingAid->setTranscript('Nothing to see here');
+
+        $this->assertSame('Nothing to see here', $findingAid->getTranscript());
+    }
 }
