@@ -36,14 +36,14 @@ class InformationObjectFindingAidComponent extends sfComponent
 
         // Public users can only see the download link if the file exists
         if (!$this->getUser()->isAuthenticated()) {
-            if (!empty($findingAid->getPath())) {
-                $this->path = $findingAid->getPath();
-                $this->showDownload = true;
-
-                return;
+            if (empty($findingAid->getPath())) {
+                return sfView::NONE;
             }
 
-            return sfView::NONE;
+            $this->path = $findingAid->getPath();
+            $this->showDownload = true;
+
+            return;
         }
 
         $lastJobStatus = arFindingAidJob::getStatus($this->resource->id);
