@@ -312,8 +312,19 @@ EOF;
           if (isset($self->rowStatusVars['donorName'])
             && $self->rowStatusVars['donorName'])
           {
+            $donors = explode('|', $self->rowStatusVars['donorName']);
+
+            if (count($donors) > 1)
+            {
+              for ($i = 1; $i < count($donors); $i++)
+              {
+                $donor = $self->createOrFetchDonor($donors[$i]);
+                $self->createRelation($self->object->id, $donor->id, QubitTerm::DONOR_ID);
+              }
+            }
+
             // Fetch/create donor
-            $donor = $self->createOrFetchDonor($self->rowStatusVars['donorName']);
+            $donor = $self->createOrFetchDonor($donors[0]);
 
             // Map column names to QubitContactInformation properties
             $columnToProperty = array(
