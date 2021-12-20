@@ -35,19 +35,32 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
             if ($this->form->isValid()) {
                 // Update resource synchronously
                 $publicationStatusId = $this->form->getValue('publicationStatus');
+                $this->resource->indexOnSave = false;
                 $this->resource->setPublicationStatus($publicationStatusId);
                 $this->resource->save();
 
-                // Update descendants using job scheduler
+                QubitSearch::getInstance()->partialUpdate(
+                    $this->resource,
+                    ['publicationStatusId' => $publicationStatusId]
+                );
+
                 if (filter_var($this->form->getValue('updateDescendants'), FILTER_VALIDATE_BOOLEAN)) {
-                    $options = ['objectId' => $this->resource->id, 'publicationStatusId' => $publicationStatusId];
+                    // Update descendants using job scheduler
+                    $options = [
+                        'objectId' => $this->resource->id,
+                        'publicationStatusId' => $publicationStatusId,
+                    ];
+
                     QubitJob::runJob('arUpdatePublicationStatusJob', $options);
 
                     // Let user know descendants update has started
                     $i18n = $this->context->i18n;
                     $this->context->getConfiguration()->loadHelpers(['Url']);
                     $jobsUrl = url_for(['module' => 'jobs', 'action' => 'browse']);
-                    $message = $i18n->__('Your description has been updated. Lower level descriptions are being updated now – check the <a href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
+                    $message = $i18n->__(
+                        'Your description has been updated. Lower level descriptions are being updated now – check the <a href="%1">job scheduler page</a> for status and details.',
+                        ['%1' => $jobsUrl]
+                    );
                     $this->getUser()->setFlash('notice', $message);
                 }
 
@@ -80,25 +93,24 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
             case 'publicationStatus':
                 $publicationStatus = $this->resource->getStatus(['typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID]);
                 if (isset($publicationStatus)) {
-                    $this->form->setDefault('publicationStatus', $publicationStatus->statusId);
+                    $this->form->setDefault($name, $publicationStatus->statusId);
                 } else {
-                    $this->form->setDefault('publicationStatus', sfConfig::get('app_defaultPubStatus'));
+                    $this->form->setDefault($name, sfConfig::get('app_defaultPubStatus'));
                 }
-
-                $this->form->setValidator('publicationStatus', new sfValidatorString());
 
                 $choices = [];
                 foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::PUBLICATION_STATUS_ID) as $item) {
                     $choices[$item->id] = $item;
                 }
 
-                $this->form->setWidget('publicationStatus', new sfWidgetFormSelect(['choices' => $choices]));
+                $this->form->setValidator($name, new sfValidatorChoice(['choices' => array_keys($choices)]));
+                $this->form->setWidget($name, new sfWidgetFormSelect(['choices' => $choices]));
 
                 break;
 
             case 'updateDescendants':
-                $this->form->setValidator('updateDescendants', new sfValidatorBoolean());
-                $this->form->setWidget('updateDescendants', new sfWidgetFormInputCheckbox());
+                $this->form->setValidator($name, new sfValidatorBoolean());
+                $this->form->setWidget($name, new sfWidgetFormInputCheckbox());
 
                 break;
         }

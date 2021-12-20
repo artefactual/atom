@@ -27,6 +27,3 @@ sfContext::createInstance($configuration->getApplicationConfiguration(
     'test',
     true
 ));
-
-// Composer autoloader
-include_once $_test_dir.'/../vendor/composer/autoload.php';

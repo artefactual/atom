@@ -24,6 +24,8 @@ require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/Univ
 
 require_once __DIR__.'/../lib/QubitApcUniversalClassLoader.php';
 
+require_once __DIR__.'/../vendor/composer/autoload.php';
+
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 class ProjectConfiguration extends sfProjectConfiguration
@@ -73,8 +75,6 @@ class ProjectConfiguration extends sfProjectConfiguration
         }
 
         $loader->registerNamespaces([
-            'Elastica' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
-            'Elasticsearch' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
             'Psr' => $rootDir.DIRECTORY_SEPARATOR.'vendor',
         ]);
 

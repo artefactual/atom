@@ -17,8 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once __DIR__.'/../vendor/composer/autoload.php';
-
 /**
  * Importer for Physical Object CSV data.
  *
