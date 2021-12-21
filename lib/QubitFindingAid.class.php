@@ -269,7 +269,11 @@ class QubitFindingAid
     {
         // Save status and transcript to database
         $this->saveStatus();
-        $this->saveTranscript();
+
+        // Save the PDF transcript for uploaded finding aids
+        if (self::UPLOADED_STATUS === $this->getStatus()) {
+            $this->saveTranscript();
+        }
 
         // Update ES document status and transcript data
         $partialData = [
