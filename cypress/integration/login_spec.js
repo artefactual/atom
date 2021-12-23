@@ -2,6 +2,7 @@ describe('Login', () => {
   it('Logs in through the user menu', () => {
     cy.visit('/')
     cy.contains('Log in').click()
+    cy.get('#csrf_token').should('exist')
     cy.get('input#email').type(Cypress.env('adminEmail'))
     cy.get('input#password').type(Cypress.env('adminPassword'))
     cy.get('#user-menu form').submit()
@@ -12,6 +13,7 @@ describe('Login', () => {
 
   it('Logs in through the login page', () => {
     cy.visit('/user/login')
+    cy.get('#csrf_token').should('exist')
     cy.get('#content input#email').type(Cypress.env('adminEmail'))
     cy.get('#content input#password').type(Cypress.env('adminPassword'))
     cy.get('#content form').submit()
@@ -20,9 +22,10 @@ describe('Login', () => {
     cy.contains('Log out')
   })
 
-  it('Fails loging in with the same error', () => {
+  it('Fails log in with the same error for both login forms', () => {
     cy.visit('/')
     cy.contains('Log in').click()
+    cy.get('#csrf_token').should('exist')
     cy.get('input#email').type('unknown@user.com')
     cy.get('input#password').type(Cypress.env('adminPassword'))
     cy.get('#user-menu form').submit()

@@ -34,9 +34,16 @@ Cypress.Commands.add('getHiddenInputs', (url, form) =>
 )
 
 Cypress.Commands.add('getCsrfToken', (url, form) =>
-  cy.getHiddenInputs(url, form).then(inputs =>
-    inputs.filter('#csrf_token').val()
-  )
+  cy.getHiddenInputs(url, form).then(inputs => {
+    const token = inputs.filter('#csrf_token')
+
+    if (0 === token.length) {
+      throw 'CSRF seems to be disabled (no #csrf_token hidden input found).' +
+      ' See: https://symfony.com/legacy/doc/reference/1_4/en/04-Settings#chapter_04_sub_csrf_secret'
+    }
+
+    return token.val()
+  })
 )
 
 Cypress.Commands.add('login', () =>
