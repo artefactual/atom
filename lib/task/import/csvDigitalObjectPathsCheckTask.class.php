@@ -66,7 +66,7 @@ Compare digital object-related files in a directory to data in a CSV file's
 column (digitalObjectPath by default) and display a report.
 
 Determines which files aren't referenced in the CSV data, which are referenced
-in CSV data but missing, and which files are references more than once.
+in CSV data but missing, and which files are referenced more than once.
 EOF;
     }
 
@@ -113,7 +113,8 @@ EOF;
         }
 
         while ($row = fgetcsv($fh, 60000)) {
-            array_push($values, $row[$imageColumnIndex]);
+            // Remove absolute path leading to image file
+            array_push($values, basename($row[$imageColumnIndex]));
         }
 
         return $values;
