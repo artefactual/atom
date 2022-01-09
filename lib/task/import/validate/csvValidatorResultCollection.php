@@ -126,11 +126,12 @@ class CsvValidatorResultCollection implements Iterator
 
     public function renderResultsAsText(bool $verbose = false): string
     {
-        $this->resetResultCounterList();
         $outputString = "CSV Results:\n";
 
         foreach ($this->results as $result) {
             if ($filename !== $result->getFilename()) {
+                $this->resetResultCounterList();
+
                 if (!empty($filename)) {
                     $outputString .= "\n";
                 }

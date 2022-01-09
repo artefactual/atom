@@ -169,7 +169,7 @@ EOF;
             $filePath = $directory.DIRECTORY_SEPARATOR.$file;
 
             if (is_file($filePath) && is_readable($filePath)) {
-                $filePaths[] = $filePath;
+                $filePaths[basename($filePath)] = $filePath;
             }
         }
 
