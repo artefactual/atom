@@ -17,18 +17,18 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
- class QubitWebResponse extends sfWebResponse
- {
-     /**
-      * Sets title for the current web response.
-      *
-      * @param string  $title   Title name
-      * @param bool    $escape  true, for escaping the title
-      */
-     public function setTitle($title, $escape = true)
-     {
-         // Remove Markdown from title
-         $title = QubitMarkdown::getInstance()->strip($title);
-         $this->addMeta('title', $title, true, $escape);
-     }
- }
+class QubitWebResponse extends sfWebResponse
+{
+    /**
+     * Sets title for the current web response.
+     *
+     * @param string $title  Title name
+     * @param bool   $escape false, for escaping the title
+     */
+    public function setTitle($title, $escape = false)
+    {
+        // Remove Markdown from title
+        $title = QubitMarkdown::getInstance()->strip($title);
+        $this->addMeta('title', $title, true, $escape);
+    }
+}
