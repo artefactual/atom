@@ -19,6 +19,8 @@
 
 class updatePublicationStatusTask extends arBaseTask
 {
+    protected $failureCount = 0;
+
     protected function configure()
     {
         $this->addArguments([
@@ -30,7 +32,6 @@ class updatePublicationStatusTask extends arBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'Force update of descendants', null),
             new sfCommandOption('ignore-descendants', 'i', sfCommandOption::PARAMETER_NONE, 'Don\'t update descendants', null),
             new sfCommandOption('no-confirm', 'y', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
             new sfCommandOption('repo', 'r', sfCommandOption::PARAMETER_NONE, 'Update all descriptions in given repository', null),
@@ -97,42 +98,85 @@ EOF;
 
         // Do work
         if (!$options['repo']) {
-            self::updatePublicationStatus($resource, $publicationStatus, $options);
+            $this->updatePublicationStatus($resource, $publicationStatus);
+
+            if (!$options['ignore-descendants']) {
+                $this->updatePublicationStatusDescendants($resource, $publicationStatus);
+            }
         } else {
             $criteria = new Criteria();
             $criteria->add(QubitInformationObject::REPOSITORY_ID, $resource->id);
 
             foreach (QubitInformationObject::get($criteria) as $item) {
-                self::updatePublicationStatus($item, $publicationStatus, $options);
+                $this->updatePublicationStatus($item, $publicationStatus);
+
+                if (!$options['ignore-descendants']) {
+                    $this->updatePublicationStatusDescendants($item, $publicationStatus);
+                }
             }
+        }
+
+        if (!empty($this->failureCount)) {
+            $this->logSection(
+                'tools',
+                sprintf(
+                    'Indexing failures occurred when updating publication status. %d records were not updated.',
+                    $this->failureCount
+                )
+            );
         }
 
         echo "\n";
         $this->logSection('tools', 'Finished updating publication statuses');
     }
 
-    protected static function updatePublicationStatus($resource, $publicationStatus, $options)
+    protected function updatePublicationStatus($resource, $publicationStatus)
     {
-        // Start work
+        $resource->indexOnSave = false;
         $resource->setPublicationStatus($publicationStatus->id);
         $resource->save();
 
-        // Update pub status of descendants
-        if (!$options['ignore-descendants']) {
-            foreach ($resource->descendants as $descendant) {
-                if (null === $descendantPubStatus = $descendant->getPublicationStatus()) {
-                    $descendantPubStatus = new QubitStatus();
-                    $descendantPubStatus->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
-                    $descendantPubStatus->objectId = $descendant->id;
-                }
+        QubitSearch::getInstance()->partialUpdate(
+            $resource,
+            ['publicationStatusId' => $publicationStatus->id]
+        );
+    }
 
-                if ($options['force'] || $publicationStatus->id != $descendantPubStatus->statusId) {
-                    $descendantPubStatus->statusId = $publicationStatus->id;
-                    $descendantPubStatus->save();
-                }
+    protected function updatePublicationStatusDescendants($resource, $publicationStatus)
+    {
+        $sql = 'UPDATE status
+            JOIN information_object io ON status.object_id = io.id
+            SET status.status_id = :publicationStatus
+            WHERE status.type_id = :publicationStatusType
+            AND io.lft > :lft
+            AND io.rgt < :rgt';
 
-                echo '.';
-            }
+        $params = [
+            ':publicationStatus' => $publicationStatus->id,
+            ':publicationStatusType' => QubitTerm::STATUS_TYPE_PUBLICATION_ID,
+            ':lft' => $resource->lft,
+            ':rgt' => $resource->rgt,
+        ];
+
+        $descriptionsUpdated = QubitPdo::modify($sql, $params);
+
+        // Use updateByQuery to update publication status in ES for resource.
+        $query = new \Elastica\Query\Term();
+        $query->setTerm('ancestors', $resource->id);
+
+        $queryScript = \Elastica\Script\AbstractScript::create([
+            'script' => [
+                'inline' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
+                'lang' => 'painless',
+            ],
+        ]);
+
+        $options = ['conflicts' => 'proceed'];
+
+        $response = QubitSearch::getInstance()->index->updateByQuery($query, $queryScript, $options)->getData();
+
+        if (!empty($response['failures'])) {
+            $this->failures += count($response['failures']);
         }
     }
 
