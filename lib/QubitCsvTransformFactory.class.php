@@ -69,10 +69,9 @@ class QubitCsvTransformFactory
         $tempCsvFile = sys_get_temp_dir().'/'.$this->machineName.'_stage1.csv';
 
         return new QubitCsvTransform([
-            'options' => $this->cliOptions,
-
             'status' => [
-                'cliOptions' => $this->cliOptions,
+                'finalOutputFile' => $this->cliOptions['output-file'],
+                'ignoreBadLod' => $this->cliOptions['ignore-bad-lod'],
                 'parentKeys' => [],
                 'ignoreRows' => $this->ignoreRows,
                 'ignoreRowCheckLogic' => $this->ignoreRowCheckLogic,
@@ -122,8 +121,6 @@ class QubitCsvTransformFactory
                 }
 
                 $stage2 = new QubitCsvTransform([
-                    'skipOptionsAndEnvironmentCheck' => true,
-
                     'status' => [
                         'cliOptions' => $self->status['cliOptions'],
                         'finalOutputFile' => $self->status['finalOutputFile'],
@@ -185,11 +182,9 @@ class QubitCsvTransformFactory
                             }
 
                             if (is_numeric($sortorder)) {
-                                //  print "Description sort order is ". $sortorder .".\n";
                                 $self->addRowToMySQL($sortorder);
                             } elseif (isset($self->status['ignoreBadLod']) && $self->status['ignoreBadLod']) {
                                 $sortorder = count($self->levelsOfDescription);
-                                //  print "Description sort order is ". $sortorder .".\n";
                                 $self->addRowToMySQL($sortorder);
                             } else {
                                 ++$self->status['badLevelOfDescription'];
@@ -201,11 +196,15 @@ class QubitCsvTransformFactory
                     },
 
                     'completeLogic' => function (&$self) {
-                        $self->writeMySQLRowsToCsvFilePath($self->status['finalOutputFile']);
+                        if (!empty($self->status['finalOutputFile'])) {
+                            $self->writeMySQLRowsToCsvFilePath($self->status['finalOutputFile']);
+                        }
 
                         echo "Step 2 complete.\n";
                         echo 'Bad parents found: '.$self->status['badParents'].".\n";
                         echo 'Bad level of description found: '.$self->status['badLevelOfDescription'].".\n";
+
+                        QubitCsvTransform::dropMySQLtemp();
                     },
                 ]);
 

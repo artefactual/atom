@@ -19,6 +19,11 @@
 
 class QubitCsvTransform extends QubitFlatfileImport
 {
+    /**
+     * Name of MySQL table to create as a place to temporarily store row data.
+     */
+    public const WORKING_AREA_TABLE = 'import_rows';
+
     public $setupLogic;
     public $transformLogic;
     public $rowsPerFile = 1000;
@@ -27,25 +32,9 @@ class QubitCsvTransform extends QubitFlatfileImport
     public $sortOrderCallback;
     public $convertWindowsEncoding = false;
 
-    private $link;
-
     public function __construct($options = [])
     {
-        if (
-            !isset($options['skipOptionsAndEnvironmentCheck'])
-            || false == $options['skipOptionsAndEnvironmentCheck']
-        ) {
-            $this->checkTaskOptionsAndEnvironment($options['options']);
-        }
-
-        // unset options not allowed in parent class
-        unset($options['skipOptionsAndEnvironmentCheck']);
-        if (isset($options['options'])) {
-            $cliOptions = $options['options'];
-            unset($options['options']);
-        }
-
-        // call parent class constructor
+        // Call parent class constructor
         parent::__construct($options);
 
         if (isset($options['setupLogic'])) {
@@ -56,10 +45,6 @@ class QubitCsvTransform extends QubitFlatfileImport
             $this->transformLogic = $options['transformLogic'];
         }
 
-        if (isset($cliOptions)) {
-            $this->status['finalOutputFile'] = $cliOptions['output-file'];
-            $this->status['ignoreBadLod'] = $cliOptions['ignore-bad-lod'];
-        }
         $this->status['headersWritten'] = false;
 
         // Set levels of description
@@ -84,9 +69,14 @@ class QubitCsvTransform extends QubitFlatfileImport
         }
     }
 
+    private function __destruct()
+    {
+        $this->dropMySQLtemp();
+    }
+
     public function writeHeadersOnFirstPass()
     {
-        // execute setup logic, if any
+        // Execute setup logic, if any
         if (isset($this->setupLogic)) {
             $this->executeClosurePropertyIfSet('setupLogic');
         }
@@ -99,27 +89,26 @@ class QubitCsvTransform extends QubitFlatfileImport
 
     public function initializeMySQLtemp()
     {
-        // Possible future cleanup: use QubitPdo (might have to add a method to set QubitPdo's private $conn property)
-        if (false === $link = mysqli_connect(getenv('MYSQL_HOST'), getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'), getenv('MYSQL_DB'))) {
-            throw new sfException('MySQL connection failed.');
-        }
-
-        $this->link = $link;
-
-        $sql = 'CREATE TABLE IF NOT EXISTS import_descriptions (
+        // Create transformation work area if it doesn't yet exist
+        $sql = 'CREATE TABLE IF NOT EXISTS '.self::WORKING_AREA_TABLE.' (
             id INT NOT NULL AUTO_INCREMENT,
             sortorder INT,
             data LONGTEXT,
             PRIMARY KEY (id))';
 
-        if (false === mysqli_query($link, $sql)) {
-            throw new sfException('MySQL create table failed.');
-        }
+        QubitPdo::modify($sql);
 
-        $sql = 'DELETE FROM import_descriptions';
-        if (false === mysqli_query($link, $sql)) {
-            throw new sfException('MySQL delete from import_descriptions failed.');
-        }
+        // Delete contents of work area
+        $sql = 'DELETE FROM '.self::WORKING_AREA_TABLE;
+
+        QubitPdo::prepareAndExecute($sql);
+    }
+
+    public static function dropMySQLtemp()
+    {
+        $sql = 'DROP TABLE '.self::WORKING_AREA_TABLE;
+
+        QubitPdo::modify($sql);
     }
 
     public function addRowToMySQL($sortorder)
@@ -133,16 +122,10 @@ class QubitCsvTransform extends QubitFlatfileImport
             }
         }
 
-        $sql = "INSERT INTO import_descriptions
-            (sortorder, data)
-            VALUES ('".mysqli_real_escape_string($this->link, $sortorder)."',
-            '".mysqli_real_escape_string($this->link, serialize($row))."')";
+        // Add serialized row data to the work area
+        $sql = 'INSERT INTO '.self::WORKING_AREA_TABLE.' (sortorder, data) VALUES (?, ?)';
 
-        $result = mysqli_query($this->link, $sql);
-
-        if (!$result) {
-            throw new sfException('Failed to create MySQL DB row:'.mysqli_error($this->link));
-        }
+        QubitPdo::prepareAndExecute($sql, [$sortorder, serialize($row)]);
     }
 
     public static function numberedFilePathVariation($filename, $number)
@@ -172,15 +155,15 @@ class QubitCsvTransform extends QubitFlatfileImport
 
         fputcsv($fhOut, $this->columnNames); // write headers
 
-        // cycle through DB, sorted by sort, and write CSV file
-        $sql = 'SELECT data FROM import_descriptions ORDER BY sortorder';
+        // Cycle through sorted work area and write CSV file
+        $sql = 'SELECT data FROM '.self::WORKING_AREA_TABLE.' ORDER BY sortorder';
 
-        $result = mysqli_query($this->link, $sql);
+        $statement = QubitPdo::prepareAndExecute($sql);
 
         $currentRow = 1;
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            // if starting a new chunk, write CSV headers
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            // If starting a new CSV file, write CSV headers first
             if (($currentRow % $this->rowsPerFile) == 0) {
                 ++$chunk;
                 $chunkFilePath = $this->numberedFilePathVariation($filepath, $chunk);
@@ -188,12 +171,12 @@ class QubitCsvTransform extends QubitFlatfileImport
 
                 echo 'Writing to '.$chunkFilePath."...\n";
 
-                fputcsv($fhOut, $this->columnNames); // write headers
+                fputcsv($fhOut, $this->columnNames);
             }
 
+            // Write CSV row data
             $data = unserialize($row['data']);
 
-            // write to CSV out
             fputcsv($fhOut, $data);
 
             ++$currentRow;
@@ -203,18 +186,5 @@ class QubitCsvTransform extends QubitFlatfileImport
     public function levelOfDescriptionToSortorder($level)
     {
         return array_search(strtolower($level), $this->levelsOfDescription);
-    }
-
-    protected function checkTaskOptionsAndEnvironment($options)
-    {
-        if (!$options['output-file']) {
-            throw new sfException('You must specifiy the output-file option.');
-        }
-
-        foreach (['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DB'] as $var) {
-            if (false === getenv($var)) {
-                throw new sfException('You must set the '.$var.' environmental variable.');
-            }
-        }
     }
 }
