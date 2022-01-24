@@ -117,12 +117,6 @@ class sfDcPlugin implements ArrayAccess
             case 'format':
                 $format = [];
 
-                if (null !== $digitalObject = $this->resource->getDigitalObject()) {
-                    if (isset($digitalObject->mimeType)) {
-                        $format[] = $digitalObject->mimeType;
-                    }
-                }
-
                 if (isset($this->resource->extentAndMedium)) {
                     $format[] = $this->resource->getCleanExtentAndMedium(['cultureFallback' => true]);
                 }
@@ -157,31 +151,6 @@ class sfDcPlugin implements ArrayAccess
 
                 foreach ($this->resource->getTermRelations(QubitTaxonomy::DC_TYPE_ID) as $item) {
                     $type[] = $item->term;
-                }
-
-                // Map media type to DCMI type vocabulary
-                if (null !== $digitalObject = $this->resource->getDigitalObject()) {
-                    switch ($digitalObject->mediaType) {
-                        case 'Image':
-                            $type[] = 'image';
-
-                            break;
-
-                        case 'Video':
-                            $type[] = 'moving image';
-
-                            break;
-
-                        case 'Audio':
-                            $type[] = 'sound';
-
-                            break;
-
-                        case 'Text':
-                            $type[] = 'text';
-
-                            break;
-                    }
                 }
 
                 return $type;
