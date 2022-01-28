@@ -37,3 +37,4 @@ import "./rename";
 import "./rights";
 import "./fullWidthTreeView";
 import "./deletePhysicalStorage";
+import "./settingsFindingAid";
