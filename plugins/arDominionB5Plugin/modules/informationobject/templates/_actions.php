@@ -29,7 +29,19 @@
             <li><?php echo link_to(__('Rename'), [$resource, 'module' => 'informationobject', 'action' => 'rename'], ['class' => 'dropdown-item']); ?></li>
 
             <?php if (QubitAcl::check($resource, 'publish')) { ?>
-              <li><?php echo link_to(__('Update publication status'), [$resource, 'module' => 'informationobject', 'action' => 'updatePublicationStatus'], ['class' => 'dropdown-item']); ?></li>
+              <li><?php echo link_to(
+                  __('Update publication status'),
+                  [
+                      $resource,
+                      'module' => 'informationobject',
+                      'action' => 'updatePublicationStatus',
+                  ],
+                  [
+                      'id' => 'update-publication-status',
+                      'data-cy' => 'update-publication-status',
+                      'class' => 'dropdown-item',
+                  ]
+                ); ?></li>
             <?php } ?>
 
             <li><hr class="dropdown-divider"></li>

@@ -1,7 +1,7 @@
 <div class="accordion mb-3 adv-search" role="search">
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading-adv-search">
-      <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search">
+      <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search" data-cy="advanced-search-toggle">
         <?php echo __('Advanced search options'); ?>
       </button>
     </h2>
@@ -40,26 +40,15 @@
                   </div>
 
                   <div class="col-xl-auto mb-3">
+
                     <select class="form-select" name="sf<?php echo $key; ?>">
-                      <option value=""<?php echo '' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Any field'); ?></option>
-                      <option value="title"<?php echo 'title' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Title'); ?></option>
-                      <?php if (('rad' == $template && check_field_visibility('app_element_visibility_rad_archival_history'))
-                        || ('isad' == $template && check_field_visibility('app_element_visibility_isad_archival_history'))
-                        || ('isad' != $template && 'rad' != $template)) { ?>
-                        <option value="archivalHistory"<?php echo 'archivalHistory' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Archival history'); ?></option>
+                      <?php foreach ($fieldTypes as $val => $label) { ?>
+                        <option value="<?php echo $val; ?>"<?php
+                          echo ($item['field'] === $val) ? ' selected' : '';
+                        ?>>
+                          <?php echo $label; ?>
+                        </option>
                       <?php } ?>
-                      <option value="scopeAndContent"<?php echo 'scopeAndContent' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Scope and content'); ?></option>
-                      <option value="extentAndMedium"<?php echo 'extentAndMedium' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Extent and medium'); ?></option>
-                      <option value="subject"<?php echo 'subject' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Subject access points'); ?></option>
-                      <option value="name"<?php echo 'name' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Name access points'); ?></option>
-                      <option value="place"<?php echo 'place' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Place access points'); ?></option>
-                      <option value="genre"<?php echo 'genre' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Genre access points'); ?></option>
-                      <option value="identifier"<?php echo 'identifier' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Identifier'); ?></option>
-                      <option value="referenceCode"<?php echo 'referenceCode' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Reference code'); ?></option>
-                      <option value="digitalObjectTranscript"<?php echo 'digitalObjectTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Digital object text'); ?></option>
-                      <option value="findingAidTranscript"<?php echo 'findingAidTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Finding aid text'); ?></option>
-                      <option value="creator"<?php echo 'creator' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Creator'); ?></option>
-                      <option value="allExceptFindingAidTranscript"<?php echo 'allExceptFindingAidTranscript' == $item['field'] ? ' selected="selected"' : ''; ?>><?php echo __('Any field except finding aid text'); ?></option>
                     </select>
                   </div>
 
@@ -97,25 +86,13 @@
 
               <div class="col-xl-auto mb-3">
                 <select class="form-select" name="sf<?php echo $count; ?>">
-                  <option value=""><?php echo __('Any field'); ?></option>
-                  <option value="title"><?php echo __('Title'); ?></option>
-                  <?php if (('rad' == $template && check_field_visibility('app_element_visibility_rad_archival_history'))
-                    || ('isad' == $template && check_field_visibility('app_element_visibility_isad_archival_history'))
-                    || ('isad' != $template && 'rad' != $template)) { ?>
-                    <option value="archivalHistory"><?php echo __('Archival history'); ?></option>
+                  <?php foreach ($fieldTypes as $val => $label) { ?>
+                    <option value="<?php echo $val; ?>"<?php
+                      echo ($item['field'] === $val) ? ' selected' : '';
+                    ?>>
+                      <?php echo $label; ?>
+                    </option>
                   <?php } ?>
-                  <option value="scopeAndContent"><?php echo __('Scope and content'); ?></option>
-                  <option value="extentAndMedium"><?php echo __('Extent and medium'); ?></option>
-                  <option value="subject"><?php echo __('Subject access points'); ?></option>
-                  <option value="name"><?php echo __('Name access points'); ?></option>
-                  <option value="place"><?php echo __('Place access points'); ?></option>
-                  <option value="genre"><?php echo __('Genre access points'); ?></option>
-                  <option value="identifier"><?php echo __('Identifier'); ?></option>
-                  <option value="referenceCode"><?php echo __('Reference code'); ?></option>
-                  <option value="digitalObjectTranscript"><?php echo __('Digital object text'); ?></option>
-                  <option value="findingAidTranscript"><?php echo __('Finding aid text'); ?></option>
-                  <option value="creator"><?php echo __('Creator'); ?></option>
-                  <option value="allExceptFindingAidTranscript"><?php echo __('Any field except finding aid text'); ?></option>
                 </select>
               </div>
 
@@ -173,29 +150,33 @@
 
             <div class="row">
 
+              
               <div class="col-md-4">
                 <?php echo render_field($form->levels->label(__('Level of description'))); ?>
               </div>
+              
 
               <div class="col-md-4">
                 <?php echo render_field($form->onlyMedia->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))); ?>
               </div>
 
-              <div class="col-md-4">
-                <?php echo render_field($form->findingAidStatus->label(__('Finding aid'))); ?>
-              </div>
+              <?php if ($findingAidsEnabled) { ?>
+                <div class="col-md-4">
+                  <?php echo render_field($form->findingAidStatus->label(__('Finding aid'))); ?>
+                </div>
+              <?php } ?>
 
             </div>
 
             <div class="row">
 
-              <?php if (sfConfig::get('app_toggleCopyrightFilter')) { ?>
+              <?php if ($showCopyright) { ?>
                 <div class="col-md-6">
                   <?php echo render_field($form->copyrightStatus->label(__('Copyright status'))); ?>
                 </div>
               <?php } ?>
 
-              <?php if (sfConfig::get('app_toggleMaterialFilter')) { ?>
+              <?php if ($showMaterial) { ?>
                 <div class="col-md-6">
                   <?php echo render_field($form->materialType->label(__('General material designation'))); ?>
                 </div>
