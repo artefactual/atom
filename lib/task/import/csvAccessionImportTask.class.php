@@ -368,9 +368,10 @@ EOF;
               // Create contact information if none exists
               $self->createOrFetchContactInformation($donor->id, $contactData);
 
-              // Create relation between accession and donor
-              $self->createRelation($self->object->id, $donor->id, QubitTerm::DONOR_ID);
             }
+
+            // Create relation between accession and donor
+            $self->createRelation($self->object->id, $donor->id, QubitTerm::DONOR_ID);
           }
 
           // Link accession to existing description
