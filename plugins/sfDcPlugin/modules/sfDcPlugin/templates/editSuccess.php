@@ -58,6 +58,10 @@
 
         </section>
 
+        <?php echo render_field($form->scopeAndContent
+            ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
+            ->label(__('Description')), $resource, ['class' => 'resizable']); ?>
+
         <div class="form-item">
           <?php echo $form->subjectAccessPoints
               ->label(__('Subject'))
@@ -71,10 +75,6 @@
               ->help(__('The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.'))
               ->renderHelp(); ?>
         </div>
-
-        <?php echo render_field($form->scopeAndContent
-            ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
-            ->label(__('Description')), $resource, ['class' => 'resizable']); ?>
 
         <?php echo $form->type
             ->help(__('<p>The nature or genre of the resource.</p><p>Assign as many types as applicable. The <em>Type</em> options are limited to the DCMI Type vocabulary.</p><p>Assign the <em>Collection</em> value if this resource is the top-level for a set of lower-level (child) resources.</p><p>Please note: if this resource is linked to a digital object, the <em>image</em>, <em>text</em>, <em>sound</em> or <em>moving image</em> types are added automatically upon output, so do not duplicate those values here.</p>'))
