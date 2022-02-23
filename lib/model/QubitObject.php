@@ -176,7 +176,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
                 // Collision? Try next suffix
                 catch (Exception $e) {
                     // If exception is unexpected re-throw it
-                    if (!($e instanceof RuntimeException || $e instanceof PdoException)) {
+                    if (!($e instanceof RuntimeException || $e instanceof PDOException)) {
                         throw $e;
                     }
 
