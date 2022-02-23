@@ -58,6 +58,10 @@
 
             <?php echo get_partial('dcDates', $sf_data->getRaw('dcDatesComponent')->getVarHolder()->getAll()); ?>
 
+            <?php echo render_field($form->scopeAndContent
+                ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
+                ->label(__('Description')), $resource); ?>
+
             <?php
                 $taxonomy = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
                 $taxonomyUrl = url_for([$taxonomy, 'module' => 'taxonomy']);
@@ -79,10 +83,6 @@
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
                 );
             ?>
-
-            <?php echo render_field($form->scopeAndContent
-                ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
-                ->label(__('Description')), $resource); ?>
 
             <?php echo render_field($form->type
                 ->help(__('<p>The nature or genre of the resource.</p><p>Assign as many types as applicable. The <em>Type</em> options are limited to the DCMI Type vocabulary.</p><p>Assign the <em>Collection</em> value if this resource is the top-level for a set of lower-level (child) resources.</p><p>Please note: if this resource is linked to a digital object, the <em>image</em>, <em>text</em>, <em>sound</em> or <em>moving image</em> types are added automatically upon output, so do not duplicate those values here.</p>'))

@@ -106,6 +106,8 @@
 
   <?php echo get_partial('informationobject/dates', ['resource' => $resource]); ?>
 
+  <?php echo render_show(__('Description'), render_value($resource->getScopeAndContent(['cultureFallback' => true]))); ?>
+
   <?php
       $subjects = [];
       foreach ($resource->getSubjectAccessPoints() as $item) {
@@ -114,13 +116,9 @@
       echo render_show(__('Subjects'), $subjects);
   ?>
 
-  <?php echo render_show(__('Description'), render_value($resource->getScopeAndContent(['cultureFallback' => true]))); ?>
-
   <?php echo render_show(__('Types'), $dc->type); ?>
 
-  <?php foreach ($dc->format as $item) { ?>
-    <?php echo render_show(__('Format'), render_value($item)); ?>
-  <?php } ?>
+  <?php echo render_show(__('Format'), render_value($dc->format)); ?>
 
   <?php echo render_show(__('Source'), render_value($resource->getLocationOfOriginals(['cultureFallback' => true]))); ?>
 
