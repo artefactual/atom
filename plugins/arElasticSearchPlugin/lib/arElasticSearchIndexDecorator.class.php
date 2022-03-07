@@ -52,6 +52,11 @@ class arElasticSearchIndexDecorator
         return $this->_instance->{$key} = $val;
     }
 
+    public function getInstance()
+    {
+        return $this->_instance;
+    }
+
     /**
      * Update entries in the db based on a query.
      *
