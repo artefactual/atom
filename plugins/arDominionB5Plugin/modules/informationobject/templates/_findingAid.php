@@ -12,6 +12,7 @@
     <li>
       <a
         id="generate-finding-aid"
+        class="atom-icon-link"
         href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'generateFindingAid']); ?>"
         data-cy="generate-finding-aid"
       >
@@ -25,6 +26,7 @@
     <li>
       <a
         id="upload-finding-aid"
+        class="atom-icon-link"
         href="<?php echo url_for([$resource, 'module' => 'informationobject', 'action' => 'uploadFindingAid']); ?>"
         data-cy="upload-finding-aid"
       >
