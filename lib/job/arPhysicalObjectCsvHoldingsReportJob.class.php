@@ -45,7 +45,11 @@ class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
         }
 
         // Attempt export
-        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $this->zipFileDownload = new arZipFileDownload(
+            $this->job->id,
+            $this->downloadFileExtension,
+            $this->logger,
+        );
         $tempPath = $this->zipFileDownload->createJobTempDir();
 
         $exportFile = $tempPath.DIRECTORY_SEPARATOR.'holdings.csv';

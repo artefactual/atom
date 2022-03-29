@@ -133,7 +133,11 @@ class arFileImportJob extends arBaseJob
     protected function createZipFileDownload()
     {
         // Attempt export of verbose report.
-        $zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $zipFileDownload = new arZipFileDownload(
+            $this->job->id,
+            $this->downloadFileExtension,
+            $this->logger,
+        );
         $tempPath = $zipFileDownload->createJobTempDir();
 
         // Write verbose report contents to tempPath.

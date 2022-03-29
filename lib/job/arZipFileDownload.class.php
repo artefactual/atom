@@ -27,8 +27,10 @@ class arZipFileDownload
     protected $jobId;
     protected $downloadFileExtension;
     protected $i18n;
+    protected $tempDir;
+    protected $logger;
 
-    public function __construct($jobId, $downloadFileExtension)
+    public function __construct($jobId, $downloadFileExtension, $logger)
     {
         $context = sfContext::getInstance();
         $this->i18n = $context->i18n;
@@ -36,6 +38,12 @@ class arZipFileDownload
         $this->jobId = $jobId;
 
         $this->downloadFileExtension = $downloadFileExtension;
+        $this->logger = $logger;
+    }
+
+    public function __destruct()
+    {
+        $this->deleteJobTempDir();
     }
 
     /**
@@ -55,12 +63,27 @@ class arZipFileDownload
             sfConfig::get('sf_root_dir')
             .sfConfig::get('app_workers_key', '')
             .$this->jobId
-            .date_timestamp_get()
+            .date_timestamp_get(date_create())
         );
-        $path = sys_get_temp_dir().DIRECTORY_SEPARATOR.$name;
-        mkdir($path);
+        $this->tempDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.$name;
+        mkdir($this->tempDir);
 
-        return $path;
+        return $this->tempDir;
+    }
+
+    /**
+     * Delete temporary job directory contents and directory.
+     */
+    public function deleteJobTempDir()
+    {
+        if (isset($this->tempDir) && is_dir($this->tempDir)) {
+            $this->logger->info(
+                sprintf('Deleting temporary job directory %s', $this->tempDir)
+            );
+
+            sfToolkit::clearDirectory($this->tempDir);
+            rmdir($this->tempDir);
+        }
     }
 
     /**

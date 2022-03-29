@@ -37,7 +37,11 @@ class arExportJob extends arBaseJob
     {
         $this->params = $parameters;
 
-        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $this->zipFileDownload = new arZipFileDownload(
+            $this->job->id,
+            $this->downloadFileExtension,
+            $this->logger,
+        );
 
         $tempPath = $this->zipFileDownload->createJobTempDir();
 
@@ -82,10 +86,6 @@ class arExportJob extends arBaseJob
 
         $this->job->setStatusCompleted();
         $this->job->save();
-
-        // Delete temp directory contents and directory
-        sfToolkit::clearDirectory($tempPath);
-        rmdir($tempPath);
     }
 
     /**

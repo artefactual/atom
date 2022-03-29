@@ -47,7 +47,11 @@ class arValidateCsvJob extends arBaseJob
         $this->info($validationResultString);
 
         // Attempt export of verbose report.
-        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $this->zipFileDownload = new arZipFileDownload(
+            $this->job->id,
+            $this->downloadFileExtension,
+            $this->logger,
+        );
         $tempPath = $this->zipFileDownload->createJobTempDir();
 
         // Write verbose report contents to tempPath.

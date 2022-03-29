@@ -38,7 +38,11 @@ class arRepositoryCsvExportJob extends arExportJob
         $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
         $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
-        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $this->zipFileDownload = new arZipFileDownload(
+            $this->job->id,
+            $this->downloadFileExtension,
+            $this->logger,
+        );
         $tempPath = $this->zipFileDownload->createJobTempDir();
 
         // Export CSV to temp directory
