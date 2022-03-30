@@ -5,7 +5,7 @@
   <div class="more">
     <a href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id]); ?>">
       <i class="fa fa-search"></i>
-      <?php echo __('Browse %1% holdings', ['%1%' => $pager->getNbResults()]); ?>
+      <?php echo __('Browse %1% results', ['%1%' => $pager->getNbResults()]); ?>
     </a>
   </div>
   <ul>
