@@ -33,29 +33,39 @@
           <tr>
             <td>
               <?php echo $form->siteTitle->renderLabel(
-                           'Site title', ['title' => 'The name of the website for display in the header']); ?>
+                'Site title',
+                ['title' => 'The name of the website for display in the header']
+              ); ?>
             </td>
             <td>
-              <?php echo get_partial('settings/i18n_form_field',
+              <?php echo get_partial(
+                'settings/i18n_form_field',
                 [
                     'name' => 'siteTitle',
                     'label' => null,
                     'settings' => $settings,
-                    'form' => $form, ]); ?>
+                    'form' => $form,
+                ]
+              ); ?>
             </td>
           </tr>
           <tr>
             <td>
               <?php echo $form->siteDescription->renderLabel(
-                           'Site description', ['title' => 'A brief site description or &quot;tagline&quot; for the header']); ?>
+                'Site description',
+                ['title' => 'A brief site description or &quot;tagline&quot; for the header']
+              ); ?>
             </td>
             <td>
-              <?php echo get_partial('settings/i18n_form_field',
+              <?php echo get_partial(
+                'settings/i18n_form_field',
                 [
                     'name' => 'siteDescription',
                     'label' => null,
                     'settings' => $settings,
-                    'form' => $form, ]); ?>
+                    'form' => $form,
+                ]
+              ); ?>
             </td>
           </tr>
           <tr>
@@ -63,10 +73,7 @@
               <?php
                 echo $form->siteBaseUrl->renderLabel(
                   'Site base URL (used in MODS and EAD exports)',
-                  [
-                      'title' => 'Used to create absolute URLs, pointing to ' +
-                      'resources, in XML exports',
-                  ]
+                  ['title' => 'Used to create absolute URLs in XML exports']
                 ); ?>
             </td>
             <td>

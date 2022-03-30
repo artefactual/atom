@@ -1,0 +1,118 @@
+.atom-btn-secondary {
+  @include button-variant($secondary, $secondary);
+
+  &:hover,
+  &:focus {
+    background-color: $primary;
+    border-color: $primary;
+  }
+
+  &:focus,
+  &:focus:active {
+    box-shadow: $btn-focus-box-shadow;
+  }
+}
+
+.atom-btn-white {
+  @include button-variant($white, $border-color);
+  $color: $gray-900;
+
+  i {
+    color: $gray-600;
+    @include transition($btn-transition);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $gray-200;
+
+    i {
+      color: $primary;
+    }
+  }
+
+  &:focus,
+  &:focus:active {
+    box-shadow: $atom-gray-box-shadow;
+  }
+
+  &.active {
+    background-color: $gray-300;
+    $color: $gray-900;
+
+    &:hover i,
+    &:focus i {
+      color: $gray-600;
+    }
+  }
+
+  &.active-primary.active {
+    background-color: $primary;
+    border-color: $primary;
+
+    &,
+    i {
+      color: $white;
+    }
+
+    &:focus {
+      box-shadow: $btn-focus-box-shadow;
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .atom-btn-outline-#{$color} {
+    @include button-outline-variant($value);
+
+    color: $white;
+    border-color: $white;
+
+    &:hover,
+    &:focus {
+      color: color-contrast($value);
+      background-color: $value;
+      border-color: $value;
+    }
+
+    &:disabled {
+      color: $white;
+    }
+  }
+}
+
+.accordion-button {
+  font-size: $h5-font-size;
+
+  &:hover,
+  &:focus {
+    background-color: $gray-200;
+  }
+}
+
+.atom-section-header a {
+  @extend .accordion-button;
+
+  &::after {
+    transform: rotate(-90deg) !important;
+  }
+}
+
+.atom-icon-link {
+  i {
+    color: $gray-600;
+  }
+
+  &:hover,
+  &:focus {
+    i {
+      color: $primary;
+    }
+  }
+}
+
+#privacy-message a {
+  color: #04414d;
+  font-weight: 700;
+  text-decoration: underline;
+}

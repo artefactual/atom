@@ -1,0 +1,92 @@
+#treeview {
+  max-height: 36rem;
+  overflow: hidden auto;
+
+  // Sortable placeholder
+  .placeholder {
+    background-color: rgba($white, 0.8);
+  }
+
+  // Sortable helper
+  .ui-sortable-helper {
+    background-color: rgba($white, 0.8);
+    border: $border-width solid $border-color;
+    box-shadow: $atom-gray-box-shadow;
+  }
+
+  // Loading state shows the wait cursor
+  &.loading,
+  &.loading * {
+    cursor: wait !important;
+  }
+
+  .list-group {
+    border-top: $border-width solid $border-color;
+  }
+
+  // Each sortable/expandable treeview row
+  .list-group-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .grip,
+  .arrow {
+    min-width: $spacer;
+  }
+
+  // Grip (sortable functionality)
+  .grip {
+    cursor: move;
+    margin-left: auto;
+    @extend .text-muted;
+  }
+  .list-group-item.ui-sortable-helper .grip,
+  .list-group-item:hover .grip {
+    visibility: visible;
+  }
+
+  // Ancestors show darker rows
+  .ancestor {
+    background-color: $gray-200;
+  }
+
+  // Compensation when the left arrow is unused
+  .text:first-child {
+    margin-left: $spacer * 1.5;
+  }
+
+  // Arrow sprites and cursors
+  .arrow {
+    @extend .me-2;
+    @extend .fas;
+    @extend .fa-fw;
+    @extend .fa-xs;
+  }
+  .ancestor .arrow:before,
+  .ancestor.expand:hover .arrow:before,
+  .ancestor.root:hover .arrow:before {
+    content: "\f078"; // ↓
+  }
+  .expand .arrow:before,
+  .ancestor:hover .arrow:before {
+    content: "\f054"; // →
+  }
+  .root .arrow {
+    cursor: default !important;
+  }
+  .ancestor .arrow,
+  .expand .arrow {
+    cursor: pointer;
+  }
+}
+
+// Better integration of alerts within the treeview sidebar search box
+#treeview-search .alert {
+  border-color: $border-color !important;
+}

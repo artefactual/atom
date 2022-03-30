@@ -1,0 +1,145 @@
+body {
+  overflow-x: hidden;
+}
+
+header i.fa-2x {
+  font-size: $spacer * 1.75;
+  width: $spacer * 2.75;
+}
+
+.dropdown-menu {
+  box-shadow: $box-shadow;
+
+  .dropdown-header {
+    font-size: $spacer * 1.25;
+  }
+}
+
+.alert {
+  .alert-link {
+    text-decoration: underline;
+  }
+
+  > p:last-of-type,
+  > pre:last-of-type {
+    margin-bottom: 0;
+
+    & + p,
+    & + pre {
+      margin-top: $spacer;
+    }
+  }
+}
+
+.filter-tag:last-child {
+  margin-bottom: $spacer;
+}
+
+#sidebar {
+  .repository-logo,
+  .repository-logo-text h2 {
+    max-width: 220px;
+  }
+
+  #settings-menu {
+    top: $spacer;
+  }
+}
+
+#content {
+  background-color: $white;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  margin-bottom: $spacer;
+
+  > .border-bottom:last-child {
+    border-bottom: none !important;
+  }
+
+  .field {
+    ul {
+      margin-left: $spacer * 0.25;
+      padding-left: $spacer;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .contact-info:not(:last-child) {
+    border-bottom: $border-width solid $border-color;
+  }
+
+  #front-map {
+    height: 200px;
+  }
+
+  .search-result {
+    &:last-child {
+      border-bottom: 0 !important;
+    }
+
+    .text-block :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.actions {
+  background-color: $secondary;
+  border-radius: $border-radius;
+  padding: $spacer;
+
+  a,
+  button {
+    @extend .text-wrap;
+  }
+}
+
+.hidden,
+body > iframe,
+#print-date,
+#node_globalReplace {
+  display: none;
+}
+
+@include media-breakpoint-up(lg) {
+  #navbar-content.wrapped {
+    > .flex-grow-1 {
+      flex-grow: 0 !important;
+    }
+
+    #search-box {
+      width: 400px;
+    }
+  }
+
+  #search-box {
+    max-width: 500px;
+    min-width: 300px;
+  }
+
+  #navbar-content a.dropdown-toggle::after {
+    content: none;
+  }
+
+  #inline-search {
+    min-width: 400px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dropdown-menu {
+    min-width: auto;
+
+    .dropdown-item,
+    .text-nowrap {
+      white-space: normal !important;
+    }
+  }
+}

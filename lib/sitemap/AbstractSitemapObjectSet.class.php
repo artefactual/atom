@@ -32,6 +32,7 @@ abstract class AbstractSitemapObjectSet implements Countable, Iterator
      * Sitemap configuration (sitemap.yml).
      */
     public $config;
+
     /**
      * Database recordset.
      */

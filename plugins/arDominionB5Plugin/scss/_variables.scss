@@ -1,0 +1,86 @@
+// Custom
+$atom-gray-box-shadow: 0 0 0 0.25rem #ced4da !default;
+
+// Bootstrap
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+$orange: #f60 !default;
+$blue: #0a58ca !default;
+$primary: $orange !default;
+$secondary: $gray-700 !default;
+$body-bg: $gray-100 !default;
+$input-bg: $white !default;
+$navbar-dark-color: $white !default;
+$navbar-dark-hover-color: $primary !default;
+$navbar-dark-toggler-border-color: $secondary !default;
+$border-color: $gray-400 !default;
+$card-border-color: $border-color !default;
+$accordion-border-color: $border-color !default;
+$list-group-border-color: $border-color !default;
+$list-group-active-border-color: $border-color !default;
+$thumbnail-border-color: $border-color !default;
+$dropdown-border-color: $border-color !default;
+$pagination-border-color: $border-color !default;
+$pagination-hover-border-color: $border-color !default;
+$pagination-active-border-color: $border-color !default;
+$pagination-disabled-border-color: $border-color !default;
+$link-color: $blue !default;
+$link-decoration: none !default;
+$link-hover-decoration: underline !default;
+$btn-white-space: nowrap !default;
+$spacer: 1rem !default;
+$dropdown-min-width: $spacer * 15 !default;
+$tooltip-bg: $gray-900 !default;
+$tooltip-opacity: 1 !default;
+$font-weight-bold: 500 !default;
+$font-weight-bolder: 500 !default;
+$table-th-font-weight: 500 !default;
+$headings-font-weight: 400 !default;
+$headings-margin-bottom: $spacer !default;
+$h1-font-size: $spacer * 2 !default;
+$h2-font-size: $spacer * 1.75 !default;
+$h3-font-size: $spacer * 1.55 !default;
+$h4-font-size: $spacer * 1.4 !default;
+$list-group-action-color: $gray-900 !default;
+$list-group-active-color: $gray-900 !default;
+$list-group-active-bg: $gray-300 !default;
+$list-group-hover-bg: $gray-200 !default;
+$pagination-active-color: $gray-900 !default;
+$pagination-active-bg: $gray-300 !default;
+$pagination-focus-box-shadow: $atom-gray-box-shadow !default;
+$dropdown-link-active-color: $gray-900 !default;
+$dropdown-link-active-bg: $gray-300 !default;
+$nav-pills-link-active-color: $gray-900 !default;
+$nav-pills-link-active-bg: $gray-200 !default;
+$accordion-button-active-color: $gray-900 !default;
+$accordion-button-active-bg: $white !default;
+$accordion-padding-x: $spacer !default;
+$nav-tabs-link-active-bg: $white !default;
+$nav-tabs-link-active-border-color: $border-color $border-color $white !default;
+$accordion-button-focus-box-shadow: $atom-gray-box-shadow !default;
+$accordion-bg: $white !default;
+$table-bg: $white !default;
+$table-striped-bg: $gray-200 !default;
+$breadcrumb-divider: quote("»") !default;
+$breadcrumb-divider-flipped: quote("«") !default;
+$breadcrumb-divider-color: $primary !default;
+$zindex-dropdown: 1035 !default;
+
+// Font Awesome
+$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+
+// Accessible-Slick carousel
+$slick-font-path: "../../../../node_modules/@accessible360/accessible-slick/slick/fonts/" !default;
+$slick-loader-path: "../../../../node_modules/@accessible360/accessible-slick/slick/" !default;
+$slick-dot-color: $white !default;
+$slick-dot-color-active: $primary !default;
+$slick-dot-size: $spacer !default;

@@ -40,9 +40,9 @@ class sfIsdfPluginIndexAction extends FunctionIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Type%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-4#Type_of_description">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Type_of_description">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -54,9 +54,9 @@ class sfIsdfPluginIndexAction extends FunctionIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Authorized form of name%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-4#Authorised_name">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Authorised_name">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
                         '%4%' => '</a>',
                     ]
                 )]
@@ -68,9 +68,9 @@ class sfIsdfPluginIndexAction extends FunctionIndexAction
                 ['required' => $this->context->i18n->__(
                     '%1%Description identifier%2% - This is a %3%mandatory%4% element.',
                     [
-                        '%1%' => '<a href="http://ica-atom.org/doc/RS-4#Function.2Factivity_description_identifier">',
+                        '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Function.2Factivity_description_identifier">',
                         '%2%' => '</a>',
-                        '%3%' => '<a href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
+                        '%3%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-4#Structure_and_use_4.7">',
                         '%4%' => '</a>',
                     ]
                 )]

@@ -60,7 +60,7 @@ class QubitMessageSource_XLIFF extends sfMessageSource_XLIFF
         $dom->load($filename);
 
         // Locate body tag
-        $xpath = new DomXPath($dom);
+        $xpath = new DOMXPath($dom);
         $body = $xpath->query('//body')->item(0);
 
         // For each message add it to the XML file using DOM
