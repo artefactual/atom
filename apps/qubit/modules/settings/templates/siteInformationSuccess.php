@@ -60,17 +60,17 @@
           </tr>
           <tr>
             <td>
-              <?php echo $form->siteBaseUrl->renderLabel(
-                           'Site base URL (used in MODS and EAD exports)',
-                           ['title' => 'Used to create absolute URLs, pointing to resources, in XML exports']); ?>
+              <?php
+                echo $form->siteBaseUrl->renderLabel(
+                  'Site base URL (used in MODS and EAD exports)',
+                  [
+                      'title' => 'Used to create absolute URLs, pointing to ' +
+                      'resources, in XML exports',
+                  ]
+                ); ?>
             </td>
             <td>
-              <?php echo get_partial('settings/i18n_form_field',
-                [
-                    'name' => 'siteBaseUrl',
-                    'label' => null,
-                    'settings' => $settings,
-                    'form' => $form, ]); ?>
+              <?php echo $form->siteBaseUrl->render(); ?>
             </td>
           </tr>
         </tbody>

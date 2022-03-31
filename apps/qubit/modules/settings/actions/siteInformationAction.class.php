@@ -35,7 +35,6 @@ class SettingsSiteInformationAction extends SettingsEditAction
     public static $I18N = [
         'siteTitle',
         'siteDescription',
-        'siteBaseUrl',
     ];
 
     public function earlyExecute()

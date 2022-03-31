@@ -61,7 +61,10 @@ class SettingsInventoryAction extends DefaultEditAction
     {
         switch ($name) {
             case 'levels':
-                $value = unserialize($this->settingLevels->getValue());
+                $value = unserialize(
+                    $this->settingLevels->getValue(['sourceCulture' => true])
+                );
+
                 if (false !== $value) {
                     foreach ($value as $key => $item) {
                         if (null === QubitTerm::getById($item)) {
@@ -85,7 +88,13 @@ class SettingsInventoryAction extends DefaultEditAction
                     $size = 4;
                 }
 
-                $this->form->setWidget('levels', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true], ['size' => $size]));
+                $this->form->setWidget(
+                    'levels',
+                    new sfWidgetFormSelect(
+                        ['choices' => $choices, 'multiple' => true],
+                        ['size' => $size]
+                    )
+                );
 
                 break;
         }
@@ -95,11 +104,12 @@ class SettingsInventoryAction extends DefaultEditAction
     {
         switch ($field->getName()) {
             case 'levels':
-                $levels = $this->form->getValue('levels');
-                if (empty($levels)) {
-                    $levels = [];
-                }
-                $this->settingLevels->value = serialize($levels);
+                $levels = $this->form->getValue('levels') ?? [];
+
+                $this->settingLevels->setValue(
+                    serialize($levels),
+                    ['sourceCulture' => true]
+                );
 
                 break;
         }

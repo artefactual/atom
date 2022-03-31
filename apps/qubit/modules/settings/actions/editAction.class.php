@@ -70,7 +70,7 @@ class SettingsEditAction extends DefaultEditAction
         $settingDefault = (isset($this->settingDefaults[$name])) ? $this->settingDefaults[$name] : '';
 
         // Default setting value in form will be current setting value or, if none exists, settings default
-        $settingGetOptions = (in_array($name, $this::$I18N)) ? ['culture' => $this->culture] : ['cultureFallback' => true];
+        $settingGetOptions = (in_array($name, $this::$I18N)) ? [] : ['sourceCulture' => true];
 
         // Use setting default if setting hasn't been saved yet
         $settingValue = (null !== $this->settings[$name]->id) ? $this->settings[$name]->getValue($settingGetOptions) : $settingDefault;
@@ -88,6 +88,7 @@ class SettingsEditAction extends DefaultEditAction
         if (in_array($name, $this::$NAMES)) {
             if (null === $this->settings[$name]->id) {
                 $this->settings[$name]->name = $name;
+                $this->settings[$name]->sourceCulture = $this->culture;
                 $this->settings[$name]->culture = $this->culture;
             }
 

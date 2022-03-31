@@ -44,15 +44,34 @@ class SettingsPageElementsAction extends sfAction
 
         // Take note if a Google Maps API key has been set
         $googleMapsApiKeySetting = QubitSetting::getByName('google_maps_api_key');
-        $this->googleMapsApiKeySet = !empty($googleMapsApiKeySetting->value);
+
+        $this->googleMapsApiKeySet = isset($googleMapsApiKeySetting)
+            && !empty(
+                $googleMapsApiKeySetting->getValue(['sourceCulture' => true])
+            );
 
         // Take note of whether digital object map is enabled
         $toggleDigitalObjectMapSetting = QubitSetting::getByName('toggleDigitalObjectMap');
 
         foreach ($this::$NAMES as $name) {
             // Disable checkbox to show digital object maps if it's not currently enabled and no Google Maps API key is defined
-            if ('toggleDigitalObjectMap' == $name && empty($toggleDigitalObjectMapSetting->value) && empty($googleMapsApiKeySetting->value)) {
-                $this->form->setWidget($name, new sfWidgetFormInputCheckbox([], ['class' => 'disabled', 'disabled' => true]));
+            if (
+                'toggleDigitalObjectMap' == $name
+                && isset($toggleDigitalObjectMapSetting)
+                && empty(
+                    $toggleDigitalObjectMapSetting->getValue(
+                        ['sourceCulture' => true]
+                    )
+                )
+                && !$this->googleMapsApiKeySet
+            ) {
+                $this->form->setWidget(
+                    $name,
+                    new sfWidgetFormInputCheckbox(
+                        [],
+                        ['class' => 'disabled', 'disabled' => true],
+                    )
+                );
             } else {
                 $this->form->setWidget($name, new sfWidgetFormInputCheckbox());
             }
@@ -63,6 +82,7 @@ class SettingsPageElementsAction extends sfAction
                 $this->form->setDefault($name, filter_var($settings[$name]->__get('value', ['sourceCulture' => true]), FILTER_VALIDATE_BOOLEAN));
             }
         }
+
         if ($request->isMethod('post')) {
             $this->form->bind($request->getPostParameters());
 

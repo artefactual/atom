@@ -1,3 +1,12 @@
+# Translatable settings (e.g. "informationobject" [UI label])
+# - MUST use "source_culture: en"
+# - MUST use "value" language codes, e.g.
+#   value:
+#     fr: foo
+#
+# Non-translatable settings (e.g. hits_per_page)
+# - MUST NOT use "source_culture"
+# - MUST NOT use "value" language codes, e.g. "value: foo"
 QubitSetting:
   version:
     name: version
@@ -915,7 +924,6 @@ QubitSetting:
     scope: oai
     editable: 1
     deleteable: 0
-    source_culture: en
     value: ''
   QubitSetting_oai_additional_sets_enabled:
     name: oai_additional_sets_enabled
@@ -939,19 +947,15 @@ QubitSetting:
     value: 0
   toggleIoSlider:
     name: toggleIoSlider
-    source_culture: en
     value: 1
   toggleLanguageMenu:
     name: toggleLanguageMenu
-    source_culture: en
     value: 1
   toggleCopyrightFilter:
     name: toggleCopyrightFilter
-    source_culture: en
     value: 1
   toggleMaterialFilter:
     name: toggleMaterialFilter
-    source_culture: en
     value: 1
   QubitSetting_checkForUpdates:
     name: check_for_updates
@@ -1336,16 +1340,12 @@ QubitSetting:
     name: findingAidFormat
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: pdf
+    value: pdf
   Qubit_Settings_findingAidModel:
     name: findingAidModel
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: inventory-summary
+    value: inventory-summary
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
     editable: 1
@@ -1362,140 +1362,103 @@ QubitSetting:
     value: table
   Qubit_Settings_digitalObjectDerivativesPdfPageNumber:
     name: digital_object_derivatives_pdf_page_number
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_treeviewType:
     name: treeview_type
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: sidebar
+    value: sidebar
   Qubit_Settings_stripExtensions:
     name: stripExtensions
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_slugBasisInformationObject:
     name: slug_basis_informationobject
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_permissiveSlugCreation:
     name: permissive_slug_creation
     editable: 1
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_generateReportsAsPubUser:
     name: generate_reports_as_pub_user
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_identifierMask:
     name: identifier_mask
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: '%Y-%m-%d/#i'
+    value: '%Y-%m-%d/#i'
   Qubit_Settings_identifierCounter:
     name: identifier_counter
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_identifierMaskEnabled:
     name: identifier_mask_enabled
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 0
+    value: 0
   Qubit_Settings_menu_locking_info:
     name: menu_locking_info
     editable: 0
     deleteable: 0
-    source_culture: en
-    value:
-      en: 'a:2:{s:6:"byName";a:15:{i:0;s:10:"accessions";i:1;s:17:"browseInstitution";i:2;s:9:"clipboard";i:3;s:13:"globalReplace";i:4;s:6:"groups";i:5;s:10:"importSkos";i:6;s:4:"jobs";i:7;s:5:"login";i:8;s:6:"logout";i:9;s:9:"myProfile";i:10;s:7:"plugins";i:12;s:8:"settings";i:13;s:15:"staticPagesMenu";i:14;s:10:"taxonomies";i:15;s:5:"users";}s:4:"byId";a:8:{i:0;i:1;i:1;i:4;i:2;i:7;i:3;i:2;i:4;i:10;i:5;i:3;i:6;i:5;i:7;i:9;}}'
+    value: 'a:2:{s:6:"byName";a:15:{i:0;s:10:"accessions";i:1;s:17:"browseInstitution";i:2;s:9:"clipboard";i:3;s:13:"globalReplace";i:4;s:6:"groups";i:5;s:10:"importSkos";i:6;s:4:"jobs";i:7;s:5:"login";i:8;s:6:"logout";i:9;s:9:"myProfile";i:10;s:7:"plugins";i:12;s:8:"settings";i:13;s:15:"staticPagesMenu";i:14;s:10:"taxonomies";i:15;s:5:"users";}s:4:"byId";a:8:{i:0;i:1;i:1;i:4;i:2;i:7;i:3;i:2;i:4;i:10;i:5;i:3;i:6;i:5;i:7;i:9;}}'
   Qubit_Settings_visibleElements_DacsPhysicalAccess:
     name: dacs_physical_access
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsIdentityArea:
     name: dacs_identity_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsContentArea:
     name: dacs_content_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsConditionsOfAccessArea:
     name: dacs_conditions_of_access_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsAcquisitionArea:
     name: dacs_acquisition_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsMaterialsArea:
     name: dacs_materials_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsNotesArea:
     name: dacs_notes_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsControlArea:
     name: dacs_control_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_visibleElements_DacsAccessPointsArea:
     name: dacs_access_points_area
     scope: element_visibility
     editable: 1
     deleteable: 0
-    source_culture: en
-    value:
-      en: 1
+    value: 1
   Qubit_Settings_csvValidatorDefaultImportBehaviour:
     name: csv_validator_default_import_behaviour
     value: 0

@@ -479,7 +479,7 @@ class QubitInformationObject extends BaseInformationObject
 
     public function getMediaTypes()
     {
-        //TO DO: get via linked digital objects & physical objects
+        // TO DO: get via linked digital objects & physical objects
     }
 
     public function getRepositoryCountry()
@@ -2462,7 +2462,7 @@ class QubitInformationObject extends BaseInformationObject
 
     public static function addTreeViewSortCriteria($criteria)
     {
-        switch (sfConfig::get('app_sort_treeview_informationobject')) {
+        switch (sfConfig::get('app_sort_treeview_informationobject__source')) {
             case 'identifierTitle':
                 $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
                 $criteria->addAscendingOrderByColumn('identifier');

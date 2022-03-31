@@ -224,10 +224,11 @@ class SettingsTreeviewAction extends DefaultEditAction
         if (!isset($setting)) {
             $setting = new QubitSetting();
             $setting->name = $name;
-            $setting->sourceCulture = 'en';
+            $setting->sourceCulture = sfConfig::get('sf_default_culture');
+            $setting->culture = sfConfig::get('sf_default_culture');
         }
 
-        $setting->setValue($value, ['culture' => 'en']);
+        $setting->setValue($value, ['sourceCulture' => true]);
         $setting->save();
     }
 }

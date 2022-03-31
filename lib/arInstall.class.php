@@ -411,11 +411,9 @@ class arInstall
         QubitSearch::getInstance()->populate();
     }
 
-    public static function createSetting($name, $value)
+    public static function createSetting($name, $value, $options = [])
     {
-        $setting = new QubitSetting();
-        $setting->name = $name;
-        $setting->value = $value;
+        $setting = QubitSetting::createNewSetting($name, $value, $options);
         $setting->save();
     }
 }
