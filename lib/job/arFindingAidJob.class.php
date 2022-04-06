@@ -24,15 +24,90 @@
 
 class arFindingAidJob extends arBaseJob
 {
-  const GENERATED_STATUS = 1,
-        UPLOADED_STATUS  = 2;
+  public const GENERATED_STATUS = 1;
+  public const UPLOADED_STATUS  = 2;
+
+  protected const OASIS_CATALOG_PATH = 'data/xml/catalog.xml';
+  protected const RESOLVER_PATH = 'vendor/resolver.jar';
+  protected const SAXON_PATH = 'vendor/saxon-he-10.6.jar';
 
   /**
    * @see arBaseJob::$requiredParameters
    */
   protected $extraRequiredParameters = array('objectId');
 
-  private $resource = null;
+  /**
+   * Get the application root directory.
+   */
+  public function getAppRoot(): string
+  {
+    return rtrim(sfConfig::get('sf_root_dir'), '/');
+  }
+
+  /**
+   * Get the correct XLST file path for the current Finding Aid model.
+   */
+  public function getXslFilePath()
+  {
+    return $this->getAppRoot().
+      sprintf('/lib/task/pdf/ead-pdf-%s.xsl', $this->getModel());
+  }
+
+  /**
+   * Get the absolute path to the OASIS XML catalog file.
+   */
+  public function getCatalogPath(): string
+  {
+      return $this->getAppRoot().'/'.self::OASIS_CATALOG_PATH;
+  }
+
+  /**
+   * Get the absolute path to the XML-Commons resolver.jar.
+   *
+   * The XML-Commons resolver.jar is used by Saxon when generating finding
+   * aids to resolve DTD and schema URIs to local files using an OASIS XML
+   * Catalog.
+   */
+  public function getResolverPath(): string
+  {
+      return $this->getAppRoot().'/'.self::RESOLVER_PATH;
+  }
+
+  /**
+   * Get the absolute path to the Saxon XLST and XQuery Processor jar.
+   */
+  public function getSaxonPath(): string
+  {
+      return $this->getAppRoot().'/'.self::SAXON_PATH;
+  }
+
+  /**
+   * Get finding aid model setting value from database
+   */
+  public function getModelFromSetting() {
+    $model = 'inventory-summary'; // Default
+
+    if (null !== $setting = QubitSetting::getByName('findingAidModel'))
+    {
+      // Use the "findingAidModel" setting value
+      $model = $setting->getValue(array('sourceCulture' => true));
+    }
+
+    return $model;
+  }
+
+  /**
+   * Get the current finding aid model
+   */
+  public function getModel()
+  {
+    if (!isset($this->model))
+    {
+      $this->model = $this->getModelFromSetting();
+    }
+
+    return $this->model;
+  }
 
   public function runJob($parameters)
   {
@@ -76,8 +151,6 @@ class arFindingAidJob extends arBaseJob
   {
     $this->info($this->i18n->__('Generating finding aid (%1)...', array('%1' => $this->resource->slug)));
 
-    $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
-
     $eadFileHandle = tmpfile();
     $foFileHandle = tmpfile();
 
@@ -103,7 +176,16 @@ class arFindingAidJob extends arBaseJob
     // Call generate EAD task
     $slug = $this->resource->slug;
     $output = array();
-    exec(PHP_BINARY ." $appRoot/symfony export:bulk --single-slug=\"$slug\" $public $eadFilePath 2>&1", $output, $exitCode);
+    $cmd = sprintf(
+      '%s %s/symfony export:bulk --single-slug="%s" %s %s 2>&1',
+      PHP_BINARY,
+      $this->getAppRoot(),
+      $slug,
+      $public,
+      $eadFilePath
+    );
+
+    exec($cmd, $output, $exitCode);
 
     if ($exitCode > 0)
     {
@@ -113,24 +195,22 @@ class arFindingAidJob extends arBaseJob
       return false;
     }
 
-    // Use XSL file selected in Finding Aid model setting
-    $findingAidModel = 'inventory-summary';
-    if (null !== $setting = QubitSetting::getByName('findingAidModel'))
-    {
-      $findingAidModel = $setting->getValue(array('sourceCulture' => true));
-    }
-
-    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf-' . $findingAidModel . '.xsl';
-    $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
-
     // Crank the XML through XSL stylesheet and fix header / fonds URL
     $eadFileString = file_get_contents($eadFilePath);
     $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
     file_put_contents($eadFilePath, $eadFileString);
 
     // Transform EAD file with Saxon
-    $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . self::getFindingAidPath($this->resource->id);
-    $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
+    $cmd = sprintf(
+      "java -cp '%s:%s' net.sf.saxon.Transform -s:'%s' -xsl:'%s' -o:'%s' -catalog:'%s' 2>&1",
+      $this->getSaxonPath(),
+      $this->getResolverPath(),
+      $eadFilePath,
+      $this->getXslFilePath(),
+      $foFilePath,
+      $this->getCatalogPath()
+    );
+
     $this->info(sprintf('Running: %s', $cmd));
     $output = array();
     exec($cmd, $output, $exitCode);
@@ -144,7 +224,16 @@ class arFindingAidJob extends arBaseJob
     }
 
     // Use FOP generated in previous step to generate PDF
-    $cmd = sprintf("fop -r -q -fo '%s' -%s '%s' 2>&1", $foFilePath, self::getFindingAidFormat(), $pdfPath);
+    $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR
+      . self::getFindingAidPath($this->resource->id);
+
+    $cmd = sprintf(
+      "fop -r -q -fo '%s' -%s '%s' 2>&1",
+      $foFilePath,
+      self::getFindingAidFormat(),
+      $pdfPath
+    );
+
     $this->info(sprintf('Running: %s', $cmd));
     $output = array();
     exec($cmd, $output, $exitCode);

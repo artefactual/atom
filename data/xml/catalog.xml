@@ -4,37 +4,45 @@
   PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
          "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
 
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
 
-  <system
-    systemId="http://www.w3.org/2001/03/xml.xsd"
-    uri="../xsd/xml.xsd"/>
+  <group prefer="system">
+    <system
+      systemId="http://www.w3.org/2001/03/xml.xsd"
+      uri="../xsd/xml.xsd"/>
 
-  <system
-    systemId="http://www.loc.gov/standards/xlink/xlink.xsd"
-    uri="../xsd/xlink.xsd"/>
+    <system
+      systemId="http://www.loc.gov/standards/xlink/xlink.xsd"
+      uri="../xsd/xlink.xsd"/>
 
-  <system
-    systemId="http://dublincore.org/schemas/xmls/simpledc20021212.xsd"
-    uri="../xsd/simpledc20021212.xsd"/>
+    <system
+      systemId="http://dublincore.org/schemas/xmls/simpledc20021212.xsd"
+      uri="../xsd/simpledc20021212.xsd"/>
 
-  <system
-    systemId="http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
-    uri="../xsd/oai_dc.xsd"/>
+    <system
+      systemId="http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
+      uri="../xsd/oai_dc.xsd"/>
 
-  <system
-    systemId="http://www.loc.gov/mods/xml.xsd"
-    uri="../xsd/xml.xsd"/>
+    <system
+      systemId="http://www.loc.gov/mods/xml.xsd"
+      uri="../xsd/xml.xsd"/>
 
-  <system
-    systemId="http://www.loc.gov/standards/mods/v3/mods.xsd"
-    uri="../xsd/mods.xsd"/>
+    <system
+      systemId="http://www.loc.gov/standards/mods/v3/mods.xsd"
+      uri="../xsd/mods.xsd"/>
+  </group>
 
-  <public
-    publicId="+//ISBN 1-931666-00-8//DTD ead.dtd (Encoded Archival Description (EAD) Version 2002)//EN"
-    uri="../dtd/ead.dtd"/>
+  <group prefer="public">
+    <public
+      publicId="+//ISBN 1-931666-00-8//DTD ead.dtd (Encoded Archival Description (EAD) Version 2002)//EN"
+      uri="../dtd/ead.dtd"/>
 
-  <group>
+    <system
+      systemId="http://lcweb2.loc.gov/xmlcommon/dtds/ead2002/ead.dtd"
+      uri="../dtd/ead.dtd"/>
+  </group>
+
+  <group prefer="public">
 
     <public
       publicId='ISO 8879:1986//ENTITIES Added Latin 1//EN//XML'
