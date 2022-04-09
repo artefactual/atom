@@ -17,6 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use AccessToMemory\Path;
+
 class qtPackageExtractorBase
 {
     public function __construct(array $options = [])
@@ -55,6 +57,27 @@ class qtPackageExtractorBase
         if (isset($options['checksum_md5'])) {
             $this->checksumMd5 = $options['checksum_md5'];
         }
+
+        if (isset($options['logger'])) {
+            $this->logger = $options['logger'];
+        }
+    }
+
+    /**
+     * Delete package files after processing or on failure.
+     */
+    public function __destruct()
+    {
+        if (empty($this->filename)) {
+            return; // No files to delete
+        }
+
+        $this->info(
+            sprintf('Processing complete, deleting "%s"', $this->filename)
+        );
+
+        $path = new Path($this->filename);
+        $path->delete(true);
     }
 
     public function run()
@@ -62,6 +85,18 @@ class qtPackageExtractorBase
         $this->load();
 
         $this->process();
+    }
+
+    /**
+     * Log an info level message.
+     *
+     * @param string $msg log message
+     */
+    protected function info($msg)
+    {
+        if (isset($this->logger)) {
+            $this->logger->info($msg);
+        }
     }
 
     protected function load()
@@ -110,30 +145,6 @@ class qtPackageExtractorBase
     {
     }
 
-    protected function clean()
-    {
-        unlink($this->filename);
-
-        $rrmdir = function ($directory) use (&$rrmdir) {
-            $objects = scandir($directory);
-
-            foreach ($objects as $object) {
-                if ('.' != $object && '..' != $object) {
-                    if ('dir' == filetype($directory.'/'.$object)) {
-                        $rrmdir($directory.'/'.$object);
-                    } else {
-                        unlink($directory.'/'.$object);
-                    }
-                }
-            }
-
-            reset($objects);
-            rmdir($directory);
-        };
-
-        $rrmdir($this->directory);
-    }
-
     protected function grab()
     {
         if (1 == preg_match('/^(.*):\/\/.*/', $this->location, $matches)) {
@@ -166,28 +177,6 @@ class qtPackageExtractorBase
         } else {
             throw new Exception('The localization protocol could not be recognized.');
         }
-    }
-
-    protected function getFilesFromDirectory($dir)
-    {
-        $files = [];
-
-        if ($handle = opendir($dir)) {
-            while (false !== ($file = readdir($handle))) {
-                if ('.' != $file && '..' != $file) {
-                    if (is_dir($dir.DIRECTORY_SEPARATOR.$file)) {
-                        $dir2 = $dir.DIRECTORY_SEPARATOR.$file;
-                        $files = $files + $this->getFilesFromDirectory($dir2);
-                    } else {
-                        $files[] = $dir.DIRECTORY_SEPARATOR.$file;
-                    }
-                }
-            }
-
-            closedir($handle);
-        }
-
-        return $files;
     }
 
     protected function getUUID($subject)
