@@ -17,6 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use AccessToMemory\Path;
+
 class qtPackageExtractorBase
 {
     public function __construct(array $options = [])
@@ -55,6 +57,10 @@ class qtPackageExtractorBase
         if (isset($options['checksum_md5'])) {
             $this->checksumMd5 = $options['checksum_md5'];
         }
+
+        if (isset($options['logger'])) {
+            $this->logger = $options['logger'];
+        }
     }
 
     public function run()
@@ -62,6 +68,8 @@ class qtPackageExtractorBase
         $this->load();
 
         $this->process();
+
+        $this->clean();
     }
 
     protected function load()
@@ -110,28 +118,29 @@ class qtPackageExtractorBase
     {
     }
 
+    /**
+     * Log an info level message.
+     *
+     * @param string $msg log message
+     */
+    protected function info($msg)
+    {
+        if (isset($this->logger)) {
+            $this->logger->info($msg);
+        }
+    }
+
+    /**
+     * Clean up temporary files.
+     */
     protected function clean()
     {
-        unlink($this->filename);
+        $this->info(
+            sprintf('Processing complete, deleting "%s"', $this->filename)
+        );
 
-        $rrmdir = function ($directory) use (&$rrmdir) {
-            $objects = scandir($directory);
-
-            foreach ($objects as $object) {
-                if ('.' != $object && '..' != $object) {
-                    if ('dir' == filetype($directory.'/'.$object)) {
-                        $rrmdir($directory.'/'.$object);
-                    } else {
-                        unlink($directory.'/'.$object);
-                    }
-                }
-            }
-
-            reset($objects);
-            rmdir($directory);
-        };
-
-        $rrmdir($this->directory);
+        $path = new Path($this->filename);
+        $path->delete(true);
     }
 
     protected function grab()

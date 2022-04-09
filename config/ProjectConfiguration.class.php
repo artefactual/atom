@@ -76,6 +76,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 
         $loader->registerNamespaces([
             'Psr' => $rootDir.DIRECTORY_SEPARATOR.'vendor',
+            'AccessToMemory' => $rootDir.DIRECTORY_SEPARATOR.'lib',
         ]);
 
         $loader->register();
