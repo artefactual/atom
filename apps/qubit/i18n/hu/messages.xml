@@ -331,7 +331,7 @@
       </trans-unit>
       <trans-unit id="9f780ca0f3cbaf61d43c297030552bdee2a5bf50">
         <source>Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
-        <target>K&#xE9;sz&#xED;tsen egy egyedi, alfanumerikus azonos&#xED;t&#xF3; k&#xF3;dot ennek a meghat&#xE1;rozott OAI rakt&#xE1;rnak a saj&#xE1;t h&#xE1;l&#xF3;zati tartom&#xE1;ny&#xE1;n bel&#xFC;l! 
+        <target>K&#xE9;sz&#xED;tsen egy egyedi, alfanumerikus azonos&#xED;t&#xF3; k&#xF3;dot ennek a meghat&#xE1;rozott OAI rakt&#xE1;rnak a saj&#xE1;t h&#xE1;l&#xF3;zati tartom&#xE1;ny&#xE1;n bel&#xFC;l!
 P&#xE9;ld&#xE1;ul: oai:foo.org:repositorycode_10001</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
@@ -643,7 +643,7 @@ pl.: bibliogr&#xE1;fiai id&#xE9;z&#xE9;s.</target>
       </trans-unit>
       <trans-unit id="4ffa72ac302c094f8d275fc9d11ab00287903f05">
         <source>Are you sure you want to delete this reference/thumbnail representation?</source>
-        <target>Biztosan t&#xF6;r&#xF6;lni akarja ezt a 
+        <target>Biztosan t&#xF6;r&#xF6;lni akarja ezt a
 reference/thumbnail representation?</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
       </trans-unit>
@@ -654,7 +654,7 @@ reference/thumbnail representation?</target>
       </trans-unit>
       <trans-unit id="01850f0b38dbc0ccf240926c3bb291e710cdacc0">
         <source>Are you sure you want to replace "%1%" with "%2%" in %3%?</source>
-        <target>Biztosan kicser&#xE9;li 
+        <target>Biztosan kicser&#xE9;li
  "%1%" with "%2%" in %3%?</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
       </trans-unit>
@@ -3474,7 +3474,7 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
-        <source>Primary contract</source>
+        <source>Primary Contact</source>
         <target>Els&#x151;dleges szerz&#x151;d&#xE9;s</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>

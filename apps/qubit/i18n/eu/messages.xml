@@ -331,7 +331,7 @@
       </trans-unit>
       <trans-unit id="9f780ca0f3cbaf61d43c297030552bdee2a5bf50">
         <source>Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
-        <target>Kode alfanumerikoa gehitu OAI errepositorio zehatz hau identifikatzeko bere sarearen domeinuan bereiztu dadin, OAI-identifikatzailea, adb. 
+        <target>Kode alfanumerikoa gehitu OAI errepositorio zehatz hau identifikatzeko bere sarearen domeinuan bereiztu dadin, OAI-identifikatzailea, adb.
 oai:foo.org:repositorycode_10001</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
@@ -3466,7 +3466,7 @@ oai:foo.org:repositorycode_10001</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
-        <source>Primary contract</source>
+        <source>Primary Contact</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>

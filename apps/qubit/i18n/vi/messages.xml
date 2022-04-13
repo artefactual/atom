@@ -3123,7 +3123,7 @@ B&#x1EA1;n c&#xF3; ch&#x1EAF;c ch&#x1EAF;n b&#x1EA1;n mu&#x1ED1;n thay th&#x1EBF
       </trans-unit>
       <trans-unit id="1532d65ee8af467a28b22294d88943777e5db47f">
         <source>OAI repository identifier</source>
-        <target>&#x110;&#x1ECB;nh danh OAI repository 
+        <target>&#x110;&#x1ECB;nh danh OAI repository
 </target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
@@ -3393,7 +3393,7 @@ Truy c&#x1EAD;p v&#x1EAD;t l&#xFD;
       <trans-unit id="0cd3597453ab504a3dbeec3289e21abe922d223a">
         <source>Places</source>
         <target>
- 
+
 &#x111;&#x1ECB;a &#x111;i&#x1EC3;m </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/_placeAccessPoints.php</note>
       </trans-unit>
@@ -3473,7 +3473,7 @@ Truy c&#x1EAD;p v&#x1EAD;t l&#xFD;
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
-        <source>Primary contract</source>
+        <source>Primary Contact</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
@@ -4339,7 +4339,7 @@ Y&#xEA;u c&#x1EA7;u m&#x1EAD;t kh&#x1EA9;u m&#x1EA1;nh</target>
       </trans-unit>
       <trans-unit id="2eb56be3c2d93cdab0c52e677e3167dfddb30ac5">
         <source>Sources</source>
-        <target>Ngu&#x1ED3;n 
+        <target>Ngu&#x1ED3;n
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/actions/browseAction.class.php</note>
       </trans-unit>
@@ -4410,7 +4410,7 @@ Y&#xEA;u c&#x1EA7;u m&#x1EAD;t kh&#x1EA9;u m&#x1EA1;nh</target>
       </trans-unit>
       <trans-unit id="8d183dbdcea3b29906090bd83fa6fa37923cc8ec">
         <source>Subject</source>
-        <target>T&#x1B0;&#x1EE3;ng 
+        <target>T&#x1B0;&#x1EE3;ng
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/actions/contextMenuComponent.class.php</note>
       </trans-unit>
@@ -4778,7 +4778,7 @@ T&#x1EA3;i l&#xEA;n m&#x1EDB;i %1%</target>
       </trans-unit>
       <trans-unit id="3deb7456519697ecf4eefc455516c969a3681bae">
         <source>Type</source>
-        <target>Lo&#x1EA1;i 
+        <target>Lo&#x1EA1;i
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>

@@ -3465,7 +3465,7 @@
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
-        <source>Primary contract</source>
+        <source>Primary Contact</source>
         <target>Kontrak utama</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>

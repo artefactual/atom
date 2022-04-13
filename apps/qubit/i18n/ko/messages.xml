@@ -3467,7 +3467,7 @@
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
-        <source>Primary contract</source>
+        <source>Primary Contact</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
@@ -3609,13 +3609,13 @@
       </trans-unit>
       <trans-unit id="b5ed865bd130aa9047b8cc4b5d512e2ca1ab7d23">
         <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>&#xAE30;&#xC220;&#xBB3C;&#xC744; &#xC791;&#xC131;&#xD558;&#xB294;&#xB370; &#xCC38;&#xC870;&#xD55C; &#xC815;&#xBCF4;&#xC6D0;&#xACFC; &#xB204;&#xAC00; &#xADF8;&#xAC83;&#xC744; &#xC791;&#xC131;&#xD588;&#xB294;&#xC9C0;&#xC5D0; &#xB300;&#xD558;&#xC5EC; &#xAE30;&#xC785;&#xD558;&#xB77C;. (ISAD 3.7.1)	
+        <target>&#xAE30;&#xC220;&#xBB3C;&#xC744; &#xC791;&#xC131;&#xD558;&#xB294;&#xB370; &#xCC38;&#xC870;&#xD55C; &#xC815;&#xBCF4;&#xC6D0;&#xACFC; &#xB204;&#xAC00; &#xADF8;&#xAC83;&#xC744; &#xC791;&#xC131;&#xD588;&#xB294;&#xC9C0;&#xC5D0; &#xB300;&#xD558;&#xC5EC; &#xAE30;&#xC785;&#xD558;&#xB77C;. (ISAD 3.7.1)
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="53acccead279f0e87c4051db5cefa6dbe4ec049f">
         <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>&#xC815;&#xC758;&#xB41C; &#xC5B4;&#xB5A4; &#xAE30;&#xC220;&#xC694;&#xC18C;&#xC5D0;&#xB3C4; &#xD574;&#xB2F9;&#xB418;&#xC9C0; &#xC54A;&#xB294; &#xC804;&#xBB38;&#xD654;&#xB418;&#xAC70;&#xB098; &#xB2E4;&#xB978; &#xC911;&#xC694;&#xD55C; &#xC815;&#xBCF4;&#xB97C; &#xAE30;&#xB85D;&#xD558;&#xB77C;. (ISAD 3.6.1)	
+        <target>&#xC815;&#xC758;&#xB41C; &#xC5B4;&#xB5A4; &#xAE30;&#xC220;&#xC694;&#xC18C;&#xC5D0;&#xB3C4; &#xD574;&#xB2F9;&#xB418;&#xC9C0; &#xC54A;&#xB294; &#xC804;&#xBB38;&#xD654;&#xB418;&#xAC70;&#xB098; &#xB2E4;&#xB978; &#xC911;&#xC694;&#xD55C; &#xC815;&#xBCF4;&#xB97C; &#xAE30;&#xB85D;&#xD558;&#xB77C;. (ISAD 3.6.1)
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
