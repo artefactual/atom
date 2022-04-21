@@ -83,7 +83,7 @@ class qtSwordPluginDepositAction extends sfAction
 
         $this->informationObject = $this->resource;
 
-        $data = $this->package + ['information_object_id' => $this->informationObject->id];
+        $data = $this->package + ['objectId' => $this->informationObject->id];
 
         QubitJob::runJob('qtSwordPluginWorker', $data);
 

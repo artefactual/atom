@@ -22,7 +22,7 @@ class qtSwordPluginWorker extends arBaseJob
     /**
      * @see arBaseJob::$requiredParameters
      */
-    protected $extraRequiredParameters = ['information_object_id'];
+    protected $extraRequiredParameters = ['objectId'];
 
     public function runJob($package)
     {
@@ -35,7 +35,7 @@ class qtSwordPluginWorker extends arBaseJob
 
         $this->info('Processing...');
 
-        $resource = QubitInformationObject::getById($package['information_object_id']);
+        $resource = QubitInformationObject::getById($package['objectId']);
 
         $this->info(sprintf('Object slug: %s', $resource->slug));
 
