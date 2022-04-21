@@ -17,6 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use AccessToMemory\Path;
+
 /**
  * Class containing functions needed for creating a downloadable zip file.
  *
@@ -81,8 +83,9 @@ class arZipFileDownload
                 sprintf('Deleting temporary job directory %s', $this->tempDir)
             );
 
-            sfToolkit::clearDirectory($this->tempDir);
-            rmdir($this->tempDir);
+            // Recursively delete $this->tempDir
+            $path = new Path($this->tempDir);
+            $path->delete(true);
         }
     }
 
