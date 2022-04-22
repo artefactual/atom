@@ -165,7 +165,7 @@ EOF;
         // that intentional? For now, I'm going to extract the target based in the
         // path of the file.
         if (empty($code)) {
-            if (1 === preg_match('/\\/(?P<code>[a-zA-Z_@]+)\\/messages\\.xml$/m', $filename, $matches)) {
+            if (1 === preg_match('/\/(?P<code>[a-zA-Z_@]+)\/messages\.xml$/m', $filename, $matches)) {
                 if (isset($matches['code'])) {
                     $code = $matches['code'];
                 }

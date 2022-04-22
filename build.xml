@@ -131,6 +131,8 @@
     </foreach>
   </target>
   <target name="i18n-extract-subtask">
+    <echo>dir: ${phing.dir} lang: ${lang}</echo>
+    <echo>command: php symfony i18n:extract --plugins --auto-delete --auto-save ${lang}</echo>
     <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save ${lang}" dir="${phing.dir}" checkreturn="true" level="debug"/>
   </target>
 
@@ -171,6 +173,7 @@
     </foreach>
   </target>
   <target name="i18n-consolidate-translations-subtask">
+    <echo>directory: ${phing.dir} lang: ${lang}</echo>
     <exec command="php symfony i18n:consolidate ${lang} .tx/i18n/" dir="${phing.dir}" checkreturn="true" level="debug"/>
   </target>
 
@@ -191,6 +194,7 @@
     </foreach>
   </target>
   <target name="i18n-fetch-subtask">
+    <echo>directory: ${directory} lang: ${lang}</echo>
     <copy file="${directory}/messages.xml" tofile="apps/qubit/i18n/${lang}/messages.xml" overwrite="true"/>
   </target>
 
@@ -203,10 +207,12 @@
     </foreach>
   </target>
   <target name="i18n-rectify-subtask">
+    <echo>lang: ${lang} dir: ${phing.dir}</echo>
     <exec command="php symfony i18n:rectify ${lang}" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
   <target name="i18n-update-fixtures">
+    <echo>dir: ${phing.dir}</echo>
     <exec command="php symfony i18n:update-fixtures apps/qubit/i18n/" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
