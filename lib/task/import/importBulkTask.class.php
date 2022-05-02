@@ -93,7 +93,7 @@ EOF;
     }
     else
     {
-      $files = array($arguments['folder']);
+      $files = [realpath($arguments['folder'])];
     }
 
     // TODO: Add some colour
