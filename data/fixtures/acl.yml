@@ -26,7 +26,6 @@ QubitAclGroup:
       ko: 익명
       pl: anonimowy
       pt: anónimo
-      pt-BR: anônimo
       pt_BR: anônimo
       sl: anonimno
       sr: анониман
@@ -60,7 +59,6 @@ QubitAclGroup:
       ko: '진본으로 인정됨'
       pl: zweryfikowany
       pt: autenticado
-      pt-BR: autenticado
       pt_BR: autenticado
       sl: overjeno
       sr: потврђено
@@ -93,7 +91,6 @@ QubitAclGroup:
       ko: 관리자
       pl: administrator
       pt: administrador
-      pt-BR: administrador
       pt_BR: administrador
       ru: администратор
       sl: skrbnik
@@ -127,7 +124,6 @@ QubitAclGroup:
       ko: 편집자
       pl: edytor
       pt: editor
-      pt-BR: editor
       pt_BR: editor
       sl: urednik
       sr: уредник
@@ -159,7 +155,6 @@ QubitAclGroup:
       ko: 기여자
       pl: kontrybutor
       pt: colaborador
-      pt-BR: colaborador
       pt_BR: colaborador
       sl: sodelavec
       sr: сарадник
@@ -192,7 +187,6 @@ QubitAclGroup:
       ko: 번역자
       pl: tłumacz
       pt: tradutor
-      pt-BR: tradutor
       pt_BR: tradutor
       ru: переводчик
       sl: prevajalec

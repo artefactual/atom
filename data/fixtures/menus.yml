@@ -39,7 +39,6 @@ QubitMenu:
       nl: Blader
       pl: Przeglądaj
       pt: Navegar
-      pt-BR: Navegar
       pt_BR: Navegar
       sl: Brskaj
       sr: Прегледај
@@ -79,7 +78,6 @@ QubitMenu:
       nl: 'Voeg toe'
       pl: Dodaj
       pt: Adicionar
-      pt-BR: Adicionar
       pt_BR: Adicionar
       ru: Добавить
       ru_RU: Добавить
@@ -121,7 +119,6 @@ QubitMenu:
       nl: Beheer
       pl: Zarządzanie
       pt: Gerir
-      pt-BR: Gerenciar
       pt_BR: Gerenciar
       ru: Управление
       sl: Uredi
@@ -150,7 +147,6 @@ QubitMenu:
       it: 'Sfoglia la nostra raccolta'
       ja: コレクションをブラウズ
       pt: 'Navegar na colecção'
-      pt-BR: 'Navegue nossa coleção'
       pt_BR: 'Navegue pela nossa coleção'
       sr: 'Прегледај наше збирке'
       sv: 'Sök i vår samling'
@@ -181,7 +177,6 @@ QubitMenu:
       nl: Aanwinsten
       pl: Dopływy
       pt: Incorporação
-      pt-BR: Incorporações
       pt_BR: Incorporações
       sl: Prevzemi
       sr: 'Улазни инвентари'
@@ -218,7 +213,6 @@ QubitMenu:
       nl: Schenkers
       pl: 'Przekazujący (materiały archiwalne)'
       pt: Doadores
-      pt-BR: Doadores
       pt_BR: Doadores
       ru: Доноры
       sl: Donatorji
@@ -245,7 +239,6 @@ QubitMenu:
       id: Tugas
       it: Operazioni
       pt: Tarefas
-      pt-BR: Trabalhos
       pt_BR: Trabalhos
       ru: Задания
       sl: Dela
@@ -283,7 +276,6 @@ QubitMenu:
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
-      pt-BR: 'Depósito físico'
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
@@ -320,7 +312,6 @@ QubitMenu:
       nl: Rechthebbenden
       pl: 'Posiadacze praw'
       pt: 'Proprietários dos direitos'
-      pt-BR: 'Detentores dos direitos'
       pt_BR: 'Detentores de direitos'
       sl: 'Imetniki pravic'
       sr: 'Носиоци права'
@@ -357,7 +348,6 @@ QubitMenu:
       nl: Taxonomieën
       pl: Taksonomie
       pt: Taxonomias
-      pt-BR: Taxonomias
       pt_BR: Taxonomias
       sl: Taksonomije
       sr: Таксономије
@@ -400,7 +390,6 @@ QubitMenu:
       nl: import
       pl: Importowanie
       pt: Importar
-      pt-BR: Importar
       pt_BR: Importar
       ru: Импорт
       ru_RU: Импорт
@@ -439,7 +428,6 @@ QubitMenu:
       ko: 관리자
       pl: Administrator
       pt: Administrar
-      pt-BR: Administrador
       pt_BR: Administrador
       ru: Администратор
       sl: Skrbnik
@@ -476,7 +464,6 @@ QubitMenu:
       nl: 'Aanwinst documentatie'
       pl: Nabytki
       pt: 'Registo de incorporação'
-      pt-BR: 'Registros de incorporação'
       pt_BR: 'Registros de incorporação'
       sl: 'Zapisi o prevzemu'
       sr: 'Записник о преузимању'
@@ -513,7 +500,6 @@ QubitMenu:
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrições arquivísticas'
-      pt-BR: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       ru: 'Архивные описания'
       sl: 'arhivski opisi'
@@ -549,7 +535,6 @@ QubitMenu:
       nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
       pt: 'Registos de autoridade'
-      pt-BR: 'Registros de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       sr: 'Нормативни записи'
@@ -585,7 +570,6 @@ QubitMenu:
       nl: archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição arquivística'
-      pt-BR: 'Entidades custodiadoras'
       pt_BR: 'Instituições arquivísticas'
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
@@ -623,7 +607,6 @@ QubitMenu:
       nl: Termen
       pl: Terminy
       pt: Termo
-      pt-BR: Termos
       pt_BR: Termos
       sl: Izrazi
       sr: Термини
@@ -660,7 +643,6 @@ QubitMenu:
       nl: Functie
       pl: Funkcja
       pt: Função
-      pt-BR: Função
       pt_BR: Função
       ro: Functia
       sl: Funkcija
@@ -699,7 +681,6 @@ QubitMenu:
       ko: XML
       pl: XML
       pt: XML
-      pt-BR: XML
       pt_BR: XML
       sl: XML
       sr: XML
@@ -738,7 +719,6 @@ QubitMenu:
       ko: CSV
       pl: CSV
       pt: CSV
-      pt-BR: CSV
       pt_BR: CSV
       sl: CSV
       sr: CSV
@@ -782,7 +762,6 @@ QubitMenu:
       ko: SKOS
       pl: SKOS
       pt: SKOS
-      pt-BR: SKOS
       pt_BR: SKOS
       ro: SKOS
       sl: SKOS
@@ -821,7 +800,6 @@ QubitMenu:
       nl: Gebruikers
       pl: Użytkownicy
       pt: Utilizadores
-      pt-BR: Usuários
       pt_BR: Usuários
       ru: Пользователи
       sl: Uporabniki
@@ -863,7 +841,6 @@ QubitMenu:
       nl: Profiel
       pl: Profil
       pt: Perfil
-      pt-BR: Perfil
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
@@ -900,7 +877,6 @@ QubitMenu:
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       ko: '기술정보 접근권한'
       pt: 'Permissões da descrição arquivística'
-      pt-BR: 'Permissões para descrições arquivísticas'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       sr: 'Дозволе архивског описа'
@@ -933,7 +909,6 @@ QubitMenu:
       ko: '전거레코드 허가'
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do registo de autoridade'
-      pt-BR: 'Permissões de registro de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       sr: 'Дозволе за нормативни запис'
@@ -964,7 +939,6 @@ QubitMenu:
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
-      pt-BR: 'Permissões de entidades custodiadoras'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
@@ -997,7 +971,6 @@ QubitMenu:
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
-      pt-BR: 'Permissões para taxonomia'
       pt_BR: 'Permissões para taxonomia'
       sl: 'Dovoljenja za taksonomijo'
       sr: 'Дозволе за таксономију'
@@ -1033,7 +1006,6 @@ QubitMenu:
       nl: Groepen
       pl: Grupy
       pt: Grupos
-      pt-BR: Grupos
       pt_BR: Grupos
       ru: Группы
       sl: Skupine
@@ -1075,7 +1047,6 @@ QubitMenu:
       nl: Profiel
       pl: Profil
       pt: Perfil
-      pt-BR: Perfil
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
@@ -1112,7 +1083,6 @@ QubitMenu:
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       ko: '기술정보 접근권한'
       pt: 'Permissões da descrição arquivística'
-      pt-BR: 'Permissões para descrições arquivísticas'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       sr: 'Дозволе архивског описа'
@@ -1145,7 +1115,6 @@ QubitMenu:
       ko: '전거레코드 허가'
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do registo de autoridade'
-      pt-BR: 'Permissões de registro de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       sr: 'Дозволе за нормативни запис'
@@ -1176,7 +1145,6 @@ QubitMenu:
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
-      pt-BR: 'Permissões de entidades custodiadoras'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
@@ -1209,7 +1177,6 @@ QubitMenu:
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
-      pt-BR: 'Permissões para taxonomia'
       pt_BR: 'Permissões para taxonomia'
       sl: 'Dovoljenja za taksonomijo'
       sr: 'Дозволе за таксономију'
@@ -1245,7 +1212,6 @@ QubitMenu:
       nl: 'statische pagina''s'
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
-      pt-BR: 'Páginas estáticas'
       pt_BR: 'Páginas estáticas'
       sl: 'Statične strani'
       sr: 'Статичнe странe'
@@ -1281,7 +1247,6 @@ QubitMenu:
       ko: 메뉴
       pl: 'Listy menu'
       pt: Menus
-      pt-BR: Menus
       pt_BR: Menus
       ru: Меню
       sl: Meniji
@@ -1316,7 +1281,6 @@ QubitMenu:
       ko: 플러그인
       pl: Wtyczki/pluginy
       pt: Componentes
-      pt-BR: Plugins
       pt_BR: Plugins
       ru: Расширения
       sl: Vtičniki
@@ -1353,7 +1317,6 @@ QubitMenu:
       nl: 'Thema''s'
       pl: Motywy
       pt: Temas
-      pt-BR: Temas
       pt_BR: Temas
       ru: Темы
       sl: Teme
@@ -1391,7 +1354,6 @@ QubitMenu:
       nl: Instellingen
       pl: Ustawienia
       pt: Configurações
-      pt-BR: Configurações
       pt_BR: Configurações
       sl: Nastavitve
       sr: Подешавања
@@ -1427,7 +1389,6 @@ QubitMenu:
       nl: 'Wijzigingen van de beschrijving'
       pl: 'Uaktualnienia opisu'
       pt: 'Atualizações da descrição'
-      pt-BR: 'Atualizações da descrição'
       pt_BR: 'Atualizações da descrição'
       sl: 'Posodobitve popisa'
       sr: 'Ажурирањe описа'
@@ -1465,7 +1426,6 @@ QubitMenu:
       ka: 'გლობალური ძებნა /შენაცვლება'
       ko: '글로벌 검색/대체'
       pt: 'Pesquisa/substituição global'
-      pt-BR: 'Pesquisa/substituição global'
       pt_BR: 'Pesquisa/substituição global'
       sl: 'Išči/zamenjaj v celotnem programu'
       sr: 'Општа претрага/замена'
@@ -1507,7 +1467,6 @@ QubitMenu:
       nl: home
       pl: 'Strona Domowa'
       pt: Início
-      pt-BR: Início
       pt_BR: Início
       sl: Domov
       sr: 'Почетна страна'
@@ -1545,7 +1504,6 @@ QubitMenu:
       nl: Over
       pl: O...
       pt: Sobre
-      pt-BR: Sobre
       pt_BR: Sobre
       sl: 'O programu'
       sr: О
@@ -1597,7 +1555,6 @@ QubitMenu:
       nl: Help
       pl: Pomoc
       pt: Ajuda
-      pt-BR: Ajuda
       pt_BR: Ajuda
       ru: Помощь
       sl: Pomoč
@@ -1634,7 +1591,6 @@ QubitMenu:
       nl: 'Mijn profiel'
       pl: 'Mój profil'
       pt: 'O meu perfil'
-      pt-BR: 'Meu perfil'
       pt_BR: 'Meu perfil'
       ru: 'Мой профиль'
       sl: 'Moj profil'
@@ -1678,7 +1634,6 @@ QubitMenu:
       nl: Inloggen
       pl: Logowanie
       pt: Entrar
-      pt-BR: Entrar
       pt_BR: Entrar
       ru: Войти
       ru_RU: Войти
@@ -1722,7 +1677,6 @@ QubitMenu:
       ko: 로그아웃
       nl: uitloggen
       pt: Sair
-      pt-BR: Sair
       pt_BR: Sair
       ro: Iesiti
       ru: Выйти
@@ -1760,7 +1714,6 @@ QubitMenu:
       ko: '기록물 기술'
       nl: 'archivistische beschrijving'
       pt: 'Descrições arquivísticas'
-      pt-BR: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       ru: 'Архивные описания'
       sl: 'arhivski opisi'
@@ -1795,7 +1748,6 @@ QubitMenu:
       ko: 전거레코드
       nl: 'geautoriseerd bestand'
       pt: 'Registos de autoridade'
-      pt-BR: 'Registros de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       sr: 'Нормативни записи'
@@ -1830,7 +1782,6 @@ QubitMenu:
       ko: 기록물관리기관
       nl: archiefinstelling
       pt: 'Instituição arquivística'
-      pt-BR: 'Entidades custodiadoras'
       pt_BR: 'Instituições arquivísticas'
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
@@ -1868,7 +1819,6 @@ QubitMenu:
       nl: Functies
       pl: Funkcja
       pt: Funções
-      pt-BR: Funções
       pt_BR: Funções
       sl: Funkcije
       sr: Функције
@@ -1907,7 +1857,6 @@ QubitMenu:
       ko: 주제
       nl: Onderwerpen
       pt: Assuntos
-      pt-BR: Assuntos
       pt_BR: Assuntos
       ru: Темы
       ru_RU: Темы
@@ -1952,7 +1901,6 @@ QubitMenu:
       nl: Plaatsen
       pl: Miejsca
       pt: Locais
-      pt-BR: Locais
       pt_BR: Locais
       ru: Места
       ru_RU: Места
@@ -1997,7 +1945,6 @@ QubitMenu:
       nl: 'Digitale objecten'
       pl: 'Obiekty cyfrowe'
       pt: 'Objeto digital'
-      pt-BR: 'Objetos digitais'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
       ru_RU: 'Цифровые объекты'
@@ -2039,7 +1986,6 @@ QubitMenu:
       ka: 'შესამჩნევი ელემენტები'
       ko: '가시적 요소'
       pt: 'Elementos visíveis'
-      pt-BR: 'Elementos visiveis'
       pt_BR: 'Elementos visiveis'
       ru: 'Видимые элементы'
       ru_RU: 'Видимые элементы'
@@ -2078,7 +2024,6 @@ QubitMenu:
       nl: 'statische pagina''s'
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
-      pt-BR: 'Páginas estáticas'
       pt_BR: 'Páginas estáticas'
       sl: 'Statične strani'
       sr: 'Статичнe странe'
@@ -2109,7 +2054,6 @@ QubitMenu:
       it: 'Area di lavoro'
       ja: クリップボード
       pt: 'Área de transferência'
-      pt-BR: 'Área de Transferência'
       pt_BR: 'Área de Transferência'
       sr: Међумеморија
       sv: Urklipp
@@ -2130,7 +2074,6 @@ QubitMenu:
       id: 'Kosongkan semua yang dipilih'
       it: 'Annullare tutte le selezioni'
       pt: 'Limpar todas as selecções'
-      pt-BR: 'Limpar todas as seleções'
       pt_BR: 'Limpar todas as seleções'
       sr: 'Обриши све ознаке'
       sv: 'Rensa val'
@@ -2152,7 +2095,6 @@ QubitMenu:
       it: 'Vai all''area di lavoro'
       ja: クリップボードに移動
       pt: 'Ir para a área de transferência'
-      pt-BR: 'Ir para a área de transferência'
       pt_BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију'
       sv: 'Gå till urklipp'
@@ -2173,7 +2115,6 @@ QubitMenu:
       it: 'Carica l''area di lavoro'
       ja: クリップボードをロード
       pt: 'Carregar Área de Transferência'
-      pt-BR: 'Carregar Área de Transferência'
       pt_BR: 'Carregar Área de Transferência'
       sr: 'Учитај међумеморију'
       sv: 'Ladda urklipp'
@@ -2221,7 +2162,6 @@ QubitMenu:
       ko: '기록물 기술'
       nl: 'archivistische beschrijving'
       pt: 'Descrições arquivísticas'
-      pt-BR: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       ru: 'Архивные описания'
       sl: 'arhivski opisi'
@@ -2262,7 +2202,6 @@ QubitMenu:
       nl: 'Digitale objecten'
       pl: 'Obiekty cyfrowe'
       pt: 'Objeto digital'
-      pt-BR: 'Objetos digitais'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
       ru_RU: 'Цифровые объекты'
