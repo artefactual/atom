@@ -188,7 +188,6 @@ QubitSetting:
       pt: Produtor
       pt_BR: Produtor
       ru: Создатель
-      ru_RU: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
@@ -344,7 +343,6 @@ QubitSetting:
       pt: Assunto
       pt_BR: Assunto
       ru: Тема
-      ru_RU: Тема
       sl: Tematika
       sr: Тема
       sv: Ämne
@@ -468,7 +466,6 @@ QubitSetting:
       pt: Local
       pt_BR: Local
       ru: Место
-      ru_RU: Место
       sl: Kraj
       sr: Место
       sv: Plats
@@ -515,7 +512,6 @@ QubitSetting:
       pt_BR: Nome
       ro: Nume
       ru: Имя
-      ru_RU: Имя
       sl: Ime
       sr: Назив/Име
       sv: Namn
@@ -640,7 +636,6 @@ QubitSetting:
       pt_BR: 'Tipo de mídia'
       ro: 'Tipul media'
       ru: 'Тип носителя'
-      ru_RU: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
       sv: Mediatyp
@@ -785,7 +780,6 @@ QubitSetting:
       pt_BR: Pesquisar
       ro: Cautati
       ru: Поиск
-      ru_RU: Поиск
       sl: Išči
       sr: Претражи
       sv: Sök

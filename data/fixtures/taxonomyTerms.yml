@@ -172,7 +172,6 @@ QubitTaxonomy:
       pt: Assuntos
       pt_BR: Assuntos
       ru: Темы
-      ru_RU: Темы
       sl: Osebe
       sr: Теме
       sv: Ämnen
@@ -388,7 +387,6 @@ QubitTaxonomy:
       pt: Locais
       pt_BR: Locais
       ru: Места
-      ru_RU: Места
       sl: Kraji
       sr: Места
       sv: Platser
@@ -1495,7 +1493,6 @@ QubitTaxonomy:
       pt: 'Estado do trabalho'
       pt_BR: 'Status do trabalho'
       ru: 'Статус задания'
-      ru_RU: 'Статус задания'
       sl: 'Status dela'
       sr: 'Статус посла'
       sv: Jobbstatus
@@ -1586,7 +1583,6 @@ QubitTerm:
       pt: Produção
       pt_BR: Produção
       ru: Создание
-      ru_RU: Создание
       sl: Ustvarjanje
       sr: Стварање
       sv: Skapande
@@ -2826,7 +2822,6 @@ QubitTerm:
       pt: 'Nota do arquivista'
       pt_BR: 'Nota do arquivista'
       ru: 'Примечание архивиста'
-      ru_RU: 'Примечание архивиста'
       sl: 'Opomba arhivarja'
       sr: 'Архиваторска напомена'
       sv: 'Arkivariens anmärkning'
@@ -3353,7 +3348,6 @@ QubitTerm:
       pt_BR: 'Versão preliminar'
       ro: Proiect
       ru: Черновик
-      ru_RU: Черновик
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
@@ -4193,7 +4187,6 @@ QubitTerm:
       pt: Produção
       pt_BR: Produção
       ru: Создание
-      ru_RU: Создание
       sl: Ustvarjanje
       sr: Стварање
       sv: Skapande
@@ -5290,7 +5283,6 @@ QubitTerm:
       pt_BR: 'Versão preliminar'
       ro: Proiect
       ru: Черновик
-      ru_RU: Черновик
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
@@ -5754,7 +5746,6 @@ QubitTerm:
       pt: Produtor
       pt_BR: Produtor
       ru: Создатель
-      ru_RU: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
@@ -5798,7 +5789,6 @@ QubitTerm:
       pt_BR: 'Entidade custodiadora'
       ro: Depozit
       ru: Хранилище
-      ru_RU: Хранилище
       sl: Skladišče
       sr: Институција
       sv: Arkivinstitution
@@ -5874,7 +5864,6 @@ QubitTerm:
       pt: Assunto
       pt_BR: Assunto
       ru: Тема
-      ru_RU: Тема
       sl: Tematika
       sr: Тема
       sv: Ämne
@@ -6585,7 +6574,6 @@ QubitTerm:
       pt: Local
       pt_BR: Local
       ru: Место
-      ru_RU: Место
       sl: Kraj
       sr: Место
       sv: Plats
@@ -6630,7 +6618,6 @@ QubitTerm:
       pt_BR: Nome
       ro: Nume
       ru: Имя
-      ru_RU: Имя
       sl: Ime
       sr: Назив/Име
       sv: Namn
@@ -6783,7 +6770,6 @@ QubitTerm:
       pt_BR: 'Tipo de mídia'
       ro: 'Tipul media'
       ru: 'Тип носителя'
-      ru_RU: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
       sv: Mediatyp
@@ -9158,7 +9144,6 @@ QubitTerm:
       pt_BR: Apagar
       ro: Sterge
       ru: Удалить
-      ru_RU: Удалить
       sl: Izbriši
       sr: Обриши
       sv: 'Ta bort'
@@ -9469,7 +9454,6 @@ QubitTerm:
       pt_BR: Desconhecido
       ro: Necunoscut
       ru: Неизвестно
-      ru_RU: Неизвестно
       sl: Neznan
       sr: Непознат
       sv: Okänd
@@ -9582,7 +9566,6 @@ QubitTerm:
       pt: 'MODS, Versão 3.3. U.S. da Biblioteca do Congresso'
       pt_BR: 'MODS, Versão 3.3. U.S. Library of Congress'
       ru: 'MODS, Версия 3.3. США Библиотека Конгресса'
-      ru_RU: 'MODS, Версия 3.3. США Библиотека Конгресса'
       sl: 'MODS, verzija 3.3., ameriška kongresna knjižnica'
       sr: 'MODS, Version 3.3. U.S. Library of Congress'
       sv: 'MODS, Version 3.3. U.S. Library of Congress'
@@ -9653,7 +9636,6 @@ QubitTerm:
       pt: 'DACS, 2 ª ed. Sociedade Americana de Arquivistas'
       pt_BR: 'DACS, 2ª ed. Society of American Archivists'
       ru: 'DACS, 2-е издание. Ассоциация Американских Архивистов'
-      ru_RU: 'DACS, 2-е издание. Ассоциация Американских Архивистов'
       sl: 'Arhivsko popisovanje: vsebinski standard (DACS), 2. izdaja, Društvo ameriških arhivistov'
       sr: 'DACS, 2nd ed. Society of American Archivists (Друштво америчких архивиста)'
       sv: 'DACS, 2nd ed. Society of American Archivists'
@@ -11583,7 +11565,6 @@ QubitNote:
       pt: Produtor
       pt_BR: Produtor
       ru: Создатель
-      ru_RU: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare

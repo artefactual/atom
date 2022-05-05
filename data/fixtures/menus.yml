@@ -80,7 +80,6 @@ QubitMenu:
       pt: Adicionar
       pt_BR: Adicionar
       ru: Добавить
-      ru_RU: Добавить
       sl: Dodaj
       sr: Додај
       sv: 'Lägg till'
@@ -392,7 +391,6 @@ QubitMenu:
       pt: Importar
       pt_BR: Importar
       ru: Импорт
-      ru_RU: Импорт
       sl: Uvoz
       sr: Увези
       sv: Importera
@@ -844,7 +842,6 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
-      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -1050,7 +1047,6 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
-      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -1636,7 +1632,6 @@ QubitMenu:
       pt: Entrar
       pt_BR: Entrar
       ru: Войти
-      ru_RU: Войти
       sl: Prijava
       sr: 'Пријави се'
       sv: 'Logga in'
@@ -1680,7 +1675,6 @@ QubitMenu:
       pt_BR: Sair
       ro: Iesiti
       ru: Выйти
-      ru_RU: Выйти
       sl: odjava
       sr: 'Одјави се'
       sv: 'Logga ut'
@@ -1859,7 +1853,6 @@ QubitMenu:
       pt: Assuntos
       pt_BR: Assuntos
       ru: Темы
-      ru_RU: Темы
       sl: Osebe
       sr: Теме
       sv: Ämnen
@@ -1903,7 +1896,6 @@ QubitMenu:
       pt: Locais
       pt_BR: Locais
       ru: Места
-      ru_RU: Места
       sl: Kraji
       sr: Места
       sv: Platser
@@ -1947,7 +1939,6 @@ QubitMenu:
       pt: 'Objeto digital'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
-      ru_RU: 'Цифровые объекты'
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'
@@ -1988,7 +1979,6 @@ QubitMenu:
       pt: 'Elementos visíveis'
       pt_BR: 'Elementos visiveis'
       ru: 'Видимые элементы'
-      ru_RU: 'Видимые элементы'
       sl: 'Vidni elementi'
       sr: 'Видљива поља'
       sv: 'Synliga element'
@@ -2204,7 +2194,6 @@ QubitMenu:
       pt: 'Objeto digital'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
-      ru_RU: 'Цифровые объекты'
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'
