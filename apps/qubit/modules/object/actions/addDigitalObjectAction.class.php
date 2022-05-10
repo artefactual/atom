@@ -113,7 +113,7 @@ class ObjectAddDigitalObjectAction extends sfAction
                 $digitalObject->importFromURI($this->form->getValue('url'));
             } catch (sfException $e) {
                 // Log download exception
-                $this->logMessage($e->getMessage, 'err');
+                $this->logMessage($e->getMessage(), 'err');
             }
         }
 
