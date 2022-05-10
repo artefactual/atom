@@ -312,7 +312,7 @@
   </div>
 
   <div class="nameAccessPoints">
-    <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource]); ?>
+    <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource, 'showActorEvents' => true]); ?>
   </div>
 
   <div class="genreAccessPoints">

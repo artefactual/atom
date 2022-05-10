@@ -14,7 +14,7 @@
             <dl>
               <?php if (isset($item->actor) && null !== $item->type->getRole()) { ?>
                 <dt><?php echo render_value_inline($item->type->getRole()); ?></dt>
-                <dd><?php echo render_title($item->actor); ?></dd>
+                <dd><?php echo link_to(render_title($item->actor), [$item->actor, 'module' => 'actor', 'action' => 'index']); ?></dd>
               <?php } ?>
               <?php if (null !== $item->getPlace()) { ?>
                 <dt><?php echo __('Place'); ?></dt>
