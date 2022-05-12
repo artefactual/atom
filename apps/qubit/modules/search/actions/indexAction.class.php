@@ -27,7 +27,7 @@ class SearchIndexAction extends DefaultBrowseAction
         parent::execute($request);
 
         $this->search->queryBool->addMust(
-            arElasticSearchPluginUtil::generateBoolQueryString(
+            arElasticSearchPluginUtil::generateQueryString(
                 $request->query,
                 arElasticSearchPluginUtil::getAllFields('informationObject')
             )

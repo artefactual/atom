@@ -86,7 +86,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
             $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
         } else {
             $this->search->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString(
+                arElasticSearchPluginUtil::generateQueryString(
                     $request->subquery,
                     arElasticSearchPluginUtil::getAllFields('repository')
                 )

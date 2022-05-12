@@ -129,7 +129,9 @@ class DefaultMoveAction extends sfAction
                 sprintf('i18n.%s.title', sfContext::getInstance()->user->getCulture()) => 1,
             ];
             $this->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString($request->query, $fields)
+                arElasticSearchPluginUtil::generateQueryString(
+                    $request->query, $fields
+                )
             );
         } else {
             $query = new \Elastica\Query\Term();

@@ -176,6 +176,16 @@ class arElasticSearchMapping
         return $fields;
     }
 
+    public static function getAnalyzer($culture)
+    {
+        if (isset(self::$analyzers[$culture])) {
+            return self::$analyzers[$culture];
+        }
+
+        // Default to standard analyzer
+        return 'standard';
+    }
+
     /**
      * Camelize field names by creating and unsetting array items recursively.
      * Only properties are camelized, other attributes are ignored.
@@ -445,9 +455,7 @@ class arElasticSearchMapping
             // std_french in search.yml) based in the language being used. The default
             // analyzer is standard, which does not provide a stopwords list.
             foreach ($nestedI18nFields as $fn => &$fv) {
-                $analyzer = isset(self::$analyzers[$culture]) ? self::$analyzers[$culture] : 'standard';
-
-                $fv['analyzer'] = $analyzer;
+                $fv['analyzer'] = self::getAnalyzer($culture);
             }
             unset($fv);
 

@@ -428,7 +428,7 @@ class arElasticSearchPluginQuery
                 break;
         }
 
-        return arElasticSearchPluginUtil::generateBoolQueryString(
+        return arElasticSearchPluginUtil::generateQueryString(
             $query, $fields
         );
     }

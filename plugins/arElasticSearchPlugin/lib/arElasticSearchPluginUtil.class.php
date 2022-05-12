@@ -169,54 +169,49 @@ class arElasticSearchPluginUtil
     }
 
     /**
-     * Generate a boolean query with a should clause for each field.
-     *
-     * @param string $query  unescaped search term
-     * @param string $fields key/value array with fieldname/boost
-     *
-     * @return \Elastica\Query\BoolQuery the generated boolean query
-     */
-    public static function generateBoolQueryString($query, $fields)
-    {
-        $cultures = sfConfig::get('app_i18n_languages');
-        $boolQuery = new \Elastica\Query\BoolQuery();
-        $query = self::escapeTerm($query);
-
-        foreach ($fields as $field => $boost) {
-            if (false !== strpos($field, '%s')) {
-                foreach ($cultures as $culture) {
-                    $boolQuery->addShould(
-                        self::generateQueryString($query, sprintf($field, $culture), $boost)
-                    );
-                }
-            } else {
-                $boolQuery->addShould(
-                    self::generateQueryString($query, $field, $boost)
-                );
-            }
-        }
-
-        return $boolQuery;
-    }
-
-    /**
      * Generate a query string query.
      *
      * @param string $query    escaped search term
-     * @param string $field    full fieldname (including culture if needed)
-     * @param float  $boost    Boost for the query. Default: 1.
-     * @param string $operator Query operator (AND/OR). Default: AND.
+     * @param array  $fields   fields to search (including culture if needed)
+     * @param string $operator default query operator (AND/OR), default: AND
      *
      * @return \Elastica\Query\QueryString the generated query string query
      */
-    public static function generateQueryString($query, $field, $boost = 1, $operator = 'AND')
-    {
+    public static function generateQueryString(
+        $query, $fields, $operator = 'AND'
+    ) {
         $queryString = new \Elastica\Query\QueryString($query);
         $queryString->setDefaultOperator($operator);
-        $queryString->setDefaultField($field);
-        $queryString->setBoost($boost);
+        $queryString->setFields(self::getBoostedSearchFields($fields));
+        $queryString->setAnalyzer(
+            arElasticSearchMapping::getAnalyzer(
+                sfContext::getInstance()->user->getCulture()
+            )
+        );
 
         return $queryString;
+    }
+
+    public static function getBoostedSearchFields($fields)
+    {
+        $searchFields = [];
+        $cultures = sfConfig::get('app_i18n_languages');
+
+        foreach ($fields as $field => $boost) {
+            if (1 != $boost) {
+                $field .= '^'.$boost;
+            }
+
+            if (false !== strpos($field, '%s')) {
+                foreach ($cultures as $culture) {
+                    $searchFields[] = sprintf($field, $culture);
+                }
+            } else {
+                $searchFields[] = $field;
+            }
+        }
+
+        return $searchFields;
     }
 
     // Gets all premis data related to an information object
@@ -486,11 +481,13 @@ class arElasticSearchPluginUtil
                 }
                 // Get string fields included in _all
                 elseif (
-                    (!isset($propertyProperties['include_in_all'])
-                    || $propertyProperties['include_in_all'])
-                    && (isset($propertyProperties['type'])
-                    && ('text' == $propertyProperties['type']
-                    || 'keyword' == $propertyProperties['type']))
+                    (
+                        !isset($propertyProperties['include_in_all'])
+                        || $propertyProperties['include_in_all']
+                    ) && (
+                        isset($propertyProperties['type'])
+                        && 'text' == $propertyProperties['type']
+                    )
                 ) {
                     self::handleNonI18nStringFields($rootIndexType, $fields, $prefix, $propertyName, $foreignType);
                 }

@@ -65,7 +65,9 @@ class InformationObjectAutocompleteAction extends sfAction
             }
 
             $this->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString($request->query, $fields)
+                arElasticSearchPluginUtil::generateQueryString(
+                    $request->query, $fields
+                )
             );
         }
 

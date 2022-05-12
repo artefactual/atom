@@ -111,7 +111,9 @@ class AccessionBrowseAction extends sfAction
             ];
 
             $this->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
+                arElasticSearchPluginUtil::generateQueryString(
+                    $request->subquery, $fields
+                )
             );
 
             $this->sortOptions['relevance'] = $this->context->i18n->__('Relevance');

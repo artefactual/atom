@@ -182,7 +182,9 @@ class TaxonomyIndexAction extends sfAction
 
             // Filter results by subquery
             $this->queryBool->addMust(
-                arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
+                arElasticSearchPluginUtil::generateQueryString(
+                    $request->subquery, $fields
+                )
             );
         }
 
