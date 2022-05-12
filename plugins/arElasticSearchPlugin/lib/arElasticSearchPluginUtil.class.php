@@ -169,7 +169,7 @@ class arElasticSearchPluginUtil
     }
 
     /**
-     * Generate a boolean query with a should clause for each field.
+     * Generate a boolean query with a should clause for all fields.
      *
      * @param string $query  unescaped search term
      * @param string $fields key/value array with fieldname/boost
@@ -181,20 +181,24 @@ class arElasticSearchPluginUtil
         $cultures = sfConfig::get('app_i18n_languages');
         $boolQuery = new \Elastica\Query\BoolQuery();
         $query = self::escapeTerm($query);
+        $boostString = '%s^%f';
+        $searchFields = [];
 
         foreach ($fields as $field => $boost) {
             if (false !== strpos($field, '%s')) {
                 foreach ($cultures as $culture) {
-                    $boolQuery->addShould(
-                        self::generateQueryString($query, sprintf($field, $culture), $boost)
+                    $searchFields[] = sprintf(
+                        $boostString, sprintf($field, $culture), $boost
                     );
                 }
             } else {
-                $boolQuery->addShould(
-                    self::generateQueryString($query, $field, $boost)
-                );
+                $searchFields[] = sprintf($boostString, $field, $boost);
             }
         }
+
+        $boolQuery->addShould(
+            self::generateQueryString($query, $searchFields)
+        );
 
         return $boolQuery;
     }
@@ -203,18 +207,17 @@ class arElasticSearchPluginUtil
      * Generate a query string query.
      *
      * @param string $query    escaped search term
-     * @param string $field    full fieldname (including culture if needed)
-     * @param float  $boost    Boost for the query. Default: 1.
-     * @param string $operator Query operator (AND/OR). Default: AND.
+     * @param array  $fields   fields to search (including culture if needed)
+     * @param string $operator default query operator (AND/OR), default: AND
      *
      * @return \Elastica\Query\QueryString the generated query string query
      */
-    public static function generateQueryString($query, $field, $boost = 1, $operator = 'AND')
-    {
+    public static function generateQueryString(
+        $query, $fields, $operator = 'AND'
+    ) {
         $queryString = new \Elastica\Query\QueryString($query);
         $queryString->setDefaultOperator($operator);
-        $queryString->setDefaultField($field);
-        $queryString->setBoost($boost);
+        $queryString->setFields($fields);
 
         return $queryString;
     }
