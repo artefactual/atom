@@ -90,18 +90,13 @@ class ActorRelatedInformationObjectsAction extends sfAction
             $queryTerm = new \Elastica\Query\Term(['names.id' => $actorId]);
 
             $queryBool->addMust($queryTerm);
+
+            foreach (QubitTerm::getEventTypes() as $eventType) {
+                $queryNested = self::nestedActorAndEventTypeQuery($actorId, $eventType->id);
+                $queryBool->addMustNot($queryNested);
+            }
         } else {
-            // Get related by event IOs
-            $queryBoolDates = new \Elastica\Query\BoolQuery();
-            $queryBoolDates->addMust(new \Elastica\Query\Term(['dates.actorId' => $actorId]));
-            $queryBoolDates->addMust(new \Elastica\Query\Term(['dates.typeId' => $eventTypeId]));
-
-            // Use nested query and mapping object to allow querying
-            // over the actor and event ids from the same event
-            $queryNested = new \Elastica\Query\Nested();
-            $queryNested->setPath('dates');
-            $queryNested->setQuery($queryBoolDates);
-
+            $queryNested = self::nestedActorAndEventTypeQuery($actorId, $eventTypeId);
             $queryBool->addMust($queryNested);
         }
 
@@ -114,5 +109,21 @@ class ActorRelatedInformationObjectsAction extends sfAction
         $query->setFrom($limit * ($page - 1));
 
         return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    }
+
+    public static function nestedActorAndEventTypeQuery($actorId, $eventTypeId)
+    {
+        // Get related by event IOs
+        $queryBoolDates = new \Elastica\Query\BoolQuery();
+        $queryBoolDates->addMust(new \Elastica\Query\Term(['dates.actorId' => $actorId]));
+        $queryBoolDates->addMust(new \Elastica\Query\Term(['dates.typeId' => $eventTypeId]));
+
+        // Use nested query and mapping object to allow querying
+        // over the actor and event ids from the same event
+        $queryNested = new \Elastica\Query\Nested();
+        $queryNested->setPath('dates');
+        $queryNested->setQuery($queryBoolDates);
+
+        return $queryNested;
     }
 }
