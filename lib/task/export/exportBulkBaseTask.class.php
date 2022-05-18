@@ -148,7 +148,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
             } else {
                 // Fetch top-level descriptions if EAD (EAD data nests children) or if only exporting top-level
                 $whereClause = ('ead' == $options['format'] || $options['current-level-only'])
-                    ? 'parent_id = '
+                    ? 'i.parent_id = '
                     : 'i.id != ';
                 $whereClause .= QubitInformationObject::ROOT_ID;
             }

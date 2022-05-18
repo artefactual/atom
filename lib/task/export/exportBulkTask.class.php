@@ -76,7 +76,7 @@ class exportBulkTask extends exportBulkBaseTask
                 continue;
             }
 
-            $xml = self::generateXml($resoure, $format, $options);
+            $xml = self::generateXml($resource, $format, $options);
 
             if (isset($options['single-slug']) && 'ead' == $format) {
                 if (is_dir($arguments['path'])) {
@@ -116,7 +116,7 @@ class exportBulkTask extends exportBulkBaseTask
             // Print warnings/notices here too, as they are often important.
             $errLevel = error_reporting(E_ALL);
 
-            $rawXml = $this->captureResourceExportTemplateOutput(
+            $rawXml = self::captureResourceExportTemplateOutput(
                 $resource, $format, $options
             );
             $xml = Qubit::tidyXml($rawXml);
