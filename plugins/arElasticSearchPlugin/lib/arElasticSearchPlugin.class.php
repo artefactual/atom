@@ -214,6 +214,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
             // Load mappings if index initialization wasn't needed
             $this->loadAndNormalizeMappings();
+
+            // Update mappings (in case they've been changed during an upgrade, etc.)
+            $this->updateMappings();
         }
 
         // Display what types will be indexed
@@ -454,24 +457,33 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // Load and normalize mappings
             $this->loadAndNormalizeMappings();
 
-            // Iterate over types (actor, informationobject, ...)
-            foreach ($this->mappings as $typeName => $typeProperties) {
-                $typeName = 'Qubit'.sfInflector::camelize($typeName);
+            // Update mappings
+            $this->updateMappings();
+        }
+    }
 
-                // Define mapping in elasticsearch
-                $mapping = new \Elastica\Type\Mapping();
-                $mapping->setType($this->index->getType($typeName));
-                $mapping->setProperties($typeProperties['properties']);
+    /**
+     * Update Elasticsearch mapping of each type.
+     */
+    private function updateMappings()
+    {
+        // Iterate over types (actor, informationobject, ...)
+        foreach ($this->mappings as $typeName => $typeProperties) {
+            $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
-                // Parse other parameters
-                unset($typeProperties['properties']);
-                foreach ($typeProperties as $key => $value) {
-                    $mapping->setParam($key, $value);
-                }
+            // Define mapping in elasticsearch
+            $mapping = new \Elastica\Type\Mapping();
+            $mapping->setType($this->index->getType($typeName));
+            $mapping->setProperties($typeProperties['properties']);
 
-                $this->log(sprintf('Defining mapping %s...', $typeName));
-                $mapping->send();
+            // Parse other parameters
+            unset($typeProperties['properties']);
+            foreach ($typeProperties as $key => $value) {
+                $mapping->setParam($key, $value);
             }
+
+            $this->log(sprintf('Defining mapping %s...', $typeName));
+            $mapping->send();
         }
     }
 
