@@ -54,6 +54,9 @@ class arFindingAidJob extends arBaseJob
         } else {
             $generator = new QubitFindingAidGenerator($this->resource);
             $generator->setLogger($this->logger);
+            $generator->setAuthLevel(
+                QubitFindingAidGenerator::getPublicSetting()
+            );
             $generator->setFormat(QubitFindingAidGenerator::getFormatSetting());
             $generator->setModel(QubitFindingAidGenerator::getModelSetting());
             $result = $generator->generate();

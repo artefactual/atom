@@ -1,25 +1,14 @@
 <did>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage', $options)) { ?>
-    <?php $objects = ${$resourceVar}->getPhysicalObjects(); ?>
-    <?php foreach ($objects as $object) { ?>
-      <?php if (0 < strlen($location = $object->getLocation(['cultureFallback' => true]))) { ?>
-        <physloc id="<?php echo 'physloc'.str_pad(++${$counterVar}, 4, '0', STR_PAD_LEFT); ?>"><?php echo escape_dc(esc_specialchars($location)); ?></physloc>
-      <?php } ?>
-      <container <?php echo $ead->getEadContainerAttributes($object); ?><?php if (0 < strlen($location)) { ?> parent="<?php echo 'physloc'.str_pad(${$counterVar}, 4, '0', STR_PAD_LEFT); ?>"<?php } ?>>
-        <?php if (0 < strlen($name = $object->getName(['cultureFallback' => true]))) { ?>
-          <?php echo escape_dc(esc_specialchars($name)); ?>
-        <?php } ?>
-      </container>
-    <?php } ?>
-  <?php } ?>
+  <?php include 'indexSuccessBodyPhysloc.xml.php'; ?>
 
-  <?php if (0 < strlen(${$resourceVar}->getPropertyByName('titleProperOfPublishersSeries')->__toString())
+  <?php if (
+    0 < strlen(${$resourceVar}->getPropertyByName('titleProperOfPublishersSeries')->__toString())
     || 0 < strlen(${$resourceVar}->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())
-      || 0 < strlen(${$resourceVar}->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())
-        || 0 < strlen(${$resourceVar}->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())
-          || 0 < strlen(${$resourceVar}->getPropertyByName('numberingWithinPublishersSeries')->__toString())) { ?>
-
+    || 0 < strlen(${$resourceVar}->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())
+    || 0 < strlen(${$resourceVar}->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())
+    || 0 < strlen(${$resourceVar}->getPropertyByName('numberingWithinPublishersSeries')->__toString())
+  ) { ?>
     <unittitle>
       <bibseries>
 

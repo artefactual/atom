@@ -105,6 +105,7 @@
             <xsl:when test="$tag = 'chronlist'">Chronology list</xsl:when>
             <xsl:when test="$tag = 'accessrestrict'">Restrictions on access</xsl:when>
             <xsl:when test="$tag = 'userestrict'">Conditions governing use</xsl:when>
+            <xsl:when test="$tag = 'container'">Physical storage</xsl:when>
             <xsl:when test="$tag = 'controlaccess'">Access points</xsl:when>
             <xsl:when test="$tag = 'corpname'">Corporate name</xsl:when>
             <xsl:when test="$tag = 'creation'">Creation</xsl:when>
@@ -164,7 +165,6 @@
             <xsl:when test="$tag = 'phystech'">Physical condition</xsl:when>
             <xsl:when test="$tag = 'physdesc'">Physical description</xsl:when>
             <xsl:when test="$tag = 'physfacet'">Physical facet</xsl:when>
-            <xsl:when test="$tag = 'physloc'">Physical location</xsl:when>
             <xsl:when test="$tag = 'ptr'">Pointer</xsl:when>
             <xsl:when test="$tag = 'ptrgrp'">Pointer group</xsl:when>
             <xsl:when test="$tag = 'ptrloc'">Pointer location</xsl:when>
@@ -231,6 +231,12 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:value-of select="concat($month,' ',substring($dateString,9,2),', ',substring($dateString,1,4))"/>
+    </xsl:function>
+    <!-- Uppercase the first letter of a string-->
+    <xsl:function name="local:ucfirst">
+        <xsl:param name="string"/>
+        <xsl:value-of select="upper-case(substring($string,1,1))"/>
+        <xsl:value-of select="substring($string,2)"/>
     </xsl:function>
     <!--
         Prints out full language name from abbreviation.

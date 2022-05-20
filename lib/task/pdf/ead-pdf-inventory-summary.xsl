@@ -3,20 +3,23 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      1.0                                               *
+        * VERSION:      2.0.5                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
+        *               david@artefactual.com                             *
         *                                                                 *
-        * DATE:         2013-08-21                                        *
+        * DATE:         2022-06-01                                        *
         *                                                                 *
         *******************************************************************
     -->
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <!-- Calls a stylesheet with local functions and lookup lists for languages and subject authorities -->
     <xsl:include href="{{ app_root }}/lib/task/pdf/helper-functions.xsl"/>
+    <!-- Define keys -->
+    <xsl:key name="physlocId" match="ead:physloc" use="@id"/>
     <xsl:strip-space elements="*"/>
     <!-- The following attribute sets are reusabe styles used throughout the stylesheet. -->
     <!-- Headings -->
@@ -549,8 +552,10 @@
                                             <xsl:value-of select="child::*/ead:unitid"/>,
                                         </xsl:if>
                                         <xsl:choose>
-                                            <xsl:when test="child::*/ead:unitdate"><xsl:apply-templates select="child::*/ead:unittitle"/>,
-                                                <xsl:apply-templates select="child::*/ead:unitdate" mode="did"/></xsl:when>
+                                            <xsl:when test="child::*/ead:unitdate">
+                                                <xsl:apply-templates select="child::*/ead:unittitle"/>,
+                                                <xsl:apply-templates select="child::*/ead:unitdate" mode="did"/>
+                                            </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:apply-templates select="child::*/ead:unittitle"/>
                                             </xsl:otherwise>
@@ -646,7 +651,7 @@
                     <xsl:apply-templates select="ead:unitid" mode="overview"/>
                     <xsl:apply-templates select="ead:unitdate" mode="overview"/>
                     <xsl:apply-templates select="ead:physdesc" mode="overview"/>
-                    <xsl:apply-templates select="ead:physloc" mode="overview"/>
+                    <xsl:apply-templates select="ead:container" mode="overview"/>
                     <xsl:apply-templates select="ead:langmaterial/ead:language" mode="overview"/>
                     <xsl:call-template name="summaryInfoOtherField">
                         <xsl:with-param name="path" select="//ead:processinfo/ead:p/ead:date"/>
@@ -660,15 +665,24 @@
         </fo:block>
     </xsl:template>
     <!-- Formats children of arcdesc/did -->
-    <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid | ead:physdesc | ead:physloc | ead:dao | ead:daogrp | ead:langmaterial | ead:materialspec | ead:container | ead:abstract | ead:note | ead:langmaterial/ead:language" mode="overview">
+    <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid | ead:physdesc | ead:dao | ead:daogrp | ead:langmaterial | ead:materialspec | ead:abstract | ead:note | ead:langmaterial/ead:language" mode="overview">
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
-                <fo:block><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                  </xsl:when><xsl:when test="ead:persname[@role != '']">
-                    - <xsl:value-of select="ead:persname/@role"/>
-                  </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><!-- Test for type attribute used by unitdate --><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose>:
-        </fo:block>
+                <fo:block>
+                    <xsl:choose>
+                        <!-- Output @label if set-->
+                        <xsl:when test="@label">
+                            <xsl:value-of select="local:ucfirst(@label)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="local:tagName(.)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <!-- Output "[@type]" if @type is set-->
+                    <xsl:if test="@type">
+                        [<xsl:value-of select="@type"/>]
+                    </xsl:if>:
+                </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
@@ -686,6 +700,20 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+    </xsl:template>
+    <xsl:template match="ead:container" mode="overview">
+        <fo:table-row>
+            <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
+                <fo:block>
+                    <xsl:apply-templates select="local:tagName(.)"/>:
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding-bottom="2pt">
+                <fo:block>
+                    <xsl:apply-templates select="." mode="text"/>
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
@@ -1399,7 +1427,7 @@
         </xsl:variable>
         <xsl:choose>
             <!--Formats Series and Groups -->
-            <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' or @level='subseries' or @level='collection'or @level='fonds' or @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(parent::ead:c[@level='series']))">
+            <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' or @level='subseries' or @level='collection' or @level='fonds' or @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(parent::ead:c[@level='series']))">
                 <fo:table-row background-color="#ffffff" border-top="1pt solid #000" text-align="left">
                     <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="4">
                         <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
@@ -1476,30 +1504,41 @@
         </fo:table-row>
     </xsl:template>
     <!-- Formats did containers -->
-    <xsl:template match="ead:container">
-        <fo:table-cell>
-            <fo:block margin="4pt 0 2pt 0" font-size="12">
-                <xsl:value-of select="."/>
-            </fo:block>
-        </fo:table-cell>
+    <xsl:template match="ead:container" mode="text">
+        <xsl:if test="key('physlocId', @parent)">
+            <xsl:value-of select="key('physlocId', @parent)"/> &#8211;
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="@label">
+                <xsl:value-of select="local:ucfirst(@label)"/>
+                <xsl:value-of select="concat(' ', @type)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="local:ucfirst(@type)"/>
+            </xsl:otherwise>
+        </xsl:choose>:
+        <xsl:value-of select="."/>
     </xsl:template>
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">
         <fo:block font-weight="bold" font-size="14" margin-bottom="0" margin-top="0" id="{local:buildID(parent::*)}">
-            <!-- Uncomment the following to add 'Series' to series titles -->
             <xsl:if test="ead:unitid">
                 <xsl:choose>
-                    <xsl:when test="../@level='series'">Series <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subseries'">Subseries <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subsubseries'">Sub-Subseries <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='collection'">Collection <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subcollection'">Subcollection <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='fonds'">Fonds <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subfonds'">Subfonds <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='recordgrp'">Record group <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subgrp'">Subgroup <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:otherwise><xsl:if test="../@otherlevel"><xsl:call-template name="ucfirst"><xsl:with-param name="value" select="../@otherlevel"/></xsl:call-template><xsl:text> </xsl:text><!--<xsl:value-of select="../@otherlevel"/><xsl:text> </xsl:text>--></xsl:if><xsl:value-of select="ead:unitid"/>: </xsl:otherwise>
+                    <xsl:when test="../@level='series'">Series </xsl:when>
+                    <xsl:when test="../@level='subseries'">Subseries </xsl:when>
+                    <xsl:when test="../@level='subsubseries'">Sub-Subseries </xsl:when>
+                    <xsl:when test="../@level='collection'">Collection </xsl:when>
+                    <xsl:when test="../@level='subcollection'">Subcollection </xsl:when>
+                    <xsl:when test="../@level='fonds'">Fonds </xsl:when>
+                    <xsl:when test="../@level='subfonds'">Subfonds </xsl:when>
+                    <xsl:when test="../@level='recordgrp'">Record group </xsl:when>
+                    <xsl:when test="../@level='subgrp'">Subgroup </xsl:when>
+                    <xsl:when test="../@otherlevel">
+                        <xsl:value-of select="local:ucfirst(../@otherlevel)"/>
+                        <xsl:text> </xsl:text>
+                    </xsl:when>
                 </xsl:choose>
+                <xsl:value-of select="ead:unitid"/>:
             </xsl:if>
             <xsl:apply-templates select="ead:unittitle"/>
         </fo:block>
@@ -1512,7 +1551,7 @@
             <xsl:apply-templates select="ead:unitdate" mode="dsc"/>
             <xsl:apply-templates select="following-sibling::ead:scopecontent[1]" mode="dsc"/>
             <xsl:apply-templates select="ead:physdesc" mode="dsc"/>
-            <xsl:apply-templates select="ead:physloc" mode="dsc"/>
+            <xsl:apply-templates select="ead:container" mode="dsc"/>
             <xsl:apply-templates select="ead:langmaterial" mode="dsc"/>
             <xsl:apply-templates select="ead:materialspec" mode="dsc"/>
             <xsl:apply-templates select="ead:abstract" mode="dsc"/>
@@ -1541,12 +1580,10 @@
             <xsl:if test="parent::ead:c[@level]">
                 <xsl:choose>
                     <xsl:when test="parent::ead:c/@otherlevel">
-                        <xsl:call-template name="ucfirst">
-                        <xsl:with-param name="value" select="parent::ead:c/@otherlevel"/></xsl:call-template>
+                        <xsl:value-of select="local:ucfirst(parent::ead:c/@otherlevel)"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="ucfirst">
-                        <xsl:with-param name="value" select="parent::ead:c/@level"/></xsl:call-template>
+                        <xsl:value-of select="local:ucfirst(parent::ead:c/@level)"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
@@ -1557,7 +1594,7 @@
         <xsl:apply-templates select="ead:materialspec" mode="itemDsc"/>
         <xsl:apply-templates select="ead:origination" mode="itemDsc"/>
         <xsl:apply-templates select="ead:note" mode="itemDsc"/>
-        <xsl:apply-templates select="ead:physloc" mode="itemDsc"/>
+        <xsl:apply-templates select="ead:container" mode="itemDsc"/>
     </xsl:template>
     <!-- Formats unitdates -->
     <xsl:template match="ead:unitdate[@type = 'bulk']" mode="did">
@@ -1566,39 +1603,36 @@
     <xsl:template match="ead:unitdate" mode="did">
         <xsl:apply-templates/>
     </xsl:template>
+    <!-- Special formatting for Language of material -->
     <xsl:template match="ead:langmaterial" mode="dsc">
-        <fo:block xsl:use-attribute-sets="smpDsc"><fo:inline text-decoration="underline"><xsl:value-of select="local:tagName(.)"/></fo:inline>:<fo:block/><xsl:for-each select="ead:language"><fo:block margin="4pt"><xsl:value-of select="."/></fo:block></xsl:for-each></fo:block>
+        <fo:block>
+            <fo:inline text-decoration="underline">
+                <xsl:value-of select="local:tagName(.)"/>
+            </fo:inline>:
+        </fo:block>
+        <xsl:for-each select="ead:language">
+            <fo:block margin="4pt">
+                <xsl:value-of select="."/>
+            </fo:block>
+        </xsl:for-each>
     </xsl:template>
     <!-- Special formatting for series elements in the collection inventory list -->
-    <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:physloc | ead:materialspec | ead:container | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
+    <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:materialspec | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
         <fo:block xsl:use-attribute-sets="smpDsc">
             <fo:inline text-decoration="underline">
                 <xsl:choose>
-                    <!-- Test for label attribute used by origination element -->
                     <xsl:when test="@label">
-                        <xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/>
-                        <xsl:if test="@type">
-                            [<xsl:value-of select="@type"/>]
-                        </xsl:if>
-                        <xsl:if test="self::ead:origination">
-                            <xsl:choose>
-                                <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                                </xsl:when>
-                                <xsl:when test="ead:persname[@role != '']">
-                                    - <xsl:value-of select="ead:persname/@role"/>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:if>
+                        <xsl:value-of select="local:ucfirst(@label)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="local:tagName(.)"/>
-                        <xsl:if test="@type">
-                            [<xsl:value-of select="@type"/>]
-                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
-            </fo:inline>: <xsl:apply-templates/>
+                <xsl:if test="@type">
+                    [<xsl:value-of select="@type"/>]
+                </xsl:if>
+            </fo:inline>:
+            <xsl:apply-templates/>
             <xsl:if test="@datechar">
                 (<xsl:value-of select="@datechar"/>)
             </xsl:if>
@@ -1607,27 +1641,53 @@
             </xsl:if>
         </fo:block>
     </xsl:template>
+    <!-- Series physloc and container -->
+    <xsl:template match="ead:container" mode="dsc">
+        <fo:block>
+            <fo:inline text-decoration="underline">
+                <xsl:value-of select="local:tagName(.)"/>
+            </fo:inline>:
+            <xsl:apply-templates select="." mode="text"/>
+        </fo:block>
+    </xsl:template>
     <!-- Special formatting for file/item table elements -->
-    <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec | ead:physloc | ead:note | ead:accessrestrict | ead:userestrict" mode="itemDsc">
-        <fo:block><fo:inline font-style="italic"><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                  - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                </xsl:when><xsl:when test="ead:persname[@role != '']">
-                  - <xsl:value-of select="ead:persname/@role"/>
-                </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose></fo:inline>:
-      <fo:block margin="4pt 0 4pt 6pt"><xsl:value-of select="."/><xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if><xsl:if test="name()='unitdate'"> (date of creation)</xsl:if></fo:block></fo:block>
+    <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec | ead:note | ead:accessrestrict | ead:userestrict" mode="itemDsc">
+        <fo:block>
+            <fo:inline font-style="italic">
+                <xsl:choose>
+                    <xsl:when test="@label">
+                        <xsl:value-of select="local:ucfirst(@label)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="local:tagName(.)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="@type">
+                    [<xsl:value-of select="@type"/>]
+                </xsl:if>
+            </fo:inline>:
+        </fo:block>
+        <fo:block margin="4pt 0 4pt 6pt">
+            <xsl:value-of select="."/>
+            <xsl:if test="@datechar">
+                (<xsl:value-of select="@datechar"/>)
+            </xsl:if>
+            <xsl:if test="name()='unitdate'">
+                (date of creation)
+            </xsl:if>
+        </fo:block>
     </xsl:template>
-    <!--
-    <xsl:template match="ead:relatedmaterial | ead:separatedmaterial | ead:accessrestrict | ead:userestrict |
-        ead:custodhist | ead:accruals | ead:altformavail | ead:acqinfo |
-        ead:processinfo | ead:appraisal | ead:originalsloc" mode="dsc">
-        <xsl:if test="child::*">
-            <fo:block xsl:use-attribute-sets="smpDsc">
-                <fo:inline text-decoration="underline"><xsl:value-of select="local:tagName(.)"/>:</fo:inline>
-                <xsl:apply-templates select="child::*[not(ead:head)]"/>
-            </fo:block>
-        </xsl:if>
+    <!-- Item physloc and container -->
+    <xsl:template match="ead:container" mode="itemDsc">
+        <fo:block>
+            <fo:inline font-style="italic">
+                <xsl:value-of select="local:tagName(.)"/>
+            </fo:inline>:
+        </fo:block>
+        <fo:block margin="4pt 0 4pt 6pt">
+            <xsl:apply-templates select="." mode="text"/>
+        </fo:block>
     </xsl:template>
-    -->
     <xsl:template match="ead:index" mode="dsc">
         <xsl:apply-templates select="child::*[not(self::ead:indexentry)]"/>
         <fo:list-block xsl:use-attribute-sets="smpDsc">
@@ -1659,7 +1719,7 @@
                 <xsl:choose>
                     <!-- Test for label attribute used by origination element -->
                     <xsl:when test="@label">
-                        <xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/>
+                        <xsl:value-of select="local:ucfirst(@label)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="local:tagName(.)"/>

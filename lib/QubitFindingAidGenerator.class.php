@@ -30,30 +30,38 @@ class QubitFindingAidGenerator
     protected const RESOLVER_PATH = 'vendor/resolver.jar';
     protected const SAXON_PATH = 'vendor/saxon-he-10.6.jar';
 
-    private $appRoot;
-    private $format;
-    private $logger;
-    private $resource;
-    private $options;
-    private $path;
+    protected $authLevel;
+    protected $appRoot;
+    protected $format;
+    protected $logger;
+    protected $resource;
+    protected $options;
+    protected $path;
+
+    // Valid authorization levels
+    protected static $authLevels = [
+        'public',
+        'private',
+    ];
 
     // Valid finding aid file formats
-    private static $formats = [
+    protected static $formats = [
         'pdf',
         'rtf',
     ];
 
     // Valid finding aid "models"
-    private $models = [
+    protected static $models = [
         'inventory-summary',
         'full-details',
     ];
 
     // Default options
-    private $defaults = [
+    protected static $defaults = [
         'appRoot' => null,
-        'logger' => null,
+        'authLevel' => 'public',
         'format' => 'pdf',
+        'logger' => null,
         'model' => 'inventory-summary',
     ];
 
@@ -65,9 +73,10 @@ class QubitFindingAidGenerator
 
         // Fill options array with default values if explicit $options not
         // passed
-        $options = array_merge($this->defaults, $options);
+        $options = array_merge(self::$defaults, $options);
 
         $this->setAppRoot($options['appRoot']);
+        $this->setAuthLevel($options['authLevel']);
         $this->setFormat($options['format']);
         $this->setLogger($options['logger']);
         $this->setModel($options['model']);
@@ -79,7 +88,7 @@ class QubitFindingAidGenerator
     public function setResource(QubitInformationObject $resource): void
     {
         // Make sure $resource is not the QubitInformationObject root
-        if (QubitInformationObject::ROOT_ID === $resource->id) {
+        if (QubitInformationObject::ROOT_ID == $resource->id) {
             throw new UnexpectedValueException(
                 sprintf(
                     'Invalid QubitInformationObject id: %s',
@@ -124,6 +133,44 @@ class QubitFindingAidGenerator
     }
 
     /**
+     * Validate $value against list of $allowedValues.
+     */
+    public function validateSetting(string $value, array $allowedValues): bool
+    {
+        if (!in_array($value, $allowedValues)) {
+            throw new UnexpectedValueException(
+                sprintf(
+                    'Invalid value "%s", must be one of (%s)',
+                    $value,
+                    implode(', ', $allowedValues)
+                )
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Set the expected authorization level of the finding aid viewer.
+     *
+     * - "public" authorization hides some sensitive data
+     * - "private" authorization includes all data
+     */
+    public function setAuthLevel(string $level): void
+    {
+        $this->validateSetting($level, self::$authLevels);
+        $this->authLevel = $level;
+    }
+
+    /**
+     * Get the authorization level.
+     */
+    public function getAuthLevel(): string
+    {
+        return $this->authLevel;
+    }
+
+    /**
      * Set the application root directory, or use symfony's sf_root_dir value.
      */
     public function setAppRoot(?string $appRoot): void
@@ -135,7 +182,8 @@ class QubitFindingAidGenerator
             return;
         }
 
-        // Default to the symfony sf_root_dir config setting, if not explicitly set
+        // Default to the symfony sf_root_dir config setting, if not explicitly
+        // set
         $this->appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
     }
 
@@ -152,16 +200,7 @@ class QubitFindingAidGenerator
      */
     public function setFormat(string $format): void
     {
-        if (!in_array($format, self::$formats)) {
-            throw new UnexpectedValueException(
-                sprintf(
-                    'Invalid format "%s", must be one of (%s)',
-                    $format,
-                    implode(', ', self::$formats)
-                )
-            );
-        }
-
+        $this->validateSetting($format, self::$formats);
         $this->format = $format;
     }
 
@@ -178,16 +217,7 @@ class QubitFindingAidGenerator
      */
     public function setModel(string $model): void
     {
-        if (!in_array($model, $this->models)) {
-            throw new UnexpectedValueException(
-                sprintf(
-                    'Invalid model "%s", must be one of (%s)',
-                    $model,
-                    implode(', ', $this->models)
-                )
-            );
-        }
-
+        $this->validateSetting($model, self::$models);
         $this->model = $model;
     }
 
@@ -227,7 +257,11 @@ class QubitFindingAidGenerator
         }
 
         $this->logger->info(
-            sprintf('Generating finding aid (%s)...', $this->resource->slug)
+            sprintf(
+                'Generating a %s finding aid (%s)...',
+                $this->getAuthLevel(),
+                $this->resource->slug
+            )
         );
 
         // Ensure 'downloads' directory exists
@@ -355,12 +389,16 @@ class QubitFindingAidGenerator
     {
         exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
+        $options = [
+            'public' => ('public' === $this->getAuthLevel()),
+        ];
+
         try {
             // Print warnings/notices here too, as they are often important.
             $errLevel = error_reporting(E_ALL);
 
             $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
-                $this->resource, 'ead'
+                $this->resource, 'ead', $options
             );
             $xml = Qubit::tidyXml($rawXml);
 
@@ -566,9 +604,29 @@ EOL;
     }
 
     /**
+     * Get the 'public finding aid' setting.
+     *
+     * @return string 'public' (default) or 'private' authorization level
+     */
+    public static function getPublicSetting(): string
+    {
+        $authLevel = 'public';
+        $setting = QubitSetting::getByName('publicFindingAid');
+
+        if (
+            isset($setting)
+            && '0' === $setting->getValue(['sourceCulture' => true])
+        ) {
+            $authLevel = 'private';
+        }
+
+        return $authLevel;
+    }
+
+    /**
      * Get the system setting for the format used to generate finding aids.
      *
-     * @return string pdf (default) or rtf file format
+     * @return string 'pdf' (default) or 'rtf' file format
      */
     public static function getFormatSetting(): string
     {
@@ -582,7 +640,7 @@ EOL;
     /**
      * Get the system setting for the model used to generate finding aids.
      *
-     * @return string "inventory-summary" (default) or "full-details"
+     * @return string 'inventory-summary' (default) or 'full-details'
      */
     public static function getModelSetting(): string
     {

@@ -31,7 +31,10 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
         // run the core informationObject show action commands
         parent::execute($request);
 
-        $this->ead = new sfEadPlugin($this->resource);
+        $this->ead = new sfEadPlugin(
+            $this->resource,
+            ['public' => !$this->context->user->isAuthenticated()]
+        );
 
         // Determine language(s) used in the export
         $this->exportLanguage = sfContext::getInstance()->user->getCulture();

@@ -46,7 +46,8 @@ EOL;
             exit(1);
         }
 
-        $options['logger'] = $this->getLogger($options);
+        $this->setLogger($options);
+        $this->setAuthLevel($options);
 
         $generator = new QubitFindingAidGenerator($resource, $options);
         $generator->generate();
@@ -107,10 +108,17 @@ EOL;
                 'Output extra debugging information',
                 null
             ),
+            new sfCommandOption(
+                'private',
+                null,
+                sfCommandOption::PARAMETER_NONE,
+                'Include sensitive data like physical storage locations',
+                null
+            ),
         ]);
     }
 
-    private function getLogger($options)
+    private function setLogger(array &$options): void
     {
         $logger = new sfConsoleLogger($this->dispatcher);
 
@@ -118,6 +126,15 @@ EOL;
             $logger->setLogLevel(sfLogger::DEBUG);
         }
 
-        return $logger;
+        $options['logger'] = $logger;
+    }
+
+    private function setAuthLevel(array &$options): void
+    {
+        // Set authLevel option
+        if ($options['private']) {
+            $options['authLevel'] = 'private';
+            unset($options['private']);
+        }
     }
 }

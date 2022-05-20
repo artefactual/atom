@@ -24,6 +24,7 @@ class sfEadPlugin
 {
     public $resource;
     public $siteBaseUrl;
+    public $options;
 
     public static $ENCODING_MAP = [
         'isad' => [
@@ -133,7 +134,7 @@ class sfEadPlugin
         ],
     ];
 
-    public function __construct($resource)
+    public function __construct($resource, $options = [])
     {
         $this->resource = $resource;
 
@@ -141,11 +142,25 @@ class sfEadPlugin
 
         $this->siteBaseUrl = QubitSetting::getByName('siteBaseUrl');
         $this->siteBaseUrl = (null == $this->siteBaseUrl) ? '' : $this->siteBaseUrl;
+        $this->options = $options;
     }
 
     public function __get($name)
     {
         return $this->resource->{$name};
+    }
+
+    /**
+     * Convert special characters to XML equivalents.
+     *
+     * Convert linebreaks to EAD "<lb/>" tag, and invalid HTML characters with
+     * htmlspecialchars()
+     *
+     * @param string $string
+     */
+    public function convertForXml($string)
+    {
+        return escape_dc(esc_specialchars($string));
     }
 
     public function subjectHasNonBlankSourceNotes(&$subject)
@@ -335,7 +350,10 @@ class sfEadPlugin
                 break;
 
             default:
-                $result = 'type="'.escape_dc(esc_specialchars(strtolower($physcalObject->type))).'"';
+                $result = sprintf(
+                    'type="%s"',
+                    esc_specialchars(strtolower($physcalObject->type))
+                );
         }
 
         return $result;
@@ -446,5 +464,50 @@ class sfEadPlugin
         $date = strtotime($this->resource->getCreatedAt());
 
         return date('Y', $date).'-'.date('m', $date).'-'.date('d', $date);
+    }
+
+    public function getPhyslocId()
+    {
+        static $counter = 0;
+
+        return 'physloc'.str_pad(++$counter, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function getPhysicalObjects($resource)
+    {
+        $physicalObjects = [];
+
+        if (!check_field_visibility(
+            'app_element_visibility_physical_storage', $this->options
+        )) {
+            return [];
+        }
+
+        foreach ($resource->getPhysicalObjects() as $physicalObject) {
+            $physicalObjects[] = [
+                'object' => $physicalObject,
+                'physlocId' => $this->getPhyslocId(),
+                'location' => $this->getPhysLocation($physicalObject),
+                'name' => $this->convertForXml(
+                    $physicalObject->getName(['cultureFallback' => true])
+                ),
+            ];
+        }
+
+        return $physicalObjects;
+    }
+
+    public function getPhysLocation($physicalObject)
+    {
+        $context = sfContext::getInstance();
+
+        // Don't show the location to public (unauthenticated) users
+        if (isset($this->options['public']) && $this->options['public']) {
+            return;
+        }
+
+        return $this->convertForXml(
+            $physicalObject->getLocation(['cultureFallback' => true])
+        );
     }
 }

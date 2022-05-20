@@ -81,23 +81,18 @@
 
 <archdesc <?php echo $ead->renderLOD($resource, $eadLevels); ?> relatedencoding="<?php echo $ead->getMetadataParameter('relatedencoding'); ?>">
   <?php
+    $resourceVar = 'resource';
+    $creators = ${$resourceVar}->getCreators();
+    $events = ${$resourceVar}->getActorEvents(['eventTypeId' => QubitTerm::CREATION_ID]);
 
-  $resourceVar = 'resource';
-  $counter = 0;
-  $counterVar = 'counter';
+    $topLevelDid = true;
 
-  $creators = ${$resourceVar}->getCreators();
-  $events = ${$resourceVar}->getActorEvents(['eventTypeId' => QubitTerm::CREATION_ID]);
+    include 'indexSuccessBodyDidElement.xml.php';
 
-  $topLevelDid = true;
+    include 'indexSuccessBodyBioghistElement.xml.php';
 
-  include 'indexSuccessBodyDidElement.xml.php';
-
-  include 'indexSuccessBodyBioghistElement.xml.php';
-
-  $topLevelDid = false;
+    $topLevelDid = false;
   ?>
-
   <?php if ($resource->getPublicationStatus()) { ?>
     <odd type="publicationStatus"><p><?php echo escape_dc(esc_specialchars($resource->getPublicationStatus())); ?></p></odd>
   <?php } ?>

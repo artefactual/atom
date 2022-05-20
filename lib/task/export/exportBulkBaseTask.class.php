@@ -62,7 +62,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
         switch ($format) {
             case 'ead':
                 $eadLevels = ['class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries'];
-                $ead = new sfEadPlugin($resource);
+                $ead = new sfEadPlugin($resource, $options);
 
                 break;
 
