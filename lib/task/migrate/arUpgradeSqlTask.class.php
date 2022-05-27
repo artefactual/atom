@@ -52,6 +52,7 @@ EOF;
             new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
             new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Verbose mode', null),
             new sfCommandOption('number', 'n', sfCommandOption::PARAMETER_OPTIONAL, 'Run only specific migration number(s) (separated by commas if multiple)', null),
+            new sfCommandOption('reset-static-pages', 's', sfCommandOption::PARAMETER_NONE, 'Reset title and content, of static pages created by AtoM, to current defaults', null),
         ]);
 
         // Disable plugin loading from plugins/ before this task.
@@ -77,6 +78,9 @@ EOF;
         $database = $dbManager->getDatabase($options['connection']);
 
         sfContext::createInstance($this->configuration);
+
+        // Handle option to reset static page translations
+        $this->handleStaticPageTranslationResetOption($options);
 
         $this->getPluginSettings();
         $this->removeMissingPluginsFromSettings();
@@ -244,6 +248,167 @@ EOF;
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 
         $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
+    }
+
+    protected function handleStaticPageTranslationResetOption($options)
+    {
+        // Attempt to reset static page translations, if requested and confirmed
+        if (
+            $options['reset-static-pages']
+            && (
+                $options['no-confirmation']
+                || $this->askConfirmation(
+                    [
+                        'Are you sure you would like to reset your static page '.
+                        "content to this AtoM version's default content? (y/N)",
+                    ],
+                    'QUESTION_LARGE',
+                    false
+                )
+            )
+        ) {
+            $this->recreateMissingStaticPages($options);
+
+            $changeCount = count($this->resetOrCheckForChangedStaticPages(true));
+
+            if (empty($changeCount)) {
+                $this->logSection('upgrade-sql', "Static pages in database already match this AtoM version's.");
+            } else {
+                $this->resetOrCheckForChangedStaticPages();
+
+                $this->logSection('upgrade-sql', sprintf('Reset %d static page(s).', $changeCount));
+            }
+        }
+    }
+
+    protected function recreateMissingStaticPages($options)
+    {
+        // Ignore missing static pages when no confirmation mode is on so it has to be approved manually
+        if ($options['no-confirmation']) {
+            return;
+        }
+
+        foreach (['about', 'privacy'] as $slug) {
+            // Prompt to restore static page if its missing
+            if (
+                null === QubitStaticPage::getBySlug($slug)
+                && $this->askConfirmation(
+                    [
+                        sprintf('The %s page has been deleted. Do you wish to recreate it? (y/N)', $slug),
+                    ],
+                    'QUESTION_LARGE',
+                    false
+                )
+            ) {
+                $page = new QubitStaticPage();
+                $page->slug = $slug;
+                $page->sourceCulture = 'en';
+                $page->save();
+            }
+        }
+    }
+
+    /**
+     * If "check mode" is off then, for all standard static pages, reset
+     * translations in the database to match the current AtoM default values.
+     *
+     * If "check mode" is on then, rather than resetting translations in the
+     * database, return an array noting which static pages, indicated by slug,
+     * have been changed.
+     *
+     * @param bool $checkMode True if to execute in "check mode"
+     *
+     * @return array array with changed slugs as key
+     */
+    protected function resetOrCheckForChangedStaticPages($checkMode = false)
+    {
+        $changes = [];
+
+        foreach ($this->parseStaticPageFixtureData() as $slug => $translationData) {
+            $page = QubitStaticPage::getBySlug($slug);
+
+            // Only check if page still exists in the database (the privacy page can be deleted)
+            if (!isset($page)) {
+                continue;
+            }
+
+            // Check each standard translation against the database version of it
+            foreach ($translationData as $culture => $translations) {
+                // Check page title
+                if ($translations['title'] != $page->getTitle(['culture' => $culture])) {
+                    if (!$checkMode) {
+                        $page->setTitle($translations['title'], ['culture' => $culture]);
+                    }
+
+                    $changes[$slug] = true;
+                }
+
+                // Check page content
+                if ($translations['content'] != $page->getContent(['culture' => $culture])) {
+                    if (!$checkMode) {
+                        $page->setContent($translations['content'], ['culture' => $culture]);
+                    }
+
+                    $changes[$slug] = true;
+                }
+            }
+
+            if (!empty($changes[$slug])) {
+                $page->save();
+            }
+        }
+
+        return $changes;
+    }
+
+    /*
+     * Parse static page fixture data into a simplified form that's easier
+     * to work with.
+     *
+     * Example of the structure:
+     *
+     *  [
+     *    'pageslug' => [
+     *      'en' => [
+     *        'title' => 'English Title',
+     *        'content' => 'English content'
+     *      ],
+     *      'fr' => ]
+     *        'title' => 'Titre Français',
+     *        'content' => 'Contenu français'
+     *      ]
+     *    ]
+     *  ]
+     *
+     * @return array  simplified version of static page fixture data for each slug
+     */
+    protected function parseStaticPageFixtureData()
+    {
+        // Get data from static page fixture YAML
+        $staticPageData = sfYaml::load('data/fixtures/staticPages.yml');
+
+        // Parse into simplified data
+        $simplified = [];
+
+        foreach ($staticPageData['QubitStaticPage'] as $definition) {
+            $slug = $definition['slug'];
+
+            // Initialize data for slug, if need be
+            if (empty($simplified[$slug])) {
+                $simplified[$slug] = [];
+            }
+
+            // Add current culture's title and content to simplified data
+            foreach ($definition['title'] as $culture => $title) {
+                $simplified[$slug][$culture] = ['title' => $title];
+            }
+
+            foreach ($definition['content'] as $culture => $content) {
+                $simplified[$slug][$culture]['content'] = $content;
+            }
+        }
+
+        return $simplified;
     }
 
     /**
