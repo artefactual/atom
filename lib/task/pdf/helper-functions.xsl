@@ -238,6 +238,50 @@
         <xsl:value-of select="upper-case(substring($string,1,1))"/>
         <xsl:value-of select="substring($string,2)"/>
     </xsl:function>
+    <!-- Map @type value to a human-readable string -->
+    <xsl:function name="local:typeLabel">
+        <xsl:param name="node"/>
+        <xsl:choose>
+            <!-- Title (ead:unittitle) type labels-->
+            <xsl:when test="$node[@type='otherInfo']">Other title information</xsl:when>
+            <!-- Note (ead:note) type labels -->
+            <xsl:when test="$node[@type='sourcesDescription']">Sources</xsl:when>
+            <xsl:when test="$node[@type='generalNote']">General</xsl:when>
+            <xsl:otherwise><xsl:value-of select="$node[@type]"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    <!-- Lookup ead:odd type labels (except RAD title notes) -->
+    <xsl:function name="local:oddLabel">
+        <xsl:param name="node"/>
+        <xsl:choose>
+            <xsl:when test="$node[@type='levelOfDetail']">Level of detail</xsl:when>
+            <xsl:when test="$node[@type='statusDescription']">Status description</xsl:when>
+            <xsl:when test="$node[@type='descriptionIdentifier']">Description identifier</xsl:when>
+            <xsl:when test="$node[@type='institutionIdentifier']">Institution identifier</xsl:when>
+            <xsl:when test="$node[@type='edition']">Edition</xsl:when>
+            <xsl:when test="$node[@type='physDesc']">Physical description</xsl:when>
+            <xsl:when test="$node[@type='conservation']">Conservation</xsl:when>
+            <xsl:when test="$node[@type='material']">Accompanying material</xsl:when>
+            <xsl:when test="$node[@type='alphanumericDesignation']">Alpha-numeric designations</xsl:when>
+            <xsl:when test="$node[@type='bibSeries']">Publisher's series</xsl:when>
+            <xsl:when test="$node[@type='rights']">Rights</xsl:when>
+            <xsl:when test="$node[@type='publicationStatus']">Publication status</xsl:when>
+        </xsl:choose>
+    </xsl:function>
+    <!-- RAD title note (ead:odd) type labels -->
+    <xsl:function name="local:titleNoteLabel">
+        <xsl:param name="node"/>
+        <xsl:choose>
+            <xsl:when test="$node[@type='titleVariation']">Variations in title</xsl:when>
+            <xsl:when test="$node[@type='titleAttributions']">Attributions and conjectures</xsl:when>
+            <xsl:when test="$node[@type='titleContinuation']">Continuation of title</xsl:when>
+            <xsl:when test="$node[@type='titleStatRep']">Statements of responsibility</xsl:when>
+            <xsl:when test="$node[@type='titleParallel']">Parallel titles and other title information</xsl:when>
+            <xsl:when test="$node[@type='titleSource']">Source of title proper</xsl:when>
+            <xsl:otherwise><xsl:value-of select="$node[@type]"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
     <!--
         Prints out full language name from abbreviation.
         List based on the ISO 639-2b three-letter language codes (http://www.loc.gov/standards/iso639-2/php/code_list.php).

@@ -18,9 +18,11 @@
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <!-- Calls a stylesheet with local functions and lookup lists for languages and subject authorities -->
     <xsl:include href="{{ app_root }}/lib/task/pdf/helper-functions.xsl"/>
+    <xsl:strip-space elements="*"/>
+
     <!-- Define keys -->
     <xsl:key name="physlocId" match="ead:physloc" use="@id"/>
-    <xsl:strip-space elements="*"/>
+
     <!-- The following attribute sets are reusabe styles used throughout the stylesheet. -->
     <!-- Headings -->
     <xsl:attribute-set name="h1">
@@ -216,28 +218,31 @@
     </xsl:template>
     <!-- Display Title Notes fields in RAD notes header -->
     <xsl:template name="titleNotes">
-        <fo:block xsl:use-attribute-sets="smp">
-            <xsl:if test="ead:odd">
-                <fo:block xsl:use-attribute-sets="h3ID">Title notes</fo:block>
-                <xsl:call-template name="toc"/>
-            </xsl:if>
-            <xsl:for-each select="ead:odd[@type]">
-                <xsl:variable name="oddLabel" select="local:oddTitleNoteHeadings(./@type)"/>
-                <!-- If this isn't a title notes <odd> this function will return string len 0 -->
-                <xsl:if test="string-length($oddLabel) &gt; 0">
-                    <fo:list-block>
-                        <fo:list-item>
-                            <fo:list-item-label end-indent="label-end()">
-                                <fo:block>•</fo:block>
-                            </fo:list-item-label>
-                            <fo:list-item-body start-indent="body-start()">
-                                <fo:block><fo:inline text-decoration="underline" font-weight="bold"><xsl:value-of select="$oddLabel"/></fo:inline>: <xsl:value-of select="."/></fo:block>
-                            </fo:list-item-body>
-                        </fo:list-item>
-                    </fo:list-block>
-                </xsl:if>
-            </xsl:for-each>
-        </fo:block>
+        <xsl:if test="ead:odd[starts-with(@type, 'title')]">
+            <fo:block xsl:use-attribute-sets="h3ID">Title notes</fo:block>
+            <xsl:call-template name="toc"/>
+            <fo:block xsl:use-attribute-sets="smp">
+                <fo:list-block>
+                    <xsl:for-each select="ead:odd[starts-with(@type, 'title')]">
+                        <xsl:call-template name="titleNoteListItem"/>
+                    </xsl:for-each>
+                </fo:list-block>
+            </fo:block>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template name="titleNoteListItem">
+        <fo:list-item>
+            <fo:list-item-label end-indent="label-end()">
+                <fo:block>•</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>
+                    <fo:inline text-decoration="underline" font-weight="bold">
+                        <xsl:value-of select="local:titleNoteLabel(.)"/>
+                    </fo:inline>: <xsl:value-of select="."/>
+                </fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
     </xsl:template>
     <!-- Named template to link back to the table of contents -->
     <xsl:template name="toc">
@@ -255,11 +260,13 @@
     </xsl:template>
     <xsl:template match="ead:titlestmt" mode="coverPage">
         <!-- Calls template with links to archive icon -->
-        <fo:block border-bottom="1pt solid #666" margin-top="0in" id="cover-page">
-            <fo:block xsl:use-attribute-sets="h1" linefeed-treatment="preserve">
-                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" height="4cm" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+        <fo:block border-bottom="1pt solid #666" margin-top="1.5cm" id="cover-page">
+            <fo:block xsl:use-attribute-sets="h1">
+                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
                 <xsl:text> </xsl:text>
                 <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
+            </fo:block>
+            <fo:block xsl:use-attribute-sets="h1">
                 Finding Aid -
                 <xsl:apply-templates select="ead:titleproper[1]"/>
                 (<xsl:value-of select="//ead:eadid"/>)
@@ -669,51 +676,12 @@
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
                 <fo:block>
-                    <xsl:choose>
-                        <!-- Output @label if set-->
-                        <xsl:when test="@label">
-                            <xsl:value-of select="local:ucfirst(@label)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="local:tagName(.)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <!-- Output "[@type]" if @type is set-->
-                    <xsl:if test="@type">
-                        [<xsl:value-of select="@type"/>]
-                    </xsl:if>:
+                    <xsl:apply-templates select="." mode="fieldLabel"/>:
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
-                    <xsl:apply-templates/>
-                    <xsl:if test="self::ead:unitdate">
-                        <xsl:choose>
-                            <xsl:when test="@datechar = 'creation'">
-                                <xsl:text> (date of creation)</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="@datechar = 'accumulation'">
-                                <xsl:text> (date of accumulation)</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text> (date of creation)</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
-    </xsl:template>
-    <xsl:template match="ead:container" mode="overview">
-        <fo:table-row>
-            <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
-                <fo:block>
-                    <xsl:apply-templates select="local:tagName(.)"/>:
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-bottom="2pt">
-                <fo:block>
-                    <xsl:apply-templates select="." mode="text"/>
+                    <xsl:apply-templates select="." mode="fieldValue"/>
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
@@ -721,47 +689,29 @@
     <xsl:template name="summaryInfoOtherField">
         <xsl:param name="path"/>
         <xsl:param name="label"/>
-        <fo:table-row>
-            <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
-                <fo:block>
-                    <xsl:value-of select="$label"/>:
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-bottom="2pt">
-                <fo:block>
-                    <xsl:value-of select="($path)[1]"/>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
+        <xsl:if test="$path">
+            <fo:table-row>
+                <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
+                    <fo:block>
+                        <xsl:value-of select="$label"/>:
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding-bottom="2pt">
+                    <fo:block>
+                        <xsl:value-of select="($path)[1]"/>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </xsl:if>
     </xsl:template>
     <!-- Formats the 'other' notes headings -->
-    <!--
-        <xsl:apply-templates select="ead:processinfo"/>
-        <xsl:apply-templates select="ead:appraisal"/>
-        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt"/>
-        <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:revisiondesc"/>
-    -->
     <xsl:template name="otherNotes">
         <xsl:if test="ead:odd">
             <fo:block xsl:use-attribute-sets="h3ID">Other notes</fo:block>
             <fo:list-block xsl:use-attribute-sets="section">
                 <xsl:for-each select="ead:odd">
-                    <xsl:variable name="otherNoteHeading">
-                        <xsl:if test="current()[@type='levelOfDetail']">Level of detail</xsl:if>
-                        <xsl:if test="current()[@type='statusDescription']">Status description</xsl:if>
-                        <xsl:if test="current()[@type='descriptionIdentifier']">Description identifier</xsl:if>
-                        <xsl:if test="current()[@type='institutionIdentifier']">Institution identifier</xsl:if>
-                        <xsl:if test="current()[@type='edition']">Edition</xsl:if>
-                        <xsl:if test="current()[@type='physDesc']">Physical description</xsl:if>
-                        <xsl:if test="current()[@type='conservation']">Conservation</xsl:if>
-                        <xsl:if test="current()[@type='material']">Accompanying material</xsl:if>
-                        <xsl:if test="current()[@type='alphanumericDesignation']">Alpha-numeric designations</xsl:if>
-                        <xsl:if test="current()[@type='bibSeries']">Publisher's series</xsl:if>
-                        <xsl:if test="current()[@type='rights']">Rights</xsl:if>
-                        <xsl:if test="current()[@type='general']">General note</xsl:if>
-                        <xsl:if test="current()[@type='publicationStatus']">Publication status</xsl:if>
-                    </xsl:variable>
-                    <xsl:if test="string-length($otherNoteHeading) &gt; 0">
+                    <xsl:variable name="label" select="local:oddLabel(.)"/>
+                    <xsl:if test="string-length($label) > 0">
                         <fo:list-item>
                             <fo:list-item-label end-indent="label-end()">
                                 <fo:block>•</fo:block>
@@ -773,7 +723,7 @@
                                     the <odd> elements we've *handled* here in
                                     this section. -->
                                     <fo:inline text-decoration="underline" font-weight="bold">
-                                        <xsl:value-of select="$otherNoteHeading"/>
+                                        <xsl:value-of select="$label"/>
                                     </fo:inline>
                                     <xsl:text>: </xsl:text>
                                     <xsl:value-of select="."/>
@@ -788,28 +738,14 @@
     <xsl:template name="otherNotesSeries">
         <xsl:if test="following-sibling::ead:odd">
             <xsl:for-each select="following-sibling::ead:odd">
-                <xsl:variable name="otherNoteHeading">
-                    <xsl:if test="current()[@type='levelOfDetail']">Level of detail</xsl:if>
-                    <xsl:if test="current()[@type='statusDescription']">Status description</xsl:if>
-                    <xsl:if test="current()[@type='descriptionIdentifier']">Description identifier</xsl:if>
-                    <xsl:if test="current()[@type='institutionIdentifier']">Institution identifier</xsl:if>
-                    <xsl:if test="current()[@type='edition']">Edition</xsl:if>
-                    <xsl:if test="current()[@type='physDesc']">Physical description</xsl:if>
-                    <xsl:if test="current()[@type='conservation']">Conservation</xsl:if>
-                    <xsl:if test="current()[@type='material']">Accompanying material</xsl:if>
-                    <xsl:if test="current()[@type='alphanumericDesignation']">Alpha-numeric designations</xsl:if>
-                    <xsl:if test="current()[@type='bibSeries']">Publisher's series</xsl:if>
-                    <xsl:if test="current()[@type='rights']">Rights</xsl:if>
-                    <xsl:if test="current()[@type='general']">General note</xsl:if>
-                    <xsl:if test="current()[@type='publicationStatus']">Publication status</xsl:if>
-                </xsl:variable>
-                <xsl:if test="string-length($otherNoteHeading) &gt; 0">
+                <xsl:variable name="label" select="local:oddLabel(.)"/>
+                <xsl:if test="string-length($label) > 0">
                     <fo:block font-size="12" padding="2" margin="2">
                         <!-- We have other <odd> elements used elsewhere, such
                         as title notes. only print the <odd> elements we've
                         *handled* here in this section. -->
                         <fo:inline text-decoration="underline" margin="2">
-                            <xsl:value-of select="$otherNoteHeading"/>
+                            <xsl:value-of select="$label"/>
                         </fo:inline>
                         <xsl:text>: </xsl:text>
                         <fo:block/>
@@ -835,11 +771,11 @@
     </xsl:template>
     <!-- Formats children of arcdesc in administrative and related materials sections -->
     <xsl:template match="ead:relatedmaterial | ead:separatedmaterial | ead:accessrestrict | ead:userestrict | ead:custodhist | ead:accruals | ead:altformavail | ead:acqinfo | ead:processinfo | ead:appraisal | ead:originalsloc | ead:phystech | ead:arrangement | ead:otherfindaid">
+        <fo:block xsl:use-attribute-sets="h3ID">
+            <xsl:apply-templates select="." mode="fieldLabel"/>
+        </fo:block>
         <fo:block xsl:use-attribute-sets="section">
-            <fo:block xsl:use-attribute-sets="h3ID">
-                <xsl:value-of select="local:tagName(.)"/>
-            </fo:block>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="." mode="fieldValue"/>
         </fo:block>
     </xsl:template>
     <!-- Publication statement included in administrative information section -->
@@ -1119,34 +1055,20 @@
         </fo:block>
     </xsl:template>
     <!-- Formats notestmt and notes -->
-    <xsl:template match="ead:notestmt">
-        <fo:block xsl:use-attribute-sets="section">
-            <fo:block xsl:use-attribute-sets="h4ID">Note</fo:block>
-            <xsl:apply-templates/>
-        </fo:block>
-    </xsl:template>
-    <xsl:template match="ead:note">
-        <xsl:choose>
-            <!-- AtoM: Do not write "Note:" header when it's a note inside a
-            notestmt or event  -->
-            <xsl:when test="parent::ead:notestmt | parent::ead:event">
-                <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
+    <xsl:template match="ead:note | ead:notestmt">
+        <!-- Do not add "Note" header when it's a note inside an even or
+            admin/bioghist -->
+        <xsl:if test="not(parent::ead:event) and not(parent::ead:bioghist)">
+            <fo:block xsl:use-attribute-sets="h4ID">
                 <xsl:choose>
                     <xsl:when test="@label">
-                        <fo:block xsl:use-attribute-sets="h4ID">
-                            <xsl:value-of select="@label"/>
-                        </fo:block>
-                        <xsl:apply-templates/>
+                        <xsl:value-of select="@label"/>
                     </xsl:when>
-                    <xsl:otherwise>
-                        <fo:block xsl:use-attribute-sets="h4ID">Note</fo:block>
-                        <xsl:apply-templates/>
-                    </xsl:otherwise>
+                    <xsl:otherwise>Note</xsl:otherwise>
                 </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
+            </fo:block>
+        </xsl:if>
+        <xsl:apply-templates/>
     </xsl:template>
     <!-- Formats legalstatus -->
     <xsl:template match="ead:legalstatus">
@@ -1503,22 +1425,6 @@
             </fo:table-cell>
         </fo:table-row>
     </xsl:template>
-    <!-- Formats did containers -->
-    <xsl:template match="ead:container" mode="text">
-        <xsl:if test="key('physlocId', @parent)">
-            <xsl:value-of select="key('physlocId', @parent)"/> &#8211;
-        </xsl:if>
-        <xsl:choose>
-            <xsl:when test="@label">
-                <xsl:value-of select="local:ucfirst(@label)"/>
-                <xsl:value-of select="concat(' ', @type)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="local:ucfirst(@type)"/>
-            </xsl:otherwise>
-        </xsl:choose>:
-        <xsl:value-of select="."/>
-    </xsl:template>
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">
         <fo:block font-weight="bold" font-size="14" margin-bottom="0" margin-top="0" id="{local:buildID(parent::*)}">
@@ -1560,7 +1466,6 @@
         </fo:block>
         <fo:block margin-left="2pt" margin-bottom="4pt" margin-top="0" font-size="9">
             <!-- Try to handle EAD tags in RAD order... -->
-            <xsl:call-template name="titleNotes"/>
             <xsl:apply-templates select="following-sibling::ead:phystech" mode="dsc"/>
             <xsl:apply-templates select="following-sibling::ead:acqinfo" mode="dsc"/>
             <xsl:apply-templates select="following-sibling::ead:arrangement" mode="dsc"/>
@@ -1605,87 +1510,44 @@
     </xsl:template>
     <!-- Special formatting for Language of material -->
     <xsl:template match="ead:langmaterial" mode="dsc">
-        <fo:block>
-            <fo:inline text-decoration="underline">
-                <xsl:value-of select="local:tagName(.)"/>
-            </fo:inline>:
-        </fo:block>
-        <xsl:for-each select="ead:language">
-            <fo:block margin="4pt">
-                <xsl:value-of select="."/>
-            </fo:block>
-        </xsl:for-each>
-    </xsl:template>
-    <!-- Special formatting for series elements in the collection inventory list -->
-    <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:materialspec | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
         <fo:block xsl:use-attribute-sets="smpDsc">
             <fo:inline text-decoration="underline">
-                <xsl:choose>
-                    <xsl:when test="@label">
-                        <xsl:value-of select="local:ucfirst(@label)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="local:tagName(.)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:if test="@type">
-                    [<xsl:value-of select="@type"/>]
-                </xsl:if>
-            </fo:inline>:
-            <xsl:apply-templates/>
-            <xsl:if test="@datechar">
-                (<xsl:value-of select="@datechar"/>)
-            </xsl:if>
-            <xsl:if test="name()='unitdate'">
-                (date of creation)
-            </xsl:if>
-        </fo:block>
-    </xsl:template>
-    <!-- Series physloc and container -->
-    <xsl:template match="ead:container" mode="dsc">
-        <fo:block>
-            <fo:inline text-decoration="underline">
                 <xsl:value-of select="local:tagName(.)"/>
             </fo:inline>:
-            <xsl:apply-templates select="." mode="text"/>
+        </fo:block>
+        <fo:list-block xsl:use-attribute-sets="smpDsc">
+            <xsl:for-each select="ead:language">
+                <fo:list-item>
+                    <fo:list-item-label end-indent="label-end()">
+                        <fo:block>•</fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block>
+                            <xsl:value-of select="."/>
+                        </fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+            </xsl:for-each>
+        </fo:list-block>
+    </xsl:template>
+    <!-- Special formatting for series elements in the collection inventory list -->
+    <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:materialspec | ead:abstract | ead:container | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
+        <fo:block xsl:use-attribute-sets="smpDsc">
+            <fo:inline text-decoration="underline">
+                <xsl:apply-templates select="." mode="fieldLabel"/>
+            </fo:inline>:
+            <xsl:apply-templates select="." mode="fieldValue"/>
         </fo:block>
     </xsl:template>
     <!-- Special formatting for file/item table elements -->
-    <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec | ead:note | ead:accessrestrict | ead:userestrict" mode="itemDsc">
+    <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec | ead:container | ead:note | ead:accessrestrict | ead:userestrict" mode="itemDsc">
         <fo:block>
             <fo:inline font-style="italic">
-                <xsl:choose>
-                    <xsl:when test="@label">
-                        <xsl:value-of select="local:ucfirst(@label)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="local:tagName(.)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:if test="@type">
-                    [<xsl:value-of select="@type"/>]
-                </xsl:if>
+                <xsl:apply-templates select="." mode="fieldLabel"/>
             </fo:inline>:
         </fo:block>
         <fo:block margin="4pt 0 4pt 6pt">
-            <xsl:value-of select="."/>
-            <xsl:if test="@datechar">
-                (<xsl:value-of select="@datechar"/>)
-            </xsl:if>
-            <xsl:if test="name()='unitdate'">
-                (date of creation)
-            </xsl:if>
-        </fo:block>
-    </xsl:template>
-    <!-- Item physloc and container -->
-    <xsl:template match="ead:container" mode="itemDsc">
-        <fo:block>
-            <fo:inline font-style="italic">
-                <xsl:value-of select="local:tagName(.)"/>
-            </fo:inline>:
-        </fo:block>
-        <fo:block margin="4pt 0 4pt 6pt">
-            <xsl:apply-templates select="." mode="text"/>
+            <xsl:apply-templates select="." mode="fieldValue"/>
         </fo:block>
     </xsl:template>
     <xsl:template match="ead:index" mode="dsc">
@@ -1737,6 +1599,53 @@
             <fo:block xsl:use-attribute-sets="smpDsc">
                 <xsl:apply-templates/>
             </fo:block>
+        </xsl:if>
+    </xsl:template>
+    <!-- Field label -->
+    <xsl:template match="*" mode="fieldLabel">
+        <xsl:choose>
+            <!-- Don't use @label for ead:container-->
+            <xsl:when test="self::ead:container">
+                <xsl:value-of select="local:tagName(.)"/>
+            </xsl:when>
+            <xsl:when test="@label">
+                <xsl:value-of select="local:ucfirst(@label)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="local:tagName(.)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="@type and not(self::ead:container)">
+            [<xsl:value-of select="local:typeLabel(.)"/>]
+        </xsl:if>
+    </xsl:template>
+    <!-- Field value -->
+    <xsl:template match="ead:container" mode="fieldValue">
+        <xsl:if test="key('physlocId', @parent)">
+            <xsl:value-of select="key('physlocId', @parent)"/> &#8211;
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="@label">
+                <xsl:value-of select="local:ucfirst(@label)"/>
+                <xsl:value-of select="concat(' ', @type)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="local:ucfirst(@type)"/>
+            </xsl:otherwise>
+        </xsl:choose>:
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="*" mode="fieldValue">
+        <xsl:apply-templates/>
+        <xsl:if test="self::ead:unitdate">
+            <xsl:choose>
+                <xsl:when test="@datechar = 'accumulation'">
+                    <xsl:text> </xsl:text>(<xsl:value-of select="@datechar"/>)
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text> (creation)</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
     </xsl:template>
 </xsl:stylesheet>
