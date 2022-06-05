@@ -1,9 +1,15 @@
 # All columns that can be either imported or exported
 columnNames:
-  - id
+  - legacyId
   - parentId
   - taxonomyId
   - name
+  - code
+  - scopeNote
+  - sourceNote
+  - displayNote
+  - otherFormsOfName
+  - relatedTerms
   - sourceCulture
   - culture
 
@@ -13,5 +19,22 @@ direct:
   - parentId
   - taxonomyId
   - name
+  - code
   - sourceCulture
   - culture
+
+# Columns that map to information object properties
+map:
+  id: legacyId
+
+# Columns that map to notes of various types
+note:
+  common:
+    scopeNote:   Scope note
+    sourceNote:  Source note
+    displayNote: Display note
+
+# Taxonomies related to the resource type, values will be referred to in resource-specific
+# CSV row modification logic
+cacheTaxonomies:
+  commonNoteTypeIds: NOTE_TYPE_ID
