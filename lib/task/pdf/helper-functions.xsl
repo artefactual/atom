@@ -3,17 +3,19 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:          1.0                                           *
+        * VERSION:      2.1.1                                             *
         *                                                                 *
-        * AUTHOR:           Winona Salesky                                *
-        *                   wsalesky@gmail.com                            *
-        * MODIFIED BY:      mikeg@artefactual.com                         *
+        * AUTHOR:       Winona Salesky                                    *
+        *               wsalesky@gmail.com                                *
         *                                                                 *
-        * DATE:             2013-08-14                                    *
+        * MODIFIED BY:  mikeg@artefactual.com                             *
+        *               david@artefactual.com                             *
         *                                                                 *
-        * ABOUT:            This file has been created for use with       *
-        *                   EAD xml files exported from the               *
-        *                   ArchivesSpace web application.                *
+        * DATE:         2022-06-07                                        *
+        *                                                                 *
+        * ABOUT:        This file has been created for use with           *
+        *               EAD xml files exported from the                   *
+        *               ArchivesSpace web application.                    *
         *                                                                 *
         *******************************************************************
     -->
