@@ -77,7 +77,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
                 foreach ($ancestor->getCreators() as $item) {
                     $creator = [];
 
-                    $this->addItemToArray($creator, 'authotized_form_of_name', $item->getAuthorizedFormOfName(['cultureFallback' => true]));
+                    $this->addItemToArray($creator, 'authorized_form_of_name', $item->getAuthorizedFormOfName(['cultureFallback' => true]));
                     $this->addItemToArray($creator, 'dates_of_existence', $item->getDatesOfExistence(['cultureFallback' => true]));
                     $this->addItemToArray($creator, 'history', $item->getHistory(['cultureFallback' => true]));
 
@@ -238,7 +238,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         }
 
         if (sfConfig::get('app_element_visibility_isad_control_dates', false)) {
-            $this->addItemToArray($ioData, 'Dates of creation revision deletion', $this->resource->getRevisionHistory(['cultureFallback' => true]));
+            $this->addItemToArray($ioData, 'dates_of_creation_revision_deletion', $this->resource->getRevisionHistory(['cultureFallback' => true]));
         }
 
         if (sfConfig::get('app_element_visibility_isad_control_languages', false)) {
@@ -260,7 +260,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         }
 
         if (sfConfig::get('app_element_visibility_isad_control_sources', false)) {
-            $this->addItemToArray($ioData, 'physical_characteristics_and_technical_requirements', $this->resource->getSources(['cultureFallback' => true]));
+            $this->addItemToArray($ioData, 'sources', $this->resource->getSources(['cultureFallback' => true]));
         }
 
         if (sfConfig::get('app_element_visibility_isad_control_archivists_notes', false)) {
