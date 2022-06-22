@@ -49,6 +49,7 @@ class ApiDigitalObjectsBrowseAction extends QubitApiAction
         $results = [];
         foreach ($resultSet as $do) {
             $fields = [
+                'id' => $do->id,
                 'name' => $do->name,
                 'path' => $do->path,
                 'byte_size' => intval($do->byteSize),
@@ -81,7 +82,7 @@ class ApiDigitalObjectsBrowseAction extends QubitApiAction
                 }
             }
 
-            $results[$do->id] = $fields;
+            $results[] = $fields;
         }
 
         return [
