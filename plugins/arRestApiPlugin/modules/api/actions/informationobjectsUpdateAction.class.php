@@ -31,6 +31,10 @@ class ApiInformationObjectsUpdateAction extends QubitApiAction
             throw new QubitApiForbiddenException();
         }
 
+        if (!QubitAcl::check($this->io, 'update')) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
         foreach ($payload as $field => $value) {
             $this->processField($field, $value);
         }

@@ -22,7 +22,26 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
     protected function post($request, $payload)
     {
         $this->do = new QubitDigitalObject();
-        $this->do->parentId = null;
+
+        if (isset($payload->information_object_slug)) {
+            // If information_object_slug is set, attach this digital object to
+            // the identified information object
+            $this->setObjectBySlug($payload->information_object_slug);
+        } elseif (isset($payload->information_object_id)) {
+            // If information_object_id is set, create a new *child* (item) of
+            // the identified IO and attach the new digital object to the child
+            $this->setObjectById($payload->information_object_id);
+        } elseif (isset($payload->parent_id)) {
+            // If parent_id is set then make this digital object a child of the
+            // identified digital object
+            $this->setParent($payload->parent_id);
+        } else {
+            // If none of the above is set, throw an error
+            throw new QubitApiBadRequestException(
+                'Request must include one of: information_object_slug,'.
+                ' information_object_id, or parent_id'
+            );
+        }
 
         foreach ($payload as $field => $value) {
             $this->processField($field, $value);
@@ -73,43 +92,87 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
         return ['id' => (int) $this->do->id, 'slug' => $this->do->slug];
     }
 
+    protected function setParent($parentId)
+    {
+        $parent = QubitDigitalObject::getById($parentId);
+
+        if (empty($parent)) {
+            throw new QubitApiBadRequestException('Invalid parent_id');
+        }
+
+        // Check that user has permission to update the parent digital object's
+        // "object" (information object or actor)
+        if (!QubitAcl($parent->object, 'update')) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
+        $this->do->parent = $parent;
+    }
+
+    protected function setObjectBySlug($slug)
+    {
+        $io = QubitInformationObject::getBySlug($slug);
+
+        if (empty($io)) {
+            throw new QubitApiBadRequestException(
+                'Invalid information_object_slug'
+            );
+        }
+
+        if (!QubitAcl::check($io, 'update')) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
+        if (!empty($io->getDigitalObject())) {
+            throw new QubitApiForbiddenException(
+                'Already has a digital object'
+            );
+        }
+
+        $this->do->object = $io;
+    }
+
+    protected function setObjectById($id)
+    {
+        $parent = QubitInformationObject::getById($id);
+
+        if (empty($parent)) {
+            throw new QubitApiBadRequestException(
+                'Invalid information_object_id'
+            );
+        }
+
+        if (!QubitAcl::check($parent, 'create')) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
+        // Create a child info object, and link digital object to it
+        $this->do->object = $this->createChildItem($parent);
+    }
+
+    protected function createChildItem($parent)
+    {
+        $io = new QubitInformationObject();
+        $io->parentId = $parent->id;
+        $io->setLevelOfDescriptionByName('item');
+        $io->save();
+
+        return $io;
+    }
+
     protected function processField($field, $value)
     {
         switch ($field) {
             case 'name':
             case 'path':
             case 'byte_size':
-            case 'parent_id':
                 $field = lcfirst(sfInflector::camelize($field));
                 $this->do->{$field} = $value;
 
                 break;
 
-            case 'information_object_slug':
-                // Get parent slug so we can determine its ID
-                $criteria = new Criteria();
-                $criteria->add(QubitSlug::SLUG, $value);
-
-                $slug = QubitSlug::getOne($criteria);
-
-                if (null !== $slug) {
-                    $this->do->objectId = $slug->objectId;
-                }
-
-                break;
-
             case 'uri':
                 $this->do->importFromURI($value);
-
-                break;
-
-            case 'information_object_id':
-                $io = new QubitInformationObject();
-                $io->parentId = $value;
-                $io->setLevelOfDescriptionByName('item');
-                $io->save();
-
-                $this->do->objectId = $io->id;
 
                 break;
 

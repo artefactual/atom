@@ -24,6 +24,15 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
     // Module-specific permissions get temporarily stored here for access checks
     protected $security = [];
 
+    public function __toString()
+    {
+        if (isset($this->user)) {
+            return $this->user->username;
+        }
+
+        return 'NULL';
+    }
+
     /**
      * Required for Zend_Acl_Role_Interface.
      */

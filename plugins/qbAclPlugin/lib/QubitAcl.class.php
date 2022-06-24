@@ -174,7 +174,14 @@ class QubitAcl
 
         self::getInstance()->buildAcl($resource, $options);
 
-        return self::getInstance()->acl->isAllowed($role, $resource, $action);
+        $allowed = self::getInstance()->acl->isAllowed(
+            $role, $resource, $action
+        );
+
+        // Log ACL check
+        self::log($allowed, $role, $resource, $action);
+
+        return $allowed;
     }
 
     /**
@@ -722,6 +729,28 @@ class QubitAcl
         }
 
         return $this;
+    }
+
+    /**
+     * Log access request.
+     *
+     * @param bool   $allowed  whether access was granted
+     * @param myUser $role     subject of access request
+     * @param mixed  $resource object of access request
+     * @param string $action   action requested
+     */
+    protected static function log($allowed, $role, $resource, $action)
+    {
+        $result = $allowed ? 'ALLOW' : 'DENY';
+        $msg = sprintf(
+            '{QubitAcl} User: "%s", Action: "%s", Resource id:%s, Result: "%s"',
+            $role,
+            $action,
+            $resource->id,
+            $result,
+        );
+
+        sfContext::getInstance()->getLogger()->log($msg, sfLogger::INFO);
     }
 
     /**

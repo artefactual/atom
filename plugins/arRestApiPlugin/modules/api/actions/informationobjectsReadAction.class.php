@@ -367,20 +367,11 @@ class ApiInformationObjectsReadAction extends QubitApiAction
             $this->addItemToArray($doData, 'aip_uuid', $digitalObject->object->aipUUID);
 
             if (sfConfig::get('app_element_visibility_digital_object_url', false)) {
-                if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId) {
-                    $this->addItemToArray($doData, 'url', $digitalObject->getFullPath());
-                } elseif (QubitTerm::OFFLINE_ID != $digitalObject->usageId) {
-                    $this->addItemToArray($doData, 'url', $this->siteBaseUrl.$digitalObject->getFullPath());
-                }
+                $this->addDigitalObjectUrl($digitalObject, $doData);
 
                 if (QubitTerm::OFFLINE_ID != $digitalObject->usageId) {
-                    if (null !== $reference = $digitalObject->getRepresentationByUsage(QubitTerm::REFERENCE_ID)) {
-                        $this->addItemToArray($doData, 'reference_url', $this->siteBaseUrl.$reference->getFullPath());
-                    }
-
-                    if (null !== $thumbnail = $digitalObject->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID)) {
-                        $this->addItemToArray($doData, 'thumbnail_url', $this->siteBaseUrl.$thumbnail->getFullPath());
-                    }
+                    $this->addReferenceUrl($digitalObject, $doData);
+                    $this->addThumbnailUrl($digitalObject, $doData);
                 }
             }
 
@@ -388,5 +379,60 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         }
 
         return $ioData;
+    }
+
+    protected function addDigitalObjectUrl($digitalObject, &$data)
+    {
+        if (!QubitAcl::check($this->resource, 'readMaster')) {
+            return;
+        }
+
+        if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId) {
+            $this->addItemToArray($data, 'url', $digitalObject->getFullPath());
+
+            return;
+        }
+
+        if (QubitTerm::OFFLINE_ID != $digitalObject->usageId) {
+            $this->addItemToArray(
+                $data, 'url', $this->siteBaseUrl.$digitalObject->getFullPath()
+            );
+        }
+    }
+
+    protected function addReferenceUrl($digitalObject, &$data)
+    {
+        $reference = $digitalObject->getRepresentationByUsage(
+            QubitTerm::REFERENCE_ID
+        );
+
+        if (
+            isset($reference)
+            && QubitAcl::check($this->resource, 'readReference')
+        ) {
+            $this->addItemToArray(
+                $data,
+                'reference_url',
+                $this->siteBaseUrl.$reference->getFullPath()
+            );
+        }
+    }
+
+    protected function addThumbnailUrl($digitalObject, &$data)
+    {
+        $thumbnail = $digitalObject->getRepresentationByUsage(
+            QubitTerm::THUMBNAIL_ID
+        );
+
+        if (
+            isset($thumbnail)
+            && QubitAcl::check($this->resource, 'readThumbnail')
+        ) {
+            $this->addItemToArray(
+                $data,
+                'thumbnail_url',
+                $this->siteBaseUrl.$thumbnail->getFullPath()
+            );
+        }
     }
 }

@@ -97,10 +97,8 @@ class QubitInformationObjectAcl extends QubitAcl
             QubitTerm::PUBLICATION_STATUS_DRAFT_ID
             == $resource->getPublicationStatus()->statusId
         ) {
-            $instance = self::getInstance()->buildAcl($resource, $options);
-
-            return $instance->acl->isAllowed($user, $resource, 'read')
-                && $instance->acl->isAllowed($user, $resource, 'viewDraft');
+            return parent::isAllowed($user, $resource, 'read')
+                && parent::isAllowed($user, $resource, 'viewDraft');
         }
 
         // Otherwise, just do a "read" ACL check

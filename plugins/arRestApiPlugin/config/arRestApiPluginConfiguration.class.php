@@ -67,10 +67,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
             'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
-        $this->addRoute('GET', '/api/informationobjects/tree/:parent_slug', [
+        $this->addRoute('GET', '/api/informationobjects/tree/:slug', [
             'module' => 'api',
             'action' => 'informationobjectsTree',
-            'params' => ['parent_slug' => '['.QubitSlug::getValidSlugChars().']+'],
+            'params' => ['slug' => '['.QubitSlug::getValidSlugChars().']+'],
         ]);
 
         $this->addRoute('PUT', '/api/informationobjects/:slug', [

@@ -21,13 +21,15 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
 {
     protected function post($request, $payload)
     {
-        if (QubitInformationObject::ROOT_ID === (int) $request->id) {
+        $parent = $this->getParent($payload);
+
+        if (!QubitAcl::check($parent, 'create')) {
             throw new QubitApiForbiddenException();
         }
 
         $this->io = new QubitInformationObject();
-        $this->io->parentId = QubitInformationObject::ROOT_ID;
-        $this->io->setPublicationStatusByName('Published');
+        $this->io->parentId = $parent->id;
+        $this->io->setPublicationStatus($this->getPublicationStatusId($parent));
 
         foreach ($payload as $field => $value) {
             $this->processField($field, $value);
@@ -44,28 +46,54 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
         ];
     }
 
+    protected function getParent($payload)
+    {
+        if (!empty($payload->parent_slug)) {
+            $parent = QubitInformationObject::getBySlug($payload->parent_slug);
+
+            if (empty($parent)) {
+                throw new QubitApiBadRequestException('Invalid parent_slug');
+            }
+
+            return $parent;
+        }
+
+        if (!empty($payload->parent_id)) {
+            $parent = QubitInformationObject::getById($payload->parent_id);
+
+            if (empty($parent)) {
+                throw new QubitApiBadRequestException('Invalid parent_id');
+            }
+
+            return $parent;
+        }
+
+        // Default parent is root
+        return QubitInformationObject::getRoot();
+    }
+
+    protected function getPublicationStatusId($parent)
+    {
+        // If this user doesn't have publish permissions then make the
+        // description a draft
+        if (!QubitAcl::check($parent, 'publish')) {
+            return QubitTerm::PUBLICATION_STATUS_DRAFT_ID;
+        }
+
+        // Otherwise, use default publication status
+        return sfConfig::get(
+            'app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID
+        );
+    }
+
     protected function processField($field, $value)
     {
         switch ($field) {
             case 'identifier':
             case 'level_of_description_id':
-            case 'parent_id':
             case 'title':
                 $field = lcfirst(sfInflector::camelize($field));
                 $this->io->{$field} = $value;
-
-                break;
-
-            case 'parent_slug':
-                // Get parent slug so we can determine its ID
-                $criteria = new Criteria();
-                $criteria->add(QubitSlug::SLUG, $value);
-
-                $slug = QubitSlug::getOne($criteria);
-
-                if (null !== $slug) {
-                    $this->io->parentId = $slug->objectId;
-                }
 
                 break;
 

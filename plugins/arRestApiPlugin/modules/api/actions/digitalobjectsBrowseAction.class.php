@@ -21,6 +21,11 @@ class ApiDigitalObjectsBrowseAction extends QubitApiAction
 {
     protected function get($request)
     {
+        // Require system-wide "readMaster" authorization to use this endpoint
+        if (!QubitAcl::check(QubitInformationObject::getRoot(), 'readMaster')) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
         $data = [];
 
         $results = $this->getResults($request);
