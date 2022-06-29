@@ -2,9 +2,42 @@
   "name": "atom",
   "version": "0.0.0",
   "private": true,
+  "dependencies": {
+    "@accessible360/accessible-slick": "^1.0.1",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@uppy/core": "^2.0.3",
+    "@uppy/dashboard": "^2.0.3",
+    "@uppy/xhr-upload": "^2.0.3",
+    "bootstrap": "^5.1.1",
+    "bootstrap-autocomplete": "^2.3.7",
+    "imagesloaded": "^4.1.4",
+    "jquery": "^3.6.0",
+    "jquery-expander": "^2.0.1",
+    "jquery-mousewheel": "^3.1.13",
+    "jquery-ui-dist": "^1.12.1",
+    "jstree": "^3.3.11",
+    "masonry-layout": "^4.2.2",
+    "mediaelement": "^4.2.16"
+  },
   "devDependencies": {
+    "css-loader": "^6.3.0",
     "cypress": "^9.1.1",
     "cypress-file-upload": "^5.0.3",
-    "cypress-wait-until": "^1.7.1"
+    "cypress-wait-until": "^1.7.1",
+    "expose-loader": "^3.0.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "prettier": "^2.3.2",
+    "resolve-url-loader": "^4.0.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack watch",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   }
 }

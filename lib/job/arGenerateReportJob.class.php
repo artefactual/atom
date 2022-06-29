@@ -26,6 +26,7 @@ class arGenerateReportJob extends arBaseJob
     public const storageLocationsTemplatePath = 'apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php';
     public const boxLabelTemplatePath = 'apps/qubit/modules/informationobject/templates/boxLabelSuccess.php';
     public const reportsDir = 'downloads/reports';
+
     /**
      * @see arBaseJob::$requiredParameters
      */

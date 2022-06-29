@@ -1,0 +1,45 @@
+#fullwidth-treeview-row {
+  margin-bottom: $spacer * 1.75;
+
+  #fullwidth-treeview {
+    height: 100%;
+    overflow-x: hidden;
+
+    .jstree-anchor {
+      width: 96.5%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:hover,
+      &:focus {
+        background-color: $gray-200;
+      }
+
+      &.jstree-clicked {
+        background-color: $gray-300;
+      }
+    }
+  }
+
+  .ui-resizable-s {
+    background-image: url("/images/resizable_grip.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: $gray-200;
+    height: $spacer * 0.5;
+    border: $border-width solid $border-color;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    cursor: ns-resize;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+  }
+}
+
+body.browse.hierarchy #fullwidth-treeview {
+  background-color: $white;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+}

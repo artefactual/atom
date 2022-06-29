@@ -30,7 +30,7 @@ function format_script($script_iso, $culture = null)
     return isset($scripts[$script_iso]) ? $scripts[$script_iso] : '';
 }
 
-function render_field($field, $resource, array $options = [])
+function render_field($field, $resource = null, array $options = [])
 {
     $options += ['name' => $field->getName()];
 
@@ -39,6 +39,10 @@ function render_field($field, $resource, array $options = [])
 
     $resourceRaw = sfOutputEscaper::unescape($resource);
     if (isset($resourceRaw) && $culture != $resourceRaw->sourceCulture) {
+        if ($resourceRaw instanceof QubitSetting) {
+            $options['name'] = 'value';
+        }
+
         try {
             $source = $resourceRaw->__get($options['name'], ['sourceCulture' => true]);
             $fallback = $resourceRaw->__get($options['name']);
@@ -68,6 +72,10 @@ div;
 
     unset($options['name']);
 
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_field($field, $div, $options);
+    }
+
     if (isset($options['onlyInput']) && $options['onlyInput']) {
         $field = $div.$field->render($options);
     } else {
@@ -78,8 +86,143 @@ div;
     return $field;
 }
 
+function render_b5_field($field, $translation = null, $options = [])
+{
+    $isFormCheck = false;
+    $inputClass = 'form-control';
+    $labelClass = 'form-label';
+
+    // TODO: this should be the field id
+    $name = $field->getName();
+    $widget = $field->getWidget();
+
+    if (
+        in_array($field->type, ['checkbox', 'radio'])
+        || $widget instanceof sfWidgetFormSelectRadio
+        || (
+            $widget instanceof sfWidgetFormChoice
+            && !$widget instanceof sfWidgetFormI18nChoiceLanguage
+            && !$widget instanceof sfWidgetFormI18nChoiceCountry
+        )
+    ) {
+        $isFormCheck = true;
+        $inputClass = 'form-check-input';
+        $labelClass = 'form-check-label';
+    } elseif ('color' == $field->type) {
+        $inputClass .= ' form-control-color';
+    }
+
+    if (
+        (
+            empty($options['class'])
+            || false === strpos($options['class'], 'form-autocomplete')
+        )
+        && (
+            $widget instanceof sfWidgetFormSelect
+            || $widget instanceof sfWidgetFormI18nChoiceLanguage
+            || $widget instanceof sfWidgetFormI18nChoiceCountry
+        )
+    ) {
+        $inputClass = 'form-select';
+    }
+
+    if (empty($options['class'])) {
+        $options['class'] = $inputClass;
+    } else {
+        $options['class'] .= ' '.$inputClass;
+    }
+
+    if ($field->hasError()) {
+        $options['class'] .= ' is-invalid';
+        $options['aria-invalid'] = 'true';
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-errors';
+        } else {
+            $options['aria-describedby'] = $name.'-errors';
+        }
+    }
+
+    if (isset($translation)) {
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-translation';
+        } else {
+            $options['aria-describedby'] = $name.'-translation';
+        }
+    }
+
+    // Autocomplete extra inputs
+    $extraInputs = '';
+    if (isset($options['extraInputs'])) {
+        $extraInputs = $options['extraInputs'];
+        unset($options['extraInputs']);
+    }
+
+    if (isset($options['onlyInputs']) && $options['onlyInputs']) {
+        unset($options['onlyInputs']);
+
+        return $translation
+            .$field->render($options)
+            .$extraInputs
+            .$field->renderError();
+    }
+
+    // We need to render the label first to set the input name in
+    // arB5WidgetFormSchemaFormatter as it's used for the help id.
+    $label = $field->renderLabel(null, ['class' => $labelClass]);
+    $help = $field->renderHelp();
+    if (!empty($help)) {
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-help';
+        } else {
+            $options['aria-describedby'] = $name.'-help';
+        }
+    }
+
+    if ($isFormCheck) {
+        // Special case for grouped radio buttons
+        if (
+          $widget instanceof sfWidgetFormChoice
+          || $widget instanceof sfWidgetFormSelectRadio
+        ) {
+            return '<div class="mb-3">'
+                .'<fieldset'
+                .(isset($options['aria-describedby'])
+                    ? ' aria-describedby="'.$options['aria-describedby'].'"'
+                    : '')
+                .'><legend class="fs-6">'
+                .$field->renderLabelName()
+                .'</legend>'
+                .$field->render(['class' => 'form-check-input'])
+                .'</fieldset>'
+                .$field->renderError()
+                .$help
+                .'</div>';
+        }
+
+        return '<div class="form-check mb-3">'
+            .$field->render($options)
+            .$label
+            .$field->renderError()
+            .$help
+            .'</div>';
+    }
+
+    return '<div class="mb-3">'
+        .$label
+        .$translation
+        .$field->render($options)
+        .$extraInputs
+        .$field->renderError()
+        .$help
+        .'</div>';
+}
+
 function render_show($label, $value, $options = [])
 {
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_show($label, $value, $options);
+    }
+
     // Optional labels in the div class containing this field, to help with data mining.
     $fieldLabel = isset($options['fieldLabel']) ? ' class="'.$options['fieldLabel'].'"' : '';
 
@@ -92,6 +235,125 @@ function render_show($label, $value, $options = [])
 </div>
 
 contents;
+}
+
+function render_b5_show_field_css_classes($options = [])
+{
+    return 'row g-0';
+}
+
+function render_b5_show_subfield_css_classes($options = [])
+{
+    return 'd-flex flex-wrap';
+}
+
+function render_b5_show($label, $value, $options = [])
+{
+    $tag = 'div';
+    $cssClasses = 'field text-break';
+    if (isset($options['fieldClass'])) {
+        $cssClasses .= ' '.$options['fieldClass'];
+    }
+    if (!isset($options['isSubField'])) {
+        $cssClasses .= ' '.render_b5_show_field_css_classes($options);
+    } else {
+        $cssClasses .= ' '.render_b5_show_subfield_css_classes($options);
+    }
+
+    $labelContainer = render_b5_show_label($label, $options);
+    $valuecontainer = render_b5_show_value($value, $options);
+
+    return render_b5_show_container(
+        $tag, $labelContainer.$valuecontainer, $cssClasses, $options
+    );
+}
+
+function render_b5_show_container($tag, $content, $cssClasses = '', $options = [])
+{
+    $cssClass = $cssClasses ? ' class="'.$cssClasses.'"' : '';
+
+    return "<{$tag}{$cssClass}>{$content}</{$tag}>";
+}
+
+function render_b5_show_label_css_classes($options = [])
+{
+    $result = 'h6 lh-base m-0 text-muted';
+    if (!isset($options['isSubField'])) {
+        $result .= ' col-3 border-end text-end p-2';
+    } else {
+        $result .= ' me-2';
+    }
+
+    return $result;
+}
+
+function render_b5_show_label($label, $options = [])
+{
+    $tag = isset($options['isSubField']) ? 'h4' : 'h3';
+    $cssClasses = render_b5_show_label_css_classes($options);
+    if (isset($options['labelClass'])) {
+        $cssClasses .= ' '.$options['labelClass'];
+    }
+
+    return render_b5_show_container($tag, $label, $cssClasses, $options);
+}
+
+function render_b5_show_value_css_classes($options = [])
+{
+    return isset($options['isSubField']) ? '' : 'col-9 p-2';
+}
+
+function render_b5_show_value($value, $options = [])
+{
+    $tag = 'div';
+    $cssClasses = render_b5_show_value_css_classes($options);
+    if (isset($options['valueClass'])) {
+        $cssClasses .= ' '.$options['valueClass'];
+    }
+
+    $finalValue = $value;
+    if (is_array($value) || $value instanceof sfOutputEscaperObjectDecorator || $value instanceof sfOutputEscaperArrayDecorator) {
+        $finalValue = '<ul class="'.render_b5_show_list_css_classes().'">';
+        foreach ($value as $item) {
+            $finalValue .= '<li>'.$item.'</li>';
+        }
+        $finalValue .= '</ul>';
+    }
+
+    return render_b5_show_container($tag, $finalValue, $cssClasses, $options);
+}
+
+function render_b5_section_heading(
+    $text,
+    $condition = false,
+    $url = null,
+    $linkOptions = []
+) {
+    if ($condition) {
+        $linkClasses = 'text-primary text-decoration-none';
+        $linkOptions['class'] = $linkOptions['class']
+            ? $linkOptions['class'].' '.$linkClasses
+            : $linkClasses;
+        $linkOptions['title'] = $linkOptions['title'] ?: __('Edit').' '.$text;
+        $content = link_to($text, $url, $linkOptions);
+    } else {
+        $content = render_b5_show_container(
+            'div',
+            $text,
+            'd-flex p-3 border-bottom text-primary'
+        );
+    }
+
+    return render_b5_show_container(
+        'h2',
+        $content,
+        'h5 mb-0 atom-section-header'
+    );
+}
+
+function render_b5_show_list_css_classes($options = [])
+{
+    return 'm-0 ms-1 ps-3';
 }
 
 function render_show_repository($label, $resource)
@@ -181,6 +443,10 @@ function hr_filesize($val)
 
 function render_treeview_node($item, array $classes = [], array $options = [])
 {
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_treeview_node($item, $classes, $options);
+    }
+
     // Build array of classes
     $_classes = [];
     foreach ($classes as $key => $value) {
@@ -270,6 +536,102 @@ function render_treeview_node($item, array $classes = [], array $options = [])
 
     // Close node tag
     $node .= '</li>';
+
+    return $node;
+}
+
+function render_b5_treeview_node($item, array $classes = [], array $options = [])
+{
+    // Build array of classes
+    $_classes = ['list-group-item'];
+    foreach ($classes as $key => $value) {
+        if ($value) {
+            $_classes[$key] = $key;
+        }
+    }
+
+    // Start HTML list element
+    $node = '<li';
+
+    // Create class attribute from $classes array
+    if (0 < count($_classes)) {
+        $node .= ' class="'.implode(' ', $_classes).'"';
+    }
+
+    // Add data-xhr-location if exists
+    if (isset($options['xhr-location'])) {
+        $node .= ' data-xhr-location="'.esc_entities($options['xhr-location']).'"';
+    }
+
+    if ($item instanceof QubitInformationObject) {
+        $dataTitle = [];
+
+        if (isset($item->levelOfDescription)) {
+            $dataTitle[] = render_title($item->levelOfDescription);
+        }
+
+        if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId) {
+            $dataTitle[] = render_title($item->getPublicationStatus());
+        }
+
+        if (0 < count($dataTitle)) {
+            $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
+        }
+    } elseif ($item instanceof QubitTerm) {
+        $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
+    }
+
+    $node .= ' data-content="'.strip_markdown($item).'"';
+
+    // Close tag
+    $node .= '>';
+
+    // Add <i> tag if the node is expandable
+    if (isset($_classes['expand']) || isset($_classes['ancestor'])) {
+        $node .= '<i class="arrow" aria-hidden="true"></i>';
+    }
+
+    $node .= '<span class="text text-truncate">';
+
+    if (isset($_classes['more'])) {
+        $node .= '<a href="#">';
+
+        if (isset($options['numSiblingsLeft'])) {
+            $node .= sfContext::getInstance()->i18n->__('%1% more', ['%1%' => abs($options['numSiblingsLeft'])]);
+        }
+
+        $node .= '...</a>';
+    } else {
+        $rawItem = sfOutputEscaper::unescape($item);
+        if ($rawItem instanceof QubitInformationObject) {
+            // Level of description
+            if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId)) {
+                $node .= '<span class="me-1 text-dark">'.render_value_inline($levelOfDescription->getName()).'</span>';
+            }
+
+            // Title
+            $title = '';
+            if ($item->identifier) {
+                $title = $item->identifier.'&nbsp;-&nbsp;';
+            }
+            $title .= render_title($item);
+
+            // Add link
+            $node .= link_to($title, [$item, 'module' => 'informationobject'], ['title' => null]);
+
+            // Publication status
+            if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId) {
+                $node .= '<span class="ms-1 text-muted">('.render_value_inline($status->__toString()).')</span>';
+            }
+        } elseif ($rawItem instanceof QubitTerm) {
+            $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
+
+            // Add link
+            $node .= link_to(render_title($item), [$item, 'module' => 'term', 'action' => $action]);
+        }
+    }
+
+    $node .= '</span></li>';
 
     return $node;
 }

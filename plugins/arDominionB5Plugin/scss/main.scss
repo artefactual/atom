@@ -1,0 +1,62 @@
+// Default variable overrides
+@import "variables";
+
+// Bootstrap required
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Bootstrap optional
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// Font Awesome
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";
+
+// Other components (CSS files)
+@import "@uppy/core/dist/style";
+@import "@uppy/dashboard/dist/style";
+@import "jquery-ui-dist/jquery-ui";
+@import "jstree/dist/themes/default/style";
+@import "mediaelement/build/mediaelementplayer";
+@import "@accessible360/accessible-slick/slick/slick";
+@import "@accessible360/accessible-slick/slick/slick-theme";
+
+// sfTranslatePlugin
+@import "../../../plugins/sfTranslatePlugin/css/l10n_client";
+
+// Custom
+@import "layout";
+@import "buttonsandlinks";
+@import "forms";
+@import "carousel";
+@import "treeview";
+@import "fullwidthtreeview";

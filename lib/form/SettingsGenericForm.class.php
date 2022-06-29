@@ -37,9 +37,11 @@ class SettingsGenericForm extends sfForm
         $this->setValidators($validators);
 
         // Set decorator
-        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-        $this->widgetSchema->addFormFormatter('list', $decorator);
-        $this->widgetSchema->setFormFormatterName('list');
+        if (!sfConfig::get('app_b5_theme', false)) {
+            $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+            $this->widgetSchema->addFormFormatter('list', $decorator);
+            $this->widgetSchema->setFormFormatterName('list');
+        }
 
         // Set wrapper text for global form settings
         $this->widgetSchema->setNameFormat($this->getOption('scope').'[%s]');

@@ -263,7 +263,7 @@ class sfWebBrowser
             throw new Exception('Cannot click because there is no current page in the browser');
         }
 
-        $xpath = new DomXpath($dom);
+        $xpath = new DOMXPath($dom);
 
         // text link, the name being in an attribute
         if ($link = $xpath->query(sprintf('//a[@*="%s"]', $name))->item(0)) {
@@ -588,7 +588,7 @@ class sfWebBrowser
         if (!$this->responseDom) {
             // for HTML/XML content, create a DOM object for the response content
             if (preg_match('/(x|ht)ml/i', $this->getResponseHeader('Content-Type'))) {
-                $this->responseDom = new DomDocument('1.0', 'utf8');
+                $this->responseDom = new DOMDocument('1.0', 'utf8');
                 $this->responseDom->validateOnParse = true;
                 @$this->responseDom->loadHTML($this->getResponseText());
             }

@@ -1,0 +1,92 @@
+ul.multiInput,
+.yui-ac > ul {
+  margin: 0 0 $spacer * 0.5 0;
+
+  li {
+    cursor: pointer;
+    font-size: $font-size-sm;
+
+    &:hover {
+      list-style-image: url(../../../images/delete.png);
+    }
+
+    input {
+      width: 100%;
+      margin: $spacer * 0.25 0;
+      padding: $input-padding-y-sm $input-padding-x-sm;
+      border: $input-border-width solid $input-border-color;
+      border-radius: $input-border-radius;
+      font-size: $font-size-sm;
+
+      &:focus {
+        outline: none;
+        border-color: $input-focus-border-color;
+        box-shadow: $input-focus-box-shadow;
+      }
+    }
+  }
+}
+
+.yui-ac-content {
+  position: absolute;
+  margin-top: $spacer * 0.25;
+  width: 100%;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  background: $white;
+  box-shadow: $box-shadow;
+  z-index: $zindex-dropdown;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: $spacer * 0.25 $spacer;
+      list-style: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $gray-200;
+      }
+    }
+  }
+}
+
+.default-translation {
+  padding: $spacer * 0.5;
+  margin-bottom: $spacer * 0.5;
+  background: #ffffe0;
+  border: $border-width dashed gold;
+  border-radius: $border-radius;
+}
+
+#export-options .muted {
+  background-color: $gray-100;
+  color: $gray-600;
+}
+
+.settings.permissions #permissions-collapse td {
+  background-color: rgba($danger, 0.1);
+
+  &,
+  input {
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: $light;
+  }
+
+  &.checked {
+    background-color: rgba($success, 0.1);
+  }
+}
+
+.criterion:first-child .adv-search-boolean {
+  display: none;
+}
+
+.accordion-body > .mb-3:last-child {
+  margin-bottom: 0 !important;
+}
