@@ -21,6 +21,7 @@
       this.$updateBlock = this.$element.find('div[id="updateBlock"]');
       this.$noIndexBlock = this.$element.find('div[id="noIndex"]');
 
+      this.$parentingBlock = this.$element.find('div[id="parenting"]');
       this.$repoLimitBlock = this.$element.find('div.repos-limit');
       this.$collectionLimitBlock = this.$element.find('div.collection-limit');
 
@@ -37,6 +38,7 @@
       this.toggleReposFilter();
       this.togglePanels();
       this.onObjectTypeChange();
+      this.toggleParenting();
     },
 
     listen: function()
@@ -48,8 +50,23 @@
 
     onObjectTypeChange: function (event)
     {
+      this.toggleParenting();
       this.toggleNoIndex();
       this.toggleUpdateBlock();
+    },
+
+    toggleParenting: function (event)
+    {
+      switch (this.$objectTypeSelect.val())
+      {
+        case 'ead':
+          this.$parentingBlock.show();
+          break;
+
+        default:
+          this.$parentingBlock.hide();
+          break;
+      }
     },
 
     toggleNoIndex: function (event)

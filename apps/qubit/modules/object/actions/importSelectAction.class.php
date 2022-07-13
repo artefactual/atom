@@ -194,7 +194,6 @@ class ObjectImportSelectAction extends DefaultEditAction
             'doCsvTransform' => ('on' == $request->getParameter('doCsvTransform')) ? true : false,
             'skip-unmatched' => ('on' == $request->getParameter('skipUnmatched')) ? true : false,
             'skip-matched' => ('on' == $request->getParameter('skipMatched')) ? true : false,
-            'parentId' => (isset($this->getRoute()->resource) ? $this->getRoute()->resource->id : null),
             'objectType' => $request->getParameter('objectType'),
             // Choose import type based on importType parameter
             // This decision used to be based in the file extension but some users
@@ -205,6 +204,19 @@ class ObjectImportSelectAction extends DefaultEditAction
             'collectionSlug' => $this->collectionSlug,
             'file' => $file,
         ];
+
+        if (
+            !empty($request->getParameter('parentSlug'))
+            && null !== $parentIo = QubitInformationObject::getBySlug($request->getParameter('parentSlug'))
+            && $parentIo->id != QubitInformationObject::ROOT_ID
+        )
+        {
+            $options['parentId'] = $parentIo->id;
+        }
+        else
+        {
+            $options['parentId'] = (isset($this->getRoute()->resource) ? $this->getRoute()->resource->id : null);
+        }
 
         try {
             $job = QubitJob::runJob('arFileImportJob', $options);

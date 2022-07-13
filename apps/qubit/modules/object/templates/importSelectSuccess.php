@@ -59,6 +59,14 @@
           </div>
         <?php } ?>
 
+        <?php if ('csv' != $type) { ?>
+          <div id="parenting" class="form-item">
+            <p>
+              <label><?php echo __('Parent slug'); ?></label>
+              <input name="parentSlug"/>
+            </p>
+          </div>
+        <?php } ?>
 
         <div id="updateBlock">
 
