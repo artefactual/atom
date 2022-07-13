@@ -31,6 +31,7 @@ class importBulkTask extends arBaseTask
             new sfCommandOption('index', null, sfCommandOption::PARAMETER_NONE, 'Set to enable indexing on imported objects'),
             new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
             new sfCommandOption('completed-dir', null, sfCommandOption::PARAMETER_OPTIONAL, 'Directory to move completed files into'),
+            new sfCommandOption('default-parent-slug', null, sfCommandOption::PARAMETER_REQUIRED, 'Parent slug under which imported items, with no parent specified, will be added'),
             new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
             new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
             new sfCommandOption('verbose', '-v', sfCommandOption::PARAMETER_NONE, 'Verbose output'),
@@ -112,6 +113,18 @@ EOF;
                 $importer->import($file, $options);
             } elseif ('xml' == pathinfo($file, PATHINFO_EXTENSION)) {
                 $importer = new QubitXmlImport();
+
+                // Set parent, if applicable
+                if (empty($options['update']) && !empty($options['default-parent-slug'])) {
+                    $io = QubitInformationObject::getBySlug($options['default-parent-slug']);
+
+                    if (null !== $io) {
+                        $importer->setParent($io->id);
+                    } else {
+                        throw new sfException('Slug not found.');
+                    }
+                }
+
                 $importer->includeClassesAndHelpers();
                 $options['strictXmlParsing'] = false;
                 $importer->import($file, $options);
