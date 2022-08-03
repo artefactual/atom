@@ -5,16 +5,20 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
   <div class="messages error">
     <div>
-      <strong><?php echo $reason; ?></strong>
-      <?php if (!empty($error)) { ?>
-        <pre><?php echo $error; ?></pre>
-      <?php } ?>
+      <p>
+        <strong><?php echo __(
+            'An error occurred with your requested search. Please try a different search.'
+        ); ?></strong>
+        <?php if (!empty($message)) { ?>
+          <pre><?php echo $message; ?></pre>
+        <?php } ?>
+      </p><p>
+        <a href="javascript:history.go(-1)"><?php echo __(
+            'Back to previous page.'
+        ); ?></a>
+      </p>
     </div>
   </div>
-
-  <p><a href="javascript:history.go(-1)"><?php echo __('Back to previous page.'); ?></a></p>
-
 <?php end_slot(); ?>
