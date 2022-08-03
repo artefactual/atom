@@ -115,7 +115,7 @@ EOF;
                 $importer = new QubitXmlImport();
 
                 // Set parent, if applicable
-                if (empty($options['update']) && !empty($options['default-parent-slug'])) {
+                if (!empty($options['default-parent-slug'])) {
                     $io = QubitInformationObject::getBySlug($options['default-parent-slug']);
 
                     if (null !== $io) {
