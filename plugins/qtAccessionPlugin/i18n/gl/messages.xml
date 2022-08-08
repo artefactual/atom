@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2020-09-29T23:37:21Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2022-08-05T23:18:35Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -167,10 +167,6 @@
       <trans-unit id="43">
         <source>Search donor</source>
         <target>Buscar donante</target>
-      </trans-unit>
-      <trans-unit id="48">
-        <source>Browse donor</source>
-        <target>Navegar por donantes</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Updated</source>
@@ -396,10 +392,6 @@
         <source>Related donor record</source>
         <target>Rexistro de donante relacionado</target>
       </trans-unit>
-      <trans-unit id="108">
-        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="109">
         <source>Primary contact information</source>
         <target>Información primaria de contacto</target>
@@ -416,10 +408,6 @@
         <source>Identifier</source>
         <target>Identificador</target>
       </trans-unit>
-      <trans-unit id="116">
-        <source>Browse accession</source>
-        <target>Navegar polos ingresos</target>
-      </trans-unit>
       <trans-unit id="117">
         <source>%1% area</source>
         <target/>
@@ -427,10 +415,6 @@
       <trans-unit id="118">
         <source>Basic info</source>
         <target>Información básica</target>
-      </trans-unit>
-      <trans-unit id="119">
-        <source>Search %1%</source>
-        <target>Buscar %1%</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Relevance</source>
@@ -504,10 +488,6 @@
         <source>Date modified</source>
         <target/>
       </trans-unit>
-      <trans-unit id="139">
-        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="140">
         <source>Notes</source>
         <target>Notas</target>
@@ -526,10 +506,6 @@
       </trans-unit>
       <trans-unit id="144">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="145">
-        <source>Events(s)</source>
         <target/>
       </trans-unit>
       <trans-unit id="146">
@@ -554,6 +530,46 @@
       </trans-unit>
       <trans-unit id="151">
         <source>Event(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>Browse donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Search donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Donor</source>
+        <target>Donante</target>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>We've redirected you to the first page of results.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Browse accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Search accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>Accession</source>
+        <target>Ingreso</target>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Please complete all required fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>This is the legal entity field and provides the contact
+                information for the person(s) or the institution that donated or
+                transferred the materials. It has the option of multiple
+                instances and provides the option of creating more than one
+                contact record using the same form.</source>
         <target/>
       </trans-unit>
     </body>

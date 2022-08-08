@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-09-29T23:37:13Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2022-08-05T23:18:04Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Vrijeme nastanka%2% – Ovo je %3%obavezan%4% element.</target>
+        <target>%1%Datumi postojanja%2% – Ovo je %3%obavezan%4% element.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
@@ -320,21 +320,9 @@
         <source>Related entity</source>
         <target>Povezani entitet</target>
       </trans-unit>
-      <trans-unit id="82">
-        <source>Identifier of the related entity</source>
-        <target>Identifikator povezanog entiteta</target>
-      </trans-unit>
-      <trans-unit id="83">
-        <source>Category of the relationship</source>
-        <target>Kategorija veze</target>
-      </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
         <target>Vrsta veze</target>
-      </trans-unit>
-      <trans-unit id="85">
-        <source>Dates of the relationship</source>
-        <target>Datumi veze</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
@@ -478,7 +466,19 @@
       </trans-unit>
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target>%1%Identifikator normiranog zapisa%2% – vrijednost nije jedinstvena.</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Please complete all required fields.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Identifier of related entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Dates of relationship</source>
+        <target>Datumi veze</target>
       </trans-unit>
     </body>
   </file>

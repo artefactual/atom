@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2020-09-29T23:37:19Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2022-08-05T23:18:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -188,10 +188,6 @@
         <source>Create</source>
         <target>Ajouter</target>
       </trans-unit>
-      <trans-unit id="48">
-        <source>View ISDF function</source>
-        <target>Afficher la fonction ISDF</target>
-      </trans-unit>
       <trans-unit id="50">
         <source>Edit identity area</source>
         <target>Modifier la zone d'identification</target>
@@ -335,6 +331,10 @@
       <trans-unit id="85">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
         <target>Sélectionner l'intitulé dans le menu déroulant ; saisir l'identifiant ou les premières lettres pour réduire la liste des choix. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Please complete all required fields.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

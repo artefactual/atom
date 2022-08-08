@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2022-08-05T23:19:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,10 +15,6 @@
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Dynodwr%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target>%1%Manylion cyswllt%2% - %3%Rhaid%4% cynnwys o leiaf un o'r meysydd lleoliad neu cyfeiriad dilynol: dinas, gwlad, cod post, rhanbarth neu gyfeiriad stryd.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
@@ -429,6 +425,10 @@
       <trans-unit id="105">
         <source>Add description</source>
         <target>Ychwanegu disgrifiad</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

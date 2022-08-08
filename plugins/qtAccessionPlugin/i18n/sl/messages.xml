@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2020-09-29T23:37:10Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2022-08-05T23:19:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -19,10 +19,6 @@
       <trans-unit id="4">
         <source>Authorized form of name - This is a mandatory element.</source>
         <target>Standardizirana oblika imena – vnos tega elementa je obvezen.</target>
-      </trans-unit>
-      <trans-unit id="9">
-        <source>Browse donor</source>
-        <target>Prebrskaj podatke o donatorju</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Name</source>
@@ -184,10 +180,6 @@
         <source>Location information - This is a mandatory element.</source>
         <target>Podatki o lokaciji - vnos tega elementa je obvezen.</target>
       </trans-unit>
-      <trans-unit id="53">
-        <source>Browse accession</source>
-        <target>Prebrskaj podatke o prevzemu</target>
-      </trans-unit>
       <trans-unit id="55">
         <source>Related donors</source>
         <target>Sorodni donatorji</target>
@@ -195,10 +187,6 @@
       <trans-unit id="56">
         <source>Related donor record</source>
         <target>Zapis o sorodnem donatorju</target>
-      </trans-unit>
-      <trans-unit id="57">
-        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target>To je polje v zvezi s pravno osebo, ki omogoča vnos kontaktnih podatkov osebe (oseb) ali institucij, ki so donirali ali prenesli gradivo. Ponuja možnost večkratnih vnosov in ustvarjanja več kot enega kontakta z uporabo istega obrazca.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Primary contact information</source>
@@ -428,10 +416,6 @@
         <source>Basic info</source>
         <target>Osnovni podatki</target>
       </trans-unit>
-      <trans-unit id="122">
-        <source>Search %1%</source>
-        <target>Išči %1%</target>
-      </trans-unit>
       <trans-unit id="124">
         <source>Relevance</source>
         <target>Relevantnost</target>
@@ -504,10 +488,6 @@
         <source>Date modified</source>
         <target/>
       </trans-unit>
-      <trans-unit id="142">
-        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="143">
         <source>Notes</source>
         <target>Opombe</target>
@@ -526,10 +506,6 @@
       </trans-unit>
       <trans-unit id="147">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="148">
-        <source>Events(s)</source>
         <target/>
       </trans-unit>
       <trans-unit id="149">
@@ -554,6 +530,46 @@
       </trans-unit>
       <trans-unit id="154">
         <source>Event(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Browse donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Search donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Donor</source>
+        <target>Donator</target>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>We've redirected you to the first page of results.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Browse accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Search accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Accession</source>
+        <target>Prevzem gradiva</target>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Please complete all required fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>This is the legal entity field and provides the contact
+                information for the person(s) or the institution that donated or
+                transferred the materials. It has the option of multiple
+                instances and provides the option of creating more than one
+                contact record using the same form.</source>
         <target/>
       </trans-unit>
     </body>

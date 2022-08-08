@@ -1594,6 +1594,8 @@ QubitTaxonomy:
     source_culture: en
     name:
       en: 'Accession event type'
+      fr: 'Type d''événement d''acquisition'
+      hr: 'Vrsta događaja akcesije'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -2684,16 +2686,16 @@ QubitTerm:
     id: 195
     source_culture: en
     name:
-      en: 'Chapters'
-      fr: 'Chapitres'
+      en: Chapters
+      fr: Chapitres
   QubitTerm_subtitles_id:
     taxonomy_id: QubitTaxonomy_17
     parent_id: QubitTerm_110
     id: 196
     source_culture: en
     name:
-      en: 'Captions/Subtitles'
-      fr: 'Légendes/Sous-titres'
+      en: Captions/Subtitles
+      fr: Légendes/Sous-titres
   QubitTerm_error_note:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -4359,6 +4361,8 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Physical transfer'
+      fr: 'Transfert physique'
+      hr: 'Fizički prijenos'
   QubitTerm_accession_event_note:
     id: 194
     parent_id: QubitTerm_110
@@ -4366,6 +4370,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Accession event note'
+      hr: 'Napomena uz događaj akcesije'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="he" datatype="plaintext" original="messages" date="2020-09-29T23:13:41Z" product-name="messages">
+  <file source-language="en" target-language="he" datatype="plaintext" original="messages" date="2022-08-05T16:59:51Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -340,20 +340,8 @@
         <source>Related entity</source>
         <target/>
       </trans-unit>
-      <trans-unit id="85">
-        <source>Identifier of the related entity</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="86">
-        <source>Category of the relationship</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="87">
         <source>Type of relationship</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="88">
-        <source>Dates of the relationship</source>
         <target/>
       </trans-unit>
       <trans-unit id="89">
@@ -478,6 +466,18 @@
       </trans-unit>
       <trans-unit id="119">
         <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Please complete all required fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Identifier of related entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Dates of relationship</source>
         <target/>
       </trans-unit>
     </body>

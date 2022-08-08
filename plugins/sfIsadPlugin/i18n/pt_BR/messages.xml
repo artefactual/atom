@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2020-09-29T23:37:03Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2022-08-05T23:18:52Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -427,16 +427,7 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1015">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>&lt;b&gt;ISAD (G) 3.1.3&lt;/b&gt;&lt;br /&gt;
-&lt;strong&gt;Objetivo:&lt;/strong&gt; Identificar e registar a(s) data(s) da unidade de descrição.&lt;br /&gt;
-&lt;strong&gt;Regra:&lt;/strong&gt; Registar, relativamente a cada unidade de descrição, pelo menos um dos seguintes tipos de data, conforme se considerar mais adequado à documentação e ao nível de descrição:
-&lt;ul&gt;
-&lt;li&gt;- Data(s) em que os documentos de arquivo foram acumulados pelo produtor no exercício das suas atividades, ou seja, integrados num sistema de arquivo;&lt;/li&gt;
-&lt;li&gt;- Data(s) em que os documentos foram produzidos. Esta inclui a data de cópias, edições, versões, anexos ou originais de peças produzidas antes da sua acumulação ou integração no sistema de arquivo.&lt;/li&gt;
-&lt;/ul&gt;&lt;br /&gt;
-&lt;strong style="color:#c41f36"&gt;O campo Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação.&lt;br /&gt;
-Utilize os campos de Início e Fim para fazer as datas pesquisáveis. Não use os qualificadores ou símbolos tipográficos para expressar incerteza.&lt;br /&gt;
-Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/strong&gt;</target>
+        <target>"Identifique e registe a(s) data(s) da unidade de descrição. Identifique o tipo de data fornecida. Registe como uma única data ou um intervalo de datas, conforme apropriado." (ISAD 3.1.3). O campo de exibição Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Use os campos de início e fim para tornar as datas pesquisáveis. Não use nenhum qualificador ou símbolo tipográfico para expressar incerteza.Formatos de data aceitáveis: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2020-09-29T23:37:23Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2022-08-05T23:18:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target>Ehhez a levéltári leíráshoz, vagy egyik magasabb szintjéhez, legalább egy iratképző szükséges.</target>
+        <target>Ehhez az iratleíráshoz, vagy egyik magasabb szintjéhez, legalább egy iratképző szükséges.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target>Új levéltári leírás hozzáadása</target>
+        <target>Új iratleírás hozzáadása</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>

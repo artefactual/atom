@@ -1,12 +1,3 @@
-# Translatable settings (e.g. "informationobject" [UI label])
-# - MUST use "source_culture: en"
-# - MUST use "value" language codes, e.g.
-#   value:
-#     fr: foo
-#
-# Non-translatable settings (e.g. hits_per_page)
-# - MUST NOT use "source_culture"
-# - MUST NOT use "value" language codes, e.g. "value: foo"
 QubitSetting:
   version:
     name: version

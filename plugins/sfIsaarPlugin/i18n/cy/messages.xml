@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2022-08-05T23:19:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -322,21 +322,9 @@
         <source>Related entity</source>
         <target>Endid cysylltiedig</target>
       </trans-unit>
-      <trans-unit id="82">
-        <source>Identifier of the related entity</source>
-        <target>Dynodwr yr endid perthnasol</target>
-      </trans-unit>
-      <trans-unit id="83">
-        <source>Category of the relationship</source>
-        <target>Categori o'r berthynas</target>
-      </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
         <target>Math o berthynas</target>
-      </trans-unit>
-      <trans-unit id="85">
-        <source>Dates of the relationship</source>
-        <target>Dyddiadau'r berthynas</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
@@ -481,6 +469,18 @@
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Please complete all required fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Identifier of related entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Dates of relationship</source>
+        <target>Dyddiadau perthynas</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2020-09-29T23:37:21Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2022-08-05T23:18:35Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -67,10 +67,6 @@
       <trans-unit id="16">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
         <target>"Rexistre unha descrición precisa da natureza da relación entre a función que se describe e a función relacionada." (ISDF 5.3.3) Notar que o texto ingresado neste campo tamén aparecerá na función relacionada.</target>
-      </trans-unit>
-      <trans-unit id="17">
-        <source>View ISDF function</source>
-        <target>Ver función ISDF</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Identity area</source>
@@ -335,6 +331,10 @@
       <trans-unit id="85">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
         <target>Seleccione o título dende o menú despregable; ingrese o identificador ou as primeiras letras para reducir as opcións. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Please complete all required fields.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

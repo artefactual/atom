@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2020-09-29T23:37:04Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2022-08-05T23:19:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,10 +15,6 @@
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Identificador%2% - Aquest és un element %3%obligatori%4%.</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target>%Informació de contacte%2% -  %3%Deu%4% d'incloure almenys un dels següents camps de localització o d'adreça: ciutat, país, codi postal, regió o carrer.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
@@ -422,6 +418,10 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Add description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of</source>
         <target/>
       </trans-unit>
     </body>

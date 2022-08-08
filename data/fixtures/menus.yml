@@ -504,7 +504,7 @@ QubitMenu:
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
       hr: 'Opisi arhivskog gradiva'
-      hu: Irateírások
+      hu: Iratleírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
@@ -751,8 +751,8 @@ QubitMenu:
     source_culture: en
     name: validateCsv
     label:
-      en: Validate CSV
-    path: 'object/validateCsv'
+      en: 'Validate CSV'
+    path: object/validateCsv
   QubitMenu_mainmenu_import_skos:
     parent_id: QubitMenu_mainmenu_import
     source_culture: en
@@ -1752,7 +1752,7 @@ QubitMenu:
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
       hr: 'Opisi arhivskog gradiva'
-      hu: Irateírások
+      hu: Iratleírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
@@ -2213,7 +2213,7 @@ QubitMenu:
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
       hr: 'Opisi arhivskog gradiva'
-      hu: Irateírások
+      hu: Iratleírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
