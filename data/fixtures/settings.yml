@@ -97,7 +97,6 @@ QubitSetting:
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
-      pt-BR: 'Descrição arquivística'
       pt_BR: 'Descrição arquivística'
       ro: 'Descriere arhiva'
       ru: 'Архивное описание'
@@ -137,7 +136,6 @@ QubitSetting:
       nl: 'Geauthoriseerde beschrijving'
       pl: 'Hasło wzorcowe'
       pt: 'Registo de autoridade'
-      pt-BR: 'Registro de autoridade'
       pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
       sr: 'Нормативни запис'
@@ -179,10 +177,8 @@ QubitSetting:
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
-      pt-BR: Produtor
       pt_BR: Produtor
       ru: Создатель
-      ru_RU: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
@@ -221,7 +217,6 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt-BR: 'Entidade custodiadora'
       pt_BR: 'Instituição arquivística'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
@@ -260,7 +255,6 @@ QubitSetting:
       nl: Functie
       pl: Funkcja
       pt: Função
-      pt-BR: Função
       pt_BR: Função
       ro: Functia
       sl: Funkcija
@@ -297,7 +291,6 @@ QubitSetting:
       nl: Term
       pl: Termin
       pt: Termo
-      pt-BR: Termo
       pt_BR: Termo
       sl: Izraz
       sr: Термин
@@ -339,10 +332,8 @@ QubitSetting:
       nl: Onderwerp
       pl: Temat
       pt: Assunto
-      pt-BR: Assunto
       pt_BR: Assunto
       ru: Тема
-      ru_RU: Тема
       sl: Tematika
       sr: Тема
       sv: Ämne
@@ -380,7 +371,6 @@ QubitSetting:
       nl: Archief
       pl: Zespoły
       pt: Arquivo
-      pt-BR: Fundos
       pt_BR: Fundos
       ro: Fonduri
       ru: Фонды
@@ -423,7 +413,6 @@ QubitSetting:
       nl: Bestanden
       pl: 'Zasoby posiadane'
       pt: 'Acervos documentais'
-      pt-BR: Acervo
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
       sr: Колекције
@@ -466,10 +455,8 @@ QubitSetting:
       nl: Plaats
       pl: Miejsce
       pt: Local
-      pt-BR: Local
       pt_BR: Local
       ru: Место
-      ru_RU: Место
       sl: Kraj
       sr: Место
       sv: Plats
@@ -513,11 +500,9 @@ QubitSetting:
       nl: Naam
       pl: Nazwa
       pt: Nome
-      pt-BR: Nome
       pt_BR: Nome
       ro: Nume
       ru: Имя
-      ru_RU: Имя
       sl: Ime
       sr: Назив/Име
       sv: Namn
@@ -555,7 +540,6 @@ QubitSetting:
       nl: 'Digitaal object'
       pl: 'Obiekt cyfrowy'
       pt: 'Objeto digital'
-      pt-BR: 'Objeto digital'
       pt_BR: 'Objeto digital'
       ru: 'Цифровой объект'
       sl: 'Digitalni objekt'
@@ -597,7 +581,6 @@ QubitSetting:
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
-      pt-BR: 'Depósito físico'
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
@@ -641,11 +624,9 @@ QubitSetting:
       nl: mediatype
       pl: 'Typ medium'
       pt: 'Tipo de suporte'
-      pt-BR: 'Tipo de mídia'
       pt_BR: 'Tipo de mídia'
       ro: 'Tipul media'
       ru: 'Тип носителя'
-      ru_RU: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
       sv: Mediatyp
@@ -683,7 +664,6 @@ QubitSetting:
       nl: 'Soort materiaal'
       pl: 'Typ materiału'
       pt: 'Tipo de material'
-      pt-BR: 'Tipo de material'
       pt_BR: 'Tipo de material'
       ru: 'Тип материала'
       sl: 'Vrsta gradiva'
@@ -719,7 +699,6 @@ QubitSetting:
       ja: 結果の絞り込み
       ko: '귀하의 검색 결과를 다음과 같이 좁히시오.:'
       pt: 'Limite os seus resultados por:'
-      pt-BR: 'Limite seus resultados por:'
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
       sr: 'Сузи резултате по:'
@@ -747,7 +726,6 @@ QubitSetting:
       it: Genere
       ja: ジャンル
       pt: Género
-      pt-BR: Gênero
       pt_BR: Gênero
       ru: Жанр
       sl: Zvrst
@@ -790,11 +768,9 @@ QubitSetting:
       nl: zoeken
       pl: Szukaj
       pt: Pesquisar
-      pt-BR: Pesquisar
       pt_BR: Pesquisar
       ro: Cautati
       ru: Поиск
-      ru_RU: Поиск
       sl: Išči
       sr: Претражи
       sv: Sök
@@ -820,7 +796,6 @@ QubitSetting:
       id: 'Telusuri khazanah arsip kami'
       it: 'Cerca la'
       pt: 'Pesquise na nossa colecção'
-      pt-BR: 'Busque nossa coleção'
       pt_BR: 'Pesquise nossa coleção'
       sr: 'Претражи наше збирке'
       sv: 'Sök i vår samling'
