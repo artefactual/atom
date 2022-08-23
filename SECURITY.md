@@ -43,13 +43,10 @@ If you haven’t received a reply to your submission after 5 business days of
 the original report, there are a couple steps you can take:
 
 * Email the AtoM Program Manager directly: dan@artefactual.com 
-* Join the [AtoM user forum](https://groups.google.com/forum/#!forum/ica-atom-users)
+* Email info@artefactual.com
 
 Please note that the AtoM user forum is a public forum not suitable for
 discussing security vulnerabilities without potentially impacting other users.
-**When escalating in the User forum, please do not discuss your issue**.
-Simply say that you are trying to get a hold of someone from the AtoM
-development team, and we will follow up with you off-list.
 
 Any information you share with the AtoM development team as a part of this
 process will be kept confidential within the team. If we determine that the
