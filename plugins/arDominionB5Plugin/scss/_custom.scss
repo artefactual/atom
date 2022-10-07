@@ -1,0 +1,56 @@
+
+.header {
+    background-color: $primary;
+    max-width: unset;
+}
+
+#top-bar {
+    background-color: $primary !important;
+    max-width: unset;
+}
+
+.navbar-nav {
+    .nav-item {
+        i:hover {
+            background-color: $orange-light;
+        }
+    }
+}
+
+#navbar-content {
+    button:hover {
+        background-color: $orange-light;
+        color: $secondary;
+    }
+}
+
+body.home {
+    color: $secondary  !important;
+
+    >header {
+        background-color: $primary  !important;
+    }
+
+    .arty {
+        display: flex;
+        justify-content: center;
+    
+        .arty-img {
+            padding: 15px;
+        }
+
+        @include media-breakpoint-between(sm, md) {
+            display: none;
+        }
+
+        @include media-breakpoint-between(md, lg) {
+            width: 250px;
+            height: 250px;
+        }
+
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

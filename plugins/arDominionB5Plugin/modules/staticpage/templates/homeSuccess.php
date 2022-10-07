@@ -26,15 +26,15 @@
     </section>
   <?php } ?>
 
-  <?php echo get_component('default', 'popular', [
-      'limit' => 10,
-      'sf_cache_key' => $sf_user->getCulture(),
-  ]); ?>
-
 <?php end_slot(); ?>
 
 <div class="page p-3">
   <?php echo render_value_html($sf_data->getRaw('content')); ?>
+</div>
+
+<div class="arty">
+  <?php echo image_tag('/plugins/arDominionB5Plugin/images/arty-lady.png', ['class' => 'img-fluid d-none d-sm-block arty-img', 'alt' => __('Arty Lady')]); ?>
+  <?php echo image_tag('/plugins/arDominionB5Plugin/images/arty-ipres.png', ['class' => 'img-fluid d-none d-sm-block arty-img', 'alt' => __('Arty iPres')]); ?>
 </div>
 
 <?php if (QubitAcl::check($resource, 'update')) { ?>
