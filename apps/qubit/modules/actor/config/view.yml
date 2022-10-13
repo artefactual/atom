@@ -4,3 +4,10 @@ browseSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
+
+renameSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    description:
+    rename:
