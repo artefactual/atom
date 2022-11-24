@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2022-08-05T23:18:56Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2022-11-23T16:53:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -30,11 +30,11 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Search donor</source>
-        <target>Pesquisar doador</target>
+        <target>Buscar doador</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target>Tem certeza que pretende apagar %1%?</target>
+        <target>Tem certeza de que deseja excluir %1%?</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
-        <target>Este é um elemento obrigatório.</target>
+        <target>Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Contact area</source>
@@ -78,11 +78,11 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Delete</source>
-        <target>Apagar</target>
+        <target>Excluir</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add new</source>
-        <target>Adicionar Novo</target>
+        <target>Adicionar</target>
       </trans-unit>
       <trans-unit id="30">
         <source>List donor</source>
@@ -90,31 +90,31 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Add new deaccession record</source>
-        <target>Adicionar novo registo de transferência</target>
+        <target>Adicionar novo registro de eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Identifier - This is a mandatory element.</source>
-        <target>Identificador - É um elemento obrigatório.</target>
+        <target>Identificador - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target>Data de aquisição - elemento obrigatório</target>
+        <target>Data de aquisição - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope - This is a mandatory element.</source>
-        <target>Âmbito - elemento obrigatório</target>
+        <target>Âmbito - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Description - This is a mandatory element.</source>
-        <target>Descrição - elemento obrigatório</target>
+        <target>Descrição - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit deaccession record</source>
-        <target>Editar registo de transferência</target>
+        <target>Editar registro de eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Deaccession number</source>
-        <target>Número da transferência</target>
+        <target>Número da eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Scope</source>
@@ -130,11 +130,11 @@
       </trans-unit>
       <trans-unit id="41">
         <source>View deaccession record</source>
-        <target>Visualizar remoção de documentos</target>
+        <target>Visualizar registro de eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edit accession record</source>
-        <target>Editar registo de ingresso</target>
+        <target>Editar registro de ingresso</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Extent</source>
@@ -146,19 +146,19 @@
       </trans-unit>
       <trans-unit id="45">
         <source>Add new accession record</source>
-        <target>Adicionar novo registo de ingresso</target>
+        <target>Adicionar novo registro de ingresso</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target>Data(s) da(s) aquisição(ões) – É um elemento obrigatório</target>
+        <target>Data da aquisição – Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target>Fonte de aquisição - É um elemento obrigatório</target>
+        <target>Fonte de aquisição - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Location information - This is a mandatory element.</source>
-        <target>Localização - elemento obrigatório.</target>
+        <target>Localização - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Related donors</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Related donor record</source>
-        <target>Registo de doador relacionado</target>
+        <target>Registro de doador relacionado</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Primary contact information</source>
@@ -182,15 +182,15 @@
       </trans-unit>
       <trans-unit id="57">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target>Contem %1% tranferências que também serão eliminadas:</target>
+        <target>Contem %1% eliminações de ingresso que também serão excluídas:</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Accession number</source>
-        <target>Número de incorpporação</target>
+        <target>Número de ingresso</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Acquisition date</source>
-        <target>Data(s) da(s) aquisição(ões)</target>
+        <target>Data da aquisição</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Location information</source>
@@ -198,11 +198,11 @@
       </trans-unit>
       <trans-unit id="62">
         <source>Donor/Transferring body area</source>
-        <target>Zona de Doador/Transferência</target>
+        <target>Área de Doador/Transferência</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Administrative area</source>
-        <target>Zona administrativa</target>
+        <target>Área administrativa</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Creators</source>
@@ -214,15 +214,15 @@
       </trans-unit>
       <trans-unit id="66">
         <source>Rights area</source>
-        <target>Zona de direitos</target>
+        <target>Área de direitos</target>
       </trans-unit>
       <trans-unit id="67">
         <source>View accession record</source>
-        <target>Visualizar entrada de documentos</target>
+        <target>Visualizar registro de ingresso</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Edit donor/transferring body area</source>
-        <target>Editar zona de doador/transferência</target>
+        <target>Área de edição de doador/transferência</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Related donor</source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Edit administrative area</source>
-        <target>Editar zona administrativa</target>
+        <target>Editar área administrativa</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Acquisition type</source>
@@ -258,15 +258,15 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
+        <target>Área de edição de direitos</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Deaccession area</source>
-        <target>Zona da transferência</target>
+        <target>Área da eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Deaccession</source>
-        <target>Transferência</target>
+        <target>Eliminação de Ingresso</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Create %1%</source>
@@ -278,31 +278,31 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target>Identificar se toda a incorporação vai ser transferida ou se apenas uma parte.</target>
+        <target>Identifique se todo ou apenas uma parte do ingresso terá seu ingresso eliminado.</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Date of deaccession</source>
-        <target>Data de transferência</target>
+        <target>Data de eliminação de ingresso</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Identify what materials are being deaccessioned.</source>
-        <target>Identificar os materiais que vão ser transferidos.</target>
+        <target>Identificar os materiais que terão seus ingressos eliminados.</target>
       </trans-unit>
       <trans-unit id="91">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target>O número de unidades, representado por um inteiro, e o volume de registos a serem transferidos.</target>
+        <target>O número de unidades, representado por um número inteiro, e o volume de registros que terão sua eliminação de ingresso.</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target>Indicar a razão pela qual os documentos serão transferidos.</target>
+        <target>Indique a razão pela qual os documentos terão seus ingressos eliminados.</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target>Número da incorporação deve ser uma combinação de valores registados ser único para cada entidade detentora</target>
+        <target>O número do ingresso deve ser uma combinação de valores registrados no campo e devem ser únicos para cada entidade custodiadora</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target>A data de incorporação representa a data da recepção dos materiais e que é adicionada durante o processo de doação.</target>
+        <target>A data de ingresso representa a data do recebimento dos materiais e é adicionada durante o processo de doação.</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
@@ -310,23 +310,23 @@
       </trans-unit>
       <trans-unit id="97">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target>Uma descrição da localização física na entidade detentora onde o ingresso pode ser encontrado.</target>
+        <target>Uma descrição da localização física na entidade custodiadora onde o ingresso pode ser encontrado.</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target>Termo que descreve o tipo de ingresso e a forma como foi adquirida.</target>
+        <target>Termo que descreve o tipo de transação de ingresso referindo à sua forma de aquisição.</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target>Seleccionar o tipo de recurso representado no ingresso, seja publica ou privada.</target>
+        <target>Selecione o tipo de recurso representado no ingresso, seja publica ou privada.</target>
       </trans-unit>
       <trans-unit id="100">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target>O título do ingresso, normalmente o produtor e um termo que descreve o formato dos materiais</target>
+        <target>O título do ingresso, geralmente o termo e nome do produtor que descrevam o formato dos materiais de ingresso.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target>Nome do produtor do ingresso ou do departamento que a realizou.</target>
+        <target>Nome do produtor do ingresso ou do departamento que produziu o ingresso.</target>
       </trans-unit>
       <trans-unit id="103">
         <source>A description of the intellectual content and document types represented in the accession.</source>
@@ -334,11 +334,11 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target>Registar quaisquer acções de avaliação, selecção e eliminação ocorridas ou planeadas para a unidade de descrição, especialmente se tais acções puderem afectar a interpretação da documentação.</target>
+        <target>Registre quaisquer ações de avaliação, seleção e eliminação ocorridas ou planejadas para a unidade de descrição, especialmente se tais ações puderem afetar a interpretação da documentação.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Appraisal, destruction and scheduling</source>
-        <target>Avaliação, selecção e eliminação</target>
+        <target>Avaliação, seleção e eliminação</target>
       </trans-unit>
       <trans-unit id="106">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
@@ -346,23 +346,23 @@
       </trans-unit>
       <trans-unit id="107">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target>O número de unidades, representado por um inteiro, e o volume de registos recebidos por ingresso</target>
+        <target>O número de unidades, representado por um número inteiro, e o volume de registros recebidos pelo ingresso.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>An indicator of the accessioning process.</source>
-        <target>Indicador do processo de ingresso.</target>
+        <target>Um indicador do processo de ingresso.</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target>Indicar a prioridade que a entidade detentora atribui à conclusão do processo de incorporação.</target>
+        <target>Indique a prioridade que a entidade custodiadora atribui à conclusão do processo de ingresso.</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target>Notas acerca do plano de incorporação descrevendo o que deve ser feito</target>
+        <target>Notas sobre do plano de processamento, descrevendo o que deve ser feito para o ingresso ser processado completamente.</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Processing status</source>
-        <target>Estado de processamento</target>
+        <target>Estado atual do processamento</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Processing priority</source>
@@ -370,15 +370,15 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Basic info</source>
-        <target>Informação básica</target>
+        <target>Informações básicas</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Identifier available.</source>
-        <target>Identificador disponível</target>
+        <target>Identificador disponível.</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Identifier unavailable.</source>
-        <target>Identificador não disponível</target>
+        <target>Identificador não disponível.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Loading...</source>
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="121">
         <source>Date modified</source>
-        <target>Data modificada</target>
+        <target>Data de modificação</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Notes</source>
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit id="125">
         <source>Link physical storage</source>
-        <target>Vínculo ao depósito físico</target>
+        <target>Vincular ao depósito físico</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Type</source>
@@ -418,27 +418,27 @@
       </trans-unit>
       <trans-unit id="129">
         <source>Agent</source>
-        <target/>
+        <target>Agente</target>
       </trans-unit>
       <trans-unit id="130">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Tipo:%2% Selecione o tipo do evento.%3%</target>
       </trans-unit>
       <trans-unit id="131">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Data:%2% Insira a data do evento.%3%</target>
       </trans-unit>
       <trans-unit id="132">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Agente:%2% Insira o agente associado ao evento.%3%</target>
       </trans-unit>
       <trans-unit id="133">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Nota:%2% Insira notas associadas ao evento.%3%</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Event(s)</source>
-        <target/>
+        <target>Evento(s)</target>
       </trans-unit>
     </body>
   </file>

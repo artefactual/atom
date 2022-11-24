@@ -5,6 +5,7 @@ QubitAclGroup:
     id: 98
     parent_id: QubitAclGroup_ROOT
     name:
+      bs: anonimno
       ca: anònim
       ca@valencia: anònim
       cy: anhysbys
@@ -38,6 +39,7 @@ QubitAclGroup:
     id: 99
     parent_id: QubitAclGroup_ROOT
     name:
+      bs: autentificirano
       ca: autenticat
       ca@valencia: autenticat
       cy: dilysedig
@@ -70,6 +72,7 @@ QubitAclGroup:
     id: 100
     parent_id: QubitAclGroup_authenticated
     name:
+      bs: administrator
       ca: administrador
       ca@valencia: administrador
       cy: gweinyddwr
@@ -103,6 +106,7 @@ QubitAclGroup:
     id: 101
     parent_id: QubitAclGroup_authenticated
     name:
+      bs: urednik
       ca: editor
       ca@valencia: editor
       cy: golygydd
@@ -135,6 +139,7 @@ QubitAclGroup:
     id: 102
     parent_id: QubitAclGroup_authenticated
     name:
+      bs: saradnik
       ca: col·laborador
       ca@valencia: contribuïdor
       cy: cyfrannwr
@@ -166,6 +171,7 @@ QubitAclGroup:
     id: 103
     parent_id: QubitAclGroup_authenticated
     name:
+      bs: prevodilac
       ca: traductor
       ca@valencia: traductor
       cy: cyfieithydd

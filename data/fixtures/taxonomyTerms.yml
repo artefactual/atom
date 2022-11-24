@@ -6,6 +6,7 @@ QubitTaxonomy:
     id: 31
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Razine detalja opisa'
       ca: 'Nivell de detall de la descripció'
       ca@valencia: 'Nivell de detall de la descripció'
       cy: 'Lefelau Manylion Disgrifiad'
@@ -40,11 +41,13 @@ QubitTaxonomy:
     id: 32
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste entiteta stvaratelja'
       ca: 'Tipus d''Actor'
       ca@valencia: 'Tipus d''Actor'
       cy: 'Mathau o Endid Actor'
       de: Rechtspersönlichkeit
       de-CH: 'Entitätstypen Aktenbildner'
+      el: 'Τύποι οντοτήτων δραστών'
       en: 'Actor Entity Types'
       es: 'Tipos de Actor'
       eu: 'Aktore Erakunde Motak'
@@ -59,7 +62,7 @@ QubitTaxonomy:
       nl: 'Soorten entiteiten'
       pl: 'Typy jednostek sprawcy/powoda'
       pt: 'Tipos de entidades produtoras'
-      pt_BR: 'Tipos de Autores'
+      pt_BR: 'Tipos de Entidade da Autoridade'
       sl: 'Vrste entitet delovalcev'
       sr: 'Врсте ентитета ствараоца'
       sv: 'Entitetstyper för aktör'
@@ -72,6 +75,7 @@ QubitTaxonomy:
     id: 33
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Stanja opisa'
       ca: 'Estat de la descripció'
       ca@valencia: 'Estat de la descripció'
       cy: 'Statws Disgrifiad'
@@ -93,7 +97,7 @@ QubitTaxonomy:
       nl: Beschrijvingsstatus
       pl: 'Statusy opisu'
       pt: 'Estado da descrição'
-      pt_BR: 'Estado da descrição'
+      pt_BR: 'Estados atuais da descrição'
       sl: 'Statusi popisa'
       sr: 'Статуси описа'
       sv: Beskrivningsstatus
@@ -107,6 +111,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'مستويات الوصف الأرشيفية'
+      bs: 'Nivoi opisa'
       ca: 'Nivells de descripció'
       ca@valencia: 'Nivells de descripció'
       cy: 'Lefelau disgrifiad'
@@ -146,6 +151,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: المواضيع
+      bs: Predmeti/subjekti
       ca: Matèries
       ca@valencia: Matèries
       cy: Pynciau
@@ -185,11 +191,13 @@ QubitTaxonomy:
     id: 36
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste imena stvaratelja'
       ca: 'Tipus de Nom d''Actor'
       ca@valencia: 'Tipus de Nom d''Actor'
       cy: 'Mathau o Enw Actor'
       de: Bezeichnung
       de-CH: 'Namenstypen Aktenbildner'
+      el: 'Τύποι ονομάτων δραστών'
       en: 'Actor Name Types'
       es: 'Tipos de Nombre de Actor'
       eu: 'Aktore Izen Motak'
@@ -205,7 +213,7 @@ QubitTaxonomy:
       nl: 'Soorten naam van entiteiten'
       pl: 'Typy nazw sprawcy/powoda'
       pt: 'Tipos de nome de entidades produtoras'
-      pt_BR: 'Tipos de Nomes de Autores'
+      pt_BR: 'Tipos de Nome da Autoridade'
       sl: 'Vrste imen delovalcev'
       sr: 'Врсте назива/имена ствараоца'
       sv: 'Namntyper för aktör'
@@ -218,6 +226,7 @@ QubitTaxonomy:
     id: 37
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste napomena'
       ca: 'Tipus de notes'
       ca@valencia: 'Tipus de notes'
       cy: 'Mathau o nodyn'
@@ -253,12 +262,13 @@ QubitTaxonomy:
     id: 38
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste spremišta'
       ca: 'Tipus d''institucions arxivístiques'
       ca@valencia: 'Tipus d''Institucions Arxivístiques'
       cy: 'Mathau o gadwrfa'
       de: Archivtypen
       de-CH: Archivtypen
-      el: 'Τύποι Αποθετηρίου'
+      el: 'Τύποι Αποθετηρίων'
       en: 'Repository Types'
       es: 'Tipos de Instituciones Archivísticas'
       eu: 'Errepositorio Motak'
@@ -288,6 +298,7 @@ QubitTaxonomy:
     id: 40
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste događaja'
       ca: 'Tipus d''activitat'
       ca@valencia: 'Tipus d''activitat'
       cy: 'Mathau o ddigwyddiad'
@@ -324,6 +335,7 @@ QubitTaxonomy:
     id: 41
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Oznake Qubit postavke'
       ca: 'Etiquetes de paràmetres de Qubit'
       ca@valencia: 'Etiquetes de configuració de Qubit'
       cy: 'Labeli Gosodiadau Qubit'
@@ -359,6 +371,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: أماكن
+      bs: Mjesta
       ca: Llocs
       ca@valencia: Llocs
       cy: Lleoedd
@@ -367,7 +380,7 @@ QubitTaxonomy:
       de-CH: Orte
       de_AT: Orte
       de_CH: Orte
-      el: Τοποθεσίες
+      el: Τόποι
       en: Places
       es: Lugares
       eu: Lekuak
@@ -401,11 +414,13 @@ QubitTaxonomy:
     id: 43
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'ISDF vrste funkcija'
       ca: 'ISDF Tipus de funció'
       ca@valencia: 'ISDF Tipus de Funció'
       cy: 'Mathau Ffwythiant ISDF'
       de: 'ISDF Funktionen'
       de-CH: 'ISDF Funktionen'
+      el: 'ΔΙΠΠΕΛ Είδη Λειτουργιών'
       en: 'ISDF Function Types'
       es: 'ISDF Tipos de Funcion'
       eu: 'ISDF Funtzio Motak'
@@ -432,6 +447,7 @@ QubitTaxonomy:
     id: 44
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Historijski događaji'
       ca: 'Historial d''activitats'
       ca@valencia: 'Historial d''activitats'
       cy: 'Digwyddiadau Hanesyddol'
@@ -465,6 +481,7 @@ QubitTaxonomy:
     id: 45
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste zbirki'
       ca: 'Tipus de col·leccions'
       ca@valencia: 'Tipus de col·leccions'
       cy: 'Mathau o gasgliad'
@@ -500,6 +517,7 @@ QubitTaxonomy:
     id: 46
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste medija'
       ca: 'Tipus de suports'
       ca@valencia: 'Tipus de suports'
       cy: 'Mathau o gyfrwng'
@@ -535,6 +553,7 @@ QubitTaxonomy:
     id: 47
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Upotrebe digitalnog objekta'
       ca: 'Ús dels Objectes Digitals'
       ca@valencia: 'Usos dels Objectes Digitals'
       cy: 'Defnydd Gwrthrychau Digidol'
@@ -554,7 +573,7 @@ QubitTaxonomy:
       ko: '디지털 객체 사용'
       nl: 'Gebruik digitaal object'
       pt: 'Usos do objeto digital'
-      pt_BR: 'Usos do objeto digital'
+      pt_BR: 'Usos do Objeto Digital'
       sl: 'Raba digitalnega objekta'
       sr: 'Употреба дигиталног објекта'
       sv: 'Digitalt objekt-användningar'
@@ -567,6 +586,7 @@ QubitTaxonomy:
     id: 48
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta fizičkog objekta'
       ca: 'Physical Object Type'
       ca@valencia: 'Physical Object Type'
       cy: 'Math o Wrthrych Ffisegol'
@@ -601,6 +621,7 @@ QubitTaxonomy:
     id: 49
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta veze'
       ca: 'Tipus de relació'
       ca@valencia: 'Tipus de relació'
       cy: 'Math o gyswllt'
@@ -635,6 +656,7 @@ QubitTaxonomy:
     id: 50
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Tip Građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
       cy: 'Math o Ddeunydd'
@@ -670,6 +692,7 @@ QubitTaxonomy:
     id: 51
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Napomena uz RAD'
       ca: 'Nota de les RAD'
       ca@valencia: 'Nota de normes RAD'
       cy: 'Nodyn RAD'
@@ -705,6 +728,7 @@ QubitTaxonomy:
     id: 52
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Napomena uz naslov RAD-a'
       ca: 'Nota sobre els títols de les RAD'
       ca@valencia: 'Nota sobre títols segons RAD'
       cy: 'Nodyn Teitl RAD'
@@ -739,12 +763,13 @@ QubitTaxonomy:
     id: 53
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta MODS resursa'
       ca: 'MODS Resource Type'
       ca@valencia: 'MODS Resource Type'
       cy: 'Math o Adnodd MODS'
       de: 'MODS Ressourcentyp'
       de-CH: 'MODS Ressourcentyp'
-      el: 'MODS Resource Type'
+      el: 'Τύπος πόρου MODS'
       en: 'MODS Resource Type'
       es: 'Tipo de Recurso MODS'
       eu: 'MODS Baliabide Mota'
@@ -770,11 +795,13 @@ QubitTaxonomy:
     id: 54
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Dublin Core vrste'
       ca: 'Tipus de recursos Dublin Core'
       ca@valencia: 'Dublin Core Types'
       cy: 'Mathau Dublin Core'
       de: 'Dublin Core Typen'
       de-CH: 'Dublin Core Typen'
+      el: 'Τύποι Dublin Core'
       en: 'Dublin Core Types'
       es: 'Tipos según Dublin Core'
       eu: 'Dublin Core Motak'
@@ -803,11 +830,13 @@ QubitTaxonomy:
     id: 55
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta veze stvaratelja'
       ca: 'Tipus de Relació amb l''Actor'
       ca@valencia: 'Tipus de Relació amb l''Actor'
       cy: 'Math o Berthynas Actor'
       de: 'Art der Beziehung zum Akteur'
       de-CH: 'Verwandtschaftstyp Aktenbildner'
+      el: 'Τύποι σχέσεων δραστών'
       en: 'Actor Relation Type'
       es: 'Tipo de Relación con el Actor'
       eu: 'Aktore Erlazio Mota'
@@ -823,7 +852,7 @@ QubitTaxonomy:
       nl: 'Soort relatie tussen actoren'
       pl: 'Typy powiązań sprawcy/powoda'
       pt: 'Tipo de relação de entidades produtoras'
-      pt_BR: 'Tipo de Relação com o Autor'
+      pt_BR: 'Tipo de Relação da Autoridade'
       sl: 'Vrste povezav med delovalci'
       sr: 'Врсте односа ствараоца'
       sv: 'Relationstyper för aktör'
@@ -838,6 +867,7 @@ QubitTaxonomy:
     id: 56
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste napomena uz vezu'
       ca: 'Tipus de Notes sobre les relacions'
       ca@valencia: 'Tipus de Notes sobre Relacions'
       cy: 'Mathau o Nodyn Perthynas'
@@ -867,10 +897,11 @@ QubitTaxonomy:
     id: 57
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste veza pojma'
       ca: 'Tipus de relacions entre termes'
       ca@valencia: 'Tipus de Termes de Relació'
       cy: 'Mathau Perthynas Term'
-      el: 'Τύπος σχετικού όρου'
+      el: 'Τύποι όρων Σχέσης'
       en: 'Term Relation Types'
       es: 'Tipos de Términos de Relación'
       eu: 'Termino Erlazio Motak'
@@ -899,12 +930,13 @@ QubitTaxonomy:
     id: 59
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrste stanja'
       ca: 'Tipus d''estat'
       ca@valencia: 'Tipus d''estat'
       cy: 'Mathau o Statws'
       de: Statustypen
       de-CH: Statustypen
-      el: 'Τύποι κατάστασης'
+      el: 'Τύποι κατάστασης επεξεργασίας'
       en: 'Status Types'
       es: 'Tipos de Estado'
       eu: 'Estatus Motak'
@@ -932,12 +964,13 @@ QubitTaxonomy:
     id: 60
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Stanje publikacije'
       ca: 'Estat de publicació'
       ca@valencia: 'Estat de publicació'
       cy: 'Statws cyhoeddiad'
       de: Publikationsstatus
       de-CH: Publikationsstatus
-      el: 'Κατάσταση δημοσίευσης'
+      el: 'Στάδιο δημοσιοποίησης'
       en: 'Publication Status'
       es: 'Estado de publicación'
       eu: 'Argitalpen Egoera'
@@ -954,7 +987,7 @@ QubitTaxonomy:
       nl: 'Publicatie status'
       pl: 'Status publikacji'
       pt: 'Estado da publicação'
-      pt_BR: 'Estado da Publicação'
+      pt_BR: 'Estado atual da Publicação'
       sl: 'Status objave'
       sr: 'Статус видљивости записа'
       sv: Publiceringsstatus
@@ -967,6 +1000,7 @@ QubitTaxonomy:
     id: 61
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta veze funkcije'
       ca: 'Tipus de relació de funcions'
       ca@valencia: 'Tipus de relació de funcions'
       cy: 'Math o Berthynas Ffwythiant'
@@ -999,11 +1033,13 @@ QubitTaxonomy:
     id: 62
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Vrsta pristupnog resursa'
       ca: 'Tipus de documentació d''ingressos'
       ca@valencia: 'Tipus de documentació d''ingressos'
       cy: 'Math o adnodd derbyn'
       de: 'Ressourcentyp der Akzession'
       de-CH: 'Art des akzessionierten Objekts'
+      el: 'Τύπος πηγής εισαγωγής'
       en: 'Accession resource type'
       es: 'Tipo de documentación del ingreso'
       eu: 'Atxikimendu baliabide mota'
@@ -1020,7 +1056,7 @@ QubitTaxonomy:
       nl: 'Soort bron van aanwinst'
       pl: 'Typ zasobu nabycia'
       pt: 'Tipo do recurso da incorporação'
-      pt_BR: 'Tipo de recurso de incorporação'
+      pt_BR: 'Tipo de recurso do ingresso'
       sl: 'Vrsta vira prevzetega gradiva'
       sr: 'Врсте извора набавке'
       sv: Accessionsresurstyp
@@ -1033,11 +1069,13 @@ QubitTaxonomy:
     id: 63
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Pristupna vrsta akvizicije'
       ca: 'Tipus d''adquisició'
       ca@valencia: 'Tipus d''adquisició'
       cy: 'Math o derbyn'
       de: 'Übernahmeart der Akzession'
       de-CH: 'Übernahmeart der Akzession'
+      el: 'Είδος εισαγωγής'
       en: 'Accession acquisition type'
       es: 'Tipo de ingreso'
       eu: 'Atxikimendua eskuratze-mota'
@@ -1054,7 +1092,7 @@ QubitTaxonomy:
       nl: 'Soort aanwinst'
       pl: 'Sposób pozyskania nabytku'
       pt: 'Tipo de aquisição da incorporação'
-      pt_BR: 'Tipo de aquisição de incorporação'
+      pt_BR: 'Tipo de aquisição de ingresso'
       sl: 'Način prevzema pribobljenega gradiva'
       sr: 'Инвентар по врсти набавке'
       sv: Accessionsförvärvstyp
@@ -1067,6 +1105,7 @@ QubitTaxonomy:
     id: 64
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Prioritet obrade pristupa'
       ca: 'Prioritat de tractament de l''ingrés'
       ca@valencia: 'Prioritat de tractament d''ingrés'
       cy: 'Blaenoriaeth prosesu derbyniad'
@@ -1088,7 +1127,7 @@ QubitTaxonomy:
       ko: '인수 처리 우선순위'
       pl: 'Priorytet opracowania nabytku'
       pt: 'Prioridade do processamento da incorporação'
-      pt_BR: 'Prioridade de processamento de incorporação'
+      pt_BR: 'Prioridade do processamento de ingresso'
       sl: 'Prednostna obdelava prevzetega gradiva'
       sr: 'Приоритет инвентарне обраде'
       sv: 'Prioritering för accessionsbehandling'
@@ -1101,12 +1140,13 @@ QubitTaxonomy:
     id: 65
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Status obrade pristupa'
       ca: 'Estat de tractament de l''ingrés'
       ca@valencia: 'Estat de tractament d''ingrés'
       cy: 'Statws prosesu derbyniad'
       de: 'Erschließungsstatus der Akzession'
       de-CH: 'Erschliessungsstatus der Akzession'
-      el: 'Κατάσταση πρόσκτησης'
+      el: 'Κατάσταση επεξεργασίας της εισαγωγής'
       en: 'Accession processing status'
       es: 'Estado de tratamiento del ingreso'
       eu: 'Atxikimenduaren prozesaketa egoera'
@@ -1122,7 +1162,7 @@ QubitTaxonomy:
       ko: '인수 처리 상태'
       pl: 'Status opracowania nabytku'
       pt: 'Situação do processamento das incorporações'
-      pt_BR: 'Estado de processamento de incorporação'
+      pt_BR: 'Estado atual do processamento de ingresso'
       sl: 'Status obdelave prevzetega gradiva'
       sr: 'Статус инвентарне обраде'
       sv: 'Status för bearbetning av accessionen'
@@ -1135,6 +1175,7 @@ QubitTaxonomy:
     id: 66
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Opseg izlučene građe'
       ca: 'Abast de l''eliminació'
       ca@valencia: 'Abast de l''eliminació'
       cy: 'Cwmpas dad-derbyn'
@@ -1156,7 +1197,7 @@ QubitTaxonomy:
       ko: '처분 범위'
       pl: 'Zakres zbycia'
       pt: 'Âmbito da desafetação'
-      pt_BR: 'Escopo de transferência'
+      pt_BR: 'Escopo da eliminação de ingresso'
       sl: 'Obseg prodaje'
       sr: 'Опсег излучене грађе'
       sv: 'Omfattning av återlämning'
@@ -1169,6 +1210,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'حقوق أساسية'
+      bs: 'Pravna osnova'
       ca: 'Fonaments dels drets'
       ca@valencia: 'Fonaments de drets'
       cy: 'Sail hawliau'
@@ -1193,7 +1235,7 @@ QubitTaxonomy:
       nl: 'Rechten grondslag'
       pl: 'Podstawa prawna'
       pt: 'Base dos direitos'
-      pt_BR: 'Direitos básicos'
+      pt_BR: 'Base de direitos'
       sl: 'Osnova za pravice'
       sr: 'Правна основа'
       sv: Rättighetsgrund
@@ -1207,6 +1249,7 @@ QubitTaxonomy:
     id: 67
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Radnje regulirane pravima'
       ca: 'Accions regulades per drets'
       ca@valencia: 'Accions regulades per drets'
       cy: 'Act hawliau'
@@ -1226,7 +1269,7 @@ QubitTaxonomy:
       nl: 'Wetgeving betreffende rechten'
       pl: 'Akt prawny'
       pt: 'Decisão dos direitos'
-      pt_BR: 'Atos de direitos'
+      pt_BR: 'Ação de direitos'
       sl: 'Zakon o pravicah'
       sr: 'Акт о правима'
       sv: Rättighetslag
@@ -1240,6 +1283,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'حالة حقوق الطبع والنشر'
+      bs: 'Stanje autorskog prava'
       ca: 'Règim dels drets d''autor'
       ca@valencia: 'Règim de drets d''autor'
       cy: 'Statws hawlfraint'
@@ -1248,7 +1292,7 @@ QubitTaxonomy:
       de-CH: 'Copyright Status'
       de_AT: Urheberrechtsstatus
       de_CH: 'Copyright Status'
-      el: 'Κατάσταση Πνευματικών Δικαιωμάτων'
+      el: 'Πνευματικά δικαιώματα'
       en: 'Copyright status'
       es: 'Régimen de derechos de autor'
       eu: 'Copyright estatusa'
@@ -1265,7 +1309,7 @@ QubitTaxonomy:
       nl: 'Copyright status'
       pl: 'Status prawa autorskiego'
       pt: 'Estado dos direitos de autor'
-      pt_BR: 'Status dos direitos autorais'
+      pt_BR: 'Estado atual dos direitos autorais'
       ro: 'Statut drept de autor'
       sl: 'Status avtorskih pravic'
       sr: 'Статус ауторског права'
@@ -1281,6 +1325,7 @@ QubitTaxonomy:
     id: 70
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Predlošci objekta podataka'
       ca: 'Informació sobre les plantilles'
       ca@valencia: 'Informació sobre les plantilles'
       cy: 'Templedau gwrthrych gwybodaeth'
@@ -1297,7 +1342,7 @@ QubitTaxonomy:
       it: 'Modelli degli oggetti informativi'
       ko: '정보 객체 템플릿'
       pt: 'Modelos de objetos de informação'
-      pt_BR: 'Modelos de objetos de informação'
+      pt_BR: 'Modelos de descrição arquivística'
       sl: 'Predloge za informacijski objekt'
       sr: 'Шаблони за информационе објекте'
       sv: 'Mallar för informationsobjekt'
@@ -1309,9 +1354,11 @@ QubitTaxonomy:
     id: 71
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'AIP vrste'
       ca: 'tipus AIP'
       cy: 'Mathau o AIP'
       de: 'AIP Typen'
+      el: 'Τύποι AIP'
       en: 'AIP types'
       es: 'Tipos de AIP'
       eu: 'AIP motak'
@@ -1322,7 +1369,7 @@ QubitTaxonomy:
       it: 'Tipi di AIP'
       ko: 'AIP 종류'
       pt: 'Tipos de AIP'
-      pt_BR: 'Tipos de AIP'
+      pt_BR: 'Tipos de Pacote AIP'
       sl: 'AIP vrsta'
       sr: 'AIP врсте'
       sv: AIP-typer
@@ -1335,6 +1382,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'المجال الفكري'
+      bs: 'Tematsko područje'
       ca: 'Àrea temàtica'
       cy: 'Ardal Thematig'
       de: 'Bereich "Themen"'
@@ -1342,6 +1390,7 @@ QubitTaxonomy:
       de-CH: 'Bereich "Themen"'
       de_AT: 'Bereich "Themen"'
       de_CH: 'Bereich "Themen"'
+      el: 'Θεματική περιοχή'
       en: 'Thematic Area'
       es: 'Área temática'
       eu: 'Gai Eremua'
@@ -1368,6 +1417,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'المنطقة الجغرافية الفرعية'
+      bs: 'Geografska Podregija'
       ca: 'Subregió geogràfica'
       cy: 'Isranbarth daearyddol'
       de: 'Geografische Teilregion'
@@ -1375,6 +1425,7 @@ QubitTaxonomy:
       de-CH: 'Geografische Teilregion'
       de_AT: 'Geografische Teilregion'
       de_CH: 'Geografische Teilregion'
+      el: 'Γεωγραφική υποπεριφέρεια'
       en: 'Geographic Subregion'
       es: 'Subregión geográfica'
       eu: 'Azpieskualde Geografikoa'
@@ -1401,6 +1452,7 @@ QubitTaxonomy:
     id: 74
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'DACS napomena'
       ca: 'Nota DACS'
       cy: 'Nodyn DACS'
       en: 'DACS Note'
@@ -1427,9 +1479,11 @@ QubitTaxonomy:
     id: 78
     parent_id: QubitTaxonomy_root
     name:
+      bs: Žanr
       cy: Genre
       de: Genre
       de-CH: Genre
+      el: Είδος
       en: Genre
       es: Tipo
       fr: Genre
@@ -1454,6 +1508,7 @@ QubitTaxonomy:
     id: 75
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'PREMIS pravni statuti'
       cy: 'Ystatudau Hawliau PREMIS'
       en: 'PREMIS Rights Statutes'
       es: 'Estatutos de derechos PREMIS'
@@ -1475,6 +1530,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ar: 'حالة الوظيفة'
+      bs: 'Stanje posla'
       ca: 'Estat de la tasca'
       cy: 'Statws tasg'
       de: Aufgabenstatus
@@ -1491,7 +1547,7 @@ QubitTaxonomy:
       id: 'Status tugas'
       it: 'Status dell''operazione'
       pt: 'Estado do trabalho'
-      pt_BR: 'Status do trabalho'
+      pt_BR: 'Estado atual da tarefa'
       ru: 'Статус задания'
       sl: 'Status dela'
       sr: 'Статус посла'
@@ -1503,7 +1559,9 @@ QubitTaxonomy:
     id: 80
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Zanimanje stvaratelja'
       cy: 'Galwedigaethau actor'
+      el: Ασχολίες
       en: 'Actor occupations'
       fr: 'activité de l''acteur'
       hr: 'Zanimanje stvaratelja'
@@ -1512,7 +1570,7 @@ QubitTaxonomy:
       it: 'Occupazioni dell''attore'
       ja: 主体者の職業
       pt: 'Ocupações da pessoa'
-      pt_BR: 'Ocupações do autor'
+      pt_BR: 'Ocupações da autoridade'
       sr: 'Занимања ствараоца'
       sv: 'Yrken för aktör'
   QubitTaxonomy_user_actions:
@@ -1520,6 +1578,7 @@ QubitTaxonomy:
     id: 81
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Radnje korisnika'
       cy: 'Gweithredoedd defnyddiwr'
       en: 'User actions'
       fr: 'Actions des utilisateurs'
@@ -1533,20 +1592,25 @@ QubitTaxonomy:
     id: 82
     parent_id: QubitTaxonomy_root
     name:
+      bs: 'Pristup alternativnom tipu identifikatora'
       cy: 'Math o ddynodwr gwahanol derbyn'
+      el: 'Τύπος εναλλακτικού κωδικού εισαγωγής'
       en: 'Accession alternative identifier type'
       fr: 'Type d''identifiant alternatif d''acquisition'
       hr: 'Vrsta alternativnog identifikatora akcesije'
       pt: 'Tipo de identificador alternativo de acesso'
-      pt_BR: 'Incorporação do tipo de identificador alternativo'
+      pt_BR: 'Tipo de identificador alternativo do ingresso'
   QubitTaxonomy_accession_event_types:
     id: 83
     parent_id: QubitTaxonomy_root
     source_culture: en
     name:
+      bs: 'Vrsta događaja akcesije'
+      cy: 'Math o ddigwyddiad derbyn'
       en: 'Accession event type'
       fr: 'Type d''événement d''acquisition'
       hr: 'Vrsta događaja akcesije'
+      pt_BR: 'Tipo do evento de ingresso'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -1558,6 +1622,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: إنشاء
+      bs: Stvaranje
       ca: Creació
       ca@valencia: Creació
       cy: Creadigaeth
@@ -1599,6 +1664,7 @@ QubitTerm:
     id: 113
     source_culture: en
     name:
+      bs: Čuvanje
       ca: Custòdia
       ca@valencia: Custòdia
       cy: Gwarchodaeth
@@ -1633,6 +1699,7 @@ QubitTerm:
     id: 114
     source_culture: en
     name:
+      bs: Publikacija
       ca: Publicació
       ca@valencia: Publicació
       cy: Cyhoeddiad
@@ -1669,6 +1736,7 @@ QubitTerm:
     id: 115
     source_culture: en
     name:
+      bs: Doprinos
       ca: Col·laboració
       ca@valencia: Contribució
       cy: Cyfraniad
@@ -1704,6 +1772,7 @@ QubitTerm:
     id: 117
     source_culture: en
     name:
+      bs: Zbirka
       ca: Col·lecció
       ca@valencia: Col·lecció
       cy: Casgliad
@@ -1741,6 +1810,7 @@ QubitTerm:
     id: 118
     source_culture: en
     name:
+      bs: Akumulacija
       ca: Agregació
       ca@valencia: Agregació
       cy: Crynhoad
@@ -1775,6 +1845,7 @@ QubitTerm:
     id: 119
     source_culture: en
     name:
+      bs: 'Napomena uz naslov'
       ca: 'Nota sobre el títol'
       ca@valencia: 'Nota sobre el títol'
       cy: 'Nodyn teitl'
@@ -1811,6 +1882,7 @@ QubitTerm:
     id: 174
     source_culture: en
     name:
+      bs: 'Napomena uz jezik'
       ca: 'Nota sobre el idioma'
       ca@valencia: 'Nota sobre el idioma'
       cy: 'Nodyn iaith'
@@ -1846,6 +1918,7 @@ QubitTerm:
     id: 120
     source_culture: en
     name:
+      bs: 'Napomena uz publikaciju'
       ca: 'Nota de publicació'
       ca@valencia: 'Nota de publicació'
       cy: 'Nodyn cyhoeddiad'
@@ -1885,6 +1958,7 @@ QubitTerm:
     id: 121
     source_culture: en
     name:
+      bs: 'Napomena uz izvor'
       ca: 'Nota sobre l''origen'
       ca@valencia: 'Nota sobre l''origen'
       cy: 'Nodyn ffynhonnell'
@@ -1922,6 +1996,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'ملاحظة النطاق'
+      bs: 'Napomena uz djelokrug'
       ca: 'Nota d''abast'
       ca@valencia: 'Nota sobre l''abast'
       cy: 'Nodyn cwmpas'
@@ -1964,6 +2039,7 @@ QubitTerm:
     id: 123
     source_culture: en
     name:
+      bs: 'Prikaži napomenu'
       ca: 'Mostra la nota'
       ca@valencia: 'Mostrar nota'
       cy: 'Nodyn dangos'
@@ -1997,6 +2073,7 @@ QubitTerm:
     id: 128
     source_culture: en
     name:
+      bs: 'Arhivski materijal/građa'
       ca: 'Documents i material d''arxiu'
       ca@valencia: 'Documents i material d''arxiu'
       cy: 'Deunydd archifol'
@@ -2034,6 +2111,7 @@ QubitTerm:
     id: 129
     source_culture: en
     name:
+      bs: 'Objavljena građa'
       ca: 'Material publicat'
       ca@valencia: 'Material publicat'
       cy: 'Deunydd cyhoeddiedig'
@@ -2070,6 +2148,7 @@ QubitTerm:
     id: 130
     source_culture: en
     name:
+      bs: Artefakti
       ca: 'Material de l''artefacte'
       ca@valencia: 'Material de l''artefacte'
       cy: 'Deunydd arteffact'
@@ -2105,6 +2184,7 @@ QubitTerm:
     id: 131
     source_culture: en
     name:
+      bs: 'Pravna osoba'
       ca: Organisme
       ca@valencia: 'Entitat col·lectiva'
       cy: 'Corff corfforaethol'
@@ -2140,6 +2220,7 @@ QubitTerm:
     id: 132
     source_culture: en
     name:
+      bs: Osoba
       ca: Persona
       ca@valencia: Persona
       cy: Person
@@ -2177,6 +2258,7 @@ QubitTerm:
     id: 133
     source_culture: en
     name:
+      bs: Porodica
       ca: Família
       ca@valencia: Família
       cy: Teulu
@@ -2213,6 +2295,7 @@ QubitTerm:
     id: 135
     source_culture: en
     name:
+      bs: 'Audio snimka'
       ca: Àudio
       ca@valencia: Àudio
       cy: Sain
@@ -2250,6 +2333,7 @@ QubitTerm:
     id: 136
     source_culture: en
     name:
+      bs: Slika
       ca: Imatge
       ca@valencia: Imatge
       cy: Delwedd
@@ -2285,6 +2369,7 @@ QubitTerm:
     id: 137
     source_culture: en
     name:
+      bs: Tekst
       ca: Text
       ca@valencia: Text
       cy: Testun
@@ -2322,6 +2407,7 @@ QubitTerm:
     id: 138
     source_culture: en
     name:
+      bs: 'Video snimka'
       ca: Vídeo
       ca@valencia: Vídeo
       cy: Fideo
@@ -2358,6 +2444,7 @@ QubitTerm:
     id: 139
     source_culture: en
     name:
+      bs: Drugo
       ca: Altre
       ca@valencia: Altre
       cy: Arall
@@ -2395,6 +2482,7 @@ QubitTerm:
     id: 166
     source_culture: en
     name:
+      bs: 'Vanjski URI'
       ca: 'URI extern'
       ca@valencia: 'URI extern'
       cy: 'URI allanol'
@@ -2427,6 +2515,7 @@ QubitTerm:
     id: 186
     source_culture: en
     name:
+      bs: Neumreženo
       cy: all-lein
       de: Offline
       de-CH: Offline
@@ -2449,6 +2538,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: الرئيسية
+      bs: Master
       ca: 'Exemplar original'
       ca@valencia: 'Exemplar original'
       cy: Meistr
@@ -2471,7 +2561,7 @@ QubitTerm:
       nl: Master
       pl: Nadrzędny
       pt: Matriz
-      pt_BR: Master
+      pt_BR: Matriz
       sl: 'Glavni dokument'
       sr: 'Главни документ'
       sv: Master
@@ -2485,11 +2575,14 @@ QubitTerm:
     id: 141
     source_culture: en
     name:
+      bs: Referenca
       ca: Referència
       ca@valencia: Referència
       cy: Cyfeirnod
       de: Verweis
       de-CH: Verweis
+      de_AT: Verweis
+      de_CH: Verweis
       el: Αναφορά
       en: Reference
       es: Referencia
@@ -2522,6 +2615,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: جذر
+      bs: Sličica
       ca: Miniatura
       ca@valencia: Thumbnail
       cy: Bodlun
@@ -2560,6 +2654,7 @@ QubitTerm:
     id: 143
     source_culture: en
     name:
+      bs: Sastavljeno
       ca: Múltiple
       ca@valencia: Múltiple
       cy: Cyfansawdd
@@ -2595,6 +2690,7 @@ QubitTerm:
     id: 191
     source_culture: en
     name:
+      bs: 'Vanjski predmet/fajl'
       cy: 'Ffeil allanol'
       en: 'External file'
       fr: 'Fichier externe'
@@ -2607,23 +2703,32 @@ QubitTerm:
     id: 195
     source_culture: en
     name:
+      bs: Poglavlja
+      cy: Penodau
       en: Chapters
-      fr: Chapitres
+      fr: Chapîtres
+      pt_BR: Capítulos
   QubitTerm_subtitles_id:
     taxonomy_id: QubitTaxonomy_17
     parent_id: QubitTerm_110
     id: 196
     source_culture: en
     name:
+      bs: Naslovi/Podnaslovi
+      cy: Capsiynau/Isdeitlau
       en: Captions/Subtitles
       fr: Légendes/Sous-titres
+      pt_BR: Legendas
   QubitTerm_error_note:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
     id: 197
     source_culture: en
     name:
+      bs: 'Napomena o grešci posla'
+      cy: 'Nodyn gwall tasg'
       en: 'Job error note'
+      pt_BR: 'Nota de erro da tarefa'
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
     parent_id: QubitTerm_110
@@ -2631,6 +2736,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: موقعك
+      bs: Mjesto
       ca: Localització
       ca@valencia: Localització
       cy: Lleoliad
@@ -2673,6 +2779,7 @@ QubitTerm:
     id: 145
     source_culture: en
     name:
+      bs: Spremnik
       ca: Contenidor
       ca@valencia: Contenidor
       cy: Bocs
@@ -2708,6 +2815,7 @@ QubitTerm:
     id: 146
     source_culture: en
     name:
+      bs: Artefakt
       ca: Artefacte
       ca@valencia: Artefacte
       cy: Arteffact
@@ -2745,6 +2853,7 @@ QubitTerm:
     id: 147
     source_culture: en
     name:
+      bs: 'ima fizički objekt'
       ca: 'té Objecte Físic'
       ca@valencia: 'té Objecte Físic'
       cy: 'mae ganddo Gwrthrych Ffisegol'
@@ -2765,7 +2874,7 @@ QubitTerm:
       nl: 'heeft fysiek object'
       pl: 'ma obiekt fizyczny'
       pt: 'possui objeto tridimensional'
-      pt_BR: 'Possui Objeto Físico'
+      pt_BR: 'possui Objeto Físico'
       sl: 'ima fizičen predmet'
       sr: 'има физички објекат'
       sv: 'har Fysiskt Objekt'
@@ -2779,7 +2888,9 @@ QubitTerm:
     id: 187
     source_culture: en
     name:
+      bs: 'Održavanje repozitorija'
       cy: 'Cynnal lleoliad'
+      el: 'Φορέας διατήρησης'
       en: 'Maintaining repository'
       fr: 'Entretien du dépôt'
       hr: 'Održavanje repozitorija'
@@ -2787,7 +2898,7 @@ QubitTerm:
       id: 'Repositori pemeliharaan'
       it: 'Deposito che lo mantiene'
       pt: 'Manutenção do repositório'
-      pt_BR: 'Manutenção da entidade custodiadora'
+      pt_BR: 'Entidade custodiadora gestora'
       sr: 'Одржавање репозиторијума'
       sv: 'Förvaltande arkivinstitution'
       uz: 'Repozitoriyni nazorat qilish'
@@ -2797,6 +2908,7 @@ QubitTerm:
     id: 124
     source_culture: en
     name:
+      bs: 'Napomena arhiviste'
       ca: 'Nota de l''arxiver'
       ca@valencia: 'Nota de l''arxiver'
       cy: 'Nodyn yr archifydd'
@@ -2837,11 +2949,13 @@ QubitTerm:
     id: 126
     source_culture: en
     name:
+      bs: 'Drugi opisni podaci'
       ca: 'Altra data descriptiva'
       ca@valencia: 'Altra data descriptiva'
       cy: 'Data Disgrifiadol Arall'
       de: 'Sonstige spezielle Informationen'
       de-CH: 'Sonstige spezielle Informationen'
+      el: 'Άλλα περιγραφικά δεδομένα'
       en: 'Other Descriptive Data'
       es: 'Otra Fecha Descriptiva'
       eu: 'Beste Datu Deskriptiboak'
@@ -2870,6 +2984,7 @@ QubitTerm:
     id: 125
     source_culture: en
     name:
+      bs: 'Opća napomena'
       ca: 'Nota general'
       ca@valencia: 'Nota general'
       cy: 'Nodyn cyffredinol'
@@ -2907,6 +3022,7 @@ QubitTerm:
     id: 148
     source_culture: en
     name:
+      bs: 'Ekvivalentni oblik'
       ca: 'Forma paral·lela'
       ca@valencia: 'Forma paral·lela'
       cy: 'Ffurf cyfochrog'
@@ -2942,6 +3058,7 @@ QubitTerm:
     id: 149
     source_culture: en
     name:
+      bs: 'Drugi oblik'
       ca: 'Altra forma'
       ca@valencia: 'Altra forma'
       cy: 'Ffurflen arall'
@@ -2978,6 +3095,7 @@ QubitTerm:
     id: 150
     source_culture: en
     name:
+      bs: hijerarhijski
       ca: jeràrquica
       ca@valencia: jeràrquica
       cy: hierarchaidd
@@ -3014,6 +3132,7 @@ QubitTerm:
     id: 151
     source_culture: en
     name:
+      bs: privremeno
       ca: temporal
       ca@valencia: temporal
       cy: amseryddol
@@ -3049,6 +3168,7 @@ QubitTerm:
     id: 152
     source_culture: en
     name:
+      bs: porodica
       ca: família
       ca@valencia: família
       cy: teulu
@@ -3085,6 +3205,7 @@ QubitTerm:
     id: 153
     source_culture: en
     name:
+      bs: asocijativna
       ca: associativa
       ca@valencia: associativa
       cy: cysylltiadol
@@ -3119,6 +3240,7 @@ QubitTerm:
     id: 154
     source_culture: en
     name:
+      bs: opis
       ca: descripció
       ca@valencia: descripció
       cy: disgrifiad
@@ -3154,6 +3276,7 @@ QubitTerm:
     id: 155
     source_culture: en
     name:
+      bs: 'prikaz datuma'
       ca: 'visualització de la data'
       ca@valencia: 'visualització de data'
       cy: 'dangos dyddiad'
@@ -3187,6 +3310,7 @@ QubitTerm:
     id: 156
     source_culture: en
     name:
+      bs: 'alternativa oznaka'
       ca: 'etiqueta alternativa'
       ca@valencia: 'etiqueta alternativa'
       cy: 'label arall'
@@ -3219,6 +3343,7 @@ QubitTerm:
     id: 157
     source_culture: en
     name:
+      bs: asocijativna
       ca: associativa
       ca@valencia: associativa
       cy: cysylltiadol
@@ -3254,6 +3379,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'مصطلح محول'
+      bs: 'Suprotan pojam'
       ca: Antònim
       cy: 'Term gwrthwyneb'
       de: 'Entgegengesetzter Begriff'
@@ -3284,6 +3410,7 @@ QubitTerm:
     id: 158
     source_culture: en
     name:
+      bs: publikacija
       ca: publicació
       ca@valencia: publicació
       cy: cyhoeddiad
@@ -3321,6 +3448,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: مسودة
+      bs: Nacrt
       ca: Esborrany
       ca@valencia: Esborrany
       cs: Návrh
@@ -3347,7 +3475,7 @@ QubitTerm:
       nl: Concept
       pl: Szkic
       pt: Preliminar
-      pt_BR: 'Versão preliminar'
+      pt_BR: Rascunho
       ro: Proiect
       ru: Черновик
       sl: Osnutek
@@ -3364,6 +3492,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: نشرت
+      bs: Objavljeno
       ca: Publicat
       ca@valencia: Publicat
       cy: Cyhoeddwyd
@@ -3404,6 +3533,7 @@ QubitTerm:
     id: 127
     source_culture: en
     name:
+      bs: 'Napomena uz održavanje'
       ca: 'Nota de manteniment'
       ca@valencia: 'Nota de manteniment'
       cy: 'Nodyn cynnal a chadw'
@@ -3438,12 +3568,13 @@ QubitTerm:
     id: 161
     source_culture: en
     name:
+      bs: 'pristupnice imena'
       ca: 'punts d''accés per autoritat'
       ca@valencia: 'punts d''accés per autoritat'
       cy: 'pwyntiau mynediad enw'
       de: 'Zugriffspunkte (Name)'
       de-CH: 'Zugriffspunkt (Name)'
-      el: 'Όνοματα ως Σημεία πρόσβασης'
+      el: ονόματα
       en: 'name access points'
       es: 'puntos de acceso por autoridad'
       eu: 'Izen sarrera-puntuak'
@@ -3474,6 +3605,7 @@ QubitTerm:
     id: 175
     source_culture: en
     name:
+      bs: Dopuna
       ca: 'Nou ingrés'
       ca@valencia: 'Nou ingrés'
       cy: Croniad
@@ -3507,6 +3639,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: الإضافة
+      bs: Akcesija
       ca: Ingrés
       ca@valencia: Adhesió
       cy: Derbyn
@@ -3531,7 +3664,7 @@ QubitTerm:
       ko: 인수
       pl: Nabycie
       pt: Incorporação
-      pt_BR: Aquisição
+      pt_BR: Ingresso
       sl: 'Prevzem gradiva'
       sr: 'Улазни инвентар'
       sv: Accession
@@ -3546,6 +3679,7 @@ QubitTerm:
     id: 168
     source_culture: en
     name:
+      bs: Pravo
       ca: Dret
       ca@valencia: Dret
       cy: Hawl
@@ -3582,12 +3716,15 @@ QubitTerm:
     id: 169
     source_culture: en
     name:
+      bs: Donator
       ca: Donant
       ca@valencia: Donant
       cs: Dárce
       cy: Rhoddwr
       de: 'Geber, abgebende Stelle'
       de-CH: 'Abgebende Stelle/Person'
+      de_AT: 'Geber, abgebende Stelle'
+      de_CH: 'Geber, abgebende Stelle'
       el: Δωρητής
       en: Donor
       es: Donador
@@ -3619,10 +3756,12 @@ QubitTerm:
     id: 176
     source_culture: en
     name:
+      bs: 'Opisi povezane građe'
       ca: 'Descripcions del material relacionat'
       cy: 'Disgrifiadau deunydd cysylltiedig'
       de: 'Beschreibung verwandter Materialien'
       de-CH: 'Beschreibung verwandter Materialien'
+      el: 'Σχετιζόμενες περιγραφές τεκμηρίων'
       en: 'Related material descriptions'
       es: 'Descripciones de material relacionado'
       eu: 'Erlazionaturiko materialaren deskribapenak'
@@ -3647,6 +3786,7 @@ QubitTerm:
     id: 162
     source_culture: en
     name:
+      bs: hijerarhijski
       ca: jeràrquica
       ca@valencia: jeràrquica
       cy: hierarchaidd
@@ -3683,6 +3823,7 @@ QubitTerm:
     id: 163
     source_culture: en
     name:
+      bs: privremeno
       ca: temporal
       ca@valencia: temporal
       cy: amseryddol
@@ -3718,6 +3859,7 @@ QubitTerm:
     id: 164
     source_culture: en
     name:
+      bs: asocijativna
       ca: associativa
       ca@valencia: associativa
       cy: cysylltiadol
@@ -3752,6 +3894,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Standardizirani oblik'
       ca: 'Forma normalitzada'
       ca@valencia: 'Forma normalitzada'
       cy: 'Ffurf safonol'
@@ -3787,6 +3930,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Autorsko pravo'
       ca: 'Drets d''autor'
       ca@valencia: 'Drets d''autor'
       cy: Hawlfraint
@@ -3825,6 +3969,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Licenca
       ca: Llicència
       ca@valencia: Llicència
       cs: Licence
@@ -3861,6 +4006,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Statut
       ca: Normativa
       ca@valencia: Normativa
       cy: Statud
@@ -3896,6 +4042,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Pravila
       ca: Política
       ca@valencia: Política
       cy: Polisi
@@ -3932,6 +4079,7 @@ QubitTerm:
     id: 178
     source_culture: en
     name:
+      bs: 'AIP veza'
       ca: 'relació AIP'
       cy: 'Cysylltiad AIP'
       de: 'AIP Relation'
@@ -3945,7 +4093,7 @@ QubitTerm:
       it: 'Relazione dell''AIP'
       ko: 'AIP 관계'
       pt: 'Relação AIP'
-      pt_BR: 'Relações AIP'
+      pt_BR: 'Relações do Pacote AIP'
       sl: 'AIP povezava'
       sr: 'AIP веза'
       sv: AIP-relation
@@ -3958,6 +4106,7 @@ QubitTerm:
     id: 179
     source_culture: en
     name:
+      bs: 'Komponenta umjetničkog djela'
       cy: 'Cydran Gwaith Celf'
       de: 'Bestandteil eines Kunstwerkes'
       en: 'Artwork component'
@@ -3985,6 +4134,7 @@ QubitTerm:
     id: 180
     source_culture: en
     name:
+      bs: Umjetnine
       ca: 'Material gràfic'
       cy: 'Deunydd gwaith celf'
       de: 'Material eines Kunstwerkes'
@@ -4013,6 +4163,7 @@ QubitTerm:
     id: 181
     source_culture: en
     name:
+      bs: 'Pomoćna dokumentacija'
       ca: 'Documentació de suport'
       cy: 'Dogfennaeth ategol'
       de: 'Unterstützende Dokumentation'
@@ -4040,6 +4191,7 @@ QubitTerm:
     id: 182
     source_culture: en
     name:
+      bs: 'Pomoćna tehnologija'
       ca: 'Tecnologia de suport'
       cy: 'Technoleg cefnogol'
       de: 'Unterstützende Technik'
@@ -4068,6 +4220,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'في تقدم'
+      bs: 'U tijeku'
       ca: 'En progrés'
       cy: 'Ar y gweill'
       de: 'In Bearbeitung'
@@ -4094,6 +4247,7 @@ QubitTerm:
     id: 184
     source_culture: en
     name:
+      bs: Završeno
       cy: Cwblhawyd
       de: Abgeschlossen
       de-CH: Fertig
@@ -4116,6 +4270,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: خطأ
+      bs: Greška
       ca: Error
       cy: Gwall
       de: Fehler
@@ -4143,7 +4298,9 @@ QubitTerm:
     id: 188
     source_culture: en
     name:
+      bs: 'Napomena uz zanimanje stvaratelja'
       cy: 'Nodyn galwediageth actor'
+      el: Σημειώσεις
       en: 'Actor occupation note'
       fr: 'Note sur l''activité de l''acteur'
       hr: 'Napomena uz zanimanje stvaratelja'
@@ -4152,7 +4309,7 @@ QubitTerm:
       it: 'Nota sull''occupazione dell''attore'
       ja: 主体者の職業に関する注記
       pt: 'Nota sobre ocupação da pessoa'
-      pt_BR: 'Nota de ocupação do autor'
+      pt_BR: 'Nota de ocupação da autoridade'
       sr: 'Напомена о занимању ствараоца'
       sv: 'Anmärkning rörande aktörsyrke'
   QubitTerm_user_action_creation:
@@ -4162,6 +4319,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: إنشاء
+      bs: Stvaranje
       ca: Creació
       ca@valencia: Creació
       cy: Creadigaeth
@@ -4203,6 +4361,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Promjena
       cy: Addasiad
       en: Modification
       fr: Modification
@@ -4218,34 +4377,43 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Pristupni alternativni identifikator'
       cy: 'Dynodwr gwahanol derbyn'
       en: 'Accession alternative identifier'
       fr: 'Identifiant alternatif d''acquisition'
       hr: 'Alternativni identifikator akcesije'
       pt: 'Identificador alternativo de acesso'
-      pt_BR: 'Incorporação de identificador alternativo'
+      pt_BR: 'Identificador alternativo de ingresso'
   QubitTerm_accession_event_type_physical_transfer:
     id: 193
     parent_id: QubitTerm_110
     taxonomy_id: QubitTaxonomy_accession_event_types
     source_culture: en
     name:
+      bs: 'Fizički prijenos'
+      cy: 'Trosglwyddiad ffisegol'
       en: 'Physical transfer'
       fr: 'Transfert physique'
       hr: 'Fizički prijenos'
+      pt_BR: 'Transferência física'
   QubitTerm_accession_event_note:
     id: 194
     parent_id: QubitTerm_110
     taxonomy_id: QubitTaxonomy_7
     source_culture: en
     name:
+      bs: 'Napomena uz događaj akcesije'
+      cy: 'Nodyn digwyddiad derbyn'
       en: 'Accession event note'
+      fr: 'Note d''événement d''acquisition'
       hr: 'Napomena uz događaj akcesije'
+      pt_BR: 'Nota do evento de ingresso'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: 'je nadređeni od'
       ca: 'és el cap de'
       cy: 'yw uwchradd'
       de: 'ist der Vorgesetzte von'
@@ -4273,6 +4441,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: 'je podređeni od'
       ca: 'és el subordinat de'
       cy: 'yw isradd'
       de: 'ist der Untergebene von'
@@ -4300,6 +4469,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: kontrole
       ca: controls
       cy: rheolaethau
       de: Kontrolle
@@ -4327,6 +4497,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: 'se nadgleda od'
       ca: 'és controlat per'
       cy: 'yn cael ei reoli gan'
       de: 'wird kontrolliert von'
@@ -4354,6 +4525,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: 'je vlasnik od'
       ca: 'és el propietari de'
       cy: 'yw perchennog'
       de: 'ist der Eigentümer von'
@@ -4382,6 +4554,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_hierarchical
     source_culture: en
     name:
+      bs: 'je u vlasništvu od'
       ca: 'és propietat de'
       cy: 'yn eiddo i'
       de-CH: gehört
@@ -4409,6 +4582,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_temporal
     source_culture: en
     name:
+      bs: 'je predak od'
       ca: 'és el predecessor de'
       cy: 'yw rhagflaenydd'
       de: 'ist der Vorgänger von'
@@ -4437,6 +4611,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_temporal
     source_culture: en
     name:
+      bs: 'je nasljednik od'
       ca: 'és el successor de'
       cy: 'yw olynydd'
       de: 'ist der Nachfolger von'
@@ -4465,6 +4640,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_associative
     source_culture: en
     name:
+      bs: 'je dobavljač od'
       ca: 'és el proveïdor de'
       cy: 'yw darparwr'
       de: 'ist der Anbieter von'
@@ -4492,6 +4668,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_associative
     source_culture: en
     name:
+      bs: 'je klijent od'
       ca: 'és el client de'
       cy: 'yw cleient'
       de: 'ist der Mandant von'
@@ -4520,6 +4697,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_associative
     source_culture: en
     name:
+      bs: 'je poslovni partner od'
       ca: 'és el soci de negoci de'
       cy: 'yw partner busnes'
       de: 'ist der Geschäftspartner von'
@@ -4548,6 +4726,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_associative
     source_culture: en
     name:
+      bs: 'je partner od'
       ca: 'és el soci de'
       cy: 'yw cyswllt'
       de: 'ist der Partner von'
@@ -4575,6 +4754,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_associative
     source_culture: en
     name:
+      bs: 'je prijatelj od'
       ca: 'és l''amic de'
       cy: 'yw ffrind'
       de: 'ist der Freund von'
@@ -4603,6 +4783,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je roditelj od'
       ca: 'és el pare de'
       cy: 'yw rhiant'
       de: 'ist der Elter von'
@@ -4630,6 +4811,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je dijete od'
       ca: 'és el fill de'
       cy: 'yw plentyn'
       de: 'ist das Kind von'
@@ -4646,7 +4828,7 @@ QubitTerm:
       it: 'è figlio/a di'
       ko: '전자는 후자의 아이다'
       pt: 'é o filho de'
-      pt_BR: 'é o filho de'
+      pt_BR: 'é subordinado de'
       sl: 'je otrok od'
       sr: 'је дете од'
       sv: 'är barn till'
@@ -4658,6 +4840,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je brat/sestra od'
       ca: 'és el germanastre de'
       cy: 'yw sibling'
       de: 'ist der Geschwisterteil von'
@@ -4685,6 +4868,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je suprug/supruga od'
       ca: 'és la dona de'
       cy: 'yw priod'
       de: 'ist der Ehepartner von'
@@ -4713,6 +4897,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je rođak/rođakinja od'
       ca: 'és el cosí de'
       cy: 'yw cefnder'
       de: 'ist der Cousin von'
@@ -4740,6 +4925,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je djed/nena-baka od'
       ca: 'és l''avi de'
       cy: 'yw taid/nain'
       de: 'ist der Großelter von'
@@ -4766,6 +4952,7 @@ QubitTerm:
     parent_id: QubitTerm_actor_relationship_family
     source_culture: en
     name:
+      bs: 'je unuk/unuka od'
       ca: 'és el net de'
       cy: 'yw ŵyr'
       de: 'ist der Enkel von'
@@ -4794,12 +4981,15 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Donator
       ca: Donant
       ca@valencia: Donant
       cs: Dárce
       cy: Rhoddwr
       de: 'Geber, abgebende Stelle'
       de-CH: 'Abgebende Stelle/Person'
+      de_AT: 'Geber, abgebende Stelle'
+      de_CH: 'Geber, abgebende Stelle'
       el: Δωρητής
       en: Donor
       es: Donador
@@ -4830,6 +5020,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Reprodukcija
       ca: Reproducció
       ca@valencia: Reproducció
       cy: Atgynhyrchiad
@@ -4863,6 +5054,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Distribucija
       ca: Distribució
       ca@valencia: Distribució
       cy: Dosbarthiad
@@ -4894,6 +5086,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Emitiranje
       ca: Emissió
       ca@valencia: Emissió
       cy: Darlledu
@@ -4924,6 +5117,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Proizvodnja
       ca: Fabricació
       ca@valencia: Fabricació
       cy: Gweithgynhyrchu
@@ -4957,6 +5151,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      bs: Kutija
       ca: Capsa
       ca@valencia: Caixa
       cy: Bocs
@@ -4992,6 +5187,7 @@ QubitTerm:
     parent_id: QubitTerm_158
     source_culture: en
     name:
+      bs: 'Kartonska kutija'
       ca: 'Caixa de cartró'
       ca@valencia: 'Caixa tipus contenidor'
       cy: 'Bocs cardbord'
@@ -5024,6 +5220,7 @@ QubitTerm:
     parent_id: QubitTerm_158
     source_culture: en
     name:
+      bs: 'Arhivska kutija'
       ca: 'Caixa estàndard de documents'
       ca@valencia: 'Caixa estàndard de documents'
       cy: 'Bocs Hollinger'
@@ -5055,6 +5252,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      bs: Mapa/folder
       ca: Carpeta
       ca@valencia: Carpeta
       cy: Ffolder
@@ -5089,6 +5287,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      bs: Kartoteka
       ca: 'Armari arxivador'
       ca@valencia: 'Compacte o arxivador'
       cy: 'Cwpwrdd ffeilio'
@@ -5121,6 +5320,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      bs: Kartoteka
       ca: Planera
       ca@valencia: Planer
       cy: 'Cabinet mapiau'
@@ -5154,6 +5354,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      bs: Polica
       ca: Prestatgeria
       ca@valencia: Prestatgeria
       cy: Silff
@@ -5188,6 +5389,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Konačno
       ca: Fi
       ca@valencia: Fi
       cy: Terfynol
@@ -5223,6 +5425,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Izmijenjeno
       ca: Revisat
       ca@valencia: Revisat
       cy: Diwygiedig
@@ -5259,6 +5462,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: مسودة
+      bs: Nacrt
       ca: Esborrany
       ca@valencia: Esborrany
       cs: Návrh
@@ -5285,7 +5489,7 @@ QubitTerm:
       nl: Concept
       pl: Szkic
       pt: Preliminar
-      pt_BR: 'Versão preliminar'
+      pt_BR: Rascunho
       ro: Proiect
       ru: Черновик
       sl: Osnutek
@@ -5300,6 +5504,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Potpuno
       ca: Complet
       ca@valencia: Complet
       cy: Llawn
@@ -5334,6 +5539,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Djelomično
       ca: Parcial
       ca@valencia: Parcial
       cy: Rhannol
@@ -5369,6 +5575,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Minimalno
       ca: Mínim
       ca@valencia: Mínim
       cy: 'Lleiaf posib'
@@ -5404,6 +5611,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Fondovi
       ca: Fons
       ca@valencia: Fons
       cy: Fonds
@@ -5440,6 +5648,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Podfondovi
       ca: Subfons
       ca@valencia: Subfons
       cy: Is-fonds
@@ -5475,6 +5684,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Zbirka
       ca: Col·lecció
       ca@valencia: Col·lecció
       cy: Casgliad
@@ -5511,6 +5721,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Serije
       ca: Sèrie
       ca@valencia: Sèrie
       cy: Cyfres
@@ -5545,6 +5756,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Podserije
       ca: Subsèrie
       ca@valencia: Subsèrie
       cy: Is-gyfres
@@ -5580,6 +5792,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Spis
       ca: 'Unitat documental composta'
       ca@valencia: 'Unitat documental composta'
       cy: Ffeil
@@ -5601,7 +5814,7 @@ QubitTerm:
       ko: 파일
       nl: Bestanddeel
       pt: Documento
-      pt_BR: Arquivo
+      pt_BR: Dossiê
       ro: Fisier
       ru: Файл
       sl: Datoteka
@@ -5616,6 +5829,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: مفردة
+      bs: Stavka
       ca: 'Unitat documental simple'
       ca@valencia: 'Unitat documental simple'
       cy: Eitem
@@ -5655,6 +5869,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Objekt podataka'
       ca: 'Informació de l''objecte'
       ca@valencia: 'Informació de l''objecte'
       cy: 'Gwrthrych gwybodaeth'
@@ -5675,7 +5890,7 @@ QubitTerm:
       ko: '정보 객체'
       nl: 'Informatie object'
       pt: 'Objeto informacional'
-      pt_BR: 'Objeto de informação'
+      pt_BR: 'Descrição arquivística'
       sl: 'Informacijski objekt'
       sr: 'Информациони објекат'
       sv: Informationsobjekt
@@ -5688,6 +5903,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Osoba/organizacija
       ca: Persona/organització
       ca@valencia: Persona/organització
       cy: Person/sefydliad
@@ -5724,6 +5940,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: منشئ
+      bs: Stvaratelj
       ca: Productor
       ca@valencia: Productor
       cy: Crëwr
@@ -5765,6 +5982,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: مستودع
+      bs: Repozitorij/spremište
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
       cy: Lleoliad
@@ -5773,7 +5991,7 @@ QubitTerm:
       de-CH: Archiv
       de_AT: Archiv
       de_CH: Archiv
-      el: Αποθετήριο
+      el: 'Φορέας διατήρησης του αρχείου'
       en: Repository
       es: 'Institución archivística'
       eu: Errepositorioa
@@ -5807,6 +6025,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Pojam
       ca: Terme
       ca@valencia: Terme
       cy: Term
@@ -5842,6 +6061,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: الموضوع
+      bs: Predmet
       ca: Matèria
       ca@valencia: Matèria
       cy: Pwnc
@@ -5882,6 +6102,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Zbirka
       ca: Col·lecció
       ca@valencia: Col·lecció
       cy: Casgliad
@@ -5919,6 +6140,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: الممتلكات
+      bs: Građa
       ca: Fons
       ca@valencia: Fons
       cy: Daliadau
@@ -5927,6 +6149,7 @@ QubitTerm:
       de-CH: Bestände
       de_AT: Bestände
       de_CH: Bestände
+      el: Συλλογές
       en: Holdings
       es: Fondos
       eu: Inbertsioak
@@ -5957,6 +6180,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Opis arhivske građe'
       ca: 'Descripció arxivística'
       ca@valencia: 'Descripció arxivística'
       cs: 'Archivní popisy'
@@ -5995,6 +6219,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Normirani zapis'
       ca: 'Registre d''autoritat'
       ca@valencia: 'Registre d''autoritat'
       cy: 'Cofnod awdurdod'
@@ -6030,6 +6255,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Fondovi
       ca: Fons
       ca@valencia: Fons
       cy: Fonds
@@ -6066,6 +6292,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Arhivska ustanova/institucija'
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
       cy: 'Sefydliad archifol'
@@ -6089,7 +6316,7 @@ QubitTerm:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt_BR: 'Instituição arquivística'
+      pt_BR: 'Entidade custodiadora'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
       sr: 'Архивска институција'
@@ -6103,6 +6330,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Međunarodni
       ca: Internacional
       ca@valencia: Internacional
       cy: Rhyngwladol
@@ -6136,6 +6364,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Nacionalno
       ca: Nacional
       ca@valencia: Nacional
       cy: Cenedlaethol
@@ -6171,6 +6400,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Regionalno
       ca: Regional
       ca@valencia: Regional
       cy: Rhanbarthol
@@ -6206,6 +6436,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Pokrajina/država
       ca: Província/estat
       ca@valencia: Província/estat
       cy: Taleithiol/gwladwriaeth
@@ -6241,6 +6472,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Zajednica
       ca: Comunitat
       ca@valencia: Comunitat
       cy: Cymuned
@@ -6276,6 +6508,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Religijsko
       ca: Religiós
       ca@valencia: Religiós
       cy: Crefyddol
@@ -6310,6 +6543,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Univerzitet
       ca: Universitat
       ca@valencia: Universitat
       cy: Prifysgol
@@ -6346,6 +6580,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Lokalna uprava'
       ca: Municipal
       ca@valencia: Municipal
       cy: Bwrdeistrefol
@@ -6379,6 +6614,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Aboridžini
       ca: Aborigen
       ca@valencia: Aborigen
       cy: Aboriginal
@@ -6411,6 +6647,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Obrazovno
       ca: Educatiu
       ca@valencia: Educatiu
       cy: Addysgol
@@ -6444,6 +6681,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Medicina
       ca: Metge
       ca@valencia: Metge
       cy: Meddygol
@@ -6479,6 +6717,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Vojska
       ca: Militar
       ca@valencia: Militar
       cy: Milwrol
@@ -6515,6 +6754,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Privatno
       ca: Privat
       ca@valencia: Privat
       cy: Preifat
@@ -6551,6 +6791,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: المكان
+      bs: Mjesto
       ca: Lloc
       ca@valencia: Lloc
       cy: Lle
@@ -6594,6 +6835,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: الاسم
+      bs: Ime
       ca: Nom
       ca@valencia: Nom
       cy: Enw
@@ -6636,12 +6878,13 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Digitalni objekt'
       ca: 'Objecte digital'
       ca@valencia: 'Objecte digital'
       cy: 'Gwrthrych digidol'
       de: 'Digitales Objekt'
       de-CH: 'Digitales Objekt'
-      el: 'Ψηφιακό αντικείμενο'
+      el: 'Ψηφιακό αρχείο'
       en: 'Digital object'
       es: 'Objeto digital'
       eu: 'Objektu digitala'
@@ -6672,6 +6915,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Fizički objekt'
       ca: 'Objecte físic'
       ca@valencia: 'Objecte físic'
       cy: 'Gwrthrych ffisegol'
@@ -6707,6 +6951,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'التخزين الفعلي'
+      bs: 'Fizičko spremište'
       ca: 'Unitat d''instal·lació'
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
@@ -6746,6 +6991,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'نوع الوسيط'
+      bs: 'Vrsta medija'
       ca: 'Tipus de suport'
       ca@valencia: 'Tipus de suport'
       cy: 'Math o gyfrwng'
@@ -6788,6 +7034,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Otvori komplet alata za upravljanje podacima'
       ca: 'Open Information Management Toolkit'
       ca@valencia: 'Open Information Management Toolkit'
       cy: 'Agor Pecyn Cymorth Rheoli Gwybodaeth'
@@ -6806,7 +7053,7 @@ QubitTerm:
       ko: '공개 정보 관리 툴킷'
       nl: 'Open Information Management Toolkit'
       pt: 'Ferramenta aberta de gestão de informação'
-      pt_BR: 'Open Information Management Toolkit'
+      pt_BR: 'Ferramentas de Gerenciamento Aberto da Informação'
       sl: 'Orodje za upravljanje informacij javnega značaja'
       sr: 'Отвори алат за управљање информацијама'
       sv: 'Öppet informationshanteringsverktyg'
@@ -6818,6 +7065,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Napomena uz konzervaciju'
       ca: 'Nota de conservació'
       ca@valencia: 'Nota de conservació'
       cy: 'Nodyn cadwraeth'
@@ -6852,6 +7100,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Arhitekturski crtež'
       ca: 'Dibuix arquitectònic'
       ca@valencia: 'Dibuix arquitectònic'
       cy: 'Lluniad pensaernïol'
@@ -6887,6 +7136,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Kartografski materijal'
       ca: 'Material cartogràfic'
       ca@valencia: 'Material cartogràfic'
       cy: 'Deunydd cartograffig'
@@ -6923,6 +7173,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Grafički materijal'
       ca: 'Material gràfic'
       ca@valencia: 'Material gràfic'
       cy: 'Deunydd graffig'
@@ -6957,6 +7208,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Pokretne slike'
       ca: 'S''estan movent les imatges'
       ca@valencia: 'Menejant imatges'
       cy: 'Delweddau symudol'
@@ -6991,6 +7243,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Višebrojni mediji'
       ca: 'Suports múltiples'
       ca@valencia: 'Suports múltiples'
       cy: 'Cyfryngau lluosog'
@@ -7011,7 +7264,7 @@ QubitTerm:
       ko: '다중 매체'
       pl: 'Medium wielokrotne'
       pt: 'Múltiplos suportes'
-      pt_BR: 'Múltipla mídia'
+      pt_BR: 'Múltiplas mídias'
       ro: 'Medii multiple'
       sl: 'Večkraten nosilec zapisa'
       sr: 'Вишеструки медији'
@@ -7024,11 +7277,14 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Objekt
       ca: Objecte
       ca@valencia: Objecte
       cy: Gwrthrych
       de: Objekt
       de-CH: Objekt
+      de_AT: Objekt
+      de_CH: Objekt
       el: Αντικείμενο
       en: Object
       es: Objeto
@@ -7061,6 +7317,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Filatelistički zapis'
       ca: 'Document filatèlic'
       ca@valencia: 'Document filatèlic'
       cy: 'Cofnod ffilatelig'
@@ -7093,6 +7350,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Snimka zvuka'
       ca: 'Enregistrament sonor'
       ca@valencia: 'Registre sonor'
       cy: 'Recordiad sain'
@@ -7129,6 +7387,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Tehnički crtež'
       ca: 'Dibuix tècnic'
       ca@valencia: 'Dibuix tècnic'
       cy: 'Lluniad technegol'
@@ -7163,6 +7422,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Tekstualni zapis'
       ca: 'Document textual'
       ca@valencia: 'Document textual'
       cy: 'Cofnod testunol'
@@ -7197,6 +7457,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Izdanje
       ca: Edició
       ca@valencia: Edició
       cy: Argraffiad
@@ -7230,6 +7491,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Fizički opis'
       ca: 'Descripció física'
       ca@valencia: 'Descripció física'
       cy: 'Disgrifiad ffisegol'
@@ -7268,6 +7530,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Konzervacija
       ca: Conservació
       ca@valencia: Conservació
       cy: Cadwraeth
@@ -7302,6 +7565,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Popratna građa'
       ca: 'Material complementari'
       ca@valencia: 'Material complementari'
       cy: 'Deunydd atodol'
@@ -7336,6 +7600,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Serije izdavača'
       ca: 'Col·leccions editorials'
       ca@valencia: 'Publicacions seriades'
       cy: 'Cyfres cyhoeddwr'
@@ -7368,6 +7633,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Alfanumeričke oznake'
       ca: 'Designacions alfanumèriques'
       ca@valencia: 'Designacions alfanumèrics'
       cy: 'Dynodiadau alffaniwmerig'
@@ -7400,6 +7666,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Prava
       ca: Drets
       ca@valencia: Drets
       cy: Hawliau
@@ -7439,6 +7706,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Varijacije u naslovu'
       ca: 'Variacions en el títol'
       ca@valencia: 'Variacions en el títol'
       cy: 'Amrywiadau yn y teitl'
@@ -7471,6 +7739,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Izvor stvarnog naslova'
       ca: 'Font del títol propi'
       ca@valencia: 'Font del títol'
       cy: 'Ffynhonnell y teitl priodol'
@@ -7503,6 +7772,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Ekvivalentni naslovi i drugi podaci naslova'
       ca: 'Títols paral·lels i una altra informació del títol'
       ca@valencia: 'Títols paral·lels i una altra informació del títol'
       cy: 'Teitlau cyfochrog a gwybodaeth teitl arall'
@@ -7537,6 +7807,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Nastavak naslova'
       ca: Subtítol
       ca@valencia: 'Complements del títol'
       cy: 'Parhad y teitl'
@@ -7570,6 +7841,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Izjave o odgovornosti'
       ca: 'Mencions de responsabilitat'
       ca@valencia: 'Declaracions de responsabilitat'
       cy: 'Datganiadau o gyfrifoldeb'
@@ -7603,6 +7875,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Pripisivanja i pretpostavke'
       ca: 'Atribucions i conjectures'
       ca@valencia: 'Atribucions i conjectures'
       cy: 'Priodoliadau a dyfaliadau'
@@ -7635,6 +7908,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Dio
       ca: Part
       ca@valencia: Part
       cy: Rhan
@@ -7672,6 +7946,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: tekst
       ca: text
       ca@valencia: text
       cy: testun
@@ -7707,6 +7982,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: kartografsko
       ca: cartogràfic
       ca@valencia: cartogràfic
       cy: cartograffig
@@ -7741,6 +8017,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'notirana glazba'
       ca: 'música anotada'
       ca@valencia: 'partitura/notació musical'
       cy: 'cerddoriaeth nodiant'
@@ -7772,6 +8049,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'snimka zvuka'
       ca: 'enregistrament sonor'
       ca@valencia: 'registre sonor'
       cy: 'recordiad sain'
@@ -7806,6 +8084,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'snimka zvuka – muzička'
       ca: 'enregistrament sonor musical'
       cy: 'recordiad sain-cerddorol'
       de: 'Tonaufnahme - Musik'
@@ -7834,6 +8113,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'snimka zvuka – ali ne muzika'
       ca: 'enregistrament sonor no musical'
       cy: 'recordiad sain-nid cerddoriaeth'
       de: 'Tonaufnahme - nicht musikalisch'
@@ -7862,6 +8142,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'statična slika'
       ca: 'imatge estàtica'
       ca@valencia: 'imatge estàtica'
       cy: 'delwedd llonydd'
@@ -7894,6 +8175,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'pokretna slika'
       ca: 'imatge en moviment'
       ca@valencia: 'imatge en moviment'
       cy: 'delwedd symudol'
@@ -7927,6 +8209,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'trodimenzionalni objekt'
       ca: 'objecte tridimensional'
       ca@valencia: 'objecte tridimensional'
       cy: 'gwrthrych tri dimensiwn'
@@ -7960,6 +8243,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'softver, multimedija'
       ca: 'programari, multimèdia'
       ca@valencia: 'programari, multimèdia'
       cy: 'meddalwedd, amlgyfrwng'
@@ -7994,6 +8278,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'mješovita građa'
       ca: 'Materials mixts'
       ca@valencia: 'diversos materials'
       cy: 'deunydd cymysg'
@@ -8027,6 +8312,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Zbirka
       ca: Col·lecció
       ca@valencia: Col·lecció
       cy: Casgliad
@@ -8063,6 +8349,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'skup podataka'
       ca: 'conjunt de dades'
       ca@valencia: dataset
       cy: 'set data'
@@ -8082,7 +8369,7 @@ QubitTerm:
       ko: 'Data set'
       pl: 'zestaw danych'
       pt: 'conjunto de dados'
-      pt_BR: dataset
+      pt_BR: 'conjunto de dados'
       sl: 'nabor podatkov'
       sr: 'скуп података'
       sv: dataset
@@ -8094,6 +8381,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: događaj
       ca: activitat
       ca@valencia: activitat
       cy: digwyddiad
@@ -8128,6 +8416,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: slika
       ca: imatge
       ca@valencia: imatge
       cy: delwedd
@@ -8163,6 +8452,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'interaktivni resurs'
       ca: 'recurs interactiu'
       ca@valencia: 'recurs interactiu'
       cy: 'adnodd rhyngweithiol'
@@ -8196,6 +8486,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'pokretna slika'
       ca: 'imatge en moviment'
       ca@valencia: 'imatge en moviment'
       cy: 'delwedd symudol'
@@ -8229,6 +8520,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'fizički objekt'
       ca: 'objecte físic'
       ca@valencia: 'objecte físic'
       cy: 'gwrthrych ffisegol'
@@ -8264,6 +8556,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: usluga
       ca: servei
       ca@valencia: servei
       cy: gwasanaeth
@@ -8298,6 +8591,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: softver
       ca: programari
       ca@valencia: programari
       cy: meddalwedd
@@ -8332,6 +8626,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: zvuk
       ca: so
       ca@valencia: so
       cy: sain
@@ -8365,6 +8660,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'statična slika'
       ca: 'imatge estàtica'
       ca@valencia: 'imatge estàtica'
       cy: 'delwedd llonydd'
@@ -8397,6 +8693,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: tekst
       ca: text
       ca@valencia: text
       cy: testun
@@ -8432,6 +8729,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Funkcija
       ca: Funció
       ca@valencia: Funció
       cy: Ffwythiant
@@ -8467,6 +8765,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Podfunkcije
       ca: Subfunció
       ca@valencia: Subfunció
       cy: Is-ffwythiant
@@ -8502,6 +8801,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Poslovni postupak'
       ca: Procés
       ca@valencia: Procés
       cy: 'Proses busnes'
@@ -8534,6 +8834,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Aktivnost
       ca: Activitat
       ca@valencia: Activitat
       cy: Gweithgaredd
@@ -8572,6 +8873,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Zadatak
       ca: Tasca
       ca@valencia: Tasca
       cy: Tasg
@@ -8606,6 +8908,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Transakcija
       ca: Transacció
       ca@valencia: Transacció
       cy: Trafodion
@@ -8639,6 +8942,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Javni prijenos'
       ca: 'Transferència pública'
       ca@valencia: 'Transferència pública'
       cy: 'Trosglwyddo cyhoeddus'
@@ -8674,6 +8978,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Privatni prijenos'
       ca: 'Transferència privada'
       ca@valencia: 'Transferència privada'
       cy: 'Trosglwyddo preifat'
@@ -8709,6 +9014,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Depozit
       ca: Dipòsit
       ca@valencia: Dipòsit
       cy: Adnau
@@ -8743,6 +9049,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Poklon
       ca: Donació
       ca@valencia: Donació
       cy: Rhodd
@@ -8778,6 +9085,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Kupovina
       ca: Compra
       ca@valencia: Compra
       cy: Pwrcas
@@ -8813,6 +9121,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Prijenos
       ca: Transferència
       ca@valencia: Transferència
       cy: Trosglwyddo
@@ -8848,6 +9157,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Visoko
       ca: Alta
       ca@valencia: Alta
       cy: Uchel
@@ -8880,6 +9190,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Srednje
       ca: Normal
       ca@valencia: Moderada
       cy: Cyfrwng
@@ -8916,6 +9227,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Nisko
       ca: Baixa
       ca@valencia: Baixa
       cy: Isel
@@ -8950,11 +9262,14 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Potpuno
       ca: Complet
       ca@valencia: Complet
       cy: Cyflawn
       de: Vollständig
       de-CH: Vollständig
+      de_AT: Vollständig
+      de_CH: Vollständig
       el: Ολοκλήρωση
       en: Complete
       es: Completo
@@ -8986,6 +9301,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Nepotpuno
       ca: Incomplet
       ca@valencia: Incomplet
       cy: Anghyflawn
@@ -9018,6 +9334,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'U tijeku'
       ca: 'En procés'
       ca@valencia: 'En procés'
       cy: 'Ar y gweill'
@@ -9048,6 +9365,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Cijela
       ca: Sencer
       ca@valencia: Sencer
       cy: Cyfan
@@ -9082,6 +9400,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Dio
       ca: Part
       ca@valencia: Part
       cy: Rhan
@@ -9120,6 +9439,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: حذف
+      bs: Izbriši/Ukloni
       ca: Suprimeix
       ca@valencia: Esborrar
       cy: Dileu
@@ -9146,7 +9466,7 @@ QubitTerm:
       nl: Verwijderen
       pl: Usuń
       pt: Apagar
-      pt_BR: Apagar
+      pt_BR: Excluir
       ro: Sterge
       ru: Удалить
       sl: Izbriši
@@ -9163,6 +9483,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Otkrij
       ca: Mostra
       ca@valencia: Mostrar
       cy: Darganfod
@@ -9195,6 +9516,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Prikaži
       ca: Visualitza
       ca@valencia: Visualitzar
       cy: Dangos
@@ -9229,6 +9551,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Proširi
       ca: Difusió
       ca@valencia: Difusió
       cy: Rhannu
@@ -9260,6 +9583,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Migriraj
       ca: Migra
       ca@valencia: Migrar
       cy: Mudo
@@ -9295,6 +9619,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Promijeni
       ca: Modifica
       ca@valencia: Modificar
       cy: Addasu
@@ -9331,6 +9656,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Kopirati
       ca: Reproduïu
       ca@valencia: Reproduir
       cy: Dyblygu
@@ -9363,6 +9689,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Zaštićeno autorskim pravom'
       ca: 'Sota drets d''autor'
       ca@valencia: 'Sota drets d''autor'
       cy: 'Dan hawlfraint'
@@ -9397,6 +9724,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Javno vlasništvo'
       ca: 'Domini públic'
       ca@valencia: 'Domini públic'
       cy: 'Parth cyhoeddus'
@@ -9432,6 +9760,7 @@ QubitTerm:
     source_culture: en
     name:
       ar: 'غير معروف'
+      bs: Nepoznato
       ca: Desconegut
       ca@valencia: Desconegut
       cy: Anhysbys
@@ -9474,6 +9803,7 @@ QubitTerm:
     code: isad
     name:
       ar: '(ISAD (G، الطبعة الثانية. المجلس الدولي للأرشيف'
+      bs: 'ISAD(G), 2. izdanje, International Council on Archives (Međunarodno arhivsko vijeće)'
       ca: 'ISAD(G), 2a ed. Consell Internacional d''Arxius'
       ca@valencia: 'ISAD(G), 2nd ed. Consell Internacional d''Arxius'
       cy: 'ISAD(G), 2nd ed. International Council on Archives'
@@ -9482,7 +9812,7 @@ QubitTerm:
       de-CH: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
       de_AT: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
       de_CH: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
-      el: 'ISAD(G), 2nd ed. International Council on Archives'
+      el: 'Διεθνές Πρότυπο Αρχειακής Περιγραφής (Γενικό) - ΔΙΠΑΠ(Γ)'
       en: 'ISAD(G), 2nd ed. International Council on Archives'
       es: 'ISAD(G), 2a ed. Consejo Internacional de Archivos'
       eu: 'ISAD(G), International Council on Archives 2. edizioa'
@@ -9497,7 +9827,7 @@ QubitTerm:
       ko: 'ISAD(G), 2판. ICA 국제기술규칙'
       pl: 'ISAD(G), II.ed. Międzynarodowa Rada Archiwów'
       pt: 'ISAD(G), 2ª ed. Conselho Internacional de Arquivos'
-      pt_BR: 'ISAD(G), Conselho Internacional de Arquivos, 2. ed.'
+      pt_BR: 'ISAD(G), Conselho Internacional de Arquivos, 2. ed'
       sl: 'ISAD(G), 2. izdaja Splošnih mednarodnih standardov za arhivsko popisovanje, Mednarodni arhivski svet'
       sr: 'ISAD(G) – Општи међународни стандард за опис архивске грађе, 2. изд. Међународни савет архива'
       sv: 'ISAD(G), 2nd ed. International Council on Archives'
@@ -9510,6 +9840,7 @@ QubitTerm:
     code: dc
     name:
       ar: 'دبلن كور، الإصدار 1.1. مبادرة دبلن الأساسية للبيانات الوصفية'
+      bs: 'Dublin Core, verzija 1.1. Dublin Core Metadata Initiative'
       ca: 'Dublin Core, Versió 1.1. Dublin Core Metadata Initiative'
       ca@valencia: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       cy: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
@@ -9518,7 +9849,7 @@ QubitTerm:
       de-CH: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       de_AT: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       de_CH: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
-      el: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      el: 'Dublin Core, Έκδοση 1.1. Dublin Core Metadata Initiative'
       en: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       es: 'Dublin Core, Versión 1.1 Iniciativa de Metadatos Dublin Core'
       eu: 'Dublin Core, 1.1 bertsioa. Dublin Core Metadatuen Ekimena'
@@ -9546,6 +9877,7 @@ QubitTerm:
     code: mods
     name:
       ar: 'MODS الإصدار 3.3. مكتبة الكونغرس الأمريكية'
+      bs: 'MODS, verzija 3.3. U.S. Library of Congress (Biblioteka Kongresa SAD-a)'
       ca: 'MODS, Versió 3.3. U.S. Library of Congress'
       ca@valencia: 'MODS, Version 3.3. U.S. Library of Congress'
       cy: 'MODS, Fersiwn 3.3. U.S. Llyfrgell y Gyngres'
@@ -9554,7 +9886,7 @@ QubitTerm:
       de-CH: 'MODS, Version 3.3. U.S. Library of Congress'
       de_AT: 'MODS, Version 3.3. U.S. Library of Congress'
       de_CH: 'MODS, Version 3.3. U.S. Library of Congress'
-      el: 'MODS, Version 3.3. U.S. Library of Congress'
+      el: 'MODS, Έκδοση 3.3. U.S. Library of Congress'
       en: 'MODS, Version 3.3. U.S. Library of Congress'
       es: 'MODS, Versión 3.3 Biblioteca del Congreso de los Estados Unidos'
       eu: 'MODS, 3.3. Bertsioa U.S. Library of Congress'
@@ -9583,6 +9915,7 @@ QubitTerm:
     code: rad
     name:
       ar: 'RAD، الإصدار يوليو 2008. المجلس الكندي للأرشيف'
+      bs: 'RAD, verzija iz jula 2008. godine. Kanadsko arhivsko vijeće'
       ca: 'RAD, versió Juliol 2008. Consell Canadenc d''Arxius'
       ca@valencia: 'RAD, versió Julio 2008. Consell Canadenc d''Arxius'
       cy: 'RAD, July 2008 version. Canadian Council of Archives'
@@ -9591,7 +9924,7 @@ QubitTerm:
       de-CH: 'RAD, July 2008 version. Canadian Council of Archives'
       de_AT: 'RAD, July 2008 version. Canadian Council of Archives'
       de_CH: 'RAD, July 2008 version. Canadian Council of Archives'
-      el: 'RAD, July 2008 version. Canadian Council of Archives'
+      el: 'RAD, έκδοση Ιουλίου 2008. Canadian Council of Archives'
       en: 'RAD, July 2008 version. Canadian Council of Archives'
       es: 'RAD, versión Julio 2008. Consejo Canadiense de Archivos'
       eu: 'RAD, 2008ko uztaileko bertsioa. Canadian Council of Archives'
@@ -9620,6 +9953,7 @@ QubitTerm:
     code: dacs
     name:
       ar: 'DACS ، 2nd جمعية الأرشيفيين الأمريكية'
+      bs: 'DACS, 2. izdanje. Society of American Archivists (Društvo američkih arhivista)'
       ca: 'DACS, 2a ed. Society of American Archivists'
       ca@valencia: 'DACS, 2nd ed. Society of American Archivists'
       cy: 'DACS, 2nd ed. Society of American Archivists'
@@ -9651,6 +9985,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Aboridžini
       ca: 'Pobles aborígens'
       cy: 'Pobl Aboriginal'
       de: Ureinwohner
@@ -9678,6 +10013,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Poljoprivreda
       ca: Agricultura
       cy: Amaethyddiaeth
       de: Landwirtschaft
@@ -9708,6 +10044,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Umjetnost i kultura'
       ca: 'Art i Cultura'
       cy: 'Celfyddydau a Diwylliant'
       de: 'Kunst und Kultur'
@@ -9738,6 +10075,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Komunikacija
       ca: Comunicació
       cy: Cyfathrebiad
       de: Kommunikation
@@ -9766,6 +10104,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Obrazovanje
       ca: Educació
       cy: Addysg
       de: Erziehung
@@ -9794,6 +10133,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Okruženje
       ca: Entorn
       cy: Amgylchedd
       de: Umgebung
@@ -9822,6 +10162,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Porodični/Kućni život'
       ca: 'Familia / Vida domèstica'
       cy: 'Bywyd Teuluol / Catrefol'
       de: Familie/Familienleben
@@ -9849,6 +10190,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Genealoški
       ca: Genealògic
       cy: Achyddol
       de: Genealogisch
@@ -9874,6 +10216,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Geografija
       ca: Geografia
       cy: Daearyddiaeth
       de: Geografie
@@ -9900,6 +10243,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Industrija, proizvodnja i trgovina'
       ca: 'Indústria, Manufactura i Comerç'
       cy: 'Diwydiant , Gweithgynhyrchu a Masnach'
       de: 'Industrie, Handwerk und Handel'
@@ -9925,6 +10269,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Djelatnost
       ca: Treball
       cy: Llafur
       de: Arbeit
@@ -9950,6 +10295,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Zakon i pravosuđe'
       ca: 'Llei i Justícia'
       cy: 'Cyfraith a Chyfiawnder'
       de: 'Gesetz und Justiz'
@@ -9975,6 +10321,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Medicina i zdravlje'
       ca: 'Medicina i Salut'
       cy: 'Meddygaeth ac Iechyd'
       de: 'Medizin und Gesundheit'
@@ -10003,6 +10350,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Vojska
       ca: Militar
       ca@valencia: Militar
       cy: Milwrol
@@ -10033,6 +10381,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Prirodni resursi'
       ca: 'Recursos naturals'
       cy: 'Adnoddau Naturiol'
       de: 'Natürliche Ressourcen'
@@ -10063,6 +10412,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Politika i vlada'
       ca: 'Política i Govern'
       cy: 'Gwleidyddiaeth a Llywodraeth'
       de: 'Politik und Regierung'
@@ -10091,6 +10441,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Populacije
       ca: Poblacions
       cy: Poplogaethau
       de: Bevölkerungsgruppen
@@ -10118,6 +10469,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Rekreacija/Razonoda/Sport
       ca: 'Recreació / Oci / Esports'
       cy: 'Adloniant / Hamdden / Chwaraeon'
       de: Erholung/Vergnügen/Sport
@@ -10145,6 +10497,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Religija
       ca: Religió
       cy: Crefydd
       de: Religion
@@ -10174,6 +10527,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Nauka i tehnologija'
       ca: 'Ciència i Tecnologia'
       cy: 'Gwyddoniaeth a Thechnoleg'
       de: 'Wissenschaft und Technik'
@@ -10204,6 +10558,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Socijalne organizacije i aktivnosti'
       ca: 'Organitzacions Socials i Activitats'
       cy: 'Sefydliadau Cymdeithasol a Gweithgareddau'
       de: 'Soziale Organisationen und Aktivitäten'
@@ -10230,6 +10585,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Transport
       ca: Transport
       cy: Cludiant
       de: Transport
@@ -10256,6 +10612,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Putovanje i istraživanje'
       ca: 'Viatges i exploració'
       cy: 'Teithio ac Archwilio'
       de: 'Reise und Entdeckung'
@@ -10282,6 +10639,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Konzervacija
       ca: Conservació
       ca@valencia: Conservació
       cy: Cadwraeth
@@ -10316,6 +10674,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: Citat
       ca: Citació
       cy: Dyfyniad
       de: Zitat
@@ -10344,6 +10703,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Alfanumeričke oznake'
       ca: 'Designacions alfanumèriques'
       cy: 'Dynodiadau alffaniwmerig'
       de: 'Alphanumerische Bezeichnungen'
@@ -10371,6 +10731,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Informacije o naslovu varijante'
       ca: 'Informació sobre el títol variant'
       cy: 'Gwybodaeth teitl amrywiol'
       de: 'Abweichende Titel Information'
@@ -10397,6 +10758,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Podaci obrade'
       ca: 'S''està processant informació'
       cy: 'Prosesu gwybodaeth'
       de: 'Informationen zur Erschließung'
@@ -10423,6 +10785,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Aktivnost vođenja evidencije'
       ca: 'Activitats de manteniment dels documents'
       cy: 'Gweithgaredd cadw cofnodion'
       en: 'Record-keeping activity'
@@ -10448,6 +10811,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Reklame
       cy: Hysbysiadau
       de: Werbebotschaften
       de-CH: Werbebotschaften
@@ -10472,6 +10836,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Albumi
       cy: Albymau
       de: Alben
       de-CH: Alben
@@ -10497,6 +10862,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Arhitektura
       cy: Pensaernïaeth
       de: Architektur
       de-CH: Architektur
@@ -10523,6 +10889,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Prazni obrasci'
       cy: 'Ffurflenni gwag'
       de: Leerformulare
       de-CH: Leerformulare
@@ -10547,6 +10914,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Knjige
       cy: Llyfrau
       de: Bücher
       de-CH: Bücher
@@ -10573,6 +10941,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Oglasi/Plakati
       cy: Ochrau
       de: Breitseiten
       de-CH: Prospekte
@@ -10594,6 +10963,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Crteži/Karikature (komentar)'
       cy: 'Cartŵnau (Sylwebaeth)'
       en: 'Cartoons (Commentary)'
       es: 'Dibujos animados (Comentario)'
@@ -10614,6 +10984,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Katalozi
       cy: Catalogau
       de: Verzeichnisse
       de-CH: Verzeichnisse
@@ -10639,6 +11010,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Gradski prikazi'
       cy: Dinasweddau
       de: Stadtbilder
       en: Cityscapes
@@ -10661,6 +11033,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Isječci
       cy: Toriadau
       de: Zwischenablage
       en: Clippings
@@ -10682,6 +11055,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Korespondencija
       cy: Gohebiaeth
       de: Korrespondenz
       de-CH: Korrespondenz
@@ -10704,6 +11078,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Dnevnici
       cy: Dyddiaduron
       de: Tagebücher
       de-CH: Tagebücher
@@ -10728,6 +11103,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Crteži
       cy: Lluniadau
       de: Zeichnungen
       de-CH: Zeichnungen
@@ -10750,6 +11126,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Efemera
       cy: Effemera
       de: Ephemera
       en: Ephemera
@@ -10770,6 +11147,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Eseji
       cy: Traethodau
       de: Essays
       de-CH: Essays
@@ -10792,6 +11170,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Etnografija
       cy: Ethnograffeg
       de: Ethnographie
       de-CH: Ethnographie
@@ -10815,6 +11194,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Napomene uz polje'
       cy: 'Nodiadau maes'
       de: 'Anmerkungen zu Feldern'
       en: Fieldnotes
@@ -10835,6 +11215,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Ilustracije
       cy: Darluniau
       de: Illustrationen
       de-CH: Illustrationen
@@ -10859,6 +11240,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Intervjui
       cy: Cyfweliadau
       de: Interviews
       de-CH: Interviews
@@ -10882,6 +11264,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Pejsaži
       cy: Tirweddau
       de: Landschaften
       de-CH: Landschaften
@@ -10903,6 +11286,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Letci
       cy: Taflenni
       de: Merkblätter
       en: Leaflets
@@ -10923,6 +11307,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Manuskripti
       ca: Manuscrits
       cy: Llawysgrifau
       de: Manuskripte
@@ -10949,6 +11334,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Karte/Mape
       ca: Mapes
       cy: Mapiau
       de: Karten
@@ -10977,6 +11363,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Razni dokumenti'
       cy: 'Dogfennau Amrywiol'
       de: 'Sonstige Dokumente'
       de-CH: 'Sonstige Dokumente'
@@ -11001,6 +11388,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Pokretne slike'
       cy: 'Ffilmiau Symudol'
       de: Filme
       de-CH: Filme
@@ -11025,6 +11413,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Muzika
       cy: Cerddoriaeth
       de: Musik
       de-CH: Musik
@@ -11052,6 +11441,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Narativi
       cy: Naratifau
       de: Erzählungen
       de-CH: Erzählungen
@@ -11077,6 +11467,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Slike
       cy: Paentiadau
       de: Gemälde
       de-CH: Gemälde
@@ -11100,6 +11491,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Pamfleti
       cy: Pamffledi
       de: Flugschriften
       de-CH: Flugschriften
@@ -11123,6 +11515,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Periodika
       cy: Cyfnodolion
       de: Zeitschriften
       en: Periodicals
@@ -11146,6 +11539,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Peticije
       cy: Deisebau
       de: Petitionen
       de-CH: Petitionen
@@ -11171,6 +11565,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Fotografije
       cy: Ffotograffau
       de: Fotografien
       de-CH: Fotografien
@@ -11197,6 +11592,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Fizički objekti'
       cy: 'Gwrthrychau ffisegol'
       de: 'Physische Objekte'
       de-CH: 'Physische Objekte'
@@ -11223,6 +11619,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Poezija
       cy: Barddoniaeth
       de: Dichtung
       de-CH: Dichtung
@@ -11247,6 +11644,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Portreti
       cy: Portreadau
       de: Portraits
       de-CH: Portraits
@@ -11271,6 +11669,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Razglednice
       cy: 'Cardiau Post'
       de: Postkarten
       de-CH: Postkarten
@@ -11297,6 +11696,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Posteri
       cy: Posteri
       de: Poster
       de-CH: Poster
@@ -11311,7 +11711,7 @@ QubitTerm:
       it: Poster
       ja: ポスター
       pt: Posters
-      pt_BR: Posters
+      pt_BR: Posteres
       ru: Плакаты
       sl: Plakati
       sr: Постери
@@ -11323,6 +11723,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Štampana građa'
       cy: Printiau
       de: Drucke
       de-CH: Drucke
@@ -11346,6 +11747,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Programi
       cy: Rhaglenni
       de: Programme
       de-CH: Programme
@@ -11370,6 +11772,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Zapisivanje log-zapisa'
       cy: 'Cofrestr cofnodi'
       de: Aufnahmeprotokolle
       en: 'Recording logs'
@@ -11391,6 +11794,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Rezultati
       cy: Sgorau
       de: Partituren
       en: Scores
@@ -11412,6 +11816,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Partitura
       cy: 'Taflen Cerddoriaeth'
       de: Notenblatt
       en: 'Sheet Music'
@@ -11434,6 +11839,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: 'Vremenski rasporedi'
       cy: Amserlenni
       de: Zeitpläne
       de-CH: Zeitpläne
@@ -11456,9 +11862,11 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      bs: Prijepisi/Transkripcije
       cy: Trawsgrifiadau
       de: Transkriptionen
       de-CH: Transkriptionen
+      el: Μεταγραφές
       en: Transcriptions
       es: Transcripciones
       fr: Transcriptions
@@ -11478,6 +11886,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Napomena uz potpise'
       cy: 'Nodyn arwyddiannau'
       en: 'Signatures note'
       es: 'Nota de firma'
@@ -11496,6 +11905,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Napomena uz izvođače'
       cy: 'Bwrw nodyn'
       en: 'Cast note'
       fr: 'Note de l''équipe'
@@ -11512,6 +11922,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Napomena uz zasluge'
       cy: 'Nodyn cydnabyddiaeth'
       en: 'Credits note'
       es: 'Nota de créditos'
@@ -11529,12 +11940,14 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      bs: 'Grupa zapisa'
       cy: 'Grŵp cofnod'
       en: 'Record group'
+      fr: 'Regroupement de documents'
       hr: 'Grupa zapisa'
       ja: レコードグループ
       pt: 'Gravar grupo'
-      pt_BR: 'Grupo de registro'
+      pt_BR: 'Grupo de documentos/arquivos'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
@@ -11543,6 +11956,7 @@ QubitNote:
     source_culture: en
     content:
       ar: منشئ
+      bs: Stvaratelj
       ca: Productor
       ca@valencia: Productor
       cy: Crëwr
@@ -11607,6 +12021,7 @@ QubitNote:
     scope: QubitTerm
     source_culture: en
     content:
+      bs: Izdavač
       ca: Editor
       ca@valencia: Editorial
       cy: Cyhoeddwr
@@ -11652,6 +12067,7 @@ QubitNote:
     scope: QubitTerm
     source_culture: en
     content:
+      bs: Doprinositelj
       ca: Col·laborador
       ca@valencia: Contribuent
       cy: Cyfrannwr

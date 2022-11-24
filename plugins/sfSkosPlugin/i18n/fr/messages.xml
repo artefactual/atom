@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2022-08-05T23:18:41Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2022-11-23T16:53:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target>Une erreur est survenue. Merci de vérifier le journal. Erreur: %1%</target>
+        <target>Une erreur est survenue. Merci de vérifier le journal. Erreur : %1%</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Type of scheme: %1%</source>
-        <target>Type de système: %1%</target>
+        <target>Type de système : %1%</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Taxonomy: %1%</source>
@@ -82,11 +82,11 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Unexpected concept, type received: %1%.</source>
-        <target>concept inattendu, saisie reçue: %1%.</target>
+        <target>Concept inattendu, saisie reçue : %1%.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target>Les langues suivantes sont utilisées dans le jeu de données importé, mais ne sont pas supportés par AtoM: %1%</target>
+        <target>Les langues suivantes sont utilisées dans le jeu de données importé, mais ne sont pas supportés par AtoM : %1%</target>
       </trans-unit>
       <trans-unit id="29">
         <source>A total of %1% concepts have been processed so far.</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-08-05T23:18:23Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:18Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -312,7 +312,7 @@
       </trans-unit>
       <trans-unit id="978">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target>Registar, se necessário para a sua identificação unívoca, os seguintes elementos: o código do país, de acordo com a última versão da ISO 3166: Codes for the representation of names of countries;  o código da entidade detentora, de acordo com a norma nacional de codificação das entidades detentoras, ou outro identificador específico de localização; Um código de referência local unívoco, um número de controlo, ou outro identificador único.</target>
+        <target>Registar, se necessário para a sua identificação unívoca, os seguintes elementos: o código do país, de acordo com a última versão da ISO 3166: Codes for the representation of names of countries; o código da entidade detentora, de acordo com a norma nacional de codificação das entidades detentoras, ou outro identificador específico de localização; Um código de referência local unívoco, um número de controlo, ou outro identificador único.</target>
       </trans-unit>
       <trans-unit id="979">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>

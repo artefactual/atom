@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-08-05T23:18:26Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -191,8 +191,7 @@ aluno de, colega profissional. Registar no elemento Regras e/ou convenções (5.
       </trans-unit>
       <trans-unit id="48">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
-        <target>"Registar, de forma narrativa ou através de uma cronologia, os principais eventos, actividades, realizações e/ou funções da entidade descrita. Pode incluir-se informação sobre o género, a nacionalidade, a família e as convicções religiosas ou
-políticas. Sempre que possível, fornecer as datas como parte integrante da descrição narrativa." (ISAAR 5.2.2)</target>
+        <target>"Registre de forma narrativa ou como uma cronologia os principais eventos da vida, atividades, realizações e/ou papéis da entidade que está sendo descrita. Isso pode incluir informação sobre gênero, nacionalidade, família e afiliações políticas ou religiosas. Sempre que possível, forneça datas como um componente da descrição narrativa." (ISAAR 5.2.2)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
@@ -200,8 +199,7 @@ políticas. Sempre que possível, fornecer as datas como parte integrante da des
       </trans-unit>
       <trans-unit id="50">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
-        <target>"Registar o estatuto legal e, se apropriado, o tipo de pessoa colectiva e as datas de
-vigência desse estatuto." (ISAAR 5.2.4)</target>
+        <target>"Registre o status legal e, se apropriado, o tipo de entidade coletiva, juntamente com o período em que esse status é aplicado." (ISAAR 5.2.4)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
