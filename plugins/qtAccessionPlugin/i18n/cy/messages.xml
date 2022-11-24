@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2022-08-05T23:19:00Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2022-11-23T16:54:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -510,35 +510,35 @@
       </trans-unit>
       <trans-unit id="135">
         <source>Agent</source>
-        <target/>
+        <target>Asiant</target>
       </trans-unit>
       <trans-unit id="136">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Math:%2% Dewiswch y fath o ddigwyddiad.%3%</target>
       </trans-unit>
       <trans-unit id="137">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Dyddiad:%2% Rhowch ddyddiad y digwyddiad.%3%</target>
       </trans-unit>
       <trans-unit id="138">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Asiant:%2% Rhowch yr asiant sy'n gysylltiedig â'r digwyddiad.%3%</target>
       </trans-unit>
       <trans-unit id="139">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Nodyn:%2% Rhowch nodiadau sy'n gysylltiedig â'r digwyddiad.%3%</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Event(s)</source>
-        <target/>
+        <target>Digwyddiad(au)</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Browse donors</source>
-        <target/>
+        <target>Pori'r rhoddwyr</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Search donors</source>
-        <target/>
+        <target>Chwilio'r rhoddwyr</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Donor</source>
@@ -546,15 +546,15 @@
       </trans-unit>
       <trans-unit id="144">
         <source>We've redirected you to the first page of results.</source>
-        <target/>
+        <target>Rydym wedi eich ailgyfeirio i'r dudalen gyntaf o ganlyniadau.</target>
       </trans-unit>
       <trans-unit id="145">
         <source>Browse accessions</source>
-        <target/>
+        <target>Pori'r derbynion</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Search accessions</source>
-        <target/>
+        <target>Chwilio derbynion</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Accession</source>
@@ -562,7 +562,7 @@
       </trans-unit>
       <trans-unit id="148">
         <source>Please complete all required fields.</source>
-        <target/>
+        <target>Cwblhewch yr holl feysydd angenrheidiol.</target>
       </trans-unit>
       <trans-unit id="149">
         <source>This is the legal entity field and provides the contact
@@ -570,7 +570,11 @@
                 transferred the materials. It has the option of multiple
                 instances and provides the option of creating more than one
                 contact record using the same form.</source>
-        <target/>
+        <target>Dyma'r maes endid cyfreithiol ac mae'n darparu'r cyswllt
+                ar gyfer y bobl neu'r sefydliad a roddodd neu
+                trosglwyddodd y deunyddiau. Mae ganddo'r opsiwn o sawl achos
+                ac mae'n darparu'r opsiwn o greu mwy nag un
+                cofnod cyswllt gan ddefnyddio'r un ffurflen.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2022-08-08T08:56:40Z" product-name="messages">
+  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2022-11-23T16:54:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Your description has been updated. Its descendants are being updated asynchronously – check the &lt;a class="alert-link" href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
-        <target/>
+        <target>Vaš opis je ažuriran. Njegovi podnivoi se ažuriraju asinhrono – provjerite &lt;a class="alert-link" href="%1"&gt;stranicu rasporeda poslova&lt;/a&gt; za status i detalje.</target>
       </trans-unit>
     </body>
   </file>

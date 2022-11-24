@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2022-08-05T23:18:50Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2022-11-23T16:53:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Σκαρίφημα Διοικητικής ιστορίας / Βιογραφικού σημειώματος</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Διοικητική ιστορία</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical sketch</source>
@@ -22,15 +22,15 @@
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description requires at least one date.</source>
-        <target>Η αρχειακή περιγραφή χρειάζεται τουλάχιστον μία ημερομηνία  </target>
+        <target>Η αρχειακή περιγραφή χρειάζεται τουλάχιστον μία χρονολογία.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target>Ημερομηνία(ες) - δεν είναι σύμφωνες με το %1%υψηλότερο επίπεδο%2%</target>
+        <target>%1%Οι ημερομηνία(ες)%2% - %3%ανωτέρων επιπέδων%2% δεν συμφωνούν .</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Physical description - This is a mandatory element.</source>
-        <target>Φυσική περιγραφή - Το στοιχείο είναι υποχρεωτικό</target>
+        <target>Φυσική περιγραφή - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Title - This is a mandatory element.</source>
@@ -38,19 +38,19 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%Επίπεδο περιγραφής%2% - Η τιμή "%value%" δεν συμφωνεί με το υψηλότερο επίπεδο.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Level of description - This is a mandatory element.</source>
-        <target>Επίπεδο περιγραφής - Το στοιχείο είναι υποχρεωτικό</target>
+        <target>Επίπεδο περιγραφής - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target>Δήλωση της κλίμακας (αρχιτεκτονικό) - Το στοιχείο είναι υποχρεωτικό για τα αρχιτεκτονικά σχέδια</target>
+        <target>Δήλωση της κλίμακας (αρχιτεκτονικό) - Το στοιχείο είναι υποχρεωτικό για τα αρχιτεκτονικά σχέδια.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target>Δήλωση των συντεταγμένων (χαρτογραφικό) - Το στοιχείο είναι υποχρεωτικό για το χαρτογραφικό υλικό </target>
+        <target>Δήλωση των συντεταγμένων (χαρτογραφικό) - Το στοιχείο είναι υποχρεωτικό για το χαρτογραφικό υλικό.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target>Δήλωση της κλίμακας (Χαρτογραφικό) - Το στοιχείο είναι υποχρεωτικό για το χαρτογραφικό υλικό</target>
+        <target>Δήλωση της κλίμακας (χαρτογραφικό) - Το στοιχείο είναι υποχρεωτικό για το χαρτογραφικό υλικό.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Scope and content - This is a mandatory element.</source>
-        <target>Παρουσίαση Περιεχόμενου - Το στοιχείο είναι υποχρεωτικό.</target>
+        <target>Παρουσίαση περιεχόμενου - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target>Προσθήκη νέας αρχειακής περιγραφής</target>
+        <target>Προσθήκη νέας εγγραφής</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>This is a duplicate of record %1%</source>
-        <target>Αυτό είναι αντίγραφο της εγγραφής %1% </target>
+        <target>Αυτό είναι αντίγραφο της εγγραφής %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target>Αυτό το στοιχείο είναι υποχρεωτικό.</target>
+        <target>To στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Other title information</source>
-        <target>Λοιπές πληροφορίες τίτλου </target>
+        <target>Άλλες πληροφορίες για τον τίτλο</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
-        <target>Κωδικός αναγνώρισης</target>
+        <target>Κωδικός αναγνώρισης της ενότητας περιγραφής</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edition area</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
-        <target>Δήλωση της προβολής (Χαρτογραφικό) </target>
+        <target>Δήλωση της προβολής (χαρτογραφικό)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
-        <target>Προσθήκη νέου ονόματος και/η χρονολογίας</target>
+        <target>Προσθήκη νέου ονόματος και/ή χρονολογίας(ιών)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
@@ -318,7 +318,7 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Custodial history</source>
-        <target/>
+        <target>Ιστορικό εποπτείας</target>
       </trans-unit>
       <trans-unit id="80">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
@@ -326,11 +326,11 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target>Παρουσίαση Περιεχόμενου</target>
+        <target>Παρουσίαση περιεχομένου</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
-        <target>Πεδίο Παρατηρήσεων</target>
+        <target>Περιοχή παρατηρήσεων</target>
       </trans-unit>
       <trans-unit id="83">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
-        <target>Διαδικασία Πρόσκτησης</target>
+        <target>Διαδικασία πρόσκτησης</target>
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
@@ -358,7 +358,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Language of material</source>
-        <target>Γλώσσα των Τεκμηρίων</target>
+        <target>Γλώσσα(ες) των τεκμηρίων</target>
       </trans-unit>
       <trans-unit id="90">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
@@ -366,7 +366,7 @@
       </trans-unit>
       <trans-unit id="91">
         <source>Script of material</source>
-        <target>Γραφή του υλικού</target>
+        <target>Αλφάβητο(α) των τεκμηρίων</target>
       </trans-unit>
       <trans-unit id="92">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
@@ -374,7 +374,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Language and script notes</source>
-        <target>Σημειώσεις γλώσσας και γραφής</target>
+        <target>Σημειώσεις για τη γλώσσα και γραφή των τεκμηρίων</target>
       </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -438,11 +438,11 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target>Σημεία πρόσβαση</target>
+        <target>Σημεία πρόσβασης</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
-        <target>Θέματα ως Σημεία πρόσβασης</target>
+        <target>Θέματα</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target>Τοποθεσίες ως Σημεία πρόσβασης</target>
+        <target>Τόποι</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -458,7 +458,7 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
-        <target/>
+        <target>Είδη</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
@@ -466,7 +466,7 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Name access points (subjects)</source>
-        <target>Όνοματα ως Σημεία πρόσβασης (Θέματα)</target>
+        <target>Ονόματα (θέματα)</target>
       </trans-unit>
       <trans-unit id="117">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -474,23 +474,23 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Control area</source>
-        <target>Πεδίο ελέγχου</target>
+        <target>Περιοχή ελέγχου</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target>Καταγράψτε ένα μοναδικό Αναγνωριστικό Περιγραφής σύμφωνα με τις τοπικές ή/και εθνικές συμβάσεις. Αν η περιγραφή πρέπει να χρησιμοποιείται διεθνώς, καταγράψτε τον κωδικό της χώρας στην οποία η περιγραφή δημιουργήθηκε σύμφωνα με την τελευταία έκδοση του προτύπου ISO 3166 - Codes for the representation of names of countries. Όταν ο δημιουργός της περιγραφής είναι ένας διεθνής οργανισμός, δώστε το αναγνωριστικό του οργανισμού στη θέση του κωδικού της χώρας.</target>
+        <target>Καταγράφουμε τον μοναδικό κωδικό αναγνώρισης της περιγραφής σύμφωνα με τις τοπικές ή και εθνικές συμβάσεις. Αν η περιγραφή πρόκειται να χρησιμοποιηθεί σε διεθνές επίπεδο, καταγράφουμε τον κωδικό της χώρας στην οποία δημιουργήθηκε η περιγραφή, σύμφωνα με την πιο πρόσφατη έκδοση του ISO 3166 Codes for the representation of names of countries. Εάν ο δημιουργός της περιγραφής είναι ένας διεθνής οργανισμός, καταγράφουμε τον κωδικό του οργανισμού στη θέση του κωδικού της χώρας.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Description identifier</source>
-        <target>Αναγνωριστικό περιγραφής</target>
+        <target>Κωδικός αναγνώρισης περιγραφής</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target>Καταγράψτε την πλήρη εγκεκριμένη μορφή του ονόματος(ων) του οργανισμού(ων) που είναι υπεύθυνος για τη δημιουργία, την τροποποίηση ή τη διάδοση της περιγραφής ή, εναλλακτικά, καταγράψτε τον κωδικό για τον οργανισμό, σύμφωνα με την εθνική ή διεθνή υπηρεσία πρότυπων κωδικών.</target>
+        <target>Καταχωρούμε την καθιερωμένη μορφή(ές) του ονόματος του/των φορέων που έχουν την ευθύνη για τη δημιουργία, τροποποίηση ή διάθεση της περιγραφής. Εναλλακτικά, καταχωρούμε τον κωδικό του φορέα, σύμφωνα με τα εθνικά ή διεθνή πρότυπα για την τυποποίηση κωδικών φορέων.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Institution identifier</source>
-        <target>Αναγνωριστικό φορέα τεκμηρίωσης</target>
+        <target>Κωδικός αναγνώρισης του φορέα καθιέρωσης της εγγραφής</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
@@ -498,23 +498,23 @@
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
-        <target>Κανόνες ή Πρότυπα</target>
+        <target>Κανόνες και/ή συμβάσεις</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
-        <target>Κατάσταση</target>
+        <target>Κατάσταση επεξεργασίας της εγγραφής</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target>Καταγράψτε την τρέχουσα κατάσταση της περιγραφής, υποδεικνύοντας, αν είναι ένα σχέδιο, ολοκληρωμένη και / ή αναθεωρημένη ή διαγραμμένη.</target>
+        <target>Καταγράφουμε την παρούσα κατάσταση της περιγραφής, υποδεικνύοντας αν είναι προσωρινή, οριστική, αναθεωρημένη ή καταργημένη.</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target>Καταγράψτε εάν η περιγραφή είναι σε ελάχιστο, μερικό ή πλήρη επίπεδο λεπτομέρειας, σύμφωνα με τις σχετικές διεθνείς και/ή εθνικές κατευθυντήριες γραμμές και/ή κανόνες.</target>
+        <target>Προσδιορίζουμε εάν το επίπεδο λεπτομέρειας της περιγραφής είναι στοιχειώδες, μερικό ή πλήρες, σύμφωνα με διεθνείς και/ή εθνικές οδηγίες και/ή κανόνες.</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
-        <target>Επίπεδο λεπτομέρειας</target>
+        <target>Επίπεδο λεπτομέρειας της περιγραφής</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
@@ -522,11 +522,11 @@
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
-        <target>Ημερομηνίες δημιουργίας, αναθεώρησης και διαγραφής</target>
+        <target>Ημερομηνίες δημιουργίας, αναθεώρησης ή κατάργησης της περιγραφής</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target>Αναφέρετε τη γλώσσα(ες) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
+        <target>Αναφέρετε τη(τις) γλώσσα(ες) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
@@ -534,15 +534,15 @@
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target>Αναφέρετε τη γραφή(ες) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
+        <target>Αναφέρετε το(τα) αλφάβητο(α) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
-        <target>Γραφή</target>
+        <target>Αλφάβητο</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target>Καταγράψτε αναφορές για κάθε εξωτερική πηγή που χρησιμοποιείται στην αρχειακή περιγραφή (όπως στα πεδία Παρουσίαση Περιεχομένου, Ιστορικό της ενότητας περιγραφής, ή Σημειώσεις).</target>
+        <target>Καταγράφουμε αναφορές για κάθε εξωτερική πηγή που χρησιμοποιείται στην αρχειακή περιγραφή (όπως στα πεδία Παρουσίαση Περιεχομένου, Ιστορικό της ενότητας περιγραφής, ή Σημειώσεις).</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
@@ -562,11 +562,11 @@
       </trans-unit>
       <trans-unit id="140">
         <source>Title notes</source>
-        <target>Σημειώσεις τίτλου</target>
+        <target>Παρατηρήσεις τίτλου</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target>Αποθετήριο</target>
+        <target>Φορέας διατήρησης του αρχείου</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>
@@ -582,11 +582,11 @@
       </trans-unit>
       <trans-unit id="145">
         <source>Edit dates of creation area</source>
-        <target>Επεξεργασία πεδίου ημερομηνίας δημιουργίας</target>
+        <target>Επεξεργασία της περιοχής χρονολογιών παραγωγής</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Edit physical description area</source>
-        <target>Επεξεργασία πεδίου φυσικής περιγραφής</target>
+        <target>Επεξεργασία της περιοχής φυσικής περιγραφής</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Edit publisher's series area</source>
@@ -602,7 +602,7 @@
       </trans-unit>
       <trans-unit id="150">
         <source>Edit notes area</source>
-        <target>Επεξεργασία πεδίου σημειώσεων</target>
+        <target>Επεξεργασία της περιοχής παρατηρήσεων</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Arrangement</source>
@@ -610,7 +610,7 @@
       </trans-unit>
       <trans-unit id="152">
         <source>Language and script note</source>
-        <target>Σημείωση γλώσσας και γραφής </target>
+        <target>Σημειώσεις για τη γλώσσα και γραφή των τεκμηρίων</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Location of originals</source>
@@ -618,11 +618,11 @@
       </trans-unit>
       <trans-unit id="154">
         <source>Finding aids</source>
-        <target>Εργαλείο έρευνας</target>
+        <target>Εργαλεία έρευνας</target>
       </trans-unit>
       <trans-unit id="155">
         <source>Accruals</source>
-        <target>Προσθήκες Υλικού</target>
+        <target>Προσθήκες υλικού</target>
       </trans-unit>
       <trans-unit id="156">
         <source>General note</source>
@@ -638,15 +638,15 @@
       </trans-unit>
       <trans-unit id="159">
         <source>Edit access points</source>
-        <target>Επεξεργασία Σημείων πρόσβασης</target>
+        <target>Επεξεργασία των σημείων πρόσβασης</target>
       </trans-unit>
       <trans-unit id="160">
         <source>Edit control area</source>
-        <target>Επεξεργασία πεδίου ελέγχου</target>
+        <target>Επεξεργασία της περιοχής ελέγχου</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Description record identifier</source>
-        <target>Περιγραφή αναγνωριστικού εγγραφής</target>
+        <target>Κωδικός αναγνώρισης εγγραφής</target>
       </trans-unit>
       <trans-unit id="162">
         <source>Language of description</source>
@@ -658,11 +658,11 @@
       </trans-unit>
       <trans-unit id="164">
         <source>Rights area</source>
-        <target>Πεδίο δικαιωμάτων</target>
+        <target>Περιοχή δικαιωμάτων</target>
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
-        <target>Πεδίο Πρόσκτησης</target>
+        <target>Περιοχή εισαγωγών</target>
       </trans-unit>
     </body>
   </file>
