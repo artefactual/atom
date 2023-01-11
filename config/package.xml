@@ -35,6 +35,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="config//*" role="data"/>
     <file name="data//*" role="data"/>
     <file name="vendor//*" role="data"/>
+    <file name="dist//*" role="data"/>
     <file name="uploads//*" role="data"/>
     <file name="downloads//*" role="data"/>
     <file name="plugins/sfDrupalPlugin//*" role="data"/>
