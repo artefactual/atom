@@ -22,7 +22,7 @@
  *
  * @author     David Juhasz <david@artefactual.com>
  */
-class propelBuildNestedSetTask extends sfBaseTask
+class propelBuildNestedSetTask extends arBaseTask
 {
     private $children;
     private $conn;
@@ -35,6 +35,8 @@ class propelBuildNestedSetTask extends sfBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
+        parent::execute($arguments, $options);
+
         $databaseManager = new sfDatabaseManager($this->configuration);
         $this->conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -93,11 +95,6 @@ class propelBuildNestedSetTask extends sfBaseTask
             $this->conn->commit();
         }
 
-        $this->logSection(
-            'propel',
-            'Note: you will need to rebuild your search index for updates to show up properly in search results.'
-        );
-
         $this->logSection('propel', 'Done!');
     }
 
@@ -114,6 +111,7 @@ class propelBuildNestedSetTask extends sfBaseTask
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
             new sfCommandOption('exclude-tables', null, sfCommandOption::PARAMETER_OPTIONAL, 'Exclude tables (comma-separated). Options: information_object, term, menu'),
+            new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_OPTIONAL, 'Update search index (defaults to false)', false),
         ]);
 
         $this->namespace = 'propel';
@@ -155,6 +153,24 @@ EOF;
 
         $this->conn->exec($sql);
 
+        if ($options['index']) {
+            if ($node['id'] != $classname::ROOT_ID) {
+                $this->reindexLft($classname, $node['id'], $node['lft']);
+            }
+        } else {
+            $this->logSection(
+                'propel',
+                'Note: you will need to rebuild your search index for updates to show up properly in search results.'
+            );
+        }
+
         return $width;
+    }
+
+    protected function reindexLft(string $classname, int $id, int $lft)
+    {
+        QubitSearch::getInstance()->partialUpdateById(
+            $classname, $id, ['lft' => $lft]
+        );
     }
 }
