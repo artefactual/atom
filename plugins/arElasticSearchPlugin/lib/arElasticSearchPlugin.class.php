@@ -368,6 +368,31 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
     }
 
+    public function partialUpdateById(string $className, int $id, array $data)
+    {
+        if (!$this->enabled) {
+            return;
+        }
+
+        if (0 == strcmp($className, 'QubitUser')) {
+            return;
+        }
+
+        $document = new \Elastica\Document($id, $data);
+
+        try {
+            $this->index->getType($className)->updateDocument($document);
+        } catch (\Elastica\Exception\ResponseException $e) {
+            // Create document if none exists
+            $modelPdoClassName = self::modelClassFromQubitObjectClass($className).'Pdo';
+
+            if (class_exists($modelPdoClassName)) {
+                $node = new $modelPdoClassName($id);
+                QubitSearch::getInstance()->addDocument($node->serialize(), $className);
+            }
+        }
+    }
+
     // ---------------------------------------------------------------------------
 
     public function delete($object)
@@ -414,7 +439,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
-        $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($object));
+        $className = self::modelClassFromQubitObjectClass(get_class($object));
 
         // Pass options only to information object update
         if ($object instanceof QubitInformationObject) {
@@ -424,6 +449,18 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         call_user_func([$className, 'update'], $object);
+    }
+
+    /**
+     * Get ElasticSearch model class from Qubit class.
+     *
+     * @param string $className
+     *
+     * @return string ElasticSearch model class name
+     */
+    public static function modelClassFromQubitObjectClass($className)
+    {
+        return str_replace('Qubit', 'arElasticSearch', $className);
     }
 
     /**
