@@ -46,8 +46,6 @@ class addSuperuserTask extends sfBaseTask
         }
 
         sfContext::createInstance($this->configuration);
-        $databaseManager = new sfDatabaseManager($this->configuration);
-        $conn = $databaseManager->getDatabase('propel')->getConnection();
 
         self::addSuperUser($arguments['username'], $options);
     }
@@ -62,6 +60,13 @@ class addSuperuserTask extends sfBaseTask
             $usernamePrompt .= ': ';
             $username = readline($usernamePrompt);
             $username = ($username) ? $username : $defaultUser;
+        }
+
+        // Verify that this user doesn't already exist
+        $criteria = new Criteria();
+        $criteria->add(QubitUser::USERNAME, $username);
+        if (null !== QubitUser::getOne($criteria)) {
+            throw new Exception('This username already exists. Please choose a different username.');
         }
 
         $email = ($options['email']) ? $options['email'] : '';
