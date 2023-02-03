@@ -124,7 +124,7 @@
           <div class="criteria row mb-2">
 
             <div class="col-md-4">
-              <?php echo render_field($form->relatedType->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))); ?>
+              <?php echo render_field($form->hasDigitalObject->label(__('%1% available', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]))); ?>
             </div>
 
             <div class="col-md-4">
