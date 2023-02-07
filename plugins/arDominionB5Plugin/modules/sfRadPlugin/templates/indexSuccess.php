@@ -305,13 +305,11 @@
 
   <?php foreach ($resource->getNotesByTaxonomy(['taxonomyId' => QubitTaxonomy::RAD_NOTE_ID]) as $item) { ?>
 
-    <?php $type = $item->getType(['sourceCulture' => true]); ?>
-
-    <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')) { ?>
+    <?php if ($conservationTermID === $item->type->id && !check_field_visibility('app_element_visibility_rad_conservation_notes')) { ?>
       <?php continue; ?>
     <?php } ?>
 
-    <?php if ('Rights' == $type && !check_field_visibility('app_element_visibility_rad_rights_notes')) { ?>
+    <?php if ($rightsTermID === $item->type->id && !check_field_visibility('app_element_visibility_rad_rights_notes')) { ?>
       <?php continue; ?>
     <?php } ?>
 
