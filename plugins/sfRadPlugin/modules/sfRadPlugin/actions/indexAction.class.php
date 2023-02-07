@@ -187,5 +187,20 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                 $this->errorSchema = $e;
             }
         }
+
+        // Term ID constants for Rights and Conservation terms
+        $this->rightsTermID = $this->getRADTermID('Rights');
+        $this->conservationTermID = $this->getRADTermID('Conservation');
+    }
+
+    protected function getRADTermID($term)
+    {
+        $sql = "SELECT term.id FROM term
+            JOIN term_i18n ON term_i18n.id = term.id
+            WHERE term.taxonomy_id=?
+            AND term_i18n.culture='en'
+            AND term_i18n.name=?";
+
+        return QubitPdo::fetchColumn($sql, [QubitTaxonomy::RAD_NOTE_ID, $term]);
     }
 }
