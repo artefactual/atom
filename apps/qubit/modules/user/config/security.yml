@@ -7,7 +7,7 @@ delete:
   is_secure: true
 
 edit:
-  credentials: [[ administrator, translator ]]
+  credentials: administrator
   is_secure: true
 
 index:
