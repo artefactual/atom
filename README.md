@@ -23,7 +23,7 @@ AtoM is intended to be installed using a Linux-based operating system. We use
 Ubuntu LTS releases in development and testing, but users have successfully
 installed on other distributions as well.
 
-* [Linux installation guides](https://www.accesstomemory.org/docs/latest/admin-manual/installation/linux/linux/)
+* [Linux installation guides](https://www.accesstomemory.org/docs/latest/admin-manual/installation/ubuntu/)
 
 For other O/S installs, we recommend virtualization.
 
