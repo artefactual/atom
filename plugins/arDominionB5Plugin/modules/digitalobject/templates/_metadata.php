@@ -160,9 +160,9 @@
 
                     <?php if ($showMasterFileName) { ?>
                       <?php if ($canAccessMasterFile) { ?>
-                        <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), link_to($resource->name, $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
                       <?php } else { ?>
-                        <?php echo render_show(__('Filename'), render_value_inline($resource->name), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), $resource->name, ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
                       <?php } ?>
                     <?php } ?>
 
@@ -200,9 +200,9 @@
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showReferenceCopyFileName) { ?>
                       <?php if ($canAccessReferenceCopy && $sf_user->isAuthenticated()) { ?>
-                        <?php echo render_show(__('Filename'), link_to(render_value_inline($referenceCopy->name), $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), link_to($referenceCopy->name, $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
                       <?php } else { ?>
-                        <?php echo render_show(__('Filename'), render_value_inline($referenceCopy->name), ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), $referenceCopy->name, ['fieldLabel' => 'referenceCopyFileName', 'isSubField' => true]); ?>
                       <?php } ?>
                     <?php } ?>
 
@@ -240,9 +240,9 @@
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showThumbnailCopyFileName) { ?>
                       <?php if ($canAccessThumbnailCopy) { ?>
-                        <?php echo render_show(__('Filename'), link_to(render_value_inline($thumbnailCopy->name), $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), link_to($thumbnailCopy->name, $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
                       <?php } else { ?>
-                        <?php echo render_show(__('Filename'), render_value_inline($thumbnailCopy->name), ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), $thumbnailCopy->name, ['fieldLabel' => 'thumbnailCopyFileName', 'isSubField' => true]); ?>
                       <?php } ?>
                     <?php } ?>
 
