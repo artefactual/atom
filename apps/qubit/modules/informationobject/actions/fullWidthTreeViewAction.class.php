@@ -54,6 +54,7 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
         $options = [
             'skip' => $request->skip,
             'limit' => $request->nodeLimit,
+            'memorySort' => true,
         ];
 
         // On first load, retrieve the ancestors of the selected resource, the
