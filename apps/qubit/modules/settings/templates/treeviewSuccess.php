@@ -51,16 +51,12 @@
               ->renderRow(); ?>
         </p>
 
-      </fieldset>
-
-      <fieldset class="collapsible">
-
-        <legend><?php echo __('Sidebar'); ?></legend>
-
+        <p>
         <?php echo $form->ioSort
             ->label(__('Sort (information object)'))
             ->help(__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'))
             ->renderRow(); ?>
+        </p>
 
       </fieldset>
 
