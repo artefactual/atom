@@ -24,6 +24,17 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
+    <?php if (!$form->isValid() && $form->hasErrors()) { ?>
+      <div class="alert alert-danger" role="alert">
+        <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
+          <?php foreach ($form->getErrorSchema() as $error) { ?>
+            <?php $error = sfOutputEscaper::unescape($error); ?>
+            <li><?php echo $error->getMessage(); ?></li>
+          <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
+
     <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
