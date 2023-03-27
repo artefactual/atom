@@ -1,5 +1,6 @@
 <?php decorate_with('layout_3col'); ?> 
 <?php use_helper('Date'); ?>
+<?php use_helper('Text'); ?>
 
 <?php slot('sidebar'); ?>
 
