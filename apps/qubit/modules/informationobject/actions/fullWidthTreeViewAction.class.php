@@ -66,6 +66,10 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
         ) {
             $data = $this->getAncestorsAndSiblings($options);
         } else {
+            // Copy DB lft values to Elasticsearch if need be
+            $syncer = new QubitLftSyncer($this->resource->id);
+            $syncer->sync();
+
             $data = $this->getChildren($this->resource->id, $options);
         }
 
