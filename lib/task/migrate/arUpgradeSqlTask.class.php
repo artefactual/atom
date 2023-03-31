@@ -211,7 +211,8 @@ EOF;
                 $version,
                 sfConfig::get('sf_lib_dir').'/task/migrate/migrations',
                 $previousMilestone,
-                $currentMilestone
+                $currentMilestone,
+                $options['verbose']
             );
         }
 
@@ -534,10 +535,11 @@ EOF;
      * @param string $migrationsDirectory Directory with migrations in it
      * @param int    $previousMilestone   Previous milestone
      * @param int    $currentMilestone    Current milestone
+     * @param bool   $verboseMode         Verbose mode setting
      *
      * @return int Version of schema after running migrations in this directory
      */
-    private function runMigrationsInDirectory($version, $migrationsDirectory, $previousMilestone, $currentMilestone)
+    private function runMigrationsInDirectory($version, $migrationsDirectory, $previousMilestone, $currentMilestone, $verboseMode)
     {
         foreach (
             sfFinder::type('file')
@@ -565,6 +567,9 @@ EOF;
             else {
                 // Apply unless we are deadling with a 1.x user staying in 1.x
                 if (1 != $previousMilestone || 1 != $currentMilestone) {
+                    if ($verboseMode) {
+                        $this->logSection('upgrade-sql', sprintf('Applying %s', $className));
+                    }
                     // Run migration
                     if (true !== $class->up($this->configuration)) {
                         throw new sfException('Failed to apply upgrade '.get_class($class));
