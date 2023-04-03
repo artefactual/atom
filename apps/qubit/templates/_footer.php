@@ -21,11 +21,12 @@
 
 <?php $gaKey = sfConfig::get('app_google_analytics_api_key', ''); ?>
 <?php if (!empty($gaKey)) { ?>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $gaKey; ?>"></script>
   <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', '<?php echo $gaKey; ?>', 'auto');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
     <?php include_slot('google_analytics'); ?>
-    ga('send', 'pageview');
+    gtag('config', '<?php echo $gaKey; ?>');
   </script>
-  <script async src='https://www.google-analytics.com/analytics.js'></script>
 <?php } ?>
