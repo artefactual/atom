@@ -284,7 +284,7 @@ class DefaultFullTreeViewAction extends sfAction
 
         $node = [];
         $node['id'] = $result->getId();
-        $node['text'] = $this->getNodeText($data);
+        $node['text'] = render_value_inline($this->getNodeText($data));
 
         // Set some special flags on our currently selected node
         if ($result->getId() == $this->resource->id) {
