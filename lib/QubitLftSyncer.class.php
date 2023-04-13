@@ -47,12 +47,7 @@ class QubitLftSyncer
             LIMIT :limit';
 
         $params = [':parentId' => $this->parentId, ':limit' => $this->limit];
-        $result = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
-
-        $lft = [];
-        foreach ($result as $row) {
-            $lft[] = $row['lft'];
-        }
+        $lft = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_COLUMN]);
 
         return md5(serialize($lft));
     }
