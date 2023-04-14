@@ -58,7 +58,7 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
 
         // Export descendants if option was selected
         if (!$this->params['current-level-only']) {
-            foreach ($resource->getDescendantsForExport($options) as $item) {
+            foreach ($resource->getDescendantsForExport($this->params) as $item) {
                 $this->exportDataAndDigitalObject($item, $path);
             }
         }
