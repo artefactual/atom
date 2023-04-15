@@ -40,13 +40,13 @@ class QubitLftSyncer
 
     private function getChildLftChecksumForDB()
     {
-        $sql = 'SELECT lft
+        $sql = sprintf('SELECT lft
             FROM information_object
             WHERE parent_id=:parentId
             ORDER BY lft ASC
-            LIMIT :limit';
+            LIMIT %d', $this->limit);
 
-        $params = [':parentId' => $this->parentId, ':limit' => $this->limit];
+        $params = [':parentId' => $this->parentId];
         $lft = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_COLUMN]);
 
         return md5(serialize($lft));
@@ -81,12 +81,12 @@ class QubitLftSyncer
 
     private function repairEsChildrenLftValues()
     {
-        $sql = 'SELECT id, lft
+        $sql = sprintf('SELECT id, lft
             FROM information_object
             WHERE parent_id=:parentId
-            LIMIT :limit';
+            LIMIT %d', $this->limit);
 
-        $params = [':parentId' => $this->parentId, ':limit' => $this->limit];
+        $params = [':parentId' => $this->parentId];
         $results = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
 
         $bulk = new Elastica\Bulk(QubitSearch::getInstance()->client);
