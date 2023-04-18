@@ -141,6 +141,11 @@
           },
         },
         'check_callback': function (operation, node, node_parent, node_position, more) {
+          // Do nothing if node is disabled
+          if (node.state.disabled) {
+            return false;
+          }
+
           // Operations allowed:
           // - Before and after drag and drop between siblings
           // - Move core operations (node drop event)
@@ -233,31 +238,35 @@
     var syncedParents = {};
     var hoverNodeListener = function (e, data)
     {
-      if (!$fwTreeView.jstree("is_disabled", data["node"]["id"])) {
-        $('a.jstree-anchor').tooltip({
-          delay: 250,
-          container: '#fullwidth-treeview'
+      // Do nothing if node is disabled
+      if ($fwTreeView.jstree("is_disabled", data.node.id)) {
+        return;
+      }
+
+      // Configure tooltip
+      $('a.jstree-anchor').tooltip({
+        delay: 250,
+        container: '#fullwidth-treeview'
+      });
+
+      // Check sync of treeview data
+      var parent = data.node.parent;
+      var parentNode = $fwTreeView.jstree("get_json", parent);
+
+      if (parent != "#" && !(parent in syncedParents) && ("href" in parentNode.a_attr)) {
+        syncedParents[parent] = true;
+        commandNodeAndChildren($fwTreeView, parent, "disable_node");
+
+        var url = parentNode.a_attr.href + '/informationobject/fullWidthTreeViewSync';
+
+        $.get(url, function (response)
+        {
+          if (response["repaired"]) {
+            $fwTreeView.jstree("refresh_node", parent);
+          }
+
+          commandNodeAndChildren($fwTreeView, parent, "enable_node");
         });
-
-        // Check sync of treeview data
-        var parent = data["node"]["parent"];
-        var parentNode = $fwTreeView.jstree("get_json", parent);
-
-        if (parent != "#" && !(parent in syncedParents) && ("href" in parentNode["a_attr"])) {
-          syncedParents[parent] = true;
-          commandNodeAndChildren($fwTreeView, parent, "disable_node");
-
-          var url = parentNode["a_attr"]["href"] + '/informationobject/fullWidthTreeViewSync';
-
-          $.get(url, function (response)
-          {
-            if (response["repaired"]) {
-              $fwTreeView.jstree("refresh_node", parent);
-	    }
-
-            commandNodeAndChildren($fwTreeView, parent, "enable_node");
-          });
-        }
       }
     };
 
