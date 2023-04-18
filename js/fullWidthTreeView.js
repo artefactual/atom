@@ -39,6 +39,18 @@
     });
   }
 
+  function commandNodeAndChildren($fwTreeView, id, command) {
+    var parent = $fwTreeView.jstree().get_node(id);
+
+    $fwTreeView.jstree(command, id);
+
+    var index = 0;
+    while (index < parent.children.length) {
+      $fwTreeView.jstree(command, parent.children[index]);
+      index++;
+    }
+  }
+
   function loadTreeView ()
   {
     var $treeViewConfig = $('#fullwidth-treeview-configuration');
@@ -233,6 +245,7 @@
 
         if (parent != "#" && !(parent in syncedParents) && ("href" in parentNode["a_attr"])) {
           syncedParents[parent] = true;
+          commandNodeAndChildren($fwTreeView, parent, "disable_node");
 
           var url = parentNode["a_attr"]["href"] + '/informationobject/fullWidthTreeViewSync';
 
@@ -240,10 +253,9 @@
           {
             if (response["repaired"]) {
               $fwTreeView.jstree("refresh_node", parent);
-              console.log("Refresj");
-            }
+	    }
 
-            syncedParents[parent] = true;
+            commandNodeAndChildren($fwTreeView, parent, "enable_node");
           });
         }
       }
