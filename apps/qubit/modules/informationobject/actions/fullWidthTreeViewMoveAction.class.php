@@ -63,6 +63,11 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
             return $this->renderText(json_encode(['error' => $i18n->__('Move not needed: new and old positions are the same')]));
         }
 
+        // Sync Elasticsearch values with DB if need be
+        $syncer = new QubitLftSyncer($this->resource->parentId);
+        $syncer->sync();
+
+        // Move job parameters
         $params = [
             'objectId' => $this->resource->id,
             'oldPosition' => $oldPosition,

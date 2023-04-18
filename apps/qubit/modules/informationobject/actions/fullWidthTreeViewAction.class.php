@@ -56,10 +56,6 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
             'limit' => $request->nodeLimit,
         ];
 
-        // Sync Elasticsearch values with DB if need be
-        $syncer = new QubitLftSyncer($this->resource->id);
-        $syncer->sync();
-
         // On first load, retrieve the ancestors of the selected resource, the
         // resource and its siblings, otherwise get only the resource's siblings
         if (

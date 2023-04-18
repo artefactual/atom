@@ -218,12 +218,35 @@
     // a node is hovered to make it appear after node changes. It must
     // use the #fullwidth-treeview container to allow a higher
     // height than the node in multiple lines tooltips
+    var syncedParents = {};
     var hoverNodeListener = function (e, data)
     {
-      $('a.jstree-anchor').tooltip({
-        delay: 250,
-        container: '#fullwidth-treeview'
-      });
+      if (!$fwTreeView.jstree("is_disabled", data["node"]["id"])) {
+        $('a.jstree-anchor').tooltip({
+          delay: 250,
+          container: '#fullwidth-treeview'
+        });
+
+        // Check sync of treeview data
+        var parent = data["node"]["parent"];
+        var parentNode = $fwTreeView.jstree("get_json", parent);
+
+        if (parent != "#" && !(parent in syncedParents) && ("href" in parentNode["a_attr"])) {
+          syncedParents[parent] = true;
+
+          var url = parentNode["a_attr"]["href"] + '/informationobject/fullWidthTreeViewSync';
+
+          $.get(url, function (response)
+          {
+            if (response["repaired"]) {
+              $fwTreeView.jstree("refresh_node", parent);
+              console.log("Refresj");
+            }
+
+            syncedParents[parent] = true;
+          });
+        }
+      }
     };
 
     // On node open: remove tooltip after a node is selected, the 
