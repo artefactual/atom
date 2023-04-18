@@ -35,6 +35,8 @@ class QubitLftSyncer
                     $esChecksum = $this->getChildLftChecksumForElasticsearch();
                 } while ($waitCount < $maxWaitAttempts && $esChecksum != $dbChecksum);
             }
+
+            return true;
         }
     }
 
