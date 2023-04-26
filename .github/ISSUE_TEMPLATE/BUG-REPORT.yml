@@ -8,14 +8,6 @@ body:
       value: |
         Thanks for taking the time to fill out this bug report!
         If this issue relates to a security vulnerability in AtoM, DO NOT file the issue here. Please see our Security Policy at https://github.com/artefactual/atom/blob/HEAD/SECURITY.md for information on how to safely report a security vulnerability.
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: email@example.com
-    validations:
-      required: true
   - type: textarea
     id: current-behavior
     attributes:
@@ -31,6 +23,8 @@ body:
     attributes:
       label: Expected Behavior
       description: Tell us what should happen
+    validations:
+      required: true
   - type: textarea
     id: possible-solution
     attributes:
@@ -65,3 +59,9 @@ body:
     attributes:
       label: PHP version
       placeholder: PHP 7.4
+  - type: input
+    id: contact
+    attributes:
+      label: Contact details
+      description: If you'd like for us to reach out for any follow up questions using e-mail instead of GitHub, please share your contact information here.
+      placeholder: email@example.com
