@@ -84,7 +84,7 @@
       });
 
       // If user press enter, add new row
-      $table.on("keydown", "input, select, textarea", function (event) {
+      $table.on("keydown", "input, select", function (event) {
         if (event.key == "Enter" && 0 == $table.find(":animated").length) {
           $table.find(".multi-row-add").trigger("click");
           return false;

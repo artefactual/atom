@@ -1,0 +1,67 @@
+name: Bug Report
+description: Use this form to report a bug
+title: "Problem: "
+labels: ["Type: bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        If this issue relates to a security vulnerability in AtoM, DO NOT file the issue here. Please see our Security Policy at https://github.com/artefactual/atom/blob/HEAD/SECURITY.md for information on how to safely report a security vulnerability.
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: Tell us what happens in a step-by-step manner so we can reproduce the issue
+      value: |
+        **Steps to reproduce the behavior**
+        1. Go to '...'
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: Tell us what should happen
+    validations:
+      required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: Possible Solution
+      description: Not obligatory, but suggest a fix/reason for this bug or ideas how to implement the addition or change
+  - type: textarea
+    id: context-notes
+    attributes:
+      label: Context and Notes
+      description: How has this issue affected you? What are you trying to accomplish? What have you tried already to resolve the issue? Providing context helps us come up with a solution that is most useful in the real world. If you’ve already started tracing or diagnosing the issue, any relevant links, error messages, screenshots, or examples are welcome!
+  - type: markdown
+    attributes:
+      value: |
+        Include as many relevant details about the environment you experienced the bug in
+  - type: input
+    id: version
+    attributes:
+      label: Version used
+      placeholder: AtoM 2.7.0
+  - type: input
+    id: os-env
+    attributes:
+      label: Operating System and version
+      placeholder: Ubuntu 20.04
+  - type: input
+    id: default-culture
+    attributes:
+      label: Default installation culture
+      placeholder: en, fr, es, ca
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      placeholder: PHP 7.4
+  - type: input
+    id: contact
+    attributes:
+      label: Contact details
+      description: If you'd like for us to reach out for any follow up questions using e-mail instead of GitHub, please share your contact information here.
+      placeholder: email@example.com

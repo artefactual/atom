@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2022-08-05T23:19:32Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2022-11-23T16:54:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5275,7 +5275,7 @@
       </trans-unit>
       <trans-unit id="1318">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>"سجل على جميع المستويات مدى وصف الوحدة بإعطاء عدد الوحدات المادية بالأرقام العربية وتسمية المادة المحددة كما هو موضح في القاعدة الفرعية .5B في الفصل (الفصول) الذي يتعامل مع فئة (فئات) واسعة من المواد إلى التي تنتمي إليها الوحدة الموصوفة ". (RAD 1.5B1) قم بتضمين التفاصيل المادية الأخرى والأبعاد كما هو محدد في RAD 1.5C و 1.5D. افصل بين الإدخالات المتعددة في هذا الحقل بالضغط على زر رجوع (على سبيل المثال ، اضغط على مفتاح Enter بلوحة المفاتيح).</target>
       </trans-unit>
       <trans-unit id="1319">
         <source>Physical description</source>

@@ -80,6 +80,11 @@
     <exec command="make" dir="${phing.dir}/plugins/arDominionPlugin" checkreturn="true"/>
     <exec command="make" dir="${phing.dir}/plugins/arArchivesCanadaPlugin" checkreturn="true"/>
 
+    <echo>Build Bootstrap 5 theme</echo>
+    <exec command="npm install" dir="${phing.dir}" checkreturn="true"/>
+    <exec command="npm run build" dir="${phing.dir}" checkreturn="true"/>
+    <exec command="rm -rf node_modules" dir="${phing.dir}" checkreturn="true"/>
+
     <echo>Run symfony release task</echo>
     <exec command="php symfony release --no-confirmation ${package.version} stable" dir="${phing.dir}" checkreturn="true"/>
   </target>

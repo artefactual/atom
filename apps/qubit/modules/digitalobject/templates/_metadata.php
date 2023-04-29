@@ -133,9 +133,9 @@
 
           <?php if ($showMasterFileName) { ?>
             <?php if ($canAccessMasterFile) { ?>
-              <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename']); ?>
+              <?php echo render_show(__('Filename'), link_to($resource->name, $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename']); ?>
             <?php } else { ?>
-              <?php echo render_show(__('Filename'), render_value($resource->name), ['fieldLabel' => 'filename']); ?>
+              <?php echo render_show(__('Filename'), $resource->name, ['fieldLabel' => 'filename']); ?>
             <?php } ?>
           <?php } ?>
 
@@ -172,9 +172,9 @@
         <div class="digital-object-metadata-body">
           <?php if ($showReferenceCopyFileName) { ?>
             <?php if ($canAccessReferenceCopy && $sf_user->isAuthenticated()) { ?>
-              <?php echo render_show(__('Filename'), link_to(render_value_inline($referenceCopy->name), $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName']); ?>
+              <?php echo render_show(__('Filename'), link_to($referenceCopy->name, $referenceCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'referenceCopyFileName']); ?>
             <?php } else { ?>
-              <?php echo render_show(__('Filename'), render_value($referenceCopy->name), ['fieldLabel' => 'referenceCopyFileName']); ?>
+              <?php echo render_show(__('Filename'), $referenceCopy->name, ['fieldLabel' => 'referenceCopyFileName']); ?>
             <?php } ?>
           <?php } ?>
 
@@ -211,9 +211,9 @@
         <div class="digital-object-metadata-body">
           <?php if ($showThumbnailCopyFileName) { ?>
             <?php if ($canAccessThumbnailCopy) { ?>
-              <?php echo render_show(__('Filename'), link_to(render_value_inline($thumbnailCopy->name), $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
+              <?php echo render_show(__('Filename'), link_to($thumbnailCopy->name, $thumbnailCopy->getFullPath(), ['target' => '_blank']), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
             <?php } else { ?>
-              <?php echo render_show(__('Filename'), render_value($thumbnailCopy->name), ['fieldLabel' => 'thumbnailCopyFileName']); ?>
+              <?php echo render_show(__('Filename'), $thumbnailCopy->name, ['fieldLabel' => 'thumbnailCopyFileName']); ?>
             <?php } ?>
           <?php } ?>
 

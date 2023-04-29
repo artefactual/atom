@@ -94,6 +94,14 @@ class propelGenerateSlugsTask extends arBaseTask
 
         // Optionally delete existing slugs
         if ($options['delete']) {
+            $reservedSlugs = ['home', 'about'];
+            $privacySlug = 'privacy';
+
+            $privacyPage = QubitStaticPage::getBySlug($privacySlug);
+            if (!empty($privacyPage)) {
+                array_push($reservedSlugs, $privacySlug);
+            }
+
             foreach ($classesData as $class => $data) {
                 $table = constant($class.'::TABLE_NAME');
                 $this->logSection('propel', "Delete {$table} slugs...");
@@ -105,7 +113,8 @@ class propelGenerateSlugsTask extends arBaseTask
                 }
 
                 if ('QubitStaticPage' == $class) {
-                    $sql .= " AND slug NOT IN ('home','about')";
+                    $reservedSlugsString = "'".implode("','", $reservedSlugs)."'";
+                    $sql .= " AND slug NOT IN ({$reservedSlugsString})";
                 }
 
                 $conn->query($sql);

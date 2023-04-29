@@ -1,3 +1,9 @@
+<div class="visually-hidden-focusable p-3 border-bottom">
+  <a class="btn btn-sm btn-secondary" href="#main-column">
+    <?php echo __('Skip to main content'); ?>
+  </a>
+</div>
+    
 <?php echo get_component('default', 'privacyMessage'); ?>
 
 <?php echo get_component('default', 'updateCheck'); ?>

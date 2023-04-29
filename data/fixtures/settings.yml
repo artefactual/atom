@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 192
+    value: 193
   milestone:
     name: milestone
     editable: 0
@@ -74,6 +74,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Opis arhivske građe'
       ca: 'Descripció arxivística'
       ca@valencia: 'Descripció arxivística'
       cs: 'Archivní popisy'
@@ -114,6 +115,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Normirani zapis'
       ca: 'Registre d''autoritat'
       ca@valencia: 'Registre d''autoritat'
       cy: 'Cofnod awdurdod'
@@ -152,6 +154,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: منشئ
+      bs: Stvaratelj
       ca: Productor
       ca@valencia: Productor
       cy: Crëwr
@@ -194,6 +197,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Arhivska ustanova/institucija'
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
       cy: 'Sefydliad archifol'
@@ -217,7 +221,7 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt_BR: 'Instituição arquivística'
+      pt_BR: 'Entidade custodiadora'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
       sr: 'Архивска институција'
@@ -233,6 +237,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: Funkcija
       ca: Funció
       ca@valencia: Funció
       cy: Ffwythiant
@@ -270,6 +275,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: Pojam
       ca: Terme
       ca@valencia: Terme
       cy: Term
@@ -307,6 +313,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: الموضوع
+      bs: Predmet
       ca: Matèria
       ca@valencia: Matèria
       cy: Pwnc
@@ -349,6 +356,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: Fondovi
       ca: Fons
       ca@valencia: Fons
       cy: Fonds
@@ -388,6 +396,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: الممتلكات
+      bs: Građa
       ca: Fons
       ca@valencia: Fons
       cy: Daliadau
@@ -396,6 +405,7 @@ QubitSetting:
       de-CH: Bestände
       de_AT: Bestände
       de_CH: Bestände
+      el: Συλλογές
       en: Holdings
       es: Fondos
       eu: Inbertsioak
@@ -429,6 +439,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: المكان
+      bs: Mjesto
       ca: Lloc
       ca@valencia: Lloc
       cy: Lle
@@ -474,6 +485,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: الاسم
+      bs: Ime
       ca: Nom
       ca@valencia: Nom
       cy: Enw
@@ -518,12 +530,13 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Digitalni objekt'
       ca: 'Objecte digital'
       ca@valencia: 'Objecte digital'
       cy: 'Gwrthrych digidol'
       de: 'Digitales Objekt'
       de-CH: 'Digitales Objekt'
-      el: 'Ψηφιακό αντικείμενο'
+      el: 'Ψηφιακό αρχείο'
       en: 'Digital object'
       es: 'Objeto digital'
       eu: 'Objektu digitala'
@@ -557,6 +570,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: 'التخزين الفعلي'
+      bs: 'Fizičko spremište'
       ca: 'Unitat d''instal·lació'
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
@@ -598,6 +612,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: 'نوع الوسيط'
+      bs: 'Vrsta medija'
       ca: 'Tipus de suport'
       ca@valencia: 'Tipus de suport'
       cy: 'Math o gyfrwng'
@@ -642,6 +657,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Tip građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
       cy: 'Math o ddeunydd'
@@ -680,12 +696,13 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Ograniči rezultate za:'
       ca: 'Filtreu els resultats per:'
       ca@valencia: 'Restringir resultats per:'
       cy: 'Cyfyngwch eich canlyniadau yn ôl:'
       de: 'Grenzen Sie Ihre Trefferzahl ein durch:'
       de-CH: 'Grenzen Sie Ihre Trefferzahl ein durch:'
-      el: 'Κατάλογος κατόχων δικαιωμάτων'
+      el: 'Περιορίστε τα αποτελέσματά σας κατά:'
       en: 'Narrow your results by:'
       es: 'Restringir resultados por:'
       eu: 'Murriztu zure emaitzak:'
@@ -713,9 +730,11 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: Žanr
       cy: Genre
       de: Genre
       de-CH: Genre
+      el: Είδος
       en: Genre
       es: Tipo
       fr: Genre
@@ -741,6 +760,7 @@ QubitSetting:
     source_culture: en
     value:
       ar: بحث
+      bs: Pretraži
       ca: Cerca
       ca@valencia: Cercar
       cs: Hledat
@@ -768,7 +788,7 @@ QubitSetting:
       nl: zoeken
       pl: Szukaj
       pt: Pesquisar
-      pt_BR: Pesquisar
+      pt_BR: Buscar
       ro: Cautati
       ru: Поиск
       sl: Išči
@@ -786,6 +806,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Pretraži našu zbirku'
       cy: 'Chwiliwch ein casgliad'
       de: 'Durchsuche: unsere Sammlungen'
       de-CH: 'Unsere Bestände durchsuchen'
@@ -796,7 +817,7 @@ QubitSetting:
       id: 'Telusuri khazanah arsip kami'
       it: 'Cerca la'
       pt: 'Pesquise na nossa colecção'
-      pt_BR: 'Pesquise nossa coleção'
+      pt_BR: 'Busque na nossa coleção'
       sr: 'Претражи наше збирке'
       sv: 'Sök i vår samling'
   QubitSetting_fullTreeviewCollapseOpenedButtonText:
@@ -806,6 +827,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Sakrij hijerarhiju'
       cy: 'Cuddio''r hierarchaeth'
       en: 'Hide hierarchy'
       fr: 'Cacher la hiérarchie'
@@ -819,11 +841,13 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Prikaži hijerarhiju'
       cy: 'Dangos hierarchaeth'
       en: 'Show hierarchy'
+      fr: 'Afficher la hiérarchie'
       hr: 'Prikaži hijerarhiju'
       pt: 'Mostrar hierarquia'
-      pt_BR: 'Mostrar hierarquia'
+      pt_BR: 'Exibir hierarquia'
   QubitSetting_authority_record_relationships:
     name: authority_record_relationships
     scope: ui_label
@@ -831,6 +855,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      bs: 'Veze normiranog zapisa'
       cy: 'Cysylltiadau cofnod awdurdod'
       en: 'Authority record relationships'
       fr: 'Notice d''autorité - relations'

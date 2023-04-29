@@ -359,25 +359,27 @@
     </xsl:template>
     <!-- Special formatting for Language of material -->
     <xsl:template match="ead:langmaterial" mode="dsc">
-        <fo:block xsl:use-attribute-sets="smpDsc">
-            <fo:inline text-decoration="underline">
-                <xsl:value-of select="local:tagName(.)"/>
-            </fo:inline>:
-        </fo:block>
-        <fo:list-block xsl:use-attribute-sets="smpDsc">
-            <xsl:for-each select="ead:language">
-                <fo:list-item>
-                    <fo:list-item-label end-indent="label-end()">
-                        <fo:block>•</fo:block>
-                    </fo:list-item-label>
-                    <fo:list-item-body start-indent="body-start()">
-                        <fo:block>
-                            <xsl:value-of select="."/>
-                        </fo:block>
-                    </fo:list-item-body>
-                </fo:list-item>
-            </xsl:for-each>
-        </fo:list-block>
+        <xsl:if test="ead:language">
+            <fo:block xsl:use-attribute-sets="smpDsc">
+                <fo:inline text-decoration="underline">
+                    <xsl:value-of select="local:tagName(.)"/>
+                </fo:inline>:
+            </fo:block>
+            <fo:list-block xsl:use-attribute-sets="smpDsc">
+                <xsl:for-each select="ead:language">
+                    <fo:list-item>
+                        <fo:list-item-label end-indent="label-end()">
+                            <fo:block>•</fo:block>
+                        </fo:list-item-label>
+                        <fo:list-item-body start-indent="body-start()">
+                            <fo:block>
+                                <xsl:value-of select="."/>
+                            </fo:block>
+                        </fo:list-item-body>
+                    </fo:list-item>
+                </xsl:for-each>
+            </fo:list-block>
+        </xsl:if>
     </xsl:template>
     <!-- Special formatting for series elements in the collection inventory list -->
     <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:materialspec | ead:abstract | ead:container | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">

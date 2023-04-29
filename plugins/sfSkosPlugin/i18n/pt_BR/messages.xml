@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2022-08-05T23:18:56Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2022-11-23T16:53:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -14,31 +14,31 @@
       </trans-unit>
       <trans-unit id="12">
         <source>SKOS import</source>
-        <target>Importar SKOS</target>
+        <target>Importação de SKOS</target>
       </trans-unit>
       <trans-unit id="14">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target>O termo atual não pertence à taxonomia escolhida. </target>
+        <target>O termo atual não pertence à taxonomia escolhida.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>You must select a source to continue.</source>
-        <target>Você precisa selecionar uma fonte</target>
+        <target>Você precisa selecionar uma fonte para continuar.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target>Algo de errado aconteceu! Por favor cheque os logs de erro. Erro: %1%</target>
+        <target>Algo de errado aconteceu! Por favor verifique os logs de erro. Erro: %1%</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target>Importação de arquivo iniciada. Marque %1% tarefa %2%%3% para visualizar o estado da importação.</target>
+        <target>Importação de arquivo iniciada. Verifique a %1% tarefa %2%%3% para visualizar o estado atual da importação.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Import options</source>
-        <target>Importar opções</target>
+        <target>Opções de importação</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Select source</source>
-        <target>Selecionar origem</target>
+        <target>Selecionar fonte</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Or a remote resource</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Malformed URI.</source>
-        <target>URL falho</target>
+        <target>URL malformado.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Type of scheme: %1%</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target>As seguintes linguagens são utilizadas no dataset importado, mas não são suportado pelo AtoM: %1%</target>
+        <target>As seguintes linguagens são utilizadas no conjunto de dados importado, mas não são suportadas pelo AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="32">
         <source>A total of %1% concepts have been processed so far.</source>

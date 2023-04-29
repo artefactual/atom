@@ -1007,7 +1007,10 @@ EOF;
         try {
             $nestedSetTask = new propelBuildNestedSetTask($this->dispatcher, $this->formatter);
             $nestedSetTask->setConfiguration($this->configuration);
-            $nestedSetTask->run([], ['exclude-tables' => 'term,menu']);
+            $nestedSetTask->run([], [
+                'exclude-tables' => 'term,menu',
+                'index' => true,
+            ]);
         } catch (PDOException $e) {
             // Repeat on transaction deadlock (MySQL error code 1213)
             if (1213 == $e->errorInfo[1] && $retryCount < 3) {

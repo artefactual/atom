@@ -37,8 +37,8 @@
     <dc:type><?php echo esc_specialchars(strval($item)); ?></dc:type>
   <?php } ?>
 
-  <?php foreach ($dc->format as $item) { ?>
-    <dc:format><?php echo esc_specialchars(strval($item)); ?></dc:format>
+  <?php if ($dc->format) { ?>
+    <dc:format><?php echo esc_specialchars(strval($dc->format)); ?></dc:format>
   <?php } ?>
 
   <dc:identifier><?php echo esc_specialchars(sfConfig::get('app_siteBaseUrl').'/'.$resource->slug); ?></dc:identifier>

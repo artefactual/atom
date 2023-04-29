@@ -419,8 +419,8 @@ class QubitFindingAid
      */
     public function saveTranscript(): void
     {
-        // Truncate PDF text to <64KB to fit in `property.value` column
-        $text = mb_strcut($this->getTranscript(), 0, 65535);
+        // Truncate PDF text to <16MB to fit in `property.value` column
+        $text = mb_strcut($this->getTranscript(), 0, 16777215);
 
         $this->logger->info(
             sprintf('Saving transcript (%u bytes)', mb_strlen($text))

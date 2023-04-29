@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-08-05T23:18:26Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:23Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -544,7 +544,7 @@
       </trans-unit>
       <trans-unit id="1018">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target>Registar, se necessário para a sua identificação unívoca, os seguintes elementos: o código do país, de acordo com a última versão da ISO 3166: Codes for the representation of names of countries;  o código da entidade detentora, de acordo com a norma nacional de codificação das entidades detentoras, ou outro identificador específico de localização; Um código de referência local unívoco, um número de controlo, ou outro identificador único.</target>
+        <target>Registar, se necessário para a sua identificação unívoca, os seguintes elementos: o código do país, de acordo com a última versão da ISO 3166: Codes for the representation of names of countries; o código da entidade detentora, de acordo com a norma nacional de codificação das entidades detentoras, ou outro identificador específico de localização; Um código de referência local unívoco, um número de controlo, ou outro identificador único.</target>
       </trans-unit>
       <trans-unit id="1019">
         <source>Description identifier</source>
@@ -629,7 +629,7 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target>Registe citações para quaisquer fontes externas usadas na descrição arquivística (tais como Âmbito e Conteúdo, História Custodial ou Campos de notas). </target>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
       </trans-unit>
       <trans-unit id="1048">
         <source>Associated materials</source>

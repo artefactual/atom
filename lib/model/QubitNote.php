@@ -22,6 +22,27 @@ class QubitNote extends BaseNote
     // Flag for updating search index on save or delete
     public $indexOnSave = true;
 
+    public function __get($name)
+    {
+        $args = func_get_args();
+
+        $options = [];
+        if (1 < count($args)) {
+            $options = $args[1];
+        }
+
+        if ('type' === $name && true === $options['sourceCulture']) {
+            $sql = 'SELECT term_i18n.name FROM note
+                JOIN term_i18n ON term_i18n.id = note.type_id
+                WHERE term_i18n.id=?
+                AND note.id=? AND term_i18n.culture=?';
+
+            return QubitPdo::fetchColumn($sql, [$this->typeId, $this->id, $this->sourceCulture]);
+        }
+
+        return call_user_func_array([$this, 'BaseNote::__get'], $args);
+    }
+
     public function __toString()
     {
         if (null === $content = $this->getContent()) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2022-08-05T23:18:41Z" product-name="messages">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2022-11-23T16:53:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Log in with CAS</source>
-        <target/>
+        <target>Ouverture de session avec CAS</target>
       </trans-unit>
       <trans-unit id="28">
         <source>This user is inactive</source>

@@ -38,6 +38,7 @@ QubitStaticPage:
     slug: about
     source_culture: en
     title:
+      bs: Informacije
       ca: 'Quant a'
       ca@valencia: Sobre
       cy: Ynghylch
@@ -82,6 +83,7 @@ QubitStaticPage:
     slug: privacy
     source_culture: en
     title:
+      bs: 'Politika privatnosti'
       cy: 'Polisi Preifatrwydd'
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'

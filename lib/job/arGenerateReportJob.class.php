@@ -187,7 +187,7 @@ class arGenerateReportJob extends arBaseJob
             $parentTitle = QubitInformationObject::getStandardsBasedInstance($item->parent)->__toString();
             $creationDates = $this->getCreationDates($item);
 
-            $results[$parentFile][] = [
+            $columns = [
                 'resource' => $item,
                 'referenceCode' => QubitInformationObject::getStandardsBasedInstance($item)->referenceCode,
                 'title' => $item->getTitle(['cultureFallback' => true]),
@@ -198,8 +198,13 @@ class arGenerateReportJob extends arBaseJob
                 ) : '',
                 'startDate' => isset($creationDates) ? $creationDates->startDate : null,
                 'accessConditions' => $item->getAccessConditions(['cultureFallback' => true]),
-                'locations' => $this->getLocationString($item),
             ];
+
+            if (0 == sfConfig::get('app_generate_reports_as_pub_user', 1)) {
+                $columns['locations'] = $this->getLocationString($item);
+            }
+
+            $results[$parentFile][] = $columns;
         }
 
         // Sort items by selected criteria
