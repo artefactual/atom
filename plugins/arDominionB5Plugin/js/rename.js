@@ -68,7 +68,10 @@
     function updateSlugUsingAuthorizedFormOfName() {
       // Only update slug preview if the slug field's enabled
       if ($fieldCheckboxes["slug"].is(":checked")) {
-        fetchSlugPreview($fields["authorizedFormOfName"].val(), fetchSlugPreviewCallback);
+        fetchSlugPreview(
+          $fields["authorizedFormOfName"].val(),
+          fetchSlugPreviewCallback
+        );
       }
     }
 
