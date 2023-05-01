@@ -46,9 +46,11 @@ class QubitMenu extends BaseMenu
     }
 
     /**
-     * Wrapper for BaseMenu::getPath() call to allow additional functionality
-     *  option 'resolveAlias' - resolve aliases into full path
-     *  option 'getUrl' - resolve path to internal or external URL.
+     * Wrapper for BaseMenu::getPath() call to allow additional functionality.
+     *
+     * option 'resolveAlias' - resolve aliases into full path
+     * option 'getUrl' - resolve path to internal or external URL
+     * option 'removeIndex' - trim index.php from the start of path name
      *
      * @param array $options Optional parameters
      *
@@ -101,6 +103,11 @@ class QubitMenu extends BaseMenu
             }
 
             $path = $url;
+        }
+
+        if (isset($options['removeIndex']) && true === $options['removeIndex']) {
+            $regexForIndex = '/\A(\/(index|qubit_dev).php)/';
+            $path = preg_replace($regexForIndex, '', $path);
         }
 
         return $path;

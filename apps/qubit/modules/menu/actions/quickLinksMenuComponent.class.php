@@ -37,7 +37,7 @@ class menuQuickLinksMenuComponent extends sfComponent
         $this->quickLinks = [];
 
         foreach ($quickLinksMenu->getChildren() as $child) {
-            $url = $child->getPath(['getUrl' => true, 'resolveAlias' => true]);
+            $url = $child->getPath(['getUrl' => true, 'resolveAlias' => true, 'removeIndex' => true]);
             $urlParsed = parse_url($url);
 
             if (isset($urlParsed['scheme']) || QubitObject::actionExistsForUrl($url)) {
