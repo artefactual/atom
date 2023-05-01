@@ -27,8 +27,8 @@
             <hr />
 
             <div class="rename-form-field-toggle form-check mb-4">
-              <input class="form-check-input" type="checkbox" id="rename_enable_name" checked>
-              <label class="form-check-label" for="rename_enable_name">
+              <input class="form-check-input" type="checkbox" id="rename_enable_authorizedFormOfName" checked>
+              <label class="form-check-label" for="rename_enable_authorizedFormOfName">
                 <?php echo __('Update authorized form of name'); ?>
               </label>
             </div>
