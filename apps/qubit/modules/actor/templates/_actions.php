@@ -15,7 +15,9 @@
     <?php } ?>
 
     <?php if (QubitAcl::check($resource, 'update') || sfContext::getInstance()->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)) { ?>
-      
+
+      <li><?php echo link_to(__('Rename'), [$resource, 'module' => 'actor', 'action' => 'rename'], ['class' => 'c-btn', 'title' => __('Rename')]); ?></li>
+
       <li class="divider"></li>
 
       <li>
@@ -26,10 +28,6 @@
           </a>
 
           <ul class="dropdown-menu">
-
-            <li><?php echo link_to(__('Rename'), [$resource, 'module' => 'actor', 'action' => 'rename']); ?></li>
-
-            <li class="divider"></li>
 
             <?php if (0 < count($resource->digitalObjectsRelatedByobjectId) && QubitDigitalObject::isUploadAllowed()) { ?>
               <li><?php echo link_to(__('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]), [$resource->digitalObjectsRelatedByobjectId[0], 'module' => 'digitalobject', 'action' => 'edit']); ?></li>
