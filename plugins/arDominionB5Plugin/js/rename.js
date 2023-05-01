@@ -1,5 +1,5 @@
 (function ($) {
-  var fields = ["title", "slug", "filename"];
+  var fields = ["title", "authorizedFormOfName", "slug", "filename"];
   var asyncOpCounter = 0;
 
   // Convert text (can be a title or slug text) to an available slug
@@ -64,6 +64,14 @@
       }
     }
 
+    // Update slug field by getting a slug preview based on authorized form of name
+    function updateSlugUsingAuthorizedFormOfName() {
+      // Only update slug preview if the slug field's enabled
+      if ($fieldCheckboxes["slug"].is(":checked")) {
+        fetchSlugPreview($fields["authorizedFormOfName"].val(), fetchSlugPreviewCallback);
+      }
+    }
+
     // Callback to handle slug preview results
     function fetchSlugPreviewCallback(err, slug, padded) {
       $slugExistsWarningAlert.hide();
@@ -100,6 +108,11 @@
           updateSlugUsingTitle();
         }
 
+        // If user pressing enter from authorized form of name field, update slug if enabled
+        if ($fields["authorizedFormOfName"].is(":focus")) {
+          updateSlugUsingAuthorizedFormOfName();
+        }
+
         trySubmit();
       }
     });
@@ -126,6 +139,11 @@
     // If title changes, update slug
     $fields["title"].change(function () {
       updateSlugUsingTitle();
+    });
+
+    // If authorized form of name changes, update slug
+    $fields["authorizedFormOfName"].change(function () {
+      updateSlugUsingAuthorizedFormOfName();
     });
 
     // If slug changes, sanitize it and indicate if it has already been used
