@@ -437,6 +437,8 @@ class QubitInformationObject extends BaseInformationObject
         }
 
         $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
+        // Secondarily filter by ID in case UPDATED_AT has duplicate entries.
+        $criteria->addAscendingOrderByColumn(QubitObject::ID);
 
         if (empty($options['offset'])) {
             $options['offset'] = 0;
