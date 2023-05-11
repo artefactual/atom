@@ -98,13 +98,13 @@
                 ['mask' => $mask] + $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()
             ); ?>
 
-            <?php if ($rad->referenceCode) { ?>
+            <?php if ($rad->getProperty('referenceCode')) { ?>
               <div class="mb-3">
                 <h3 class="fs-6 mb-2">
                   <?php echo __('Reference code'); ?>
                 </h3>
                 <span class="text-muted">
-                  <?php echo render_value_inline($rad->referenceCode); ?>
+                  <?php echo render_value_inline($rad->getProperty('referenceCode')); ?>
                 </span>
               </div>
             <?php } ?>

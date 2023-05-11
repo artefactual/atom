@@ -77,9 +77,9 @@
 
   <?php echo render_show(__('Parallel title'), render_value($resource->getAlternateTitle(['cultureFallback' => true])), ['fieldLabel' => 'parallelTitle']); ?>
 
-  <?php echo render_show(__('Other title information'), render_value($rad->__get('otherTitleInformation', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformation']); ?>
+  <?php echo render_show(__('Other title information'), render_value($rad->getProperty('otherTitleInformation', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformation']); ?>
 
-  <?php echo render_show(__('Title statements of responsibility'), render_value($rad->__get('titleStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'titleStatementsOfResponsibility']); ?>
+  <?php echo render_show(__('Title statements of responsibility'), render_value($rad->getProperty('titleStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'titleStatementsOfResponsibility']); ?>
 
   <div class="field">
     <h3><?php echo __('Title notes'); ?></h3>
@@ -98,7 +98,7 @@
     <?php echo render_show_repository(__('Repository'), $resource); ?>
   </div>
 
-  <?php echo render_show(__('Reference code'), $rad->__get('referenceCode', ['cultureFallback' => true]), ['fieldLabel' => 'referenceCode']); ?>
+  <?php echo render_show(__('Reference code'), $rad->getProperty('referenceCode', ['cultureFallback' => true]), ['fieldLabel' => 'referenceCode']); ?>
 
 </section> <!-- /section#titleAndStatementOfResponsibilityArea -->
 
@@ -110,7 +110,7 @@
 
   <?php echo render_show(__('Edition statement'), render_value($resource->getEdition(['cultureFallback' => true])), ['fieldLabel' => 'editionStatement']); ?>
 
-  <?php echo render_show(__('Edition statement of responsibility'), render_value($rad->__get('editionStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'editionStatementOfResponsibility']); ?>
+  <?php echo render_show(__('Edition statement of responsibility'), render_value($rad->getProperty('editionStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'editionStatementOfResponsibility']); ?>
 
 </section> <!-- /section#editionArea -->
 
@@ -121,15 +121,15 @@
   <?php } ?>
 
 
-  <?php echo render_show(__('Statement of scale (cartographic)'), render_value($rad->__get('statementOfScaleCartographic', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
+  <?php echo render_show(__('Statement of scale (cartographic)'), render_value($rad->getProperty('statementOfScaleCartographic', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
 
-  <?php echo render_show(__('Statement of projection (cartographic)'), render_value($rad->__get('statementOfProjection', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfProjection']); ?>
+  <?php echo render_show(__('Statement of projection (cartographic)'), render_value($rad->getProperty('statementOfProjection', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfProjection']); ?>
 
-  <?php echo render_show(__('Statement of coordinates (cartographic)'), render_value($rad->__get('statementOfCoordinates', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfCoordinates']); ?>
+  <?php echo render_show(__('Statement of coordinates (cartographic)'), render_value($rad->getProperty('statementOfCoordinates', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfCoordinates']); ?>
 
-  <?php echo render_show(__('Statement of scale (architectural)'), render_value($rad->__get('statementOfScaleArchitectural', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
+  <?php echo render_show(__('Statement of scale (architectural)'), render_value($rad->getProperty('statementOfScaleArchitectural', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
 
-  <?php echo render_show(__('Issuing jurisdiction and denomination (philatelic)'), render_value($rad->__get('issuingJurisdictionAndDenomination', ['cultureFallback' => true])), ['fieldLabel' => 'issuingJurisdictionAndDenomination']); ?>
+  <?php echo render_show(__('Issuing jurisdiction and denomination (philatelic)'), render_value($rad->getProperty('issuingJurisdictionAndDenomination', ['cultureFallback' => true])), ['fieldLabel' => 'issuingJurisdictionAndDenomination']); ?>
 </section> <!-- /section#classOfMaterialSpecificDetailsArea -->
 
 <section class="section" id="datesOfCreationArea">
@@ -160,17 +160,17 @@
     <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Publisher\'s series area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'publishersSeriesArea', 'title' => __('Edit publisher\'s series area')]); ?>
   <?php } ?>
 
-  <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->__get('titleProperOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'titleProperOfPublishersSeries']); ?>
+  <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->getProperty('titleProperOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'titleProperOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->__get('parallelTitleOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'parallelTitleOfPublishersSeries']); ?>
+  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->getProperty('parallelTitleOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'parallelTitleOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Other title information of publisher\'s series'), render_value($rad->__get('otherTitleInformationOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformationOfPublishersSeries']); ?>
+  <?php echo render_show(__('Other title information of publisher\'s series'), render_value($rad->getProperty('otherTitleInformationOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformationOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Statement of responsibility relating to publisher\'s series'), render_value($rad->__get('statementOfResponsibilityRelatingToPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfResponsibilityRelatingToPublishersSeries']); ?>
+  <?php echo render_show(__('Statement of responsibility relating to publisher\'s series'), render_value($rad->getProperty('statementOfResponsibilityRelatingToPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfResponsibilityRelatingToPublishersSeries']); ?>
 
-  <?php echo render_show(__('Numbering within publisher\'s series'), render_value($rad->__get('numberingWithinPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'numberingWithinPublishersSeries']); ?>
+  <?php echo render_show(__('Numbering within publisher\'s series'), render_value($rad->getProperty('numberingWithinPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'numberingWithinPublishersSeries']); ?>
 
-  <?php echo render_show(__('Note on publisher\'s series'), render_value($rad->__get('noteOnPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'noteOnPublishersSeries']); ?>
+  <?php echo render_show(__('Note on publisher\'s series'), render_value($rad->getProperty('noteOnPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'noteOnPublishersSeries']); ?>
 
 </section> <!-- /section#publishersSeriesArea -->
 
@@ -291,7 +291,7 @@
     <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Standard number area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'standardNumberArea', 'title' => __('Edit standard number area')]); ?>
   <?php } ?>
 
-  <?php echo render_show(__('Standard number'), render_value($rad->__get('standardNumber', ['cultureFallback' => true])), ['fieldLabel' => 'standardNumber']); ?>
+  <?php echo render_show(__('Standard number'), render_value($rad->getProperty('standardNumber', ['cultureFallback' => true])), ['fieldLabel' => 'standardNumber']); ?>
 
 </section> <!-- /section#standardNumberArea -->
 

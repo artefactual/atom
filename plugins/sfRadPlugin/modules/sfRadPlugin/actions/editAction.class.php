@@ -152,14 +152,14 @@ class sfRadPluginEditAction extends InformationObjectEditAction
             case 'statementOfScaleCartographic':
             case 'titleStatementOfResponsibility':
             case 'titleProperOfPublishersSeries':
-                $this->form->setDefault($name, $this->rad[$name]);
+                $this->form->setDefault($name, $this->rad->getProperty($name));
                 $this->form->setValidator($name, new sfValidatorString());
                 $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;
 
             case 'languageNotes':
-                $this->form->setDefault($name, $this->rad[$name]);
+                $this->form->setDefault($name, $this->rad->getProperty($name));
                 $this->form->setValidator($name, new sfValidatorString());
                 $this->form->setWidget($name, new sfWidgetFormTextarea());
 
@@ -212,7 +212,7 @@ class sfRadPluginEditAction extends InformationObjectEditAction
             case 'statementOfScaleCartographic':
             case 'titleProperOfPublishersSeries':
             case 'titleStatementOfResponsibility':
-                $this->rad[$field->getName()] = $this->form->getValue($field->getName());
+                $this->rad->setProperty($field->getName(), $this->form->getValue($field->getName()));
 
                 break;
 

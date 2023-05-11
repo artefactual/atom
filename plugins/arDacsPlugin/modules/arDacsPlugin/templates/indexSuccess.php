@@ -61,7 +61,7 @@
     <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Identity elements').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'identityArea', 'title' => __('Edit identity elements')]); ?>
   <?php } ?>
 
-  <?php echo render_show(__('Reference code'), $dacs->referenceCode); ?>
+  <?php echo render_show(__('Reference code'), $dacs->getProperty('referenceCode')); ?>
 
   <?php echo render_show_repository(__('Name and location of repository'), $resource); ?>
 
@@ -123,7 +123,7 @@
     <?php echo render_show(__('Physical access'), render_value($resource->getPhysicalCharacteristics(['cultureFallback' => true]))); ?>
   <?php } ?>
 
-  <?php echo render_show(__('Technical access'), render_value($dacs->__get('technicalAccess', ['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Technical access'), render_value($dacs->getProperty('technicalAccess', ['cultureFallback' => true]))); ?>
 
   <?php echo render_show(__('Conditions governing reproduction'), render_value($resource->getReproductionConditions(['cultureFallback' => true]))); ?>
 
@@ -149,7 +149,7 @@
     </div>
   </div>
 
-  <?php echo render_show(__('Language and script notes'), render_value($dacs->languageNotes)); ?>
+  <?php echo render_show(__('Language and script notes'), render_value($dacs->getProperty('languageNotes'))); ?>
 
   <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(['cultureFallback' => true]))); ?>
 

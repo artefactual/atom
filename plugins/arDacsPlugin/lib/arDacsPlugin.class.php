@@ -22,15 +22,8 @@ class arDacsPlugin extends sfIsadPlugin
     // sfIsadPlugin is not using properties
     protected $property;
 
-    public function __get($name)
+    public function getProperty($name, $options = [])
     {
-        $args = func_get_args();
-
-        $options = [];
-        if (1 < count($args)) {
-            $options = $args[1];
-        }
-
         switch ($name) {
             case 'technicalAccess':
                 return $this->property('technicalAccess')->__get('value', $options);
@@ -42,7 +35,7 @@ class arDacsPlugin extends sfIsadPlugin
         }
     }
 
-    public function __set($name, $value)
+    public function setProperty($name, $value)
     {
         switch ($name) {
             case 'technicalAccess':

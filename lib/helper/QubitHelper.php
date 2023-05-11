@@ -44,8 +44,13 @@ function render_field($field, $resource = null, array $options = [])
         }
 
         try {
-            $source = $resourceRaw->__get($options['name'], ['sourceCulture' => true]);
-            $fallback = $resourceRaw->__get($options['name']);
+            if ($resourceRaw instanceof sfRadPlugin || $resourceRaw instanceof arDacsPlugin) {
+                $source = $resourceRaw->getProperty($options['name'], ['sourceCulture' => true]);
+                $fallback = $resourceRaw->getProperty($options['name']);
+            } else {
+                $source = $resourceRaw->__get($options['name'], ['sourceCulture' => true]);
+                $fallback = $resourceRaw->__get($options['name']);
+            }
         } catch (Exception $e) {
             if ('Unknown record property' !== substr($e->getMessage(), 0, 23)) {
                 throw $e;

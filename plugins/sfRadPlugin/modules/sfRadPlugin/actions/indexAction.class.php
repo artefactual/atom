@@ -94,7 +94,7 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                             ['required' => true],
                             ['required' => $this->context->i18n->__('Statement of scale (architectural) - This is a mandatory element for architectural drawing.')]
                         );
-                        $values['statementOfScaleArchitectural'] = $this->rad->statementOfScaleArchitectural;
+                        $values['statementOfScaleArchitectural'] = $this->rad->getProperty('statementOfScaleArchitectural');
 
                         break;
 
@@ -103,19 +103,19 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                             ['required' => true],
                             ['required' => $this->context->i18n->__('Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.')]
                         );
-                        $values['statementOfCoordinates'] = $this->rad->statementOfCoordinates;
+                        $values['statementOfCoordinates'] = $this->rad->getProperty('statementOfCoordinates');
 
                         $validatorSchema->statementOfProjection = new sfValidatorString(
                             ['required' => true],
                             ['required' => $this->context->i18n->__('Statement of projection (cartographic) - This is a mandatory element for cartographic material.')]
                         );
-                        $values['statementOfProjection'] = $this->rad->statementOfProjection;
+                        $values['statementOfProjection'] = $this->rad->getProperty('statementOfProjection');
 
                         $validatorSchema->statementOfScaleCartographic = new sfValidatorString(
                             ['required' => true],
                             ['required' => $this->context->i18n->__('Statement of scale (cartographic) - This is a mandatory element for cartographic material.')]
                         );
-                        $values['statementOfScaleCartographic'] = $this->rad->statementOfScaleCartographic;
+                        $values['statementOfScaleCartographic'] = $this->rad->getProperty('statementOfScaleCartographic');
 
                         break;
 
@@ -124,7 +124,7 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                             ['required' => true],
                             ['required' => $this->context->i18n->__('Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.')]
                         );
-                        $values['issuingJurisdictionAndDenomination'] = $this->rad->issuingJurisdictionAndDenomination;
+                        $values['issuingJurisdictionAndDenomination'] = $this->rad->getProperty('issuingJurisdictionAndDenomination');
 
                         break;
                 }

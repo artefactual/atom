@@ -84,7 +84,7 @@
         <?php echo get_partial('informationobject/identifierOptions', ['mask' => $mask]); ?>
         <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()); ?>
 
-        <?php echo render_show(__('Reference code'), $rad->referenceCode); ?>
+        <?php echo render_show(__('Reference code'), $rad->getProperty('referenceCode')); ?>
 
       </fieldset> <!-- #titleAndStatementOfResponsibilityArea -->
 
