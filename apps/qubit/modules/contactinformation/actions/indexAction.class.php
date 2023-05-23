@@ -21,8 +21,10 @@ class ContactInformationIndexAction extends sfAction
 {
     public function execute($request)
     {
+        $hasEditAccess = QubitAcl::check($this->resource, 'update')
+            || $this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID);
         // Check user authorization
-        if (!$this->getUser()->isAuthenticated()) {
+        if (!($this->getUser()->isAuthenticated() && $hasEditAccess)) {
             QubitAcl::forwardUnauthorized();
         }
 
