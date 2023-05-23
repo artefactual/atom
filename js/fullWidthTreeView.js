@@ -39,6 +39,14 @@
     });
   }
 
+  function commandNodeAndChildren($fwTreeView, id, command) {
+    var parent = $fwTreeView.jstree().get_node(id);
+
+    $fwTreeView.jstree(command, id);
+
+    parent.children.forEach((child) => $fwTreeView.jstree(command, child));
+  }
+
   function loadTreeView ()
   {
     var $treeViewConfig = $('#fullwidth-treeview-configuration');
@@ -129,6 +137,11 @@
           },
         },
         'check_callback': function (operation, node, node_parent, node_position, more) {
+          // Do nothing if node is disabled
+          if (node.state.disabled) {
+            return false;
+          }
+
           // Operations allowed:
           // - Before and after drag and drop between siblings
           // - Move core operations (node drop event)
@@ -218,12 +231,38 @@
     // a node is hovered to make it appear after node changes. It must
     // use the #fullwidth-treeview container to allow a higher
     // height than the node in multiple lines tooltips
+    var syncInitiated = {}; // Keep track of which syncs have been initiated
     var hoverNodeListener = function (e, data)
     {
+      // Configure tooltip
       $('a.jstree-anchor').tooltip({
         delay: 250,
         container: '#fullwidth-treeview'
       });
+
+      // Check sync of parent's children (if one hasn't yet been started)
+      var parent = data.node.parent;
+      var parentNode = $fwTreeView.jstree("get_json", parent);
+
+      if (parent != "#" && !(parent in syncInitiated) && ("href" in parentNode.a_attr)) {
+        syncInitiated[parent] = true;
+        commandNodeAndChildren($fwTreeView, parent, "disable_node");
+
+        var url = parentNode.a_attr.href + '/informationobject/fullWidthTreeViewSync';
+
+        $.get(url, function (response)
+        {
+          if (response["repair_successful"] === true) {
+            // Refresh parent's child nodes if a repair was needed and was successful
+            $fwTreeView.jstree("refresh_node", parent);
+          } else if (response["repair_successful"] === false) {
+            // Allow for syncing to be attempted again if a repair was needed, but failed
+            delete syncInitiated[parent];
+          }
+
+          commandNodeAndChildren($fwTreeView, parent, "enable_node");
+        });
+      }
     };
 
     // On node open: remove tooltip after a node is selected, the 
