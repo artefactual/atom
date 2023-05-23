@@ -244,7 +244,11 @@
       var parent = data.node.parent;
       var parentNode = $fwTreeView.jstree("get_json", parent);
 
-      if (parent != "#" && !(parent in syncInitiated) && ("href" in parentNode.a_attr)) {
+      if (parent != "#"
+        && document.cookie.indexOf("atom_authenticated=1") != -1
+        && !(parent in syncInitiated)
+        && ("href" in parentNode.a_attr)
+      ) {
         syncInitiated[parent] = true;
         commandNodeAndChildren($fwTreeView, parent, "disable_node");
 

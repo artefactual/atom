@@ -40,11 +40,11 @@ class InformationObjectFullWidthTreeViewSyncAction extends sfAction
             return $this->renderText(json_encode(['error' => $i18n->__('Sync not allowed: log in required')]));
         }
 
-        // Check user permissions
-        if (!QubitAcl::check($this->resource, 'update')) {
-            $this->response->setStatusCode(403);
+        // Accept request, but don't perform check/repair if user isn't allowed to perform move
+        if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)) {
+            $responseData = ['checked' => false];
 
-            return $this->renderText(json_encode(['error' => $i18n->__('Sync not allowed: not enough permissions')]));
+            return $this->renderText(json_encode($responseData));
         }
 
         // Sync Elasticsearch values with DB if need be
