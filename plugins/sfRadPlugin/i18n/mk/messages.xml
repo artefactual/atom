@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2022-11-24T11:04:17Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -82,11 +82,11 @@
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
-        <target/>
+        <target>„Наведете ги датумите на создавање на единицата што се опишуваат или како единствен датум или опсег на датуми (за гранични години и/или предоминантни години). Секогаш наведувајте ги граничните години. Кога давате предоминантни датуми, наведете ги како такви , пред зборот предоминантен...“ (RAD 1.4B2) Запишете претпоставени и несигурни датуми во аглести загради, користејќи ги правилата опишани во 1.4B5.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
-        <target/>
+        <target>„Направете белешки за датумите и сите детали кои се однесуваат на датумите на создавање, публикување или дистрибуција на единицата што се опишува, а кои не се вклучени во датумот(ите) на создавање, вклучувајќи публикување, дистрибуција и сл., за области кои се сметаат за важни“. (RAD 1.8B8) "Направете белешки за датумот(ите) на преземање или депонирање на единицата што се опишува." (RAD 1.8B8a)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="30">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
-        <target/>
+        <target>„Кога е можно, буквално препишете ги паралелните наслови што се појавуваат заедно со формалниот оригинален наслов...“ (RAD 1.1D)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel titles</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
-        <target/>
+        <target>„Препишете и други информации за насловот што се појавуваат заедно со официјалниот наслов...“ (RAD 1.1E)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other title information</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>„На ниво на опис на документ, препишете експлицитни изјави за одговорност кои се однесуваат на формалниот наслов во или на главниот извор на информации...“ (RAD 1.1F)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Statement of responsibility</source>
@@ -174,7 +174,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>„Користете го ова поле само во описот на ниво на документ за да се наведат податоци кои се однесуваат на постоење на две или повеќе верзии или една или повеќе копии“. (RAD 1.2A1) „Препишете ја изјавата за изданието што се однесува на единицата што се опишува“. (RAD 1.2B1) „Ако единицата што се опишува нема податок за изданието, но се знае дека содржи значителни разлики од другите изданија, наведете кратка информација на јазикот и писмото на вистинскиот наслов и ставете ја во квадратни загради“. (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Edition statement</source>
@@ -182,7 +182,7 @@
       </trans-unit>
       <trans-unit id="45">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>„Препишете ја изјавата за одговорност (извршете транскрипција) која се однесува на едно или повеќе изданија, но не и на сите изданија, на ставката што е опишана по изјавата за изданието, доколку постои“. (RAD 1.2.C1) „Кога го опишувате првото издание, наведете ги сите податоци за одговорност во областа Наслов и изјава за одговорност." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Statement of responsibility relating to the edition</source>
@@ -194,7 +194,7 @@
       </trans-unit>
       <trans-unit id="48">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>„Наведете ја скалата на единицата што се опишува изразена како сооднос (1: ). Да се наведе и ако е веќе посочена како дел од насловот или во податоците за насловот“. (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Statement of scale (cartographic)</source>
@@ -202,7 +202,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>„Наведете го податокот за проекција доколку се наоѓа на главниот(и) извор(и) на информации." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
@@ -210,7 +210,7 @@
       </trans-unit>
       <trans-unit id="52">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>"На ниво на фонд, серија или досие, впишете ги географските координати на максималниот опсег на единица архивски материјал, се додека се разумно во континуитет." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Statement of coordinates (cartographic)</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>Наведете ја на македонски јазик скалата на единица мерка што се наоѓа во единицата што се опишува. Ако нема македонски еквивалент за името на единицата мерка, наведете го името, во наводници, како што се наоѓа во единицата што се опишува. (RAD 6,3B)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Statement of scale (architectural)</source>
@@ -226,7 +226,7 @@
       </trans-unit>
       <trans-unit id="56">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>„Наведете го името на правниот субјект (на пример, владата) одговорен за издавање на филателистички архивски материјал“. (RAD 12.3B1) „За сите архивски единици кои имаат номинална вредност (на пр., поштенски марки, поштенски материјал, акцизни марки, поштенски канцелариски пратки), да се наведе номиналната вредност во стандардизиран формат, запишувајќи ја номиналната вредност со арапски бројки проследено со името на единицата валута. Вклучете податок за номиналната вредност, дури и ако е веќе запишана како дел од вистинскиот наслов или како дел од насловот." (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>„На сите нивоа, запишете го обемот на единицата што се опишува со давање на бројот на физички единици со арапски бројки и специфичната ознака на материјалот како што е наведено во подправилото .5Б во поглавјето(а) кои се однесуваат на широката класа(и) материјал на која припаѓа единицата што се опишува“. (RAD 1.5B1) Вклучете други физички детали и димензии како што е наведено во RAD 1.5C и 1.5D. Одделете повеќе записи во ова поле со копчето Return (т.е. притиснете го копчето Enter на тастатурата).</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Physical description</source>
@@ -258,7 +258,7 @@
       </trans-unit>
       <trans-unit id="64">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>„На ниво на опис на документот, препишете го оригиналниот наслов соодветен на серијата на издавачот како што е наведено во 1.1B1. (RAD 1,6B)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Title proper of publisher's series</source>
@@ -266,7 +266,7 @@
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>„Препишете ги паралелните наслови на сериите на издавачот како што е наведено во 1.1D“. (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
-        <target/>
+        <target>„Впишете (со транскрипција) и други информации за насловот на сериите на издавачот како што е наведено во 1.1E ,и само ако се смета дека е неопходно за идентификување на сериите на издавачот“. (RAD 1.6D1)</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Other title information of publisher's series</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="70">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
-        <target/>
+        <target>„Препишете ги експлицитните изјави за одговорност што се појавуваат заедно со формалниот наслов соодветен на серијата на издавачот како што е наведено во 1.1F и само ако се смета дека е неопходно за идентификување на серијата на издавачот“. (RAD 1.6E1)</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Statement of responsibility relating to publisher's series</source>
@@ -290,7 +290,7 @@
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>„Наведете ја нумерацијата на единицата во издавачката серија користејќи ги термините дадени во предметот“. (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
@@ -298,7 +298,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>„Направете белешки за важните детали од издавачките целини што не се вклучени во Областа на издавачки целини (серии), вклучувајќи верзии на наслови, некомплетни целини и броеви или букви што подразбираат издавачка целина. (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Note on publisher's series</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>„Наведете го историјатот на чувањето на единицата што се опишува, т.е. последователните преноси на сопственост и старателство или контрола над архивскиот материјал, заедно со датумите, колку што може да се утврдат“. (RAD 1,7C)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Custodial history</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="80">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>„На нивото на опис на фонд, серија и збирка, и кога е потребно на нивото на опис на досие или документ, означете го нивото што се опишува и дадете информации за опсегот и внатрешната структура или распоредот на записите, и за нивната содржина“. (RAD 1.7D) „За обемот на единицата што се опишува, дадете информации за функциите и/или видовите активности што ги генерираат записите, временскиот период, предметот и географската област на која тие се однесуваат. За содржината на единицата што се опишува, дадете информација за нејзината внатрешна структура со означување на нејзиниот распоред, организација и/или набројувајќи го неговото следно најниско ниво на опис. Сумирајте ги главните документарни форми (на пр., извештаи, записници, кореспонденција, цртежи, говори). " (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
@@ -334,7 +334,7 @@
       </trans-unit>
       <trans-unit id="83">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>„Направете белешки за физичката состојба на единицата што се опишува, ако таа состојба материјално влијае на јасноста или читливоста на записот. (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
@@ -342,7 +342,7 @@
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>„Да се наведе имателот што предава архивски материјал или изворот (т.е. непосредниот претходен имател) од кого е купена единицата што се опишува, како и датумот и начинот на стекнување, како и односот на изворот/предавателот со материјалот, доколку овие информации не се доверливи. Доколку изворот/донаторот е непознат, да се запише ја таа информација“. (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
@@ -350,11 +350,11 @@
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>„Направете белешки за системот на средување на единицата што се опишува, кои значително придонесуваат за нејзиното разбирање, а кои не можат да се стават во рамки на Опсегот и содржината (види 1.7Д), на пр., за реорганизација(и) на создавачот, средување од страна на архивисти, промени во шемата за класификација или реконституција на првобитниот ред“. (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>„Запишете го јазикот или јазиците на единицата што се опишува, освен ако тие не се забележани на друго место или се видливи од други елементи на описот“. (RAD 1.8.B14). Изберете го јазикот од опаѓачкото мени; внесете ги првите неколку букви за да го стесните изборот.</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Language of material</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>„Забележете ги сите употребени карактеристични азбучни/алфабетски системи или системи на симболи кои се користат“. (RAD 1.8.B14) Изберете го писмото од паѓачкото мени; внесете ги првите неколку букви за да го стесните изборот.</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script of material</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>„Забележете го јазикот или јазиците на единицата што се опишува, освен ако не се забележани на друго место или не се видливи од другите елементи на описот. Исто така, забележете ги сите употребени карактеристични азбуки или симболи“. (RAD 1.8B14). Не дуплирајте информации додадени преку паѓачкото мени во полињата за јазик или скрипта.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Language and script notes</source>
@@ -378,11 +378,11 @@
       </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>„Ако единицата што се опишува е репродукција и локацијата на оригиналниот материјал е позната, наведете ја таа локација. Дополнително, наведете ги сите идентификациски броеви што може да помогнат во лоцирањето на оригиналниот материјал на наведената локација. Ако е познато дека оригиналот не постои, да се наведе и таа информација“. (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="95">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>„Ако целата или дел од единицата што се опишува е достапна (во институцијата или на друго место) во друг(и) формат(и), на пр., ако текстот што се опишува е достапен и на микрофилм; или ако филмот е достапен и на видеокасета, направете белешка во која ќе го означите другиот формат(и) во кој е достапна единицата што се опишува и нејзината локација, доколку таа информација е позната. " (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Availability of other formats</source>
@@ -390,7 +390,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"Наведете информации за сите ограничувања поставени за пристап до единицата (или делови од единицата) што се опишува." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Restrictions on access</source>
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit id="101">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>„Наведете информации во врска со постоењето на информациски помагала. Вклучете соодветни административни и/или интелектуални контролни алатки за контрола на материјалот, кои се достапни во моментот на опишување на единицата, како што се каталози, списоци со кутии, списоци со серии, инвентари, индекси итн. " (RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="102">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
@@ -426,7 +426,7 @@
       </trans-unit>
       <trans-unit id="106">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>„Кога единицата што се опишува сè уште не е комплетна, на пр., отворен фонд или серија, направете белешка дека се очекува дополнување... Ако не се очекуваат понатамошни дополнувања, означете дека единицата се смета за затворена“. (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
@@ -434,11 +434,11 @@
       </trans-unit>
       <trans-unit id="108">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>„Наведете го меѓународно стандардизираниот број на книга (ISBN), меѓународно стандардизираниот сериски број на публикација (ISSN) или кој било друг меѓународно договорен стандардизиран број за предметот што се опишува. (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>Пристапни точки</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
@@ -470,7 +470,7 @@
       </trans-unit>
       <trans-unit id="117">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"Изберете потекло-провениенција, автор и други точки за пристап што не се предмет на архивскиот опис, според потребата. Сите пристапни точки мора да бидат видливи од архивскиот опис на кој се однесуваат." (RAD 21.0B) Вредностите во ова поле се извлечени од полето официјално име во стандардизиран запис. Пребарајте постоечко име со впишување на првите неколку знаци од името. Алтернативно, напишете ново име за креирање и поврзување со нов нормативен запис.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Control area</source>
@@ -662,7 +662,7 @@
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
-        <target/>
+        <target>Подрачје на пристап</target>
       </trans-unit>
     </body>
   </file>

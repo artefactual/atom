@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2022-11-23T16:54:35Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2023-05-25T18:35:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -240,14 +240,6 @@
         <source>Edit</source>
         <target>Hiệu</target>
       </trans-unit>
-      <trans-unit id="64">
-        <source>Delete</source>
-        <target>Xóa</target>
-      </trans-unit>
-      <trans-unit id="65">
-        <source>Add new</source>
-        <target>Thêm mới</target>
-      </trans-unit>
       <trans-unit id="66">
         <source>Related resources</source>
         <target>Nguồn lực liên quan</target>
@@ -459,14 +451,6 @@
       <trans-unit id="118">
         <source>Slug must be provided</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="119">
-        <source>More</source>
-        <target>Hơn</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Link %1%</source>
-        <target>Liên kết %1%</target>
       </trans-unit>
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>

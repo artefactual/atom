@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2022-11-23T16:53:11Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2023-05-25T18:34:01Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -357,14 +357,6 @@
         <source>Edit</source>
         <target>편집</target>
       </trans-unit>
-      <trans-unit id="96">
-        <source>Delete</source>
-        <target>삭제</target>
-      </trans-unit>
-      <trans-unit id="97">
-        <source>Add new</source>
-        <target>새 항목 추가</target>
-      </trans-unit>
       <trans-unit id="98">
         <source>Edit identity area</source>
         <target>식별 영역 편집</target>
@@ -460,14 +452,6 @@
       <trans-unit id="122">
         <source>Slug must be provided</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="123">
-        <source>More</source>
-        <target>좀 더</target>
-      </trans-unit>
-      <trans-unit id="124">
-        <source>Link %1%</source>
-        <target>%1%를 링크시키라</target>
       </trans-unit>
       <trans-unit id="125">
         <source>%1%Authority record identifier%2% - value not unique.</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2022-11-23T16:54:29Z" product-name="messages">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2023-05-25T18:35:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -284,14 +284,6 @@
         <source>Edit</source>
         <target>Edytuj</target>
       </trans-unit>
-      <trans-unit id="79">
-        <source>Delete</source>
-        <target>Usuń</target>
-      </trans-unit>
-      <trans-unit id="80">
-        <source>Add new</source>
-        <target>Dodaj nowy</target>
-      </trans-unit>
       <trans-unit id="81">
         <source>Related corporate bodies, persons or families</source>
         <target>Powiązane ciała zbiorowe, osoby, rodziny.</target>
@@ -454,14 +446,6 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Slug must be provided</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="123">
-        <source>More</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="124">
-        <source>Link %1%</source>
         <target/>
       </trans-unit>
       <trans-unit id="125">

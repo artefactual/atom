@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2022-11-23T16:54:05Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2023-05-25T18:34:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -356,14 +356,6 @@
         <source>Maintenance notes</source>
         <target>维护说明</target>
       </trans-unit>
-      <trans-unit id="94">
-        <source>Delete</source>
-        <target>删除</target>
-      </trans-unit>
-      <trans-unit id="95">
-        <source>Add new</source>
-        <target>添加新的</target>
-      </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>
         <target>相关资源</target>
@@ -455,14 +447,6 @@
       <trans-unit id="118">
         <source>Slug must be provided</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="119">
-        <source>More</source>
-        <target>更多的</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Link %1%</source>
-        <target>链接 %1%</target>
       </trans-unit>
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>

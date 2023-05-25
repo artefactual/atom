@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ur" datatype="plaintext" original="messages" date="2022-08-05T16:59:37Z" product-name="messages">
+  <file source-language="en" target-language="ur" datatype="plaintext" original="messages" date="2023-05-25T17:57:47Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -384,14 +384,6 @@
         <source>Maintenance notes</source>
         <target/>
       </trans-unit>
-      <trans-unit id="99">
-        <source>Delete</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="100">
-        <source>Add new</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="101">
         <source>Related corporate bodies, persons or families</source>
         <target/>
@@ -454,14 +446,6 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Slug must be provided</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="117">
-        <source>More</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="118">
-        <source>Link %1%</source>
         <target/>
       </trans-unit>
       <trans-unit id="119">

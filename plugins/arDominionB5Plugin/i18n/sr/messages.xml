@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2022-11-23T16:53:07Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2023-05-25T18:33:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5476,6 +5476,26 @@
       <trans-unit id="1368">
         <source>Script of description</source>
         <target>Писмо описа</target>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Update authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>Original authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
