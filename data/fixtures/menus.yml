@@ -474,6 +474,7 @@ QubitMenu:
       ja: 受入記録
       ka: 'დაშვების დოკუმენტები'
       ko: '인수 기록'
+      mk: 'Записник за преземање'
       nl: 'Aanwinst documentatie'
       pl: Nabytki
       pt: 'Registo de incorporação'
@@ -1546,6 +1547,7 @@ QubitMenu:
       ja: このウェブサイトについて
       ka: შესახებ
       ko: About
+      mk: За
       nl: Over
       pl: O...
       pt: Sobre

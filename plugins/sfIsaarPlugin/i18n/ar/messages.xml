@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2022-11-23T16:54:43Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-05-25T18:35:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>"صِف الهيكل الداخلي لأي هيئة وتواريخ أي تغييرات تطرأ على هذا الهيكل، والتي تعتبر مهمة لفهم الطريقة التي تدير بها الهيئة شؤونها (على سبيل المثال ، عن طريق المخططات التنظيمية المؤرخة). وصِف سلسلة نسب العائلة ( على سبيل المثال عن طريق شجرة العائلة) بطريقة توضح العلاقات المتبادلة لأعضائها مع تواريخ التغطية. " (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>"قدم أي معلومات مهمة عن السياق الاجتماعي والثقافي والاقتصادي والسياسي و / أو التاريخي الذي يعمل فيه الكيان الموصوف." (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Relationships area</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="42">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>"الغرض: لتحديد الاتفاقيات أو القواعد الوطنية أو الدولية المطبقة في إنشاء سجل هيئة أرشيفية. القاعدة: تسجيل الأسماء وحيثما تكون الإصدارات أو تواريخ النشر للاتفاقيات أو القواعد المطبقة مفيدة. حدد بشكل منفصل القواعد التي تم تطبيقها لإنشاء شكل معتمد للاسم. قم بتضمين إشارة إلى أي نظام (أنظمة) للتعارف تستخدم لتحديد التواريخ في التسجيلة الاستنادية (مثل ISO 8601). " (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Rules and/or conventions used</source>
@@ -254,7 +254,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target/>
+        <target>"الغرض: تحديد الفئة العامة للعلاقة بين الكيان الموصوف وكيان اعتباري آخر أو شخص أو عائلة." (ISAAR 5.3.2). حدد فئة من القائمة المنسدلة: هرمية أو مؤقتة أو عائلية أو ترابطية.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Category of relationship</source>
@@ -356,14 +356,6 @@
         <source>Maintenance notes</source>
         <target>ملاحظات الصيانة</target>
       </trans-unit>
-      <trans-unit id="94">
-        <source>Delete</source>
-        <target>حذف</target>
-      </trans-unit>
-      <trans-unit id="95">
-        <source>Add new</source>
-        <target>أضف جديد</target>
-      </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>
         <target>مصادر ذات الصلة</target>
@@ -382,11 +374,11 @@
       </trans-unit>
       <trans-unit id="100">
         <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"قدم المعرفات الفريدة / الرموز المرجعية و / أو العناوين المواد أو المصادر ذات الصلة." (ISAAR 6.1) حدد العنوان من القائمة المنسدلة ؛ أدخل المعرف أو الأحرف القليلة الأولى لتضييق الخيارات.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
-        <target/>
+        <target>"صِف طبيعة العلاقات بين المجتمع أو الشخص أو العائلة والمورد ذي الصلة." (ISAAR 6.3) حدد نوع العلاقة من القائمة المنسدلة ؛ هذه القيم مأخوذة من تصنيف أنواع الأحداث.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Nature of relationship</source>
@@ -394,7 +386,7 @@
       </trans-unit>
       <trans-unit id="103">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
-        <target/>
+        <target>"حدد نوع المصادر ذات الصلة ، على سبيل المثال ، مواد أرشيفية (وحدات أرشيفية، سلسلة وثائقية، إلخ) ، تسجيلة وصف أرشيفية ، وسائل الإيجاد ، دراسة ، مقال في مجلة ، موقع ويب ، صور فوتوغرافية ، ومجموعة متحفية ، وفيلم وثائقي ، وتسجيل التاريخ الشفوي." (ISAAR 6.2) في الإصدار الحالي من التطبيق، يتم توفير المادة الأرشيفية باعتبارها القيمة الافتراضية الوحيدة.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Type of related resource</source>
@@ -402,7 +394,7 @@
       </trans-unit>
       <trans-unit id="105">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>"يرجى تقديم أي تواريخ ذات صلة للموارد ذات الصلة و/أو العلاقة بين الجهة القانونية أو الشخص أو العائلة والمورد ذي الصلة." (ISAAR 6.4) يرجى إدخال التاريخ كما ترغب بظهوره في صفحة العرض للتسجيلة الاستنادية، باستخدام المُعرفات و/أو الرموز الطباعية للتعبير عن عدم وضوح التاريخ إذا رغبت في ذلك.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
@@ -455,14 +447,6 @@
       <trans-unit id="118">
         <source>Slug must be provided</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="119">
-        <source>More</source>
-        <target>أكثر</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Link %1%</source>
-        <target>الرابط٪ 1٪</target>
       </trans-unit>
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>

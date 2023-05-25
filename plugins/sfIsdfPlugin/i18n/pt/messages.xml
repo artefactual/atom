@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:23Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2023-05-25T18:34:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -214,8 +214,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
-        <target>Seleccionar Completo, Parcial ou Minimos da lista de opções. "Na ausência de regras ou diretrizes nacionais, registos mínimos são aqueles que consistem somente dos três elementos essenciais de um registo conforme à ISDF (ver 4.7), enquanto
-registos completos são os que fornecem informação para todos os elementos de descrição da ISDF pertinentes. (ISDF 5.4.5)</target>
+        <target>No menu suspenso, selecione Completo, Parcial ou Minimo. "Na ausência de regras ou diretrizes nacionais, registros mínimos são aqueles que consistem somente dos três elementos essenciais de um registro conforme a ISDF (ver 4.7), enquanto registros completos são os que fornecem informações para todos os elementos de descrição da ISDF pertinentes. (ISDF 5.4.5)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Level of detail</source>
@@ -335,7 +334,7 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="86">
         <source>Please complete all required fields.</source>
-        <target/>
+        <target>Por favor, preencha todos os campos obrigatórios.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:23Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2023-05-25T18:34:12Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -388,7 +388,7 @@
       </trans-unit>
       <trans-unit id="973">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target>Seleccionar a Designação Geral do Material da descrição de nível mais elevado. Se houver mais do que três, escolher  "múltiplos suportes" (RAD 1.1C)</target>
+        <target>Selecione a Designação Geral do Material da descrição de nível mais alto. Se houver mais do que três, escolha "múltiplas mídias" (RAD 1.1C)</target>
       </trans-unit>
       <trans-unit id="974">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
@@ -452,7 +452,7 @@
       </trans-unit>
       <trans-unit id="992">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target>Em todos os níveis, gravar a extensão da unidade que está a ser descrita, indicando o número de unidades físicas em algarismos arábes e a designação específica do material conforme a sub-regra .5B do(s) capítulo(s) relativo(s) à classe genérica de material a que a unidade a ser descrita pertence." (RAD 1.5B1) Incluir outros detalhes físicos e dimensões conforme especificado na RAD 1.5C e 1.5D. Separar as várias entradas neste campo pressionando a tecla Enter do teclado.</target>
+        <target>Em todos os níveis, gravar a extensão da unidade que está sendo descrita, indicando o número de unidades físicas em algarismos arábicos e a designação específica do material conforme a sub-regra .5B do(s) capítulo(s) relativo(s) à classe genérica de material a que a unidade sendo descrita pertence." (RAD 1.5B1) Incluir outros detalhes físicos e dimensões conforme especificado na RAD 1.5C e 1.5D. Separar as várias entradas neste campo pressionando a tecla Enter do teclado.</target>
       </trans-unit>
       <trans-unit id="993">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
@@ -556,8 +556,7 @@
       </trans-unit>
       <trans-unit id="1021">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target>Registar as regras ou convenções internacionais, nacionais e/ou locais utilizadas na
-elaboração da descrição.</target>
+        <target>Registre as regras ou convenções internacionais, nacionais e/ou locais utilizadas na elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1022">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -629,7 +628,7 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Conteúdo, História Custodial, ou Campos de notas).</target>
       </trans-unit>
       <trans-unit id="1048">
         <source>Associated materials</source>

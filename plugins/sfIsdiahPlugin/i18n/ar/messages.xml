@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2022-11-23T16:54:43Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-05-25T18:35:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"الغرض: للإشارة إلى الأشكال المختلفة التي يظهر بها الشكل المعتمد لاسم المؤسسة بلغات أخرى أو في شكل (أشكال) نصية أخرى. القاعدة: سجل النموذج (الأشكال) الموازي لاسم المؤسسة وفقًا لأي اسم وطني أو الاتفاقيات أو القواعد الدولية التي تطبقها الوكالة التي أنشأت الوصف ، بما في ذلك أي عناصر فرعية و / أو مؤهلات ضرورية تتطلبها تلك الاتفاقيات أو القواعد. حدد في القواعد و / أو الاتفاقيات المستخدمة العنصر (5.6.3) القواعد التي تم تطبيقها. " (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"حدد المنطقة الجغرافية التي تنتمي إليها المؤسسة. سجل أي معلومات أخرى ذات صلة حول السياق الثقافي للمؤسسة." (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"صِف ، في شكل سردي أو باستخدام المخططات التنظيمية ، الهيكل الإداري الحالي للمؤسسة." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>وصف سياسات الوصول ، بما في ذلك أي قيود و / أو لوائح لاستخدام المواد والمُرفقات. سجل معلومات حول التسجيل والمواعيد وتذاكر القراء وخطابات التعريف ورسوم القبول وما إلى ذلك ، عند الحاجة ، قم بالإشارة إلى التشريعات ذات الصلة. " (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>

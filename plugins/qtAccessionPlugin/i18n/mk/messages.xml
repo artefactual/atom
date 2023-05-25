@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2022-11-24T11:04:17Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -106,7 +106,7 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Accession area</source>
-        <target/>
+        <target>Подрачје на пристап</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Related accession(s)</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Accession number</source>
-        <target/>
+        <target>Пристапен/инвентарен број</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Title</source>
@@ -262,19 +262,19 @@
       </trans-unit>
       <trans-unit id="65">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Вид:%2% Изберете го видот на настанот.%3%</target>
       </trans-unit>
       <trans-unit id="66">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Датум:%2% Внесете го датумот на настанот.%3%</target>
       </trans-unit>
       <trans-unit id="67">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Агент:%2% Внесете го агентот поврзан со настанот.%3%</target>
       </trans-unit>
       <trans-unit id="68">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Забелешка:%2% Внесете белешки поврзани со настанот.%3%</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Edit accession record</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Пристапниот/инвентарниот број треба да биде комбинација од вредности запишани во полето и треба да биде единствен инвентарен број за депото</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Server error while checking identifer availability.</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Датумот на пристапување го претставува датумот на прием на материјалите и се додава во текот на процесот на прием.</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Опис на физичката локација во депото каде што може да се пристапи до материјалот.</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Location information</source>
@@ -350,7 +350,7 @@
       </trans-unit>
       <trans-unit id="87">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Идентификувајте и запишете ги датумите на единицата за опис. Идентификувајте го типот на наведениот датум. Запишете како единствен датум или опсег на датуми како што е соодветно." (ISAD 3.1.3). Полето за прикажување датум може да се користи за внесување информации за датумот на слободен текст, вклучително и типографски знаци за изразување проценка, несигурност или квалификација. Користете ги полињата за почеток и крај за да ги направите датумите пребарливи. Не користете никакви квалификатори или типографски симболи за изразување несигурност. Прифатливи формати на датуми: ГГГГММДД, ГГГГ-ММ-ДД, ГГГГ-ММ, ГГГГГ.</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Опис на интелектуалната содржина и видовите документи претставени во пристапот.</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
@@ -374,7 +374,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Опис на физичката состојба на материјалот и дали е потребна било каква посебна заштита или ракување.</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Physical condition</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>%1% area</source>
-        <target/>
+        <target>%1% подрачје</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Alternative identifier(s)</source>
@@ -418,7 +418,7 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Accession</source>
-        <target/>
+        <target>Пристапување</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Related donors</source>
@@ -566,7 +566,7 @@
       </trans-unit>
       <trans-unit id="140">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target/>
+        <target>&lt;strong&gt;Тип:&lt;/strong&gt; Внесете име за поле на алтернативен идентификатор што ја означува неговата намена и употреба.&lt;br/&gt;&lt;strong&gt;Идентификатор:&lt;/strong&gt; Внесете ја старата сигнатура, алтернативен идентификатор или било која друга алфа-нумеричка низа поврзана со записот.</target>
       </trans-unit>
       <trans-unit id="141">
         <source>This identifer is already in use.</source>

@@ -1089,6 +1089,7 @@ QubitTaxonomy:
       ja: 受入資料の受入種別
       ka: 'დაშვების ტიპი'
       ko: '인수 수집 유형'
+      mk: 'Тип на аквизиција за пристапување'
       nl: 'Soort aanwinst'
       pl: 'Sposób pozyskania nabytku'
       pt: 'Tipo de aquisição da incorporação'
@@ -1125,6 +1126,7 @@ QubitTaxonomy:
       ja: 受入資料の処理の優先度
       ka: 'დაშვების პროცესის პრიორიტეტულობა'
       ko: '인수 처리 우선순위'
+      mk: 'Приоритет за инвентарна обработка'
       pl: 'Priorytet opracowania nabytku'
       pt: 'Prioridade do processamento da incorporação'
       pt_BR: 'Prioridade do processamento de ingresso'
@@ -1160,6 +1162,7 @@ QubitTaxonomy:
       ja: 受入資料の処理状況
       ka: 'დაშვების პროცესის სტატუსი'
       ko: '인수 처리 상태'
+      mk: 'Статус на инвентарна обработка'
       pl: 'Status opracowania nabytku'
       pt: 'Situação do processamento das incorporações'
       pt_BR: 'Estado atual do processamento de ingresso'
@@ -1368,6 +1371,7 @@ QubitTaxonomy:
       id: 'Tipe AIP'
       it: 'Tipi di AIP'
       ko: 'AIP 종류'
+      mk: 'AIP типови'
       pt: 'Tipos de AIP'
       pt_BR: 'Tipos de Pacote AIP'
       sl: 'AIP vrsta'
@@ -1598,6 +1602,7 @@ QubitTaxonomy:
       en: 'Accession alternative identifier type'
       fr: 'Type d''identifiant alternatif d''acquisition'
       hr: 'Vrsta alternativnog identifikatora akcesije'
+      mk: 'Тип на алтернативен идентификатор за пристап'
       pt: 'Tipo de identificador alternativo de acesso'
       pt_BR: 'Tipo de identificador alternativo do ingresso'
   QubitTaxonomy_accession_event_types:
@@ -1610,6 +1615,7 @@ QubitTaxonomy:
       en: 'Accession event type'
       fr: 'Type d''événement d''acquisition'
       hr: 'Vrsta događaja akcesije'
+      mk: 'Тип на настан за пристап'
       pt_BR: 'Tipo do evento de ingresso'
 QubitTerm:
   QubitTerm_110:
@@ -2333,6 +2339,7 @@ QubitTerm:
     id: 136
     source_culture: en
     name:
+      ar: صورة
       bs: Slika
       ca: Imatge
       ca@valencia: Imatge
@@ -3662,6 +3669,7 @@ QubitTerm:
       ja: 受入
       ka: დაშვება
       ko: 인수
+      mk: Пристапување
       pl: Nabycie
       pt: Incorporação
       pt_BR: Ingresso
@@ -4092,6 +4100,7 @@ QubitTerm:
       id: 'Relasi AIP'
       it: 'Relazione dell''AIP'
       ko: 'AIP 관계'
+      mk: 'AIP врска'
       pt: 'Relação AIP'
       pt_BR: 'Relações do Pacote AIP'
       sl: 'AIP povezava'
@@ -4382,6 +4391,7 @@ QubitTerm:
       en: 'Accession alternative identifier'
       fr: 'Identifiant alternatif d''acquisition'
       hr: 'Alternativni identifikator akcesije'
+      mk: 'Алтернативен идентификатор за пристап'
       pt: 'Identificador alternativo de acesso'
       pt_BR: 'Identificador alternativo de ingresso'
   QubitTerm_accession_event_type_physical_transfer:
@@ -4407,6 +4417,7 @@ QubitTerm:
       en: 'Accession event note'
       fr: 'Note d''événement d''acquisition'
       hr: 'Napomena uz događaj akcesije'
+      mk: 'Белешка за настан за пристапување'
       pt_BR: 'Nota do evento de ingresso'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
@@ -11215,6 +11226,7 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      ar: 'رسوم توضيحية'
       bs: Ilustracije
       cy: Darluniau
       de: Illustrationen

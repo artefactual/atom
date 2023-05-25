@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2022-11-23T16:56:00Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2023-05-25T18:36:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -119,7 +119,7 @@
       </trans-unit>
       <trans-unit id="0795c0a1a912aec6f9cecb289fd67b878723d1c3">
         <source xml:space="preserve">%1% identifiers: prevent entry/import of duplicates</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Identificadores de %1%: previne a inser&#xE7;&#xE3;o/importa&#xE7;&#xE3;o de duplicatas</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
       <trans-unit id="63f69a6a4fa0a996b434f82acccada20a65eb8a8">
@@ -179,7 +179,7 @@
       </trans-unit>
       <trans-unit id="aa7a47d3b9df07e362e900798b498f5265ebcfc2">
         <source xml:space="preserve">%1% upload limits</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Limites de upload para %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="0a4d6fa2c4dab64280355e4b1dc617e015edab41">
@@ -219,37 +219,37 @@
       </trans-unit>
       <trans-unit id="05f2f2376c5ced3da85c4ce70e44762215d42719">
         <source xml:space="preserve">%{complete} of %{smart_count} file uploaded</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Uploads conclu&#xED;dos: %{complete} de %{smart_count} arquivo</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="96857442e9554e1aac2aa63c2a9a1c2979674a1d">
         <source xml:space="preserve">%{complete} of %{smart_count} files uploaded</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Uploads conclu&#xED;dos: %{complete} de %{smart_count} arquivos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="5bf22547650f22b0163394fbe371d53803c0bed8">
         <source xml:space="preserve">%{complete} of %{total}</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">%{complete} de %{total}</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="0aafb9eacae6a6e03b7dee6048cf85eefdc2bebc">
         <source xml:space="preserve">%{maxFileSizeMessage}; %{maxPostSizeMessage}</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">%{maxFileSizeMessage}; %{maxPostSizeMessage}</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="5ae89b129bbcbd9fd0aba21687e61a0fc2a02c09">
         <source xml:space="preserve">%{smart_count} file selected</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">%{smart_count} arquivo selecionado</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="e611829addd2ccf04137d097504e506d6596e2d5">
         <source xml:space="preserve">%{smart_count} files selected</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">%{smart_count} arquivos selecionados</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="9804a21d3aad77995dc60390e2b657bc85d02d40">
         <source xml:space="preserve">%{time} left</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">%{time} restante</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="3d62373c45c0c1572f85cfb060cf8b5760dbc574">
@@ -292,6 +292,11 @@
         <target xml:space="preserve">Uma lista de caracteres especiais, separados por v&#xED;rgula, para serem ignorados na pesquisa de palavras</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
+      <trans-unit id="b01756bc32329c27d56020880cc41721c687791f">
+        <source xml:space="preserve">A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="f8610ae6f588c77e1f6d3b0de66cb784203d6305">
         <source xml:space="preserve">A slug based on this title already exists so a number has been added to pad the slug.</source>
         <target xml:space="preserve">Um slug baseado neste titulo j&#xE1; existe, por isso foi adicionado um numero ao slug.</target>
@@ -304,7 +309,7 @@
       </trans-unit>
       <trans-unit id="804920c22a8469a08c06be1810ad95d2e27f7544">
         <source xml:space="preserve">Access Copies</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">C&#xF3;pias de Acesso</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="b3e3bbc9103b04d543a6204da8e18664e43f77be">
@@ -324,7 +329,7 @@
       </trans-unit>
       <trans-unit id="178c258f999e25b5f99bdde5bd3165e3f1c534b9">
         <source xml:space="preserve">Access statement</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Declara&#xE7;&#xE3;o de Acesso</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="0ce06899dd3df3731cde9ae09d1fccfc68c461cc">
@@ -419,12 +424,12 @@
       </trans-unit>
       <trans-unit id="15e4e306330d19f16addff41e9fe5ae15f736440">
         <source xml:space="preserve">Add more</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Adicionar mais</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="cb5c9236772f858a4d5a6406ede69270cb69e45e">
         <source xml:space="preserve">Add more files</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Adicionar mais arquivos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="344d8b9acabc894ddf99d242e90a3b5b8434bcb1">
@@ -499,12 +504,12 @@
       </trans-unit>
       <trans-unit id="a91b56583ba1e96777195318314c445a946171f4">
         <source xml:space="preserve">Add your digital objects by dragging and dropping local files into the pane below, or by clicking the browse link to open your local file explorer.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Adicione objetos digitais arrastando e soltando arquivos no painel abaixo, ou clicando no link de navega&#xE7;&#xE3;o para abrir seu explorador de arquivos.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="c0ade02f2c45f074ee5d1a1033eebbb594379450">
         <source xml:space="preserve">Adding more files</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Adicionando mais arquivos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="87dcedc031e5d6274ca5bde0a09207402e5be50c">
@@ -679,7 +684,7 @@
       </trans-unit>
       <trans-unit id="0d19a264b41640887176948155910231403d2ad4">
         <source xml:space="preserve">Apply to every %1%</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Aplicar para cada %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="521a4f60c4e5d71fe20bf4d3f69a6fd72133df1a">
@@ -739,7 +744,7 @@
       </trans-unit>
       <trans-unit id="2061b7b8472a4dc24060bf3445c956d7c76a8891">
         <source xml:space="preserve">Are you sure you want to delete these captions/subtitles/chapters?</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Tem certeza de que deseja excluir estas legendas/cap&#xED;tulos?</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="4ffa72ac302c094f8d275fc9d11ab00287903f05">
@@ -929,22 +934,22 @@
       </trans-unit>
       <trans-unit id="bbeb83550712824699c45a72aeec149365d5f071">
         <source xml:space="preserve">CSV Validation options</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Op&#xE7;&#xF5;es de valida&#xE7;&#xE3;o de CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/validateCsvSuccess.php</note>
       </trans-unit>
       <trans-unit id="50972d677b42d11648fbff3f6615f549de81fe0c">
         <source xml:space="preserve">CSV Validator</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Validador de CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
       <trans-unit id="b535755bbd76362811e002ff059e18109a4677ba">
         <source xml:space="preserve">CSV Validator default behaviour when CSV Import is run</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Comportamento padr&#xE3;o do validador de CSV ao executar uma importa&#xE7;&#xE3;o CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/csvValidatorSuccess.php</note>
       </trans-unit>
       <trans-unit id="59111261792a4ce6ed4e944962c291866db87173">
         <source xml:space="preserve">CSV Validator settings</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Defini&#xE7;&#xF5;es do validador de CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/csvValidatorSuccess.php</note>
       </trans-unit>
       <trans-unit id="556bca43ae5a851e83a44f440a05f215d6b36da0">
@@ -969,7 +974,7 @@
       </trans-unit>
       <trans-unit id="0cd43c9651d54301014df3d8b1c6ea6c7ac4e031">
         <source xml:space="preserve">Calculate dates - Error</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Erro ao calcular datas</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesError.php</note>
       </trans-unit>
       <trans-unit id="6c938d4539ddb4d0b53121776cd5cd73282c7fca">
@@ -989,17 +994,17 @@
       </trans-unit>
       <trans-unit id="61206e8e039de14fa9e166d49ce3e3299795a37e">
         <source xml:space="preserve">Cannot calculate accumulated dates because no lower level dates exist</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">N&#xE3;o &#xE9; poss&#xED;vel calcular as datas acumuladas pois n&#xE3;o existem datas em n&#xED;vel inferior</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesError.php</note>
       </trans-unit>
       <trans-unit id="b39a4bb27bff33150a8d40bf338235babc147532">
         <source xml:space="preserve">Cannot calculate accumulated dates because this %1% has no children</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">N&#xE3;o &#xE9; poss&#xED;vel calcular as datas acumuladas porque este(a) %1% n&#xE3;o possui subordinados</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesError.php</note>
       </trans-unit>
       <trans-unit id="5b36c5a31df7ccd65152324a38d3008b45f55476">
         <source xml:space="preserve">Card view</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Visualiza&#xE7;&#xE3;o em ficha</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_viewPicker.php</note>
       </trans-unit>
       <trans-unit id="8c684290ce0b8a8e6cee79a145e17554064a4760">
@@ -1100,7 +1105,7 @@
       </trans-unit>
       <trans-unit id="a229d24711fbffe55ed71b8c810c80877c23959d">
         <source xml:space="preserve">Clipboard export</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Exporta&#xE7;&#xE3;o da &#xE1;rea de transfer&#xEA;ncia</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="4aac8c81a9cc1c0d965e843a066f05bb3489ca74">
@@ -1415,7 +1420,7 @@
       </trans-unit>
       <trans-unit id="a0bc1acfd6a820761a1719746d34b5d178a4a64e">
         <source xml:space="preserve">Default %1% upload limit for a new %2%.  A value of &amp;quot;0</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Limite de upload padr&#xE3;o de %1% para um(a) novo(a) %2%. O valor "0" (zero) desabilita a realiza&#xE7;&#xE3;o de upload de arquivos. O valor "-1" permite a realiza&#xE7;&#xE3;o de uploads ilimitados</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="f255e4d2285844da586eed823a8fd90d24c49279">
@@ -1475,7 +1480,7 @@
       </trans-unit>
       <trans-unit id="705178b09a869a5185cc986a0c2bc0f518c7a3ed">
         <source xml:space="preserve">Delete criterion</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Excluir crit&#xE9;rio</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="9e746acf132981a7051a422fa559c043058de15c">
@@ -1685,7 +1690,7 @@
       </trans-unit>
       <trans-unit id="b1acfded01770b505cd63c591018161e5bd64b9e">
         <source xml:space="preserve">Drop files here, paste or %{browse}</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Arraste e solte aqui, cole ou %{browse} pelos seus arquivos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="d9a71452d45343449c8c6bc92a11b9d123f7abd2">
@@ -1775,13 +1780,18 @@
       </trans-unit>
       <trans-unit id="8de07262bf34559850a1698fa6e1a41a0e942cb2">
         <source xml:space="preserve">Editing %{file}</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Editando %{file}</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="ec2e306ec0869a064528aa5f9180d82f5d7a8cd1">
         <source xml:space="preserve">Editing history</source>
         <target xml:space="preserve">Editando hist&#xF3;rico</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="a99c2c5975c63438a2845bf12812885af80529d6">
+        <source xml:space="preserve">Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32">
         <source xml:space="preserve">Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
@@ -1835,7 +1845,7 @@
       </trans-unit>
       <trans-unit id="ad7811e5bae6c62ab58c14a605a2af662ee8326e">
         <source xml:space="preserve">Enable access statement</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Habilitar declara&#xE7;&#xE3;o de acesso</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="703d28e72d95e4b8a8ffd46f41a8d51e0905532e">
@@ -1865,7 +1875,7 @@
       </trans-unit>
       <trans-unit id="b9096776643c10d770862bc801bf1028ce4b35a9">
         <source xml:space="preserve">Enable digital object export</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Habilitar a exporta&#xE7;&#xE3;o de objetos digitais</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/clipboardSuccess.php</note>
       </trans-unit>
       <trans-unit id="d6395f068ba11d205da4a6492fefdd088ee4ecea">
@@ -1955,7 +1965,7 @@
       </trans-unit>
       <trans-unit id="f19a3469c8f09de2f31bb1d523ba2b9786c54d26">
         <source xml:space="preserve">Error(s)</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Erro(s)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/reportSuccess.php</note>
       </trans-unit>
       <trans-unit id="9affd41f809d36eca8804dd972e7421228270fa0">
@@ -2040,7 +2050,7 @@
       </trans-unit>
       <trans-unit id="df81fa768ed9358b8abb391147c8db1f13431e4d">
         <source xml:space="preserve">Failed to upload %{file}</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Falha ao realizar o upload de %{file}</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="b67fad2e2edf27045555eadaf1e4a848ab242206">
@@ -2050,7 +2060,7 @@
       </trans-unit>
       <trans-unit id="bbe31775cd1d2fb65f5eea53a07acb265094703a">
         <source xml:space="preserve">File UUID</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">UUID do arquivo</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="cccf53028508de752f66891e8ccf4ac2b3e1053e">
@@ -2080,12 +2090,12 @@
       </trans-unit>
       <trans-unit id="c54031f0b75798c52e50908c7b4b05da5d25251c">
         <source xml:space="preserve">Files not uploaded successfully. Please retry.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">O upload dos arquivos n&#xE3;o foi realizado com sucesso. Por favor, tente novamente.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="db575068795ce13fc4436e806e3f0240b700006a">
         <source xml:space="preserve">Files successfully uploaded! Press the \\'Import\\' button to complete importing these files.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">O upload dos arquivos foi realizado com sucesso! Clique no bot&#xE3;o \\'Importar\\' para completar a importa&#xE7;&#xE3;o destes arquivos.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="97b3159de324ae02fbf6426196f2eb0bb2bd34be">
@@ -2580,7 +2590,7 @@
       </trans-unit>
       <trans-unit id="39bddd7015fdadfe08ea0d7f71169c2e6b29b985">
         <source xml:space="preserve">Importing digital objects - please wait...</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Importando objetos digitais - por favor, aguarde...</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="b6bd42e4e7302e5e9a15930c8fcdb73fc2c0cf18">
@@ -2650,7 +2660,7 @@
       </trans-unit>
       <trans-unit id="7b07bf71445b05c31ec39570ec64dd1165468c23">
         <source xml:space="preserve">Ingested</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Admitido</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="18f99833bb423f35b13b6374e87a08306b82f669">
@@ -2965,7 +2975,7 @@
       </trans-unit>
       <trans-unit id="40f8e59af62a999861b31f34a22689c70bccbabe">
         <source xml:space="preserve">Load options</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Op&#xE7;&#xF5;es de carregamento</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/templates/loadSuccess.php</note>
       </trans-unit>
       <trans-unit id="530afa5bce434b05e3a10e83ff2567f7f8622af9">
@@ -3120,7 +3130,7 @@
       </trans-unit>
       <trans-unit id="ce429cdfe927689c43754e53045867274714b859">
         <source xml:space="preserve">Master file</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Arquivo matriz</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="d8c6bb5a79933e8d9cc5ef9f91915300e9fd5595">
@@ -3130,17 +3140,17 @@
       </trans-unit>
       <trans-unit id="4574adaf193c3145d6121c15aadd6a3c9ff36617">
         <source xml:space="preserve">Maximum file size: </source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Tamanho m&#xE1;ximo do arquivo: </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="cfe34539bdec36714dec63f7e5a897242546da3f">
         <source xml:space="preserve">Maximum length on longest edge (pixels)</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Comprimento m&#xE1;ximo na lateral mais longa (pixels)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="84c14cd0faad10b4067e93e8953991ca9a9aa858">
         <source xml:space="preserve">Maximum total upload size: </source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Tamanho m&#xE1;ximo total de upload: </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="77e4c3cafd139ee7570c59e590c95d36052270ba">
@@ -3385,7 +3395,7 @@
       </trans-unit>
       <trans-unit id="39208c598f8f515fde64f9754eb85c702248a1b1">
         <source xml:space="preserve">Normalized</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Normalizado</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="ca1dd39379254ab3f3c73dbffb0d03d628b27d20">
@@ -3558,9 +3568,14 @@
         <target xml:space="preserve">Ou, criar nova unidade de instala&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/editPhysicalObjectsSuccess.php</note>
       </trans-unit>
+      <trans-unit id="d7327c52d1d6b8a28d5d0a159b270aa7e0d415ec">
+        <source xml:space="preserve">Original authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="9139c8df6e7c26408fd0eacb21241cbb382b55d2">
         <source xml:space="preserve">Original file</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Arquivo original</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="01a63c03cb6a42aa67250456e3a4c786f24ba3a6">
@@ -3765,7 +3780,7 @@
       </trans-unit>
       <trans-unit id="24d7d551ab0043fe76c57662f8fbcf321f5b8175">
         <source xml:space="preserve">Please add a file to begin uploading.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Por favor, adicione um arquivo para iniciar o upload.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="66c278f62abb579e90ea55e212e6e65842c53930">
@@ -3830,17 +3845,17 @@
       </trans-unit>
       <trans-unit id="6dcf881e8102c219de351a6de265d6d7d8e64100">
         <source xml:space="preserve">Preservation Copies</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">C&#xF3;pias de Preserva&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="0b01915711218230d291a894b4f0f6e3c287eef2">
         <source xml:space="preserve">Preservation copy</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">C&#xF3;pia de Preserva&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="ae0613ebf9ba58f3c31ed9f54b7b796b4bff00bd">
         <source xml:space="preserve">Preservation system access statement</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Declara&#xE7;&#xE3;o de acesso do sistema de preserva&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="f1fbb2b43dca281d0138f4fcc92543ad143ef0b1">
@@ -4046,7 +4061,7 @@
       </trans-unit>
       <trans-unit id="061c816bc55f7fe588d9caa212fa7beb84495368">
         <source xml:space="preserve">Reference copy</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">C&#xF3;pia de refer&#xEA;ncia</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="56e3badc4e6c5cc95e0ea5a9a878b9bd09f319d4">
@@ -4166,7 +4181,7 @@
       </trans-unit>
       <trans-unit id="304b14ba1a6451f209451dc43d9da92a6ba5f6f1">
         <source xml:space="preserve">Remove file</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Remover arquivo</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="97f6a406e58ca54b371a4ca2dfcb5e90c0aeda33">
@@ -4246,7 +4261,7 @@
       </trans-unit>
       <trans-unit id="da8c56912b1b73220b9b3d6fe86c49165bb37b4c">
         <source xml:space="preserve">Reset search</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Redefinir busca</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/moveSuccess.php</note>
       </trans-unit>
       <trans-unit id="5de586111229c2b8cc98041889974bf6e62d0bc5">
@@ -4286,7 +4301,7 @@
       </trans-unit>
       <trans-unit id="9f5cd8a2e8807d73efa02c844bfbca9fe552b283">
         <source xml:space="preserve">Retry</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Tentar novamente</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="5dc13a2e758dc5cfb509a823c41a7a8db9519f97">
@@ -4436,7 +4451,7 @@
       </trans-unit>
       <trans-unit id="bfa2f6a71c0439a846674614b31ea85b3788e909">
         <source xml:space="preserve">Search hierarchy</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Hierarquia de busca</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_treeView.php</note>
       </trans-unit>
       <trans-unit id="7b87cb8b29c2dabaa88ef042d4f0360d896a9644">
@@ -4446,7 +4461,7 @@
       </trans-unit>
       <trans-unit id="2f258cb6b00112cadfebfd8f53ab9b02b9251dba">
         <source xml:space="preserve">Search rights holders</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Busque pelos detentores de direitos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="cf07cee032f2ab38b474ab285e58b3b4aa402e1a">
@@ -4481,7 +4496,7 @@
       </trans-unit>
       <trans-unit id="8953d37661d999b65755c673da6f4c2ea074ddfc">
         <source xml:space="preserve">Select a CSV file to validate</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Selecione um arquivo CSV para validar</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/validateCsvSuccess.php</note>
       </trans-unit>
       <trans-unit id="7da6e95c1b0869b6ebd19f3fe65e838aa569cc34">
@@ -4496,7 +4511,7 @@
       </trans-unit>
       <trans-unit id="5e85767b0138a35b3b92bee8a274288d754df15b">
         <source xml:space="preserve">Select a file to upload (.vtt|.srt)</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Selecione um arquivo (.vtt|.srt) para realizar o upload</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="543aee23be079541c670321042aea1afd8550293">
@@ -4696,7 +4711,7 @@
       </trans-unit>
       <trans-unit id="7fb2c834b2c965ae3f265df9235907706658833f">
         <source xml:space="preserve">Skipping file %{fileName} because file size %{fileSize} is larger than file size limit of %{maxSize} MB</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Ignorando o arquivo %{fileName} pois o seu tamanho de %{fileSize} &#xE9; maior que o limite de %{maxSize} MB</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="094da9b95fdcee3dafde31b838dc0798f0eaa523">
@@ -4712,11 +4727,11 @@
       <trans-unit id="4a022cd9e053eafed83bd9c151265ba28a7577ab">
         <source xml:space="preserve">Slug was adjusted to remove special characters or</source>
         <target xml:space="preserve"/>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/renameAction.class.php</note>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/actions/renameAction.class.php</note>
       </trans-unit>
       <trans-unit id="03460faf0899aefda5737701da2cbfbadde2a0c2">
         <source xml:space="preserve">Some files failed to upload. Press the \\'Import\\' button to continue importing anyways, or press \\'Retry\\' to re-attempt upload.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Falha ao carregar alguns arquivos. Clique no bot&#xE3;o \\'Importar\\' para continuar a importa&#xE7;&#xE3;o mesmo assim, ou clique em \\'Tentar novamente\\' para tentar realizar o upload novamente.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="13fd9b8db5acb6ba73f8ef1386b8a231fafeaaa8">
@@ -4899,9 +4914,19 @@
         <target xml:space="preserve">Enviar</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
+      <trans-unit id="6a1c6604365e38640333c513d9915bf450855910">
+        <source xml:space="preserve">Sync failed: resource not found</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="95abb6afca666a8503dea05ac5e4665a846ba4d6">
+        <source xml:space="preserve">Sync not allowed: log in required</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
+      </trans-unit>
       <trans-unit id="135aeb7c19a4f3feda4fb9f88ab915827fff7c55">
         <source xml:space="preserve">Table view</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Visualiza&#xE7;&#xE3;o em tabela</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_viewPicker.php</note>
       </trans-unit>
       <trans-unit id="090ec5f560fc50377fcd95e5cda128e91b276e98">
@@ -4961,7 +4986,7 @@
       </trans-unit>
       <trans-unit id="906116b1dd3e40cf3c978815d31c78ba03e1f034">
         <source xml:space="preserve">The Title and Level of description values entered on this page will be applied to each child description created for the associated digital objects - '%dd%' represents an incrementing 2-value number, so by default descriptions created via this uploader will be named image 01, image 02, etc.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Os valores de T&#xED;tulo e N&#xED;vel da descri&#xE7;&#xE3;o inseridos nesta p&#xE1;gina ser&#xE3;o aplicados para cada descri&#xE7;&#xE3;o subordinada criada para os objetos digitais associados - '%dd%' representa um n&#xFA;mero de dois d&#xED;gitos que se auto-incrementa, ent&#xE3;o, por padr&#xE3;o, as descri&#xE7;&#xF5;es criadas por esta ferramenta de upload ser&#xE3;o nomeadas incrementalmente como imagem 01, imagem 02, etc.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="ab4100fb6199b064be04facb9a6f34f16449266b">
@@ -4981,7 +5006,7 @@
       </trans-unit>
       <trans-unit id="cb7599eaa2b4cd2e64fcea61e35c6f727004f467">
         <source xml:space="preserve">The clipboard is empty for this entity type.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">A &#xE1;rea de transfer&#xEA;ncia est&#xE1; vazia para este tipo de entidade.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="4ecde563fe4e262de9e15f563e4f4e52fc5ff982">
@@ -5036,7 +5061,7 @@
       </trans-unit>
       <trans-unit id="438c17b9b3a03a33fde0bdbf31f4e9983e4cfac7">
         <source xml:space="preserve">The maximum number of pixels on the longest edge for derived reference images.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">O n&#xFA;mero m&#xE1;ximo de pixels na lateral mais longa para imagens de refer&#xEA;ncia derivadas.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="abb070bd1017157ec14de810edd0afb6d7753ed9">
@@ -5116,7 +5141,7 @@
       </trans-unit>
       <trans-unit id="8d28e517f2e8a3afedf075f046aca7ae05a6ccf1">
         <source xml:space="preserve">There was an error loading the clipboard content.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Ocorreu um erro ao carregar o conte&#xFA;do da &#xE1;rea de transfer&#xEA;ncia.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/_clipboardMenu.php</note>
       </trans-unit>
       <trans-unit id="d6d182b0576513aab380c8f48155a7c2ea327c1b">
@@ -5141,7 +5166,7 @@
       </trans-unit>
       <trans-unit id="ab90d9d736f9e0909b62d0922e0482e4b827449f">
         <source xml:space="preserve">This field is required.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Este campo &#xE9; obrigat&#xF3;rio.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/arB5WidgetFormSchemaFormatter.class.php</note>
       </trans-unit>
       <trans-unit id="423e0daa898ce63fd24668eb17bf7dbd30029f09">
@@ -5216,7 +5241,7 @@
       </trans-unit>
       <trans-unit id="05ad8c47ed6b355540fe7ce663f1faf15a417d85">
         <source xml:space="preserve">Thumbnail copy</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">C&#xF3;pia da miniatura</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="768e0c1c69573fb588f61f1308a015c11468e05f">
@@ -5329,6 +5354,11 @@
         <target xml:space="preserve">Atualizar um intervalo de datas existente</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
       </trans-unit>
+      <trans-unit id="10e42e16ff3a1c65ff56dccce342f8732ceedef0">
+        <source xml:space="preserve">Update authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="688894c16ddcbe7b63e5974119088b45287b0e20">
         <source xml:space="preserve">Update behaviours</source>
         <target xml:space="preserve">Atualizar procedimentos</target>
@@ -5341,7 +5371,7 @@
       </trans-unit>
       <trans-unit id="e78799aa95a6c2d2af0dd7be578fcfc6e2decb85">
         <source xml:space="preserve">Update digital object titles</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Atualize os t&#xED;tulos dos objetos digitais</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUpdateSuccess.php</note>
       </trans-unit>
       <trans-unit id="714c6a82ec13718f9013b085138a14d3a49d2e48">
@@ -5396,7 +5426,7 @@
       </trans-unit>
       <trans-unit id="ad0d0603e2aad1c151d07599eda7b9f4fddcd837">
         <source xml:space="preserve">Upload failed</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Falha no upload</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="15ec5b7b53bb5062f13ed531ae1cd10d7468cfcd">
@@ -5421,7 +5451,7 @@
       </trans-unit>
       <trans-unit id="002424e7b095003d5dd87e774e1be1bb45e88c33">
         <source xml:space="preserve">Upload limit of %{maxPostSize} MB reached. Unable to add additional files.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">O limite de upload de %{maxPostSize} MB alcan&#xE7;ado. N&#xE3;o foi poss&#xED;vel adicionar novos arquivos.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="6a60d27f2abe69321fe9c28e5eccc297da33b099">
@@ -5446,17 +5476,17 @@
       </trans-unit>
       <trans-unit id="de27240983ef2f1432e07df25dd609712f69a107">
         <source xml:space="preserve">Uploading</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Realizando o upload</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="04c76aff13513162ad7d4ad6d323e09e2fc81986">
         <source xml:space="preserve">Uploading %{smart_count} file</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Realizando o upload de %{smart_count} arquivo</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="ef16d8ebd2ea2f846bd7946d9e16d6ef108d8a45">
         <source xml:space="preserve">Uploading %{smart_count} files</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Realizando o upload de %{smart_count} arquivos</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="6e9df9878a863f9dbf774f790a04e528529afe17">
@@ -5476,7 +5506,7 @@
       </trans-unit>
       <trans-unit id="4659dd21d783081b27c44db0868deae8b01c22f3">
         <source xml:space="preserve">Uploads settings</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Defini&#xE7;&#xF5;es de uploads</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="31d8bf32efa40438cc303913fd96b40a74c60170">
@@ -5512,6 +5542,11 @@ end dates touch or overlap the target date range will be returned.
 </source>
         <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="cd206c6022fe6b06ab956a241f23d9649e545e15">
+        <source xml:space="preserve">Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="6b647f96fc712dc598e4e9dea145df439f07fe84">
         <source xml:space="preserve">Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
@@ -5560,7 +5595,7 @@ end dates touch or overlap the target date range will be returned.
       </trans-unit>
       <trans-unit id="6752f198b56479cfb32b98d51047e89e96433119">
         <source xml:space="preserve">Validate</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Validar</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/validateCsvSuccess.php</note>
       </trans-unit>
       <trans-unit id="004cc751124f5f520aa5d6e1ae8889dc0e900786">
@@ -5590,7 +5625,7 @@ end dates touch or overlap the target date range will be returned.
       </trans-unit>
       <trans-unit id="3e31a7ee30152b17cfa09a60581f285a13a6e075">
         <source xml:space="preserve">View file</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Visualizar arquivo</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_editSubtitles.php</note>
       </trans-unit>
       <trans-unit id="e901340a842b48f8ffa0364ef3c911f4c1a4c47e">
@@ -5657,12 +5692,12 @@ disabled, and the 'Advanced Search &gt; Finding Aid' filter is hidden.
       </trans-unit>
       <trans-unit id="9edcd50b3bd0ea1bcb23203d1aa7ee2a6e061108">
         <source xml:space="preserve">When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Quando habilitado, um medidor de "Limite de upload" &#xE9; exibido</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="b04b422663b801286bc8fe14337c8e46b9ca2d76">
         <source xml:space="preserve">When enabled, the copyright pop-up will be applied to every %1%, regardless of whether there is an accompanying Rights statement.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Quando habilitado, o alerta de direitos autorais ser&#xE1; aplicado para cada %1%, indiferente de existir ou n&#xE3;o uma declara&#xE7;&#xE3;o de Direitos anexa.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="2adff028b76aada6fd284b4151748d7d5111c8e3">
@@ -5757,7 +5792,7 @@ disabled, and the 'Advanced Search &gt; Finding Aid' filter is hidden.
       </trans-unit>
       <trans-unit id="c467df40f109045995260e6463dab060c267a109">
         <source xml:space="preserve">You will also be able to review and individually modify each description title on the next page after clicking "Upload."</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve">Voc&#xEA; tamb&#xE9;m poder&#xE1; revisar e modificar individualmente os t&#xED;tulos das descri&#xE7;&#xF5;es na pr&#xF3;xima p&#xE1;gina, ap&#xF3;s clicar em "Upload."</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="5690bab5bc0502a82a0d8fd948a3b47d467cd5e0">
