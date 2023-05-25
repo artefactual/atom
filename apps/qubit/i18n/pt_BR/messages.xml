@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2022-11-23T16:57:43Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2023-05-25T18:38:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -288,6 +288,11 @@
         <source xml:space="preserve">A list of special chars, separated by coma, to be escaped in string queries</source>
         <target xml:space="preserve" state="final">Uma lista de caracteres especiais, separados por v&#xED;rgula, que ser&#xE3;o ignorados nas consultas textuais</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="b01756bc32329c27d56020880cc41721c687791f">
+        <source xml:space="preserve">A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="f8610ae6f588c77e1f6d3b0de66cb784203d6305">
         <source xml:space="preserve">A slug based on this title already exists so a number has been added to pad the slug.</source>
@@ -1780,6 +1785,11 @@
         <source xml:space="preserve">Editing history</source>
         <target xml:space="preserve">Hist&#xF3;rico de edi&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="a99c2c5975c63438a2845bf12812885af80529d6">
+        <source xml:space="preserve">Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32">
         <source xml:space="preserve">Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
@@ -3561,6 +3571,11 @@
         <target xml:space="preserve">Ou, criar um novo cont&#xEA;iner</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/editPhysicalObjectsSuccess.php</note>
       </trans-unit>
+      <trans-unit id="d7327c52d1d6b8a28d5d0a159b270aa7e0d415ec">
+        <source xml:space="preserve">Original authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="9139c8df6e7c26408fd0eacb21241cbb382b55d2">
         <source xml:space="preserve">Original file</source>
         <target xml:space="preserve" state="final">Arquivo original</target>
@@ -4896,6 +4911,16 @@
         <target xml:space="preserve">Enviar</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
+      <trans-unit id="6a1c6604365e38640333c513d9915bf450855910">
+        <source xml:space="preserve">Sync failed: resource not found</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="95abb6afca666a8503dea05ac5e4665a846ba4d6">
+        <source xml:space="preserve">Sync not allowed: log in required</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
+      </trans-unit>
       <trans-unit id="135aeb7c19a4f3feda4fb9f88ab915827fff7c55">
         <source xml:space="preserve">Table view</source>
         <target xml:space="preserve" state="final">Visualiza&#xE7;&#xE3;o em tabela</target>
@@ -5326,6 +5351,11 @@
         <target xml:space="preserve">Atualizar um intervalo de datas existente</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
       </trans-unit>
+      <trans-unit id="10e42e16ff3a1c65ff56dccce342f8732ceedef0">
+        <source xml:space="preserve">Update authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="688894c16ddcbe7b63e5974119088b45287b0e20">
         <source xml:space="preserve">Update behaviours</source>
         <target xml:space="preserve">Condutas da atualiza&#xE7;&#xE3;o</target>
@@ -5513,6 +5543,11 @@ no intervalo de datas inserido. "Sobreposi&#xE7;&#xE3;o" significa que ir&#xE1; 
 in&#xED;cio ou fim encoste ou sobreponha o intervalo de datas objetivado.
 </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="cd206c6022fe6b06ab956a241f23d9649e545e15">
+        <source xml:space="preserve">Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="6b647f96fc712dc598e4e9dea145df439f07fe84">
         <source xml:space="preserve">Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2022-11-23T16:52:57Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:45Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -298,7 +298,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target>Zabilježiti sve izvedene ili planirane postupke vrednovanja, odabiranja i izlučivanja gradiva sadržanog u jedinici opisa, osobito ako mogu imati utjecaja na tumačenje gradiva. (ISAD 3.3.2) </target>
+        <target>Zabilježiti sve izvedene ili planirane postupke vrednovanja, odabiranja i izlučivanja gradiva sadržanog u jedinici opisa, osobito ako mogu imati utjecaja na tumačenje gradiva. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Appraisal, destruction and scheduling</source>
@@ -978,7 +978,7 @@
       </trans-unit>
       <trans-unit id="244">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target>Odabrati jezik(e) korišten pri izradi normiranog zapisa iz padajućeg izbornika; unijeti prvih par slova za suženje izbora. (ISAAR 5.4.7) </target>
+        <target>Odabrati jezike korištene pri izradi normiranog zapisa iz padajućeg izbornika; unijeti prvih par slova za suženje izbora. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="245">
         <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
@@ -1166,7 +1166,7 @@
       </trans-unit>
       <trans-unit id="291">
         <source>Edit %1%</source>
-        <target>Uredi  %1%</target>
+        <target>Uredi %1%</target>
       </trans-unit>
       <trans-unit id="292">
         <source>Link %1%</source>
@@ -1202,7 +1202,7 @@
       </trans-unit>
       <trans-unit id="300">
         <source>Use for: </source>
-        <target>Upotrijebi za:</target>
+        <target>Upotrijebi za: </target>
       </trans-unit>
       <trans-unit id="301">
         <source>Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.</source>
@@ -2770,7 +2770,7 @@
       </trans-unit>
       <trans-unit id="692">
         <source>Base DN</source>
-        <target>Base DN</target>
+        <target>DN baza</target>
       </trans-unit>
       <trans-unit id="693">
         <source>Bind Lookup Attribute</source>
@@ -3446,7 +3446,7 @@
       </trans-unit>
       <trans-unit id="861">
         <source>Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.</source>
-        <target>Ne koristi posebne znakove ili razmake u imenu datoteke – spremit će se samo mala slova alfanumeričkih znakova (a-z, 0-9) i crtice (-). Ostali znakovi će se ukloniti ili zamijeniti. Uređivanje imena datoteke neće automatski aktualizirati aktualizirati ostala polja.</target>
+        <target>Ne koristi posebne znakove ili razmake u imenu datoteke – spremit će se samo mala slova alfanumeričkih znakova (a-z, 0-9) i crtice (-). Ostali znakovi će se ukloniti ili zamijeniti. Uređivanje imena datoteke neće automatski aktualizirati ostala polja.</target>
       </trans-unit>
       <trans-unit id="862">
         <source>Original filename</source>
@@ -4494,7 +4494,7 @@
       </trans-unit>
       <trans-unit id="1123">
         <source>Part of </source>
-        <target>Dio od</target>
+        <target>Dio od </target>
       </trans-unit>
       <trans-unit id="1124">
         <source>all matching descriptions</source>
@@ -4750,7 +4750,7 @@
       </trans-unit>
       <trans-unit id="1187">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target>Odabrati jezik(e) zapisa iz padajućeg izbornika; unijeti prvih par slova za sužavanje izbora. (ISDF 5.4.7) </target>
+        <target>Odabrati jezike zapisa iz padajućeg izbornika; unijeti prvih par slova za sužavanje izbora. (ISDF 5.4.7)</target>
       </trans-unit>
       <trans-unit id="1188">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
@@ -4822,7 +4822,7 @@
       </trans-unit>
       <trans-unit id="1205">
         <source>Permissions for all %1%</source>
-        <target>Dozvole za sve  %1%</target>
+        <target>Dozvole za sve %1%</target>
       </trans-unit>
       <trans-unit id="1206">
         <source>Permissions by taxonomy</source>
@@ -5475,6 +5475,26 @@
       <trans-unit id="1368">
         <source>Script of description</source>
         <target>Pismo opisa</target>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Update authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>Original authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

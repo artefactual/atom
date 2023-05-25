@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ta" datatype="plaintext" original="messages" date="2022-11-23T16:54:40Z" product-name="messages">
+  <file source-language="en" target-language="ta" datatype="plaintext" original="messages" date="2023-05-25T18:35:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -395,22 +395,6 @@
       <trans-unit id="101">
         <source>Maintenance notes</source>
         <target>பராமரிப்பு குறிப்புகள்</target>
-      </trans-unit>
-      <trans-unit id="102">
-        <source>Delete</source>
-        <target>அழி</target>
-      </trans-unit>
-      <trans-unit id="103">
-        <source>Add new</source>
-        <target>புதிதை/ புதியதை இணை?</target>
-      </trans-unit>
-      <trans-unit id="104">
-        <source>More</source>
-        <target>மேலும்</target>
-      </trans-unit>
-      <trans-unit id="105">
-        <source>Link %1%</source>
-        <target>தொடுப்பு %1%</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Related corporate bodies, persons or families</source>

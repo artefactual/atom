@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2022-11-23T16:53:23Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2023-05-25T18:34:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -18,19 +18,19 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Storage Service settings</source>
-        <target/>
+        <target>Definições do Storage Service</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Storage Service credentials</source>
-        <target/>
+        <target>Credenciais do Storage Service</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Storage Service API endpoint, e.g. "http://localhost:62081/api/v2"</source>
-        <target/>
+        <target>Endpoint da API do Storage Service, por exemplo "http://localhost:62081/api/v2"</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Storage Service username, e.g. "atom"</source>
-        <target/>
+        <target>Nome do usuário do Storage Service, por exemplo: "atom"</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Storage Service API key, e.g.</source>
@@ -42,11 +42,11 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Enable AIP download</source>
-        <target/>
+        <target>Habilitar download de Pacote AIP</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Allow authorized users to download a linked AIP or AIP file from</source>
-        <target/>
+        <target>Permitir que usuários autorizados façam download de um Pacote AIP vinculado ou um arquivo AIP do Storage Service do Archivematica configurado</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Save</source>
@@ -54,11 +54,11 @@
       </trans-unit>
       <trans-unit id="13">
         <source>File UUID</source>
-        <target/>
+        <target>UUID do arquivo</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Download file</source>
-        <target/>
+        <target>Baixar o arquivo</target>
       </trans-unit>
       <trans-unit id="15">
         <source>AIP UUID</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Download AIP</source>
-        <target/>
+        <target>Baixar o Pacote AIP</target>
       </trans-unit>
     </body>
   </file>

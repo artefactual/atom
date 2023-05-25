@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2022-11-23T16:54:58Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2023-05-25T18:35:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
         <source xml:space="preserve"> %1%Download%2% (%3% b)</source>
-        <target xml:space="preserve">%1%Preuzimanje%2% (%3% b)</target>
+        <target xml:space="preserve" state="final"> %1%Preuzimanje%2% (%3% b)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportCheckAction.class.php</note>
       </trans-unit>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
         <source xml:space="preserve"> Auto refresh</source>
-        <target xml:space="preserve">Automatsko aktualiziranje</target>
+        <target xml:space="preserve" state="final"> Automatsko aktualiziranje</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="c283db127dc03106098aff291505eaf3c767d1af">
         <source xml:space="preserve"> report</source>
-        <target xml:space="preserve">izvje&#x161;taj</target>
+        <target xml:space="preserve" state="final"> izvje&#x161;taj</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php</note>
       </trans-unit>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8">
@@ -286,8 +286,13 @@
       </trans-unit>
       <trans-unit id="61b6167ae576ea47ed09f764ce5c466d052e214e">
         <source xml:space="preserve">A list of special chars, separated by coma, to be escaped in string queries</source>
-        <target xml:space="preserve">Popis posebnih znakova, odvojenih zarezom, koji  se trebaju izbje&#x107;i u upitima</target>
+        <target xml:space="preserve" state="final">Popis posebnih znakova odvojenih zarezom, koji se trebaju izbje&#x107;i u upitima</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="b01756bc32329c27d56020880cc41721c687791f">
+        <source xml:space="preserve">A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="f8610ae6f588c77e1f6d3b0de66cb784203d6305">
         <source xml:space="preserve">A slug based on this title already exists so a number has been added to pad the slug.</source>
@@ -816,7 +821,7 @@
       </trans-unit>
       <trans-unit id="caeef13930f0be27ce1a2f747aeafa3dee338d8a">
         <source xml:space="preserve">Base DN</source>
-        <target xml:space="preserve">Base DN</target>
+        <target xml:space="preserve" state="final">DN baza</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/ldapSuccess.php</note>
       </trans-unit>
       <trans-unit id="3ecb5ba01e3c3b1b8e4bc1cf1d7f66708803d22c">
@@ -1016,7 +1021,7 @@
       </trans-unit>
       <trans-unit id="473e4e91d611aaf31da6b0b78a7bcaa8231f013a">
         <source xml:space="preserve">Children inheriting rights from record: </source>
-        <target xml:space="preserve">Ni&#x17E;e razine naslije&#x111;uju prava od zapisa:</target>
+        <target xml:space="preserve" state="final">Ni&#x17E;e razine naslije&#x111;uju prava od zapisa: </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/actions/manageAction.class.php</note>
       </trans-unit>
       <trans-unit id="df92877b57741e69a106f11207e67cf0928893aa">
@@ -1627,7 +1632,7 @@
       </trans-unit>
       <trans-unit id="8dafaa3f04cab74eb0846bdd68d8e6c932dbaedd">
         <source xml:space="preserve">Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.</source>
-        <target xml:space="preserve">Ne koristi posebne znakove ili razmake u imenu datoteke &#x2013; spremit &#x107;e se samo mala slova alfanumeri&#x10D;kih znakova (a-z, 0-9) i crtice (-). Ostali znakovi &#x107;e se ukloniti ili zamijeniti. Ure&#x111;ivanje imena datoteke ne&#x107;e automatski aktualizirati aktualizirati ostala polja.</target>
+        <target xml:space="preserve" state="final">Ne koristi posebne znakove ili razmake u imenu datoteke &#x2013; spremit &#x107;e se samo mala slova alfanumeri&#x10D;kih znakova (a-z, 0-9) i crtice (-). Ostali znakovi &#x107;e se ukloniti ili zamijeniti. Ure&#x111;ivanje imena datoteke ne&#x107;e automatski aktualizirati ostala polja.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="f685035ae35a8601c50a7e8020483324e95d0582">
@@ -1722,12 +1727,12 @@
       </trans-unit>
       <trans-unit id="6c58bdd7df82c68a1187804251acd19cc851338c">
         <source xml:space="preserve">Edit %1%</source>
-        <target xml:space="preserve">Uredi  %1%</target>
+        <target xml:space="preserve" state="final">Uredi %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="9d52f885d375fa93d8f34e51cf81527d73671b45">
         <source xml:space="preserve">Edit %1% permissions</source>
-        <target xml:space="preserve">Uredi  %1% dozvole</target>
+        <target xml:space="preserve" state="final">Uredi %1% dozvole</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editRepositoryAclSuccess.php</note>
       </trans-unit>
       <trans-unit id="fcd7c816ea9ecc1f36f9bb688fd555fb507fb5a0">
@@ -1779,6 +1784,11 @@
         <source xml:space="preserve">Editing history</source>
         <target xml:space="preserve">Povijest ure&#x111;ivanja</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="a99c2c5975c63438a2845bf12812885af80529d6">
+        <source xml:space="preserve">Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32">
         <source xml:space="preserve">Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
@@ -2337,7 +2347,7 @@
       </trans-unit>
       <trans-unit id="b55b99898787a61ce5549283812b0fca77e81ba3">
         <source xml:space="preserve">Granted right </source>
-        <target xml:space="preserve">Odobreno pravo</target>
+        <target xml:space="preserve" state="final">Odobreno pravo </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="0524a68bbf49da748d2e1aab162bd304ba8f2d8b">
@@ -3187,7 +3197,7 @@
       </trans-unit>
       <trans-unit id="20f7679b69f26893d66d8e33f1654f642aae38a9">
         <source xml:space="preserve">Move failed: </source>
-        <target xml:space="preserve">Premje&#x161;tanje nije uspjelo:</target>
+        <target xml:space="preserve" state="final">Premje&#x161;tanje nije uspjelo: </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="42ee19070c490cdcd3b6f0a266b720b2761238fa">
@@ -3555,6 +3565,11 @@
         <target xml:space="preserve">Ili stvori novi spremnik</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/editPhysicalObjectsSuccess.php</note>
       </trans-unit>
+      <trans-unit id="d7327c52d1d6b8a28d5d0a159b270aa7e0d415ec">
+        <source xml:space="preserve">Original authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="9139c8df6e7c26408fd0eacb21241cbb382b55d2">
         <source xml:space="preserve">Original file</source>
         <target state="translated" xml:space="preserve">Izvorna datoteka</target>
@@ -3647,7 +3662,7 @@
       </trans-unit>
       <trans-unit id="3ca168a91e24b1ce371e01343df11195c77e2a13">
         <source xml:space="preserve">Part of </source>
-        <target xml:space="preserve">Dio od</target>
+        <target xml:space="preserve" state="final">Dio od </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_searchResult.php</note>
       </trans-unit>
       <trans-unit id="8be3c943b1609fffbfc51aad666d0a04adf83c9d">
@@ -3682,7 +3697,7 @@
       </trans-unit>
       <trans-unit id="5cb2743b0b92993f3f38404bbd04998b6be3d510">
         <source xml:space="preserve">Permissions for all %1%</source>
-        <target xml:space="preserve">Dozvole za sve  %1%</target>
+        <target xml:space="preserve" state="final">Dozvole za sve %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
       </trans-unit>
       <trans-unit id="43d535c21db47a33a894d059428d4a5d773a730f">
@@ -4703,7 +4718,7 @@
       <trans-unit id="4a022cd9e053eafed83bd9c151265ba28a7577ab">
         <source xml:space="preserve">Slug was adjusted to remove special characters or</source>
         <target xml:space="preserve"/>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/renameAction.class.php</note>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/actions/renameAction.class.php</note>
       </trans-unit>
       <trans-unit id="03460faf0899aefda5737701da2cbfbadde2a0c2">
         <source xml:space="preserve">Some files failed to upload. Press the \\'Import\\' button to continue importing anyways, or press \\'Retry\\' to re-attempt upload.</source>
@@ -4889,6 +4904,16 @@
         <source xml:space="preserve">Submit</source>
         <target xml:space="preserve">Po&#x161;alji</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="6a1c6604365e38640333c513d9915bf450855910">
+        <source xml:space="preserve">Sync failed: resource not found</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="95abb6afca666a8503dea05ac5e4665a846ba4d6">
+        <source xml:space="preserve">Sync not allowed: log in required</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewSyncAction.class.php</note>
       </trans-unit>
       <trans-unit id="135aeb7c19a4f3feda4fb9f88ab915827fff7c55">
         <source xml:space="preserve">Table view</source>
@@ -5320,6 +5345,11 @@
         <target xml:space="preserve">Aktualiziraj postoje&#x107;i vremenski raspon</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
       </trans-unit>
+      <trans-unit id="10e42e16ff3a1c65ff56dccce342f8732ceedef0">
+        <source xml:space="preserve">Update authorized form of name</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
+      </trans-unit>
       <trans-unit id="688894c16ddcbe7b63e5974119088b45287b0e20">
         <source xml:space="preserve">Update behaviours</source>
         <target xml:space="preserve">Aktualiziraj pona&#x161;anja</target>
@@ -5487,7 +5517,7 @@
       </trans-unit>
       <trans-unit id="2167c39cc5d3d8aafeb1fa1263b49f6b1e8b97ac">
         <source xml:space="preserve">Use for: </source>
-        <target xml:space="preserve">Upotrijebi za:</target>
+        <target xml:space="preserve" state="final">Upotrijebi za: </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/taxonomy/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="7f2c2029af462f4021d0d20994e9606eee38faf6">
@@ -5503,6 +5533,11 @@ end dates touch or overlap the target date range will be returned.
 </source>
         <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="cd206c6022fe6b06ab956a241f23d9649e545e15">
+        <source xml:space="preserve">Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="6b647f96fc712dc598e4e9dea145df439f07fe84">
         <source xml:space="preserve">Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>

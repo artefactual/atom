@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2022-11-24T11:04:17Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Accession area</source>
-        <target/>
+        <target>Подрачје на пристап</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Related accession(s)</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
-        <target/>
+        <target>Збор, фраза, знак или група на знаци, кои обично се појавуваат во извор, што го именува или делото содржано во него. Изборот и форматот на насловите треба да се регулираат со стандард за содржина (како што се AACR2, CCO, DACS). Деталите како што се големите букви, изборот меѓу формите на прикажаните наслови во единицата или употребата на кратенки треба да се утврдат врз основа на правилата во стандардот за содржина. Треба да се избере еден стандард и да се користи постојано за сите записи.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Names and origin info</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target/>
+        <target>Поим кој ги одредува карактеристиките и општиот тип на содржина на изворот. Доделете онолку видови колку што е потребно. Опциите на полето Видови на извори се ограничени на вредностите во елементот од највисокото ниво MODS typeOfResource.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Type of resource</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>A designation of the language in which the content of a resource is expressed.</source>
-        <target/>
+        <target>Означување на јазикот на кој се изразува содржината на изворот.</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Subject</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="39">
         <source>A term or phrase representing the primary topic(s) on which a work is focused.</source>
-        <target/>
+        <target>Термин или фраза што ја претставува примарната тема(и) на кои е фокусирано делото.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Places</source>
@@ -174,7 +174,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>"Choose provenance, author and other non-subject access points from the archival</source>
-        <target/>
+        <target>„Изберете потекло (провениенција), автор и други несубјектни точки за пристап од архивската</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Access condition</source>
-        <target/>
+        <target>Услов за пристап</target>
       </trans-unit>
       <trans-unit id="52">
         <source>URL</source>
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Идентификувајте и запишете ги датумите на единицата за опис. Идентификувајте го типот на наведениот датум. Запишете како единствен датум или опсег на датуми како што е соодветно." (ISAD 3.1.3). Полето за прикажување датум може да се користи за внесување информации за датумот на слободен текст, вклучително и типографски знаци за изразување проценка, несигурност или квалификација. Користете ги полињата за почеток и крај за да ги направите датумите пребарливи. Не користете никакви квалификатори или типографски симболи за изразување несигурност. Прифатливи формати на датуми: ГГГГММДД, ГГГГ-ММ-ДД, ГГГГ-ММ, ГГГГГ.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
@@ -414,7 +414,7 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Access points</source>
-        <target/>
+        <target>Пристапни точки</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Subject access points</source>
@@ -590,7 +590,7 @@
       </trans-unit>
       <trans-unit id="147">
         <source>AIP UUID</source>
-        <target/>
+        <target>AIP UUID</target>
       </trans-unit>
       <trans-unit id="148">
         <source>Download AIP</source>
@@ -662,7 +662,7 @@
       </trans-unit>
       <trans-unit id="165">
         <source>%1% available</source>
-        <target/>
+        <target>%1% достапно</target>
       </trans-unit>
       <trans-unit id="166">
         <source>Entity type</source>
@@ -714,7 +714,7 @@
       </trans-unit>
       <trans-unit id="178">
         <source>%1% of</source>
-        <target/>
+        <target>%1% од</target>
       </trans-unit>
       <trans-unit id="179">
         <source>Loading ...</source>
@@ -742,15 +742,15 @@
       </trans-unit>
       <trans-unit id="185">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Природа или жанр на изворот.&lt;/p&gt;&lt;p&gt;Назначете онолку видови колку што е применливо. Опцијата&lt;em&gt;Вид&lt;/em&gt; е ограничена на речникот од типот DCMI.&lt;/p&gt;&lt;p&gt;Додели вредност &lt;em&gt;Збирка&lt;/em&gt; ако овој извор е највисоко ниво за група извори од пониско ниво.&lt;/p&gt;&lt;p&gt;Забелешка: ако овој извор е поврзан со дигитален објект, &lt;em&gt;слика&lt;/em&gt;, &lt;em&gt;текст&lt;/em&gt;, &lt;em&gt;звук&lt;/em&gt; или &lt;em&gt;видео&lt;/em&gt; автоматски се додаваат при прикажување на резултатот, па не мора да се дуплираат овие вредности тука.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="186">
         <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower</source>
-        <target/>
+        <target>&lt;p&gt;&lt;strong&gt;Пониски нивоа&lt;/strong&gt;&lt;br/&gt;Користете ги овие две полиња за да додадете пониски</target>
       </trans-unit>
       <trans-unit id="187">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Форматот на датотеката, физичкиот медиум или димензиите на изворот.&lt;/p&gt;&lt;p&gt;Забелешка: Земете во предвид ако овој извор е веќе поврзан со дигиталниот објект, тогаш автоматски ќе се додаде вредност од речникот (МIME) по прикажување на резултатот, затоа не ги дуплирајте тие вредности овде.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="188">
         <source>Format</source>
@@ -778,7 +778,7 @@
       </trans-unit>
       <trans-unit id="194">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Името на организацијата која е одговорна за чување на изворот.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="195">
         <source>Coverage (spatial)</source>
@@ -786,7 +786,7 @@
       </trans-unit>
       <trans-unit id="196">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource</source>
-        <target/>
+        <target>&lt;p&gt;Името на местото или географската област што е тема на изворот</target>
       </trans-unit>
       <trans-unit id="197">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -838,7 +838,7 @@
       </trans-unit>
       <trans-unit id="209">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
-        <target/>
+        <target>„Да се утврди видот на ентитет (правно, физичко лице или семејство) што се опишува во тој нормативен запис. (ISAAR 5.1.1) Изберете Правно лице, Физичко лице или Семејство од паѓачкото мени.</target>
       </trans-unit>
       <trans-unit id="210">
         <source>Type of entity</source>
@@ -846,11 +846,11 @@
       </trans-unit>
       <trans-unit id="211">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
-        <target/>
+        <target>„Да се запише официјалниот назив на ентитетот што се опишува во согласност со националните и меѓународните стандарди што биле користени при изработката на описот. Да се користат и други релевантни одредници (датуми, место, надлежности, и сл) за да се направи разлика помеѓу опишаниот ентитет и други ентитети со слични називи. Во елементот Правила и/или конвенции (5.4.3.) посебно да се наведе кои правила се применуваат за овој елемент.“ (ISAAR 5.1.2)</target>
       </trans-unit>
       <trans-unit id="212">
         <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
-        <target/>
+        <target>„Цел: Да се наведат различните форми на називи под кои се појавува ентитетот надвор од официјалниот назив како на други јазици и/или писма. Правило: Да се запишат споредбените форми на називите/имињата во согласност со релевантните национални или меѓународни правила и прописи, вклучувајќи ги и сите неопходни поделементи и/или одредници што се опфатени со тие прописи.“ (ISAAR 5.1.3)</target>
       </trans-unit>
       <trans-unit id="213">
         <source>Parallel form(s) of name</source>
@@ -858,7 +858,7 @@
       </trans-unit>
       <trans-unit id="214">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
-        <target/>
+        <target>„Да се запише стандардизираната форма на називите/имињата на ентитетот што се опишува во согласност со другите правила или прописи. Да се наведат правилата и/или (ако е потребно) институцијата што ги изработила.“ (ISAAR 5.1.4)</target>
       </trans-unit>
       <trans-unit id="215">
         <source>Standardized form(s) of name according to other rules</source>
@@ -874,7 +874,7 @@
       </trans-unit>
       <trans-unit id="218">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
-        <target/>
+        <target>„Секаде каде што е можно да се внесат официјалните броеви или други ознаки (матичен број на правното лице) и да се дадат информации за правната надлежност и шема врз чија основа е добиен бројот“. (ISAAR 5.1.6)</target>
       </trans-unit>
       <trans-unit id="219">
         <source>Identifiers for corporate bodies</source>
@@ -886,7 +886,7 @@
       </trans-unit>
       <trans-unit id="221">
         <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
-        <target/>
+        <target>"Да се внесат датумите на постоење на ентитетот што се опишува. За правните лица да се вклучат и датумите на основање (се наведува правниот акт за почеток и престанок на работењето). За физички лица да се наведат датумите или приближните датуми на раѓање и смрт, или, ако тие датуми не се познати, да се наведат датумите на процвет на активноста (floruit15). Ако се користат системи на паралелно датирање, можат да се наведат еквиваленти во согласност со соодветните прописи или правила." (ISAAR 5.2.1)</target>
       </trans-unit>
       <trans-unit id="222">
         <source>Dates of existence</source>
@@ -894,19 +894,19 @@
       </trans-unit>
       <trans-unit id="223">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
-        <target/>
+        <target>„Да се запишат во наративна форма или во хронологија најважните настани во животот, дејствувањето, достигнувањата и/или улогите на ентитетот што се опишува. Тука може да бидат опфатени информациите за раѓањето, полот, националноста, семејната и верската или политичката припадност. Секаде каде што е можно да се наведат датуми како составен дел на наративниот опис.“. (ISAAR 5.2.2)</target>
       </trans-unit>
       <trans-unit id="224">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
-        <target/>
+        <target>„Цел: Да се наведат најважните места и/или месни надлежности каде што правното, физичкото лице или семејството имале седиште, живееле, или имале некоја друга поврзаност со него. Правило: Да се запишат називите на најважните места и подрачја на месна надлежност, како и видот и датумите на траење на таа врска со ентитетот.“ (ISAAR 5.2.3)</target>
       </trans-unit>
       <trans-unit id="225">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
-        <target/>
+        <target>„Да се запише правниот статус и кога е тоа можно да се запише видот на правното лице, како и периодот во кој го имало тој статус." (ISAAR 5.2.4)</target>
       </trans-unit>
       <trans-unit id="226">
         <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
-        <target/>
+        <target>„Да се запишат функциите, занимањата и надлежностите на ентитетот што се опишува, како и времетраењето на таа активност. По потреба, да се опише видот на функциите, занимањата и надлежностите“. (ISAAR 5.2.5)</target>
       </trans-unit>
       <trans-unit id="227">
         <source>Functions, occupations and activities</source>
@@ -914,7 +914,7 @@
       </trans-unit>
       <trans-unit id="228">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
-        <target/>
+        <target>„Да се запишат сите документи, закони, упатства или повелби што се сметаат за извори за одредени овластувања, функции и одговорности на ентитетот што се опишува, и да се дадат информации за реалната територијална надлежност и за времетраењето или промените во тие надлежности.“ (ISAAR 5.2.6)</target>
       </trans-unit>
       <trans-unit id="229">
         <source>Mandates/sources of authority</source>
@@ -922,7 +922,7 @@
       </trans-unit>
       <trans-unit id="230">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>„Опишете ја внатрешната структура на правниот субјект и датумите на сите нејзини промени кои се значајни за разбирањето на начинот на кој правниот субјект ги водело своите работи (на пр. со датирани организациски табели, графикони). Опишете ја генеалогијата на семејството ( на пр. со помош на семејно стебло) на начин што ги покажува меѓусебните односи на неговите членови со соодветни датуми“. (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="231">
         <source>Internal structures/genealogy</source>
@@ -930,7 +930,7 @@
       </trans-unit>
       <trans-unit id="232">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>„Да се дадат значајни информации за општествениот, културниот, стопанскиот, политичкиот и/или историскиот контекст во кој правното, физичкото лице или семејството дејствувале, живееле и работеле“. (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="233">
         <source>Relationships area</source>
@@ -942,7 +942,7 @@
       </trans-unit>
       <trans-unit id="235">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
-        <target/>
+        <target>„Да се запише единствена сигнатура на нормативниот запис во согласност со локалните и/или националните прописи. Кога нормативниот запис треба да се користи интернационално, да се запише кодот на земјата во која е изработен нормативниот запис во согласност со најновата верзија ISO 3166 – Кодови за презентирање на називите на земјите. Кога нормативниот запис се однесува на меѓународна организација, да се даде сигнатура на организацијата наместо кодот на земјата.“ (ISAAR 5.4.1)</target>
       </trans-unit>
       <trans-unit id="236">
         <source>Authority record identifier</source>
@@ -954,11 +954,11 @@
       </trans-unit>
       <trans-unit id="238">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
-        <target/>
+        <target>„Да се запише целосната официјална форма на називот на институцијата одговорна за изработката, измените или дистрибуирањето на нормативниот запис или, по избор, да се запише кодот на институцијата во согласност со националните или меѓународните стандарди за кодови на институции. Да се стави и пристапната точка за сите системи на идентификација користени за идентификација на институциите (на пр. ISO 155111).“ (ISAAR 5.4.2)</target>
       </trans-unit>
       <trans-unit id="239">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>„Цел: Да се утврдат националните и/или меѓународните прописи, како и правилата што се применувале во изработката на архивскиот нормативен запис. Правило: Да се запишат сите називи, а ако е потребно и изданијата или датумите на објавување на прописите или правилата што биле применети. Посебно да се наведат правилата што биле применети во изработката на официјалната форма на називот. Да се внесат пристапните точки на сите системи на датирање што биле користени за утврдување на датумите во тој нормативен запис (на пр. ISO 8601).“ (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="240">
         <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -970,7 +970,7 @@
       </trans-unit>
       <trans-unit id="242">
         <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
-        <target/>
+        <target>„Да се запише датумот на изработка на нормативниот запис, како и датумите на сите измени на записот. Во елементот Прописи и/или правила (5.4.3) точно да се наведе кои системи на датирање се користени (на пр. ISO 8601).“ (ISAAR 5.4.6)</target>
       </trans-unit>
       <trans-unit id="243">
         <source>Last updated</source>
@@ -986,11 +986,11 @@
       </trans-unit>
       <trans-unit id="246">
         <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
-        <target/>
+        <target>„Да се запишат изворите што се користени за изработка на нормативниот запис.“. (ISAAR 5.4.8)</target>
       </trans-unit>
       <trans-unit id="247">
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
-        <target/>
+        <target>„Да се запишат сите информации што се однесуваат на изработката на стандардизираниот запис. Тука може да бидат наведени имињата на лицата што биле задолжени за изработката на стандардизираниот запис." (ISAAR 5.4.9)</target>
       </trans-unit>
       <trans-unit id="248">
         <source>Related resources</source>
@@ -1038,7 +1038,7 @@
       </trans-unit>
       <trans-unit id="259">
         <source>"Provide the unique identifiers/reference codes and/or titles for the</source>
-        <target/>
+        <target>„Обезбедете ги единствените идентификатори/референтни кодови и/или наслови за</target>
       </trans-unit>
       <trans-unit id="260">
         <source>Nature of relationship</source>
@@ -1046,7 +1046,7 @@
       </trans-unit>
       <trans-unit id="261">
         <source>"Describe the nature of the relationships between the corporate body, person or family</source>
-        <target/>
+        <target>„Опишете ја природата на односите помеѓу правниот субјект, лицето или семејството</target>
       </trans-unit>
       <trans-unit id="262">
         <source>Type of related resource</source>
@@ -1054,11 +1054,11 @@
       </trans-unit>
       <trans-unit id="263">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record</source>
-        <target/>
+        <target>„Идентификувајте го типот на поврзани ресурси, на пример, архивски материјали (фондови, записи</target>
       </trans-unit>
       <trans-unit id="264">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the</source>
-        <target/>
+        <target>„Наведете ги сите релевантни датуми за поврзаните ресурси и/или врската помеѓу</target>
       </trans-unit>
       <trans-unit id="265">
         <source>Submit</source>
@@ -1078,7 +1078,7 @@
       </trans-unit>
       <trans-unit id="269">
         <source>"Record the authorized form of name and any relevant unique identifiers,</source>
-        <target/>
+        <target>„Да се запише официјалната форма на називите и сите значајни единствени идентификациски ознаки</target>
       </trans-unit>
       <trans-unit id="270">
         <source>Category of relationship</source>
@@ -1086,7 +1086,7 @@
       </trans-unit>
       <trans-unit id="271">
         <source>"Purpose: To identify the general category of relationship between the entity being</source>
-        <target/>
+        <target>„Цел: Да се идентификува општата категорија на врска помеѓу ентитетот</target>
       </trans-unit>
       <trans-unit id="272">
         <source>Relationship type</source>
@@ -1094,7 +1094,7 @@
       </trans-unit>
       <trans-unit id="273">
         <source>"Select a descriptive term from the drop-down menu to clarify</source>
-        <target/>
+        <target>„Изберете описен термин од паѓачкото мени за да појасните</target>
       </trans-unit>
       <trans-unit id="274">
         <source>Description of relationship</source>
@@ -1102,11 +1102,11 @@
       </trans-unit>
       <trans-unit id="275">
         <source>"Record a precise description of the nature of the relationship between the entity</source>
-        <target/>
+        <target>„Да се даде специфичен опис на видот на врските."</target>
       </trans-unit>
       <trans-unit id="276">
         <source>"Record when relevant the commencement date of the relationship or succession date and,</source>
-        <target/>
+        <target>„Забележете кога е релевантно датумот на започнување на врската или датумот на наследување и,</target>
       </trans-unit>
       <trans-unit id="277">
         <source>Clipboard</source>
@@ -1150,7 +1150,7 @@
       </trans-unit>
       <trans-unit id="287">
         <source>Access points area</source>
-        <target/>
+        <target>Подрачје на пристапни точки</target>
       </trans-unit>
       <trans-unit id="288">
         <source>Occupations</source>
@@ -1186,11 +1186,11 @@
       </trans-unit>
       <trans-unit id="296">
         <source>"Use for" labels</source>
-        <target/>
+        <target>Ознаки „Користете за“</target>
       </trans-unit>
       <trans-unit id="297">
         <source>%1% term</source>
-        <target/>
+        <target>%1% термин/поим</target>
       </trans-unit>
       <trans-unit id="298">
         <source>Scope note</source>
@@ -1198,7 +1198,7 @@
       </trans-unit>
       <trans-unit id="299">
         <source>%1 count</source>
-        <target/>
+        <target>% 1 број</target>
       </trans-unit>
       <trans-unit id="300">
         <source>Use for: </source>
@@ -1390,7 +1390,7 @@
       </trans-unit>
       <trans-unit id="347">
         <source>%language% translation</source>
-        <target/>
+        <target>Превод на %јазик%</target>
       </trans-unit>
       <trans-unit id="348">
         <source>Save translation</source>
@@ -1430,7 +1430,7 @@
       </trans-unit>
       <trans-unit id="357">
         <source>%1% visits</source>
-        <target/>
+        <target>%1% посети</target>
       </trans-unit>
       <trans-unit id="358">
         <source>Move %1%</source>
@@ -1474,7 +1474,7 @@
       </trans-unit>
       <trans-unit id="368">
         <source>A %1%release %2% upgrade is available.</source>
-        <target/>
+        <target>Надградбата на %1%release %2% е достапна.</target>
       </trans-unit>
       <trans-unit id="369">
         <source>Job report</source>
@@ -1606,7 +1606,7 @@
       </trans-unit>
       <trans-unit id="401">
         <source>Accession</source>
-        <target/>
+        <target>Пристапување</target>
       </trans-unit>
       <trans-unit id="402">
         <source>Event</source>
@@ -1762,11 +1762,11 @@
       </trans-unit>
       <trans-unit id="440">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>„Да се забележи нумеричката или алфа-нумеричката сигнатура со која се идентификува установата со архивски материјал во согласност со релевантните меѓународни и национални стандарди“. (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="441">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
+        <target>„Евидентирање на стандардизираниот облик на називот на установата со архивски материјал, со додавање според потребата на соодветни одредници (на пример дата, место, итн.). Во елементот Правила и/или конвенции (5.6.3) посебно да се наведе која група правила се применува за овој елемент“. (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="442">
         <source>This is a mandatory element</source>
@@ -1774,11 +1774,11 @@
       </trans-unit>
       <trans-unit id="443">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>„Цел: Да се наведат различните облици во кои стандардизираниот облик на називот на установата со архивски материјал се појавува во другите јазици или ракописи. Правило: Да се забележат паралелните облици на називот на установата со архивски материјал во согласност со соодветните национални и меѓународни договори и правила што ги применува установата која го создала описот, вклучувајќи ги сите потребни поделементи и/или одредницишто се бараат со тие договори или правила. Во елементот (5.6.3) во врска соправилата и/или договорите, да се наведе кои правила се применети." (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="444">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>„Да се забележат другите називи под кои установата со архивски материјал е позната. Овде може да се вклучат поинакви форми од називот, кратенки, други називи на установата или промените на називот со текот на времето и, доколку е можно, со релевантните датуми." (ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="445">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired</source>
@@ -1786,11 +1786,11 @@
       </trans-unit>
       <trans-unit id="446">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
-        <target/>
+        <target>„Да се наведе секоја релевантна информација за историјата на установата со архивски материјал. Овој елемент може да вклучува информации за датите на основањето на установата, промените на називот, измените во правните надлежности или некои други надлежности на установата со архивски материјал." (ISDIAH 5.3.1)</target>
       </trans-unit>
       <trans-unit id="447">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>„Идентификувајте ја географската област на која и припаѓа институцијата. Запишете ги сите други важни информации за културниот контекст на институцијата која чува архивски материјал“. (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="448">
         <source>Geographical and cultural context</source>
@@ -1798,7 +1798,7 @@
       </trans-unit>
       <trans-unit id="449">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>„Да се наведе секој документ, закон, директива или повелба, врз која се темелат надлежностите и овластувањата на установата со архивски материјал, заедно со информациите за надлежностите, времето на примена на надлежностите или времето на промена на надлежноста." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="450">
         <source>Mandates/Sources of authority</source>
@@ -1806,7 +1806,7 @@
       </trans-unit>
       <trans-unit id="451">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>„Опишете ја, во наративна форма или користејќи организациски графикони, моменталната административна структура (внатрешна организација) на институцијата која чува архивски материјал“. (ИСДИА 5.3.4)</target>
       </trans-unit>
       <trans-unit id="452">
         <source>Administrative structure</source>
@@ -1814,7 +1814,7 @@
       </trans-unit>
       <trans-unit id="453">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target/>
+        <target>„Да се наведат информации за управувањето документи и аквизициската политика на установата со архивски материјал. Да се дефинира видот и природата на материјалот што установата со архивски материјал го презема. Да се наведе дали архивскиот материјал доаѓа во установата по пат на службено предавање, како подарок, по пат на откуп или по пат на позајмување. Ако аквизициската политика вклучува активен надзор и заштита, и тие податоци треба да се изнесат.“ (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="454">
         <source>Records management and collecting policies</source>
@@ -1822,11 +1822,11 @@
       </trans-unit>
       <trans-unit id="455">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target/>
+        <target>„Да се даде информација за зградата (зградите) на установата со архивски материјал (општи и архитектонски карактеристики на зградата, капацитет на просторот за складирање итн.). Каде што е можно да се дадат информации што можат да се искористат за изработка на статистика.“ (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="456">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
-        <target/>
+        <target>„Да се изработи краток опис на фондовите/збирките на установата со архивски материјал, со објаснување кога и како се формирани. Да се даде информација за количината на архивскиот материјал, видот на медиумите, тематските целини што ги покрива итн.“ (ISDIAH 5.3.7)</target>
       </trans-unit>
       <trans-unit id="457">
         <source>Archival and other holdings</source>
@@ -1834,7 +1834,7 @@
       </trans-unit>
       <trans-unit id="458">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>„Да се наведе насловот и сите релевантни детали за објавените и/или необјавените информативни средства и водичи подготвени од установата со архивски материјал и од сите други релевантни публикации. Да се употреби ISO 690 – Информации и документација – Библиографски упатства и останатите национални или меѓународни правила за каталогизација.“ (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="459">
         <source>Finding aids, guides and publications</source>
@@ -1842,15 +1842,15 @@
       </trans-unit>
       <trans-unit id="460">
         <source>Access area</source>
-        <target/>
+        <target>Подрачје за пристап</target>
       </trans-unit>
       <trans-unit id="461">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target/>
+        <target>„Да се назначи работното време на установата со архивски материјал, како и сите денови во текот на годината, сезонски и јавни празници и сите други денови кога установата нема да работи. Да се наведе времето поврзано со можностите за користење и/или давање поединечни услуги (на пример: изложбени простори, служби за корисници итн.).“ (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="462">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>„Опишете ги политиките за достапност, вклучително и сите ограничувања и/или прописи за користење на архивски материјали и услуги. Да се наведат информации за пријавување, закажување, членски карти за читатели, препораки, цена на влезница, членска карта итн. Каде што е потребно, упатете на соодветни законски одредби. " (ИСДИА 5.4.2)</target>
       </trans-unit>
       <trans-unit id="463">
         <source>Conditions and requirements</source>
@@ -1858,11 +1858,11 @@
       </trans-unit>
       <trans-unit id="464">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"Да се наведат информации за тоа како да ја најдете установата со архивски материјал и детали за корисниците со попреченост, вклучувајќи ги карактеристиките на зградата, специјализирана опрема или уреди, паркинг или лифтови." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="465">
         <source>Accessibility</source>
-        <target/>
+        <target>Пристапност</target>
       </trans-unit>
       <trans-unit id="466">
         <source>Services area</source>
@@ -1870,15 +1870,15 @@
       </trans-unit>
       <trans-unit id="467">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
-        <target/>
+        <target>„Да се наведат информации за услугите што установата со архивски материјал им ги дава на лице место на корисниците, како што се информации за тоа кои странски јазици ги зборува персоналот, информации за просториите наменети за истражувачи и преглед на материјалот, услуги за пребарување, библиотеки во составот на установата, географски карти, микрофиши, аудио-визуелен архивски материјал, простории со компјутери итн. Исто така, да се наведат сите релевантни информации за услугите за истражување, како што се истражувања кои ги извршува установата со архивски материјал, а по потреба и информации за цените за истражување." (ISDIAH 5.5.1)</target>
       </trans-unit>
       <trans-unit id="468">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>„Да се наведат информации за услугите за изработка на копии достапни за јавноста (микрофилмови, фотокопии, фотографии, дигитални копии). Да се потенцираат општите услови и ограничувањата поврзани со услугите, вклучувајќи го важечкиот ценовник и правилата за објавување на архивскиот материјал.“. (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="469">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>„Да се наведат информации за просториите наменети за јавна употреба (постојани или привремени изложби, користење интернет со или без надокнада, банкомати, кафетерии, ресторани, продавници итн.)“. (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="470">
         <source>Public areas</source>
@@ -1886,15 +1886,15 @@
       </trans-unit>
       <trans-unit id="471">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>„Да се наведе единствената сигнатура на описниот запис, во согласност со локалните и/или националните договори. Ако описот треба да се користи на меѓународно ниво, да се наведе ознаката на земјата во која настанал записот, а во согласност со последната верзија на ISO 3166 – Ознака за претставување имиња на држави. Во случај кога изготвувач на описот е меѓународна организација, наместо ознаката на земјата наведете ја ознаката на организацијата.“ (ISDIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="472">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>"Да се забележи комплетниот стандардизиран опис на установата (установите) одговорни за изработка, измена или дисеминација на описниот запис или алтернативно, да се забележи ознаката на установата во согласност со националниот и меѓународниот стандард за означување установи." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="473">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
-        <target/>
+        <target>„Да се наведе називот и каде што е тоа потребно изданијата или датите на изданијата на користените конвенции и правила. Посебно да се наведат правилата користени при изработката на стандардизираниот облик на називот. Да се вклучи насока кон секој систем на датирање според кој се обликувани датите во овој опис (на пример ISO 8601).“ (ISDIAH 5.6.3)</target>
       </trans-unit>
       <trans-unit id="474">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -1906,7 +1906,7 @@
       </trans-unit>
       <trans-unit id="476">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>„Да се наведе датата на изработка на описот, како и датата на сите измени на описот.“ (ISDIAH 5.6.6)</target>
       </trans-unit>
       <trans-unit id="477">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
@@ -1918,11 +1918,11 @@
       </trans-unit>
       <trans-unit id="479">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>„Да се забележат изворите користени при изработката на описот на установата со архивски материјал. (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="480">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"Да се наведат податоци кои се однесуваат на изработката и одржувањето на стандардизираниот запис. Овде може да се наведат и имиња на лицата одговорни за изработка и/или измена на описот." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="481">
         <source>Thematic area</source>
@@ -1958,7 +1958,7 @@
       </trans-unit>
       <trans-unit id="489">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>Услови и барања за пристап</target>
       </trans-unit>
       <trans-unit id="490">
         <source>Research services</source>
@@ -1970,7 +1970,7 @@
       </trans-unit>
       <trans-unit id="492">
         <source>Access Points</source>
-        <target/>
+        <target>Пристапни точки</target>
       </trans-unit>
       <trans-unit id="493">
         <source>Add description</source>
@@ -2022,7 +2022,7 @@
       </trans-unit>
       <trans-unit id="505">
         <source>Accession record</source>
-        <target/>
+        <target>Запис за преземање</target>
       </trans-unit>
       <trans-unit id="506">
         <source>Extent</source>
@@ -2094,11 +2094,11 @@
       </trans-unit>
       <trans-unit id="523">
         <source>%1% derivatives</source>
-        <target/>
+        <target>%1% извод</target>
       </trans-unit>
       <trans-unit id="524">
         <source>%1% derivatives settings</source>
-        <target/>
+        <target>%1% поставки за изводи</target>
       </trans-unit>
       <trans-unit id="525">
         <source>PDF page number for image derivative</source>
@@ -2218,7 +2218,7 @@
       </trans-unit>
       <trans-unit id="554">
         <source>Access statement</source>
-        <target/>
+        <target>Изјава за пристап</target>
       </trans-unit>
       <trans-unit id="555">
         <source>When enabled the text above will appear in the %1% metadata section to describe how a user may access the original and preservation copy of the file stored in a linked digital preservation system. The text appears in the "Permissions" field. When disabled, the "Permissions" field is not displayed.</source>
@@ -2282,7 +2282,7 @@
       </trans-unit>
       <trans-unit id="570">
         <source>%1% upload limits</source>
-        <target/>
+        <target>%1% ограничување за прикачување</target>
       </trans-unit>
       <trans-unit id="571">
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
@@ -2510,7 +2510,7 @@
       </trans-unit>
       <trans-unit id="627">
         <source>%1% metadata - original file</source>
-        <target/>
+        <target>%1% метаподатоци - оригинална датотека</target>
       </trans-unit>
       <trans-unit id="628">
         <source>File name</source>
@@ -2542,7 +2542,7 @@
       </trans-unit>
       <trans-unit id="635">
         <source>%1% metadata - preservation copy</source>
-        <target/>
+        <target>%1% метаподатоци - заштитна копија</target>
       </trans-unit>
       <trans-unit id="636">
         <source>Normalized</source>
@@ -2550,7 +2550,7 @@
       </trans-unit>
       <trans-unit id="637">
         <source>%1% metadata - master file</source>
-        <target/>
+        <target>%1% метаподатоци - главна датотека</target>
       </trans-unit>
       <trans-unit id="638">
         <source>Latitude and longitude</source>
@@ -2570,11 +2570,11 @@
       </trans-unit>
       <trans-unit id="642">
         <source>%1% metadata - reference copy</source>
-        <target/>
+        <target>%1% метаподатоци - референтна копија</target>
       </trans-unit>
       <trans-unit id="643">
         <source>%1% metadata - thumbnail copy</source>
-        <target/>
+        <target>%1% метаподатоци - копија на мала слика (икона)</target>
       </trans-unit>
       <trans-unit id="644">
         <source>Physical storage</source>
@@ -2606,15 +2606,15 @@
       </trans-unit>
       <trans-unit id="651">
         <source>Accession mask enabled</source>
-        <target/>
+        <target>Маската за пристап е овозможена</target>
       </trans-unit>
       <trans-unit id="652">
         <source>Accession mask</source>
-        <target/>
+        <target>Пристапна маска</target>
       </trans-unit>
       <trans-unit id="653">
         <source>Accession counter</source>
-        <target/>
+        <target>Бројач на пристапување</target>
       </trans-unit>
       <trans-unit id="654">
         <source>Identifier mask enabled</source>
@@ -2642,7 +2642,7 @@
       </trans-unit>
       <trans-unit id="660">
         <source>%1% identifiers: prevent entry/import of duplicates</source>
-        <target/>
+        <target>%1% идентификатори: спречи внесување/увоз на дупликати</target>
       </trans-unit>
       <trans-unit id="661">
         <source>Default page elements</source>
@@ -2742,7 +2742,7 @@
       </trans-unit>
       <trans-unit id="685">
         <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <target/>
+        <target>Краток опис на страницата или "tagline&цитат; за заглавието</target>
       </trans-unit>
       <trans-unit id="686">
         <source>Site base URL (used in MODS and EAD exports)</source>
@@ -2794,7 +2794,7 @@
       </trans-unit>
       <trans-unit id="698">
         <source>A coded designation for the copyright status of the object</source>
-        <target/>
+        <target>Кодирана ознака за статусот на авторските права на објектот</target>
       </trans-unit>
       <trans-unit id="699">
         <source>The date the copyright status applies.</source>
@@ -2874,7 +2874,7 @@
       </trans-unit>
       <trans-unit id="718">
         <source>A condition or limitation on the act.</source>
-        <target/>
+        <target>Услов или ограничување на делото.</target>
       </trans-unit>
       <trans-unit id="719">
         <source>The beginning date of the permission granted.</source>
@@ -3166,11 +3166,11 @@
       </trans-unit>
       <trans-unit id="791">
         <source>%1% file</source>
-        <target/>
+        <target>%1% датотека</target>
       </trans-unit>
       <trans-unit id="792">
         <source>%1 - report criteria</source>
-        <target/>
+        <target>%1 - критериум за извештај</target>
       </trans-unit>
       <trans-unit id="793">
         <source>Report criteria</source>
@@ -3218,7 +3218,7 @@
       </trans-unit>
       <trans-unit id="804">
         <source>%1% results with digital objects</source>
-        <target/>
+        <target>%1% резултати со дигитални објекти</target>
       </trans-unit>
       <trans-unit id="805">
         <source>Show results with digital objects</source>
@@ -3262,7 +3262,7 @@
       </trans-unit>
       <trans-unit id="815">
         <source>%{maxFileSizeMessage}; %{maxPostSizeMessage}</source>
-        <target/>
+        <target>%{maxГолеминаПорака}; %{maxPostГолеминаПорака}</target>
       </trans-unit>
       <trans-unit id="816">
         <source>Retry</source>
@@ -3290,11 +3290,11 @@
       </trans-unit>
       <trans-unit id="822">
         <source>%{smart_count} file selected</source>
-        <target/>
+        <target>Избрана е %{smart_count} датотека</target>
       </trans-unit>
       <trans-unit id="823">
         <source>%{smart_count} files selected</source>
-        <target/>
+        <target>Избрани се %{smart_count} датотеки</target>
       </trans-unit>
       <trans-unit id="824">
         <source>Uploading</source>
@@ -3318,19 +3318,19 @@
       </trans-unit>
       <trans-unit id="829">
         <source>%{complete} of %{smart_count} file uploaded</source>
-        <target/>
+        <target>%{complete} на %{smart_count} прикачена датотека</target>
       </trans-unit>
       <trans-unit id="830">
         <source>%{complete} of %{smart_count} files uploaded</source>
-        <target/>
+        <target>%{complete} од %{smart_count} прикачени датотеки</target>
       </trans-unit>
       <trans-unit id="831">
         <source>%{complete} of %{total}</source>
-        <target/>
+        <target>%{complete} од %{total}</target>
       </trans-unit>
       <trans-unit id="832">
         <source>%{time} left</source>
-        <target/>
+        <target>%{време} преостанато</target>
       </trans-unit>
       <trans-unit id="833">
         <source>Editing %{file}</source>
@@ -3418,7 +3418,7 @@
       </trans-unit>
       <trans-unit id="854">
         <source>A slug based on this title already exists so a number has been added to pad the slug.</source>
-        <target/>
+        <target>Кратка URL врска која постои врз основа на овој наслов веќе постои, па затоа е додаден број за да се направи разлика.</target>
       </trans-unit>
       <trans-unit id="855">
         <source>Update slug</source>
@@ -3454,7 +3454,7 @@
       </trans-unit>
       <trans-unit id="863">
         <source>%1 list - report criteria</source>
-        <target/>
+        <target>%1 список - критериуми за извештаи</target>
       </trans-unit>
       <trans-unit id="864">
         <source>Sort by</source>
@@ -3506,7 +3506,7 @@
       </trans-unit>
       <trans-unit id="876">
         <source>Accession number(s)</source>
-        <target/>
+        <target>Пристапен/инвентарен број(еви)</target>
       </trans-unit>
       <trans-unit id="877">
         <source>Administration area</source>
@@ -3594,7 +3594,7 @@
       </trans-unit>
       <trans-unit id="898">
         <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field</source>
-        <target/>
+        <target>&lt;strong&gt;Ознака:&lt;/strong&gt; Внесете име за поле на алтернативен идентификатор</target>
       </trans-unit>
       <trans-unit id="899">
         <source>Inventory list</source>
@@ -3618,7 +3618,7 @@
       </trans-unit>
       <trans-unit id="904">
         <source>%1% more</source>
-        <target/>
+        <target>%1% повеќе</target>
       </trans-unit>
       <trans-unit id="905">
         <source>No results found.</source>
@@ -3686,7 +3686,7 @@
       </trans-unit>
       <trans-unit id="921">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt;Идентификатор&lt;/strong&gt;&lt;br /&gt;Обезбедете единствен идентификатор за материјалите што се опишуваат во согласност со системот за административна контрола на институцијата.&lt;br /&gt;&lt;strong&gt;Ниво на опис&lt;/strong&gt; &lt;br /&gt;Запишете го нивото на опис за оваа единица.&lt;br /&gt;&lt;strong&gt;Наслов&lt;/strong&gt;&lt;br /&gt;Во недостаток на формален наслов, составете краток наслов кој уникатно го идентификува материјалот.&lt;br /&gt;&lt;strong&gt;Датум&lt;/strong&gt;&lt;br /&gt;Запишете датум на создавање.</target>
       </trans-unit>
       <trans-unit id="922">
         <source>Content and structure elements</source>
@@ -3954,7 +3954,7 @@
       </trans-unit>
       <trans-unit id="988">
         <source>Access control</source>
-        <target/>
+        <target>Контрола на пристап</target>
       </trans-unit>
       <trans-unit id="989">
         <source>Allowed languages for translation</source>
@@ -4094,7 +4094,7 @@
       </trans-unit>
       <trans-unit id="1023">
         <source>%1% results directly related</source>
-        <target/>
+        <target>%1% директно поврзани резултати</target>
       </trans-unit>
       <trans-unit id="1024">
         <source>Exclude narrower terms</source>
@@ -4154,7 +4154,7 @@
       </trans-unit>
       <trans-unit id="1038">
         <source>%1% %2% results for %3%</source>
-        <target/>
+        <target>%1% %2% резултати за %3%</target>
       </trans-unit>
       <trans-unit id="1039">
         <source>Only results directly related</source>
@@ -4258,7 +4258,7 @@
       </trans-unit>
       <trans-unit id="1064">
         <source>'Use for' labels</source>
-        <target/>
+        <target>ознаки „Користете за“</target>
       </trans-unit>
       <trans-unit id="1065">
         <source>Are you sure you want to delete these captions/subtitles/chapters?</source>
@@ -4278,7 +4278,7 @@
       </trans-unit>
       <trans-unit id="1069">
         <source>%1% (%2%) rights area</source>
-        <target/>
+        <target>%1% (%2%) подрачје на права</target>
       </trans-unit>
       <trans-unit id="1070">
         <source>Download audio</source>
@@ -4298,7 +4298,7 @@
       </trans-unit>
       <trans-unit id="1074">
         <source>%1% representation</source>
-        <target/>
+        <target>%1% презентација</target>
       </trans-unit>
       <trans-unit id="1075">
         <source>Select a %1% to upload</source>
@@ -4310,7 +4310,7 @@
       </trans-unit>
       <trans-unit id="1077">
         <source>%1%</source>
-        <target/>
+        <target>%1%</target>
       </trans-unit>
       <trans-unit id="1078">
         <source>Select a file to upload (.vtt|.srt)</source>
@@ -4346,7 +4346,7 @@
       </trans-unit>
       <trans-unit id="1086">
         <source>%1% metadata</source>
-        <target/>
+        <target>%1% метаподатоци</target>
       </trans-unit>
       <trans-unit id="1087">
         <source>Preservation Copies</source>
@@ -4362,7 +4362,7 @@
       </trans-unit>
       <trans-unit id="1090">
         <source>Access Copies</source>
-        <target/>
+        <target>Пристап до копии</target>
       </trans-unit>
       <trans-unit id="1091">
         <source>Master file</source>
@@ -4614,7 +4614,7 @@
       </trans-unit>
       <trans-unit id="1153">
         <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
-        <target/>
+        <target>%du% од %limit% &lt;abbr title="1 GB = 1 000 000 000 бајти"&gt;GB&lt;/abbr&gt; (% проценти%%)</target>
       </trans-unit>
       <trans-unit id="1154">
         <source>Upload is disabled</source>
@@ -4622,7 +4622,7 @@
       </trans-unit>
       <trans-unit id="1155">
         <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
-        <target/>
+        <target>%du% &lt;abbr title="1 GB = 1 000 000 000 бајти"&gt;GB&lt;/abbr&gt; од &lt;em&gt;Неограничено&lt;/em&gt;&nbsp;</target>
       </trans-unit>
       <trans-unit id="1156">
         <source>Edit upload limit</source>
@@ -4686,51 +4686,51 @@
       </trans-unit>
       <trans-unit id="1171">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
-        <target/>
+        <target>„Да се одреди дали описот се однесува на функцијата или на некоја од нејзините понатамошни поделби е во согласност со националната и меѓународната терминологија. (ISDF 5.1.1) Изберете го типот од паѓачкото мени; овие вредности се извлечени од таксономијата на типови на ISDF функции.</target>
       </trans-unit>
       <trans-unit id="1172">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
-        <target/>
+        <target>„Да се забележи(ат) стандардизираниот(те) форма(и) на називот на функцијата. Да се користи територијалниот и управниот домен на функцијата, називот на установата која ја извршувала како и други соодветни одредници за функцијата да се разликува од другите функции со слични имиња. Овој елемент е наменет за употреба заедно со елементот Обележје на описот на функцијата (5.4.1)." (ISDF 5.1.2)</target>
       </trans-unit>
       <trans-unit id="1173">
         <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
-        <target/>
+        <target>„Цел: Да се наведат различни форми во кои стандардизираната(ните) форма(и) на имиња се појавуваат на други јазици и писма. Правило: Да се забележат напоредниот(те) форма(и) на имиња согласно со сите релевантни национални и меѓународни прописи или правила што ги применува архивската установа која го изработила описот, вклучувајќи ги и сите неопходни поделементи и/или одредници што тој пропис или правила ги налагаат. Во елементот Користени правила и/или прописи (5.4.3) да се наведат кои правила се користени." (ISDF 5.1.3)</target>
       </trans-unit>
       <trans-unit id="1174">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
-        <target/>
+        <target>"Да се наведат сите други имиња на функции што се опишани." (ISDF 5.1.4)</target>
       </trans-unit>
       <trans-unit id="1175">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
-        <target/>
+        <target>"Да се забележат сите поими и/или обележја од класификацискиот план на функции. Да се забележи користениот класификациски план во елементот Користени правила и/или прописи (5.4.3)." (ISDF 5.1.5)</target>
       </trans-unit>
       <trans-unit id="1176">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>"Наведете датум или временски период кој ги опфаќа датумите кога функцијата била започната и кога завршила. Ако функцијата е во тек, не е потребен краен датум." (ISDF 5.2.1)</target>
       </trans-unit>
       <trans-unit id="1177">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
-        <target/>
+        <target>„Да се даде информација за целта на функцијата“. (ISDF 5.2.2)</target>
       </trans-unit>
       <trans-unit id="1178">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>„Накратко во наративен облик да се изнесе хронологија на историјата на функцијата“. (ISDF 5.2.3)</target>
       </trans-unit>
       <trans-unit id="1179">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
-        <target/>
+        <target>„Да се забележат сите закони, наредби или договори што ја создаваат, менуваат или ограничуваат функцијата“. (ISDF 5.2.4)</target>
       </trans-unit>
       <trans-unit id="1180">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
-        <target/>
+        <target>„Да се забележи еднозначното обележје на описот согласно со локалните и/или националните прописи. Ако описот се користи на меѓународно ниво, да се забележи ознаката на земјата во која настанал, согласно со последната верзија ISO 3166 - Обележја за претставување на името на земјата). Во случај кога подготвувач на описот е меѓународна организација, наместо ознаката на земјата се наведува ознаката на организацијата.“ (ISDF 5.4.1)</target>
       </trans-unit>
       <trans-unit id="1181">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target/>
+        <target>„Да се забележи целосната(те) стандардизирана(и) форма(и) на називот(-ите) на установата(ите) задолжена(и) за изработка, измена и дисеминација на описот или, алтернативно, да се наведе признаената ознака за установата." (ISDF 5.4.2)</target>
       </trans-unit>
       <trans-unit id="1182">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
-        <target/>
+        <target>"Цел: Да се идентификуваат националните или меѓународните прописи или правила применети при изработката на описот. Правило: Да се забележат имињата и, каде што е од полза, изданијата или датумите на изданијата на користените прописи или правила." (ISDF 5.4.3)</target>
       </trans-unit>
       <trans-unit id="1183">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -4742,7 +4742,7 @@
       </trans-unit>
       <trans-unit id="1185">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
-        <target/>
+        <target>„Да се забележи датумот на изработка на стандардизираниот запис, како и датумите на сите измени на описот“. (ISDF 5.4.6)</target>
       </trans-unit>
       <trans-unit id="1186">
         <source>Dates of creation, revision or deletion</source>
@@ -4758,11 +4758,11 @@
       </trans-unit>
       <trans-unit id="1189">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target/>
+        <target>„Да се забележат изворите користени при утврдувањето на описот на функцијата“. (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="1190">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
-        <target/>
+        <target>„Да се забележат информациите кои се однесуваат на изработката и одржувањето на описот“. (ISDF 5.4.9)</target>
       </trans-unit>
       <trans-unit id="1191">
         <source>Related authority records</source>
@@ -4806,15 +4806,15 @@
       </trans-unit>
       <trans-unit id="1201">
         <source>"Record the authorised form of name and any unique identifier</source>
-        <target/>
+        <target>„Да се забележи(ат) стандардизираната(те) форма(и) на називот и сите еднозначни обележја на поврзаната функција</target>
       </trans-unit>
       <trans-unit id="1202">
         <source>"Record a general category into which the relationship</source>
-        <target/>
+        <target>„Да се наведе дали врската</target>
       </trans-unit>
       <trans-unit id="1203">
         <source>"Record a precise description of the nature of the relationship</source>
-        <target/>
+        <target>„Да се даде специфичен опис на видот на врските."</target>
       </trans-unit>
       <trans-unit id="1204">
         <source>Edit %1% permissions of %2%</source>
@@ -4874,7 +4874,7 @@
       </trans-unit>
       <trans-unit id="1218">
         <source>%1% name</source>
-        <target/>
+        <target>%1% назив/име</target>
       </trans-unit>
       <trans-unit id="1219">
         <source>List groups</source>
@@ -4966,19 +4966,19 @@
       </trans-unit>
       <trans-unit id="1241">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Вид:%2% Изберете го видот на настанот.%3%</target>
       </trans-unit>
       <trans-unit id="1242">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Датум:%2% Внесете го датумот на настанот.%3%</target>
       </trans-unit>
       <trans-unit id="1243">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Агент:%2% Внесете го агентот поврзан со настанот.%3%</target>
       </trans-unit>
       <trans-unit id="1244">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Забелешка:%2% Внесете белешки поврзани со настанот.%3%</target>
       </trans-unit>
       <trans-unit id="1245">
         <source>You are creating an accrual to accession %1%</source>
@@ -4986,11 +4986,11 @@
       </trans-unit>
       <trans-unit id="1246">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Пристапниот/инвентарниот број треба да биде комбинација од вредности запишани во полето и треба да биде единствен инвентарен број за депото</target>
       </trans-unit>
       <trans-unit id="1247">
         <source>Accession number</source>
-        <target/>
+        <target>Пристапен/инвентарен број</target>
       </trans-unit>
       <trans-unit id="1248">
         <source>Server error while checking identifer availability.</source>
@@ -4998,7 +4998,7 @@
       </trans-unit>
       <trans-unit id="1249">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Датумот на пристапување го претставува датумот на прием на материјалите и се додава во текот на процесот на прием.</target>
       </trans-unit>
       <trans-unit id="1250">
         <source>Acquisition date</source>
@@ -5010,7 +5010,7 @@
       </trans-unit>
       <trans-unit id="1252">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Опис на физичката локација во депото каде што може да се пристапи до материјалот.</target>
       </trans-unit>
       <trans-unit id="1253">
         <source>Location information</source>
@@ -5054,7 +5054,7 @@
       </trans-unit>
       <trans-unit id="1263">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Опис на интелектуалната содржина и видовите документи претставени во пристапот.</target>
       </trans-unit>
       <trans-unit id="1264">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
@@ -5062,7 +5062,7 @@
       </trans-unit>
       <trans-unit id="1265">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Опис на физичката состојба на материјалот и дали е потребна било каква посебна заштита или ракување.</target>
       </trans-unit>
       <trans-unit id="1266">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
@@ -5086,7 +5086,7 @@
       </trans-unit>
       <trans-unit id="1271">
         <source>%1% area</source>
-        <target/>
+        <target>%1% подрачје</target>
       </trans-unit>
       <trans-unit id="1272">
         <source>Browse accessions</source>
@@ -5158,7 +5158,7 @@
       </trans-unit>
       <trans-unit id="1289">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that</source>
-        <target/>
+        <target>&lt;strong&gt;Тип:&lt;/strong&gt; Внесете име за поле на алтернативен идентификатор што</target>
       </trans-unit>
       <trans-unit id="1290">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -5174,7 +5174,7 @@
       </trans-unit>
       <trans-unit id="1293">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
-        <target/>
+        <target>„Кога е можно, буквално препишете ги паралелните наслови што се појавуваат заедно со формалниот оригинален наслов...“ (RAD 1.1D)</target>
       </trans-unit>
       <trans-unit id="1294">
         <source>Parallel titles</source>
@@ -5182,7 +5182,7 @@
       </trans-unit>
       <trans-unit id="1295">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
-        <target/>
+        <target>„Препишете и други информации за насловот што се појавуваат заедно со официјалниот наслов...“ (RAD 1.1E)</target>
       </trans-unit>
       <trans-unit id="1296">
         <source>Other title information</source>
@@ -5190,7 +5190,7 @@
       </trans-unit>
       <trans-unit id="1297">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>„На ниво на опис на документ, препишете експлицитни изјави за одговорност кои се однесуваат на формалниот наслов во или на главниот извор на информации...“ (RAD 1.1F)</target>
       </trans-unit>
       <trans-unit id="1298">
         <source>Statement of responsibility</source>
@@ -5214,7 +5214,7 @@
       </trans-unit>
       <trans-unit id="1303">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>„Користете го ова поле само во описот на ниво на документ за да се наведат податоци кои се однесуваат на постоење на две или повеќе верзии или една или повеќе копии“. (RAD 1.2A1) „Препишете ја изјавата за изданието што се однесува на единицата што се опишува“. (RAD 1.2B1) „Ако единицата што се опишува нема податок за изданието, но се знае дека содржи значителни разлики од другите изданија, наведете кратка информација на јазикот и писмото на вистинскиот наслов и ставете ја во квадратни загради“. (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="1304">
         <source>Edition statement</source>
@@ -5222,7 +5222,7 @@
       </trans-unit>
       <trans-unit id="1305">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>„Препишете ја изјавата за одговорност (извршете транскрипција) која се однесува на едно или повеќе изданија, но не и на сите изданија, на ставката што е опишана по изјавата за изданието, доколку постои“. (RAD 1.2.C1) „Кога го опишувате првото издание, наведете ги сите податоци за одговорност во областа Наслов и изјава за одговорност." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="1306">
         <source>Statement of responsibility relating to the edition</source>
@@ -5230,7 +5230,7 @@
       </trans-unit>
       <trans-unit id="1307">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>„Наведете ја скалата на единицата што се опишува изразена како сооднос (1: ). Да се наведе и ако е веќе посочена како дел од насловот или во податоците за насловот“. (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="1308">
         <source>Statement of scale (cartographic)</source>
@@ -5238,7 +5238,7 @@
       </trans-unit>
       <trans-unit id="1309">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>„Наведете го податокот за проекција доколку се наоѓа на главниот(и) извор(и) на информации." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="1310">
         <source>Statement of projection (cartographic)</source>
@@ -5246,7 +5246,7 @@
       </trans-unit>
       <trans-unit id="1311">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>"На ниво на фонд, серија или досие, впишете ги географските координати на максималниот опсег на единица архивски материјал, се додека се разумно во континуитет." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="1312">
         <source>Statement of coordinates (cartographic)</source>
@@ -5254,7 +5254,7 @@
       </trans-unit>
       <trans-unit id="1313">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>Наведете ја на македонски јазик скалата на единица мерка што се наоѓа во единицата што се опишува. Ако нема македонски еквивалент за името на единицата мерка, наведете го името, во наводници, како што се наоѓа во единицата што се опишува. (RAD 6,3B)</target>
       </trans-unit>
       <trans-unit id="1314">
         <source>Statement of scale (architectural)</source>
@@ -5262,7 +5262,7 @@
       </trans-unit>
       <trans-unit id="1315">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>„Наведете го името на правниот субјект (на пример, владата) одговорен за издавање на филателистички архивски материјал“. (RAD 12.3B1) „За сите архивски единици кои имаат номинална вредност (на пр., поштенски марки, поштенски материјал, акцизни марки, поштенски канцелариски пратки), да се наведе номиналната вредност во стандардизиран формат, запишувајќи ја номиналната вредност со арапски бројки проследено со името на единицата валута. Вклучете податок за номиналната вредност, дури и ако е веќе запишана како дел од вистинскиот наслов или како дел од насловот." (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="1316">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
@@ -5274,7 +5274,7 @@
       </trans-unit>
       <trans-unit id="1318">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>„На сите нивоа, запишете го обемот на единицата што се опишува со давање на бројот на физички единици со арапски бројки и специфичната ознака на материјалот како што е наведено во подправилото .5Б во поглавјето(а) кои се однесуваат на широката класа(и) материјал на која припаѓа единицата што се опишува“. (RAD 1.5B1) Вклучете други физички детали и димензии како што е наведено во RAD 1.5C и 1.5D. Одделете повеќе записи во ова поле со копчето Return (т.е. притиснете го копчето Enter на тастатурата).</target>
       </trans-unit>
       <trans-unit id="1319">
         <source>Physical description</source>
@@ -5282,7 +5282,7 @@
       </trans-unit>
       <trans-unit id="1320">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>„На ниво на опис на документот, препишете го оригиналниот наслов соодветен на серијата на издавачот како што е наведено во 1.1B1. (RAD 1,6B)</target>
       </trans-unit>
       <trans-unit id="1321">
         <source>Title proper of publisher's series</source>
@@ -5290,7 +5290,7 @@
       </trans-unit>
       <trans-unit id="1322">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>„Препишете ги паралелните наслови на сериите на издавачот како што е наведено во 1.1D“. (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="1323">
         <source>Parallel title of publisher's series</source>
@@ -5298,7 +5298,7 @@
       </trans-unit>
       <trans-unit id="1324">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
-        <target/>
+        <target>„Впишете (со транскрипција) и други информации за насловот на сериите на издавачот како што е наведено во 1.1E ,и само ако се смета дека е неопходно за идентификување на сериите на издавачот“. (RAD 1.6D1)</target>
       </trans-unit>
       <trans-unit id="1325">
         <source>Other title information of publisher's series</source>
@@ -5306,7 +5306,7 @@
       </trans-unit>
       <trans-unit id="1326">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
-        <target/>
+        <target>„Препишете ги експлицитните изјави за одговорност што се појавуваат заедно со формалниот наслов соодветен на серијата на издавачот како што е наведено во 1.1F и само ако се смета дека е неопходно за идентификување на серијата на издавачот“. (RAD 1.6E1)</target>
       </trans-unit>
       <trans-unit id="1327">
         <source>Statement of responsibility relating to publisher's series</source>
@@ -5314,7 +5314,7 @@
       </trans-unit>
       <trans-unit id="1328">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>„Наведете ја нумерацијата на единицата во издавачката серија користејќи ги термините дадени во предметот“. (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="1329">
         <source>Numbering within publisher's series</source>
@@ -5322,7 +5322,7 @@
       </trans-unit>
       <trans-unit id="1330">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>„Направете белешки за важните детали од издавачките целини што не се вклучени во Областа на издавачки целини (серии), вклучувајќи верзии на наслови, некомплетни целини и броеви или букви што подразбираат издавачка целина. (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="1331">
         <source>Note on publisher's series</source>
@@ -5330,43 +5330,43 @@
       </trans-unit>
       <trans-unit id="1332">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>„Наведете го историјатот на чувањето на единицата што се опишува, т.е. последователните преноси на сопственост и старателство или контрола над архивскиот материјал, заедно со датумите, колку што може да се утврдат“. (RAD 1,7C)</target>
       </trans-unit>
       <trans-unit id="1333">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>„На нивото на опис на фонд, серија и збирка, и кога е потребно на нивото на опис на досие или документ, означете го нивото што се опишува и дадете информации за опсегот и внатрешната структура или распоредот на записите, и за нивната содржина“. (RAD 1.7D) „За обемот на единицата што се опишува, дадете информации за функциите и/или видовите активности што ги генерираат записите, временскиот период, предметот и географската област на која тие се однесуваат. За содржината на единицата што се опишува, дадете информација за нејзината внатрешна структура со означување на нејзиниот распоред, организација и/или набројувајќи го неговото следно најниско ниво на опис. Сумирајте ги главните документарни форми (на пр., извештаи, записници, кореспонденција, цртежи, говори). " (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="1334">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>„Направете белешки за физичката состојба на единицата што се опишува, ако таа состојба материјално влијае на јасноста или читливоста на записот. (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="1335">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>„Да се наведе имателот што предава архивски материјал или изворот (т.е. непосредниот претходен имател) од кого е купена единицата што се опишува, како и датумот и начинот на стекнување, како и односот на изворот/предавателот со материјалот, доколку овие информации не се доверливи. Доколку изворот/донаторот е непознат, да се запише ја таа информација“. (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="1336">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>„Направете белешки за системот на средување на единицата што се опишува, кои значително придонесуваат за нејзиното разбирање, а кои не можат да се стават во рамки на Опсегот и содржината (види 1.7Д), на пр., за реорганизација(и) на создавачот, средување од страна на архивисти, промени во шемата за класификација или реконституција на првобитниот ред“. (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="1337">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>„Запишете го јазикот или јазиците на единицата што се опишува, освен ако тие не се забележани на друго место или се видливи од други елементи на описот“. (RAD 1.8.B14). Изберете го јазикот од опаѓачкото мени; внесете ги првите неколку букви за да го стесните изборот.</target>
       </trans-unit>
       <trans-unit id="1338">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>„Забележете ги сите употребени карактеристични азбучни/алфабетски системи или системи на симболи кои се користат“. (RAD 1.8.B14) Изберете го писмото од паѓачкото мени; внесете ги првите неколку букви за да го стесните изборот.</target>
       </trans-unit>
       <trans-unit id="1339">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>„Забележете го јазикот или јазиците на единицата што се опишува, освен ако не се забележани на друго место или не се видливи од другите елементи на описот. Исто така, забележете ги сите употребени карактеристични азбуки или симболи“. (RAD 1.8B14). Не дуплирајте информации додадени преку паѓачкото мени во полињата за јазик или скрипта.</target>
       </trans-unit>
       <trans-unit id="1340">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>„Ако единицата што се опишува е репродукција и локацијата на оригиналниот материјал е позната, наведете ја таа локација. Дополнително, наведете ги сите идентификациски броеви што може да помогнат во лоцирањето на оригиналниот материјал на наведената локација. Ако е познато дека оригиналот не постои, да се наведе и таа информација“. (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="1341">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>„Ако целата или дел од единицата што се опишува е достапна (во институцијата или на друго место) во друг(и) формат(и), на пр., ако текстот што се опишува е достапен и на микрофилм; или ако филмот е достапен и на видеокасета, направете белешка во која ќе го означите другиот формат(и) во кој е достапна единицата што се опишува и нејзината локација, доколку таа информација е позната. " (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="1342">
         <source>Availability of other formats</source>
@@ -5374,7 +5374,7 @@
       </trans-unit>
       <trans-unit id="1343">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"Наведете информации за сите ограничувања поставени за пристап до единицата (или делови од единицата) што се опишува." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="1344">
         <source>Restrictions on access</source>
@@ -5390,7 +5390,7 @@
       </trans-unit>
       <trans-unit id="1347">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>„Наведете информации во врска со постоењето на информациски помагала. Вклучете соодветни административни и/или интелектуални контролни алатки за контрола на материјалот, кои се достапни во моментот на опишување на единицата, како што се каталози, списоци со кутии, списоци со серии, инвентари, индекси итн. " (RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="1348">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
@@ -5402,11 +5402,11 @@
       </trans-unit>
       <trans-unit id="1350">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>„Кога единицата што се опишува сè уште не е комплетна, на пр., отворен фонд или серија, направете белешка дека се очекува дополнување... Ако не се очекуваат понатамошни дополнувања, означете дека единицата се смета за затворена“. (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="1351">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>„Наведете го меѓународно стандардизираниот број на книга (ISBN), меѓународно стандардизираниот сериски број на публикација (ISSN) или кој било друг меѓународно договорен стандардизиран број за предметот што се опишува. (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="1352">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few</source>
@@ -5474,6 +5474,26 @@
       </trans-unit>
       <trans-unit id="1368">
         <source>Script of description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Update authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>Original authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
         <target/>
       </trans-unit>
     </body>

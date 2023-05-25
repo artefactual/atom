@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2022-11-23T16:54:43Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-05-25T18:35:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"حدد وسجل تاريخ (تواريخ) وحدة الوصف. حدد نوع التاريخ المقدم. سجل كتاريخ واحد أو نطاق من التواريخ حسب الاقتضاء." (ISAD 3.1.3). يمكن استخدام حقل عرض التاريخ لإدخال معلومات التاريخ بالنص الحر ، بما في ذلك العلامات المطبعية للتعبير عن التقريب أو عدم التأكد من التاريخ. استخدم حقلي البداية والنهاية لجعل التواريخ قابلة للبحث. لا تستخدم الأشكال أو الرموز المطبعية للتعبير عن عدم التأكد من التاريخ. تنسيقات التاريخ المقبولة: YYYYMMDD ، YYYY-MM-DD ، YYYY-MM ، YYYY.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
@@ -922,7 +922,7 @@
       </trans-unit>
       <trans-unit id="230">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>"صِف الهيكل الداخلي لأي هيئة وتواريخ أي تغييرات تطرأ على هذا الهيكل، والتي تعتبر مهمة لفهم الطريقة التي تدير بها الهيئة شؤونها (على سبيل المثال ، عن طريق المخططات التنظيمية المؤرخة). وصِف سلسلة نسب العائلة ( على سبيل المثال عن طريق شجرة العائلة) بطريقة توضح العلاقات المتبادلة لأعضائها مع تواريخ التغطية. " (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="231">
         <source>Internal structures/genealogy</source>
@@ -930,7 +930,7 @@
       </trans-unit>
       <trans-unit id="232">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>"قدم أي معلومات مهمة عن السياق الاجتماعي والثقافي والاقتصادي والسياسي و / أو التاريخي الذي يعمل فيه الكيان الموصوف." (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="233">
         <source>Relationships area</source>
@@ -958,7 +958,7 @@
       </trans-unit>
       <trans-unit id="239">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>"الغرض: لتحديد الاتفاقيات أو القواعد الوطنية أو الدولية المطبقة في إنشاء سجل هيئة أرشيفية. القاعدة: تسجيل الأسماء وحيثما تكون الإصدارات أو تواريخ النشر للاتفاقيات أو القواعد المطبقة مفيدة. حدد بشكل منفصل القواعد التي تم تطبيقها لإنشاء شكل معتمد للاسم. قم بتضمين إشارة إلى أي نظام (أنظمة) للتعارف تستخدم لتحديد التواريخ في التسجيلة الاستنادية (مثل ISO 8601). " (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="240">
         <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -1202,7 +1202,7 @@
       </trans-unit>
       <trans-unit id="300">
         <source>Use for: </source>
-        <target>مستخدم لــ:</target>
+        <target>مستخدم ل: </target>
       </trans-unit>
       <trans-unit id="301">
         <source>Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.</source>
@@ -1222,8 +1222,7 @@
       </trans-unit>
       <trans-unit id="305">
         <source>In the "Action" selector, indicate whether you want to &lt;strong&gt;merge&lt;/strong&gt; the saved clipboard with the entries on the current clipboard or &lt;strong&gt;replace&lt;/strong&gt; (overwrite) the current clipboard with the saved one.</source>
-        <target>في محدد "الإجراء" ، حدد ما إذا كنت تريد&lt;strong&gt;دمج&lt;/strong&gt;حفظ الحافظة مع الإدخالات الموجودة في الحافظة الحالية أو&lt;strong&gt;يحل محل
-&lt;/strong&gt;(الكتابة) الحافظة الحالية مع واحد المحفوظة.</target>
+        <target/>
       </trans-unit>
       <trans-unit id="306">
         <source>Load clipboard</source>
@@ -1675,7 +1674,7 @@
       </trans-unit>
       <trans-unit id="418">
         <source>Ignore matches and import as new</source>
-        <target>تجاهل المطابقات واستيرادها كجديد</target>
+        <target>تجاهل المُطابقات واسترجع / استيراد كتسجيله جديدة</target>
       </trans-unit>
       <trans-unit id="419">
         <source>Delete matches and replace with imports</source>
@@ -1775,7 +1774,7 @@
       </trans-unit>
       <trans-unit id="443">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"الغرض: للإشارة إلى الأشكال المختلفة التي يظهر بها الشكل المعتمد لاسم المؤسسة بلغات أخرى أو في شكل (أشكال) نصية أخرى. القاعدة: سجل النموذج (الأشكال) الموازي لاسم المؤسسة وفقًا لأي اسم وطني أو الاتفاقيات أو القواعد الدولية التي تطبقها الوكالة التي أنشأت الوصف ، بما في ذلك أي عناصر فرعية و / أو مؤهلات ضرورية تتطلبها تلك الاتفاقيات أو القواعد. حدد في القواعد و / أو الاتفاقيات المستخدمة العنصر (5.6.3) القواعد التي تم تطبيقها. " (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="444">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
@@ -1791,7 +1790,7 @@
       </trans-unit>
       <trans-unit id="447">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"حدد المنطقة الجغرافية التي تنتمي إليها المؤسسة. سجل أي معلومات أخرى ذات صلة حول السياق الثقافي للمؤسسة." (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="448">
         <source>Geographical and cultural context</source>
@@ -1807,7 +1806,7 @@
       </trans-unit>
       <trans-unit id="451">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"صِف ، في شكل سردي أو باستخدام المخططات التنظيمية ، الهيكل الإداري الحالي للمؤسسة." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="452">
         <source>Administrative structure</source>
@@ -1851,7 +1850,7 @@
       </trans-unit>
       <trans-unit id="462">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>وصف سياسات الوصول ، بما في ذلك أي قيود و / أو لوائح لاستخدام المواد والمُرفقات. سجل معلومات حول التسجيل والمواعيد وتذاكر القراء وخطابات التعريف ورسوم القبول وما إلى ذلك ، عند الحاجة ، قم بالإشارة إلى التشريعات ذات الصلة. " (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="463">
         <source>Conditions and requirements</source>
@@ -4127,7 +4126,7 @@
       </trans-unit>
       <trans-unit id="1031">
         <source>Use for</source>
-        <target>مستخدم لــ</target>
+        <target>‬‮مُستخدم ل</target>
       </trans-unit>
       <trans-unit id="1032">
         <source>Relationships</source>
@@ -4495,7 +4494,7 @@
       </trans-unit>
       <trans-unit id="1123">
         <source>Part of </source>
-        <target>جزء من</target>
+        <target>جزء من </target>
       </trans-unit>
       <trans-unit id="1124">
         <source>all matching descriptions</source>
@@ -4707,7 +4706,7 @@
       </trans-unit>
       <trans-unit id="1176">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>يرجى تقديم تاريخ أو فترة تغطي تواريخ بدء وانتهاء الوظيفة. إذا كانت الوظيفة مستمرة، فلا يلزم تحديد تاريخ الانتهاء. (ISDF 5.2.1)</target>
       </trans-unit>
       <trans-unit id="1177">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
@@ -4731,7 +4730,7 @@
       </trans-unit>
       <trans-unit id="1182">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
-        <target/>
+        <target>"الغرض: تحديد الاتفاقيات أو القواعد الوطنية أو الدولية المطبقة في إنشاء الوصف الأرشيفي. القاعدة: سجل الأسماء وحيثما تكون الإصدارات أو تواريخ النشر للاتفاقيات أو القواعد المطبقة مفيدة." (ISDF 5.4.3)</target>
       </trans-unit>
       <trans-unit id="1183">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -5191,7 +5190,7 @@
       </trans-unit>
       <trans-unit id="1297">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>"على مستوى العنصر من الوصف ، قم بنسخ بيانات صريحة للمسؤولية تظهر بالاقتران مع العنوان الرسمي المناسب في أو على المصدر الرئيسي للمعلومات ..." (RAD 1.1F)"على مستوى العنصر من الوصف ، قم بنسخ بيانات صريحة للمسؤولية تظهر بالاقتران مع العنوان الرسمي المناسب في أو على المصدر الرئيسي للمعلومات ..." (RAD 1.1F)</target>
       </trans-unit>
       <trans-unit id="1298">
         <source>Statement of responsibility</source>
@@ -5231,7 +5230,7 @@
       </trans-unit>
       <trans-unit id="1307">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>"أعط مقياس الوحدة الموصوفة ... ككسر تمثيلي (RF) معبرًا عنه كنسبة (1:). اسبق النسبة حسب المقياس. أعط المقياس حتى لو تم تسجيله بالفعل كجزء من العنوان الصحيح أو معلومات العنوان الأخرى ". (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="1308">
         <source>Statement of scale (cartographic)</source>
@@ -5239,7 +5238,7 @@
       </trans-unit>
       <trans-unit id="1309">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>"أعط بيان الإسقاط إذا تم العثور عليه في مصدر (مصادر) المعلومات المحددة." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="1310">
         <source>Statement of projection (cartographic)</source>
@@ -5247,7 +5246,7 @@
       </trans-unit>
       <trans-unit id="1311">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>"على مستوى الوحدة الأرشيفية أو السلسلة أو الملفات ، قم بتسجيل الإحداثيات للحد الأقصى من التغطية التي توفرها المواد الموجودة في الوحدة ، طالما أنها متجاورة بشكل معقول." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="1312">
         <source>Statement of coordinates (cartographic)</source>
@@ -5255,7 +5254,7 @@
       </trans-unit>
       <trans-unit id="1313">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>"اكتب بالإنجليزية المقياس في وحدات القياس الموجودة في الوحدة الموصوفة. إذا لم يكن هناك معادل إنجليزي لاسم وحدة القياس ، فاذكر الاسم ، ضمن علامات اقتباس ، كما هو موجود في الوحدة الموصوفة." (RAD 6.3B)</target>
       </trans-unit>
       <trans-unit id="1314">
         <source>Statement of scale (architectural)</source>
@@ -5263,7 +5262,7 @@
       </trans-unit>
       <trans-unit id="1315">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>"اذكر اسم السلطة القضائية (على سبيل المثال ، الحكومة) المسؤولة عن إصدار سجلات جمع الطوابع." (RAD 12.3B1) "بالنسبة لجميع الوحدات التي تمتلك فئة معينة (مثل الطوابع البريدية وطوابع الإيرادات والأدوات المكتبية البريدية) ، قم بإعطاء الفئة بتنسيق موحد ، مع تسجيل رقم الفئة بالأرقام العربية متبوعًا باسم وحدة العملة. قم بتضمين بيان التسمية حتى إذا تم تسجيل الفئة بالفعل كجزء من العنوان الصحيح أو معلومات العنوان الأخرى ". (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="1316">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
@@ -5283,7 +5282,7 @@
       </trans-unit>
       <trans-unit id="1320">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>"على مستوى الوثيقة المُفردة في الوصف الأرشيفي ، قم بنسخ عنوان مناسب لسلسلة الناشر كما هو موضح في 1.1B1." (RAD 1.6B)</target>
       </trans-unit>
       <trans-unit id="1321">
         <source>Title proper of publisher's series</source>
@@ -5315,7 +5314,7 @@
       </trans-unit>
       <trans-unit id="1328">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>"أعط ترقيم العنصر ضمن سلسلة الناشر بالشروط الواردة في العنصر." (RAD 1.6F1.2)</target>
       </trans-unit>
       <trans-unit id="1329">
         <source>Numbering within publisher's series</source>
@@ -5323,7 +5322,7 @@
       </trans-unit>
       <trans-unit id="1330">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>"قم بتدوين ملاحظات حول التفاصيل المهمة لسلسلة الناشر التي لم يتم تضمينها في منطقة سلسلة الناشر ، بما في ذلك عناوين السلاسل المتغيرة ، والسلسلة غير المكتملة ، والأرقام أو الأحرف التي تشير ضمنًا إلى سلسلة." (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="1331">
         <source>Note on publisher's series</source>
@@ -5331,15 +5330,15 @@
       </trans-unit>
       <trans-unit id="1332">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>"اذكر تاريخ عهدة الوحدة الموصوفة ، أي عمليات النقل المتتالية للملكية والوصاية أو السيطرة على المواد ، جنبًا إلى جنب مع تواريخها ، بالقدر الذي يُمَكِّن من التحقق منها". (RAD 1.7C)</target>
       </trans-unit>
       <trans-unit id="1333">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>"في مستويات وصف الوحدة الأرشيفية، والسلسلة، والمجموعات الأرشيفية، وعند الضرورة في مستوى الملف ومستويات وصف الوثائق المُفردة، أشر إلى المستوى الموصوف وقدم معلومات حول النطاق والهيكل الداخلي للوثائق أو ترتيبها ، وحول محتوياتها ". (RAD 1.7D) "بالنسبة لنطاق الوحدة الموصوفة ، قدم معلومات حول الوظائف و / أو أنواع الأنشطة التي تنشئ الوثائق، والفترة الزمنية، والموضوع، والمنطقة الجغرافية التي تتعلق بها. محتوى الوحدة الموصوفة ، إعطاء معلومات حول هيكلها الداخلي من خلال الإشارة إلى ترتيبها وتنظيمها و / أو تعداد أدنى مستوى تالي للوصف .لَخِّص النماذج الوثائقية الرئيسية (على سبيل المثال ، التقارير والدقائق والمُراسلات والرسومات والخُطب). " (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="1334">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>"قم بتدوين ملاحظات حول الحالة المادية للوحدة التي يتم وصفها إذا كان هذا الشرط يؤثر بشكل جوهري على بيان الوثائق أو وضوحها." (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="1335">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
@@ -5347,7 +5346,7 @@
       </trans-unit>
       <trans-unit id="1336">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>"تدوين ملاحظات حول ترتيب الوحدة التي يتم وصفها والتي تساهم بشكل كبير في فهمها ولكن لا يمكن وضعها في النطاق والمحتوى (انظر 1.7 د) ، على سبيل المثال ، حول إعادة التنظيم (عمليات) من قبل المنشئ ، والترتيب من قبل أمين الأرشيف ، والتغييرات في مخطط التصنيف ، أو إعادة الترتيب الأصلي ". (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="1337">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
@@ -5355,7 +5354,7 @@
       </trans-unit>
       <trans-unit id="1338">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"لاحظ أي أبجديات مميزة أو أنظمة رموز مستخدمة." (RAD 1.8.B14) حدد البرنامج النصي من القائمة المنسدلة ؛ أدخل الأحرف القليلة الأولى لتضييق الخيارات.</target>
       </trans-unit>
       <trans-unit id="1339">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
@@ -5363,11 +5362,11 @@
       </trans-unit>
       <trans-unit id="1340">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>"إذا كانت الوحدة الموصوفة عبارة عن استنساخ وكان موقع المادة الأصلية معروفًا ، فاذكر ذلك الموقع. بالإضافة إلى ذلك ، أعط أي أرقام تعريفية قد تساعد في تحديد موقع المادة الأصلية في الموقع المذكور. إذا كانت النسخ الأصلية معروفة لـ لم تعد موجودة ، أعط هذه المعلومات ". (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="1341">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>"إذا كان كل أو جزء من الوحدة الموصوفة متاحًا (سواء في المؤسسة أو في مكان آخر) بتنسيق (تنسيقات) آخر ، على سبيل المثال ، إذا كان النص الموصوف متاحًا أيضًا على الميكروفيلم ؛ أو إذا كان الفيلم متاحًا أيضًا على شريط فيديو ، قم بتدوين ملاحظة تشير إلى التنسيق (التنسيقات) الأخرى التي تتوفر بها الوحدة الموصوفة وموقعها ، إذا كانت هذه المعلومات معروفة.إذا كان جزء فقط من الوحدة الموصوفة متاحًا في تنسيق (تنسيقات) آخر ، فاذكر الأجزاء. " (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="1342">
         <source>Availability of other formats</source>
@@ -5375,7 +5374,7 @@
       </trans-unit>
       <trans-unit id="1343">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"أعط معلومات حول أي قيود مفروضة على الوصول إلى الوحدة (أو أجزاء من الوحدة) التي يتم وصفها." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="1344">
         <source>Restrictions on access</source>
@@ -5391,7 +5390,7 @@
       </trans-unit>
       <trans-unit id="1347">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>"قدم معلومات بشأن وجود أي أدوات مساعدة في البحث. قم بتضمين أدوات التحكم الإدارية و / أو الفكرية المناسبة على المواد الموجودة في وقت وصف الوحدة ، مثل كتالوجات البطاقات ، وقوائم الصناديق ، وقوائم السلاسل ، وقوائم الجرد ، والفهارس ، وما إلى ذلك. " (RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="1348">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
@@ -5407,7 +5406,7 @@
       </trans-unit>
       <trans-unit id="1351">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>"أذكر الرقم الدولي المعياري للكُتب (ISBN) ، أو الرقم الدولي المعياري للدوريات (ISSN) ، أو أي رقم قياسي آخر متفق عليه دوليًا للعنصر الموصوف. أعط هذه الأرقام بالاختصار المتفق عليه مع التباعد القياسي أو الواصلة." (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="1352">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few</source>
@@ -5475,6 +5474,26 @@
       </trans-unit>
       <trans-unit id="1368">
         <source>Script of description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Update authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>Original authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
         <target/>
       </trans-unit>
     </body>
