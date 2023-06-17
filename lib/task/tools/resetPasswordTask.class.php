@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class resetPasswordTask extends sfBaseTask
+class resetPasswordTask extends arBaseTask
 {
     public function generatePassword($length = 8)
     {
@@ -75,17 +75,15 @@ class resetPasswordTask extends sfBaseTask
 
         $this->namespace = 'tools';
         $this->name = 'reset-password';
-        $this->briefDescription = 'Generates or set a new password for a given username or e-mail address';
+        $this->briefDescription = 'Generate or set a new password for a given username or e-mail address';
         $this->detailedDescription = <<<'EOF'
-FIXME
+Generates or sets a new password for a given username or e-mail address
 EOF;
     }
 
     protected function execute($arguments = [], $options = [])
     {
-        $databaseManager = new sfDatabaseManager($this->configuration);
-        $conn = $databaseManager->getDatabase('propel')->getConnection();
-        sfContext::createInstance($this->configuration);
+        parent::execute($arguments, $options);
 
         $criteria = new Criteria();
         $c1 = $criteria->getNewCriterion(QubitUser::USERNAME, $arguments['username']);
