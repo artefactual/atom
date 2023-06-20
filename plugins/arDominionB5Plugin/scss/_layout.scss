@@ -1,5 +1,11 @@
 body {
   overflow-x: hidden;
+
+  &.staticpage {
+    img {
+      max-width: 100%;
+    }
+  }
 }
 
 header i.fa-2x {
