@@ -34,6 +34,9 @@
       this.addButtonSection();
       this.$accordionWrapper.after(this.$buttonSection);
 
+      // Keep track of which syncs have been initiated
+      this.syncInitiated = {};
+
       // Declare jsTree options
       this.options = {
         plugins: ["types", "dnd"],
@@ -127,6 +130,7 @@
         .jstree(options)
         .bind("ready.jstree", this.readyListener)
         .bind("select_node.jstree", this.selectNodeListener)
+        .bind("hover_node.jstree", this.hoverNodeListener)
         .bind("move_node.jstree", this.moveNodeListener);
 
       // Clicking "more" will add next page of results to tree
@@ -367,6 +371,42 @@
       } else if ((moveResponse.success, "alert")) {
         this.showAlert(moveResponse.success, "alert-info");
       }
+    };
+
+    hoverNodeListener = (e, data) => {
+      let parent = data.node.parent;
+      let parentNode = this.$fwTreeView.jstree("get_json", parent);
+
+      if (
+        parent != "#" &&
+        document.cookie.indexOf("atom_authenticated=1") != -1 &&
+        !(parent in this.syncInitiated) &&
+        "href" in parentNode.a_attr
+      ) {
+        this.syncInitiated[parent] = true;
+        this.commandNodeAndChildren(this.$fwTreeView, parent, "disable_node");
+
+        let url =
+          parentNode.a_attr.href + "/informationobject/fullWidthTreeViewSync";
+
+        $.get(url, (response) => {
+          if (response["repair_successful"] === true) {
+            // Refresh parent's child nodes if a repair was needed and was successful
+            this.$fwTreeView.jstree("refresh_node", parent);
+          } else if (response["repair_successful"] === false) {
+            // Allow for syncing to be attempted again if a repair was needed, but failed
+            delete this.syncInitiated[parent];
+          }
+
+          this.commandNodeAndChildren(this.$fwTreeView, parent, "enable_node");
+        });
+      }
+    };
+
+    commandNodeAndChildren = ($fwTreeView, id, command) => {
+      let parent = $fwTreeView.jstree().get_node(id);
+      $fwTreeView.jstree(command, id);
+      parent.children.forEach((child) => $fwTreeView.jstree(command, child));
     };
   }
 
