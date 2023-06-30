@@ -75,7 +75,7 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
         // Allow reverse proxies to know, via the "atom_authenticated" cookie, if a user
         // is authenticated and should be able to bypass the cache
         if (!isset($_COOKIE['atom_authenticated']) || $_COOKIE['atom_authenticated'] != $isAuthenticated) {
-            setcookie('atom_authenticated', $isAuthenticated, ['path' => '/']);
+            setcookie('atom_authenticated', $isAuthenticated, ['path' => '/', 'secure' => true, 'samesite' => 'strict']);
         }
 
         // Allow reverse proxies to pass a header to change culture
