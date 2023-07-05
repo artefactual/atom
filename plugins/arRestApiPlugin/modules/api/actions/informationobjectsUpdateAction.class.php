@@ -240,6 +240,17 @@ class ApiInformationObjectsUpdateAction extends QubitApiAction
                 }
 
                 break;
+
+        case 'published':
+                if ($value) {
+                    $publicationStatus = 'Published';
+                } else {
+                    $publicationStatus = 'Draft';
+                }
+
+                $this->io->setPublicationStatusByName($publicationStatus);
+
+                break;
         }
     }
 
