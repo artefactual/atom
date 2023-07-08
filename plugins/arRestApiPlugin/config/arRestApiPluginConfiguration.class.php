@@ -101,6 +101,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
             'action' => 'digitalobjectsCreate',
         ]);
 
+        $this->addRoute('POST', '/api/physicalobjects', [
+            'module' => 'api',
+            'action' => 'physicalobjectsCreate',
+        ]);
+
         $this->addRoute('*', '/api/*', [
             'module' => 'api',
             'action' => 'endpointNotFound',
