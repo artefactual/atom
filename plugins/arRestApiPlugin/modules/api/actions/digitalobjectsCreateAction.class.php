@@ -102,7 +102,7 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
 
         // Check that user has permission to update the parent digital object's
         // "object" (information object or actor)
-        if (!QubitAcl($parent->object, 'update')) {
+        if (!QubitAcl::check($parent->object, 'update')) {
             throw new QubitApiNotAuthorizedException();
         }
 
