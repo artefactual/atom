@@ -315,7 +315,7 @@ class arInstall
         $object->name = 'plugins';
         $object->value = serialize([
             'sfDcPlugin',
-            'arDominionPlugin',
+            'arDominionB5Plugin',
             'sfEacPlugin',
             'sfEadPlugin',
             'sfIsaarPlugin',
