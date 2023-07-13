@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@accessible360/accessible-slick": "^1.0.1",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "@uppy/core": "^2.0.3",
     "@uppy/dashboard": "^2.0.3",
     "@uppy/xhr-upload": "^2.0.3",
