@@ -54,6 +54,16 @@ class sfMessageSource_XLIFF extends sfMessageSource_File
     if (!$xml = simplexml_load_file($filename))
     {
       $error = false;
+      $xmlErrors = libxml_get_errors();
+      $errorMessage = '';
+      foreach ($xmlErrors as $error) {
+        $errorMessage .= sprintf("%s[File]: %s at line %s, column %s\n",
+          $error->message, $error->file, $error->line, $error->column);
+      }
+      if ($errorMessage) {
+        throw new sfException(sprintf("Could not load XML file:\n\n%s",
+          $errorMessage));
+      }
 
       return $error;
     }
