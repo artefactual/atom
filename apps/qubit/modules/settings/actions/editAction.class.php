@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -28,7 +27,7 @@ class SettingsEditAction extends DefaultEditAction
 
         // Handle posted data
         if ($request->isMethod('post')) {
-            $this->form->bind($request->getPostParameters());
+            $this->form->bind($request->getPostParameters(), $request->getFiles());
 
             if ($this->form->isValid()) {
                 $this->processForm();

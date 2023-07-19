@@ -40,6 +40,10 @@ class SettingsMenuComponent extends sfComponent
                 'action' => 'template',
             ],
             [
+                'label' => $i18n->__('Diacritics'),
+                'action' => 'diacritics',
+            ],
+            [
                 'label' => $i18n->__('Digital object derivatives'),
                 'action' => 'digitalObjectDerivatives',
             ],

@@ -119,10 +119,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
     {
         // Find mapping.yml
         $finder = sfFinder::type('file')->name('mapping.yml');
-        $files = array_unique(array_merge(
-            $finder->in(sfConfig::get('sf_config_dir')),
-            $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))
-        ));
+        $files = array_unique(
+            array_merge(
+                $finder->in(sfConfig::get('sf_config_dir')),
+                $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))
+            )
+        );
 
         if (!count($files)) {
             throw new sfException('You must create a mapping.xml file.');
@@ -133,6 +135,24 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $esMapping->loadYAML(array_shift($files));
 
         return $esMapping;
+    }
+
+    public function loadDiacriticsMappings()
+    {
+        // Find diacritics_mapping.yml
+        $diacriticsFinder = sfFinder::type('file')->name('diacritics_mapping.yml');
+        $diacriticsFiles = array_unique(
+            array_merge(
+                $diacriticsFinder->in(sfConfig::get('sf_config_dir')),
+                $diacriticsFinder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))
+            )
+        );
+
+        if (!count($diacriticsFiles)) {
+            throw new sfException('You must create a diacritics_mapping.yml file.');
+        }
+
+        return sfYaml::load(array_shift($diacriticsFiles));
     }
 
     /**
@@ -272,10 +292,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         }
 
-        $this->log(vsprintf(
-            'Index populated with %s documents in %s seconds.',
-            [$total, $timer->elapsed()]
-        ));
+        $this->log(
+            vsprintf(
+                'Index populated with %s documents in %s seconds.',
+                [$total, $timer->elapsed()]
+            )
+        );
 
         if (!$showErrors) {
             return;
@@ -468,6 +490,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     protected function initialize()
     {
+        if (sfConfig::get('app_diacritics')) {
+            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
+        }
+
         try {
             $this->index->open();
         } catch (Exception $e) {
@@ -479,7 +505,17 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
                 ) {
                     foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-                        $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = ['strip_md'];
+                        $filters = ['strip_md'];
+
+                        if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
+                            $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+                        }
+
+                        if (sfConfig::get('app_diacritics')) {
+                            $filters = array_merge($filters, ['diacritics_lowercase']);
+                        }
+
+                        $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
                     }
                 }
 
