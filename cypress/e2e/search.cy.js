@@ -8,7 +8,7 @@ describe('Search', () => {
       cy.request('/informationobject/browse').its('body')
       .then(body => {
         let deletions = []
-        Cypress.$(body).find('article.search-result .title a')
+        Cypress.$(body).find('article.search-result a')
         .each((_, link) =>
           deletions.push(cy.deleteDescription(
             Cypress.$(link).attr('href').split('/').pop()

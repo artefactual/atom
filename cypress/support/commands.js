@@ -47,7 +47,7 @@ Cypress.Commands.add('getCsrfToken', (url, form) =>
 )
 
 Cypress.Commands.add('login', () =>
-  cy.getCsrfToken('/user/login', '#content form').then(token =>
+  cy.getCsrfToken('/user/login', '#main-column form').then(token =>
     cy.request({
       method: 'POST',
       url: '/user/login',

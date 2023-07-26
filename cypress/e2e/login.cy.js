@@ -5,7 +5,7 @@ describe('Login', () => {
     cy.get('#csrf_token').should('exist')
     cy.get('input#email').type(Cypress.env('adminEmail'))
     cy.get('input#password').type(Cypress.env('adminPassword'))
-    cy.get('#user-menu form').submit()
+    cy.get('#user-menu + .dropdown-menu form').submit()
 
     cy.get('#user-menu').click()
     cy.contains('Log out')
@@ -14,9 +14,9 @@ describe('Login', () => {
   it('Logs in through the login page', () => {
     cy.visit('/user/login')
     cy.get('#csrf_token').should('exist')
-    cy.get('#content input#email').type(Cypress.env('adminEmail'))
-    cy.get('#content input#password').type(Cypress.env('adminPassword'))
-    cy.get('#content form').submit()
+    cy.get('#main-column input#email').type(Cypress.env('adminEmail'))
+    cy.get('#main-column input#password').type(Cypress.env('adminPassword'))
+    cy.get('#main-column form').submit()
 
     cy.get('#user-menu').click()
     cy.contains('Log out')
@@ -28,14 +28,14 @@ describe('Login', () => {
     cy.get('#csrf_token').should('exist')
     cy.get('input#email').type('unknown@user.com')
     cy.get('input#password').type(Cypress.env('adminPassword'))
-    cy.get('#user-menu form').submit()
+    cy.get('#user-menu + .dropdown-menu form').submit()
 
     cy.contains('Sorry, unrecognized email or password')
 
     cy.visit('/user/login')
-    cy.get('#content input#email').type(Cypress.env('adminEmail'))
-    cy.get('#content input#password').type('unknown_password')
-    cy.get('#content form').submit()
+    cy.get('#main-column input#email').type(Cypress.env('adminEmail'))
+    cy.get('#main-column input#password').type('unknown_password')
+    cy.get('#main-column form').submit()
 
     cy.contains('Sorry, unrecognized email or password')
   })

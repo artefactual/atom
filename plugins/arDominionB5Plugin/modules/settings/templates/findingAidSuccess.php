@@ -16,7 +16,7 @@
 
   <?php echo $findingAidForm->renderGlobalErrors(); ?>
 
-  <?php echo $findingAidForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'findingAid'])); ?>
+  <?php echo $findingAidForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'findingAid']), ['data-cy' => 'settings-finding-aid-form']); ?>
 
     <?php echo $findingAidForm->renderHiddenFields(); ?>
 
