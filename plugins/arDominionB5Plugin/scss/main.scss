@@ -7,6 +7,9 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+// Custom utilities
+@import "utilities";
+
 // Bootstrap optional
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";

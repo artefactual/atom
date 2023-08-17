@@ -16,20 +16,20 @@
   <div class="table-responsive mb-3">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
-        <tr>
-          <th style="width: 25%">
+	<tr>
+          <th class="w-25">
             <?php echo __('Name'); ?>
           </th>
-          <th style="width: 15%">
+          <th class="w-15">
             <?php echo __('Category'); ?>
           </th>
-          <th style="width: 15%">
+          <th class="w-15">
             <?php echo __('Type'); ?>
           </th>
-          <th style="width: 15%">
+          <th class="w-15">
             <?php echo __('Dates'); ?>
           </th>
-          <th style="width: 30%">
+          <th class="w-30">
             <?php echo __('Description'); ?>
           </th>
           <th>

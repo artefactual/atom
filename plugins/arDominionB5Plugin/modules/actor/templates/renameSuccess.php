@@ -22,7 +22,7 @@
           </button>
         </h2>
         <div id="rename-collapse" class="accordion-collapse collapse show" aria-labelledby="rename-heading">
-          <div class="accordion-body">
+	  <div class="accordion-body">
             <p><?php echo __('Use this interface to update the authorized form of name, slug (permalink), and/or %1% filename.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?></p>
             <hr />
 
@@ -38,7 +38,7 @@
             <p><?php echo __('Original authorized form of name'); ?>: <em><?php echo $resource->authorizedFormOfName; ?></em></p>
             <hr />
 
-            <div id="rename-slug-warning" class="alert alert-danger" role="alert" style="display: none;">
+            <div id="rename-slug-warning" class="alert alert-danger d-none" role="alert">
               <?php echo __('A slug based on this name already exists so a number has been added to pad the slug.'); ?>
             </div>
             <div class="rename-form-field-toggle form-check mb-4">

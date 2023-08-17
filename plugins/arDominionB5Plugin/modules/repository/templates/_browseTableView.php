@@ -2,7 +2,7 @@
   <table class="table table-bordered mb-0">
     <thead>
       <tr>
-        <th class="sortable" style="width: 40%">
+        <th class="sortable w-40">
           <?php echo link_to(__('Name'), ['sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp'] +
                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
                             ['title' => __('Sort'), 'class' => 'sortable']); ?>
@@ -14,7 +14,7 @@
           <?php } ?>
         </th>
 
-        <th class="sortable" style="width: 20%">
+        <th class="sortable w-20">
           <?php echo link_to(__('Region'), ['sort' => ('regionUp' == $sf_request->sort) ? 'regionDown' : 'regionUp'] +
                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
                             ['title' => __('Sort'), 'class' => 'sortable']); ?>
@@ -26,7 +26,7 @@
           <?php } ?>
         </th>
 
-        <th class="sortable" style="width: 20%">
+        <th class="sortable w-20">
           <?php echo link_to(__('Locality'), ['sort' => ('localityUp' == $sf_request->sort) ? 'localityDown' : 'localityUp'] +
                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
                             ['title' => __('Sort'), 'class' => 'sortable']); ?>
@@ -38,7 +38,7 @@
           <?php } ?>
         </th>
 
-        <th style="width: 20%">
+        <th class="w-20">
           <?php echo __('Thematic area'); ?>
         </th>
 

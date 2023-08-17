@@ -79,7 +79,7 @@ module.exports = {
     filename: "js/[name].bundle.[contenthash].js",
     clean: true,
   },
-  devtool: devMode ? "eval-source-map" : "source-map",
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -104,6 +104,14 @@ module.exports = {
           "resolve-url-loader",
           { loader: "sass-loader", options: { sourceMap: true } },
         ],
+      },
+      {
+        mimetype: "image/svg+xml",
+        scheme: "data",
+        type: "asset/resource",
+        generator: {
+          filename: "icons/[hash].svg",
+        },
       },
     ],
   },

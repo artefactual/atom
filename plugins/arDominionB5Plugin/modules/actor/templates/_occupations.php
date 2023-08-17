@@ -6,10 +6,10 @@
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
-        <th id="occupations-occupation-head" style="width: 50%">
+        <th id="occupations-occupation-head" class="w-50">
           <?php echo __('Occupation'); ?>
         </th>
-        <th id="occupations-content-head" style="width: 50%">
+        <th id="occupations-content-head" class="w-50">
           <?php echo __('Note'); ?>
         </th>
         <th>

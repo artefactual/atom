@@ -43,17 +43,17 @@
         <?php foreach ($pager->getResults() as $hit) { ?>
           <?php $doc = $hit->getData(); ?>
           <tr>
-            <td width="20%">
+            <td class="w-20">
               <?php echo link_to($doc['identifier'], ['module' => 'accession', 'slug' => $doc['slug']]); ?>
             </td>
             <td>
               <?php echo link_to(render_title(get_search_i18n($doc, 'title')), ['module' => 'accession', 'slug' => $doc['slug']]); ?>
             </td>
-            <td width="20%">
+            <td class="w-20">
               <?php echo format_date($doc['date'], 'i'); ?>
             </td>
             <?php if ('lastUpdated' == $sf_request->sort) { ?>
-              <td width="20%">
+              <td class="w-20">
                 <?php echo format_date($doc['updatedAt'], 'f'); ?>
               </td>
             <?php } ?>

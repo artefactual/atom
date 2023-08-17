@@ -38,3 +38,4 @@ import "./rights";
 import "./fullWidthTreeView";
 import "./deletePhysicalStorage";
 import "./settingsFindingAid";
+import "./refreshJobs";

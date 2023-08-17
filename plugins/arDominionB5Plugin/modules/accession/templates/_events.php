@@ -6,10 +6,10 @@
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
-        <th id="accession-events-type-head" style="width: 20%">
+        <th id="accession-events-type-head" class="w-20">
           <?php echo __('Type'); ?>
         </th>
-        <th id="accession-events-date-head" style="width: 25%">
+        <th id="accession-events-date-head" class="w-25">
           <?php echo __('Date'); ?>
         </th>
         <th id="accession-events-agent-head">

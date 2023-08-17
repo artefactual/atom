@@ -15,8 +15,8 @@
   <div class="table-responsive">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
-        <tr>
-          <th style="width: 100%">
+	<tr>
+          <th class="w-100">
             <?php echo __('Name'); ?>
           </th>
           <th>

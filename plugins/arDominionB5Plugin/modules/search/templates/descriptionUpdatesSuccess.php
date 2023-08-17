@@ -35,19 +35,19 @@
 
       <table class="table table-bordered mb-0">
         <thead>
-          <tr>
-            <th style="width: 40%">
+	  <tr>
+            <th class="w-40">
               <?php echo __('Title'); ?>
             </th>
-            <th style="width: 40%">
+            <th class="w-40">
               <?php echo __('Repository'); ?>
             </th>
             <?php if ('CREATED_AT' != $form->getValue('dateOf')) { ?>
-              <th style="width: 20%">
+              <th class="w-20">
                 <?php echo __('Updated'); ?>
               </th>
             <?php } else { ?>
-              <th style="width: 20%">
+              <th class="w-20">
                 <?php echo __('Created'); ?>
               </th>
             <?php } ?>
@@ -99,35 +99,35 @@
 
       <table class="table table-bordered mb-0">
         <thead>
-          <tr>
+	  <tr>
             <?php if (
                 'QubitInformationObject' == $className
                 && 0 < sfConfig::get('app_multi_repository')
             ) { ?>
-              <th style="width: 40%">
+              <th class="w-40">
                 <?php echo __($nameColumnDisplay); ?>
               </th>
-              <th style="width: 40%">
+              <th class="w-40,">
                 <?php echo __('Repository'); ?>
               </th>
             <?php } elseif ('QubitTerm' == $className) { ?>
-              <th style="width: 40%">
+              <th class="w-40">
                 <?php echo __($nameColumnDisplay); ?>
               </th>
-              <th style="width: 40%">
+              <th class="w-40">
                 <?php echo __('Taxonomy'); ?>
               </th>
             <?php } else { ?>
-              <th style="width: 80%">
+              <th class="w-80">
                 <?php echo __($nameColumnDisplay); ?>
               </th>
             <?php } ?>
             <?php if ('CREATED_AT' != $form->getValue('dateOf')) { ?>
-              <th style="width: 20%">
+              <th class="w-20">
                 <?php echo __('Updated'); ?>
               </th>
             <?php } else { ?>
-              <th style="width: 20%">
+              <th class="w-20">
                 <?php echo __('Created'); ?>
               </th>
             <?php } ?>

@@ -59,3 +59,12 @@ all:
 
   # Maximum allowed value for full-width treeview "items per page" setting
   treeview_items_per_page_max: 10000
+
+  # Content Security Policy (CSP) header configuration. CSP settings are used
+  # only when a B5 theme is in use, otherwise these settings will be ignored.
+  csp:
+      # Configure CSP response header to be either
+      # 'Content-Security-Policy-Report-Only' or 'Content-Security-Policy'
+      response_header: Content-Security-Policy
+      # Configure CSP response directives.
+      directives: "default-src 'self'; font-src 'self'; img-src 'self' https://www.gravatar.com/avatar/ blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';"

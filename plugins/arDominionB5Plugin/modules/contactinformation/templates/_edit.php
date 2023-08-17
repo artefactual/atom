@@ -16,11 +16,11 @@
   <div class="table-responsive">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
-        <tr>
-          <th style="width: 80%">
+	<tr>
+          <th class="w-80">
             <?php echo __('Contact person'); ?>
           </th>
-          <th style="width: 20%">
+          <th class="w-20">
             <?php echo __('Primary'); ?>
           </th>
           <th>

@@ -6,13 +6,13 @@
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
-        <th id="dc-dates-date-head" style="width: 40%">
+        <th id="dc-dates-date-head" class="w-40">
           <?php echo __('Date'); ?>
         </th>
-        <th id="dc-dates-start-head" style="width: 30%">
+        <th id="dc-dates-start-head" class="w-30">
           <?php echo __('Start'); ?>
         </th>
-        <th id="dc-dates-end-head" style="width: 30%">
+        <th id="dc-dates-end-head" class="w-30">
           <?php echo __('End'); ?>
         </th>
         <th>

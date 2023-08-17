@@ -24,11 +24,11 @@
             variableWidth: true,
             centerPadding: "60px",
             nextArrow:
-              '<button class="slick-next slick-arrow" type="button" style=""><span class="slick-next-icon" aria-hidden="true"></span><span class="slick-sr-only">' +
+              '<button class="slick-next slick-arrow" type="button"><span class="slick-next-icon" aria-hidden="true"></span><span class="slick-sr-only">' +
               $(node).data("carousel-next-arrow-button-text") +
               "</span></button>",
             prevArrow:
-              '<button class="slick-prev slick-arrow" type="button" style=""><span class="slick-prev-icon" aria-hidden="true"></span><span class="slick-sr-only">' +
+              '<button class="slick-prev slick-arrow" type="button"><span class="slick-prev-icon" aria-hidden="true"></span><span class="slick-sr-only">' +
               $(node).data("carousel-prev-arrow-button-text") +
               "</span></button>",
           });

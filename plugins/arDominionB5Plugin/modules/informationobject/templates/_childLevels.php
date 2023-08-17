@@ -6,16 +6,16 @@
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
-        <th id="child-identifier-head" style="width: 20%">
+        <th id="child-identifier-head" class="w-20">
           <?php echo __('Identifier'); ?>
         </th>
-        <th id="child-level-head" style="width: 20%">
+        <th id="child-level-head" class="w-20">
           <?php echo __('Level'); ?>
         </th>
-        <th id="child-title-head" style="width: 40%">
+        <th id="child-title-head" class="w-40">
           <?php echo __('Title'); ?>
         </th>
-        <th id="child-date-head" style="width: 20%">
+        <th id="child-date-head" class="w-20">
           <?php echo __('Date'); ?>
         </th>
         <th>

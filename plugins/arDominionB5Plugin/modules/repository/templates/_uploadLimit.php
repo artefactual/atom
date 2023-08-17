@@ -18,11 +18,15 @@
   </h5>
 
   <div class="card-body py-2">
+    <style <?php echo __(sfConfig::get('csp_nonce', '')); ?>>
+	#upload-limit-progress-div { height : 25px }
+	#upload-limit-progress-bar-div {width: <?php echo $sf_data->getRaw('diskUsageFloat'); ?>%}
+    </style>
     <?php if ('limited' == $quotaType) { ?>
-      <div class="progress mb-1" style="height: 25px;">
+      <div class="progress mb-1" id="upload-limit-progress-div">
         <div
           class="progress-bar"
-          style="width: <?php echo $sf_data->getRaw('diskUsageFloat'); ?>%;"
+          id="upload-limit-progress-bar-div"
           role="progressbar"
           aria-valuenow="<?php echo $sf_data->getRaw('diskUsageFloat'); ?>"
           aria-valuemin="0"
@@ -67,7 +71,10 @@
 
           <form id="upload-limit-form" method="POST" action="<?php echo url_for([$resource, 'module' => 'repository', 'action' => 'editUploadLimit']); ?>">
             <?php echo $form->renderHiddenFields(); ?>
-            <div>
+	    <div>
+	      <style <?php echo __(sfConfig::get('csp_nonce', '')); ?>>
+                #uploadLimit_value { width: 6em }
+              </style>	
               <label for="uploadLimit_type"><?php echo __('Set the upload limit for this %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]); ?></label>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="uploadLimit[type]" id="uploadLimit_type_disabled" value="disabled"<?php echo ('disabled' == $quotaType) ? ' checked' : ''; ?>>
@@ -78,7 +85,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="uploadLimit[type]" id="uploadLimit_type_limited" value="limited"<?php echo ('limited' == $quotaType) ? ' checked' : ''; ?>>
                 <label class="form-check-label" for="uploadLimit_type_limited">
-                  <?php echo __('Limit uploads to %1% GB', ['%1%' => '<input class="form-control form-control-sm d-inline" id="uploadLimit_value" type="number" step="any" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').'" style="width: 6em" />']); ?>
+                  <?php echo __('Limit uploads to %1% GB', ['%1%' => '<input class="form-control form-control-sm d-inline" id="uploadLimit_value" type="number" step="any" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').' />']); ?>
                 </label>
               </div>
               <div class="form-check">

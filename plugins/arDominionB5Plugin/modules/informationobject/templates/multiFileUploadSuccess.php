@@ -81,7 +81,7 @@
 
       <?php echo $form->renderGlobalErrors(); ?>
 
-      <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'multiFileUpload']), ['id' => 'multiFileUploadForm', 'style' => 'inline']); ?>
+      <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'multiFileUpload']), ['id' => 'multiFileUploadForm', 'class' => 'd-inline']); ?>
 
         <?php echo $form->renderHiddenFields(); ?>
 
@@ -93,7 +93,7 @@
               </button>
             </h2>
             <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading">
-              <div class="accordion-body">
+	      <div class="accordion-body">
                 <div class="alert alert-info" role="alert">
                   <p><?php echo __('Add your digital objects by dragging and dropping local files into the pane below, or by clicking the browse link to open your local file explorer.'); ?></p>
                   <p><?php echo __('The Title and Level of description values entered on this page will be applied to each child description created for the associated digital objects - \'%dd%\' represents an incrementing 2-value number, so by default descriptions created via this uploader will be named image 01, image 02, etc.'); ?></p>
@@ -115,7 +115,7 @@
 
                 <div id="uploads"></div>
 
-                <div id="uiElements" style="display: inline;">
+                <div id="uiElements" class="d-inline">
                   <div id="uploaderContainer">
                     <div class="uppy-dashboard"></div>
                   </div>

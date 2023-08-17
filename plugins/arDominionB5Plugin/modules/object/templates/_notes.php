@@ -6,15 +6,15 @@
   <table class="table table-bordered mb-0 multi-row">
     <thead class="table-light">
       <tr>
-        <?php if ($hiddenType) { ?>
-          <th id="<?php echo $arrayName; ?>-content-head" style="width: 100%">
+	<?php if ($hiddenType) { ?>
+          <th id="<?php echo $arrayName; ?>-content-head" class="w-100">
             <?php echo __('Content'); ?>
           </th>
-        <?php } else { ?>
-          <th id="<?php echo $arrayName; ?>-content-head" style="width: 70%">
+	<?php } else { ?>
+          <th id="<?php echo $arrayName; ?>-content-head" class="w-70">
             <?php echo __('Content'); ?>
           </th>
-          <th id="<?php echo $arrayName; ?>-type-head" style="width: 30%">
+          <th id="<?php echo $arrayName; ?>-type-head" class="w-30">
             <?php echo __('Type'); ?>
           </th>
         <?php } ?>

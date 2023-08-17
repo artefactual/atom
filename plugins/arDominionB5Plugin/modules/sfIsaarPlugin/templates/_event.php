@@ -24,14 +24,14 @@
   <div class="table-responsive">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
-        <tr>
-          <th style="width: 40%">
+	<tr>
+          <th class="w-40">
             <?php echo __('Title'); ?>
           </th>
-          <th style="width: 30%">
+          <th class="w-30">
             <?php echo __('Relationship'); ?>
           </th>
-          <th style="width: 30%">
+          <th class="w-30">
             <?php echo __('Dates'); ?>
           </th>
           <th>

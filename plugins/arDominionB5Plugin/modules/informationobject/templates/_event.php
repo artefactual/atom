@@ -11,17 +11,17 @@
   <div class="table-responsive mb-3">
     <table class="table table-bordered mb-0">
       <thead class="table-light">
-        <tr>
-          <th style="width: 30%">
+	<tr>
+          <th class="w-30">
             <?php echo __('Name'); ?>
           </th>
-          <th style="width: 20%">
+          <th class="w-20">
             <?php echo __('Role/event'); ?>
           </th>
-          <th style="width: 25%">
+          <th class="w-25">
             <?php echo __('Place'); ?>
           </th>
-          <th style="width: 25%">
+          <th class="w-25">
             <?php echo __('Date(s)'); ?>
           </th>
           <th>

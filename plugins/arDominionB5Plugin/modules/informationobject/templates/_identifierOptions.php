@@ -47,10 +47,10 @@
       <table class="table table-bordered mb-0 multi-row">
         <thead class="table-light">
           <tr>
-            <th id="alt-identifiers-label-head" style="width: 50%">
+            <th id="alt-identifiers-label-head" class="w-50">
               <?php echo __('Label'); ?>
             </th>
-            <th id="alt-identifiers-identifier-head" style="width: 50%">
+            <th id="alt-identifiers-identifier-head" class="w-50"> 
               <?php echo __('Identifier'); ?>
             </th>
             <th>

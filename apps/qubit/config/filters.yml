@@ -25,5 +25,8 @@ QubitLimitResults:
 QubitTransaction:
   class: QubitTransactionFilter
 
+QubitCSP:
+  class: QubitCSP
+
 cache: ~
 execution: ~
