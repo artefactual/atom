@@ -47,7 +47,7 @@ jobs:
           ~/.cache/Cypress
         key: npm-${{ hashFiles('package-lock.json') }}
     - name: Install NPM dependencies
-      run: sudo npm install -g npm && npm ci
+      run: npm install -g npm && npm ci
     - name: Modify Gearman config
       run: |
         echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
@@ -71,8 +71,8 @@ jobs:
           --search-index=atom \
           --demo \
           --no-confirmation
-    - name: Change filesystem permissions
-      run: sudo chown -R www-data:www-data ${{ github.workspace }}
+    #- name: Change filesystem permissions
+      #run: sudo chown -R www-data:www-data ${{ github.workspace }}
     - name: Start application services
       run: |
         sudo cp test/etc/fpm_conf /etc/php/7.4/fpm/pool.d/atom.conf
