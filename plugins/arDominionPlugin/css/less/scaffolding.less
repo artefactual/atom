@@ -1668,6 +1668,51 @@ body.login #content {
   }
 }
 
+// Bootstrap 2 theme deprecation notice
+@media (max-width: 767px) {
+  #bs2-deprecation-message {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+#bs2-deprecation-message {
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  .alert-banner {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    border: 0;
+    border-radius: 0;
+  }
+
+  button {
+    font-size: 1.75rem;
+    right: 0;
+    top: 0;
+    transform: translateX(-100%);
+  }
+
+  #bs2-deprecation-message-content {
+    padding: 8px 0;
+    color: @red;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: 65px;
+    font-size: 0.85rem;
+
+    a:not(.btn) {
+      text-shadow: none;
+      text-decoration: underline;
+    }
+  }
+}
+
 // GDPR Privacy Message banner
 @media (max-width: 767px) {
   #privacy-message {

@@ -1,5 +1,7 @@
 <?php echo get_component_slot('header'); ?>
 
+<?php echo get_component('default', 'bs2DeprecationMessage'); ?>
+
 <?php echo get_component('default', 'updateCheck'); ?>
 
 <?php echo get_component('default', 'privacyMessage'); ?>
