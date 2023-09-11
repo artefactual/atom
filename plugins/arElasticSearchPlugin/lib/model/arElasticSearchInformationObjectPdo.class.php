@@ -743,7 +743,7 @@ class arElasticSearchInformationObjectPdo
                 'i18n' => arElasticSearchModelBase::serializeI18ns(
                     $node->id,
                     ['QubitActor'],
-                    ['fields' => ['authorized_form_of_name', 'history']]
+                    ['fields' => ['authorized_form_of_name']]
                 ),
             ];
 

@@ -494,7 +494,6 @@ mapping:
         - creators.parallelNames.name
         - creators.standardizedNames.name
         - inheritedCreators.authorizedFormOfName
-        - inheritedCreators.history
         - inheritedCreators.otherNames.name
         - inheritedCreators.parallelNames.name
         - inheritedCreators.standardizedNames.name
@@ -542,7 +541,7 @@ mapping:
           parallel_names: other_name
           standardized_names: other_name
       inherited_creators:
-        _i18nFields: [authorizedFormOfName, history]
+        _i18nFields: [authorizedFormOfName]
         dynamic: strict
         properties:
           id: { type: integer }
