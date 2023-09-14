@@ -59,6 +59,9 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->publicationStatusId = QubitTerm::PUBLICATION_STATUS_DRAFT_ID;
         $this->unpublishing = false;
 
+        // To track if identifier mask is enabled
+        $this->mask = sfConfig::get('app_identifier_mask_enabled', 0);
+
         // Edit
         if (isset($this->getRoute()->resource)) {
             $this->resource = $this->getRoute()->resource;
@@ -713,7 +716,7 @@ class InformationObjectEditAction extends DefaultEditAction
     {
         // Pass if we're using mask or not to template, fill in identifier with generated
         // identifier if so.
-        if ($this->mask = sfConfig::get('app_identifier_mask_enabled', 0)) {
+        if ($this->mask) {
             $this->resource->identifier = QubitInformationObject::generateIdentiferFromMask();
         }
     }
