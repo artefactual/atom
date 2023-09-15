@@ -191,21 +191,19 @@ EOF;
 
         // Only regenerate derivatives for remote digital objects
         if ($options['only-externals']) {
-            $query .= ' AND do.usage_id = '.QubitTerm::EXTERNAL_URI_ID;
+            array_push($whereClauses, sprintf('do.usage_id = %d', QubitTerm::EXTERNAL_URI_ID));
         }
 
         // Only regenerate derivatives for digital objects of specific media type
         if ($options['media-type']) {
-            $query .= ' AND do.media_type_id = '.$validMediaTypes[$options['media-type']];
+            array_push($whereClauses, sprintf('do.media_type_id = %d', $validMediaTypes[$options['media-type']]));
         }
 
         // Limit ids for regeneration by json list
         if ($options['json']) {
             $ids = json_decode(file_get_contents($options['json']));
-            $query .= ' AND do.id IN ('.implode(', ', $ids).')';
+            array_push($whereClauses, 'do.id IN ('.implode(', ', $ids).')');
         }
-
-        $query .= ' AND do.usage_id != '.QubitTerm::OFFLINE_ID;
 
         if ($options['no-overwrite']) {
             $query .= ' LEFT JOIN digital_object child ON do.id = child.parent_id';
@@ -241,6 +239,8 @@ EOF;
         if (count($whereClauses)) {
             $query .= sprintf(' WHERE %s', implode(' AND ', $whereClauses));
         }
+
+        $query .= ' AND do.usage_id != '.QubitTerm::OFFLINE_ID;
 
         // Do work
         foreach (QubitPdo::fetchAll($query) as $item) {
