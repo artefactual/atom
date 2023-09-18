@@ -4,6 +4,7 @@
   <ul class="nav nav-tabs" id="job-tabs">
     <li<?php if ('all' === $filter) { ?> class="active"<?php } ?>><?php echo link_to(__('All jobs'), ['filter' => 'all'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
     <li<?php if ('active' === $filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Active jobs'), ['filter' => 'active'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
+    <li<?php if ('failed' === $filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Failed jobs'), ['filter' => 'failed'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
   </ul>
 </div>
 
