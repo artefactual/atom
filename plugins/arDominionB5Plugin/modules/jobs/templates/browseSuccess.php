@@ -18,6 +18,14 @@
       <?php } ?>
       <?php echo link_to(__('Active jobs'), ['filter' => 'active'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), $options); ?>
     </li>
+    <li class="nav-item">
+      <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
+      <?php if ('failed' === $filter) { ?>
+        <?php $options['class'] .= ' active'; ?>
+        <?php $options['aria-current'] = 'page'; ?>
+      <?php } ?>
+      <?php echo link_to(__('Failed jobs'), ['filter' => 'failed'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), $options); ?>
+    </li>
   </ul>
 </nav>
 

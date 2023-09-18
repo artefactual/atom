@@ -57,6 +57,8 @@ class JobsBrowseAction extends DefaultBrowseAction
 
         if ('active' === $this->filter) {
             $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
+        } else if ('failed' === $this->filter) {
+            $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_ERROR_ID);
         }
 
         $criteria->addJoin(QubitJob::ID, QubitObject::ID);
