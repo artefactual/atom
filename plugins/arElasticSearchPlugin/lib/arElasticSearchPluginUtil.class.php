@@ -171,7 +171,7 @@ class arElasticSearchPluginUtil
     /**
      * Generate a query string query.
      *
-     * @param string $query    escaped search term
+     * @param string $query    unescaped search term
      * @param array  $fields   fields to search (including culture if needed)
      * @param string $operator default query operator (AND/OR), default: AND
      *
@@ -180,7 +180,7 @@ class arElasticSearchPluginUtil
     public static function generateQueryString(
         $query, $fields, $operator = 'AND'
     ) {
-        $queryString = new \Elastica\Query\QueryString($query);
+        $queryString = new \Elastica\Query\QueryString(self::escapeTerm($query));
         $queryString->setDefaultOperator($operator);
         $queryString->setFields(self::getBoostedSearchFields($fields));
         $queryString->setAnalyzer(
