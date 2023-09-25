@@ -17,7 +17,7 @@ jobs:
       COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Start containerized services
       run: |
         sudo sysctl -w vm.max_map_count=262144
@@ -33,14 +33,14 @@ jobs:
         sudo apt install php7.4-fpm
         sudo service php7.4-fpm start
     - name: Cache Composer dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.composer/cache/files
         key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
     - name: Install Composer dependencies
       run: composer install
     - name: Cache NPM dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.npm
