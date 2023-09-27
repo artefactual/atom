@@ -24,10 +24,15 @@ describe(
       })
     })
 
+
     beforeEach(() => {
-      // Preserve authentication cookies between tests
-      Cypress.Cookies.preserveOnce('atom_authenticated', 'symfony')
-    })
+      // Use cy.session to preserve all cookies and validate them
+      cy.session('unique_identifier', cy.login, {
+        validate () {
+          cy.getCookies().should('exist')
+          },
+        })
+    });
 
     it('Disables finding aids', () => {
       cy.visit('settings/findingAid')

@@ -90,6 +90,10 @@ jobs:
         sudo rm -f /etc/nginx/sites-enabled/default
         sudo nginx -t
         sudo systemctl restart nginx
+    - name: Create writable Cypress videos and screenshots dirs
+      run: |
+        sudo mkdir -p ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
+        sudo chmod a=rwx ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
     - name: Run tests
       env:
         BROWSER: ${{ matrix.browser }}

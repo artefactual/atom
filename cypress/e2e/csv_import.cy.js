@@ -20,7 +20,9 @@ describe('CSV import', () => {
 
     cy.contains('CSV import order fonds').click()
     cy.waitUntil(() => Cypress.$('li.jstree-node').length === 4)
-    cy.get('li.jstree-closed > i').click({multiple: true})
+    cy.get('li.jstree-closed > i')
+      .should('be.visible') // Ensure the element is visible
+      .click({ multiple: true });
     cy.waitUntil(() => Cypress.$('li.jstree-node').length === 34)
 
     const orderedTitles = [
