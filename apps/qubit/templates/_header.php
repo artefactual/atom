@@ -22,6 +22,14 @@
     </h1>
   <?php } ?>
 
+  <div id="search-bar">
+
+    <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
+
+    <?php echo get_component('search', 'box'); ?>
+
+  </div>
+
   <nav>
 
     <?php echo get_component('menu', 'userMenu'); ?>
@@ -37,14 +45,6 @@
     <?php echo get_component('menu', 'mainMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
 
   </nav>
-
-  <div id="search-bar">
-
-    <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
-
-    <?php echo get_component('search', 'box'); ?>
-
-  </div>
 
   <?php echo get_component_slot('header'); ?>
 

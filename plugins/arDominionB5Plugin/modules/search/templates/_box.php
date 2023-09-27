@@ -26,7 +26,7 @@
               type="radio"
               name="repos"
               id="search-realm-global"
-              <?php echo !isset($repository) ? 'checked' : ''; ?>
+              checked
               value>
             <label class="form-check-label" for="search-realm-global">
               <?php echo __('Global search'); ?>
@@ -39,7 +39,6 @@
                 type="radio"
                 name="repos"
                 id="search-realm-repo"
-                checked
                 value="<?php echo $repository->id; ?>">
               <label class="form-check-label" for="search-realm-repo">
                 <?php echo __('Search <span>%1%</span>', ['%1%' => render_title($repository)]); ?>
