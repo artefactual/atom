@@ -6,11 +6,7 @@
 
     <div class="input-append">
 
-      <?php if (isset($repository)) { ?>
-        <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
-      <?php } else { ?>
-        <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search'); ?>"/>
-      <?php } ?>
+      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search'); ?>"/>
 
       <div class="btn-group">
         <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -60,11 +56,7 @@
 
         <div>
           <label>
-            <?php if (isset($repository)) { ?>
-              <input name="repos" type="radio" value data-placeholder="<?php echo __('Search'); ?>">
-            <?php } else { ?>
-              <input name="repos" type="radio" value checked="checked" data-placeholder="<?php echo __('Search'); ?>">
-            <?php } ?>
+            <input name="repos" type="radio" value checked="checked" data-placeholder="<?php echo __('Search'); ?>">
             <?php echo __('Global search'); ?>
           </label>
         </div>
@@ -72,7 +64,7 @@
         <?php if (isset($repository)) { ?>
           <div>
             <label>
-              <input name="repos" checked="checked" type="radio" value="<?php echo $repository->id; ?>"/>
+              <input name="repos" type="radio" value="<?php echo $repository->id; ?>"/>
               <?php echo __('Search <span>%1%</span>', ['%1%' => render_title($repository)]); ?>
             </label>
           </div>

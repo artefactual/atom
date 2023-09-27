@@ -6,15 +6,15 @@
 
   <a
     href="#"
-    class="advanced-search-toggle <?php echo $show ? 'open' : ''; ?>"
-    aria-expanded="<?php echo $show ? 'true' : 'false'; ?>"
+    class="advanced-search-toggle <?php echo $showAdvanced ? 'open' : ''; ?>"
+    aria-expanded="<?php echo $showAdvanced ? 'true' : 'false'; ?>"
     data-cy="advanced-search-toggle"
   >
     <?php echo __('Advanced search options'); ?>
   </a>
 
   <div class="advanced-search animateNicely"
-    <?php echo !$show ? 'style="display: none;"' : ''; ?>>
+    <?php echo !$showAdvanced ? 'style="display: none;"' : ''; ?>>
 
     <?php echo $form->renderFormTag(
       url_for(['module' => 'informationobject', 'action' => 'browse']),

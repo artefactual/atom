@@ -7,11 +7,7 @@
     <input type="hidden" name="topLod" value="0"/>
     <input type="hidden" name="sort" value="relevance"/>
 
-    <?php if (isset($repository) && !sfConfig::get('app_enable_institutional_scoping')) { ?>
-      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>" value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
-    <?php } else { ?>
-      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> aria-label="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>" value="<?php echo !$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping') ? $sf_request->query : ''; ?>" placeholder="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>"/>
-    <?php } ?>
+    <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> aria-label="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>" value="<?php echo !$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping') ? $sf_request->query : ''; ?>" placeholder="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>"/>
 
     <button aria-label="<?php echo __('Search'); ?>"></button>
 
@@ -21,11 +17,7 @@
 
         <div>
           <label>
-            <?php if (isset($repository)) { ?>
-              <input name="repos" type="radio" value data-placeholder="<?php echo __('Search'); ?>">
-            <?php } else { ?>
               <input name="repos" type="radio" value checked="checked" data-placeholder="<?php echo __('Search'); ?>">
-            <?php } ?>
             <?php echo __('Global search'); ?>
           </label>
         </div>
@@ -33,7 +25,7 @@
         <?php if (isset($repository)) { ?>
           <div>
             <label>
-              <input name="repos" checked="checked" type="radio" value="<?php echo $repository->id; ?>" data-placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
+              <input name="repos" type="radio" value="<?php echo $repository->id; ?>" data-placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
               <?php echo __('Search <span>%1%</span>', ['%1%' => render_title($repository)]); ?>
             </label>
           </div>
