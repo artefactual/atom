@@ -288,6 +288,12 @@
           .first()
           .replaceWith($(response.find("#main-column h1").first()));
 
+        // Get new document title for G4 Tracking
+        var doctitle = $("#main-column h1").first();
+
+        // Extract the text content without HTML tags and set title
+        document.title = doctitle[0].textContent;
+
         // Add empty breadcrumb section if current page has none, but response does
         if (
           !$("#breadcrumb").length &&
