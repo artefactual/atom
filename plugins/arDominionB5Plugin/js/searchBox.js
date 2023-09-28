@@ -8,6 +8,7 @@
     }
     var $results = $("#search-box-results");
     var dropdown = bootstrap.Dropdown.getOrCreateInstance($input);
+    var $searchboxTemplate = $("#searchbox-options-template");
 
     // Set up Bootstrap autocomplete:
     // - Force version 4 to avoid failing check in version 5.
@@ -34,10 +35,13 @@
         searchPost: (response, $element) => {
           if (response.length && $element.val().length >= 3) {
             $results.html(response);
-            dropdown.show();
-          } else {
-            dropdown.hide();
-            $results.html("");
+            //dropdown.show();
+            console.log("shown resp");
+          } else if($results.children('#search-options').length === 0) {
+            let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+            $searchOptions.querySelector("div").id = 'search-options';
+            $results.html($searchOptions);
+            //$results.children()[0].attr('id', 'search-options');
           }
           return [];
         },
@@ -48,16 +52,24 @@
     // Bootstrap autocomplete `typed` event is not triggered
     // on all changes to the input.
     $input.on("input", (event) => {
-      if (event.target.value.length < 3) {
-        dropdown.hide();
-        $results.html("");
+      if (event.target.value.length < 3 && $results.children('#search-options').length == 0) {
+        let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+        $searchOptions.querySelector("div").id = 'search-options';
+        $results.html($searchOptions);
+        //$results.children()[0].attr('id', 'search-options');
+        console.log("Input <3");
       }
     });
 
     // Prevent showing an empty dropdown
     $input.on("show.bs.dropdown", (event) => {
-      if ($results.children().length == 0) {
-        event.preventDefault();
+      if ($results.children().length === 0) {
+        let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+        $searchOptions.querySelector("div").id = 'search-options';
+        $results.html($searchOptions);
+        //$results.children()[0].attr('id', 'search-options');
+        console.log($searchOptions);
+        console.log("Empty dropdown");
       }
     });
   });
