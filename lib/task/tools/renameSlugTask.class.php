@@ -19,6 +19,10 @@
 
 class renameSlugTask extends arBaseTask
 {
+    protected $failedSlugs = [];
+
+    protected $logFile;
+
     protected function configure()
     {
         $this->addArguments([
@@ -61,6 +65,16 @@ EOF;
         } else {
             throw new Exception('Either provide old and new slug values, or use the CSV option and supply a CSV file containing those values.');
         }
+
+        if (!empty($this->failedSlugs)) {
+            $this->logSection('rename-slug', 'The following slugs were not updated:', null, 'ERROR');
+            foreach ($this->failedSlugs as $err) {
+                $this->logSection('rename-slug', $err, null, 'ERROR');
+            }
+        }
+
+        $f = $this->logFile;
+        $this->logSection('rename-slug', "Log file: {$f}.");
     }
 
     protected function updateSlugsFromCSV($filename)
@@ -95,13 +109,60 @@ EOF;
         $criteria = new Criteria();
         $criteria->add(QubitSlug::SLUG, $oldSlug);
         $slug = QubitSlug::getOne($criteria);
-        if (!$slug) {
-            $this->logSection('rename-slug', "No slug matching {$oldSlug} found.");
 
-            return;
+        $existingSlugs = $this->getAllSlugs();
+
+        if (in_array($newSlug, $existingSlugs)) {
+            $this->failedSlugs[] = "{$newSlug} already exists.";
+        } elseif (!$slug) {
+            $this->failedSlugs[] = "{$oldSlug} not found.";
+        } else {
+            $slug->slug = $newSlug;
+            $slug->save();
+            $this->logSection('rename-slug', "Slug {$oldSlug} updated to {$newSlug} successfully.");
+            $this->addToLogFile($oldSlug, $newSlug);
         }
-        $slug->slug = $newSlug;
-        $slug->save();
-        $this->logSection('rename-slug', "Slug {$oldSlug} updated to {$newSlug} successfully.");
+    }
+
+    protected function initLogFile()
+    {
+        $dateFormat = date('Y-m-d-H-i');
+        $f = $this->logFile = sfConfig::get('sf_log_dir')."/rename-slug-{$dateFormat}.log.txt";
+
+        $file = fopen($f, 'w');
+
+        if ($file) {
+            $header = "rename-slug-{$dateFormat} report:\n\n";
+            fwrite($file, $header);
+            fclose($file);
+        } else {
+            $this->logSection('rename-slug', "Log file {$f} failed to open for writing.", null, 'ERROR');
+        }
+    }
+
+    protected function addToLogFile($oldSlug, $newSlug)
+    {
+        if (!isset($this->logFile)) {
+            $this->initLogFile();
+        }
+
+        $log = "/{$oldSlug} updated to /{$newSlug}.\n";
+        $custom_logger = new sfFileLogger(new sfEventDispatcher(), ['file' => $this->logFile]);
+        $custom_logger->info($log);
+    }
+
+    protected function getAllSlugs()
+    {
+        $slugs = [];
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $conn = $databaseManager->getDatabase('propel')->getConnection();
+
+        // Create hash of slugs already in database
+        $sql = 'SELECT slug FROM slug ORDER BY slug';
+        foreach ($conn->query($sql, PDO::FETCH_NUM) as $row) {
+            $slugs[] = $row[0];
+        }
+
+        return $slugs;
     }
 }
