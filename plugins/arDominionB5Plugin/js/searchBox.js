@@ -35,14 +35,14 @@
         searchPost: (response, $element) => {
           if (response.length && $element.val().length >= 3) {
             let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-            $searchOptions.querySelector('div').id = 'search-options';
+            //$searchOptions.querySelector('div').id = 'search-options';
             $results.html(response);
             $results.append('<div class="dropdown-divider"></div>');
             $results.append($searchOptions);
             //dropdown.show();
-          } else if($results.children('#search-options').length === 0) {
+          } else {
             let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-            $searchOptions.querySelector('div').id = 'search-options';
+            //$searchOptions.querySelector('div').id = 'search-options';
             $results.html($searchOptions);
             //$results.children()[0].attr('id', 'search-options');
           }
@@ -55,9 +55,9 @@
     // Bootstrap autocomplete `typed` event is not triggered
     // on all changes to the input.
     $input.on("input", (event) => {
-      if (event.target.value.length < 3 && $results.children('#search-options').length == 0) {
+      if (event.target.value.length < 3) {
         let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        $searchOptions.querySelector('div').id = 'search-options';
+        //$searchOptions.querySelector('div').id = 'search-options';
         $results.html($searchOptions);
         //$results.children()[0].attr('id', 'search-options');
       }
@@ -67,7 +67,7 @@
     $input.on("show.bs.dropdown", (event) => {
       if ($results.children().length === 0) {
         let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        $searchOptions.querySelector('div').id = 'search-options';
+        //$searchOptions.querySelector('div').id = 'search-options';
         $results.html($searchOptions);
         //$results.children()[0].attr('id', 'search-options');
       }
