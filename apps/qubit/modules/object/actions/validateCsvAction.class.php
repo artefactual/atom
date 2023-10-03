@@ -38,6 +38,7 @@ class ObjectValidateCsvAction extends DefaultEditAction
             }
         } else {
             $this->title = $this->context->i18n->__('Validate CSV');
+            $this->response->setTitle("{$this->title} - {$this->response->getTitle()}");
         }
     }
 

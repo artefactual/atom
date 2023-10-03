@@ -27,6 +27,9 @@ class ClipboardLoadAction extends DefaultEditAction
 
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Load clipboard');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         parent::execute($request);
 
         if (!$request->isMethod('post')) {

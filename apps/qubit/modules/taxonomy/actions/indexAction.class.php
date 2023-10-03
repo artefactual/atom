@@ -136,12 +136,18 @@ class TaxonomyIndexAction extends sfAction
                     $this->icon = 'map-marker-alt';
                 }
 
+                $title = $this->context->i18n->__('Places');
+                $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
                 break;
 
             case QubitTaxonomy::SUBJECT_ID:
                 $this->icon = 'subjects';
                 $this->addIoCountColumn = true;
                 $this->addActorCountColumn = true;
+
+                $title = $this->context->i18n->__('Subjects');
+                $this->response->setTitle("{$title} - {$this->response->getTitle()}");
 
                 if (sfConfig::get('app_b5_theme', false)) {
                     $this->icon = 'tag';
@@ -153,7 +159,14 @@ class TaxonomyIndexAction extends sfAction
                 $this->addIoCountColumn = true;
                 $this->addActorCountColumn = true;
 
+                $title = $this->context->i18n->__('Genres');
+                $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
                 break;
+
+            default:
+                $title = $this->context->i18n->__(ucwords(str_replace('-', ' ', $this->request->slug)));
+                $this->response->setTitle("{$title} - {$this->response->getTitle()}");
         }
 
         $culture = $this->context->user->getCulture();

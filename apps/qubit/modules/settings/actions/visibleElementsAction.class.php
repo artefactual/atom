@@ -26,6 +26,9 @@ class SettingsVisibleElementsAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Visible elements');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         $this->form = new sfForm();
 
         foreach (QubitSetting::getByScope('element_visibility') as $item) {

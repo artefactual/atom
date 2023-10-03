@@ -27,6 +27,9 @@ class sfSkosPluginImportAction extends DefaultEditAction
 
     public function execute($request)
     {
+        $title = $this->context->i18n->__('SKOS import');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         parent::execute($request);
 
         if ($request->isMethod('post')) {
