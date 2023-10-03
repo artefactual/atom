@@ -21,6 +21,9 @@ class sfPluginAdminPluginThemesAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('List themes');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         $this->form = new sfForm();
 
         if (!$this->context->user->isAdministrator()) {

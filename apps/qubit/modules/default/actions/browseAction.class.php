@@ -21,6 +21,13 @@ class DefaultBrowseAction extends sfAction
 {
     public function execute($request)
     {
+        $mod = $this->context->getModuleName();
+        if ('informationobject' == $mod) {
+            $mod = 'information object';
+        }
+        $title = $this->context->i18n->__(ucfirst($mod));
+        $this->response->setTitle("{$title} browse - {$this->response->getTitle()}");
+
         // Force subclassing
         if ('default' == $this->context->getModuleName() && 'browse' == $this->context->getActionName()) {
             $this->forward404();

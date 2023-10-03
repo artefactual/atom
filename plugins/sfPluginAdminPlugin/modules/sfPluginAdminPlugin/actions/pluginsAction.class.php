@@ -21,6 +21,9 @@ class sfPluginAdminPluginPluginsAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('List plugins');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         $this->form = new sfForm();
         $this->defaultTemplate = sfConfig::get('app_default_template_informationobject');
 

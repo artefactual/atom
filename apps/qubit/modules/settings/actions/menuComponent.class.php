@@ -21,6 +21,9 @@ class SettingsMenuComponent extends sfComponent
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__(ucfirst(implode(' ', array_map('strtolower', preg_split('/(?=[A-Z])/', $this->context->getActionName())))));
+        $this->response->setTitle("{$title} setting - {$this->response->getTitle()}");
+
         $i18n = $this->context->i18n;
         $this->nodes = [
             [

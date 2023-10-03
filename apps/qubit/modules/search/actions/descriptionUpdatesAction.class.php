@@ -36,6 +36,9 @@ class SearchDescriptionUpdatesAction extends sfAction
 
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Newest additions');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         // Store user and user URL for convenience
         if (!empty($userUrl = $request->getGetParameter('user'))) {
             $params = $this->context->routing->parse($userUrl);

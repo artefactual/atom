@@ -50,11 +50,13 @@ class ObjectImportSelectAction extends DefaultEditAction
             switch ($this->type) {
                 case 'csv':
                     $this->title = $this->context->i18n->__('Import CSV');
+                    $this->response->setTitle("{$this->title} - {$this->response->getTitle()}");
 
                 break;
 
                 case 'xml':
                     $this->title = $this->context->i18n->__('Import XML');
+                    $this->response->setTitle("{$this->title} - {$this->response->getTitle()}");
 
                 break;
 

@@ -21,6 +21,9 @@ class RightsHolderBrowseAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Rights holders');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         if (!isset($request->limit)) {
             $request->limit = sfConfig::get('app_hits_per_page');
         }

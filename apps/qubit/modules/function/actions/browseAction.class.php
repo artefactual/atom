@@ -25,6 +25,9 @@ class FunctionBrowseAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Function');
+        $this->response->setTitle("{$title} browse - {$this->response->getTitle()}");
+
         if (!isset($request->limit)) {
             $request->limit = sfConfig::get('app_hits_per_page');
         }

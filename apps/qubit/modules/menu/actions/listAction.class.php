@@ -26,6 +26,9 @@ class MenuListAction extends sfAction
 {
     public function execute($request)
     {
+        $title = $this->context->i18n->__('Site menu list');
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
         // Re-order menus if "move" parameter passed
         if (isset($request->move) && $menu = QubitMenu::getById($request->move)) {
             if (isset($request->before)) {
