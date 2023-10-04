@@ -6,9 +6,15 @@
     if (!$input.length) {
       return;
     }
-    var $results = $("#search-box-results");
+    var $searchboxDropdown = $("#search-box-dropdown");
     var dropdown = bootstrap.Dropdown.getOrCreateInstance($input);
     var $searchboxTemplate = $("#searchbox-options-template");
+
+    let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+    $searchOptions.querySelector('div').id = 'search-options';
+    $searchboxDropdown.html('<ul id="search-box-results"></ul>');
+    $searchboxDropdown.append($searchOptions);
+    let $results = $("#search-box-results");
 
     // Set up Bootstrap autocomplete:
     // - Force version 4 to avoid failing check in version 5.
@@ -34,11 +40,10 @@
         },
         searchPost: (response, $element) => {
           if (response.length && $element.val().length >= 3) {
-            let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-            $searchOptions.querySelector('div').id = 'search-options';
+            //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+            //$searchOptions.querySelector('div').id = 'search-options';
+            //$results.html('<div class="dropdown-divider"></div>');
             $results.html(response);
-            $results.append('<div class="dropdown-divider"></div>');
-            $results.append($searchOptions);
             //dropdown.show();
           }
           //else {
@@ -57,19 +62,33 @@
     // on all changes to the input.
     $input.on("input", (event) => {
       if (event.target.value.length < 3 && $results.children().length > 1) {
-        let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        $searchOptions.querySelector('div').id = 'search-options';
-        $results.html($searchOptions);
+        $results.html('');
+        //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+        //$searchOptions.querySelector('div').id = 'search-options';
+        //$results.html($searchOptions);
         //$results.children()[0].attr('id', 'search-options');
+      }
+    });
+
+    $input.on("focus", (event) => {
+      if (dropdown._isShown() === false) {
+        dropdown.show();
+      }
+    });
+
+    $input.on("hide.bs.dropdown", (event) => {
+      if (document.activeElement === $input[0]) {
+        event.preventDefault();
       }
     });
 
     // Prevent showing an empty dropdown
     $input.on("show.bs.dropdown", (event) => {
       if ($results.children().length === 0) {
-        let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        $searchOptions.querySelector('div').id = 'search-options';
-        $results.html($searchOptions);
+        $results.html('');
+        //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
+        //$searchOptions.querySelector('div').id = 'search-options';
+        //$results.html($searchOptions);
         //$results.children()[0].attr('id', 'search-options');
       }
     });

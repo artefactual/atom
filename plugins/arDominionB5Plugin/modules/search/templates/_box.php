@@ -41,7 +41,7 @@
         </div>
       <?php } ?>
     </div>
-    <div class="dropdown-divider"></div>
+    <hr class="dropdown-divider"></hr>
   <?php } ?>
   <a class="dropdown-item" href="<?php echo url_for([
       'module' => 'informationobject',
@@ -75,7 +75,7 @@
       data-bs-auto-close="outside"
       aria-label="<?php echo sfConfig::get('app_ui_label_globalSearch'); ?>"
       aria-expanded="false">
-    <ul id="search-box-results" class="dropdown-menu mt-2" aria-labelledby="search-box-input"></ul>
+    <div id="search-box-dropdown" class="dropdown-menu mt-2" aria-labelledby="search-box-input"></div>
     <button class="btn btn-sm atom-btn-secondary" type="submit">
       <i class="fas fa-search" aria-hidden="true"></i>
       <span class="visually-hidden"><?php echo __('Search in browse page'); ?></span>
