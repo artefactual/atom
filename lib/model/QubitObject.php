@@ -305,6 +305,33 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
         return QubitStatus::getOne($criteria);
     }
 
+    /**
+     * Check to see if note is saved in memory (field was updated).
+     *
+     * Used by ISAD, DACS, and RAD templates when duplicating a description,
+     * specifcally for updating the 'Language and script notes' field.
+     *
+     * @return array $notes
+     */
+    public function getMemoryNotesByType(array $options = [])
+    {
+        // Check memory for notes
+        if (!count($this->notes) < 0) {
+            return $this->getNotesByType($options);
+        }
+
+        $noteTypeId = $options['noteTypeId'];
+        $notes = new ArrayObject();
+
+        foreach ($this->notes as $note) {
+            if ($note->typeId == $noteTypeId) {
+                $notes->append($note);
+            }
+        }
+
+        return $notes;
+    }
+
     public function getNotesByType(array $options = [])
     {
         $criteria = new Criteria();

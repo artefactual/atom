@@ -70,12 +70,20 @@ class sfIsadPlugin implements ArrayAccess
     {
         switch ($name) {
             case 'languageNotes':
-                $note = $this->resource->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0);
+                $note = $this->resource->getMemoryNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0);
+
                 $missingNote = 0 === count($note);
 
                 if (0 == strlen($value)) {
                     // Delete note if it's available
                     if (!$missingNote) {
+                        // Update deleted note on duplication
+                        if (!isset($value)) {
+                            $note->content = $value;
+
+                            break;
+                        }
+
                         $note->delete();
                     }
 
