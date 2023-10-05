@@ -42,15 +42,15 @@
       <?php } ?>
     </div>
     <hr class="dropdown-divider"></hr>
-  <?php } ?>
-  <a class="dropdown-item" href="<?php echo url_for([
+    <?php } ?>
+    <a class="dropdown-item" href="<?php echo url_for([
       'module' => 'informationobject',
       'action' => 'browse',
       'showAdvanced' => true,
       'topLod' => false,
-  ]); ?>">
-    <?php echo __('Advanced search'); ?>
-  </a>
+      ]); ?>">
+      <?php echo __('Advanced search'); ?>
+    </a>
   </div>
 </template>
 <form

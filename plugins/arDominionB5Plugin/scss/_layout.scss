@@ -97,10 +97,7 @@ header i.fa-2x {
 }
 
 #search-box-results {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  li{
+  li {
     &:last-child {
       border-bottom: 1px solid $gray-400;
       padding-bottom: 0.5rem;

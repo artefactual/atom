@@ -10,9 +10,10 @@
     var dropdown = bootstrap.Dropdown.getOrCreateInstance($input);
     var $searchboxTemplate = $("#searchbox-options-template");
 
+    // Add search options to show in the dropdown area
     let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
     $searchOptions.querySelector('div').id = 'search-options';
-    $searchboxDropdown.html('<ul id="search-box-results"></ul>');
+    $searchboxDropdown.html('<ul id="search-box-results" class="mb-0 list-unstyled"></ul>');
     $searchboxDropdown.append($searchOptions);
     let $results = $("#search-box-results");
 
@@ -40,36 +41,23 @@
         },
         searchPost: (response, $element) => {
           if (response.length && $element.val().length >= 3) {
-            //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-            //$searchOptions.querySelector('div').id = 'search-options';
-            //$results.html('<div class="dropdown-divider"></div>');
             $results.html(response);
-            //dropdown.show();
           }
-          //else {
-            //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-            //$searchOptions.querySelector('div').id = 'search-options';
-            //$results.html($searchOptions);
-            //$results.children()[0].attr('id', 'search-options');
-          //}
           return [];
         },
       },
     });
 
-    // Hide dropdown when the input is lower than 3 chars.
+    // Clear dropdown when the input is lower than 3 chars.
     // Bootstrap autocomplete `typed` event is not triggered
     // on all changes to the input.
     $input.on("input", (event) => {
       if (event.target.value.length < 3 && $results.children().length > 1) {
         $results.html('');
-        //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        //$searchOptions.querySelector('div').id = 'search-options';
-        //$results.html($searchOptions);
-        //$results.children()[0].attr('id', 'search-options');
       }
     });
 
+    // Show dropdown on focus for users navigating using keyboards
     $input.on("focus", (event) => {
       if (dropdown._isShown() === false) {
         dropdown.show();
@@ -86,10 +74,6 @@
     $input.on("show.bs.dropdown", (event) => {
       if ($results.children().length === 0) {
         $results.html('');
-        //let $searchOptions = $searchboxTemplate[0].content.cloneNode(true);
-        //$searchOptions.querySelector('div').id = 'search-options';
-        //$results.html($searchOptions);
-        //$results.children()[0].attr('id', 'search-options');
       }
     });
   });
