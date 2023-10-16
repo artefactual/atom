@@ -187,6 +187,12 @@
         // Insert new content into page
         $('#main-column h1').first().replaceWith($(response.find('#main-column h1').first()));
 
+        // Get new document title for G4 Tracking
+        var doctitle = $('#main-column h1').first();
+
+        // Extract the text content without HTML tags and set title
+        document.title = doctitle[0].textContent;
+
         // Add empty breadcrumb section if current page has none, but response does
         if (!$('#main-column .breadcrumb').length && $(response.find('#main-column .breadcrumb').length))
         {
@@ -269,7 +275,7 @@
       }
     };
 
-    // On node open: remove tooltip after a node is selected, the 
+    // On node open: remove tooltip after a node is selected, the
     // node is reloaded and the first tooltip is never removed
     var openNodeListener = function (e, data)
     {
