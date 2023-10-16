@@ -27,7 +27,7 @@ class sfValidatorCSRFToken extends sfValidatorBase
 
     $this->setOption('required', true);
 
-    $this->addMessage('csrf_attack', 'CSRF attack detected.');
+    $this->addMessage('csrf_attack', 'CSRF Token Expired. Please refresh the page and log in again.');
   }
 
   /**
