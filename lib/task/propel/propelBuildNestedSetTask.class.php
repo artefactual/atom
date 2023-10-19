@@ -95,6 +95,13 @@ class propelBuildNestedSetTask extends arBaseTask
             $this->conn->commit();
         }
 
+        if (!$options['index']) {
+            $this->logSection(
+                'propel',
+                'Note: you will need to rebuild your search index for updates to show up properly in search results.'
+            );
+        }
+
         $this->logSection('propel', 'Done!');
     }
 
@@ -157,11 +164,6 @@ EOF;
             if ($node['id'] != $classname::ROOT_ID) {
                 $this->reindexLft($classname, $node['id'], $node['lft']);
             }
-        } else {
-            $this->logSection(
-                'propel',
-                'Note: you will need to rebuild your search index for updates to show up properly in search results.'
-            );
         }
 
         return $width;
