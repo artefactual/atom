@@ -35,12 +35,12 @@
           <div class="accordion-body">
             <?php echo render_field($form->identifier
                 ->help(__('"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)'))
-                ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Identifier'))
             ); ?>
 
             <?php echo render_field($form->authorizedFormOfName
                 ->help(__('"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)'))
-                ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element').'">*</span>'), $resource); ?>
+                ->label(__('Authorized form of name')), $resource); ?>
 
             <?php echo render_field($form->parallelName
                 ->help(__('"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)'))

@@ -235,6 +235,7 @@ class AccessionEditAction extends DefaultEditAction
 
                 $this->form->setWidget('date', new sfWidgetFormInput());
                 $this->form->setValidator('date', new sfValidatorDate([
+                    'required' => true,
                     'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
                     'date_format_error' => 'YYYY-MM-DD',
                 ]));
@@ -272,14 +273,20 @@ class AccessionEditAction extends DefaultEditAction
 
             case 'appraisal':
             case 'archivalHistory':
-            case 'locationInformation':
             case 'physicalCharacteristics':
             case 'processingNotes':
             case 'receivedExtentUnits':
             case 'scopeAndContent':
-            case 'sourceOfAcquisition':
                 $this->form->setDefault($name, $this->resource[$name]);
                 $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
+
+            case 'sourceOfAcquisition':
+            case 'locationInformation':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
                 $this->form->setWidget($name, new sfWidgetFormTextarea());
 
                 break;

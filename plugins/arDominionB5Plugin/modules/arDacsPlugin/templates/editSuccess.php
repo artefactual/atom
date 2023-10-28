@@ -42,7 +42,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->identifier
                 ->help(__('At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.'))
-                ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Identifier'))
             ); ?>
 
             <?php echo get_partial(
@@ -75,13 +75,13 @@
 
             <?php echo render_field($form->title
                 ->help(__('In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)'))
-                ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Title')), $resource); ?>
 
             <?php echo get_partial('sfIsadPlugin/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll() + ['help' => __('Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.')]); ?>
 
             <?php echo render_field($form->extentAndMedium
                 ->help(__('Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).'))
-                ->label(__('Extent').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Extent')), $resource); ?>
 
             <?php
                 $extraInputs = '<input class="list" type="hidden" value="'
@@ -127,7 +127,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->scopeAndContent
                 ->help(__('Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)'))
-                ->label(__('Scope and content').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Scope and content')), $resource); ?>
 
             <?php echo render_field($form->arrangement
                 ->help(__('Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)'))

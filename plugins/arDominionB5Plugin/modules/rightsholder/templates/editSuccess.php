@@ -33,7 +33,7 @@
         <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo render_field($form->authorizedFormOfName
-                ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Authorized form of name')), $resource); ?>
           </div>
         </div>
       </div>

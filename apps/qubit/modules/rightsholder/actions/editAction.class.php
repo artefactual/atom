@@ -89,7 +89,7 @@ class RightsHolderEditAction extends DefaultEditAction
         switch ($name) {
             case 'authorizedFormOfName':
                 $this->form->setDefault('authorizedFormOfName', $this->resource['authorizedFormOfName']);
-                $this->form->setValidator('authorizedFormOfName', new sfValidatorString());
+                $this->form->setValidator('authorizedFormOfName', new sfValidatorString(['required' => true]));
                 $this->form->setWidget('authorizedFormOfName', new sfWidgetFormInput());
 
                 break;

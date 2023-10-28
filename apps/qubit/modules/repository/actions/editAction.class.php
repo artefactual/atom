@@ -189,6 +189,12 @@ class RepositoryEditAction extends DefaultEditAction
 
             case 'identifier':
             case 'authorizedFormOfName':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
             case 'descIdentifier':
             case 'descInstitutionIdentifier':
                 $this->form->setDefault($name, $this->resource[$name]);

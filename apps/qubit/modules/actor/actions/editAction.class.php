@@ -91,7 +91,7 @@ class ActorEditAction extends DefaultEditAction
         switch ($name) {
             case 'entityType':
                 $this->form->setDefault('entityType', $this->context->routing->generate(null, [$this->resource->entityType, 'module' => 'term']));
-                $this->form->setValidator('entityType', new sfValidatorString());
+                $this->form->setValidator('entityType', new sfValidatorString(['required' => true]));
 
                 $choices = [];
                 $choices[null] = null;
@@ -104,9 +104,15 @@ class ActorEditAction extends DefaultEditAction
                 break;
 
             case 'authorizedFormOfName':
-            case 'corporateBodyIdentifiers':
             case 'datesOfExistence':
             case 'descriptionIdentifier':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'corporateBodyIdentifiers':
             case 'institutionResponsibleIdentifier':
                 $this->form->setDefault($name, $this->resource[$name]);
                 $this->form->setValidator($name, new sfValidatorString());

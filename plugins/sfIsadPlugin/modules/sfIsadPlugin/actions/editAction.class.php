@@ -108,6 +108,13 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
     protected function addField($name)
     {
         switch ($name) {
+            case 'appraisal':
+                $this->form->setDefault('appraisal', $this->resource['appraisal']);
+                $this->form->setValidator('appraisal', new sfValidatorString());
+                $this->form->setWidget('appraisal', new sfWidgetFormTextarea());
+
+                break;
+
             case 'creators':
                 $criteria = new Criteria();
                 $criteria->add(QubitEvent::OBJECT_ID, $this->resource->id);
@@ -120,25 +127,48 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
                 }
 
                 $this->form->setDefault('creators', $value);
-                $this->form->setValidator('creators', new sfValidatorPass());
+                $this->form->setValidator('creators', new sfValidatorPass(['required' => true]));
                 $this->form->setWidget('creators', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true]));
 
                 break;
-
-            case 'appraisal':
-                $this->form->setDefault('appraisal', $this->resource['appraisal']);
-                $this->form->setValidator('appraisal', new sfValidatorString());
-                $this->form->setWidget('appraisal', new sfWidgetFormTextarea());
+            
+            case 'extentAndMedium':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
 
                 break;
 
+            case 'identifier':
+            case 'title':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+            
             case 'languageNotes':
                 $this->form->setDefault('languageNotes', $this->isad['languageNotes']);
                 $this->form->setValidator('languageNotes', new sfValidatorString());
                 $this->form->setWidget('languageNotes', new sfWidgetFormTextarea());
 
                 break;
+            
 
+            case 'levelOfDescription':
+                $this->form->setDefault('levelOfDescription', $this->context->routing->generate(null, [$this->resource->levelOfDescription, 'module' => 'term']));
+                $this->form->setValidator('levelOfDescription', new sfValidatorString(['required' => true]));
+
+                $choices = [];
+                $choices[null] = null;
+                foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) as $item) {
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item;
+                }
+
+                $this->form->setWidget('levelOfDescription', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
+            
             default:
                 return parent::addField($name);
         }

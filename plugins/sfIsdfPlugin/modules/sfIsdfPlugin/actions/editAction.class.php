@@ -85,7 +85,7 @@ class sfIsdfPluginEditAction extends FunctionEditAction
         switch ($name) {
             case 'type':
                 $this->form->setDefault('type', $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']));
-                $this->form->setValidator('type', new sfValidatorString());
+                $this->form->setValidator('type', new sfValidatorString(['required' => true]));
 
                 $choices = [];
                 $choices[null] = null;
@@ -105,9 +105,15 @@ class sfIsdfPluginEditAction extends FunctionEditAction
                 break;
 
             case 'authorizedFormOfName':
+            case 'descriptionIdentifier':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+                
             case 'classification':
             case 'dates':
-            case 'descriptionIdentifier':
             case 'institutionIdentifier':
                 $this->form->setDefault($name, $this->resource[$name]);
                 $this->form->setValidator($name, new sfValidatorString());

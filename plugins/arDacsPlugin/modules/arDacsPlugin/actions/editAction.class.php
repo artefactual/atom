@@ -102,6 +102,13 @@ class arDacsPluginEditAction extends InformationObjectEditAction
     protected function addField($name)
     {
         switch ($name) {
+            case 'appraisal':
+                $this->form->setDefault('appraisal', $this->resource['appraisal']);
+                $this->form->setValidator('appraisal', new sfValidatorString());
+                $this->form->setWidget('appraisal', new sfWidgetFormTextarea());
+
+                break;
+                
             case 'creators':
                 $criteria = new Criteria();
                 $criteria->add(QubitEvent::OBJECT_ID, $this->resource->id);
@@ -114,15 +121,8 @@ class arDacsPluginEditAction extends InformationObjectEditAction
                 }
 
                 $this->form->setDefault('creators', $value);
-                $this->form->setValidator('creators', new sfValidatorPass());
+                $this->form->setValidator('creators', new sfValidatorPass(['required' => true]));
                 $this->form->setWidget('creators', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true]));
-
-                break;
-
-            case 'appraisal':
-                $this->form->setDefault('appraisal', $this->resource['appraisal']);
-                $this->form->setValidator('appraisal', new sfValidatorString());
-                $this->form->setWidget('appraisal', new sfWidgetFormTextarea());
 
                 break;
 
@@ -131,6 +131,22 @@ class arDacsPluginEditAction extends InformationObjectEditAction
                 $this->form->setDefault($name, $this->dacs->getProperty($name));
                 $this->form->setValidator($name, new sfValidatorString());
                 $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
+
+            case 'extentAndMedium':
+            case 'scopeAndContent':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
+
+            case 'identifier':
+            case 'title':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;
 

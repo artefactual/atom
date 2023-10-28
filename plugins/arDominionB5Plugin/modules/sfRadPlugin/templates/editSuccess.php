@@ -42,7 +42,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->title
                 ->help(__('Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))
-                ->label(__('Title proper').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Title proper')), $resource); ?>
 
             <?php echo render_field($form->type
                 ->help(__('Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)'))
@@ -65,7 +65,7 @@
 
             <?php echo render_field($form->levelOfDescription
                 ->help(__('Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.'))
-                ->label(__('Level of description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Level of description'))
             ); ?>
 
             <?php echo get_partial('informationobject/childLevels', ['help' => __('Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)')]); ?>
@@ -187,7 +187,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->extentAndMedium
                 ->help(__('"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).'))
-                ->label(__('Physical description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Physical description')), $resource); ?>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@
 
             <?php echo render_field($form->scopeAndContent
                 ->help(__('"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)'))
-                ->label(__('Scope and content').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Scope and content')), $resource); ?>
           </div>
         </div>
       </div>

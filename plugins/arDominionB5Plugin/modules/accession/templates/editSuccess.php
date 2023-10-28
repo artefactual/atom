@@ -50,18 +50,18 @@
             <?php echo render_field(
                 $form->date
                     ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
-                    ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'),
+                    ->label(__('Acquisition date')),
                 null,
                 ['type' => 'date']
             ); ?>
 
             <?php echo render_field($form->sourceOfAcquisition
                 ->help(__('Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.'))
-                ->label(__('Immediate source of acquisition').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, ['class' => 'resizable']); ?>
+                ->label(__('Immediate source of acquisition')), $resource, ['class' => 'resizable']); ?>
 
             <?php echo render_field($form->locationInformation
                 ->help(__('A description of the physical location in the repository where the accession can be found.'))
-                ->label(__('Location information').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, ['class' => 'resizable']); ?>
+                ->label(__('Location information')), $resource, ['class' => 'resizable']); ?>
           </div>
         </div>
       </div>

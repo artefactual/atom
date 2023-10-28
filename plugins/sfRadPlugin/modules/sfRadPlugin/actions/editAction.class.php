@@ -157,11 +157,40 @@ class sfRadPluginEditAction extends InformationObjectEditAction
                 $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;
+            
+            case 'extentAndMedium':
+            case 'scopeAndContent':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
 
             case 'languageNotes':
                 $this->form->setDefault($name, $this->rad->getProperty($name));
                 $this->form->setValidator($name, new sfValidatorString());
                 $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
+                            
+            case 'levelOfDescription':
+                $this->form->setDefault('levelOfDescription', $this->context->routing->generate(null, [$this->resource->levelOfDescription, 'module' => 'term']));
+                $this->form->setValidator('levelOfDescription', new sfValidatorString(['required' => true]));
+
+                $choices = [];
+                $choices[null] = null;
+                foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) as $item) {
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item;
+                }
+
+                $this->form->setWidget('levelOfDescription', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
+
+            case 'title':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;
 

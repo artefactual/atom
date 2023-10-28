@@ -51,7 +51,7 @@
 
             <?php echo render_field($form->identifier
                 ->help(__('Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)'))
-                ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Identifier'))
             ); ?>
 
             <?php echo get_partial(
@@ -61,20 +61,20 @@
 
             <?php echo render_field($form->title
                 ->help(__('Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)'))
-                ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Title')), $resource); ?>
 
             <?php echo get_partial('event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll() + ['help' => __('"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.')]); ?>
 
             <?php echo render_field($form->levelOfDescription
                 ->help(__('Record the level of this unit of description. (ISAD 3.1.4)'))
-                ->label(__('Level of description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Level of description'))
             ); ?>
 
             <?php echo get_partial('informationobject/childLevels', ['help' => __('Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.')]); ?>
 
             <?php echo render_field($form->extentAndMedium
                 ->help(__('Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)'))
-                ->label(__('Extent and medium').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Extent and medium')), $resource); ?>
           </div>
         </div>
       </div>

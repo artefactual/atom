@@ -34,12 +34,12 @@
           <div class="accordion-body">
             <?php echo render_field($form->type
                 ->help(__('"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.'))
-                ->label(__('Type').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Type'))
             ); ?>
 
             <?php echo render_field($form->authorizedFormOfName
                 ->help(__('"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)'))
-                ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Authorized form of name')), $resource); ?>
 
             <?php echo render_field($form->parallelName
                 ->help(__('"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)'))
@@ -102,7 +102,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->descriptionIdentifier
                 ->help(__('"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)'))
-                ->label(__('Description identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Description identifier')), $resource); ?>
 
             <?php echo render_field($form->institutionIdentifier
                 ->help(__('"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)'))

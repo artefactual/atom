@@ -90,7 +90,7 @@ class DeaccessionEditAction extends DefaultEditAction
         switch ($name) {
             case 'scope':
                 $this->form->setDefault('scope', $this->context->routing->generate(null, [$this->resource->scope, 'module' => 'term']));
-                $this->form->setValidator('scope', new sfValidatorString());
+                $this->form->setValidator('scope', new sfValidatorString(['required' => true]));
 
                 $choices = [];
                 $choices[null] = null;
@@ -103,6 +103,11 @@ class DeaccessionEditAction extends DefaultEditAction
                 break;
 
             case 'description':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
             case 'extent':
             case 'reason':
                 $this->form->setDefault($name, $this->resource[$name]);
@@ -121,6 +126,7 @@ class DeaccessionEditAction extends DefaultEditAction
 
                 $this->form->setWidget('date', new sfWidgetFormInput());
                 $this->form->setValidator('date', new sfValidatorDate([
+                    'required' => true,
                     'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
                     'date_format_error' => 'YYYY-MM-DD',
                 ]));
@@ -129,7 +135,7 @@ class DeaccessionEditAction extends DefaultEditAction
 
             case 'identifier':
                 $this->form->setDefault($name, $this->resource[$name]);
-                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
                 $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;

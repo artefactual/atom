@@ -42,7 +42,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->identifier
                 ->help(__('The unambiguous reference code used to uniquely identify this resource.'))
-                ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Identifier'))
             ); ?>
 
             <?php echo get_partial(
@@ -52,7 +52,7 @@
 
             <?php echo render_field($form->title
                 ->help(__('The name given to this resource.'))
-                ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Title')), $resource); ?>
 
             <?php echo get_partial('dcNames', $sf_data->getRaw('dcNamesComponent')->getVarHolder()->getAll()); ?>
 
@@ -95,7 +95,7 @@
             <div class="table-responsive mb-2">
               <table class="table table-bordered mb-0 multi-row">
                 <thead class="table-light">
-		  <tr>
+                  <tr>
                     <th id="child-identifier-head" class="w-20">
                       <?php echo __('Identifier'); ?>
                     </th>

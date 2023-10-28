@@ -70,6 +70,14 @@ class sfDcPluginEditAction extends InformationObjectEditAction
     protected function addField($name)
     {
         switch ($name) {
+            case 'identifier':
+            case 'title':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+            
             case 'type':
                 $criteria = new Criteria();
                 $this->resource->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
@@ -90,6 +98,25 @@ class sfDcPluginEditAction extends InformationObjectEditAction
                 }
 
                 $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true]));
+
+                break;
+            
+            case 'repository':
+                $this->form->setDefault('repository', $this->context->routing->generate(null, [$this->resource->repository, 'module' => 'repository']));
+                $this->form->setValidator('repository', new sfValidatorString(['required' => true]));
+
+                $choices = [];
+                if (isset($this->resource->repository)) {
+                    $choices[$this->context->routing->generate(null, [$this->resource->repository, 'module' => 'repository'])] = $this->resource->repository;
+                }
+
+                $this->form->setWidget('repository', new sfWidgetFormSelect(['choices' => $choices]));
+
+                if (isset($this->getRoute()->resource)) {
+                    $this->repoAcParams = ['module' => 'repository', 'action' => 'autocomplete', 'aclAction' => 'update'];
+                } else {
+                    $this->repoAcParams = ['module' => 'repository', 'action' => 'autocomplete', 'aclAction' => 'create'];
+                }
 
                 break;
 

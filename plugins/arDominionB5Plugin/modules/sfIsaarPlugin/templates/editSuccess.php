@@ -46,12 +46,12 @@
           <div class="accordion-body">
             <?php echo render_field($form->entityType
                 ->help(__('"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.'))
-                ->label(__('Type of entity').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Type of entity'))
             ); ?>
 
             <?php echo render_field($form->authorizedFormOfName
                 ->help(__('"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)'))
-                ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Authorized form of name')), $resource); ?>
 
             <?php echo render_field($form->parallelName
                 ->help(__('"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)'))
@@ -84,7 +84,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->datesOfExistence
                 ->help(__('"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)'))
-                ->label(__('Dates of existence').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Dates of existence')), $resource); ?>
 
             <?php echo render_field($form->history
                 ->help(__('"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)')), $resource); ?>
@@ -183,7 +183,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->descriptionIdentifier
                 ->help(__('"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)'))
-                ->label(__('Authority record identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Authority record identifier')), $resource); ?>
 
             <?php echo render_field(
                 $form->maintainingRepository
