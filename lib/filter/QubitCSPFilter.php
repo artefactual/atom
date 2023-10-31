@@ -69,7 +69,7 @@ class QubitCSP extends sfFilter
 
         $filterChain->execute();
 
-        if (false !== strpos($context->response->getContentType(), 'text/xml')) {
+        if (preg_match('~(text/xml|application/json)~', $context->response->getContentType())) {
             return;
         }
 

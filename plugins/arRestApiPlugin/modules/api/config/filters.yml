@@ -13,5 +13,9 @@ restApiFilter:
   class: arRestApiPluginFilter
 
 QubitTransaction: ~
+
+QubitCSP:
+  enable: false
+
 cache: ~
 execution: ~
