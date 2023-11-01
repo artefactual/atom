@@ -105,7 +105,7 @@ all:
   read_only: false
   htmlpurifier_enabled: false
   csp:
-    response_header: Content-Security-Policy
+    response_header: Content-Security-Policy-Report-Only
     directives: "default-src 'self'; font-src 'self'; img-src 'self' https://www.gravatar.com/avatar/ blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';"
 EOT;
 
