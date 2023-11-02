@@ -1,0 +1,27 @@
+@import "@fontsource/open-sans/scss/mixins";
+
+// Add font-face declarations for all Open Sans weights and styles
+@include faces($subsets: all, $weights: all, $styles: all);
+
+:root {
+  --bs-font-sans-serif: "Open Sans", sans-serif;
+}
+
+blockquote {
+  border-left: 5px solid $gray-400;
+  padding-left: $spacer;
+}
+
+code {
+  background-color: $gray-200;
+  white-space: pre-wrap;
+  padding: $spacer * 0.25;
+}
+
+pre {
+  background-color: $gray-200;
+  padding: $spacer * 0.5;
+  code {
+    padding: 0;
+  }
+}
