@@ -57,7 +57,7 @@
                       'class' => 'form-autocomplete',
                       'extraInputs' => '<input class="list" type="hidden" value="'
                           .url_for([
-                              'module' => 'informationobject',
+                              'module' => 'taxonomy',
                               'action' => 'autocomplete',
                           ])
                           .'">',
