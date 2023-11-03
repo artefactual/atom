@@ -182,39 +182,56 @@
         return;
       }
 
+      let $form = $("<form />", {
+        "id": "sendForm",
+        "action": $sendButton.data("url"),
+        "method": $sendButton.data("method"),
+      });
+
       // Generate clipboard send data
-      var data = {base_url: $sendButton.data('site-base-url')};
+      let $baseUrl = $("<input />", {
+        "type": "hidden",
+        "name": "base_url",
+        "value": $sendButton.data('site-base-url')
+      });
+
+      $form.append($baseUrl);
 
       if (this.items['informationObject'].length !== 0)
       {
-        data.informationobject_slugs = JSON.stringify(this.items['informationObject']);
+        let $informationobjectSlugs = $("<input />", {
+          "type": "hidden",
+          "name": "information_object_slugs",
+          "value": JSON.stringify(this.items['informationObject'])
+        });
+        $form.append($informationobjectSlugs);
       }
-  
+
       if (this.items['actor'].length !== 0)
       {
-        data.actor_slugs = JSON.stringify(this.items['actor']);
+        let $actorSlugs = $("<input />", {
+          "type": "hidden",
+          "name": "actor_slugs",
+          "value": JSON.stringify(this.items['actor'])
+        });
+        $form.append($actorSlugs);
       }
-  
+
       if (this.items['repository'].length !== 0)
       {
-        data.repository_slugs = JSON.stringify(this.items['repository']);
+        let $repositorySlugs = $("<input />", {
+          "type": "hidden",
+          "name": "repository_slugs",
+          "value": JSON.stringify(this.items['repository'])
+        });
+        $form.append($repositorySlugs);
       }
 
       // Show sending alert and assign it to a variable
       var $sendingAlert = this.showAlert($sendButton.data('message'), 'alert-info');
 
-      $.ajax({
-        url: $sendButton.data('url'),
-        type: $sendButton.data('method'),
-        cache: false,
-        data: data,
-        context: this,
-        complete: function()
-        {
-          // Remove alert on error and success
-          $sendingAlert.remove();
-        }
-      });
+      $form.appendTo(document.body);
+      $form.submit();
     },
     export: function(event)
     {
