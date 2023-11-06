@@ -65,9 +65,7 @@ class deleteDescriptionTask extends arBaseTask
             new sfCommandArgument(
                 'slug',
                 sfCommandArgument::REQUIRED,
-                'Description slug to delete. '
-                .'Note: if --repository is set, this is instead a repository'
-                .' slug whose descriptions we will target for deletion.'
+                'Description slug to delete. Note: if --repository is set, this is instead a repository slug whose descriptions we will target for deletion.'
             ),
         ]);
 

@@ -106,9 +106,7 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
                         ],
                         ['required' => true],
                         ['invalid' => $this->context->i18n->__(
-                            '%1%Contact information%2% - You %3%must%4% at least include one of'
-                            .' the following location or address fields: city, country, postal'
-                            .' code, region or street address.',
+                            '%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.',
                             [
                                 '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-3#5.2.1">',
                                 '%2%' => '</a>',

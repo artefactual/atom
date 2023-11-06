@@ -54,8 +54,7 @@
         <div id="aip-collapse" class="accordion-collapse collapse" aria-labelledby="aip-heading">
           <div class="accordion-body">
             <?php echo render_field($form->download_aip_enabled->label(__('Enable AIP download'))->help(__(
-                'Allow authorized users to download a linked AIP or AIP file from'
-                .' the configured Archivematica Storage Service'
+                'Allow authorized users to download a linked AIP or AIP file from the configured Archivematica Storage Service'
             ))); ?>
           </div>
         </div>

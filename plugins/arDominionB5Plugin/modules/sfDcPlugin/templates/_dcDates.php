@@ -112,13 +112,6 @@
 
 <div class="form-text mb-3" id="dc-dates-table-help">
   <?php echo __(
-      'Identify and record the date(s) of the unit of description.'
-      .' Identify the type of date given. Record as a single date or a'
-      .' range of dates as appropriate. The Date display field can be'
-      .' used to enter free-text date information, including typographical'
-      .' marks to express approximation, uncertainty, or qualification.'
-      .' Use the start and end fields to make the dates searchable. Do not'
-      .' use any qualifiers or typographical symbols to express uncertainty.'
-      .' Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'
+      'Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'
   ); ?>
 </div>

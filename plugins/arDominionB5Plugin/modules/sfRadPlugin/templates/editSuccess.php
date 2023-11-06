@@ -72,11 +72,7 @@
 
             <?php echo render_field(
                 $form->repository->help(__(
-                    'Select the repository that has custody and control of the archival material.'
-                    .' The values in this field are drawn from the Authorized form of name field in'
-                    .' archival institution records. Search for an existing name by typing the first'
-                    .' few characters of the name. Alternatively, type a new name to create and link'
-                    .' to a new archival institution.'
+                    'Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.'
                 )),
                 null,
                 [
@@ -276,7 +272,7 @@
                     ->label(__('Scripts of the material')),
                 null,
                 ['class' => 'form-autocomplete']
-            ); ?> 
+            ); ?>
 
             <?php echo render_field($form->languageNotes
                 ->help(__('"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.'))
@@ -315,9 +311,7 @@
                 }
                 echo render_field(
                     $form->relatedMaterialDescriptions->label(__('Related materials'))->help(__(
-                        'To create a relationship between this description and another description held in AtoM,'
-                        .' begin typing the name of the related description and select it from the autocomplete'
-                        .' drop-down menu when it appears below. Multiple relationships can be created.'
+                        'To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -367,9 +361,7 @@
                 }
                 echo render_field(
                     $form->subjectAccessPoints->label(__('Subject access points'))->help(__(
-                        'Search for an existing term in the Subjects taxonomy by typing the first few'
-                        .' characters of the term. Alternatively, type a new term to create and link to'
-                        .' a new subject term.'
+                        'Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -389,9 +381,7 @@
                 }
                 echo render_field(
                     $form->placeAccessPoints->label(__('Place access points'))->help(__(
-                        'Search for an existing term in the Places taxonomy by typing the first few'
-                        .' characters of the term name. Alternatively, type a new term to create and'
-                        .' link to a new place term.'
+                        'Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -411,9 +401,7 @@
                 }
                 echo render_field(
                     $form->genreAccessPoints->label(__('Genre access points'))->help(__(
-                        'Search for an existing term in the Genre taxonomy by typing the first few'
-                        .' characters of the term name. Alternatively, type a new term to create and'
-                        .' link to a new genre term.'
+                        'Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -431,12 +419,7 @@
                 }
                 echo render_field(
                     $form->nameAccessPoints->label(__('Name access points (subjects)'))->help(__(
-                        '"Choose provenance, author and other non-subject access points from the archival'
-                        .' description, as appropriate. All access points must be apparent from the archival'
-                        .' description to which they relate." (RAD 21.0B) The values in this field are drawn'
-                        .' from the Authorized form of name field in authority records. Search for an existing'
-                        .' name by typing the first few characters of the name. Alternatively, type a new name'
-                        .' to create and link to a new authority record.'
+                        '"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

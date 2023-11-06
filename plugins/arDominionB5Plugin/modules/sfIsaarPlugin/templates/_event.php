@@ -106,9 +106,7 @@
                   $form->informationObject
                       ->label(__('Title of related resource'))
                       ->help(__(
-                        '"Provide the unique identifiers/reference codes and/or titles for the'
-                        .' related resources." (ISAAR 6.1) Select the title from the drop-down menu;'
-                        .' enter the identifier or the first few letters to narrow the choices.'
+                        '"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -116,20 +114,14 @@
           ?>
 
           <?php echo render_field($form->type->label(__('Nature of relationship'))->help(__(
-              '"Describe the nature of the relationships between the corporate body, person or family'
-              .' and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down'
-              .' menu; these values are drawn from the Event Types taxonomy.'
+              '"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.'
           ))); ?>
 
           <?php echo render_field(
               $form->resourceType
                   ->label(__('Type of related resource'))
                   ->help(__(
-                      '"Identify the type of related resources, e.g. Archival materials (fonds, record'
-                      .' series, etc), archival description, finding aid, monograph, journal article, web'
-                      .' site, photograph, museum collection, documentary film, oral history recording."'
-                      .' (ISAAR 6.2) In the current version of the software, Archival material is provided'
-                      .' as the only default value.'
+                      '"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.'
                   )),
               null,
               ['disabled' => 'true']
@@ -137,10 +129,7 @@
 
           <div class="date">
             <?php echo render_field($form->date->help(__(
-                '"Provide any relevant dates for the related resources and/or the relationship between the'
-                .' corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date'
-                .' as you would like it to appear in the show page for the authority record, using qualifiers'
-                .' and/or typographical symbols to express uncertainty if desired.'
+                '"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.'
             ))); ?>
             <?php echo render_field($form->startDate); ?>
             <?php echo render_field($form->endDate); ?>

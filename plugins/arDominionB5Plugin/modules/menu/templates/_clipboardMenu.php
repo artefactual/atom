@@ -12,10 +12,7 @@
     data-export-alert-message="<?php echo __('The clipboard is empty for this entity type.'); ?>"
     data-export-check-url="<?php echo url_for(['module' => 'clipboard', 'action' => 'exportCheck']); ?>"
     data-delete-alert-message="<?php echo __(
-        'Note: clipboard items unclipped in this page will be removed from the clipboard'
-        .' when the page is refreshed. You can re-select them now, or reload the page to'
-        .' remove them completely. Using the sort or print preview buttons will also cause'
-        .' a page reload - so anything currently deselected will be lost!'
+        'Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!'
     ); ?>">
     <i
       class="fas fa-2x fa-fw fa-paperclip px-0 px-lg-2 py-2"

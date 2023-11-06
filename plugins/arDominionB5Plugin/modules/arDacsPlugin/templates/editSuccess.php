@@ -52,10 +52,7 @@
 
             <?php echo render_field(
                 $form->repository->label(__('Name and location of repository'))->help(__(
-                    'Explicitly state the name of the repository, including any parent bodies'
-                    .' (DACS 2.2.2). Search for an existing name in the archival institution'
-                    .' records by typing the first few characters of the name. Alternatively,'
-                    .' type a new name to create and link to a new archival institution record.'
+                    'Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.'
                 )),
                 null,
                 [
@@ -101,12 +98,7 @@
                             .'">*</span>'
                         )
                         ->help(__(
-                            'Record the name(s) of the creator(s) identified in the name element'
-                            .' in the devised title of the materials using standardized vocabularies'
-                            .' or with rules for formulating standardized names (DACS 2.6.4). Search'
-                            .' for an existing name in the authority records by typing the first few'
-                            .' characters of the name. Alternatively, type a new name to create and'
-                            .' link to a new authority record.'
+                            'Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.'
                         )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -240,9 +232,7 @@
                 }
                 echo render_field(
                     $form->relatedMaterialDescriptions->label(__('Related descriptions'))->help(__(
-                        'To create a relationship between this description and another description held in AtoM,'
-                        .' begin typing the name of the related description and select it from the autocomplete'
-                        .' drop-down menu when it appears below. Multiple relationships can be created.'
+                        'To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

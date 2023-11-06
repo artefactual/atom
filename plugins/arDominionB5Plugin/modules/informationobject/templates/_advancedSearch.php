@@ -221,11 +221,7 @@
                   data-bs-toggle="tooltip"
                   data-bs-placement="auto"
                   title='<?php echo __(
-                      'Use these options to specify how the date range returns results.'
-                      .' "Exact" means that the start and end dates of descriptions returned'
-                      .' must fall entirely within the date range entered. "Overlapping" means'
-                      .' that any description whose start or end dates touch or overlap the'
-                      .' target date range will be returned.'
+                      'Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.'
                   ); ?>'>
                   <i aria-hidden="true" class="fas fa-question-circle text-muted"></i>
                 </button>

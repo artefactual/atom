@@ -54,8 +54,7 @@ EOF;
     {
         if ($options['creator-slug'] && $options['description-slug']) {
             throw new Exception(
-                'Creator and description filters cannot be set at the same time. '
-                .'Remove one and try again.'
+                'Creator and description filters cannot be set at the same time. Remove one and try again.'
             );
         }
 

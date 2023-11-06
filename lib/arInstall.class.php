@@ -360,14 +360,10 @@ class arInstall
 
         $i18n = sfContext::getInstance()->i18n;
         $accessDisallowWarning = $i18n->__(
-            'Access to this record is restricted because it contains personal'
-            .' or confidential information. Please contact the Reference'
-            .' Archivist for more information on accessing this record.'
+            'Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.'
         );
         $accessConditionalWarning = $i18n->__(
-            'This record has not yet been reviewed for personal or'
-            .' confidential information. Please contact the Reference'
-            .' Archivist to request access and initiate an access review.'
+            'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
         );
 
         foreach (

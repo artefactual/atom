@@ -128,10 +128,7 @@
 
   <div class="form-text mb-3" id="alt-identifiers-table-help">
     <?php echo __(
-        '<strong>Type:</strong> Enter a name for the alternative identifier field that'
-        .' indicates its purpose and usage.<br/><strong>Identifier:</strong> Enter a'
-        .' legacy reference code, alternative identifier, or any other alpha-numeric'
-        .' string associated with the record.'
+        '<strong>Type:</strong> Enter a name for the alternative identifier field that indicates its purpose and usage.<br/><strong>Identifier:</strong> Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.'
     ); ?>
   </div>
 </div>

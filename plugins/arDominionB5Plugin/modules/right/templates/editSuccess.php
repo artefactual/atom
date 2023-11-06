@@ -40,8 +40,7 @@
 
             <div id="copyright-basis-fields">
               <?php echo render_field($form->copyrightStatus->help(__(
-                  'A coded designation for the copyright status of the object'
-                  .' at the time the rights statement is recorded.'
+                  'A coded designation for the copyright status of the object at the time the rights statement is recorded.'
               ))); ?>
 
               <?php echo render_field($form->copyrightStatusDate->help(__(
@@ -59,15 +58,11 @@
 
             <div id="license-basis-fields">
               <?php echo render_field($form->licenseTerms->help(__(
-                  'Text describing the license or agreement by which permission was'
-                  .' granted or link to full-text hosted online. This can contain the'
-                  .' actual text of the license or agreement or a paraphrase or summary.'
+                  'Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.'
               ))); ?>
 
               <?php echo render_field($form->licenseNote->help(__(
-                  'Additional information about the license, such as contact persons, action'
-                  .' dates, or interpretations. The note may also indicated the location of'
-                  .' the license, if it is available online or embedded in the object itself.'
+                  'Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.'
               ))); ?>
             </div>
 
@@ -98,8 +93,7 @@
                   }
                   echo render_field(
                       $form->statuteCitation->help(__(
-                          'An identifying designation for the statute. Use standard'
-                          .' citation form when applicable, e.g. bibliographic citation.'
+                          'An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.'
                       )),
                       null,
                       ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -107,8 +101,7 @@
               ?>
 
               <?php echo render_field($form->statuteDeterminationDate->help(__(
-                  'Date that the decision to ascribe the right to this statute was made.'
-                  .' As context for any future review/re-interpretation.'
+                  'Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.'
               ))); ?>
 
               <?php echo render_field($form->statuteNote->help(__(
@@ -131,8 +124,7 @@
 
             <?php echo render_field(
                 $form->rightsHolder->help(__(
-                    'Name of the person(s) or organization(s) which has the authority to'
-                    .' grant permissions or set rights restrictions.'
+                    'Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.'
                 )),
                 null,
                 [
@@ -155,18 +147,15 @@
 
             <div class="border rounded p-3">
               <?php echo render_field($form->identifierType->help(__(
-                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).'
-                  .' Used to identify the granting agreement uniquely within the repository system.'
+                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'
               ))); ?>
 
               <?php echo render_field($form->identifierValue->help(__(
-                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).'
-                  .' Used to identify the granting agreement uniquely within the repository system.'
+                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'
               ))); ?>
 
               <?php echo render_field($form->identifierRole->help(__(
-                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).'
-                  .' Used to identify the granting agreement uniquely within the repository system.'
+                  'Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'
               ))); ?>
             </div>
           </div>
@@ -265,8 +254,7 @@
                     </div>
                     <div class="col-md-6">
                       <?php echo render_field($gr['endDate']->help(__(
-                          'The ending date of the permission granted.'
-                          .' Omit end date if the ending date is unknown.'
+                          'The ending date of the permission granted. Omit end date if the ending date is unknown.'
                       ))); ?>
                     </div>
                   </div>
@@ -302,8 +290,7 @@
                   </div>
                   <div class="col-md-6">
                     <?php echo render_field($form['blank']['endDate']->help(__(
-                        'The ending date of the permission granted.'
-                        .' Omit end date if the ending date is unknown.'
+                        'The ending date of the permission granted. Omit end date if the ending date is unknown.'
                     ))); ?>
                   </div>
                 </div>

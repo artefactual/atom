@@ -159,10 +159,7 @@
                   $form->resource
                       ->label(__('Authorized form of name'))
                       ->help(__(
-                        '"Record the authorized form of name and any relevant unique identifiers,'
-                        .' including the authority record identifier, for the related entity."'
-                        .' (ISAAR 5.3.1) Select the name from the drop-down menu; enter the'
-                        .' first few letters to narrow the choices.'
+                        '"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -170,9 +167,7 @@
           ?>
 
           <?php echo render_field($form->type->label(__('Category of relationship'))->help(__(
-              '"Purpose: To identify the general category of relationship between the entity being'
-              .' described and another corporate body, person or family." (ISAAR 5.3.2). Select a'
-              .' category from the drop-down menu: hierarchical, temporal, family or associative.'
+              '"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.'
           ))); ?>
 
           <?php
@@ -193,8 +188,7 @@
                   $form->subType
                       ->label(__('Relationship type'))
                       ->help(__(
-                        '"Select a descriptive term from the drop-down menu to clarify'
-                        .' the type of relationship between these two actors."'
+                        '"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'disabled' => 'disabled', 'extraInputs' => $extraInputs]
@@ -202,20 +196,12 @@
           ?>
 
           <?php echo render_field($form->description->label(__('Description of relationship'))->help(__(
-              '"Record a precise description of the nature of the relationship between the entity'
-              .' described in this authority record and the other related entity....Record in the'
-              .' Rules and/or conventions element (5.4.3) any classification scheme used as a source'
-              .' of controlled vocabulary terms to describe the relationship. A narrative description'
-              .' of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3).'
-              .' Note that the text entered in this field will also appear in the related authority record.'
+              '"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.'
           ))); ?>
 
           <div class="date">
             <?php echo render_field($form->date->help(__(
-                '"Record when relevant the commencement date of the relationship or succession date and,'
-                .' when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date'
-                .' as you would like it to appear in the show page for the authority record, using qualifiers'
-                .' and/or typographical symbols to express uncertainty if desired.'
+                '"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.'
             ))); ?>
             <?php echo render_field($form->startDate); ?>
             <?php echo render_field($form->endDate); ?>

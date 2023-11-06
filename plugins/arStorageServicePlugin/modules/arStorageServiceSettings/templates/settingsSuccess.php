@@ -54,8 +54,7 @@
         <?php echo $form->download_aip_enabled
             ->label(__('Enable AIP download'))
             ->help(__(
-            'Allow authorized users to download a linked AIP or AIP file from'
-            .' the configured Archivematica Storage Service'
+            'Allow authorized users to download a linked AIP or AIP file from the configured Archivematica Storage Service'
           ))
             ->renderRow(); ?>
 

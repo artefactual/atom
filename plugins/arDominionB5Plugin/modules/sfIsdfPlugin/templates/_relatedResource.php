@@ -119,8 +119,7 @@
                   $form->resource
                       ->label(__('Title'))
                       ->help(__(
-                        'Select the title from the drop-down menu; enter the identifier'
-                        .' or the first few letters to narrow the choices. (ISDF 6.1)'
+                        'Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

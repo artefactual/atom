@@ -219,9 +219,7 @@ class arZipFileDownload
                     $errors[] = 'Exception: '.$e->getMessage();
                 } else {
                     $errors[] = $this->i18n->__(
-                        'Sorry, but there was an error retrieving'
-                        .' a data file. This has stopped the export process.'
-                        .' Please contact an administrator.'
+                        'Sorry, but there was an error retrieving a data file. This has stopped the export process. Please contact an administrator.'
                     );
                 }
 

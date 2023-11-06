@@ -104,10 +104,7 @@
                             .'">*</span>'
                         )
                         ->help(__(
-                            'Record the name of the organization(s) or the individual(s) responsible for the creation,'
-                            .' accumulation and maintenance of the records in the unit of description. Search for an'
-                            .' existing name in the authority records by typing the first few characters of the name.'
-                            .' Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)'
+                            'Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)'
                         )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -116,10 +113,7 @@
 
             <?php echo render_field(
                 $form->repository->help(__(
-                    'Record the name of the organization which has custody of the archival material.'
-                    .' Search for an existing name in the archival institution records by typing the'
-                    .' first few characters of the name. Alternatively, type a new name to create and'
-                    .' link to a new archival institution record.'
+                    'Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.'
                 )),
                 null,
                 [
@@ -241,9 +235,7 @@
                 }
                 echo render_field(
                     $form->relatedMaterialDescriptions->label(__('Related descriptions'))->help(__(
-                        'To create a relationship between this description and another description held in AtoM,'
-                        .' begin typing the name of the related description and select it from the autocomplete'
-                        .' drop-down menu when it appears below. Multiple relationships can be created.'
+                        'To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

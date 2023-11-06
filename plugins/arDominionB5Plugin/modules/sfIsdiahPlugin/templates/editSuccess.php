@@ -65,8 +65,7 @@
                 }
                 echo render_field(
                     $form->type->help(__(
-                        'Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired'
-                        .' from the drop-down menu; these values are drawn from the Repository Types taxonomy.'
+                        'Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -259,8 +258,7 @@
                 }
                 echo render_field(
                     $form->thematicArea->label(__('Thematic area'))->help(__(
-                        'Search for an existing term in the Thematic Areas taxonomy by typing the first few'
-                        .' characters of the term name. This should be used to identify major collecting areas.'
+                        'Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -280,8 +278,7 @@
                 }
                 echo render_field(
                     $form->geographicSubregion->label(__('Geographic subregion'))->help(__(
-                        'Search for an existing term in the Geographic Subregion taxonomy by typing the first'
-                        .' few characters of the term name.'
+                        'Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

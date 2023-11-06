@@ -484,10 +484,7 @@ abstract class csvImportBaseTask extends arBaseTask
         }
 
         if ($this->acceptsOption('source-name') && !$options['source-name']) {
-            echo "WARNING: If you're importing multiple CSV files as part of the "
-                ."same import it's advisable to use the source-name CLI option to "
-                .'specify a source name (otherwise the filename will be used as a '
-                ."source name).\n";
+            echo "WARNING: If you're importing multiple CSV files as part of the same import it's advisable to use the source-name CLI option to specify a source name (otherwise the filename will be used as a source name).\n";
         }
 
         if ($options['limit'] && !$options['update']) {

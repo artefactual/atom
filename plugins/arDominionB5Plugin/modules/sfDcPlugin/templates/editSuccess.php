@@ -75,9 +75,7 @@
                 }
                 echo render_field(
                     $form->subjectAccessPoints->label(__('Subject'))->help(__(
-                        'The topic of the resource. Search for an existing term in the Subject taxonomy'
-                        .' by typing the first few characters of the term name. Alternatively, type a new'
-                        .' name to create and link to a new subject term.'
+                        'The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -148,15 +146,7 @@
 
             <div class="form-text mb-3" id="child-table-help">
               <?php echo __(
-                  '<p><strong>Child levels</strong><br/>Use these two fields to add lower'
-                  .' levels to a collection level description. Click <em>Add new</em> to'
-                  .' create as many child levels as necessary.</p><p>These fields can also'
-                  .' be used to add any number of intermediate levels of description (e.g.'
-                  .' series, file, etc) between the top and bottom levels in a descriptive'
-                  .' hierarchy. Use the hierarchy treeview to re-order hierarchy levels as'
-                  .' necessary.</p><p><em>Identifier</em>: The unambiguous reference code'
-                  .' used to uniquely identify the child-level resource.</p><p><em>Title</em>:'
-                  .' The name given to the child-level resource.</p>'
+                  '<p><strong>Child levels</strong><br/>Use these two fields to add lower levels to a collection level description. Click <em>Add new</em> to create as many child levels as necessary.</p><p>These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.</p><p><em>Identifier</em>: The unambiguous reference code used to uniquely identify the child-level resource.</p><p><em>Title</em>: The name given to the child-level resource.</p>'
               ); ?>
             </div>
 
@@ -180,16 +170,12 @@
                         __('Relation (isLocatedAt)')
                         .' <span class="form-required" title="'
                         .__(
-                            'This is a mandatory element for this resource or one of its'
-                            .' higher descriptive levels (if part of a collection hierarchy).'
+                            'This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).'
                         )
                         .'">*</span>'
                     )
                     ->help(__(
-                        '<p>The name of the organization which has custody of the resource.</p>'
-                        .'<p>Search for an existing name in the organization records by typing the'
-                        .' first few characters of the name. Alternatively, type a new name to create'
-                        .' and link to a new organization record.</p>'
+                        '<p>The name of the organization which has custody of the resource.</p><p>Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.</p>'
                     )),
                 null,
                 [
@@ -215,12 +201,7 @@
                 }
                 echo render_field(
                     $form->placeAccessPoints->label(__('Coverage (spatial)'))->help(__(
-                        '<p>The name of a place or geographic area which is a topic of the resource'
-                        .' or relevant to its jurisdiction.</p><p>Search for an existing term in the'
-                        .' Place taxonomy by typing the first few characters of the place name.'
-                        .' Alternatively, type a new name to create and link to a new place.</p><p>Please'
-                        .' note: if you entered a place of creation, publication or contribution that will'
-                        .' be output automatically, so don’t repeat that place name here.</p>'
+                        '<p>The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.</p><p>Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.</p><p>Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.</p>'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

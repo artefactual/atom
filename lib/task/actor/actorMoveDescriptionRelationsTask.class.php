@@ -158,9 +158,7 @@ EOF;
             }
         } else {
             $this->log(
-                'The Elasticsearch index has not been updated. '
-                .'Please run search:populate manually to update the actor-description '
-                .'relations in the search index.'
+                'The Elasticsearch index has not been updated. Please run search:populate manually to update the actor-description relations in the search index.'
             );
         }
 

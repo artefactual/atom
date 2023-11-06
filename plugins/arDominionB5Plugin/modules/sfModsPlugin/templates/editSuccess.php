@@ -126,18 +126,13 @@
 
             <div class="form-text mb-3" id="child-table-help">
               <?php echo __(
-                  'Use these two fields to add lower levels to a collection-level description.'
-                  .' Click Add new to add as many child levels as necessary. Identifer: enter'
-                  .' a unique standard number or code that distinctively identifies the resource.'
-                  .' Title: enter A word, phrase, character, or group of characters, normally'
-                  .' appearing in a resource, that names it or the work contained in it.'
+                  'Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.'
               ); ?>
             </div>
 
             <?php echo render_field(
                 $form->language->help(__(
-                    'A designation of the language in which the content of a resource is expressed.'
-                    .' Select as many languages as required.'
+                    'A designation of the language in which the content of a resource is expressed. Select as many languages as required.'
                 )),
                 null,
                 ['class' => 'form-autocomplete']
@@ -156,10 +151,7 @@
                 }
                 echo render_field(
                     $form->subjectAccessPoints->label(__('Subject'))->help(__(
-                        'A term or phrase representing the primary topic(s) on which a work is focused.'
-                        .' Search for an existing term in the Subjects taxonomy by typing the first few'
-                        .' characters of the term name. Alternatively, type a new name to create and link'
-                        .' to a new subject term.'
+                        'A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -179,8 +171,7 @@
                 }
                 echo render_field(
                     $form->placeAccessPoints->label(__('Places'))->help(__(
-                        'Search for an existing term in the Places taxonomy by typing the first few characters'
-                        .' of the term name. Alternatively, type a new term to create and link to a new place term.'
+                        'Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -198,12 +189,7 @@
                 }
                 echo render_field(
                     $form->nameAccessPoints->label(__('Names'))->help(__(
-                        '"Choose provenance, author and other non-subject access points from the archival'
-                        .' description, as appropriate. All access points must be apparent from the archival'
-                        .' description to which they relate." (RAD 21.0B) The values in this field are drawn'
-                        .' from the Authorized form of name field in authority records. Search for an existing'
-                        .' name by typing the first few characters of the name. Alternatively, type a new name'
-                        .' to create and link to a new authority record.'
+                        '"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.'
                     )),
                     null,
                     ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -212,17 +198,14 @@
 
             <?php echo render_field(
                 $form->accessConditions->help(__(
-                    'Information about restrictions imposed on access to a resource. See MODS accessCondition'
-                    .' top-level element for more information on how to use this field.'
+                    'Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.'
                 )),
                 $resource
             ); ?>
 
             <?php echo render_field(
                 $form->repository->help(__(
-                    'Identifies the institution or repository holding the resource. Search for an'
-                    .' existing repository name by typing the first few letters of the name.'
-                    .' ALternatively, type a new name to create and link to a new repository record.'
+                    'Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.'
                 )),
                 null,
                 [

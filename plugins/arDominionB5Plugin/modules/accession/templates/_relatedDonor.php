@@ -103,11 +103,7 @@
                   $form->resource
                       ->label(__('Name'))
                       ->help(__(
-                          'This is the legal entity field and provides the contact'
-                          .' information for the person(s) or the institution that donated'
-                          .' or transferred the materials. It has the option of multiple'
-                          .' instances and provides the option of creating more than one'
-                          .' contact record using the same form.'
+                          'This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]

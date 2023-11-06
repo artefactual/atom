@@ -130,8 +130,7 @@
                   $form->resource
                       ->label(__('Authorized form of name'))
                       ->help(__(
-                          '"Record the authorised form of name and any unique identifier'
-                          .' of the related function." (ISDF 5.3.1)'
+                          '"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)'
                       )),
                   null,
                   ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
@@ -139,16 +138,11 @@
           ?>
 
           <?php echo render_field($form->type->label(__('Category'))->help(__(
-              '"Record a general category into which the relationship'
-              .' being described falls." (ISDF 5.3.2) Select a category'
-              .' from the drop-down menu: hierarchical, temporal or associative.'
+              '"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.'
           ))); ?>
 
           <?php echo render_field($form->description->help(__(
-              '"Record a precise description of the nature of the relationship'
-              .' between the function being described and the related function."'
-              .' (ISDF 5.3.3) Note that the text entered in this field will also'
-              .' appear in the related function.'
+              '"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.'
           ))); ?>
 
           <div class="date">
