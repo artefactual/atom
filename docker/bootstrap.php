@@ -106,7 +106,7 @@ all:
   htmlpurifier_enabled: false
   csp:
     response_header: Content-Security-Policy-Report-Only
-    directives: "default-src 'self'; font-src 'self'; img-src 'self' https://www.gravatar.com/avatar/ blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';"
+    directives: "default-src 'self'; font-src 'self'; img-src 'self' https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:; script-src 'self' https://*.googletagmanager.com 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'self';"
 EOT;
 
     file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
