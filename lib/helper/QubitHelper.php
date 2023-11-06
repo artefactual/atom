@@ -37,6 +37,10 @@ function render_field($field, $resource = null, array $options = [])
     $div = null;
     $culture = sfContext::getInstance()->user->getCulture();
 
+    if (isset($options['pattern'])) {
+        $options['pattern'] = '^[a-zA-Z][a-zA-Z0-9\-_]*$';
+    }
+
     $resourceRaw = sfOutputEscaper::unescape($resource);
     if (isset($resourceRaw) && $culture != $resourceRaw->sourceCulture) {
         if ($resourceRaw instanceof QubitSetting) {

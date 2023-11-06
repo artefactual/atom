@@ -28,9 +28,9 @@
         <?php echo render_field($form->title, $resource); ?>
 
         <?php if ($resource->isProtected()) { ?>
-          <?php echo $form->slug->renderRow(['class' => 'readOnly', 'disabled' => 'disabled']); ?>
+          <?php echo $form->slug->renderRow([['class' => 'readOnly'], 'disabled' => 'disabled']); ?>
         <?php } else { ?>
-          <?php echo $form->slug->renderRow(); ?>
+          <?php echo $form->slug->renderRow(['pattern' => '^[a-zA-Z][a-zA-Z0-9\-_]*$']); ?>
         <?php } ?>
 
         <?php echo render_field($form->content, $resource, ['class' => 'resizable']); ?>
