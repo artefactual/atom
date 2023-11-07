@@ -35,9 +35,9 @@
             <?php echo render_field($form->title, $resource); ?>
 
             <?php if ($resource->isProtected()) { ?>
-              <?php echo render_field($form->slug, null, ['disabled' => 'disabled']); ?>
+              <?php echo render_field($form->slug, null, ['disabled' => 'disabled', 'type' => 'url']); ?>
             <?php } else { ?>
-              <?php echo render_field($form->slug); ?>
+              <?php echo render_field($form->slug, null, ['pattern' => '^[a-zA-Z0-9\-_]+$']); ?>
             <?php } ?>
 
             <?php echo render_field($form->content, $resource); ?>
