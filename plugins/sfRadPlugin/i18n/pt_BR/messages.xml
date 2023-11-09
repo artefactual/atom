@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2023-05-25T18:34:43Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2023-11-09T20:31:09Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -72,7 +72,7 @@
       </trans-unit>
       <trans-unit id="777">
         <source>Title proper</source>
-        <target>Título</target>
+        <target>Título próprio</target>
       </trans-unit>
       <trans-unit id="778">
         <source>General material designation</source>
@@ -264,7 +264,7 @@
       </trans-unit>
       <trans-unit id="933">
         <source>Script of material</source>
-        <target>Script do material</target>
+        <target>Sistema de escrita do material</target>
       </trans-unit>
       <trans-unit id="934">
         <source>Location of originals</source>
@@ -308,7 +308,7 @@
       </trans-unit>
       <trans-unit id="946">
         <source>Script of description</source>
-        <target>Script da descrição</target>
+        <target>Sistema de escrita da descrição</target>
       </trans-unit>
       <trans-unit id="948">
         <source>This is a duplicate of record %1%</source>

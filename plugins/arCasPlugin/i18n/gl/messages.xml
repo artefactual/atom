@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="gl" datatype="plaintext" original="messages" date="2023-05-25T18:34:21Z" product-name="messages">
+  <file source-language="en" target-language="gl" datatype="plaintext" original="messages" date="2023-11-09T20:30:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>REST API access key</source>
-        <target/>
+        <target>Chave de acceso da REST API</target>
       </trans-unit>
       <trans-unit id="11">
         <source>OAI-PMH API access key</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>REST API key</source>
-        <target/>
+        <target>Chave da REST API</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Not generated yet.</source>

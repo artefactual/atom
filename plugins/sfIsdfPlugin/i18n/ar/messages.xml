@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-05-25T18:35:25Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-11-09T20:31:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
-        <target/>
+        <target>"سجل النموذج المعتمد لاسم الوظيفةوأي معرف فريد للوظيفة ذات الصلة." (ISDF 5.3.1)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
-        <target/>
+        <target>"سجل وصفًا دقيقًا لطبيعة العلاقة بين الوظيفة الموصوفة والوظيفة ذات الصلة." (ISDF 5.3.3) لاحظ أن النص الذي تم إدخاله في هذا الحقل سيظهر أيضًا في الوظيفة ذات الصلة.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Edit %1% - ISDF</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
-        <target/>
+        <target>"سجل أي أسماء أخرى للوظيفة الموصوفة." (ISDF 5.1.4)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other form(s) of name</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
-        <target/>
+        <target>"سجل أي مصطلح و / أو رمز من مخطط التصنيف الوظيفي للوثائق. طبقًا للقواعد و / أو الاصطلاحات المستخدمة للعنصر (5.4.3)." (ISDF 5.1.5)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Context area</source>
@@ -150,15 +150,15 @@
       </trans-unit>
       <trans-unit id="37">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
-        <target/>
+        <target>"سجل وصفا سرديا للغرض من الوظيفة". (ISDF 5.2.2)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>"سجل في شكل سردي أو كتسلسل زمني الأحداث الرئيسية المتعلقة بالوظيفة." (ISDF 5.2.3)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
-        <target/>
+        <target>"سجل أي قانون أو توجيه أو ميثاق ينشئ أو يغير أو ينهي الوظيفة". (ISDF 5.2.4)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Relationships area</source>
@@ -170,7 +170,7 @@
       </trans-unit>
       <trans-unit id="42">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
-        <target/>
+        <target>"سجل رمزًا تعريفيًا فريدًا وفقًا للاتفاقيات المحلية و / أو الوطنية. إذا كان الوصف سيستخدم دوليًا ، فقم بتسجيل رمز البلد الذي تم فيه إنشاء الوصف وفقًا لأحدث إصدار من رموز ISO 3166 للتمثيل من أسماء البلدان. وعندما يكون منشئ الوصف منظمة دولية ، فقم بإعطاء المعرّف التنظيمي بدلاً من رمز البلد ". (ISDF 5.4.1)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Description identifier</source>
@@ -178,7 +178,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target/>
+        <target>"سجل النموذج الكامل المعتمد لاسم (أسماء) الجهة (الجهات) المسؤولة عن إنشاء الوصف أو تعديله أو نشره، ويُمكنك أيضًا، تسجيل الرمز الخاص بالجهة ." (ISDF 5.4.2)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Institution identifier</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
-        <target/>
+        <target>"سجل الملاحظات المتعلقة بإنشاء الوصف وحفظه." (ISDF 5.4.9)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Cancel</source>

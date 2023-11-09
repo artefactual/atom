@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2023-05-25T18:34:38Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2023-11-09T20:31:04Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -208,7 +208,7 @@
       </trans-unit>
       <trans-unit id="920">
         <source>Script of material</source>
-        <target>Script do material</target>
+        <target>Sistema de escrita do material</target>
       </trans-unit>
       <trans-unit id="921">
         <source>Finding aids</source>

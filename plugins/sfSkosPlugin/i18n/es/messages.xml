@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2023-05-25T18:34:58Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2023-11-09T20:31:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Or a remote resource</source>
-        <target/>
+        <target>O un recurso remoto</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Taxonomy with ID %1% could not be found</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Malformed URI.</source>
-        <target/>
+        <target>URI malformada</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Type of scheme: %1%</source>

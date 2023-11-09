@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:45Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-11-09T20:30:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -306,19 +306,19 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target>Pristupnice</target>
+        <target>Pristupne točke</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target>Pristupnice predmeta</target>
+        <target>Pristupne točke predmeta</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target>Pristupnice mjesta</target>
+        <target>Pristupne točke mjesta</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target>Pristupnice imena (predmeti)</target>
+        <target>Pristupne točke imena (predmeti)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target>Uredi pristupnice</target>
+        <target>Uredi pristupne točke</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Genre access points</source>
-        <target>Pristupnice žanra</target>
+        <target>Pristupne točke žanra</target>
       </trans-unit>
     </body>
   </file>

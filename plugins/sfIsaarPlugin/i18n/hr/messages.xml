@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:45Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-11-09T20:30:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Access points</source>
-        <target>Pristupnice</target>
+        <target>Pristupne točke</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
@@ -418,11 +418,11 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
-        <target>Područje pristupnica</target>
+        <target>Pristupne točke područja</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points area</source>
-        <target>Uredi područje pristupnica</target>
+        <target>Uredi pristupne točke područja</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Occupations</source>
@@ -438,11 +438,11 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Subject access points</source>
-        <target>Pristupnice predmeta</target>
+        <target>Pristupne točke predmeta</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Place access points</source>
-        <target>Pristupnice mjesta</target>
+        <target>Pristupne točke mjesta</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Slug must be provided</source>
@@ -454,11 +454,11 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Please complete all required fields.</source>
-        <target/>
+        <target>Ispuni sva potrebna polja.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier of related entity</source>
-        <target/>
+        <target>Identifikator ili povezani entitet</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Dates of relationship</source>

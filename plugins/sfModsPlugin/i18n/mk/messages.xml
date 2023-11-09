@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:21Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-11-09T20:30:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,15 +10,15 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
-        <target/>
+        <target>Додадете нов извор</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Уреди %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
-        <target/>
+        <target>Изберете го типот на активност за да се воспостави врската помеѓу нормативниот запис и изворот.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This is a duplicate of record %1%</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
-        <target/>
+        <target>Подрачје на елементи</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
-        <target/>
+        <target>Содржи единствен стандардизиран број или код кој уникатно го идентификува изворот.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
@@ -38,11 +38,11 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Names and origin info</source>
-        <target/>
+        <target>Имиња и информации за потеклото</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Додадете ново име и/или информации за потеклото</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
@@ -54,11 +54,11 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Додајте нови поднивоа (ако опишувате збирка)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Title</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Add new</source>
-        <target/>
+        <target>Додади ново</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
@@ -86,15 +86,15 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Places</source>
-        <target/>
+        <target>Места</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Пребарајте постоечки термин во таксономијата на места со впишување на првите неколку знаци од името на поимот. Алтернативно, напишете нов термин за врска со ново место (географски термин).</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Names</source>
-        <target/>
+        <target>Имиња</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -102,31 +102,31 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
-        <target/>
+        <target>Информации за ограничувањата наметнати за пристап до извор. Видете MODS accessCondition елемент од највисоко ниво за повеќе информации за тоа како да го користите ова поле.</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target/>
+        <target>Ја идентификува институцијата или депото што го чува изворот. Пребарајте постоечко име на депо со впишување на првите неколку букви од името. Алтернативно, напишете ново име за креирање и поврзување со нов запис во депото.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Апстракт, содржина или опис на обемот и содржината на изворот.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Description</source>
-        <target/>
+        <target>Опис</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Edit elements area</source>
-        <target/>
+        <target>Уредете го подрачјето за елементи</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Language</source>
-        <target/>
+        <target>Јазик</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Internet media type</source>
-        <target/>
+        <target>Тип на интернет медиум</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Access condition</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Physical location</source>
-        <target/>
+        <target>Физичка локација</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Rights area</source>

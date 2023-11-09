@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2023-05-25T18:34:21Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2023-11-09T20:30:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="91">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>Consigne a orixe do ingreso ou transferencia, as datas e a forma de ingreso SI é información NON confidencial.</target>
       </trans-unit>
       <trans-unit id="92">
         <source>A description of the physical location in the repository where the accession can be found.</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Consigne as actuacións de valoración, selección e eliminación realizadas ou planificadas, especialmente se afectan dalgún xeito á interpretación da documentación.</target>
       </trans-unit>
       <trans-unit id="100">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
@@ -466,11 +466,11 @@
       </trans-unit>
       <trans-unit id="133">
         <source>Identifier available.</source>
-        <target/>
+        <target>Identificador dispoñible.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Identificador non dispoñible</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Loading...</source>
@@ -544,10 +544,6 @@
         <source>Donor</source>
         <target>Donante</target>
       </trans-unit>
-      <trans-unit id="155">
-        <source>We've redirected you to the first page of results.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="156">
         <source>Browse accessions</source>
         <target/>
@@ -570,6 +566,10 @@
                 transferred the materials. It has the option of multiple
                 instances and provides the option of creating more than one
                 contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
         <target/>
       </trans-unit>
     </body>

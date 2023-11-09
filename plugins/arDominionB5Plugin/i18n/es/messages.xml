@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2023-05-25T18:34:58Z" product-name="messages">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2023-11-09T20:31:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Date modified</source>
-        <target/>
+        <target>Fecha modificada</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identifier</source>
@@ -144,45 +144,17 @@
         <source>Delete row</source>
         <target/>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Use these two fields to add lower levels to a collection-level description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>A designation of the language in which the content of a resource is expressed.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="38">
         <source>Subject</source>
         <target>Materia</target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>A term or phrase representing the primary topic(s) on which a work is focused.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="40">
         <source>Places</source>
         <target>Lugares</target>
       </trans-unit>
-      <trans-unit id="41">
-        <source>Search for an existing term in the Places taxonomy by typing the first few characters</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="42">
         <source>Names</source>
         <target>Nombres</target>
-      </trans-unit>
-      <trans-unit id="43">
-        <source>"Choose provenance, author and other non-subject access points from the archival</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Identifies the institution or repository holding the resource. Search for an</source>
-        <target/>
       </trans-unit>
       <trans-unit id="46">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -267,14 +239,6 @@
       <trans-unit id="66">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>Esta descripción archivística, o uno de sus niveles superiores, requiere al menos un creador.</target>
-      </trans-unit>
-      <trans-unit id="67">
-        <source>Record the name of the organization(s) or the individual(s) responsible for the creation,</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>Record the name of the organization which has custody of the archival material.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="69">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
@@ -403,10 +367,6 @@
       <trans-unit id="100">
         <source>Related descriptions</source>
         <target>Descripciones relacionadas</target>
-      </trans-unit>
-      <trans-unit id="101">
-        <source>To create a relationship between this description and another description held in AtoM,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="102">
         <source>Notes area</source>
@@ -582,11 +542,11 @@
       </trans-unit>
       <trans-unit id="145">
         <source>File UUID</source>
-        <target/>
+        <target>Archivo UUID</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Download file</source>
-        <target/>
+        <target>Descargar archivo</target>
       </trans-unit>
       <trans-unit id="147">
         <source>AIP UUID</source>
@@ -594,7 +554,7 @@
       </trans-unit>
       <trans-unit id="148">
         <source>Download AIP</source>
-        <target/>
+        <target>Descargar AIP</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Advanced search options</source>
@@ -670,11 +630,11 @@
       </trans-unit>
       <trans-unit id="167">
         <source>Empty field</source>
-        <target/>
+        <target>Campo vacío</target>
       </trans-unit>
       <trans-unit id="168">
         <source>Find results where:</source>
-        <target/>
+        <target>Encontrar resultados donde:</target>
       </trans-unit>
       <trans-unit id="169">
         <source>Relationship</source>
@@ -702,11 +662,11 @@
       </trans-unit>
       <trans-unit id="175">
         <source>Maintained by</source>
-        <target/>
+        <target>Mantenido por</target>
       </trans-unit>
       <trans-unit id="176">
         <source>Occupation</source>
-        <target/>
+        <target>Profesión</target>
       </trans-unit>
       <trans-unit id="177">
         <source>Search %1%</source>
@@ -736,17 +696,9 @@
         <source>The name given to this resource.</source>
         <target>El nombre dado a este recurso.</target>
       </trans-unit>
-      <trans-unit id="184">
-        <source>The topic of the resource. Search for an existing term in the Subject taxonomy</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="185">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
         <target>&lt;p&gt;La naturaleza o género del recurso.&lt;/p&gt;&lt;p&gt; Asigne tantos tipos como sean aplicables. Los &lt;em&gt;Tpos&lt;/em&gt; de opciones están limitadas al vocabulario de Tipos DCMI. &lt;/p&gt;&lt;p&gt;Asigne el valor de la &lt;em&gt;Colección&lt;/em&gt; si este recurso es el nivel superior para un conjunto de recursos de nivel inferior (hijos). &lt;/p&gt;&lt;p&gt;Por favor notar: si este recurso está enlazado a un objeto digital, los tipo de &lt;em&gt;imagen&lt;/em&gt;, &lt;em&gt;texto&lt;/em&gt;, &lt;em&gt;sonido&lt;/em&gt; o &lt;em&gt;imagen en movimiento&lt;/em&gt; son agregados automáticamente en la producción, por lo tanto no duplique esos valores aquí.&lt;/p&gt;</target>
-      </trans-unit>
-      <trans-unit id="186">
-        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower</source>
-        <target/>
       </trans-unit>
       <trans-unit id="187">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
@@ -772,21 +724,9 @@
         <source>Relation (isLocatedAt)</source>
         <target>Relación (isLocatedAt)</target>
       </trans-unit>
-      <trans-unit id="193">
-        <source>This is a mandatory element for this resource or one of its</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="194">
-        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="195">
         <source>Coverage (spatial)</source>
         <target>Cobertura (espacial)</target>
-      </trans-unit>
-      <trans-unit id="196">
-        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource</source>
-        <target/>
       </trans-unit>
       <trans-unit id="197">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -795,10 +735,6 @@
       <trans-unit id="198">
         <source>Rights</source>
         <target>Derechos</target>
-      </trans-unit>
-      <trans-unit id="199">
-        <source>Identify and record the date(s) of the unit of description.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="200">
         <source>Name(s)</source>
@@ -950,7 +886,7 @@
       </trans-unit>
       <trans-unit id="237">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Mantenimiento del repositorio</target>
       </trans-unit>
       <trans-unit id="238">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
@@ -1036,29 +972,13 @@
         <source>Title of related resource</source>
         <target>Título del recurso relacionado</target>
       </trans-unit>
-      <trans-unit id="259">
-        <source>"Provide the unique identifiers/reference codes and/or titles for the</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="260">
         <source>Nature of relationship</source>
         <target>naturaleza de la relación</target>
       </trans-unit>
-      <trans-unit id="261">
-        <source>"Describe the nature of the relationships between the corporate body, person or family</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="262">
         <source>Type of related resource</source>
         <target>Tipo de recurso relacionado</target>
-      </trans-unit>
-      <trans-unit id="263">
-        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="264">
-        <source>"Provide any relevant dates for the related resources and/or the relationship between the</source>
-        <target/>
       </trans-unit>
       <trans-unit id="265">
         <source>Submit</source>
@@ -1076,37 +996,17 @@
         <source>Related corporate body, person or family</source>
         <target>Institución, persona o familia relacionada</target>
       </trans-unit>
-      <trans-unit id="269">
-        <source>"Record the authorized form of name and any relevant unique identifiers,</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="270">
         <source>Category of relationship</source>
         <target>Categoría de la relación</target>
-      </trans-unit>
-      <trans-unit id="271">
-        <source>"Purpose: To identify the general category of relationship between the entity being</source>
-        <target/>
       </trans-unit>
       <trans-unit id="272">
         <source>Relationship type</source>
         <target>Tipo de relación</target>
       </trans-unit>
-      <trans-unit id="273">
-        <source>"Select a descriptive term from the drop-down menu to clarify</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="274">
         <source>Description of relationship</source>
         <target>Descripción de la relación</target>
-      </trans-unit>
-      <trans-unit id="275">
-        <source>"Record a precise description of the nature of the relationship between the entity</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="276">
-        <source>"Record when relevant the commencement date of the relationship or succession date and,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="277">
         <source>Clipboard</source>
@@ -1154,7 +1054,7 @@
       </trans-unit>
       <trans-unit id="288">
         <source>Occupations</source>
-        <target/>
+        <target>Profesiones</target>
       </trans-unit>
       <trans-unit id="289">
         <source>Maintenance notes</source>
@@ -1198,7 +1098,7 @@
       </trans-unit>
       <trans-unit id="299">
         <source>%1 count</source>
-        <target/>
+        <target>%1 elementos</target>
       </trans-unit>
       <trans-unit id="300">
         <source>Use for: </source>
@@ -1210,7 +1110,7 @@
       </trans-unit>
       <trans-unit id="302">
         <source>Export options</source>
-        <target/>
+        <target>Opciones de exportación</target>
       </trans-unit>
       <trans-unit id="303">
         <source>Help</source>
@@ -1218,7 +1118,7 @@
       </trans-unit>
       <trans-unit id="304">
         <source>Enter the ID of the saved clipboard you would like to load.</source>
-        <target/>
+        <target>Introduzca la ID del portapapeles guardado que desea cargar.</target>
       </trans-unit>
       <trans-unit id="305">
         <source>In the "Action" selector, indicate whether you want to &lt;strong&gt;merge&lt;/strong&gt; the saved clipboard with the entries on the current clipboard or &lt;strong&gt;replace&lt;/strong&gt; (overwrite) the current clipboard with the saved one.</source>
@@ -1226,7 +1126,7 @@
       </trans-unit>
       <trans-unit id="306">
         <source>Load clipboard</source>
-        <target/>
+        <target>Cargar portapapeles</target>
       </trans-unit>
       <trans-unit id="307">
         <source>Load options</source>
@@ -1234,7 +1134,7 @@
       </trans-unit>
       <trans-unit id="308">
         <source>Clipboard ID</source>
-        <target/>
+        <target>ID del portapapeles</target>
       </trans-unit>
       <trans-unit id="309">
         <source>Action</source>
@@ -1242,11 +1142,11 @@
       </trans-unit>
       <trans-unit id="310">
         <source>Load</source>
-        <target/>
+        <target>Subir</target>
       </trans-unit>
       <trans-unit id="311">
         <source>No results for this entity type.</source>
-        <target/>
+        <target>Sin resultados para este tipo de entidad.</target>
       </trans-unit>
       <trans-unit id="312">
         <source>Clear %1 clipboard</source>
@@ -1258,7 +1158,7 @@
       </trans-unit>
       <trans-unit id="314">
         <source>No items in clipboard to send.</source>
-        <target/>
+        <target>No hay elementos en el portapapeles para enviar.</target>
       </trans-unit>
       <trans-unit id="315">
         <source>Send</source>
@@ -1370,11 +1270,11 @@
       </trans-unit>
       <trans-unit id="342">
         <source>Latitude</source>
-        <target/>
+        <target>Latitud</target>
       </trans-unit>
       <trans-unit id="343">
         <source>Longitude</source>
-        <target/>
+        <target>Longitud</target>
       </trans-unit>
       <trans-unit id="344">
         <source>Contact type</source>
@@ -1418,7 +1318,7 @@
       </trans-unit>
       <trans-unit id="354">
         <source>of %lastPage%</source>
-        <target/>
+        <target>de %lastPage%</target>
       </trans-unit>
       <trans-unit id="355">
         <source>Next</source>
@@ -1478,7 +1378,7 @@
       </trans-unit>
       <trans-unit id="369">
         <source>Job report</source>
-        <target/>
+        <target>Informe del trabajo</target>
       </trans-unit>
       <trans-unit id="370">
         <source>Overview</source>
@@ -1486,7 +1386,7 @@
       </trans-unit>
       <trans-unit id="371">
         <source>Id</source>
-        <target/>
+        <target>Id</target>
       </trans-unit>
       <trans-unit id="372">
         <source>Creation date</source>
@@ -1514,11 +1414,11 @@
       </trans-unit>
       <trans-unit id="378">
         <source>Log</source>
-        <target/>
+        <target>Registro</target>
       </trans-unit>
       <trans-unit id="379">
         <source>Empty</source>
-        <target/>
+        <target>Vacío</target>
       </trans-unit>
       <trans-unit id="380">
         <source>Return to jobs management page</source>
@@ -1526,7 +1426,7 @@
       </trans-unit>
       <trans-unit id="381">
         <source>Manage jobs</source>
-        <target/>
+        <target>Administrar trabajos</target>
       </trans-unit>
       <trans-unit id="382">
         <source>All jobs</source>
@@ -1642,19 +1542,19 @@
       </trans-unit>
       <trans-unit id="410">
         <source>EAD 2002</source>
-        <target/>
+        <target>EAD 2002</target>
       </trans-unit>
       <trans-unit id="411">
         <source>EAC CPF</source>
-        <target/>
+        <target>EAC CPF</target>
       </trans-unit>
       <trans-unit id="412">
         <source>MODS</source>
-        <target/>
+        <target>MODS</target>
       </trans-unit>
       <trans-unit id="413">
         <source>DC</source>
-        <target/>
+        <target>DC</target>
       </trans-unit>
       <trans-unit id="414">
         <source>Update behaviours</source>
@@ -1670,7 +1570,7 @@
       </trans-unit>
       <trans-unit id="417">
         <source>Delete matches and replace with imported records</source>
-        <target/>
+        <target>Eliminar coincidencias y reemplazarlas con los registros importados</target>
       </trans-unit>
       <trans-unit id="418">
         <source>Ignore matches and import as new</source>
@@ -1678,7 +1578,7 @@
       </trans-unit>
       <trans-unit id="419">
         <source>Delete matches and replace with imports</source>
-        <target/>
+        <target>Eliminar coincidencias y reemplazarlas con las importaciones</target>
       </trans-unit>
       <trans-unit id="420">
         <source>Skip unmatched records</source>
@@ -1686,7 +1586,7 @@
       </trans-unit>
       <trans-unit id="421">
         <source>Limit matches to:</source>
-        <target/>
+        <target>Limitar las coincidencias a:</target>
       </trans-unit>
       <trans-unit id="422">
         <source>Top-level description</source>
@@ -1746,7 +1646,7 @@
       </trans-unit>
       <trans-unit id="436">
         <source>Link to an external %1%</source>
-        <target/>
+        <target>Enlace a un %1% externo</target>
       </trans-unit>
       <trans-unit id="437">
         <source>Import initiated</source>
@@ -1779,10 +1679,6 @@
       <trans-unit id="444">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
         <target>Registrar cualquier otro nombre de la institución por el cual puede ser conocida. Esto puede incluir otras formas del mismo nombre, acrónimos, otros nombre institucionales, o cambios sufridos por el nombre a lo largo del tiempo y si es posible, sus correspondientes fechas." (ISDIAH 5.1.4)</target>
-      </trans-unit>
-      <trans-unit id="445">
-        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired</source>
-        <target/>
       </trans-unit>
       <trans-unit id="446">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
@@ -1928,17 +1824,9 @@
         <source>Thematic area</source>
         <target>Área temática</target>
       </trans-unit>
-      <trans-unit id="482">
-        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="483">
         <source>Geographic subregion</source>
         <target>Subregión geográfica</target>
-      </trans-unit>
-      <trans-unit id="484">
-        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first</source>
-        <target/>
       </trans-unit>
       <trans-unit id="485">
         <source>Website</source>
@@ -2086,11 +1974,11 @@
       </trans-unit>
       <trans-unit id="521">
         <source>Items per page</source>
-        <target/>
+        <target>Elementos por página</target>
       </trans-unit>
       <trans-unit id="522">
         <source>Items per page can be a minimum of %1% and a maximum of %2%</source>
-        <target/>
+        <target>Los elementos por página pueden ser un mínimo de %1% y un máximo de %2%.</target>
       </trans-unit>
       <trans-unit id="523">
         <source>%1% derivatives</source>
@@ -2214,11 +2102,11 @@
       </trans-unit>
       <trans-unit id="553">
         <source>Enable access statement</source>
-        <target/>
+        <target>Habilitar la declaración de acceso</target>
       </trans-unit>
       <trans-unit id="554">
         <source>Access statement</source>
-        <target/>
+        <target>Declaración de acceso</target>
       </trans-unit>
       <trans-unit id="555">
         <source>When enabled the text above will appear in the %1% metadata section to describe how a user may access the original and preservation copy of the file stored in a linked digital preservation system. The text appears in the "Permissions" field. When disabled, the "Permissions" field is not displayed.</source>
@@ -2262,7 +2150,7 @@
       </trans-unit>
       <trans-unit id="565">
         <source>Display Privacy Notification on first visit to site</source>
-        <target/>
+        <target>Mostrar la notificación de privacidad en la primera visita al sitio</target>
       </trans-unit>
       <trans-unit id="566">
         <source>Privacy Notification Message</source>
@@ -2282,19 +2170,11 @@
       </trans-unit>
       <trans-unit id="570">
         <source>%1% upload limits</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="571">
-        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
-        <target/>
+        <target>%1% límite de carga</target>
       </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
         <target>Límite de carga por defecto %1% (GB)</target>
-      </trans-unit>
-      <trans-unit id="573">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0</source>
-        <target/>
       </trans-unit>
       <trans-unit id="574">
         <source>Upload multi-page files as multiple descriptions</source>
@@ -2334,11 +2214,11 @@
       </trans-unit>
       <trans-unit id="583">
         <source>Clipboard settings</source>
-        <target/>
+        <target>Configuración del portapapeles</target>
       </trans-unit>
       <trans-unit id="584">
         <source>Clipboard saving</source>
-        <target/>
+        <target>Guardar portapapeles</target>
       </trans-unit>
       <trans-unit id="585">
         <source>Saved clipboard maximum age (in days)</source>
@@ -2350,15 +2230,15 @@
       </trans-unit>
       <trans-unit id="587">
         <source>Clipboard sending</source>
-        <target/>
+        <target>Envío al portapapeles</target>
       </trans-unit>
       <trans-unit id="588">
         <source>Enable clipboard send functionality</source>
-        <target/>
+        <target>Habilitar la funcionalidad de envío al portapapeles</target>
       </trans-unit>
       <trans-unit id="589">
         <source>External URL to send clipboard contents to</source>
-        <target/>
+        <target>URL externa a la que enviar el contenido del portapapeles</target>
       </trans-unit>
       <trans-unit id="590">
         <source>Send button text</source>
@@ -2370,15 +2250,15 @@
       </trans-unit>
       <trans-unit id="592">
         <source>HTTP method to use when sending clipboard contents</source>
-        <target/>
+        <target>Método HTTP que se utilizará al enviar contenido del portapapeles</target>
       </trans-unit>
       <trans-unit id="593">
         <source>Clipboard export</source>
-        <target/>
+        <target>Exportación del portapapeles</target>
       </trans-unit>
       <trans-unit id="594">
         <source>Enable digital object export</source>
-        <target/>
+        <target>Habilitar la exportación de objetos digitales</target>
       </trans-unit>
       <trans-unit id="595">
         <source>Security settings</source>
@@ -2386,7 +2266,7 @@
       </trans-unit>
       <trans-unit id="596">
         <source>Note: Incorrect security settings can result in the AtoM web UI becoming inaccessible.</source>
-        <target/>
+        <target>Nota: Una configuración de seguridad incorrecta puede provocar que la interfaz de usuario web de AtoM sea inaccesible.</target>
       </trans-unit>
       <trans-unit id="597">
         <source>Visible elements</source>
@@ -2398,7 +2278,7 @@
       </trans-unit>
       <trans-unit id="599">
         <source>Login button</source>
-        <target/>
+        <target>Boton de inicio de sesión</target>
       </trans-unit>
       <trans-unit id="600">
         <source>ISAD template - area headings</source>
@@ -2490,11 +2370,11 @@
       </trans-unit>
       <trans-unit id="622">
         <source>DACS template - area headings</source>
-        <target/>
+        <target>Plantilla DACS - área de encabezados</target>
       </trans-unit>
       <trans-unit id="623">
         <source>Acquisition and appraisal area</source>
-        <target/>
+        <target>Área de adquisición y valoración</target>
       </trans-unit>
       <trans-unit id="624">
         <source>Related materials area</source>
@@ -2502,7 +2382,7 @@
       </trans-unit>
       <trans-unit id="625">
         <source>DACS template - elements</source>
-        <target/>
+        <target>Plantilla DACS - elementos</target>
       </trans-unit>
       <trans-unit id="626">
         <source>Physical access</source>
@@ -2526,11 +2406,11 @@
       </trans-unit>
       <trans-unit id="631">
         <source>Format registry key</source>
-        <target/>
+        <target>Formato de la clave de registro</target>
       </trans-unit>
       <trans-unit id="632">
         <source>Format registry name</source>
-        <target/>
+        <target>Formato del nombre de registro</target>
       </trans-unit>
       <trans-unit id="633">
         <source>File size</source>
@@ -2538,7 +2418,7 @@
       </trans-unit>
       <trans-unit id="634">
         <source>Ingested</source>
-        <target/>
+        <target>Ingesta realizada</target>
       </trans-unit>
       <trans-unit id="635">
         <source>%1% metadata - preservation copy</source>
@@ -2546,7 +2426,7 @@
       </trans-unit>
       <trans-unit id="636">
         <source>Normalized</source>
-        <target/>
+        <target>Normalizado</target>
       </trans-unit>
       <trans-unit id="637">
         <source>%1% metadata - master file</source>
@@ -2554,7 +2434,7 @@
       </trans-unit>
       <trans-unit id="638">
         <source>Latitude and longitude</source>
-        <target/>
+        <target>Latitud y longitud</target>
       </trans-unit>
       <trans-unit id="639">
         <source>Media type</source>
@@ -2602,7 +2482,7 @@
       </trans-unit>
       <trans-unit id="650">
         <source>Identifier settings</source>
-        <target/>
+        <target>Configuración del identificador</target>
       </trans-unit>
       <trans-unit id="651">
         <source>Accession mask enabled</source>
@@ -2618,15 +2498,15 @@
       </trans-unit>
       <trans-unit id="654">
         <source>Identifier mask enabled</source>
-        <target/>
+        <target>Máscara del identificador habilitada</target>
       </trans-unit>
       <trans-unit id="655">
         <source>Identifier mask</source>
-        <target/>
+        <target>Máscara del identificador</target>
       </trans-unit>
       <trans-unit id="656">
         <source>Identifier counter</source>
-        <target/>
+        <target>Contador de identificadores</target>
       </trans-unit>
       <trans-unit id="657">
         <source>Reference code separator</source>
@@ -2638,11 +2518,11 @@
       </trans-unit>
       <trans-unit id="659">
         <source>Inherit reference code (DC XML)</source>
-        <target/>
+        <target>Código de referencia heredado (DC XML)</target>
       </trans-unit>
       <trans-unit id="660">
         <source>%1% identifiers: prevent entry/import of duplicates</source>
-        <target/>
+        <target>%1% identificadores: evitar la entrada o importación de duplicados</target>
       </trans-unit>
       <trans-unit id="661">
         <source>Default page elements</source>
@@ -2670,7 +2550,7 @@
       </trans-unit>
       <trans-unit id="667">
         <source>Markdown</source>
-        <target/>
+        <target>Markdown</target>
       </trans-unit>
       <trans-unit id="668">
         <source>Please rebuild the search index if you are enabling/disabling Markdown support.</source>
@@ -2682,7 +2562,7 @@
       </trans-unit>
       <trans-unit id="670">
         <source>Enable Markdown support</source>
-        <target/>
+        <target>Habilitar el soporte para Markdown</target>
       </trans-unit>
       <trans-unit id="671">
         <source>CSV Validator</source>
@@ -2754,15 +2634,15 @@
       </trans-unit>
       <trans-unit id="688">
         <source>LDAP authentication</source>
-        <target/>
+        <target>Autenticación LDAP</target>
       </trans-unit>
       <trans-unit id="689">
         <source>LDAP authentication settings</source>
-        <target/>
+        <target>Configuración de la autenticación LDAP</target>
       </trans-unit>
       <trans-unit id="690">
         <source>Host</source>
-        <target/>
+        <target>Servidor</target>
       </trans-unit>
       <trans-unit id="691">
         <source>Port</source>
@@ -2770,11 +2650,11 @@
       </trans-unit>
       <trans-unit id="692">
         <source>Base DN</source>
-        <target/>
+        <target>DN base</target>
       </trans-unit>
       <trans-unit id="693">
         <source>Bind Lookup Attribute</source>
-        <target/>
+        <target>Atributo Buscar enlace</target>
       </trans-unit>
       <trans-unit id="694">
         <source>Are you sure you want to delete this right?</source>
@@ -2792,10 +2672,6 @@
         <source>Basis for the permissions granted or for the restriction of rights</source>
         <target>Motivación o razón por la cual se han otorgado o restringido derechos</target>
       </trans-unit>
-      <trans-unit id="698">
-        <source>A coded designation for the copyright status of the object</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="699">
         <source>The date the copyright status applies.</source>
         <target>La fecha en que se aplican los derechos de autor.</target>
@@ -2808,25 +2684,9 @@
         <source>Notes regarding the copyright.</source>
         <target>Notas sobre los derechos de autor.</target>
       </trans-unit>
-      <trans-unit id="702">
-        <source>Text describing the license or agreement by which permission was</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="703">
-        <source>Additional information about the license, such as contact persons, action</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="704">
         <source>The country or other political body that has enacted the statute.</source>
         <target>El organismo competente del cual ha emanado la norma.</target>
-      </trans-unit>
-      <trans-unit id="705">
-        <source>An identifying designation for the statute. Use standard</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="706">
-        <source>Date that the decision to ascribe the right to this statute was made.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="707">
         <source>Additional information about the statute.</source>
@@ -2834,15 +2694,11 @@
       </trans-unit>
       <trans-unit id="708">
         <source>Enter the copyright start date, if known. Acceptable date format: YYYY-MM-DD.</source>
-        <target/>
+        <target>Introduzca la fecha de inicio de los derechos de autor, si la conoce. Formato de fecha aceptable: AAAA-MM-DD.</target>
       </trans-unit>
       <trans-unit id="709">
         <source>Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="710">
-        <source>Name of the person(s) or organization(s) which has the authority to</source>
-        <target/>
+        <target>Introduzca la fecha de finalización de los derechos de autor, si la conoce. Formato de fecha aceptable: AAAA-MM-DD.</target>
       </trans-unit>
       <trans-unit id="711">
         <source>Notes for this Rights Basis.</source>
@@ -2850,10 +2706,6 @@
       </trans-unit>
       <trans-unit id="712">
         <source>Documentation Identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="713">
-        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).</source>
         <target/>
       </trans-unit>
       <trans-unit id="714">
@@ -2879,10 +2731,6 @@
       <trans-unit id="719">
         <source>The beginning date of the permission granted.</source>
         <target>Fecha de inicio de concesión del permiso.</target>
-      </trans-unit>
-      <trans-unit id="720">
-        <source>The ending date of the permission granted.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="721">
         <source>Notes for this granted right.</source>
@@ -2918,7 +2766,7 @@
       </trans-unit>
       <trans-unit id="729">
         <source>Copyright status determination date</source>
-        <target/>
+        <target>Fecha de determinación del estatus de los derechos de autor</target>
       </trans-unit>
       <trans-unit id="730">
         <source>Copyright jurisdiction</source>
@@ -3020,10 +2868,6 @@
         <source>Results</source>
         <target>Resultados</target>
       </trans-unit>
-      <trans-unit id="755">
-        <source>Use these options to specify how the date range returns results.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="756">
         <source>Overlapping</source>
         <target>Superposición</target>
@@ -3038,7 +2882,7 @@
       </trans-unit>
       <trans-unit id="759">
         <source>Only %1% descriptions were shown.</source>
-        <target/>
+        <target>Sólo se mostraron %1% descripciones.</target>
       </trans-unit>
       <trans-unit id="760">
         <source>View the full list of descendants.</source>
@@ -3074,7 +2918,7 @@
       </trans-unit>
       <trans-unit id="768">
         <source>Last run:</source>
-        <target/>
+        <target>Última ejecución:</target>
       </trans-unit>
       <trans-unit id="769">
         <source>Status: %1</source>
@@ -3130,7 +2974,7 @@
       </trans-unit>
       <trans-unit id="782">
         <source>Existing reports:</source>
-        <target/>
+        <target>Informes existentes:</target>
       </trans-unit>
       <trans-unit id="783">
         <source>Select new report to generate:</source>
@@ -3190,7 +3034,7 @@
       </trans-unit>
       <trans-unit id="797">
         <source>Modifications</source>
-        <target/>
+        <target>Modificaciones</target>
       </trans-unit>
       <trans-unit id="798">
         <source>Part of</source>
@@ -3206,7 +3050,7 @@
       </trans-unit>
       <trans-unit id="801">
         <source>Hierarchy</source>
-        <target/>
+        <target>Jerarquía</target>
       </trans-unit>
       <trans-unit id="802">
         <source>Export CSV</source>
@@ -3230,15 +3074,15 @@
       </trans-unit>
       <trans-unit id="807">
         <source>Calculate dates - Error</source>
-        <target/>
+        <target>Calcular fechas - Error</target>
       </trans-unit>
       <trans-unit id="808">
         <source>Cannot calculate accumulated dates because this %1% has no children</source>
-        <target/>
+        <target>No se pueden calcular las fechas acumuladas porque este %1% no tiene hijos</target>
       </trans-unit>
       <trans-unit id="809">
         <source>Cannot calculate accumulated dates because no lower level dates exist</source>
-        <target/>
+        <target>No se pueden calcular las fechas acumuladas porque no existen fechas de nivel inferior</target>
       </trans-unit>
       <trans-unit id="810">
         <source>Import multiple digital objects</source>
@@ -3566,7 +3410,7 @@
       </trans-unit>
       <trans-unit id="891">
         <source>Note: While the date range update is running, the selected description should not be edited.</source>
-        <target/>
+        <target>Nota: Mientras se ejecuta la actualización del intervalo de fechas, la descripción seleccionada no debe editarse.</target>
       </trans-unit>
       <trans-unit id="892">
         <source>You can check %1% page to determine the current status of the update job.</source>
@@ -3586,15 +3430,11 @@
       </trans-unit>
       <trans-unit id="896">
         <source>Generate identifier</source>
-        <target/>
+        <target>Generar identificador</target>
       </trans-unit>
       <trans-unit id="897">
         <source>Label</source>
         <target>Etiqueta</target>
-      </trans-unit>
-      <trans-unit id="898">
-        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field</source>
-        <target/>
       </trans-unit>
       <trans-unit id="899">
         <source>Inventory list</source>
@@ -3660,17 +3500,13 @@
         <source>Name and location of repository</source>
         <target>Nombre y localización del repositorio</target>
       </trans-unit>
-      <trans-unit id="915">
-        <source>Explicitly state the name of the repository, including any parent bodies</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="916">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
         <target/>
       </trans-unit>
       <trans-unit id="917">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
-        <target/>
+        <target>A falta de un título formal significativo, redacte un título breve que identifique el material de forma inequívoca, normalmente compuesto por un segmento del nombre, un término que indique la naturaleza de la unidad que se describe y, opcionalmente, un segmento temático. No encierre entre corchetes los títulos creados. (DACS 2.3.3)</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -3678,11 +3514,7 @@
       </trans-unit>
       <trans-unit id="919">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="920">
-        <source>Record the name(s) of the creator(s) identified in the name element</source>
-        <target/>
+        <target>Registre la cantidad de material en términos de su extensión física como pies lineales o cúbicos, número de artículos o número de contenedores o portadores. (DACS 2.5.4). Opcionalmente, registrar la cantidad en términos de tipo(s) de material (DACS 2.5.5), y/o matizar la declaración de extensión física para resaltar la existencia de tipos de material que son importantes (DACS 2.5.6).</target>
       </trans-unit>
       <trans-unit id="921">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
@@ -3770,15 +3602,15 @@
       </trans-unit>
       <trans-unit id="942">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target/>
+        <target>Si los materiales descritos son reproducciones y los originales se localizan en otro lugar, indique la ubicación de los originales (DACS 6.1.4). Registre cualquier número de identificación que pueda ayudar a localizar los originales en la ubicación citada (DACS 6.1.6).</target>
       </trans-unit>
       <trans-unit id="943">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
-        <target/>
+        <target>Si se dispone de una copia de todo o parte del material que se está describiendo, además de los originales, registre información sobre el medio y la ubicación de la copia, cualquier número de identificación y cualquier condición sobre el uso o disponibilidad de la copia. Si sólo se dispone de copia de una parte de la unidad descrita, indique qué parte. Si los materiales que se describen están disponibles a través de acceso remoto (electrónicamente o de otra manera), proporcione la información relevante necesaria para acceder a ellos. (DACS 6.2.3)</target>
       </trans-unit>
       <trans-unit id="944">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
-        <target/>
+        <target>Si hay materiales que tienen una conexión directa y significativa con los que se están describiendo en razón de una responsabilidad o ámbito de actividad estrechamente relacionados, facilite el título, la ubicación y, opcionalmente, el número o números de referencia de los materiales relacionados y su relación con los materiales que se están describiendo. (DACS 6.3.5)</target>
       </trans-unit>
       <trans-unit id="945">
         <source>Related archival materials</source>
@@ -3942,7 +3774,7 @@
       </trans-unit>
       <trans-unit id="985">
         <source>Log in with CAS</source>
-        <target/>
+        <target>Iniciar sesión con CAS</target>
       </trans-unit>
       <trans-unit id="986">
         <source>Return to user list</source>
@@ -4078,7 +3910,7 @@
       </trans-unit>
       <trans-unit id="1019">
         <source>records added</source>
-        <target/>
+        <target>registros añadidos</target>
       </trans-unit>
       <trans-unit id="1020">
         <source>There was an error loading the clipboard content.</source>
@@ -4086,10 +3918,6 @@
       </trans-unit>
       <trans-unit id="1021">
         <source>The clipboard is empty for this entity type.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1022">
-        <source>Note: clipboard items unclipped in this page will be removed from the clipboard</source>
         <target/>
       </trans-unit>
       <trans-unit id="1023">
@@ -4118,7 +3946,7 @@
       </trans-unit>
       <trans-unit id="1029">
         <source>Only %1% terms were shown.</source>
-        <target/>
+        <target>Sólo se mostraron %1% términos .</target>
       </trans-unit>
       <trans-unit id="1030">
         <source>Term %1%</source>
@@ -4154,7 +3982,7 @@
       </trans-unit>
       <trans-unit id="1038">
         <source>%1% %2% results for %3%</source>
-        <target/>
+        <target>%1% %2% resultados para %3%</target>
       </trans-unit>
       <trans-unit id="1039">
         <source>Only results directly related</source>
@@ -4290,7 +4118,7 @@
       </trans-unit>
       <trans-unit id="1072">
         <source>Alt text</source>
-        <target/>
+        <target>Texto alternativo</target>
       </trans-unit>
       <trans-unit id="1073">
         <source>View children as a compound %1%?</source>
@@ -4362,11 +4190,11 @@
       </trans-unit>
       <trans-unit id="1090">
         <source>Access Copies</source>
-        <target/>
+        <target>Copias de Acceso</target>
       </trans-unit>
       <trans-unit id="1091">
         <source>Master file</source>
-        <target/>
+        <target>Archivo maestro</target>
       </trans-unit>
       <trans-unit id="1092">
         <source>Mime-type</source>
@@ -4450,11 +4278,11 @@
       </trans-unit>
       <trans-unit id="1112">
         <source>Or a remote resource</source>
-        <target/>
+        <target>O un recurso remoto</target>
       </trans-unit>
       <trans-unit id="1113">
         <source>Newest additions</source>
-        <target/>
+        <target>Últimas incorporaciones</target>
       </trans-unit>
       <trans-unit id="1114">
         <source>Created</source>
@@ -4490,7 +4318,7 @@
       </trans-unit>
       <trans-unit id="1122">
         <source>Currently displaying:</source>
-        <target/>
+        <target>Se muestra:</target>
       </trans-unit>
       <trans-unit id="1123">
         <source>Part of </source>
@@ -4542,11 +4370,7 @@
       </trans-unit>
       <trans-unit id="1135">
         <source>Enable AIP download</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1136">
-        <source>Allow authorized users to download a linked AIP or AIP file from</source>
-        <target/>
+        <target>Habilitar descarga del AIP</target>
       </trans-unit>
       <trans-unit id="1137">
         <source>Only hexadecimal color value</source>
@@ -4776,17 +4600,9 @@
         <source>Related authority record</source>
         <target>Registro de autoridad relacionado</target>
       </trans-unit>
-      <trans-unit id="1194">
-        <source>Select the name from the drop-down menu; enter the identifier</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1195">
         <source>Identifier/title</source>
         <target>Identificador/título</target>
-      </trans-unit>
-      <trans-unit id="1196">
-        <source>Select the title from the drop-down menu; enter the identifier</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1197">
         <source>Classification</source>
@@ -4803,18 +4619,6 @@
       <trans-unit id="1200">
         <source>Related functions</source>
         <target>Funciones relacionadas</target>
-      </trans-unit>
-      <trans-unit id="1201">
-        <source>"Record the authorised form of name and any unique identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1202">
-        <source>"Record a general category into which the relationship</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1203">
-        <source>"Record a precise description of the nature of the relationship</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1204">
         <source>Edit %1% permissions of %2%</source>
@@ -4922,19 +4726,19 @@
       </trans-unit>
       <trans-unit id="1230">
         <source>Export storage report</source>
-        <target/>
+        <target>Informe del almacenamiento de exportación</target>
       </trans-unit>
       <trans-unit id="1231">
         <source>Include unlinked containers</source>
-        <target/>
+        <target>Incluir contenedores no enlazados</target>
       </trans-unit>
       <trans-unit id="1232">
         <source>Include containers linked to accessions</source>
-        <target/>
+        <target>Incluir contenedores vinculados a los ingresos</target>
       </trans-unit>
       <trans-unit id="1233">
         <source>Include containers linked to descriptions</source>
-        <target/>
+        <target>Incluir contenedores vinculados a los ingresos</target>
       </trans-unit>
       <trans-unit id="1234">
         <source>Print</source>
@@ -4946,7 +4750,7 @@
       </trans-unit>
       <trans-unit id="1236">
         <source>Related accessions</source>
-        <target/>
+        <target>Ingresos relacionados</target>
       </trans-unit>
       <trans-unit id="1237">
         <source>It has %1% deaccessions that will also be deleted:</source>
@@ -4958,27 +4762,27 @@
       </trans-unit>
       <trans-unit id="1239">
         <source>Event(s)</source>
-        <target/>
+        <target>Evento (s)</target>
       </trans-unit>
       <trans-unit id="1240">
         <source>Agent</source>
-        <target/>
+        <target>Agente</target>
       </trans-unit>
       <trans-unit id="1241">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Tipo:%2% Seleccione el tipo de evento.%3%</target>
       </trans-unit>
       <trans-unit id="1242">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Fecha:%2% Introduzca la fecha del evento.%3%</target>
       </trans-unit>
       <trans-unit id="1243">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Agente:%2% Introduzca el agente asociado con el evento.%3%</target>
       </trans-unit>
       <trans-unit id="1244">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Nota:%2% Introduzca notas asociadas con el evento.%3%</target>
       </trans-unit>
       <trans-unit id="1245">
         <source>You are creating an accrual to accession %1%</source>
@@ -5104,10 +4908,6 @@
         <source>Related donor record</source>
         <target>Registro de donante relacionado</target>
       </trans-unit>
-      <trans-unit id="1276">
-        <source>This is the legal entity field and provides the contact</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1277">
         <source>Primary contact information</source>
         <target>Información primaria de contacto</target>
@@ -5156,10 +4956,6 @@
         <source>Create %1%</source>
         <target>Crear %1%</target>
       </trans-unit>
-      <trans-unit id="1289">
-        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1290">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Ingrese un título apropiado, ya sea transcrito o suministrador</target>
@@ -5203,10 +4999,6 @@
       <trans-unit id="1300">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Identificador: Introduzca un código inequívoco utilizado para identificar de forma única la descripción. Nivel: Seleccionar un nivel de descripción del menú desplegable. Ver RAD 1.0A reglas y convenciones sobre la selección de los niveles de descripción. Título: Introduzca el título propiamente dicho, ya sea transcrito o suministrado. (RAD 1.1B)</target>
-      </trans-unit>
-      <trans-unit id="1301">
-        <source>Select the repository that has custody and control of the archival material.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1302">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
@@ -5408,18 +5200,6 @@
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
         <target>"Entregue el Número Estándar Internacional de Libro (siglas en inglés ISBN), Número Estándar Internacional de Publicaciones Seriadas (sigla en iglés ISSN), o cualquier otro número estándar internacional convenido para el ítem que se describe. Entregue tales números con la abreviación convenida y con la separación estándar o guiones.</target>
       </trans-unit>
-      <trans-unit id="1352">
-        <source>Search for an existing term in the Subjects taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1353">
-        <source>Search for an existing term in the Places taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1354">
-        <source>Search for an existing term in the Genre taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1355">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
         <target>Registre las reglas o conveciones internacionales, nacionales y/o locales seguidas en la preparación de la descripción.</target>
@@ -5495,6 +5275,254 @@
       <trans-unit id="1373">
         <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="1374">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Use esos dos campos para agregar niveles inferiores a una descripción a nivel de colección. Presionar Agregar nuevo para agregar tantos niveles hijos como sea necesario. Identificador: ingrese un número único estándar o código que identififique distintivamente al recurso. Título: ingrese una palabra, frase, caracter, o grupo de caracteres, que normalmente aparece en un recurso, que lo nombre o al trabajo contenido en él.</target>
+      </trans-unit>
+      <trans-unit id="1375">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target>Una designación del idioma en el cual se expresa el contenido de un recurso. Seleccione tantos lenguajes como sea requerido.</target>
+      </trans-unit>
+      <trans-unit id="1376">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Un término o frase representando los tópicos primarios en el cual se enfoca un trabajo. Buscar un término existente en las taxonomías de Temas, escribiendo las primeras letras del nombre. Alternativamente, escribir un nuevo nombre para crear y enlazar a un nuevo registro de tema.</target>
+      </trans-unit>
+      <trans-unit id="1377">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>Buscar un término existente en la taxonomía Lugares escribiendo los primeros caracteres del nombre del término. Alternativamente, escribir un nuevo término para crear y enlazar a un nuevo término de lugar.</target>
+      </trans-unit>
+      <trans-unit id="1378">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>"Elija la procedencia, autor y otros puntos de acceso que no sean tema desde la descripción archivística, como sea apropiado. Todos los puntos de acceso deben ser concordantes con la descripción archivística a la cual están relacionados." (RAD 21.0B) Los valores en este campo se derivan desde el campo forma Autorizada del nombre, en los registros de autoridad. Buscar un nombre existente escribiendo los primeros caracteres del nombre. Alternativamente, escriba un nuevo nombre para crear y enlazar a un nuevo registro de autoridad.</target>
+      </trans-unit>
+      <trans-unit id="1379">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target>Información sobre restricciones impuestas al acceso al recurso. Ver condición de acceso MODS para elemento de nivel superior, para mayor información sobre el uso de este campo.</target>
+      </trans-unit>
+      <trans-unit id="1380">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1381">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>Registre el nombre de la organización(es) o el(los) individuo(s) responsables de la creación, acumulación y mantención de los registros en la unidad de descripción. Buscar un nombre existente en los registros de autoridad escribiendo las primeras letras del nombre. Alternativamente, escriba un nuevo nombre para crear y enlazar a un nuevo registro de autoridad. (ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="1382">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Registre el nombre de la organización que tiene la custodia del material de archivo. Buscar un nombre existente en los registros de institución archivística escribiendo las primeras letras del nombre. Alternativamente, escriba un nuevo nombre para crear y enlazar a un nuevo registro de institución archivística.</target>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>El tópico del recurso. Busque un término existente en la taxonomía Tema escribiendo los primeros  caracteres del nombre del término. Alternativamente, escriba un nuevo nombre para crear y enlazar un nuevo término de Tema.</target>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target>&lt;p&gt;&lt;strong&gt;Niveles hijos&lt;/strong&gt;&lt;br/&gt;Use esos dos campos para agregar niveles más bajos a una descripción de nivel de colección. Presione &lt;em&gt;Agregar nuevo&lt;/em&gt; para crear tantos niveles hijos como sea necesario.&lt;/p&gt;&lt;p&gt;Esos campos también pueden ser usados para agregar cualquier cantidad de niveles intermedios de descripción (ej. series, archivos, etc) entre los niveles superiores e inferiores en una jerarquía descriptiva. Use el árbol de jerarquía para reordenar los niveles de jerarquía como sea necesario.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identificador:&lt;/em&gt;: El código de referencia sin ambigüedades usado para identificar únicamemte el recurso de nivel hijo.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Títul&lt;/em&gt;: El nombre dado al recurso de nivel hijo.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1386">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target>Este elemento es obligatorio para esta descripción o para uno de sus niveles de descripción superiores (si forma parte de una colección jerárquica).</target>
+      </trans-unit>
+      <trans-unit id="1387">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target>&lt;p&gt;El nombre de la organización que custodia el recurso.&lt;/p&gt;&lt;p&gt; Buscar un nombre existente en los registros de la organización escribiendo las primeras letras del nombre. Alternativamente, escribir un nuevo nombre para crear y enlazar a un nuevo registro de la organización.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1388">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;El nombre de un lugar o área geográfica que es un tópico del recurso o relevante a su jurisdicción.&lt;/p&gt;&lt;p&gt; Buscar un término existente en la taxonomía Lugar escribiendo las primeras letras del nombre. Alternativamente, escribir un nuevo nombre para crear y enlazar a un nuevo lugar.&lt;/p&gt;&lt;p&gt;Por favor notar: si Ud. ingresó un lugar de creación, publicación o contribución, esa será automáticamente la salida, por lo tanto no repita aquí ese nombre del lugar.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1389">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>Identifique y registre la fecha de la unidad de descripción. Identifique el tipo de fecha dada. Registre como fecha única o rango de fechas según sea lo apropiado. El campo de Fecha puede ser utilizado para ingresar información de fecha en texto libre, incluyendo marcas tipográficas para expresar aproximación, duda o atribución. Use los campos de comienzo y final de fecha para hacer las fechas recuperables. No use calificadores o símbolos tipográficos para expresar duda. Los formatos de fecha aceptables son: AAAAMMDD, AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
+      </trans-unit>
+      <trans-unit id="1390">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>"Entregue los códigos identificadores/referencia únicos y/o títulos para los recursos relacionados." (ISAAR 6.1) Seleccione el título desde el menú desplegable; ingrese el identificador o las primeras letras para reducir las opciones.</target>
+      </trans-unit>
+      <trans-unit id="1391">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>"Describa la naturaleza de las relaciones entre la institución, persona o familia y la fuente relacionada." (ISAAR 6.3) Seleccione el tipo de relaciones desde el menú desplegable; esos valores se derivan desde la taxonomía Tipos de Eventos.</target>
+      </trans-unit>
+      <trans-unit id="1392">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"Identificar los tipos de recursos relacionados, ej. documentos de archivo (fondos, series, etc), descripción de archivo, instrumentos de descripción, monografías, artículos de prensa, páginas web, fotografía, colección de museo, película documental, registro de historia oral.</target>
+      </trans-unit>
+      <trans-unit id="1393">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Entregue una fecha relevante para el recurso relacionado y/o la relación entre la institución, persona o familia y el recurso relacionado." (ISAAR 6.4) Ingrese la fecha como le gustaría que aparezca en la página para el registro de autoridad, usando calificadores y/o símbolos tipográficos para expresar incerteza si lo desea.</target>
+      </trans-unit>
+      <trans-unit id="1394">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"Registre la forma autorizada del nombre y cualquier identificador único relevante, incluyendo el identificador del registro de autoridad, para la entidad relacionada." (ISAAR 5.3.1) Seleccionar el nombre dese el menú desplegable; ingrese las primeras letras para reducir las alternativas.</target>
+      </trans-unit>
+      <trans-unit id="1395">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>"Propósito: para identificar la categoría general de la relación entre la entidad que se describe y otra institución, persona o familia." (ISAAR 5.3.2). Seleccione una categoría desde el menú desplegable: jerárquica, temporal, familia o asociativa.</target>
+      </trans-unit>
+      <trans-unit id="1396">
+        <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
+        <target>"Seleccione un término descriptivo en el menú desplegable para aclarar el tipo de relación entre estos dos actores."</target>
+      </trans-unit>
+      <trans-unit id="1397">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"Registre una descipción precisa de la naturaleza de la relación entre la entidad descrita en este rehistro de autoridad y la otra entidad relacionada... Registre en el elemento de Reglas y/o convenciones (5.4.3) cualquier esquema de clasificación usado como una fuente de términos de vocabulario controlado para describir la relación. Una descripción narrativa de la historia y/o naturaleza de la relación también podría consignarse aquí." (ISAAR 5.3.3). Notar que el texto ingresado en este campo también aparecerá en el registro de autoridad relacionado.</target>
+      </trans-unit>
+      <trans-unit id="1398">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Registre, cuando sea relevante, la fecha concerniente a la relación o fecha de sucesión y, cuando sea relevante, la fecha de cesasión de la relación." (ISAAR 5.3.4) Ingrese la fecha como le gustaría que apareciera en la página del registro de autoridad, usando calificadores y/o símbolos tipográfico para expresar incerteza si se desea.</target>
+      </trans-unit>
+      <trans-unit id="1399">
+        <source>Failed jobs</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1400">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target>Registre el tipo de institución. (ISDIAH 5.1.5) Seleccione tantos tipos como desee desde el menú desplegable; esos valores son extraídos desde la taxonomía Tipos de Repositorio.</target>
+      </trans-unit>
+      <trans-unit id="1401">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target>Busque un término existente en la taxonomía de Área temática escribiendo los primeros caracteres del término</target>
+      </trans-unit>
+      <trans-unit id="1402">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target>Busque un término existente en la taxonomía de Subregión Geográfica escribiendo los primeros caracteres del término</target>
+      </trans-unit>
+      <trans-unit id="1403">
+        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1404">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1405">
+        <source>Diacritics settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1406">
+        <source>Please rebuild the search index after uploading diacritics mappings.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1407">
+        <source>Diacritics Settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1408">
+        <source>Diacritics</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1409">
+        <source>CSV Mapping YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1410">
+        <source>Example CSV:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1411">
+        <source>Mappings YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1412">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target>Especifique el régimen o estado en que se halla la unidad protegida por normativa sobre derechos de autor.</target>
+      </trans-unit>
+      <trans-unit id="1413">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target>Describa los términos de la licencia o acuerdo a través del cual se concede el permiso  o bien indique el enlace a dicho texto. Puede citarse el texto completo o una cita o resumen del mismo.</target>
+      </trans-unit>
+      <trans-unit id="1414">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target>Información adicional sobre la licencia, p.ej. personas de contacto, fechas de concesión o caducidad y condiciones. Puede indicar también la localización de la licencia y si está disponible online o incluida en el mismo objeto.</target>
+      </trans-unit>
+      <trans-unit id="1415">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target>Mención identificable de la normativa aplicable. Cuando sea apropiado (p.ej. cita bibliográfica), cite según las reglas de los estándares.</target>
+      </trans-unit>
+      <trans-unit id="1416">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target>Fecha en que la norma entró en vigor. Como contexto para futuras revisiones o reinterpretaciones.</target>
+      </trans-unit>
+      <trans-unit id="1417">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target>Nombre de las personas o instituciones que tienen poder de decisión para otorgar el permiso o establecer restricciones o limitaciones sobre él.</target>
+      </trans-unit>
+      <trans-unit id="1418">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target>Puede tener valor de texto o valor URI (p.ej. GNU u otro tipo de permiso en línea). Se utiliza para identificar el acuerdo de concesión únicamente en el sistema del repositorio.</target>
+      </trans-unit>
+      <trans-unit id="1419">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target>Fecha de caducidad del permiso. Omita la fecha final si es desconocida.</target>
+      </trans-unit>
+      <trans-unit id="1420">
+        <source>Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1421">
+        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target>&lt;strong&gt;Etiqueta:&lt;/strong&gt; Introduzca un nombre para el campo identificador alternativo que indique su finalidad y uso.&lt;br/&gt; &lt;strong&gt; Identificador:&lt;/strong&gt; Introduzca un código de referencia heredado, identificador alternativo, o cualquier otra cadena alfanumérica asociada con el registro.</target>
+      </trans-unit>
+      <trans-unit id="1422">
+        <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Explícitamente indicar el nombre del repositorio (DACS 2.2.2). Puedes buscar un nombre existente en los registros de la institución archivística escribiendo los primeros caracteres del nombre. Alternativamente,  escriba un nuevo nombre para crearlo y vincularlo a un nuevo registro archivístico.</target>
+      </trans-unit>
+      <trans-unit id="1423">
+        <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1424">
+        <source>Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!</source>
+        <target>Nota: los elementos del portapapeles no seleccionados en esta página se eliminarán del portapapeles cuando se actualice la página. Puede volver a seleccionarlos ahora o recargar la página para eliminarlos por completo. El uso de los botones de ordenación o de vista previa de impresión también provocará una recarga de la página - así que ¡se perderá todo lo que no esté seleccionado en ese momento!</target>
+      </trans-unit>
+      <trans-unit id="1425">
+        <source>Allow authorized users to download a linked AIP or AIP file from the configured Archivematica Storage Service</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1426">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Seleccione el nombre desde el menú desplegable; ingrese el identificador o las primeras letras para reducir las opciones. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1427">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Seleccione el título desde el menú desplegable; ingrese el identificador o las primeras letras para reducir las opciones. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1428">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>"Registre la forma autorizada del nombre y cualquier identificador único de la función relacionada." (ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="1429">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target>"Registre una categoría general en la cual encaja la relación que se describe." (ISDF 5.3.2) Seleccione una categoría desde el menú desplegable: jerárquica, temporal o asociativa.</target>
+      </trans-unit>
+      <trans-unit id="1430">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>"Registre una descripción precisa de la naturaleza de la relación entre la función que se describe y la función relacionada." (ISDF 5.3.3) Notar que el texto ingresado en este campo también aparecerá en la función relacionada.</target>
+      </trans-unit>
+      <trans-unit id="1431">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1432">
+        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target>&lt;strong&gt;Tipo:&lt;/strong&gt; Introduzca un nombre para el campo identificador alternativo que indique su propósito y uso.&lt;br/&gt;&lt;strong&gt;Identificador:&lt;/strong&gt; Introduzca un código de referencia heredado, un identificador alternativo o cualquier otra cadena alfanumérica asociada al registro.</target>
+      </trans-unit>
+      <trans-unit id="1433">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>Seleccione el repositorio que tiene custodia y control del material de archivo. Los valores en este campo son extraídos desde el campo Forma autorizada del nombre en los registros de institución archivística. Buscar un nombre existente escribiendo los primeros caracteres del nombre. Alternativamente, escriba un nuevo nombre para crear y enlazar una nueva institución archivística.</target>
+      </trans-unit>
+      <trans-unit id="1434">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>Buscar un término existente en la taxonomía Temas escribiendo los primeros caracteres del nombre del término. Alternativamente, escribir un nuevo término para crear y enlazar a un nuevo término de Tema.</target>
+      </trans-unit>
+      <trans-unit id="1435">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target>Busque un término existente en la taxonomía Tipo escribiendo los primeros caracteres del nombre del plazo. Como alternativa, escriba un nuevo término para crear y vincular a un nuevo término género.</target>
       </trans-unit>
     </body>
   </file>

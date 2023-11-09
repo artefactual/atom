@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="et" datatype="plaintext" original="messages" date="2022-08-05T16:59:48Z" product-name="messages">
+  <file source-language="en" target-language="et" datatype="plaintext" original="messages" date="2023-11-09T19:34:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -544,10 +544,6 @@
         <source>Donor</source>
         <target/>
       </trans-unit>
-      <trans-unit id="144">
-        <source>We've redirected you to the first page of results.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="145">
         <source>Browse accessions</source>
         <target/>
@@ -570,6 +566,10 @@
                 transferred the materials. It has the option of multiple
                 instances and provides the option of creating more than one
                 contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
         <target/>
       </trans-unit>
     </body>

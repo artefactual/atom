@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2023-05-25T18:34:58Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2023-11-09T20:31:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -466,15 +466,15 @@
       </trans-unit>
       <trans-unit id="136">
         <source>Identifier available.</source>
-        <target/>
+        <target>Identificador disponible.</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Identificador no disponible.</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Loading...</source>
-        <target/>
+        <target>Cargando...</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Server error while checking identifer availability.</source>
@@ -486,7 +486,7 @@
       </trans-unit>
       <trans-unit id="141">
         <source>Date modified</source>
-        <target/>
+        <target>Fecha modificada</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Notes</source>
@@ -506,31 +506,31 @@
       </trans-unit>
       <trans-unit id="147">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target/>
+        <target>&lt;strong&gt;Tipo:&lt;/strong&gt; Introduzca un nombre para el campo identificador alternativo que indique su propósito y uso.&lt;br/&gt;&lt;strong&gt;Identificador:&lt;/strong&gt; Introduzca un código de referencia heredado, un identificador alternativo o cualquier otra cadena alfanumérica asociada al registro.</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Agent</source>
-        <target/>
+        <target>Agente</target>
       </trans-unit>
       <trans-unit id="150">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%Tipo:%2% Seleccione el tipo de evento.%3%</target>
       </trans-unit>
       <trans-unit id="151">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
-        <target/>
+        <target>%1%Fecha:%2% Introduzca la fecha del evento.%3%</target>
       </trans-unit>
       <trans-unit id="152">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1%Agente:%2% Introduzca el agente asociado con el evento.%3%</target>
       </trans-unit>
       <trans-unit id="153">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%Nota:%2% Introduzca notas asociadas con el evento.%3%</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Event(s)</source>
-        <target/>
+        <target>Evento (s)</target>
       </trans-unit>
       <trans-unit id="155">
         <source>Browse donors</source>
@@ -543,10 +543,6 @@
       <trans-unit id="157">
         <source>Donor</source>
         <target>Donador</target>
-      </trans-unit>
-      <trans-unit id="158">
-        <source>We've redirected you to the first page of results.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="159">
         <source>Browse accessions</source>
@@ -570,6 +566,10 @@
                 transferred the materials. It has the option of multiple
                 instances and provides the option of creating more than one
                 contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
         <target/>
       </trans-unit>
     </body>

@@ -25,6 +25,7 @@ QubitTaxonomy:
       ja: 記述詳細のレベル
       ka: 'დეტალის დონეების აღწერა'
       ko: 기술상세계층
+      mk: 'Ниво детали на опис'
       nl: 'Niveaus van detailbeschrijving'
       pl: 'Poziomy szczegółów opisu'
       pt: 'Descrição dos níveis de detalhe'
@@ -59,6 +60,7 @@ QubitTaxonomy:
       ja: 主体者のエンティティの種別
       ka: 'მონაწილე ერთეულის ტიპი'
       ko: '행위자 실체 유형'
+      mk: 'Типови ентитети на имател'
       nl: 'Soorten entiteiten'
       pl: 'Typy jednostek sprawcy/powoda'
       pt: 'Tipos de entidades produtoras'
@@ -94,6 +96,7 @@ QubitTaxonomy:
       ja: 記述のステータス
       ka: 'ღწერის სტატუსები ან სტატუსების აღწერა'
       ko: '기술 등급'
+      mk: 'Статуси на опис'
       nl: Beschrijvingsstatus
       pl: 'Statusy opisu'
       pt: 'Estado da descrição'
@@ -134,6 +137,7 @@ QubitTaxonomy:
       ja: 記述レベル
       ka: 'აღწერის დონეები'
       ko: '기술 계층'
+      mk: 'Нивоа на опис'
       nl: Beschrijvingsniveaus
       pt: 'Níveis de descrição'
       pt_BR: 'Níveis de descrição'
@@ -210,6 +214,7 @@ QubitTaxonomy:
       ja: 主体者名の種別
       ka: 'მონაწილის სახელის ტიპი'
       ko: '행위자 이름 유형'
+      mk: 'Видови имиња на имател'
       nl: 'Soorten naam van entiteiten'
       pl: 'Typy nazw sprawcy/powoda'
       pt: 'Tipos de nome de entidades produtoras'
@@ -246,6 +251,7 @@ QubitTaxonomy:
       ja: 注記の種別
       ka: 'შენიშვნის ტიპები'
       ko: '주기 유형'
+      mk: 'Видови белешки'
       nl: 'Soorten aantekeningen'
       pt: 'Tipos de nota'
       pt_BR: 'Tipos de notas'
@@ -282,6 +288,7 @@ QubitTaxonomy:
       ja: リポジトリ種別
       ka: 'საცავის ტიპები'
       ko: '기록보존소 유형'
+      mk: 'Типови на депоа'
       nl: 'Soorten bewaarplaatsen'
       pt: 'Tipos de entidades detentoras'
       pt_BR: 'Tipos de Entidades Custodiadoras'
@@ -318,6 +325,7 @@ QubitTaxonomy:
       ja: イベントの種別
       ka: 'შემთხვევის ტიპები'
       ko: '사건(이벤트) 유형'
+      mk: 'Типови на настани'
       nl: 'Soorten gebeurtenisen'
       pt: 'Tipos de evento'
       pt_BR: 'Tipos de Eventos'
@@ -353,6 +361,7 @@ QubitTaxonomy:
       ja: Qubit設定レベル
       ka: 'ქუბიტ პარამეტრების ეტიკეტები'
       ko: '큐비트 설정 레이블'
+      mk: 'Ознаки за Qubit поставки'
       nl: 'Qubit instellings labels'
       pl: 'Etykiety ustawień Qubit'
       pt: 'Etiquetas de configuração do Qubit'
@@ -395,6 +404,7 @@ QubitTaxonomy:
       ja: 場所
       ka: ადგილები
       ko: 장소
+      mk: Места
       nl: Plaatsen
       pl: Miejsca
       pt: Locais
@@ -433,6 +443,7 @@ QubitTaxonomy:
       ja: 'ISDF 機能種別'
       ka: 'ISDF ფუნქციის ტიპები'
       ko: 'ISDF 기능 유형'
+      mk: 'Типови на ISDF функции'
       nl: 'ISDF Functie Soorten'
       pt: 'Tipos de Funções ISDF'
       pt_BR: 'Tipos de função ISDF'
@@ -467,6 +478,7 @@ QubitTaxonomy:
       ja: 歴史的出来事
       ka: 'ისტორიული მოვლენები'
       ko: '역사적 사건'
+      mk: 'Историски настани'
       nl: 'Historische gebeurtenissen'
       pt: 'Eventos históricos'
       pt_BR: 'Eventos históricos'
@@ -501,6 +513,7 @@ QubitTaxonomy:
       ja: コレクション種別
       ka: 'კოლექციის ტიპები'
       ko: '컬렉션 유형'
+      mk: 'Видови на збирки'
       nl: 'Soorten collectie'
       pl: 'Typy kolekcji'
       pt: 'Tipos de acervo'
@@ -537,6 +550,7 @@ QubitTaxonomy:
       ja: メディア種別
       ka: 'მედია ტიპები'
       ko: '미디어 유형'
+      mk: 'Видови медиуми'
       nl: Bestandsformaten
       pt: 'Tipos de suporte'
       pt_BR: 'Tipos de Mídias'
@@ -571,6 +585,7 @@ QubitTaxonomy:
       ja: デジタルオブジェクトの使用法
       ka: 'ციფრული ობიექტის გამოყენება'
       ko: '디지털 객체 사용'
+      mk: 'Употреба на дигитален објект'
       nl: 'Gebruik digitaal object'
       pt: 'Usos do objeto digital'
       pt_BR: 'Usos do Objeto Digital'
@@ -605,6 +620,7 @@ QubitTaxonomy:
       ja: 物理的オブジェクト種別
       ka: 'ფიზიკური ობიექტის ტიპი'
       ko: '물리적 객체 유형'
+      mk: 'Тип на физички објект'
       nl: 'Soorten fysieke objecten'
       pt: 'Tipo de objeto tridimensional'
       pt_BR: 'Tipo de Objeto Físico'
@@ -640,6 +656,7 @@ QubitTaxonomy:
       ja: 関係の種別
       ka: 'კავშირის, ურთიერთობის ტიპი'
       ko: '관련 유형'
+      mk: 'Тип на однос'
       nl: 'Soorten relaties'
       pt: 'Tipo de relação'
       pt_BR: 'Tipo de relação'
@@ -676,9 +693,10 @@ QubitTaxonomy:
       ja: 資料種別
       ka: 'მასალის ტიპი'
       ko: '자료 유형'
+      mk: 'Тип на материјал'
       nl: 'Soort materiaal'
       pt: 'Tipo de material'
-      pt_BR: 'Tipo de material'
+      pt_BR: 'Tipo de Material'
       ru: 'Тип Материала'
       sl: 'Vrsta gradiva'
       sr: 'Врста грађе'
@@ -711,6 +729,7 @@ QubitTaxonomy:
       ja: RAD注記
       ka: 'RAD შენიშვნა'
       ko: 'RAD 주기'
+      mk: 'RAD Забелешка'
       pl: 'Opis RAD'
       pt: 'Nota RAD'
       pt_BR: 'Nota RAD'
@@ -746,6 +765,7 @@ QubitTaxonomy:
       ja: RADタイトル注記
       ka: 'RAd სათაურის შენიშვნა'
       ko: 'RAD 제목 주기'
+      mk: 'RAD Забелешка за насловот'
       pl: 'Tytuł noty RAD'
       pt: 'Nota ao título RAD'
       pt_BR: 'Título da Nota RAD'
@@ -781,6 +801,7 @@ QubitTaxonomy:
       ja: 'MODS リソース種別'
       ka: 'MODS რესურსის ტიპი'
       ko: 'MODS 자원 유형'
+      mk: 'Тип на MODS ресурси'
       pt: 'Tipo de recurso MODS'
       pt_BR: 'Tipo de Recurso MODS'
       sl: 'Vrsta vira MODS'
@@ -815,6 +836,7 @@ QubitTaxonomy:
       ja: ダブリンコア種別
       ka: 'დაბლინ კორ ტიპები'
       ko: '더블린코어 방식'
+      mk: 'Видови според Dublin Core'
       pt: 'Tipos Dublin Core'
       pt_BR: 'Tipos da Dublin Core'
       sl: 'Vrste po standardu Dublin Core'
@@ -849,6 +871,7 @@ QubitTaxonomy:
       ja: 主体者の関係の種別
       ka: 'მონაწილის კავშირის ტიპი'
       ko: '행위자 관계 유형'
+      mk: 'Тип на врска со имателот'
       nl: 'Soort relatie tussen actoren'
       pl: 'Typy powiązań sprawcy/powoda'
       pt: 'Tipo de relação de entidades produtoras'
@@ -883,6 +906,7 @@ QubitTaxonomy:
       ja: 関連する注記の種別
       ka: 'კავშირების შენიშვნების ტიპები'
       ko: '관련 주기'
+      mk: 'Типови на белешки за врска'
       pt: 'Notas aos tipos de relação'
       pt_BR: 'Tipos de relação de notas'
       sl: 'Vrste opomb glede povezave'
@@ -984,6 +1008,7 @@ QubitTaxonomy:
       ja: 公開の状態
       ka: 'პუბლიკაციის სტატუსი'
       ko: '출판 상태'
+      mk: 'Статус на публикација'
       nl: 'Publicatie status'
       pl: 'Status publikacji'
       pt: 'Estado da publicação'
@@ -1017,6 +1042,7 @@ QubitTaxonomy:
       ja: 機能関係種別
       ka: 'ფუნქციური კავშირის ტიპი'
       ko: '기능 관계 유형'
+      mk: 'Тип на врска помеѓу функциите'
       nl: 'Soort functie relatie'
       pt: 'Tipo de relação da Função'
       pt_BR: 'Tipo de Relação de Função'
@@ -1053,6 +1079,7 @@ QubitTaxonomy:
       ja: 受入資料資料種別
       ka: 'დაშვების მასალის ტიპი'
       ko: '인수 자원 유형'
+      mk: 'Тип на пристапен извор'
       nl: 'Soort bron van aanwinst'
       pl: 'Typ zasobu nabycia'
       pt: 'Tipo do recurso da incorporação'
@@ -1198,6 +1225,7 @@ QubitTaxonomy:
       ja: 廃棄の範囲
       ka: 'შეზღუდვის მოცულობა'
       ko: '처분 범위'
+      mk: 'Опсег на излачување'
       pl: 'Zakres zbycia'
       pt: 'Âmbito da desafetação'
       pt_BR: 'Escopo da eliminação de ingresso'
@@ -1309,6 +1337,7 @@ QubitTaxonomy:
       ja: 著作権のステータス
       ka: 'საავტორო უფლების სტატუსი'
       ko: '저작권 상태'
+      mk: 'Статус на авторски права'
       nl: 'Copyright status'
       pl: 'Status prawa autorskiego'
       pt: 'Estado dos direitos de autor'
@@ -1344,6 +1373,7 @@ QubitTaxonomy:
       id: 'Templat objek informasi'
       it: 'Modelli degli oggetti informativi'
       ko: '정보 객체 템플릿'
+      mk: 'Шаблони за информациски објекти'
       pt: 'Modelos de objetos de informação'
       pt_BR: 'Modelos de descrição arquivística'
       sl: 'Predloge za informacijski objekt'
@@ -1440,6 +1470,7 @@ QubitTaxonomy:
       id: 'Subwilayah geografis'
       it: 'Sub-regione geografica'
       ko: '지리적으로 하위 지역'
+      mk: 'Географски подрегион'
       pt: 'Sub-região Geográfica'
       pt_BR: 'Sub-região Geográfica'
       sl: 'Zemljepisno podobmočje'
@@ -1469,6 +1500,7 @@ QubitTaxonomy:
       id: 'Catatan DACS'
       it: '(DACS) Nota'
       ko: 'DACS 노트'
+      mk: 'DACS белешка'
       pt: 'Nota DACS'
       pt_BR: 'Nota DACS'
       sl: 'DACS opombe'
@@ -1497,6 +1529,7 @@ QubitTaxonomy:
       id: Genre
       it: Genere
       ja: ジャンル
+      mk: Жанр
       pt: Género
       pt_BR: Gênero
       ru: Жанр
@@ -1521,6 +1554,7 @@ QubitTaxonomy:
       hu: 'PREMIS Jogi Státuszok'
       id: 'PREMIS Rights Statutes'
       it: 'Statuti dei diritti di PREMIS'
+      mk: 'PREMIS правни статути'
       pt: 'Estatutos de direitos do PREMIS'
       pt_BR: 'Estatutos de Direitos PREMIS'
       sr: 'PREMIS Rights Statutes'
@@ -1550,6 +1584,7 @@ QubitTaxonomy:
       hu: 'Feladat állapota'
       id: 'Status tugas'
       it: 'Status dell''operazione'
+      mk: 'Работен статус'
       pt: 'Estado do trabalho'
       pt_BR: 'Estado atual da tarefa'
       ru: 'Статус задания'
@@ -1567,12 +1602,14 @@ QubitTaxonomy:
       cy: 'Galwedigaethau actor'
       el: Ασχολίες
       en: 'Actor occupations'
+      es: 'Ocupaciones del actor'
       fr: 'activité de l''acteur'
       hr: 'Zanimanje stvaratelja'
       hu: 'Iratképző elfoglaltsága'
       id: 'Jabatan pelaku'
       it: 'Occupazioni dell''attore'
       ja: 主体者の職業
+      mk: 'Занимања на имателот'
       pt: 'Ocupações da pessoa'
       pt_BR: 'Ocupações da autoridade'
       sr: 'Занимања ствараоца'
@@ -1600,6 +1637,7 @@ QubitTaxonomy:
       cy: 'Math o ddynodwr gwahanol derbyn'
       el: 'Τύπος εναλλακτικού κωδικού εισαγωγής'
       en: 'Accession alternative identifier type'
+      es: 'Tipo de identificador alternativo del ingreso'
       fr: 'Type d''identifiant alternatif d''acquisition'
       hr: 'Vrsta alternativnog identifikatora akcesije'
       mk: 'Тип на алтернативен идентификатор за пристап'
@@ -1613,6 +1651,7 @@ QubitTaxonomy:
       bs: 'Vrsta događaja akcesije'
       cy: 'Math o ddigwyddiad derbyn'
       en: 'Accession event type'
+      es: 'Tipo de evento del ingreso'
       fr: 'Type d''événement d''acquisition'
       hr: 'Vrsta događaja akcesije'
       mk: 'Тип на настан за пристап'
@@ -1651,6 +1690,7 @@ QubitTerm:
       ja: 作成
       ka: შემოქმედება
       ko: 생성
+      mk: Креирање/создавање
       nl: Vervaardig
       pl: Utworzenie
       pt: Produção
@@ -1689,6 +1729,7 @@ QubitTerm:
       ja: 収蔵状況
       ka: 'დაცვა საცავში'
       ko: 보관권
+      mk: Чување
       nl: Beheer
       pl: Przechowywanie/kuratela
       pt: Custódia
@@ -1725,6 +1766,7 @@ QubitTerm:
       ja: 出版物
       ka: პუბლიკაცია
       ko: 출판
+      mk: Публикација
       nl: Publicatie
       pl: Publikacja
       pt: Publicação
@@ -1762,6 +1804,7 @@ QubitTerm:
       ja: 貢献
       ka: 'დახმარება, ხელშეწყობა'
       ko: 기여
+      mk: Придонес
       nl: Bijdrage
       pl: Współudział
       pt: Contribuição
@@ -1798,6 +1841,7 @@ QubitTerm:
       ja: コレクション
       ka: კოლექცია
       ko: 컬렉션
+      mk: Збирка
       nl: Collectie
       pl: Kolekcja
       pt: Coleção
@@ -1835,6 +1879,7 @@ QubitTerm:
       ja: 蓄積
       ka: აკუმულირება
       ko: 축적
+      mk: Акумулација/собирање
       pl: 'Nagromadzenie zasobu'
       pt: Acumulação
       pt_BR: Acumulação
@@ -1908,6 +1953,7 @@ QubitTerm:
       ja: 言語の注記
       ka: 'ენის შენიშვნა'
       ko: '언어 주기'
+      mk: 'Јазична белешка'
       nl: 'Taal aantekeningen'
       pt: 'Nota ao idioma'
       pt_BR: 'Nota de idioma'
@@ -1947,6 +1993,7 @@ QubitTerm:
       ja: 出版物の注記
       ka: 'პუბლიკაციის შენიშვნა'
       ko: 출판주기
+      mk: 'Забелешка за публикација'
       nl: 'Notitie Publicaties'
       pl: 'Informacja o publikacji'
       pt: 'Nota de publicação'
@@ -2064,6 +2111,7 @@ QubitTerm:
       ja: 表示の注記
       ka: 'შენიშვნის ჩვენება'
       ko: '주기 보여주기'
+      mk: 'Прикажи белешка'
       nl: Toon
       pt: 'Mostrar nota'
       pt_BR: 'Nota de exibição'
@@ -2099,6 +2147,7 @@ QubitTerm:
       ja: アーカイブズ資料
       ka: 'საარქივო მასალა'
       ko: '기록 재료'
+      mk: 'Архивски материјал'
       nl: 'Archivistisch materaal'
       pl: 'Materiał archiwalny'
       pt: 'Acervo arquivístico'
@@ -2137,6 +2186,7 @@ QubitTerm:
       ja: 出版資料
       ka: 'გამოქვეყნებული მასალა'
       ko: 출판물
+      mk: 'Публикуван архивски материјал'
       nl: 'Gepubliceerd materiaal'
       pl: 'Materiał opublikowany'
       pt: Publicações
@@ -2173,6 +2223,7 @@ QubitTerm:
       ja: モノ資料
       ka: 'ხელნაწერი მასალა'
       ko: '가공 자료'
+      mk: 'Материјал за артефакт'
       nl: 'Artefact materiaal'
       pl: 'materiał typu artefakt'
       pt: 'Material tridimensional'
@@ -2210,6 +2261,7 @@ QubitTerm:
       ja: 組織体
       ka: 'კორპორატიული ორგანო'
       ko: 법인
+      mk: 'Правно лице'
       nl: Instelling
       pt: 'Pessoa coletiva'
       pt_BR: 'Entidade coletiva'
@@ -2246,6 +2298,7 @@ QubitTerm:
       ja: 個人
       ka: პიროვნება
       ko: 개인
+      mk: 'Личност/Физичко лице'
       nl: Persoon
       pl: Osoba
       pt: 'Pessoa singular'
@@ -2284,6 +2337,7 @@ QubitTerm:
       ja: 家系
       ka: ოჯახი
       ko: 가족
+      mk: Семејство
       nl: Familie
       pt: Família
       pt_BR: Família
@@ -2321,6 +2375,7 @@ QubitTerm:
       ja: オーディオ
       ka: აუდიო
       ko: 오디오
+      mk: Аудио
       nl: Audio
       pl: Dźwiękowe/audio
       pt: Audio
@@ -2360,6 +2415,7 @@ QubitTerm:
       ja: イメージ
       ka: სურათი
       ko: 이미지
+      mk: Слика
       nl: Afbeelding
       pt: Imagem
       pt_BR: Imagem
@@ -2471,6 +2527,7 @@ QubitTerm:
       ja: 他の
       ka: სხვა
       ko: 기타
+      mk: Друго
       nl: Anders
       pt: Outro
       pt_BR: Outro
@@ -2508,6 +2565,7 @@ QubitTerm:
       ja: 外部URI
       ka: 'სივრცითი  URI'
       ko: '외부 URI'
+      mk: 'Надворешен URI'
       pt: 'URI externo'
       pt_BR: 'URI Externo'
       ru: 'Внешний URI'
@@ -2527,11 +2585,13 @@ QubitTerm:
       de: Offline
       de-CH: Offline
       en: Offline
+      es: 'Fuera de línea'
       fr: 'Hors ligne'
       hr: Neumreženo
       hu: 'Hálózat nélkül'
       id: Offline
       it: Offline
+      mk: Невмрежено
       pt: Offline
       pt_BR: Offline
       sr: Офлајн
@@ -2565,6 +2625,7 @@ QubitTerm:
       ja: マスター
       ka: მფლობელი
       ko: 마스터
+      mk: 'Главен/мастер документ'
       nl: Master
       pl: Nadrzędny
       pt: Matriz
@@ -2604,6 +2665,7 @@ QubitTerm:
       ja: レファレンス
       ka: 'რეკომენდირებული (დამოწმება)'
       ko: 참조
+      mk: Референца
       nl: Referentie
       pl: Sygnatura
       pt: Referência
@@ -2680,6 +2742,7 @@ QubitTerm:
       ja: 複合
       ka: ნაერთი
       ko: 합성하다
+      mk: Спој/Составено
       nl: Samengesteld
       pl: Składnik
       pt: Composto
@@ -2700,8 +2763,10 @@ QubitTerm:
       bs: 'Vanjski predmet/fajl'
       cy: 'Ffeil allanol'
       en: 'External file'
+      es: 'Archivo externo'
       fr: 'Fichier externe'
       hr: 'Vanjska datoteka'
+      mk: 'Надворешна датотека'
       pt: 'Ficheiro externo'
       pt_BR: 'Arquivo externo'
   QubitTerm_chapters_id:
@@ -2714,6 +2779,8 @@ QubitTerm:
       cy: Penodau
       en: Chapters
       fr: Chapîtres
+      hr: Poglavlja
+      mk: Поглавја
       pt_BR: Capítulos
   QubitTerm_subtitles_id:
     taxonomy_id: QubitTaxonomy_17
@@ -2725,6 +2792,7 @@ QubitTerm:
       cy: Capsiynau/Isdeitlau
       en: Captions/Subtitles
       fr: Légendes/Sous-titres
+      mk: Наслови/Поднаслови
       pt_BR: Legendas
   QubitTerm_error_note:
     taxonomy_id: QubitTaxonomy_7
@@ -2735,6 +2803,7 @@ QubitTerm:
       bs: 'Napomena o grešci posla'
       cy: 'Nodyn gwall tasg'
       en: 'Job error note'
+      mk: 'Забелешка за грешка во работата'
       pt_BR: 'Nota de erro da tarefa'
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
@@ -2767,6 +2836,7 @@ QubitTerm:
       ja: 所在
       ka: 'ადგილი, ადგილმდებარეობა'
       ko: '보관 위치'
+      mk: Локација
       nl: Lokatie
       pl: Lokalizacja
       pt: Localização
@@ -2805,6 +2875,7 @@ QubitTerm:
       ja: 保存ボックス
       ka: 'კონტეინერი ,სათავსი'
       ko: '보존 용기'
+      mk: Меморија
       nl: Verpakking
       pl: Zasobnik
       pt: 'Unidade de instalação'
@@ -2842,6 +2913,7 @@ QubitTerm:
       ja: モノ資料
       ka: არტეფაქტი
       ko: 가공물
+      mk: Артефакт
       nl: Artefact
       pl: Artefakt
       pt: 'Objeto tridimensional'
@@ -2899,11 +2971,13 @@ QubitTerm:
       cy: 'Cynnal lleoliad'
       el: 'Φορέας διατήρησης'
       en: 'Maintaining repository'
+      es: 'Mantenimiento del repositorio'
       fr: 'Entretien du dépôt'
       hr: 'Održavanje repozitorija'
       hu: 'Repozitórium fönntartása'
       id: 'Repositori pemeliharaan'
       it: 'Deposito che lo mantiene'
+      mk: 'Одржување на депото/репозиториумот'
       pt: 'Manutenção do repositório'
       pt_BR: 'Entidade custodiadora gestora'
       sr: 'Одржавање репозиторијума'
@@ -2938,6 +3012,7 @@ QubitTerm:
       ja: アーキビストの注記
       ka: 'არქივისტის შენიშვნა'
       ko: '아키비스트 주기'
+      mk: 'Белешка на архивистот'
       nl: 'Aantekeningen van de archivaris'
       pl: 'Uwaga archiwisty'
       pt: 'Nota do arquivista'
@@ -2975,6 +3050,7 @@ QubitTerm:
       ja: 他の記述のデータ
       ka: 'სხვა აღწერილობითი ვადა'
       ko: '그 외 기술 일자'
+      mk: 'Други описни податоци'
       nl: 'Andere beschrijvingsgegevens.'
       pt: 'Outros dados descritivos'
       pt_BR: 'Outro dado descritivo'
@@ -3014,6 +3090,7 @@ QubitTerm:
       ja: 一般の注記
       ka: 'ძირითადი შენიშვნა'
       ko: '일반 주기'
+      mk: 'Општа забелешка'
       nl: 'Algemene aantekening'
       pt: 'Nota geral'
       pt_BR: 'Nota geral'
@@ -3049,6 +3126,7 @@ QubitTerm:
       ja: 異なる表記
       ka: 'პარალელური ფორმა'
       ko: '병기 형식'
+      mk: 'Паралелна форма'
       nl: 'Parallelle naam'
       pt: 'Forma paralela'
       pt_BR: 'Forma paralela'
@@ -3085,6 +3163,7 @@ QubitTerm:
       ja: 他のフォーム
       ka: 'სხვა ფორმა'
       ko: '다른 형식'
+      mk: 'Друга форма'
       nl: 'Andere naam'
       pt: 'Outra forma'
       pt_BR: 'Outra forma'
@@ -3403,6 +3482,7 @@ QubitTerm:
       id: 'Istilah berlawanan'
       it: 'Termine opposto'
       ko: '반대 용어'
+      mk: 'Обратен израз'
       pt: 'Converter termo'
       pt_BR: 'Antônimo relacional'
       sl: 'Nasproten izraz'
@@ -3479,6 +3559,7 @@ QubitTerm:
       ja: 下書き
       ka: დრაფტი
       ko: 초안
+      mk: Нацрт
       nl: Concept
       pl: Szkic
       pt: Preliminar
@@ -3522,6 +3603,7 @@ QubitTerm:
       ja: 公表
       ka: გამოქვეყნებული
       ko: 출판된
+      mk: Објавено
       nl: Gepubliceerd
       pl: Opublikowano
       pt: Publicado
@@ -3559,6 +3641,7 @@ QubitTerm:
       ja: メンテナンス注記
       ka: 'მომსახურე, დამხმარე შენიშვნა'
       ko: '유지 주기'
+      mk: 'Забелешка за одржување'
       nl: Onderhoudsaantekening
       pt: 'Nota de manutenção'
       pt_BR: 'Nota de manutenção'
@@ -3588,7 +3671,7 @@ QubitTerm:
       fa: 'دسترسي از طريق نام'
       fr: 'mots-clés - noms'
       gl: 'Puntos de acceso por autoridade'
-      hr: 'pristupnice imena'
+      hr: 'pristupne točke imena'
       hu: 'név kapcsolódási pontok'
       id: 'Akses Point ''Nama'''
       is: nöfn
@@ -3631,6 +3714,7 @@ QubitTerm:
       it: Incremento
       ja: 追加受入
       ko: '추가 이관'
+      mk: Дополна
       pt: Incorporações
       pt_BR: Incorporação
       sl: 'Dopolnjevanje fondov'
@@ -3747,6 +3831,7 @@ QubitTerm:
       ja: 寄贈者
       ka: დონორი
       ko: 기증자
+      mk: Донатор
       nl: Schenker
       pt: Doador
       pt_BR: Doador
@@ -3780,6 +3865,7 @@ QubitTerm:
       it: 'Descrizioni dei materiali collegati'
       ja: 関連資料の記述
       ko: '관련 자료 기술'
+      mk: 'Описи на поврзани архивски материјали'
       pt: 'Descrições de material relacionado'
       pt_BR: 'Descrições de materiais relacionados'
       sl: 'Elementi povezanih popisov'
@@ -3958,6 +4044,7 @@ QubitTerm:
       ja: 著作権
       ka: 'საავტორო უფლება'
       ko: 저작권
+      mk: 'Авторско право'
       nl: Copyright
       pl: 'Prawa autorskie'
       pt: 'Direitos de autor'
@@ -3998,6 +4085,7 @@ QubitTerm:
       ja: ライセンス
       ka: ლიცენზია
       ko: 라이센스
+      mk: Лиценца
       nl: Licentie
       pt: Licença
       pt_BR: Licença
@@ -4070,6 +4158,7 @@ QubitTerm:
       ja: ポリシー
       ka: პოლისი
       ko: 정책
+      mk: Правила
       nl: Beleid
       pt: Política
       pt_BR: Política
@@ -4129,6 +4218,7 @@ QubitTerm:
       it: 'Elemento dell''oggetto d''arte'
       ja: 芸術作品の構成要素
       ko: '작품 구성'
+      mk: 'Компонента на уметничко дело'
       pt: 'Componente da obra de arte'
       pt_BR: 'Componente da obra de arte'
       sl: 'Komponenta umetnine'
@@ -4158,6 +4248,7 @@ QubitTerm:
       it: 'Materiale dell''oggetto d''arte'
       ja: 芸術作品の素材
       ko: '작품 자료'
+      mk: 'Материјал за уметнички дела'
       pt: 'Material da obra de arte'
       pt_BR: 'Material da obra de arte'
       sl: 'Umetniško gradivo'
@@ -4245,6 +4336,7 @@ QubitTerm:
       hu: Folyamatban
       id: 'Sedang dalam proses'
       it: 'In corso'
+      mk: 'Во тек е'
       pt: 'Em progresso'
       pt_BR: 'Em progresso'
       sr: 'У току'
@@ -4268,6 +4360,7 @@ QubitTerm:
       id: Selesai
       it: Completato
       ja: 完了
+      mk: Завршено
       pt: Completo
       pt_BR: Completo
       sr: Завршено
@@ -4295,6 +4388,7 @@ QubitTerm:
       hu: Hiba
       id: Error
       it: Errore
+      mk: Грешка
       pt: Erro
       pt_BR: Erro
       sr: Грешка
@@ -4311,12 +4405,14 @@ QubitTerm:
       cy: 'Nodyn galwediageth actor'
       el: Σημειώσεις
       en: 'Actor occupation note'
+      es: 'Nota de ocupación del actor'
       fr: 'Note sur l''activité de l''acteur'
       hr: 'Napomena uz zanimanje stvaratelja'
       hu: 'Iratképző elfoglaltságához tartozó jegyzet'
       id: 'Catatan jabatan pelaku'
       it: 'Nota sull''occupazione dell''attore'
       ja: 主体者の職業に関する注記
+      mk: 'Белешка за занимање на имателот'
       pt: 'Nota sobre ocupação da pessoa'
       pt_BR: 'Nota de ocupação da autoridade'
       sr: 'Напомена о занимању ствараоца'
@@ -4351,6 +4447,7 @@ QubitTerm:
       ja: 作成
       ka: შემოქმედება
       ko: 생성
+      mk: Креирање/создавање
       nl: Vervaardig
       pl: Utworzenie
       pt: Produção
@@ -4373,9 +4470,11 @@ QubitTerm:
       bs: Promjena
       cy: Addasiad
       en: Modification
+      es: Modificación
       fr: Modification
       hr: Promjena
       id: Pengubahan
+      mk: Модификација
       pt: Modificação
       pt_BR: Modificação
       sr: Промена
@@ -4389,6 +4488,7 @@ QubitTerm:
       bs: 'Pristupni alternativni identifikator'
       cy: 'Dynodwr gwahanol derbyn'
       en: 'Accession alternative identifier'
+      es: 'Identificador alternativo del ingreso'
       fr: 'Identifiant alternatif d''acquisition'
       hr: 'Alternativni identifikator akcesije'
       mk: 'Алтернативен идентификатор за пристап'
@@ -4405,6 +4505,7 @@ QubitTerm:
       en: 'Physical transfer'
       fr: 'Transfert physique'
       hr: 'Fizički prijenos'
+      mk: 'Физички пренос'
       pt_BR: 'Transferência física'
   QubitTerm_accession_event_note:
     id: 194
@@ -4415,6 +4516,7 @@ QubitTerm:
       bs: 'Napomena uz događaj akcesije'
       cy: 'Nodyn digwyddiad derbyn'
       en: 'Accession event note'
+      es: 'Nota de evento del ingreso'
       fr: 'Note d''événement d''acquisition'
       hr: 'Napomena uz događaj akcesije'
       mk: 'Белешка за настан за пристапување'
@@ -5015,6 +5117,7 @@ QubitTerm:
       ja: 寄贈者
       ka: დონორი
       ko: 기증자
+      mk: Донатор
       nl: Schenker
       pt: Doador
       pt_BR: Doador
@@ -5050,6 +5153,7 @@ QubitTerm:
       ja: 複製
       ka: რეპროდუქცია
       ko: 복사
+      mk: Репродукција
       nl: Reproduktie
       pt: Reprodução
       pt_BR: Reprodução
@@ -5084,6 +5188,7 @@ QubitTerm:
       ja: 頒布
       ka: დისტრიბუცია
       ko: 배포
+      mk: Дистрибуција
       nl: Distribueren
       pt: Distribuição
       pt_BR: Distribuição
@@ -5115,6 +5220,7 @@ QubitTerm:
       ja: 放送
       ka: 'მაუწყებლობა , რადიომაუწყებლობა'
       ko: 방송
+      mk: Емитување
       pl: Rozgłaszanie/nadawanie
       pt: Radiodifusão
       pt_BR: Emissão
@@ -5147,6 +5253,7 @@ QubitTerm:
       ja: 製作する
       ka: 'კეთება, დამუშავება'
       ko: 제조
+      mk: Производство
       pt: Fabricação
       pt_BR: Produção
       ru: Производство
@@ -5181,6 +5288,7 @@ QubitTerm:
       ja: ボックス
       ka: ყუთი
       ko: 상자
+      mk: Кутија
       nl: Doos
       pl: Pudełko
       pt: Caixa
@@ -5216,6 +5324,7 @@ QubitTerm:
       ja: ダンボール箱
       ka: 'კარდონის, მუყაოს ყუთი'
       ko: '종이 상자'
+      mk: 'Картонска кутија'
       nl: Kaartenbak
       pl: 'Pudło tekturowe'
       pt: 'Caixa de papelão'
@@ -5250,6 +5359,7 @@ QubitTerm:
       ja: 保存箱
       ka: 'საარქივო მასალებისთვის'
       ko: 'Hollinger 박스'
+      mk: 'Arhivska кутија'
       nl: Ponskaartendoos
       pt: 'Caixa Hollinger'
       pt_BR: 'Caixa de arquivo'
@@ -5283,6 +5393,7 @@ QubitTerm:
       ja: フォルダー
       ka: ფოლდერი
       ko: 철
+      mk: Папка
       nl: Map
       pt: Pasta
       pt_BR: Pasta
@@ -5317,6 +5428,7 @@ QubitTerm:
       ja: ファイリングキャビネット
       ka: კარადა
       ko: '파일 캐비닛'
+      mk: Картотека
       nl: Dossierkast
       pt: Armário
       pt_BR: 'Armário de arquivo'
@@ -5350,6 +5462,7 @@ QubitTerm:
       ja: 地図のキャビネット
       ka: კარადა
       ko: '지도 캐비닛'
+      mk: 'Ормар за картотека'
       nl: Kaartenkast
       pt: Mapoteca
       pt_BR: Mapoteca
@@ -5383,6 +5496,7 @@ QubitTerm:
       ja: シェルフ
       ka: თარო
       ko: 선반
+      mk: Полица
       nl: Plank
       pl: Półka
       pt: Prateleira
@@ -5420,6 +5534,7 @@ QubitTerm:
       ja: 最終
       ka: ბოლო
       ko: 최종
+      mk: Конечен
       nl: Finale
       pt: Final
       pt_BR: Final
@@ -5497,6 +5612,7 @@ QubitTerm:
       ja: 下書き
       ka: დრაფტი
       ko: 초안
+      mk: Нацрт
       nl: Concept
       pl: Szkic
       pt: Preliminar
@@ -5535,6 +5651,7 @@ QubitTerm:
       ja: 完結
       ka: სრული
       ko: 전체
+      mk: Целосно
       nl: Geheel
       pt: Máximo
       pt_BR: Completo
@@ -5570,6 +5687,7 @@ QubitTerm:
       ja: 部分的
       ka: ნაწილობრივი
       ko: 일부의
+      mk: Делумно
       nl: Gedeeltelijk
       pt: Parcial
       pt_BR: Parcial
@@ -5606,6 +5724,7 @@ QubitTerm:
       ja: 最低限
       ka: მინიმალი
       ko: 최소한의
+      mk: Минимална
       nl: Minimaal
       pt: Mínimo
       pt_BR: Mínimo
@@ -5642,6 +5761,7 @@ QubitTerm:
       ja: フォンド
       ka: ფონდები
       ko: 퐁
+      mk: Фондови
       nl: Archief
       pl: Zespoły
       pt: Arquivo
@@ -5681,7 +5801,7 @@ QubitTerm:
       ko: '하위 퐁'
       nl: Deelarchief
       pt: Subarquivo
-      pt_BR: Subfundos
+      pt_BR: Seção
       ro: Subfonduri
       sl: Podfondi
       sr: Подфонд
@@ -5715,6 +5835,7 @@ QubitTerm:
       ja: コレクション
       ka: კოლექცია
       ko: 컬렉션
+      mk: Збирка
       nl: Collectie
       pl: Kolekcja
       pt: Coleção
@@ -5751,6 +5872,7 @@ QubitTerm:
       ja: シリーズ
       ka: სერიები
       ko: '기록 시리즈'
+      mk: Серии
       nl: Reeks
       pt: Série
       pt_BR: Séries
@@ -5823,6 +5945,7 @@ QubitTerm:
       ja: ファイル
       ka: 'ფაილი, საქმე'
       ko: 파일
+      mk: Датотека/досие
       nl: Bestanddeel
       pt: Documento
       pt_BR: Dossiê
@@ -5863,6 +5986,7 @@ QubitTerm:
       ja: アイテム
       ka: პუნქტი
       ko: 건
+      mk: Предмет/единица
       nl: Stuk
       pt: Item
       pt_BR: Item
@@ -5899,6 +6023,7 @@ QubitTerm:
       ja: 情報オブジェクト
       ka: 'საინფორმაციო ობიექტი'
       ko: '정보 객체'
+      mk: 'Информациски објект'
       nl: 'Informatie object'
       pt: 'Objeto informacional'
       pt_BR: 'Descrição arquivística'
@@ -5934,6 +6059,7 @@ QubitTerm:
       ja: 個人/機関
       ka: პიროვნება/ორგანიზაცია
       ko: 개인/기관
+      mk: Лице/организација
       nl: Persoon/organisatie
       pt: Pessoa/organização
       pt_BR: Pessoa/organização
@@ -5974,6 +6100,7 @@ QubitTerm:
       ja: 作成者
       ka: შემოქმედი
       ko: 생산자
+      mk: 'Создавач на архивски материјал'
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
@@ -6017,6 +6144,7 @@ QubitTerm:
       ja: リポジトリ
       ka: საცავი
       ko: 기록보존소
+      mk: Депо
       nl: archiefbewaarplaats
       pl: Repozytorium
       pt: 'Entidade detentora'
@@ -6133,6 +6261,7 @@ QubitTerm:
       ja: コレクション
       ka: კოლექცია
       ko: 컬렉션
+      mk: Збирка
       nl: Collectie
       pl: Kolekcja
       pt: Coleção
@@ -6175,6 +6304,7 @@ QubitTerm:
       ja: 所蔵
       ka: ანაბრები
       ko: 소장물
+      mk: Амбалажа
       nl: Bestanden
       pl: 'Zasoby posiadane'
       pt: 'Acervos documentais'
@@ -6212,6 +6342,7 @@ QubitTerm:
       ja: アーカイブズ記述
       ka: 'საარქივო აღწერა'
       ko: '기록물 기술'
+      mk: 'Архивски опис'
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
@@ -6250,6 +6381,7 @@ QubitTerm:
       ja: 典拠レコード
       ka: 'ავტორიტეტული ჩანაწერი'
       ko: 전거레코드
+      mk: 'Нормативен запис'
       nl: 'Geauthoriseerde beschrijving'
       pl: 'Hasło wzorcowe'
       pt: 'Registo de autoridade'
@@ -6286,6 +6418,7 @@ QubitTerm:
       ja: フォンド
       ka: ფონდები
       ko: 퐁
+      mk: Фондови
       nl: Archief
       pl: Zespoły
       pt: Arquivo
@@ -6324,6 +6457,7 @@ QubitTerm:
       ja: アーカイブズ機関
       ka: 'საარქივო ინსტიტუცია'
       ko: 기록보존소
+      mk: 'Архивска институција'
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
@@ -6361,6 +6495,7 @@ QubitTerm:
       ja: 国際的
       ka: საერთაშორისო
       ko: 국제적인
+      mk: Меѓународен
       nl: Internationaal
       pt: Internacional
       pt_BR: Internacional
@@ -6395,6 +6530,7 @@ QubitTerm:
       ja: 国家の
       ka: ეროვნული
       ko: 국가적인
+      mk: национално
       nl: Nationaal
       pt: Nacional
       pt_BR: Nacional
@@ -6431,6 +6567,7 @@ QubitTerm:
       ja: 地域の
       ka: 'რეგიონული (რეგიონალური)'
       ko: 지역의
+      mk: Регионални
       nl: Regionaal
       pl: Regionalny
       pt: Regional
@@ -6466,6 +6603,7 @@ QubitTerm:
       ja: 県/州
       ka: 'პროვინცია/ შტატი'
       ko: 지방/주
+      mk: 'Покраински/државен (Локална самоуправа/државен)'
       nl: Provinciaal
       pl: Lokalny/krajowy
       pt: Distrito
@@ -6503,6 +6641,7 @@ QubitTerm:
       ja: コミュニティ
       ka: საზოგადოება
       ko: 커뮤니티
+      mk: Заедница
       nl: Gemeenschap
       pl: Społeczność
       pt: Comunidade
@@ -6539,6 +6678,7 @@ QubitTerm:
       ja: 宗教的な
       ka: 'რელიგიური, სარწმუნოებრივი'
       ko: 종교적인
+      mk: Религиозни
       nl: Religie
       pt: Religioso
       pt_BR: Religioso
@@ -6610,6 +6750,7 @@ QubitTerm:
       ja: 市町村の
       ka: 'მინიციპალური, საქალაქო'
       ko: 지방자치제의
+      mk: Општински
       nl: Gemeentelijk
       pt: Municipal
       pt_BR: Municipal
@@ -6644,6 +6785,7 @@ QubitTerm:
       ja: 元からの
       ka: ადგილობრივი
       ko: 원주민의
+      mk: староседелски
       pl: Autochton
       pt: Indígena
       pt_BR: Indígena
@@ -6678,6 +6820,7 @@ QubitTerm:
       ja: 教育上の
       ka: საგანმანათლებლო
       ko: 교육적인
+      mk: Образовни
       pt: Escolar
       pt_BR: Educacional
       sl: Izobraževalen
@@ -6712,6 +6855,7 @@ QubitTerm:
       ja: 医療の
       ka: სამედიცინო
       ko: 의학의
+      mk: Медицински
       nl: Medisch
       pt: Médico
       pt_BR: Médico
@@ -6748,6 +6892,7 @@ QubitTerm:
       ja: 軍事の
       ka: სამხედრო
       ko: 군대
+      mk: Воена
       nl: Militair
       pl: Militarny
       pt: 'Forças Armadas'
@@ -6785,6 +6930,7 @@ QubitTerm:
       ja: 個人的な
       ka: პირადი
       ko: 사적
+      mk: Приватен
       nl: Privaat
       pl: Prywatny
       pt: Privado
@@ -6826,6 +6972,7 @@ QubitTerm:
       ja: 場所
       ka: ადგილი
       ko: 장소
+      mk: Место
       nl: Plaats
       pl: Miejsce
       pt: Local
@@ -6870,6 +7017,7 @@ QubitTerm:
       ja: 名称
       ka: სახელი
       ko: 이름
+      mk: Име
       nl: Naam
       pl: Nazwa
       pt: Nome
@@ -6909,6 +7057,7 @@ QubitTerm:
       ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტი'
       ko: 디지털
+      mk: 'Дигитален објект'
       nl: 'Digitaal object'
       pl: 'Obiekt cyfrowy'
       pt: 'Objeto digital'
@@ -6945,6 +7094,7 @@ QubitTerm:
       ja: 物理的オブジェクト
       ka: 'ფიზიკური ობიექტი'
       ko: '물리적 객체'
+      mk: 'Физички објект'
       nl: 'fysiek object'
       pt: 'Objeto tridimensional'
       pt_BR: 'Objeto físico'
@@ -6984,6 +7134,7 @@ QubitTerm:
       ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
+      mk: 'Физичко складирање/депо'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
@@ -7026,6 +7177,7 @@ QubitTerm:
       ja: メディア種別
       ka: 'მედია ტიპი'
       ko: '미디어 유형'
+      mk: 'Тип на медиум'
       nl: mediatype
       pl: 'Typ medium'
       pt: 'Tipo de suporte'
@@ -7062,6 +7214,7 @@ QubitTerm:
       ja: 'Information Management Toolkitを開く'
       ka: 'გახსენით ინფორმაციის მენეჯმენტის კომპლექტი'
       ko: '공개 정보 관리 툴킷'
+      mk: 'Отворете ја алатката за управување со информации'
       nl: 'Open Information Management Toolkit'
       pt: 'Ferramenta aberta de gestão de informação'
       pt_BR: 'Ferramentas de Gerenciamento Aberto da Informação'
@@ -7096,6 +7249,7 @@ QubitTerm:
       ja: 保存の注記
       ka: 'კონსერვაციის შენიშვნა'
       ko: '보존 처리 주기(note)'
+      mk: 'Конзерваторска белешка'
       nl: 'Opmerkingen conservering'
       pl: 'Nota konserwatorska'
       pt: 'Nota de conservação'
@@ -7131,6 +7285,7 @@ QubitTerm:
       ja: 建築図面
       ka: 'არქიტექტურული ნახაზები'
       ko: '건축 설계도'
+      mk: 'Архитектонски цртеж'
       nl: 'Bouwkundige tekening'
       pl: 'Rysunki architektoniczne - projekty'
       pt: 'Desenho arquitetónico'
@@ -7167,6 +7322,7 @@ QubitTerm:
       ja: 地図資料
       ka: 'კარტოგრაფიული მასალები'
       ko: '지도 자료'
+      mk: 'Картографски материјал'
       nl: 'Kartografisch materiaal'
       pl: 'Materia kartograficzny'
       pt: 'Material cartográfico'
@@ -7204,6 +7360,7 @@ QubitTerm:
       ja: グラフィック資料
       ka: 'გრაფიკული მასალა'
       ko: '그래픽 자료'
+      mk: 'Графички материјал'
       nl: 'Grafisch materiaal'
       pt: 'Material gráfico'
       pt_BR: 'Material gráfico'
@@ -7239,6 +7396,7 @@ QubitTerm:
       ja: 動画
       ka: 'სურათების გადმოტანა'
       ko: 동영상
+      mk: 'Подвижни слики'
       nl: 'Bewegend beeld'
       pt: 'Imagens em movimento'
       pt_BR: 'Imagens em movimento'
@@ -7273,6 +7431,7 @@ QubitTerm:
       ja: マルチメディア
       ka: 'მრავალრიცხოვანი, მრავალჯერადი მედია'
       ko: '다중 매체'
+      mk: 'Повеќеструки медиуми'
       pl: 'Medium wielokrotne'
       pt: 'Múltiplos suportes'
       pt_BR: 'Múltiplas mídias'
@@ -7310,6 +7469,7 @@ QubitTerm:
       ja: オブジェクト
       ka: ობიექტი
       ko: 객체
+      mk: Објект
       pl: Obiekt
       pt: Objeto
       pt_BR: Objeto
@@ -7346,6 +7506,7 @@ QubitTerm:
       ja: 切手コレクション記録
       ka: 'ფილატელისტური (კოლექციონერული) ჩანაწერი'
       ko: '우표 기록'
+      mk: 'Филателистички рекорд'
       pt: 'Documento filatélico'
       pt_BR: 'Documento filatélico'
       ro: 'Inregistrare filatelica'
@@ -7488,6 +7649,7 @@ QubitTerm:
       ja: 版次
       ka: 'გამოცემა, გამოშვება'
       ko: 판
+      mk: Издание
       pl: Wydanie/edycja
       pt: Edição
       pt_BR: Edição
@@ -7525,6 +7687,7 @@ QubitTerm:
       ja: 物理的記述
       ka: 'ფიზიკური აღწერა'
       ko: '물리적 기술'
+      mk: 'Физички опис'
       nl: 'Fysieke beschrijving'
       pl: 'Opis fizyczny'
       pt: 'Descrição física'
@@ -7561,6 +7724,7 @@ QubitTerm:
       ja: 保存
       ka: კონსერვაცია
       ko: '보존 처리'
+      mk: Конзервација
       nl: Conservering
       pl: Konserwacja
       pt: Conservação
@@ -7595,6 +7759,7 @@ QubitTerm:
       ja: 付属資料
       ka: 'თანდართული მასალები'
       ko: '첨부 자료'
+      mk: 'Придружен материјал'
       nl: 'Begeleidend materiaal'
       pl: 'Materiał towarzyszący'
       pt: 'Material acompanhante'
@@ -7629,6 +7794,7 @@ QubitTerm:
       ja: 出版社のシリーズ
       ka: 'გამომცემელთა სერია'
       ko: '출판자 시리즈'
+      mk: 'Издавачки серии'
       pl: 'Seria wydawnicza'
       pt: 'Editores das publicações'
       pt_BR: 'Publicações do editor'
@@ -7663,6 +7829,7 @@ QubitTerm:
       ja: 文字-数字の指定
       ka: 'ანბანური ან ციფრობრივი აღნიშვნა'
       ko: '라틴문자-아라비아숫자 지정'
+      mk: 'Алфа-нумерички ознаки'
       pl: 'Oznaczenia alfanumeryczne'
       pt: 'Designações alfanuméricas'
       pt_BR: 'Designações alfanuméricas'
@@ -7803,6 +7970,7 @@ QubitTerm:
       ja: 併記されるタイトルと他のタイトル情報
       ka: 'პარალელური სათაურები და სხვა სათაურის ინფორმაცია'
       ko: '대등 표제 및 그 외 표제 정보'
+      mk: 'Паралелни наслови и други информации за насловите'
       nl: 'Parallelle titels en andere titelgegevens'
       pt: 'Títulos paralelos e outra informação do título'
       pt_BR: 'Títulos paralelos e outra informação do título'
@@ -7837,6 +8005,7 @@ QubitTerm:
       ja: タイトルの連続性
       ka: 'სათაურის გაგრძელება, განახლება'
       ko: '제목의 연속'
+      mk: 'Продолжување на насловот'
       nl: 'Vervolg van de titel'
       pl: 'Kontynuacja tytułu'
       pt: 'Continuação do título'
@@ -7904,6 +8073,7 @@ QubitTerm:
       ja: 帰属と推測
       ka: აბრევიატურები
       ko: '권한들과 추측'
+      mk: 'Атрибути и претпоставки'
       nl: 'Toeschrijvingen en gissingen'
       pl: 'Przypisania i domysły'
       pt: 'Atribuições e conjeturas'
@@ -7939,6 +8109,7 @@ QubitTerm:
       ja: 一部
       ka: ნაწილი
       ko: 부분
+      mk: Дел
       nl: Deel
       pl: Część
       pt: Parte
@@ -8343,6 +8514,7 @@ QubitTerm:
       ja: コレクション
       ka: კოლექცია
       ko: 컬렉션
+      mk: Збирка
       nl: Collectie
       pl: Kolekcja
       pt: Coleção
@@ -8760,6 +8932,7 @@ QubitTerm:
       ja: 機能
       ka: ფუნქცია
       ko: 기능
+      mk: Функција
       nl: Functie
       pl: Funkcja
       pt: Função
@@ -8830,6 +9003,7 @@ QubitTerm:
       ja: 業務過程
       ka: 'საქმიანი პროცესი'
       ko: '업무 과정'
+      mk: 'Деловен процес'
       nl: Bedrijfsproces
       pl: 'Działalność gospodarcza'
       pt: 'Processo de negócio'
@@ -8865,6 +9039,7 @@ QubitTerm:
       ja: 活動
       ka: აქტიურობა
       ko: 활동
+      mk: Активност
       nl: Activiteit
       pl: Aktywność
       pt: Atividade
@@ -8973,6 +9148,7 @@ QubitTerm:
       ja: 公共移転
       ka: 'საჯარო ტრანსფერი'
       ko: '공공 이관'
+      mk: 'Јавен пренос'
       pl: 'Przekazanie publiczne'
       pt: 'Transferência pública'
       pt_BR: 'Transferência pública'
@@ -9009,6 +9185,7 @@ QubitTerm:
       ja: 個人的な移転
       ka: 'პირადი ტრანსფერი'
       ko: '사적 이관'
+      mk: 'Приватен трансфер/пренос'
       pl: 'Transfer prywatny'
       pt: 'Transferência privada'
       pt_BR: 'Transferência privada'
@@ -9043,6 +9220,7 @@ QubitTerm:
       ja: 寄託
       ka: დეპოზიტი
       ko: 위탁
+      mk: Депозит/архивирање
       nl: Deponeer
       pl: Depozyt
       pt: Depósito
@@ -9080,6 +9258,7 @@ QubitTerm:
       ja: 寄贈
       ka: საჩუქარი
       ko: 선물
+      mk: Подарок
       nl: schenking
       pt: Oferta
       pt_BR: Doação
@@ -9115,6 +9294,7 @@ QubitTerm:
       ja: 購入する
       ka: 'ყიდვა ,შესყიდვა'
       ko: 구매
+      mk: Купување
       nl: Aankoop
       pl: Zakup
       pt: Aquisição
@@ -9187,6 +9367,7 @@ QubitTerm:
       ja: 上位
       ka: მაღალი
       ko: 높은
+      mk: Високо
       nl: Hoog
       pt: Alta
       pt_BR: Alta
@@ -9220,6 +9401,7 @@ QubitTerm:
       ja: 媒体
       ka: საშუალო
       ko: 매체
+      mk: Средно
       nl: Drager
       pl: Nośnik
       pt: Média
@@ -9258,6 +9440,7 @@ QubitTerm:
       ja: 低い
       ka: ნელა
       ko: 하위
+      mk: Ниско
       nl: Laag
       pt: Baixa
       pt_BR: Baixo
@@ -9295,6 +9478,7 @@ QubitTerm:
       ja: 完成する
       ka: მთლიანი
       ko: 완성하다
+      mk: Заврши
       nl: Volledig
       pl: Ukończony
       pt: Completo
@@ -9331,6 +9515,7 @@ QubitTerm:
       ja: 不完全
       ka: 'არასრული, ნაკლული'
       ko: 불충분한
+      mk: Нецелосно
       nl: Onvolledig
       pt: Incompleto
       pt_BR: Incompleto
@@ -9363,6 +9548,7 @@ QubitTerm:
       it: 'In corso'
       ka: პროგრესში
       ko: '진행 중'
+      mk: 'Во тек'
       pt: 'Em progresso'
       pt_BR: Processando
       ro: Avansare
@@ -9431,6 +9617,7 @@ QubitTerm:
       ja: 一部
       ka: ნაწილი
       ko: 부분
+      mk: Дел
       nl: Deel
       pl: Część
       pt: Parte
@@ -9474,6 +9661,7 @@ QubitTerm:
       ja: 削除
       ka: წაშლა
       ko: 삭제
+      mk: Избриши
       nl: Verwijderen
       pl: Usuń
       pt: Apagar
@@ -9512,6 +9700,7 @@ QubitTerm:
       ja: 発見する
       ka: აღმოჩენა
       ko: 발견하기
+      mk: Откријте
       pt: Explorar
       pt_BR: Explorar
       ro: Descopera
@@ -9546,6 +9735,7 @@ QubitTerm:
       ja: 表示する
       ka: ჩვენება
       ko: 보여주기
+      mk: Приказ
       nl: Toon
       pt: Mostrar
       pt_BR: Exibir
@@ -9580,6 +9770,7 @@ QubitTerm:
       ja: 普及させる
       ka: გაფანტვა
       ko: 배포하다
+      mk: Рашири
       nl: Verspreiden
       pt: Difundir
       pt_BR: Disseminar
@@ -9614,6 +9805,7 @@ QubitTerm:
       ja: マイグレーション
       ka: მიგრირება
       ko: 옮기다
+      mk: Мигрирање
       nl: Migreren
       pl: Migruj
       pt: Migrar
@@ -9650,6 +9842,7 @@ QubitTerm:
       ja: 改変する
       ka: 'სახეცვლილება , სახის შეცვლა'
       ko: 수정하다
+      mk: Измени
       nl: Wijzig
       pl: Modyfikuj
       pt: Modificar
@@ -9685,6 +9878,7 @@ QubitTerm:
       ja: 複製する
       ka: 'გამეორება , ასლიას გადაგება'
       ko: 복제
+      mk: Копирај
       pt: Replicar
       pt_BR: Replicar
       ro: Replicare
@@ -9753,6 +9947,7 @@ QubitTerm:
       ja: パブリックドメイン
       ka: 'სახალხო ადგილი'
       ko: '공공 도메인'
+      mk: 'Јавен домен'
       nl: 'Publiek domein'
       pl: 'Dobro publiczne'
       pt: 'Domínio público'
@@ -9836,6 +10031,7 @@ QubitTerm:
       it: 'ISAD(G), 2nd ed. International Council on Archives'
       ka: 'ISAD(G), 2nd ed. საერთაშორისო საბჭო(ორგანიზაცია) არქივების'
       ko: 'ISAD(G), 2판. ICA 국제기술규칙'
+      mk: 'ISAD(G), Општ меѓународен стандард за опис на архивски материјал, 2-ро изд. Меѓународен архивски совет'
       pl: 'ISAD(G), II.ed. Międzynarodowa Rada Archiwów'
       pt: 'ISAD(G), 2ª ed. Conselho Internacional de Arquivos'
       pt_BR: 'ISAD(G), Conselho Internacional de Arquivos, 2. ed'
@@ -9873,6 +10069,7 @@ QubitTerm:
       ja: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       ka: 'დაბლინ კორ მეტამონაცემების ელემენტთა სიმრავლე, ვერსია 1.1 ის ინიციატივა'
       ko: '더블린코어(Dublin Core) 1.1판. 더블린코어 메타데이터 이니시에이티브(DCMI)'
+      mk: 'Dublin Core, Version 1.1. Dublin Core Metadata иницијатива'
       pl: 'Dublin Core, Wersja 1.1. Dublin Core Metadata Initiative'
       pt: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
       pt_BR: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
@@ -9910,6 +10107,7 @@ QubitTerm:
       it: 'MODS, Version 3.3. U.S. Library of Congress'
       ka: 'MODS, ვერსია 3.3 ა.შ.შ-ს კონგრესის ბიბლიოთეკა'
       ko: 'MODS, 3.3판. 미국 의회도서관'
+      mk: 'MODS, верзија 3.3. Библиотека на Конгресот на САД (U.S. Library of Congress)'
       pl: 'MODS, Wersja 3.3. U.S. Biblioteka Kongresu'
       pt: 'MODS, Versão 3.3. U.S. da Biblioteca do Congresso'
       pt_BR: 'MODS, Versão 3.3. U.S. Library of Congress'
@@ -9948,6 +10146,7 @@ QubitTerm:
       it: 'RAD, July 2008 version. Canadian Council of Archives'
       ka: 'RAD 2008 წლის ვერსია'
       ko: 'RAD(보존기록기술규칙), 2008년 7월판. 캐나다 아카이브즈협회(CCA)'
+      mk: 'RAD, верзија јули 2008 година. Канадскиот совет на архиви'
       pl: 'RAD, wersja luty 2008. Kanadyjska Rada Archiwów'
       pt: 'RAD, versão Julho 2008. Conselho Canadiano de Arquivos'
       pt_BR: 'RAD, versão jul. 2008. Conselho de Arquivos Canadenses'
@@ -9983,6 +10182,7 @@ QubitTerm:
       is: 'DACS, 2. út. Society of American Archivists'
       it: 'DACS, 2nd ed. Society of American Archivists'
       ko: '보존 기록 기술 규칙 제 2 판. 미국 아키비스트 협회'
+      mk: 'DACS, 2-ро издание. Друштво на американски архивисти'
       pt: 'DACS, 2 ª ed. Sociedade Americana de Arquivistas'
       pt_BR: 'DACS, 2ª ed. Society of American Archivists'
       ru: 'DACS, 2-е издание. Ассоциация Американских Архивистов'
@@ -10011,6 +10211,7 @@ QubitTerm:
       is: Frumbyggjar
       it: Aborigeni
       ko: 원주민
+      mk: 'Абориџински народ'
       pt: 'Povos Indígenas'
       pt_BR: 'Povos Indígenas'
       sl: 'Staroselski prebivalci'
@@ -10041,6 +10242,7 @@ QubitTerm:
       it: Agricoltura
       ja: 農業
       ko: 농업
+      mk: Земјоделство
       pt: Agricultura
       pt_BR: Agricultura
       ru: 'Сельское хозяйство'
@@ -10072,6 +10274,7 @@ QubitTerm:
       it: 'Arte e cultura'
       ja: 芸術と文化
       ko: '예술 및 문화'
+      mk: 'Уметност и култура'
       pt: 'Artes e Cultura'
       pt_BR: 'Artes e Cultura'
       ru: 'Искусство и Культура'
@@ -10103,6 +10306,7 @@ QubitTerm:
       is: Samskipti
       it: Comunicazione
       ko: 소통
+      mk: Комуникација
       pt: Comunicação
       pt_BR: Comunicação
       sl: Komunikacija
@@ -10131,6 +10335,7 @@ QubitTerm:
       is: Menntun
       it: Educazione
       ko: 교육
+      mk: Образование
       pt: Educação
       pt_BR: Educação
       sl: Izobraževanje
@@ -10159,6 +10364,7 @@ QubitTerm:
       is: Umhverfi
       it: Ambiente
       ko: 환경
+      mk: Опкружување
       pt: Ambiente
       pt_BR: Ambiente
       ru: Окружение
@@ -10189,6 +10395,7 @@ QubitTerm:
       is: 'Fjölskyldulíf / Heimilislif'
       it: 'Famiglia / Vita domestica'
       ko: '가족 / 가정 생활'
+      mk: 'Семејство / Семеен живот'
       pt: 'Família / Vida Doméstica'
       pt_BR: 'Vida familiar / doméstica'
       sl: 'Družina / domače življenje'
@@ -10215,6 +10422,7 @@ QubitTerm:
       id: Geneologi
       it: Genealogico
       ko: 족보의
+      mk: Генеалошки
       pt: Genealogia
       pt_BR: Genealógico
       sl: Rodosloven
@@ -10242,6 +10450,7 @@ QubitTerm:
       id: Geografi
       it: Geografia
       ko: 지리
+      mk: Географија
       pt: Geografia
       pt_BR: Geografia
       sl: Zemljepis
@@ -10268,6 +10477,7 @@ QubitTerm:
       id: 'Industri, Manufaktur dan Perdagangan'
       it: 'Industria, artigianato e commercio'
       ko: '산업, 제조업 및 상업'
+      mk: 'Индустрија, производство и трговија'
       pt: 'Indústria, Manufatura e Comércio'
       pt_BR: 'Indústria, Manufatura e Comércio'
       sl: 'Industrija, proizvodnja in trgovina'
@@ -10294,6 +10504,7 @@ QubitTerm:
       id: Labor
       it: Lavoro
       ko: 노동
+      mk: Работа/дејност
       pt: Trabalho
       pt_BR: Trabalho
       sl: Delo
@@ -10320,6 +10531,7 @@ QubitTerm:
       id: 'Hukum dan Keadilan'
       it: Legge
       ko: '법과 정의'
+      mk: 'Закон и правосудство'
       pt: 'Lei e Justiça'
       pt_BR: 'Direito e Justiça'
       sl: 'Zakon in pravica'
@@ -10347,6 +10559,7 @@ QubitTerm:
       is: 'Læknisfræði og heilsa'
       it: 'Medicina e salute'
       ko: '의학 및 건강'
+      mk: 'Медицина и здравје'
       pt: 'Medicina e Saúde'
       pt_BR: 'Medicina e Saúde'
       ru: 'Медицина и Здоровье'
@@ -10378,6 +10591,7 @@ QubitTerm:
       is: Hernaðarlegt
       it: 'Forze armate'
       ko: 군대
+      mk: Воена
       pt: 'Forças Armadas'
       pt_BR: Militar
       ru: Военный
@@ -10409,6 +10623,7 @@ QubitTerm:
       it: 'Risorse naturali'
       ja: 天然資源
       ko: '천연 자원'
+      mk: 'Природни извори'
       pt: 'Recursos Naturais'
       pt_BR: 'Recursos Naturais'
       ru: 'Природные Ресурсы'
@@ -10438,6 +10653,7 @@ QubitTerm:
       id: 'Politik dan Pemerintah'
       it: 'Politica e governo'
       ko: '정치 및 정부'
+      mk: 'Политика и Влада'
       pt: 'Política e Governo'
       pt_BR: 'Política e Governo'
       ru: 'Политики и Правительство'
@@ -10466,6 +10682,7 @@ QubitTerm:
       id: Populasi
       it: Popoli
       ko: 인구
+      mk: Популации
       pt: População
       pt_BR: Populações
       ru: Население
@@ -10495,6 +10712,7 @@ QubitTerm:
       it: 'Divertimento / Tempo libero / Sport'
       ja: レクリエーション／レジャー／スポーツ
       ko: '레크레이션 / 여가 / 스포츠'
+      mk: 'Рекреација / Разонода / Спорт'
       pt: 'Passatempos / Lazer / Desportos'
       pt_BR: 'Recreação / Lazer / Esportes'
       sl: 'Razvedrilo / Prosti čas / Šport'
@@ -10525,6 +10743,7 @@ QubitTerm:
       it: Religione
       ja: 宗教
       ko: 종교
+      mk: Религија
       pt: Religião
       pt_BR: Religião
       sl: Religija
@@ -10583,6 +10802,7 @@ QubitTerm:
       id: 'Organisasi dan Aktivitas Sosial'
       it: 'Attività e organizzazioni a carattere sociale'
       ko: '사회 단체 및 활동'
+      mk: 'Општествени организации и активности'
       pt: 'Organizações Sociais e Atividades'
       pt_BR: 'Organizações Sociais e Atividades'
       sl: 'Socialne organizacije in aktivnosti'
@@ -10670,6 +10890,7 @@ QubitTerm:
       ja: 保存
       ka: კონსერვაცია
       ko: '보존 처리'
+      mk: Конзервација
       nl: Conservering
       pl: Konserwacja
       pt: Conservação
@@ -10702,6 +10923,7 @@ QubitTerm:
       it: Citazione
       ja: 引用
       ko: 인용
+      mk: Цитирање
       pt: Citação
       pt_BR: Citação
       sl: Navedek
@@ -10729,6 +10951,7 @@ QubitTerm:
       it: 'Identificazioni alfanumeriche'
       ja: 文字-数字の指定
       ko: '문자 및 숫자로된 명칭'
+      mk: 'Алфанумерички ознаки'
       pt: 'Designações alfanuméricas'
       pt_BR: 'Denominações alfanuméricas'
       sl: 'Črkovnoštevilčne označbe'
@@ -10783,6 +11006,7 @@ QubitTerm:
       id: 'Pengolahan informasi'
       it: 'Note sull''elaborazione'
       ko: '처리 정보'
+      mk: 'Информации за обработка'
       pt: 'Processamento de informação'
       pt_BR: 'Processando informação'
       sl: 'Obdelovanje informacij'
@@ -10809,6 +11033,7 @@ QubitTerm:
       it: 'Tenuta documentale'
       ja: レコードキーピング活動
       ko: '기록되는 동작'
+      mk: 'Активност за водење евиденција'
       pt: 'Gestão documental'
       pt_BR: 'Atividade de manutenção de registros'
       sl: 'Zapisi o nedavnih dejanjih'
@@ -10835,6 +11060,7 @@ QubitTerm:
       id: Advertensi
       is: Auglýsingar
       it: Pubblicità
+      mk: Реклами
       pt: Anúncios
       pt_BR: Propagandas
       sl: Oglasi
@@ -10860,6 +11086,7 @@ QubitTerm:
       is: Albúm
       it: Album
       ja: アルバム
+      mk: Албуми
       pt: Álbuns
       pt_BR: Álbuns
       ru: Альбомы
@@ -10887,6 +11114,7 @@ QubitTerm:
       is: Arkitektúr
       it: Architettura
       ja: 建築
+      mk: Архитектура
       pt: Arquitectura
       pt_BR: Arquitetura
       ru: Архитектура
@@ -10913,6 +11141,7 @@ QubitTerm:
       is: 'Auð form'
       it: 'Moduli non compilati'
       ja: 空のフォーム
+      mk: 'Празни форми/Обрасци'
       pt: 'Formulários em branco'
       pt_BR: 'Formulários em branco'
       sl: 'Prazna oblika'
@@ -10939,6 +11168,7 @@ QubitTerm:
       is: Bækur
       it: Libri
       ja: 書籍
+      mk: Книги
       pt: Livros
       pt_BR: Livros
       ru: Книги
@@ -10963,6 +11193,7 @@ QubitTerm:
       hu: 'Egylapos/egyoldalas nyomtatványok'
       id: Broadsides
       it: 'Materiale a stampa'
+      mk: Огласи/Плакати
       pt: Bordos
       pt_BR: Panfletos
       sl: 'Reklamni letaki'
@@ -10984,6 +11215,7 @@ QubitTerm:
       id: 'Kartun (Komentar)'
       is: 'Teiknimyndir (Skýringar)'
       it: 'Fumetti (commento)'
+      mk: 'Цртежи/Илустрации (коментар)'
       pt: 'Desenhos (Comentário)'
       pt_BR: 'Desenhos animados (Comentário)'
       sl: 'Karikature (komentar)'
@@ -11009,6 +11241,7 @@ QubitTerm:
       is: Skrár
       it: Cataloghi
       ja: カタログ
+      mk: Каталози
       pt: Catálogos
       pt_BR: Catálogos
       ru: Каталоги
@@ -11033,6 +11266,7 @@ QubitTerm:
       is: Borgarsýn
       it: 'Panorami urbani'
       ja: 都市景観
+      mk: 'Градски прикази (панорама)'
       pt: 'Paisagens urbanas'
       pt_BR: 'Paisagens urbanas'
       sl: 'Mestne pokrajine'
@@ -11055,6 +11289,7 @@ QubitTerm:
       id: Kliping
       is: Úrklippur
       it: Ritagli
+      mk: Исечоци
       pt: Recortes
       pt_BR: Recortes
       sl: 'Časopisni izrezki'
@@ -11078,6 +11313,7 @@ QubitTerm:
       hu: Levelezés
       id: Korespondensi
       it: Corrispondenza
+      mk: Кореспонденција
       pt: Correspondência
       pt_BR: Correspondência
       sl: Korespondenca
@@ -11102,6 +11338,7 @@ QubitTerm:
       id: 'Buku harian'
       is: Dagbækur
       it: Diari
+      mk: Дневници
       pt: Diários
       pt_BR: Agendas
       ru: Дневники
@@ -11126,6 +11363,7 @@ QubitTerm:
       id: Gambar
       is: Teikningar
       it: Disegni
+      mk: Цртежи
       pt: Desenhos
       pt_BR: Desenhos
       sl: Risbe
@@ -11147,6 +11385,7 @@ QubitTerm:
       hu: Efemerek
       id: Ephemera
       it: 'Materiale effimero'
+      mk: Ефемер
       pt: Efémera
       pt_BR: Efêmero
       sl: 'Priložnostno gradivo'
@@ -11170,6 +11409,7 @@ QubitTerm:
       id: Esay
       is: Ritgerðir
       it: Saggi
+      mk: Есеи
       pt: Ensaios
       pt_BR: Ensaios
       sl: Eseji
@@ -11194,6 +11434,7 @@ QubitTerm:
       id: Etnografi
       is: Þjóðfræði
       it: Etnografia
+      mk: Етнографија
       pt: Etnografia
       pt_BR: Etnografia
       sl: Etnografija
@@ -11215,6 +11456,7 @@ QubitTerm:
       hu: 'Területre vonatkozó jegyzetek/feljegyzések'
       id: 'Catatan field (kolom)'
       it: 'Note di campo'
+      mk: 'Белешки за полето'
       pt: 'Anotações do campo'
       pt_BR: 'Notas de campo'
       sl: 'Zapiski s terena'
@@ -11240,6 +11482,7 @@ QubitTerm:
       id: Ilustrasi
       is: Myndskreytingar
       it: Illustrazioni
+      mk: Илустрации
       pt: Ilustrações
       pt_BR: Ilustrações
       ru: Иллюстрации
@@ -11265,6 +11508,7 @@ QubitTerm:
       hu: Interjúk
       id: Wawancara
       it: Interviste
+      mk: Интервјуа
       pt: Entrevistas
       pt_BR: Entrevistas
       sl: Intervjuji
@@ -11287,6 +11531,7 @@ QubitTerm:
       hu: Tájak
       id: Lanskap
       it: Panorami
+      mk: Пејсажи
       pt: Paisagens
       pt_BR: Paisagens
       sl: Pokrajine
@@ -11308,6 +11553,7 @@ QubitTerm:
       hu: Brosúrák
       id: Selebaran
       it: 'Opuscoli e volantini'
+      mk: Летоци
       pt: Folhetos
       pt_BR: Folhetos
       sl: Letaki
@@ -11333,6 +11579,7 @@ QubitTerm:
       id: Naskah
       is: Handrit
       it: Manoscritti
+      mk: Ракописи
       pt: Manuscritos
       pt_BR: Manuscritos
       ru: Рукописи
@@ -11361,6 +11608,7 @@ QubitTerm:
       id: Peta
       is: Kort
       it: Mappe
+      mk: Карти
       pt: Mapas
       pt_BR: Mapas
       ru: Карты
@@ -11387,6 +11635,7 @@ QubitTerm:
       id: 'Dokumen lain-lain'
       is: 'Ýmis gögn'
       it: 'Documenti miscellanei'
+      mk: 'Разни документи'
       pt: 'Documentos diversos'
       pt_BR: 'Documentos diversos'
       ru: 'Разные Документы'
@@ -11406,12 +11655,13 @@ QubitTerm:
       de-CH: Filme
       en: 'Motion Pictures'
       es: Películas
-      fr: 'Images en mouvement'
+      fr: Films
       hr: 'Pokretne slike'
       hu: Mozgóképek
       id: 'Gambar bergerak'
       it: Film
       ja: 映画
+      mk: 'Подвижни слики/филм'
       pt: 'Imagens em movimento'
       pt_BR: 'Imagens em movimento'
       ru: Кинофильм
@@ -11440,6 +11690,7 @@ QubitTerm:
       is: Tónlist
       it: Musica
       ja: 音楽
+      mk: Музика
       pt: Música
       pt_BR: Música
       ru: Музыка
@@ -11466,6 +11717,7 @@ QubitTerm:
       id: Naratif
       is: Frásagnir
       it: 'Materiale di carattere narrativo'
+      mk: Наративи
       pt: Narrativas
       pt_BR: Narrativas
       ru: Примеры
@@ -11491,6 +11743,7 @@ QubitTerm:
       id: Lukisan
       it: Dipinti
       ja: 絵画
+      mk: 'Слики (уметнички)'
       pt: Pinturas
       pt_BR: Pinturas
       sl: Slike
@@ -11515,6 +11768,7 @@ QubitTerm:
       id: Pamflet
       it: Opuscoli
       ja: パンフレット
+      mk: Памфлети
       pt: Panfletos
       pt_BR: Panfletos
       sl: Brošure
@@ -11538,6 +11792,7 @@ QubitTerm:
       id: Periodisasi
       it: Periodici
       ja: 定期刊行物
+      mk: 'Периодични изданија'
       pt: Periódicos
       pt_BR: Periódicos
       ru: Периодика
@@ -11564,6 +11819,7 @@ QubitTerm:
       id: Petisi
       is: Beiðni
       it: Istanze
+      mk: Петиции
       pt: Petições
       pt_BR: Requerimentos
       ru: Петиции
@@ -11592,6 +11848,7 @@ QubitTerm:
       is: Ljósmyndir
       it: Fotografie
       ja: 写真
+      mk: Фотографии
       pt: Fotografias
       pt_BR: Fotografias
       sl: Fotografije
@@ -11618,6 +11875,7 @@ QubitTerm:
       id: 'Objek Fisik'
       it: 'Oggetti materiali'
       ja: 物理的オブジェクト
+      mk: 'Физички објекти'
       pt: 'Objecto físico'
       pt_BR: 'Objetos Físicos'
       ru: 'Физические Объекты'
@@ -11644,6 +11902,7 @@ QubitTerm:
       id: Sajak
       it: Poesia
       ja: 詩
+      mk: Поезија
       pt: Poesia
       pt_BR: Poesia
       sl: Poezija
@@ -11669,6 +11928,7 @@ QubitTerm:
       hu: Arcképek
       id: Potret
       it: Ritratti
+      mk: Портрети
       pt: Retratos
       pt_BR: Retratos
       sl: Portreti
@@ -11695,6 +11955,7 @@ QubitTerm:
       id: 'Kartu pos'
       it: Cartoline
       ja: はがき
+      mk: Разгледници
       pt: Postais
       pt_BR: 'Cartões postais'
       ru: Открытки
@@ -11722,6 +11983,7 @@ QubitTerm:
       id: Poster
       it: Poster
       ja: ポスター
+      mk: Постери
       pt: Posters
       pt_BR: Posteres
       ru: Плакаты
@@ -11747,6 +12009,7 @@ QubitTerm:
       hu: Nyomtatások
       id: Cetak
       it: Stampe
+      mk: 'Печатени копии'
       pt: Impressões
       pt_BR: Impressões
       sl: Natisi
@@ -11771,6 +12034,7 @@ QubitTerm:
       hu: Programok
       id: Program
       it: Programmi
+      mk: Програми
       pt: Programas
       pt_BR: Programas
       ru: Программы
@@ -11794,6 +12058,7 @@ QubitTerm:
       hu: 'Nyilvántartó naplók'
       id: 'Log perekaman'
       it: 'Log delle registrazioni'
+      mk: 'Евиденција за снимање на логови (записи)'
       pt: 'Gravar registos'
       pt_BR: 'Registros de gravação'
       sl: 'Logaritem posnetka'
@@ -11839,6 +12104,7 @@ QubitTerm:
       id: 'Sheet Music'
       it: Spartito
       ja: 楽譜
+      mk: 'Нотни листови'
       pt: 'Folha de música'
       pt_BR: Partitura
       sl: Partitura
@@ -11907,6 +12173,7 @@ QubitTerm:
       hu: 'Aláírások jegyzet'
       id: 'Catatan tanda tangan'
       it: 'Nota sulle firme'
+      mk: 'Белешка за потписи'
       pt: 'Nota de estatuto'
       pt_BR: 'Nota de assinaturas'
       sr: 'Напомена о сигнатури'
@@ -11920,11 +12187,13 @@ QubitTerm:
       bs: 'Napomena uz izvođače'
       cy: 'Bwrw nodyn'
       en: 'Cast note'
+      es: 'Nota de reparto'
       fr: 'Note de l''équipe'
       hr: 'Napomena uz izvođače'
       hu: 'Szereposztás jegyzet'
       id: 'Memberi catatan'
       it: 'Note sul cast'
+      mk: 'Белешка за изведувачите'
       pt: 'Nota de lançamento'
       pt_BR: 'Nota de equipe'
       sr: 'Напомена о извођачима'
@@ -11943,6 +12212,7 @@ QubitTerm:
       hu: 'Szerzőkre, készítőkre vonatkozó jegyzet'
       id: 'Catatan mengenai kredit'
       it: Credits
+      mk: 'Белешка за соработници'
       pt: 'Notas do arquivista'
       pt_BR: 'Notas de crédito'
       sr: 'Напомена о сарадницима'
@@ -11958,6 +12228,7 @@ QubitTerm:
       fr: 'Regroupement de documents'
       hr: 'Grupa zapisa'
       ja: レコードグループ
+      mk: 'Група на записи'
       pt: 'Gravar grupo'
       pt_BR: 'Grupo de documentos/arquivos'
 QubitNote:
@@ -11991,6 +12262,7 @@ QubitNote:
       ja: 作成者
       ka: შემოქმედი
       ko: 생산자
+      mk: 'Создавач на архивски материјал'
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
@@ -12056,6 +12328,7 @@ QubitNote:
       ja: 出版社
       ka: გამომცემელი
       ko: 출판자
+      mk: Издавач
       nl: Uitgever
       pl: Wydawca
       pt: Editor
@@ -12102,6 +12375,7 @@ QubitNote:
       ja: 貢献者
       ka: დამხმარე
       ko: 기여자
+      mk: Соработник
       nl: Mederwerker
       pl: Współautor
       pt: Colaborador
