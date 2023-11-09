@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2023-11-09T20:30:33Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2023-11-09T21:37:29Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -52,7 +52,7 @@
       </trans-unit>
       <trans-unit id="503">
         <source>Title proper of publisher's series</source>
-        <target>Título próprio do recurso continuado</target>
+        <target>Título da editora</target>
       </trans-unit>
       <trans-unit id="505">
         <source>Other title information of publisher's series</source>
@@ -60,7 +60,7 @@
       </trans-unit>
       <trans-unit id="506">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target>Menção de responsabilidade relativa ao editor do recurso contínuo</target>
+        <target>Declaração de responsabilidade em relação à série editora</target>
       </trans-unit>
       <trans-unit id="507">
         <source>Numbering within publisher's series</source>
@@ -88,23 +88,23 @@
       </trans-unit>
       <trans-unit id="784">
         <source>Edition statement</source>
-        <target>Menção de edição</target>
+        <target>Declaração de edição</target>
       </trans-unit>
       <trans-unit id="785">
         <source>Statement of scale (cartographic)</source>
-        <target>Menção da escala (cartográfica)</target>
+        <target>Declaração de escala (cartográfica)</target>
       </trans-unit>
       <trans-unit id="786">
         <source>Statement of projection (cartographic)</source>
-        <target>Menção da projecção (cartográfica)</target>
+        <target>Declaração de projeção (cartográfica)</target>
       </trans-unit>
       <trans-unit id="787">
         <source>Statement of coordinates (cartographic)</source>
-        <target>Menção das coordenadas (cartográfico)</target>
+        <target>Declaração de coordenadas (cartográfica)</target>
       </trans-unit>
       <trans-unit id="788">
         <source>Statement of scale (architectural)</source>
-        <target>Menção da escala (arquitectura)</target>
+        <target>Declaração de escala (arquitetural)</target>
       </trans-unit>
       <trans-unit id="789">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="797">
         <source>Terms governing use, reproduction, and publication</source>
-        <target>Termos que regulam o uso, reprodução e publicação</target>
+        <target>Termos de uso que regem, reprodução e publicação</target>
       </trans-unit>
       <trans-unit id="800">
         <source>Rules or conventions</source>
@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="832">
         <source>Description record identifier</source>
-        <target>Descrição do identificador do registo</target>
+        <target>Descrição do identificador do registro</target>
       </trans-unit>
       <trans-unit id="896">
         <source>Level of description - This is a mandatory element.</source>
@@ -152,7 +152,7 @@
       </trans-unit>
       <trans-unit id="897">
         <source>Title - This is a mandatory element.</source>
-        <target>Título - elemento obrigatório.</target>
+        <target>Título – Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="903">
         <source>This archival description requires at least one date.</source>
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit id="905">
         <source>Scope and content - This is a mandatory element.</source>
-        <target>Âmbito e conteúdo - É um elemento obrigatório.</target>
+        <target>Âmbito e conteúdo - Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="909">
         <source>Title and statement of responsibility area</source>
@@ -176,7 +176,7 @@
       </trans-unit>
       <trans-unit id="911">
         <source>Title statements of responsibility</source>
-        <target>Título e menções de responsabilidade</target>
+        <target>Título(s) de declaração(ões) de responsabilidade</target>
       </trans-unit>
       <trans-unit id="912">
         <source>Title notes</source>
@@ -192,7 +192,7 @@
       </trans-unit>
       <trans-unit id="915">
         <source>Edition statement of responsibility</source>
-        <target>Menção de responsabilidade da edição</target>
+        <target>Declaração de responsabilidade da edição</target>
       </trans-unit>
       <trans-unit id="916">
         <source>Class of material specific details area</source>
@@ -308,7 +308,7 @@
       </trans-unit>
       <trans-unit id="946">
         <source>Script of description</source>
-        <target>Script da descrição</target>
+        <target>Sistema de escrita da descrição</target>
       </trans-unit>
       <trans-unit id="948">
         <source>This is a duplicate of record %1%</source>
@@ -316,7 +316,7 @@
       </trans-unit>
       <trans-unit id="949">
         <source>Statement of responsibility</source>
-        <target>Menção de responsabilidade</target>
+        <target>Declaração de responsabilidade</target>
       </trans-unit>
       <trans-unit id="951">
         <source>Parallel title of publisher's series</source>
@@ -380,7 +380,7 @@
       </trans-unit>
       <trans-unit id="971">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target>Registar o título próprio, seja transcrito ou atribuido. (RAD 1.1B)</target>
+        <target>Registre o título próprio, seja transcrito ou atribuído. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="972">
         <source>This is a mandatory element.</source>
@@ -404,27 +404,27 @@
       </trans-unit>
       <trans-unit id="977">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target>"Ao nível do documento descrever as menções de responsabilidade explícitas que aparecem conjuntamente com o título próprio formal ou fonte principal de informação..." (RAD1.1F)</target>
+        <target>"Ao nível do documento descrever as declarações de responsabilidade explícitas que aparecem conjuntamente com o título próprio formal ou fonte principal de informação..." (RAD1.1F)</target>
       </trans-unit>
       <trans-unit id="979">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target>Selecione um nível de descrição no menu drop-down. Consulte a RAD 1.0A para regras e convenções sobre a seleção de níveis de descrição.</target>
+        <target>Selecione um nível de descrição no menu suspenso. Para regras e convenções de seleção de nível de descrição, veja RAD 1.0A.</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target>Seleccionar o entidade que detem a custódia e controlo de material de arquivo. Os valores deste campo derivam da forma autorizada do nome nos registos das instituições de arquivo. Pesquisar por um nome existente ou digitando as primeiras letras do nome. Alternativamente digitar um novo nome e estabelecer a ligação com uma nova instituição de arquivo.</target>
+        <target>Selecione a entidade custodiadora que possui a custódia e controle do material arquivístico. Os valores deste campo derivam da forma autorizada de nome nos registros das entidades custodiadoras. Busque por um nome existente ou digite as primeiras letras do nome. De forma alternativa, digite um novo nome e vincule a uma nova entidade custodiadora.</target>
       </trans-unit>
       <trans-unit id="982">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target>Digitar um código unívoco para identificar a descrição.</target>
+        <target>Digite um código unívoco que será usado unicamente para identificar a descrição.</target>
       </trans-unit>
       <trans-unit id="984">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target>"Transcrever uma menção de responsabilidade em relação a uma ou mais edições, mas não a todas as edições, do documento que está a ser descrito após a menção de edição, caso exista." (RAD 1.2.C1) "Ao descrever a primeira edição, indicar todas as menções de responsabilidade da zona do título e menção de responsabilidade." (RAD 1.2C2)</target>
+        <target>"Transcreva uma declaração de responsabilidade em relação a uma ou mais edições, mas não a todas as edições, do documento sendo descrito após a declaração de edição, caso exista." (RAD 1.2.C1) "Ao descrever a primeira edição, indique todas as declarações de responsabilidade da área do título e declaração de responsabilidade." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="985">
         <source>Statement of responsibility relating to the edition</source>
-        <target>Menção de responsabilidade relativa à edição</target>
+        <target>Declaração de responsabilidade relativa a edição</target>
       </trans-unit>
       <trans-unit id="986">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
@@ -432,19 +432,19 @@
       </trans-unit>
       <trans-unit id="987">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target>"Indicar a menção de projeção, quando exista na fonte prescrita (s) de informação." (RAD 5.3C1)</target>
+        <target>"Indicar a declaração de projeção, quando exista na fonte prescrita (s) de informação." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="988">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target>"Ao nível de fundos, séries ou unidades documentais, gravar as coordenadas para uma abrangência máxima fornecida pelos materiais a descrever, enquanto sejam razoavelmente contíguos." (RAD 5.3D)</target>
+        <target>"Ao nível de fundos, séries ou dossiês, registre as coordenadas para uma abrangência máxima fornecida pelos materiais a descrever, enquanto sejam razoavelmente contíguos." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="989">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target>"Utilize a medidas Inglesas a escala das unidades de medida encontrados na unidade que está a ser descrita. Se não existir equivalente em Inglês para o nome da unidade de medida, dar o nome, entre aspas, como se encontra na unidade que está a ser descrita." (RAD 6.3 B)</target>
+        <target>"Utilize a medidas Inglesas a escala das unidades de medida encontrados na unidade sendo descrita. Se não existir equivalente em Inglês para o nome da unidade de medida, dar o nome, entre aspas, como se encontra na unidade sendo descrita." (RAD 6.3 B)</target>
       </trans-unit>
       <trans-unit id="990">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target>"Indicar o nome da jurisdição (por exemplo, governo) responsável pela emissão dos registos de filatelia". (RAD 12.3B1) "Para todas as unidades que possuam uma denominação (por exemplo, selos postais, artigos de papelaria postais), dar a denominação em um formato normalizado, registando o número de denominação em algarismos àrabes seguidos pelo nome da unidade monetária. Incluir uma denominação, mesmo que a mesma já esteja registada como parte das informações título próprio ou de outra informação do título. "(RAD 12.3C1)</target>
+        <target>"Indique o nome da jurisdição (por exemplo, governo) responsável pela emissão dos registros de filatelia". (RAD 12.3B1) "Para todas as unidades que possuam uma denominação (por exemplo, selos postais, artigos de papelaria postais), denomine em um formato normalizado, registrando o número de denominação em algarismos árabes seguidos pelo nome da unidade monetária. Inclua uma declaração de denominação, mesmo que a mesma já esteja registrada como parte das informações de título próprio ou de outra informação do título. "(RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="991">
         <source>Add new name and/or date(s)</source>
@@ -460,7 +460,7 @@
       </trans-unit>
       <trans-unit id="994">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target>"Transcrever títulos paralelos de publicação de editor como indicado no 1.1D". (RAD 1.6C1)</target>
+        <target>"Transcreva títulos paralelos de publicação de editor como indicado no 1.1D". (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="995">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
@@ -472,11 +472,11 @@
       </trans-unit>
       <trans-unit id="997">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target>"Indicar a numeração do documento dentro da publicação de uma editora nos termos constantes do documento." (RAD 1.6F1)</target>
+        <target>"Indique a numeração do documento dentro da publicação de uma editora nos termos constantes do documento." (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="998">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target>"Insira anotações sobre detalhes importantes das publicações dos editores, que não sejam incluídas na zona da publicação do editor , incluindo títulos variantes, séries incompletas, e números ou letras que implicam uma publicação em série." (RAD 1.8B10)</target>
+        <target>"Insira anotações sobre detalhes importantes das publicações dos editores, que não sejam incluídas na área de publicação do editor, incluindo títulos variantes, séries incompletas, e números ou letras que implicam uma publicação em série." (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="999">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
@@ -484,15 +484,15 @@
       </trans-unit>
       <trans-unit id="1000">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target>"Aos níveis de descrição de fundos, séries e colecções e, quando necessário, ao nível de pasta e documento, indicar o nível que está a ser descrito e informação sobre o âmbito e a estrutura interna ou organização dos documentos, e acerca o seu conteúdo. "(RAD 1.7D) "Para o âmbito da unidade que está a ser descrita, fornecer informações sobre as funções e / ou tipos de atividades que originaram os documentos, o período de tempo, o assunto e a área geográfica. Para o conteúdo da unidade que está a ser descrita, dar informações sobre sua estrutura interna, indicando a sua organização e / ou enumerando o seu nível mais baixo da descrição. Resumir as principais tipologias documentais (por exemplo, relatórios, atas, correspondências, desenhos, discursos). "(RAD 1.7D1)</target>
+        <target>"Aos níveis de descrição de fundos, séries e coleções e, quando necessário, ao nível de pasta e documento, indique o nível que está sendo descrito e forneça informações sobre o âmbito e a estrutura interna ou organização dos documentos, e acerca o seu conteúdo. "(RAD 1.7D) "Para o âmbito da unidade que está sendo descrita, forneça informações sobre as funções e/ou tipos de atividades que originaram os documentos, o período de tempo, o assunto e a área geográfica. Para o conteúdo da unidade que está sendo descrita, dê informações sobre sua estrutura interna, indicando a sua organização e/ou enumerando o seu nível mais baixo da descrição. Resuma as principais tipologias documentais (por exemplo, relatórios, atas, correspondências, desenhos, discursos). "(RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="1001">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target>"Insira anotações sobre a condição física da unidade que está a ser descrita se essa condição afeta materialmente a clareza ou legibilidade dos registos." (RAD 1.8B9a)</target>
+        <target>"Insira anotações sobre a condição física da unidade sendo descrita se essa condição afeta materialmente a clareza ou legibilidade dos registros." (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="1002">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target>"Registo do dador ou fonte (ou seja, o guarda imediata antes) da qual o documento a ser descrito foi adquirida, e a data e método de aquisição, bem como a relação da fonte/doador, se qualquer uma ou toda esta informação não for confidencial. Se a fonte/doador é desconhecida registar essa informação ". (RAD 1.8B12)</target>
+        <target>"Registro do doador ou fonte (ou seja, o custodiador imediato anterior) do qual o documento sendo descrito foi adquirido, e a data e método de aquisição, bem como a relação da fonte/doador, se alguma informação não for confidencial. Se a fonte/doador é desconhecida registre essa informação ". (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="1003">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
@@ -500,7 +500,7 @@
       </trans-unit>
       <trans-unit id="1004">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>"Registe o idioma ou idiomas da unidade que está a ser descrita, a menos que sejam referidos noutro lugar ou podem ser inferidos a partir de outros elementos da descrição." (RAD 1.8.B14). Selecione a lista de opções ou digite as primeiras letras para reduzir a lista.</target>
+        <target>"Registre o idioma ou idiomas da unidade que está a ser descrita, a menos que sejam referidos noutro lugar ou podem ser inferidos a partir de outros elementos da descrição." (RAD 1.8.B14). Selecione o idioma no menu suspenso; digite as primeiras letras para reduzir a lista.</target>
       </trans-unit>
       <trans-unit id="1006">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -508,7 +508,7 @@
       </trans-unit>
       <trans-unit id="1007">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target>"Se a totalidade ou parte da unidade que está sendo descrita está disponível (quer na instituição ou noutro local) em outro formato (s), por exemplo, se o texto a ser descrito está também disponível em microfilme, ou se um filme está também disponível em vídeocassete, fazer uma nota indicando o outro formato em que a unidade está disponível e a sua localização, se essa informação for conhecida. Se apenas uma parte da unidade que está a ser descrita está disponível noutro formato(s), indicar as respectivas partes. "(RAD 1.8B15b)</target>
+        <target>"Se a totalidade ou parte da unidade que está sendo descrita está disponível (quer na instituição ou noutro local) em outro formato (s), por exemplo, se o texto a ser descrito está também disponível em microfilme, ou se um filme está também disponível em videocassete, fazer uma nota indicando o outro formato em que a unidade está disponível e a sua localização, se essa informação for conhecida. Se apenas uma parte da unidade que está a ser descrita está disponível noutro formato(s), indicar as respectivas partes. "(RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="1008">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
@@ -516,15 +516,15 @@
       </trans-unit>
       <trans-unit id="1010">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target>"Fornecer informações sobre a existência de quaisquer instrumentos de descrição. Incluir ferramentas adequadas de controlo administrativo e / ou intelectual sobre o material existente no momento da unidade é descrita, como catálogos, listas, inventários, índices, etc "(RAD 1.8B17)</target>
+        <target>"Fornecer informações sobre a existência de quaisquer instrumentos de descrição. Incluir ferramentas adequadas de controle administrativo e / ou intelectual sobre o material existente no momento em que unidade é descrita, como catálogos, listas, inventários, índices, etc."(RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="1011">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
-        <target>Para o material associado, "Se os registos de uma outra instituição estão associados com a unidade que está a ser descrita, em virtude do facto de que eles partilharem a mesma proveniência, fazer uma citação ao material associado ao nível fundo, série, ou colecção, ou para itens discretos, indicando a sua localização se for conhecida. "(RAD 1.8B18). Para o material relacionado, "indicar grupos de registos tendo alguma relação significativa em virtude da responsabilidade partilhada ou esfera partilhada de actividade numa ou mais unidades de material externo para a unidade que está a ser descrita." (RAD 1.8B20)</target>
+        <target>Para o material associado, "Se os registros de uma outra instituição estão associados com a unidade sendo descrita, em virtude do fato de que eles compartilham a mesma proveniência, faça uma citação ao material associado ao nível fundo, série, ou coleção, ou para itens discretos, indicando a sua localização se for conhecida. "(RAD 1.8B18). Para o material relacionado, "Indique os grupos de registros que têm alguma relação significativa em virtude da responsabilidade compartilhada ou esfera de atividade compartilhada em uma ou mais unidades de material externo para a unidade sendo descrita." (RAD 1.8B20)</target>
       </trans-unit>
       <trans-unit id="1012">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target>"Quando a unidade a ser descrita não está completa, por exemplo, um fundo aberto ou uma série, fazer uma nota explicando que ingressos são ainda esperados... Se não houver ingressos adicionais esperados, indicar que a unidade é considerada fechada." (RAD 1.8B19)</target>
+        <target>"Quando a unidade a ser descrita não está completa, por exemplo, um fundo aberto ou uma série, fazer uma nota explicando que incorporações são ainda esperados... Se não houver ingressos adicionais esperados, indicar que a unidade é considerada fechada." (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="1014">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
@@ -532,7 +532,7 @@
       </trans-unit>
       <trans-unit id="1015">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target>Procure um termo existente na taxonomia de Assuntos introduzindo os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respetiva ligação.</target>
+        <target>Para buscar um termo existente na taxonomia de Assuntos, digite os primeiros caracteres do termo. De forma alternativa, digite um novo termo para criar e vincular a um novo termo de assunto.</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -612,19 +612,19 @@
       </trans-unit>
       <trans-unit id="1038">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target>"Utilize esta área apenas no nível de descrição do item para registar informações relacionadas com itens existentes em duas ou mais versões em cópias simples ou múltiplas." (RAD 1.2A1) "Transcreve a menção da edição relacionada com o item a ser descrito" (RAD 1.2B1). "Se no Item em causa é necessário fazer uma menção à edição, mas contém alterações significativas remanescentes de outras edições, deve ser fornecida entre parênteses e na língua respetiva, uma breve explicação." (RAD 1.2B3)</target>
+        <target>"Utilize esta área apenas no nível de descrição do item para registrar declarações relacionadas com itens existentes em duas ou mais versões em cópias simples ou múltiplas." (RAD 1.2A1) "Transcreva a declaração da edição relacionada com o item a ser descrito" (RAD 1.2B1). "Se no Item que está sendo descrito é necessário fazer uma declaração à edição, mas contém alterações significativas remanescentes de outras edições, deve ser fornecida entre parênteses e na língua respetiva, uma breve explicação." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="1039">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>"Observe quaisquer alfabetos distintos ou sistemas de símbolos empregados." (RAD 1.8.B14) Selecione o script a partir do menu drop-down; insira as primeiras letras para restringir as escolhas.</target>
+        <target>"Observe quaisquer alfabetos distintos ou sistemas de símbolos empregados." (RAD 1.8.B14) Selecione o script a partir do menu suspenso; insira as primeiras letras para restringir as escolhas.</target>
       </trans-unit>
       <trans-unit id="1045">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target>"Registe o idioma ou idiomas da unidade que está sendo descrita, a menos que seja observado noutros lugares ou sejam evidentes a partir de outros elementos da descrição. Observe também quaisquer alfabetos distintos ou sistemas de símbolos utilizados." (RAD 1.8B14). Não duplique informação adicionada através do drop-down, nos campos de idioma ou script.</target>
+        <target>"Registre o idioma ou idiomas da unidade que está sendo descrita, a menos que esteja referido em outro lugar ou possa ser deduzido a partir de outros elementos da descrição. Também anote qualquer alfabeto distinto ou sistema de símbolos empregado." (RAD 1.8B14). Não duplique informações inseridas através do menu suspenso nos campos de idioma ou escrita.</target>
       </trans-unit>
       <trans-unit id="1046">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target>Para os termos que regem o uso e reprodução, "Fornecer informações sobre restrições legais ou de doadores que podem afetar o uso ou reprodução do material." (RAD 1.8B16c). Para os termos que regem a publicação, "Fornecer informações sobre restrições legais ou de doadores que podem afetar a publicação do material." (RAD 1.8B16d)</target>
+        <target>Para obter os termos que regem o uso e reprodução, "Forneça informações sobre restrições legais ou de doadores que possam afetar o uso ou a reprodução do material." (RAD 1.8B16c). Para obter os termos que regem a publicação, "Forneça informações sobre restrições legais ou de doadores que possam afetar a publicação do material." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -648,7 +648,7 @@
       </trans-unit>
       <trans-unit id="1052">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt;Digite um código unívoco usado para identificar a descrição.&lt;br/&gt;&lt;strong&gt;Nível:&lt;/strong&gt; Selecione um nível de descrição a partir da lista de opções. Veja RAD 1.0A para as regras e convenções sobre a seleção de níveis de descrição.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Digite o título próprio, seja transcrito ou atribuído. (RAD 1.1B)</target>
+        <target>&lt;strong&gt;Identificador:&lt;/strong&gt;Digite um código unívoco usado para identificar a descrição.&lt;br/&gt;&lt;strong&gt;Nível:&lt;/strong&gt; Selecione um nível de descrição a partir do menu suspenso. Veja RAD 1.0A para as regras e convenções sobre a seleção de níveis de descrição.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Digite o título próprio, seja transcrito ou atribuído. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="1053">
         <source>Genre access points</source>
@@ -656,7 +656,7 @@
       </trans-unit>
       <trans-unit id="1054">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target>Pesquise por um termo existente em taxonomia Género digitando os primeiros caracteres do termo. Como alternativa, digite um novo termo para criar e ligar a um novo termo género.</target>
+        <target>Busque por um termo existente na taxonomia de Gênero, digitando os primeiros caracteres do termo. De forma alternativa, digite um novo termo para criar e vincular a um novo termo de gênero.</target>
       </trans-unit>
       <trans-unit id="1055">
         <source>General note</source>

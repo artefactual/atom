@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-11-09T20:30:46Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-11-09T21:37:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -2622,7 +2622,7 @@
       </trans-unit>
       <trans-unit id="685">
         <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <target>Краток опис на страницата или "tagline&цитат; за заглавието</target>
+        <target>Краток опис на страницата или "tagline за заглавието</target>
       </trans-unit>
       <trans-unit id="686">
         <source>Site base URL (used in MODS and EAD exports)</source>
