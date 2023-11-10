@@ -85,7 +85,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="uploadLimit[type]" id="uploadLimit_type_limited" value="limited"<?php echo ('limited' == $quotaType) ? ' checked' : ''; ?>>
                 <label class="form-check-label" for="uploadLimit_type_limited">
-                  <?php echo __('Limit uploads to %1% GB', ['%1%' => '<input class="form-control form-control-sm d-inline" id="uploadLimit_value" type="number" step="any" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').' />']); ?>
+                  <?php echo __('Limit uploads to %1% GB', ['%1%' => '<input class="form-control form-control-sm d-inline" id="uploadLimit_value" type="number" step="any" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').'" />']); ?>
                 </label>
               </div>
               <div class="form-check">
