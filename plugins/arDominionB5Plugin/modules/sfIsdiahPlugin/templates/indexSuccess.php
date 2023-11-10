@@ -81,6 +81,7 @@
 <?php end_slot(); ?>
 
 <?php if (isset($latitude, $longitude) && $mapApiKey = sfConfig::get('app_google_maps_api_key')) { ?>
+  <style <?php echo __(sfConfig::get('csp_nonce', '')); ?>></style>
   <div class="p-1 border-bottom">
     <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
   </div>

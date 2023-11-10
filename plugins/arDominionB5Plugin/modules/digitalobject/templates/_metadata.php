@@ -144,6 +144,7 @@
 
                   <div class="digital-object-metadata-body <?php echo render_b5_show_value_css_classes(); ?>">
                     <?php if ($showMasterFileGoogleMap) { ?>
+                      <style <?php echo __(sfConfig::get('csp_nonce', '')); ?>></style>
                       <div class="p-1">
                         <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
                       </div>
