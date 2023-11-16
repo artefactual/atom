@@ -40,7 +40,7 @@
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin')) { ?>
       <?php echo render_show(
-          __('OAI-PMH API key'),
+          __('REST API key'),
           isset($restApiKey) ? '<code>'.$restApiKey.'</code>' : __('Not generated yet.')
       ); ?>
     <?php } ?>
