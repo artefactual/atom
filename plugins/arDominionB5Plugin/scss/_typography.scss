@@ -25,3 +25,8 @@ pre {
     padding: 0;
   }
 }
+
+#job-log-output,
+#job-log-error-output {
+  background-color: unset;
+}
