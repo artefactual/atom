@@ -311,7 +311,7 @@ class QubitFlatfileExport
             $this->row[$index] = $this->content($value);
         }
 
-        $this->modifyRowBeforeExport();
+        $this->setDigitalObjectValues();
     }
 
     /*
