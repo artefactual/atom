@@ -1,5 +1,5 @@
-<?php if ($sf_context->getConfiguration()->isPluginEnabled('arCasPlugin')) { ?>
-    <?php include 'listSuccess.mod_cas.php'; ?>
+<?php if ($sf_context->getConfiguration()->isPluginEnabled('arCasPlugin') || $sf_context->getConfiguration()->isPluginEnabled('arOidcPlugin')) { ?>
+    <?php include 'listSuccess.mod_ext_auth.php'; ?>
 <?php } else { ?>
     <?php include 'listSuccess.mod_standard.php'; ?>
 <?php } ?>
