@@ -2978,7 +2978,7 @@ QubitTerm:
       id: 'Repositori pemeliharaan'
       it: 'Deposito che lo mantiene'
       mk: 'Одржување на депото/репозиториумот'
-      pt: 'Entidade custodiadora gestora'
+      pt: 'Manutenção do repositório'
       pt_BR: 'Entidade custodiadora gestora'
       sr: 'Одржавање репозиторијума'
       sv: 'Förvaltande arkivinstitution'
