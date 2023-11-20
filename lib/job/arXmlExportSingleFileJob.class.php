@@ -60,7 +60,7 @@ class arXmlExportSingleFileJob extends arBaseJob
         $resource = QubitInformationObject::getById($this->params['objectId']);
 
         if (null === $resource) {
-            throw new sfException($this->i18n->__('Information object %1% does not eist', ['%1%' => $this->params['objectId']]));
+            throw new sfException($this->i18n->__('Information object %1% does not exist', ['%1%' => $this->params['objectId']]));
         }
 
         try {
