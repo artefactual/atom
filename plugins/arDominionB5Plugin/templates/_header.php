@@ -26,8 +26,14 @@
         <?php } ?>
       </a>
     <?php } ?>
-    <button class="navbar-toggler atom-btn-secondary my-2 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler atom-btn-secondary my-2 me-1 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
+      <i 
+        class="fas fa-2x fa-fw fa-bars" 
+        data-bs-toggle="tooltip"
+        data-bs-placement="bottom"
+        title="<?php echo __('Toggle navigation'); ?>"
+        aria-hidden="true">
+      </i>
       <span class="visually-hidden"><?php echo __('Toggle navigation'); ?></span>
     </button>
     <div class="collapse navbar-collapse flex-wrap justify-content-end me-1" id="navbar-content">
