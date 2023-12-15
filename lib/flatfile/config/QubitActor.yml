@@ -30,6 +30,8 @@ columnNames:
   - placeAccessPoints
   - digitalObjectURI
   - digitalObjectChecksum
+  - language
+  - script
 
 direct:
   - culture
@@ -47,6 +49,8 @@ direct:
   - rules
   - revisionHistory
   - sources
+  - language
+  - script
 
 map:
   id:                                legacyId
