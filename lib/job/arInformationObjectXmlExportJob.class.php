@@ -90,6 +90,27 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
             }
         }
 
+        $nonVisibleElementsIncluded = $this->getHiddenVisibleElementXmlHeaders();
+
+        // Remove hidden visible elements from xml
+        if (!empty($nonVisibleElementsIncluded) && !$this->params['nonVisibleElementsIncluded']) {
+            foreach ($nonVisibleElementsIncluded as $element) {
+                // Determine if opening tag has additional elements that needs to
+                // be removed for closing tag
+                // ex. <odd type="descriptionIdentifier">
+                $parts = explode(' ', $element, 2);
+
+                // Set regular expression to match xml headers
+                if ('' != $parts[1]) {
+                    $pattern = '/<'.$element.'.*?<\/'.$parts[0].'>/s';
+                } else {
+                    $pattern = '/<'.$element.'.*?<\/'.$element.'>/s';
+                }
+
+                $xml = preg_replace($pattern, '', $xml);
+            }
+        }
+
         $filename = exportBulkBaseTask::generateSortableFilename(
             $resource,
             'xml',
@@ -108,5 +129,48 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
 
         ++$this->itemsExported;
         $this->logExportProgress();
+    }
+
+    /**
+     * Get list of hidden elements.
+     *
+     * @return array hidden elements
+     */
+    protected function getHiddenVisibleElementXmlHeaders()
+    {
+        $nonVisibleElementsIncluded = [];
+        $nonVisibleElements = [];
+
+        $template = sfConfig::get('app_default_template_'.strtolower($this->params['objectType']));
+
+        // Get list of elements hidden from settings
+        foreach (sfConfig::getAll() as $setting => $value) {
+            if (
+                (false !== strpos($setting, ('app_element_visibility_'.$template)))
+                && (!strpos($setting, ('__source')))
+                && (0 == sfConfig::get($setting))
+            ) {
+                array_push($nonVisibleElements, $setting);
+            }
+        }
+
+        if (!empty($nonVisibleElements)) {
+            $mapPath = sfConfig::get('sf_lib_dir').DIRECTORY_SEPARATOR.'job/visibleElementsHeaderMap.yml';
+            $headers = sfYaml::load($mapPath);
+
+            // Get xml/csv headers to remove
+            foreach ($nonVisibleElements as $e) {
+                $prefix = 'app_element_visibility_';
+                $element = str_replace($prefix, '', $e);
+
+                if (array_key_exists($element, $headers)) {
+                    foreach ($headers[$element]['xml'] as $ele) {
+                        array_push($nonVisibleElementsIncluded, $ele);
+                    }
+                }
+            }
+        }
+
+        return $nonVisibleElementsIncluded;
     }
 }

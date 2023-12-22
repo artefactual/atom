@@ -61,6 +61,9 @@
                   <?php if (isset($form->includeDigitalObjects)) { ?>
                     <?php echo render_field($form->includeDigitalObjects); ?>
                   <?php } ?>
+                  <?php if (isset($form->includeNonVisibleElements)) { ?>
+                    <?php echo render_field($form->includeNonVisibleElements); ?>
+                  <?php } ?>
                   <?php if (!empty($helpMessages)) { ?>
                     <div class="alert alert-info generic-help animateNicely hidden">
                       <?php foreach ($sf_data->getRaw('helpMessages') as $helpMessage) { ?>

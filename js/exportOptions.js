@@ -167,7 +167,7 @@
 
     onObjectTypeChange: function ()
     {
-      
+
       var url = window.location.href.split('?')[0] + '?type=';
       var type = this.$type.val().trim();
       switch (type)
