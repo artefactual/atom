@@ -111,13 +111,16 @@ class sfOutputEscaperObjectDecorator extends sfOutputEscaperGetterDecorator impl
   /**
    * Returns the size of the object if it implements Countable (is required by the Countable interface).
    *
-   * It returns 1 if other cases (which is the default PHP behavior in such a case).
+   * It returns 1 if other cases (which was the default PHP behavior in such a case before php 7.3).
    *
    * @return int The size of the object
    */
   public function count()
   {
-    return count($this->value);
+    if(is_array($this->value) || $this->value instanceof Countable || $this->value instanceof ResourceBundle || $this->value instanceof SimpleXmlElement) {
+      return count($this->value);
+    }
+    return 1;
   }
 
   public function getClass()
