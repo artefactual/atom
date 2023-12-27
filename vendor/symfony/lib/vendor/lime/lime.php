@@ -508,11 +508,11 @@ class lime_test
   {
     $this->output->error($message, $file, $line, $traces);
 
-  	$this->results['stats']['errors'][] = array(
-  	  'message' => $message,
-  	  'file' => $file,
-  	  'line' => $line,
-  	);
+    $this->results['stats']['errors'][] = array(
+      'message' => $message,
+      'file' => $file,
+      'line' => $line,
+    );
   }
 
   protected function update_stats()
@@ -547,7 +547,7 @@ class lime_test
     return array($traces[$last]['file'], $traces[$last]['line']);
   }
 
-  public function handle_error($code, $message, $file, $line, $context)
+  public function handle_error($code, $message, $file, $line, $context = null)
   {
     if (!$this->options['error_reporting'] || ($code & error_reporting()) == 0)
     {
