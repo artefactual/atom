@@ -3,7 +3,7 @@
 /*
  * This file is part of the symfony package.
  * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -147,7 +147,7 @@ abstract class sfResponse implements Serializable
   /**
    * Serializes the current instance.
    *
-   * @return array Objects instance
+   * @return string Objects instance
    */
   public function serialize()
   {
@@ -165,5 +165,24 @@ abstract class sfResponse implements Serializable
   public function unserialize($serialized)
   {
     $this->content = unserialize($serialized);
+  }
+
+  /**
+   * Serializes the current instance for php 7.4+
+   *
+   * @return array
+   */
+  public function __serialize() {
+    return array('content' => $this->content);
+  }
+
+  /**
+   * Unserializes a sfResponse instance for php 7.4+
+   *
+   * @param array $data
+  */
+  public function __unserialize($data)
+  {
+    $this->content = $data['content'];
   }
 }
