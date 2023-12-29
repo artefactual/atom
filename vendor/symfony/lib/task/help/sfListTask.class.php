@@ -3,7 +3,7 @@
 /*
  * This file is part of the symfony package.
  * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -120,7 +120,7 @@ EOF;
 
       $aliases = $task->getAliases() ? $this->formatter->format(' ('.implode(', ', $task->getAliases()).')', 'COMMENT') : '';
 
-      $messages[] = sprintf("  %-${width}s %s%s", $this->formatter->format(':'.$task->getName(), 'INFO'), $task->getBriefDescription(), $aliases);
+      $messages[] = sprintf("  %-{$width}s %s%s", $this->formatter->format(':'.$task->getName(), 'INFO'), $task->getBriefDescription(), $aliases);
     }
 
     $this->log($messages);
