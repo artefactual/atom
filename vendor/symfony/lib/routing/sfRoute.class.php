@@ -35,6 +35,8 @@ class sfRoute implements Serializable
     $requirements      = array(),
     $tokens            = array(),
     $customToken       = false,
+    $firstOptional     = null,
+    $segments          = array(),
     $params            = array();
 
   /**
