@@ -107,7 +107,7 @@ class sfException extends Exception
       header('HTTP/1.0 500 Internal Server Error');
     }
 
-    if (version_compare(PHP_VERSION, '7.0.0') >= 0) 
+    if (version_compare(PHP_VERSION, '7.0.0') >= 0)
     {
       try
       {
@@ -367,6 +367,11 @@ class sfException extends Exception
    */
   static protected function fileExcerpt($file, $line)
   {
+    // $file can be null for RuntimeException
+    if($file === null) {
+      return '';
+    }
+
     if (is_readable($file))
     {
       $content = preg_split('#<br />#', preg_replace('/^<code>(.*)<\/code>$/s', '$1', highlight_file($file, true)));

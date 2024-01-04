@@ -536,7 +536,7 @@ class lime_test
     $t = array_reverse($traces);
     foreach ($t as $trace)
     {
-      if (isset($trace['object']) && $trace['object'] instanceof lime_test)
+      if (isset($trace['object']) && $trace['object'] instanceof lime_test && isset($trace['file']))
       {
         return array($trace['file'], $trace['line']);
       }
@@ -570,7 +570,11 @@ class lime_test
     $this->error($type.': '.$message, $file, $line, $trace);
   }
 
-  public function handle_exception(Exception $exception)
+  /**
+   * @param Throwable $exception only available on php7
+   * @return bool
+   */
+  public function handle_exception($exception)
   {
     $this->error(get_class($exception).': '.$exception->getMessage(), $exception->getFile(), $exception->getLine(), $exception->getTrace());
 
