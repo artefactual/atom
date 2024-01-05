@@ -115,6 +115,7 @@ class sfOutputEscaperObjectDecorator extends sfOutputEscaperGetterDecorator impl
    *
    * @return int The size of the object
    */
+  #[\ReturnTypeWillChange]
   public function count()
   {
     if(is_array($this->value) || $this->value instanceof Countable || $this->value instanceof ResourceBundle || $this->value instanceof SimpleXmlElement) {

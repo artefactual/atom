@@ -155,6 +155,7 @@ abstract class sfRequest implements ArrayAccess
     return $this->parameterHolder->has($name);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -174,6 +175,7 @@ abstract class sfRequest implements ArrayAccess
     return $this->parameterHolder->get($name);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -192,6 +194,7 @@ abstract class sfRequest implements ArrayAccess
     return $this->parameterHolder->set($name, $value);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -209,6 +212,7 @@ abstract class sfRequest implements ArrayAccess
     return $this->parameterHolder->remove($name);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();

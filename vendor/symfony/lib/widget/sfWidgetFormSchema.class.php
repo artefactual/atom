@@ -703,6 +703,7 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
     return isset($this->fields[$name]);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -722,6 +723,7 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
     return isset($this->fields[$name]) ? $this->fields[$name] : null;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -758,6 +760,7 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
     }
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -781,6 +784,7 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
     }
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();
