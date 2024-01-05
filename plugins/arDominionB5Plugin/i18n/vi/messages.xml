@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2023-05-25T18:35:18Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2024-01-05T13:11:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -145,22 +145,10 @@
         <source>Delete row</source>
         <target/>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Use these two fields to add lower levels to a collection-level description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>A designation of the language in which the content of a resource is expressed.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="38">
         <source>Subject</source>
         <target>Tượng 
 </target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>A term or phrase representing the primary topic(s) on which a work is focused.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="40">
         <source>Places</source>
@@ -168,24 +156,8 @@
  
 địa điểm </target>
       </trans-unit>
-      <trans-unit id="41">
-        <source>Search for an existing term in the Places taxonomy by typing the first few characters</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="42">
         <source>Names</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="43">
-        <source>"Choose provenance, author and other non-subject access points from the archival</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Identifies the institution or repository holding the resource. Search for an</source>
         <target/>
       </trans-unit>
       <trans-unit id="46">
@@ -271,14 +243,6 @@
       <trans-unit id="66">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>Mô tả lưu trữ hoặc mô tả level cao hơn của nó, phải có ít nhất một tác giả.</target>
-      </trans-unit>
-      <trans-unit id="67">
-        <source>Record the name of the organization(s) or the individual(s) responsible for the creation,</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>Record the name of the organization which has custody of the archival material.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="69">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
@@ -408,10 +372,6 @@
       <trans-unit id="100">
         <source>Related descriptions</source>
         <target> Mô tả liên quan</target>
-      </trans-unit>
-      <trans-unit id="101">
-        <source>To create a relationship between this description and another description held in AtoM,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="102">
         <source>Notes area</source>
@@ -748,17 +708,9 @@ Hoặc</target>
         <source>The name given to this resource.</source>
         <target>Tên được đặt cho nguồn tài nguyên này.</target>
       </trans-unit>
-      <trans-unit id="184">
-        <source>The topic of the resource. Search for an existing term in the Subject taxonomy</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="185">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
         <target>&lt;p&gt;Bản chất hoặc thể loại của tài nguyên. Định như nhiều  &lt;em&gt;loại &lt;/em&gt;có thể áp dụng. Các tùy chọn được giới hạn ở DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt; Chỉ định giá trị bộ sưu tập nếu nguồn tài nguyên này là cấp cao nhất đối với một bộ cấp dưới (cấp con)&lt;/p&gt;&lt;p&gt; Lưu ý: nếu các nguồn lực này được liên kết với một đối tượng kỹ thuật số, &lt;em&gt;âm thanh&lt;em&gt; hay, loại &lt;em&gt;hình ảnh chuyển&lt;em&gt; động được tự động thêm vào đầu ra, do đó, không lặp lại những giá trị đó ở đây.&lt;/p&gt;</target>
-      </trans-unit>
-      <trans-unit id="186">
-        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower</source>
-        <target/>
       </trans-unit>
       <trans-unit id="187">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
@@ -784,21 +736,9 @@ Hoặc</target>
         <source>Relation (isLocatedAt)</source>
         <target>Quan hệ (isLocatedAt)</target>
       </trans-unit>
-      <trans-unit id="193">
-        <source>This is a mandatory element for this resource or one of its</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="194">
-        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="195">
         <source>Coverage (spatial)</source>
         <target>Coverage (spatial)</target>
-      </trans-unit>
-      <trans-unit id="196">
-        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource</source>
-        <target/>
       </trans-unit>
       <trans-unit id="197">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -807,10 +747,6 @@ Hoặc</target>
       <trans-unit id="198">
         <source>Rights</source>
         <target>Quyền</target>
-      </trans-unit>
-      <trans-unit id="199">
-        <source>Identify and record the date(s) of the unit of description.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="200">
         <source>Name(s)</source>
@@ -1048,29 +984,13 @@ Hoặc</target>
         <source>Title of related resource</source>
         <target>Nhan đề của tài nguyên  liên quan</target>
       </trans-unit>
-      <trans-unit id="259">
-        <source>"Provide the unique identifiers/reference codes and/or titles for the</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="260">
         <source>Nature of relationship</source>
         <target>Bản chất của quan hệ </target>
       </trans-unit>
-      <trans-unit id="261">
-        <source>"Describe the nature of the relationships between the corporate body, person or family</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="262">
         <source>Type of related resource</source>
         <target>Loại của tài nguyên liên quan</target>
-      </trans-unit>
-      <trans-unit id="263">
-        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="264">
-        <source>"Provide any relevant dates for the related resources and/or the relationship between the</source>
-        <target/>
       </trans-unit>
       <trans-unit id="265">
         <source>Submit</source>
@@ -1088,37 +1008,17 @@ Hoặc</target>
         <source>Related corporate body, person or family</source>
         <target> Hình cơ quan, người hoặc gia đình liên quan</target>
       </trans-unit>
-      <trans-unit id="269">
-        <source>"Record the authorized form of name and any relevant unique identifiers,</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="270">
         <source>Category of relationship</source>
         <target> Thể loại  của mối quan hệ </target>
-      </trans-unit>
-      <trans-unit id="271">
-        <source>"Purpose: To identify the general category of relationship between the entity being</source>
-        <target/>
       </trans-unit>
       <trans-unit id="272">
         <source>Relationship type</source>
         <target>Loại mối quan hệ</target>
       </trans-unit>
-      <trans-unit id="273">
-        <source>"Select a descriptive term from the drop-down menu to clarify</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="274">
         <source>Description of relationship</source>
         <target>Mô tả của mối  quan hệ</target>
-      </trans-unit>
-      <trans-unit id="275">
-        <source>"Record a precise description of the nature of the relationship between the entity</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="276">
-        <source>"Record when relevant the commencement date of the relationship or succession date and,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="277">
         <source>Clipboard</source>
@@ -1792,10 +1692,6 @@ Hoặc</target>
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
         <target>Ghi lại bất kỳ tên khác mà tổ chức này có thể được biết đến. Điều này có thể bao gồm các hình thức khác của cùng tên, từ viết tắt, tên tổ chức khác, hoặc thay đổi tên theo thời gian, bao gồm cả, nếu có thể, số ngày có liên quan. "(ISDIAH 5.1.4)</target>
       </trans-unit>
-      <trans-unit id="445">
-        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="446">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
         <target>Ghi lại bất kỳ thông tin liên quan về lịch sử của tổ chức. Yếu tố này có thể bao gồm thông tin về ngày thành lập, thay đổi tên, thay đổi sự ủy nhiệm hợp pháp, hoặc của bất kỳ các nguồn quyền lực khác cho tổ chức. "(ISDIAH 5.3.1)</target>
@@ -1940,17 +1836,9 @@ Hoặc</target>
         <source>Thematic area</source>
         <target>Diện tích chuyên đề</target>
       </trans-unit>
-      <trans-unit id="482">
-        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="483">
         <source>Geographic subregion</source>
         <target>Tiểu vùng địa lý</target>
-      </trans-unit>
-      <trans-unit id="484">
-        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first</source>
-        <target/>
       </trans-unit>
       <trans-unit id="485">
         <source>Website</source>
@@ -2296,17 +2184,9 @@ Hoặc</target>
         <source>%1% upload limits</source>
         <target/>
       </trans-unit>
-      <trans-unit id="571">
-        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
         <target>Default %1% giới hạn tải lên (GB)</target>
-      </trans-unit>
-      <trans-unit id="573">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0</source>
-        <target/>
       </trans-unit>
       <trans-unit id="574">
         <source>Upload multi-page files as multiple descriptions</source>
@@ -2806,10 +2686,6 @@ Truy cập vật lý
         <source>Basis for the permissions granted or for the restriction of rights</source>
         <target>Cơ sở cho các quyền được cấp hoặc hạn chế quyền</target>
       </trans-unit>
-      <trans-unit id="698">
-        <source>A coded designation for the copyright status of the object</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="699">
         <source>The date the copyright status applies.</source>
         <target/>
@@ -2822,25 +2698,9 @@ Truy cập vật lý
         <source>Notes regarding the copyright.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="702">
-        <source>Text describing the license or agreement by which permission was</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="703">
-        <source>Additional information about the license, such as contact persons, action</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="704">
         <source>The country or other political body that has enacted the statute.</source>
         <target>Các quốc gia hoặc cơ thể chính trị khác đã ban hành quy chế.</target>
-      </trans-unit>
-      <trans-unit id="705">
-        <source>An identifying designation for the statute. Use standard</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="706">
-        <source>Date that the decision to ascribe the right to this statute was made.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="707">
         <source>Additional information about the statute.</source>
@@ -2854,20 +2714,12 @@ Truy cập vật lý
         <source>Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="710">
-        <source>Name of the person(s) or organization(s) which has the authority to</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="711">
         <source>Notes for this Rights Basis.</source>
         <target/>
       </trans-unit>
       <trans-unit id="712">
         <source>Documentation Identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="713">
-        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).</source>
         <target/>
       </trans-unit>
       <trans-unit id="714">
@@ -2893,10 +2745,6 @@ Truy cập vật lý
       <trans-unit id="719">
         <source>The beginning date of the permission granted.</source>
         <target>Ngày bắt đầu của phép được cấp.</target>
-      </trans-unit>
-      <trans-unit id="720">
-        <source>The ending date of the permission granted.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="721">
         <source>Notes for this granted right.</source>
@@ -3033,10 +2881,6 @@ Truy cập vật lý
       <trans-unit id="754">
         <source>Results</source>
         <target>Kết quả </target>
-      </trans-unit>
-      <trans-unit id="755">
-        <source>Use these options to specify how the date range returns results.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="756">
         <source>Overlapping</source>
@@ -3607,10 +3451,6 @@ Những người liên quan và các tổ chức</target>
         <source>Label</source>
         <target>Label </target>
       </trans-unit>
-      <trans-unit id="898">
-        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="899">
         <source>Inventory list</source>
         <target/>
@@ -3675,10 +3515,6 @@ Những người liên quan và các tổ chức</target>
         <source>Name and location of repository</source>
         <target>Tên và vị trí của repository</target>
       </trans-unit>
-      <trans-unit id="915">
-        <source>Explicitly state the name of the repository, including any parent bodies</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="916">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
         <target>Chọn một mức độ mô tả từ trình đơn thả xuống. Thực hiện theo bất kỳ hướng dẫn địa phương hoặc tổ chức có liên quan trong việc lựa chọn các mức độ thích hợp của mô tả. Xem DACS (2013) Chương 1 để được hướng dẫn thêm.</target>
@@ -3694,10 +3530,6 @@ Những người liên quan và các tổ chức</target>
       <trans-unit id="919">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
         <target>Ghi lại số lượng của vật liệu về mức độ vật lý của nó là tuyến tính hoặc feet khối, số lượng mặt hàng, hoặc số lượng container hoặc người vận chuyển. (DACS 2.5.4). Tùy chọn, ghi lại số lượng về loại vật liệu (s) (DACS 2.5.5), và / hoặc đủ điều kiện báo cáo kết quả mức độ vật chất để Hightlight sự tồn tại của loại vật liệu đó lại quan trọng (DACS 2.5.6)</target>
-      </trans-unit>
-      <trans-unit id="920">
-        <source>Record the name(s) of the creator(s) identified in the name element</source>
-        <target/>
       </trans-unit>
       <trans-unit id="921">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
@@ -4101,10 +3933,6 @@ Những người liên quan và các tổ chức</target>
       </trans-unit>
       <trans-unit id="1021">
         <source>The clipboard is empty for this entity type.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1022">
-        <source>Note: clipboard items unclipped in this page will be removed from the clipboard</source>
         <target/>
       </trans-unit>
       <trans-unit id="1023">
@@ -4559,10 +4387,6 @@ Những người liên quan và các tổ chức</target>
         <source>Enable AIP download</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1136">
-        <source>Allow authorized users to download a linked AIP or AIP file from</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1137">
         <source>Only hexadecimal color value</source>
         <target>Chỉ có giá trị màu thập lục phân</target>
@@ -4793,17 +4617,9 @@ Tải lên mới %1%</target>
         <source>Related authority record</source>
         <target>Authority record liên quan</target>
       </trans-unit>
-      <trans-unit id="1194">
-        <source>Select the name from the drop-down menu; enter the identifier</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1195">
         <source>Identifier/title</source>
         <target>Định danh/tiêu đề</target>
-      </trans-unit>
-      <trans-unit id="1196">
-        <source>Select the title from the drop-down menu; enter the identifier</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1197">
         <source>Classification</source>
@@ -4820,18 +4636,6 @@ Tải lên mới %1%</target>
       <trans-unit id="1200">
         <source>Related functions</source>
         <target>Các chức năng liên quan</target>
-      </trans-unit>
-      <trans-unit id="1201">
-        <source>"Record the authorised form of name and any unique identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1202">
-        <source>"Record a general category into which the relationship</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1203">
-        <source>"Record a precise description of the nature of the relationship</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1204">
         <source>Edit %1% permissions of %2%</source>
@@ -5122,10 +4926,6 @@ Tải lên mới %1%</target>
         <source>Related donor record</source>
         <target> Ghi lại người tặng liên quan </target>
       </trans-unit>
-      <trans-unit id="1276">
-        <source>This is the legal entity field and provides the contact</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1277">
         <source>Primary contact information</source>
         <target>Thông tin liên lạc chính</target>
@@ -5179,10 +4979,6 @@ Loại thu được
         <source>Create %1%</source>
         <target>Tạo  nên %1%</target>
       </trans-unit>
-      <trans-unit id="1289">
-        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1290">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Nhập tiêu đề thích hợp, hoặc sao chép hoặc cung cấp. (RAD 1.1B)</target>
@@ -5225,10 +5021,6 @@ Loại thu được
       </trans-unit>
       <trans-unit id="1300">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1301">
-        <source>Select the repository that has custody and control of the archival material.</source>
         <target/>
       </trans-unit>
       <trans-unit id="1302">
@@ -5432,18 +5224,6 @@ Loại thu được
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
         <target>Cung cấp cho các Số sách tiêu chuẩn quốc tế (ISBN), Mã số tiêu chuẩn quốc tế (ISSN), hoặc bất kỳ số tiêu chuẩn được đồng ý mang tính quốc tế cho các sản phẩm được mô tả. Cung cấp con số như vậy với tên viết tắt đã được đồng ý và với dấu gạch nối hoặc cách tiêu chuẩn. (RAD 1.9B1).</target>
       </trans-unit>
-      <trans-unit id="1352">
-        <source>Search for an existing term in the Subjects taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1353">
-        <source>Search for an existing term in the Places taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1354">
-        <source>Search for an existing term in the Genre taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1355">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
         <target>Ghi lại các quy tắc hay quy ước quốc tế, quốc gia và / hoặc địa phương theo việc chuẩn bị mô tả.</target>
@@ -5521,6 +5301,260 @@ Tiêu đề tuyên bố về trách nhiệm
       </trans-unit>
       <trans-unit id="1373">
         <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1374">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Sử dụng hai trường thông tin này để mô tả bộ sưu tập ở mức độ thấp. Vui lòng ấn vào Add New để thêm vào mức độ của đứa con duy nhất số lượng yêu cầu. Nhận dạng: Nhập mã hoặc số chuẩn xác định duy nhất để rõ ràng nhận diện nguồn tài nguyên: Tiêu đề: Nhập một từ, cụm từ, đặc điểm hay một nhóm đặc điểm, thường xuất hiện trong một tài nguyên, điều đó đặt tên nó hay công việc được bao gồm trong nó. </target>
+      </trans-unit>
+      <trans-unit id="1375">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target>Chỉ định ngôn ngữ được sử dụng để mô tả nội dung của nguồn tài nguyên. Chọn nhiều ngôn ngữ nếu cần.</target>
+      </trans-unit>
+      <trans-unit id="1376">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Một thuật ngữ hoặc cụm từ đại diện cho các chủ đề chính mà tác phẩm được tập trung. Tìm kiếm cho một thuật ngữ hiện có trong các phân loại các đối tượng bằng cách gõ vài ký tự đầu tiên của thuật ngữ. Ngoài ra, nhập tên mới để tạo ra và liên kết với một thuật ngữ chủ đề mới.</target>
+      </trans-unit>
+      <trans-unit id="1377">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>Tìm kiếm một thuật ngữ hiện có trong phân loại Địa danh bằng cách gõ vài ký tự đầu tiên của địa danh. Ngoài ra, gõ một thuật ngữ mới để tạo ra và liên kết đến một địa danh mới.</target>
+      </trans-unit>
+      <trans-unit id="1378">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>Chọn nguồn gốc, tác giả và các địa điểm truy cập khác mà không phải là subejct từ mô tả lưu trữ nấu cần. Tất cả các địa điểm truy cập phải được rõ ràng từ các mô tả lưu trữ mà có liên quan. (RAD 21.0B) Các giá trị trong field này được lấy từ Authorized form of name trong authority record.
+Tìm kiếm tên có sẵn bằng cách gõ một vài ký tự đầu của tên. Hoặc gõ tên mới để tạo ra và cho liên kết đến authority record mới.</target>
+      </trans-unit>
+      <trans-unit id="1379">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target>Thông tin về những hạn chế đối với quyền truy cập vào một tài nguyên. Xem MODS access Condition top-level element để biết thêm thông tin về cách sử dụng lĩnh vực này.</target>
+      </trans-unit>
+      <trans-unit id="1380">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1381">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>Ghi lại tên của tổ chức hoặc cá nhân chịu trách nhiệm cho việc tạo ra, tập hợp và duy trì các bản ghi trong đơn vị mô tả. Tìm kiếm một tên hiện có trong các biểu ghi bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo lập và liên kết đến một biểu ghi mới. (ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="1382">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Ghi lại tên của các tổ chức trong đó có tạm giữ của tài liệu lưu trữ. Tìm kiếm một tên hiện có trong các hồ sơ tổ chức lưu trữ bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo lập và liên kết đến một bản ghi cơ sở lưu trữ mới.</target>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>Để tạo ra một mối quan hệ giữa mô tả và một mô tả tổ chức tại nguyên tử, bắt đầu gõ tên của mô tả có liên quan và chọn nó từ trình đơn thả xuống tự động hoàn chỉnh khi nó xuất hiện bên dưới. Nhiều mối quan hệ có thể được tạo ra.</target>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Các chủ đề của tài nguyên. Tìm kiếm cho một thuật ngữ hiện có trong phân loại chủ đề bằng cách gõ vài ký tự đầu tiên của phần TÊN. Ngoài ra, nhập tên mới để khởi tạo và liên kết với một thuật ngữ chủ đề mới.</target>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target>Sử dụng hai lĩnh vực này để thêm mức độ thấp hơn để mô tả cấp độ bộ sưu tập. Bấm "thêm mới - add new" để tạo ra như nhiều cấp độ mới khi cần thiết. Các lĩnh vực này cũng có thể được sử dụng để thêm bất kỳ số lượng của các cấp trung của mô tả (ví dụ như nhóm, tập tin, vv) giữa các cấp trên và dưới trong một hệ thống phân cấp mô tả. Sử dụng phân cấp để cấp bậc sắp xếp lại khi cần thiết. Các mã tham chiếu rõ ràng được sử dụng để nhận diện các nguồn tài nguyên cấp con. Tên được đặt cho các nguồn tài nguyên cấp con.</target>
+      </trans-unit>
+      <trans-unit id="1386">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target>Đây là yếu tố bắt buộc phải có đối với nguồn tài nguyên này hoặc descriptive levels cao hơn của nó (nếu là một phần của collection hierarchy).</target>
+      </trans-unit>
+      <trans-unit id="1387">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target>&lt;p&gt;Tên của các tổ chức trong đó có giữ nguồn tài nguyên. .&lt;/p&gt;&lt;p&gt;Tìm kiếm cho một tên hiện có trong các hồ sơ tổ chức bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo ra và liên kết đến một hồ sơ tổ chức mới.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1388">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target>Tên của một địa điểm hoặc khu vực địa lý mà là một chủ đề của nguồn tài nguyên hoặc có liên quan đến thẩm quyền của mình. Tìm kiếm một thuật ngữ tồn tại trong phân loại Kho bằng cách gõ vài ký tự đầu tiên của tên kho . Ngoài ra, nhập tên mới để tạo ra và liên kết đến một kho mới. Xin lưu ý:. Nếu bạn bước vào một nơi sáng tạo, công bố, đóng góp mà sẽ được tự động sản xuất, do đó, không lặp lại điều đó đặt tên ở đây.</target>
+      </trans-unit>
+      <trans-unit id="1389">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>Xác định và ghi ngày tháng của các đơn vị mô tả. Xác định các loại ngày nhất định. Ghi lại  như một ngày hoặc một chuỗi các ngày phù hợp. </target>
+      </trans-unit>
+      <trans-unit id="1390">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>Cung cấp các mã định danh/tham chiếu và/hoặc tiêu đề cho các nguồn tài nguyên liên quan đến "(ISAAR 6.1) Chọn tiêu đề từ trình đơn thả xuống;. Nhập định danh hoặc một vài ký tự đầu tiên để thu hẹp lựa chọn.</target>
+      </trans-unit>
+      <trans-unit id="1391">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>Mô tả bản chất của mối quan hệ giữa tổ chức, cá nhân, gia đình và nguồn tài nguyên liên quan. (ISAAR 6.3) Chọn loại mối quan hệ từ drop-down menu. Những giá trị này được lấy từ phân loại Evnet Type.</target>
+      </trans-unit>
+      <trans-unit id="1392">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>Xác định các loại tài nguyên liên quan, ví dụ Tài liệu lưu trữ (Phông, hồ sơ lưu trữ, vv), mô tả lưu trữ, hỗ trợ tìm kiếm, chuyên khảo, bài báo, trang web, ảnh, bộ sưu tập bảo tàng, bộ phim tài liệu, ghi lại lịch sử truyền miệng. "(ISAAR 6.2) Trong phiên bản hiện tại của phần mềm, tài liệu lưu trữ được cung cấp chỉ như các giá trị mặc định.</target>
+      </trans-unit>
+      <trans-unit id="1393">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>Cung cấp bất kỳ ngày tháng phù hợp cho các tài nguyên liên quan và/hoặc các mối quan hệ giữa các cơ quan hợp nhất, cá nhân hoặc gia đình và các tài nguyên liên quan. "(ISAAR 6.4) Ghi ngày như bạn muốn nó xuất hiện trong trang hiển thị cho các biểu ghi, sử dụng từ hạn định và/hoặc các ký hiệu đánh máy để thể hiện sự không chắc chắn nếu muốn.</target>
+      </trans-unit>
+      <trans-unit id="1394">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>Ghi lại các hình thức biểu ghi của bất kỳ tên và định danh duy nhất có liên quan, bao gồm cả các định dang biểu ghi, cho các thực thể có liên quan "(ISAAR 5.3.1) Chọn tên từ trình đơn thả xuống; Nhập một vài ký tự đầu tiên để thu hẹp lựa chọn.</target>
+      </trans-unit>
+      <trans-unit id="1395">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>Mục đích:.. Để xác định các thể loại nói chung của mối quan hệ giữa các thực thể được mô tả và một cơ quan hợp nhất, cá nhân hoặc gia đình "(ISAAR 5.3.2) Chọn một danh mục từ trình đơn thả xuống: phân cấp, thời gian, gia đình hoặc kết hợp.</target>
+      </trans-unit>
+      <trans-unit id="1396">
+        <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
+        <target>Chọn hạn mô tả từ đơn thả xuống làm rõ loại của mối quan hệ giữa hai diễn viên này.</target>
+      </trans-unit>
+      <trans-unit id="1397">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>Ghi lại một mô tả rõ ràng về bản chất của mối quan hệ giữa các thực thể được mô tả trong biểu ghi này và các tổ chức khác có liên quan .... ghi lại dưới hình thức các quy tắc và/hoặc quy ước (5.4.3) bất kỳ phương án phân loại được sử dụng như một nguồn kiểm soát những thuật ngữ để mô tả các mối quan hệ. Một mô tả tường thuật của lịch sử và/hoặc bản chất của mối quan hệ cũng có thể được cung cấp ở đây. "(ISAAR 5.3.3). Lưu ý rằng văn bản đã nhập trong lĩnh vực này cũng sẽ xuất hiện trong các biểu ghi liên quan. </target>
+      </trans-unit>
+      <trans-unit id="1398">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>Ghi lại khi có liên quan, ngày bắt đầu từ ngày mối quan hệ hoặc ngày tiếp theo khi có liên quan, ngày chấm dứt mối quan hệ. "(ISAAR 5.3.4) Ghi ngày như bạn muốn nó xuất hiện trong trang hiển thị cho các biểu ghi, sử dụng từ hạn định và/hoặc các ký hiệu đánh máy để bày tỏ sự không chắc chắn nếu muốn.</target>
+      </trans-unit>
+      <trans-unit id="1399">
+        <source>Failed jobs</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1400">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target>Ghi lại các loại hình tổ chức này. (ISDIAH 5.1.5) Chọn các loại mong muốn từ trình đơn thả xuống; những giá trị này được rút ra từ các hình thức phần loại kho lưu trữ.</target>
+      </trans-unit>
+      <trans-unit id="1401">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target>ìm kiếm một thuật ngữ tồn tại trong phân loại theo chủ đề khu vực bằng cách gõ vài ký tự đầu tiên của tên hạn. Điều này nên được sử dụng để xác định các khu vực thu lớn</target>
+      </trans-unit>
+      <trans-unit id="1402">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target>Tìm kiếm một thuật ngữ tồn tại  trong   </target>
+      </trans-unit>
+      <trans-unit id="1403">
+        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1404">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1405">
+        <source>Diacritics settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1406">
+        <source>Please rebuild the search index after uploading diacritics mappings.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1407">
+        <source>Diacritics Settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1408">
+        <source>Diacritics</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1409">
+        <source>CSV Mapping YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1410">
+        <source>Example CSV:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1411">
+        <source>Mappings YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1412">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target>địnhám ám hiệu cho địa vị bản quyền của đối tượng tại thời điểm tuyên bố quyền được ghi lại.
+</target>
+      </trans-unit>
+      <trans-unit id="1413">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target>Văn bản mô tả giấy phép hoặc thỏa thuận mà theo đó đã được cấp phép hoặc liên kết đến toàn văn lưu trữ trực tuyến. Điều này có thể chứa văn bản thực tế của giấy phép hoặc thỏa thuận hoặc diễn giải hoặc tóm tắt.</target>
+      </trans-unit>
+      <trans-unit id="1414">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target>Thông tin thêm về giấy phép, chẳng hạn như người liên lạc, ngày hành động, hoặc giải thích. Những lưu ý cũng có thể chỉ ra vị trí của giấy phép, nếu nó có sẵn trực tuyến hoặc nhúng vào trong các đối tượng chính nó.</target>
+      </trans-unit>
+      <trans-unit id="1415">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target>Một định xác định cho quy chế. Sử dụng hình thức trích dẫn tiêu chuẩn khi áp dụng, ví dụ trích dẫn thư mục.</target>
+      </trans-unit>
+      <trans-unit id="1416">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target>Ngày rằng quyết định gán quyền quy chế này đã được thực hiện. Như bối cảnh cho bất kỳ đánh giá / tái giải thích trong tương lai.</target>
+      </trans-unit>
+      <trans-unit id="1417">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target>Tên của người hoặc tổ chức có thẩm quyền để cấp quyền truy cập, hoặc thiết lập hạn chế quyền.</target>
+      </trans-unit>
+      <trans-unit id="1418">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target>Có thể giá trị văn bản hoặc URL (ví dụ như để Creative Commons, hoặc giấy phép GNU trực tuyến khác). Được sử dụng để xác định các thỏa thuận cấp duy nhất trong hệ thống kho lưu trữ.</target>
+      </trans-unit>
+      <trans-unit id="1419">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target>Ngày kết thúc của phép được cấp. Bỏ qua ngày kết thúc nếu ngày kết thúc là không rõ.</target>
+      </trans-unit>
+      <trans-unit id="1420">
+        <source>Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1421">
+        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target>&lt;strong&gt; Nhãn: &lt;/ strong&gt; Nhập tên cho lĩnh vực nhận dạng thay thế cho biết mục đích và sử dụng của nó &lt;br/&gt; &lt;strong&gt; Nhận dạng:. &lt;/ strong&gt; Nhập mã tham chiếu di sản, định thay thế, hoặc bất kỳ anpha khác chuỗi -numeric liên quan đến hồ sơ.</target>
+      </trans-unit>
+      <trans-unit id="1422">
+        <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Một cách rõ ràng nêu tên của kho lưu trữ, bao gồm bất kỳ cơ quan mẹ (DACS 2.2.2). Tìm kiếm một cái tên hiện có trong hồ sơ tổ chức lưu trữ bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, gõ tên mới để tạo ra và liên kết đến một bản ghi cơ sở lưu trữ mới.</target>
+      </trans-unit>
+      <trans-unit id="1423">
+        <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>Ghi tên (s) của tác giả (s) được xác định trong các yếu tố tên trong tiêu đề đặt ra của các vật liệu sử dụng từ vựng tiêu chuẩn hoặc quy tắc để xây dựng tên tiêu chuẩn hóa (DACS 2.6.4). Tìm kiếm một cái tên hiện có trong biểu ghi bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, gõ tên mới để tạo ra và liên kết đến một biểu ghi mới.</target>
+      </trans-unit>
+      <trans-unit id="1424">
+        <source>REST API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1425">
+        <source>Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1426">
+        <source>Allow authorized users to download a linked AIP or AIP file from the configured Archivematica Storage Service</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1427">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Chọn tên từ trình đơn thả xuống, nhập định danh hoặc một vài ký tự đầu tiên để thu hẹp lựa chọn. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1428">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1429">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>Ghi lại các hình thức ủy quyền của tên và bất kỳ định danh duy nhất của chức năng có liên quan. "(ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="1430">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target> "Ghi lại một thể loại nói chung mà trong đó mối quan hệ được mô tả sai" (ISDF 5.3.2) Chọn một loại từ trình đơn thả xuống:. Phân cấp, thời gian hoặc kết hợp </target>
+      </trans-unit>
+      <trans-unit id="1431">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>Ghi lại một mô tả rõ ràng về bản chất của mối quan hệ giữa các chức năng được mô tả và các chức năng liên quan. "(ISDF 5.3.3) Lưu ý rằng văn bản đã nhập trong lĩnh vực này cũng sẽ xuất hiện trong các chức năng liên quan</target>
+      </trans-unit>
+      <trans-unit id="1432">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1433">
+        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1434">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>Chọn các kho lưu trữ có bảo quan và kiểm soát các tài liệu lưu trữ. Các giá trị trong lĩnh vực này được rút ra từ các hình thức ủy quyền của trường tên trong hồ sơ tổ chức lưu trữ. Tìm kiếm một tên hiện tại bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo ra và liên kết với một tổ chức lưu trữ mới.</target>
+      </trans-unit>
+      <trans-unit id="1435">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>Tìm kiếm một thuật ngữ hiện có trong phân loại đối tượng bằng cách gõ vài ký tự đầu tiên của từ này. Ngoài ra, gõ một thuật ngữ mới để tạo ra và liên kết với một thuật ngữ chủ đề mới.</target>
+      </trans-unit>
+      <trans-unit id="1436">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
         <target/>
       </trans-unit>
     </body>

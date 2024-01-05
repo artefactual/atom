@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2023-05-25T18:35:11Z" product-name="messages">
+  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2024-01-05T13:11:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -211,10 +211,6 @@
       <trans-unit id="52">
         <source>Location information - This is a mandatory element.</source>
         <target>Podaci o lokaciji/mjestu - Ovo je obavezan element.</target>
-      </trans-unit>
-      <trans-unit id="53">
-        <source>We've redirected you to the first page of results.</source>
-        <target>Preusmjerili smo vas na prvu stranicu rezultata.</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Accession number</source>
@@ -575,6 +571,10 @@
       <trans-unit id="141">
         <source>This identifer is already in use.</source>
         <target>Ovaj se identifikator već koristi.</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

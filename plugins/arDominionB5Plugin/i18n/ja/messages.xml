@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2023-05-25T18:35:06Z" product-name="messages">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2024-01-05T13:11:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -144,45 +144,17 @@
         <source>Delete row</source>
         <target/>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Use these two fields to add lower levels to a collection-level description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>A designation of the language in which the content of a resource is expressed.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="38">
         <source>Subject</source>
         <target>主題</target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>A term or phrase representing the primary topic(s) on which a work is focused.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="40">
         <source>Places</source>
         <target>場所</target>
       </trans-unit>
-      <trans-unit id="41">
-        <source>Search for an existing term in the Places taxonomy by typing the first few characters</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="42">
         <source>Names</source>
         <target>名称</target>
-      </trans-unit>
-      <trans-unit id="43">
-        <source>"Choose provenance, author and other non-subject access points from the archival</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Identifies the institution or repository holding the resource. Search for an</source>
-        <target/>
       </trans-unit>
       <trans-unit id="46">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -267,14 +239,6 @@
       <trans-unit id="66">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>このアーカイブ記述、あるいはその高度なレベルには少なくとも１人の作成者が必要です。</target>
-      </trans-unit>
-      <trans-unit id="67">
-        <source>Record the name of the organization(s) or the individual(s) responsible for the creation,</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>Record the name of the organization which has custody of the archival material.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="69">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
@@ -404,10 +368,6 @@
       <trans-unit id="100">
         <source>Related descriptions</source>
         <target>関連の記述</target>
-      </trans-unit>
-      <trans-unit id="101">
-        <source>To create a relationship between this description and another description held in AtoM,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="102">
         <source>Notes area</source>
@@ -737,17 +697,9 @@
         <source>The name given to this resource.</source>
         <target>この資料に与えられた名称。</target>
       </trans-unit>
-      <trans-unit id="184">
-        <source>The topic of the resource. Search for an existing term in the Subject taxonomy</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="185">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
         <target>&gt;&lt;p&gt;資料の特徴や分野。&lt;/p&gt;&lt;p&gt;適当なタイプを当てはめてください。&lt;em&gt;タイプ&lt;/em&gt; の選択はDCMIタイプの言葉に限定されています。&lt;/p&gt;&lt;p&gt; もしこの資料がより低い（下位）階層単位にとって最上階層の場合は、 &lt;em&gt;コレクション&lt;/em&gt; の数値を当てはめてください。 &lt;/p&gt;&lt;p&gt;警告：この資料がデジタル・オブジェクトにリンクしている場合は、the &lt;em&gt;画像&lt;/em&gt;, &lt;em&gt;テキスト&lt;/em&gt;, &lt;em&gt;音&lt;/em&gt; or &lt;em&gt;動画&lt;/em&gt; のタイプが自動的に制作物へ付与されるので、その数値についてここでは触れない。&lt;/p&gt;</target>
-      </trans-unit>
-      <trans-unit id="186">
-        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower</source>
-        <target/>
       </trans-unit>
       <trans-unit id="187">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
@@ -773,21 +725,9 @@
         <source>Relation (isLocatedAt)</source>
         <target>関係(isLocatedAt)</target>
       </trans-unit>
-      <trans-unit id="193">
-        <source>This is a mandatory element for this resource or one of its</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="194">
-        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="195">
         <source>Coverage (spatial)</source>
         <target>範囲 (空間)</target>
-      </trans-unit>
-      <trans-unit id="196">
-        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource</source>
-        <target/>
       </trans-unit>
       <trans-unit id="197">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -796,10 +736,6 @@
       <trans-unit id="198">
         <source>Rights</source>
         <target>権利</target>
-      </trans-unit>
-      <trans-unit id="199">
-        <source>Identify and record the date(s) of the unit of description.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="200">
         <source>Name(s)</source>
@@ -1037,29 +973,13 @@
         <source>Title of related resource</source>
         <target>関連資料のタイトル</target>
       </trans-unit>
-      <trans-unit id="259">
-        <source>"Provide the unique identifiers/reference codes and/or titles for the</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="260">
         <source>Nature of relationship</source>
         <target>関係性</target>
       </trans-unit>
-      <trans-unit id="261">
-        <source>"Describe the nature of the relationships between the corporate body, person or family</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="262">
         <source>Type of related resource</source>
         <target>関連資料のリソース</target>
-      </trans-unit>
-      <trans-unit id="263">
-        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="264">
-        <source>"Provide any relevant dates for the related resources and/or the relationship between the</source>
-        <target/>
       </trans-unit>
       <trans-unit id="265">
         <source>Submit</source>
@@ -1077,37 +997,17 @@
         <source>Related corporate body, person or family</source>
         <target>関連する組織体、個人、家族</target>
       </trans-unit>
-      <trans-unit id="269">
-        <source>"Record the authorized form of name and any relevant unique identifiers,</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="270">
         <source>Category of relationship</source>
         <target>関係のカテゴリー</target>
-      </trans-unit>
-      <trans-unit id="271">
-        <source>"Purpose: To identify the general category of relationship between the entity being</source>
-        <target/>
       </trans-unit>
       <trans-unit id="272">
         <source>Relationship type</source>
         <target>関係の種別</target>
       </trans-unit>
-      <trans-unit id="273">
-        <source>"Select a descriptive term from the drop-down menu to clarify</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="274">
         <source>Description of relationship</source>
         <target>関係の記述</target>
-      </trans-unit>
-      <trans-unit id="275">
-        <source>"Record a precise description of the nature of the relationship between the entity</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="276">
-        <source>"Record when relevant the commencement date of the relationship or succession date and,</source>
-        <target/>
       </trans-unit>
       <trans-unit id="277">
         <source>Clipboard</source>
@@ -1781,10 +1681,6 @@
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
         <target>"機関について、他に知られている名称（複数可）があれば記載してください。ここには、同じ名称の異なる形式での表示、頭字、その他の組織的名称、名称の変遷なども含みます。可能であれば関連する日付も記載してください。" (ISDIAH 5.1.4)</target>
       </trans-unit>
-      <trans-unit id="445">
-        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="446">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
         <target>"機関の歴史について関連情報を記載してください。この記述要素には、設立の日付、名称変更、設置法等、権限の根拠に加えられたあらゆる変更を含みます。" (ISDIAH 5.3.1)</target>
@@ -1929,16 +1825,8 @@
         <source>Thematic area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="482">
-        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="483">
         <source>Geographic subregion</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="484">
-        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first</source>
         <target/>
       </trans-unit>
       <trans-unit id="485">
@@ -2285,16 +2173,8 @@
         <source>%1% upload limits</source>
         <target/>
       </trans-unit>
-      <trans-unit id="571">
-        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="573">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0</source>
         <target/>
       </trans-unit>
       <trans-unit id="574">
@@ -2793,10 +2673,6 @@
         <source>Basis for the permissions granted or for the restriction of rights</source>
         <target>承認された許可あるいは権利の制限の根拠</target>
       </trans-unit>
-      <trans-unit id="698">
-        <source>A coded designation for the copyright status of the object</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="699">
         <source>The date the copyright status applies.</source>
         <target/>
@@ -2809,25 +2685,9 @@
         <source>Notes regarding the copyright.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="702">
-        <source>Text describing the license or agreement by which permission was</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="703">
-        <source>Additional information about the license, such as contact persons, action</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="704">
         <source>The country or other political body that has enacted the statute.</source>
         <target>法令を制定した政府や他の政体。</target>
-      </trans-unit>
-      <trans-unit id="705">
-        <source>An identifying designation for the statute. Use standard</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="706">
-        <source>Date that the decision to ascribe the right to this statute was made.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="707">
         <source>Additional information about the statute.</source>
@@ -2841,20 +2701,12 @@
         <source>Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="710">
-        <source>Name of the person(s) or organization(s) which has the authority to</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="711">
         <source>Notes for this Rights Basis.</source>
         <target/>
       </trans-unit>
       <trans-unit id="712">
         <source>Documentation Identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="713">
-        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses).</source>
         <target/>
       </trans-unit>
       <trans-unit id="714">
@@ -2880,10 +2732,6 @@
       <trans-unit id="719">
         <source>The beginning date of the permission granted.</source>
         <target>承認された許可の発効日。</target>
-      </trans-unit>
-      <trans-unit id="720">
-        <source>The ending date of the permission granted.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="721">
         <source>Notes for this granted right.</source>
@@ -3020,10 +2868,6 @@
       <trans-unit id="754">
         <source>Results</source>
         <target>結果</target>
-      </trans-unit>
-      <trans-unit id="755">
-        <source>Use these options to specify how the date range returns results.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="756">
         <source>Overlapping</source>
@@ -3593,10 +3437,6 @@
         <source>Label</source>
         <target>ラベル</target>
       </trans-unit>
-      <trans-unit id="898">
-        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="899">
         <source>Inventory list</source>
         <target/>
@@ -3661,10 +3501,6 @@
         <source>Name and location of repository</source>
         <target>リポジトリの名称と所在</target>
       </trans-unit>
-      <trans-unit id="915">
-        <source>Explicitly state the name of the repository, including any parent bodies</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="916">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
         <target/>
@@ -3679,10 +3515,6 @@
       </trans-unit>
       <trans-unit id="919">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="920">
-        <source>Record the name(s) of the creator(s) identified in the name element</source>
         <target/>
       </trans-unit>
       <trans-unit id="921">
@@ -4087,10 +3919,6 @@
       </trans-unit>
       <trans-unit id="1021">
         <source>The clipboard is empty for this entity type.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1022">
-        <source>Note: clipboard items unclipped in this page will be removed from the clipboard</source>
         <target/>
       </trans-unit>
       <trans-unit id="1023">
@@ -4545,10 +4373,6 @@
         <source>Enable AIP download</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1136">
-        <source>Allow authorized users to download a linked AIP or AIP file from</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1137">
         <source>Only hexadecimal color value</source>
         <target/>
@@ -4777,17 +4601,9 @@
         <source>Related authority record</source>
         <target>関連する典拠レコード</target>
       </trans-unit>
-      <trans-unit id="1194">
-        <source>Select the name from the drop-down menu; enter the identifier</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1195">
         <source>Identifier/title</source>
         <target>識別子/タイトル</target>
-      </trans-unit>
-      <trans-unit id="1196">
-        <source>Select the title from the drop-down menu; enter the identifier</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1197">
         <source>Classification</source>
@@ -4804,18 +4620,6 @@
       <trans-unit id="1200">
         <source>Related functions</source>
         <target>関連する機能</target>
-      </trans-unit>
-      <trans-unit id="1201">
-        <source>"Record the authorised form of name and any unique identifier</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1202">
-        <source>"Record a general category into which the relationship</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1203">
-        <source>"Record a precise description of the nature of the relationship</source>
-        <target/>
       </trans-unit>
       <trans-unit id="1204">
         <source>Edit %1% permissions of %2%</source>
@@ -5105,10 +4909,6 @@
         <source>Related donor record</source>
         <target>関連する寄贈者の記録</target>
       </trans-unit>
-      <trans-unit id="1276">
-        <source>This is the legal entity field and provides the contact</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1277">
         <source>Primary contact information</source>
         <target>はじめての連絡先情報</target>
@@ -5157,10 +4957,6 @@
         <source>Create %1%</source>
         <target>作成する%1%</target>
       </trans-unit>
-      <trans-unit id="1289">
-        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1290">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>転写されたあるいは供給されたタイトルを入力してください。 (RAD 1.1B)</target>
@@ -5203,10 +4999,6 @@
       </trans-unit>
       <trans-unit id="1300">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1301">
-        <source>Select the repository that has custody and control of the archival material.</source>
         <target/>
       </trans-unit>
       <trans-unit id="1302">
@@ -5411,18 +5203,6 @@
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
         <target>"記述単位に関し、 International Standard Book Number (ISBN), International Standard Serial Number (ISSN) その他の国際的に合意された標準の番号が存在するときにはそれを記載してください。短縮形、スペース、ハイフネーションについては全て標準通りに記載してください。" (RAD 1.9B1)</target>
       </trans-unit>
-      <trans-unit id="1352">
-        <source>Search for an existing term in the Subjects taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1353">
-        <source>Search for an existing term in the Places taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1354">
-        <source>Search for an existing term in the Genre taxonomy by typing the first few</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1355">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
         <target>記述の準備として国際的、国内または地域のルールや規則を記録する。</target>
@@ -5497,6 +5277,259 @@
       </trans-unit>
       <trans-unit id="1373">
         <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1374">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>低いコレクションレベルの記述するにはこの２つのフィールドを使用してください。必要な数だけ低いレベルを追加するには新規作成をクリックしてください。識別子：特定のリソースを識別する固有の標準番号またはコードを入力します。タイトル：通常はリソースに表示されている言葉、フレーズ、文字、または文字のグループをを入力します。</target>
+      </trans-unit>
+      <trans-unit id="1375">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target>資料内容が表現している言語の指定。必要な言語より選んでください。</target>
+      </trans-unit>
+      <trans-unit id="1376">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>作品が焦点を当てている主要な話題を反映した用語や言い回し。 用語名の冒頭の数文字を入力して、主題分類のなかから存在する用語を検索してください。あるいは、新しい主題用語の作成や関連付けのために新しい名称を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="1377">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>名称の冒頭の数文字を入力し場所の分類から実在する用語を検索する。あるいは新しく用語を入力し新しく場所に関する用語を作成してリンクさせます。</target>
+      </trans-unit>
+      <trans-unit id="1378">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>"必要に応じ、アーカイブズ記述から出所、著者、その他件名（主題キーワード）以外のアクセス・ポイントを選択してください。アクセス・ポイントは、それが関連付けられるアーカイブズ記述において一見して明らかでなければなりません。" (RAD 21.0B) このフィールドの値は、典拠レコードの名称フィールドに入力された正式名称をそのまま用います。名称の冒頭の数文字を入力して、既存の名称を検索してください。あるいは、新しい名称を入力し、新しい典拠レコードにリンクしてください。</target>
+      </trans-unit>
+      <trans-unit id="1379">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target>資料へのアクセスに関して課せられた制限についての情報。
+どのようにこのフイールドを使用するかに関しての情報についてのトップレベルのエレメントのMODSアクセス条件を参照してください。</target>
+      </trans-unit>
+      <trans-unit id="1380">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1381">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>記述単位について、記録の作成、収集、維持に責任のある組織や個人の名称を記録する。名称の冒頭の数文字を入力して典拠レコードから実在する名称を検索します。あるいは新しく名称を入力し新しく典拠レコードを作成してリンクさせます。(ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="1382">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>アーカイブズ資料のリポジトリを持つ組織の名称を入力する。名称の冒頭の文字を入力してアーカイブズ機関レコードから実在する名称を検索する。あるいは新しく名称を入力し新しくアーカイブズ機関レコードを作成してリンクさせる。</target>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>資料の主題。冒頭の数文字を入力して主題分類の既存の用語を検索してください。または作成する新規名称を入力し新規の主題用語へリンクさせてください。</target>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target>&lt;p&gt;&lt;strong&gt;下位階層&lt;/strong&gt;&lt;br/&gt;コレクションの階層記述へより低位の階層を加えるためには、これらの二つのフィールドを使用してください。必要なだけ下位階層をつくるために、 &lt;em&gt;新規作成&lt;/em&gt; をクリックしてください。&lt;/p&gt;&lt;p&gt;これらのフィールドは、記述序列のなかの最上と最下の階層のあいだの中間記述階層（シリーズやファイルなど）を加えるためにも使用される。序列階層を並べ替えるために、必要に応じて階層的なツリー表示を使ってください。&lt;/p&gt;&lt;p&gt;&lt;em&gt;識別子&lt;/em&gt;: 独自に下位階層の資料を識別するために使用される、一義的な参照コード&lt;/p&gt;&lt;p&gt;&lt;em&gt;タイトル&lt;/em&gt;: 下位階層の資料へ与えられた名称 &lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1386">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1387">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target>"必要に応じ、アーカイブズ記述から出所、著者、その他件名（主題キーワード）以外のアクセス・ポイントを選択してください。アクセス・ポイントは、それが関連付けられるアーカイブズ記述において一見して明らかでなければなりません。" (RAD 21.0B) このフィールドの値は、典拠レコードの名称フィールドに入力された正式名称をそのまま用います。名称の冒頭の数文字を入力して、既存の名称を検索してください。あるいは、新しい名称を入力し、新しい典拠レコードにリンクしてください。</target>
+      </trans-unit>
+      <trans-unit id="1388">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;資料の話題や関連のある所轄場所となる、場所や地理的地域の名称 。&lt;/p&gt;&lt;p&gt;地名の冒頭の数文字を入力することで場所の分類として存在している言葉を検索する。あるいは、新しい場所をつくったりリンクするために新しい名称 を入力してください。&lt;/p&gt;&lt;p&gt;警告：自動的に制作される創造、出版、提案のための場所に入るなら, ここではその場所の名称 は繰り返さない。&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="1389">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1390">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>""関連資料について、ID、レファレンスコード、タイトル等の情報を記載してください。" (ISAAR 6.1) ドロップダウンメニューからタイトルを選択してください; 絞り込みが必要な場合は、IDを入力するか、冒頭の数文字を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="1391">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>"組織体、個人、あるいは家族と、関連する資料の関係がどのような性質のものかについて記述してください。" (ISAAR 6.3) 関係のタイプについてはドロップダウンメニューから選択してください。これらの値はイベント・タイプ分類からとったものです。</target>
+      </trans-unit>
+      <trans-unit id="1392">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"関連する資料のタイプ―例えばアーカイブズ資料（フォンド、レコード・シリーズなど）、アーカイブズ記述、検索手段、モノグラフ、専門誌掲載論文、ウェブサイト、写真、博物館コレクション、ドキュメンタリー映画、オーラル・ヒストリーの録音テープなど―を明記してください。" (ISAAR 6.2) 現行のバージョンでは、アーカイブズ資料のみがデフォルトの値となっています。</target>
+      </trans-unit>
+      <trans-unit id="1393">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"関連資料について重要な日付、あるいは組織体、個人、家族と、関連資料との関係について重要な日付があれば、入力してください。" (ISAAR 6.4) 典拠レコードのページでこう見えてほしいと思うような形式を用い、不確定な部分がある場合は必要であれば限定詞や記述用の記号などを用いてください。.</target>
+      </trans-unit>
+      <trans-unit id="1394">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"関連するエンティティの正式名称その他関連のある固有のID（典拠レコードIDを含む）を記入してください。" (ISAAR 5.3.1) ドロップダウンメニューから正式名称を選択してください; 絞り込みのためには冒頭の数文字を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="1395">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>"目的：記述対象と、他の組織体・個人・家族との関係の一般的カテゴリを特定すること。" (ISAAR 5.3.2).ドロップダウンメニューからカテゴリを選択してください; 階層的関係/経時的関係/家族関係/連合的関係</target>
+      </trans-unit>
+      <trans-unit id="1396">
+        <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1397">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"この典拠レコードで記述されるエンティティと、他の関連するエンティティとの関係がいかなる性質のものかを、正確に記述して下さい…関係の記述に用いた統制語彙の根拠とした分類スキームがあれば、記述要素「規則等」（5.4.3)に記載してください。関係の歴史、and/or 性質についての文章による記述も、ここに記載可能です。" (ISAAR 5.3.3)。 警告：このフィールドに入力したテキストは、関連する典拠レコードにも表示されます。</target>
+      </trans-unit>
+      <trans-unit id="1398">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"必要に応じ、関係の開始日、あるいは継承日、または休止・中断日を記入してください。" (ISAAR 5.3.4) 典拠レコードのページで、そう見えてほしいような形式で日付を入力し、不確定な部分があれば、必要に応じて限定しや記述用の記号を使用してください。.</target>
+      </trans-unit>
+      <trans-unit id="1399">
+        <source>Failed jobs</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1400">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target>組織の種別を記録する。(ISDIAH 5.1.5)ドロップダウンメニューから望ましい種別を選択する。：この数値は保存機関分類から選ばれる。</target>
+      </trans-unit>
+      <trans-unit id="1401">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1402">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1403">
+        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1404">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1405">
+        <source>Diacritics settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1406">
+        <source>Please rebuild the search index after uploading diacritics mappings.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1407">
+        <source>Diacritics Settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1408">
+        <source>Diacritics</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1409">
+        <source>CSV Mapping YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1410">
+        <source>Example CSV:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1411">
+        <source>Mappings YAML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1412">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target>権利の表示の際のオブジェクトの著作権のステータスのコード化された指定が記録されています。</target>
+      </trans-unit>
+      <trans-unit id="1413">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target>許諾に関するライセンスや協定について記述する文章、あるいはオンラインで提供されるフルテキストへのリンク。ライセンスや協定の本文、言い換え、要約を含む。</target>
+      </trans-unit>
+      <trans-unit id="1414">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target>オンラインで利用可能またはオブジェクト自体に埋め込まれている場合の接触した人物、行動の日付、解釈などのライセンスについての追加情報。</target>
+      </trans-unit>
+      <trans-unit id="1415">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target>法令に関する指定を特定する。場合に応じて標準の注記を使用する　たとえば書誌的注記。</target>
+      </trans-unit>
+      <trans-unit id="1416">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target>このステータスに権利を帰属させる決定日　将来の見直し、再解釈のコンテキスト。</target>
+      </trans-unit>
+      <trans-unit id="1417">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target>許可を与えたり権利を制限する権威がある個人や組織。</target>
+      </trans-unit>
+      <trans-unit id="1418">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target>テキスト値かURIでありえます。 (たとえばクリエイテイブ・コモンズ、 GNUなどのオンラインのライセンスです)リポジトリのシステムの個別の承認された合意を特定するのに使用されます。</target>
+      </trans-unit>
+      <trans-unit id="1419">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target>承認された許可の失効日。不明なら記述しない。</target>
+      </trans-unit>
+      <trans-unit id="1420">
+        <source>Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1421">
+        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1422">
+        <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1423">
+        <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1424">
+        <source>REST API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1425">
+        <source>Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1426">
+        <source>Allow authorized users to download a linked AIP or AIP file from the configured Archivematica Storage Service</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1427">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>ドロップダウンメニューから名称を選択してください；選択を狭めるために冒頭の数文字かあるいは識別子を入力してください。(ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1428">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>ドロップダウンメニューから名称を選択してください；選択を狭めるために冒頭の数文字かあるいは識別子を入力してください。(ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="1429">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>"関連する機能について、公認された名称あるいは何らかのIDを記入してください。" (ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="1430">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target>"記述する関係が該当する一般的カテゴリを記載してください。" (ISDF 5.3.2) ドロップダウンメニューからカテゴリを選択して下さい; 階層的関係/経時的関係/連合的関係。</target>
+      </trans-unit>
+      <trans-unit id="1431">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>"記述対象の機能と、それに関連のある機能との関係がいかなる性質のものであるかについて、正確に記述してください。" (ISDF 5.3.3) このフィールドに入力するテキストは、関連のある機能のレコードにも表示されます。</target>
+      </trans-unit>
+      <trans-unit id="1432">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1433">
+        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1434">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>アーカイブズ資料を保管しコントロールするリポジトリを選択してください。このフイールドの値はアーカイブズ機関の記録の名称ファイルの正式名称に由来します。名称の冒頭の数文字を入力して、既存の名称を検索してください。あるいは、新しい名称を入力し、新しい典拠レコードにリンクしてください。</target>
+      </trans-unit>
+      <trans-unit id="1435">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>作品が焦点を当てている主要な話題を反映した用語や言い回し。 用語名の冒頭の数文字を入力して、主題分類のなかから存在する用語を検索してください。あるいは、新しい主題用語の作成や関連付けのために新しい名称を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="1436">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
         <target/>
       </trans-unit>
     </body>

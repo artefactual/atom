@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:42Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2024-01-05T13:09:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
-        <target>&lt;p&gt;Priroda ili žanr resursa.&lt;/p&gt;&lt;p&gt;Dodijeli što više primjenjivih vrsta. Opcije &lt;em&gt;Vrsta&lt;/em&gt; ograničene su na vokabular vrsta DCMI-a.&lt;/p&gt;&lt;p&gt;Dodijeli vrijednost &lt;em&gt;Zbirka&lt;/em&gt;, ako je ovaj resurs najviša razina za komplet resursa nižih (podređenih) razina.&lt;/p&gt;&lt;p&gt;Napomena: ako je ovaj resurs povezan s digitalnim objektom, vrste &lt;em&gt;slika&lt;/em&gt;, &lt;em&gt;teksta&lt;/em&gt;, &lt;em&gt;zvuka&lt;/em&gt; ili &lt;em&gt;pokretnih slika&lt;/em&gt; automatski se dodaju pri ispisu rezultata, stoga ovdje ne dupliciraj te vrijednosti.&lt;/p&gt;</target>
+        <target>&lt;p&gt;Priroda ili žanr resursa.&lt;/p&gt;&lt;p&gt;Dodijeli što više primjenjivih vrsta. Opcije &lt;em&gt;Vrsta&lt;/em&gt; ograničene su na vokabular vrsta DCMI-a.&lt;/p&gt;&lt;p&gt;Dodijeli vrijednost &lt;em&gt;Zbirka&lt;/em&gt;, ako je ovaj resurs najviša razina za komplet resursa nižih (podređenih) razina.&lt;/p&gt;&lt;p&gt;Napomena: ako je ovaj resurs povezan s digitalnim objektom, vrste &lt;em&gt;slika&lt;/em&gt;, &lt;em&gt;teksta&lt;/em&gt;, &lt;em&gt;zvuka&lt;/em&gt; ili &lt;em&gt;pokretnih slika&lt;/em&gt; se automatski dodaju prilikom ispisa rezultata, stoga ovdje nemoj dupliciraj te vrijednosti.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Child levels (if describing a collection)</source>

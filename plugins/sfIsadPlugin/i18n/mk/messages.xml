@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:21Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-01-05T13:10:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,15 +10,15 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Административен/Биографски историјат</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Историјат на имателот</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Биографска историја</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
@@ -54,11 +54,11 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Додадете нов архивистички опис</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Уреди %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
@@ -66,19 +66,19 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Identity area</source>
-        <target/>
+        <target>Подрачје на идентитет</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Reference code</source>
-        <target/>
+        <target>Референтен код / Сигнатура</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
-        <target/>
+        <target>Обезбедете специфичен локален референтен код, контролен број или друг единствен идентификатор/сигнатура. Кодот на земјата и ознаката на архивот автоматски ќе се додадат од поврзаниот запис на депото за да се формира целосен референтен код/сигнатура. (ISAD 3.1.1)</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
-        <target/>
+        <target>Обезбедете или формален наслов или концизен доставен наслов во согласност со правилата за опис на повеќе нивоа и националните конвенции. (ISAD 3.1.2)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Title</source>
@@ -98,31 +98,31 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
-        <target/>
+        <target>Запишете го нивото на оваа единица за опис. (ISAD 3.1.4)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Level of description</source>
-        <target/>
+        <target>Ниво на опис</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>Идентификатор: Обезбедете специфичен локален референтен код, контролен број или друг единствен идентификатор. Ниво на опис: запишете го нивото на оваа единица на опис. Наслов: Обезбедете формален наслов или концизен доставен наслов во согласност со правилата за опис на повеќе нивоа и националните прописи.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
-        <target/>
+        <target>Запишете го количеството на единицата за опис со давање на бројот на физички или логички единици со арапски бројки и мерни единици (должни метри или кубни метри на архивски материјал). Наведете го специфичниот носач (медиум) на единицата за опис. (ISAD 3.1.5)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Extent and medium</source>
-        <target/>
+        <target>Обем и медиум</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Context area</source>
-        <target/>
+        <target>Подрачје на контекст</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Име на создавачите/имателите на архивски материјал</target>
       </trans-unit>
       <trans-unit id="31">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
@@ -130,43 +130,43 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
-        <target/>
+        <target>Запишете го името на институцијата(ите) или поединецот(и) одговорен за создавањето, собирањето и чувањето на архивскиот материјал во единицата за опис. Пребарајте постоечко име во записите со впишување на првите неколку знаци од името. Алтернативно, напишете ново име за креирање и поврзување со нов авторски запис. (ISAD 3.2.1)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Запишете го името на институцијата која го чува архивскиот материјал. Пребарајте постоечко име во записите на архивската институција со впишување на првите неколку знаци од името. Алтернативно, напишете ново име за креирање и поврзување со нов запис од архивска институција.</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
-        <target/>
+        <target>Да се наведат сите измени на сопствеништво, на надлежност и на чување на единицата на опис, да се назначат сите технички обработки на архивскиот материјал, неговото средување, подготовка на современи информативни средства, повторната употреба на записите за други цели или миграциите на софтверот, релевантни за нејзината актуелна структура и среденост. Наведете ги датумите на овие дејствија, доколку што може да се утврдат. Ако архивската историја е непозната, запишете ја таа информација. (ISAD 3.2.3)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
-        <target/>
+        <target>Да се наведе изворот од каде што е преземена единицата на опис, како и датумот и/или начинот на преземање на архивскиот материјал во надлежната архивска институција. Доколку изворот не е познат се прави забелешка за тоа. Изборно, додајте број на влезен инвентар или број на примопредаен записник. (ISAD 3.2.4)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Непосреден извор на набавка или пренос</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Content and structure area</source>
-        <target/>
+        <target>Подрачје на содржина и структура</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>Наведете резиме на обемот (временски периоди, географска рамка) и содржина (како што се видови на документарен материјал, содржина на предмет, управни и административни процеси и постапки) на единицата за опис, соодветно на нивото на опис. (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>Да се наведат сите планирани и реализирани постапки на вреднување, одбирање и на излачување на архивскиот материјал што е дел од единицата на опис, особено ако тоа може да влијае на толкувањето на архивскиот материјал. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Вреднување, уништување и рокови за чување</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>Наведете дали се предвидени дополнувања. Онаму каде што е можно, наведете проценка на нивната количина и фреквенција на нови дополнувања. (ISAD 3.3.3)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
@@ -178,7 +178,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Подрачје на Услови за достапност и користење</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
@@ -186,83 +186,83 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Услови за достапност</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>Наведете информации за условите, како што се авторските права, кои ја регулираат репродукцијата на единицата за опис откако ќе се дозволи пристап. Ако постоењето на такви услови е непознато, да се забележи. Ако нема услови, не е потребна изјава. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Услови со кои се регулира репродукцијата</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Запишете го јазикот (јазиците) на материјалите што ја сочинуваат единицата за опис. Да се наведе писмото (латинско, кирилско...) симболите (шифри) и кратенките користени во архивскиот материјал. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Language of material</source>
-        <target/>
+        <target>Јазик на материјалот</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Наведете ги јазикот, писмото, симболите (шифри) и кратенките користени во архивскиот материјал содржан во единицата за опис. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Script of material</source>
-        <target/>
+        <target>Писмо на архивскиот материјал</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Наведете ги сите употребени карактеристични азбуки, абецеди, систем на симболи или кратенки. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Language and script notes</source>
-        <target/>
+        <target>Забелешки за јазикот и писмото</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
+        <target>Наведете ги сите важни физички услови, како што се барањата за заштита/конзервација на материјалот, кои влијаат на употребата на единицата за опис. Забележете кој било софтвер и/или хардвер потребен за пристап до единицата за опис.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Physical characteristics and technical requirements</source>
-        <target/>
+        <target>Физички карактеристики и технички барања</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>Наведете информации за сите информативни средства што се на располагање во депото или кај имателот на документарен материјал, а кои обезбедуваат информации во врска со контекстот и содржината на единицата за опис. Доколку е можно, вклучете информации за тоа каде може да се набави копија од информативното средство. (ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Allied materials area</source>
-        <target/>
+        <target>Подрачје на сродни материјали</target>
       </trans-unit>
       <trans-unit id="59">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
-        <target/>
+        <target>Доколку е достапен оригиналот на единицата за опис (или во институцијата или на друго место) запишете ја нејзината локација, заедно со сите значајни контролни броеви. Ако оригиналот повеќе не постои или неговата локација е непозната, дајте ги тие информации. (ISAD 3.5.1)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Постоење и локација на оригинали</target>
       </trans-unit>
       <trans-unit id="61">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target/>
+        <target>Ако копијата од единицата за опис е достапна (или во институцијата или на друго место) запишете ја нејзината локација, заедно со сите значајни контролни броеви. (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Постоење и локација на копии</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target/>
+        <target>Да се дадат информации за други единици на опис кои се наоѓаат во архивската институција или во други установи, кои според начелото на провиниенција или од други причини се поврзани со единицата на опис. Користете соодветна воведна формулација и објаснете ја природата на врската. Ако поврзаната единица на опис е помагало за наоѓање, користете го елементот за помагала за пронаоѓање од описот (3.4.5) за да се повикате на него. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Related units of description</source>
-        <target/>
+        <target>Поврзани единици на опис</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Related descriptions</source>
-        <target/>
+        <target>Поврзани описи</target>
       </trans-unit>
       <trans-unit id="66">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Notes area</source>
-        <target/>
+        <target>Подрачје за белешки</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Access points</source>
@@ -282,39 +282,39 @@
       </trans-unit>
       <trans-unit id="70">
         <source>Place access points</source>
-        <target/>
+        <target>Пристапни точки на место</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Genre access points</source>
-        <target/>
+        <target>Жанровски пристапни точки</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Пристапни точки на назив/име (субјекти)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Description control area</source>
-        <target/>
+        <target>Подрачје за контрола на описот</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>Запишете единствен идентификатор за опис во согласност со локалните и/или националните прописи. Ако описот треба да се користи на меѓународно ниво, запишете го кодот на земјата во која е креиран описот во согласност со најновата верзија на ISO 3166 - Кодови за претставување на имињата на земјите. Онаму каде што креаторот на описот е меѓународна организација, дајте го организацискиот идентификатор наместо кодот на државата.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Description identifier</source>
-        <target/>
+        <target>Идентификатор на опис</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>Запишете го полниот официјален назив на име(и) на институцијата(и) одговорна за изработка, измена или ширење (дистрибуирање) на описот или, алтернативно, запишете код за институцијата во согласност со националниот или меѓународниот стандард за кодови на институции.</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Institution identifier</source>
-        <target/>
+        <target>Идентификатор на институција</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
+        <target>Запишете ги меѓународните, националните и/или локалните правила или прописи што се почитуваат при подготовката на описот. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Rules or conventions</source>
@@ -326,43 +326,43 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Наведете го моменталниот статус на описот, означувајќи дали е нацрт, конечна и/или ревидирана или избришана верзија.</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Запишете дали описот се состои од минимално, делумно или целосно ниво на детали во согласност со релевантните меѓународни и/или национални насоки и/или правила.</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Level of detail</source>
-        <target/>
+        <target>Ниво на детали</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Запишете го датумот(ите) кога записот е подготвен и/или ревидиран.</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Датуми на создавање, ревизија и бришење</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Наведете ги јазиците што се користат за изработка на описот на архивскиот материјал.</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Language(s)</source>
-        <target/>
+        <target>Јазик(ци)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Наведете го писмото што се користи за изработка на описот на архивскиот материјал.</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Script(s)</source>
-        <target/>
+        <target>Писмо(а)</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Наведете ги сите цитати за сите надворешни извори користени во архивскиот опис (како што се полињата Опсег и содржина, Историјат на фондот или Белешки).</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Sources</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Date(s)</source>
-        <target/>
+        <target>Датум(и)</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Type</source>
@@ -378,7 +378,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Date</source>
-        <target/>
+        <target>Датум</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Start</source>
@@ -386,39 +386,39 @@
       </trans-unit>
       <trans-unit id="96">
         <source>End</source>
-        <target/>
+        <target>Крај</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Add new</source>
-        <target/>
+        <target>Додади ново</target>
       </trans-unit>
       <trans-unit id="98">
         <source>File list</source>
-        <target/>
+        <target>Список со датотеки</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit identity area</source>
-        <target/>
+        <target>Уредете го подрачјето за идентитет</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit context area</source>
-        <target/>
+        <target>Уредете го подрачјето на контекст</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Related function</source>
-        <target/>
+        <target>Поврзана функција</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Repository</source>
-        <target/>
+        <target>Депо</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Archival history</source>
-        <target/>
+        <target>Архивска историја (Историјат на фондот)</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>Уредете го подрачјето за содржина и структура</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Scope and content</source>
@@ -426,39 +426,39 @@
       </trans-unit>
       <trans-unit id="106">
         <source>Accruals</source>
-        <target/>
+        <target>Дополни</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>Уредете го подрачјето за условите за пристап и користење</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Finding aids</source>
-        <target/>
+        <target>Информативни средства</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>Уредете го подрачјето за сродни материјали</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Publication note</source>
-        <target/>
+        <target>Забелешка за публикација</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Edit notes area</source>
-        <target/>
+        <target>Уредете го подрачјето за уредување белешки</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Note</source>
-        <target/>
+        <target>Забелешка</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Edit access points</source>
-        <target/>
+        <target>Уреди ги точките за пристап</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Edit description control area</source>
-        <target/>
+        <target>Уредете го подрачјето за контрола на опис</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Rules and/or conventions used</source>
@@ -466,11 +466,11 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>Датуми на создавање ревизија бришење</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Archivist's note</source>
-        <target/>
+        <target>Белешка на архивистот</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Rights area</source>

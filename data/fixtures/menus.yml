@@ -37,6 +37,7 @@ QubitMenu:
       ja: ブラウズ
       ka: დათვალიერება(ამორჩევა)
       ko: 훑어보기
+      mk: Пребарувај
       nl: Blader
       pl: Przeglądaj
       pt: Navegar
@@ -77,6 +78,7 @@ QubitMenu:
       ja: 追加
       ka: დამატება
       ko: 추가
+      mk: Додадете
       nl: 'Voeg toe'
       pl: Dodaj
       pt: Adicionar
@@ -118,6 +120,7 @@ QubitMenu:
       ja: 管理
       ka: მართვა
       ko: 관리
+      mk: Уреди/управувај
       nl: Beheer
       pl: Zarządzanie
       pt: Gerir
@@ -149,6 +152,7 @@ QubitMenu:
       id: 'Telusuri khazanah arsip kami'
       it: 'Sfoglia la nostra raccolta'
       ja: コレクションをブラウズ
+      mk: 'Пребарувајте ја нашата збирка'
       pt: 'Navegar na colecção'
       pt_BR: 'Navegue pela nossa coleção'
       sr: 'Прегледај наше збирке'
@@ -178,6 +182,7 @@ QubitMenu:
       ja: 受入資料
       ka: დაშვებები
       ko: 인수들
+      mk: 'Влезни инвентари'
       nl: Aanwinsten
       pl: Dopływy
       pt: Incorporação
@@ -215,6 +220,7 @@ QubitMenu:
       ja: 寄贈者
       ka: დონორები
       ko: 기증자들
+      mk: Донатори
       nl: Schenkers
       pl: 'Przekazujący (materiały archiwalne)'
       pt: Doadores
@@ -244,6 +250,7 @@ QubitMenu:
       hu: Feladatok
       id: Tugas
       it: Operazioni
+      mk: 'Работни места'
       pt: Tarefas
       pt_BR: Tarefas
       ru: Задания
@@ -280,6 +287,7 @@ QubitMenu:
       ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
+      mk: 'Физичко складирање/депо'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
@@ -399,6 +407,7 @@ QubitMenu:
       ja: インポート
       ka: იმპორტი
       ko: 가져오기
+      mk: Увоз
       nl: import
       pl: Importowanie
       pt: Importar
@@ -438,6 +447,7 @@ QubitMenu:
       ja: 管理者
       ka: ადმინი
       ko: 관리자
+      mk: Администратор
       pl: Administrator
       pt: Administrar
       pt_BR: Administrador
@@ -512,6 +522,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       ja: アーカイブズ記述
       ko: '기록물 기술'
+      mk: 'Описи на архивски материјал'
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrições arquivísticas'
@@ -548,6 +559,7 @@ QubitMenu:
       it: 'Record d''autorità'
       ja: 典拠レコード
       ko: 전거레코드
+      mk: 'Нормативни записи'
       nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
       pt: 'Registos de autoridade'
@@ -584,6 +596,7 @@ QubitMenu:
       ja: アーカイブズ機関
       ka: საცავები
       ko: 기록물관리기관
+      mk: 'Архивски институции'
       nl: archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição arquivística'
@@ -659,6 +672,7 @@ QubitMenu:
       ja: 機能
       ka: ფუნქცია
       ko: 기능
+      mk: Функција
       nl: Functie
       pl: Funkcja
       pt: Função
@@ -738,6 +752,7 @@ QubitMenu:
       ja: CSV
       ka: CSV
       ko: CSV
+      mk: CSV
       pl: CSV
       pt: CSV
       pt_BR: CSV
@@ -865,6 +880,7 @@ QubitMenu:
       ja: プロフィール
       ka: პროფილი
       ko: 프로필
+      mk: Профил
       nl: Profiel
       pl: Profil
       pt: Perfil
@@ -903,6 +919,7 @@ QubitMenu:
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       ko: '기술정보 접근권한'
+      mk: 'Дозволи за архивски опис'
       pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões de descrição arquivística'
       sl: 'Dovoljenja glede informacijskega objekta'
@@ -935,6 +952,7 @@ QubitMenu:
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       ko: '전거레코드 허가'
+      mk: 'Дозволи за нормативен запис'
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
@@ -967,6 +985,7 @@ QubitMenu:
       it: 'Permessi dell''istituto archivistico'
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
+      mk: 'Дозволи за архивска институција'
       pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de entidade custodiadora'
       sl: 'Dovoljenja glede arhivske ustanove'
@@ -1034,6 +1053,7 @@ QubitMenu:
       ja: グループ
       ka: ჯგუფები
       ko: 그룹
+      mk: Групи
       nl: Groepen
       pl: Grupy
       pt: Grupos
@@ -1076,6 +1096,7 @@ QubitMenu:
       ja: プロフィール
       ka: პროფილი
       ko: 프로필
+      mk: Профил
       nl: Profiel
       pl: Profil
       pt: Perfil
@@ -1114,6 +1135,7 @@ QubitMenu:
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       ko: '기술정보 접근권한'
+      mk: 'Дозволи за архивски опис'
       pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões de descrição arquivística'
       sl: 'Dovoljenja glede informacijskega objekta'
@@ -1146,6 +1168,7 @@ QubitMenu:
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       ko: '전거레코드 허가'
+      mk: 'Дозволи за нормативен запис'
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
@@ -1178,6 +1201,7 @@ QubitMenu:
       it: 'Permessi dell''istituto archivistico'
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
+      mk: 'Дозволи за архивска институција'
       pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de entidade custodiadora'
       sl: 'Dovoljenja glede arhivske ustanove'
@@ -1282,6 +1306,7 @@ QubitMenu:
       ja: メニュー
       ka: მენიუები
       ko: 메뉴
+      mk: Менија
       pl: 'Listy menu'
       pt: Menus
       pt_BR: Menus
@@ -1317,6 +1342,7 @@ QubitMenu:
       ja: プラグイン
       ka: ფლაგინები
       ko: 플러그인
+      mk: 'Софтверски додатоци'
       pl: Wtyczki/pluginy
       pt: Componentes
       pt_BR: Plugins
@@ -1393,6 +1419,7 @@ QubitMenu:
       ja: 設定
       ka: '“სეთინგები“, ფუნქციები.'
       ko: 설정
+      mk: Поставки
       nl: Instellingen
       pl: Ustawienia
       pt: Configurações
@@ -1429,6 +1456,7 @@ QubitMenu:
       ja: 記述のアップデート
       ka: 'განახლებების აღწერა, ან აღწერის განახლებები'
       ko: '기술 갱신'
+      mk: 'Ажурирања на описот'
       nl: 'Wijzigingen van de beschrijving'
       pl: 'Uaktualnienia opisu'
       pt: 'Atualizações da descrição'
@@ -1469,6 +1497,7 @@ QubitMenu:
       ja: 'グローバル 検索/変更'
       ka: 'გლობალური ძებნა /შენაცვლება'
       ko: '글로벌 검색/대체'
+      mk: 'Глобално пребарување/замена'
       pt: 'Pesquisa/substituição global'
       pt_BR: 'Busca/substituição global'
       sl: 'Išči/zamenjaj v celotnem programu'
@@ -1509,6 +1538,7 @@ QubitMenu:
       ja: ホーム
       ka: საწყისი
       ko: 홈
+      mk: 'Почетна страница'
       nl: home
       pl: 'Strona Domowa'
       pt: Início
@@ -1571,6 +1601,7 @@ QubitMenu:
       hr: 'Politika privatnosti'
       id: 'Kebijakan Privasi'
       ja: プライバシーポリシー
+      mk: 'Политика за приватност'
       pt: 'Política de privacidade'
       pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
@@ -1603,6 +1634,7 @@ QubitMenu:
       ja: ヘルプ
       ka: დახმარება
       ko: 도움
+      mk: Помош
       nl: Help
       pl: Pomoc
       pt: Ajuda
@@ -1640,6 +1672,7 @@ QubitMenu:
       ja: 私のプロフィール
       ka: 'ჩემი პროფილი'
       ko: '나의 프로필'
+      mk: 'Мој Профил'
       nl: 'Mijn profiel'
       pl: 'Mój profil'
       pt: 'O meu perfil'
@@ -1684,6 +1717,7 @@ QubitMenu:
       ja: ログイン
       ka: ავტორიზაცია
       ko: 로그인
+      mk: 'Најави се'
       nl: Inloggen
       pl: Logowanie
       pt: Entrar
@@ -1728,6 +1762,7 @@ QubitMenu:
       ja: ログアウト
       ka: გამოსვლა
       ko: 로그아웃
+      mk: 'Одјави се'
       nl: uitloggen
       pt: Sair
       pt_BR: Sair
@@ -1765,6 +1800,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       ja: アーカイブズ記述
       ko: '기록물 기술'
+      mk: 'Описи на архивски материјал'
       nl: 'archivistische beschrijving'
       pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
@@ -1800,6 +1836,7 @@ QubitMenu:
       it: 'Record d''autorità'
       ja: 典拠レコード
       ko: 전거레코드
+      mk: 'Нормативни записи'
       nl: 'geautoriseerd bestand'
       pt: 'Registos de autoridade'
       pt_BR: 'Registros de autoridade'
@@ -1835,6 +1872,7 @@ QubitMenu:
       ja: アーカイブズ機関
       ka: საცავები
       ko: 기록물관리기관
+      mk: 'Архивски институции'
       nl: archiefinstelling
       pt: 'Instituição arquivística'
       pt_BR: 'Entidades custodiadoras'
@@ -1872,6 +1910,7 @@ QubitMenu:
       ja: 機能
       ka: ფუნქციები
       ko: 기능
+      mk: Функции
       nl: Functies
       pl: Funkcja
       pt: Funções
@@ -1955,6 +1994,7 @@ QubitMenu:
       ja: 場所
       ka: ადგილები
       ko: 장소
+      mk: Места
       nl: Plaatsen
       pl: Miejsca
       pt: Locais
@@ -1999,6 +2039,7 @@ QubitMenu:
       ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტები'
       ko: '디지털 객체'
+      mk: 'Дигитални објекти'
       nl: 'Digitale objecten'
       pl: 'Obiekty cyfrowe'
       pt: 'Objeto digital'
@@ -2111,6 +2152,7 @@ QubitMenu:
       id: Clipboard
       it: 'Area di lavoro'
       ja: クリップボード
+      mk: Меѓумеморија
       pt: 'Área de transferência'
       pt_BR: 'Área de Transferência'
       sr: Међумеморија
@@ -2132,6 +2174,7 @@ QubitMenu:
       hu: 'Minden kiválasztás törlése'
       id: 'Kosongkan semua yang dipilih'
       it: 'Annullare tutte le selezioni'
+      mk: 'Избриши ги сите селекции'
       pt: 'Limpar todas as selecções'
       pt_BR: 'Remover todas as seleções'
       sr: 'Обриши све ознаке'
@@ -2154,6 +2197,7 @@ QubitMenu:
       id: 'Menuju clipboard'
       it: 'Vai all''area di lavoro'
       ja: クリップボードに移動
+      mk: 'Одете во меѓумеморија'
       pt: 'Ir para a área de transferência'
       pt_BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију'
@@ -2169,12 +2213,14 @@ QubitMenu:
       ca: 'Carregar portaretalls'
       cy: 'Llwytho''r clipfwrdd'
       en: 'Load clipboard'
+      es: 'Cargar portapapeles'
       fr: 'Charge le presse-papier'
       hr: 'Učitaj međuspremnik'
       hu: 'Vágólap betöltése'
       id: 'Muat clipboard'
       it: 'Carica l''area di lavoro'
       ja: クリップボードをロード
+      mk: 'Вчитај меѓумеморија'
       pt: 'Carregar Área de Transferência'
       pt_BR: 'Carregar área de transferência'
       sr: 'Учитај међумеморију'
@@ -2223,6 +2269,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       ja: アーカイブズ記述
       ko: '기록물 기술'
+      mk: 'Описи на архивски материјал'
       nl: 'archivistische beschrijving'
       pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
@@ -2263,6 +2310,7 @@ QubitMenu:
       ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტები'
       ko: '디지털 객체'
+      mk: 'Дигитални објекти'
       nl: 'Digitale objecten'
       pl: 'Obiekty cyfrowe'
       pt: 'Objeto digital'
