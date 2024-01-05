@@ -1051,6 +1051,7 @@ $this->widgetSchema->setFormFormatterName($name);
     return isset($this->widgetSchema[$name]);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -1095,6 +1096,7 @@ $this->widgetSchema->setFormFormatterName($name);
     return $this->formFields[$name];
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -1110,6 +1112,7 @@ $this->widgetSchema->setFormFormatterName($name);
    *
    * @throws <b>LogicException</b>
    */
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     throw new LogicException('Cannot update form fields.');
@@ -1136,6 +1139,7 @@ $this->widgetSchema->setFormFormatterName($name);
     $this->resetFormFields();
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();
@@ -1193,6 +1197,7 @@ $this->widgetSchema->setFormFormatterName($name);
   /**
    * Resets the field names array to the beginning (implements the Iterator interface).
    */
+  #[\ReturnTypeWillChange]
   public function rewind()
   {
     $this->fieldNames = $this->widgetSchema->getPositions();
@@ -1206,6 +1211,7 @@ $this->widgetSchema->setFormFormatterName($name);
    *
    * @return string The key
    */
+  #[\ReturnTypeWillChange]
   public function key()
   {
     return current($this->fieldNames);
@@ -1216,6 +1222,7 @@ $this->widgetSchema->setFormFormatterName($name);
    *
    * @return mixed The escaped value
    */
+  #[\ReturnTypeWillChange]
   public function current()
   {
     return $this[current($this->fieldNames)];
@@ -1224,6 +1231,7 @@ $this->widgetSchema->setFormFormatterName($name);
   /**
    * Moves to the next form field (implements the Iterator interface).
    */
+  #[\ReturnTypeWillChange]
   public function next()
   {
     next($this->fieldNames);
@@ -1235,6 +1243,7 @@ $this->widgetSchema->setFormFormatterName($name);
    *
    * @return boolean The validity of the current element; true if it is valid
    */
+  #[\ReturnTypeWillChange]
   public function valid()
   {
     return $this->count > 0;
@@ -1245,6 +1254,7 @@ $this->widgetSchema->setFormFormatterName($name);
    *
    * @return integer The number of embedded form fields
    */
+  #[\ReturnTypeWillChange]
   public function count()
   {
     return count($this->getFormFieldSchema());
