@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uk" datatype="plaintext" original="messages" date="2022-08-05T16:59:44Z" product-name="messages">
+  <file source-language="en" target-language="uk" datatype="plaintext" original="messages" date="2024-01-05T12:34:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -420,8 +420,8 @@
         <source>Add description</source>
         <target/>
       </trans-unit>
-      <trans-unit id="106">
-        <source>%1%Contact information%2% - You %3%must%4% at least include one of</source>
+      <trans-unit id="107">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
         <target/>
       </trans-unit>
     </body>

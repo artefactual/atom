@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:45Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2024-01-05T13:10:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
-        <target>U padajućem izborniku odaberi razinu opisa. Slijedi sve relevantne lokalne ili institucionalne smjernice pri biranju odgovarajuće razine opisa. Prvo poglavlje u DACS-u (2013.) sadržava detaljniji opis.</target>
+        <target>U padajućem izborniku odaberi razinu opisa. Slijedi sve relevantne lokalne smjernice ili smjernice ustanove pri biranju odgovarajuće razine opisa. Prvo poglavlje u DACS-u (2013.) sadržava detaljniji opis.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target>Opiši trenutačni raspored gradiva s obzirom na različita združivanja unutar rasporeda kao i njihove veze. (DACS 3.2.3)</target>
+        <target>Opiši trenutačni raspored gradiva s obzirom na različita združivanja unutar rasporeda kao i njihove odnose. (DACS 3.2.3)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target>Za stvaranje veze između ovog opisa i jednog drugog opisa koji se nalazi u AtoM-u, počni upisivati naziv povezanog opisa i odaberi ga iz padajućeg izbornika kad se pojavi. Moguće je stvoriti višestruke veze.</target>
+        <target>Za stvaranje odnosa između ovog opisa i jednog drugog opisa koji se nalazi u AtoM-u, počni upisivati naziv povezanog opisa i odaberi ga iz padajućeg izbornika kad se pojavi. Moguće je stvoriti višestruke odnose.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Notes element</source>
@@ -306,19 +306,19 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target>Pristupnice</target>
+        <target>Pristupne točke</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target>Pristupnice predmeta</target>
+        <target>Pristupne točke predmeta</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target>Pristupnice mjesta</target>
+        <target>Pristupne točke mjesta</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target>Pristupnice imena (predmeti)</target>
+        <target>Pristupne točke imena (predmeti)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target>Uredi pristupnice</target>
+        <target>Uredi pristupne točke</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Genre access points</source>
-        <target>Pristupnice žanra</target>
+        <target>Pristupne točke žanra</target>
       </trans-unit>
     </body>
   </file>

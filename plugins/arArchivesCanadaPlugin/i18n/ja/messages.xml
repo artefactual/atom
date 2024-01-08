@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2023-05-25T18:35:06Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2024-01-05T13:11:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Search %1%</source>
         <target/>
       </trans-unit>
       <trans-unit id="9">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2023-05-25T18:34:58Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2024-01-05T13:11:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Mantenimiento del repositorio</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Clipboard</source>
@@ -422,11 +422,11 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Edit access points area</source>
-        <target/>
+        <target>Editar el área de puntos de acceso</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Occupations</source>
-        <target/>
+        <target>Profesiones</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Note</source>
@@ -434,7 +434,7 @@
       </trans-unit>
       <trans-unit id="119">
         <source>Maintained by</source>
-        <target/>
+        <target>Mantenido por</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Subject access points</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="125">
         <source>%1%Authority record identifier%2% - value not unique.</source>
-        <target/>
+        <target>%1%Identificador del registro de autoridad%2% - valor duplicado.</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Please complete all required fields.</source>

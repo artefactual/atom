@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:22Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-01-05T13:10:38Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Започна увоз на датотека. Проверете %1%job %2%%3% за да го видите статусот на увозот.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>The current term does not belong to the taxonomy chosen.</source>
@@ -26,23 +26,23 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Import options</source>
-        <target/>
+        <target>Опции за увоз</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Select source</source>
-        <target/>
+        <target>Изберете извор</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Select a file to import</source>
-        <target/>
+        <target>Изберете датотека за увоз</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Или далечински извор</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Import</source>
-        <target/>
+        <target>Увоз</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Taxonomy with ID %1% could not be found</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Malformed URI.</source>
-        <target/>
+        <target>Неправилно формиран URI.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Type of scheme: %1%</source>
@@ -74,11 +74,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>The graph is empty.</source>
-        <target/>
+        <target>Графикот е празен.</target>
       </trans-unit>
       <trans-unit id="19">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>Графикот содржи %1% концепти.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Unexpected concept, type received: %1%.</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>Следниве јазици се користат во базата на податоци, кои се внесени, но не поддржани од AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="22">
         <source>A total of %1% concepts have been processed so far.</source>

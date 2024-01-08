@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2023-05-25T18:35:25Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2024-01-05T13:11:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -342,7 +342,7 @@
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>"سجل الجهة المانحة أو المصدر (أي الوصي السابق المباشر) الذي تم الحصول منه على الوحدة الموصوفة، وتاريخ وطريقة الاستحواذ، بالإضافة إلى علاقة المصدر/الجهة المانحة بالمادة، إن كانت هذه المعلومات ليست سرية. إذا كان المصدر/الجهة المانحة غير معروف، سجل تلك المعلومات." (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>

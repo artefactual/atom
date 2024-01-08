@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2023-05-25T18:33:45Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2024-01-05T13:10:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -106,7 +106,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
-        <target>„Cilj: Naznačiti najvažnija mjesta i/ili mjesnu nadležnost pravne osobe, sjedište pravne osobe, odnosno mjesto boravka ili prebivališta ili mjesta koja su u vezi s entitetom. Pravilo: Zabilježiti nazive najvažnijih mjesta i područja mjesne nadležnosti, zajedno s vremenom i vrstom veze s entitetom.” (ISAAR 5.2.3)</target>
+        <target>„Cilj: Naznačiti najvažnija mjesta i/ili mjesnu nadležnost pravne osobe, sjedište pravne osobe, odnosno mjesto boravka ili prebivališta ili mjesta koja su u vezi s entitetom. Pravilo: Zabilježiti nazive najvažnijih mjesta i područja mjesne nadležnosti, zajedno s vremenom i vrstom odnosa s entitetom.” (ISAAR 5.2.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target>„Opisati unutarnji ustroj pravne osobe, kao i nadnevke svih promjena ustroja koje su od značaja za razumijevanje poslovanja pravne osobe (na primjer pomoću datiranih organizacijskih tablica). Izraditi genealogiju obitelji (na primjer rodoslovno stablo) na način da su vidljive veze među njenim članovima, s odgovarajućim nadnevcima.” (ISAAR 5.2.7)</target>
+        <target>„Opisati unutarnji ustroj pravne osobe, kao i nadnevke svih promjena ustroja koje su od značaja za razumijevanje poslovanja pravne osobe (na primjer pomoću datiranih organizacijskih tablica). Izraditi genealogiju obitelji (na primjer rodoslovno stablo) na način koji prikazuje međuodnose njezinih članova s odgovarajućim nadnevcima.” (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="36">
         <source>Relationships area</source>
-        <target>Područje veza</target>
+        <target>Područje odnosa</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Control area</source>
@@ -254,31 +254,31 @@
       </trans-unit>
       <trans-unit id="65">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target>„Cilj: Utvrditi najopćenitiju vrstu veze između entiteta koji se opisuje i druge pravne ili fizičke osobe ili obitelji.” (ISAAR 5.3.2). Odabrati kategoriju iz padajućeg izbornika: hijerarhijska, vremenska, obiteljska ili asocijativna.</target>
+        <target>„Cilj: Utvrditi najopćenitiju vrstu odnosa između entiteta koji se opisuje i druge pravne ili fizičke osobe ili obitelji.” (ISAAR 5.3.2). Odabrati kategoriju iz padajućeg izbornika: hijerarhijska, vremenska, obiteljska ili asocijativna.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Category of relationship</source>
-        <target>Kategorija veze</target>
+        <target>Kategorija odnosa</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Relationship type</source>
-        <target>Vrsta veze</target>
+        <target>Vrsta odnosa</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
-        <target>„Iz padajućeg izbornika odaberi opisni pojam za pojašnjavanje vrste veze između ova dva stvaratelja.”</target>
+        <target>„Iz padajućeg izbornika odaberi opisni pojam za pojašnjavanje vrste odnosa između ova dva stvaratelja.”</target>
       </trans-unit>
       <trans-unit id="69">
         <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
-        <target>„Zabilježiti precizan opis vrste veze između entiteta opisanog u normiranom zapisu i drugih srodnih pravnih osoba, fizičkih osoba ili obitelji, npr. nadređena ustanova, podređena ustanova, vlasnik, prednik, muž, žena, sin, nećak, nastavnik nečega, student nečega, kolega. Zabilježiti u element Pravila i/ili konvencije (5.4.3) svaku klasifikacijsku shemu korištenu kao izvor izraza kontroliranog rječnika za opisivanje veze. Ovdje se također može dati narativni opis povijesti i/ili prirode odnosa.” (ISAAR 5.3.3) Upisani tekst pojaviti će se u povezanom normiranom zapisu.</target>
+        <target>„Zabilježiti precizan opis vrste odnosa između entiteta opisanog u normiranom zapisu i drugih srodnih pravnih osoba, fizičkih osoba ili obitelji, npr. nadređena ustanova, podređena ustanova, vlasnik, prednik, muž, žena, sin, nećak, nastavnik nečega, student nečega, kolega. Zabilježiti u element Pravila i/ili konvencije (5.4.3) svaku klasifikacijsku shemu korištenu kao izvor izraza kontroliranog rječnika za opisivanje odnosa. Ovdje se također može dati narativni opis povijesti i/ili način odnosa.” (ISAAR 5.3.3) Upisani tekst pojaviti će se u povezanom normiranom zapisu.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Description of relationship</source>
-        <target>Opis veze</target>
+        <target>Opis odnosa</target>
       </trans-unit>
       <trans-unit id="71">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target>„Utvrditi vrijeme trajanja veze s drugom pravnom osobom, fizičkom osobom ili obitelji.” (ISAAR 5.3.4) Upisati datum u željenom obliku za prikaz na stranici normiranog zapisa, koristeći kvalifikatore i/ili tipografske simbole za izražavanje neizvjesnost, ako se želi.</target>
+        <target>„Zabilježiti (kada je relevantno) datum početka odnosa ili datum nasljeđivanja i kada je relevantno, datum prestanka odnosa.” (ISAAR 5.3.4) Upisati datum u željenom obliku za prikaz na stranici normiranog zapisa, koristeći kvalifikatore i/ili tipografske simbole za izražavanje neizvjesnost, ako se želi.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Export</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
-        <target>Uredi područje veza</target>
+        <target>Uredi područje odnosa</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Related entity</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
-        <target>Vrsta veze</target>
+        <target>Vrsta odnosa</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
@@ -366,7 +366,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Relationship</source>
-        <target>Veza</target>
+        <target>Odnos</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Title of related resource</source>
@@ -378,11 +378,11 @@
       </trans-unit>
       <trans-unit id="101">
         <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
-        <target>„Utvrditi prirodu odnosa između pravne osobe, pojedinca ili obitelji i povezanog izvora.” (ISAAR 6.3) Odabrati vrstu veze iz padajućeg izbornika; zapisi se povlače iz taksonomije vrste događaja.</target>
+        <target>„Utvrditi prirodu odnosa između pravne osobe, pojedinca ili obitelji i povezanog izvora.” (ISAAR 6.3) Odabrati vrstu odnosa iz padajućeg izbornika; zapisi se povlače iz taksonomije vrste događaja.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Nature of relationship</source>
-        <target>Vrsta veze</target>
+        <target>Vrsta odnosa</target>
       </trans-unit>
       <trans-unit id="103">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Access points</source>
-        <target>Pristupnice</target>
+        <target>Pristupne točke</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
@@ -418,11 +418,11 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
-        <target>Područje pristupnica</target>
+        <target>Pristupne točke područja</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points area</source>
-        <target>Uredi područje pristupnica</target>
+        <target>Uredi pristupne točke područja</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Occupations</source>
@@ -438,11 +438,11 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Subject access points</source>
-        <target>Pristupnice predmeta</target>
+        <target>Pristupne točke predmeta</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Place access points</source>
-        <target>Pristupnice mjesta</target>
+        <target>Pristupne točke mjesta</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Slug must be provided</source>
@@ -454,15 +454,15 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Please complete all required fields.</source>
-        <target/>
+        <target>Ispuni sva potrebna polja.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier of related entity</source>
-        <target/>
+        <target>Identifikator ili povezani entitet</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Dates of relationship</source>
-        <target>Datumi veze</target>
+        <target>Datumi odnosa</target>
       </trans-unit>
     </body>
   </file>

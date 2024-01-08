@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2023-05-25T18:34:21Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-01-05T13:10:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Add new resource</source>
-        <target/>
+        <target>Додадете нов извор</target>
       </trans-unit>
       <trans-unit id="6">
         <source>This is a duplicate of record %1%</source>
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Elements area</source>
-        <target/>
+        <target>Подрачје на елементи</target>
       </trans-unit>
       <trans-unit id="8">
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="10">
         <source>This is a mandatory element.</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>The name given to this resource.</source>
-        <target/>
+        <target>Доделено име/назив на овој извор.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Title</source>
@@ -54,15 +54,15 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Names and dates</source>
-        <target/>
+        <target>Имиња и датуми</target>
       </trans-unit>
       <trans-unit id="14">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Апстракт, содржина или опис на обемот и содржината на изворот.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Description</source>
-        <target/>
+        <target>Опис</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Subject</source>
@@ -78,11 +78,11 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Child levels (if describing a collection)</source>
-        <target/>
+        <target>Поднивоа (ако се опишува збирка)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Add new</source>
-        <target/>
+        <target>Додади ново</target>
       </trans-unit>
       <trans-unit id="21">
         <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
@@ -94,11 +94,11 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Format</source>
-        <target/>
+        <target>Формат</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Related material(s) from which this resource is derived.</source>
-        <target/>
+        <target>Поврзан(и) материјал(и) од кои е изведен овој извор.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Source</source>
@@ -106,11 +106,11 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Language(s) of this resource.</source>
-        <target/>
+        <target>Јазици на овој извор.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Relation (isLocatedAt)</source>
-        <target/>
+        <target>Врска (се наоѓа на)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Coverage (spatial)</source>
-        <target/>
+        <target>Покриеност (просторно)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
-        <target/>
+        <target>Информации за правата што се чуваат во и над изворот (на пр. авторски права, услови за пристап итн.).</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Rights</source>
@@ -138,11 +138,11 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Date(s)</source>
-        <target/>
+        <target>Датум(и)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Date</source>
-        <target/>
+        <target>Датум</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Start</source>
@@ -150,19 +150,19 @@
       </trans-unit>
       <trans-unit id="37">
         <source>End</source>
-        <target/>
+        <target>Крај</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Идентификувајте и запишете го датумот(ите) на единицата за опис. Идентификувајте го типот на даден датум. Запишете како единствен датум или гранични години како што е соодветно. Полето за приказ на датум може да се користи за внесување информации за датумот во форма на слободен текст, вклучувајќи типографски знаци за изразување приближување, несигурност или квалификација. Користете ги полињата за почеток и крај за да ги направите датумите да се пребаруваат. Не користете никакви квалификатори или типографски симболи за да изразите несигурност. Прифатливи формати на датуми: ГГГГММДД, ГГГГ-ММ-ДД, ГГГГ-ММ, ГГГГГ.</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Name(s)</source>
-        <target/>
+        <target>Име/имиња</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Actor name</source>
-        <target/>
+        <target>Назив на имателот</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Type</source>
@@ -170,27 +170,27 @@
       </trans-unit>
       <trans-unit id="42">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
-        <target/>
+        <target>Идентификувајте и запишете ги називот/имињата и типот(вите) на единицата за опис.</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Edit elements area</source>
-        <target/>
+        <target>Уредете го подрачјето за елементи</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Creator</source>
-        <target/>
+        <target>Создавач на архивски материјал</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Publisher</source>
-        <target/>
+        <target>Издавач</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Contributor</source>
-        <target/>
+        <target>Соработник</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Language</source>
-        <target/>
+        <target>Јазик</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Rights area</source>
