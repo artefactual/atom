@@ -3,15 +3,17 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      2.1.1                                             *
+        * VERSION:      2.8.0                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
         *               david@artefactual.com                             *
+        *               audealexandre1@gmail.com                          *
+        *               asrivastav@artefactual.com                        *
         *                                                                 *
-        * DATE:         2022-06-07                                        *
+        * DATE:         2023-12-19                                        *
         *                                                                 *
         *******************************************************************
     -->
@@ -211,7 +213,7 @@
                     <fo:table-row border-top="1px solid #000" border-bottom="1pt solid #000" margin-top="3pt">
                         <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="4">
                             <fo:block text-align="center" xsl:use-attribute-sets="h4">
-                                File / item list
+                                Liste de dossiers / pièces
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -261,16 +263,16 @@
     <xsl:template name="tableHeaders">
         <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt">
             <fo:table-cell>
-                <fo:block>Reference code</fo:block>
+                <fo:block>Cote</fo:block>
             </fo:table-cell>
             <fo:table-cell>
-                <fo:block>Title</fo:block>
+                <fo:block>Titre</fo:block>
             </fo:table-cell>
             <fo:table-cell>
                 <fo:block>Dates</fo:block>
             </fo:table-cell>
             <fo:table-cell>
-                <fo:block>Physical description</fo:block>
+                <fo:block>Unité de conditionnement</fo:block>
             </fo:table-cell>
         </fo:table-row>
     </xsl:template>
@@ -279,15 +281,15 @@
         <fo:block font-weight="bold" font-size="14" margin-bottom="0" margin-top="0" id="{local:buildID(parent::*)}">
             <xsl:if test="ead:unitid">
                 <xsl:choose>
-                    <xsl:when test="../@level='series'">Series </xsl:when>
-                    <xsl:when test="../@level='subseries'">Subseries </xsl:when>
-                    <xsl:when test="../@level='subsubseries'">Sub-Subseries </xsl:when>
+                    <xsl:when test="../@level='series'">Série </xsl:when>
+                    <xsl:when test="../@level='subseries'">Sous-série </xsl:when>
+                    <xsl:when test="../@level='subsubseries'">Sous-sous-série </xsl:when>
                     <xsl:when test="../@level='collection'">Collection </xsl:when>
                     <xsl:when test="../@level='subcollection'">Subcollection </xsl:when>
                     <xsl:when test="../@level='fonds'">Fonds </xsl:when>
-                    <xsl:when test="../@level='subfonds'">Subfonds </xsl:when>
-                    <xsl:when test="../@level='recordgrp'">Record group </xsl:when>
-                    <xsl:when test="../@level='subgrp'">Subgroup </xsl:when>
+                    <xsl:when test="../@level='subfonds'">Sous-fonds </xsl:when>
+                    <xsl:when test="../@level='recordgrp'">Groupe d'enregistrements </xsl:when>
+                    <xsl:when test="../@level='subgrp'">Sous-groupe </xsl:when>
                     <xsl:when test="../@otherlevel">
                         <xsl:value-of select="local:ucfirst(../@otherlevel)"/>
                         <xsl:text> </xsl:text>

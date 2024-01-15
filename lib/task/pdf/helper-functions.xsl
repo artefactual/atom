@@ -3,15 +3,17 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      2.1.1                                             *
+        * VERSION:      2.8.0                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
         *               david@artefactual.com                             *
+        *               audealexandre1@gmail.com                          *
+        *               asrivastav@artefactual.com                        *
         *                                                                 *
-        * DATE:         2022-06-07                                        *
+        * DATE:         2023-12-19                                        *
         *                                                                 *
         * ABOUT:        This file has been created for use with           *
         *               EAD xml files exported from the                   *
@@ -55,22 +57,22 @@
     <xsl:function name="local:oddTitleNoteHeadings">
         <xsl:param name="type"/>
         <xsl:if test="$type = 'titleContinuation'">
-            <xsl:text>Continuation of title</xsl:text>
+            <xsl:text>Compléments de titre</xsl:text>
         </xsl:if>
         <xsl:if test="$type = 'titleStatRep'">
-            <xsl:text>Statements of responsibility</xsl:text>
+            <xsl:text>Mentions de responsabilité</xsl:text>
         </xsl:if>
         <xsl:if test="$type = 'titleParallel'">
-            <xsl:text>Parallel titles and other title info</xsl:text>
+            <xsl:text>Titres parallèles</xsl:text>
         </xsl:if>
         <xsl:if test="$type = 'titleSource'">
-            <xsl:text>Source of title proper</xsl:text>
+            <xsl:text>Source du titre propre</xsl:text>
         </xsl:if>
         <xsl:if test="$type = 'titleVariation'">
-            <xsl:text>Variations in title</xsl:text>
+            <xsl:text>Variantes de titre (n)</xsl:text>
         </xsl:if>
         <xsl:if test="$type = 'titleAttributions'">
-            <xsl:text>Attributions and conjectures</xsl:text>
+            <xsl:text>Attributions et conjectures</xsl:text>
         </xsl:if>
     </xsl:function>
     <!--
@@ -87,126 +89,126 @@
             <xsl:when test="$elementNode/ead:head">
                 <xsl:value-of select="$elementNode/ead:head"/>
             </xsl:when>
-            <xsl:when test="$tag = 'did'">Summary information</xsl:when>
-            <xsl:when test="$tag = 'abstract'">Abstract</xsl:when>
-            <xsl:when test="$tag = 'accruals'">Accruals</xsl:when>
-            <xsl:when test="$tag = 'acqinfo'">Immediate source of acquisition</xsl:when>
-            <xsl:when test="$tag = 'address'">Address</xsl:when>
-            <xsl:when test="$tag = 'altformavail'">Alternative form available</xsl:when>
-            <xsl:when test="$tag = 'appraisal'">Appraisal information</xsl:when>
+            <xsl:when test="$tag = 'did'">Information sommaire</xsl:when>
+            <xsl:when test="$tag = 'abstract'">Résumé</xsl:when>
+            <xsl:when test="$tag = 'accruals'">Versements complémentaires</xsl:when>
+            <xsl:when test="$tag = 'acqinfo'">Source immédiate d’acquisition</xsl:when>
+            <xsl:when test="$tag = 'address'">Adresse</xsl:when>
+            <xsl:when test="$tag = 'altformavail'">Autres formats</xsl:when>
+            <xsl:when test="$tag = 'appraisal'">Informations sur l'évaluation</xsl:when>
             <xsl:when test="$tag = 'arc'">Arc</xsl:when>
-            <xsl:when test="$tag = 'archref'">Archival reference</xsl:when>
-            <xsl:when test="$tag = 'arrangement'">Arrangement</xsl:when>
-            <xsl:when test="$tag = 'author'">Author</xsl:when>
-            <xsl:when test="$tag = 'bibref'">Bibliographic reference</xsl:when>
-            <xsl:when test="$tag = 'bibseries'">Bibliographic series</xsl:when>
-            <xsl:when test="$tag = 'bibliography'">Bibliography</xsl:when>
+            <xsl:when test="$tag = 'archref'">Référence à d'autres documents d'archives</xsl:when>
+            <xsl:when test="$tag = 'arrangement'">Classement</xsl:when>
+            <xsl:when test="$tag = 'author'">Auteur de l'instrument de recherche</xsl:when>
+            <xsl:when test="$tag = 'bibref'">Référence bibliographique</xsl:when>
+            <xsl:when test="$tag = 'bibseries'">Collection bibliographique</xsl:when>
+            <xsl:when test="$tag = 'bibliography'">Bibliographie</xsl:when>
             <!-- AtoM: Test if the bioghist is from a person/family/corp, set heading accordingly -->
-            <xsl:when test="$tag = 'bioghist'">Administrative history / Biographical sketch</xsl:when>
-            <xsl:when test="$tag = 'change'">Change</xsl:when>
-            <xsl:when test="$tag = 'chronlist'">Chronology list</xsl:when>
-            <xsl:when test="$tag = 'accessrestrict'">Restrictions on access</xsl:when>
-            <xsl:when test="$tag = 'userestrict'">Conditions governing use</xsl:when>
-            <xsl:when test="$tag = 'container'">Physical storage</xsl:when>
-            <xsl:when test="$tag = 'controlaccess'">Access points</xsl:when>
-            <xsl:when test="$tag = 'corpname'">Corporate name</xsl:when>
-            <xsl:when test="$tag = 'creation'">Creation</xsl:when>
-            <xsl:when test="$tag = 'custodhist'">Custodial history</xsl:when>
-            <xsl:when test="$tag = 'date'">Date</xsl:when>
-            <xsl:when test="$tag = 'descgrp'">Description group</xsl:when>
-            <xsl:when test="$tag = 'dsc'">Series descriptions</xsl:when>
-            <xsl:when test="$tag = 'descrules'">Descriptive rules</xsl:when>
-            <xsl:when test="$tag = 'dao'">Digital object</xsl:when>
-            <xsl:when test="$tag = 'daodesc'">Digital object description</xsl:when>
-            <xsl:when test="$tag = 'daogrp'">Digital object group</xsl:when>
-            <xsl:when test="$tag = 'daoloc'">Digital object location</xsl:when>
+            <xsl:when test="$tag = 'bioghist'">Histoire administrative / Notice biographique</xsl:when>
+            <xsl:when test="$tag = 'change'">Modification</xsl:when>
+            <xsl:when test="$tag = 'chronlist'">Liste chronologique</xsl:when>
+            <xsl:when test="$tag = 'accessrestrict'">Restrictions à la consultation</xsl:when>
+            <xsl:when test="$tag = 'userestrict'">Conditions d’utilisation, de reproduction et de publication</xsl:when>
+            <xsl:when test="$tag = 'container'">Localisation physique</xsl:when>
+            <xsl:when test="$tag = 'controlaccess'">Mots-clés</xsl:when>
+            <xsl:when test="$tag = 'corpname'">Collectivité</xsl:when>
+            <xsl:when test="$tag = 'creation'">Création</xsl:when>
+            <xsl:when test="$tag = 'custodhist'">Historique de la conservation</xsl:when>
+            <xsl:when test="$tag = 'date'">Date(s)</xsl:when>
+            <xsl:when test="$tag = 'descgrp'">Groupe d'éléments de description</xsl:when>
+            <xsl:when test="$tag = 'dsc'">Descriptions des collections</xsl:when>
+            <xsl:when test="$tag = 'descrules'">Règles de description</xsl:when>
+            <xsl:when test="$tag = 'dao'">Document numérique</xsl:when>
+            <xsl:when test="$tag = 'daodesc'">Description du document numérique</xsl:when>
+            <xsl:when test="$tag = 'daogrp'">Groupe de documents numériques</xsl:when>
+            <xsl:when test="$tag = 'daoloc'">Localisation du document numérique</xsl:when>
             <xsl:when test="$tag = 'dimensions'">Dimensions</xsl:when>
-            <xsl:when test="$tag = 'edition'">Edition</xsl:when>
-            <xsl:when test="$tag = 'editionstmt'">Edition statement</xsl:when>
-            <xsl:when test="$tag = 'event'">Event</xsl:when>
-            <xsl:when test="$tag = 'eventgrp'">Event group</xsl:when>
-            <xsl:when test="$tag = 'expan'">Expansion</xsl:when>
-            <xsl:when test="$tag = 'extptr'">Extended pointer</xsl:when>
-            <xsl:when test="$tag = 'extptrloc'">Extended pointer location</xsl:when>
-            <xsl:when test="$tag = 'extref'">Extended reference</xsl:when>
-            <xsl:when test="$tag = 'extrefloc'">Extended reference location</xsl:when>
-            <xsl:when test="$tag = 'extent'">Extent</xsl:when>
-            <xsl:when test="$tag = 'famname'">Family name</xsl:when>
-            <xsl:when test="$tag = 'filedesc'">File description</xsl:when>
-            <xsl:when test="$tag = 'fileplan'">File plan</xsl:when>
-            <xsl:when test="$tag = 'frontmatter'">Front matter</xsl:when>
-            <xsl:when test="$tag = 'function'">Function</xsl:when>
-            <xsl:when test="$tag = 'genreform'">Genre/Physical characteristic</xsl:when>
-            <xsl:when test="$tag = 'geogname'">Geographic name</xsl:when>
-            <xsl:when test="$tag = 'imprint'">Imprint</xsl:when>
+            <xsl:when test="$tag = 'edition'">Édition</xsl:when>
+            <xsl:when test="$tag = 'editionstmt'">Mention d'édition</xsl:when>
+            <xsl:when test="$tag = 'event'">Événement</xsl:when>
+            <xsl:when test="$tag = 'eventgrp'">Groupe d'événements</xsl:when>
+            <xsl:when test="$tag = 'expan'">Forme développée</xsl:when>
+            <xsl:when test="$tag = 'extptr'">Pointeur externe</xsl:when>
+            <xsl:when test="$tag = 'extptrloc'">Localisation de pointeur externe</xsl:when>
+            <xsl:when test="$tag = 'extref'">Référence externe</xsl:when>
+            <xsl:when test="$tag = 'extrefloc'">Localisation d'une référence externe</xsl:when>
+            <xsl:when test="$tag = 'extent'">Importance matérielle</xsl:when>
+            <xsl:when test="$tag = 'famname'">Nom de famille</xsl:when>
+            <xsl:when test="$tag = 'filedesc'">Description du fichier</xsl:when>
+            <xsl:when test="$tag = 'fileplan'">Plan de classement</xsl:when>
+            <xsl:when test="$tag = 'frontmatter'">Préliminaires</xsl:when>
+            <xsl:when test="$tag = 'function'">Activité</xsl:when>
+            <xsl:when test="$tag = 'genreform'">Genre et caractéristiques matérielles</xsl:when>
+            <xsl:when test="$tag = 'geogname'">Nom géographique</xsl:when>
+            <xsl:when test="$tag = 'imprint'">Adresse bibliographique</xsl:when>
             <xsl:when test="$tag = 'index'">Index</xsl:when>
-            <xsl:when test="$tag = 'indexentry'">Index entry</xsl:when>
-            <xsl:when test="$tag = 'item'">Item</xsl:when>
-            <xsl:when test="$tag = 'language'">Language</xsl:when>
-            <xsl:when test="$tag = 'langmaterial'">Language of the material</xsl:when>
-            <xsl:when test="$tag = 'langusage'">Language usage</xsl:when>
-            <xsl:when test="$tag = 'legalstatus'">Legal status</xsl:when>
-            <xsl:when test="$tag = 'linkgrp'">Linking group</xsl:when>
-            <xsl:when test="$tag = 'originalsloc'">Location of originals</xsl:when>
-            <xsl:when test="$tag = 'materialspec'">Material specific details</xsl:when>
-            <xsl:when test="$tag = 'name'">Name</xsl:when>
-            <xsl:when test="$tag = 'namegrp'">Name group</xsl:when>
+            <xsl:when test="$tag = 'indexentry'">Entrée d'index</xsl:when>
+            <xsl:when test="$tag = 'item'">Pièce</xsl:when>
+            <xsl:when test="$tag = 'language'">Langue</xsl:when>
+            <xsl:when test="$tag = 'langmaterial'">Langue des documents</xsl:when>
+            <xsl:when test="$tag = 'langusage'">Langue utilisée</xsl:when>
+            <xsl:when test="$tag = 'legalstatus'">Statut juridique</xsl:when>
+            <xsl:when test="$tag = 'linkgrp'">Groupe de liens</xsl:when>
+            <xsl:when test="$tag = 'originalsloc'">Emplacement des originaux</xsl:when>
+            <xsl:when test="$tag = 'materialspec'">Mention spécifique</xsl:when>
+            <xsl:when test="$tag = 'name'">Nom</xsl:when>
+            <xsl:when test="$tag = 'namegrp'">Groupe de noms</xsl:when>
             <xsl:when test="$tag = 'note'">Note</xsl:when>
-            <xsl:when test="$tag = 'notestmt'">Note statement</xsl:when>
-            <xsl:when test="$tag = 'occupation'">Occupation</xsl:when>
-            <xsl:when test="$tag = 'origination'">Creator</xsl:when>
+            <xsl:when test="$tag = 'notestmt'">Mention de note</xsl:when>
+            <xsl:when test="$tag = 'occupation'">Fonction</xsl:when>
+            <xsl:when test="$tag = 'origination'">Créateur</xsl:when>
             <xsl:when test="$tag = 'odd'">
                 <!-- Atom: Choose prefix to note: -->
                 <xsl:choose>
-                    <xsl:when test="$elementNode[@type='publicationStatus']">Publication status</xsl:when>
-                    <xsl:otherwise>Other descriptive data</xsl:otherwise>
+                    <xsl:when test="$elementNode[@type='publicationStatus']">Statut de la notice</xsl:when>
+                    <xsl:otherwise>Autres données derscriptives</xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:when test="$tag = 'otherfindaid'">Finding aids</xsl:when>
-            <xsl:when test="$tag = 'persname'">Personal name</xsl:when>
-            <xsl:when test="$tag = 'phystech'">Physical condition</xsl:when>
-            <xsl:when test="$tag = 'physdesc'">Physical description</xsl:when>
-            <xsl:when test="$tag = 'physfacet'">Physical facet</xsl:when>
-            <xsl:when test="$tag = 'ptr'">Pointer</xsl:when>
-            <xsl:when test="$tag = 'ptrgrp'">Pointer group</xsl:when>
-            <xsl:when test="$tag = 'ptrloc'">Pointer location</xsl:when>
-            <xsl:when test="$tag = 'prefercite'">Preferred citation</xsl:when>
-            <xsl:when test="$tag = 'processinfo'">Processing information</xsl:when>
-            <xsl:when test="$tag = 'profiledesc'">Profile description</xsl:when>
-            <xsl:when test="$tag = 'publicationstmt'">Publication statement</xsl:when>
-            <xsl:when test="$tag = 'publisher'">Publisher</xsl:when>
-            <xsl:when test="$tag = 'ref'">Reference</xsl:when>
-            <xsl:when test="$tag = 'refloc'">Reference location</xsl:when>
-            <xsl:when test="$tag = 'relatedmaterial'">Related material</xsl:when>
-            <xsl:when test="$tag = 'repository'">Repository</xsl:when>
-            <xsl:when test="$tag = 'resource'">Resource</xsl:when>
-            <xsl:when test="$tag = 'revisiondesc'">Revision description</xsl:when>
-            <xsl:when test="$tag = 'runner'">Runner</xsl:when>
-            <xsl:when test="$tag = 'scopecontent'">Scope and content</xsl:when>
-            <xsl:when test="$tag = 'separatedmaterial'">Separated material</xsl:when>
-            <xsl:when test="$tag = 'seriesstmt'">Series statement</xsl:when>
-            <xsl:when test="$tag = 'sponsor'">Sponsor</xsl:when>
-            <xsl:when test="$tag = 'subject'">Subject</xsl:when>
-            <xsl:when test="$tag = 'subarea'">Subordinate area</xsl:when>
-            <xsl:when test="$tag = 'subtitle'">Subtitle</xsl:when>
-            <xsl:when test="$tag = 'div'">Text division</xsl:when>
-            <xsl:when test="$tag = 'title'">Title</xsl:when>
-            <xsl:when test="$tag = 'unittitle'">Title</xsl:when>
-            <xsl:when test="$tag = 'unitdate'">Date</xsl:when>
-            <xsl:when test="$tag = 'unitid'">Reference code</xsl:when>
-            <xsl:when test="$tag = 'titlepage'">Title page</xsl:when>
-            <xsl:when test="$tag = 'titleproper'">Title proper of the finding aid</xsl:when>
-            <xsl:when test="$tag = 'titlestmt'">Title statement</xsl:when>
+            <xsl:when test="$tag = 'otherfindaid'">Instruments de recherche</xsl:when>
+            <xsl:when test="$tag = 'persname'">Nom de personne</xsl:when>
+            <xsl:when test="$tag = 'phystech'">État de conservation</xsl:when>
+            <xsl:when test="$tag = 'physdesc'">Description matérielle</xsl:when>
+            <xsl:when test="$tag = 'physfacet'">Particularité matérielle</xsl:when>
+            <xsl:when test="$tag = 'ptr'">Pointeur</xsl:when>
+            <xsl:when test="$tag = 'ptrgrp'">Groupe de pointeurs</xsl:when>
+            <xsl:when test="$tag = 'ptrloc'">Localisation de pointeurs</xsl:when>
+            <xsl:when test="$tag = 'prefercite'">Mention conseillée</xsl:when>
+            <xsl:when test="$tag = 'processinfo'">Informations sur le traitement</xsl:when>
+            <xsl:when test="$tag = 'profiledesc'">Description du profil</xsl:when>
+            <xsl:when test="$tag = 'publicationstmt'">Mention de publication</xsl:when>
+            <xsl:when test="$tag = 'publisher'">Éditeur</xsl:when>
+            <xsl:when test="$tag = 'ref'">Référence</xsl:when>
+            <xsl:when test="$tag = 'refloc'">Localisation de référence</xsl:when>
+            <xsl:when test="$tag = 'relatedmaterial'">Groupe de documents reliés</xsl:when>
+            <xsl:when test="$tag = 'repository'">Institution de conservation</xsl:when>
+            <xsl:when test="$tag = 'resource'">Ressource</xsl:when>
+            <xsl:when test="$tag = 'revisiondesc'">Description des révisions</xsl:when>
+            <xsl:when test="$tag = 'runner'">Titre courant ou filigrane</xsl:when>
+            <xsl:when test="$tag = 'scopecontent'">Portée et contenu</xsl:when>
+            <xsl:when test="$tag = 'separatedmaterial'">Documents séparés</xsl:when>
+            <xsl:when test="$tag = 'seriesstmt'">Mention de collection</xsl:when>
+            <xsl:when test="$tag = 'sponsor'">Commanditaire</xsl:when>
+            <xsl:when test="$tag = 'subject'">Sujet</xsl:when>
+            <xsl:when test="$tag = 'subarea'">Subdivision</xsl:when>
+            <xsl:when test="$tag = 'subtitle'">Sous-titre de l'instrument de recherche</xsl:when>
+            <xsl:when test="$tag = 'div'">Division du texte</xsl:when>
+            <xsl:when test="$tag = 'title'">Titre</xsl:when>
+            <xsl:when test="$tag = 'unittitle'">Titre</xsl:when>
+            <xsl:when test="$tag = 'unitdate'">Date(s)</xsl:when>
+            <xsl:when test="$tag = 'unitid'">Cote</xsl:when>
+            <xsl:when test="$tag = 'titlepage'">Page de titre</xsl:when>
+            <xsl:when test="$tag = 'titleproper'">Titre propre de l'instrument de recherche</xsl:when>
+            <xsl:when test="$tag = 'titlestmt'">Mention de titre</xsl:when>
             <!-- eac-cpf fields -->
-            <xsl:when test="$tag = 'identity'">Name(s)</xsl:when>
+            <xsl:when test="$tag = 'identity'">Nom(s)</xsl:when>
             <xsl:when test="$tag = 'description'">Description</xsl:when>
-            <xsl:when test="$tag = 'relations'">Relations</xsl:when>
-            <xsl:when test="$tag = 'structureOrGenealogy'">Structure or genealogy</xsl:when>
-            <xsl:when test="$tag = 'localDescription'">Local description</xsl:when>
-            <xsl:when test="$tag= 'generalContext'">General context</xsl:when>
-            <xsl:when test="$tag= 'alternativeSet'">Alternative set</xsl:when>
-            <xsl:when test="$tag= 'functions'">Functions</xsl:when>
-            <xsl:when test="$tag= 'biogHist'">Biography or history</xsl:when>
+            <xsl:when test="$tag = 'relations'">Liens</xsl:when>
+            <xsl:when test="$tag = 'structureOrGenealogy'">Structure / généalogie</xsl:when>
+            <xsl:when test="$tag = 'localDescription'">Description locale</xsl:when>
+            <xsl:when test="$tag= 'generalContext'">Contexte général</xsl:when>
+            <xsl:when test="$tag= 'alternativeSet'">Documents de substitution</xsl:when>
+            <xsl:when test="$tag= 'functions'">Activités</xsl:when>
+            <xsl:when test="$tag= 'biogHist'">Biographie ou histoire</xsl:when>
         </xsl:choose>
     </xsl:function>
     <!--
@@ -218,21 +220,21 @@
         <xsl:param name="dateString"/>
         <xsl:variable name="month">
             <xsl:choose>
-                <xsl:when test="substring($dateString,6,2) = '01'">January</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '02'">February</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '03'">March</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '04'">April</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '05'">May</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '06'">June</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '07'">July</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '08'">August</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '09'">September</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '10'">October</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '11'">November</xsl:when>
-                <xsl:when test="substring($dateString,6,2) = '12'">December</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '01'">janvier</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '02'">février</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '03'">mars</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '04'">avril</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '05'">mai</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '06'">juin</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '07'">juillet</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '08'">août</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '09'">septembre</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '10'">octobre</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '11'">novembre</xsl:when>
+                <xsl:when test="substring($dateString,6,2) = '12'">décembre</xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:value-of select="concat($month,' ',substring($dateString,9,2),', ',substring($dateString,1,4))"/>
+        <xsl:value-of select="concat(substring($dateString,9,2),' ',$month,' ',substring($dateString,1,4))"/>
     </xsl:function>
     <!-- Uppercase the first letter of a string-->
     <xsl:function name="local:ucfirst">
@@ -248,7 +250,7 @@
             <xsl:when test="$node[@type='otherInfo']">Other title information</xsl:when>
             <!-- Note (ead:note) type labels -->
             <xsl:when test="$node[@type='sourcesDescription']">Sources</xsl:when>
-            <xsl:when test="$node[@type='generalNote']">General</xsl:when>
+            <xsl:when test="$node[@type='generalNote']">Générale</xsl:when>
             <xsl:otherwise><xsl:value-of select="$node[@type]"/></xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -256,30 +258,30 @@
     <xsl:function name="local:oddLabel">
         <xsl:param name="node"/>
         <xsl:choose>
-            <xsl:when test="$node[@type='levelOfDetail']">Level of detail</xsl:when>
-            <xsl:when test="$node[@type='statusDescription']">Status description</xsl:when>
-            <xsl:when test="$node[@type='descriptionIdentifier']">Description identifier</xsl:when>
+            <xsl:when test="$node[@type='levelOfDetail']">Niveau de détail</xsl:when>
+            <xsl:when test="$node[@type='statusDescription']">Statut de la description</xsl:when>
+            <xsl:when test="$node[@type='descriptionIdentifier']">Identifiant de la description</xsl:when>
             <xsl:when test="$node[@type='institutionIdentifier']">Institution identifier</xsl:when>
-            <xsl:when test="$node[@type='edition']">Edition</xsl:when>
-            <xsl:when test="$node[@type='physDesc']">Physical description</xsl:when>
+            <xsl:when test="$node[@type='edition']">Édition</xsl:when>
+            <xsl:when test="$node[@type='physDesc']">Description physique</xsl:when>
             <xsl:when test="$node[@type='conservation']">Conservation</xsl:when>
-            <xsl:when test="$node[@type='material']">Accompanying material</xsl:when>
-            <xsl:when test="$node[@type='alphanumericDesignation']">Alpha-numeric designations</xsl:when>
-            <xsl:when test="$node[@type='bibSeries']">Publisher's series</xsl:when>
-            <xsl:when test="$node[@type='rights']">Rights</xsl:when>
-            <xsl:when test="$node[@type='publicationStatus']">Publication status</xsl:when>
+            <xsl:when test="$node[@type='material']">Matériel d'accompagnement</xsl:when>
+            <xsl:when test="$node[@type='alphanumericDesignation']">Désignations alphanumériques</xsl:when>
+            <xsl:when test="$node[@type='bibSeries']">Série de l'éditeur</xsl:when>
+            <xsl:when test="$node[@type='rights']">Droits</xsl:when>
+            <xsl:when test="$node[@type='publicationStatus']">Statut de la notice</xsl:when>
         </xsl:choose>
     </xsl:function>
     <!-- RAD title note (ead:odd) type labels -->
     <xsl:function name="local:titleNoteLabel">
         <xsl:param name="node"/>
         <xsl:choose>
-            <xsl:when test="$node[@type='titleVariation']">Variations in title</xsl:when>
-            <xsl:when test="$node[@type='titleAttributions']">Attributions and conjectures</xsl:when>
-            <xsl:when test="$node[@type='titleContinuation']">Continuation of title</xsl:when>
-            <xsl:when test="$node[@type='titleStatRep']">Statements of responsibility</xsl:when>
-            <xsl:when test="$node[@type='titleParallel']">Parallel titles and other title information</xsl:when>
-            <xsl:when test="$node[@type='titleSource']">Source of title proper</xsl:when>
+            <xsl:when test="$node[@type='titleVariation']">Variantes de titre</xsl:when>
+            <xsl:when test="$node[@type='titleAttributions']">Attributions et conjectures</xsl:when>
+            <xsl:when test="$node[@type='titleContinuation']">Compléments de titre</xsl:when>
+            <xsl:when test="$node[@type='titleStatRep']">Mentions de responsabilité</xsl:when>
+            <xsl:when test="$node[@type='titleParallel']">Titres parallèles</xsl:when>
+            <xsl:when test="$node[@type='titleSource']">Source du titre propre</xsl:when>
             <xsl:otherwise><xsl:value-of select="$node[@type]"/></xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -291,11 +293,11 @@
     <xsl:template match="ead:language">
         <xsl:param name="prefix"/>
         <fo:block linefeed-treatment="preserve">
-            <xsl:variable name="lod" select="'Language of description: '"/>
+            <xsl:variable name="lod" select="'Langue de la description: '"/>
             <xsl:variable name="break">
 </xsl:variable>
             <xsl:choose>
-                <xsl:when test="@langcode = 'No_linguistic_content'">No linguistic content</xsl:when>
+                <xsl:when test="@langcode = 'No_linguistic_content'">Pas de contenu linguistique</xsl:when>
                 <xsl:when test="@langcode = 'und'">
                     <xsl:value-of select="concat($lod, 'Undetermined', $break)"/>
                 </xsl:when>
@@ -687,7 +689,7 @@
                     <xsl:value-of select="concat($lod, 'Fon', $break)"/>
                 </xsl:when>
                 <xsl:when test="@langcode = 'fre'">
-                    <xsl:value-of select="concat($lod, 'French', $break)"/>
+                    <xsl:value-of select="concat($lod, 'Français', $break)"/>
                 </xsl:when>
                 <xsl:when test="@langcode = 'frm'">
                     <xsl:value-of select="concat($lod, 'French, Middle (ca.1400-1600)', $break)"/>

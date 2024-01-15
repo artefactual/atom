@@ -3,15 +3,17 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      2.1.1                                             *
+        * VERSION:      2.8.0                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
         *               david@artefactual.com                             *
+        *               audealexandre1@gmail.com                          *
+        *               asrivastav@artefactual.com                        *
         *                                                                 *
-        * DATE:         2022-06-07                                        *
+        * DATE:         2023-12-19                                        *
         *                                                                 *
         *******************************************************************
     -->
@@ -32,7 +34,7 @@
     <xsl:template match="ead:dsc" mode="bookmarks">
         <xsl:if test="child::*">
             <fo:bookmark internal-destination="{local:buildID(.)}">
-                <fo:bookmark-title>Collection holdings</fo:bookmark-title>
+                <fo:bookmark-title>Contenu du fonds ou de la collection</fo:bookmark-title>
             </fo:bookmark>
         </xsl:if>
         <!--Creates descendants bookmarks-->
@@ -58,7 +60,7 @@
     <xsl:template match="ead:dsc" mode="toc">
         <xsl:if test="child::*">
             <fo:block text-align-last="justify">
-                <fo:basic-link internal-destination="{local:buildID(.)}">Collection holdings</fo:basic-link>
+                <fo:basic-link internal-destination="{local:buildID(.)}">Contenu du fonds ou de la collection</fo:basic-link>
                 <xsl:text>  </xsl:text>
                 <fo:leader leader-pattern="dots"/>
                 <xsl:text>  </xsl:text>
@@ -98,7 +100,7 @@
     <!-- Collection Inventory (dsc) templates -->
     <xsl:template match="ead:archdesc/ead:dsc">
         <fo:block xsl:use-attribute-sets="sectionTable" margin-top="10pt">
-            <fo:block xsl:use-attribute-sets="h2ID">Collection holdings</fo:block>
+            <fo:block xsl:use-attribute-sets="h2ID">Contenu du fonds ou de la collection</fo:block>
             <xsl:apply-templates select="*[not(self::ead:head)]"/>
         </fo:block>
     </xsl:template>
@@ -131,12 +133,12 @@
         <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt">
             <fo:table-cell number-columns-spanned="1">
                 <fo:block>
-                    Ref code
+                    Cote
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell number-columns-spanned="1">
                 <fo:block>
-                    Title
+                    Titre
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell number-columns-spanned="1">
@@ -146,12 +148,12 @@
             </fo:table-cell>
             <fo:table-cell number-columns-spanned="1">
                 <fo:block>
-                    Access status
+                    Conditions d'accès
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell number-columns-spanned="1">
                 <fo:block>
-                    Container
+                    Unité de conditionnement
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
@@ -168,17 +170,17 @@
     <xsl:template match="ead:did" mode="dscSeriesTitle">
         <fo:block font-weight="bold" font-size="14" margin-bottom="5pt" margin-top="20pt" id="{local:buildID(parent::*)}">
             <xsl:choose>
-                <xsl:when test="../@level='series'">Series: </xsl:when>
-                <xsl:when test="../@level='subseries'">Subseries: </xsl:when>
-                <xsl:when test="../@level='subsubseries'">Sub-Subseries: </xsl:when>
+                <xsl:when test="../@level='series'">Série: </xsl:when>
+                <xsl:when test="../@level='subseries'">Sous-série: </xsl:when>
+                <xsl:when test="../@level='subsubseries'">Sous-sous-série: </xsl:when>
                 <xsl:when test="../@level='collection'">Collection: </xsl:when>
                 <xsl:when test="../@level='subcollection'">Subcollection: </xsl:when>
                 <xsl:when test="../@level='fonds'">Fonds: </xsl:when>
-                <xsl:when test="../@level='subfonds'">Subfonds: </xsl:when>
-                <xsl:when test="../@level='recordgrp'">Record group: </xsl:when>
-                <xsl:when test="../@level='subgrp'">Subgroup: </xsl:when>
-                <xsl:when test="../@level='file'">File: </xsl:when>
-                <xsl:when test="../@level='item'">Item: </xsl:when>
+                <xsl:when test="../@level='subfonds'">Sous-fonds: </xsl:when>
+                <xsl:when test="../@level='recordgrp'">Groupe d'enregistrements: </xsl:when>
+                <xsl:when test="../@level='subgrp'">Sous-groupe: </xsl:when>
+                <xsl:when test="../@level='file'">Dossier: </xsl:when>
+                <xsl:when test="../@level='item'">Pièce: </xsl:when>
                 <xsl:otherwise>
                     <xsl:if test="../@otherlevel">
                         <xsl:call-template name="ucfirst">
@@ -282,7 +284,7 @@
             </fo:inline>:
             <xsl:apply-templates/>
             <xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if>
-            <xsl:if test="name()='unitdate'"> (date of creation)</xsl:if>
+            <xsl:if test="name()='unitdate'"> (date(s) de création)</xsl:if</xsl:if>
         </fo:block>
     </xsl:template>
 </xsl:stylesheet>
