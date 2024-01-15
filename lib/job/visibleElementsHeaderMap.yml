@@ -1,0 +1,546 @@
+# Headers mapping used for hiding Visible Elements form exports
+---
+isad_access_points_area:
+  label: "Access points"
+  csv:
+    - eventActors
+    - subjectAccessPoints
+    - placeAccessPoints
+    - nameAccessPoints
+    - genreAccessPoints
+  xml:
+    - controlaccess
+isad_allied_materials_area:
+  label: "Allied materials area"
+  csv:
+    - locationOfOriginals
+    - locationOfCopies
+    - relatedUnitsOfDescription
+    - publicationNote
+  xml:
+    - originalsloc
+    - altformavail
+    - relatedmaterial
+    - bibliography
+isad_appraisal_destruction:
+  label: "Appraisal"
+  csv:
+    - appraisal
+  xml:
+    - appraisal
+isad_archival_history:
+  label: "Archival history"
+  csv:
+    - archivalHistory
+  xml:
+    - custodhist
+isad_control_archivists_notes:
+  label: "Archivist's notes"
+  csv:
+    - archivistNote
+  xml:
+    - processinfo
+isad_conditions_of_access_use_area:
+  label: "Conditions of access and use area"
+  csv:
+    - accessConditions
+    - reproductionConditions
+    - languageNote
+    - physicalCharacteristics
+    - findingAids
+  xml:
+    - accessrestrict
+    - userestrict
+    - phystech
+    - otherfindaid
+isad_content_and_structure_area:
+  label: "Content and structure area"
+  csv:
+    - scopeAndContent
+    - appraisal
+    - accruals
+    - arrangement
+  xml:
+    - scopecontent
+    - appraisal
+    - accurals
+    - arrangement
+isad_context_area:
+  label: "Context area"
+  csv:
+    - repository
+    - archivalHistory
+    - acquisition
+  xml:
+    - repository
+    - publisher
+    - custodhist
+    - acqinfo
+isad_control_dates:
+  label: "Dates of creation"
+  csv:
+    - revisionHistory
+  xml:
+    - date
+isad_description_control_area:
+  label: "Description control area"
+  csv:
+    - descriptionIdentifier
+    - institutionIdentifier
+    - rules
+    - sources
+    - archivistNote
+    - revisionHistory
+    - descriptionStatus
+    - levelOfDetail
+    - languageOfDescription
+  xml:
+    - processinfo
+    - eadid
+    - odd type="institutionIdentifier"
+    - descrules
+    - note type="sourcesDescription"
+    - odd type="statusDescription"
+    - odd type="levelOfDetail"
+    - langusage
+isad_control_description_identifier:
+  label: "Description identifier"
+  csv:
+    - descriptionIdentifier
+  xml:
+    - odd type="descriptionIdentifier"
+isad_identity_area:
+  label: "Identity area"
+  csv:
+    - identifier
+    - title
+    - levelOfDescription
+    - extentAndMedium
+    - eventDates
+    - eventTypes
+  xml:
+    - eadid
+    - titlestmt
+    - physdesc
+    - unitdate
+isad_immediate_source:
+  label: "Immediate source of acquisition or transfer"
+  csv:
+    - acquisition
+  xml:
+    - acqinfo
+isad_control_institution_identifier:
+  label: "Institution identifier"
+  csv:
+    - institutionIdentifier
+  xml:
+    - odd type="institutionIdentifier"
+isad_control_languages:
+  label: "Language(s)"
+  csv:
+    - languageOfDescription
+  xml:
+    - language
+isad_control_level_of_detail:
+  label: "Level of detail"
+  csv:
+    - levelOfDetail
+  xml:
+    - odd type="levelOfDetail"
+isad_notes:
+  label: "Notes"
+  csv:
+    - generalNote
+  xml:
+    - note type="generalNote"
+isad_notes_area:
+  label: "Notes area"
+  csv:
+    - generalNote
+    - alternativeIdentifierLabels
+    - alternativeIdentifiers
+  xml:
+    - note type="generalNote"
+    - unitid type="alternative"
+isad_physical_condition:
+  label: "Physical characteristics and technical requirements"
+  csv:
+    - physicalCharacteristics
+  xml:
+    - phystech
+isad_control_rules_conventions:
+  label: "Rules or conventions"
+  csv:
+    - rules
+  xml:
+    - descrules
+isad_control_scripts:
+  label: "Script(s)"
+  csv:
+    - script
+  xml:
+    - scriptcode
+isad_control_sources:
+  label: "Sources"
+  csv:
+    - sources
+  xml:
+    - note type="sourcesDescription"
+isad_control_status:
+  label: "Status"
+  csv:
+    - publicationStatus
+  xml:
+    - odd type="publicationStatus"
+rad_access_points_area:
+  label: "Access points"
+  csv:
+    - subjectAccessPoints
+    - placeAccessPoints
+    - nameAccessPoints
+    - genreAccessPoints
+  xml:
+    - name role="subject"
+    - genreform
+    - subject
+    - geogname
+rad_archival_description_area:
+  label: "Archival description area"
+  csv:
+    - archivalHistory
+    - scopeAndContent
+  xml:
+    - custodhist
+    - scopecontent
+rad_material_specific_details_area:
+  label: "Class of material specific details area"
+  csv:
+    - radStatementOfScaleCartographic
+    - radStatementOfProjection
+    - radStatementOfCoordinates
+    - radStatementOfScaleArchitectural
+    - radIssuingJurisdiction
+  xml:
+    - materialspec
+rad_conservation_notes:
+  label: "Conservation note(s)"
+  csv:
+    - radNoteConservation
+  xml:
+    - odd type="conservation"
+rad_description_control_area:
+  label: "Control area"
+  csv:
+    - descriptionIdentifier
+    - institutionIdentifier
+    - rules
+    - revisionHistory
+    - sources
+    - languageOfDescription
+    - descriptionStatus
+    - levelOfDetail
+    - scriptOfDescription
+  xml:
+    - odd type="descriptionIdentifier"
+    - odd type="institutionIdentifier"
+    - descrules
+    - date
+    - note type="sourcesDescription"
+    - odd type="statusDescription"
+    - odd type="levelOfDetail"
+rad_archival_history:
+  label: "Custodial history"
+  csv:
+    - archivalHistory
+  xml:
+    - custodhist
+rad_control_dates:
+  label: "Dates of creation"
+  csv:
+    - revisionHistory
+  xml:
+    - date
+rad_dates_of_creation_area:
+  label: "Dates of creation area"
+  csv:
+    - eventDates
+    - eventTypes
+    - eventActors
+    - eventPlaces
+  xml:
+    - unitdate
+    - name role="eventTypes"
+rad_control_description_identifier:
+  label: "Description identifier"
+  csv:
+    - descriptionIdentifier
+  xml:
+    - odd type="descriptionIdentifier"
+rad_edition_area:
+  label: "Edition area"
+  csv:
+    - radEdition
+    - radEditionStatementOfResponsibility
+  xml:
+    - edition
+rad_general_notes:
+  label: "General note(s)"
+  csv:
+    - generalNote
+  xml:
+    - note type="generalNote"
+rad_immediate_source:
+  label: "Immediate source of acquisition"
+  csv:
+    - acquisition
+  xml:
+    - acqinfo
+rad_control_institution_identifier:
+  label: "Institution identifier"
+  csv:
+    - institutionIdentifier
+  xml:
+    - odd type="institutionIdentifier"
+rad_control_language:
+  label: "Language"
+  csv:
+    - languageOfDescription
+  xml:
+    - langusage
+rad_control_level_of_detail:
+  label: "Level of detail"
+  csv:
+    - levelOfDetail
+  xml:
+    - odd type="levelOfDetail"
+rad_notes_area:
+  label: "Notes area"
+  csv:
+    - physicalCharacteristics
+    - acquisition
+    - arrangement
+    - languageNote
+    - language
+    - script
+    - locationOfOriginals
+    - locationOfCopies
+    - accessConditions
+    - reproductionConditions
+    - findingAids
+    - relatedUnitsOfDescription
+    - accruals
+    - generalNote
+    - radNoteAccompanyingMaterial
+    - radNoteAlphaNumericDesignation
+    - radNoteConservation
+    - radNoteEdition
+    - radNotePhysicalDescription
+    - radNotePublishersSeries
+    - radNoteRights
+    - radNoteSignaturesInscriptions
+    - radNoteCast
+    - radNoteCredits
+  xml:
+    - phystech
+    - acqinfo
+    - arrangement
+    - langmaterial
+    - originalsloc
+    - altformavail
+    - accessrestrict
+    - userestrict
+    - otherfindaid
+    - relatedmaterial
+    - accruals
+    - note type="generalNote"
+    - odd type="material"
+    - odd type="alphanumericDesignation"
+    - odd type="conservation"
+    - odd type="edition"
+    - odd type="physDesc"
+    - odd type="bibSeries"
+    - odd type="rights"
+rad_physical_condition:
+  label: "Physical condition"
+  csv:
+    - physicalCharacteristics
+  xml:
+    - phystech
+rad_physical_description_area:
+  label: "Physical description area"
+  csv:
+    - extentAndMedium
+  xml:
+    - physdesc
+rad_publishers_series_area:
+  label: "Publisher's series area"
+  csv:
+    - radTitleProperOfPublishersSeries
+    - radParallelTitlesOfPublishersSeries
+    - radOtherTitleInformationOfPublishersSeries
+    - radStatementOfResponsibilityRelatingToPublishersSeries
+    - radNumberingWithinPublishersSeries
+    - radPublishersSeriesNote
+  xml:
+    - bibseries
+rad_rights_notes:
+  label: "Rights note(s)"
+  csv:
+    - radNoteRights
+  xml:
+    - odd type="rights"
+rad_control_rules_conventions:
+  label: "Rules or conventions"
+  csv:
+    - rules
+  xml:
+    - descrules
+rad_control_script:
+  label: "Script"
+  csv:
+    - script
+  xml:
+rad_control_sources:
+  label: "Sources"
+  csv:
+    - sources
+  xml:
+    - note type="sourcesDescription"
+rad_standard_number_area:
+  label: "Standard number area"
+  csv:
+    - radStandardNumber
+  xml:
+    - unitid type="standard"
+rad_control_status:
+  label: "Status"
+  csv:
+    - publicationStatus
+  xml:
+    - odd type="publicationStatus"
+rad_title_responsibility_area:
+  label: "Title and statement of responsibility area"
+  csv:
+    - title
+    - levelOfDescription
+    - repository
+    - identifier
+    - radGeneralMaterialDesignation
+    - alternateTitle
+    - radOtherTitleInformation
+    - radTitleVariationsInTitle
+    - radTitleSourceOfTitleProper
+    - radTitleParallelTitles
+    - radTitleContinues
+    - radTitleStatementOfResponsibilityNote
+    - radTitleAttributionsAndConjectures
+    - alternativeIdentifiers
+    - alternativeIdentifierLabels
+  xml:
+    - titlestmt
+    - repository
+    - unitid
+    - unittitle type="parallel"
+    - unittitle type="otherInfo"
+    - odd type="titleVariation"
+    - odd type="titleSource"
+    - odd type="titleParallel"
+    - odd type="titleContinuation"
+    - odd type="titleStatRep"
+    - odd type="titleAttributions"
+    - unitid type="alternative"
+dacs_identity_area:
+  label: "Identity area"
+  csv:
+    - identifier
+    - title
+    - levelOfDescription
+    - extentAndMedium
+    - repository
+    - eventDates
+    - eventTypes
+  xml:
+    - eadid
+    - titlestmt
+    - physdesc
+    - repository
+    - unitdate
+dacs_content_area:
+  label: "Content and structure area"
+  csv:
+    - scopeAndContent
+    - arrangement
+  xml:
+    - scopecontent
+    - arrangement
+dacs_conditions_of_access_area:
+  label: "Conditions of access and use area"
+  csv:
+    - accessConditions
+    - reproductionConditions
+    - languageNote
+    - physicalCharacteristics
+    - findingAids
+  xml:
+    - accessrestrict
+    - userestrict
+    - phystech
+    - otherfindaid
+dacs_acquisition_area:
+  label: "Acquisition and appraisal area"
+  csv:
+    - acquisition
+    - appraisal
+    - accruals
+    - archivalHistory
+  xml:
+    - acqinfo
+    - appraisal
+    - accurals
+    - custodhist
+dacs_materials_area:
+  label: "Related materials area"
+  csv:
+    - locationOfOriginals
+    - locationOfCopies
+    - relatedUnitsOfDescription
+    - publicationNote
+  xml:
+    - originalsloc
+    - altformavail
+    - relatedmaterial
+    - bibliography
+dacs_notes_area:
+  label: "Notes area"
+  csv:
+    - generalNote
+    - alternativeIdentifierLabels
+    - alternativeIdentifiers
+  xml:
+    - note type="generalNote"
+    - unitid type="alternative"
+dacs_control_area:
+  label: "Description control area"
+  csv:
+    - rules
+    - sources
+    - archivistNote
+  xml:
+    - descrules
+    - note type="sourcesDescription"
+    - processinfo
+dacs_access_points_area:
+  label: "Access points"
+  csv:
+    - subjectAccessPoints
+    - placeAccessPoints
+    - nameAccessPoints
+    - genreAccessPoints
+    - eventActors
+  xml:
+    - controlaccess
+dacs_physical_access:
+  label: "Physical access"
+  csv:
+    - accessionNumber
+  xml:

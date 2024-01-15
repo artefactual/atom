@@ -40,6 +40,8 @@ class QubitFlatfileExport
     protected $rowsPerFile = 1000;           // how many rows until creating new export file
 
     protected $separatorChar = '|';          // character to use when imploding arrays to a single value
+    protected $params;
+    protected $nonVisibleElementsIncluded;
 
     /*
      * Constructor
@@ -243,6 +245,10 @@ class QubitFlatfileExport
             $this->loadResourceSpecificConfiguration(get_class($resource));
         }
 
+        if (!$this->params['nonVisibleElementsIncluded']) {
+            $this->getHiddenVisibleElementCsvHeaders();
+        }
+
         $this->resource = $resource;
 
         // If writing to a directory, generate filename periodically to keep each
@@ -269,6 +275,13 @@ class QubitFlatfileExport
             }
         }
 
+        $this->prepareRowFromResource();
+
+        if (!empty($this->nonVisibleElementsIncluded)) {
+            // Remove elements from $this->columnNames that are in $this->nonVisibleElementsIncluded
+            $this->columnNames = array_diff($this->columnNames, $this->nonVisibleElementsIncluded);
+        }
+
         // If file doesn't yet exist, write headers
         if (!file_exists($filePath)) {
             $this->appendRowToCsvFile($filePath, $this->columnNames);
@@ -279,9 +292,8 @@ class QubitFlatfileExport
             Qubit::clearClassCaches();
         }
 
-        $this->prepareRowFromResource();
-
         // Write row to file and initialize row
+        $this->row = array_slice($this->row, 0, count($this->columnNames));
         $this->appendRowToCsvFile($filePath, $this->row);
         $this->row = array_fill(0, count($this->columnNames), null);
         ++$this->rowsExported;
@@ -296,8 +308,9 @@ class QubitFlatfileExport
         foreach ($this->columnNames as $index => $column) {
             $value = $this->row[$index];
 
-            // If row value hasn't been set to anything, attempt to get resource property
-            if (null === $value) {
+            // If row value hasn't been set to anything and element is not hidden,
+            // attempt to get resource property
+            if (null === $value && !in_array($column, $this->nonVisibleElementsIncluded)) {
                 if (in_array($column, $this->standardColumns)) {
                     $value = $this->resource->{$column};
                 } elseif (($sourceColumn = array_search($column, $this->columnMap)) !== false) {
@@ -305,13 +318,70 @@ class QubitFlatfileExport
                 } elseif (isset($this->propertyMap[$column])) {
                     $value = $this->resource->getPropertyByName($this->propertyMap[$column])->__toString();
                 }
-            }
 
-            // Add column value (imploding if necessary)
-            $this->row[$index] = $this->content($value);
+                // Add column value (imploding if necessary)
+                $this->row[$index] = $this->content($value);
+            } else {
+                // Unset hidden elements columns
+                unset($this->row[$index]);
+            }
         }
 
         $this->modifyRowBeforeExport();
+    }
+
+    /**
+     * Get parameters to determine hidden elements.
+     *
+     * @param array parameters for CSV export
+     * @param mixed $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * Get list of hidden elements.
+     */
+    public function getHiddenVisibleElementCsvHeaders()
+    {
+        $nonVisibleElementsIncluded = [];
+        $nonVisibleElements = [];
+
+        if (!$this->params['nonVisibleElementsIncluded']) {
+            $template = sfConfig::get('app_default_template_'.strtolower($this->params['objectType']));
+
+            // Get list of elements hidden from settings
+            foreach (sfConfig::getAll() as $setting => $value) {
+                if (
+                    (false !== strpos($setting, ('app_element_visibility_'.$template)))
+                    && (!strpos($setting, ('__source')))
+                    && (0 == sfConfig::get($setting))
+                ) {
+                    array_push($nonVisibleElements, $setting);
+                }
+            }
+
+            if (!empty($nonVisibleElements)) {
+                $mapPath = sfConfig::get('sf_lib_dir').DIRECTORY_SEPARATOR.'job/visibleElementsHeaderMap.yml';
+                $headers = sfYaml::load($mapPath);
+
+                // Get xml/csv headers to remove
+                foreach ($nonVisibleElements as $e) {
+                    $prefix = 'app_element_visibility_';
+                    $element = str_replace($prefix, '', $e);
+
+                    if (array_key_exists($element, $headers)) {
+                        foreach ($headers[$element]['csv'] as $ele) {
+                            array_push($nonVisibleElementsIncluded, $ele);
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->nonVisibleElementsIncluded = $nonVisibleElementsIncluded;
     }
 
     /*

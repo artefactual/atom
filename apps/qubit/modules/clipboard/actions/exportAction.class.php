@@ -28,6 +28,7 @@ class ClipboardExportAction extends DefaultEditAction
         'includeAllLevels',
         'includeDigitalObjects',
         'includeDrafts',
+        'includeNonVisibleElements',
     ];
 
     private $choices = [];
@@ -80,6 +81,19 @@ class ClipboardExportAction extends DefaultEditAction
             $this->digitalObjectsAvailable = true;
         }
 
+        // Determine if there are non-visible elements that should be hidden
+        $this->nonVisibleElementsIncluded = false;
+        $defTemplate = sfConfig::get(('app_default_template_'.strtolower($this->objectType)));
+
+        foreach (sfConfig::getAll() as $setting => $value) {
+            if (
+                (false !== strpos($setting, ('app_element_visibility_'.$defTemplate)))
+                && (0 == sfConfig::get($setting))
+            ) {
+                $this->nonVisibleElementsIncluded = true;
+            }
+        }
+
         // Show export options panel if:
         // information object type
         // or, if actor type and digital objects are on the clipboard
@@ -109,6 +123,13 @@ class ClipboardExportAction extends DefaultEditAction
         $this->draftsIncluded = $this->showOptions
             && $this->context->user->isAuthenticated()
             && 'on' == $request->getParameter('includeDrafts');
+
+        // Get field includeNonVisibleElements if:
+        // options enabled
+        // and, user is authenticated
+        $this->nonVisibleElementsIncluded = $this->showOptions
+        && $this->context->user->isAdministrator()
+        && 'on' == $request->getParameter('includeNonVisibleElements');
 
         parent::execute($request);
 
@@ -160,6 +181,7 @@ class ClipboardExportAction extends DefaultEditAction
             'public' => !$this->draftsIncluded,
             'objectType' => $this->objectType,
             'levels' => $levelsOfDescription,
+            'nonVisibleElementsIncluded' => $this->nonVisibleElementsIncluded,
         ];
 
         $msg = ('xml' == $this->formatType) ? 'XML export' : 'CSV export';
@@ -426,6 +448,28 @@ class ClipboardExportAction extends DefaultEditAction
                         'Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.'
                     );
                     $this->form->setDefault('includeDrafts', true);
+                }
+
+                break;
+            // Enable field includeNonVisibleElements if:
+            // information object type
+            // and, user is authenticated
+            case 'includeNonVisibleElements':
+                if (
+                    'informationObject' == $this->objectType
+                    && $this->context->user->isAdministrator()
+                ) {
+                    $this->form->setWidget(
+                        'includeNonVisibleElements',
+                        new sfWidgetFormInputCheckbox(
+                            ['label' => __('Include non-visible elements')]
+                        )
+                    );
+
+                    $this->helpMessages[] = __(
+                        'Choosing "Include non-visible elements" will include those not marked as Visible Elements.'
+                    );
+                    $this->form->setDefault('includeNonVisibleElements', false);
                 }
 
                 break;
