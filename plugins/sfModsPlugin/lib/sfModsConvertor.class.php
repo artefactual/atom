@@ -332,7 +332,6 @@ class sfModsConvertor extends QubitSaxParser
         // Download/copy URL to temp file
         $curlSession = curl_init();
         curl_setopt($curlSession, CURLOPT_URL, $this->data());
-        curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
         curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
 
         $tempFile = tempnam(sys_get_temp_dir(), 'atomFile');
