@@ -71,7 +71,7 @@ class SettingsDiacriticsAction extends SettingsEditAction
             case 'mappings':
                 $file = $this->form->getValue('mappings');
 
-                $diacriticsMappingPath = sfConfig::get('sf_config_dir').DIRECTORY_SEPARATOR.'diacritics_mapping.yml';
+                $diacriticsMappingPath = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.'diacritics_mapping.yml';
 
                 if (null !== $file) {
                     try {

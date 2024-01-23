@@ -143,8 +143,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $diacriticsFinder = sfFinder::type('file')->name('diacritics_mapping.yml');
         $diacriticsFiles = array_unique(
             array_merge(
-                $diacriticsFinder->in(sfConfig::get('sf_config_dir')),
-                $diacriticsFinder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))
+                $diacriticsFinder->in(sfConfig::get('sf_upload_dir')),
             )
         );
 
