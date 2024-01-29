@@ -12,5 +12,9 @@ QubitSslRequirement: ~
 QubitMeta: ~
 QubitLimitResults: ~
 QubitTransaction: ~
+
+QubitCSP:
+  enable: false
+
 cache: ~
 execution: ~
