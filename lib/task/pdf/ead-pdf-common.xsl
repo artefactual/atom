@@ -644,7 +644,14 @@
             <fo:block xsl:use-attribute-sets="h2ID">
                 <xsl:value-of select="local:tagName(.)"/>
             </fo:block>
-            <xsl:apply-templates/>
+            <xsl:choose>
+              <xsl:when test="ead:note">
+                <xsl:apply-templates select="./ead:note/*" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates/>
+              </xsl:otherwise>
+            </xsl:choose>
             <xsl:call-template name="toc"/>
         </fo:block>
     </xsl:template>
