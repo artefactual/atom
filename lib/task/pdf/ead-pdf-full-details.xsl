@@ -256,10 +256,33 @@
     </xsl:template>
     <!-- Special formatting for elements in the collection inventory list -->
     <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:physloc | ead:materialspec | ead:container | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
-        <fo:block xsl:use-attribute-sets="smpDsc"><fo:inline text-decoration="underline"><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                            </xsl:when><xsl:when test="ead:persname[@role != '']">
-                                - <xsl:value-of select="ead:persname/@role"/>
-                            </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose></fo:inline>: <xsl:apply-templates/><xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if><xsl:if test="name()='unitdate'"> (date of creation)</xsl:if></fo:block>
+        <fo:block xsl:use-attribute-sets="smpDsc">
+            <fo:inline text-decoration="underline">
+                <xsl:choose><!-- Test for label attribute used by origination element -->
+                    <xsl:when test="@label">
+                        <xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/>
+                        <xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if>
+                        <xsl:if test="self::ead:origination">
+                            <xsl:choose>
+                                <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
+                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                                </xsl:when>
+                                <xsl:when test="ead:persname[@role != '']">
+                                    - <xsl:value-of select="ead:persname/@role"/>
+                                </xsl:when>
+                                <xsl:otherwise/>
+                            </xsl:choose>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="local:tagName(.)"/>
+                        <xsl:if test="@type"> [<xsl:value-of select="local:typeLabel(.)"/>]</xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </fo:inline>:
+            <xsl:apply-templates/>
+            <xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if>
+            <xsl:if test="name()='unitdate'"> (date of creation)</xsl:if>
+        </fo:block>
     </xsl:template>
 </xsl:stylesheet>
