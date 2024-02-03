@@ -186,15 +186,17 @@ abstract class arElasticSearchModelBase
         $this->search->log($message);
     }
 
-    protected function logEntry($title, $count)
+    protected function logEntry($title, $count, $limit = null)
     {
+        $max = !empty($limit) ? min($this->getCount(), $limit) : $this->getCount();
+
         $this->log(sprintf(
             '    [%s] %s inserted (%ss) (%s/%s)',
             str_replace('arElasticSearch', '', get_class($this)),
             $title,
             $this->timer->elapsed(),
             $count,
-            $this->getCount()
+            $max
         ));
     }
 
