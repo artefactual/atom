@@ -72,15 +72,22 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
      */
     protected function exportDataAndDigitalObject($resource, $path)
     {
-        // Pass parameters to QubitFlatfileExport to determine hidden visible elements
-        $this->csvWriter->setParams($this->params);
+        $cultures = array_keys(DefaultTranslationLinksComponent::getOtherCulturesAvailable($resource->informationObjectI18ns, 'title', $resource->getTitle(['sourceCulture' => true])));
 
-        // Append resource metadata to CSV file
-        $this->csvWriter->exportResource($resource);
+        foreach ($cultures as $culture) {
+            $this->csvWriter->user->setCulture($culture);
 
-        $this->addDigitalObject($resource, $path);
+            // Pass parameters to QubitFlatfileExport to determine hidden visible elements
+            $this->csvWriter->setParams($this->params);
 
-        ++$this->itemsExported;
+            // Append resource metadata to CSV file
+            $this->csvWriter->exportResource($resource);
+
+            $this->addDigitalObject($resource, $path);
+
+            ++$this->itemsExported;
+        }
+
         $this->logExportProgress();
     }
 
