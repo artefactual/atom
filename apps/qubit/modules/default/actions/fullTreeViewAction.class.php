@@ -343,7 +343,7 @@ class DefaultFullTreeViewAction extends sfAction
     protected function getPageLimit($options)
     {
         // Get default limit from config
-        $limit = sfConfig::get('app_treeview_full_items_per_page', 50);
+        $limit = sfConfig::get('app_treeview_full_items_per_page', 8000);
 
         if (isset($options['limit']) && intval($options['limit']) > 0) {
             $limit = intval($options['limit']);
