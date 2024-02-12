@@ -1,5 +1,7 @@
 <?php
 
+require_once 'vendor/symfony/lib/helper/I18NHelper.php';
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -108,21 +110,25 @@ class DefaultTranslationLinksComponent extends sfComponent
             return sfView::NONE;
         }
 
-        // Get other cultures available
-        $this->translations = [];
-        foreach ($i18ns as $i18n) {
-            if ($i18n->culture == $currentCulture) {
-                continue;
-            }
+        $translations = self::getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty);
+    }
 
+    public static function getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty)
+    {
+        // Get other cultures available
+        $translations = [];
+
+        foreach ($i18ns as $i18n) {
             $name = isset($propertyName) && isset($i18n->{$propertyName}) ? $i18n->{$propertyName} : $sourceCultureProperty;
             $langCode = $i18n->culture;
             $langName = format_language($langCode);
 
-            $this->translations[$langCode] = [
+            $translations[$langCode] = [
                 'name' => $name,
                 'language' => ucfirst($langName),
             ];
         }
+
+        return $translations;
     }
 }
