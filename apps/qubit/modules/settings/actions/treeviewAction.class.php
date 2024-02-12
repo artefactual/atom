@@ -147,7 +147,7 @@ class SettingsTreeviewAction extends DefaultEditAction
             case 'fullItemsPerPage':
                 $this->fullItemsPerPageSetting = QubitSetting::getByName('treeview_full_items_per_page');
 
-                $default = 50;
+                $default = 8000;
                 if (isset($this->fullItemsPerPageSetting)) {
                     $default = $this->fullItemsPerPageSetting->getValue(['sourceCulture' => true]);
                 }
