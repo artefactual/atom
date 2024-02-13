@@ -333,6 +333,10 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         event.preventDefault();
       }
 
+      // Load items from local storage in case activity
+      // in another tab has changed the content
+      this.items = JSON.parse(this.storage.getItem("clipboard"));
+
       var $button = $(event.target).closest("button");
       var type = $button.data("clipboard-type");
       var slug = $button.data("clipboard-slug");
