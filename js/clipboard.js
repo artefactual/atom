@@ -342,6 +342,10 @@
         $button.tooltip('hide');
       }
 
+      // Load items from local storage in case activity
+      // in another tab has changed the content
+      this.items = JSON.parse(this.storage.getItem("clipboard"));
+
       var type = $button.data('clipboard-type');
       var slug = $button.data('clipboard-slug');
       var index = this.items[type].indexOf(slug);
@@ -420,7 +424,7 @@
       var actorsCount = this.items['actor'].length;
       var reposCount = this.items['repository'].length;
       var totalCount = iosCount + actorsCount + reposCount;
-      
+
       // Menu button count
       var $buttonSpan = this.$menuButton.find('> span');
       if (!$buttonSpan.length && totalCount > 0)
