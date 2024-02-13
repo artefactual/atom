@@ -60,6 +60,8 @@ class arActorExportJob extends arExportJob
     {
         $search = self::findExportRecords($this->params);
 
+        $itemsExported = 0;
+
         // Scroll through results then iterate through resulting IDs
         foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
             if (null === $resource = QubitActor::getById($id)) {
@@ -71,8 +73,31 @@ class arActorExportJob extends arExportJob
                 return;
             }
 
-            $this->exportResource($resource, $path);
+            $this->csvActionExport($path, $resource);
             $this->logExportProgress();
         }
+    }
+
+    protected function csvActionExport($path, $resource)
+    {
+        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
+        $this->context = sfContext::createInstance($configuration);
+
+        // Prepare CSV exporter
+        $writer = new csvActorExport($path);
+        $writer->setOptions(['relations' => true]);
+
+        // Export actors and, optionally, related data
+        $cultures = array_keys(DefaultTranslationLinksComponent::getOtherCulturesAvailable($resource->actorI18ns, 'authorizedFormOfName', $resource->getAuthorizedFormOfName(['sourceCulture' => true])));
+
+        // Write row to file and initialize row
+        foreach ($cultures as $culture) {
+            $actor = QubitActor::getById($resource->id);
+            $this->context->getUser()->setCulture($culture);
+
+            $writer->exportResource($actor);
+        }
+
+        ++$itemsExported;
     }
 }
