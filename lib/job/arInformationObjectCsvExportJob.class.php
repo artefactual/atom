@@ -84,9 +84,9 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
             $this->csvWriter->exportResource($resource);
 
             $this->addDigitalObject($resource, $path);
-
-            ++$this->itemsExported;
         }
+
+        ++$this->itemsExported;
 
         $this->logExportProgress();
     }
