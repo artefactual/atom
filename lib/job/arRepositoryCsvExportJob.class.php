@@ -98,15 +98,35 @@ class arRepositoryCsvExportJob extends arExportJob
                 return -1;
             }
 
+            $itemsExported = $this->csvActionExport($resource, $writer);
+        }
+
+        return $itemsExported;
+    }
+
+    protected function csvActionExport($resource, $writer)
+    {
+        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
+        $this->context = sfContext::createInstance($configuration);
+
+        // Export repositories and, optionally, related data
+        $itemsExported = 0;
+
+        $cultures = array_keys(DefaultTranslationLinksComponent::getOtherCulturesAvailable($resource->actorI18ns, 'authorizedFormOfName', $resource->getAuthorizedFormOfName(['sourceCulture' => true])));
+
+        // Write row to file and initialize row
+        foreach ($cultures as $culture) {
+            $this->context->getUser()->setCulture($culture);
+
             $writer->exportResource($resource);
 
             // Log progress every 1000 rows
             if ($itemsExported && (0 == $itemsExported % 1000)) {
                 $this->info($this->i18n->__('%1 items exported.', ['%1' => $itemsExported]));
             }
-
-            ++$itemsExported;
         }
+
+        ++$itemsExported;
 
         return $itemsExported;
     }
