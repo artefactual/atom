@@ -60,7 +60,7 @@ class arActorExportJob extends arExportJob
     {
         $search = self::findExportRecords($this->params);
 
-        $itemsExported = 0;
+        $this->itemsExported = 0;
 
         // Scroll through results then iterate through resulting IDs
         foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
@@ -98,6 +98,6 @@ class arActorExportJob extends arExportJob
             $writer->exportResource($actor);
         }
 
-        ++$itemsExported;
+        ++$this->itemsExported;
     }
 }
