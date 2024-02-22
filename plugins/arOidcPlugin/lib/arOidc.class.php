@@ -19,7 +19,7 @@ use Jumbojett\OpenIDConnectClient;
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once sfConfig::get('sf_root_dir').'/vendor/composer/jumbojett/openid-connect-php/src/OpenIDConnectClient.php';
+require_once sfConfig::get('sf_root_dir').'/vendor/composer/autoload.php';
 
 class arOidc
 {
