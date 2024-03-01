@@ -14,6 +14,7 @@ RUN set -xe \
       oniguruma-dev \
       autoconf \
       build-base \
+      openldap-dev \
     && docker-php-ext-install \
       calendar \
       gettext \
@@ -25,6 +26,7 @@ RUN set -xe \
       sockets \
       xsl \
       zip \
+      ldap \
     && pecl install apcu pcov \
     && curl -Ls https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.tar.gz | tar xz -C / \
     && cd /pecl-memcache-NON_BLOCKING_IO_php7 \
@@ -36,6 +38,7 @@ RUN set -xe \
       libxslt \
       libmemcached-libs \
       libzip \
+      openldap-dev \
     && apk del .phpext-builddeps \
     && pecl clear-cache \
     && apk add --no-cache --virtual .atom-deps \
@@ -51,7 +54,8 @@ RUN set -xe \
       fcgi \
     && npm install -g "less@<4.0.0" \
     && curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
-    && ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop
+    && ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop \
+    && echo "extension=ldap.so" > /usr/local/etc/php/conf.d/docker-php-ext-ldap.ini
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
