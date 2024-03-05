@@ -1,0 +1,7 @@
+{
+    "name": "atom/solr",
+    "description": "Project to test indexing atom db with solr",
+    "type": "project",
+    "license": "AGPL",
+    "require": {}
+}
