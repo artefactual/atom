@@ -1,0 +1,88 @@
+.container {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  margin: 1rem;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-row {
+  margin: 1rem 0;
+}
+
+.form-label {
+  margin-right: 0.5rem;
+}
+
+.form-text {
+  padding: 0.25rem 0.5rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+}
+
+.info {
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.info--log {
+  color: gray;
+}
+
+.info--success {
+  color: greenyellow;
+}
+
+.info--notice {
+  color: turquoise;
+}
+
+.info--warning {
+  color: goldenrod;
+}
+
+.info--error {
+  color: red;
+}
+
+.info--solr-status {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.title {
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  font-size: 1.15rem;
+}
+
+.text {
+  max-width: 30%;
+  line-height: 1.5;
+}
+
+.info-container {
+  border: 1px solid rgba(100, 100, 100, 0.5);
+  border-radius: 0.25rem;
+  max-width: 30%;
+  margin: 0.5rem 0;
+  box-shadow: 3px 3px rgba(100, 100, 100, 0.35);
+}
+
+.info-container__heading {
+  padding: 0.5rem;
+  background: rgba(255, 136, 0, 0.5);
+}
+.info-container__detail {
+  padding: 0.5rem;
+  line-height: 1.25;
+}
+
+.info-container__detail:not(:last-of-type) {
+  border-bottom: 0.5px solid rgba(100, 100, 100, 0.25);
+}
