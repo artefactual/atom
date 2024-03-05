@@ -15,6 +15,7 @@ RUN set -xe \
       autoconf \
       build-base \
       openldap-dev \
+      curl-dev \
     && docker-php-ext-install \
       calendar \
       gettext \
@@ -32,7 +33,7 @@ RUN set -xe \
     && cd /pecl-memcache-NON_BLOCKING_IO_php7 \
     && phpize && ./configure && make && make install \
     && cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
-    && docker-php-ext-enable apcu memcache pcov \
+    && docker-php-ext-enable apcu memcache pcov solr \
     && apk add --no-cache --virtual .phpext-rundeps \
       gettext \
       libxslt \
