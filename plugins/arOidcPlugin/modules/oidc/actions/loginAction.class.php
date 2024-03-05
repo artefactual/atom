@@ -27,12 +27,25 @@ class OidcLoginAction extends sfAction
             $this->redirect('@homepage');
         }
 
-        $this->getUser()->authenticate();
+        // Save referring page URL. The request will be oidc/login but the referrer will be @homepage, or
+        // user/list (for example) if the user was attempting to access a secure resource. When redirected
+        // back from the OIDC endpoint, the referrer will be empty.
+        if ($request->isMethod('post') && !empty($request->getReferer())) {
+            $this->context->user->setAttribute('atom-login-referrer', $request->getReferer());
+        }
+
+        if ($request->isMethod('post') || isset($_REQUEST['code'])) {
+            $this->getUser()->authenticate();
+        }
 
         // Redirect to module/action the user was trying to reach before being redirected
         // to the OIDC IAM system for authentication. We prefer a redirect to a forward so that the ticket
         // parameter is not accidentally exposed in the user's browser.
-        $redirectUrl = $request->getParameter('module').'/'.$request->getParameter('action');
-        $this->redirect($redirectUrl);
+        if (null !== $redirectUrl = $this->context->user->getAttribute('atom-login-referrer', null)) {
+            $this->context->user->setAttribute('atom-login-referrer', null);
+            $this->redirect($redirectUrl);
+        }
+
+        $this->redirect('@homepage');
     }
 }
