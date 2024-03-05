@@ -14,6 +14,7 @@ RUN set -xe \
       oniguruma-dev \
       autoconf \
       build-base \
+      curl-dev \
     && docker-php-ext-install \
       calendar \
       gettext \
@@ -25,12 +26,12 @@ RUN set -xe \
       sockets \
       xsl \
       zip \
-    && pecl install apcu pcov \
+    && pecl install apcu pcov solr \
     && curl -Ls https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.tar.gz | tar xz -C / \
     && cd /pecl-memcache-NON_BLOCKING_IO_php7 \
     && phpize && ./configure && make && make install \
     && cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
-    && docker-php-ext-enable apcu memcache pcov \
+    && docker-php-ext-enable apcu memcache pcov solr \
     && apk add --no-cache --virtual .phpext-rundeps \
       gettext \
       libxslt \
