@@ -54,7 +54,7 @@
     <?php if (count($subjects = $resource->getSubjectAccessPoints()) > 0) { ?>
       <?php foreach ($subjects as $item) { ?>
         <localControl localType="subjectAccessPoint">
-          <term vocalularySource="<?php echo url_for([$item->term, 'module' => 'term'], true); ?>"><?php echo esc_specialchars($item->term->getName(['cultureFallback' => true])); ?></term>
+          <term vocabularySource="<?php echo url_for([$item->term, 'module' => 'term'], true); ?>"><?php echo esc_specialchars($item->term->getName(['cultureFallback' => true])); ?></term>
         </localControl>
       <?php } ?>
     <?php } ?>
