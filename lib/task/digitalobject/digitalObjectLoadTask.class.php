@@ -186,12 +186,12 @@ class digitalObjectLoadTask extends arBaseTask
                     continue;
                 }
 
-                if (!file_exists($path = self::getPath($item, $options))) {
-                    $this->log(sprintf("Couldn't read file '{$item}'"));
-                    ++$this->skippedCount;
+                //if (!file_exists($path = self::getPath($item, $options))) {
+                    //$this->log(sprintf("Couldn't read file '{$item}'"));
+                    //++$this->skippedCount;
 
-                    continue;
-                }
+                    //continue;
+                //}
 
                 self::addDigitalObject($results[0], $item, $options);
             } else {
@@ -292,11 +292,11 @@ EOF;
 
         $filename = basename($path);
 
-        if (!file_exists($path)) {
-            $this->log("Couldn't read file '{$path}'");
+        //if (!file_exists($path)) {
+            //$this->log("Couldn't read file '{$path}'");
 
-            return;
-        }
+            //return;
+        //}
 
         $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
         $operation = $options['replace'] ? 'Replacing with' : 'Loading';
@@ -313,17 +313,29 @@ EOF;
         $do = new QubitDigitalObject();
         $do->objectId = $objectId;
 
-        if ($options['link-source']) {
-            if (false === $do->importFromFile($path)) {
-                return;
-            }
-        } else {
+        if ($options['link-source'])
+        {
+          try
+          {
+            $do->importFromURI($path);
+            $do->save();
+          }catch (Exception $e) {
+            // Log error
+            $this->log($e->getMessage(), sfLogger::ERR);
+         }
+        }else{
+          $uriComponents = parse_url($path);
+          $host = basename($uriComponents['host']);
+          if (0 < strlen($host))
+          {
+            $do->importFromURI($path);
+            $do->save();
+          }else{
             $do->usageId = QubitTerm::MASTER_ID;
             $do->assets[] = new QubitAsset($path);
+            $do->save();
+          }
         }
-
-        $do->save($options['conn']);
-
         ++self::$count;
     }
 
