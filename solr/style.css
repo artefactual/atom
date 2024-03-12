@@ -1,0 +1,19 @@
+.container {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  margin: 1rem;
+}
+.form-row {
+  margin: 1rem 0;
+}
+
+.warning {
+  color: goldenrod;
+}
+
+.info {
+  color: blue;
+}
+
+.error {
+  color: red;
+}
