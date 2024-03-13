@@ -23,6 +23,8 @@ class ldapUser extends myUser implements Zend_Acl_Role_Interface
 
     public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = [])
     {
+        $this->logger = sfContext::getInstance()->getLogger();
+
         // initialize parent
         parent::initialize($dispatcher, $storage, $options);
 
@@ -113,19 +115,34 @@ class ldapUser extends myUser implements Zend_Acl_Role_Interface
 
             $this->ldapConnection = $connection;
 
-            return $connection;
+            return $this->ldapConnection;
         }
     }
 
     protected function ldapBind($username, $password)
     {
+        $tls_encryption = sfConfig::get('app_ldap_enable_tls_encryption', true);
         if ($conn = $this->getLdapConnection()) {
             $base_dn = (string) QubitSetting::getByName('ldapBaseDn');
             $bind_attribute = (string) QubitSetting::getByName('ldapBindAttribute');
             $dn = $bind_attribute.'='.$username.','.$base_dn;
 
+            // Close LDAP connection if TLS encryption failed to start
+            if ($tls_encryption && false == ldap_start_tls($conn)) {
+                $this->logger->err('Error starting TLS encryption for LDAP authentication.');
+                ldap_close($conn);
+
+                return false;
+            }
+            if (!$tls_encryption) {
+                $this->logger->info('TLS encryption turned off for LDAP authentication.');
+            }
+
             // The @ suppresses a warning if the auth fails
             $this->ldapBound = @ldap_bind($conn, $dn, $password);
+
+            // Close LDAP connection
+            ldap_close($conn);
 
             return $this->ldapBound;
         }
