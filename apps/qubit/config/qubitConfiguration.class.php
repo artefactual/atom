@@ -20,7 +20,7 @@
 class qubitConfiguration extends sfApplicationConfiguration
 {
     // Required format: x.y.z
-    public const VERSION = '2.8.1';
+    public const VERSION = '2.8.2';
 
     public function listenToChangeCultureEvent(sfEvent $event)
     {
