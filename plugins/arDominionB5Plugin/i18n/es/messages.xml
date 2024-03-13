@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2024-01-05T13:11:19Z" product-name="messages">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2024-03-13T13:31:46Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5527,6 +5527,10 @@
       <trans-unit id="1436">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
         <target>Busque un término existente en la taxonomía Tipo escribiendo los primeros caracteres del nombre del plazo. Como alternativa, escriba un nuevo término para crear y vincular a un nuevo término género.</target>
+      </trans-unit>
+      <trans-unit id="1437">
+        <source>Log in with SSO</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
