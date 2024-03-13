@@ -658,6 +658,8 @@ QubitMenu:
       cy: Ffwythiant
       de: Funktion
       de-CH: Funktion
+      de_AT: Funktion
+      de_CH: Funktion
       el: Λειτουργία
       en: Function
       es: Función
@@ -1255,6 +1257,8 @@ QubitMenu:
       cy: 'Tudalennau statig'
       de: 'Statische Seiten'
       de-CH: 'Statische Seiten'
+      de_AT: 'Statische Seiten'
+      de_CH: 'Statische Seiten'
       el: 'Στατικές σελίδες'
       en: 'Static pages'
       es: 'Páginas estáticas'
@@ -2105,6 +2109,8 @@ QubitMenu:
       cy: 'Tudalennau statig'
       de: 'Statische Seiten'
       de-CH: 'Statische Seiten'
+      de_AT: 'Statische Seiten'
+      de_CH: 'Statische Seiten'
       el: 'Στατικές σελίδες'
       en: 'Static pages'
       es: 'Páginas estáticas'

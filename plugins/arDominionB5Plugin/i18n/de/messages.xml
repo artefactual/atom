@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2024-01-05T13:10:50Z" product-name="messages">
+  <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2024-03-13T13:31:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5536,6 +5536,10 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       <trans-unit id="1436">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
         <target>Suchen Sie nach einem existierenden Begriff in der "Genre-Taxonomie" indem Sie die ersten Buchstaben des Begriffs eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einem neuen Genre-Begriff. </target>
+      </trans-unit>
+      <trans-unit id="1437">
+        <source>Log in with SSO</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
