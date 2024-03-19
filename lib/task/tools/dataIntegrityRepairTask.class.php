@@ -228,11 +228,6 @@ EOF;
         $affectedIosAndDescendantIds[] = $id;
     }
 
-    private function stringEndsWith($string, $pattern)
-    {
-        return 0 === substr_compare($string, $pattern, -strlen($pattern));
-    }
-
     private function report($filename, $affectedIosById, $affectedIosAndDescendantIds)
     {
         $csvFile = fopen($filename, 'w');
