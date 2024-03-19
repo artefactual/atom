@@ -25,7 +25,7 @@ class dataIntegrityRepairTask extends arBaseTask
     protected function configure()
     {
         $this->addArguments([
-            new sfCommandArgument('filename', sfCommandArgument::OPTIONAL, 'A name for the generated CSV report file', 'affected-records.csv'),
+            new sfCommandArgument('filename', sfCommandArgument::OPTIONAL, 'A filepath (ending in .csv) for the generated CSV report file', 'affected-records.csv'),
         ]);
 
         $this->addOptions([
@@ -40,10 +40,11 @@ class dataIntegrityRepairTask extends arBaseTask
         $this->briefDescription = 'Attempt data integrity repair';
         $this->detailedDescription = <<<'EOF'
 Attempt to repair data integrity. It does the following:
-- Add missing object rows for all resources extending QubitObject
+- Adds missing object rows for all resources extending QubitObject
 - Regenerates slugs to use them in CSV report
 - Adds missing parent ids to terms
 - Checks descriptions with missing data and provides options for attempting to generate a list, fix them, or delete them
+- Re-builds the nested sets
 
 To use the data integrity repair tool:
     php symfony tools:data-integrity-repair file/path/to/report.csv
@@ -96,11 +97,11 @@ EOF;
 
             // Find resources without object row
             $sql = 'SELECT tb.id
-              FROM '.$class::TABLE_NAME.' tb
-              LEFT JOIN object o ON tb.id=o.id
-              WHERE o.id IS NULL;';
+                FROM '.$class::TABLE_NAME.' tb
+                LEFT JOIN object o ON tb.id=o.id
+                WHERE o.id IS NULL;';
             $noObjectIds = QubitPdo::fetchAll(
-              $sql, [], ['fetchMode' => PDO::FETCH_COLUMN]
+                $sql, [], ['fetchMode' => PDO::FETCH_COLUMN]
             );
 
             foreach ($noObjectIds as $id) {
@@ -108,7 +109,7 @@ EOF;
                 ++$fixed;
             }
 
-            $this->log(sprintf("  - %s: %d\n", $class, $fixed));
+            $this->logSection('data-integrity-repair', sprintf("  - %s: %d\n", $class, $fixed));
         }
 
         $this->logSection('data-integrity-repair', "Regenerating slugs ...\n");
@@ -122,52 +123,50 @@ EOF;
         $updated = QubitPdo::modify($sql);
         $this->logSection('data-integrity-repair', sprintf("Updating terms without parent id: %d\n", $updated));
 
-        $this->log("Checking descriptions integrity:\n");
+        $this->logSection('data-integrity-repair', "Checking descriptions integrity:\n");
 
         $sql = 'SELECT COUNT(io.id)
-          FROM information_object io
-          LEFT JOIN object o ON io.id=o.id
-          WHERE io.id<>1
-          AND o.id IS NULL;';
-        $this->log(sprintf("  - Descriptions without object row: %d\n", QubitPdo::fetchColumn($sql)));
+            FROM information_object io
+            LEFT JOIN object o ON io.id=o.id
+            WHERE io.id<>1
+            AND o.id IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions without object row: %d\n", QubitPdo::fetchColumn($sql)));
 
         $sql = 'SELECT COUNT(id)
-          FROM information_object
-          WHERE id<>1
-          AND parent_id IS NULL;';
-        $this->log(sprintf("  - Descriptions without parent id: %d\n", QubitPdo::fetchColumn($sql)));
+            FROM information_object
+            WHERE id<>1
+            AND parent_id IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions without parent id: %d\n", QubitPdo::fetchColumn($sql)));
 
         $sql = 'SELECT COUNT(io.id)
-          FROM information_object io
-          LEFT JOIN information_object p ON io.parent_id=p.id
-          WHERE io.id<>1
-          AND p.id IS NULL;';
-        $this->log(sprintf("  - Descriptions without parent: %d\n", QubitPdo::fetchColumn($sql)));
+            FROM information_object io
+            LEFT JOIN information_object p ON io.parent_id=p.id
+            WHERE io.id<>1
+            AND p.id IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions without parent: %d\n", QubitPdo::fetchColumn($sql)));
 
         $sql = 'SELECT COUNT(io.id)
-          FROM information_object io
-          LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
-          WHERE io.id<>1
-          AND st.status_id IS NULL;';
-        $this->log(sprintf("  - Descriptions without publication status: %d\n", QubitPdo::fetchColumn($sql)));
+            FROM information_object io
+            LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
+            WHERE io.id<>1
+            AND st.status_id IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions without publication status: %d\n", QubitPdo::fetchColumn($sql)));
 
         $sql = 'SELECT io.id, o.id as object_id, io.parent_id, p.id as parent, st.id as status, st.status_id
-          FROM information_object io
-          LEFT JOIN object o ON io.id=o.id
-          LEFT JOIN information_object p ON io.parent_id=p.id
-          LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
-          WHERE io.id<>1
-          AND (o.id IS NULL OR io.parent_id IS NULL
-          OR p.id IS NULL
-          OR st.id IS NULL
-          OR st.status_id IS NULL);';
-        $affectedIos = QubitPdo::fetchAll(
-        $sql, [], ['fetchMode' => PDO::FETCH_ASSOC]
-        );
-        $this->log(sprintf("  - Affected descriptions: %d\n", count($affectedIos)));
+            FROM information_object io
+            LEFT JOIN object o ON io.id=o.id
+            LEFT JOIN information_object p ON io.parent_id=p.id
+            LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
+            WHERE io.id<>1
+            AND (o.id IS NULL OR io.parent_id IS NULL
+            OR p.id IS NULL
+            OR st.id IS NULL
+            OR st.status_id IS NULL);';
+        $affectedIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
+        $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions: %d\n", count($affectedIos)));
 
         if (0 == count($affectedIos)) {
-            $this->log("All descriptions seem to be okay.\n");
+            $this->logSection('data-integrity-repair', "All descriptions seem to be okay.\n");
         } else {
             $affectedIosAndDescendantIds = [];
             $affectedIosById = [];
@@ -177,24 +176,19 @@ EOF;
             }
             $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions (including descendants): %d\n", count($affectedIosAndDescendantIds)));
 
+            $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
+
             switch ($options['fix']) {
-        case 'fix':
-          $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
-          $this->fix($affectedIosById);
+                case 'fix':
+                    $this->fix($affectedIosById);
 
-          break;
+                    break;
 
-        case 'delete':
-          $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
-          $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds);
+                case 'delete':
+                    $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds);
 
-          break;
-
-        default:
-          $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
-
-          break;
-      }
+                    break;
+            }
         }
 
         $this->logSection('data-integrity-repair', "Rebuilding nested set ...\n");
@@ -209,12 +203,10 @@ EOF;
     private function insertObjectRow($id, $class)
     {
         $sql = 'INSERT INTO object
-          (id, class_name, created_at, updated_at, serial_number)
-          VALUES
-          (:id, :class, now(), now(), 0);';
-        QubitPdo::modify(
-        $sql, [':id' => $id, ':class' => $class]
-        );
+            (id, class_name, created_at, updated_at, serial_number)
+            VALUES
+            (:id, :class, now(), now(), 0);';
+        QubitPdo::modify($sql, [':id' => $id, ':class' => $class]);
     }
 
     private function populateAffectedIosAndDescendantIds($id, &$affectedIosAndDescendantIds)
@@ -226,9 +218,7 @@ EOF;
 
         // Find children
         $sql = 'SELECT id FROM information_object WHERE parent_id=:id;';
-        $children = QubitPdo::fetchAll(
-        $sql, [':id' => $id], ['fetchMode' => PDO::FETCH_COLUMN]
-        );
+        $children = QubitPdo::fetchAll($sql, [':id' => $id], ['fetchMode' => PDO::FETCH_COLUMN]);
 
         // Add descendants first
         foreach ($childrenIds as $childId) {
@@ -245,10 +235,6 @@ EOF;
 
     private function report($filename, $affectedIosById, $affectedIosAndDescendantIds)
     {
-        if (!($this->stringEndsWith($filename, '.csv') || $this->stringEndsWith($filename, '.CSV'))) {
-            $filename = sprintf('%s.csv', $filename);
-        }
-
         $csvFile = fopen($filename, 'w');
         fputcsv($csvFile, ['id', 'parent_id', 'slug', 'issue(s)']);
 
@@ -256,9 +242,9 @@ EOF;
         foreach (array_reverse($affectedIosAndDescendantIds) as $id) {
             // Get current IO data
             $sql = 'SELECT io.id, io.parent_id, slug
-              FROM information_object io
-              LEFT JOIN slug ON io.id=slug.object_id
-              WHERE io.id=:id;';
+                FROM information_object io
+                LEFT JOIN slug ON io.id=slug.object_id
+                WHERE io.id=:id;';
             $stmt = QubitPdo::prepareAndExecute($sql, [':id' => $id]);
             $result = $stmt->fetch(PDO::FETCH_NUM);
 
@@ -309,8 +295,8 @@ EOF;
             // Add publication status row
             if (!isset($io['status'])) {
                 $sql = "INSERT INTO status
-                  (object_id, type_id, status_id, serial_number)
-                  VALUES (:id, '158', '159', '0');";
+                    (object_id, type_id, status_id, serial_number)
+                    VALUES (:id, '158', '159', '0');";
                 QubitPdo::modify($sql, [':id' => $id]);
             }
             // Set publication status to draft
