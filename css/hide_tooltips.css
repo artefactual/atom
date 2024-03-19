@@ -1,3 +1,9 @@
+/* Hide tooltips for BS2 */
 .description {
+  display: none;
+}
+
+/* Hide tooltips for BS5 */
+[id*='\-help'] {
   display: none;
 }
