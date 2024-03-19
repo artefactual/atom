@@ -30,29 +30,30 @@ class SettingsGlobalForm extends sfForm
     public function configure()
     {
         $this->i18n = sfContext::getInstance()->i18n;
+        $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
 
         // Build widgets
         $this->setWidgets([
             'version' => new sfWidgetFormInput([], ['class' => 'disabled', 'disabled' => true]),
-            'check_for_updates' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
+            'check_for_updates' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
             'hits_per_page' => new sfWidgetFormInput(),
             'escape_queries' => new sfWidgetFormInput(),
             'sort_browser_user' => new sfWidgetFormSelectRadio(['choices' => ['alphabetic' => $this->i18n->__('title/name'), 'lastUpdated' => $this->i18n->__('date modified'), 'identifier' => $this->i18n->__('identifier'), 'referenceCode' => $this->i18n->__('reference code')]], ['class' => 'radio']),
             'sort_browser_anonymous' => new sfWidgetFormSelectRadio(['choices' => ['alphabetic' => $this->i18n->__('title/name'), 'lastUpdated' => $this->i18n->__('date modified'), 'identifier' => $this->i18n->__('identifier'), 'referenceCode' => $this->i18n->__('reference code')]], ['class' => 'radio']),
             'default_repository_browse_view' => new sfWidgetFormSelectRadio(['choices' => ['card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table')]], ['class' => 'radio']),
             'default_archival_description_browse_view' => new sfWidgetFormSelectRadio(['choices' => ['card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table')]], ['class' => 'radio']),
-            'multi_repository' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
-            'enable_institutional_scoping' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
-            'audit_log_enabled' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
-            'show_tooltips' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
+            'multi_repository' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
+            'enable_institutional_scoping' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
+            'audit_log_enabled' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
+            'show_tooltips' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
             'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
-            'permissive_slug_creation' => new sfWidgetFormSelectRadio(['choices' => [QubitSlug::SLUG_PERMISSIVE => 'yes', QubitSlug::SLUG_RESTRICTIVE => 'no']], ['class' => 'radio']),
+            'permissive_slug_creation' => new sfWidgetFormSelectRadio(['choices' => [QubitSlug::SLUG_PERMISSIVE => $this->i18n->__('Yes'), QubitSlug::SLUG_RESTRICTIVE => $this->i18n->__('No')]], ['class' => 'radio']),
             'defaultPubStatus' => new sfWidgetFormSelectRadio(['choices' => [QubitTerm::PUBLICATION_STATUS_DRAFT_ID => $this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => $this->i18n->__('Published')]], ['class' => 'radio']),
-            'draft_notification_enabled' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
+            'draft_notification_enabled' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
             'sword_deposit_dir' => new sfWidgetFormInput(),
             'google_maps_api_key' => new sfWidgetFormInput(),
-            'generate_reports_as_pub_user' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
-            'cache_xml_on_save' => new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']),
+            'generate_reports_as_pub_user' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
+            'cache_xml_on_save' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
         ]);
 
         // Add labels
