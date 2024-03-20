@@ -161,7 +161,7 @@
 
                     <?php if ($showMasterFileName) { ?>
                       <?php if ($canAccessMasterFile) { ?>
-                        <?php echo render_show(__('Filename'), link_to($resource->name, $resource->object->getDigitalObjectUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
+                        <?php echo render_show(__('Filename'), link_to($resource->name, $resource->object->getDigitalObjectPublicUrl(), ['target' => '_blank']), ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
                       <?php } else { ?>
                         <?php echo render_show(__('Filename'), $resource->name, ['fieldLabel' => 'filename', 'isSubField' => true]); ?>
                       <?php } ?>
