@@ -57,7 +57,8 @@ class SettingsMarkdownAction extends DefaultEditAction
 
                 $this->form->setDefault($name, $default);
                 $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
-                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
 
                 break;
         }

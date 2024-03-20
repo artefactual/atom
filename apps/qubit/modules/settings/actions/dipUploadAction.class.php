@@ -39,7 +39,8 @@ class SettingsDipUploadAction extends SettingsEditAction
     {
         switch ($name) {
             case 'stripExtensions':
-                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
                 $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
 
                 break;

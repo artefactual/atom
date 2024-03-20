@@ -24,7 +24,10 @@ class SettingsPermissionsPreservationSystemAccessStatementForm extends sfForm
         $this->widgetSchema->setNameFormat('preservationSystemAccessStatement[%s]');
         $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-        $this->setWidget('preservationSystemAccessStatementEnabled', new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+        $this->i18n = sfContext::getInstance()->i18n;
+        $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+
+        $this->setWidget('preservationSystemAccessStatementEnabled', new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
         $this->setValidator('preservationSystemAccessStatementEnabled', new sfValidatorInteger(['required' => false]));
 
         $default = false;

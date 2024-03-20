@@ -24,7 +24,10 @@ class SettingsPermissionsCopyrightStatementForm extends sfForm
         $this->widgetSchema->setNameFormat('copyrightStatement[%s]');
         $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-        $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+        $this->i18n = sfContext::getInstance()->i18n;
+        $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+
+        $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
         $this->setValidator('copyrightStatementEnabled', new sfValidatorInteger(['required' => false]));
 
         $default = false;
@@ -42,7 +45,7 @@ class SettingsPermissionsCopyrightStatementForm extends sfForm
             $this->setDefault('copyrightStatement', $setting->getValue());
         }
 
-        $this->setWidget('copyrightStatementApplyGlobally', new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+        $this->setWidget('copyrightStatementApplyGlobally', new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
         $this->setValidator('copyrightStatementApplyGlobally', new sfValidatorInteger(['required' => false]));
 
         $default = false;

@@ -59,7 +59,8 @@ class SettingsSecurityAction extends SettingsEditAction
                 break;
 
             case 'require_ssl_admin':
-                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
                 $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
                 $labelText = $this->i18n->__('Require SSL for all administrator functionality');
                 $this->form->getWidgetSchema()->{$name}->setLabel($labelText);
@@ -67,7 +68,8 @@ class SettingsSecurityAction extends SettingsEditAction
                 break;
 
             case 'require_strong_passwords':
-                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
                 $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
                 $labelText = $this->i18n->__('Require strong passwords');
                 $this->form->getWidgetSchema()->{$name}->setLabel($labelText);
