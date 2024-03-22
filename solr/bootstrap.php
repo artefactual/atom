@@ -30,8 +30,8 @@ define('SOLR_SERVER_USERNAME', 'solr');
 /* HTTP Basic Authentication password */
 define('SOLR_SERVER_PASSWORD', '');
 
-/* Solr collection path */
-define('SOLR_PATH', '/solr/test');
+/* Solr collection name */
+define('SOLR_COLLECTION', 'atom');
 
 /* HTTP connection timeout */
 /* This is maximum time in seconds allowed for the http data transfer operation. Default value is 30 seconds */

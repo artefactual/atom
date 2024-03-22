@@ -20,6 +20,7 @@
         <input type="submit" name="index" value="Index" />
         <input type="submit" name="reindex" value="Re-index" />
         <input type="submit" name="delete" value="Delete" />
+        <input type="submit" name="init" value="Initialize collection" />
       </div>
     </form>
 
@@ -32,13 +33,13 @@
           'login'    => SOLR_SERVER_USERNAME,
           'password' => SOLR_SERVER_PASSWORD,
           'port'     => SOLR_SERVER_PORT,
-          'path'     => SOLR_PATH,
+          'path'     => '/solr/' . SOLR_COLLECTION,
       );
 
       if ($solrClient = new SolrClient($solrClientOptions)) {
         echo "<p class='warning'>Solr connected!</p>";
       } else {
-        echo "<p class='error'>Solr not connected.</p>";
+        echo "<p class='error'>Solr not connected. Click init to initialize collection</p>";
       }
 
       if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['index'])) {
@@ -56,6 +57,92 @@
 
       if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['search']) and isset($_POST['query'])) {
         searchQuery($solrClient, $_POST['query']);
+      }
+
+      if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['init'])) {
+        $url = "http://" . SOLR_SERVER_HOSTNAME . ":" . SOLR_SERVER_PORT . "/solr/admin/collections?action=CREATE&name=" . SOLR_COLLECTION . "&numShards=2&replicationFactor=1&wt=json";
+        echo $url . "\n";
+        $options = array(
+          'http' => array(
+            'method'  => 'GET',
+            'header'=>  "Content-Type: application/json\r\n" .
+                        "Accept: application/json\r\n"
+            )
+        );
+        $context  = stream_context_create( $options );
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode( $result );
+        echo "<p class='info'>";
+        print_r($response);
+        echo "</p>";
+
+        $url = 'http://' . SOLR_SERVER_HOSTNAME . ':'. SOLR_SERVER_PORT . '/solr/' . SOLR_COLLECTION . '/schema/';
+        $addFieldQuery = '{"add-field": {"name": "all","stored": "false","type": "text_general","indexed": "true","multiValued": "true"}}';
+        echo $url . "\n";
+        $options = array(
+          'http' => array(
+            'method'  => 'POST',
+            'content' => $addFieldQuery,
+            'header'=>  "Content-Type: application/json\r\n" .
+                        "Accept: application/json\r\n"
+            )
+        );
+        $context  = stream_context_create( $options );
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode( $result );
+        echo "<p class='info'>ADDING ALL FIELD";
+        print_r($response);
+        echo "</p>";
+
+        $url = 'http://' . SOLR_SERVER_HOSTNAME . ':'. SOLR_SERVER_PORT . '/api/collections/' . SOLR_COLLECTION . '/config/';
+        $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
+        $options = array(
+          'http' => array(
+            'method'  => 'POST',
+            'content' => $updateDefaultHandler,
+            'header'=>  "Content-Type: application/json\r\n" .
+                        "Accept: application/json\r\n"
+            )
+        );
+        $context  = stream_context_create( $options );
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode( $result );
+        echo "<p class='info'>Updating default field";
+        print_r($response);
+        echo "</p>";
+        $allFields = ['title', 'archivalHistory', 'scope', 'extent', 'acquisition'];
+        foreach($allFields as $field) {
+          addToCopyField($field);
+        }
+
+      }
+
+      function addToCopyField($field) {
+        $url = 'http://' . SOLR_SERVER_HOSTNAME . ':'. SOLR_SERVER_PORT . '/solr/' . SOLR_COLLECTION . '/schema/';
+        $copySourceDest = array (
+          'add-copy-field' => array (
+            'source' => $field,
+            'dest' => ["all"]
+          )
+        );
+        echo $url . "\n";
+        echo json_encode($copySourceDest);
+        $options = array(
+          'http' => array(
+            'method'  => 'POST',
+            'ignore_errors' => true,
+            'content' => json_encode($copySourceDest),
+            'header'=>  "Content-Type: application/json\r\n" .
+                        "Accept: application/json\r\n"
+            )
+        );
+
+        $context  = stream_context_create( $options );
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode( $result );
+        echo "<p class='info'>SETTING {$field} TO COPY";
+        print_r($response);
+        echo "</p>";
       }
 
       function indexData($client) {
@@ -79,7 +166,7 @@
             $doc->addField('title', $row['t']);
             $doc->addField('scope', $row['sc']);
             $doc->addField('extent', $row['ext']);
-            $doc->addField('aquisition', $row['aq']);
+            $doc->addField('acquisition', $row['aq']);
             $doc->addField('archivalHistory', $row['ah']);
             $updateResponse = $client->addDocument($doc);
             echo "<p class='info'>";
