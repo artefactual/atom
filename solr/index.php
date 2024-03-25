@@ -8,25 +8,6 @@
 </head>
 <body>
   <section class="container">
-    <form action="index.php" method="POST">
-      <div class="form-container">
-        <div class="form-row">
-          <label>
-            Search
-            <input type="text" name="query" placeholder="Search query" />
-            <input type="submit" name="search" value="Search"/>
-          </label>
-        </div>
-        <div class="form-row">
-          <input type="submit" name="index" value="Index" />
-          <input type="submit" name="reindex" value="Re-index" />
-          <input type="submit" name="delete" value="Delete" />
-          <input type="submit" name="init" value="Initialize collection" />
-          <input type="submit" name="addCopy" value="Add fields to copy" />
-        </div>
-      </div>
-    </form>
-
     <?php
       include "bootstrap.php";
 
@@ -40,11 +21,32 @@
       );
 
       if ($solrClient = new SolrClient($solrClientOptions)) {
-        echo "<p class='info info--warning'>Solr connected!</p>";
+        echo "<p class='info info--success info--solr-status'>Solr connected!</p>";
       } else {
-        echo "<p class='info info--error'>Solr not connected. Click init to initialize collection</p>";
+        echo "<p class='info info--error info--solr-status'>Solr not connected. Click init to initialize collection</p>";
       }
+    ?>
 
+    <form action="index.php" method="POST">
+      <div class="form-container">
+        <div class="form-row">
+          <label>
+            <span class='form-label'>Search</span>
+            <input class='form-text' type="text" name="query" placeholder="Search query" />
+            <input class='form-button' type="submit" name="search" value="Search"/>
+          </label>
+        </div>
+        <div class="form-row">
+          <input class='form-button' type="submit" name="index" value="Index" />
+          <input class='form-button' type="submit" name="reindex" value="Re-index" />
+          <input class='form-button' type="submit" name="delete" value="Delete" />
+          <input class='form-button' type="submit" name="init" value="Initialize collection" />
+          <input class='form-button' type="submit" name="addCopy" value="Add fields to copy" />
+        </div>
+      </div>
+    </form>
+
+    <?php
       if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['index'])) {
         indexData($solrClient);
       }

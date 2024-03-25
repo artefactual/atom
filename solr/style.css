@@ -13,6 +13,16 @@
   margin: 1rem 0;
 }
 
+.form-label {
+  margin-right: 0.5rem;
+}
+
+.form-text {
+  padding: 0.25rem 0.5rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+}
+
 .info {
   font-size: 0.75rem;
   padding: 0.5rem;
@@ -21,6 +31,10 @@
 
 .info--log {
   color: gray;
+}
+
+.info--success {
+  color: greenyellow;
 }
 
 .info--notice {
@@ -35,9 +49,15 @@
   color: red;
 }
 
+.info--solr-status {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
 .title {
   font-weight: 700;
-  margin: 0.5rem 0;
+  margin: 2rem 0 1rem;
   font-size: 1.15rem;
 }
 
