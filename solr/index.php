@@ -9,18 +9,21 @@
 <body>
   <section class="container">
     <form action="index.php" method="POST">
-      <div class="form-row">
-        <label>
-          Search
-          <input type="text" name="query" placeholder="Search query" />
-          <input type="submit" name="search" value="Search"/>
-        </label>
-      </div>
-      <div class="form-row">
-        <input type="submit" name="index" value="Index" />
-        <input type="submit" name="reindex" value="Re-index" />
-        <input type="submit" name="delete" value="Delete" />
-        <input type="submit" name="init" value="Initialize collection" />
+      <div class="form-container">
+        <div class="form-row">
+          <label>
+            Search
+            <input type="text" name="query" placeholder="Search query" />
+            <input type="submit" name="search" value="Search"/>
+          </label>
+        </div>
+        <div class="form-row">
+          <input type="submit" name="index" value="Index" />
+          <input type="submit" name="reindex" value="Re-index" />
+          <input type="submit" name="delete" value="Delete" />
+          <input type="submit" name="init" value="Initialize collection" />
+          <input type="submit" name="addCopy" value="Add fields to copy" />
+        </div>
       </div>
     </form>
 
@@ -37,9 +40,9 @@
       );
 
       if ($solrClient = new SolrClient($solrClientOptions)) {
-        echo "<p class='warning'>Solr connected!</p>";
+        echo "<p class='info info--warning'>Solr connected!</p>";
       } else {
-        echo "<p class='error'>Solr not connected. Click init to initialize collection</p>";
+        echo "<p class='info info--error'>Solr not connected. Click init to initialize collection</p>";
       }
 
       if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['index'])) {
@@ -60,8 +63,19 @@
       }
 
       if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['init'])) {
+        initializeCollection();
+      }
+
+      if ($_SERVER['REQUEST_METHOD'] === "POST" and isset($_POST['addCopy'])) {
+        $allFields = ['title', 'archivalHistory', 'scope', 'extent', 'acquisition'];
+        foreach($allFields as $field) {
+          addToCopyField($field);
+        }
+      }
+
+      function initializeCollection() {
         $url = "http://" . SOLR_SERVER_HOSTNAME . ":" . SOLR_SERVER_PORT . "/solr/admin/collections?action=CREATE&name=" . SOLR_COLLECTION . "&numShards=2&replicationFactor=1&wt=json";
-        echo $url . "\n";
+        echo "<p class='info info--log'>${url}</p>";
         $options = array(
           'http' => array(
             'method'  => 'GET',
@@ -72,13 +86,13 @@
         $context  = stream_context_create( $options );
         $result = file_get_contents($url, false, $context);
         $response = json_decode( $result );
-        echo "<p class='info'>";
+        echo "<p class='info info--notice'>";
         print_r($response);
         echo "</p>";
 
         $url = 'http://' . SOLR_SERVER_HOSTNAME . ':'. SOLR_SERVER_PORT . '/solr/' . SOLR_COLLECTION . '/schema/';
         $addFieldQuery = '{"add-field": {"name": "all","stored": "false","type": "text_general","indexed": "true","multiValued": "true"}}';
-        echo $url . "\n";
+        echo "<p class='info info--log'>${url}</p>";
         $options = array(
           'http' => array(
             'method'  => 'POST',
@@ -90,7 +104,7 @@
         $context  = stream_context_create( $options );
         $result = file_get_contents($url, false, $context);
         $response = json_decode( $result );
-        echo "<p class='info'>ADDING ALL FIELD";
+        echo "<p class='info info--notice'>ADDING ALL FIELD";
         print_r($response);
         echo "</p>";
 
@@ -107,14 +121,9 @@
         $context  = stream_context_create( $options );
         $result = file_get_contents($url, false, $context);
         $response = json_decode( $result );
-        echo "<p class='info'>Updating default field";
+        echo "<p class='info info--notice'>Updating default field";
         print_r($response);
         echo "</p>";
-        $allFields = ['title', 'archivalHistory', 'scope', 'extent', 'acquisition'];
-        foreach($allFields as $field) {
-          addToCopyField($field);
-        }
-
       }
 
       function addToCopyField($field) {
@@ -125,8 +134,10 @@
             'dest' => ["all"]
           )
         );
-        echo $url . "\n";
+        echo "<p class='info info--log'>${url}</p>";
+        echo "<p class='info info--log'>";
         echo json_encode($copySourceDest);
+        echo "</p>";
         $options = array(
           'http' => array(
             'method'  => 'POST',
@@ -140,7 +151,7 @@
         $context  = stream_context_create( $options );
         $result = file_get_contents($url, false, $context);
         $response = json_decode( $result );
-        echo "<p class='info'>SETTING {$field} TO COPY";
+        echo "<p class='info info--notice'>SETTING {$field} TO COPY";
         print_r($response);
         echo "</p>";
       }
@@ -151,16 +162,15 @@
 
         // Check connection
         if ($conn->connect_error) {
-          die("<p class='error'>Connection failed: " . $conn->connect_error . "</p>");
+          die("<p class='info info--error'>Connection failed: " . $conn->connect_error . "</p>");
         }
-        echo "<p class='warning'>MySQL Connected successfully!</p>";
+        echo "<p class='info info--warning'>MySQL Connected successfully!</p>";
 
         // SQL Query string
         $sql = "select title t, archival_history ah, id, scope_and_content sc, extent_and_medium ext, acquisition aq from information_object_i18n LIMIT 1000" ;
         if ($result = $conn->query($sql)) {
           while ($row = $result->fetch_assoc()) {
-            echo "<strong>${row['t']}</strong>";
-            echo "<p>${row['ah']}</p>";
+            echo "<p class='info info--log'>${row['t']}</p>";
             $doc = new SolrInputDocument();
             $doc->addField('id', $row['id']);
             $doc->addField('title', $row['t']);
@@ -169,7 +179,7 @@
             $doc->addField('acquisition', $row['aq']);
             $doc->addField('archivalHistory', $row['ah']);
             $updateResponse = $client->addDocument($doc);
-            echo "<p class='info'>";
+            echo "<p class='info info--notice'>";
             print_r($updateResponse->getResponse());
             echo "</p>";
           }
@@ -177,7 +187,7 @@
           /*freeresultset*/
           $result->free();
         } else {
-          echo "<p class='error'>No SQL results found in information_object_i18n</p>";
+          echo "<p class='info info--error'>No SQL results found in information_object_i18n</p>";
         }
         $conn->close();
       }
@@ -186,7 +196,7 @@
         //This will erase the entire index
         $deleteResponse = $client->deleteByQuery("*:*");
         $client->commit();
-        echo "<p class='info'>";
+        echo "<p class='info info--notice'>";
         print_r($deleteResponse->getResponse());
         echo "</p>";
       }
@@ -202,11 +212,36 @@
 
         $response = $searchResponse->getResponse()->response;
         if ($response->docs) {
-          echo "<pre>";
-          print_r($searchResponse->getResponse()->response->docs);
-          echo "</pre>";
+          foreach($response->docs as $resp) {
+            $title = $resp->title[0];
+            $scope = $resp->scope;
+            $extent = $resp->extent;
+            $acquisition = $resp->acquisition;
+            $history = $resp['archivalHistory'];
+            echo "<h2 class='title'>{$title}</h2>";
+            if ($history) {
+              echo "<p class='text'>{$history[0]}</p>";
+            }
+            if (!$scope && !$extent & !$acquisition) {
+              continue;
+            }
+            echo "<section class='info-container'>";
+            if ($scope) {
+              echo "<h3 class='info-container__heading'>Scope</h3>";
+              echo "<p class='info-container__detail'>{$scope[0]}</p>";
+            }
+            if ($extent) {
+              echo "<h3 class='info-container__heading'>Extent</h3>";
+              echo "<p class='info-container__detail'>{$extent[0]}</p>";
+            }
+            if ($acquisition) {
+              echo "<h3 class='info-container__heading'>Acquisition</h3>";
+              echo "<p class='info-container__detail'>{$acquisition[0]}</p>";
+            }
+            echo "</section>";
+          }
         } else {
-          echo "<p class='warning'>No results found</p>";
+          echo "<p class='info info--warning'>No results found</p>";
         }
       }
     ?>
