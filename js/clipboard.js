@@ -12,19 +12,8 @@
     this.storage = localStorage;
     this.types = ['informationObject', 'actor', 'repository'];
     this.initialItems = {'informationObject': [], 'actor': [], 'repository': []};
-    this.items = JSON.parse(this.storage.getItem('clipboard'));
-    this.exportTokens = JSON.parse(this.storage.getItem('exportTokens'));
-
-    if (!this.items)
-    {
-      this.items = this.initialItems;
-    }
-
-    if (!this.exportTokens)
-    {
-      this.exportTokens = [];
-    }
-
+    this.items = JSON.parse(this.storage.getItem('clipboard')) || this.initialItems;
+    this.exportTokens = JSON.parse(this.storage.getItem('exportTokens')) || [];
     this.init();
   };
 
@@ -344,7 +333,7 @@
 
       // Load items from local storage in case activity
       // in another tab has changed the content
-      this.items = JSON.parse(this.storage.getItem("clipboard"));
+      this.items = JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
 
       var type = $button.data('clipboard-type');
       var slug = $button.data('clipboard-slug');

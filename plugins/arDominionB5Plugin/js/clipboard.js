@@ -11,21 +11,11 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       this.storage = localStorage;
       this.types = ["informationObject", "actor", "repository"];
-      this.initialItems = JSON.stringify({
-        informationObject: [],
-        actor: [],
-        repository: [],
-      });
-      this.items = JSON.parse(this.storage.getItem("clipboard"));
-      this.exportTokens = JSON.parse(this.storage.getItem("exportTokens"));
-
-      if (!this.items) {
-        this.items = JSON.parse(this.initialItems);
-      }
-
-      if (!this.exportTokens) {
-        this.exportTokens = [];
-      }
+      this.initialItems = { informationObject: [], actor: [], repository: [] };
+      this.items =
+        JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
+      this.exportTokens =
+        JSON.parse(this.storage.getItem("exportTokens")) || [];
 
       this.init();
     }
@@ -335,7 +325,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       // Load items from local storage in case activity
       // in another tab has changed the content
-      this.items = JSON.parse(this.storage.getItem("clipboard"));
+      this.items =
+        JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
 
       var $button = $(event.target).closest("button");
       var type = $button.data("clipboard-type");
@@ -375,7 +366,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (type && this.types.includes(type)) {
         this.items[type] = [];
       } else {
-        this.items = JSON.parse(this.initialItems);
+        this.items = this.initialItems;
       }
 
       this.storage.setItem("clipboard", JSON.stringify(this.items));
