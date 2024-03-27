@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include_title(); ?>
+    <?php include_stylesheets(); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico'); ?>">
     <%= htmlWebpackPlugin.tags.headTags %>
