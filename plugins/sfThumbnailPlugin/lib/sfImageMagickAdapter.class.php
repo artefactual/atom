@@ -333,7 +333,7 @@ class sfImageMagickAdapter
                 break;
         } // end switch
 
-        $command .= ' -thumbnail ';
+        $command .= ' -auto-orient -thumbnail ';
         $command .= $thumbnail->getThumbWidth().'x'.$thumbnail->getThumbHeight();
 
         // See Qubit issue 2380
