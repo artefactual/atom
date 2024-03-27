@@ -216,9 +216,9 @@
         if ($response->docs) {
           foreach($response->docs as $resp) {
             $title = $resp->title[0];
-            $scope = $resp->scope;
-            $extent = $resp->extent;
-            $acquisition = $resp->acquisition;
+            $scope = $resp['scope'];
+            $extent = $resp['extent'];
+            $acquisition = $resp['acquisition'];
             $history = $resp['archivalHistory'];
             echo "<h2 class='title'>{$title}</h2>";
             if ($history) {
