@@ -20,12 +20,11 @@
 /**
  * Populate search index.
  */
-class arSearchPopulateTask extends sfBaseTask
+class arSearchPopulateTask extends arBaseTask
 {
     public function execute($arguments = [], $options = [])
     {
-        sfContext::createInstance($this->configuration);
-        sfConfig::add(QubitSetting::getSettingsArray());
+        parent::execute($arguments, $options);
 
         // If show-types flag set, show types available to index
         if (!empty($options['show-types'])) {
