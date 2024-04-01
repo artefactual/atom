@@ -7,7 +7,7 @@ describe('Descriptions', () => {
     cy.visit('/informationobject/add')
     cy.contains('Identity area').click()
     cy.get('input#identifier').type('123')
-    cy.get('input#title').type('Test description A')
+    cy.get('input#title').type('Test description A', {force: true})
     cy.get('#main-column form').submit()
 
     cy.get('#main-column > h1').contains('123 - Test description A')
