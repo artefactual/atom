@@ -94,3 +94,7 @@ ul.multiInput,
 .form-required {
   color: $primary;
 }
+
+body.edit [id$="-help"] {
+  display: none;
+}
