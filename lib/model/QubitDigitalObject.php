@@ -2024,7 +2024,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
             $filenameMinusExtension = preg_replace('/\.[a-zA-Z]{2,3}$/', '', $path);
 
-            $command = 'convert -quality 100 ';
+            $command = 'convert -density 300 -alpha remove -quality 100 ';
             $command .= $path;
             $command .= ' '.$filenameMinusExtension.'_%02d.'.self::THUMB_EXTENSION;
             exec($command, $output, $status);
