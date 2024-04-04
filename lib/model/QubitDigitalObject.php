@@ -1662,18 +1662,6 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     /**
-     * Return true if this is a compound digital object.
-     *
-     * @return bool
-     */
-    public function isCompoundObject()
-    {
-        $isCompoundObjectProp = QubitProperty::getOneByObjectIdAndName($this->id, 'is_compound_object');
-
-        return null !== $isCompoundObjectProp && '1' == $isCompoundObjectProp->getValue(['sourceCulture' => true]);
-    }
-
-    /**
      * Derive file path for a digital object asset.
      *
      * All digital object paths are keyed by object id that is the

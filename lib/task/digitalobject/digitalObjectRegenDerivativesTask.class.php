@@ -43,17 +43,36 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
             $digitalObject->getLocalPath();
         }
 
-        // Delete existing derivatives
-        $criteria = new Criteria();
-        $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
+        // Delete derivatives normally, if not dealing with digital objects representing PDF pages
+        if (null === $digitalObject->getDisplayAsCompoundObject()) {
+            // Delete existing derivatives
+            $criteria = new Criteria();
+            $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
 
-        // Delete only ref or thumnail derivative if "type" flag set
-        if (QubitTerm::REFERENCE_ID == $usageId || QubitTerm::THUMBNAIL_ID == $usageId) {
-            $criteria->add(QubitDigitalObject::USAGE_ID, $usageId);
-        }
+            // Delete only ref or thumnail derivative if "type" flag set
+            if (QubitTerm::REFERENCE_ID == $usageId || QubitTerm::THUMBNAIL_ID == $usageId) {
+                $criteria->add(QubitDigitalObject::USAGE_ID, $usageId);
+            }
 
-        foreach (QubitDigitalObject::get($criteria) as $derivative) {
-            $derivative->delete();
+            foreach (QubitDigitalObject::get($criteria) as $derivative) {
+                $derivative->delete();
+            }
+        } else {
+            // Find parent information object's child information objects representing PDF pages
+            $criteria = new Criteria();
+            $criteria->add(QubitInformationObject::PARENT_ID, $digitalObject->objectId);
+
+            foreach (QubitInformationObject::get($criteria) as $childIo) {
+                if (count($childIo->digitalObjectsRelatedByobjectId)) {
+                    // Attempt to get page count property from child information object's digital object
+                    $property = $childIo->digitalObjectsRelatedByobjectId[0]->getPropertyByName('page_count');
+
+                    // If a property was found then delete the information object
+                    if (null !== $property) {
+                        $childIo->delete();
+                    }
+                }
+            }
         }
 
         // Delete existing transcript if 'keepTranscript' option is not sent or it's false,
@@ -64,8 +83,14 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
             $transcriptProperty->delete();
         }
 
-        // Generate new derivatives
-        $digitalObject->createRepresentations($usageId, $conn);
+        // Regenerate derivatives normally, if not dealing with digital objects representing PDF pages
+        if (null === $digitalObject->getDisplayAsCompoundObject()) {
+            // Generate new derivatives
+            $digitalObject->createRepresentations($usageId, $conn);
+        } else {
+            // Re-create information objects representing PDF pages and their respective derivatives
+            $digitalObject->createCompoundChildren();
+        }
 
         if ($options['index']) {
             // Update index
