@@ -309,7 +309,7 @@
             </fo:block>
         </fo:block>
     </xsl:template>
-    <xsl:template match="ead:profiledesc/child::*">
+    <xsl:template match="ead:profiledesc/child::*[not(self::ead:creation)]">
         <fo:block>
             <xsl:apply-templates/>
         </fo:block>
