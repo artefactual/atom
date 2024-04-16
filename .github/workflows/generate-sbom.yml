@@ -20,12 +20,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .trivycache/
-          key: ${{ runner.os }}-trivy-${{ hashFiles('**/lockfiles') }}
+          key: ${{ runner.os }}-trivy-${{ hashFiles('package-lock.json', 'composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-trivy-
 
       - name: Generate SBOM
-        run: trivy fs --format cyclonedx --include-dev-deps --output sbom.xml .
+        run: trivy fs --cache-dir .trivycache --format cyclonedx --include-dev-deps --output sbom.xml .
         env:
           TRIVY_NO_PROGRESS: "true"
 
