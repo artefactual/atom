@@ -110,15 +110,19 @@ class DefaultTranslationLinksComponent extends sfComponent
             return sfView::NONE;
         }
 
-        $translations = self::getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty);
+        $this->translations = self::getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty, $currentCulture);
     }
 
-    public static function getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty)
+    public static function getOtherCulturesAvailable($i18ns, $propertyName, $sourceCultureProperty, $currentCulture = null)
     {
         // Get other cultures available
         $translations = [];
 
         foreach ($i18ns as $i18n) {
+            if ($currentCulture && $i18n->culture == $currentCulture) {
+                continue;
+            }
+
             $name = isset($propertyName) && isset($i18n->{$propertyName}) ? $i18n->{$propertyName} : $sourceCultureProperty;
             $langCode = $i18n->culture;
             $langName = format_language($langCode);
