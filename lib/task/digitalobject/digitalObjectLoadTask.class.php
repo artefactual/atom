@@ -154,18 +154,17 @@ class digitalObjectLoadTask extends arBaseTask
 
                 continue;
             }
-
+            //Replace existing digital objects
             if ($options['replace']) {
                 $digitalObjectName = !is_array($item) ? $item : end($item);
 
                 if (null !== $results[1]) {
-                    if (file_exists($path = self::getPath($digitalObjectName, $options))) {
-                        // get digital object and delete it.
-                        if (null !== $do = QubitDigitalObject::getById($results[1])) {
-                            $do->delete();
-                            ++$this->deletedCount;
-                        }
-                    } else {
+                    // get digital object and delete it.
+                    if (null !== $do = QubitDigitalObject::getById($results[1])) {
+                        $do->delete();
+                        ++$this->deletedCount;
+                    }
+                    else {
                         $this->log(sprintf("Couldn't read file '{$digitalObjectName}'"));
                         ++$this->skippedCount;
 
@@ -177,46 +176,54 @@ class digitalObjectLoadTask extends arBaseTask
             // If attach-only is set, the task will attach the new DO via a new
             // information obj regardless of whether there is one vs more in the
             // import CSV.
-            elseif (!is_array($item) && !$options['attach-only']) {
-                // Skip if this information object already has a digital object attached
-                if (null !== $results[1]) {
-                    $this->log(sprintf("Information object {$idType}: %s already has a digital object. Skipping.", $key));
-                    ++$this->skippedCount;
-
-                    continue;
-                }
-
-                if (!file_exists($path = self::getPath($item, $options))) {
-                    $this->log(sprintf("Couldn't read file '{$item}'"));
-                    ++$this->skippedCount;
-
-                    continue;
-                }
-
-                self::addDigitalObject($results[0], $item, $options);
-            } else {
+            elseif ($options['attach-only']) {
                 if (!is_array($item)) {
-                    if (!file_exists($path = self::getPath($item, $options))) {
-                        $this->log(sprintf("Couldn't read file '{$item}'"));
-                        ++$this->skippedCount;
+                  self::attachDigitalObject($item, $results[0], $options);
+                }
+                else {
+                  // If more than one digital object linked to this information object
+                  for ($i=0; $i < count($item); $i++) {
+                    self::attachDigitalObject($item[$i], $results[0], $options);
+                  }
+                }
+            } 
+            else {
+                //Add if the identifier is unique in the import table
+                if (!is_array($item)) {
+                    // Checks if digital object already exists
+                    if ($results[1] !== null) {
+                        $this->log(sprintf("Information object $idType: %s already has a digital object. Skipping.", $key));
+                        $this->skippedCount++;
 
                         continue;
                     }
-
-                    self::attachDigitalObject($item, $results[0], $options);
-                } else {
-                    // If more than one digital object linked to this information object
-                    for ($i = 0; $i < count($item); ++$i) {
-                        if (!file_exists($path = self::getPath($item[$i], $options))) {
-                            $this->log(sprintf("Couldn't read file '{$item[$i]}'"));
-                            ++$this->skippedCount;
-
-                            continue;
-                        }
-
-                        self::attachDigitalObject($item[$i], $results[0], $options);
-                    }
+                    else{
+                        self::addDigitalObject($results[0], $item, $options);
+                    }    
                 }
+                //Checks for duplicate identifiers in the import table
+                else {
+                    for ($i=0; $i < count($item); $i++) {
+                        //Checks for repeated identifiers, if they exist, imports only the first one
+                        if ($i == 0) {
+                            // If the object already exists, do not add
+                            if ($results[1] !== null) {
+                                $this->log(sprintf("Information object $idType: %s already has a digital object. Skipping.", $key));
+                                $this->skippedCount++;
+        
+                                continue;
+                            }
+                            else {
+                                self::addDigitalObject($results[0], $item[0], $options);
+                            }
+                        }
+                        //Ignore the other objects linked to the same identifier
+                        else {
+                            $this->log(sprintf("Information object $idType: %s already has a digital object. Skipping.", $key));
+                            $this->skippedCount++;
+                        }
+                    }
+                }                 
             }
 
             ++$importedCount;
@@ -292,12 +299,6 @@ EOF;
 
         $filename = basename($path);
 
-        if (!file_exists($path)) {
-            $this->log("Couldn't read file '{$path}'");
-
-            return;
-        }
-
         $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
         $operation = $options['replace'] ? 'Replacing with' : 'Loading';
         $message = sprintf("%s '%s' (%d of %d remaining", $operation, $filename, $this->curObjNum, $remainingImportCount);
@@ -314,16 +315,41 @@ EOF;
         $do->objectId = $objectId;
 
         if ($options['link-source']) {
-            if (false === $do->importFromFile($path)) {
+          try {
+            $do->importFromURI($path);
+            $do->save();
+          }
+          catch (Exception $e) {
+            // Log error
+            $this->log($e->getMessage(), sfLogger::ERR);
+         }
+        }
+        else {
+          $uriComponents = parse_url($path);
+          $host = basename($uriComponents['host']);
+          if (0 < strlen($host)) {
+            try {
+                $do->importFromURI($path);
+                $do->save();
+              }
+              catch (Exception $e) {
+                // Log error
+                $this->log($e->getMessage(), sfLogger::ERR);
+             }
+          }
+          else {
+            if (!file_exists($path)){
+                $this->log("Couldn't read file '$path', object not found.");
                 return;
             }
-        } else {
-            $do->usageId = QubitTerm::MASTER_ID;
-            $do->assets[] = new QubitAsset($path);
+            else{
+                $do->usageId = QubitTerm::MASTER_ID;
+                $do->assets[] = new QubitAsset($path);
+                $do->save();
+            }
+
+          }
         }
-
-        $do->save($options['conn']);
-
         ++self::$count;
     }
 
