@@ -18,12 +18,19 @@
  */
 
 /**
- * Load a csv list of digital objects.
+ * Load a CSV list of digital objects.
  *
  * @author     David Juhasz <david@artefactual.com>
  */
 class digitalObjectLoadTask extends arBaseTask
 {
+    public const IO_SLUG_COLUMN = 'slug';
+    public const IO_IDENTIFIER_COLUMN = 'identifier';
+    public const IO_ID_COLUMN = 'information_object_id';
+    public const PATH_COLUMN = 'filename';
+
+    public const IO_SPECIFIER_COLUMNS = [self::IO_SLUG_COLUMN, self::IO_IDENTIFIER_COLUMN, self::IO_ID_COLUMN];
+
     protected static $count = 0;
 
     private $curObjNum = 0;
@@ -72,22 +79,20 @@ class digitalObjectLoadTask extends arBaseTask
         // Get header (first) row
         $header = fgetcsv($fh, 1000);
 
-        if ((!in_array('information_object_id', $header) && !in_array('identifier', $header) && !in_array('slug', $header)) || !in_array('filename', $header)) {
-            throw new sfException('Import file must contain an \'information_object_id\', an \'identifier\' or a \'slug\' column, and a \'filename\' column');
-        }
+        self::validateColumns($header);
 
-        $fileKey = array_search('filename', $header);
+        $fileKey = array_search(self::PATH_COLUMN, $header);
 
         // If information_object_id column is available, use it for id
-        if (false !== $idKey = array_search('information_object_id', $header)) {
+        if (false !== $idKey = array_search(self::IO_ID_COLUMN, $header)) {
             $idType = 'id';
         }
         // If no id, then lookup by identifier
-        elseif (false !== $idKey = array_search('identifier', $header)) {
+        elseif (false !== $idKey = array_search(self::IO_IDENTIFIER_COLUMN, $header)) {
             $idType = 'identifier';
         }
         // Lookup by slug
-        elseif (false !== $idKey = array_search('slug', $header)) {
+        elseif (false !== $idKey = array_search(self::IO_SLUG_COLUMN, $header)) {
             $idType = 'slug';
         }
 
@@ -159,14 +164,14 @@ class digitalObjectLoadTask extends arBaseTask
                 $digitalObjectName = !is_array($item) ? $item : end($item);
 
                 if (null !== $results[1]) {
-                    if (file_exists($path = self::getPath($digitalObjectName, $options))) {
+                    if (self::validUrlOrFilePath($digitalObjectName, $options)) {
                         // get digital object and delete it.
                         if (null !== $do = QubitDigitalObject::getById($results[1])) {
                             $do->delete();
                             ++$this->deletedCount;
                         }
                     } else {
-                        $this->log(sprintf("Couldn't read file '{$digitalObjectName}'"));
+                        $this->log(sprintf("Couldn't read file or URL '{$digitalObjectName}'"));
                         ++$this->skippedCount;
 
                         continue;
@@ -186,8 +191,8 @@ class digitalObjectLoadTask extends arBaseTask
                     continue;
                 }
 
-                if (!file_exists($path = self::getPath($item, $options))) {
-                    $this->log(sprintf("Couldn't read file '{$item}'"));
+                if (!self::validUrlOrFilePath($item, $options)) {
+                    $this->log(sprintf("Couldn't read file of URL '{$item}'"));
                     ++$this->skippedCount;
 
                     continue;
@@ -196,8 +201,8 @@ class digitalObjectLoadTask extends arBaseTask
                 self::addDigitalObject($results[0], $item, $options);
             } else {
                 if (!is_array($item)) {
-                    if (!file_exists($path = self::getPath($item, $options))) {
-                        $this->log(sprintf("Couldn't read file '{$item}'"));
+                    if (!self::validUrlOrFilePath($item, $options)) {
+                        $this->log(sprintf("Couldn't read file of URL '{$item}'"));
                         ++$this->skippedCount;
 
                         continue;
@@ -207,8 +212,8 @@ class digitalObjectLoadTask extends arBaseTask
                 } else {
                     // If more than one digital object linked to this information object
                     for ($i = 0; $i < count($item); ++$i) {
-                        if (!file_exists($path = self::getPath($item[$i], $options))) {
-                            $this->log(sprintf("Couldn't read file '{$item[$i]}'"));
+                        if (!self::validUrlOrFilePath($item[$i], $options)) {
+                            $this->log(sprintf("Couldn't read file of URL '{$item[$i]}'"));
                             ++$this->skippedCount;
 
                             continue;
@@ -244,8 +249,8 @@ class digitalObjectLoadTask extends arBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('link-source', 's', sfCommandOption::PARAMETER_NONE, 'Link source', null),
-            new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
+            new sfCommandOption('link-source', 's', sfCommandOption::PARAMETER_NONE, 'Link source (if importing a file)', null),
+            new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path or URL prefix for all digital objects', null),
             new sfCommandOption('limit', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Limit number of digital objects imported to n', null),
             new sfCommandOption('attach-only', 'a', sfCommandOption::PARAMETER_NONE, 'Always attach digital objects to a new child description', null),
             new sfCommandOption('replace', 'r', sfCommandOption::PARAMETER_NONE, 'Delete and replace digital objects', null),
@@ -255,11 +260,15 @@ class digitalObjectLoadTask extends arBaseTask
 
         $this->namespace = 'digitalobject';
         $this->name = 'load';
-        $this->briefDescription = 'Load a csv list of digital objects';
+        $this->briefDescription = 'Load a CSV list of digital objects';
 
-        $this->detailedDescription = <<<'EOF'
-Load a csv list of digital objects
-EOF;
+        $this->detailedDescription = "Load a CSV list of digital objects\n\n";
+
+        $this->detailedDescription .= sprintf(
+            "Valid CSV columns are '%s' and one of: '%s'",
+            self::PATH_COLUMN,
+            implode("', '", self::IO_SPECIFIER_COLUMNS),
+        );
     }
 
     protected function attachDigitalObject($item, $informationObjectId, $options = [])
@@ -275,6 +284,22 @@ EOF;
         self::addDigitalObject($informationObject->id, $item, $options);
     }
 
+    protected function validateColumns($columns)
+    {
+        // First check for existance of column indicating file path or URL
+        $valid = in_array(self::PATH_COLUMN, $columns);
+
+        // Second check for existance of an information object specifier column
+        if ($valid) {
+            $valid = count(array_intersect(self::IO_SPECIFIER_COLUMNS, $columns)) > 0;
+        }
+
+        // Throw error if columns aren't valid
+        if (!$valid) {
+            throw new sfException("Import file must contain a '".self::PATH_COLUMN."' column and one of the following: '".implode("', '", self::IO_SPECIFIER_COLUMNS)."'");
+        }
+    }
+
     protected function getPath($path, $options = [])
     {
         if (isset($options['path'])) {
@@ -284,19 +309,43 @@ EOF;
         return $path;
     }
 
+    protected function validUrlOrFilePath($url_or_path, $options)
+    {
+        $url_or_path = self::getPath($url_or_path, $options);
+
+        // Check first for a file (as this is fastest and most likely)
+        if (file_exists($url_or_path)) {
+            return true;
+        }
+
+        // If it's not a file, assume it's a URL and dismiss if invalid
+        if (!filter_var($url_or_path, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        // Check if URL exists
+        $headers = @get_headers($url_or_path);
+
+        if ($headers && strpos($headers[0], '200')) {
+            return true;
+        }
+
+        // Not a file path or valid, existing URL
+        return false;
+    }
+
     protected function addDigitalObject($objectId, $path, $options = [])
     {
         ++$this->curObjNum;
 
-        $path = self::getPath($path, $options);
-
-        $filename = basename($path);
-
-        if (!file_exists($path)) {
-            $this->log("Couldn't read file '{$path}'");
+        if (!self::validUrlOrFilePath($path, $options)) {
+            $this->log("Couldn't read file or URL '{$path}'");
 
             return;
         }
+
+        $path = self::getPath($path, $options);
+        $filename = basename($path);
 
         $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
         $operation = $options['replace'] ? 'Replacing with' : 'Loading';
@@ -313,13 +362,21 @@ EOF;
         $do = new QubitDigitalObject();
         $do->objectId = $objectId;
 
-        if ($options['link-source']) {
-            if (false === $do->importFromFile($path)) {
-                return;
+        if (file_exists($path)) {
+            // Add digital object from file
+            if ($options['link-source']) {
+                if (false === $do->importFromFile($path)) {
+                    return;
+                }
+            } else {
+                $do->usageId = QubitTerm::MASTER_ID;
+                $do->assets[] = new QubitAsset($path);
             }
         } else {
-            $do->usageId = QubitTerm::MASTER_ID;
-            $do->assets[] = new QubitAsset($path);
+            // Add digital object from URL
+            if (false === $do->importFromURI($path)) {
+                return;
+            }
         }
 
         $do->save($options['conn']);
