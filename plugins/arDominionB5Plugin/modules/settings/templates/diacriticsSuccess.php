@@ -2,26 +2,24 @@
 
 <?php slot('sidebar'); ?>
 
-<?php echo get_component('settings', 'menu'); ?>
+  <?php echo get_component('settings', 'menu'); ?>
 
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
-<h1>
-  <?php echo __('Diacritics settings'); ?>
-</h1>
+
+  <h1><?php echo __('Diacritics settings'); ?></h1>
+
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
 
-<div class="alert alert-info">
-  <p>
-    <?php echo __('Please rebuild the search index after uploading diacritics mappings.'); ?>
-  </p>
-  <pre>$ php symfony search:populate</pre>
-</div>
+  <div class="alert alert-info">
+    <p><?php echo __('Please rebuild the search index if you are adding new languages.'); ?></p>
+    <pre>$ php symfony search:populate</pre>
+  </div>
 
-<?php echo $form->renderGlobalErrors(); ?>
+  <?php echo $form->renderGlobalErrors(); ?>
 
 <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'diacritics'])); ?>
 
