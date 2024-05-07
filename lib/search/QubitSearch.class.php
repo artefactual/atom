@@ -33,6 +33,10 @@ class QubitSearch
             // Using arElasticSearchPlugin but other classes could be
             // implemented, for example: arSphinxSearchPlugin
             self::$instance = new arElasticSearchPlugin($options);
+            //$configuration = ProjectConfiguration::getActive();
+            //if ($configuration->isPluginEnabled('arSolrPlugin')) {
+              //self::$solr = new arSolrPlugin($options);
+            //}
         }
 
         return self::$instance;
