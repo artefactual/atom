@@ -1,9 +1,13 @@
+<?php if ($sf_context->getConfiguration()->isPluginEnabled('arSolrPlugin')) { ?>
+  <?php include 'plugins/arSolrPlugin/modules/solrPanel/templates/solrMenu.php'; ?>
+<?php } ?>
+
 <div class="visually-hidden-focusable p-3 border-bottom">
   <a class="btn btn-sm btn-secondary" href="#main-column">
     <?php echo __('Skip to main content'); ?>
   </a>
 </div>
-    
+
 <?php echo get_component('default', 'privacyMessage'); ?>
 
 <?php echo get_component('default', 'updateCheck'); ?>
@@ -27,8 +31,8 @@
       </a>
     <?php } ?>
     <button class="navbar-toggler atom-btn-secondary my-2 me-1 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
-      <i 
-        class="fas fa-2x fa-fw fa-bars" 
+      <i
+        class="fas fa-2x fa-fw fa-bars"
         data-bs-toggle="tooltip"
         data-bs-placement="bottom"
         title="<?php echo __('Toggle navigation'); ?>"
