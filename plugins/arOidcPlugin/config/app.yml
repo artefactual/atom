@@ -90,3 +90,12 @@ all:
     # 'scopes' setting. 'email' is an optional user setup field in Keycloak but
     # MUST be set if matching to pre-existing AtoM user accounts is going to work.
     user_matching_source: oidc-email
+
+    # Activate or disable the automatic creation of AtoM user records from OIDC
+    # endpoint details. Allowed settings are:
+    #
+    # true (default): AtoM will automatically create a user record on first login.
+    #
+    # false: AtoM will not automatically create a user record on first login - AtoM
+    #        user must be created in advance to successfully authenticate in AtoM.
+    auto_create_atom_user: true

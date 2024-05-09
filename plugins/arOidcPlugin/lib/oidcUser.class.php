@@ -51,6 +51,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
         $authenticated = false;
         $user = null;
         $authenticateResult = false;
+        $email = null;
 
         if (isset($_REQUEST['code'])) {
             $this->logger->info('OIDC request "code" is set.');
@@ -92,29 +93,41 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             if (!empty($email) && 'oidc-email' == $userMatchingSource) {
                 $criteria = new Criteria();
                 $criteria->add(QubitUser::EMAIL, $email);
-                if (null === $user = QubitUser::getOne($criteria)) {
-                    $user = new QubitUser();
-                    $user->username = $username;
-                    $user->email = $email;
-                    $user->save();
-                }
+                $user = QubitUser::getOne($criteria);
             }
 
             // If oidc-username is set and username is populated from OIDC, use it to match.
             if (!empty($username) && 'oidc-username' == $userMatchingSource) {
                 $criteria = new Criteria();
                 $criteria->add(QubitUser::USERNAME, $username);
-                if (null === $user = QubitUser::getOne($criteria)) {
-                    $user = new QubitUser();
-                    $user->username = $username;
-                    $user->email = $email;
-                    $user->save();
-                }
+                $user = QubitUser::getOne($criteria);
             }
 
-            // If user does not exist, then something failed.
-            if (null === $user) {
+            $autoCreateUser = sfConfig::get('app_oidc_auto_create_atom_user', true);
+            if (!is_bool($autoCreateUser)) {
+                $this->logger->err('OIDC auto_create_atom_user is configured but is not set properly - value should be of type bool. Unable to match OIDC users to AtoM users.');
+
+                return $authenticated;
+            }
+
+            // If user does not exist and $autoCreateUser is true, then try to create a new user.
+            if (null === $user && $autoCreateUser) {
+                $user = new QubitUser();
+                $user->username = $username;
+                $user->email = $email;
+                $user->save();
+            }
+
+            // If user is null and $autoCreateUser is true, then something failed.
+            if (null === $user && $autoCreateUser) {
                 $this->logger->err('OIDC authentication succeeded but unable to find or create user in AtoM.');
+
+                return $authenticated;
+            }
+
+            // If user is null and $autoCreateUser is false, then user has not been previously created or matching failed.
+            if (null === $user && !$autoCreateUser) {
+                $this->logger->err('OIDC authentication succeeded but user not found and auto_create_atom_user is set to false.');
 
                 return $authenticated;
             }
@@ -123,6 +136,11 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             // check each time a user authenticates so that changes made on the OIDC
             // server are applied in AtoM on the next login.
             $setGroupsFromClaims = sfConfig::get('app_oidc_set_groups_from_attributes', false);
+            if (!is_bool($setGroupsFromClaims)) {
+                $this->logger->err('OIDC set_groups_from_attributes is configured but is not set properly - value should be of type bool. Unable to complete authentication.');
+
+                return $authenticated;
+            }
             if (true == $setGroupsFromClaims) {
                 $rolesPath = sfConfig::get('app_oidc_roles_path', []);
                 $rolesSource = sfConfig::get('app_oidc_roles_source', '');
