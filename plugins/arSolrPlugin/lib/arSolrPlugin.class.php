@@ -208,41 +208,41 @@ class arSolrPlugin extends QubitSearchEngine
         $this->log('Populating index...');
  
         // Document counter, timer and errors
-        // $total = 0;
-        // $timer = new QubitTimer();
-        // $errors = [];
-        // $showErrors = false;
+        $total = 0;
+        $timer = new QubitTimer();
+        $errors = [];
+        $showErrors = false;
 
-        // foreach ($this->mappings as $typeName => $typeProperties) {
-        //     if (!in_array(strtolower($typeName), $excludeTypes)) {
-        //         $camelizedTypeName = sfInflector::camelize($typeName);
-        //         $className = 'arElasticSearch'.$camelizedTypeName;
+        foreach ($this->mappings as $typeName => $typeProperties) {
+            if (!in_array(strtolower($typeName), $excludeTypes)) {
+                $camelizedTypeName = sfInflector::camelize($typeName);
+                $className = 'arSolr'.$camelizedTypeName;
 
-        //         // If excluding types then index as a whole hasn't been flushed: delete
-        //         // type's documents if not updating
-        //         if (count($excludeTypes) && !$update) {
-        //             $this->index->getType('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
-        //         }
+                // If excluding types then index as a whole hasn't been flushed: delete
+                // type's documents if not updating
+                // if (count($excludeTypes) && !$update) {
+                //     $this->index->getType('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
+                // }
 
-        //         $class = new $className();
-        //         $class->setTimer($timer);
+                $class = new $className();
+                $class->setTimer($timer);
 
-        //         $typeErrors = $class->populate();
-        //         if (count($typeErrors) > 0) {
-        //             $showErrors = true;
-        //             $errors = array_merge($errors, $typeErrors);
-        //         }
+                $typeErrors = $class->populate();
+                if (count($typeErrors) > 0) {
+                    $showErrors = true;
+                    $errors = array_merge($errors, $typeErrors);
+                }
 
-        //         $total += $class->getCount();
-        //     }
-        // }
+                $total += $class->getCount();
+            }
+        }
 
-        // $this->log(
-        //     vsprintf(
-        //         'Index populated with %s documents in %s seconds.',
-        //         [$total, $timer->elapsed()]
-        //     )
-        // );
+        $this->log(
+            vsprintf(
+                'Index populated with %s documents in %s seconds.',
+                [$total, $timer->elapsed()]
+            )
+        );
 
         if (!$showErrors) {
             return;
