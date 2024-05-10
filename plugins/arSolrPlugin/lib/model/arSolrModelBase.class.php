@@ -32,7 +32,7 @@ abstract class arSolrModelBase
             self::$conn = Propel::getConnection();
         }
 
-        $this->search = QubitSearch::getInstance();
+        $this->search = QubitSearch::getSolrInstance();
 
         $this->log(' - Loading '.get_class($this).'...');
     }

@@ -113,7 +113,7 @@ class arSolrRepository extends arSolrModelBase
     {
         $data = self::serialize($object);
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
+        QubitSearch::getSolrInstance()->addDocument($data, 'QubitRepository');
 
         return true;
     }

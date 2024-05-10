@@ -267,6 +267,41 @@ class arSolrPlugin extends QubitSearchEngine
     }
 
     /**
+     * Centralize document addition to keep control of the batch queue.
+     *
+     * @param mixed $data
+     * @param mixed $type
+     */
+    public function addDocument($data, $type)
+    {
+        if (!isset($data['id'])) {
+            throw new sfException('Failed to parse id field.');
+        }
+
+        // Pass the id value to the \Elastica\Document constructor instead of as
+        // part of the document body. ES _id field id
+        $id = $data['id'];
+        unset($data['id']);
+
+        $this->log(print_r($data, true));
+        // $document = new \Elastica\Document($id, $data);
+        // $document->setType($type);
+
+        // if ($this->batchMode) {
+        //     // Add this document to the batch add queue
+        //     $this->batchAddDocs[] = $document;
+
+        //     // If we have a full batch, send additions and deletions in bulk
+        //     if (count($this->batchAddDocs) >= $this->batchSize) {
+        //         $this->flushBatch();
+        //         // $this->index->refresh();
+        //     }
+        // } else {
+        //     $this->index->getType($type)->addDocument($document);
+        // }
+    }
+
+    /**
      * Initialize Solr index if it does not exist.
      */
     protected function initialize()
