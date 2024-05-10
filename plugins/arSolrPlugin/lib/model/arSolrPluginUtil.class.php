@@ -27,7 +27,6 @@ class arSolrPluginUtil
      */
     public const SCROLL_SIZE = 1000;
 
-    
     public static function convertDate($date)
     {
         if (is_null($date)) {
@@ -36,7 +35,7 @@ class arSolrPluginUtil
 
         if ($date instanceof DateTime) {
             return $date->format('Y-m-d\TH:i:s\Z');
-        } 
+        }
 
         if (is_int($date)) {
             $timestamp = $date;

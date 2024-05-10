@@ -57,7 +57,7 @@ class arSolrAccession extends arSolrModelBase
     {
         $data = self::serialize($object->id);
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitAccession');
+        QubitSearch::getSolrInstance()->addDocument($data, 'QubitAccession');
 
         return true;
     }
