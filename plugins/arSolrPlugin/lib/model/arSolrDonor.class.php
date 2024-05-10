@@ -39,7 +39,7 @@ class arSolrDonor extends arSolrModelBase
     {
         $data = self::serialize($object);
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitDonor');
+        QubitSearch::getSolrInstance()->addDocument($data, 'QubitDonor');
 
         return true;
     }

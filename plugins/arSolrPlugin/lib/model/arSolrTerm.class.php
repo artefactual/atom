@@ -44,7 +44,7 @@ class arSolrTerm extends arSolrModelBase
                 $node = new arSolrTermPdo($item->id);
                 $data = $node->serialize();
 
-                QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
+                QubitSearch::getSolrInstance()->addDocument($data, 'QubitTerm');
 
                 $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
             } catch (sfException $e) {
@@ -59,7 +59,7 @@ class arSolrTerm extends arSolrModelBase
     {
         $node = new arSolrTermPdo($object->id);
 
-        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitTerm');
+        QubitSearch::getSolrInstance()->addDocument($node->serialize(), 'QubitTerm');
 
         return true;
     }

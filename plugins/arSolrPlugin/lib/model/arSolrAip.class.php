@@ -41,7 +41,7 @@ class arSolrAip extends arSolrModelBase
                 $node = new arSolrAipPdo($item->id);
                 $data = $node->serialize();
 
-                QubitSearch::getInstance()->addDocument($data, 'QubitAip');
+                QubitSearch::getSolrInstance()->addDocument($data, 'QubitAip');
 
                 $this->logEntry($data['filename'], $key + 1);
             } catch (sfException $e) {
@@ -56,7 +56,7 @@ class arSolrAip extends arSolrModelBase
     {
         $node = new arSolrAipPdo($object->id);
 
-        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitAip');
+        QubitSearch::getSolrInstance()->addDocument($node->serialize(), 'QubitAip');
 
         return true;
     }

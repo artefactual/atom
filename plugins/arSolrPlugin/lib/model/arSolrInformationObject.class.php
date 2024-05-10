@@ -68,7 +68,7 @@ class arSolrInformationObject extends arSolrModelBase
                 $node = new arSolrInformationObjectPdo($item->id, $options);
                 $data = $node->serialize();
 
-                QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+                QubitSearch::getSolrInstance()->addDocument($data, 'QubitInformationObject');
 
                 $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
@@ -99,7 +99,7 @@ class arSolrInformationObject extends arSolrModelBase
     {
         // Update description
         $node = new arSolrInformationObjectPdo($object->id);
-        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
+        QubitSearch::getSolrInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
         // Update descendants if requested and they exists
         if ($options['updateDescendants'] && $object->rgt - $object->lft > 1) {

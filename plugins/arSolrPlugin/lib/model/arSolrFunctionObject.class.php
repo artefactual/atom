@@ -43,7 +43,7 @@ class arSolrFunctionObject extends arSolrModelBase
                 $node = new arSolrFunctionObjectPdo($item->id);
                 $data = $node->serialize();
 
-                QubitSearch::getInstance()->addDocument($data, 'QubitFunctionObject');
+                QubitSearch::getSolrInstance()->addDocument($data, 'QubitFunctionObject');
 
                 $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
             } catch (sfException $e) {
@@ -58,7 +58,7 @@ class arSolrFunctionObject extends arSolrModelBase
     {
         $node = new arSolrFunctionObjectPdo($object->id);
 
-        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitFunctionObject');
+        QubitSearch::getSolrInstance()->addDocument($node->serialize(), 'QubitFunctionObject');
 
         return true;
     }
