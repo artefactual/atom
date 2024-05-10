@@ -278,27 +278,22 @@ class arSolrPlugin extends QubitSearchEngine
             throw new sfException('Failed to parse id field.');
         }
 
-        // Pass the id value to the \Elastica\Document constructor instead of as
-        // part of the document body. ES _id field id
         $id = $data['id'];
+
+        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
+        $options = [
+            'http' => [
+                'method' => 'POST',
+                'content' => json_encode($data),
+                'header' => "Content-Type: application/json\r\n".
+                            "Accept: application/json\r\n",
+            ],
+        ];
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode($result);
+
         unset($data['id']);
-
-        $this->log(print_r($data, true));
-        // $document = new \Elastica\Document($id, $data);
-        // $document->setType($type);
-
-        // if ($this->batchMode) {
-        //     // Add this document to the batch add queue
-        //     $this->batchAddDocs[] = $document;
-
-        //     // If we have a full batch, send additions and deletions in bulk
-        //     if (count($this->batchAddDocs) >= $this->batchSize) {
-        //         $this->flushBatch();
-        //         // $this->index->refresh();
-        //     }
-        // } else {
-        //     $this->index->getType($type)->addDocument($document);
-        // }
     }
 
     /**
