@@ -301,48 +301,10 @@ class arSolrPlugin extends QubitSearchEngine
      */
     protected function initialize()
     {
-
-      if (sfConfig::get('app_diacritics')) {
-        $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
-      }
-      $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=LIST';
-      $options = [
-        'http' => [
-            'method' => 'GET',
-            'header' => "Content-Type: application/json\r\n".
-                        "Accept: application/json\r\n",
-        ],
-      ];
-      $context = stream_context_create($options);
-      $result = file_get_contents($url, false, $context);
-      $response = json_decode($result);
-      $this->log('Printing collections');
-      $this->log(print_r($response->collections, true));
-      if (array_search($this->solrClientOptions['collection'], $response->collections) !== false) {
-        $this->log("Collection found. Not initializing");
-      } else {
-        $this->log('Initializing Solr Index');
-        if (
-            sfConfig::get('app_markdown_enabled', true)
-            && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
-        ) {
-            foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-                $filters = ['strip_md'];
-
-                if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
-                    $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
-                }
-
-                if (sfConfig::get('app_diacritics')) {
-                    $filters = array_merge($filters, ['diacritics_lowercase']);
-                }
-
-                $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
-            }
+        if (sfConfig::get('app_diacritics')) {
+            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
-
-        $this->log('Creating Solr Collection');
-        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
+        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=LIST';
         $options = [
             'http' => [
                 'method' => 'GET',
@@ -353,10 +315,112 @@ class arSolrPlugin extends QubitSearchEngine
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
-        $this->log(print_r($response, true));
 
+        $this->log(print_r($response->collections, true));
+
+        if (array_search($this->solrClientOptions['collection'], $response->collections) !== false) {
+            $this->log("Collection found. Not initializing");
+        } else {
+            $this->log('Initializing Solr Index');
+            if (
+                sfConfig::get('app_markdown_enabled', true)
+                && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
+            ) {
+                foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+                    $filters = ['strip_md'];
+
+                    if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
+                        $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+                    }
+
+                    if (sfConfig::get('app_diacritics')) {
+                        $filters = array_merge($filters, ['diacritics_lowercase']);
+                    }
+
+                    $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
+                }
+            }
+
+            $this->log('Creating Solr Collection');
+            $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
+            $options = [
+                'http' => [
+                    'method' => 'GET',
+                    'header' => "Content-Type: application/json\r\n".
+                                "Accept: application/json\r\n",
+                ],
+            ];
+            $context = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+            $response = json_decode($result);
+
+            $this->log(print_r($response, true));
+
+            // Add fields to 'all' field
+            $this->addFieldToType('all', 'text_general', true);
+
+            $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
+            $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
+            $options = [
+                'http' => [
+                    'method' => 'POST',
+                    'content' => $updateDefaultHandler,
+                    'header' => "Content-Type: application/json\r\n".
+                                "Accept: application/json\r\n",
+                ],
+            ];
+            $context = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+            $response = json_decode($result);
+
+            $this->log(print_r($response, true));
+
+            // Load and normalize mappings
+            $this->loadAndNormalizeMappings();
+
+            // Iterate over types (actor, informationobject, ...)
+            foreach ($this->mappings as $typeName => $typeProperties) {
+                $typeName = 'Qubit'.sfInflector::camelize($typeName);
+
+                foreach ($typeProperties['properties'] as $key => $value) {
+                    if ($value['type'] != null) {
+                        $this->addFieldToType($key, $this->setType($value['type']), false);
+                    } else {
+                        // nested fields
+                        $this->addFieldToType($key, '_nest_path_', true);
+
+                        foreach ($value['properties'] as $k => $v) {
+                            if ($v['type'] != null) {
+                                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private function setType($type) {
+        if ($type === 'integer') {
+            return 'pint';
+        } else if ($type === 'date') {
+            return 'pdate';
+        } else if ($type === 'long') {
+            return 'plong';
+        }  else if ($type === 'text') {
+            return 'text_general';
+        } else if ($type === 'keyword') {
+            return 'string';
+        } else {
+            // object & nested
+            // TODO
+            return 'WIP';
+        }
+    }
+
+    private function addFieldToType($field, $type, $multiValue) {
         $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-        $addFieldQuery = '{"add-field": {"name": "all","stored": "false","type": "text_general","indexed": "true","multiValued": "true"}}';
+        $addFieldQuery = '{"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}}';
         $options = [
             'http' => [
                 'method' => 'POST',
@@ -368,46 +432,9 @@ class arSolrPlugin extends QubitSearchEngine
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
+
+        $this->log(sprintf('Defining mapping %s...', $field));
         $this->log(print_r($response, true));
-
-        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
-        $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
-        $options = [
-            'http' => [
-                'method' => 'POST',
-                'content' => $updateDefaultHandler,
-                'header' => "Content-Type: application/json\r\n".
-                            "Accept: application/json\r\n",
-            ],
-        ];
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $response = json_decode($result);
-        $this->log(print_r($response, true));
-
-        $this->log('Loading mappings');
-        // Load and normalize mappings
-        $this->loadAndNormalizeMappings();
-
-        // Iterate over types (actor, informationobject, ...)
-        // foreach ($this->mappings as $typeName => $typeProperties) {
-        //     $typeName = 'Qubit'.sfInflector::camelize($typeName);
-
-        //     // Define mapping in elasticsearch
-        //     $mapping = new \Elastica\Type\Mapping();
-        //     $mapping->setType($this->index->getType($typeName));
-        //     $mapping->setProperties($typeProperties['properties']);
-
-        //     // Parse other parameters
-        //     unset($typeProperties['properties']);
-        //     foreach ($typeProperties as $key => $value) {
-        //         $mapping->setParam($key, $value);
-        //     }
-
-        //     $this->log(sprintf('Defining mapping %s...', $typeName));
-        //     $mapping->send();
-        // }
-      }
     }
 
     private function loadAndNormalizeMappings()
