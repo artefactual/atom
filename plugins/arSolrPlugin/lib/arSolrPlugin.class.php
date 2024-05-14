@@ -77,7 +77,7 @@ class arSolrPlugin extends QubitSearchEngine
     {
         parent::__construct();
 
-        $SOLR_COLLECTION = 'atom42';
+        $SOLR_COLLECTION = 'atom';
         $this->solrClientOptions = [
             'hostname' => 'solr1',
             'login' => 'solr',
@@ -150,8 +150,6 @@ class arSolrPlugin extends QubitSearchEngine
             $context = stream_context_create($options);
             $result = file_get_contents($url, false, $context);
             $response = json_decode($result);
-            $this->log('Printing collections');
-            $this->log(print_r($response->collections, true));
         } catch (Exception $e) {
         }
 
@@ -206,7 +204,7 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         $this->log('Populating index...');
- 
+
         // Document counter, timer and errors
         $total = 0;
         $timer = new QubitTimer();
@@ -316,8 +314,6 @@ class arSolrPlugin extends QubitSearchEngine
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
 
-        $this->log(print_r($response->collections, true));
-
         if (array_search($this->solrClientOptions['collection'], $response->collections) !== false) {
             $this->log("Collection found. Not initializing");
         } else {
@@ -354,10 +350,8 @@ class arSolrPlugin extends QubitSearchEngine
             $result = file_get_contents($url, false, $context);
             $response = json_decode($result);
 
-            $this->log(print_r($response, true));
-
             // Add fields to 'all' field
-            $this->addFieldToType('all', 'text_general', true);
+            $this->addFieldToType('all', 'text_general', true, false, false);
 
             $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
@@ -373,8 +367,6 @@ class arSolrPlugin extends QubitSearchEngine
             $result = file_get_contents($url, false, $context);
             $response = json_decode($result);
 
-            $this->log(print_r($response, true));
-
             // Load and normalize mappings
             $this->loadAndNormalizeMappings();
 
@@ -383,15 +375,16 @@ class arSolrPlugin extends QubitSearchEngine
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
                 foreach ($typeProperties['properties'] as $key => $value) {
+                    $includeInCopy = $value['include_in_all'] ? $value['include_in_all'] : true;
                     if ($value['type'] != null) {
-                        $this->addFieldToType($key, $this->setType($value['type']), false);
+                        $this->addFieldToType($key, $this->setType($value['type']), false, $includeInCopy);
                     } else {
                         // nested fields
                         $this->addFieldToType($key, '_nest_path_', true);
 
                         foreach ($value['properties'] as $k => $v) {
                             if ($v['type'] != null) {
-                                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false);
+                                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
                             }
                         }
                     }
@@ -418,14 +411,22 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function addFieldToType($field, $type, $multiValue) {
+    private function addFieldToType($field, $type, $multiValue, $includeInCopy = true, $stored = true) {
         $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-        $addFieldQuery = '"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}';
-        $copySourceDest = '"add-copy-field": {"source": "'.$field.'", "dest": "all"}';
+        $stored = $stored ? 'true' : 'false';
+        $multiValue = $multiValue ? 'true' : 'false';
+        $addFieldQuery = "";
+        $baseQuery = '"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}';
+        if ($includeInCopy) {
+          $copySourceDest = '"add-copy-field": {"source": "'.$field.'", "dest": "all"}';
+          $addFieldQuery = "{".$baseQuery.",".$copySourceDest."}";
+        } else {
+          $addFieldQuery = "{".$baseQuery."}";
+        }
         $options = [
             'http' => [
                 'method' => 'POST',
-                'content' => "{".$addFieldQuery.",".$copySourceDest."}",
+                'content' => $addFieldQuery,
                 'header' => "Content-Type: application/json\r\n".
                             "Accept: application/json\r\n",
             ],
@@ -435,7 +436,6 @@ class arSolrPlugin extends QubitSearchEngine
         $response = json_decode($result);
 
         $this->log(sprintf('Defining mapping %s...', $field));
-        $this->log(print_r($response, true));
     }
 
     private function loadAndNormalizeMappings()
