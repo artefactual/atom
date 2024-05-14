@@ -37,10 +37,6 @@ class QubitSearch
 
         if (!isset(self::$solrInstance)) {
             self::$solrInstance = new arSolrPlugin($options);
-            //$configuration = ProjectConfiguration::getActive();
-            //if ($configuration->isPluginEnabled('arSolrPlugin')) {
-              //self::$solr = new arSolrPlugin($options);
-            //}
         }
 
         return self::$solrInstance;
