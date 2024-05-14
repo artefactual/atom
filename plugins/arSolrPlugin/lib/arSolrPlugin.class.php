@@ -18,7 +18,7 @@
  */
 
 /**
- * arElasticSearchPlugin main class.
+ * arSolrPlugin main class.
  *
  * @author      MJ Suhonos <mj@suhonos.ca>
  * @author      Jesús García Crespo <jesus@sevein.com>
@@ -26,7 +26,7 @@
 class arSolrPlugin extends QubitSearchEngine
 {
     /**
-     * Elastic_Client object.
+     * SolrClient object.
      *
      * @var mixed defaults to null
      */
@@ -86,6 +86,7 @@ class arSolrPlugin extends QubitSearchEngine
             'collection' => $SOLR_COLLECTION,
             'path' => '/solr/'.$SOLR_COLLECTION,
         ];
+        $this->solrBaseUrl = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'];
         $this->initialize();
     }
 
@@ -139,17 +140,8 @@ class arSolrPlugin extends QubitSearchEngine
     public function flush()
     {
         try {
-            $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=DELETE&name='.$this->solrClientOptions['collection'];
-            $options = [
-              'http' => [
-                  'method' => 'GET',
-                  'header' => "Content-Type: application/json\r\n".
-                              "Accept: application/json\r\n",
-              ],
-            ];
-            $context = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-            $response = json_decode($result);
+            $url = $this->solrBaseUrl.'/solr/admin/collections?action=DELETE&name='.$this->solrClientOptions['collection'];
+            arSolrPlugin::makeHttpRequest($url);
         } catch (Exception $e) {
         }
 
@@ -278,18 +270,8 @@ class arSolrPlugin extends QubitSearchEngine
 
         $id = $data['id'];
 
-        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
-        $options = [
-            'http' => [
-                'method' => 'POST',
-                'content' => json_encode($data),
-                'header' => "Content-Type: application/json\r\n".
-                            "Accept: application/json\r\n",
-            ],
-        ];
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $response = json_decode($result);
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
+        arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($data));
 
         unset($data['id']);
     }
@@ -306,17 +288,8 @@ class arSolrPlugin extends QubitSearchEngine
         if (sfConfig::get('app_diacritics')) {
             $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
-        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=LIST';
-        $options = [
-            'http' => [
-                'method' => 'GET',
-                'header' => "Content-Type: application/json\r\n".
-                            "Accept: application/json\r\n",
-            ],
-        ];
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $response = json_decode($result);
+        $url = $this->solrBaseUrl.'/solr/admin/collections?action=LIST';
+        $response = arSolrPlugin::makeHttpRequest($url);
 
         $solrClientOptions = [
             'hostname' => $this->solrClientOptions['hostname'],
@@ -351,34 +324,15 @@ class arSolrPlugin extends QubitSearchEngine
             }
 
             $this->log('Creating Solr Collection');
-            $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
-            $options = [
-                'http' => [
-                    'method' => 'GET',
-                    'header' => "Content-Type: application/json\r\n".
-                                "Accept: application/json\r\n",
-                ],
-            ];
-            $context = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-            $response = json_decode($result);
+            $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
+            arSolrPlugin::makeHttpRequest($url);
 
             // Add fields to 'all' field
             $this->addFieldToType('all', 'text_general', true, false, false);
 
-            $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
+            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
-            $options = [
-                'http' => [
-                    'method' => 'POST',
-                    'content' => $updateDefaultHandler,
-                    'header' => "Content-Type: application/json\r\n".
-                                "Accept: application/json\r\n",
-                ],
-            ];
-            $context = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-            $response = json_decode($result);
+            arSolrPlugin::makeHttpRequest($url, 'POST', $updateDefaultHandler);
 
             // Load and normalize mappings
             $this->loadAndNormalizeMappings();
@@ -426,7 +380,7 @@ class arSolrPlugin extends QubitSearchEngine
     }
 
     private function addFieldToType($field, $type, $multiValue, $includeInCopy = true, $stored = true) {
-        $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/schema/';
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
         $stored = $stored ? 'true' : 'false';
         $multiValue = $multiValue ? 'true' : 'false';
         $addFieldQuery = "";
@@ -437,18 +391,7 @@ class arSolrPlugin extends QubitSearchEngine
         } else {
           $addFieldQuery = "{".$baseQuery."}";
         }
-        $options = [
-            'http' => [
-                'method' => 'POST',
-                'content' => $addFieldQuery,
-                'header' => "Content-Type: application/json\r\n".
-                            "Accept: application/json\r\n",
-            ],
-        ];
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $response = json_decode($result);
-
+        arSolrPlugin::makeHttpRequest($url, 'POST', $addFieldQuery);
         $this->log(sprintf('Defining mapping %s...', $field));
     }
 
@@ -459,5 +402,23 @@ class arSolrPlugin extends QubitSearchEngine
             $mappings->cleanYamlShorthands(); // Remove _attributes, _foreign_types, etc.
             $this->mappings = $mappings->asArray();
         }
+    }
+
+    public static function makeHttpRequest($url, $method = 'GET', $body = null) {
+        $options = [
+          'http' => [
+              'method' => $method,
+              'header' => "Content-Type: application/json\r\n".
+                          "Accept: application/json\r\n",
+          ],
+        ];
+        if ($body) {
+          $options['http']['content'] = $body;
+        }
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode($result);
+
+        return $response;
     }
 }
