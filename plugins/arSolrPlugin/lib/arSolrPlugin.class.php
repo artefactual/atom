@@ -294,6 +294,10 @@ class arSolrPlugin extends QubitSearchEngine
         unset($data['id']);
     }
 
+    public function getClient() {
+      return $this->client;
+    }
+
     /**
      * Initialize Solr index if it does not exist.
      */
@@ -314,8 +318,17 @@ class arSolrPlugin extends QubitSearchEngine
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
 
+        $solrClientOptions = [
+            'hostname' => $this->solrClientOptions['hostname'],
+            'login' => $this->solrClientOptions['username'],
+            'password' => $this->solrClientOptions['password'],
+            'port' => $this->solrClientOptions['port'],
+            'path' => '/solr/'.$this->solrClientOptions['collection'],
+        ];
+
         if (array_search($this->solrClientOptions['collection'], $response->collections) !== false) {
             $this->log("Collection found. Not initializing");
+            $this->client = new SolrClient($solrClientOptions);
         } else {
             $this->log('Initializing Solr Index');
             if (
@@ -390,6 +403,7 @@ class arSolrPlugin extends QubitSearchEngine
                     }
                 }
             }
+            $this->client = new SolrClient($solrClientOptions);
         }
     }
 
