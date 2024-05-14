@@ -420,11 +420,12 @@ class arSolrPlugin extends QubitSearchEngine
 
     private function addFieldToType($field, $type, $multiValue) {
         $url = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'].'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-        $addFieldQuery = '{"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}}';
+        $addFieldQuery = '"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}';
+        $copySourceDest = '"add-copy-field": {"source": "'.$field.'", "dest": "all"}';
         $options = [
             'http' => [
                 'method' => 'POST',
-                'content' => $addFieldQuery,
+                'content' => "{".$addFieldQuery.",".$copySourceDest."}",
                 'header' => "Content-Type: application/json\r\n".
                             "Accept: application/json\r\n",
             ],
