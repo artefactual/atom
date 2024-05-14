@@ -35,19 +35,21 @@ class arSolrSearchTask extends sfBaseTask
         if (!$arguments['query']) {
           $this->log('Please specify a search query.');
         } else {
-          $this->runSolrQuery($client, $arguments['query']);
+          $this->runSolrQuery($client, $arguments['query'], $options['rows']);
         }
     }
 
     protected function configure()
     {
         $this->addArguments([
-            new sfCommandArgument('query', sfCommandArgument::OPTIONAL, 'Search query.'),
+            new sfCommandArgument('query', sfCommandArgument::REQUIRED, 'Search query.'),
         ]);
 
         $this->addOptions([
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of rows to return in the results', 5),
+            //new sfCommandOption('fields', null, sfCommandOption::PARAMETER_OPTIONAL, 'Fields to query("comma seperated")', null),
         ]);
 
         $this->namespace = 'solr';
@@ -60,19 +62,20 @@ The [solr:search] task runs a search query on solr. Usage:
 EOF;
     }
 
-    private function runSolrQuery($client, $queryText) {
+    private function runSolrQuery($client, $queryText, $rows) {
       $query = new SolrQuery();
-      $query->setQuery($queryText);
+      $query->setQuery(arSolrPluginUtil::escapeTerm($queryText));
 
       $query->setStart(0);
-      $query->setRows(1000);
+      $rows ? $query->setRows((int)$rows) : $query->setRows(100);
 
       $searchResponse = $client->query($query);
 
       $response = $searchResponse->getResponse()->response;
       if ($response->docs) {
           foreach ($response->docs as $resp) {
-            $this->log(print_r($resp, true));
+            //$this->log(print_r($resp, true));
+            $this->log(sprintf('%s - %s', $resp['id'], $resp['i18n.en.title'][0]));
           }
       } else {
         $this->log("No results found");
