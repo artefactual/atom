@@ -86,14 +86,14 @@ class SettingsDiacriticsAction extends SettingsEditAction
                     } catch (Exception $e) {
                         QubitSetting::findAndSave('diacritics', 0, ['sourceCulture' => true]);
                         unlink($diacriticsMappingPath);
-                        $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritis mapping yaml file.'));
+                        $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritics mapping yaml file.'));
                         unset($this->updateMessage);
                     }
                 } else {
                     // Reset diacritics settings when uploading yaml fails
                     QubitSetting::findAndSave('diacritics', 0, ['sourceCulture' => true]);
                     unlink($diacriticsMappingPath);
-                    $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritis mapping yaml file.'));
+                    $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritics mapping yaml file.'));
                     unset($this->updateMessage);
                 }
 
