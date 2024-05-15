@@ -26,13 +26,6 @@
 class arSolrPlugin extends QubitSearchEngine
 {
     /**
-     * SolrClient object.
-     *
-     * @var mixed defaults to null
-     */
-    public $client;
-
-    /**
      * Elastic_Index object.
      *
      * @var mixed defaults to null
@@ -276,8 +269,12 @@ class arSolrPlugin extends QubitSearchEngine
         unset($data['id']);
     }
 
-    public function getClient() {
-      return $this->client;
+    public function getSolrUrl() {
+      return $this->solrBaseUrl;
+    }
+
+    public function getSolrCollection() {
+      return $this->solrClientOptions['collection'];
     }
 
     /**
@@ -301,7 +298,6 @@ class arSolrPlugin extends QubitSearchEngine
 
         if (array_search($this->solrClientOptions['collection'], $response->collections) !== false) {
             $this->log("Collection found. Not initializing");
-            $this->client = new SolrClient($solrClientOptions);
         } else {
             $this->log('Initializing Solr Index');
             if (
@@ -357,7 +353,6 @@ class arSolrPlugin extends QubitSearchEngine
                     }
                 }
             }
-            $this->client = new SolrClient($solrClientOptions);
         }
     }
 
