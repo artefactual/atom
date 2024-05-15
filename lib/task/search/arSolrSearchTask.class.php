@@ -31,11 +31,10 @@ class arSolrSearchTask extends sfBaseTask
 
         $solr = new arSolrPlugin($options);
 
-        $client = $solr->getClient();
         if (!$arguments['query']) {
           $this->log('Please specify a search query.');
         } else {
-          $this->runSolrQuery($client, $arguments['query'], $options['rows']);
+          $this->runSolrQuery($solr, $arguments['query'], (int)$options['rows'], (int)$options['start'], $option['fields']);
         }
     }
 
@@ -48,8 +47,9 @@ class arSolrSearchTask extends sfBaseTask
         $this->addOptions([
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('start', null, sfCommandOption::PARAMETER_OPTIONAL, 'Offset for the result set output. 0 by default', 0),
             new sfCommandOption('rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of rows to return in the results', 5),
-            //new sfCommandOption('fields', null, sfCommandOption::PARAMETER_OPTIONAL, 'Fields to query("comma seperated")', null),
+            new sfCommandOption('fields', null, sfCommandOption::PARAMETER_OPTIONAL, 'Fields to query("comma seperated")', null),
         ]);
 
         $this->namespace = 'solr';
@@ -62,23 +62,58 @@ The [solr:search] task runs a search query on solr. Usage:
 EOF;
     }
 
-    private function runSolrQuery($client, $queryText, $rows) {
-      $query = new SolrQuery();
-      $query->setQuery(arSolrPluginUtil::escapeTerm($queryText));
+    private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields) {
+      $url = $solrInstance->getSolrUrl() .'/solr/'.$solrInstance->getSolrCollection().'/select';
+      if(!$fields) {
+          $fields = arSolrPluginUtil::getBoostedSearchFields([
+              'identifier' => 10,
+              'donors.i18n.en.authorizedFormOfName' => 10,
+              'i18n.en.title' => 10,
+              'i18n.en.scopeAndContent' => 10,
+              'i18n.en.locationInformation' => 5,
+              'i18n.en.processingNotes' => 5,
+              'i18n.en.sourceOfAcquisition' => 5,
+              'i18n.en.archivalHistory' => 5,
+              //'i18n.en.appraisal' => 1,
+              'i18n.en.physicalCharacteristics' => 1,
+              'i18n.en.receivedExtentUnits' => 1,
+              //'alternativeIdentifiers.i18n.en.name' => 1,
+              'creators.i18n.en.authorizedFormOfName' => 1,
+              //'alternativeIdentifiers.i18n.en.note' => 1,
+              //'alternativeIdentifiers.type.i18n.en.name' => 1,
+              //'accessionEvents.i18n.en.agent' => 1,
+              //'accessionEvents.type.i18n.en.name' => 1,
+              //'accessionEvents.notes.i18n.%s.content' => 1,
+              'donors.contactInformations.contactPerson' => 1,
+              'accessionEvents.dateString' => 1,
+          ]);
+      } else {
+        $fields = arSolrPluginUtil::getBoostedSearchFields($fields);
+      }
 
-      $query->setStart(0);
-      $rows ? $query->setRows((int)$rows) : $query->setRows(100);
+      $queryParams = [
+        'params' => [
+          'start' => $start,
+          'rows' => $rows,
+          'q.op' => 'AND',
+          'defType' => 'edismax',
+          'stopwords' => 'true',
+          'q' => $queryText,
+          'qf' => implode(' ', $fields),
+        ]
+      ];
 
-      $searchResponse = $client->query($query);
+      $response = arSolrPlugin::makeHttpRequest($url.$query, 'POST', json_encode($queryParams));
 
-      $response = $searchResponse->getResponse()->response;
-      if ($response->docs) {
-          foreach ($response->docs as $resp) {
-            //$this->log(print_r($resp, true));
-            $this->log(sprintf('%s - %s', $resp['id'], $resp['i18n.en.title'][0]));
+      $docs = $response->response->docs;
+      if ($docs) {
+          foreach ($docs as $resp) {
+            $this->log(sprintf('%s - %s', $resp->id, $resp->{'i18n.en.title'}[0]));
           }
       } else {
         $this->log("No results found");
+        $this->log(print_r($response->response, true));
+        $this->log(print_r($queryParams, true));
       }
     }
 }
