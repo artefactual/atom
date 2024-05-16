@@ -29,8 +29,8 @@ class arSolrPopulateTask extends sfBaseTask
 
         // If show-types flag set, show types available to index
         //if (!empty($options['show-types'])) {
-            //$this->log(sprintf('Available document types that can be excluded: %s', implode(', ', $this->availableDocumentTypes())));
-            //$this->ask('Press the Enter key to continue indexing or CTRL-C to abort...');
+        //$this->log(sprintf('Available document types that can be excluded: %s', implode(', ', $this->availableDocumentTypes())));
+        //$this->ask('Press the Enter key to continue indexing or CTRL-C to abort...');
         //}
 
         new sfDatabaseManager($this->configuration);
@@ -39,14 +39,14 @@ class arSolrPopulateTask extends sfBaseTask
 
         // Index by slug, if specified, or all indexable resources except those with an excluded type
         //if ($options['slug']) {
-            //$logMessage = (false !== $this->attemptIndexBySlug($options)) ? 'Slug indexed.' : 'Slug not found.';
-            //$this->log($logMessage);
+        //$logMessage = (false !== $this->attemptIndexBySlug($options)) ? 'Slug indexed.' : 'Slug not found.';
+        //$this->log($logMessage);
         //} else {
-            //$populateOptions = [];
-            //$populateOptions['excludeTypes'] = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;
-            //$populateOptions['update'] = $options['update'];
+        //$populateOptions = [];
+        //$populateOptions['excludeTypes'] = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;
+        //$populateOptions['update'] = $options['update'];
 
-            //QubitSearch::getInstance()->populate($populateOptions);
+        //QubitSearch::getInstance()->populate($populateOptions);
         //}
         $populateOptions = [];
         $populateOptions['excludeTypes'] = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;

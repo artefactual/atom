@@ -42,6 +42,7 @@ class arSolrPluginUtil
         } else {
             $timestamp = strtotime($date);
         }
+
         return date('Y-m-d\TH:i:s\Z', $timestamp);
     }
 
@@ -183,7 +184,7 @@ class arSolrPluginUtil
     public static function generateQueryString(
         $query, $fields, $operator = 'AND'
     ) {
-        /* TODO - CONVERT TO SOLR QUERY STRING */
+        // TODO - CONVERT TO SOLR QUERY STRING
         $queryString = new \Elastica\Query\QueryString(self::escapeTerm($query));
         $queryString->setDefaultOperator($operator);
         $queryString->setFields(self::getBoostedSearchFields($fields));
@@ -398,7 +399,7 @@ class arSolrPluginUtil
     {
         $hitIds = [];
 
-        /* TODO - CONVERT TO SOLR PAGINATION EQUIVALENT */
+        // TODO - CONVERT TO SOLR PAGINATION EQUIVALENT
         // Create scroll of search
         $scroll = new \Elastica\Scroll($search);
 
