@@ -28,6 +28,7 @@ class arSolrPluginConfiguration extends sfPluginConfiguration
     public static $config;
     public static $mappingPath = 'config/mapping.yml';
     public static $mapping;
+
     /**
      * @see sfPluginConfiguration
      */
@@ -39,4 +40,3 @@ class arSolrPluginConfiguration extends sfPluginConfiguration
         sfConfig::set('sf_enabled_modules', $enabledModules);
     }
 }
-
