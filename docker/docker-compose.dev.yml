@@ -1,6 +1,4 @@
 ---
-version: "2.1"
-
 volumes:
   elasticsearch_data:
   percona_data:

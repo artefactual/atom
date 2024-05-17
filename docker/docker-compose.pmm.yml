@@ -1,6 +1,4 @@
 ---
-version: "2.1"
-
 volumes:
   pmm_prometheus_data:
   pmm_consul_data:
