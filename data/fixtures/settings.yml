@@ -301,6 +301,7 @@ QubitSetting:
       ja: 用語
       ka: ვადა
       ko: 용어
+      mk: Поим
       nl: Term
       pl: Termin
       pt: Termo
@@ -343,6 +344,7 @@ QubitSetting:
       ja: 主題
       ka: 'სუბიექტი (თემა, საგანი, სათაური)'
       ko: 주제
+      mk: Предмет/Тема
       nl: Onderwerp
       pl: Temat
       pt: Assunto

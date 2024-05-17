@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-03-13T13:31:09Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-05-17T02:58:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Taxonomy name</source>
-        <target/>
+        <target>Име на таксономија</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Add permissions by taxonomy</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Save</source>
-        <target/>
+        <target>Зачувај</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Add %1%</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Return to group list</source>
-        <target/>
+        <target>Врати се на пописот со групи</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Main area</source>
@@ -154,11 +154,11 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Translate</source>
-        <target/>
+        <target>Преведи</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Таксономија: %1%</target>
       </trans-unit>
     </body>
   </file>
