@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2024-03-13T13:31:15Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2024-05-17T02:59:01Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target>"Enregistrer le code numérique ou alpha-numérique identifiant l’institution de conservation conformément aux normes internationales et nationales pertinentes." (ISDIAH 5.1.1)</target>
+        <target>"Enregistrer le code numérique ou alpha-numérique identifiant l'institution de conservation conformément aux normes internationales et nationales pertinentes." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identifier</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target>"Enregistrer la forme autorisée du nom de l’institution de conservation. Ajouter si nécessaire les qualificatifs appropriés (par exemples dates, lieu géographique, etc.). Spécifier séparément dans l’élément Règles et/ou conventions (5.6.3) les règles employées pour cet élément." (ISDIAH 5.1.2)</target>
+        <target>"Enregistrer la forme autorisée du nom de l'institution de conservation. Ajouter si nécessaire les qualificatifs appropriés (par exemples dates, lieu géographique, etc.). Spécifier séparément dans l'élément Règles et/ou conventions (5.6.3) les règles employées pour cet élément." (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Authorized form of name</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target>"Enregistrer des informations sur les politiques de gestion des archives courantes et intermédiaires et de collecte de l’institution de conservation. Définir l’objet et la nature des documents acquis par l’institution. Indiquer si l’institution cherche à acquérir les documents par versement, par don, par achat et/ou par prêt. Si la politique de collecte comprend une enquête active et/ou un travail de sauvetage, cela doit être indiqué explicitement." (ISDIAH 5.3.5)</target>
+        <target>"Enregistrer des informations sur les politiques de gestion des archives courantes et intermédiaires et de collecte de l'institution de conservation. Définir l'objet et la nature des documents acquis par l'institution. Indiquer si l'institution cherche à acquérir les documents par versement, par don, par achat et/ou par prêt. Si la politique de collecte comprend une enquête active et/ou un travail de sauvetage, cela doit être indiqué explicitement." (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Records management and collecting policies</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target>"Enregistrer des informations sur le(s) bâtiment(s) de l’institution de conservation (caractéristiques générales et architecturales du bâtiment, zones et capacités de stockage, etc.). Fournir tous les détails importants qui peuvent être utilisés pour produire des statistiques." (ISDIAH 5.3.6)</target>
+        <target>"Enregistrer des informations sur le(s) bâtiment(s) de l'institution de conservation (caractéristiques générales et architecturales du bâtiment, zones et capacités de stockage, etc.). Fournir tous les détails importants qui peuvent être utilisés pour produire des statistiques." (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target>"Enregistrer le titre et d’autres informations utiles sur les instruments de recherche et guides publiés et/ou non publiés préparés par l’institution de conservation et sur toute autre publication pertinente. Utiliser la norme ISO 690 : Information et documentation - Références bibliographiques - Contenu, forme et structure, et d’autres règles de catalogages nationales ou internationales." (ISDIAH 5.3.8)</target>
+        <target>"Enregistrer le titre et d'autres informations utiles sur les instruments de recherche et guides publiés et/ou non publiés préparés par l'institution de conservation et sur toute autre publication pertinente. Utiliser la norme ISO 690 : Information et documentation - Références bibliographiques - Contenu, forme et structure, et d'autres règles de catalogages nationales ou internationales." (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Finding aids, guides and publications</source>
@@ -146,7 +146,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target>"Enregistrer les heures d’ouverture, les congés annuels, les vacances et les jours fériés de l’institution de conservation, ainsi que toute autre date de fermeture prévue. Enregistrer les horaires de disponibilité et/ou de délivrance de services (par exemple, espaces d’exposition, services de référence, etc.)." (ISDIAH 5.4.1)</target>
+        <target>"Enregistrer les heures d'ouverture, les congés annuels, les vacances et les jours fériés de l'institution de conservation, ainsi que toute autre date de fermeture prévue. Enregistrer les horaires de disponibilité et/ou de délivrance de services (par exemple, espaces d'exposition, services de référence, etc.)." (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target>"Enregistrer des informations sur l’itinéraire vers l’institution de conservation et des renseignements pour les usagers ayant un handicap, y compris les caractéristiques du bâtiment, les équipements spécialisés, les parkings ou les ascenseurs." (ISDIAH 5.4.3)</target>
+        <target>"Enregistrer des informations sur l'itinéraire vers l'institution de conservation et des renseignements pour les usagers ayant un handicap, y compris les caractéristiques du bâtiment, les équipements spécialisés, les parkings ou les ascenseurs." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Accessibility</source>
@@ -190,7 +190,7 @@
       </trans-unit>
       <trans-unit id="48">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target>"Enregistrer un seul identifiant de la description, conformément aux conventions locales et/ou nationales. Si la description doit faire l’objet d’une utilisation internationale, enregistrer le code du pays dans lequel la notice a été établie, en utilisant la dernière version de la norme ISO 3166 - Codes pour la représentation des noms de pays. Lorsque l’auteur de la description est un organisme international, donner le numéro d’identification de l’organisme à la place du code du pays." (ISDIAH 5.6.1)</target>
+        <target>"Enregistrer un seul identifiant de la description, conformément aux conventions locales et/ou nationales. Si la description doit faire l'objet d'une utilisation internationale, enregistrer le code du pays dans lequel la notice a été établie, en utilisant la dernière version de la norme ISO 3166 : Codes pour la représentation des noms de pays. Lorsque l'auteur de la description est un organisme international, donner le numéro d'identification de l'organisme à la place du code du pays." (ISDIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Description identifier</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target>"Enregistrer de manière complète, la forme autorisée du nom de chacun des services responsables de l’élaboration, des modifications ou de la diffusion de la description, ou bien indiquer un code d’identification de ces services, conformément aux règles nationales ou internationales d’identification des services." (ISDIAH 5.6.2)</target>
+        <target>"Enregistrer de manière complète, la forme autorisée du nom de chacun des services responsables de l'élaboration, des modifications ou de la diffusion de la description, ou bien indiquer un code d'identification de ces services, conformément aux règles nationales ou internationales d'identification des services." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Institution identifier</source>
@@ -214,11 +214,11 @@
       </trans-unit>
       <trans-unit id="54">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target>L'objectif de ce champ est d' "indiquer à l’utilisateur le niveau d’élaboration de la description." (ISDIAH 5.6.4). Sélectionner "Version finale", "Révision" ou "Brouillon" dans le menu déroulant.</target>
+        <target>L'objectif de ce champ est d'"indiquer à l'utilisateur le niveau d'élaboration de la description." (ISDIAH 5.6.4). Sélectionner "Version finale", "Révision" ou "Brouillon" dans le menu déroulant.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target>Sélectionner "Notice complète", "Notice moyenne" ou "Notice élémentaire" dans le menu déroulant. "En l’absence de règles nationales, on considérera que le niveau élémentaire correspond aux descriptions pour lesquelles seuls les trois éléments retenus comme essentiels par la norme ISDIAH sont renseignés (voir 4.7), et que les notices complètes sont celles pour lesquelles tous les éléments pertinents de la norme ISDIAH sont renseignés." (ISDIAH 5.6.5)</target>
+        <target>Sélectionner "Notice complète", "Notice moyenne" ou "Notice élémentaire" dans le menu déroulant. "En l'absence de règles nationales, on considérera que le niveau élémentaire correspond aux descriptions pour lesquelles seuls les trois éléments retenus comme essentiels par la norme ISDIAH sont renseignés (voir 4.7), et que les notices complètes sont celles pour lesquelles tous les éléments pertinents de la norme ISDIAH sont renseignés." (ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target>"Enregistrer les sources consultées pour l’élaboration de la description de l’institution de conservation." (ISDIAH 5.6.8)</target>
+        <target>"Enregistrer les sources consultées pour l'élaboration de la description de l'institution de conservation." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Sources</source>
