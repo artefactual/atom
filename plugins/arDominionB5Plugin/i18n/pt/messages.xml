@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2024-03-13T13:31:30Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2024-05-17T02:59:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Fornecer um código de referência local específico, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível de descrição:&lt;/strong&gt; Registe o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Fornecer um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e as convenções nacionais.</target>
+        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Forneça um código de referência local específico, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível de descrição:&lt;/strong&gt; Registre o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Forneça um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e as convenções nacionais.</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target>Forneça informações sobre as condições, como direitos de autor, que regulam a reprodução da unidade de descrição após o acesso ter sido facultado. Se a existência de tais condições for desconhecida, registe isso. Se não houver restrições, nenhuma declaração é necessária. (ISAD 3.4.2)</target>
+        <target>Forneça informações sobre as condições, como direitos autorais, que regulam a reprodução da unidade de descrição após o acesso ter sido facultado. Se a existência de tais condições for desconhecida, registre isso. Se não houver restrições, nenhuma declaração é necessária. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Conditions governing reproduction</source>
@@ -310,7 +310,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target>Registar o(s) idioma(s) e/ou escritas dos documentos incluídos na unidade de descrição. Especificar qualquer tipo de alfabeto, escrita, sistema de símbolos ouabreviaturas utilizados. (ISAD 3.4.3)</target>
+        <target>Registre o(s) tipo(s) de escrita dos materiais que compõem a unidade de descrição. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Scripts of the material</source>
@@ -5290,11 +5290,11 @@
       </trans-unit>
       <trans-unit id="1377">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target>Procure um termo existente na taxonomia de Lugares introduzindo os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respetiva ligação.</target>
+        <target>Para buscar um termo existente na taxonomia de Lugares, digite os primeiros caracteres do termo. De forma alternativa, digite um novo termo para criar e vincular a um novo termo de lugar.</target>
       </trans-unit>
       <trans-unit id="1378">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>"Escolher autor, proveniência e outros pontos de acesso que não sejam assuntos da descrição arquivística, conforme o caso. Todos os pontos de acesso devem ser evidentes a partir da descrição arquivística a que se referem." (RAD 21.0B) Os valores deste campo são retirados a forma autorizada do nome no campo de registos de autoridade. Pesquisar um nome existente, digitando os primeiros caracteres do nome. Alternativamente, digite um novo nome para criar e ligar a um novo registo autoridade.</target>
+        <target>"Escolha o autor, proveniência e outros pontos de acesso que não sejam assuntos da descrição arquivística, conforme o caso. Todos os pontos de acesso devem ser evidentes a partir da descrição arquivística a que se referem." (RAD 21.0B) Os valores deste campo são retirados da forma autorizada de nome no campo de registros de autoridade. Busque por um nome existente, digitando os primeiros caracteres do nome. De forma alternativa, digite um novo nome para criar e vincular a um novo registro de autoridade.</target>
       </trans-unit>
       <trans-unit id="1379">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
@@ -5314,7 +5314,7 @@
       </trans-unit>
       <trans-unit id="1383">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target>Para criar uma relação entre esta descrição e outra existente no AtoM, comece por escrever o nome da descrição relacionada e selecione-a na lista de menu quando surgir. Várias relações podem ser criadas.</target>
+        <target>Para criar um relacionamento entre esta descrição e outra existente no AtoM, digite o nome da descrição relacionada e selecione-a no menu suspenso de sugestões quando o mesmo aparecer abaixo. Vários relacionamentos podem ser criados.</target>
       </trans-unit>
       <trans-unit id="1384">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
@@ -5326,7 +5326,7 @@
       </trans-unit>
       <trans-unit id="1386">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target>É um elemento obrigatório para este recurso ou um de seus níveis descritivos mais elevados (se parte de uma hierarquia de coleção).</target>
+        <target>Elemento obrigatório para este recurso ou um de seus níveis de descrição superiores (caso seja parte de uma coleção hierárquica).</target>
       </trans-unit>
       <trans-unit id="1387">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>

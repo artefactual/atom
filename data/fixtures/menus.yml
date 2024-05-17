@@ -78,7 +78,7 @@ QubitMenu:
       ja: 追加
       ka: დამატება
       ko: 추가
-      mk: Додадете
+      mk: Додади
       nl: 'Voeg toe'
       pl: Dodaj
       pt: Adicionar
@@ -327,6 +327,7 @@ QubitMenu:
       ja: 権利保持者
       ka: 'უფლებების მქონეები(მფლობელები)'
       ko: '권한 보유자들'
+      mk: 'Носителите на правата'
       nl: Rechthebbenden
       pl: 'Posiadacze praw'
       pt: 'Proprietários dos direitos'
@@ -364,6 +365,7 @@ QubitMenu:
       ja: 分類
       ka: 'ტაქსონომიები  ( კლასიფიცირება)'
       ko: 택소노미
+      mk: Таксономии
       nl: Taxonomieën
       pl: Taksonomie
       pt: Taxonomias
@@ -635,6 +637,7 @@ QubitMenu:
       ja: 用語
       ka: ვადები
       ko: 용어
+      mk: Услови
       nl: Termen
       pl: Terminy
       pt: Termo
@@ -715,6 +718,7 @@ QubitMenu:
       it: XML
       ka: XML
       ko: XML
+      mk: XML
       pl: XML
       pt: XML
       pt_BR: XML
@@ -772,6 +776,7 @@ QubitMenu:
       bs: 'Potvrdi CSV'
       cy: 'Dilysu CSV'
       en: 'Validate CSV'
+      mk: 'Потврдете го CSV'
       pt_BR: 'Validar CSV'
     path: object/validateCsv
   QubitMenu_mainmenu_import_skos:
@@ -802,6 +807,7 @@ QubitMenu:
       it: SKOS
       ka: SKOS
       ko: SKOS
+      mk: SKOS
       pl: SKOS
       pt: SKOS
       pt_BR: SKOS
@@ -840,6 +846,7 @@ QubitMenu:
       ja: ユーザー
       ka: მომხმარებლები
       ko: 사용자
+      mk: Корисници
       nl: Gebruikers
       pl: Użytkownicy
       pt: Utilizadores
@@ -987,7 +994,7 @@ QubitMenu:
       it: 'Permessi dell''istituto archivistico'
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
-      mk: 'Дозволи за архивска институција'
+      mk: 'Дозволи од архивска институција'
       pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de entidade custodiadora'
       sl: 'Dovoljenja glede arhivske ustanove'
@@ -1019,6 +1026,7 @@ QubitMenu:
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
       ko: '택소노미 권한'
+      mk: 'Дозволи за таксономија'
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
@@ -1203,7 +1211,7 @@ QubitMenu:
       it: 'Permessi dell''istituto archivistico'
       ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
-      mk: 'Дозволи за архивска институција'
+      mk: 'Дозволи од архивска институција'
       pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de entidade custodiadora'
       sl: 'Dovoljenja glede arhivske ustanove'
@@ -1235,6 +1243,7 @@ QubitMenu:
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
       ko: '택소노미 권한'
+      mk: 'Дозволи за таксономија'
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
@@ -1273,6 +1282,7 @@ QubitMenu:
       ja: 静的ページ
       ka: 'არეულ-დარეული გვერდები'
       ko: '정적 페이지들'
+      mk: 'Статични страници'
       nl: 'statische pagina''s'
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
@@ -1383,6 +1393,7 @@ QubitMenu:
       ja: テーマ
       ka: თემები
       ko: 주제
+      mk: Теми
       nl: 'Thema''s'
       pl: Motywy
       pt: Temas
@@ -1955,6 +1966,7 @@ QubitMenu:
       ja: 主題
       ka: სუბიექტები
       ko: 주제
+      mk: Предмети
       nl: Onderwerpen
       pt: Assuntos
       pt_BR: Assuntos
@@ -2087,6 +2099,7 @@ QubitMenu:
       ja: 表示するエレメント
       ka: 'შესამჩნევი ელემენტები'
       ko: '가시적 요소'
+      mk: 'Видливи елементи'
       pt: 'Elementos visíveis'
       pt_BR: 'Elementos visiveis'
       ru: 'Видимые элементы'
@@ -2125,6 +2138,7 @@ QubitMenu:
       ja: 静的ページ
       ka: 'არეულ-დარეული გვერდები'
       ko: '정적 페이지들'
+      mk: 'Статични страници'
       nl: 'statische pagina''s'
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
@@ -2246,6 +2260,7 @@ QubitMenu:
       hu: 'Vágólap mentése'
       id: 'Simpan clipboard'
       ja: クリップボードを保存
+      mk: 'Зачувај ја меѓумеморијата'
       pt: 'Guardar área de transferência'
       pt_BR: 'Salvar área de transferência'
       sv: 'Spara urklipp'

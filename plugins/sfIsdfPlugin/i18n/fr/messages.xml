@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2024-03-13T13:31:15Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2024-05-17T02:59:01Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
-        <target>"Enregistrer la(les) forme(s) autorisée du nom de la fonction. Utiliser le domaine de compétence territorial ou administratif de la fonction, le nom de l’institution qui remplit la fonction ou d’autres qualificatifs pour distinguer la fonction d’autres fonctions ayant des noms similaires. Cet élément est à utiliser conjointement avec l’élément Identifiant de la description de la fonction (5.4.1)." (ISDF 5.1.2)</target>
+        <target>"Enregistrer la(les) forme(s) autorisée du nom de la fonction. Utiliser le domaine de compétence territorial ou administratif de la fonction, le nom de l'institution qui remplit la fonction ou d'autres qualificatifs pour distinguer la fonction d'autres fonctions ayant des noms similaires. Cet élément est à utiliser conjointement avec l'élément Identifiant de la description de la fonction (5.4.1)." (ISDF 5.1.2)</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Authorized form of name</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target>"Enregistrer de manière complète la(les) forme(s) autorisée(s) du nom de chacun des services responsables de l’élaboration, des modifications ou de la diffusion de la description, ou bien indiquer un code d’identification reconnu pour ces services." (ISDF 5.4.2)</target>
+        <target>"Enregistrer de manière complète la(les) forme(s) autorisée(s) du nom de chacun des services responsables de l'élaboration, des modifications ou de la diffusion de la description, ou bien indiquer un code d'identification reconnu pour ces services." (ISDF 5.4.2)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Institution identifier</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target>L'objectif de ce champ est d' "indiquer à l’utilisateur le niveau d’élaboration de la description." (ISDF 5.4.4). Sélectionner "Version finale", "Révision" ou "Brouillon" dans le menu déroulant.</target>
+        <target>L'objectif de ce champ est d'"indiquer à l'utilisateur le niveau d'élaboration de la description." (ISDF 5.4.4). Sélectionner "Version finale", "Révision" ou "Brouillon" dans le menu déroulant.</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Status</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
-        <target>Sélectionner "Notice complète", "Notice moyenne" ou "Notice élémentaire" dans le menu déroulant. "En l'absence de règles nationales, les notices élémentaires sont celles comprenant seulement les trois éléments essentiels d'une description conforme à ISDF (voir 4.7), tandis que les descriptions complètes sont celles qui fournissent des informations pour tous les éléments de description pertinents d’ISDF." (ISDF 5.4.5)</target>
+        <target>Sélectionner "Notice complète", "Notice moyenne" ou "Notice élémentaire" dans le menu déroulant. "En l'absence de règles nationales, les notices élémentaires sont celles comprenant seulement les trois éléments essentiels d'une description conforme à ISDF (voir 4.7), tandis que les descriptions complètes sont celles qui fournissent des informations pour tous les éléments de description pertinents d'ISDF." (ISDF 5.4.5)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Level of detail</source>
@@ -170,7 +170,7 @@
       </trans-unit>
       <trans-unit id="42">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target>"Enregistrer les sources consultées pour l’élaboration de la description de la fonction." (ISDF 5.4.8)</target>
+        <target>"Enregistrer les sources consultées pour l'élaboration de la description de la fonction." (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
