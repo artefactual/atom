@@ -306,14 +306,6 @@ class arSolrPlugin extends QubitSearchEngine
         $url = $this->solrBaseUrl.'/solr/admin/collections?action=LIST';
         $response = arSolrPlugin::makeHttpRequest($url);
 
-        $solrClientOptions = [
-            'hostname' => $this->solrClientOptions['hostname'],
-            'login' => $this->solrClientOptions['username'],
-            'password' => $this->solrClientOptions['password'],
-            'port' => $this->solrClientOptions['port'],
-            'path' => '/solr/'.$this->solrClientOptions['collection'],
-        ];
-
         if (false !== array_search($this->solrClientOptions['collection'], $response->collections)) {
             $this->log('Collection found. Not initializing');
         } else {
@@ -357,21 +349,55 @@ class arSolrPlugin extends QubitSearchEngine
 
                 foreach ($typeProperties['properties'] as $key => $value) {
                     $includeInCopy = $value['include_in_all'] ? $value['include_in_all'] : true;
-                    if (null != $value['type']) {
+                    if (null != $value['type'] && 'nested' !== $value['type'] && 'object' !== $value['type']) {
                         $this->addFieldToType($key, $this->setType($value['type']), false, $includeInCopy);
                     } else {
-                        // nested fields
-                        $this->addFieldToType($key, '_nest_path_', true);
-
-                        foreach ($value['properties'] as $k => $v) {
-                            if (null != $v['type']) {
-                                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
+                        if (null === $value['type']) {
+                            // array fields
+                            $this->addFieldToType($key, '_nest_path_', true);
+                            $this->addNestedFields($key, $value['properties']);
+                        } else {
+                            // object and nested fields
+                            $fields = '[';
+                            foreach ($value['properties'] as $key => $value) {
+                                if ('object' === $value['type']) {
+                                    foreach ($value['properties'] as $k => $v) {
+                                        $fields .= '"'.$k.':/'.$key.'/'.$k.'",';
+                                        $q = $this->getFieldQuery($k, $this->setType($v['type']), false, $includeInCopy);
+                                        $addFieldQuery .= $q[0];
+                                        $addCopyFieldQuery .= $q[1];
+                                    }
+                                } else if (null != $value['type']) {
+                                    $fields .= '"'.$key.':/'.$key.'",';
+                                    $q = $this->getFieldQuery($key, $this->setType($value['type']), false, $includeInCopy);
+                                    $addFieldQuery .= $q[0];
+                                    $addCopyFieldQuery .= $q[1];
+                                }
                             }
+                            $fields = rtrim($fields, ',') . ']';
+                            $this->defineConfigParams($key, $fields);
                         }
                     }
                 }
             }
         }
+    }
+
+    private function addNestedFields($key, $properties) {
+        foreach ($properties as $k => $v) {
+            if (null === $v['type']) {
+                $this->addNestedFields($k, $v['properties']);
+            } else {
+                $includeInCopy = $v['include_in_all'] ? $v['include_in_all'] : true;
+                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
+            }
+        }
+    }
+
+    private function defineConfigParams($name, $fields) {
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
+        $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":'.$fields.'}}';
+        arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
 
     private function setType($type)
@@ -391,9 +417,10 @@ class arSolrPlugin extends QubitSearchEngine
         if ('keyword' === $type) {
             return 'string';
         }
-        // object & nested
-        // TODO
-        return 'WIP';
+        if ('geo_point' === $type) {
+            return 'location';
+        }
+        return $type;
     }
 
     private function addFieldToType($field, $type, $multiValue, $includeInCopy = true, $stored = true)
