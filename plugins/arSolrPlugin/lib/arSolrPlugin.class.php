@@ -132,8 +132,9 @@ class arSolrPlugin extends QubitSearchEngine
     public function flush()
     {
         try {
-            $url = $this->solrBaseUrl.'/solr/admin/collections?action=DELETE&name='.$this->solrClientOptions['collection'];
-            arSolrPlugin::makeHttpRequest($url);
+            $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/';
+            $query = '{"delete": {"query": "*:*"}}';
+            arSolrPlugin::makeHttpRequest($url, 'POST', $query);
         } catch (Exception $e) {
         }
 
@@ -155,6 +156,9 @@ class arSolrPlugin extends QubitSearchEngine
         if (!count($excludeTypes) && !$update) {
             $this->flush();
             $this->log('Index erased.');
+
+            // Load mappings
+            $this->loadAndNormalizeMappings();
         } else {
             // Initialize index if necessary
             $this->initialize();
