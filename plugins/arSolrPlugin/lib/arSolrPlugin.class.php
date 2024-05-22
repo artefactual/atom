@@ -337,8 +337,13 @@ class arSolrPlugin extends QubitSearchEngine
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
             arSolrPlugin::makeHttpRequest($url);
 
+            $addFieldQuery = '';
+            $addCopyFieldQuery = '';
+
             // Add fields to 'all' field
-            $this->addFieldToType('all', 'text_general', true, false, false);
+            $q = $this->getFieldQuery('all', 'text_general', true, false, false);
+            $addFieldQuery .= $q[0];
+            $addCopyFieldQuery .= $q[1];
 
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
@@ -354,11 +359,15 @@ class arSolrPlugin extends QubitSearchEngine
                 foreach ($typeProperties['properties'] as $key => $value) {
                     $includeInCopy = $value['include_in_all'] ? $value['include_in_all'] : true;
                     if (null != $value['type'] && 'nested' !== $value['type'] && 'object' !== $value['type']) {
-                        $this->addFieldToType($key, $this->setType($value['type']), false, $includeInCopy);
+                        $q = $this->getFieldQuery($key, $this->setType($value['type']), false, $includeInCopy);
+                        $addFieldQuery .= $q[0];
+                        $addCopyFieldQuery .= $q[1];
                     } else {
                         if (null === $value['type']) {
                             // array fields
-                            $this->addFieldToType($key, '_nest_path_', true);
+                            $q = $this->getFieldQuery($key, '_nest_path_', true);
+                            $addFieldQuery .= $q[0];
+                            $addCopyFieldQuery .= $q[1];
                             $this->addNestedFields($key, $value['properties']);
                         } else {
                             // object and nested fields
@@ -384,6 +393,12 @@ class arSolrPlugin extends QubitSearchEngine
                     }
                 }
             }
+
+            $addFieldQuery = rtrim($addFieldQuery, ',');
+            $addCopyFieldQuery = rtrim($addCopyFieldQuery, ',');
+            $addQuery = '{"add-field":['.$addFieldQuery.'],"add-copy-field":['.$addCopyFieldQuery.']}';
+
+            $this->addFieldsToType($addQuery);
         }
     }
 
@@ -393,7 +408,7 @@ class arSolrPlugin extends QubitSearchEngine
                 $this->addNestedFields($k, $v['properties']);
             } else {
                 $includeInCopy = $v['include_in_all'] ? $v['include_in_all'] : true;
-                $this->addFieldToType($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
+                $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
             }
         }
     }
@@ -427,21 +442,23 @@ class arSolrPlugin extends QubitSearchEngine
         return $type;
     }
 
-    private function addFieldToType($field, $type, $multiValue, $includeInCopy = true, $stored = true)
+    private function getFieldQuery($field, $type, $multiValue, $includeInCopy = true, $stored = true)
     {
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
         $stored = $stored ? 'true' : 'false';
         $multiValue = $multiValue ? 'true' : 'false';
-        $addFieldQuery = '';
-        $baseQuery = '"add-field": {"name": "'.$field.'","stored": "true","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"}';
+        $addFieldQuery = '{"name": "'.$field.'","stored": "'.$stored.'","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"},';
         if ($includeInCopy) {
-            $copySourceDest = '"add-copy-field": {"source": "'.$field.'", "dest": "all"}';
-            $addFieldQuery = '{'.$baseQuery.','.$copySourceDest.'}';
-        } else {
-            $addFieldQuery = '{'.$baseQuery.'}';
+            $addCopyFieldQuery = '{"source": "'.$field.'", "dest": "all"},';
         }
-        arSolrPlugin::makeHttpRequest($url, 'POST', $addFieldQuery);
         $this->log(sprintf('Defining mapping %s...', $field));
+
+        return [$addFieldQuery. $addCopyFieldQuery];
+    }
+
+    private function addFieldsToType($query)
+    {
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
+        arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
 
     private function loadAndNormalizeMappings()
