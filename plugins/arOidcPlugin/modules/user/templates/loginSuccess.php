@@ -21,7 +21,7 @@
 
           <?php echo $form->renderHiddenFields(); ?>
 
-          <button type="submit"><?php echo __('SSO'); ?></button>
+          <button type="submit"><?php echo __('Log in with SSO'); ?></button>
 
         </form>
 

@@ -85,6 +85,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             $userMatchingSource = sfConfig::get('app_oidc_user_matching_source', '');
             if (!arOidc::validateUserMatchingSource($userMatchingSource)) {
                 $this->logger->err('OIDC user matching source is configured but is not set properly. Unable to match OIDC users to AtoM users.');
+                $this->logout();
 
                 return $authenticated;
             }
@@ -106,6 +107,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             $autoCreateUser = sfConfig::get('app_oidc_auto_create_atom_user', true);
             if (!is_bool($autoCreateUser)) {
                 $this->logger->err('OIDC auto_create_atom_user is configured but is not set properly - value should be of type bool. Unable to match OIDC users to AtoM users.');
+                $this->logout();
 
                 return $authenticated;
             }
@@ -121,6 +123,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             // If user is null and $autoCreateUser is true, then something failed.
             if (null === $user && $autoCreateUser) {
                 $this->logger->err('OIDC authentication succeeded but unable to find or create user in AtoM.');
+                $this->logout();
 
                 return $authenticated;
             }
@@ -128,6 +131,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             // If user is null and $autoCreateUser is false, then user has not been previously created or matching failed.
             if (null === $user && !$autoCreateUser) {
                 $this->logger->err('OIDC authentication succeeded but user not found and auto_create_atom_user is set to false.');
+                $this->logout();
 
                 return $authenticated;
             }
@@ -138,6 +142,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             $setGroupsFromClaims = sfConfig::get('app_oidc_set_groups_from_attributes', false);
             if (!is_bool($setGroupsFromClaims)) {
                 $this->logger->err('OIDC set_groups_from_attributes is configured but is not set properly - value should be of type bool. Unable to complete authentication.');
+                $this->logout();
 
                 return $authenticated;
             }

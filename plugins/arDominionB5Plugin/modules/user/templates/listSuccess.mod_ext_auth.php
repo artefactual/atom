@@ -79,3 +79,9 @@
 </div>
 
 <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
+
+<?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+  <section class="actions mb-3">
+    <?php echo link_to(__('Add new'), ['module' => 'user', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?>
+  </section>
+<?php } ?>
