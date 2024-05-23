@@ -347,7 +347,7 @@ class arSolrPlugin extends QubitSearchEngine
             $addCopyFieldQuery .= $q[1];
 
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
-            $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "rows": 10, "echoParams": "explicit"}}}';
+            $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "echoParams": "explicit"}}}';
             arSolrPlugin::makeHttpRequest($url, 'POST', $updateDefaultHandler);
 
             // Load and normalize mappings

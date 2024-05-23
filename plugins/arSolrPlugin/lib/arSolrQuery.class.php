@@ -72,7 +72,7 @@ class arSolrQuery
     public function __construct($searchQuery)
     {
         if (!$this->fields) {
-            $fields = arSolrPluginUtil::getBoostedSearchFields([
+            $this->fields = arSolrPluginUtil::getBoostedSearchFields([
                 'identifier' => 10,
                 'donors.i18n.%s.authorizedFormOfName' => 10,
                 'i18n.%s.title' => 10,
@@ -137,10 +137,10 @@ class arSolrQuery
                 'start' => $this->offset,
                 'rows' => $this->size,
                 'q.op' => $this->operator,
-                'defType' => 'dismax',
+                'defType' => 'edismax',
                 'stopwords' => 'true',
                 'q' => $this->searchQuery,
-                'qf' => implode(' ', $this->fields),
+                'pf' => implode(' ', $this->fields),
             ],
         ];
     }
