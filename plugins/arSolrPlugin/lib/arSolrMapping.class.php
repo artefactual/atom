@@ -229,7 +229,7 @@ class arSolrMapping
             $this->processPropertyAttributes($typeName, $typeProperties);
         }
 
-        // Next iteration to embed partial foreing types
+        // Next iteration to embed partial foreign types
         foreach ($this->mapping as $typeName => &$typeProperties) {
             $this->processPartialForeignTypes($typeProperties);
         }
@@ -349,7 +349,7 @@ class arSolrMapping
     }
 
     /**
-     * Given a mapping, adds partial foreing objects within it.
+     * Given a mapping, adds partial foreign objects within it.
      */
     protected function processPartialForeignTypes(array &$typeProperties)
     {
