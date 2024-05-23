@@ -34,7 +34,7 @@ class arSolrSearchTask extends sfBaseTask
         if (!$arguments['query']) {
             $this->log('Please specify a search query.');
         } else {
-            $this->runSolrQuery($solr, $arguments['query'], (int) $options['rows'], (int) $options['start'], $option['fields']);
+            $this->runSolrQuery($solr, $arguments['query'], (int) $options['rows'], (int) $options['start'], $options['fields']);
         }
     }
 
@@ -59,42 +59,49 @@ class arSolrSearchTask extends sfBaseTask
         $this->detailedDescription = <<<'EOF'
 The [solr:search] task runs a search query on solr. Usage:
   php symfony solr:search <query>
+
+To get paginated results, use rows and start. For example:
+  php symfony solr:search fonds --rows=5 --start=10
+
+This wll get 5 search results starting from the 10th result
+
+To search specific fields use the --fields option. For example:
+  php symfony solr:search fonds --fields=i18n.%s.title^10,identifier^5
+
+This will search only i18n.(language code).title and identifier fields and
+boost them by 10 and 5 respectively
+
 EOF;
     }
 
     private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields)
     {
-        if (!$fields) {
-            $fields = arSolrPluginUtil::getBoostedSearchFields([
-                'identifier' => 10,
-                'donors.i18n.en.authorizedFormOfName' => 10,
-                'i18n.en.title' => 10,
-                'i18n.en.scopeAndContent' => 10,
-                'i18n.en.locationInformation' => 5,
-                'i18n.en.processingNotes' => 5,
-                'i18n.en.sourceOfAcquisition' => 5,
-                'i18n.en.archivalHistory' => 5,
-                'i18n.en.physicalCharacteristics' => 1,
-                'i18n.en.receivedExtentUnits' => 1,
-                'creators.i18n.en.authorizedFormOfName' => 1,
-                'donors.contactInformations.contactPerson' => 1,
-                'accessionEvents.dateString' => 1,
-            ]);
-        } else {
-            $fields = arSolrPluginUtil::getBoostedSearchFields($fields);
-        }
-
         $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
-        $query->setFields($fields);
         $query->setSize($rows);
         $query->setOffset($start);
+        if ($fields) {
+            $fieldsArr = explode(",", $fields);
+            $newFields = [];
+            foreach($fieldsArr as $field) {
+                $newField = explode("^", $field);
+                $fieldName = $newField[0];
+                $fieldBoost = $newField[1];
+                if (!$fieldBoost) {
+                    $fieldBoost = 1;
+                }
+                $newFields[$fieldName] = (int) $fieldBoost;
+            }
+            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
+        }
 
         $docs = $solrInstance->search($query);
         if ($docs) {
             foreach ($docs as $resp) {
                 $this->log(sprintf('%s - %s', $resp->id, $resp->{'i18n.en.title'}[0]));
+
+                // print entire object if no title is present
                 if (!$resp->{'i18n.en.title'}[0]) {
-                    $this->log(print_r($resp, true));
+                    $this->log(var_export($resp, true));
                 }
             }
         } else {
