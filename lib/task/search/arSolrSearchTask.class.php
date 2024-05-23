@@ -64,7 +64,6 @@ EOF;
 
     private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields)
     {
-        $url = $solrInstance->getSolrUrl().'/solr/'.$solrInstance->getSolrCollection().'/select';
         if (!$fields) {
             $fields = arSolrPluginUtil::getBoostedSearchFields([
                 'identifier' => 10,
@@ -75,16 +74,9 @@ EOF;
                 'i18n.en.processingNotes' => 5,
                 'i18n.en.sourceOfAcquisition' => 5,
                 'i18n.en.archivalHistory' => 5,
-                //'i18n.en.appraisal' => 1,
                 'i18n.en.physicalCharacteristics' => 1,
                 'i18n.en.receivedExtentUnits' => 1,
-                //'alternativeIdentifiers.i18n.en.name' => 1,
                 'creators.i18n.en.authorizedFormOfName' => 1,
-                //'alternativeIdentifiers.i18n.en.note' => 1,
-                //'alternativeIdentifiers.type.i18n.en.name' => 1,
-                //'accessionEvents.i18n.en.agent' => 1,
-                //'accessionEvents.type.i18n.en.name' => 1,
-                //'accessionEvents.notes.i18n.%s.content' => 1,
                 'donors.contactInformations.contactPerson' => 1,
                 'accessionEvents.dateString' => 1,
             ]);
@@ -92,29 +84,22 @@ EOF;
             $fields = arSolrPluginUtil::getBoostedSearchFields($fields);
         }
 
-        $queryParams = [
-            'params' => [
-                'start' => $start,
-                'rows' => $rows,
-                'q.op' => 'AND',
-                'defType' => 'edismax',
-                'stopwords' => 'true',
-                'q' => $queryText,
-                'qf' => implode(' ', $fields),
-            ],
-        ];
+        $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
+        $query->setFields($fields);
+        $query->setSize($rows);
+        $query->setOffset($start);
 
-        $response = arSolrPlugin::makeHttpRequest($url.$query, 'POST', json_encode($queryParams));
-
-        $docs = $response->response->docs;
+        $docs = $solrInstance->search($query);
         if ($docs) {
             foreach ($docs as $resp) {
                 $this->log(sprintf('%s - %s', $resp->id, $resp->{'i18n.en.title'}[0]));
+                if (!$resp->{'i18n.en.title'}[0]) {
+                    $this->log(print_r($resp, true));
+                }
             }
         } else {
             $this->log('No results found');
-            $this->log(print_r($response->response, true));
-            $this->log(print_r($queryParams, true));
+            $this->log(print_r($docs, true));
         }
     }
 }

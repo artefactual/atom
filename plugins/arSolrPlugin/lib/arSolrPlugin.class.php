@@ -26,13 +26,6 @@
 class arSolrPlugin extends QubitSearchEngine
 {
     /**
-     * Elastic_Index object.
-     *
-     * @var mixed defaults to null
-     */
-    public $index;
-
-    /**
      * Mappings configuration, mapping.yml.
      *
      * @var mixed defaults to null
@@ -281,6 +274,14 @@ class arSolrPlugin extends QubitSearchEngine
         return $this->solrClientOptions['collection'];
     }
 
+    public function search($query)
+    {
+        $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/select';
+        $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
+
+        return $response->response->docs;
+    }
+
     public static function makeHttpRequest($url, $method = 'GET', $body = null)
     {
         $options = [
@@ -380,14 +381,14 @@ class arSolrPlugin extends QubitSearchEngine
                                         $addFieldQuery .= $q[0];
                                         $addCopyFieldQuery .= $q[1];
                                     }
-                                } else if (null != $value['type']) {
+                                } elseif (null != $value['type']) {
                                     $fields .= '"'.$key.':/'.$key.'",';
                                     $q = $this->getFieldQuery($key, $this->setType($value['type']), false, $includeInCopy);
                                     $addFieldQuery .= $q[0];
                                     $addCopyFieldQuery .= $q[1];
                                 }
                             }
-                            $fields = rtrim($fields, ',') . ']';
+                            $fields = rtrim($fields, ',').']';
                             $this->defineConfigParams($key, $fields);
                         }
                     }
@@ -402,7 +403,8 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function addNestedFields($key, $properties) {
+    private function addNestedFields($key, $properties)
+    {
         foreach ($properties as $k => $v) {
             if (null === $v['type']) {
                 $this->addNestedFields($k, $v['properties']);
@@ -413,7 +415,8 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function defineConfigParams($name, $fields) {
+    private function defineConfigParams($name, $fields)
+    {
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
         $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":'.$fields.'}}';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
@@ -439,6 +442,7 @@ class arSolrPlugin extends QubitSearchEngine
         if ('geo_point' === $type) {
             return 'location';
         }
+
         return $type;
     }
 
@@ -452,7 +456,7 @@ class arSolrPlugin extends QubitSearchEngine
         }
         $this->log(sprintf('Defining mapping %s...', $field));
 
-        return [$addFieldQuery. $addCopyFieldQuery];
+        return [$addFieldQuery.$addCopyFieldQuery];
     }
 
     private function addFieldsToType($query)
