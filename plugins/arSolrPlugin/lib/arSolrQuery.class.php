@@ -140,14 +140,15 @@ class arSolrQuery
     public function generateQueryParams()
     {
         $this->query = [
-            'params' => [
-                'start' => $this->offset,
-                'rows' => $this->size,
-                'q.op' => $this->operator,
-                'defType' => 'edismax',
-                'stopwords' => 'true',
-                'q' => $this->searchQuery,
-                'pf' => implode(' ', $this->fields),
+            'query' => [
+                'edismax' => [
+                    'start' => $this->offset,
+                    'rows' => $this->size,
+                    'q.op' => $this->operator,
+                    'stopwords' => 'true',
+                    'query' => $this->searchQuery,
+                    'qf' => implode(' ', $this->fields),
+                ],
             ],
         ];
     }
