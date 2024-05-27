@@ -276,7 +276,7 @@ class arSolrPlugin extends QubitSearchEngine
 
     public function search($query)
     {
-        $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/select';
+        $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/query';
         $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
 
         return $response->response->docs;
