@@ -1,0 +1,21 @@
+name: Psalm Static analysis
+
+on:
+  pull_request:
+  push:
+    branches:
+    - dev/add-sast-security-scan
+    - qa/**
+    - stable/**
+
+jobs:
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Psalm
+        uses: docker://ghcr.io/psalm/psalm-github-actions
+            
