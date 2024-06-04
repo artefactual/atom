@@ -37,20 +37,7 @@ class arOidc
             return;
         }
 
-        $provider_url = sfConfig::get('app_oidc_provider_url', '');
-        if (empty($provider_url)) {
-            throw new Exception('Invalid OIDC provider URL. Please review the app_oidc_provider_url parameter in plugin app.yml.');
-        }
-        $client_id = sfConfig::get('app_oidc_client_id', '');
-        if (empty($client_id)) {
-            throw new Exception('Invalid OIDC client id. Please review the app_oidc_client_id parameter in plugin app.yml.');
-        }
-        $client_secret = sfConfig::get('app_oidc_client_secret', '');
-        if (empty($client_secret)) {
-            throw new Exception('Invalid OIDC client secret. Please review the app_oidc_client_secret parameter in plugin app.yml.');
-        }
-
-        $oidc = new OpenIDConnectClient($provider_url, $client_id, $client_secret);
+        $oidc = new OpenIDConnectClient();
 
         // Validate requested scopes.
         $scopesArray = sfConfig::get('app_oidc_scopes', []);
@@ -65,7 +52,7 @@ class arOidc
         // Validate redirect URL.
         $redirectUrl = sfConfig::get('app_oidc_redirect_url', '');
         if (empty($redirectUrl)) {
-            throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_provider_url parameter in plugin app.yml.');
+            throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
         }
         $oidc->setRedirectURL($redirectUrl);
 

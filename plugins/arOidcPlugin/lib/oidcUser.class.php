@@ -43,15 +43,24 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
      *
      * @param null|mixed $username
      * @param null|mixed $password
-     *
-     * @return bool
      */
-    public function authenticate($username = null, $password = null)
+    public function authenticate($username = null, $password = null): bool
     {
         $authenticated = false;
         $user = null;
         $authenticateResult = false;
         $email = null;
+
+        // Get provider ID from session storage as it may have been set elsewhere.
+        $providerId = $this->getSessionProviderId();
+        // Validate and set provider ID in session.
+        if (null !== $providerId = $this->validateProviderId($providerId, true)) {
+            // Set Provider details in OIDC client.
+            $result = $this->setOidcProviderDetails($providerId);
+        }
+        if (null === $providerId || !isset($result) || false === $result) {
+            return $authenticated;
+        }
 
         if (isset($_REQUEST['code'])) {
             $this->logger->info('OIDC request "code" is set.');
@@ -183,10 +192,8 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
 
     /**
      * Returns bool value indicating if this user is authenticated.
-     *
-     * @return bool
      */
-    public function isAuthenticated()
+    public function isAuthenticated(): bool
     {
         $authenticated = parent::isAuthenticated();
 
@@ -210,7 +217,11 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
         if (null !== $expiryTime && $currentTime >= $expiryTime) {
             try {
                 $this->logger->info('ID token expired - using refresh token to extend session.');
-                $refreshResult = $this->oidcClient->refreshToken($refreshToken);
+                $providerId = $this->getSessionProviderId();
+                // Set provider details in the OIDC client using provider id.
+                if (true === $this->setOidcProviderDetails($providerId)) {
+                    $refreshResult = $this->oidcClient->refreshToken($refreshToken);
+                }
 
                 // Validate the new refresh token. If the refresh token is invalid, the user is logged out.
                 if (!isset($refreshResult->refresh_token) || empty($refreshResult->refresh_token)) {
@@ -245,7 +256,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     /**
      * Logout from AtoM and the OIDC server.
      */
-    public function logout()
+    public function logout(): void
     {
         $idToken = $this->getAttribute('oidc-token', null);
         $this->unsetAttributes();
@@ -258,15 +269,137 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 $this->logger->err('Setting "app_oidc_logout_redirect_url" invalid. Unable to redirect on sign out.');
             }
 
-            // Dex does not yet implement end_session_endpoint with it's oidc connector
-            // so $this->oidcClient->signOut will fail.
-            // https://github.com/dexidp/dex/issues/1697
-            try {
-                $this->oidcClient->signOut($idToken, $logoutRedirectUrl);
-            } catch (Exception $e) {
-                $this->logger->err($e->__toString().PHP_EOL);
+            // Get saved session provider id.
+            $providerId = $this->getSessionProviderId();
+            $this->setSessionProviderId();
+
+            // Set provider details in the OIDC client using provider id.
+            if (true === $this->setOidcProviderDetails($providerId)) {
+                try {
+                    // Dex does not yet implement end_session_endpoint with it's oidc connector
+                    // so $this->oidcClient->signOut will fail.
+                    // https://github.com/dexidp/dex/issues/1697
+                    $this->oidcClient->signOut($idToken, $logoutRedirectUrl);
+                } catch (Exception $e) {
+                    $this->logger->err($e->__toString().PHP_EOL);
+                }
             }
         }
+    }
+
+    // Parse the query params from a URL. If a param matches the provider ID selector
+    // then return the value.
+    public function parseProviderIdFromURL(string $url): ?string
+    {
+        if (empty($url)) {
+            return null;
+        }
+
+        $providerQueryParamName = sfConfig::get('app_oidc_provider_query_param_name', '');
+        if (empty($providerQueryParamName)) {
+            return null;
+        }
+
+        $urlParts = parse_url(strip_tags($url));
+        parse_str($urlParts['query'], $queryParts);
+
+        // Test if valid query param selector name.
+        if (isset($queryParts[$providerQueryParamName])) {
+            $providerId = $queryParts[$providerQueryParamName];
+        }
+
+        // A provider ID was specified.
+        if (isset($providerId)) {
+            return $providerId;
+        }
+
+        return null;
+    }
+
+    // Get provider ID from session storage.
+    public function getSessionProviderId(): string
+    {
+        return $this->getAttribute('oidc-session-provider-id', '');
+    }
+
+    // Set provider in session storage.
+    public function setSessionProviderId(string $providerId = ''): void
+    {
+        $this->setAttribute('oidc-session-provider-id', $providerId);
+    }
+
+    // Determine provider ID, test if valid and if so, save in session storage.
+    public function validateProviderId(string $providerId = '', bool $setSessionProviderId = false): ?string
+    {
+        // If not available get primary provider.
+        if (empty($providerId)) {
+            $providerId = sfConfig::get('app_oidc_primary_provider_name', 'primary');
+        }
+
+        // Get OIDC provider list. If none are configured this is an error.
+        $providers = sfConfig::get('app_oidc_providers', []);
+        if (empty($providers)) {
+            $this->logger->err('OIDC providers not found in app.yml - check plugin configuration. Unable to authenticate using OIDC.');
+
+            return null;
+        }
+
+        // Test if provider ID is valid.
+        if (!empty($providerId)
+            && isset($providers[$providerId])
+        ) {
+            // Save provider ID in session storage.
+            if (true === $setSessionProviderId) {
+                $this->setSessionProviderId($providerId);
+            }
+
+            return $providerId;
+        }
+
+        // Provider ID specified does not match any configured providers.
+        $this->logger->err('OIDC provider matching unsuccessful - check plugin configuration. Unable to authenticate using OIDC.');
+
+        return null;
+    }
+
+    // Look up provider details from provider ID and set values in the OIDC client object.
+    protected function setOidcProviderDetails(string $providerId = ''): bool
+    {
+        if (empty($providerId)) {
+            $this->logger->err('OIDC providers is empty - ensure setSessionProviderId() is called before calling setOidcProviderDetails(). Unable to authenticate using OIDC.');
+
+            return false;
+        }
+
+        // Get configured providers.
+        $providers = sfConfig::get('app_oidc_providers', []);
+        if (empty($providers)) {
+            $this->logger->err('OIDC providers not found in app.yml - check plugin configuration. Unable to authenticate using OIDC.');
+
+            return false;
+        }
+
+        // Get provider from list.
+        if (!empty($providerId)
+            && isset($providers[$providerId])
+        ) {
+            $provider = $providers[$providerId];
+        }
+
+        // Set provider details in OIDC Client.
+        if (isset($provider['url'], $provider['client_id'], $provider['client_secret'])
+        ) {
+            $this->oidcClient->setProviderUrl($provider['url']);
+            $this->oidcClient->setClientID($provider['client_id']);
+            $this->oidcClient->setClientSecret($provider['client_secret']);
+            $this->oidcClient->setIssuer($provider['url']);
+
+            return true;
+        }
+
+        $this->logger->err('OIDC provider matching unsuccessful - check plugin provider configuration. Unable to authenticate using OIDC.');
+
+        return false;
     }
 
     /**
@@ -306,7 +439,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
      *
      * @return array $roles
      */
-    protected function parseOidcRoleClaims($claims, $pathArray)
+    protected function parseOidcRoleClaims($claims, $pathArray): array
     {
         $currentElement = $claims;
         foreach ($pathArray as $key) {
@@ -373,7 +506,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     /**
      * Clear out session vars holding auth info.
      */
-    private function unsetAttributes()
+    private function unsetAttributes(): void
     {
         $this->setAttribute('oidc-token', '');
         $this->setAttribute('oidc-expiry', '');
