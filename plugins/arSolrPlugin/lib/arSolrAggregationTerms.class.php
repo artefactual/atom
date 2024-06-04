@@ -18,22 +18,19 @@
  */
 
 /**
- * arSolrMatchAll.
+ * arSolrAggregationTerms.
  */
-class arSolrMatchAll extends arSolrQuery
+class arSolrAggregationTerms extends arSolrQuery
 {
     /**
-     * Params.
+     * Set the field for this aggregation.
      *
-     * @var array
+     * @param string $field the name of the document field on which to perform this aggregation
+     *
+     * @return $this
      */
-    protected $params = [];
-
-    /**
-     * Creates match all query.
-     */
-    public function __construct()
+    public function setField(string $field): self
     {
-        $this->params = new stdClass();
+        return $this->setParam('field', $field);
     }
 }

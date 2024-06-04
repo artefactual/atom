@@ -18,9 +18,9 @@
  */
 
 /**
- * arSolrTerm.
+ * arSolrTermQuery.
  */
-class arSolrTerm extends arSolrQuery
+class arSolrTermQuery extends arSolrQuery
 {
     /**
      * Calls setTerm with the given $term array

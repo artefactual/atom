@@ -446,7 +446,7 @@ class arSolrPlugin extends QubitSearchEngine
         return $type;
     }
 
-    private function getFieldQuery($field, $type, $multiValue, $includeInCopy = true, $stored = true)
+    private function getFieldQuery($field, $type, $multiValue, $stored = true, $includeInCopy = true)
     {
         $stored = $stored ? 'true' : 'false';
         $multiValue = $multiValue ? 'true' : 'false';
