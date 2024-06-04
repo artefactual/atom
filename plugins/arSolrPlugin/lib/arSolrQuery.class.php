@@ -154,6 +154,25 @@ class arSolrQuery
     }
 
     /**
+     * Adds a single param or an array of params to the list.
+     *
+     * @param string $key   Param key
+     * @param mixed  $value Value to set
+     *
+     * @return $this
+     */
+    public function addParam($key, $value, ?string $subKey = null)
+    {
+        if (null !== $subKey) {
+            $this->params[$key][$subKey] = $value;
+        } else {
+            $this->params[$key][] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * Sets (overwrites) the value at the given key.
      *
      * @param string $key   Key to set
@@ -183,20 +202,44 @@ class arSolrQuery
     }
 
     /**
-     * Adds a single param or an array of params to the list.
+     * Returns the params array.
      *
-     * @param string $key   Param key
-     * @param mixed  $value Value to set
-     *
-     * @return $this
+     * @return array Params
      */
-    public function addParam($key, $value, ?string $subKey = null)
+    public function getParams()
     {
-        if (null !== $subKey) {
-            $this->params[$key][$subKey] = $value;
-        } else {
-            $this->params[$key][] = $value;
-        }
+        return $this->params;
+    }
+
+    /**
+     * Sets query as raw array. Will overwrite all already set arguments.
+     */
+    public function setRawQuery(array $query = []): self
+    {
+        $this->params = $query;
+
+        return $this;
+    }
+
+    /**
+     * Sets a post_filter to the current query.
+     */
+    public function setPostFilter($filter): self
+    {
+        return $this->setParam('post_filter', $filter);
+    }
+
+    public function setQuery($query): self
+    {
+        return $this->setParam('query', $query);
+    }
+
+    /**
+     * Adds an Aggregation to the query.
+     */
+    public function addAggregation($agg): self
+    {
+        $this->params['aggs'][] = $agg;
 
         return $this;
     }

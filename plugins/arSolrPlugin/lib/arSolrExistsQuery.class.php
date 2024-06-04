@@ -18,33 +18,25 @@
  */
 
 /**
- * arSolrRange.
+ * arSolrExistsQuery.
  */
-class arSolrRange extends arSolrQuery
+class arSolrExistsQuery extends arSolrQuery
 {
     /**
-     * Constructor.
-     *
-     * @param string|null $fieldName Field name
-     * @param array       $args      Field arguments
+     * Construct exists query.
      */
-    public function __construct(?string $fieldName = null, array $args = [])
+    public function __construct(string $field)
     {
-        if ($fieldName) {
-            $this->addField($fieldName, $args);
-        }
+        $this->setField($field);
     }
 
     /**
-     * Adds a range field to the query.
-     *
-     * @param string $fieldName Field name
-     * @param array  $args      Field arguments
+     * Set field.
      *
      * @return $this
      */
-    public function addField(string $fieldName, array $args): self
+    public function setField(string $field): self
     {
-        return $this->setParam($fieldName, $args);
+        return $this->setParam('field', $field);
     }
 }
