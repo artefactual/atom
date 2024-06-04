@@ -338,13 +338,10 @@ class arSolrPlugin extends QubitSearchEngine
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
             arSolrPlugin::makeHttpRequest($url);
 
-            $addFieldQuery = '';
-            $addCopyFieldQuery = '';
+            $addFieldQuery = [];
 
             // Add fields to 'all' field
-            $q = $this->getFieldQuery('all', 'text_general', true, false, false);
-            $addFieldQuery .= $q[0];
-            $addCopyFieldQuery .= $q[1];
+            array_push($addFieldQuery, $this->getFieldQuery('all', 'text_general', true, false, false));
 
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"df": "all", "echoParams": "explicit"}}}';
@@ -358,17 +355,12 @@ class arSolrPlugin extends QubitSearchEngine
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
                 foreach ($typeProperties['properties'] as $key => $value) {
-                    $includeInCopy = $value['include_in_all'] ? $value['include_in_all'] : true;
                     if (null != $value['type'] && 'nested' !== $value['type'] && 'object' !== $value['type']) {
-                        $q = $this->getFieldQuery($key, $this->setType($value['type']), false, $includeInCopy);
-                        $addFieldQuery .= $q[0];
-                        $addCopyFieldQuery .= $q[1];
+                        array_push($addFieldQuery, $this->getFieldQuery($key, $this->setType($value['type']), false));
                     } else {
                         if (null === $value['type']) {
                             // array fields
-                            $q = $this->getFieldQuery($key, '_nest_path_', true);
-                            $addFieldQuery .= $q[0];
-                            $addCopyFieldQuery .= $q[1];
+                            array_push($addFieldQuery, $this->getFieldQuery($key, '_nest_path_', true));
                             $this->addNestedFields($key, $value['properties']);
                         } else {
                             // object and nested fields
@@ -377,15 +369,11 @@ class arSolrPlugin extends QubitSearchEngine
                                 if ('object' === $value['type']) {
                                     foreach ($value['properties'] as $k => $v) {
                                         $fields .= '"'.$k.':/'.$key.'/'.$k.'",';
-                                        $q = $this->getFieldQuery($k, $this->setType($v['type']), false, $includeInCopy);
-                                        $addFieldQuery .= $q[0];
-                                        $addCopyFieldQuery .= $q[1];
+                                        array_push($addFieldQuery, $this->getFieldQuery($k, $this->setType($v['type']), false));
                                     }
                                 } elseif (null != $value['type']) {
                                     $fields .= '"'.$key.':/'.$key.'",';
-                                    $q = $this->getFieldQuery($key, $this->setType($value['type']), false, $includeInCopy);
-                                    $addFieldQuery .= $q[0];
-                                    $addCopyFieldQuery .= $q[1];
+                                    array_push($addFieldQuery, $this->getFieldQuery($key, $this->setType($value['type']), false));
                                 }
                             }
                             $fields = rtrim($fields, ',').']';
@@ -395,11 +383,9 @@ class arSolrPlugin extends QubitSearchEngine
                 }
             }
 
-            $addFieldQuery = rtrim($addFieldQuery, ',');
-            $addCopyFieldQuery = rtrim($addCopyFieldQuery, ',');
-            $addQuery = '{"add-field":['.$addFieldQuery.'],"add-copy-field":['.$addCopyFieldQuery.']}';
+            $addQuery = ["add-field" => $addFieldQuery];
 
-            $this->addFieldsToType($addQuery);
+            $this->addFieldsToType(json_encode($addQuery));
         }
     }
 
@@ -409,8 +395,7 @@ class arSolrPlugin extends QubitSearchEngine
             if (null === $v['type']) {
                 $this->addNestedFields($k, $v['properties']);
             } else {
-                $includeInCopy = $v['include_in_all'] ? $v['include_in_all'] : true;
-                $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false, $includeInCopy);
+                $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false);
             }
         }
     }
@@ -446,17 +431,20 @@ class arSolrPlugin extends QubitSearchEngine
         return $type;
     }
 
-    private function getFieldQuery($field, $type, $multiValue, $stored = true, $includeInCopy = true)
+    private function getFieldQuery($field, $type, $multiValue, $stored = true)
     {
         $stored = $stored ? 'true' : 'false';
         $multiValue = $multiValue ? 'true' : 'false';
-        $addFieldQuery = '{"name": "'.$field.'","stored": "'.$stored.'","type": "'.$type.'","indexed": "true","multiValued": "'.$multiValue.'"},';
-        if ($includeInCopy) {
-            $addCopyFieldQuery = '{"source": "'.$field.'", "dest": "all"},';
-        }
+        $addFieldQuery = [
+            "name" => $field,
+            "stored" => $stored,
+            "type" => $type,
+            "indexed" => "true",
+            "multiValued" => $multiValue
+        ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
-        return [$addFieldQuery.$addCopyFieldQuery];
+        return $addFieldQuery;
     }
 
     private function addFieldsToType($query)
