@@ -18,72 +18,99 @@
  */
 
 /**
- * arSolrBoolQuery.
+ * arSolrNestedQuery.
  */
-class arSolrBoolQuery extends arSolrQuery
+class arSolrNestedQuery extends arSolrQuery
 {
-    public $queryBool;
+    public $query;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this->queryBool = $this->setRawQuery();
+        $this->query = $this->setRawQuery();
     }
 
     /**
-     * Add should part to query.
+     * Adds field to mlt query.
      *
-     * @param array $args Should query
+     * @param string $path Nested object path
      *
      * @return $this
      */
-    public function addShould($args): self
+    public function setPath(string $path): self
     {
-        return $this->_addQuery('should', $args);
+        return $this->setParam('path', $path);
     }
 
     /**
-     * Add must part to query.
-     *
-     * @param array $args Must query
+     * Sets nested query.
      *
      * @return $this
      */
-    public function addMust($args): self
+    public function setQuery($query): self
     {
-        return $this->_addQuery('must', (array) $args);
+        return $this->setParam('query', $query);
     }
 
     /**
-     * Add must not part to query.
+     * Set score method.
      *
-     * @param array $args Must not query
+     * @param string $scoreMode options: avg, total, max and none
      *
      * @return $this
      */
-    public function addMustNot($args): self
+    public function setScoreMode(string $scoreMode = 'avg'): self
     {
-        return $this->_addQuery('must_not', $args);
+        return $this->setParam('score_mode', $scoreMode);
     }
 
     /**
-     * Adds a query to the current object.
+     * 
      *
-     * @param string $type Query type
-     * @param array  $args Query
-     *
-     * @throws Exception If not valid query
+     * @param string $
      *
      * @return $this
      */
-    protected function _addQuery(string $type, $args): self
+    public function addSort()
     {
-        if (!is_array($args)) {
-            throw new Exception('Invalid parameter. Has to be array.');
-        }
+        return;
+    }
 
-        return $this->addParam($type, $args);
+    /**
+     * 
+     *
+     * @param string $
+     *
+     * @return $this
+     */
+    public function setSort()
+    {
+        return;
+    }
+
+    /**
+     * 
+     *
+     * @param string $
+     *
+     * @return $this
+     */
+    public function setTerm()
+    {
+        return;
+    }
+
+    /**
+     * 
+     *
+     * @param string $
+     *
+     * @return $this
+     */
+    public function setFilter()
+    {
+        return;
     }
 }

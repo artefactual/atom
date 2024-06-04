@@ -18,25 +18,24 @@
  */
 
 /**
- * arSolrExists.
+ * arSolrAggregationFilter.
  */
-class arSolrExists extends arSolrQuery
+class arSolrAggregationFilter extends arSolrQuery
 {
-    /**
-     * Construct exists query.
-     */
-    public function __construct(string $field)
+    public function __construct(string $name, $filter = null)
     {
-        $this->setField($field);
+        if (null !== $filter) {
+            $this->setFilter($filter);
+        }
     }
 
     /**
-     * Set field.
+     * Set the filter for this aggregation.
      *
      * @return $this
      */
-    public function setField(string $field): self
+    public function setFilter(arSolrTermQuery $filter): self
     {
-        return $this->setParam('field', $field);
+        return $this->setParam('filter', $filter);
     }
 }

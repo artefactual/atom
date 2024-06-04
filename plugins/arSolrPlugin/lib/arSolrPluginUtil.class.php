@@ -184,8 +184,7 @@ class arSolrPluginUtil
     public static function generateQueryString(
         $query, $fields, $operator = 'AND'
     ) {
-        // TODO - CONVERT TO SOLR QUERY STRING
-        $queryString = new \Elastica\Query\QueryString(self::escapeTerm($query));
+        $queryString = new arSolrQueryString(self::escapeTerm($query));
         $queryString->setDefaultOperator($operator);
         $queryString->setFields(self::getBoostedSearchFields($fields));
         $queryString->setAnalyzer(
