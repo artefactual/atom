@@ -72,6 +72,27 @@ class arSolrQuery
     protected $params = [];
 
     /**
+     * mustQuery.
+     *
+     * @var array
+     */
+    protected $mustQuery = [];
+
+    /**
+     * mustNotQuery.
+     *
+     * @var array
+     */
+    protected $mustNotQuery = [];
+
+    /**
+     * boolQuery.
+     *
+     * @var array
+     */
+    protected $boolQuery = [];
+
+    /**
      * Constructor.
      *
      * @param mixed $searchQuery
@@ -141,7 +162,7 @@ class arSolrQuery
     {
         $this->query = [
             'query' => [
-                'edismax' => [
+                'dismax' => [
                     'start' => $this->offset,
                     'rows' => $this->size,
                     'q.op' => $this->operator,
@@ -151,6 +172,21 @@ class arSolrQuery
                 ],
             ],
         ];
+    }
+
+    /**
+     * Assemble BoolQuery.
+     *
+     * @return string JSON encoded string of must query
+     */
+    public function generateBoolQuery() {
+        $this->boolQuery = [
+            "query" => [
+                "bool" => array_merge($this->mustQuery, $this->mustNotQuery)
+            ]
+        ];
+
+        return json_encode($this->boolQuery);
     }
 
     /**
@@ -242,5 +278,47 @@ class arSolrQuery
         $this->params['aggs'][] = $agg;
 
         return $this;
+    }
+
+    /**
+     * Add must for BoolQuery.
+     *
+     * @param array $field  field
+     * @param string $must  must query
+     * @param string $qp    query parser (default "dismax")
+     *
+     * @return string JSON encoded string of must part of query
+     */
+    public function addMust($field, $must, $qp = 'dismax') {
+        $this->mustQuery = [
+            "must" => [[
+                $qp => [
+                    "df" => $field,
+                    "query" => $must
+            ]]
+        ]];
+        return $this->mustQuery;
+    }
+
+    /**
+     * Add must not for BoolQuery.
+     *
+     * @param $lower    lower limit
+     * @param $upper    upper limit
+     * @param $mustNot  must not query
+     *
+     * @return string JSON encoded string of must not part of query
+     */
+    public function addMustNot($mustNot, $lower = 0, $upper = 5) {
+        $this->mustNotQuery = [
+            "must_not" => [[
+                "frange" => [
+                    "l" => $lower,
+                    "u" => $upper,
+                    "query" => $mustNot
+                ]
+            ]]
+        ];
+        return $this->mustNotQuery;
     }
 }
