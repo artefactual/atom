@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arSolrPluginQuery extends arSolrQuery
+class arSolrPluginQuery
 {
     public $query;
     public $queryBool;
@@ -33,7 +33,7 @@ class arSolrPluginQuery extends arSolrQuery
      */
     public function __construct($limit = 10, $skip = 0)
     {
-        $this->query = new arSolrQueryClass();
+        $this->query = new arSolrQuery();
         $this->setParam('size', $limit);
         $this->setParam('from', $skip);
 
@@ -51,21 +51,29 @@ class arSolrPluginQuery extends arSolrQuery
         foreach ($aggs as $name => $item) {
             switch ($item['type']) {
                 case 'term':
-                    $agg = new arSolrAggregationTerms($name);
-                    $agg->setField($item['field']);
+                  // TODO: add any missing aggregation params
+                  // see: Elastica\Aggregation\Terms
+                    $agg = [
+                      'terms' => $name,
+                      'field' => $item['field']
+                    ];
 
                     break;
 
                 case 'filter':
-                    $agg = new arSolrAggregationFilter($name);
-                    $agg->setFilter(new arSolrTermQuery($item['field']));
+                    // TODO: add any missing aggregation params
+                    // see: Elastica\Aggregation\Filter
+                    $agg = [
+                      'filter' => $name,
+                      'field' => $item['field']
+                    ];
 
                     break;
             }
 
             // Sets the amount of terms to be returned
             if (isset($item['size'])) {
-                $agg->setSize($item['size']);
+                $agg['size'] = $item['size'];
             }
 
             $this->query->addAggregation($agg);
@@ -315,7 +323,7 @@ class arSolrPluginQuery extends arSolrQuery
      * @param string $field
      * @param string $query
      * @param string $archivalStandard
-     * 
+     *
      * @return array
      */
     protected function queryField($field, $query, $archivalStandard)
