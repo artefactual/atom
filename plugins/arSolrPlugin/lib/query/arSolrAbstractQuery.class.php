@@ -20,14 +20,60 @@
 class arSolrAbstractQuery
 {
     /**
-     * Constructor.
+     * Sets (overwrites) the value at the given key.
      *
+     * @param string $key   Key to set
+     * @param mixed  $value Key Value
+     *
+     * @return $this
      */
-    public function __construct()
+    public function setParam($key, $value)
     {
+        $this->params[$key] = $value;
 
+        return $this;
     }
 
-    // TODO
-}
+    /**
+     * Adds a single param or an array of params to the list.
+     *
+     * @param string $key   Param key
+     * @param mixed  $value Value to set
+     *
+     * @return $this
+     */
+    public function addParam($key, $value, ?string $subKey = null)
+    {
+        if (null !== $subKey) {
+            $this->params[$key][$subKey] = $value;
+        } else {
+            $this->params[$key][] = $value;
+        }
 
+        return $this;
+    }
+
+    /**
+     * Sets (overwrites) all params of this object.
+     *
+     * @param array $params Parameter list
+     *
+     * @return $this
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * Returns the params array.
+     *
+     * @return array Params
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+}

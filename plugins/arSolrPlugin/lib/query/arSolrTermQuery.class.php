@@ -19,5 +19,5 @@
 
 class arSolrTermQuery extends arSolrAbstractQuery
 {
-  // TODO
+    // TODO
 }
