@@ -19,5 +19,43 @@
 
 class arSolrRangeQuery extends arSolrAbstractQuery
 {
-  // TODO
+    // TODO
+    // Will need to adapt all elastica range arguments (lt, gt)
+    // to solr ranges, preferable where this class is used
+
+    /**
+     * Constructor.
+     *
+     * @param null|string $fieldName Field name
+     * @param array       $args      Field arguments
+     */
+    public function __construct(?string $fieldName = null, array $args = [])
+    {
+        if ($fieldName) {
+            $this->addField($fieldName, $args);
+        }
+    }
+
+    /**
+     * Adds a range field to the query.
+     *
+     * @param string $fieldName Field name
+     * @param array  $args      Field arguments
+     *
+     * @return $this
+     */
+    public function addField(string $fieldName, array $args): self
+    {
+        return $this->setParam($fieldName, $args);
+    }
+
+    public function generateQueryParams()
+    {
+        $this->query = [
+            'query' => '*:*',
+            'facet' => [
+                $this->params,
+            ],
+        ];
+    }
 }

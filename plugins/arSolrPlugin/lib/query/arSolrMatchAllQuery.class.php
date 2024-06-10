@@ -19,5 +19,5 @@
 
 class arSolrMatchAllQuery extends arSolrAbstractQuery
 {
-  // TODO
+    // TODO
 }

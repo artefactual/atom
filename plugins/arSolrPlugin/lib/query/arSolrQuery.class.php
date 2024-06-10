@@ -20,7 +20,7 @@
 /**
  * arSolrQuery.
  */
-class arSolrQuery
+class arSolrQuery extends arSolrAbstractQuery
 {
     /**
      * Array of fields to be queried.
@@ -42,27 +42,6 @@ class arSolrQuery
      * @var string
      */
     protected $searchQuery = '*:*';
-
-    /**
-     * Query Params.
-     *
-     * @var mixed
-     */
-    protected $query;
-
-    /**
-     * Number of results to fetch.
-     *
-     * @var number defaults to 10
-     */
-    protected $size = 10;
-
-    /**
-     * Offset for search results.
-     *
-     * @var number defaults to 0
-     */
-    protected $offset = 0;
 
     /**
      * Params.
@@ -134,6 +113,7 @@ class arSolrQuery
     public function getQueryParams()
     {
         $this->generateQueryParams();
+
         return $this->query;
     }
 
@@ -154,64 +134,6 @@ class arSolrQuery
     }
 
     /**
-     * Adds a single param or an array of params to the list.
-     *
-     * @param string $key   Param key
-     * @param mixed  $value Value to set
-     *
-     * @return $this
-     */
-    public function addParam($key, $value, ?string $subKey = null)
-    {
-        if (null !== $subKey) {
-            $this->params[$key][$subKey] = $value;
-        } else {
-            $this->params[$key][] = $value;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets (overwrites) the value at the given key.
-     *
-     * @param string $key   Key to set
-     * @param mixed  $value Key Value
-     *
-     * @return $this
-     */
-    public function setParam($key, $value)
-    {
-        $this->params[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Sets (overwrites) all params of this object.
-     *
-     * @param array $params Parameter list
-     *
-     * @return $this
-     */
-    public function setParams(array $params)
-    {
-        $this->params = $params;
-
-        return $this;
-    }
-
-    /**
-     * Returns the params array.
-     *
-     * @return array Params
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
      * Sets query as raw array. Will overwrite all already set arguments.
      */
     public function setRawQuery(array $query = []): self
@@ -223,6 +145,8 @@ class arSolrQuery
 
     /**
      * Sets a post_filter to the current query.
+     *
+     * @param mixed $filter
      */
     public function setPostFilter($filter): self
     {
@@ -236,6 +160,8 @@ class arSolrQuery
 
     /**
      * Adds an Aggregation to the query.
+     *
+     * @param mixed $agg
      */
     public function addAggregation($agg): self
     {

@@ -19,5 +19,5 @@
 
 class arSolrExistsQuery extends arSolrAbstractQuery
 {
-  // TODO
+    // TODO
 }

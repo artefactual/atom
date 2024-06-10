@@ -19,87 +19,87 @@
 
 class arSolrBoolQuery extends arSolrAbstractQuery
 {
-  /**
-   * mustQuery.
-   *
-   * @var array
-   */
-  protected $mustQuery = [];
+    /**
+     * mustQuery.
+     *
+     * @var array
+     */
+    protected $mustQuery = [];
 
-  /**
-   * mustNotQuery.
-   *
-   * @var array
-   */
-  protected $mustNotQuery = [];
+    /**
+     * mustNotQuery.
+     *
+     * @var array
+     */
+    protected $mustNotQuery = [];
 
-  /**
-   * boolQuery.
-   *
-   * @var array
-   */
-  protected $boolQuery = [];
+    /**
+     * boolQuery.
+     *
+     * @var array
+     */
+    protected $boolQuery = [];
 
-  /**
-   * Assemble BoolQuery.
-   *
-   * @return arSolrBoolQuery object
-   */
-  public function generateBoolQuery()
-  {
-    $this->boolQuery = [
-      "bool" => array_merge($this->mustQuery, $this->mustNotQuery)
-    ];
+    /**
+     * Assemble BoolQuery.
+     *
+     * @return arSolrBoolQuery object
+     */
+    public function generateBoolQuery()
+    {
+        $this->boolQuery = [
+            'bool' => array_merge($this->mustQuery, $this->mustNotQuery),
+        ];
 
-    return $this->boolQuery;
-  }
+        return $this->boolQuery;
+    }
 
-  /**
-   * Add must for BoolQuery.
-   *
-   * @param array $field  field
-   * @param string $must  must query
-   * @param string $qp    query parser (default "dismax")
-   *
-   * @return array     must part of query
-   */
-  public function addMust($field, $must, $qp = 'dismax')
-  {
-    $this->mustQuery = [
-      "must" => [
-        [
-          $qp => [
-            "df" => $field,
-            "query" => $must
-          ]
-        ]
-      ]
-    ];
+    /**
+     * Add must for BoolQuery.
+     *
+     * @param array  $field field
+     * @param string $must  must query
+     * @param string $qp    query parser (default "dismax")
+     *
+     * @return array must part of query
+     */
+    public function addMust($field, $must, $qp = 'dismax')
+    {
+        $this->mustQuery = [
+            'must' => [
+                [
+                    $qp => [
+                        'df' => $field,
+                        'query' => $must,
+                    ],
+                ],
+            ],
+        ];
 
-    return $this->mustQuery;
-  }
+        return $this->mustQuery;
+    }
 
-  /**
-   * Add must not for BoolQuery.
-   *
-   * @param $lower    lower limit
-   * @param $upper    upper limit
-   * @param $mustNot  must not query
-   *
-   * @return array     must not part of query
-   */
-  public function addMustNot($mustNot, $lower = 0, $upper = 5)
-  {
-    $this->mustNotQuery = [
-      "must_not" => [[
-        "frange" => [
-          "l" => $lower,
-          "u" => $upper,
-          "query" => $mustNot
-        ]
-      ]]
-    ];
+    /**
+     * Add must not for BoolQuery.
+     *
+     * @param $lower    lower limit
+     * @param $upper    upper limit
+     * @param $mustNot  must not query
+     *
+     * @return array must not part of query
+     */
+    public function addMustNot($mustNot, $lower = 0, $upper = 5)
+    {
+        $this->mustNotQuery = [
+            'must_not' => [[
+                'frange' => [
+                    'l' => $lower,
+                    'u' => $upper,
+                    'query' => $mustNot,
+                ],
+            ]],
+        ];
 
-    return $this->mustNotQuery;
-  }
+        return $this->mustNotQuery;
+    }
 }

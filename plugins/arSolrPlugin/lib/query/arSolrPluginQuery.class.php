@@ -54,8 +54,8 @@ class arSolrPluginQuery
                   // TODO: add any missing aggregation params
                   // see: Elastica\Aggregation\Terms
                     $agg = [
-                      'terms' => $name,
-                      'field' => $item['field']
+                        'terms' => $name,
+                        'field' => $item['field'],
                     ];
 
                     break;
@@ -64,8 +64,8 @@ class arSolrPluginQuery
                     // TODO: add any missing aggregation params
                     // see: Elastica\Aggregation\Filter
                     $agg = [
-                      'filter' => $name,
-                      'field' => $item['field']
+                        'filter' => $name,
+                        'field' => $item['field'],
                     ];
 
                     break;
@@ -315,7 +315,6 @@ class arSolrPluginQuery
 
         return $queryBool;
     }
-
 
     /**
      * Constructor.

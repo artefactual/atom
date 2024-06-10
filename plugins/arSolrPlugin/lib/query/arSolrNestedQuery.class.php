@@ -19,35 +19,37 @@
 
 class arSolrNestedQuery extends arSolrAbstractQuery
 {
-  /**
-   * sort.
-   *
-   * @var string
-   */
-  protected $sort = '';
+    /**
+     * sort.
+     *
+     * @var string
+     */
+    protected $sort = '';
 
-  /**
-   * sort.
-   *
-   * @var string
-   */
-  protected $filter = '';
+    /**
+     * sort.
+     *
+     * @var string
+     */
+    protected $filter = '';
 
-  /**
-   * Set sort field and direction (asc/desc).
-   *
-   * @param $field field to sort by
-   * @param $direction direction to sort by, must be 'asc' or 'desc'
-   */
-  public function setSort($field, $direction = 'desc') {
-    $this->sort = [
-        "sort" => ($field . " " . $direction)
-    ];
-  }
+    /**
+     * Set sort field and direction (asc/desc).
+     *
+     * @param $field field to sort by
+     * @param $direction direction to sort by, must be 'asc' or 'desc'
+     */
+    public function setSort($field, $direction = 'desc')
+    {
+        $this->sort = [
+            'sort' => ($field.' '.$direction),
+        ];
+    }
 
-  public function addFilter($field, $query) {
-    $this->filter = [
-        "filter" => ['"'.$field.':'.$query.'"']
-    ];
-  }
+    public function addFilter($field, $query)
+    {
+        $this->filter = [
+            'filter' => ['"'.$field.':'.$query.'"'],
+        ];
+    }
 }
