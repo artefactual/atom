@@ -80,10 +80,10 @@ EOF;
         $query->setSize($rows);
         $query->setOffset($start);
         if ($fields) {
-            $fieldsArr = explode(",", $fields);
+            $fieldsArr = explode(',', $fields);
             $newFields = [];
-            foreach($fieldsArr as $field) {
-                $newField = explode("^", $field);
+            foreach ($fieldsArr as $field) {
+                $newField = explode('^', $field);
                 $fieldName = $newField[0];
                 $fieldBoost = $newField[1];
                 if (!$fieldBoost) {

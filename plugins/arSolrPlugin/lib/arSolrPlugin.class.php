@@ -383,7 +383,7 @@ class arSolrPlugin extends QubitSearchEngine
                 }
             }
 
-            $addQuery = ["add-field" => $addFieldQuery];
+            $addQuery = ['add-field' => $addFieldQuery];
 
             $this->addFieldsToType(json_encode($addQuery));
         }
@@ -436,11 +436,11 @@ class arSolrPlugin extends QubitSearchEngine
         $stored = $stored ? 'true' : 'false';
         $multiValue = $multiValue ? 'true' : 'false';
         $addFieldQuery = [
-            "name" => $field,
-            "stored" => $stored,
-            "type" => $type,
-            "indexed" => "true",
-            "multiValued" => $multiValue
+            'name' => $field,
+            'stored' => $stored,
+            'type' => $type,
+            'indexed' => 'true',
+            'multiValued' => $multiValue,
         ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
