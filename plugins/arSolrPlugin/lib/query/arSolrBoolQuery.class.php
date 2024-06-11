@@ -20,86 +20,109 @@
 class arSolrBoolQuery extends arSolrAbstractQuery
 {
     /**
-     * mustQuery.
-     *
-     * @var array
-     */
-    protected $mustQuery = [];
-
-    /**
-     * mustNotQuery.
-     *
-     * @var array
-     */
-    protected $mustNotQuery = [];
-
-    /**
-     * boolQuery.
-     *
-     * @var array
-     */
-    protected $boolQuery = [];
-
-    /**
      * Assemble BoolQuery.
      *
      * @return arSolrBoolQuery object
      */
     public function generateBoolQuery()
     {
-        $this->boolQuery = [
-            'bool' => array_merge($this->mustQuery, $this->mustNotQuery),
-        ];
+        $params = $this->getParams();
 
-        return $this->boolQuery;
-    }
-
-    /**
-     * Add must for BoolQuery.
-     *
-     * @param array  $field field
-     * @param string $must  must query
-     * @param string $qp    query parser (default "dismax")
-     *
-     * @return array must part of query
-     */
-    public function addMust($field, $must, $qp = 'dismax')
-    {
-        $this->mustQuery = [
+        $mustQuery = [
             'must' => [
                 [
-                    $qp => [
-                        'df' => $field,
-                        'query' => $must,
+                    'dismax' => [
+                        'qf' => implode(' ', $params['fields']),
+                        'query' => $params['must'],
                     ],
                 ],
             ],
         ];
 
-        return $this->mustQuery;
+        $mustNotQuery = [
+            'must_not' => [[
+                'query' => $params['must_not'],
+            ]],
+        ];
+
+        $mmQuery = [
+            'qf' => $qf.'^'.$params['boost'],
+            'mm' => $params['minimum_should_match'],
+        ];
+
+        $boolQuery = [
+            'query' => [
+                'bool' => array_merge($mustQuery, $mustNotQuery, $mmQuery),
+            ],
+        ];
+
+        return $params;
+    }
+
+    /**
+     * Add must for BoolQuery.
+     */
+    public function addMust($args): self
+    {
+        return $this->_addQuery('must', $args);
     }
 
     /**
      * Add must not for BoolQuery.
-     *
-     * @param $lower    lower limit
-     * @param $upper    upper limit
-     * @param $mustNot  must not query
-     *
-     * @return array must not part of query
      */
-    public function addMustNot($mustNot, $lower = 0, $upper = 5)
+    public function addMustNot($args): self
     {
-        $this->mustNotQuery = [
-            'must_not' => [[
-                'frange' => [
-                    'l' => $lower,
-                    'u' => $upper,
-                    'query' => $mustNot,
-                ],
-            ]],
-        ];
+        return $this->_addQuery('must_not', $args);
+    }
 
-        return $this->mustNotQuery;
+    /**
+     * Set minimum match (mm) query for BoolQuery.
+     */
+    public function addShould($args): self
+    {
+        return $this->_addQuery('should', $args);
+    }
+
+    /**
+     * Sets the filter.
+     *
+     * @return $this
+     */
+    public function addFilter(arSolrAbstractQuery $filter): self
+    {
+        return $this->addParam('filter', $filter);
+    }
+
+    /**
+     * Sets boost value of this query.
+     *
+     * @param float $boost Boost value
+     *
+     * @return self
+     */
+    public function setBoost(float $boost): self
+    {
+        return $this->setParam('boost', $boost);
+    }
+
+    /**
+     * Sets the minimum number of should clauses to match.
+     *
+     * @param int|string $minimum Minimum value
+     *
+     * @return $this
+     */
+    public function setMinimumShouldMatch($minimum): self
+    {
+        return $this->setParam('minimum_should_match', $minimum);
+    }
+
+    protected function _addQuery(string $type, $args): self
+    {
+        if (!\is_array($args) && !($args instanceof arSolrAbstractQuery)) {
+            throw new Exception('Invalid parameter. Has to be array or instance of Elastica\Query\AbstractQuery');
+        }
+
+        return $this->addParam($type, $args);
     }
 }
