@@ -20,6 +20,20 @@
 class arSolrAbstractQuery
 {
     /**
+     * Number of results to fetch.
+     *
+     * @var number defaults to 10
+     */
+    protected $size = 10;
+
+    /**
+     * Offset for search results.
+     *
+     * @var number defaults to 0
+     */
+    protected $offset = 0;
+
+    /**
      * Sets (overwrites) the value at the given key.
      *
      * @param string $key   Key to set
@@ -75,5 +89,15 @@ class arSolrAbstractQuery
     public function getParams()
     {
         return $this->params;
+    }
+
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    public function setOffset($offset)
+    {
+        $this->offset = $offset;
     }
 }

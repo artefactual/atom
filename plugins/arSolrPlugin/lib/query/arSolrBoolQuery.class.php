@@ -61,6 +61,8 @@ class arSolrBoolQuery extends arSolrAbstractQuery
 
     /**
      * Add must for BoolQuery.
+     *
+     * @param mixed $args
      */
     public function addMust($args): self
     {
@@ -69,6 +71,8 @@ class arSolrBoolQuery extends arSolrAbstractQuery
 
     /**
      * Add must not for BoolQuery.
+     *
+     * @param mixed $args
      */
     public function addMustNot($args): self
     {
@@ -77,6 +81,8 @@ class arSolrBoolQuery extends arSolrAbstractQuery
 
     /**
      * Set minimum match (mm) query for BoolQuery.
+     *
+     * @param mixed $args
      */
     public function addShould($args): self
     {
@@ -97,8 +103,6 @@ class arSolrBoolQuery extends arSolrAbstractQuery
      * Sets boost value of this query.
      *
      * @param float $boost Boost value
-     *
-     * @return self
      */
     public function setBoost(float $boost): self
     {

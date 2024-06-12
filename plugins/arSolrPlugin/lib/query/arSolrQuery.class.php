@@ -23,6 +23,13 @@
 class arSolrQuery extends arSolrAbstractQuery
 {
     /**
+     * Query Params.
+     *
+     * @var mixed
+     */
+    protected $query;
+
+    /**
      * Array of fields to be queried.
      *
      * @var array
@@ -83,16 +90,6 @@ class arSolrQuery extends arSolrAbstractQuery
         }
         $this->setSearchQuery($searchQuery);
         $this->generateQueryParams();
-    }
-
-    public function setSize($size)
-    {
-        $this->size = $size;
-    }
-
-    public function setOffset($offset)
-    {
-        $this->offset = $offset;
     }
 
     public function setFields($fields)

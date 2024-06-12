@@ -19,5 +19,110 @@
 
 class arSolrMatchAllQuery extends arSolrAbstractQuery
 {
-    // TODO
+    /**
+     * Query Params.
+     *
+     * @var mixed
+     */
+    protected $query;
+
+    /**
+     * Array of fields to be queried.
+     *
+     * @var array
+     */
+    protected $fields;
+
+    /**
+     * Default operator.
+     *
+     * @var string defaults to 'AND'
+     */
+    protected $operator = 'AND';
+
+    /**
+     * Search query.
+     *
+     * @var string
+     */
+    protected $searchQuery = '*:*';
+
+    /**
+     * Params.
+     *
+     * @var array
+     */
+    protected $params = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $searchQuery
+     */
+    public function __construct()
+    {
+        if (!$this->fields) {
+            $this->fields = arSolrPluginUtil::getBoostedSearchFields([
+                'identifier' => 10,
+                'donors.i18n.%s.authorizedFormOfName' => 10,
+                'i18n.%s.title' => 10,
+                'i18n.%s.scopeAndContent' => 10,
+                'i18n.%s.locationInformation' => 5,
+                'i18n.%s.processingNotes' => 5,
+                'i18n.%s.sourceOfAcquisition' => 5,
+                'i18n.%s.archivalHistory' => 5,
+                'i18n.%s.appraisal' => 1,
+                'i18n.%s.physicalCharacteristics' => 1,
+                'i18n.%s.receivedExtentUnits' => 1,
+                'alternativeIdentifiers.i18n.%s.name' => 1,
+                'creators.i18n.%s.authorizedFormOfName' => 1,
+                'alternativeIdentifiers.i18n.%s.note' => 1,
+                'alternativeIdentifiers.type.i18n.%s.name' => 1,
+                'accessionEvents.i18n.%s.agent' => 1,
+                'accessionEvents.type.i18n.%s.name' => 1,
+                'accessionEvents.notes.i18n.%s.content' => 1,
+                'donors.contactInformations.contactPerson' => 1,
+                'accessionEvents.dateString' => 1,
+            ]);
+        }
+        $this->generateQueryParams();
+    }
+
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
+    }
+
+    public function setDefaultOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    public function setSearchQuery($searchQuery)
+    {
+        $this->searchQuery = $searchQuery;
+    }
+
+    public function getQueryParams()
+    {
+        $this->generateQueryParams();
+
+        return $this->query;
+    }
+
+    public function generateQueryParams()
+    {
+        $this->query = [
+            'query' => [
+                'dismax' => [
+                    'start' => $this->offset,
+                    'rows' => $this->size,
+                    'q.op' => $this->operator,
+                    'stopwords' => 'true',
+                    'query' => $this->searchQuery,
+                    'qf' => implode(' ', $this->fields),
+                ],
+            ],
+        ];
+    }
 }
