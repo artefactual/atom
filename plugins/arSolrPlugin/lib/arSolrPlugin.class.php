@@ -339,6 +339,7 @@ class arSolrPlugin extends QubitSearchEngine
             arSolrPlugin::makeHttpRequest($url);
 
             $addFieldQuery = [];
+            $configParams = [];
 
             // Add fields to 'all' field
             //array_push($addFieldQuery, $this->getFieldQuery('all', 'text_general', true, false, false));
@@ -364,26 +365,38 @@ class arSolrPlugin extends QubitSearchEngine
                             $this->addNestedFields($subType, $value['properties']);
                         } else {
                             // object and nested fields
-                            $fields = '[';
+                            $fields = [];
                             foreach ($value['properties'] as $fieldName => $value) {
                                 if ('object' === $value['type']) {
                                     foreach ($value['properties'] as $propertyName => $v) {
-                                        $fields .= '"'.$subType.':/'.$fieldName.'/'.$propertyName.'",';
+                                        array_push($fields, '"'.$subType.':/'.$fieldName.'/'.$propertyName.'"');
                                         array_push($addFieldQuery, $this->getFieldQuery($propertyName, $this->setType($v['type']), false));
                                     }
                                 } elseif (null != $value['type']) {
-                                    $fields .= '"'.$subType.':/'.$fieldName.'",';
+                                    array_push($fields, '"'.$subType.':/'.$fieldName.'"');
                                     array_push($addFieldQuery, $this->getFieldQuery($fieldName, $this->setType($value['type']), false));
                                 }
                             }
-                            $fields = rtrim($fields, ',').']';
-                            $this->defineConfigParams($subType, $fields);
+
+                            if (array_key_exists($subType, $configParams)) {
+                                foreach ($fields as $field) {
+                                    if (!in_array($field, $configParams[$subType])) {
+                                        array_push($configParams[$subType], $field);
+                                    }
+                                }
+                            } else {
+                                $configParams[$subType] = $fields;
+                            }
                         }
                     }
                 }
             }
 
             $addQuery = ['add-field' => $addFieldQuery];
+
+            foreach($configParams as $param => $value) {
+                $this->defineConfigParams($param, $value);
+            }
 
             $this->addFieldsToType(json_encode($addQuery));
         }
@@ -405,7 +418,7 @@ class arSolrPlugin extends QubitSearchEngine
         $this->log('--- Config params: '.$name.'---');
         $this->log(print_r($fields, true));
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
-        $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":'.$fields.'}}';
+        $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":['.implode(',', $fields).']}}';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
 
@@ -451,7 +464,7 @@ class arSolrPlugin extends QubitSearchEngine
 
     private function addFieldsToType($query)
     {
-        $this->log('Adding fields now');
+        $this->log("Adding fields now");
         $this->log($query);
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
