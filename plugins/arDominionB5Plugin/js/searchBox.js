@@ -32,7 +32,7 @@
           );
         },
         searchPost: (response, $element) => {
-          if (response.length && $element.val().length >= 3) {
+          if (response?.length && $element?.val().length >= 3) {
             $results.html(response);
             dropdown.show();
           } else {
