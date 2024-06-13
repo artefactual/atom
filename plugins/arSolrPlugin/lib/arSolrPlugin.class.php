@@ -338,7 +338,7 @@ class arSolrPlugin extends QubitSearchEngine
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
             arSolrPlugin::makeHttpRequest($url);
 
-            $addFieldQuery = [];
+            $addFieldKeys = [];
             $configParams = [];
 
             // Add fields to 'all' field
@@ -357,12 +357,16 @@ class arSolrPlugin extends QubitSearchEngine
 
                 foreach ($typeProperties['properties'] as $subType => $value) {
                     if (null != $value['type'] && 'nested' !== $value['type'] && 'object' !== $value['type']) {
-                        array_push($addFieldQuery, $this->getFieldQuery($subType, $this->setType($value['type']), false));
+                        array_key_exists($subType, $addFieldKeys) ?: $addFieldKeys[$subType] = $this->getFieldQuery($subType, $this->setType($value['type']), false);
                     } else {
                         if (null === $value['type']) {
                             // array fields
-                            array_push($addFieldQuery, $this->getFieldQuery($subType, '_nest_path_', true));
-                            $this->addNestedFields($subType, $value['properties']);
+                            array_key_exists($subType, $addFieldKeys) ?: $addFieldKeys[$subType] = $this->getFieldQuery($subType, '_nest_path_', true);
+
+                            $nestedFields = $this->addNestedFields($subType, $value['properties']);
+                            foreach($nestedFields as $field) {
+                                $addFieldKeys[$field['name']] = $field;
+                            }
                         } else {
                             // object and nested fields
                             $fields = [];
@@ -370,11 +374,11 @@ class arSolrPlugin extends QubitSearchEngine
                                 if ('object' === $value['type']) {
                                     foreach ($value['properties'] as $propertyName => $v) {
                                         array_push($fields, '"'.$subType.':/'.$fieldName.'/'.$propertyName.'"');
-                                        array_push($addFieldQuery, $this->getFieldQuery($propertyName, $this->setType($v['type']), false));
+                                        array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($propertyName, $this->setType($v['type']), false);
                                     }
                                 } elseif (null != $value['type']) {
                                     array_push($fields, '"'.$subType.':/'.$fieldName.'"');
-                                    array_push($addFieldQuery, $this->getFieldQuery($fieldName, $this->setType($value['type']), false));
+                                    array_key_exists($fieldName, $addFieldKeys) ?: $addFieldKeys[$fieldName] = $this->getFieldQuery($fieldName, $this->setType($value['type']), false);
                                 }
                             }
 
@@ -392,31 +396,35 @@ class arSolrPlugin extends QubitSearchEngine
                 }
             }
 
-            $addQuery = ['add-field' => $addFieldQuery];
-
             foreach($configParams as $param => $value) {
                 $this->defineConfigParams($param, $value);
             }
 
+            $addFieldQuery = [];
+            foreach ($addFieldKeys as $value) {
+                array_push($addFieldQuery, $value);
+            }
+            $addQuery = ['add-field' => $addFieldQuery];
             $this->addFieldsToType(json_encode($addQuery));
         }
     }
 
     private function addNestedFields($key, $properties)
     {
+        $nestedField = [];
         foreach ($properties as $k => $v) {
             if (null === $v['type']) {
                 $this->addNestedFields($k, $v['properties']);
             } else {
-                $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false);
+                array_push($nestedField, $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false));
             }
         }
+
+        return $nestedField;
     }
 
     private function defineConfigParams($name, $fields)
     {
-        $this->log('--- Config params: '.$name.'---');
-        $this->log(print_r($fields, true));
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
         $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":['.implode(',', $fields).']}}';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
