@@ -374,12 +374,20 @@ class arSolrPlugin extends QubitSearchEngine
                                 if ('object' === $value['type']) {
                                     foreach ($value['properties'] as $propertyName => $v) {
                                         array_push($fields, '"'.$subType.':/'.$fieldName.'/'.$propertyName.'"');
-                                        //$fName = "${subType}.${fieldName}.${propertyName}";
-                                        //array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($fName, $this->setType($v['type']), false);
-                                        if ('object' === $v['type']) {
-                                            $v['type'] = 'string';
+                                        if ($subType === 'i18n') {
+                                            $i18nFields = $this->seti18nFields($this->getFieldQuery($propertyName, 'text_general', false));
+                                            foreach ($i18nFields as $fieldName => $field) {
+                                                $this->log(sprintf('%s: %s', $fieldName, json_encode($field)));
+                                                $addFieldKeys[$fieldName] = $field;
+                                            }
+                                        } else {
+                                            //$fName = "${subType}.${fieldName}.${propertyName}";
+                                            //array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($fName, $this->setType($v['type']), false);
+                                            if ('object' === $v['type']) {
+                                                $v['type'] = 'string';
+                                            }
+                                            array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($propertyName, $this->setType($v['type']), false);
                                         }
-                                        array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($propertyName, $this->setType($v['type']), false);
                                     }
                                 } elseif (null != $value['type']) {
                                     array_push($fields, '"'.$subType.':/'.$fieldName.'"');
@@ -414,6 +422,19 @@ class arSolrPlugin extends QubitSearchEngine
             $addQuery = ['add-field' => $addFieldQuery];
             $this->addFieldsToType(json_encode($addQuery));
         }
+    }
+
+    private function seti18nFields($fieldArr) {
+        $i18nLang = ['en', 'fr', 'es', 'nl', 'pt', 'pt_BR'];
+        $i18nFields = [];
+        $fieldName = $fieldArr['name'];
+        foreach ($i18nLang as $i18n) {
+            $name = $i18n.'.'.$fieldName;
+            $fieldArr['name'] = $name;
+            $i18nFields[$name] = $fieldArr;
+            $fieldArr['name'] = $fieldName;
+        }
+        return $i18nFields;
     }
 
     private function addNestedFields($key, $properties)
