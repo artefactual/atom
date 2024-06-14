@@ -341,8 +341,8 @@ class arSolrPlugin extends QubitSearchEngine
             $addFieldKeys = [];
             $configParams = [];
 
-            // Add fields to 'all' field
-            //array_push($addFieldQuery, $this->getFieldQuery('all', 'text_general', true, false, false));
+            $topLevelProperties = [];
+            $subProperties = [];
 
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"echoParams": "explicit"}}}';
@@ -354,104 +354,37 @@ class arSolrPlugin extends QubitSearchEngine
             // Iterate over types (actor, informationobject, ...)
             foreach ($this->mappings as $typeName => $typeProperties) {
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
+                array_push($topLevelProperties, $this->getFieldQuery($typeName, $this->setType('_nest_path_'), true));
 
-                foreach ($typeProperties['properties'] as $subType => $value) {
-                    if (null != $value['type'] && 'nested' !== $value['type'] && 'object' !== $value['type']) {
-                        array_key_exists($subType, $addFieldKeys) ?: $addFieldKeys[$subType] = $this->getFieldQuery($subType, $this->setType($value['type']), false);
-                    } else {
-                        if (null === $value['type']) {
-                            // array fields
-                            array_key_exists($subType, $addFieldKeys) ?: $addFieldKeys[$subType] = $this->getFieldQuery($subType, '_nest_path_', true);
-
-                            $nestedFields = $this->addNestedFields($subType, $value['properties']);
-                            foreach ($nestedFields as $field) {
-                                $addFieldKeys[$field['name']] = $field;
-                            }
-                        } else {
-                            // object and nested fields
-                            $fields = [];
-                            foreach ($value['properties'] as $fieldName => $value) {
-                                if ('object' === $value['type']) {
-                                    foreach ($value['properties'] as $propertyName => $v) {
-                                        array_push($fields, '"'.$subType.':/'.$fieldName.'/'.$propertyName.'"');
-                                        if ($subType === 'i18n') {
-                                            $i18nFields = $this->seti18nFields($this->getFieldQuery($propertyName, 'text_general', false));
-                                            foreach ($i18nFields as $fieldName => $field) {
-                                                $this->log(sprintf('%s: %s', $fieldName, json_encode($field)));
-                                                $addFieldKeys[$fieldName] = $field;
-                                            }
-                                        } else {
-                                            //$fName = "${subType}.${fieldName}.${propertyName}";
-                                            //array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($fName, $this->setType($v['type']), false);
-                                            if ('object' === $v['type']) {
-                                                $v['type'] = 'string';
-                                            }
-                                            array_key_exists($propertyName, $addFieldKeys) ?: $addFieldKeys[$propertyName] = $this->getFieldQuery($propertyName, $this->setType($v['type']), false);
-                                        }
-                                    }
-                                } elseif (null != $value['type']) {
-                                    array_push($fields, '"'.$subType.':/'.$fieldName.'"');
-                                    //$fName = "${subType}.${fieldName}";
-                                    //array_key_exists($fieldName, $addFieldKeys) ?: $addFieldKeys[$fieldName] = $this->getFieldQuery($fName, $this->setType($value['type']), false);
-                                    array_key_exists($fieldName, $addFieldKeys) ?: $addFieldKeys[$fieldName] = $this->getFieldQuery($fieldName, $this->setType($value['type']), false);
-                                }
-                            }
-
-                            if (array_key_exists($subType, $configParams)) {
-                                foreach ($fields as $field) {
-                                    if (!in_array($field, $configParams[$subType])) {
-                                        array_push($configParams[$subType], $field);
-                                    }
-                                }
-                            } else {
-                                $configParams[$subType] = $fields;
-                            }
-                        }
-                    }
-                }
+                $this->addSubProperties($typeProperties['properties'], $subProperties);
             }
 
-            foreach ($configParams as $param => $value) {
-                $this->defineConfigParams($param, $value);
-            }
-
-            $addFieldQuery = [];
-            foreach ($addFieldKeys as $value) {
-                array_push($addFieldQuery, $value);
-            }
-            $addQuery = ['add-field' => $addFieldQuery];
+            $this->log('--- Mappings ---');
+            $addQuery = ['add-field' => $topLevelProperties];
+            $this->addFieldsToType(json_encode($addQuery));
+            $addQuery = ['add-field' => $subProperties];
             $this->addFieldsToType(json_encode($addQuery));
         }
     }
 
-    private function seti18nFields($fieldArr) {
-        $i18nLang = ['en', 'fr', 'es', 'nl', 'pt', 'pt_BR'];
-        $i18nFields = [];
-        $fieldName = $fieldArr['name'];
-        foreach ($i18nLang as $i18n) {
-            $name = $i18n.'.'.$fieldName;
-            $fieldArr['name'] = $name;
-            $i18nFields[$name] = $fieldArr;
-            $fieldArr['name'] = $fieldName;
-        }
-        return $i18nFields;
-    }
-
-    private function addNestedFields($key, $properties)
+    private function addSubProperties($properties, &$propertyFields, $parentType = '')
     {
-        $nestedField = [];
-        foreach ($properties as $k => $v) {
-            if (null === $v['type']) {
-                $this->addNestedFields($k, $v['properties']);
-            } else {
-                if ('object' === $v['type']) {
-                    $v['type'] = 'string';
-                }
-                array_push($nestedField, $this->getFieldQuery($key.'.'.$k, $this->setType($v['type']), false));
+        $atomicTypes = ['keyword', 'string', 'text', 'text_general', 'date', 'pdate', 'pdates', 'long', 'plongs', 'integer', 'boolean', 'location'];
+        foreach ($properties as $propertyName => $value) {
+            $fieldName = $parentType ? "{$parentType}.{$propertyName}" : $propertyName;
+            if (in_array($value['type'], $atomicTypes)) {
+                $typeName = $this->setType($value['type']);
+                $field = $this->getFieldQuery($fieldName, $typeName, false);
+                array_push($propertyFields, $field);
+            } elseif ('object' == $value['type']) {
+                $field = $this->getFieldQuery($fieldName, '_nest_path_', true);
+                array_push($propertyFields, $field);
+            }
+
+            if ($value['properties']) {
+                $this->addSubProperties($value['properties'], $propertyFields, $fieldName);
             }
         }
-
-        return $nestedField;
     }
 
     private function defineConfigParams($name, $fields)
