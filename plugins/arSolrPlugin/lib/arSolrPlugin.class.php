@@ -356,10 +356,9 @@ class arSolrPlugin extends QubitSearchEngine
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
                 array_push($topLevelProperties, $this->getFieldQuery($typeName, $this->setType('_nest_path_'), true));
 
-                $this->addSubProperties($typeProperties['properties'], $subProperties);
+                $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName);
             }
 
-            $this->log('--- Mappings ---');
             $addQuery = ['add-field' => $topLevelProperties];
             $this->addFieldsToType(json_encode($addQuery));
             $addQuery = ['add-field' => $subProperties];
@@ -436,8 +435,6 @@ class arSolrPlugin extends QubitSearchEngine
 
     private function addFieldsToType($query)
     {
-        $this->log('Adding fields now');
-        $this->log($query);
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
