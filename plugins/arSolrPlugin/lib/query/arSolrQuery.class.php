@@ -166,4 +166,13 @@ class arSolrQuery extends arSolrAbstractQuery
 
         return $this;
     }
+
+    public function setType($type)
+    {
+        $newFieldsArr = [];
+        foreach ($this->fields as $field) {
+            array_push($newFieldsArr, "{$type}.{$field}");
+        }
+        $this->setFields($newFieldsArr);
+    }
 }

@@ -94,7 +94,7 @@ EOF;
             $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
         }
 
-        $docs = $solrInstance->search($query);
+        $docs = $solrInstance->search($query, 'QubitInformationObject');
         if ($docs) {
             foreach ($docs as $resp) {
                 $this->log(sprintf('%s - %s', $resp->id, $resp->{'i18n.en.title'}[0]));
