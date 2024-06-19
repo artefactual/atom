@@ -65,28 +65,7 @@ class arSolrQuery extends arSolrAbstractQuery
     public function __construct($searchQuery)
     {
         if (!$this->fields) {
-            $this->fields = arSolrPluginUtil::getBoostedSearchFields([
-                'identifier' => 10,
-                'donors.i18n.%s.authorizedFormOfName' => 10,
-                'i18n.%s.title' => 10,
-                'i18n.%s.scopeAndContent' => 10,
-                'i18n.%s.locationInformation' => 5,
-                'i18n.%s.processingNotes' => 5,
-                'i18n.%s.sourceOfAcquisition' => 5,
-                'i18n.%s.archivalHistory' => 5,
-                'i18n.%s.appraisal' => 1,
-                'i18n.%s.physicalCharacteristics' => 1,
-                'i18n.%s.receivedExtentUnits' => 1,
-                'alternativeIdentifiers.i18n.%s.name' => 1,
-                'creators.i18n.%s.authorizedFormOfName' => 1,
-                'alternativeIdentifiers.i18n.%s.note' => 1,
-                'alternativeIdentifiers.type.i18n.%s.name' => 1,
-                'accessionEvents.i18n.%s.agent' => 1,
-                'accessionEvents.type.i18n.%s.name' => 1,
-                'accessionEvents.notes.i18n.%s.content' => 1,
-                'donors.contactInformations.contactPerson' => 1,
-                'accessionEvents.dateString' => 1,
-            ]);
+            $this->fields = arSolrPluginUtil::getBoostedSearchFields(arSolrPluginUtil::getAllFields('informationObject'));
         }
         $this->setSearchQuery($searchQuery);
         $this->generateQueryParams();
@@ -118,7 +97,7 @@ class arSolrQuery extends arSolrAbstractQuery
     {
         $this->query = [
             'query' => [
-                'dismax' => [
+                'edismax' => [
                     'start' => $this->offset,
                     'rows' => $this->size,
                     'q.op' => $this->operator,
