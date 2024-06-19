@@ -97,10 +97,10 @@ EOF;
         $docs = $solrInstance->search($query, 'QubitInformationObject');
         if ($docs) {
             foreach ($docs as $resp) {
-                $this->log(sprintf('%s - %s', $resp->id, $resp->{'i18n.en.title'}[0]));
+                $this->log(sprintf('%s - %s', $resp->id, $resp->{'QubitInformationObject.i18n.en.title'}[0]));
 
                 // print entire object if no title is present
-                if (!$resp->{'i18n.en.title'}[0]) {
+                if (!$resp->{'QubitInformationObject.i18n.en.title'}[0]) {
                     $this->log(var_export($resp, true));
                 }
             }
