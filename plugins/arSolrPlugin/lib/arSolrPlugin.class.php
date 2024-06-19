@@ -341,9 +341,6 @@ class arSolrPlugin extends QubitSearchEngine
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
             arSolrPlugin::makeHttpRequest($url);
 
-            $addFieldKeys = [];
-            $configParams = [];
-
             $topLevelProperties = [];
             $subProperties = [];
 
@@ -360,6 +357,7 @@ class arSolrPlugin extends QubitSearchEngine
                 array_push($topLevelProperties, $this->getFieldQuery($typeName, $this->setType('_nest_path_'), true));
 
                 $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName);
+                $this->defineConfigParams($typeProperties['properties'], $typeName);
             }
 
             $addQuery = ['add-field' => $topLevelProperties];
@@ -389,10 +387,17 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function defineConfigParams($name, $fields)
+    private function defineConfigParams($properties, $parentType = '')
     {
+        $paramFields = [];
+        foreach ($properties as $propertyName => $value) {
+            $fieldName = $parentType ? "{$parentType}.{$propertyName}" : $propertyName;
+            $fields = explode('.', $fieldName);
+            array_push($paramFields, sprintf('"%s:/%s"', $fields[count($fields) - 1], str_replace('.', '/', $fieldName)));
+        }
+
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
-        $query = '"set": {"'.$name.'": {"split": "/'.$name.'", "f":['.implode(',', $fields).']}}';
+        $query = '"set": {"'.$parentType.'": {"split": "/'.$parentType.'", "f":['.implode(',', $paramFields).']}}';
         arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
 
