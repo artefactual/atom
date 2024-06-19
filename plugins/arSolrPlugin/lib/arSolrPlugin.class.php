@@ -258,7 +258,7 @@ class arSolrPlugin extends QubitSearchEngine
 
         $id = $data['id'];
 
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs?useParams='.$type;
         arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
             $type => $data,
         ]));
