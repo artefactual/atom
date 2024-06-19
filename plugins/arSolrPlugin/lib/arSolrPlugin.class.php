@@ -258,7 +258,7 @@ class arSolrPlugin extends QubitSearchEngine
 
         $id = $data['id'];
 
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs?useParams='.$type;
+        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
         arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
             $type => $data,
         ]));
@@ -357,7 +357,7 @@ class arSolrPlugin extends QubitSearchEngine
                 array_push($topLevelProperties, $this->getFieldQuery($typeName, $this->setType('_nest_path_'), true));
 
                 $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName);
-                $this->defineConfigParams($typeProperties['properties'], $typeName);
+                //$this->defineConfigParams($typeProperties['properties'], $typeName);
             }
 
             $addQuery = ['add-field' => $topLevelProperties];
@@ -428,13 +428,13 @@ class arSolrPlugin extends QubitSearchEngine
     private function getFieldQuery($field, $type, $multiValue, $stored = true)
     {
         $stored = $stored ? 'true' : 'false';
-        $multiValue = $multiValue ? 'true' : 'false';
+        //$multiValue = $multiValue ? 'true' : 'false';
         $addFieldQuery = [
             'name' => $field,
             'stored' => $stored,
             'type' => $type,
             'indexed' => 'true',
-            'multiValued' => $multiValue,
+            'multiValued' => 'true',
         ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
