@@ -62,6 +62,7 @@ class QubitLimitIpFilter extends sfFilter
     protected function isAllowed()
     {
         $address = $this->getRemoteAddress();
+        $addressBinary = inet_pton($address);
 
         // Check if empty
         if (1 == count($this->limit) && empty($this->limit[0])) {
@@ -71,9 +72,10 @@ class QubitLimitIpFilter extends sfFilter
         foreach ($this->limit as $item) {
             // Ranges are supported, using a comma or a dash
             $limit = preg_split('/[,-]/', $item);
+            $limitBinary = inet_pton(trim($limit[0]));
 
             // Single IP
-            if (1 == count($limit) && $address == $limit[0]) {
+            if (1 == count($limit) && $addressBinary == $limitBinary && strlen($addressBinary) == strlen($limitBinary)) {
                 return true;
             }
 
@@ -81,12 +83,12 @@ class QubitLimitIpFilter extends sfFilter
             if (2 == count($limit)) {
                 $limit[0] = trim($limit[0]);
                 $limit[1] = trim($limit[1]);
-
-                $addressLong = ip2long($address);
+                $firstInRangeBinary = inet_pton($limit[0]);
+                $lastInRangeBinary = inet_pton($limit[1]);
 
                 if (
-                    ip2long($limit[0]) <= $addressLong
-                    && ip2long($limit[1]) >= $addressLong
+                    (strlen($addressBinary) == strlen($firstInRangeBinary))
+                     && ($addressBinary >= $firstInRangeBinary && $addressBinary <= $lastInRangeBinary)
                 ) {
                     return true;
                 }
