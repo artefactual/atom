@@ -293,7 +293,7 @@ class ClipboardExportAction extends DefaultEditAction
 
         $responseData['success'] .= '</p><p>';
         $responseData['success'] .= $this->context->i18n->__(
-            '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after aperiod of time to free up storage space. When your export is ready you should download it as soon as possible.',
+            '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after a period of time to free up storage space. When your export is ready you should download it as soon as possible.',
             [
                 '%open_strong_tag%' => '<strong>',
                 '%close_strong_tag%' => '</strong>',
