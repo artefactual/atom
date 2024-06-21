@@ -349,7 +349,7 @@ class arSolrPlugin extends QubitSearchEngine
                             'tokenizer' => ['class' => $analyzer['tokenizer']],
                             'charFilters' => $charFilters,
                             'filters' => $filters,
-                        ]
+                        ],
                     ]];
                     $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
                     arSolrPlugin::makeHttpRequest($url, 'POST', $query);
