@@ -25,203 +25,234 @@ all:
 
         analyzer:
           default:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, preserved_asciifolding]
 
           # This is a special analyzer for autocomplete searches. It's used only
           # in some fields as it can make the index very big.
           autocomplete:
-            tokenizer: whitespace
+            tokenizer: solr.WhitespaceTokenizerFactory
             filter: [lowercase, engram, preserved_asciifolding]
 
+          # lanuage stopwords
           arabic:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, arabic_stop, preserved_asciifolding]
           armenian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, armenian_stop, preserved_asciifolding]
           basque:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, basque_stop, preserved_asciifolding]
           brazilian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, brazilian_stop, preserved_asciifolding]
           bulgarian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, bulgarian_stop, preserved_asciifolding]
           catalan:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, catalan_stop, preserved_asciifolding]
           czech:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, czech_stop, preserved_asciifolding]
           danish:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, danish_stop, preserved_asciifolding]
           dutch:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, dutch_stop, preserved_asciifolding]
           english:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, english_stop, preserved_asciifolding]
           finnish:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, finnish_stop, preserved_asciifolding]
           french:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, french_stop, preserved_asciifolding, french_elision]
           galician:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, galician_stop, preserved_asciifolding]
           german:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, german_stop, preserved_asciifolding]
           greek:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, greek_stop, preserved_asciifolding]
           hindi:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, hindi_stop, preserved_asciifolding]
           hungarian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, hungarian_stop, preserved_asciifolding]
           indonesian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, indonesian_stop, preserved_asciifolding]
           italian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, italian_stop, preserved_asciifolding]
           norwegian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, norwegian_stop, preserved_asciifolding]
           persian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, persian_stop, preserved_asciifolding]
           portuguese:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, portuguese_stop, preserved_asciifolding]
           romanian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, romanian_stop, preserved_asciifolding]
           russian:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, russian_stop, preserved_asciifolding]
           spanish:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, spanish_stop, preserved_asciifolding]
           swedish:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, swedish_stop, preserved_asciifolding]
           turkish:
-            tokenizer: standard
+            tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, turkish_stop, preserved_asciifolding]
 
+        # TODO: normalizer, look into solr.PatternReplaceCharFilterFactory
         normalizer:
           # Custom normalizer that lowercases text, removes punctation, and
           # does ascii folding for more natural alphabetic sorting
           alphasort:
-            type: custom
-            filter: [lowercase, preserved_asciifolding]
-            char_filter: [punctuation_filter]
+            class: custom
+            filter: [lowercase, preserved_asciifolding, punctuation_filter]
 
         filter:
+          # TODO: add engram to filter lists
           engram:
-            type: edgeNGram
-            min_gram: 3
-            max_gram: 10
+            class: solr.EdgeNGramFilterFactory
+            minGramSize: 3
+            maxGramSize: 10
+          # TODO: french_elision
           french_elision:
-            type: elision
+            class: elision
             articles: [l, m, t, qu, n, s, j, d, c, jusqu, quoiqu, lorsqu, puisqu]
           preserved_asciifolding:
-            type: asciifolding
-            preserve_original: true
+            class: solr.ASCIIFoldingFilterFactory
+            preserveOriginal: true
+          lowercase:
+            class: solr.LowerCaseFilterFactory
 
           # To make 'stopwords' works with other token filters the analyzers can't have
           # standard type and the 'stopwords' needs to be added as a token filter too
           arabic_stop:
-            type: stop
-            stopwords: _arabic_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/arabic.txt
+            ignoreCase: true
           armenian_stop:
-            type: stop
-            stopwords: _armenian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/armenian.txt
+            ignoreCase: true
           basque_stop:
-            type: stop
-            stopwords: _basque_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/basque.txt
+            ignoreCase: true
           brazilian_stop:
-            type: stop
-            stopwords: _brazilian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/brazilian.txt
+            ignoreCase: true
           bulgarian_stop:
-            type: stop
-            stopwords: _bulgarian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/bulgarian.txt
+            ignoreCase: true
           catalan_stop:
-            type: stop
-            stopwords: _catalan_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/catalan.txt
+            ignoreCase: true
           czech_stop:
-            type: stop
-            stopwords: _czech_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/czech.txt
+            ignoreCase: true
           danish_stop:
-            type: stop
-            stopwords: _danish_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/danish.txt
+            ignoreCase: true
           dutch_stop:
-            type: stop
-            stopwords: _dutch_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/dutch.txt
+            ignoreCase: true
           english_stop:
-            type: stop
-            stopwords: _english_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/english.txt
+            ignoreCase: true
           finnish_stop:
-            type: stop
-            stopwords: _finnish_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/finnish.txt
+            ignoreCase: true
           french_stop:
-            type: stop
-            stopwords: _french_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/french.txt
+            ignoreCase: true
           galician_stop:
-            type: stop
-            stopwords: _galician_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/galician.txt
+            ignoreCase: true
           german_stop:
-            type: stop
-            stopwords: _german_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/german.txt
+            ignoreCase: true
           greek_stop:
-            type: stop
-            stopwords: _greek_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/greek.txt
+            ignoreCase: true
           hindi_stop:
-            type: stop
-            stopwords: _hindi_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/hindi.txt
+            ignoreCase: true
           hungarian_stop:
-            type: stop
-            stopwords: _hungarian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/hungarian.txt
+            ignoreCase: true
           indonesian_stop:
-            type: stop
-            stopwords: _indonesian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/indonesian.txt
+            ignoreCase: true
           italian_stop:
-            type: stop
-            stopwords: _italian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/italian.txt
+            ignoreCase: true
           norwegian_stop:
-            type: stop
-            stopwords: _norwegian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/norwegian.txt
+            ignoreCase: true
           persian_stop:
-            type: stop
-            stopwords: _persian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/persian.txt
+            ignoreCase: true
           portuguese_stop:
-            type: stop
-            stopwords: _portuguese_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/portuguese.txt
+            ignoreCase: true
           romanian_stop:
-            type: stop
-            stopwords: _romanian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/romanian.txt
+            ignoreCase: true
           russian_stop:
-            type: stop
-            stopwords: _russian_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/russian.txt
+            ignoreCase: true
           spanish_stop:
-            type: stop
-            stopwords: _spanish_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/spanish.txt
+            ignoreCase: true
           swedish_stop:
-            type: stop
-            stopwords: _swedish_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/swedish.txt
+            ignoreCase: true
           turkish_stop:
-            type: stop
-            stopwords: _turkish_
+            class: solr.StopFilterFactory
+            stopwords: stopwords/turkish.txt
+            ignoreCase: true
 
         char_filter:
-
           # This char_filter is added to all analyzers when the index
           # is created in arElasticSearchPlugin initialize when the
           # app_markdown_enabled setting is set to true. Ideally, the
@@ -231,13 +262,13 @@ all:
           # we're replacing the following punctuation chars by spaces:
           #     *_#![]()->`+\~:|^=
           strip_md:
-            type: pattern_replace
+            class: solr.PatternReplaceFilterFactory
             pattern: '[\*_#!\[\]\(\)\->`\+\\~:\|\^=]'
             replacement: ' '
 
           # Strip punctation from a string
           punctuation_filter:
-            type: pattern_replace
+            class: solr.PatternReplaceFilterFactory
             pattern: '["''_\-\?!\.\(\)\[\]#\*`:;]'
             replacement: ''
 

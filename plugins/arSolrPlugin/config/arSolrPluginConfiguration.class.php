@@ -38,5 +38,23 @@ class arSolrPluginConfiguration extends sfPluginConfiguration
         $enabledModules = sfConfig::get('sf_enabled_modules');
         $enabledModules[] = 'arSolrPlugin';
         sfConfig::set('sf_enabled_modules', $enabledModules);
+
+        if ($this->configuration instanceof sfApplicationConfiguration) {
+            // Use config cache in application context
+            $configCache = $this->configuration->getConfigCache();
+            $configCache->registerConfigHandler(self::$configPath, 'arSolrConfigHandler');
+
+            self::$config = include $configCache->checkConfig(self::$configPath);
+        } else {
+            // Live parsing (task context)
+            self::reloadConfig($this->configuration);
+        }
+    }
+
+    public static function reloadConfig($configuration)
+    {
+        $configPaths = $configuration->getConfigPaths(self::$configPath);
+
+        self::$config = arSolrConfigHandler::getConfiguration($configPaths);
     }
 }
