@@ -94,19 +94,20 @@ EOF;
             $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
         }
 
-        $docs = $solrInstance->search($query, 'QubitInformationObject');
-        if ($docs) {
+        $resultSet = $solrInstance->search($query, 'QubitInformationObject');
+        if ($resultSet->count() > 0) {
+            $docs = $resultSet->getDocuments();
             foreach ($docs as $resp) {
-                $this->log(sprintf('%s - %s', $resp->{'QubitInformationObject.id'}[0], $resp->{'QubitInformationObject.i18n.en.title'}[0]));
+                $this->log(sprintf('%s - %s', $resp['id'][0], $resp['i18n']['en']['title'][0]));
 
                 // print entire object if no title is present
-                if (!$resp->{'QubitInformationObject.i18n.en.title'}[0]) {
+                if (!$resp['i18n']['en']['title'][0]) {
                     $this->log(var_export($resp, true));
                 }
             }
         } else {
             $this->log('No results found');
-            $this->log(print_r($docs, true));
+            $this->log(print_r($resultSet->getResults(), true));
         }
     }
 }
