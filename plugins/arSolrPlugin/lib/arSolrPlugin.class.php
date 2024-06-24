@@ -284,7 +284,7 @@ class arSolrPlugin extends QubitSearchEngine
         $query->setType($type);
         $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
 
-        return $response->response->docs;
+        return new arSolrResultSet($response);
     }
 
     public static function makeHttpRequest($url, $method = 'GET', $body = null)
