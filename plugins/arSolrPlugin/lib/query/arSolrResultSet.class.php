@@ -50,7 +50,12 @@ class arSolrResultSet implements ArrayAccess, Countable, Iterator
     public function __construct($response)
     {
         $this->_response = $response->response;
-        $this->_results = $response->response->docs;
+
+        $results = [];
+        foreach ($response->response->docs as $responseDoc) {
+            array_push($results, new arSolrResult($responseDoc));
+        }
+        $this->_results = $results;
     }
 
     public function getResults()
@@ -68,34 +73,11 @@ class arSolrResultSet implements ArrayAccess, Countable, Iterator
         return isset($this->_response['maxScore']) ? (float) $this->_response['maxScore'] : 0;
     }
 
-    public function getDocument($doc) {
-        $structuredDoc = [];
-        foreach ($doc as $propertyName => $value) {
-            if (!str_contains($propertyName, '.')) {
-                // Skip solr ID and version fields
-                break;
-            }
-
-            $fields = explode('.', $propertyName);
-            $structuredDoc['type'] = $fields[0];
-            $docRef = &$structuredDoc;
-            $numFields = count($fields);
-            for ($i = 1; $i < $numFields; ++$i) {
-                if (!isset($docRef[$fields[$i]])) {
-                    $docRef[$fields[$i]] = [];
-                }
-                $docRef = &$docRef[$fields[$i]];
-            }
-            $docRef = $value;
-        }
-        return $structuredDoc;
-    }
-
     public function getDocuments()
     {
         $documents = [];
         foreach ($this->_results as $doc) {
-            $documents[] = $this->getDocument($doc);
+            $documents[] = $doc->getDocument();
         }
 
         return $documents;
