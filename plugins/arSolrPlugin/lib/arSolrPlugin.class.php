@@ -426,7 +426,8 @@ class arSolrPlugin extends QubitSearchEngine
         return $addFieldQuery;
     }
 
-    private function setAnalyzers() {
+    private function setAnalyzers()
+    {
         foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
             if (sfConfig::get('app_diacritics')) {
                 // TODO: create diacritics_lowercase class
@@ -441,8 +442,8 @@ class arSolrPlugin extends QubitSearchEngine
 
             $filters = [];
             foreach ($this->config['index']['configuration']['analysis']['analyzer'][$key]['filter'] as $filter) {
-                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['type']);
-                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['preserve_original']);
+                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['type'], $this->config['index']['configuration']['analysis']['filter'][$filter]['preserve_original']);
+
                 array_push($filters, $this->config['index']['configuration']['analysis']['filter'][$filter]);
             }
 
