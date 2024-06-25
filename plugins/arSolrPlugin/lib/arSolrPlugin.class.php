@@ -320,41 +320,7 @@ class arSolrPlugin extends QubitSearchEngine
             $this->log('Collection found. Not initializing');
         } else {
             $this->log('Initializing Solr Index');
-            if (
-                sfConfig::get('app_markdown_enabled', true)
-                && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
-            ) {
-                foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-                    if (sfConfig::get('app_diacritics')) {
-                        // TODO: create diacritics_lowercase class
-                        $filters = array_push($filters, ['class' => 'diacritics_lowercase']);
-                    }
-
-                    $charFilters = [];
-                    foreach ($this->config['index']['configuration']['analysis']['char_filter'] as $filter) {
-                        $charFilter = array_diff_key($filter, array_flip(['type']));
-                        array_push($charFilters, $charFilter);
-                    }
-
-                    $filters = [];
-                    foreach ($analyzer['filter'] as $f) {
-                        $filter = array_diff_key($this->config['index']['configuration']['analysis']['filter'][$f], array_flip(['type', 'preserve_original']));
-                        array_push($filters, $filter);
-                    }
-
-                    $query = ['add-field-type' => [
-                        'name' => $key,
-                        'class' => 'solr.TextField',
-                        'analyzer' => [
-                            'tokenizer' => ['class' => $analyzer['tokenizer']],
-                            'charFilters' => $charFilters,
-                            'filters' => $filters,
-                        ],
-                    ]];
-                    $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-                    arSolrPlugin::makeHttpRequest($url, 'POST', $query);
-                }
-            }
+            $this->setAnalyzers();
 
             $this->log('Creating Solr Collection');
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
@@ -458,6 +424,46 @@ class arSolrPlugin extends QubitSearchEngine
         $this->log(sprintf('Defining mapping %s...', $field));
 
         return $addFieldQuery;
+    }
+
+    private function setAnalyzers() {
+        foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+            if (sfConfig::get('app_diacritics')) {
+                // TODO: create diacritics_lowercase class
+                $filters = array_push($filters, ['class' => 'diacritics_lowercase']);
+            }
+
+            $charFilters = [];
+            foreach ($this->config['index']['configuration']['analysis']['char_filter'] as $filter) {
+                unset($filter['type']);
+                array_push($charFilters, $filter);
+            }
+
+            $filters = [];
+            foreach ($this->config['index']['configuration']['analysis']['analyzer'][$key]['filter'] as $filter) {
+                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['type']);
+                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['preserve_original']);
+                array_push($filters, $this->config['index']['configuration']['analysis']['filter'][$filter]);
+            }
+
+            $query = ['add-field-type' => [
+                'name' => $key,
+                'class' => 'solr.TextField',
+                'indexAnalyzer' => [
+                    'tokenizer' => ['class' => $analyzer['tokenizer']],
+                    'charFilters' => $charFilters,
+                    'filters' => $filters,
+                ],
+                'queryAnalyzer' => [
+                    'tokenizer' => ['class' => $analyzer['tokenizer']],
+                    'charFilters' => $charFilters,
+                    'filters' => $filters,
+                ],
+            ]];
+
+            $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
+            arSolrPlugin::makeHttpRequest($url, 'POST', $query);
+        }
     }
 
     private function addFieldsToType($query)

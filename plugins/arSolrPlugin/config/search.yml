@@ -30,9 +30,9 @@ all:
 
           # This is a special analyzer for autocomplete searches. It's used only
           # in some fields as it can make the index very big.
-          autocomplete:
-            tokenizer: solr.WhitespaceTokenizerFactory
-            filter: [lowercase, engram, preserved_asciifolding]
+          # autocomplete:
+          #   tokenizer: solr.WhitespaceTokenizerFactory
+          #   filter: [lowercase, engram, preserved_asciifolding]
 
           # lanuage stopwords
           arabic:
@@ -117,23 +117,21 @@ all:
             tokenizer: solr.StandardTokenizerFactory
             filter: [lowercase, turkish_stop, preserved_asciifolding]
 
-        # TODO: normalizer, look into solr.PatternReplaceCharFilterFactory
-        normalizer:
-          # Custom normalizer that lowercases text, removes punctation, and
-          # does ascii folding for more natural alphabetic sorting
-          alphasort:
-            class: custom
-            filter: [lowercase, preserved_asciifolding, punctuation_filter]
+        # # TODO: normalizer, look into solr.PatternReplaceCharFilterFactory
+        # normalizer:
+        #   # Custom normalizer that lowercases text, removes punctation, and
+        #   # does ascii folding for more natural alphabetic sorting
+        #   alphasort:
+        #     class: custom
+        #     filter: [lowercase, preserved_asciifolding, punctuation_filter]
 
         filter:
-          # TODO: add engram to filter lists
           engram:
             class: solr.EdgeNGramFilterFactory
             minGramSize: 3
             maxGramSize: 10
-          # TODO: french_elision
           french_elision:
-            class: elision
+            class: solr.ElisionFilterFactory
             articles: [l, m, t, qu, n, s, j, d, c, jusqu, quoiqu, lorsqu, puisqu]
           preserved_asciifolding:
             class: solr.ASCIIFoldingFilterFactory
@@ -145,111 +143,111 @@ all:
           # standard type and the 'stopwords' needs to be added as a token filter too
           arabic_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/arabic.txt
+            words: stopwords/arabic.txt
             ignoreCase: true
           armenian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/armenian.txt
+            words: stopwords/armenian.txt
             ignoreCase: true
           basque_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/basque.txt
+            words: stopwords/basque.txt
             ignoreCase: true
           brazilian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/brazilian.txt
+            words: stopwords/brazilian.txt
             ignoreCase: true
           bulgarian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/bulgarian.txt
+            words: stopwords/bulgarian.txt
             ignoreCase: true
           catalan_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/catalan.txt
+            words: stopwords/catalan.txt
             ignoreCase: true
           czech_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/czech.txt
+            words: stopwords/czech.txt
             ignoreCase: true
           danish_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/danish.txt
+            words: stopwords/danish.txt
             ignoreCase: true
           dutch_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/dutch.txt
+            words: stopwords/dutch.txt
             ignoreCase: true
           english_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/english.txt
+            words: stopwords/english.txt
             ignoreCase: true
           finnish_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/finnish.txt
+            words: stopwords/finnish.txt
             ignoreCase: true
           french_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/french.txt
+            words: stopwords/french.txt
             ignoreCase: true
           galician_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/galician.txt
+            words: stopwords/galician.txt
             ignoreCase: true
           german_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/german.txt
+            words: stopwords/german.txt
             ignoreCase: true
           greek_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/greek.txt
+            words: stopwords/greek.txt
             ignoreCase: true
           hindi_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/hindi.txt
+            words: stopwords/hindi.txt
             ignoreCase: true
           hungarian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/hungarian.txt
+            words: stopwords/hungarian.txt
             ignoreCase: true
           indonesian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/indonesian.txt
+            words: stopwords/indonesian.txt
             ignoreCase: true
           italian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/italian.txt
+            words: stopwords/italian.txt
             ignoreCase: true
           norwegian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/norwegian.txt
+            words: stopwords/norwegian.txt
             ignoreCase: true
           persian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/persian.txt
+            words: stopwords/persian.txt
             ignoreCase: true
           portuguese_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/portuguese.txt
+            words: stopwords/portuguese.txt
             ignoreCase: true
           romanian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/romanian.txt
+            words: stopwords/romanian.txt
             ignoreCase: true
           russian_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/russian.txt
+            words: stopwords/russian.txt
             ignoreCase: true
           spanish_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/spanish.txt
+            words: stopwords/spanish.txt
             ignoreCase: true
           swedish_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/swedish.txt
+            words: stopwords/swedish.txt
             ignoreCase: true
           turkish_stop:
             class: solr.StopFilterFactory
-            stopwords: stopwords/turkish.txt
+            words: stopwords/turkish.txt
             ignoreCase: true
 
         char_filter:
