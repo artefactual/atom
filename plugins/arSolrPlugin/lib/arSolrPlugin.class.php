@@ -19,9 +19,6 @@
 
 /**
  * arSolrPlugin main class.
- *
- * @author      MJ Suhonos <mj@suhonos.ca>
- * @author      Jesús García Crespo <jesus@sevein.com>
  */
 class arSolrPlugin extends QubitSearchEngine
 {
@@ -38,23 +35,6 @@ class arSolrPlugin extends QubitSearchEngine
      * @var mixed defaults to true
      */
     protected $enabled = true;
-
-    /**
-     * Elasticsearch bulk API makes it possible to perform many operations in a
-     * single call. This can greatly increase the indexing speed.
-     *
-     * This array will be used to store documents to add in a batch.
-     *
-     * @var array
-     */
-    private $batchAddDocs = [];
-
-    /**
-     * This array will be used to store documents to delete in a batch.
-     *
-     * @var array
-     */
-    private $batchDeleteDocs = [];
 
     /**
      * Constructor.
@@ -162,9 +142,6 @@ class arSolrPlugin extends QubitSearchEngine
             $this->loadAndNormalizeMappings();
         }
 
-        // Display what types will be indexed
-        // $this->displayTypesToIndex($excludeTypes);
-
         // If we're indexing IOs or Actors we'll cache a term id => parent id
         // array with all terms from the needed taxonomies in sfConfig. This
         // array will be used to obtain the related terms ancestor ids without
@@ -197,12 +174,6 @@ class arSolrPlugin extends QubitSearchEngine
             if (!in_array(strtolower($typeName), $excludeTypes)) {
                 $camelizedTypeName = sfInflector::camelize($typeName);
                 $className = 'arSolr'.$camelizedTypeName;
-
-                // If excluding types then index as a whole hasn't been flushed: delete
-                // type's documents if not updating
-                // if (count($excludeTypes) && !$update) {
-                //     $this->index->getType('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
-                // }
 
                 $class = new $className();
                 $class->setTimer($timer);
@@ -258,14 +229,10 @@ class arSolrPlugin extends QubitSearchEngine
             throw new sfException('Failed to parse id field.');
         }
 
-        $id = $data['id'];
-
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
         arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
             $type => $data,
         ]));
-
-        unset($data['id']);
     }
 
     public function getSolrUrl()
@@ -339,10 +306,9 @@ class arSolrPlugin extends QubitSearchEngine
             // Iterate over types (actor, informationobject, ...)
             foreach ($this->mappings as $typeName => $typeProperties) {
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
-                array_push($topLevelProperties, $this->getFieldQuery($typeName, $this->setType('_nest_path_'), true));
+                array_push($topLevelProperties, $this->getFieldQuery($typeName, '_nest_path_', true));
 
                 $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName);
-                //$this->defineConfigParams($typeProperties['properties'], $typeName);
             }
 
             $addQuery = ['add-field' => $topLevelProperties];
@@ -370,20 +336,6 @@ class arSolrPlugin extends QubitSearchEngine
                 $this->addSubProperties($value['properties'], $propertyFields, $fieldName);
             }
         }
-    }
-
-    private function defineConfigParams($properties, $parentType = '')
-    {
-        $paramFields = [];
-        foreach ($properties as $propertyName => $value) {
-            $fieldName = $parentType ? "{$parentType}.{$propertyName}" : $propertyName;
-            $fields = explode('.', $fieldName);
-            array_push($paramFields, sprintf('"%s:/%s"', $fields[count($fields) - 1], str_replace('.', '/', $fieldName)));
-        }
-
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/config/params';
-        $query = '"set": {"'.$parentType.'": {"split": "/'.$parentType.'", "f":['.implode(',', $paramFields).']}}';
-        arSolrPlugin::makeHttpRequest($url, 'POST', $query);
     }
 
     private function setType($type)
