@@ -31,17 +31,13 @@ class arSolrSearchTask extends sfBaseTask
 
         $solr = new arSolrPlugin($options);
 
-        if (!$arguments['query']) {
-            $this->log('Please specify a search query.');
-        } else {
-            $this->runSolrQuery($solr, $arguments['query'], (int) $options['rows'], (int) $options['start'], $options['fields']);
-        }
+        $this->runSolrQuery($solr, $arguments['query'], (int) $options['rows'], (int) $options['start'], $options['fields'], $options['type']);
     }
 
     protected function configure()
     {
         $this->addArguments([
-            new sfCommandArgument('query', sfCommandArgument::REQUIRED, 'Search query.'),
+            new sfCommandArgument('query', sfCommandArgument::OPTIONAL, 'Search query.'),
         ]);
 
         $this->addOptions([
@@ -50,6 +46,7 @@ class arSolrSearchTask extends sfBaseTask
             new sfCommandOption('start', null, sfCommandOption::PARAMETER_OPTIONAL, 'Offset for the result set output. 0 by default', 0),
             new sfCommandOption('rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of rows to return in the results', 5),
             new sfCommandOption('fields', null, sfCommandOption::PARAMETER_OPTIONAL, 'Fields to query("comma seperated")', null),
+            new sfCommandOption('type', null, sfCommandOption::PARAMETER_OPTIONAL, 'Query type', null),
         ]);
 
         $this->namespace = 'solr';
@@ -66,7 +63,7 @@ To get paginated results, use rows and start. For example:
 This wll get 5 search results starting from the 10th result
 
 To search specific fields use the --fields option. For example:
-  php symfony solr:search fonds --fields=i18n.%s.title^10,identifier^5
+  php symfony solr:search fonds --fields=QubitInformationObject.i18n.%s.title^10,QubitInformationObject.identifier^5
 
 This will search only i18n.(language code).title and identifier fields and
 boost them by 10 and 5 respectively
@@ -74,27 +71,33 @@ boost them by 10 and 5 respectively
 EOF;
     }
 
-    private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields)
+    private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields, $type)
     {
-        $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
+        $modelType = 'QubitInformationObject';
+        if ('matchall' === $type) {
+            $query = new arSolrMatchAllQuery();
+            $modelType = null;
+        } else {
+            $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
+            if ($fields) {
+                $fieldsArr = explode(',', $fields);
+                $newFields = [];
+                foreach ($fieldsArr as $field) {
+                    $newField = explode('^', $field);
+                    $fieldName = $newField[0];
+                    $fieldBoost = $newField[1];
+                    if (!$fieldBoost) {
+                        $fieldBoost = 1;
+                    }
+                    $newFields[$fieldName] = (int) $fieldBoost;
+                }
+                $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
+            }
+        }
         $query->setSize($rows);
         $query->setOffset($start);
-        if ($fields) {
-            $fieldsArr = explode(',', $fields);
-            $newFields = [];
-            foreach ($fieldsArr as $field) {
-                $newField = explode('^', $field);
-                $fieldName = $newField[0];
-                $fieldBoost = $newField[1];
-                if (!$fieldBoost) {
-                    $fieldBoost = 1;
-                }
-                $newFields[$fieldName] = (int) $fieldBoost;
-            }
-            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
-        }
 
-        $resultSet = $solrInstance->search($query, 'QubitInformationObject');
+        $resultSet = $solrInstance->search($query, $modelType);
         if ($resultSet->count() > 0) {
             $docs = $resultSet->getDocuments();
             foreach ($docs as $resp) {
