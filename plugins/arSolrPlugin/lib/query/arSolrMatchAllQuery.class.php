@@ -79,13 +79,13 @@ class arSolrMatchAllQuery extends arSolrAbstractQuery
         $this->query = [
             'query' => [
                 'lucene' => [
-                    'start' => $this->offset,
-                    'rows' => $this->size,
                     'q.op' => $this->operator,
                     'stopwords' => 'true',
                     'query' => $this->searchQuery,
                 ],
             ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
         ];
     }
 }
