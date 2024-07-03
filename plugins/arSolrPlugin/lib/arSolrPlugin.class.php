@@ -344,18 +344,20 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function setLanguageType($fieldName) {
-        $lang_codes = ['ar','hy','ba','br','bg','ca','cz','da','nl','en','fi','fr','gl','ge','el','hi','hu','id','it','no','fa','pt','ro','ru','es','sv','tr'];
+    private function setLanguageType($fieldName)
+    {
+        $lang_codes = ['ar', 'hy', 'ba', 'br', 'bg', 'ca', 'cz', 'da', 'nl', 'en', 'fi', 'fr', 'gl', 'ge', 'el', 'hi', 'hu', 'id', 'it', 'no', 'fa', 'pt', 'ro', 'ru', 'es', 'sv', 'tr'];
         $substrings = explode('.', $fieldName);
         $lang = $substrings[count($substrings) - 2];
 
         if (in_array($lang, $lang_codes)) {
             return 'text_'.$lang;
-        } elseif ($lang === 'pt_BR') {
-            return 'text_pt';
-        } else {
-            return 'text_en';
         }
+        if ('pt_BR' === $lang) {
+            return 'text_pt';
+        }
+
+        return 'text_en';
     }
 
     private function setType($type)
@@ -423,7 +425,7 @@ class arSolrPlugin extends QubitSearchEngine
                     'tokenizer' => ['class' => $analyzer['tokenizer']],
                     'charFilters' => $charFilters,
                     'filters' => $filters,
-                ]
+                ],
             ]];
 
             $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';

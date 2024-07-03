@@ -98,14 +98,14 @@ class arSolrQuery extends arSolrAbstractQuery
         $this->query = [
             'query' => [
                 'edismax' => [
-                    'start' => $this->offset,
-                    'rows' => $this->size,
                     'q.op' => $this->operator,
                     'stopwords' => 'true',
                     'query' => $this->searchQuery,
                     'qf' => implode(' ', $this->fields),
                 ],
             ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
         ];
     }
 
