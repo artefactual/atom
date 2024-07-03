@@ -116,7 +116,6 @@ services:
       - composer_deps:/atom/src/vendor/composer
       - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
-      - ../solr:/solr
     networks:
       - solr
 
@@ -144,7 +143,6 @@ services:
       - npm_deps:/atom/src/node_modules
       - ..:/atom/src:ro
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ../solr:/solr
     ports:
       - "63001:80"
       - "9001:81"
