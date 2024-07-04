@@ -36,6 +36,10 @@ class arSolrPlugin extends QubitSearchEngine
      */
     protected $enabled = true;
 
+    public $lang_codes = ['ar','hy','ba','br','bg','ca','cz','da','nl','en','fi','fr','gl','ge','el','hi','hu','id','it','no','fa','pt','ro','ru','es','sv','tr'];
+
+    public $langs = [];
+
     /**
      * Constructor.
      */
@@ -188,6 +192,8 @@ class arSolrPlugin extends QubitSearchEngine
             }
         }
 
+        $this->addAutoCompleteConfigs();
+
         $this->log(
             vsprintf(
                 'Index populated with %s documents in %s seconds.',
@@ -317,6 +323,70 @@ class arSolrPlugin extends QubitSearchEngine
             $this->addFieldsToType(json_encode($addQuery));
             $addQuery = ['add-field' => $subProperties];
             $this->addFieldsToType(json_encode($addQuery));
+
+            $this->addAutoCompleteFields();
+        }
+    }
+
+    private function addAutoCompleteFields()
+    {
+        // list should also include QubitInformationObject.referenceCode but
+        // since this field does not include a language code, it is added to
+        // $addCopyField manually
+        $autocompleteFields = [
+            "QubitRepository.i18n.en.authorizedFormOfName",
+            "QubitInformationObject.aip.type.i18n.en.name",
+            "QubitInformationObject.i18n.en.title",
+            "QubitActor.i18n.en.authorizedFormOfName",
+            "QubitActor.places.i18n.en.name",
+            "QubitActor.subjects.i18n.en.name",
+            "QubitTerm.i18n.en.name",
+            "QubitAip.type.i18n.en.name"
+        ];
+
+        foreach ($this->langs as $lang) {
+            $addCopyField = '{"add-field":{"name":"autocomplete_'.$lang.'","type":"text_'.$lang.'","stored":true},';
+            $copyField = '"add-copy-field":{"source":"QubitInformationObject.referenceCode","dest":"autocomplete_'.$lang.'"},';
+            foreach ($autocompleteFields as $field) {
+                $field = str_replace('en', $lang, $field);
+                $copyField .= '"add-copy-field":{"source":"'.$field.'","dest":"autocomplete_'.$lang.'"},';
+            }
+            $addCopyField .= substr($copyField, 0, -1).'}';
+            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/schema/';
+            arSolrPlugin::makeHttpRequest($url, 'POST', $addCopyField);
+        }
+    }
+
+    private function addAutoCompleteConfigs() {
+        foreach ($this->langs as $lang) {
+            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
+            $addSearchComponent = '{
+                "add-searchComponent":{
+                    "name":"autocomplete_'.$lang.'",
+                    "class":"solr.SuggestComponent",
+                    "suggester":{
+                        "name":"autocomplete_'.$lang.'",
+                        "field":"autocomplete_'.$lang.'",
+                        "lookupImpl":"FuzzyLookupFactory",
+                        "dictionaryImpl":"DocumentDictionaryFactory",
+                        "suggestAnalyzerFieldType":"text_'.$lang.'"
+                    }
+                }
+            }';
+            $addRequestHandler = '{
+                "add-requestHandler":{
+                    "name":"/autocomplete_'.$lang.'",
+                    "class":"solr.SearchHandler",
+                    "components":["autocomplete_'.$lang.'"],
+                    "defaults":{
+                        "suggest":true,
+                        "suggest.count":5,
+                        "suggest.dictionary":"autocomplete_'.$lang.'"
+                    }
+                }
+            }';
+            arSolrPlugin::makeHttpRequest($url, 'POST', $addSearchComponent);
+            arSolrPlugin::makeHttpRequest($url, 'POST', $addRequestHandler);
         }
     }
 
@@ -325,6 +395,13 @@ class arSolrPlugin extends QubitSearchEngine
         $atomicTypes = ['keyword', 'string', 'text', 'text_general', 'date', 'pdate', 'pdates', 'long', 'plongs', 'integer', 'boolean', 'location'];
         foreach ($properties as $propertyName => $value) {
             $fieldName = $parentType ? "{$parentType}.{$propertyName}" : $propertyName;
+
+            $fields = explode('.', $fieldName);
+            $lang = $fields[count($fields) - 2];
+            if (in_array($lang, $this->lang_codes) && !in_array($lang, $this->langs)) {
+                array_push($this->langs, $lang);
+            }
+
             if (in_array($value['type'], $atomicTypes)) {
                 if ('text' === $value['type']) {
                     $typeName = $this->setLanguageType($fieldName);
@@ -344,13 +421,11 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function setLanguageType($fieldName)
-    {
-        $lang_codes = ['ar', 'hy', 'ba', 'br', 'bg', 'ca', 'cz', 'da', 'nl', 'en', 'fi', 'fr', 'gl', 'ge', 'el', 'hi', 'hu', 'id', 'it', 'no', 'fa', 'pt', 'ro', 'ru', 'es', 'sv', 'tr'];
+    private function setLanguageType($fieldName) {
         $substrings = explode('.', $fieldName);
         $lang = $substrings[count($substrings) - 2];
 
-        if (in_array($lang, $lang_codes)) {
+        if (in_array($lang, $this->lang_codes)) {
             return 'text_'.$lang;
         }
         if ('pt_BR' === $lang) {
