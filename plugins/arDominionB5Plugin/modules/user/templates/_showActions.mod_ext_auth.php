@@ -9,7 +9,7 @@
       <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'user', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger']); ?></li>
     <?php } ?>
 
-    <?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+    <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
       <?php if (QubitAcl::check($resource, 'create')) { ?>
         <li><?php echo link_to(__('Add new'), ['module' => 'user', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>

@@ -54,7 +54,7 @@
 
 <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
-<?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+<?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
   <section class="actions">
     <ul>
       <li><?php echo link_to(__('Add new'), ['module' => 'user', 'action' => 'add'], ['class' => 'c-btn']); ?></li>

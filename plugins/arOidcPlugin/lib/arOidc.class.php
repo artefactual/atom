@@ -39,36 +39,12 @@ class arOidc
 
         $oidc = new OpenIDConnectClient();
 
-        // Validate requested scopes.
-        $scopesArray = sfConfig::get('app_oidc_scopes', []);
-        $validScopes = self::validateScopes($scopesArray);
-        // Add scopes only if the array is not empty
-        if (!empty($validScopes)) {
-            $oidc->addScope($validScopes);
-        } else {
-            throw new Exception('No valid scopes found in app_oidc_scopes.');
-        }
-
         // Validate redirect URL.
         $redirectUrl = sfConfig::get('app_oidc_redirect_url', '');
         if (empty($redirectUrl)) {
             throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
         }
         $oidc->setRedirectURL($redirectUrl);
-
-        // Validate the server SSL certificate according to configuration.
-        $certPath = sfConfig::get('app_oidc_server_cert', false);
-        if (0 === !strpos($certPath, '/')) {
-            $certPath = sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.$certPath;
-        }
-
-        if (file_exists($certPath)) {
-            $oidc->setCertPath($certPath);
-        } elseif (false === $certPath) {
-            // OIDC server SSL certificate disabled.
-        } else {
-            throw new Exception('Invalid SSL certificate settings. Please review the app_oidc_server_cert parameter in plugin app.yml.');
-        }
 
         self::$oidcIsInitialized = true;
 

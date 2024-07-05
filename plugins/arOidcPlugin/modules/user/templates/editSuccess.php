@@ -24,7 +24,7 @@
 
           <legend><?php echo __('Basic info'); ?></legend>
 
-          <?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+          <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
             <?php echo $form->username->renderRow(); ?>
             <?php echo $form->email->renderRow(); ?>
           <?php } ?>
@@ -71,7 +71,7 @@
           <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
         <?php } else { ?>
           <li><?php echo link_to(__('Cancel'), ['module' => 'user', 'action' => 'list'], ['class' => 'c-btn']); ?></li>
-          <?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+          <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
             <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
           <?php } ?>
         <?php } ?>

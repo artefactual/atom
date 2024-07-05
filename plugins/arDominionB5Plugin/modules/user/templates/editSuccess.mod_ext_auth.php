@@ -27,7 +27,7 @@
           <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
             <div class="accordion-body">
 
-              <?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+              <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
                 <?php echo render_field($form->username); ?>
                 <?php echo render_field($form->email, null, ['type' => 'email']); ?>
               <?php } ?>
@@ -79,7 +79,7 @@
         <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
       <?php } else { ?>
         <li><?php echo link_to(__('Cancel'), ['module' => 'user', 'action' => 'list'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
-        <?php if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) { ?>
+        <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
           <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
         <?php } ?>
       <?php } ?>

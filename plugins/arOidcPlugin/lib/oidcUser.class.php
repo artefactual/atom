@@ -55,12 +55,16 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
         $providerId = $this->getSessionProviderId();
         // Validate and set provider ID in session.
         if (null !== $providerId = $this->validateProviderId($providerId, true)) {
-            // Set Provider details in OIDC client.
+            // Set provider details in OIDC client.
             $result = $this->setOidcProviderDetails($providerId);
         }
         if (null === $providerId || !isset($result) || false === $result) {
             return $authenticated;
         }
+
+        // Set provider server cert.
+        $this->setServerCert($this->getProviderConfigValue('server_cert', false));
+        $this->setOidcScopes($this->getProviderConfigValue('scopes', []));
 
         if (isset($_REQUEST['code'])) {
             $this->logger->info('OIDC request "code" is set.');
@@ -79,7 +83,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 $expiryTime = $this->oidcClient->getVerifiedClaims('exp');
                 $this->setAttribute('oidc-expiry', $expiryTime);
 
-                if (true == sfConfig::get('app_oidc_enable_refresh_token_use', false)) {
+                if (true == $this->getProviderConfigValue('enable_refresh_token_use', false)) {
                     $this->setAttribute('oidc-refresh', $this->oidcClient->getRefreshToken());
                 }
             }
@@ -91,7 +95,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
 
         if ($authenticateResult) {
             // Validate user source setting.
-            $userMatchingSource = sfConfig::get('app_oidc_user_matching_source', '');
+            $userMatchingSource = $this->getProviderConfigValue('user_matching_source', '');
             if (!arOidc::validateUserMatchingSource($userMatchingSource)) {
                 $this->logger->err('OIDC user matching source is configured but is not set properly. Unable to match OIDC users to AtoM users.');
                 $this->logout();
@@ -113,7 +117,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 $user = QubitUser::getOne($criteria);
             }
 
-            $autoCreateUser = sfConfig::get('app_oidc_auto_create_atom_user', true);
+            $autoCreateUser = $this->getProviderConfigValue('auto_create_atom_user', true);
             if (!is_bool($autoCreateUser)) {
                 $this->logger->err('OIDC auto_create_atom_user is configured but is not set properly - value should be of type bool. Unable to match OIDC users to AtoM users.');
                 $this->logout();
@@ -148,7 +152,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             // Parse OIDC group claims into group memberships. If enabled, we perform this
             // check each time a user authenticates so that changes made on the OIDC
             // server are applied in AtoM on the next login.
-            $setGroupsFromClaims = sfConfig::get('app_oidc_set_groups_from_attributes', false);
+            $setGroupsFromClaims = $this->getProviderConfigValue('set_groups_from_attributes', false);
             if (!is_bool($setGroupsFromClaims)) {
                 $this->logger->err('OIDC set_groups_from_attributes is configured but is not set properly - value should be of type bool. Unable to complete authentication.');
                 $this->logout();
@@ -156,8 +160,8 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 return $authenticated;
             }
             if (true == $setGroupsFromClaims) {
-                $rolesPath = sfConfig::get('app_oidc_roles_path', []);
-                $rolesSource = sfConfig::get('app_oidc_roles_source', '');
+                $rolesPath = $this->getProviderConfigValue('roles_path', []);
+                $rolesSource = $this->getProviderConfigValue('roles_source', '');
 
                 // Validate Settings.
                 if (!arOidc::validateRolesSource($rolesSource) || empty($rolesPath)) {
@@ -202,7 +206,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     {
         $authenticated = parent::isAuthenticated();
 
-        if (false == sfConfig::get('app_oidc_enable_refresh_token_use', false) || false === $authenticated) {
+        if (false == $this->getProviderConfigValue('enable_refresh_token_use', false) || false === $authenticated) {
             return $authenticated;
         }
 
@@ -225,6 +229,10 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 $providerId = $this->getSessionProviderId();
                 // Set provider details in the OIDC client using provider id.
                 if (true === $this->setOidcProviderDetails($providerId)) {
+                    // Set provider server cert.
+                    $this->setServerCert($this->getProviderConfigValue('server_cert', false));
+                    $this->setOidcScopes($this->getProviderConfigValue('scopes', []));
+
                     $refreshResult = $this->oidcClient->refreshToken($refreshToken);
                 }
 
@@ -267,15 +275,20 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
         $this->unsetAttributes();
         $this->signOut();
 
-        if (true == sfConfig::get('app_oidc_send_oidc_logout', false) && !empty($idToken)) {
+        if (true == $this->getProviderConfigValue('send_oidc_logout', false) && !empty($idToken)) {
             $logoutRedirectUrl = sfConfig::get('app_oidc_logout_redirect_url', '');
             if (empty($logoutRedirectUrl)) {
                 $logoutRedirectUrl = null;
                 $this->logger->err('Setting "app_oidc_logout_redirect_url" invalid. Unable to redirect on sign out.');
             }
 
+            // Set provider server cert.
+            $this->setServerCert($this->getProviderConfigValue('server_cert', false));
+            $this->setOidcScopes($this->getProviderConfigValue('scopes', []));
+
             // Get saved session provider id.
             $providerId = $this->getSessionProviderId();
+            // Unset session provider Id.
             $this->setSessionProviderId();
 
             // Set provider details in the OIDC client using provider id.
@@ -290,6 +303,36 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 }
             }
         }
+    }
+
+    // Get provider specific config vals from app.yml.
+    public function getProviderConfigValue(string $configVariableName = '', $default = null)
+    {
+        // Get saved session provider id.
+        $providerId = $this->getSessionProviderId();
+
+        // Get OIDC provider list. If none are configured this is an error.
+        $providers = sfConfig::get('app_oidc_providers', []);
+        if (empty($providers)) {
+            $this->logger->err('OIDC providers not found in app.yml - check plugin configuration. Unable to authenticate using OIDC.');
+
+            return $default;
+        }
+
+        // Get provider from list.
+        if (!empty($providerId)
+            && isset($providers[$providerId])
+        ) {
+            $provider = $providers[$providerId];
+        }
+
+        // Get config var from $provider array.
+        if (isset($provider[$configVariableName])
+        ) {
+            return $provider[$configVariableName];
+        }
+
+        return $default;
     }
 
     // Parse the query params from a URL. If a param matches the provider ID selector
@@ -435,6 +478,42 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     }
 
     /**
+     * Set provider server cert.
+     *
+     * @param mixed $certPath
+     */
+    protected function setServerCert($certPath = false)
+    {
+        // Validate the server SSL certificate according to configuration.
+        if (0 === !strpos($certPath, '/')) {
+            $certPath = sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.$certPath;
+        }
+
+        if (file_exists($certPath)) {
+            $this->oidcClient->setCertPath($certPath);
+        } elseif (false === $certPath) {
+            // OIDC server SSL certificate disabled.
+        } else {
+            throw new Exception('Invalid OIDC SSL certificate settings. Please review the app_oidc_server_cert parameter in plugin app.yml.');
+        }
+    }
+
+    /**
+     * Set provider OIDC scopes from config.
+     */
+    protected function setOidcScopes(array $scopes = []): void
+    {
+        // Validate requested scopes.
+        $validScopes = arOidc::validateScopes($scopes);
+        // Add scopes only if the array is not empty
+        if (!empty($validScopes)) {
+            $this->oidcClient->addScope($validScopes);
+        } else {
+            throw new Exception('No valid OIDC scopes found in app_oidc_scopes.');
+        }
+    }
+
+    /**
      * Parse group claims for role info returned by OIDC server. Returns
      * array containing assigned roles. Claims are searched based on nodes
      * specified in $pathArray.
@@ -494,7 +573,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
 
         // Add the user to AclUserGroups based on the presence of expected OIDC
         // group values as set in app_oidc_user_groups.
-        $userGroups = sfConfig::get('app_oidc_user_groups');
+        $userGroups = $this->getProviderConfigValue('user_groups', []);
         foreach ($userGroups as $item) {
             if (null !== $group = QubitAclGroup::getById($item['group_id'])) {
                 $expectedValue = $item['attribute_value'];

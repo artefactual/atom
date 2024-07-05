@@ -104,7 +104,7 @@ class UserEditAction extends DefaultEditAction
     {
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-        if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) {
+        if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
             $this->form->getValidatorSchema()->setPostValidator(
                 new sfValidatorCallback(['callback' => [$this, 'exists']])
             );
@@ -136,7 +136,7 @@ class UserEditAction extends DefaultEditAction
     {
         switch ($name) {
             case 'username':
-                if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) {
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
                     $this->form->setDefault('username', $this->resource->username);
                     $this->form->setValidator('username', new sfValidatorString(['required' => true]));
                     $this->form->setWidget('username', new sfWidgetFormInput());
@@ -145,7 +145,7 @@ class UserEditAction extends DefaultEditAction
                 break;
 
             case 'email':
-                if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) {
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
                     $this->form->setDefault('email', $this->resource->email);
                     $this->form->setValidator('email', new sfValidatorEmail(['required' => true]));
                     $this->form->setWidget('email', new sfWidgetFormInput());
@@ -315,7 +315,7 @@ class UserEditAction extends DefaultEditAction
 
             case 'username':
             case 'email':
-                if (false === sfConfig::get('app_oidc_auto_create_atom_user', true)) {
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
                     $this->resource[$name] = $this->form->getValue($name);
                 }
 
