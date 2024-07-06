@@ -24,39 +24,69 @@ class arSolrBoolQuery extends arSolrAbstractQuery
      *
      * @return arSolrBoolQuery object
      */
-    public function generateBoolQuery()
+    public function generateQueryParams()
     {
         $params = $this->getParams();
 
-        $mustQuery = [
-            'must' => [
-                [
-                    'dismax' => [
-                        'qf' => implode(' ', $params['fields']),
-                        'query' => $params['must'],
-                    ],
-                ],
-            ],
-        ];
-
-        $mustNotQuery = [
-            'must_not' => [[
-                'query' => $params['must_not'],
-            ]],
-        ];
-
-        $mmQuery = [
-            'qf' => $qf.'^'.$params['boost'],
-            'mm' => $params['minimum_should_match'],
-        ];
+        $mustQuery = [];
+        $mustNotQuery = [];
+        $shouldQuery = [];
 
         $boolQuery = [
-            'query' => [
-                'bool' => array_merge($mustQuery, $mustNotQuery, $mmQuery),
-            ],
+            'query' => [],
+            'offset' => $this->offset,
+            'limit' => $this->size,
         ];
 
-        return $params;
+        foreach ($params['must'] as $query) {
+            $mustClause = [
+                'edismax' => [
+                    'query' => $query->getSearchQuery(),
+                    'q.op' => $query->getOperator(),
+                    'stopwords' => 'true',
+                    'qf' => implode(' ', $query->getFields()),
+                ],
+            ];
+            array_push($mustQuery, $mustClause);
+        }
+
+        foreach ($params['must_not'] as $query) {
+            $mustNotClause = [
+                'edismax' => [
+                    'query' => $query->getSearchQuery(),
+                    'q.op' => $query->getOperator(),
+                    'stopwords' => 'true',
+                    'qf' => implode(' ', $query->getFields()),
+                ],
+            ];
+            array_push($mustNotQuery, $mustNotClause);
+        }
+
+        foreach ($params['should'] as $query) {
+            $shouldClause = [
+                'edismax' => [
+                    'query' => $query->getSearchQuery(),
+                    'q.op' => $query->getOperator(),
+                    'stopwords' => 'true',
+                    'qf' => implode(' ', $query->getFields()),
+                ],
+            ];
+            array_push($shouldQuery, $shouldClause);
+        }
+
+        if ($shouldQuery) {
+            $boolQuery['query']['bool']['should'] = $shouldQuery;
+        }
+
+        if ($mustQuery) {
+            $boolQuery['query']['bool']['must'] = $mustQuery;
+        }
+
+        if ($mustNotQuery) {
+            $boolQuery['query']['bool']['must_not'] = $mustNotQuery;
+        }
+
+        $this->query = $boolQuery;
     }
 
     /**
@@ -121,10 +151,17 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         return $this->setParam('minimum_should_match', $minimum);
     }
 
+    public function getQueryParams()
+    {
+        $this->generateQueryParams();
+
+        return $this->query;
+    }
+
     protected function _addQuery(string $type, $args): self
     {
-        if (!\is_array($args) && !($args instanceof arSolrAbstractQuery)) {
-            throw new Exception('Invalid parameter. Has to be array or instance of Elastica\Query\AbstractQuery');
+        if (!\is_array($args) && !($args instanceof arSolrQuery)) {
+            throw new Exception('Invalid parameter. Has to be array or instance of arSolrAbstractQuery');
         }
 
         return $this->addParam($type, $args);
