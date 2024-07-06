@@ -71,28 +71,41 @@ boost them by 10 and 5 respectively
 EOF;
     }
 
+    private function createQuery($queryText, $fields)
+    {
+        $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
+        if ($fields) {
+            $fieldsArr = explode(',', $fields);
+            $newFields = [];
+            foreach ($fieldsArr as $field) {
+                $newField = explode('^', $field);
+                $fieldName = $newField[0];
+                $fieldBoost = $newField[1];
+                if (!$fieldBoost) {
+                    $fieldBoost = 1;
+                }
+                $newFields[$fieldName] = (int) $fieldBoost;
+            }
+            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
+        }
+
+        return $query;
+    }
+
     private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields, $type)
     {
         $modelType = 'QubitInformationObject';
         if ('matchall' === $type) {
             $query = new arSolrMatchAllQuery();
             $modelType = null;
+        } elseif ('bool' === $type) {
+            $query = new arSolrBoolQuery();
+            $mustClause = $this->createQuery($queryText, $fields);
+            $mustClause->setType($modelType);
+            $query->addMust($mustClause);
         } else {
-            $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
-            if ($fields) {
-                $fieldsArr = explode(',', $fields);
-                $newFields = [];
-                foreach ($fieldsArr as $field) {
-                    $newField = explode('^', $field);
-                    $fieldName = $newField[0];
-                    $fieldBoost = $newField[1];
-                    if (!$fieldBoost) {
-                        $fieldBoost = 1;
-                    }
-                    $newFields[$fieldName] = (int) $fieldBoost;
-                }
-                $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
-            }
+            $query = $this->createQuery($queryText, $fields);
+            $query->setType($modelType);
         }
         $query->setSize($rows);
         $query->setOffset($start);
