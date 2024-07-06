@@ -86,6 +86,21 @@ class arSolrQuery extends arSolrAbstractQuery
         $this->searchQuery = $searchQuery;
     }
 
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    public function getSearchQuery()
+    {
+        return $this->searchQuery;
+    }
+
     public function getQueryParams()
     {
         $this->generateQueryParams();

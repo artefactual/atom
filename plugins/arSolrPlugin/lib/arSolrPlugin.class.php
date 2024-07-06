@@ -22,6 +22,10 @@
  */
 class arSolrPlugin extends QubitSearchEngine
 {
+    public $lang_codes = ['ar', 'hy', 'ba', 'br', 'bg', 'ca', 'cz', 'da', 'nl', 'en', 'fi', 'fr', 'gl', 'ge', 'el', 'hi', 'hu', 'id', 'it', 'no', 'fa', 'pt', 'ro', 'ru', 'es', 'sv', 'tr'];
+
+    public $langs = [];
+
     /**
      * Mappings configuration, mapping.yml.
      *
@@ -35,10 +39,6 @@ class arSolrPlugin extends QubitSearchEngine
      * @var mixed defaults to true
      */
     protected $enabled = true;
-
-    public $lang_codes = ['ar','hy','ba','br','bg','ca','cz','da','nl','en','fi','fr','gl','ge','el','hi','hu','id','it','no','fa','pt','ro','ru','es','sv','tr'];
-
-    public $langs = [];
 
     /**
      * Constructor.
@@ -254,9 +254,6 @@ class arSolrPlugin extends QubitSearchEngine
     public function search($query, $type)
     {
         $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/query';
-        if ($type) {
-            $query->setType($type);
-        }
         $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
 
         return new arSolrResultSet($response);
@@ -334,14 +331,14 @@ class arSolrPlugin extends QubitSearchEngine
         // since this field does not include a language code, it is added to
         // $addCopyField manually
         $autocompleteFields = [
-            "QubitRepository.i18n.en.authorizedFormOfName",
-            "QubitInformationObject.aip.type.i18n.en.name",
-            "QubitInformationObject.i18n.en.title",
-            "QubitActor.i18n.en.authorizedFormOfName",
-            "QubitActor.places.i18n.en.name",
-            "QubitActor.subjects.i18n.en.name",
-            "QubitTerm.i18n.en.name",
-            "QubitAip.type.i18n.en.name"
+            'QubitRepository.i18n.en.authorizedFormOfName',
+            'QubitInformationObject.aip.type.i18n.en.name',
+            'QubitInformationObject.i18n.en.title',
+            'QubitActor.i18n.en.authorizedFormOfName',
+            'QubitActor.places.i18n.en.name',
+            'QubitActor.subjects.i18n.en.name',
+            'QubitTerm.i18n.en.name',
+            'QubitAip.type.i18n.en.name',
         ];
 
         foreach ($this->langs as $lang) {
@@ -357,7 +354,8 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function addAutoCompleteConfigs() {
+    private function addAutoCompleteConfigs()
+    {
         foreach ($this->langs as $lang) {
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $addSearchComponent = '{
@@ -421,7 +419,8 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function setLanguageType($fieldName) {
+    private function setLanguageType($fieldName)
+    {
         $substrings = explode('.', $fieldName);
         $lang = $substrings[count($substrings) - 2];
 
