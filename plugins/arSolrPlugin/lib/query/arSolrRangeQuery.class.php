@@ -19,43 +19,101 @@
 
 class arSolrRangeQuery extends arSolrAbstractQuery
 {
-    // TODO
-    // Will need to adapt all elastica range arguments (lt, gt)
-    // to solr ranges, preferable where this class is used
+    /**
+     * Query Params.
+     *
+     * @var mixed
+     */
+    protected $range;
+
+    /**
+     * Array of fields to be queried.
+     *
+     * @var array
+     */
+    protected $field;
+
+    /**
+     * Search query.
+     *
+     * @var string
+     */
+    protected $computedRange = '*';
 
     /**
      * Constructor.
      *
-     * @param null|string $fieldName Field name
-     * @param array       $args      Field arguments
+     * @param mixed $field
+     * @param mixed $range
      */
-    public function __construct(?string $fieldName = null, array $args = [])
+    public function __construct($field, $range)
     {
-        if ($fieldName) {
-            $this->addField($fieldName, $args);
-        }
+        $this->setField($field);
+        $this->setRange($range);
+        $this->generateQueryParams();
     }
 
-    /**
-     * Adds a range field to the query.
-     *
-     * @param string $fieldName Field name
-     * @param array  $args      Field arguments
-     *
-     * @return $this
-     */
-    public function addField(string $fieldName, array $args): self
+    public function setField($field)
     {
-        return $this->setParam($fieldName, $args);
+        $this->field = $field;
+    }
+
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    public function setRange($range)
+    {
+        $computedRange = '';
+        if ($range['lte']) {
+            $computedRange = "[{$range['lte']} TO ";
+        } elseif ($range['lt']) {
+            $computedRange = "{{$range['lte']} TO ";
+        } else {
+            $computedRange = '[* TO ';
+        }
+
+        if ($range['gte']) {
+            $computedRange .= "{$range['gte']}]";
+        } elseif ($range['gt']) {
+            $computedRange .= "{$range['gt']}}";
+        } else {
+            $computedRange .= '*]';
+        }
+
+        $this->range = $range;
+
+        $this->computedRange = $computedRange;
+    }
+
+    public function getRange()
+    {
+        return $this->range;
+    }
+
+    public function getQueryParams()
+    {
+        $this->generateQueryParams();
+
+        return $this->query;
     }
 
     public function generateQueryParams()
     {
         $this->query = [
-            'query' => '*:*',
-            'facet' => [
-                $this->params,
+            'query' => [
+                'lucene' => [
+                    'query' => "{$this->field}:{$this->computedRange}",
+                ],
             ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
         ];
+    }
+
+    public function setType($type)
+    {
+        $this->setField("{$type}.{$this->field}");
     }
 }
