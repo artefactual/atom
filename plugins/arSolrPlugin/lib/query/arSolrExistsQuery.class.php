@@ -19,5 +19,63 @@
 
 class arSolrExistsQuery extends arSolrAbstractQuery
 {
-    // TODO
+    /**
+     * Query Params.
+     *
+     * @var mixed
+     */
+    protected $query;
+
+    /**
+     * Field to be queried.
+     *
+     * @var string
+     */
+    protected $field;
+
+    /**
+     * Constructor.
+     *
+     * @param string $field
+     */
+    public function __construct($field)
+    {
+        $this->setField($field);
+        $this->generateQueryParams();
+    }
+
+    public function setField($field)
+    {
+        $this->field = $field;
+    }
+
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    public function getQueryParams()
+    {
+        $this->generateQueryParams();
+
+        return $this->query;
+    }
+
+    public function generateQueryParams()
+    {
+        $this->query = [
+            'query' => [
+                'lucene' => [
+                    'query' => "{$this->field}:*",
+                ],
+            ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
+        ];
+    }
+
+    public function setType($type)
+    {
+        $this->setField("{$type}.{$this->field}");
+    }
 }
