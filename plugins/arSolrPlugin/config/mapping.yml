@@ -32,11 +32,11 @@ mapping:
       nested_only: true
     dynamic: strict
     properties:
-      contact_person: { type: keyword }
-      street_address: { type: text, index: false }
-      postal_code: { type: text, include_in_all: false }
-      country_code: { type: keyword, include_in_all: false }
-      location: { type: geo_point }
+      contact_person: { type: keyword, multivalue: true }
+      street_address: { type: text, index: false, multivalue: true }
+      postal_code: { type: text, include_in_all: false, multivalue: true }
+      country_code: { type: keyword, include_in_all: false, multivalue: true }
+      location: { type: geo_point, multivalue: true }
 
   other_name:
     _attributes:
@@ -61,12 +61,12 @@ mapping:
     dynamic: strict
     type: nested
     properties:
-      start_date: { type: date, include_in_all: false }
-      end_date: { type: date, include_in_all: false }
-      start_date_string: { type: keyword }
-      end_date_string: { type: keyword }
-      type_id: { type: integer, include_in_all: false }
-      actor_id: { type: integer, include_in_all: false }
+      start_date: { type: date, include_in_all: false, multivalue: true }
+      end_date: { type: date, include_in_all: false, multivalue: true }
+      start_date_string: { type: keyword, multivalue: true }
+      end_date_string: { type: keyword, multivalue: true }
+      type_id: { type: integer, include_in_all: false, multivalue: true }
+      actor_id: { type: integer, include_in_all: false, multivalue: true }
 
   relation:
     _attributes:
@@ -74,9 +74,9 @@ mapping:
     dynamic: strict
     type: nested
     properties:
-      object_id: { type: integer, include_in_all: false }
-      subject_id: { type: integer, include_in_all: false }
-      type_id: { type: integer, include_in_all: false }
+      object_id: { type: integer, include_in_all: false, multivalue: true }
+      subject_id: { type: integer, include_in_all: false, multivalue: true }
+      type_id: { type: integer, include_in_all: false, multivalue: true }
 
   accession_event:
     _attributes:
@@ -91,8 +91,8 @@ mapping:
         dynamic: strict
     dynamic: strict
     properties:
-      date: { type: date, include_in_all: false }
-      date_string: { type: keyword }
+      date: { type: date, include_in_all: false, multivalue: true }
+      date_string: { type: keyword, multivalue: true }
 
   donor:
     _attributes:
@@ -351,9 +351,9 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      taxonomy_id: { type: integer, include_in_all: false }
-      is_protected: { type: boolean, include_in_all: false }
-      number_of_descendants: { type: integer, include_in_all: false }
+      taxonomy_id: { type: integer, include_in_all: false, multivalue: true }
+      is_protected: { type: boolean, include_in_all: false, multivalue: true }
+      number_of_descendants: { type: integer, include_in_all: false, multivalue: true }
 
   actor:
     _attributes:
@@ -375,7 +375,7 @@ mapping:
         _i18nFields: [name, content]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
     dynamic: strict
     properties:
       slug: { type: keyword }
@@ -411,7 +411,7 @@ mapping:
         _i18nFields: [authorizedFormOfName]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
         _foreign_types:
           other_names: other_name
           parallel_names: other_name
@@ -451,8 +451,8 @@ mapping:
           untouched:
             type: keyword
       types: { type: integer, include_in_all: false }
-      geographic_subregions: { type: integer, include_in_all: false }
-      thematic_areas: { type: integer, include_in_all: false }
+      geographic_subregions: { type: integer, include_in_all: false, multivalue: true }
+      thematic_areas: { type: integer, include_in_all: false, multivalue: true }
       logo_path: { type: keyword, include_in_all: false }
 
   function_object:
@@ -535,7 +535,7 @@ mapping:
         _i18nFields: [authorizedFormOfName, history]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
         _foreign_types:
           other_names: other_name
           parallel_names: other_name
@@ -563,7 +563,7 @@ mapping:
         _i18nFields: [name]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
     _foreign_types:
       dates: event
       aip: aip
@@ -592,7 +592,7 @@ mapping:
       publication_status_id: { type: integer }
       parent_id: { type: integer, include_in_all: false }
       ancestors: { type: integer, include_in_all: false }
-      children: { type: integer, include_in_all: false }
+      children: { type: integer, include_in_all: false, multivalue: true }
       copyright_status_id: { type: integer, include_in_all: false }
       material_type_id: { type: integer, include_in_all: false }
       transcript: { type: text, include_in_all: true }
