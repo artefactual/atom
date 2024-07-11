@@ -85,10 +85,10 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         // Load first mapping.yml file found
-        $esMapping = new arSolrMapping();
-        $esMapping->loadYAML(array_shift($files));
+        $solrMapping = new arSolrMapping();
+        $solrMapping->loadYAML(array_shift($files));
 
-        return $esMapping;
+        return $solrMapping;
     }
 
     public function loadDiacriticsMappings()
@@ -313,7 +313,7 @@ class arSolrPlugin extends QubitSearchEngine
                 $typeName = 'Qubit'.sfInflector::camelize($typeName);
                 array_push($topLevelProperties, $this->getFieldQuery($typeName, '_nest_path_', true));
 
-                $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName);
+                $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName, $typeProperties['properties']);
             }
 
             $addQuery = ['add-field' => $topLevelProperties];
@@ -388,7 +388,7 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function addSubProperties($properties, &$propertyFields, $parentType = '')
+    private function addSubProperties($properties, &$propertyFields, $parentType = '', $parentProperties)
     {
         $atomicTypes = ['keyword', 'string', 'text', 'text_general', 'date', 'pdate', 'pdates', 'long', 'plongs', 'integer', 'boolean', 'location'];
         foreach ($properties as $propertyName => $value) {
@@ -400,21 +400,37 @@ class arSolrPlugin extends QubitSearchEngine
                 array_push($this->langs, $lang);
             }
 
+            $i18nIndex = array_search('i18n', $fields);
+
             if (in_array($value['type'], $atomicTypes)) {
                 if ('text' === $value['type']) {
                     $typeName = $this->setLanguageType($fieldName);
                 } else {
                     $typeName = $this->setType($value['type']);
                 }
-                $field = $this->getFieldQuery($fieldName, $typeName, false);
+                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
+                $field = $this->getFieldQuery($fieldName, $typeName, $multiValue?'true':'false', false);
                 array_push($propertyFields, $field);
             } elseif ('object' == $value['type']) {
-                $field = $this->getFieldQuery($fieldName, '_nest_path_', true);
+                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
+                $field = $this->getFieldQuery($fieldName, '_nest_path_', $multiValue, true);
                 array_push($propertyFields, $field);
             }
 
             if ($value['properties']) {
-                $this->addSubProperties($value['properties'], $propertyFields, $fieldName);
+                $this->addSubProperties($value['properties'], $propertyFields, $fieldName, $parentProperties);
+            }
+        }
+    }
+
+    private function getMultiValue($properties) {
+        foreach ($properties as $property) {
+            if ($property['type'] != null) {
+                if ($property['multivalue']) {
+                    return true;
+                }
+            } else {
+                $this->getMultiValue($property);
             }
         }
     }
@@ -458,13 +474,13 @@ class arSolrPlugin extends QubitSearchEngine
     private function getFieldQuery($field, $type, $multiValue, $stored = true)
     {
         $stored = $stored ? 'true' : 'false';
-        //$multiValue = $multiValue ? 'true' : 'false';
+        $multiValue = $multiValue ? 'true' : 'false';
         $addFieldQuery = [
             'name' => $field,
             'stored' => $stored,
             'type' => $type,
             'indexed' => 'true',
-            'multiValued' => 'true',
+            'multiValued' => $multiValue,
         ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
