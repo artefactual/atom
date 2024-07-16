@@ -149,3 +149,11 @@ body > iframe,
     }
   }
 }
+
+.card {
+  --bs-card-bg: var(--bs-white);
+}
+
+.list-group-item {
+  --bs-list-group-bg: var(--bs-white);
+}
