@@ -24,34 +24,268 @@ all:
       analysis:
 
         analyzer:
-          default:
+          text_ar:
+            filter: [lowercase, asciifolding, arabic_normalize, arabic_stem, arabic_stop]
             tokenizer: solr.StandardTokenizerFactory
-            filter: [lowercase, preserved_asciifolding]
-
-          # This is a special analyzer for autocomplete searches. It's used only
-          # in some fields as it can make the index very big.
-          # autocomplete:
-          #   tokenizer: solr.WhitespaceTokenizerFactory
-          #   filter: [lowercase, engram, preserved_asciifolding]
-
-        # # TODO: normalizer, look into solr.PatternReplaceCharFilterFactory
-        # normalizer:
-        #   # Custom normalizer that lowercases text, removes punctation, and
-        #   # does ascii folding for more natural alphabetic sorting
-        #   alphasort:
-        #     class: custom
-        #     filter: [lowercase, preserved_asciifolding, punctuation_filter]
+          text_hy:
+            filter: [lowercase, asciifolding, armenian_porter, armenian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_eu:
+            filter: [lowercase, asciifolding, basque_porter, basque_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_bg:
+            filter: [lowercase, asciifolding, bulgarian_stem, bulgarian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_ca:
+            filter: [lowercase, asciifolding, catalan_elision, catalan_porter, catalan_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_cz:
+            filter: [lowercase, asciifolding, czech_stem, czech_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_da:
+            filter: [lowercase, asciifolding, danish_porter, danish_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_nl:
+            filter: [lowercase, asciifolding, dutch_porter, dutch_stem, dutch_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_en:
+            filter: [lowercase, asciifolding, english_synonyms, english_possessive, english_keyword, english_porter, english_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_fi:
+            filter: [lowercase, asciifolding, finnish_porter, finnish_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_fr:
+            filter: [lowercase, asciifolding, french_elision, french_stem, french_stop, french_engram]
+            tokenizer: solr.StandardTokenizerFactory
+          text_gl:
+            filter: [lowercase, asciifolding, galician_stem, galician_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_de:
+            filter: [lowercase, asciifolding, german_normalize, german_stem, german_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_el:
+            filter: [greek_lowercase, asciifolding, greek_stem, greek_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_hi:
+            filter: [lowercase, asciifolding, hindi_normalize, hindi_stem, hindi_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_hu:
+            filter: [lowercase, asciifolding, hungarian_porter, hungarian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_id:
+            filter: [lowercase, asciifolding, indonesian_stem, indonesian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_it:
+            filter: [lowercase, asciifolding, italian_stem, italian_elision, italian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_no:
+            filter: [lowercase, asciifolding, norwegian_porter, norwegian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_fa:
+            filter: [lowercase, asciifolding, persian_normalize, arabic_normalize, arabic_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_pt:
+            filter: [lowercase, asciifolding, portuguese_stem, portuguese_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_ro:
+            filter: [lowercase, asciifolding, romanian_porter, romanian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_ru:
+            filter: [lowercase, asciifolding, russian_porter, russian_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_es:
+            filter: [lowercase, asciifolding, spanish_stem, spanish_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_sv:
+            filter: [lowercase, asciifolding, swedish_porter, swedish_stop]
+            tokenizer: solr.StandardTokenizerFactory
+          text_tr:
+            filter: [lowercase, asciifolding, turkish_porter, turkish_stop]
+            tokenizer: solr.StandardTokenizerFactory
 
         filter:
-          engram:
+          lowercase:
+            class: solr.LowerCaseFilterFactory
+          asciifolding:
+            class: solr.ASCIIFoldingFilterFactory
+          arabic_normalize:
+            class: solr.ArabicNormalizationFilterFactory
+          arabic_stem:
+            class: solr.ArabicStemFilterFactory
+          arabic_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_ar.txt
+          armenian_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Armenian
+          armenian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_hy.txt
+          basque_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Basque
+          basque_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_eu.txt
+          bulgarian_stem:
+            class: solr.BulgarianStemFilterFactory
+          bulgarian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_bg.txt
+          catalan_elision:
+            class: solr.ElisionFilterFactory
+            articles: lang/contractions_ca.txt
+          catalan_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Catalan
+          catalan_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_ca.txt
+          czech_stem:
+            class: solr.CzechStemFilterFactory
+          czech_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_cz.txt
+          danish_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Danish
+          danish_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_da.txt
+          dutch_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Dutch
+          dutch_stem:
+            class: solr.StemmerOverrideFilterFactory
+            dictionary: lang/stemdict_nl.txt
+          dutch_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_nl.txt
+          english_synonyms:
+            class: solr.SynonymGraphFilterFactory
+            synonyms: synonyms.txt
+            ignoreCase: true
+          english_possessive:
+            class: solr.EnglishPossessiveFilterFactory
+          english_keyword:
+            class: solr.KeywordMarkerFilterFactory
+            protected: protwords.txt
+          english_porter:
+            class: solr.PorterStemFilterFactory
+          english_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_en.txt
+          finnish_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Finnish
+          finnish_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_fi.txt
+          french_elision:
+            class: solr.ElisionFilterFactory
+            articles: lang/contractions_fr.txt
+          french_stem:
+            class: solr.FrenchLightStemFilterFactory
+          french_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_fr.txt
+            format: snowball
+          french_engram:
             class: solr.EdgeNGramFilterFactory
             minGramSize: 3
             maxGramSize: 10
-          preserved_asciifolding:
-            class: solr.ASCIIFoldingFilterFactory
-            preserveOriginal: true
-          lowercase:
-            class: solr.LowerCaseFilterFactory
+          galician_stem:
+            class: solr.GalicianStemFilterFactory
+          galician_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_gl.txt
+          german_normalize:
+            class: solr.GermanNormalizationFilterFactory
+          german_stem:
+            class: solr.GermanStemFilterFactory
+          german_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_de.txt
+          greek_stem:
+            class: solr.GreekStemFilterFactory
+          greek_lowercase:
+            class: solr.GreekLowerCaseFilterFactory
+          greek_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_el.txt
+          hindi_normalize:
+            class: solr.HindiNormalizationFilterFactory
+          hindi_stem:
+            class: solr.HindiStemFilterFactory
+          hindi_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_hi.txt
+          hungarian_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Hungarian
+          hungarian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_hu.txt
+          indonesian_stem:
+            class: solr.IndonesianStemFilterFactory
+            stemDerivational: true
+          indonesian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_id.txt
+          italian_stem:
+            class: solr.ItalianLightStemFilterFactory
+          italian_elision:
+            class: solr.ElisionFilterFactory
+            articles: lang/contractions_it.txt
+          italian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_it.txt
+            format: snowball
+          norwegian_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Norwegian
+          norwegian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_no.txt
+          persian_normalize:
+            class: solr.PersianNormalizationFilterFactory
+          persian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_fa.txt
+          portuguese_stem:
+            class: solr.PortugueseLightStemFilterFactory
+          portuguese_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_pt.txt
+          romanian_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Romanian
+          romanian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_ro.txt
+          russian_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Russian
+          russian_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_ru.txt
+          spanish_stem:
+            class: solr.SpanishLightStemFilterFactory
+          spanish_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_es.txt
+          swedish_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Swedish
+          swedish_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_sv.txt
+          turkish_porter:
+            class: solr.SnowballPorterFilterFactory
+            language: Turkish
+          turkish_stop:
+            class: solr.StopFilterFactory
+            words: lang/stopwords_tr.txt
 
         char_filter:
           # This char_filter is added to all analyzers when the index is created
