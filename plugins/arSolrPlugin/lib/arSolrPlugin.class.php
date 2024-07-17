@@ -193,6 +193,7 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         $this->addAutoCompleteConfigs();
+        $this->setAnalyzers();
 
         $this->log(
             vsprintf(
@@ -292,7 +293,6 @@ class arSolrPlugin extends QubitSearchEngine
             $this->log('Collection found. Not initializing');
         } else {
             $this->log('Initializing Solr Index');
-            $this->setAnalyzers();
 
             $this->log('Creating Solr Collection');
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
@@ -490,25 +490,21 @@ class arSolrPlugin extends QubitSearchEngine
     private function setAnalyzers()
     {
         foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+            $filters = [];
             if (sfConfig::get('app_diacritics')) {
-                // TODO: create diacritics_lowercase class
                 $filters = array_push($filters, ['class' => 'diacritics_lowercase']);
             }
 
             $charFilters = [];
-            foreach ($this->config['index']['configuration']['analysis']['char_filter'] as $filter) {
-                unset($filter['type']);
-                array_push($charFilters, $filter);
+            foreach ($this->config['index']['configuration']['analysis']['char_filter'] as $charFilter) {
+                array_push($charFilters, $charFilter);
             }
 
-            $filters = [];
             foreach ($this->config['index']['configuration']['analysis']['analyzer'][$key]['filter'] as $filter) {
-                unset($this->config['index']['configuration']['analysis']['filter'][$filter]['type'], $this->config['index']['configuration']['analysis']['filter'][$filter]['preserve_original']);
-
                 array_push($filters, $this->config['index']['configuration']['analysis']['filter'][$filter]);
             }
 
-            $query = ['add-field-type' => [
+            $query = ['replace-field-type' => [
                 'name' => $key,
                 'class' => 'solr.TextField',
                 'analyzer' => [
@@ -519,7 +515,7 @@ class arSolrPlugin extends QubitSearchEngine
             ]];
 
             $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-            arSolrPlugin::makeHttpRequest($url, 'POST', $query);
+            arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query));
         }
     }
 
