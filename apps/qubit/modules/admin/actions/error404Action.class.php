@@ -21,5 +21,6 @@ class AdminError404Action extends sfAction
 {
     public function execute($request)
     {
+        $this->getResponse()->setHttpHeader('Cache-Control', 'no-cache, no-store', false);
     }
 }
