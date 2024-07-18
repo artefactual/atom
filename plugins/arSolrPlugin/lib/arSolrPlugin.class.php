@@ -105,7 +105,7 @@ class arSolrPlugin extends QubitSearchEngine
             throw new sfException('You must create a diacritics_mapping.yml file.');
         }
 
-        return sfYaml::load(array_shift($diacriticsFiles));
+        return $diacriticsFiles;
     }
 
     public function flush()
@@ -283,9 +283,6 @@ class arSolrPlugin extends QubitSearchEngine
      */
     protected function initialize()
     {
-        if (sfConfig::get('app_diacritics')) {
-            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
-        }
         $url = $this->solrBaseUrl.'/solr/admin/collections?action=LIST';
         $response = arSolrPlugin::makeHttpRequest($url);
 
@@ -490,18 +487,23 @@ class arSolrPlugin extends QubitSearchEngine
     private function setAnalyzers()
     {
         foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-            $filters = [];
-            if (sfConfig::get('app_diacritics')) {
-                $filters = array_push($filters, ['class' => 'diacritics_lowercase']);
-            }
-
             $charFilters = [];
+            $filters = [];
+
             foreach ($this->config['index']['configuration']['analysis']['char_filter'] as $charFilter) {
                 array_push($charFilters, $charFilter);
             }
 
             foreach ($this->config['index']['configuration']['analysis']['analyzer'][$key]['filter'] as $filter) {
                 array_push($filters, $this->config['index']['configuration']['analysis']['filter'][$filter]);
+            }
+
+            if (sfConfig::get('app_diacritics')) {
+                $diacritics = $this->loadDiacriticsMappings();
+                array_push($charFilters, [
+                    'class' => 'solr.MappingCharFilterFactory',
+                    'mapping' => $diacritics[0],
+                ]);
             }
 
             $query = ['replace-field-type' => [
