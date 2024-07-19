@@ -385,8 +385,12 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function addSubProperties($properties, &$propertyFields, $parentType = '', $parentProperties)
+    private function addSubProperties($properties, &$propertyFields, $parentType = '', $parentProperties = null)
     {
+        if (!$parentProperties) {
+            $parentProperties = $properties;
+        }
+
         $atomicTypes = ['keyword', 'string', 'text', 'text_general', 'date', 'pdate', 'pdates', 'long', 'plongs', 'integer', 'boolean', 'location'];
         foreach ($properties as $propertyName => $value) {
             $fieldName = $parentType ? "{$parentType}.{$propertyName}" : $propertyName;
@@ -406,11 +410,11 @@ class arSolrPlugin extends QubitSearchEngine
                     $typeName = $this->setType($value['type']);
                 }
                 $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
-                $field = $this->getFieldQuery($fieldName, $typeName, $multiValue?'true':'false', false);
+                $field = $this->getFieldQuery($fieldName, $typeName, $multiValue);
                 array_push($propertyFields, $field);
             } elseif ('object' == $value['type']) {
                 $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
-                $field = $this->getFieldQuery($fieldName, '_nest_path_', $multiValue, true);
+                $field = $this->getFieldQuery($fieldName, '_nest_path_', true);
                 array_push($propertyFields, $field);
             }
 
@@ -477,7 +481,7 @@ class arSolrPlugin extends QubitSearchEngine
             'stored' => $stored,
             'type' => $type,
             'indexed' => 'true',
-            'multiValued' => $multiValue,
+            'multiValued' => 'true',
         ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
