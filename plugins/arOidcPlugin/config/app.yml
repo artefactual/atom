@@ -133,9 +133,21 @@ all:
         #user_matching_source: 'oidc-email'
         #auto_create_atom_user: true
 
-    # Identifies the primary OIDC provider and corresponds to an entry in 'providers' above.
-    # The default provider name is 'primary'. If this setting is not defined, AtoM will default
-    # to the provider named "primary".
+    # If 'allow_local_accounts' is true, the AtoM login window will be displayed and the user
+    # will authenticate using local Symfony accounts. In this case, the 'primary_provider_name' setting
+    # below will have no effect. Secondary provider authentication will continue to be available - see
+    # 'provider_query_param_name' for additional details on configuring that option.
+    #
+    # Setting default is 'false'.
+    allow_local_accounts: false
+
+    # Identifies the primary OIDC provider corresponding to an entry in 'providers' above. This
+    # identifies the provider that will be used when a user presses the "Log in with SSO" button.
+    # The default provider name is 'primary' - if this setting is not defined, AtoM's 
+    # "Log in with SSO" button will default to the provider named "primary".
+    #
+    # NOTE: If the 'allow_local_accounts' setting is 'true', 'primary_provider_name' will have
+    # no effect.
     #
     # primary_provider_name: primary
 
