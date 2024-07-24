@@ -72,7 +72,7 @@ class arSolrPlugin extends QubitSearchEngine
     public static function loadMappings()
     {
         // Find mapping.yml
-        $finder = sfFinder::type('file')->name('mapping.yml');
+        $finder = sfFinder::type('file')->name('solrSchema.yml');
         $files = array_unique(
             array_merge(
                 $finder->in(sfConfig::get('sf_config_dir')),
@@ -237,9 +237,14 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
-        arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
+        $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
             $type => $data,
         ]));
+
+        if ($response->error) {
+            $this->log(var_export($response->error, true));
+            $this->log(json_encode([$type => $data]));
+        }
     }
 
     public function getSolrUrl()
@@ -262,18 +267,15 @@ class arSolrPlugin extends QubitSearchEngine
 
     public static function makeHttpRequest($url, $method = 'GET', $body = null)
     {
-        $options = [
-            'http' => [
-                'method' => $method,
-                'header' => "Content-Type: application/json\r\n".
-                            "Accept: application/json\r\n",
-            ],
-        ];
+        $curlSession = curl_init($url);
         if ($body) {
-            $options['http']['content'] = $body;
+            curl_setopt($curlSession, CURLOPT_POST, 1);
+            curl_setopt($curlSession, CURLOPT_POSTFIELDS, $body);
         }
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
+        curl_setopt($curlSession, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($curlSession);
+        curl_close($curlSession);
 
         return json_decode($result);
     }
@@ -328,21 +330,21 @@ class arSolrPlugin extends QubitSearchEngine
         // since this field does not include a language code, it is added to
         // $addCopyField manually
         $autocompleteFields = [
-            'QubitRepository.i18n.en.authorizedFormOfName',
-            'QubitInformationObject.aip.type.i18n.en.name',
-            'QubitInformationObject.i18n.en.title',
-            'QubitActor.i18n.en.authorizedFormOfName',
-            'QubitActor.places.i18n.en.name',
-            'QubitActor.subjects.i18n.en.name',
-            'QubitTerm.i18n.en.name',
-            'QubitAip.type.i18n.en.name',
+            'QubitRepository.i18n.%s%.authorizedFormOfName',
+            'QubitInformationObject.aip.type.i18n.%s%.name',
+            'QubitInformationObject.i18n.%s%.title',
+            'QubitActor.i18n.%s%.authorizedFormOfName',
+            'QubitActor.places.i18n.%s%.name',
+            'QubitActor.subjects.i18n.%s%.name',
+            'QubitTerm.i18n.%s%.name',
+            'QubitAip.type.i18n.%s%.name',
         ];
 
         foreach ($this->langs as $lang) {
-            $addCopyField = '{"add-field":{"name":"autocomplete_'.$lang.'","type":"text_'.$lang.'","stored":true},';
+            $addCopyField = '{"add-field":{"name":"autocomplete_'.$lang.'","type":"text_'.$lang.'","stored":true, "multiValued:true"},';
             $copyField = '"add-copy-field":{"source":"QubitInformationObject.referenceCode","dest":"autocomplete_'.$lang.'"},';
             foreach ($autocompleteFields as $field) {
-                $field = str_replace('en', $lang, $field);
+                $field = str_replace('%s%', $lang, $field);
                 $copyField .= '"add-copy-field":{"source":"'.$field.'","dest":"autocomplete_'.$lang.'"},';
             }
             $addCopyField .= substr($copyField, 0, -1).'}';
@@ -413,7 +415,6 @@ class arSolrPlugin extends QubitSearchEngine
                 $field = $this->getFieldQuery($fieldName, $typeName, $multiValue);
                 array_push($propertyFields, $field);
             } elseif ('object' == $value['type']) {
-                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
                 $field = $this->getFieldQuery($fieldName, '_nest_path_', true);
                 array_push($propertyFields, $field);
             }
@@ -424,9 +425,10 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function getMultiValue($properties) {
+    private function getMultiValue($properties)
+    {
         foreach ($properties as $property) {
-            if ($property['type'] != null) {
+            if (null != $property['type']) {
                 if ($property['multivalue']) {
                     return true;
                 }
