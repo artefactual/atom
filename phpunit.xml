@@ -12,6 +12,7 @@
       <directory suffix=".php">cache</directory>
       <directory suffix=".php">test</directory>
       <directory suffix=".php">vendor</directory>
+      <directory suffix=".php">docker</directory>
     </exclude>
   </coverage>
 </phpunit>

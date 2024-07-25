@@ -30,7 +30,7 @@
     },
     "scripts": {
         "test": "phpunit",
-        "test-cov": "@php -dpcov.enabled=1 ./vendor/composer/bin/phpunit --coverage-html=.coverage/html",
+        "test-cov": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/html",
         "php-cs-fixer": "php-cs-fixer"
     }
 }
