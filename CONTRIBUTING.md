@@ -26,9 +26,8 @@ Start by doing a search on [AtoM user forum](https://groups.google.com/forum/#!f
 and in the [AtoM GitHub issues](https://github.com/artefactual/atom/issues)
 to see if your question has been considered in the past.
 
-If nothing comes up, start a conversation by opening a new thread on the user
-forum. When your bug will have been better understood, you may be invited to
-open an issue on GitHub.
+If you are sure that the issue you have is a bug, please open an issue 
+on GitHub. If not, feel welcome to open a thread in the Users Group forum.
 
 The [Troubleshooting guide](https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/) contains the information needed to open an issue.
 
