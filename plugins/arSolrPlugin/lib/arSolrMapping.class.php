@@ -403,7 +403,8 @@ class arSolrMapping
             }
 
             // Add id of the partial foreign resource
-            $mapping['properties']['id'] = ['type' => 'integer', 'include_in_all' => 'false'];
+            // TODO: Fix multivalue property to be only added to the partial foreign types that have this set to true in the yml
+            $mapping['properties']['id'] = ['type' => 'integer', 'include_in_all' => 'false', 'multivalue' => true];
 
             $typeProperties['properties'][$fieldNameCamelized] = $mapping;
         }

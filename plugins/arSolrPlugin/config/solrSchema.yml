@@ -389,7 +389,7 @@ mapping:
       maintaining_repository_id: { type: integer, include_in_all: false }
       direct_subjects: { type: integer, include_in_all: false }
       direct_places: { type: integer, include_in_all: false }
-      actor_direct_relation_types: { type: integer, include_in_all: false }
+      actor_direct_relation_types: { type: integer, include_in_all: false, multivalue: true }
       has_digital_object: { type: boolean, include_in_all: false }
       digital_object:
         type: object
@@ -450,7 +450,7 @@ mapping:
         fields:
           untouched:
             type: keyword
-      types: { type: integer, include_in_all: false }
+      types: { type: integer, include_in_all: false, multivalue: true }
       geographic_subregions: { type: integer, include_in_all: false, multivalue: true }
       thematic_areas: { type: integer, include_in_all: false, multivalue: true }
       logo_path: { type: keyword, include_in_all: false }
@@ -526,7 +526,7 @@ mapping:
         _i18nFields: [authorizedFormOfName]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
         _foreign_types:
           other_names: other_name
           parallel_names: other_name
@@ -544,7 +544,7 @@ mapping:
         _i18nFields: [authorizedFormOfName]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
         _foreign_types:
           other_names: other_name
           parallel_names: other_name
@@ -558,7 +558,7 @@ mapping:
         _i18nFields: [name]
         dynamic: strict
         properties:
-          id: { type: integer }
+          id: { type: integer, multivalue: true }
       genres:
         _i18nFields: [name]
         dynamic: strict
@@ -591,14 +591,14 @@ mapping:
       lft: { type: integer }
       publication_status_id: { type: integer }
       parent_id: { type: integer, include_in_all: false }
-      ancestors: { type: integer, include_in_all: false }
+      ancestors: { type: integer, include_in_all: false, multivalue: true }
       children: { type: integer, include_in_all: false, multivalue: true }
       copyright_status_id: { type: integer, include_in_all: false }
-      material_type_id: { type: integer, include_in_all: false }
+      material_type_id: { type: integer, include_in_all: false, multivalue: true }
       transcript: { type: text, include_in_all: true }
-      direct_subjects: { type: integer, include_in_all: false }
-      direct_places: { type: integer, include_in_all: false }
-      direct_genres: { type: integer, include_in_all: false }
+      direct_subjects: { type: integer, include_in_all: false, multivalue: true }
+      direct_places: { type: integer, include_in_all: false, multivalue: true }
+      direct_genres: { type: integer, include_in_all: false, multivalue: true }
       has_digital_object: { type: boolean, include_in_all: false }
       finding_aid:
         type: object
