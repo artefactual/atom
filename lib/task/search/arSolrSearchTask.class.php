@@ -114,10 +114,10 @@ EOF;
         if ($resultSet->count() > 0) {
             $docs = $resultSet->getDocuments();
             foreach ($docs as $resp) {
-                $this->log(sprintf('%s - %s', $resp['id'][0], $resp['i18n']['en']['title'][0]));
+                $this->log(sprintf('%s - %s', $resp['id'][0], $resp['i18n']['en']['title']));
 
                 // print entire object if no title is present
-                if (!$resp['i18n']['en']['title'][0]) {
+                if (!$resp['i18n']['en']['title']) {
                     $this->log(var_export($resp, true));
                 }
             }
