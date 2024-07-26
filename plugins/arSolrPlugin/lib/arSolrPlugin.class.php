@@ -403,7 +403,39 @@ class arSolrPlugin extends QubitSearchEngine
                 array_push($this->langs, $lang);
             }
 
+            // TODO: avoid adding multivalue fields via a large list of exceptions and patterns
             $i18nIndex = array_search('i18n', $fields);
+            if ('languages' == $propertyName
+              || 'QubitInformationObject.dates.sourceCulture' == $fieldName
+              || 'QubitInformationObject.names.otherNames.sourceCulture' == $fieldName
+              || 'QubitInformationObject.creators.otherNames.sourceCulture' == $fieldName
+              || 'QubitInformationObject.inheritedCreators.otherNames.sourceCulture' == $fieldName
+              || 'QubitInformationObject.generalNotes.sourceCulture' == $fieldName
+              || 'QubitActor.otherNames.sourceCulture' == $fieldName
+              || 'QubitRepository.contactInformations.sourceCulture' == $fieldName
+              || fnmatch('QubitActor.otherNames.i18n.*.name', $fieldName)
+              || fnmatch('QubitActor.occupations.i18n.*.name', $fieldName)
+              || fnmatch('QubitActor.occupations.i18n.*.content', $fieldName)
+              || fnmatch('QubitRepository.contactInformations.i18n.*.contactType', $fieldName)
+              || fnmatch('QubitRepository.contactInformations.i18n.*.city', $fieldName)
+              || fnmatch('QubitRepository.contactInformations.i18n.*.region', $fieldName)
+              || fnmatch('QubitInformationObject.creators.i18n.*.authorizedFormOfName', $fieldName)
+              || fnmatch('QubitInformationObject.creators.i18n.*.history', $fieldName)
+              || fnmatch('QubitInformationObject.creators.otherNames.i18n.*.name', $fieldName)
+              || fnmatch('QubitInformationObject.genres.i18n.*.name', $fieldName)
+              || fnmatch('QubitInformationObject.places.i18n.*.name', $fieldName)
+              || fnmatch('QubitInformationObject.subjects.i18n.*.name', $fieldName)
+              || fnmatch('QubitInformationObject.inheritedCreators.i18n.*.authorizedFormOfName', $fieldName)
+              || fnmatch('QubitInformationObject.generalNotes.i18n.*.content', $fieldName)
+              || fnmatch('QubitInformationObject.names.i18n.*.authorizedFormOfName', $fieldName)
+              || fnmatch('QubitInformationObject.dates.i18n.*.date', $fieldName)
+            ) {
+                $multiValue = true;
+            } elseif ($value['multivalue'] && false == $i18nIndex) {
+                $multiValue = true;
+            } else {
+                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
+            }
 
             if (in_array($value['type'], $atomicTypes)) {
                 if ('text' === $value['type']) {
@@ -411,7 +443,6 @@ class arSolrPlugin extends QubitSearchEngine
                 } else {
                     $typeName = $this->setType($value['type']);
                 }
-                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
                 $field = $this->getFieldQuery($fieldName, $typeName, $multiValue);
                 array_push($propertyFields, $field);
             } elseif ('object' == $value['type']) {
@@ -483,7 +514,7 @@ class arSolrPlugin extends QubitSearchEngine
             'stored' => $stored,
             'type' => $type,
             'indexed' => 'true',
-            'multiValued' => 'true',
+            'multiValued' => $multiValue,
         ];
         $this->log(sprintf('Defining mapping %s...', $field));
 
