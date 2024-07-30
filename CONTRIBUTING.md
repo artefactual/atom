@@ -29,7 +29,11 @@ to see if your question has been considered in the past.
 If you are sure that the issue you have is a bug, please open an issue 
 on GitHub. If not, feel welcome to open a thread in the Users Group forum.
 
-The [Troubleshooting guide](https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/) contains the information needed to open an issue.
+The [Troubleshooting guide](https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/)
+contains useful tips on how to find information needed to open an issue,
+such as the [version of AtoM](https://www.accesstomemory.org/docs/latest/user-manual/administer/settings/#application-version),
+accessing [errors logs and debug mode](https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/#troubleshooting-logs-debug),
+and other information needed to [get support](https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/#getting-support).
 
 ## Contributing code
 
