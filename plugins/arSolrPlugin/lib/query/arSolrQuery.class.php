@@ -115,7 +115,7 @@ class arSolrQuery extends arSolrAbstractQuery
                 'edismax' => [
                     'q.op' => $this->operator,
                     'stopwords' => 'true',
-                    'query' => $this->searchQuery,
+                    'query' => "{$this->searchQuery}~",
                     'qf' => implode(' ', $this->fields),
                 ],
             ],

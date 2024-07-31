@@ -98,6 +98,12 @@ EOF;
         if ('matchall' === $type) {
             $query = new arSolrMatchAllQuery();
             $modelType = null;
+        } elseif ('term' === $type) {
+            $term = explode(',', $queryText);
+            $query = new arSolrTermQuery([$term[0] => $term[1]]);
+        } elseif ('match' === $type) {
+            $queryField = explode(',', $queryText);
+            $query = new arSolrMatchQuery([$queryField[0] => $queryField[1]]);
         } elseif ('bool' === $type) {
             $query = new arSolrBoolQuery();
             $mustClause = $this->createQuery($queryText, $fields);

@@ -17,36 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arSolrMatchQuery extends arSolrAbstractQuery
+class arSolrMatchQuery extends arSolrTermQuery
 {
-    /**
-     * Query Params.
-     *
-     * @var mixed
-     */
-    protected $query;
-
-    /**
-     * Array of fields to be queried.
-     *
-     * @var array
-     */
-    protected $fields;
-
-    /**
-     * Default operator.
-     *
-     * @var string defaults to 'AND'
-     */
-    protected $operator = 'AND';
-
-    /**
-     * Search query.
-     *
-     * @var string
-     */
-    protected $searchQuery = '*:*';
-
     /**
      * Params.
      *
@@ -54,113 +26,21 @@ class arSolrMatchQuery extends arSolrAbstractQuery
      */
     protected $params = [];
 
-    /**
-     * Constructor.
-     *
-     * @param mixed $searchQuery
-     */
-    public function __construct($searchQuery)
+    public function setFieldQuery($field, $value)
     {
-        if (!$this->fields) {
-            $this->fields = arSolrPluginUtil::getBoostedSearchFields([
-                'identifier' => 10,
-                'donors.i18n.%s.authorizedFormOfName' => 10,
-                'i18n.%s.title' => 10,
-                'i18n.%s.scopeAndContent' => 10,
-                'i18n.%s.locationInformation' => 5,
-                'i18n.%s.processingNotes' => 5,
-                'i18n.%s.sourceOfAcquisition' => 5,
-                'i18n.%s.archivalHistory' => 5,
-                'i18n.%s.appraisal' => 1,
-                'i18n.%s.physicalCharacteristics' => 1,
-                'i18n.%s.receivedExtentUnits' => 1,
-                'alternativeIdentifiers.i18n.%s.name' => 1,
-                'creators.i18n.%s.authorizedFormOfName' => 1,
-                'alternativeIdentifiers.i18n.%s.note' => 1,
-                'alternativeIdentifiers.type.i18n.%s.name' => 1,
-                'accessionEvents.i18n.%s.agent' => 1,
-                'accessionEvents.type.i18n.%s.name' => 1,
-                'accessionEvents.notes.i18n.%s.content' => 1,
-                'donors.contactInformations.contactPerson' => 1,
-                'accessionEvents.dateString' => 1,
-            ]);
-        }
-        $this->setSearchQuery($searchQuery);
-        $this->generateQueryParams();
-    }
-
-    public function setFields($fields)
-    {
-        $this->fields = $fields;
-    }
-
-    public function setDefaultOperator($operator)
-    {
-        $this->operator = $operator;
-    }
-
-    public function setSearchQuery($searchQuery)
-    {
-        $this->searchQuery = $searchQuery;
-    }
-
-    public function getQueryParams()
-    {
-        $this->generateQueryParams();
-
-        return $this->query;
+        $this->setTerm($field, $value);
     }
 
     public function generateQueryParams()
     {
         $this->query = [
             'query' => [
-                'dismax' => [
-                    'start' => $this->offset,
-                    'rows' => $this->size,
-                    'q.op' => $this->operator,
-                    'stopwords' => 'true',
-                    'query' => $this->searchQuery,
-                    'qf' => implode(' ', $this->fields),
+                'edismax' => [
+                    'query' => "{$this->termField}:{$this->termValue}~",
                 ],
             ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
         ];
-    }
-
-    /**
-     * Sets query as raw array. Will overwrite all already set arguments.
-     */
-    public function setRawQuery(array $query = []): self
-    {
-        $this->params = $query;
-
-        return $this;
-    }
-
-    /**
-     * Sets a post_filter to the current query.
-     *
-     * @param mixed $filter
-     */
-    public function setPostFilter($filter): self
-    {
-        return $this->setParam('post_filter', $filter);
-    }
-
-    public function setQuery($query): self
-    {
-        return $this->setParam('query', $query);
-    }
-
-    /**
-     * Adds an Aggregation to the query.
-     *
-     * @param mixed $agg
-     */
-    public function addAggregation($agg): self
-    {
-        $this->params['aggs'][] = $agg;
-
-        return $this;
     }
 }
