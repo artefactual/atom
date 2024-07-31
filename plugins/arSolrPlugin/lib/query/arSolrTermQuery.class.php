@@ -19,5 +19,76 @@
 
 class arSolrTermQuery extends arSolrAbstractQuery
 {
-    // TODO
+    /**
+     * Query Params.
+     *
+     * @var mixed
+     */
+    protected $query;
+
+    /**
+     * Query Term Field.
+     *
+     * @var string
+     */
+    protected $termField = '';
+
+    /**
+     * Query Term Value.
+     *
+     * @var string
+     */
+    protected $termValue = '';
+
+    /**
+     * Params.
+     *
+     * @var array
+     */
+    protected $params = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed      $searchQuery
+     * @param null|mixed $term
+     */
+    public function __construct($term = null)
+    {
+        foreach ($term as $field => $value) {
+            $this->setTerm($field, $value);
+        }
+        $this->generateQueryParams();
+    }
+
+    public function setTerm($field, $value)
+    {
+        $this->termField = $field;
+        $this->termValue = $value;
+    }
+
+    public function getQueryParams()
+    {
+        $this->generateQueryParams();
+
+        return $this->query;
+    }
+
+    public function generateQueryParams()
+    {
+        $this->query = [
+            'query' => [
+                'edismax' => [
+                    'query' => "{$this->termField}:{$this->termValue}",
+                ],
+            ],
+            'offset' => $this->offset,
+            'limit' => $this->size,
+        ];
+    }
+
+    public function setType($type)
+    {
+        $this->termField = "{$type}.{$this->termField}";
+    }
 }
