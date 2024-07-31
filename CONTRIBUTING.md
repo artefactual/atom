@@ -40,6 +40,7 @@ and other information needed to [get support](https://www.accesstomemory.org/doc
 Please read our contribution page and familiarize yourself with our coding
 style and code review guidelines.
 
+* Access the [Contributor's Agreement here](https://wiki.accesstomemory.org/wiki/Development/Contribute_code#Copyright_and_license)
 * Find out more about our [Code review](https://wiki.accesstomemory.org/Development/Code_review)
 * Learn about our [Coding standard](https://wiki.accesstomemory.org/Development/Coding_standard)
 * Find information about our [Code repository](https://wiki.accesstomemory.org/Resources/Code_repository)
