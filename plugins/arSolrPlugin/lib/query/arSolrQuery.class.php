@@ -58,6 +58,13 @@ class arSolrQuery extends arSolrAbstractQuery
     protected $params = [];
 
     /**
+     * Aggregations.
+     *
+     * @var array
+     */
+    protected $aggregations = [];
+
+    /**
      * Constructor.
      *
      * @param mixed $searchQuery
@@ -108,20 +115,47 @@ class arSolrQuery extends arSolrAbstractQuery
         return $this->query;
     }
 
+    public function getAggregations()
+    {
+        return $this->aggregations;
+    }
+
     public function generateQueryParams()
     {
-        $this->query = [
-            'query' => [
-                'edismax' => [
-                    'q.op' => $this->operator,
-                    'stopwords' => 'true',
-                    'query' => "{$this->searchQuery}~",
-                    'qf' => implode(' ', $this->fields),
+        if ($this->aggregations) {
+            $this->query = [
+                'query' => [
+                    'edismax' => [
+                        'q.op' => $this->operator,
+                        'stopwords' => 'true',
+                        'query' => "{$this->searchQuery}~",
+                        'qf' => implode(' ', $this->fields),
+                    ],
                 ],
-            ],
-            'offset' => $this->offset,
-            'limit' => $this->size,
-        ];
+                'facet' => [
+                    'categories' => [
+                        'type' => 'terms',
+                        'field' => $this->aggregations['field'],
+                        'limit' => $this->aggregations['size'],
+                    ],
+                ],
+                'offset' => $this->offset,
+                'limit' => $this->size,
+            ];
+        } else {
+            $this->query = [
+                'query' => [
+                    'edismax' => [
+                        'q.op' => $this->operator,
+                        'stopwords' => 'true',
+                        'query' => "{$this->searchQuery}~",
+                        'qf' => implode(' ', $this->fields),
+                    ],
+                ],
+                'offset' => $this->offset,
+                'limit' => $this->size,
+            ];
+        }
     }
 
     /**
