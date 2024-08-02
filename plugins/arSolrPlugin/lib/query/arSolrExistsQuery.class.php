@@ -21,17 +21,18 @@ class arSolrExistsQuery extends arSolrAbstractQuery
 {
     /**
      * Query Params.
-     *
-     * @var mixed
      */
-    protected $query;
+    protected array $query = [];
 
     /**
      * Field to be queried.
-     *
-     * @var string
      */
-    protected $field;
+    protected ?string $field = null;
+
+    /**
+     * Type of query.
+     */
+    protected ?string $type = null;
 
     /**
      * Constructor.
@@ -41,17 +42,34 @@ class arSolrExistsQuery extends arSolrAbstractQuery
     public function __construct($field)
     {
         $this->setField($field);
-        $this->generateQueryParams();
     }
 
     public function setField($field)
     {
+        if (empty($field)) {
+            return;
+        }
+
         $this->field = $field;
     }
 
     public function getField()
     {
         return $this->field;
+    }
+
+    public function setType($type)
+    {
+        if (empty($type)) {
+            return;
+        }
+
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function getQueryParams()
@@ -61,21 +79,26 @@ class arSolrExistsQuery extends arSolrAbstractQuery
         return $this->query;
     }
 
-    public function generateQueryParams()
+    protected function generateQueryParams()
     {
+        $field = $this->getField();
+        if (!isset($field)) {
+            throw new Exception('Field is not set.');
+        }
+
+        $type = $this->getType();
+        if (!isset($type)) {
+            throw new Exception("Field 'type' is not set.");
+        }
+
         $this->query = [
             'query' => [
                 'lucene' => [
-                    'query' => "{$this->field}:*",
+                    'query' => "{$type}.{$field}:*",
                 ],
             ],
             'offset' => $this->offset,
             'limit' => $this->size,
         ];
-    }
-
-    public function setType($type)
-    {
-        $this->setField("{$type}.{$this->field}");
     }
 }
