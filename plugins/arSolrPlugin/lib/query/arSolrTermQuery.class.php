@@ -24,28 +24,28 @@ class arSolrTermQuery extends arSolrAbstractQuery
      *
      * @var mixed
      */
-    protected $query;
+    protected array $query = [];
 
     /**
      * Query Term Field.
      *
      * @var string
      */
-    protected $termField = '';
+    protected ?string $field = null;
 
     /**
      * Query Term Value.
      *
      * @var string
      */
-    protected $termValue = '';
+    protected ?string $termValue = null;
 
     /**
-     * Params.
+     * Field type
      *
-     * @var array
+     * @var string
      */
-    protected $params = [];
+    protected ?string $type = null;
 
     /**
      * Constructor.
@@ -55,16 +55,27 @@ class arSolrTermQuery extends arSolrAbstractQuery
      */
     public function __construct($term = null)
     {
-        foreach ($term as $field => $value) {
-            $this->setTerm($field, $value);
+        if ($term) {
+            foreach ($term as $field => $value) {
+                $this->setTerm($field, $value);
+            }
         }
-        $this->generateQueryParams();
     }
 
     public function setTerm($field, $value)
     {
         $this->termField = $field;
         $this->termValue = $value;
+    }
+
+    public function getTermValue()
+    {
+        return $this->termValue;
+    }
+
+    public function getTermField()
+    {
+        return $this->termField;
     }
 
     public function getQueryParams()
@@ -74,21 +85,45 @@ class arSolrTermQuery extends arSolrAbstractQuery
         return $this->query;
     }
 
-    public function generateQueryParams()
+    public function setType($type)
     {
+        if (empty($type)) {
+            return;
+        }
+
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    protected function generateQueryParams()
+    {
+        $termField = $this->getTermField();
+        if (!isset($termField)) {
+            throw new Exception('Term field is not set.');
+        }
+
+        $termValue = $this->getTermValue();
+        if (!isset($termValue)) {
+            throw new Exception('Term value is not set.');
+        }
+
+        $type = $this->getType();
+        if (!isset($type)) {
+            throw new Exception("Field 'type' is not set.");
+        }
+
         $this->query = [
             'query' => [
                 'edismax' => [
-                    'query' => "{$this->termField}:{$this->termValue}",
+                    'query' => "{$type}.{$termField}:{$termValue}",
                 ],
             ],
             'offset' => $this->offset,
             'limit' => $this->size,
         ];
-    }
-
-    public function setType($type)
-    {
-        $this->termField = "{$type}.{$this->termField}";
     }
 }
