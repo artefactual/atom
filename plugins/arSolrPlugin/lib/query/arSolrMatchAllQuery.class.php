@@ -57,9 +57,19 @@ class arSolrMatchAllQuery extends arSolrAbstractQuery
         $this->generateQueryParams();
     }
 
+    public function getDefaultOperator()
+    {
+        return $this->operator;
+    }
+
     public function setDefaultOperator($operator)
     {
         $this->operator = $operator;
+    }
+
+    public function getSearchQuery()
+    {
+        return $this->searchQuery;
     }
 
     public function setSearchQuery($searchQuery)
