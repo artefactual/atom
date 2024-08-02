@@ -101,6 +101,7 @@ EOF;
         } elseif ('term' === $type) {
             $term = explode(',', $queryText);
             $query = new arSolrTermQuery([$term[0] => $term[1]]);
+            $query->setType($modelType);
         } elseif ('match' === $type) {
             $queryField = explode(',', $queryText);
             $query = new arSolrMatchQuery([$queryField[0] => $queryField[1]]);
