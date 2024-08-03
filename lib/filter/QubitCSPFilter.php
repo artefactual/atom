@@ -28,36 +28,15 @@ class QubitCSP extends sfFilter
             return;
         }
 
-        $cspResponseHeader = sfConfig::get('app_csp_response_header', '');
-
-        if (empty($cspResponseHeader)) {
+        // Get CSP response header from config if available.
+        if (null === $cspResponseHeader = $this->getCspResponseHeader($this->getContext())) {
             // CSP is deactivated.
             $filterChain->execute();
 
             return;
         }
 
-        $context = $this->getContext();
-        if (false === array_search($cspResponseHeader, ['Content-Security-Policy-Report-Only', 'Content-Security-Policy'])) {
-            $context->getLogger()->err(
-                sprintf(
-                    'Setting \'app_csp_response_header\' is not set properly. CSP is not being used.'
-                )
-            );
-
-            $filterChain->execute();
-
-            return;
-        }
-
-        $cspDirectives = sfConfig::get('app_csp_directives', '');
-        if (empty($cspDirectives)) {
-            $context->getLogger()->err(
-                sprintf(
-                    'Setting \'app_csp_directives\' is not set properly. CSP is not being used.'
-                )
-            );
-
+        if (null === $cspDirectives = $this->getCspDirectives($this->getContext())) {
             $filterChain->execute();
 
             return;
@@ -69,15 +48,54 @@ class QubitCSP extends sfFilter
 
         $filterChain->execute();
 
-        if (preg_match('~(text/xml|application/json)~', $context->response->getContentType())) {
+        if (preg_match('~(text/xml|application/json)~', $this->getContext()->response->getContentType())) {
             return;
         }
 
         // Set CSP header on response.
-        $context->response->setHttpHeader(
+        $this->getContext()->response->setHttpHeader(
             $cspResponseHeader,
             $cspDirectives = str_replace('nonce', 'nonce-'.$nonce, $cspDirectives)
         );
+    }
+
+    public function getCspResponseHeader($context): ?string
+    {
+        $cspResponseHeader = sfConfig::get('app_csp_response_header', '');
+
+        if (empty($cspResponseHeader)) {
+            // CSP is deactivated.
+            return null;
+        }
+
+        if (false === array_search($cspResponseHeader, ['Content-Security-Policy-Report-Only', 'Content-Security-Policy'])) {
+            $context->getLogger()->err(
+                sprintf(
+                    'Setting \'app_csp_response_header\' is not set properly. CSP is not being used.'
+                )
+            );
+
+            return null;
+        }
+
+        return $cspResponseHeader;
+    }
+
+    public function getCspDirectives($context): ?string
+    {
+        $cspDirectives = trim(preg_replace('/\s+/', ' ', sfConfig::get('app_csp_directives', '')));
+
+        if (empty($cspDirectives)) {
+            $context->getLogger()->err(
+                sprintf(
+                    'Setting \'app_csp_directives\' is not set properly. CSP is not being used.'
+                )
+            );
+
+            return null;
+        }
+
+        return $cspDirectives;
     }
 
     protected function getRandomNonce($length = 16)
