@@ -18,8 +18,8 @@ class ArSolrTermQueryTest extends TestCase
         return [
             'New arSolrTermQuery with no term' => [
                 'term' => null,
-                'termField' => null,
-                'termValue' => null,
+                'resultField' => null,
+                'resultValue' => null,
             ],
             'New arSolrTermQuery with empty term' => [
                 'term' => ['' => ''],
@@ -58,7 +58,7 @@ class ArSolrTermQueryTest extends TestCase
     public function getQueryParamsProvider(): array
     {
         return [
-            'Generate exists query with specified type' => [
+            'Generate term query with specified type' => [
                 'term' => ['test_field' => 'testVal'],
                 'type' => 'test_type',
                 'result' => [
@@ -94,13 +94,13 @@ class ArSolrTermQueryTest extends TestCase
     public function getQueryParamsExceptionProvider(): array
     {
         return [
-            'Generate exists query with missing type' => [
+            'Generate term query with missing type' => [
                 'term' => ['test_field' => 'testVal'],
                 'type' => '',
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field \'type\' is not set.',
             ],
-            'Generate exists query with missing term' => [
+            'Generate term query with missing term' => [
                 'term' => [],
                 'type' => 'test_type',
                 'expectedException' => '\Exception',
@@ -131,21 +131,21 @@ class ArSolrTermQueryTest extends TestCase
     public function getQueryParamsUsingSetExceptionProvider(): array
     {
         return [
-            'Generate exists query with missing type' => [
+            'Generate term query with missing term field' => [
                 'termField' => null,
                 'termValue' => null,
                 'type' => '',
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Term field is not set.',
             ],
-            'Generate exists query with missing type' => [
+            'Generate term query with missing term value' => [
                 'termField' => 'tField',
                 'termValue' => null,
                 'type' => '',
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Term value is not set.',
             ],
-            'Generate exists query with missing type' => [
+            'Generate term query with missing missing type' => [
                 'termField' => 'tField',
                 'termValue' => 'tValue',
                 'type' => '',
