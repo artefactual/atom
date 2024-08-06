@@ -76,7 +76,7 @@ class arSolrPluginQuery
                 $agg['size'] = $item['size'];
             }
 
-            $this->query->addAggregation($agg);
+            $this->query->setAggregations($agg);
         }
     }
 

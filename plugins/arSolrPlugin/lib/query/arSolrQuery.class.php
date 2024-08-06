@@ -51,13 +51,6 @@ class arSolrQuery extends arSolrAbstractQuery
     protected $searchQuery = '*:*';
 
     /**
-     * Params.
-     *
-     * @var array
-     */
-    protected $params = [];
-
-    /**
      * Aggregations.
      *
      * @var array
@@ -71,16 +64,17 @@ class arSolrQuery extends arSolrAbstractQuery
      */
     public function __construct($searchQuery)
     {
-        if (!$this->fields) {
-            $this->fields = arSolrPluginUtil::getBoostedSearchFields(arSolrPluginUtil::getAllFields('informationObject'));
-        }
         $this->setSearchQuery($searchQuery);
-        $this->generateQueryParams();
     }
 
     public function setFields($fields)
     {
         $this->fields = $fields;
+    }
+
+    public function getDefaultOperator()
+    {
+        return $this->operator;
     }
 
     public function setDefaultOperator($operator)
@@ -98,11 +92,6 @@ class arSolrQuery extends arSolrAbstractQuery
         return $this->fields;
     }
 
-    public function getOperator()
-    {
-        return $this->operator;
-    }
-
     public function getSearchQuery()
     {
         return $this->searchQuery;
@@ -118,6 +107,11 @@ class arSolrQuery extends arSolrAbstractQuery
     public function getAggregations()
     {
         return $this->aggregations;
+    }
+
+    public function setAggregations($aggregations)
+    {
+        $this->aggregations = $aggregations;
     }
 
     public function generateQueryParams()
@@ -156,51 +150,5 @@ class arSolrQuery extends arSolrAbstractQuery
                 'limit' => $this->size,
             ];
         }
-    }
-
-    /**
-     * Sets query as raw array. Will overwrite all already set arguments.
-     */
-    public function setRawQuery(array $query = []): self
-    {
-        $this->params = $query;
-
-        return $this;
-    }
-
-    /**
-     * Sets a post_filter to the current query.
-     *
-     * @param mixed $filter
-     */
-    public function setPostFilter($filter): self
-    {
-        return $this->setParam('post_filter', $filter);
-    }
-
-    public function setQuery($query): self
-    {
-        return $this->setParam('query', $query);
-    }
-
-    /**
-     * Adds an Aggregation to the query.
-     *
-     * @param mixed $agg
-     */
-    public function addAggregation($agg): self
-    {
-        $this->params['aggs'][] = $agg;
-
-        return $this;
-    }
-
-    public function setType($type)
-    {
-        $newFieldsArr = [];
-        foreach ($this->fields as $field) {
-            array_push($newFieldsArr, "{$type}.{$field}");
-        }
-        $this->setFields($newFieldsArr);
     }
 }
