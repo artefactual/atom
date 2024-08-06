@@ -41,7 +41,7 @@ class arSolrTermQuery extends arSolrAbstractQuery
     protected ?string $termValue = null;
 
     /**
-     * Field type
+     * Field type.
      *
      * @var string
      */

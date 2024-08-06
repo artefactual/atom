@@ -7,12 +7,12 @@ require_once 'plugins/arSolrPlugin/config/arSolrPluginConfiguration.class.php';
 /**
  * @internal
  *
+ * @covers \arSolrConfigHandler
  * @covers \arSolrPluginConfiguration
  * @covers \BaseSetting
  * @covers \BaseSettingI18n
  * @covers \QubitApcUniversalClassLoader
  * @covers \QubitQuery
- * @covers \arSolrConfigHandler
  */
 class ArSolrPluginConfigurationTest extends TestCase
 {

@@ -23,6 +23,9 @@ class ArSolrQueryTest extends TestCase
 
     /**
      * @dataProvider createSolrQueryProvider
+     *
+     * @param mixed $searchQuery
+     * @param mixed $result
      */
     public function testCreateSolrQuery($searchQuery, $result)
     {
@@ -41,8 +44,8 @@ class ArSolrQueryTest extends TestCase
         $this->assertEquals('', $this->query->getFields());
 
         // Test setting the fields to null
-        $this->query->setFields(NULL);
-        $this->assertEquals(NULL, $this->query->getFields());
+        $this->query->setFields(null);
+        $this->assertEquals(null, $this->query->getFields());
 
         $fields = ['QubitInformationObject.i18n.en.title', 'QubitInformationObject.i18n.fr.title'];
         // Test setting the fields to array
@@ -72,8 +75,8 @@ class ArSolrQueryTest extends TestCase
         $this->assertEquals([], $this->query->getAggregations());
 
         // Test setting the aggregations to NULL
-        $this->query->setAggregations(NULL);
-        $this->assertEquals(NULL, $this->query->getAggregations());
+        $this->query->setAggregations(null);
+        $this->assertEquals(null, $this->query->getAggregations());
 
         $aggregations = ['field' => 'QubitInformationObject.i18n.en.title', 'size' => '10'];
         // Test setting the aggregations to array
@@ -84,6 +87,7 @@ class ArSolrQueryTest extends TestCase
     public function getQueryParamsProvider(): array
     {
         $fields = ['QubitInformationObject.i18n.en.title', 'QubitInformationObject.i18n.fr.title'];
+
         return [
             'Test Solr MatchAll query with default options' => [
                 'fields' => $fields,
@@ -108,10 +112,10 @@ class ArSolrQueryTest extends TestCase
     /**
      * @dataProvider getQueryParamsProvider
      *
-     * @param array $fields
+     * @param array  $fields
      * @param string $operator
      * @param string $searchQuery
-     * @param mixed $result
+     * @param mixed  $result
      */
     public function testGetQueryParams($fields, $operator, $searchQuery, $result)
     {
@@ -128,6 +132,7 @@ class ArSolrQueryTest extends TestCase
     {
         $fields = ['QubitInformationObject.i18n.en.title', 'QubitInformationObject.i18n.fr.title'];
         $aggregations = ['field' => 'QubitInformationObject.i18n.en.title', 'size' => '10'];
+
         return [
             'Test Solr MatchAll query with default options' => [
                 'fields' => $fields,
@@ -160,11 +165,11 @@ class ArSolrQueryTest extends TestCase
     /**
      * @dataProvider getQueryParamsAggsProvider
      *
-     * @param array $fields
+     * @param array  $fields
      * @param string $operator
      * @param string $searchQuery
-     * @param array $aggregations
-     * @param mixed $result
+     * @param array  $aggregations
+     * @param mixed  $result
      */
     public function testGetQueryParamsAggs($fields, $operator, $searchQuery, $aggregations, $result)
     {

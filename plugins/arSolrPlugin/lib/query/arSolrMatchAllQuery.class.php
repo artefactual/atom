@@ -35,15 +35,11 @@ class arSolrMatchAllQuery extends arSolrAbstractQuery
 
     /**
      * Search query.
-     *
-     * @var string
      */
     protected string $searchQuery = '*:*';
 
     /**
      * Params.
-     *
-     * @var array
      */
     protected array $params = [];
 

@@ -44,8 +44,8 @@ class ArSolrTermQueryTest extends TestCase
      * @dataProvider createSolrTermQueryProvider
      *
      * @param mixed $term
-     * @param mixed $termField
-     * @param mixed $termValue
+     * @param mixed $resultField
+     * @param mixed $resultValue
      */
     public function testCreateSolrTermQuery($term, $resultField, $resultValue)
     {
@@ -154,6 +154,7 @@ class ArSolrTermQueryTest extends TestCase
             ],
         ];
     }
+
     /**
      * @dataProvider getQueryParamsUsingSetExceptionProvider
      *
