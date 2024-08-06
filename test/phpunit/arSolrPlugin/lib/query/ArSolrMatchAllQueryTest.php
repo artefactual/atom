@@ -2,6 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once 'plugins/arSolrPlugin/lib/query/arSolrMatchAllQuery.class.php';
+
 /**
  * @internal
  *
