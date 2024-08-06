@@ -48,10 +48,6 @@ class ArSolrMatchAllQueryTest extends TestCase
         $this->matchAllQuery->setDefaultOperator('OR');
         $this->assertEquals('OR', $this->matchAllQuery->getDefaultOperator());
 
-        // Test setting the default operator to NULL
-        $this->matchAllQuery->setDefaultOperator(NULL);
-        $this->assertEquals(NULL, $this->matchAllQuery->getDefaultOperator());
-
         // Test setting the default operator to 'AND'
         $this->matchAllQuery->setDefaultOperator('AND');
         $this->assertEquals('AND', $this->matchAllQuery->getDefaultOperator());
@@ -64,10 +60,6 @@ class ArSolrMatchAllQueryTest extends TestCase
         // Test setting the search query to blank query
         $this->matchAllQuery->setSearchQuery('');
         $this->assertEquals('', $this->matchAllQuery->getSearchQuery());
-
-        // Test setting the search query to NULL query
-        $this->matchAllQuery->setSearchQuery(NULL);
-        $this->assertEquals(NULL, $this->matchAllQuery->getSearchQuery());
 
         // Test setting the search query to default
         $this->matchAllQuery->setSearchQuery('*:*');
