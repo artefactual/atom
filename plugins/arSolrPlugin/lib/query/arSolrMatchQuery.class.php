@@ -21,8 +21,6 @@ class arSolrMatchQuery extends arSolrTermQuery
 {
     /**
      * Params.
-     *
-     * @var array
      */
     protected array $params = [];
 

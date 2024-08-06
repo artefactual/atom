@@ -60,7 +60,6 @@ class ArSolrMatchQueryTest extends TestCase
         $this->assertSame($params, $result);
     }
 
-
     public function getQueryParamsUsingSetExceptionProvider(): array
     {
         return [
@@ -87,6 +86,7 @@ class ArSolrMatchQueryTest extends TestCase
             ],
         ];
     }
+
     /**
      * @dataProvider getQueryParamsUsingSetExceptionProvider
      *
