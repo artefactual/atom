@@ -24,28 +24,28 @@ class arSolrMatchAllQuery extends arSolrAbstractQuery
      *
      * @var mixed
      */
-    protected $query;
+    protected array $query = [];
 
     /**
      * Default operator.
      *
      * @var string defaults to 'AND'
      */
-    protected $operator = 'AND';
+    protected string $operator = 'AND';
 
     /**
      * Search query.
      *
      * @var string
      */
-    protected $searchQuery = '*:*';
+    protected string $searchQuery = '*:*';
 
     /**
      * Params.
      *
      * @var array
      */
-    protected $params = [];
+    protected array $params = [];
 
     /**
      * Constructor.
