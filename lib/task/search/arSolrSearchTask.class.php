@@ -105,6 +105,7 @@ EOF;
         } elseif ('match' === $type) {
             $queryField = explode(',', $queryText);
             $query = new arSolrMatchQuery([$queryField[0] => $queryField[1]]);
+            $query->setType($modelType);
         } elseif ('bool' === $type) {
             $query = new arSolrBoolQuery();
             $mustClause = $this->createQuery($queryText, $fields);

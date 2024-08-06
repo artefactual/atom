@@ -33,10 +33,25 @@ class arSolrMatchQuery extends arSolrTermQuery
 
     public function generateQueryParams()
     {
+        $matchField = $this->getTermField();
+        if (!isset($matchField)) {
+            throw new Exception('Match field is not set.');
+        }
+
+        $matchValue = $this->getTermValue();
+        if (!isset($matchValue)) {
+            throw new Exception('Match value is not set.');
+        }
+
+        $type = $this->getType();
+        if (!isset($type)) {
+            throw new Exception("Match 'type' is not set.");
+        }
+
         $this->query = [
             'query' => [
                 'edismax' => [
-                    'query' => "{$this->termField}:{$this->termValue}~",
+                    'query' => "{$type}.{$matchField}:{$matchValue}~",
                 ],
             ],
             'offset' => $this->offset,
