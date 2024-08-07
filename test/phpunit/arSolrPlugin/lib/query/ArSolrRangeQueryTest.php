@@ -95,10 +95,11 @@ class ArSolrRangeQueryTest extends TestCase
             'Test Solr Range query with default options' => [
                 'field' => 'dates.startDate',
                 'range' => ['lte' => '2023-12-31', 'gte' => '2023-01-01'],
+                'type' => 'testType',
                 'result' => [
                     'query' => [
                         'lucene' => [
-                            'query' => 'dates.startDate:[2023-12-31 TO 2023-01-01]',
+                            'query' => 'testType.dates.startDate:[2023-12-31 TO 2023-01-01]',
                         ],
                     ],
                     'offset' => 0,
@@ -111,15 +112,17 @@ class ArSolrRangeQueryTest extends TestCase
     /**
      * @dataProvider getQueryParamsProvider
      *
-     * @param array $field
-     * @param mixed $range
-     * @param mixed $result
+     * @param string $field
+     * @param array  $range
+     * @param string $type
+     * @param array  $result
      */
-    public function testGetQueryParams($field, $range, $result)
+    public function testGetQueryParams($field, $range, $type, $result)
     {
         $this->rangeQuery = new arSolrRangeQuery(['dates.startDate'], ['lte' => '2023-12-31', 'gte' => '2023-01-01']);
         $this->rangeQuery->setRange($range);
         $this->rangeQuery->setField($field);
+        $this->rangeQuery->setType($type);
 
         $params = $this->rangeQuery->getQueryParams();
 

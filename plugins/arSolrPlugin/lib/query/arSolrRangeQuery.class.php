@@ -44,7 +44,7 @@ class arSolrRangeQuery extends arSolrAbstractQuery
      * @param mixed $field
      * @param mixed $range
      */
-    public function __construct($field, $range)
+    public function __construct($field, $range = '*')
     {
         $this->setField($field);
         $this->setRange($range);
@@ -96,12 +96,36 @@ class arSolrRangeQuery extends arSolrAbstractQuery
         return $this->query;
     }
 
+    public function setType($type)
+    {
+        if (empty($type)) {
+            return;
+        }
+
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
     public function generateQueryParams()
     {
+        $field = $this->getField();
+        if (!isset($field)) {
+            throw new Exception('Field is not set.');
+        }
+
+        $type = $this->getType();
+        if (!isset($type)) {
+            throw new Exception("Field 'type' is not set.");
+        }
+
         $this->query = [
             'query' => [
                 'lucene' => [
-                    'query' => "{$this->field}:{$this->computedRange}",
+                    'query' => "{$type}.{$field}:{$this->computedRange}",
                 ],
             ],
             'offset' => $this->offset,
