@@ -67,7 +67,7 @@ all:
       # 'Content-Security-Policy-Report-Only' or 'Content-Security-Policy'
       response_header: Content-Security-Policy-Report-Only
       # Configure CSP response directives.
-      directives: |
+      directives: >
         default-src 'self'; 
         font-src 'self' https://fonts.gstatic.com; 
         img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:; 
