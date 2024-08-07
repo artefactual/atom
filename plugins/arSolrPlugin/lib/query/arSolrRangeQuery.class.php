@@ -34,6 +34,20 @@ class arSolrRangeQuery extends arSolrAbstractQuery
     protected $field;
 
     /**
+     * Type.
+     *
+     * @var string
+     */
+    protected ?string $type = null;
+
+    /**
+     * Array of Query Params.
+     *
+     * @var array
+     */
+    protected array $query = [];
+
+    /**
      * Search query.
      */
     protected string $computedRange = '*';
@@ -60,7 +74,12 @@ class arSolrRangeQuery extends arSolrAbstractQuery
         return $this->field;
     }
 
-    public function setRange($range)
+    public function getComputedRange()
+    {
+        return $this->computedRange;
+    }
+
+    public function setComputedRange($range)
     {
         $computedRange = '';
         if ($range['lte']) {
@@ -79,14 +98,18 @@ class arSolrRangeQuery extends arSolrAbstractQuery
             $computedRange .= '*]';
         }
 
-        $this->range = $range;
-
         $this->computedRange = $computedRange;
     }
 
     public function getRange()
     {
         return $this->range;
+    }
+
+    public function setRange($range)
+    {
+        $this->range = $range;
+        $this->setComputedRange($range);
     }
 
     public function getQueryParams()
