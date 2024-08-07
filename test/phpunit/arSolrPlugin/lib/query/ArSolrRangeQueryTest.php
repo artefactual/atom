@@ -30,7 +30,7 @@ class ArSolrRangeQueryTest extends TestCase
                     ['lt' => '1900'],
                 ],
             ],
-            'New arSolrRangeQuery with default field and gt/gte range' => [
+            'New arSolrRangeQuery with default field and gte range' => [
                 'field' => ['dates.startDate'],
                 'range' => ['gte' => '1900'],
                 'result' => [
@@ -44,14 +44,6 @@ class ArSolrRangeQueryTest extends TestCase
                 'result' => [
                     ['dates.startDate'],
                     ['gt' => '1900'],
-                ],
-            ],
-            'New arSolrRangeQuery with null field and lte range' => [
-                'field' => null,
-                'range' => ['lte' => '1900'],
-                'result' => [
-                    null,
-                    ['lte' => '1900'],
                 ],
             ],
             'New arSolrRangeQuery with empty field and range array' => [
@@ -76,9 +68,9 @@ class ArSolrRangeQueryTest extends TestCase
     /**
      * @dataProvider createSolrRangeQueryProvider
      *
-     * @param mixed $field
-     * @param mixed $range
-     * @param mixed $result
+     * @param string $field
+     * @param array  $range
+     * @param string $type
      */
     public function testCreateSolrRangeQuery($field, $range, $result)
     {
@@ -87,6 +79,24 @@ class ArSolrRangeQueryTest extends TestCase
         $this->assertTrue($this->rangeQuery instanceof arSolrRangeQuery, 'Assert plugin object is arSolrRangeQuery.');
         $this->assertSame($this->rangeQuery->getField(), $result[0], 'Assert arSolrRangeQuery field is correct.');
         $this->assertSame($this->rangeQuery->getRange(), $result[1], 'Assert arSolrRangeQuery range is correct.');
+    }
+
+    public function testSetComputedRange()
+    {
+        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => 'test_date', 'gte' => 'test_date']);
+        $this->rangeQuery->setRange(['lte' => 'test_date', 'gte' => 'test_date']);
+        $this->rangeQuery->setType('test_type');
+
+        $this->rangeQuery->getQueryParams();
+
+        $this->assertSame('[test_date TO test_date]', $this->rangeQuery->getComputedRange());
+    }
+
+    public function testSetTypeException()
+    {
+        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => 'test_date', 'gte' => 'test_date']);
+
+        $this->assertNull($this->rangeQuery->setType(''));
     }
 
     public function getQueryParamsProvider(): array
@@ -119,7 +129,7 @@ class ArSolrRangeQueryTest extends TestCase
      */
     public function testGetQueryParams($field, $range, $type, $result)
     {
-        $this->rangeQuery = new arSolrRangeQuery(['dates.startDate'], ['lte' => '2023-12-31', 'gte' => '2023-01-01']);
+        $this->rangeQuery = new arSolrRangeQuery($field, $range);
         $this->rangeQuery->setRange($range);
         $this->rangeQuery->setField($field);
         $this->rangeQuery->setType($type);
@@ -127,5 +137,44 @@ class ArSolrRangeQueryTest extends TestCase
         $params = $this->rangeQuery->getQueryParams();
 
         $this->assertSame($params, $result);
+    }
+
+    public function getQueryParamsExceptionProvider(): array
+    {
+        return [
+            'Test range query with NULL field' => [
+                'type' => 'test_type',
+                'field' => NULL,
+                'range' => ['lte' => 'test_date', 'gte' => 'test_date'],
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Field is not set.',
+            ],
+            'Test range query with empty type field' => [
+                'type' => '',
+                'field' => 'test_field',
+                'range' => ['lte' => 'test_date', 'gte' => 'test_date'],
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Field \'type\' is not set.',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getQueryParamsExceptionProvider
+     *
+     * @param string $type
+     * @param array $field
+     * @param mixed $range
+     * @param mixed $expectedException
+     * @param mixed $expectedExceptionMessage
+     */
+    public function testGetQueryParamsException($type, $field, $range, $expectedException, $expectedExceptionMessage)
+    {
+        $this->rangeQuery = new arSolrRangeQuery($field, $range);
+        $this->rangeQuery->setType($type);
+
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+        $this->rangeQuery->getQueryParams();
     }
 }
