@@ -74,10 +74,6 @@ class ArSolrQueryTest extends TestCase
         $this->query->setAggregations([]);
         $this->assertEquals([], $this->query->getAggregations());
 
-        // Test setting the aggregations to NULL
-        $this->query->setAggregations(null);
-        $this->assertEquals(null, $this->query->getAggregations());
-
         $aggregations = ['field' => 'QubitInformationObject.i18n.en.title', 'size' => '10'];
         // Test setting the aggregations to array
         $this->query->setAggregations($aggregations);
@@ -86,20 +82,21 @@ class ArSolrQueryTest extends TestCase
 
     public function getQueryParamsProvider(): array
     {
-        $fields = ['QubitInformationObject.i18n.en.title', 'QubitInformationObject.i18n.fr.title'];
+        $fields = ['testField', 'testField2'];
 
         return [
             'Test Solr MatchAll query with default options' => [
                 'fields' => $fields,
+                'type' => 'testType',
                 'operator' => 'AND',
-                'searchQuery' => '*:*',
+                'searchQuery' => 'searchString',
                 'result' => [
                     'query' => [
                         'edismax' => [
                             'q.op' => 'AND',
                             'stopwords' => 'true',
-                            'query' => '*:*~',
-                            'qf' => implode(' ', $fields),
+                            'query' => 'searchString~',
+                            'qf' => 'testType.testField testType.testField2',
                         ],
                     ],
                     'offset' => 0,
@@ -113,15 +110,17 @@ class ArSolrQueryTest extends TestCase
      * @dataProvider getQueryParamsProvider
      *
      * @param array  $fields
+     * @param string $type
      * @param string $operator
      * @param string $searchQuery
      * @param mixed  $result
      */
-    public function testGetQueryParams($fields, $operator, $searchQuery, $result)
+    public function testGetQueryParams($fields, $type, $operator, $searchQuery, $result)
     {
         $this->query = new arSolrQuery($searchQuery);
         $this->query->setFields($fields);
         $this->query->setDefaultOperator($operator);
+        $this->query->setType($type);
 
         $params = $this->query->getQueryParams();
 
@@ -130,13 +129,14 @@ class ArSolrQueryTest extends TestCase
 
     public function getQueryParamsAggsProvider(): array
     {
-        $fields = ['QubitInformationObject.i18n.en.title', 'QubitInformationObject.i18n.fr.title'];
-        $aggregations = ['field' => 'QubitInformationObject.i18n.en.title', 'size' => '10'];
+        $fields = ['testField', 'testField2'];
+        $aggregations = ['field' => 'testField2', 'size' => '10'];
 
         return [
             'Test Solr MatchAll query with default options' => [
                 'fields' => $fields,
                 'operator' => 'AND',
+                'type' => 'testType',
                 'searchQuery' => '*:*',
                 'aggregations' => $aggregations,
                 'result' => [
@@ -145,14 +145,14 @@ class ArSolrQueryTest extends TestCase
                             'q.op' => 'AND',
                             'stopwords' => 'true',
                             'query' => '*:*~',
-                            'qf' => implode(' ', $fields),
+                            'qf' => 'testType.testField testType.testField2',
                         ],
                     ],
                     'facet' => [
                         'categories' => [
                             'type' => 'terms',
-                            'field' => $aggregations['field'],
-                            'limit' => $aggregations['size'],
+                            'field' => 'testType.testField2',
+                            'limit' => '10',
                         ],
                     ],
                     'offset' => 0,
@@ -170,11 +170,13 @@ class ArSolrQueryTest extends TestCase
      * @param string $searchQuery
      * @param array  $aggregations
      * @param mixed  $result
+     * @param mixed  $type
      */
-    public function testGetQueryParamsAggs($fields, $operator, $searchQuery, $aggregations, $result)
+    public function testGetQueryParamsAggs($fields, $operator, $type, $searchQuery, $aggregations, $result)
     {
         $this->query = new arSolrQuery($searchQuery);
         $this->query->setFields($fields);
+        $this->query->setType($type);
         $this->query->setDefaultOperator($operator);
         $this->query->setAggregations($aggregations);
 

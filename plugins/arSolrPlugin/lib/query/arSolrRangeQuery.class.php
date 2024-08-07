@@ -35,8 +35,6 @@ class arSolrRangeQuery extends arSolrAbstractQuery
 
     /**
      * Search query.
-     *
-     * @var string
      */
     protected string $computedRange = '*';
 

@@ -87,6 +87,9 @@ EOF;
                 $newFields[$fieldName] = (int) $fieldBoost;
             }
             $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
+        } else {
+            $fields = arSolrPluginUtil::getAllFields('informationObject');
+            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($fields));
         }
 
         return $query;

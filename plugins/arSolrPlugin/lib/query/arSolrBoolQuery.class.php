@@ -42,7 +42,7 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             $mustClause = [
                 'edismax' => [
                     'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getOperator(),
+                    'q.op' => $query->getDefaultOperator(),
                     'stopwords' => 'true',
                     'qf' => implode(' ', $query->getFields()),
                 ],
@@ -54,7 +54,7 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             $mustNotClause = [
                 'edismax' => [
                     'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getOperator(),
+                    'q.op' => $query->getDefaultOperator(),
                     'stopwords' => 'true',
                     'qf' => implode(' ', $query->getFields()),
                 ],
@@ -66,7 +66,7 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             $shouldClause = [
                 'edismax' => [
                     'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getOperator(),
+                    'q.op' => $query->getDefaultOperator(),
                     'stopwords' => 'true',
                     'qf' => implode(' ', $query->getFields()),
                 ],
