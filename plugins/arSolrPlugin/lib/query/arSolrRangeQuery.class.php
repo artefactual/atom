@@ -38,7 +38,7 @@ class arSolrRangeQuery extends arSolrAbstractQuery
      *
      * @var string
      */
-    protected $computedRange = '*';
+    protected string $computedRange = '*';
 
     /**
      * Constructor.
@@ -50,7 +50,6 @@ class arSolrRangeQuery extends arSolrAbstractQuery
     {
         $this->setField($field);
         $this->setRange($range);
-        $this->generateQueryParams();
     }
 
     public function setField($field)
@@ -110,10 +109,5 @@ class arSolrRangeQuery extends arSolrAbstractQuery
             'offset' => $this->offset,
             'limit' => $this->size,
         ];
-    }
-
-    public function setType($type)
-    {
-        $this->setField("{$type}.{$this->field}");
     }
 }
