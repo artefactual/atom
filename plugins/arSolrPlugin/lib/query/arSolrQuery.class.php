@@ -41,21 +41,26 @@ class arSolrQuery extends arSolrAbstractQuery
      *
      * @var string defaults to 'AND'
      */
-    protected $operator = 'AND';
+    protected ?string $operator = 'AND';
 
     /**
      * Search query.
      *
      * @var string
      */
-    protected $searchQuery = '*:*';
+    protected ?string $searchQuery;
 
     /**
      * Aggregations.
-     *
-     * @var array
      */
-    protected $aggregations = [];
+    protected array $aggregations = [];
+
+    /**
+     * Field type.
+     *
+     * @var string
+     */
+    protected ?string $type = null;
 
     /**
      * Constructor.
@@ -79,6 +84,10 @@ class arSolrQuery extends arSolrAbstractQuery
 
     public function setDefaultOperator($operator)
     {
+        if ('AND' !== $operator && 'OR' !== $operator) {
+            throw new Exception('Invalid operator. AND and OR are the only acceptable operator types');
+        }
+
         $this->operator = $operator;
     }
 
@@ -116,20 +125,36 @@ class arSolrQuery extends arSolrAbstractQuery
 
     public function generateQueryParams()
     {
+        $fields = $this->getFields();
+        if (!isset($fields)) {
+            throw new Exception('Fields not set.');
+        }
+
+        $type = $this->getType();
+        if (!isset($type)) {
+            throw new Exception("Field 'type' is not set.");
+        }
+
+        $typedFields = [];
+        foreach ($fields as $field) {
+            array_push($typedFields, "{$type}.{$field}");
+        }
+
         if ($this->aggregations) {
+            $aggregationField = "{$type}.{$this->aggregations['field']}";
             $this->query = [
                 'query' => [
                     'edismax' => [
                         'q.op' => $this->operator,
                         'stopwords' => 'true',
                         'query' => "{$this->searchQuery}~",
-                        'qf' => implode(' ', $this->fields),
+                        'qf' => implode(' ', $typedFields),
                     ],
                 ],
                 'facet' => [
                     'categories' => [
                         'type' => 'terms',
-                        'field' => $this->aggregations['field'],
+                        'field' => $aggregationField,
                         'limit' => $this->aggregations['size'],
                     ],
                 ],
@@ -143,12 +168,26 @@ class arSolrQuery extends arSolrAbstractQuery
                         'q.op' => $this->operator,
                         'stopwords' => 'true',
                         'query' => "{$this->searchQuery}~",
-                        'qf' => implode(' ', $this->fields),
+                        'qf' => implode(' ', $typedFields),
                     ],
                 ],
                 'offset' => $this->offset,
                 'limit' => $this->size,
             ];
         }
+    }
+
+    public function setType($type)
+    {
+        if (empty($type)) {
+            return;
+        }
+
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 }

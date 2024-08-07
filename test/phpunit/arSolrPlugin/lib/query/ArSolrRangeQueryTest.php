@@ -47,10 +47,10 @@ class ArSolrRangeQueryTest extends TestCase
                 ],
             ],
             'New arSolrRangeQuery with null field and lte range' => [
-                'field' => NULL,
+                'field' => null,
                 'range' => ['lte' => '1900'],
                 'result' => [
-                    NULL,
+                    null,
                     ['lte' => '1900'],
                 ],
             ],
@@ -63,11 +63,11 @@ class ArSolrRangeQueryTest extends TestCase
                 ],
             ],
             'New arSolrRangeQuery with NULL field and range' => [
-                'field' => NULL,
-                'range' => [NULL => NULL],
+                'field' => null,
+                'range' => [null => null],
                 'result' => [
-                    NULL,
-                    [NULL => NULL],
+                    null,
+                    [null => null],
                 ],
             ],
         ];
@@ -75,6 +75,10 @@ class ArSolrRangeQueryTest extends TestCase
 
     /**
      * @dataProvider createSolrRangeQueryProvider
+     *
+     * @param mixed $field
+     * @param mixed $range
+     * @param mixed $result
      */
     public function testCreateSolrRangeQuery($field, $range, $result)
     {
