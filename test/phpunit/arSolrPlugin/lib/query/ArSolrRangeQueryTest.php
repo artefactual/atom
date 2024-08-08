@@ -71,6 +71,7 @@ class ArSolrRangeQueryTest extends TestCase
      * @param string $field
      * @param array  $range
      * @param string $type
+     * @param mixed  $result
      */
     public function testCreateSolrRangeQuery($field, $range, $result)
     {
@@ -144,7 +145,7 @@ class ArSolrRangeQueryTest extends TestCase
         return [
             'Test range query with NULL field' => [
                 'type' => 'test_type',
-                'field' => NULL,
+                'field' => null,
                 'range' => ['lte' => 'test_date', 'gte' => 'test_date'],
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field is not set.',
@@ -163,10 +164,10 @@ class ArSolrRangeQueryTest extends TestCase
      * @dataProvider getQueryParamsExceptionProvider
      *
      * @param string $type
-     * @param array $field
-     * @param mixed $range
-     * @param mixed $expectedException
-     * @param mixed $expectedExceptionMessage
+     * @param array  $field
+     * @param mixed  $range
+     * @param mixed  $expectedException
+     * @param mixed  $expectedExceptionMessage
      */
     public function testGetQueryParamsException($type, $field, $range, $expectedException, $expectedExceptionMessage)
     {
