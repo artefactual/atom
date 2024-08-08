@@ -42,8 +42,6 @@ class arSolrRangeQuery extends arSolrAbstractQuery
 
     /**
      * Array of Query Params.
-     *
-     * @var array
      */
     protected array $query = [];
 
