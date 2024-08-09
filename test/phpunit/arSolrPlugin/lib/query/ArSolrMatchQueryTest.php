@@ -12,6 +12,7 @@ require_once 'plugins/arSolrPlugin/lib/query/arSolrMatchQuery.class.php';
  * @internal
  *
  * @covers \arSolrMatchQuery
+ * @covers \arSolrTermQuery
  */
 class ArSolrMatchQueryTest extends TestCase
 {
@@ -28,7 +29,7 @@ class ArSolrMatchQueryTest extends TestCase
                 'field' => 'test_field',
                 'value' => 'testVal',
                 'type' => 'test_type',
-                'result' => [
+                'expected' => [
                     'query' => [
                         'edismax' => [
                             'query' => 'test_type.test_field:testVal~',
@@ -47,17 +48,17 @@ class ArSolrMatchQueryTest extends TestCase
      * @param mixed $field
      * @param mixed $value
      * @param mixed $type
-     * @param mixed $result
+     * @param mixed $expected
      */
-    public function testGetQueryParams($field, $value, $type, $result)
+    public function testGetQueryParams($field, $value, $type, $expected)
     {
         $this->matchQuery = new arSolrMatchQuery();
         $this->matchQuery->setFieldQuery($field, $value);
         $this->matchQuery->setType($type);
 
-        $params = $this->matchQuery->getQueryParams();
+        $actual = $this->matchQuery->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
     }
 
     public function getQueryParamsUsingSetExceptionProvider(): array
@@ -105,6 +106,6 @@ class ArSolrMatchQueryTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $params = $this->matchQuery->getQueryParams();
+        $this->matchQuery->getQueryParams();
     }
 }

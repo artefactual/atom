@@ -16,7 +16,7 @@ class ArSolrQueryTest extends TestCase
         return [
             'New arSolrQuery with default options' => [
                 'searchQuery' => '*:*',
-                'result' => '*:*',
+                'expected' => '*:*',
             ],
         ];
     }
@@ -25,14 +25,15 @@ class ArSolrQueryTest extends TestCase
      * @dataProvider createSolrQueryProvider
      *
      * @param mixed $searchQuery
-     * @param mixed $result
+     * @param mixed $expected
      */
-    public function testCreateSolrQuery($searchQuery, $result)
+    public function testCreateSolrQuery($searchQuery, $expected)
     {
         $this->query = new arSolrQuery($searchQuery);
+        $actual = $this->query->getSearchQuery();
 
         $this->assertTrue($this->query instanceof arSolrQuery, 'Assert plugin object is arSolrQuery.');
-        $this->assertSame($this->query->getSearchQuery(), $result, 'Assert arSolrQuery search query is correct.');
+        $this->assertSame($expected, $actual, 'Assert arSolrQuery search query is correct.');
     }
 
     public function testSetFields()
@@ -53,17 +54,43 @@ class ArSolrQueryTest extends TestCase
         $this->assertEquals($fields, $this->query->getFields());
     }
 
-    public function testSetDefaultOperator()
+    public function setDefaultOperatorProvider()
+    {
+        return [
+            'Test set default operator with \'OR\'' => [
+                'operator' => 'OR',
+                'expected' => 'OR',
+            ],
+            'Test set default operator with \'AND\'' => [
+                'operator' => 'AND',
+                'expected' => 'AND',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider setDefaultOperatorProvider
+     *
+     * @param string $operator
+     * @param string $expected
+     */
+    public function testSetDefaultOperator($operator, $expected)
+    {
+        $this->query = new arSolrQuery('*:*');
+        $this->query->setDefaultOperator($operator);
+        $actual = $this->query->getDefaultOperator();
+
+        $this->assertSame($expected, $actual, 'Params passed does not match expected.');
+    }
+
+    public function testSetDefaultOperatorException()
     {
         $this->query = new arSolrQuery('*:*');
 
-        // Test setting the default operator to 'OR'
-        $this->query->setDefaultOperator('OR');
-        $this->assertEquals('OR', $this->query->getDefaultOperator());
+        $this->expectException('\Exception');
+        $this->expectExceptionMessage('Invalid operator. AND and OR are the only acceptable operator types.');
 
-        // Test setting the default operator to 'AND'
-        $this->query->setDefaultOperator('AND');
-        $this->assertEquals('AND', $this->query->getDefaultOperator());
+        $this->query->setDefaultOperator('testOperator');
     }
 
     public function testSetAggregations()
@@ -90,7 +117,7 @@ class ArSolrQueryTest extends TestCase
                 'type' => 'testType',
                 'operator' => 'AND',
                 'searchQuery' => 'searchString',
-                'result' => [
+                'expected' => [
                     'query' => [
                         'edismax' => [
                             'q.op' => 'AND',
@@ -113,18 +140,18 @@ class ArSolrQueryTest extends TestCase
      * @param string $type
      * @param string $operator
      * @param string $searchQuery
-     * @param mixed  $result
+     * @param mixed  $expected
      */
-    public function testGetQueryParams($fields, $type, $operator, $searchQuery, $result)
+    public function testGetQueryParams($fields, $type, $operator, $searchQuery, $expected)
     {
         $this->query = new arSolrQuery($searchQuery);
         $this->query->setFields($fields);
         $this->query->setDefaultOperator($operator);
         $this->query->setType($type);
 
-        $params = $this->query->getQueryParams();
+        $actual = $this->query->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed does not match expected.');
     }
 
     public function getQueryParamsAggsProvider(): array
@@ -139,7 +166,7 @@ class ArSolrQueryTest extends TestCase
                 'type' => 'testType',
                 'searchQuery' => '*:*',
                 'aggregations' => $aggregations,
-                'result' => [
+                'expected' => [
                     'query' => [
                         'edismax' => [
                             'q.op' => 'AND',
@@ -169,10 +196,10 @@ class ArSolrQueryTest extends TestCase
      * @param string $operator
      * @param string $searchQuery
      * @param array  $aggregations
-     * @param mixed  $result
+     * @param mixed  $expected
      * @param mixed  $type
      */
-    public function testGetQueryParamsAggs($fields, $operator, $type, $searchQuery, $aggregations, $result)
+    public function testGetQueryParamsAggs($fields, $operator, $type, $searchQuery, $aggregations, $expected)
     {
         $this->query = new arSolrQuery($searchQuery);
         $this->query->setFields($fields);
@@ -180,8 +207,46 @@ class ArSolrQueryTest extends TestCase
         $this->query->setDefaultOperator($operator);
         $this->query->setAggregations($aggregations);
 
-        $params = $this->query->getQueryParams();
+        $actual = $this->query->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
+    }
+
+    public function getQueryParamsAggsExceptionProvider(): array
+    {
+        return [
+            'Test Solr MatchAll query with null fields' => [
+                'fields' => null,
+                'type' => 'testType',
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Fields not set.',
+            ],
+            'Test Solr MatchAll query with null type' => [
+                'fields' => 'testField',
+                'type' => null,
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Field \'type\' is not set.',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getQueryParamsAggsExceptionProvider
+     *
+     * @param array $fields
+     * @param mixed $type
+     * @param mixed $expectedException
+     * @param mixed $expectedExceptionMessage
+     */
+    public function testGetQueryParamsAggsException($fields, $type, $expectedException, $expectedExceptionMessage)
+    {
+        $this->query = new arSolrQuery('*:*');
+        $this->query->setFields($fields);
+        $this->query->setType($type);
+
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->query->getQueryParams();
     }
 }

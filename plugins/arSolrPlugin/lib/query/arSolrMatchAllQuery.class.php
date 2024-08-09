@@ -60,6 +60,10 @@ class arSolrMatchAllQuery extends arSolrAbstractQuery
 
     public function setDefaultOperator($operator)
     {
+        if ('AND' !== $operator && 'OR' !== $operator) {
+            throw new Exception('Invalid operator. AND and OR are the only acceptable operator types.');
+        }
+
         $this->operator = $operator;
     }
 

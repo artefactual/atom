@@ -104,8 +104,27 @@ class arSolrRangeQuery extends arSolrAbstractQuery
         return $this->range;
     }
 
+    public function validateRange($range)
+    {
+        $keys = array_keys($range);
+        $d = DateTime::createFromFormat('Y-m-d', $range[$keys[0]]);
+        $y = DateTime::createFromFormat('Y', $range[$keys[0]]);
+        if (false !== $d && $d->format('Y-m-d') === $range[$keys[0]]) {
+            return true;
+        }
+        if (false !== $y && $y->format('Y') === $range[$keys[0]]) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function setRange($range)
     {
+        if (!is_array($range) || !$this->validateRange($range)) {
+            throw new Exception('Invalid range date format. Range date must be formatted as YYYY-MM-DD or YYYY.');
+        }
+
         $this->range = $range;
         $this->setComputedRange($range);
     }
