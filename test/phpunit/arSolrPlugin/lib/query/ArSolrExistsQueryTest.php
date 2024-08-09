@@ -25,8 +25,8 @@ class ArSolrExistsQueryTest extends TestCase
                 'result' => null,
             ],
             'New arSolrExistsQuery with string field' => [
-                'field' => 'testString',
-                'result' => 'testString',
+                'field' => 'testField',
+                'result' => 'testField',
             ],
         ];
     }
@@ -35,25 +35,25 @@ class ArSolrExistsQueryTest extends TestCase
      * @dataProvider createSolrExistsQueryProvider
      *
      * @param mixed $field
-     * @param mixed $result
+     * @param mixed $expected
      */
-    public function testCreateSolrExistsQuery($field, $result)
+    public function testCreateSolrExistsQuery($field, $expected)
     {
         $this->existsQuery = new arSolrExistsQuery($field);
         $this->assertTrue($this->existsQuery instanceof arSolrExistsQuery, 'Assert plugin object is arSolrExistsQuery.');
-        $this->assertSame($this->existsQuery->getField(), $result, 'Assert arSolrExistsQuery field is correct.');
+        $this->assertSame($expected, $this->existsQuery->getField(), 'Assert arSolrExistsQuery field is correct.');
     }
 
     public function getQueryParamsProvider(): array
     {
         return [
             'Generate exists query with specified type' => [
-                'field' => 'test_field',
-                'type' => 'test_type',
+                'field' => 'testField',
+                'type' => 'testType',
                 'result' => [
                     'query' => [
                         'lucene' => [
-                            'query' => 'test_type.test_field:*',
+                            'query' => 'testType.testField:*',
                         ],
                     ],
                     'offset' => 0,
@@ -66,32 +66,32 @@ class ArSolrExistsQueryTest extends TestCase
     /**
      * @dataProvider getQueryParamsProvider
      *
-     * @param mixed $result
+     * @param mixed $expected
      * @param mixed $field
      * @param mixed $type
      */
-    public function testGetQueryParams($field, $type, $result)
+    public function testGetQueryParams($field, $type, $expected)
     {
         $this->existsQuery = new arSolrExistsQuery($field);
         $this->existsQuery->setType($type);
 
-        $params = $this->existsQuery->getQueryParams();
+        $actual = $this->existsQuery->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed does not match expected.');
     }
 
     public function getQueryParamsExceptionProvider(): array
     {
         return [
             'Generate exists query with missing type' => [
-                'field' => 'test_field',
+                'field' => 'testField',
                 'type' => '',
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field \'type\' is not set.',
             ],
-            'Generate exists query with missing field and type' => [
+            'Generate exists query with missing field' => [
                 'field' => '',
-                'type' => 'test_type',
+                'type' => 'testType',
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field is not set.',
             ],
@@ -120,6 +120,6 @@ class ArSolrExistsQueryTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $params = $this->existsQuery->getQueryParams();
+        $this->existsQuery->getQueryParams();
     }
 }

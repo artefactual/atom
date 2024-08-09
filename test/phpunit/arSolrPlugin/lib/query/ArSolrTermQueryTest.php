@@ -18,18 +18,18 @@ class ArSolrTermQueryTest extends TestCase
         return [
             'New arSolrTermQuery with no term' => [
                 'term' => null,
-                'resultField' => null,
-                'resultValue' => null,
+                'expectedField' => null,
+                'expectedValue' => null,
             ],
             'New arSolrTermQuery with empty term' => [
                 'term' => ['' => ''],
-                'resultField' => '',
-                'resultValue' => '',
+                'expectedField' => '',
+                'expectedValue' => '',
             ],
             'New arSolrTermQuery with string array term' => [
                 'term' => ['tField' => 'tValue'],
-                'resultField' => 'tField',
-                'resultValue' => 'tValue',
+                'expectedField' => 'tField',
+                'expectedValue' => 'tValue',
             ],
         ];
     }
@@ -44,15 +44,18 @@ class ArSolrTermQueryTest extends TestCase
      * @dataProvider createSolrTermQueryProvider
      *
      * @param mixed $term
-     * @param mixed $resultField
-     * @param mixed $resultValue
+     * @param mixed $expectedField
+     * @param mixed $expectedValue
      */
-    public function testCreateSolrTermQuery($term, $resultField, $resultValue)
+    public function testCreateSolrTermQuery($term, $expectedField, $expectedValue)
     {
         $this->termQuery = new arSolrTermQuery($term);
+        $actualField = $this->termQuery->getTermField();
+        $actualValue = $this->termQuery->getTermValue();
+
         $this->assertTrue($this->termQuery instanceof arSolrTermQuery, 'Assert plugin object is arSolrTermQuery.');
-        $this->assertSame($this->termQuery->getTermField(), $resultField, 'Assert arSolrTermQuery field is correct.');
-        $this->assertSame($this->termQuery->getTermValue(), $resultValue, 'Assert arSolrTermQuery value is correct.');
+        $this->assertSame($expectedField, $actualField, 'Passed field does not match expected field.');
+        $this->assertSame($expectedValue, $actualValue, 'Passed value does not match expected value.');
     }
 
     public function getQueryParamsProvider(): array
@@ -61,7 +64,7 @@ class ArSolrTermQueryTest extends TestCase
             'Generate term query with specified type' => [
                 'term' => ['test_field' => 'testVal'],
                 'type' => 'test_type',
-                'result' => [
+                'expected' => [
                     'query' => [
                         'edismax' => [
                             'query' => 'test_type.test_field:testVal',
@@ -79,16 +82,16 @@ class ArSolrTermQueryTest extends TestCase
      *
      * @param mixed $term
      * @param mixed $type
-     * @param mixed $result
+     * @param mixed $expected
      */
-    public function testGetQueryParams($term, $type, $result)
+    public function testGetQueryParams($term, $type, $expected)
     {
         $this->termQuery = new arSolrTermQuery($term);
         $this->termQuery->setType($type);
 
-        $params = $this->termQuery->getQueryParams();
+        $actual = $this->termQuery->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
     }
 
     public function getQueryParamsExceptionProvider(): array
@@ -125,7 +128,7 @@ class ArSolrTermQueryTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $params = $this->termQuery->getQueryParams();
+        $this->termQuery->getQueryParams();
     }
 
     public function getQueryParamsUsingSetExceptionProvider(): array
@@ -173,6 +176,6 @@ class ArSolrTermQueryTest extends TestCase
         $this->expectException($expectedException);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $params = $this->termQuery->getQueryParams();
+        $this->termQuery->getQueryParams();
     }
 }

@@ -16,50 +16,34 @@ class ArSolrRangeQueryTest extends TestCase
         return [
             'New arSolrRangeQuery with default field and lte range' => [
                 'field' => ['dates.startDate'],
-                'range' => ['lte' => '1900'],
-                'result' => [
+                'range' => ['lte' => '1900-01-01'],
+                'expected' => [
                     ['dates.startDate'],
-                    ['lte' => '1900'],
+                    ['lte' => '1900-01-01'],
                 ],
             ],
             'New arSolrRangeQuery with default field and lt range' => [
                 'field' => ['dates.startDate'],
                 'range' => ['lt' => '1900'],
-                'result' => [
+                'expected' => [
                     ['dates.startDate'],
                     ['lt' => '1900'],
                 ],
             ],
-            'New arSolrRangeQuery with default field and gte range' => [
-                'field' => ['dates.startDate'],
-                'range' => ['gte' => '1900'],
-                'result' => [
-                    ['dates.startDate'],
-                    ['gte' => '1900'],
-                ],
-            ],
-            'New arSolrRangeQuery with default field and gt range' => [
-                'field' => ['dates.startDate'],
-                'range' => ['gt' => '1900'],
-                'result' => [
-                    ['dates.startDate'],
-                    ['gt' => '1900'],
-                ],
-            ],
-            'New arSolrRangeQuery with empty field and range array' => [
+            'New arSolrRangeQuery with empty field and default gt range' => [
                 'field' => [],
-                'range' => [],
-                'result' => [
+                'range' => ['gt' => '1900-01-01'],
+                'expected' => [
                     [],
-                    [],
+                    ['gt' => '1900-01-01'],
                 ],
             ],
-            'New arSolrRangeQuery with NULL field and range' => [
+            'New arSolrRangeQuery with NULL field and default range' => [
                 'field' => null,
-                'range' => [null => null],
-                'result' => [
+                'range' => ['gte' => '1900'],
+                'expected' => [
                     null,
-                    [null => null],
+                    ['gte' => '1900'],
                 ],
             ],
         ];
@@ -70,32 +54,67 @@ class ArSolrRangeQueryTest extends TestCase
      *
      * @param string $field
      * @param array  $range
-     * @param string $type
-     * @param mixed  $result
+     * @param array  $expected
      */
-    public function testCreateSolrRangeQuery($field, $range, $result)
+    public function testCreateSolrRangeQuery($field, $range, $expected)
     {
         $this->rangeQuery = new arSolrRangeQuery($field, $range);
 
         $this->assertTrue($this->rangeQuery instanceof arSolrRangeQuery, 'Assert plugin object is arSolrRangeQuery.');
-        $this->assertSame($this->rangeQuery->getField(), $result[0], 'Assert arSolrRangeQuery field is correct.');
-        $this->assertSame($this->rangeQuery->getRange(), $result[1], 'Assert arSolrRangeQuery range is correct.');
+        $this->assertSame($this->rangeQuery->getField(), $expected[0], 'Assert arSolrRangeQuery field is correct.');
+        $this->assertSame($this->rangeQuery->getRange(), $expected[1], 'Assert arSolrRangeQuery range is correct.');
+    }
+
+    public function createSolrRangeQueryExceptionProvider()
+    {
+        return [
+            'New arSolrRangeQuery with empty range' => [
+                'range' => [],
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Invalid range date format. Range date must be formatted as YYYY-MM-DD or YYYY.',
+            ],
+            'New arSolrRangeQuery with string range' => [
+                'range' => 'test_range',
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Invalid range date format. Range date must be formatted as YYYY-MM-DD or YYYY.',
+            ],
+            'New arSolrRangeQuery with NULL range' => [
+                'range' => null,
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Invalid range date format. Range date must be formatted as YYYY-MM-DD or YYYY.',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider createSolrRangeQueryExceptionProvider
+     *
+     * @param array $range
+     * @param mixed $expectedException
+     * @param mixed $expectedExceptionMessage
+     */
+    public function testCreateSolrRangeQueryException($range, $expectedException, $expectedExceptionMessage)
+    {
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        $this->rangeQuery = new arSolrRangeQuery('testField', $range);
     }
 
     public function testSetComputedRange()
     {
-        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => 'test_date', 'gte' => 'test_date']);
-        $this->rangeQuery->setRange(['lte' => 'test_date', 'gte' => 'test_date']);
+        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => '2000', 'gte' => '2000']);
+        $this->rangeQuery->setRange(['lte' => '2000', 'gte' => '2000']);
         $this->rangeQuery->setType('test_type');
 
         $this->rangeQuery->getQueryParams();
 
-        $this->assertSame('[test_date TO test_date]', $this->rangeQuery->getComputedRange());
+        $this->assertSame('[2000 TO 2000]', $this->rangeQuery->getComputedRange(), 'Params passed does not match expected.');
     }
 
     public function testSetTypeException()
     {
-        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => 'test_date', 'gte' => 'test_date']);
+        $this->rangeQuery = new arSolrRangeQuery('test_field', ['lte' => '2000', 'gte' => '2000']);
 
         $this->assertNull($this->rangeQuery->setType(''));
     }
@@ -103,14 +122,14 @@ class ArSolrRangeQueryTest extends TestCase
     public function getQueryParamsProvider(): array
     {
         return [
-            'Test Solr Range query with default options' => [
-                'field' => 'dates.startDate',
-                'range' => ['lte' => '2023-12-31', 'gte' => '2023-01-01'],
+            'Test range query with default options' => [
+                'field' => 'testField',
+                'range' => ['lte' => '1990', 'gte' => '2000'],
                 'type' => 'testType',
-                'result' => [
+                'expected' => [
                     'query' => [
                         'lucene' => [
-                            'query' => 'testType.dates.startDate:[2023-12-31 TO 2023-01-01]',
+                            'query' => 'testType.testField:[1990 TO 2000]',
                         ],
                     ],
                     'offset' => 0,
@@ -126,18 +145,18 @@ class ArSolrRangeQueryTest extends TestCase
      * @param string $field
      * @param array  $range
      * @param string $type
-     * @param array  $result
+     * @param array  $expected
      */
-    public function testGetQueryParams($field, $range, $type, $result)
+    public function testGetQueryParams($field, $range, $type, $expected)
     {
         $this->rangeQuery = new arSolrRangeQuery($field, $range);
         $this->rangeQuery->setRange($range);
         $this->rangeQuery->setField($field);
         $this->rangeQuery->setType($type);
 
-        $params = $this->rangeQuery->getQueryParams();
+        $actual = $this->rangeQuery->getQueryParams();
 
-        $this->assertSame($params, $result);
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
     }
 
     public function getQueryParamsExceptionProvider(): array
@@ -146,14 +165,14 @@ class ArSolrRangeQueryTest extends TestCase
             'Test range query with NULL field' => [
                 'type' => 'test_type',
                 'field' => null,
-                'range' => ['lte' => 'test_date', 'gte' => 'test_date'],
+                'range' => ['lte' => '2000', 'gte' => '2000'],
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field is not set.',
             ],
             'Test range query with empty type field' => [
                 'type' => '',
                 'field' => 'test_field',
-                'range' => ['lte' => 'test_date', 'gte' => 'test_date'],
+                'range' => ['lte' => '2000', 'gte' => '2000'],
                 'expectedException' => '\Exception',
                 'expectedExceptionMessage' => 'Field \'type\' is not set.',
             ],

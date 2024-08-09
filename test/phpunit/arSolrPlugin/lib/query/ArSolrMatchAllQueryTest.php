@@ -15,9 +15,7 @@ class ArSolrMatchAllQueryTest extends TestCase
     {
         return [
             'New arSolrMatchAllQuery with default options' => [
-                'operator' => 'AND',
-                'searchQuery' => '*:*',
-                'result' => [
+                'expected' => [
                     'query' => [
                         'lucene' => [
                             'q.op' => 'AND',
@@ -34,25 +32,56 @@ class ArSolrMatchAllQueryTest extends TestCase
 
     /**
      * @dataProvider createSolrMatchAllQueryProvider
+     *
+     * @param array $expected
      */
-    public function testCreateSolrMatchAllQuery()
+    public function testCreateSolrMatchAllQuery($expected)
     {
         $this->matchAllQuery = new arSolrMatchAllQuery();
+        $actual = $this->matchAllQuery->getQueryParams();
 
         $this->assertTrue($this->matchAllQuery instanceof arSolrMatchAllQuery, 'Assert plugin object is arSolrMatchAllQuery.');
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
     }
 
-    public function testSetDefaultOperator()
+    public function testSetDefaultOperatorException()
     {
         $this->matchAllQuery = new arSolrMatchAllQuery();
 
-        // Test setting the default operator to 'OR'
-        $this->matchAllQuery->setDefaultOperator('OR');
-        $this->assertEquals('OR', $this->matchAllQuery->getDefaultOperator());
+        $this->expectException('\Exception');
+        $this->expectExceptionMessage('Invalid operator. AND and OR are the only acceptable operator types.');
 
-        // Test setting the default operator to 'AND'
-        $this->matchAllQuery->setDefaultOperator('AND');
-        $this->assertEquals('AND', $this->matchAllQuery->getDefaultOperator());
+        $this->matchAllQuery->setDefaultOperator('testOperator');
+    }
+
+    public function setDefaultOperatorProvider()
+    {
+        return [
+            'Test setting the default operator to \'OR\'' => [
+                'operator' => 'OR',
+                'expected' => 'OR',
+            ],
+            'Test setting the default operator to \'AND\'' => [
+                'operator' => 'AND',
+                'expected' => 'AND',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider setDefaultOperatorProvider
+     *
+     * @param mixed  $expected
+     * @param string $operator
+     */
+    public function testSetDefaultOperator($expected, $operator)
+    {
+        $this->matchAllQuery = new arSolrMatchAllQuery();
+        $this->matchAllQuery->setDefaultOperator($operator);
+
+        $actual = $this->matchAllQuery->getDefaultOperator();
+
+        $this->assertSame($expected, $actual, 'Params passed do not match expected.');
     }
 
     public function testSetSearchQuery()
@@ -66,38 +95,5 @@ class ArSolrMatchAllQueryTest extends TestCase
         // Test setting the search query to default
         $this->matchAllQuery->setSearchQuery('*:*');
         $this->assertEquals('*:*', $this->matchAllQuery->getSearchQuery());
-    }
-
-    public function getQueryParamsProvider(): array
-    {
-        return [
-            'Test Solr MatchAll query with default options' => [
-                'result' => [
-                    'query' => [
-                        'lucene' => [
-                            'q.op' => 'AND',
-                            'stopwords' => 'true',
-                            'query' => '*:*',
-                        ],
-                    ],
-                    'offset' => 0,
-                    'limit' => 10,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider getQueryParamsProvider
-     *
-     * @param mixed $result
-     */
-    public function testGetQueryParams($result)
-    {
-        $this->matchAllQuery = new arSolrMatchAllQuery();
-
-        $params = $this->matchAllQuery->getQueryParams();
-
-        $this->assertSame($params, $result);
     }
 }
