@@ -2171,7 +2171,7 @@ class QubitInformationObject extends BaseInformationObject
 
             // Use match query for exact matches.
             $queryText = new \Elastica\Query\Match();
-            $queryBool->addMust($queryText->setFieldQuery('identifier', $identifier));
+            $queryBool->addMust($queryText->setFieldQuery('identifier.untouched', $identifier));
 
             $queryText = new \Elastica\Query\Match();
             $queryBool->addMust($queryText->setFieldQuery(sprintf('i18n.%s.title.untouched', $currentCulture), $title));
