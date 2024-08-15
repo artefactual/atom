@@ -1,0 +1,52 @@
+name: Solr integration tests
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        php: [7.4] # 8.0, 8.1, 8.2, 8.3
+        solr: [9]
+        mode: [server]  # cloud, server
+
+    name: PHP ${{ matrix.php }}, Solr ${{ matrix.solr }} ${{ matrix.mode }}
+
+    env:
+      COMPOSER_MEMORY_LIMIT: -1
+
+    steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        extensions: apcu, opcache
+        coverage: none
+
+    - name: Checkout AtoM
+      uses: actions/checkout@v4
+
+    - name: Checkout solr 9.6
+      if: matrix.solr == 9
+      uses: actions/checkout@v4
+      with:
+        repository: apache/solr
+        ref: branch_9_6
+        path: lucene-solr
+
+    - name: Start Solr ${{ matrix.solr }} in ${{ matrix.mode }} mode
+      run: |
+        cd test/phpunit/arSolrPlugin/integration/fixtures/docker/solr${{ matrix.solr }}_${{ matrix.mode }}
+        docker compose up -d
+
+    - name: Install composer dependencies
+      run: |
+        composer update
+
+    - name: Run tests
+      run: |
+        vendor/composer/bin/phpunit -c phpunit.xml --group solr_integration -v
