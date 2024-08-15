@@ -39,38 +39,20 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         ];
 
         foreach ($params['must'] as $query) {
-            $mustClause = [
-                'edismax' => [
-                    'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getDefaultOperator(),
-                    'stopwords' => 'true',
-                    'qf' => implode(' ', $query->getFields()),
-                ],
-            ];
+            $mustQueryParams = $query->getQueryParams();
+            $mustClause = $mustQueryParams['query'];
             array_push($mustQuery, $mustClause);
         }
 
         foreach ($params['must_not'] as $query) {
-            $mustNotClause = [
-                'edismax' => [
-                    'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getDefaultOperator(),
-                    'stopwords' => 'true',
-                    'qf' => implode(' ', $query->getFields()),
-                ],
-            ];
+            $mustNotQueryParams = $query->getQueryParams();
+            $mustNotClause = $mustNotQueryParams['query'];
             array_push($mustNotQuery, $mustNotClause);
         }
 
         foreach ($params['should'] as $query) {
-            $shouldClause = [
-                'edismax' => [
-                    'query' => $query->getSearchQuery(),
-                    'q.op' => $query->getDefaultOperator(),
-                    'stopwords' => 'true',
-                    'qf' => implode(' ', $query->getFields()),
-                ],
-            ];
+            $shouldQueryParams = $query->getQueryParams();
+            $shouldClause = $mustNotQueryParams['query'];
             array_push($shouldQuery, $shouldClause);
         }
 
@@ -160,7 +142,7 @@ class arSolrBoolQuery extends arSolrAbstractQuery
 
     protected function _addQuery(string $type, $args): self
     {
-        if (!\is_array($args) && !($args instanceof arSolrQuery)) {
+        if (!\is_array($args) && !($args instanceof arSolrAbstractQuery)) {
             throw new Exception('Invalid parameter. Has to be array or instance of arSolrAbstractQuery');
         }
 
