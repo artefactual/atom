@@ -33,16 +33,18 @@ class arSolrPluginQuery
      */
     public function __construct($limit = 10, $skip = 0)
     {
-        $this->query = new arSolrQuery();
-        $this->setParam('size', $limit);
-        $this->setParam('from', $skip);
+        // TODO: update usage of the query param
+        // across arSolrPluginQuery and AtoM
+        //$this->query = new arSolrQuery();
+        //$this->query->setParam('size', $limit);
+        //$this->query->setParam('from', $skip);
 
         $this->queryBool = new arSolrBoolQuery();
     }
 
     /**
      * Translate internal representation of aggregations
-     * to Elastica API, adding them to the query.
+     * to Solr API, adding them to the query.
      *
      * @param array $aggs search aggregations
      */
@@ -51,21 +53,21 @@ class arSolrPluginQuery
         foreach ($aggs as $name => $item) {
             switch ($item['type']) {
                 case 'term':
-                  // TODO: add any missing aggregation params
-                  // see: Elastica\Aggregation\Terms
                     $agg = [
-                        'terms' => $name,
-                        'field' => $item['field'],
+                        $name => [
+                            'type' => 'terms',
+                            'field' => $item['field'],
+                        ],
                     ];
 
                     break;
 
                 case 'filter':
-                    // TODO: add any missing aggregation params
-                    // see: Elastica\Aggregation\Filter
                     $agg = [
-                        'filter' => $name,
-                        'field' => $item['field'],
+                        $name => [
+                            'type' => 'query',
+                            'q' => $item['field'],
+                        ],
                     ];
 
                     break;
@@ -73,7 +75,7 @@ class arSolrPluginQuery
 
             // Sets the amount of terms to be returned
             if (isset($item['size'])) {
-                $agg['size'] = $item['size'];
+                $agg[$name]['limit'] = $item['size'];
             }
 
             $this->query->setAggregations($agg);

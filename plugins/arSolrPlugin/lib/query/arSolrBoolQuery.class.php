@@ -27,6 +27,8 @@ class arSolrBoolQuery extends arSolrAbstractQuery
     public function generateQueryParams()
     {
         $params = $this->getParams();
+        $aggregations = $this->getAggregations();
+        $sort = $this->getSort();
 
         $mustQuery = [];
         $mustNotQuery = [];
@@ -68,7 +70,63 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             $boolQuery['query']['bool']['must_not'] = $mustNotQuery;
         }
 
+        if ($aggregations) {
+            $boolQuery['facet'] = $aggregations;
+        }
+
+        if ($sort) {
+            $sortArray = [];
+            foreach ($sort as $field => $direction) {
+                array_push($sortArray, "{$field} {$direction}");
+            }
+            $sortString = implode(',', $sortArray);
+            $boolQuery['sort'] = $sortString;
+        }
+
         $this->query = $boolQuery;
+    }
+
+    public function getAggregations()
+    {
+        $params = $this->getParams();
+
+        return $params['aggregations'];
+    }
+
+    public function setAggregations($agg)
+    {
+        return $this->addParam('aggregations', $agg);
+    }
+
+    public function setSort($sort)
+    {
+        foreach ($sort as $field => $direction) {
+            if ('asc' !== $direction && 'dsc' !== $direction) {
+                throw new Exception('Invalid sort direction. Acceptable values are: asc, dsc');
+            }
+        }
+        $this->setParam('sort', $sort);
+    }
+
+    public function addSort($sort)
+    {
+        $sortArray = $this->getSort();
+
+        if (!$sortArray) {
+            $this->setSort($sort);
+
+            return;
+        }
+
+        array_push($sortArray, $sort);
+        $this->setSort($sortArray);
+    }
+
+    public function getSort()
+    {
+        $params = $this->getParams();
+
+        return $params['sort'];
     }
 
     /**
@@ -101,43 +159,16 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         return $this->_addQuery('should', $args);
     }
 
-    /**
-     * Sets the filter.
-     *
-     * @return $this
-     */
-    public function addFilter(arSolrAbstractQuery $filter): self
-    {
-        return $this->addParam('filter', $filter);
-    }
-
-    /**
-     * Sets boost value of this query.
-     *
-     * @param float $boost Boost value
-     */
-    public function setBoost(float $boost): self
-    {
-        return $this->setParam('boost', $boost);
-    }
-
-    /**
-     * Sets the minimum number of should clauses to match.
-     *
-     * @param int|string $minimum Minimum value
-     *
-     * @return $this
-     */
-    public function setMinimumShouldMatch($minimum): self
-    {
-        return $this->setParam('minimum_should_match', $minimum);
-    }
-
     public function getQueryParams()
     {
         $this->generateQueryParams();
 
         return $this->query;
+    }
+
+    public function setFrom($offset)
+    {
+        return $this->setOffset($offset);
     }
 
     protected function _addQuery(string $type, $args): self
