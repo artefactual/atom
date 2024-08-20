@@ -47,6 +47,8 @@ mapping:
         _i18nFields: [name]
         dynamic: strict
     dynamic: strict
+    properties:
+      source_culture: { type: text, multivalue: true }
 
   note:
     _attributes:
@@ -616,8 +618,8 @@ mapping:
       alternative_identifiers:
         type: object
         properties:
-          label: { type: text }
-          identifier: { type: text }
+          label: { type: text, multivalue: true }
+          identifier: { type: text, multivalue: true }
       reference_code:
         type: text
         fields:

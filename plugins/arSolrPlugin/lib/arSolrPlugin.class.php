@@ -416,6 +416,8 @@ class arSolrPlugin extends QubitSearchEngine
               || fnmatch('QubitActor.otherNames.i18n.*.name', $fieldName)
               || fnmatch('QubitActor.occupations.i18n.*.name', $fieldName)
               || fnmatch('QubitActor.occupations.i18n.*.content', $fieldName)
+              || fnmatch('QubitActor.parallelNames.i18n.*.name', $fieldName)
+              || fnmatch('QubitActor.standardizedNames.i18n.*.name', $fieldName)
               || fnmatch('QubitRepository.contactInformations.i18n.*.contactType', $fieldName)
               || fnmatch('QubitRepository.contactInformations.i18n.*.city', $fieldName)
               || fnmatch('QubitRepository.contactInformations.i18n.*.region', $fieldName)
