@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arSolrTermQuery extends arSolrAbstractQuery
+class arSolrTermsQuery extends arSolrAbstractQuery
 {
     /**
      * Query Params.
@@ -36,9 +36,9 @@ class arSolrTermQuery extends arSolrAbstractQuery
     /**
      * Query Term Value.
      *
-     * @var string
+     * @var array
      */
-    protected ?string $termValue = null;
+    protected ?array $termValues = null;
 
     /**
      * Field type.
@@ -56,21 +56,21 @@ class arSolrTermQuery extends arSolrAbstractQuery
     public function __construct($term = null)
     {
         if ($term) {
-            foreach ($term as $field => $value) {
-                $this->setTerm($field, $value);
+            foreach ($term as $field => $values) {
+                $this->setTerms($field, $values);
             }
         }
     }
 
-    public function setTerm($field, $value)
+    public function setTerms($field, $values)
     {
         $this->termField = $field;
-        $this->termValue = $value;
+        $this->termValues = $values;
     }
 
-    public function getTermValue()
+    public function getTermValues()
     {
-        return $this->termValue;
+        return $this->termValues;
     }
 
     public function getTermField()
@@ -106,9 +106,9 @@ class arSolrTermQuery extends arSolrAbstractQuery
             throw new Exception('Term field is not set.');
         }
 
-        $termValue = $this->getTermValue();
-        if (!isset($termValue)) {
-            throw new Exception('Term value is not set.');
+        $termValues = $this->getTermValues();
+        if (!isset($termValues)) {
+            throw new Exception('Term values are not set.');
         }
 
         $type = $this->getType();
@@ -116,10 +116,11 @@ class arSolrTermQuery extends arSolrAbstractQuery
             throw new Exception("Field 'type' is not set.");
         }
 
+        $queryString = implode(" OR ", $termValues);
         $this->query = [
             'query' => [
                 'edismax' => [
-                    'query' => "{$type}.{$termField}:{$termValue}",
+                    'query' => "{$type}.{$termField}:({$queryString})",
                 ],
             ],
             'offset' => $this->offset,
