@@ -116,7 +116,7 @@ class arSolrTermsQuery extends arSolrAbstractQuery
             throw new Exception("Field 'type' is not set.");
         }
 
-        $queryString = implode(" OR ", $termValues);
+        $queryString = implode(' OR ', $termValues);
         $this->query = [
             'query' => [
                 'edismax' => [

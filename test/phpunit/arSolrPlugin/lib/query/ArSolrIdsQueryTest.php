@@ -157,5 +157,4 @@ class ArSolrIdsQueryTest extends TestCase
 
         $this->idsQuery->getQueryParams();
     }
-
 }

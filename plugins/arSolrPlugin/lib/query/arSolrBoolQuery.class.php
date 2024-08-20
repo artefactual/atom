@@ -20,6 +20,13 @@
 class arSolrBoolQuery extends arSolrAbstractQuery
 {
     /**
+     * Field type.
+     *
+     * @var string
+     */
+    protected ?string $type = null;
+
+    /**
      * Assemble BoolQuery.
      *
      * @return arSolrBoolQuery object
@@ -29,10 +36,12 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         $params = $this->getParams();
         $aggregations = $this->getAggregations();
         $sort = $this->getSort();
+        $type = $this->getType();
 
         $mustQuery = [];
         $mustNotQuery = [];
         $shouldQuery = [];
+        $postFilterQuery = [];
 
         $boolQuery = [
             'query' => [],
@@ -58,6 +67,17 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             array_push($shouldQuery, $shouldClause);
         }
 
+        foreach ($params['post_filter'] as $query) {
+            $postFilterParams = $query->getQueryParams();
+            $postFilterClause = $postFilterParams['query'];
+            array_push($postFilterQuery, $postFilterClause);
+        }
+
+        // TODO: handle setting types for aggregations
+        if ($aggregations && !$type) {
+            throw new Exception("Field 'type' must be set if using aggregations.");
+        }
+
         if ($shouldQuery) {
             $boolQuery['query']['bool']['should'] = $shouldQuery;
         }
@@ -68,6 +88,10 @@ class arSolrBoolQuery extends arSolrAbstractQuery
 
         if ($mustNotQuery) {
             $boolQuery['query']['bool']['must_not'] = $mustNotQuery;
+        }
+
+        if ($postFilterQuery) {
+            $boolQuery['filter'] = $postFilterQuery;
         }
 
         if ($aggregations) {
@@ -96,6 +120,18 @@ class arSolrBoolQuery extends arSolrAbstractQuery
     public function setAggregations($agg)
     {
         return $this->addParam('aggregations', $agg);
+    }
+
+    public function getPostFilter()
+    {
+        $params = $this->getParams();
+
+        return $params['post_filter'];
+    }
+
+    public function setPostFilter($filter)
+    {
+        return $this->addParam('post_filter', $filter);
     }
 
     public function setSort($sort)
@@ -171,6 +207,34 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         return $this->setOffset($offset);
     }
 
+    public function setType($type)
+    {
+        $params = $this->getParams();
+
+        foreach ($params['must'] as $query) {
+            $this->_setTypeForQuery($query, $type);
+        }
+
+        foreach ($params['must_not'] as $query) {
+            $this->_setTypeForQuery($query, $type);
+        }
+
+        foreach ($params['should'] as $query) {
+            $this->_setTypeForQuery($query, $type);
+        }
+
+        foreach ($params['post_filter'] as $query) {
+            $this->_setTypeForQuery($query, $type);
+        }
+
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
     protected function _addQuery(string $type, $args): self
     {
         if (!\is_array($args) && !($args instanceof arSolrAbstractQuery)) {
@@ -178,5 +242,22 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         }
 
         return $this->addParam($type, $args);
+    }
+
+    private function _setTypeForQuery($query, $type)
+    {
+        if (!($query instanceof arSolrAbstractQuery)) {
+            throw new Exception('Invalid Query. Has to be array or instance of arSolrAbstractQuery');
+        }
+
+        // MatchAll queries have no type since they're run on all fields
+        if ($query instanceof arSolrMatchAllQuery) {
+            return;
+        }
+
+        // Only set the type for another arSolrBoolQuery or if it is not already set
+        if (!$query->getType()) {
+            $query->setType($type);
+        }
     }
 }

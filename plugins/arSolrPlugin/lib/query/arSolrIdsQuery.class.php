@@ -24,18 +24,21 @@ class arSolrIdsQuery extends arSolrTermsQuery
      *
      * @param mixed      $searchQuery
      * @param null|mixed $term
+     * @param null|mixed $ids
      */
     public function __construct($ids = null)
     {
         $this->setIds($ids);
     }
 
-    public function setIds($ids) {
+    public function setIds($ids)
+    {
         $this->termField = 'id';
         $this->termValues = $ids;
     }
 
-    public function getIds() {
+    public function getIds()
+    {
         return $this->termValues;
     }
 
@@ -43,7 +46,7 @@ class arSolrIdsQuery extends arSolrTermsQuery
     {
         $termField = $this->getTermField();
         $ids = $this->getIds();
-        if (!isset($ids) || count($ids) == 0) {
+        if (!isset($ids) || 0 == count($ids)) {
             throw new Exception('Ids are not set.');
         }
 
@@ -52,7 +55,7 @@ class arSolrIdsQuery extends arSolrTermsQuery
             throw new Exception("Field 'type' is not set.");
         }
 
-        $queryString = implode(" OR ", $ids);
+        $queryString = implode(' OR ', $ids);
         $this->query = [
             'query' => [
                 'edismax' => [
