@@ -220,6 +220,22 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         return $this->type;
     }
 
+    public function removeMustWithTermField($field)
+    {
+        $params = $this->getParams();
+        $mustParams = [];
+
+        foreach ($params['must'] as $query) {
+            if ($query instanceof arSolrTermQuery && $query->getTermField() === $field) {
+                continue;
+            }
+
+            array_push($mustParams, $params['must']);
+        }
+
+        $this->setParams('must', $mustParams);
+    }
+
     protected function _addQuery(string $type, $args): self
     {
         if (!\is_array($args) && !($args instanceof arSolrAbstractQuery)) {
