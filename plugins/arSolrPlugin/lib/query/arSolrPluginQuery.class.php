@@ -213,13 +213,16 @@ class arSolrPluginQuery
                 )
             );
 
-            // Use nested query and mapping object to allow querying
-            // over the actor and event ids from the same event
-            $queryNested = new arSolrNestedQuery();
-            $queryNested->setPath('dates');
-            $queryNested->setQuery($queryBool);
+            /**
+             * TODO: Remove ES nested query
+             */
+            // // Use nested query and mapping object to allow querying
+            // // over the actor and event ids from the same event
+            // $queryNested = new arSolrNestedQuery();
+            // $queryNested->setPath('dates');
+            // $queryNested->setQuery($queryBool);
 
-            $this->queryBool->addMust($queryNested);
+            // $this->queryBool->addMust($queryNested);
         }
 
         // Show descendants from resource
@@ -667,12 +670,16 @@ class arSolrPluginQuery
             $query->addMust(new arSolrRangeQuery('dates.endDate', $range));
         }
 
-        // Use nested query and mapping object to allow querying
-        // over the start and end dates from the same event
-        $queryNested = new arSolrNestedQuery();
-        $queryNested->setPath('dates');
-        $queryNested->setQuery($query);
+        /**
+         * TODO: Remove ES nested query
+         */
+        // // Use nested query and mapping object to allow querying
+        // // over the start and end dates from the same event
+        // $queryNested = new arSolrNestedQuery();
+        // $queryNested->setPath('dates');
+        // $queryNested->setQuery($query);
 
-        return $queryNested;
+        // return $queryNested;
+        return $query;
     }
 }
