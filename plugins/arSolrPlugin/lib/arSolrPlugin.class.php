@@ -1,5 +1,7 @@
 <?php
 
+require 'lib/helper/QubitHelper.php';
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -113,7 +115,7 @@ class arSolrPlugin extends QubitSearchEngine
         try {
             $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/';
             $query = '{"delete": {"query": "*:*"}}';
-            arSolrPlugin::makeHttpRequest($url, 'POST', $query);
+            makeHttpRequest($url, 'POST', $query);
         } catch (Exception $e) {
         }
 
@@ -237,7 +239,7 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
-        $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode([
+        $response = makeHttpRequest($url, 'POST', json_encode([
             $type => $data,
         ]));
 
@@ -260,24 +262,9 @@ class arSolrPlugin extends QubitSearchEngine
     public function search($query, $type)
     {
         $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/query';
-        $response = arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
+        $response = makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
 
         return new arSolrResultSet($response);
-    }
-
-    public static function makeHttpRequest($url, $method = 'GET', $body = null)
-    {
-        $curlSession = curl_init($url);
-        if ($body) {
-            curl_setopt($curlSession, CURLOPT_POST, 1);
-            curl_setopt($curlSession, CURLOPT_POSTFIELDS, $body);
-        }
-        curl_setopt($curlSession, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($curlSession);
-        curl_close($curlSession);
-
-        return json_decode($result);
     }
 
     /**
@@ -286,7 +273,7 @@ class arSolrPlugin extends QubitSearchEngine
     protected function initialize()
     {
         $url = $this->solrBaseUrl.'/solr/admin/collections?action=LIST';
-        $response = arSolrPlugin::makeHttpRequest($url);
+        $response = makeHttpRequest($url);
 
         if (false !== array_search($this->solrClientOptions['collection'], $response->collections)) {
             $this->log('Collection found. Not initializing');
@@ -295,14 +282,14 @@ class arSolrPlugin extends QubitSearchEngine
 
             $this->log('Creating Solr Collection');
             $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
-            arSolrPlugin::makeHttpRequest($url);
+            makeHttpRequest($url);
 
             $topLevelProperties = [];
             $subProperties = [];
 
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
             $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"echoParams": "explicit"}}}';
-            arSolrPlugin::makeHttpRequest($url, 'POST', $updateDefaultHandler);
+            makeHttpRequest($url, 'POST', $updateDefaultHandler);
 
             // Load and normalize mappings
             $this->loadAndNormalizeMappings();
@@ -349,7 +336,7 @@ class arSolrPlugin extends QubitSearchEngine
             }
             $addCopyField .= substr($copyField, 0, -1).'}';
             $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/schema/';
-            arSolrPlugin::makeHttpRequest($url, 'POST', $addCopyField);
+            makeHttpRequest($url, 'POST', $addCopyField);
         }
     }
 
@@ -382,8 +369,8 @@ class arSolrPlugin extends QubitSearchEngine
                     }
                 }
             }';
-            arSolrPlugin::makeHttpRequest($url, 'POST', $addSearchComponent);
-            arSolrPlugin::makeHttpRequest($url, 'POST', $addRequestHandler);
+            makeHttpRequest($url, 'POST', $addSearchComponent);
+            makeHttpRequest($url, 'POST', $addRequestHandler);
         }
     }
 
@@ -556,14 +543,14 @@ class arSolrPlugin extends QubitSearchEngine
             ]];
 
             $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-            arSolrPlugin::makeHttpRequest($url, 'POST', json_encode($query));
+            makeHttpRequest($url, 'POST', json_encode($query));
         }
     }
 
     private function addFieldsToType($query)
     {
         $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-        arSolrPlugin::makeHttpRequest($url, 'POST', $query);
+        makeHttpRequest($url, 'POST', $query);
     }
 
     private function loadAndNormalizeMappings()

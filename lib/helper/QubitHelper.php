@@ -818,3 +818,18 @@ function render_search_result_date($date)
         return Qubit::renderDateStartEnd($displayDate, $startDate, $endDate);
     }
 }
+
+function makeHttpRequest($url, $method = 'GET', $body = null)
+{
+    $curlSession = curl_init($url);
+    if ($body) {
+        curl_setopt($curlSession, CURLOPT_POST, 1);
+        curl_setopt($curlSession, CURLOPT_POSTFIELDS, $body);
+    }
+    curl_setopt($curlSession, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($curlSession);
+    curl_close($curlSession);
+
+    return json_decode($result);
+}
