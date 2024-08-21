@@ -213,9 +213,7 @@ class arSolrPluginQuery
                 )
             );
 
-            /**
-             * TODO: Remove ES nested query
-             */
+            // TODO: Remove ES nested query
             // // Use nested query and mapping object to allow querying
             // // over the actor and event ids from the same event
             // $queryNested = new arSolrNestedQuery();
@@ -670,9 +668,7 @@ class arSolrPluginQuery
             $query->addMust(new arSolrRangeQuery('dates.endDate', $range));
         }
 
-        /**
-         * TODO: Remove ES nested query
-         */
+        // TODO: Remove ES nested query
         // // Use nested query and mapping object to allow querying
         // // over the start and end dates from the same event
         // $queryNested = new arSolrNestedQuery();

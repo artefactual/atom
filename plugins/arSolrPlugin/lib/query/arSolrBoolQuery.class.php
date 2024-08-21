@@ -34,13 +34,12 @@ class arSolrBoolQuery extends arSolrAbstractQuery
     public function generateQueryParams()
     {
         $params = $this->getParams();
-        $aggregations = $this->getAggregations();
         $sort = $this->getSort();
-        $type = $this->getType();
 
         $mustQuery = [];
         $mustNotQuery = [];
         $shouldQuery = [];
+        $facetQuery = [];
         $postFilterQuery = [];
 
         $boolQuery = [
@@ -73,9 +72,9 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             array_push($postFilterQuery, $postFilterClause);
         }
 
-        // TODO: handle setting types for aggregations
-        if ($aggregations && !$type) {
-            throw new Exception("Field 'type' must be set if using aggregations.");
+        foreach ($params['aggregations'] as $name => $agg) {
+            $facet = $this->_generateFacetFromAggregation($name, $agg);
+            array_push($facetQuery, $facet);
         }
 
         if ($shouldQuery) {
@@ -94,8 +93,8 @@ class arSolrBoolQuery extends arSolrAbstractQuery
             $boolQuery['filter'] = $postFilterQuery;
         }
 
-        if ($aggregations) {
-            $boolQuery['facet'] = $aggregations;
+        if ($facetQuery) {
+            $boolQuery['facet'] = $facetQuery;
         }
 
         if ($sort) {
@@ -110,23 +109,9 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         $this->query = $boolQuery;
     }
 
-    public function getAggregations()
-    {
-        $params = $this->getParams();
-
-        return $params['aggregations'];
-    }
-
     public function setAggregations($agg)
     {
         return $this->addParam('aggregations', $agg);
-    }
-
-    public function getPostFilter()
-    {
-        $params = $this->getParams();
-
-        return $params['post_filter'];
     }
 
     public function setPostFilter($filter)
@@ -242,6 +227,48 @@ class arSolrBoolQuery extends arSolrAbstractQuery
         }
 
         return $this->addParam($type, $args);
+    }
+
+    private function _generateFacetFromAggregation($name, $agg)
+    {
+        $type = $this->getType();
+        if (!$type) {
+            throw new Exception("Field 'type' must be set if using aggregations.");
+        }
+
+        $facet = [
+            $name => [
+                'type' => $agg['type'],
+            ],
+        ];
+
+        if (isset($agg['limit'])) {
+            $facet[$name]['limit'] = $agg['limit'];
+        }
+
+        switch ($agg['type']) {
+            case 'terms':
+                $facet = [
+                    $name => [
+                        'field' => "{$type}.{$agg['field']}",
+                    ],
+                ];
+
+                break;
+
+            case 'query':
+                foreach ($agg['field'] as $field => $value) {
+                    $facet = [
+                        $name => [
+                            'q' => "{$type}.{$field}:{$value}",
+                        ],
+                    ];
+                }
+
+                break;
+        }
+
+        return $facet;
     }
 
     private function _setTypeForQuery($query, $type)
