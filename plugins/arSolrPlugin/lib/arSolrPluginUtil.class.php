@@ -173,27 +173,22 @@ class arSolrPluginUtil
     }
 
     /**
-     * Generate a query string query.
+     * Generate a solr query.
      *
      * @param string $query    unescaped search term
      * @param array  $fields   fields to search (including culture if needed)
      * @param string $operator default query operator (AND/OR), default: AND
      *
-     * @return \Elastica\Query\QueryString the generated query string query
+     * @return arSolrQuery the generated solr query
      */
-    public static function generateQueryString(
+    public static function generateQuery(
         $query, $fields, $operator = 'AND'
     ) {
-        $queryString = new arSolrQueryString(self::escapeTerm($query));
-        $queryString->setDefaultOperator($operator);
-        $queryString->setFields(self::getBoostedSearchFields($fields));
-        $queryString->setAnalyzer(
-            arSolrMapping::getAnalyzer(
-                sfContext::getInstance()->user->getCulture()
-            )
-        );
+        $solrQuery = new arSolrQuery(self::escapeTerm($query));
+        $solrQuery->setDefaultOperator($operator);
+        $solrQuery->setFields(self::getBoostedSearchFields($fields));
 
-        return $queryString;
+        return $solrQuery;
     }
 
     public static function getBoostedSearchFields($fields)
