@@ -57,7 +57,7 @@ class arSolrPlugin extends QubitSearchEngine
             'password' => $this->config['solr']['password'],
             'port' => $this->config['solr']['port'],
             'collection' => $this->config['solr']['collection'],
-            'path' => '/solr/' . $this->config['solr']['collection'],
+            'path' => '/solr/'.$this->config['solr']['collection'],
         ];
         $this->solrBaseUrl = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'];
         $this->initialize();

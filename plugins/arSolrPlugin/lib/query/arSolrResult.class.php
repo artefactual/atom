@@ -24,6 +24,9 @@ class arSolrResult
     public function __construct($hit)
     {
         $this->_hit = $this->getStructuredDoc($hit);
+        if ($hit->_version_) {
+            $this->setParam('_version', $hit->_version_);
+        }
     }
 
     /**
