@@ -1,6 +1,6 @@
 all:
 
-  server:
+  solr:
 
     # Server defaults to localhost:9200 if omitted
     host: 'solr1'

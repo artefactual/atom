@@ -51,14 +51,13 @@ class arSolrPlugin extends QubitSearchEngine
 
         $this->config = arSolrPluginConfiguration::$config;
 
-        $SOLR_COLLECTION = 'atom';
         $this->solrClientOptions = [
-            'hostname' => 'solr1',
-            'login' => 'solr',
-            'password' => '',
-            'port' => 8983,
-            'collection' => $SOLR_COLLECTION,
-            'path' => '/solr/'.$SOLR_COLLECTION,
+            'hostname' => $this->config['solr']['host'],
+            'login' => $this->config['solr']['username'],
+            'password' => $this->config['solr']['password'],
+            'port' => $this->config['solr']['port'],
+            'collection' => $this->config['solr']['collection'],
+            'path' => '/solr/' . $this->config['solr']['collection'],
         ];
         $this->solrBaseUrl = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'];
         $this->initialize();

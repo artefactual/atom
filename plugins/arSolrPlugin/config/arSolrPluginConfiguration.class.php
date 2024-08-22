@@ -24,7 +24,7 @@ class arSolrPluginConfiguration extends sfPluginConfiguration
 {
     public static $summary = 'Search index plugin that uses Solr to provide search.';
     public static $version = '1.0.0';
-    public static $configPath = 'config/search.yml';
+    public static $configPath = 'plugins/arSolrPlugin/config/search.yml';
     public static $config;
     public static $mappingPath = 'config/mapping.yml';
     public static $mapping;
