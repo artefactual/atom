@@ -1,5 +1,7 @@
 <?php
 
+use Jumbojett\OpenIDConnectClient;
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -19,7 +21,7 @@
 
 class oidcUser extends myUser implements Zend_Acl_Role_Interface
 {
-    private $oidcClient;
+    private ?OpenIDConnectClient $oidcClient = null;
 
     /**
      * Initialize.
@@ -31,11 +33,22 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = [])
     {
         $this->logger = sfContext::getInstance()->getLogger();
+
         if (null === $this->oidcClient) {
-            $this->oidcClient = arOidc::getOidcInstance();
+            $this->setOidcClient(arOidc::getOidcInstance());
         }
 
         parent::initialize($dispatcher, $storage, $options);
+    }
+
+    /**
+     * Setter for the OIDC client.
+     */
+    public function setOidcClient(OpenIDConnectClient $oidcClient)
+    {
+        if (null !== $oidcClient) {
+            $this->oidcClient = $oidcClient;
+        }
     }
 
     /**
