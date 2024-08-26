@@ -179,12 +179,12 @@ class arSolrPluginUtil
      * @param array  $fields   fields to search (including culture if needed)
      * @param string $operator default query operator (AND/OR), default: AND
      *
-     * @return arSolrQuery the generated solr query
+     * @return arSolrStringQuery the generated solr query
      */
     public static function generateQuery(
         $query, $fields, $operator = 'AND'
     ) {
-        $solrQuery = new arSolrQuery(self::escapeTerm($query));
+        $solrQuery = new arSolrStringQuery(self::escapeTerm($query));
         $solrQuery->setDefaultOperator($operator);
         $solrQuery->setFields(self::getBoostedSearchFields($fields));
 

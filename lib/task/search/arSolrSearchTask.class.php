@@ -73,7 +73,7 @@ EOF;
 
     private function createQuery($queryText, $fields)
     {
-        $query = new arSolrQuery(arSolrPluginUtil::escapeTerm($queryText));
+        $query = new arSolrStringQuery(arSolrPluginUtil::escapeTerm($queryText));
         if ($fields) {
             $fieldsArr = explode(',', $fields);
             $newFields = [];

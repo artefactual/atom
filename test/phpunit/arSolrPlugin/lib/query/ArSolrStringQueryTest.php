@@ -2,19 +2,19 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/query/arSolrStringQuery.class.php';
 
 /**
  * @internal
  *
- * @covers \arSolrQuery
+ * @covers \arSolrStringQuery
  */
 class ArSolrQueryTest extends TestCase
 {
     public function createSolrQueryProvider()
     {
         return [
-            'New arSolrQuery with default options' => [
+            'New arSolrStringQuery with default options' => [
                 'searchQuery' => '*:*',
                 'expected' => '*:*',
             ],
@@ -29,16 +29,16 @@ class ArSolrQueryTest extends TestCase
      */
     public function testCreateSolrQuery($searchQuery, $expected)
     {
-        $this->query = new arSolrQuery($searchQuery);
+        $this->query = new arSolrStringQuery($searchQuery);
         $actual = $this->query->getSearchQuery();
 
-        $this->assertTrue($this->query instanceof arSolrQuery, 'Assert plugin object is arSolrQuery.');
-        $this->assertSame($expected, $actual, 'Assert arSolrQuery search query is correct.');
+        $this->assertTrue($this->query instanceof arSolrStringQuery, 'Assert plugin object is arSolrStringQuery.');
+        $this->assertSame($expected, $actual, 'Assert arSolrStringQuery search query is correct.');
     }
 
     public function testSetFields()
     {
-        $this->query = new arSolrQuery('*:*');
+        $this->query = new arSolrStringQuery('*:*');
 
         // Test setting the fields to empty array
         $this->query->setFields('');
@@ -76,7 +76,7 @@ class ArSolrQueryTest extends TestCase
      */
     public function testSetDefaultOperator($operator, $expected)
     {
-        $this->query = new arSolrQuery('*:*');
+        $this->query = new arSolrStringQuery('*:*');
         $this->query->setDefaultOperator($operator);
         $actual = $this->query->getDefaultOperator();
 
@@ -85,7 +85,7 @@ class ArSolrQueryTest extends TestCase
 
     public function testSetDefaultOperatorException()
     {
-        $this->query = new arSolrQuery('*:*');
+        $this->query = new arSolrStringQuery('*:*');
 
         $this->expectException('\Exception');
         $this->expectExceptionMessage('Invalid operator. AND and OR are the only acceptable operator types.');
@@ -95,7 +95,7 @@ class ArSolrQueryTest extends TestCase
 
     public function testSetAggregations()
     {
-        $this->query = new arSolrQuery('*:*');
+        $this->query = new arSolrStringQuery('*:*');
 
         // Test setting the aggrergations to empty array
         $this->query->setAggregations([]);
@@ -144,7 +144,7 @@ class ArSolrQueryTest extends TestCase
      */
     public function testGetQueryParams($fields, $type, $operator, $searchQuery, $expected)
     {
-        $this->query = new arSolrQuery($searchQuery);
+        $this->query = new arSolrStringQuery($searchQuery);
         $this->query->setFields($fields);
         $this->query->setDefaultOperator($operator);
         $this->query->setType($type);
@@ -201,7 +201,7 @@ class ArSolrQueryTest extends TestCase
      */
     public function testGetQueryParamsAggs($fields, $operator, $type, $searchQuery, $aggregations, $expected)
     {
-        $this->query = new arSolrQuery($searchQuery);
+        $this->query = new arSolrStringQuery($searchQuery);
         $this->query->setFields($fields);
         $this->query->setType($type);
         $this->query->setDefaultOperator($operator);
@@ -240,7 +240,7 @@ class ArSolrQueryTest extends TestCase
      */
     public function testGetQueryParamsAggsException($fields, $type, $expectedException, $expectedExceptionMessage)
     {
-        $this->query = new arSolrQuery('*:*');
+        $this->query = new arSolrStringQuery('*:*');
         $this->query->setFields($fields);
         $this->query->setType($type);
 

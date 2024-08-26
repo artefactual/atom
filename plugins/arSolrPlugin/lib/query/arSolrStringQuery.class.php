@@ -18,9 +18,9 @@
  */
 
 /**
- * arSolrQuery.
+ * arSolrStringQuery.
  */
-class arSolrQuery extends arSolrAbstractQuery
+class arSolrStringQuery extends arSolrAbstractQuery
 {
     /**
      * Query Params.
