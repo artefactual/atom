@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrStringQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrStringQuery.class.php';
 
 /**
  * @internal

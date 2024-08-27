@@ -24,9 +24,6 @@ class arSolrResult
     public function __construct($hit)
     {
         $this->_hit = $this->getStructuredDoc($hit);
-        if ($hit->_version_) {
-            $this->setParam('_version', $hit->_version_);
-        }
     }
 
     /**
@@ -150,10 +147,20 @@ class arSolrResult
     {
         $structuredDoc = [];
         foreach ($hit as $propertyName => $value) {
+            if (str_starts_with($propertyName, 'autocomplete_')) {
+                $structuredDoc[$propertyName] = $value;
+
+                continue;
+            }
+            if ('_version_' === $propertyName) {
+                $structuredDoc['_version'] = $value;
+
+                continue;
+            }
             if (!str_contains($propertyName, '.')) {
                 $structuredDoc["_{$propertyName}"] = $value;
 
-                break;
+                continue;
             }
 
             $fields = explode('.', $propertyName);

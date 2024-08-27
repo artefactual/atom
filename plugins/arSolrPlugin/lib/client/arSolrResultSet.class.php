@@ -52,7 +52,7 @@ class arSolrResultSet implements ArrayAccess, Countable, Iterator
         $this->_response = $response->response;
 
         $results = [];
-        foreach ($response->response->docs as $responseDoc) {
+        foreach ($this->_response->docs as $responseDoc) {
             array_push($results, new arSolrResult($responseDoc));
         }
         $this->_results = $results;
@@ -96,7 +96,7 @@ class arSolrResultSet implements ArrayAccess, Countable, Iterator
     /**
      * Returns the current object of the set.
      *
-     * @return \Elastica\Result|false Set object or false if not valid (no more entries)
+     * @return arSolrResult|false Set object or false if not valid (no more entries)
      */
     public function current()
     {

@@ -2,9 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrAbstractQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrAbstractQuery.class.php';
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrExistsQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrExistsQuery.class.php';
 
 /**
  * @internal

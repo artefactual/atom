@@ -1,7 +1,5 @@
 <?php
 
-require 'lib/helper/QubitHelper.php';
-
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -28,6 +26,8 @@ class arSolrPlugin extends QubitSearchEngine
 
     public $langs = [];
 
+    public $client;
+
     /**
      * Mappings configuration, mapping.yml.
      *
@@ -51,15 +51,8 @@ class arSolrPlugin extends QubitSearchEngine
 
         $this->config = arSolrPluginConfiguration::$config;
 
-        $this->solrClientOptions = [
-            'hostname' => $this->config['solr']['host'],
-            'login' => $this->config['solr']['username'],
-            'password' => $this->config['solr']['password'],
-            'port' => $this->config['solr']['port'],
-            'collection' => $this->config['solr']['collection'],
-            'path' => '/solr/'.$this->config['solr']['collection'],
-        ];
-        $this->solrBaseUrl = 'http://'.$this->solrClientOptions['hostname'].':'.$this->solrClientOptions['port'];
+        $this->client = new arSolrClient($this->config['solr']);
+
         $this->initialize();
     }
 
@@ -112,10 +105,9 @@ class arSolrPlugin extends QubitSearchEngine
     public function flush()
     {
         try {
-            $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/';
-            $query = '{"delete": {"query": "*:*"}}';
-            makeHttpRequest($url, 'POST', $query);
+            $this->client->flushIndex();
         } catch (Exception $e) {
+            $this->log('Error flushing index');
         }
 
         $this->initialize();
@@ -237,10 +229,7 @@ class arSolrPlugin extends QubitSearchEngine
             throw new sfException('Failed to parse id field.');
         }
 
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/update/json/docs';
-        $response = makeHttpRequest($url, 'POST', json_encode([
-            $type => $data,
-        ]));
+        $response = $this->client->addDocument([$type => $data]);
 
         if ($response->error) {
             $this->log(var_export($response->error, true));
@@ -248,22 +237,9 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    public function getSolrUrl()
-    {
-        return $this->solrBaseUrl;
-    }
-
-    public function getSolrCollection()
-    {
-        return $this->solrClientOptions['collection'];
-    }
-
     public function search($query, $type)
     {
-        $url = $this->getSolrUrl().'/solr/'.$this->getSolrCollection().'/query';
-        $response = makeHttpRequest($url, 'POST', json_encode($query->getQueryParams()));
-
-        return new arSolrResultSet($response);
+        return $this->client->search($query);
     }
 
     /**
@@ -271,24 +247,16 @@ class arSolrPlugin extends QubitSearchEngine
      */
     protected function initialize()
     {
-        $url = $this->solrBaseUrl.'/solr/admin/collections?action=LIST';
-        $response = makeHttpRequest($url);
-
-        if (false !== array_search($this->solrClientOptions['collection'], $response->collections)) {
+        if (false !== $this->client->checkCollectionExists()) {
             $this->log('Collection found. Not initializing');
         } else {
             $this->log('Initializing Solr Index');
 
             $this->log('Creating Solr Collection');
-            $url = $this->solrBaseUrl.'/solr/admin/collections?action=CREATE&name='.$this->solrClientOptions['collection'].'&numShards=2&replicationFactor=1&wt=json';
-            makeHttpRequest($url);
+            $this->client->createCollection();
 
             $topLevelProperties = [];
             $subProperties = [];
-
-            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
-            $updateDefaultHandler = '{"update-requesthandler": {"name": "/select", "class": "solr.SearchHandler", "defaults": {"echoParams": "explicit"}}}';
-            makeHttpRequest($url, 'POST', $updateDefaultHandler);
 
             // Load and normalize mappings
             $this->loadAndNormalizeMappings();
@@ -301,10 +269,8 @@ class arSolrPlugin extends QubitSearchEngine
                 $this->addSubProperties($typeProperties['properties'], $subProperties, $typeName, $typeProperties['properties']);
             }
 
-            $addQuery = ['add-field' => $topLevelProperties];
-            $this->addFieldsToType(json_encode($addQuery));
-            $addQuery = ['add-field' => $subProperties];
-            $this->addFieldsToType(json_encode($addQuery));
+            $this->client->addFields($topLevelProperties);
+            $this->client->addFields($subProperties);
 
             $this->addAutoCompleteFields();
         }
@@ -327,49 +293,57 @@ class arSolrPlugin extends QubitSearchEngine
         ];
 
         foreach ($this->langs as $lang) {
-            $addCopyField = '{"add-field":{"name":"autocomplete_'.$lang.'","type":"text_'.$lang.'","stored":true, "multiValued:true"},';
-            $copyField = '"add-copy-field":{"source":"QubitInformationObject.referenceCode","dest":"autocomplete_'.$lang.'"},';
+            $addFieldArr = [
+                'name' => "autocomplete_{$lang}",
+                'type' => "text_{$lang}",
+                'stored' => 'true',
+                'multiValued' => 'true',
+            ];
+
+            $copyFieldsArr = [
+                [
+                    'source' => 'QubitInformationObject.referenceCode',
+                    'dest' => "autocomplete_{$lang}",
+                ],
+            ];
+            $this->client->addFields($addFieldArr);
+
             foreach ($autocompleteFields as $field) {
                 $field = str_replace('%s%', $lang, $field);
-                $copyField .= '"add-copy-field":{"source":"'.$field.'","dest":"autocomplete_'.$lang.'"},';
+                array_push($copyFieldsArr, [
+                    'source' => $field,
+                    'dest' => "autocomplete_{$lang}",
+                ]);
             }
-            $addCopyField .= substr($copyField, 0, -1).'}';
-            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/schema/';
-            makeHttpRequest($url, 'POST', $addCopyField);
+
+            $this->client->addCopyFields($copyFieldsArr);
         }
     }
 
     private function addAutoCompleteConfigs()
     {
         foreach ($this->langs as $lang) {
-            $url = $this->solrBaseUrl.'/api/collections/'.$this->solrClientOptions['collection'].'/config/';
-            $addSearchComponent = '{
-                "add-searchComponent":{
-                    "name":"autocomplete_'.$lang.'",
-                    "class":"solr.SuggestComponent",
-                    "suggester":{
-                        "name":"autocomplete_'.$lang.'",
-                        "field":"autocomplete_'.$lang.'",
-                        "lookupImpl":"FuzzyLookupFactory",
-                        "dictionaryImpl":"DocumentDictionaryFactory",
-                        "suggestAnalyzerFieldType":"text_'.$lang.'"
-                    }
-                }
-            }';
-            $addRequestHandler = '{
-                "add-requestHandler":{
-                    "name":"/autocomplete_'.$lang.'",
-                    "class":"solr.SearchHandler",
-                    "components":["autocomplete_'.$lang.'"],
-                    "defaults":{
-                        "suggest":true,
-                        "suggest.count":5,
-                        "suggest.dictionary":"autocomplete_'.$lang.'"
-                    }
-                }
-            }';
-            makeHttpRequest($url, 'POST', $addSearchComponent);
-            makeHttpRequest($url, 'POST', $addRequestHandler);
+            $this->client->modifyConfigParams('add-searchComponent', [
+                'name' => "autocomplete_{$lang}",
+                'class' => 'solr.SuggestComponent',
+                'suggester' => [
+                    'name' => "autocomplete_{$lang}",
+                    'field' => "autocomplete_{$lang}",
+                    'lookupImpl' => 'FuzzyLookupFactory',
+                    'dictionaryImpl' => 'DocumentDictionaryFactory',
+                    'suggestAnalyzerFieldType' => "text_{$lang}",
+                ],
+            ]);
+            $this->client->modifyConfigParams('add-requestHandler', [
+                'name' => "/autocomplete_{$lang}",
+                'class' => 'solr.SearchHandler',
+                'components' => ["autocomplete_{$lang}"],
+                'defaults' => [
+                    'suggest' => 'true',
+                    'suggest.count' => 5,
+                    'suggest.dictionary' => "autocomplete_{$lang}",
+                ],
+            ]);
         }
     }
 
@@ -531,7 +505,7 @@ class arSolrPlugin extends QubitSearchEngine
                 ]);
             }
 
-            $query = ['replace-field-type' => [
+            $analyzerParams = [
                 'name' => $key,
                 'class' => 'solr.TextField',
                 'analyzer' => [
@@ -539,17 +513,10 @@ class arSolrPlugin extends QubitSearchEngine
                     'charFilters' => $charFilters,
                     'filters' => $filters,
                 ],
-            ]];
+            ];
 
-            $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-            makeHttpRequest($url, 'POST', json_encode($query));
+            $this->client->replaceFieldType($analyzerParams);
         }
-    }
-
-    private function addFieldsToType($query)
-    {
-        $url = $this->solrBaseUrl.'/solr/'.$this->solrClientOptions['collection'].'/schema/';
-        makeHttpRequest($url, 'POST', $query);
     }
 
     private function loadAndNormalizeMappings()

@@ -2,11 +2,11 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrAbstractQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrAbstractQuery.class.php';
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrTermQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrTermQuery.class.php';
 
-require_once 'plugins/arSolrPlugin/lib/query/arSolrMatchQuery.class.php';
+require_once 'plugins/arSolrPlugin/lib/client/arSolrMatchQuery.class.php';
 
 /**
  * @internal
