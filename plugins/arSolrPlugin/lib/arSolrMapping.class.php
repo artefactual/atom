@@ -91,6 +91,8 @@ class arSolrMapping
             $this->fixYamlShorthands();
 
             $this->excludeNestedOnlyTypes();
+
+            $this->addMultivalueExceptions();
         }
     }
 
@@ -498,5 +500,81 @@ class arSolrMapping
         }
 
         return $nestedI18nFields;
+    }
+
+    protected function addMultivalueExceptions()
+    {
+        $multivalueFields = [
+            'QubitInformationObject.dates.sourceCulture',
+            'QubitInformationObject.names.otherNames.sourceCulture',
+            'QubitInformationObject.creators.otherNames.sourceCulture',
+            'QubitInformationObject.inheritedCreators.otherNames.sourceCulture',
+            'QubitInformationObject.generalNotes.sourceCulture',
+            'QubitActor.otherNames.sourceCulture',
+            'QubitRepository.contactInformations.sourceCulture',
+            'QubitActor.otherNames.i18n.*.name',
+            'QubitActor.occupations.i18n.*.name',
+            'QubitActor.occupations.i18n.*.content',
+            'QubitActor.parallelNames.i18n.*.name',
+            'QubitActor.standardizedNames.i18n.*.name',
+            'QubitRepository.contactInformations.i18n.*.contactType',
+            'QubitRepository.contactInformations.i18n.*.city',
+            'QubitRepository.contactInformations.i18n.*.region',
+            'QubitInformationObject.creators.i18n.*.authorizedFormOfName',
+            'QubitInformationObject.creators.i18n.*.history',
+            'QubitInformationObject.creators.otherNames.i18n.*.name',
+            'QubitInformationObject.genres.i18n.*.name',
+            'QubitInformationObject.places.i18n.*.name',
+            'QubitInformationObject.subjects.i18n.*.name',
+            'QubitInformationObject.inheritedCreators.i18n.*.authorizedFormOfName',
+            'QubitInformationObject.inheritedCreators.otherNames.i18n.*.name',
+            'QubitInformationObject.names.otherNames.i18n.*.name',
+            'QubitInformationObject.generalNotes.i18n.*.content',
+            'QubitInformationObject.names.i18n.*.authorizedFormOfName',
+            'QubitInformationObject.dates.i18n.*.date',
+        ];
+
+        foreach ($multivalueFields as $field) {
+            $properties = explode('.', $field);
+            $properties[0] = str_replace('Qubit', '', $properties[0]);
+            $properties[0] = lcfirst($properties[0]);
+
+            if ('*' == $properties[count($properties) - 2]) {
+                foreach (sfConfig::get('app_i18n_languages') as $lang) {
+                    $path = [];
+                    foreach ($properties as $property) {
+                        if ('*' == $property) {
+                            array_push($path, $lang);
+                        } else {
+                            array_push($path, $property);
+                        }
+                        array_push($path, 'properties');
+                    }
+                    array_pop($path);
+                    $this->setMultivalueException($path);
+                }
+            } else {
+                $path = [];
+                foreach ($properties as $property) {
+                    array_push($path, $property);
+                    array_push($path, 'properties');
+                }
+
+                array_pop($path);
+                $this->setMultivalueException($path);
+            }
+        }
+    }
+
+    protected function setMultivalueException($keypath)
+    {
+        $mapping = &$this->mapping;
+        foreach ($keypath as $key) {
+            if (!array_key_exists($key, $mapping)) {
+                $mapping[$key] = [];
+            }
+            $mapping = &$mapping[$key];
+        }
+        $mapping['multivalue'] = 'true';
     }
 }

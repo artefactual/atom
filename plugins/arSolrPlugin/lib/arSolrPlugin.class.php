@@ -363,40 +363,11 @@ class arSolrPlugin extends QubitSearchEngine
                 array_push($this->langs, $lang);
             }
 
-            // TODO: avoid adding multivalue fields via a large list of exceptions and patterns
             $i18nIndex = array_search('i18n', $fields);
-            if ('languages' == $propertyName
-              || 'QubitInformationObject.dates.sourceCulture' == $fieldName
-              || 'QubitInformationObject.names.otherNames.sourceCulture' == $fieldName
-              || 'QubitInformationObject.creators.otherNames.sourceCulture' == $fieldName
-              || 'QubitInformationObject.inheritedCreators.otherNames.sourceCulture' == $fieldName
-              || 'QubitInformationObject.generalNotes.sourceCulture' == $fieldName
-              || 'QubitActor.otherNames.sourceCulture' == $fieldName
-              || 'QubitRepository.contactInformations.sourceCulture' == $fieldName
-              || fnmatch('QubitActor.otherNames.i18n.*.name', $fieldName)
-              || fnmatch('QubitActor.occupations.i18n.*.name', $fieldName)
-              || fnmatch('QubitActor.occupations.i18n.*.content', $fieldName)
-              || fnmatch('QubitActor.parallelNames.i18n.*.name', $fieldName)
-              || fnmatch('QubitActor.standardizedNames.i18n.*.name', $fieldName)
-              || fnmatch('QubitRepository.contactInformations.i18n.*.contactType', $fieldName)
-              || fnmatch('QubitRepository.contactInformations.i18n.*.city', $fieldName)
-              || fnmatch('QubitRepository.contactInformations.i18n.*.region', $fieldName)
-              || fnmatch('QubitInformationObject.creators.i18n.*.authorizedFormOfName', $fieldName)
-              || fnmatch('QubitInformationObject.creators.i18n.*.history', $fieldName)
-              || fnmatch('QubitInformationObject.creators.otherNames.i18n.*.name', $fieldName)
-              || fnmatch('QubitInformationObject.genres.i18n.*.name', $fieldName)
-              || fnmatch('QubitInformationObject.places.i18n.*.name', $fieldName)
-              || fnmatch('QubitInformationObject.subjects.i18n.*.name', $fieldName)
-              || fnmatch('QubitInformationObject.inheritedCreators.i18n.*.authorizedFormOfName', $fieldName)
-              || fnmatch('QubitInformationObject.generalNotes.i18n.*.content', $fieldName)
-              || fnmatch('QubitInformationObject.names.i18n.*.authorizedFormOfName', $fieldName)
-              || fnmatch('QubitInformationObject.dates.i18n.*.date', $fieldName)
-            ) {
-                $multiValue = true;
-            } elseif ($value['multivalue'] && false == $i18nIndex) {
+            if ('languages' == $propertyName || ($value['multivalue'] && false == $i18nIndex)) {
                 $multiValue = true;
             } else {
-                $multiValue = $this->getMultiValue($parentProperties[$fields[$i18nIndex - 2]]['properties']);
+                $multiValue = $this->getMultiValue($fieldName);
             }
 
             if (in_array($value['type'], $atomicTypes)) {
@@ -418,17 +389,33 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
-    private function getMultiValue($properties)
+    private function getMultiValue($fieldName)
     {
+        $properties = explode('.', $fieldName);
+        $properties[0] = str_replace('Qubit', '', $properties[0]);
+        $properties[0] = lcfirst($properties[0]);
+
+        $path = [];
         foreach ($properties as $property) {
-            if (null != $property['type']) {
-                if ($property['multivalue']) {
-                    return true;
-                }
-            } else {
-                $this->getMultiValue($property);
-            }
+            array_push($path, $property);
+            array_push($path, 'properties');
         }
+
+        array_pop($path);
+
+        $mapping = &$this->mappings;
+        foreach ($path as $key) {
+            if (!array_key_exists($key, $mapping)) {
+                $mapping[$key] = [];
+            }
+            $mapping = &$mapping[$key];
+        }
+
+        if (array_key_exists('multivalue', $mapping)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function setLanguageType($fieldName)
