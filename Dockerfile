@@ -15,7 +15,6 @@ RUN set -xe \
       autoconf \
       build-base \
       openldap-dev \
-      curl-dev \
     && docker-php-ext-install \
       calendar \
       gettext \
