@@ -405,7 +405,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if ($this->deleted)
     {
-      throw new PropelException('You cannot save an object that has been deleted.');
+      return $this;
     }
 
     if ($this->new)
