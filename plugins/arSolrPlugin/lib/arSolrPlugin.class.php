@@ -43,6 +43,20 @@ class arSolrPlugin extends QubitSearchEngine
     protected $enabled = true;
 
     /**
+     * This array will be used to store documents to add in a batch.
+     *
+     * @var array
+     */
+    private $batchAddDocs = [];
+
+    /**
+     * This array will be used to store documents to delete in a batch.
+     *
+     * @var array
+     */
+    private $batchDeleteDocs = [];
+
+    /**
      * Constructor.
      */
     public function __construct(array $options = [])
@@ -52,6 +66,10 @@ class arSolrPlugin extends QubitSearchEngine
         $this->config = arSolrPluginConfiguration::$config;
 
         $this->client = new arSolrClient($this->config['solr']);
+
+        // Load batch mode configuration
+        $this->batchMode = true === $this->config['batch_mode'];
+        $this->batchSize = $this->config['batch_size'];
 
         $this->initialize();
     }
@@ -111,6 +129,55 @@ class arSolrPlugin extends QubitSearchEngine
         }
 
         $this->initialize();
+    }
+
+    /*
+     * Flush batch of documents if we're in batch mode.
+     *
+     * We process additions before deletions to avoid an error due to deleting a
+     * document that hasn't been created yet.
+     */
+    public function flushBatch()
+    {
+        if ($this->batchMode) {
+            // Batch add documents, if any
+            if (count($this->batchAddDocs) > 0) {
+                try {
+                    $response = $this->client->addDocuments($this->batchAddDocs);
+
+                    if ($response->error) {
+                        $this->log(var_export($response->error, true));
+                        $this->log(json_encode($this->batchAddDocs));
+                    }
+                } catch (Exception $e) {
+                    // Clear batchAddDocs if something went wrong too
+                    $this->batchAddDocs = [];
+
+                    throw $e;
+                }
+
+                $this->batchAddDocs = [];
+            }
+
+            // Batch delete documents, if any
+            if (count($this->batchDeleteDocs) > 0) {
+                try {
+                    $response = $this->client->deleteDocuments($this->batchDeleteDocs);
+
+                    if ($response->error) {
+                        $this->log(var_export($response->error, true));
+                        $this->log(json_encode($this->batchDeleteDocs));
+                    }
+                } catch (Exception $e) {
+                    // Clear batchDeleteDocs if something went wrong too
+                    $this->batchDeleteDocs = [];
+
+                    throw $e;
+                }
+
+                $this->batchDeleteDocs = [];
+            }
+        }
     }
 
     /**
@@ -185,6 +252,9 @@ class arSolrPlugin extends QubitSearchEngine
             }
         }
 
+        // Add the last batch of documents
+        $this->flushBatch();
+
         $this->addAutoCompleteConfigs();
         $this->setAnalyzers();
 
@@ -229,11 +299,56 @@ class arSolrPlugin extends QubitSearchEngine
             throw new sfException('Failed to parse id field.');
         }
 
-        $response = $this->client->addDocument([$type => $data]);
+        if ($this->batchMode) {
+            // Add this document to the batch add queue
+            $document = [
+                $type => $data,
+            ];
+            array_push($this->batchAddDocs, $document);
 
-        if ($response->error) {
-            $this->log(var_export($response->error, true));
-            $this->log(json_encode([$type => $data]));
+            // If we have a full batch, send additions and deletions in bulk
+            if (count($this->batchAddDocs) >= $this->batchSize) {
+                $this->flushBatch();
+            }
+        } else {
+            $response = $this->client->addDocument([$type => $data]);
+
+            if ($response->error) {
+                $this->log(var_export($response->error, true));
+                $this->log(json_encode([$type => $data]));
+            }
+        }
+    }
+
+    public function delete($object)
+    {
+        if (!$this->enabled) {
+            return;
+        }
+
+        if ($object instanceof QubitUser) {
+            return;
+        }
+
+        if ($this->batchMode) {
+            // The document being deleted may not have been added to the index yet (if it's
+            // still queued up in $this->batchAddDocs) so create a document object representing
+            // the document to be deleted and add this document object to the batch delete
+            // queue.
+            $document = $this->client->createDocumentWithId($object->id, get_class($object));
+
+            $this->batchDeleteDocs[] = $document;
+
+            // If we have a full batch, send additions and deletions in bulk
+            if (count($this->batchDeleteDocs) >= $this->batchSize) {
+                $this->flushBatch();
+            }
+        } else {
+            try {
+                $this->client->deleteById($object->id, get_class($object));
+            } catch (Exception $e) {
+                // Ignore
+            }
         }
     }
 
@@ -292,32 +407,36 @@ class arSolrPlugin extends QubitSearchEngine
             'QubitAip.type.i18n.%s%.name',
         ];
 
+        $fields = [];
+        $copyFields = [];
+
         foreach ($this->langs as $lang) {
-            $addFieldArr = [
+            $langField = [
                 'name' => "autocomplete_{$lang}",
                 'type' => "text_{$lang}",
                 'stored' => 'true',
                 'multiValued' => 'true',
             ];
 
-            $copyFieldsArr = [
-                [
-                    'source' => 'QubitInformationObject.referenceCode',
-                    'dest' => "autocomplete_{$lang}",
-                ],
+            $refField = [
+                'source' => 'QubitInformationObject.referenceCode',
+                'dest' => "autocomplete_{$lang}",
             ];
-            $this->client->addFields($addFieldArr);
+
+            array_push($fields, $langField);
+            array_push($copyFields, $refField);
 
             foreach ($autocompleteFields as $field) {
                 $field = str_replace('%s%', $lang, $field);
-                array_push($copyFieldsArr, [
+                array_push($copyFields, [
                     'source' => $field,
                     'dest' => "autocomplete_{$lang}",
                 ]);
             }
-
-            $this->client->addCopyFields($copyFieldsArr);
         }
+
+        $this->client->addFields($fields);
+        $this->client->addCopyFields($copyFields);
     }
 
     private function addAutoCompleteConfigs()

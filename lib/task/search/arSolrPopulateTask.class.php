@@ -35,7 +35,7 @@ class arSolrPopulateTask extends sfBaseTask
 
         new sfDatabaseManager($this->configuration);
 
-        $solr = new arSolrPlugin($options);
+        $solr = QubitSearch::getSolrInstance();
 
         // Index by slug, if specified, or all indexable resources except those with an excluded type
         //if ($options['slug']) {

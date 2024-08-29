@@ -71,6 +71,44 @@ class arSolrClient
         return makeHttpRequest($url, 'POST', json_encode($document));
     }
 
+    public function addDocuments($documents)
+    {
+        $url = "{$this->config['api_url']}/solr/{$this->config['collection']}/update/json/docs";
+
+        return makeHttpRequest($url, 'POST', json_encode($documents));
+    }
+
+    public function deleteDocuments($documents)
+    {
+        $url = "{$this->config['api_url']}/solr/{$this->config['collection']}/update";
+
+        return makeHttpRequest($url, 'POST', json_encode([
+            'delete' => $documents,
+        ]));
+    }
+
+    public function deleteById($id, $type)
+    {
+        $document = $this->createDocumentWithId($id, $type);
+
+        return $this->deleteDocuments($document);
+    }
+
+    public function deleteByQuery($query)
+    {
+        $queryParams = $query->getQueryParams();
+
+        // Ignore offset, size, and additional params when deleting by query
+        return $this->deleteDocuments([
+            'query' => $queryParams['query'],
+        ]);
+    }
+
+    public function createDocumentWithId($id, $type)
+    {
+        return ["{$type}.id" => $id];
+    }
+
     public function getCollections()
     {
         $url = "{$this->config['api_url']}/solr/admin/collections?action=LIST";
