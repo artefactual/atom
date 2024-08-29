@@ -145,7 +145,6 @@ services:
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "63001:80"
-      - "9001:81"
     networks:
       - solr
 
