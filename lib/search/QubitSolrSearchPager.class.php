@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitSearchPager extends sfPager
+class QubitSolrSearchPager extends sfPager
 {
     protected $nbResults;
     protected $resultSet;

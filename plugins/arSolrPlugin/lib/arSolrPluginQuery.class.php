@@ -35,11 +35,9 @@ class arSolrPluginQuery
     {
         // TODO: update usage of the query param
         // across arSolrPluginQuery and AtoM
-        //$this->query = new arSolrQuery();
-        //$this->query->setParam('size', $limit);
-        //$this->query->setParam('from', $skip);
-
         $this->queryBool = new arSolrBoolQuery();
+        $this->queryBool->setSize($limit);
+        $this->queryBool->setOffset($skip);
     }
 
     /**
@@ -78,7 +76,7 @@ class arSolrPluginQuery
                 $agg[$name]['limit'] = $item['size'];
             }
 
-            $this->query->setAggregations($agg);
+            $this->queryBool->setAggregations($agg);
         }
     }
 
@@ -237,7 +235,7 @@ class arSolrPluginQuery
      * @param bool $allowEmpty   get all or none if the query is empty
      * @param bool $filterDrafts filter draft records
      *
-     * @return \Elastica\Query
+     * @return arSolrBoolQuery
      */
     public function getQuery($allowEmpty = false, $filterDrafts = false)
     {
@@ -249,9 +247,7 @@ class arSolrPluginQuery
             QubitSolrAclSearch::filterDrafts($this->queryBool);
         }
 
-        $this->query->setQuery($this->queryBool);
-
-        return $this->query;
+        return $this->queryBool;
     }
 
     /**
@@ -668,7 +664,7 @@ class arSolrPluginQuery
             $query->addMust(new arSolrRangeQuery('dates.endDate', $range));
         }
 
-        // TODO: Remove ES nested query
+        // TODO: Update ES nested query use
         // // Use nested query and mapping object to allow querying
         // // over the start and end dates from the same event
         // $queryNested = new arSolrNestedQuery();
