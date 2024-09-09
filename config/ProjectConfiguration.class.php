@@ -46,6 +46,7 @@ class ProjectConfiguration extends sfProjectConfiguration
             'sfWebBrowserPlugin',
             // sfPluginAdminPlugin depends on sfPropelPlugin
             'sfPluginAdminPlugin',
+            'arOidcPlugin',
         ];
 
         $this->enablePlugins($plugins);
