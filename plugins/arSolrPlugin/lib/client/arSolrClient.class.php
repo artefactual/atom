@@ -71,6 +71,36 @@ class arSolrClient
         return makeHttpRequest($url, 'POST', json_encode($document));
     }
 
+    public function updateDocument($document)
+    {
+        // Add document endpoint is able to perform updates
+        // automatically if the document already exists
+        return $this->addDocument($document);
+    }
+
+    /**
+     * Update specific fields for a document id with new values.
+     *
+     * @param int    $id
+     * @param string $type
+     * @param array  $document Document array containing key value pairs for fields and updated values
+     */
+    public function updateById($id, $type, $document)
+    {
+        $url = "{$this->config['api_url']}/solr/{$this->config['collection']}/update";
+
+        $documentUpdateCommand = [
+            "{$type}.id" => $id,
+        ];
+        foreach ($document as $field => $data) {
+            $documentUpdateCommand["{$type}.{$field}"] = [
+                'set' => $data,
+            ];
+        }
+
+        return makeHttpRequest($url, 'POST', json_encode($documentUpdateCommand));
+    }
+
     public function addDocuments($documents)
     {
         $url = "{$this->config['api_url']}/solr/{$this->config['collection']}/update/json/docs";

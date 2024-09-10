@@ -320,6 +320,41 @@ class arSolrPlugin extends QubitSearchEngine
         }
     }
 
+    public function partialUpdate($object, $data)
+    {
+        if (!$this->enabled) {
+            return;
+        }
+
+        if ($object instanceof QubitUser) {
+            return;
+        }
+
+        $type = get_class($object);
+        $response = $this->client->updateDocument([$type => $data]);
+
+        if ($response->error) {
+            $this->log(var_export($response->error, true));
+        }
+    }
+
+    public function partialUpdateById(string $className, int $id, array $data)
+    {
+        if (!$this->enabled) {
+            return;
+        }
+
+        if (0 == strcmp($className, 'QubitUser')) {
+            return;
+        }
+
+        $response = $this->client->updateById($id, $className, $data);
+
+        if ($response->error) {
+            $this->log(var_export($response->error, true));
+        }
+    }
+
     public function delete($object)
     {
         if (!$this->enabled) {
