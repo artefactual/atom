@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $sf_user->getCulture(); ?>" dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction; ?>">
   <head>
+    <?php echo get_partial('default/googleAnalytics'); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
     <?php include_http_metas(); ?>
     <?php include_metas(); ?>
