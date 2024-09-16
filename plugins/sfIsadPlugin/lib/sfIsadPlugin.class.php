@@ -77,13 +77,6 @@ class sfIsadPlugin implements ArrayAccess
                 if (0 == strlen($value)) {
                     // Delete note if it's available
                     if (!$missingNote) {
-                        // Update deleted note on duplication
-                        if (!isset($value)) {
-                            $note->content = $value;
-
-                            break;
-                        }
-
                         $note->delete();
                     }
 
