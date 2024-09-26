@@ -42,7 +42,7 @@
 
           <legend><?php echo __('Upload a %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?></legend>
 
-          <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)) { ?>
+          <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit) || -1 == sfConfig::get('app_upload_limit')) { ?>
 
             <?php echo $form->file->renderRow(); ?>
 

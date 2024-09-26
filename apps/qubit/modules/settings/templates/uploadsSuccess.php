@@ -43,7 +43,7 @@
           <?php echo $form
               ->enable_repository_quotas
               ->label(
-                __('%1% upload limits',
+                __('%1% upload limits meter display',
                 [
                     '%1%' => sfConfig::get('app_ui_label_repository'),
                 ]
@@ -65,7 +65,7 @@
               ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]
             ))
               ->help(__(
-                'Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads',
+                'Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.',
                 [
                     '%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')),
                     '%2%' => strtolower(sfConfig::get('app_ui_label_repository')),
