@@ -78,7 +78,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
 
         $queryScript = \Elastica\Script\AbstractScript::create([
             'script' => [
-                'inline' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
+                'source' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
                 'lang' => 'painless',
             ],
         ]);

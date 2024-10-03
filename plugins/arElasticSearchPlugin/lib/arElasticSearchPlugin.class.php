@@ -90,9 +90,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Verify the version running in the server
         $this->checkVersion();
 
-        // TODO: arElasticSearchIndexDecorator can be removed when Elastica >= 6.x. It is present to
-        // provide Elastica/Index::updateByQuery().
-        $this->index = new arElasticSearchIndexDecorator($this->client->getIndex($this->config['index']['name']));
+        $this->index = $this->client->getIndex($this->config['index']['name']);
 
         // Load batch mode configuration
         $this->batchMode = true === $this->config['batch_mode'];
