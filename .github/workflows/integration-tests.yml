@@ -5,6 +5,7 @@ on:
     branches:
     - qa/**
     - stable/**
+    - dev/oidc-tests
 jobs:
   integration-tests:
     runs-on: ubuntu-20.04
@@ -100,3 +101,51 @@ jobs:
         CYPRESS_VIDEO: false
         CYPRESS_BASE_URL: http://localhost
       run: npx cypress run -b ${BROWSER,}
+
+    - name: Set Keycloak Realm File env var
+      run: echo "REALM_FILE=../test/etc/keycloak/realm.json" >> $GITHUB_ENV
+    - name: Launch Keycloak service
+      run: |
+        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
+    - name: Wait for Keycloak to be Ready
+      run: |
+        echo "Waiting for Keycloak to be ready..."
+        for i in {1..30}; do
+          if nc -z localhost 8080; then
+            echo "Keycloak is up!"
+            break
+          fi
+          echo "Waiting for Keycloak..."
+          sleep 5
+        done
+    - name: Update OIDC plugin app.yml file
+      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+    - name: Update factories.yml to use oidcUser
+      run: |
+        sudo sed -i 's/class: myUser/class: oidcUser/' config/factories.yml
+    - name: Update settings.yml login module to oidc
+      run: |
+        sudo sed -i 's/login_module:\s*user/login_module: oidc/' apps/qubit/config/settings.yml
+    - name: Install OIDC Plugin
+      run: |
+        sudo touch activate-oidc-plugin
+    - name: Change filesystem permissions
+      run: sudo chown -R www-data:www-data ${{ github.workspace }}
+    - name: Clear Symfony cache
+      run: |
+        php symfony cc
+    - name: Restart php-fpm
+      run: |
+        sudo systemctl restart php7.4-fpm
+        sudo php-fpm7.4 --test
+    - name: Run OIDC tests
+      env:
+        BROWSER: ${{ matrix.browser }}
+        CYPRESS_VIDEO: false
+        CYPRESS_BASE_URL: http://localhost
+      run: npx cypress run --config-file cypress.config.oidc.js --browser ${BROWSER,}
+    - name: Tear down services
+      if: always()
+      run: |
+        docker compose -p ci down
+        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml down

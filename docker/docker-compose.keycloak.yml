@@ -1,0 +1,16 @@
+---
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: ["start-dev", "--import-realm"]
+    restart: unless-stopped
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_METRICS_ENABLED: true
+      KC_LOG_LEVEL: INFO
+    ports:
+      - 8080:8080
+    volumes:
+      #- .etc/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+      - ${REALM_FILE:-./etc/keycloak/realm.json}:/opt/keycloak/data/import/realm.json:ro

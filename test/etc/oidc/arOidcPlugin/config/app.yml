@@ -1,0 +1,70 @@
+## OIDC Plugin configuration.
+all:
+  oidc:
+    providers:
+      demo:
+        url: 'http://keycloak:8080/realms/demo'
+        client_id: 'atom'
+        client_secret: 'example-secret'
+        send_oidc_logout: true
+        enable_refresh_token_use: true
+        server_cert: false
+        set_groups_from_attributes: true
+        user_groups:
+          administrator:
+            attribute_value: 'atom-admin'
+            group_id: 100
+          editor:
+            attribute_value: 'atom-editor'
+            group_id: 101
+          contributor:
+            attribute_value: 'atom-contributor'
+            group_id: 102
+          translator:
+            attribute_value: 'atom-translator'
+            group_id: 103
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+        roles_source: 'access-token'
+        roles_path:
+          - 'realm_access'
+          - 'roles'
+        user_matching_source: 'oidc-email'
+        auto_create_atom_user: true
+      secondary:
+        url: 'http://keycloak:8080/realms/secondary'
+        client_id: 'atom-secondary'
+        client_secret: 'example-secret'
+        send_oidc_logout: true
+        enable_refresh_token_use: true
+        server_cert: false
+        set_groups_from_attributes: true
+        user_groups:
+          administrator:
+            attribute_value: 'atom-admin'
+            group_id: 100
+          editor:
+            attribute_value: 'atom-editor'
+            group_id: 101
+          contributor:
+            attribute_value: 'atom-contributor'
+            group_id: 102
+          translator:
+            attribute_value: 'atom-translator'
+            group_id: 103
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+        roles_source: 'access-token'
+        roles_path:
+          - 'realm_access'
+          - 'roles'
+        user_matching_source: 'oidc-email'
+        auto_create_atom_user: true
+    primary_provider_name: demo
+    provider_query_param_name: secondary
+    redirect_url: 'http://localhost/index.php/oidc/login'
+    logout_redirect_url: 'http://127.0.0.1'
