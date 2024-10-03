@@ -1,0 +1,133 @@
+name: OIDC integration tests
+on:
+  pull_request:
+  push:
+    branches:
+    - qa/**
+    - stable/**
+jobs:
+  integration-tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [Chrome, Electron, Firefox]
+    name: ${{ matrix.browser }}
+    env:
+      COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    - name: Start containerized services
+      run: |
+        sudo sysctl -w vm.max_map_count=262144
+        docker compose -p ci up -d percona elasticsearch gearmand
+    - name: Launch Keycloak service
+      run: |
+        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
+    - name: Wait for Keycloak to be Ready
+      run: |
+        echo "Waiting for Keycloak to be ready..."
+        for i in {1..30}; do
+          if nc -z localhost 8080; then
+            echo "Keycloak is up!"
+            break
+          fi
+          echo "Waiting for Keycloak..."
+          sleep 5
+        done
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        coverage: none
+        extensions: apcu, opcache
+    - name: Setup PHP-FPM
+      run: |
+        sudo apt install php7.4-fpm
+        sudo service php7.4-fpm start
+    - name: Cache Composer dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.composer/cache/files
+        key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
+    - name: Install Composer dependencies
+      run: composer install
+    - name: Cache NPM dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/Cypress
+        key: npm-${{ hashFiles('package-lock.json') }}
+    - name: Install NPM dependencies
+      run: sudo npm install -g npm && npm ci
+    - name: Modify Gearman config
+      run: |
+        echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
+          > apps/qubit/config/gearman.yml
+    - name: Build themes
+      run: |
+        sudo npm install -g "less@<4.0.0"
+        make -C plugins/arDominionPlugin
+        make -C plugins/arArchivesCanadaPlugin
+        npm run build
+    - name: Run the installer
+      run: |
+        php symfony tools:install \
+          --database-host=127.0.0.1 \
+          --database-port=63003 \
+          --database-name=atom \
+          --database-user=atom \
+          --database-password=atom_12345 \
+          --search-host=127.0.0.1 \
+          --search-port=63002 \
+          --search-index=atom \
+          --demo \
+          --no-confirmation
+    - name: Update OIDC plugin app.yml file
+      run: sudo cp docker/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+    - name: Update factories.yml to use oidcUser
+      run: |
+        sudo sed -i 's/class: myUser/class: oidcUser/' config/factories.yml
+    - name: Install OIDC Plugin
+      run: |
+        php symfony tools:atom-plugins add arOidcPlugin
+    - name: Change filesystem permissions
+      run: sudo chown -R www-data:www-data ${{ github.workspace }}
+    - name: Start application services
+      run: |
+        sudo cp test/etc/fpm_conf /etc/php/7.4/fpm/pool.d/atom.conf
+        sudo rm /etc/php/7.4/fpm/pool.d/www.conf
+        sudo systemctl restart php7.4-fpm
+        sudo php-fpm7.4 --test
+        sudo cp test/etc/worker_conf /usr/lib/systemd/system/atom-worker.service
+        sudo systemctl daemon-reload
+        sudo systemctl start atom-worker
+    - name: Install and configure Nginx
+      run: |
+        sudo apt install nginx
+        sudo cp test/etc/nginx_conf /etc/nginx/sites-available/atom
+        sudo ln -s /etc/nginx/sites-available/atom /etc/nginx/sites-enabled
+        sudo rm -f /etc/nginx/sites-enabled/default
+        sudo nginx -t
+        sudo systemctl restart nginx
+    - name: Create writable Cypress videos and screenshots dirs
+      run: |
+        sudo mkdir -p ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
+        sudo chmod a=rwx ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
+    - name: Run tests
+      env:
+        BROWSER: ${{ matrix.browser }}
+        CYPRESS_VIDEO: false
+        CYPRESS_BASE_URL: http://localhost
+      run: npx cypress run --config-file cypress.config.oidc.js --browser ${BROWSER,}
+
+    - name: Output NGINX Error Log
+      run: sudo cat /var/log/nginx/error.log
+
+    - name: Tear down services
+      if: always()
+      run: |
+        docker compose -p ci down
+        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml down
