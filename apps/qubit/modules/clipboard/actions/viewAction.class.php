@@ -51,7 +51,7 @@ class ClipboardViewAction extends DefaultBrowseAction
 
             $this->search->query->setQuery($this->search->queryBool);
 
-            $resultSet = QubitSearch::getInstance()->index->getType($this->entityType)->search($this->search->query);
+            $resultSet = QubitSearch::getInstance()->index[$this->entityType]->search($this->search->query);
         }
 
         // Page results

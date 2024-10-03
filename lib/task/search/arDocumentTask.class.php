@@ -37,7 +37,7 @@ class arSearchDocumentTask extends arBaseTask
         if (null !== $slugObject = QubitObject::getBySlug($arguments[slug])) {
             $this->log(sprintf("Fetching data for %s ID %d...\n", $slugObject->className, $slugObject->id));
 
-            $doc = QubitSearch::getInstance()->index->getType($slugObject->className)->getDocument($slugObject->id);
+            $doc = QubitSearch::getInstance()->index[$slugObject->className]->getDocument($slugObject->id);
 
             echo json_encode($doc->getData(), JSON_PRETTY_PRINT)."\n";
         } else {

@@ -248,7 +248,7 @@ EOF;
             QubitAclSearch::filterDrafts($this->search->queryBool);
             $this->search->query->setQuery($this->search->queryBool);
 
-            $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
+            $resultSet = QubitSearch::getInstance()->index['QubitInformationObject']->search($this->search->query);
 
             // Page results
             $this->pager = new QubitSearchPager($resultSet);
@@ -328,7 +328,7 @@ EOF;
         $listQueryBool->addMust(new \Elastica\Query\Term(['taxonomyId' => $this->resource->taxonomyId]));
 
         $listQuery->setQuery($listQueryBool);
-        $this->listResultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($listQuery);
+        $this->listResultSet = QubitSearch::getInstance()->index['QubitTerm']->search($listQuery);
 
         // Page list results
         $this->listPager = new QubitSearchPager($this->listResultSet);

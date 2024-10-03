@@ -96,7 +96,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
         $this->search->query->setSort([$field => $order]);
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
+        $resultSet = QubitSearch::getInstance()->index['QubitInformationObject']->search($this->search->getQuery(false, true));
 
         // Build array from results
         $results = $lodMapping = [];
