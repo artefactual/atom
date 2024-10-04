@@ -76,7 +76,7 @@ EOF;
     private function objectsIndexed($docType)
     {
         // Determine model class name from document type name
-        $docTypeModelClass = 'Qubit'.ucfirst($docType);
+        $docTypeModelClass = 'qubit'.strtolower($docType);
 
         return QubitSearch::getInstance()->index[$docTypeModelClass]->count();
     }

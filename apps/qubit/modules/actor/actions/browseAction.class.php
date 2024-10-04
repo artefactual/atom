@@ -26,7 +26,7 @@
  */
 class ActorBrowseAction extends DefaultBrowseAction
 {
-    public const INDEX_TYPE = 'QubitActor';
+    public const INDEX_TYPE = 'qubitactor';
 
     // Arrays not allowed in class constants
     public static $NAMES = [
@@ -39,13 +39,13 @@ class ActorBrowseAction extends DefaultBrowseAction
     ];
     public static $FILTERTAGS = [
         'hasDigitalObject' => [],
-        'repository' => ['model' => 'QubitRepository'],
-        'entityType' => ['model' => 'QubitTerm'],
-        'relatedType' => ['model' => 'QubitTerm'],
-        'occupation' => ['model' => 'QubitTerm'],
-        'place' => ['model' => 'QubitTerm'],
-        'subject' => ['model' => 'QubitTerm'],
-        'mediatypes' => ['model' => 'QubitTerm'],
+        'repository' => ['model' => 'qubitrepository'],
+        'entityType' => ['model' => 'qubitterm'],
+        'relatedType' => ['model' => 'qubitterm'],
+        'occupation' => ['model' => 'qubitterm'],
+        'place' => ['model' => 'qubitterm'],
+        'subject' => ['model' => 'qubitterm'],
+        'mediatypes' => ['model' => 'qubitterm'],
         'emptyField' => [],
     ];
     public static $AGGS = [
@@ -499,7 +499,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
         $this->search->query->setQuery($this->search->queryBool);
 
-        return QubitSearch::getInstance()->index['QubitActor']->search($this->search->getQuery(false));
+        return QubitSearch::getInstance()->index['qubitactor']->search($this->search->getQuery(false));
     }
 
     private function getRelatedAuthorityUsingSlug($slug)

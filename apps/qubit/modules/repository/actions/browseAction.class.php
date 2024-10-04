@@ -23,7 +23,7 @@
  */
 class RepositoryBrowseAction extends DefaultBrowseAction
 {
-    public const INDEX_TYPE = 'QubitRepository';
+    public const INDEX_TYPE = 'qubitrepository';
 
     // Arrays not allowed in class constants
     public static $AGGS = [
@@ -142,7 +142,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
         $this->search->query->setQuery($this->search->queryBool);
 
-        $resultSet = QubitSearch::getInstance()->index['QubitRepository']->search($this->search->query);
+        $resultSet = QubitSearch::getInstance()->index['qubitrepository']->search($this->search->query);
 
         $this->pager = new QubitSearchPager($resultSet);
         $this->pager->setPage($request->page ? $request->page : 1);
@@ -201,7 +201,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
         $query = new \Elastica\Query(new \Elastica\Query\MatchAll());
         $query->setSize($limit);
 
-        $this->repositories = QubitSearch::getInstance()->index['QubitRepository']->search($query);
+        $this->repositories = QubitSearch::getInstance()->index['qubitrepository']->search($query);
     }
 
     /**

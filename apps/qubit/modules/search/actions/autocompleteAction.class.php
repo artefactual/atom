@@ -45,28 +45,28 @@ class SearchAutocompleteAction extends sfAction
 
         $items = [
             [
-                'type' => 'QubitInformationObject',
+                'type' => 'qubitinformationobject',
                 'field' => sprintf('i18n.%s.title', $culture),
                 'fields' => ['slug', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId'],
             ],
             [
-                'type' => 'QubitRepository',
+                'type' => 'qubitrepository',
                 'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
                 'fields' => ['slug', sprintf('i18n.%s.authorizedFormOfName', $culture)],
             ],
             [
-                'type' => 'QubitActor',
+                'type' => 'qubitactor',
                 'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
                 'fields' => ['slug', sprintf('i18n.%s.authorizedFormOfName', $culture)],
             ],
             [
-                'type' => 'QubitTerm',
+                'type' => 'qubitterm',
                 'field' => sprintf('i18n.%s.name', $culture),
                 'fields' => ['slug', sprintf('i18n.%s.name', $culture)],
                 'term_filter' => ['taxonomyId' => QubitTaxonomy::PLACE_ID],
             ],
             [
-                'type' => 'QubitTerm',
+                'type' => 'qubitterm',
                 'field' => sprintf('i18n.%s.name', $culture),
                 'fields' => ['slug', sprintf('i18n.%s.name', $culture)],
                 'term_filter' => ['taxonomyId' => QubitTaxonomy::SUBJECT_ID],
@@ -93,7 +93,7 @@ class SearchAutocompleteAction extends sfAction
                 $queryBool->addMust(new \Elastica\Query\Term($item['term_filter']));
             }
 
-            if (isset($request->repos) && ctype_digit($request->repos) && 'QubitInformationObject' == $item['type']) {
+            if (isset($request->repos) && ctype_digit($request->repos) && 'qubitinformationobject' == $item['type']) {
                 $queryBool->addMust(new \Elastica\Query\Term(['repository.id' => $request->repos]));
 
                 // Store realm in user session
@@ -103,7 +103,7 @@ class SearchAutocompleteAction extends sfAction
                 $this->context->user->removeAttribute('search-realm');
             }
 
-            if ('QubitInformationObject' == $item['type']) {
+            if ('qubitinformationobject' == $item['type']) {
                 QubitAclSearch::filterDrafts($queryBool);
             }
 

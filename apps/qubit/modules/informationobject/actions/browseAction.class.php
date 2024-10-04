@@ -23,7 +23,7 @@
  */
 class InformationObjectBrowseAction extends DefaultBrowseAction
 {
-    public const INDEX_TYPE = 'QubitInformationObject';
+    public const INDEX_TYPE = 'qubitinformationobject';
 
     // Arrays not allowed in class constants
     public static $NAMES = [
@@ -40,21 +40,21 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         'findingAidStatus',
     ];
     public static $FILTERTAGS = [
-        'repos' => ['model' => 'QubitRepository'],
-        'collection' => ['model' => 'QubitInformationObject'],
-        'creators' => ['model' => 'QubitActor'],
-        'names' => ['model' => 'QubitActor'],
-        'places' => ['model' => 'QubitTerm'],
-        'levels' => ['model' => 'QubitTerm'],
-        'subjects' => ['model' => 'QubitTerm'],
-        'mediatypes' => ['model' => 'QubitTerm'],
-        'copyrightStatus' => ['model' => 'QubitTerm'],
-        'materialType' => ['model' => 'QubitTerm'],
+        'repos' => ['model' => 'qubitrepository'],
+        'collection' => ['model' => 'qubitinformationobject'],
+        'creators' => ['model' => 'qubitactor'],
+        'names' => ['model' => 'qubitactor'],
+        'places' => ['model' => 'qubitterm'],
+        'levels' => ['model' => 'qubitterm'],
+        'subjects' => ['model' => 'qubitterm'],
+        'mediatypes' => ['model' => 'qubitterm'],
+        'copyrightStatus' => ['model' => 'qubitterm'],
+        'materialType' => ['model' => 'qubitterm'],
         'onlyMedia' => [],
         'languages' => [],
         'dateRange' => ['params' => ['startDate', 'endDate'], 'operator' => 'or'],
         'findingAidStatus' => [],
-        'ancestor' => ['model' => 'QubitInformationObject'],
+        'ancestor' => ['model' => 'qubitinformationobject'],
     ];
     public static $AGGS = [
         'languages' => [
@@ -244,7 +244,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
-        $resultSet = QubitSearch::getInstance()->index['QubitInformationObject']->search($this->search->getQuery(false, true));
+        $resultSet = QubitSearch::getInstance()->index['qubitinformationobject']->search($this->search->getQuery(false, true));
 
         // Page results
         $this->pager = new QubitSearchPager($resultSet);

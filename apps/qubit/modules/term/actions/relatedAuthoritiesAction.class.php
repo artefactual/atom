@@ -19,7 +19,7 @@
 
 class TermRelatedAuthoritiesAction extends TermIndexAction
 {
-    public const INDEX_TYPE = 'QubitActor';
+    public const INDEX_TYPE = 'qubitactor';
 
     // Arrays not allowed in class constants
     public static $FILTERTAGS = [];

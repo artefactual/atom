@@ -34,7 +34,7 @@ class ClipboardViewAction extends DefaultBrowseAction
 
         // Get entity type and class name
         $this->type = $request->getGetParameter('type', 'informationObject');
-        $this->entityType = 'Qubit'.ucfirst($this->type);
+        $this->entityType = 'qubit'.strtolower($this->type);
 
         $slugs = $request->getPostParameter('slugs', []);
 
@@ -45,7 +45,7 @@ class ClipboardViewAction extends DefaultBrowseAction
             $this->setSortOptions();
             $this->setESSort($request);
 
-            if ('QubitInformationObject' == $this->entityType) {
+            if ('qubitinformationobject' == $this->entityType) {
                 QubitAclSearch::filterDrafts($this->search->queryBool);
             }
 
@@ -88,7 +88,7 @@ class ClipboardViewAction extends DefaultBrowseAction
         }
 
         // IO specific sort options
-        if ('QubitInformationObject' === $this->entityType) {
+        if ('qubitinformationobject' === $this->entityType) {
             $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
             $this->sortOptions['referenceCode'] = $this->context->i18n->__('Reference code');
             $this->sortOptions['startDate'] = $this->context->i18n->__('Start date');

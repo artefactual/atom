@@ -140,10 +140,10 @@ class DefaultMoveAction extends sfAction
         $this->query->setQuery($this->queryBool);
 
         if ($this->resource instanceof QubitInformationObject) {
-            $resultSet = QubitSearch::getInstance()->index['QubitInformationObject']->search($this->query);
+            $resultSet = QubitSearch::getInstance()->index['qubitinformationobject']->search($this->query);
         } elseif ($this->resource instanceof QubitTerm) {
             // TODO: Add parent_id for terms in ES, add move button
-            $resultSet = QubitSearch::getInstance()->index['QubitTerm']->search($this->query);
+            $resultSet = QubitSearch::getInstance()->index['qubitterm']->search($this->query);
         }
 
         // Page results

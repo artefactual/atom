@@ -201,11 +201,11 @@ class SearchDescriptionUpdatesAction extends sfAction
         switch ($name) {
             case 'className':
                 $choices = [
-                    'QubitInformationObject' => sfConfig::get('app_ui_label_informationobject'),
-                    'QubitActor' => sfConfig::get('app_ui_label_actor'),
-                    'QubitRepository' => sfConfig::get('app_ui_label_repository'),
-                    'QubitTerm' => sfConfig::get('app_ui_label_term'),
-                    'QubitFunctionObject' => sfConfig::get('app_ui_label_function'),
+                    'qubitinformationobject' => sfConfig::get('app_ui_label_informationobject'),
+                    'qubitactor' => sfConfig::get('app_ui_label_actor'),
+                    'qubitrepository' => sfConfig::get('app_ui_label_repository'),
+                    'qubitterm' => sfConfig::get('app_ui_label_term'),
+                    'qubitfunctionobject' => sfConfig::get('app_ui_label_function'),
                 ];
 
                 $this->form->setValidator($name, new sfValidatorString());

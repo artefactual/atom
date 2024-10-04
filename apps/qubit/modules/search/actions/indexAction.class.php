@@ -20,7 +20,7 @@
 // Notice that his is also used in XHR context (see treeview search)
 class SearchIndexAction extends DefaultBrowseAction
 {
-    public const INDEX_TYPE = 'QubitInformationObject';
+    public const INDEX_TYPE = 'qubitinformationobject';
 
     public function execute($request)
     {
@@ -48,7 +48,7 @@ class SearchIndexAction extends DefaultBrowseAction
         QubitAclSearch::filterDrafts($this->search->queryBool);
         $this->search->query->setQuery($this->search->queryBool);
 
-        $resultSet = QubitSearch::getInstance()->index['QubitInformationObject']->search($this->search->query);
+        $resultSet = QubitSearch::getInstance()->index['qubitinformationobject']->search($this->search->query);
 
         $total = $resultSet->getTotalHits();
         if (1 > $total) {
