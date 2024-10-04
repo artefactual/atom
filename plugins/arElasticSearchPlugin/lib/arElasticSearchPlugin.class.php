@@ -103,8 +103,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         // Iterate over types (actor, informationobject, ...)
         foreach ($this->mappings as $typeName => $typeProperties) {
-            $typeName = 'Qubit'.sfInflector::camelize($typeName);
-            array_push($this->index, $this->client->getIndex($typeName));
+            $typeName = strtolower('qubit'.$typeName);
+            $this->index[$typeName] = $this->client->getIndex($typeName);
         }
 
         // Load batch mode configuration
@@ -293,7 +293,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 // If excluding types then index as a whole hasn't been flushed: delete
                 // type's documents if not updating
                 if (count($excludeTypes) && !$update) {
-                    $this->index['Qubit'.$camelizedTypeName]->deleteByQuery(new \Elastica\Query\MatchAll());
+                    $this->index['qubit'.$typeName]->deleteByQuery(new \Elastica\Query\MatchAll());
                 }
 
                 $class = new $className();
@@ -351,6 +351,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     public function addDocument($data, $type)
     {
+        $type = strtolower($type);
         if (!isset($data['id'])) {
             throw new sfException('Failed to parse id field.');
         }
@@ -369,8 +370,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         if ($this->batchMode) {
             if ($this->currentBatchType != $type) {
-                $this->currentBatchType = $type;
                 $this->flushBatch();
+                $this->currentBatchType = $type;
 
                 foreach ($this->index as $index) {
                     $index->refresh();
@@ -389,7 +390,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 }
             }
         } else {
-            $this->index[$type]->addDocument($document);
+            $this->index[$type]->addDocuments([$document]);
         }
     }
 
@@ -544,7 +545,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
 
-        foreach ($this->index as $index) {
+        foreach ($this->index as $type => $index) {
             try {
                 $index->open();
             } catch (Exception $e) {
@@ -578,16 +579,19 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
                 // Iterate over types (actor, informationobject, ...)
                 foreach ($this->mappings as $typeName => $typeProperties) {
-                    $typeName = 'Qubit'.sfInflector::camelize($typeName);
+                    if ($type != strtolower($typeName)) {
+                        continue;
+                    }
+                    $typeName = strtolower('qubit'.$typeName);
 
                     // Define mapping in elasticsearch
                     $mapping = new \Elastica\Type\Mapping();
-                    $mapping->setType($index[$typeName]);
+                    $mapping->setType($index->getType($typeName));
                     $mapping->setProperties($typeProperties['properties']);
 
                     // Parse other parameters
-                    unset($typeProperties['properties']);
-                    foreach ($typeProperties as $key => $value) {
+                    unset($this->mapping[$typeName]['properties']);
+                    foreach ($this->mapping[$typeName]['properties'] as $key => $value) {
                         $mapping->setParam($key, $value);
                     }
 
