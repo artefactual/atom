@@ -3,7 +3,7 @@
 use Jumbojett\OpenIDConnectClient;
 use PHPUnit\Framework\TestCase;
 
-require_once 'plugins/arOidcPlugin/config/arOidcPluginConfiguration.class.php';
+require_once 'plugins/arOidcPlugin/lib/arOidc.class.php';
 
 /**
  * @internal
@@ -47,7 +47,7 @@ class ArOidcTest extends TestCase
         return [
             'OIDC set empty redirect URL' => [
                 'redirectUrl' => '',
-                'expectedException' => '\Exception',
+                'expectedException' => 'Error',
                 'expectedExceptionMessage' => 'Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.',
             ],
         ];
@@ -102,22 +102,22 @@ class ArOidcTest extends TestCase
         return [
             'OIDC validate scopes when scopes array is empty' => [
                 'scopes' => [],
-                'expectedException' => '\Exception',
+                'expectedException' => 'Error',
                 'expectedExceptionMessage' => 'Invalid OIDC scopes. The app_oidc_scopes array is empty in the plugin app.yml.',
             ],
             'OIDC validate scopes when scopes has empty elements' => [
                 'scopes' => ['  ', ''],
-                'expectedException' => '\Exception',
+                'expectedException' => 'Error',
                 'expectedExceptionMessage' => 'Invalid scope value found in app_oidc_scopes',
             ],
             'OIDC validate scopes when scopes has some empty elements' => [
                 'scopes' => ['one', ''],
-                'expectedException' => '\Exception',
+                'expectedException' => 'Error',
                 'expectedExceptionMessage' => 'Invalid scope value found in app_oidc_scopes',
             ],
             'OIDC validate scopes when scopes has some empty elements' => [
                 'scopes' => ['  ', 'two '],
-                'expectedException' => '\Exception',
+                'expectedException' => 'Error',
                 'expectedExceptionMessage' => 'Invalid scope value found in app_oidc_scopes',
             ],
         ];
