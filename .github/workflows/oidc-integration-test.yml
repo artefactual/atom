@@ -22,6 +22,8 @@ jobs:
       run: |
         sudo sysctl -w vm.max_map_count=262144
         docker compose -p ci up -d percona elasticsearch gearmand
+    - name: Set CI-specific Realm File
+      run: echo "REALM_FILE=../test/etc/keycloak/realm.json" >> $GITHUB_ENV
     - name: Launch Keycloak service
       run: |
         docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
@@ -86,7 +88,7 @@ jobs:
           --demo \
           --no-confirmation
     - name: Update OIDC plugin app.yml file
-      run: sudo cp docker/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+      run: sudo cp test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
     - name: Update factories.yml to use oidcUser
       run: |
         sudo sed -i 's/class: myUser/class: oidcUser/' config/factories.yml

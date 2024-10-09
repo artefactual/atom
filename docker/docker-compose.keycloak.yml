@@ -12,4 +12,5 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .etc/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+      #- .etc/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+      - ${REALM_FILE:-./etc/keycloak/realm.json}:/opt/keycloak/data/import/realm.json:ro
