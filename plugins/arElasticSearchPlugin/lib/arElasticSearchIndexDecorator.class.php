@@ -30,45 +30,53 @@ class arElasticSearchIndexDecorator
         $this->_indexPrefix = $prefix;
     }
 
-    public function createIndex($typeName, Elastica\Index $index) {
+    public function createIndex($typeName, Elastica\Index $index)
+    {
         $typeName = $this->getIndexTypeName($typeName);
         $this->_instance[$typeName] = $index;
     }
 
     // Converts camelized Qubit class names to lower case index name used for ElasticSearch
-    public function getIndexTypeName($typeName) {
-        return $this->_indexPrefix . '_' . strtolower($typeName);
+    public function getIndexTypeName($typeName)
+    {
+        return $this->_indexPrefix.'_'.strtolower($typeName);
     }
 
-    public function delete() {
+    public function delete()
+    {
         foreach ($this->_instance as $index) {
             $index->delete();
         }
     }
 
-    public function addDocuments($typeName, $documents) {
+    public function addDocuments($typeName, $documents)
+    {
         $typeName = $this->getIndexTypeName($typeName);
         $this->_instance[$typeName]->addDocuments($documents);
     }
 
-    public function deleteDocuments($typeName, $documents) {
+    public function deleteDocuments($typeName, $documents)
+    {
         $typeName = $this->getIndexTypeName($typeName);
         $this->_instance[$typeName]->deleteDocuments($documents);
     }
 
-    public function refresh() {
+    public function refresh()
+    {
         foreach ($this->_instance as $index) {
             $index->refresh();
         }
     }
 
-    public function getType($typeName) {
+    public function getType($typeName)
+    {
         $typeName = $this->getIndexTypeName($typeName);
 
         return $this->_instance[$typeName];
     }
 
-    public function getInstance() {
+    public function getInstance()
+    {
         return $this->_instance;
     }
 }
