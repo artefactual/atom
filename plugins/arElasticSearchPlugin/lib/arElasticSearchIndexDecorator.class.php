@@ -73,12 +73,7 @@ class arElasticSearchIndexDecorator
         return $this->_instance[$typeName];
     }
 
-    public function getInstance($typeName)
-    {
-        return $this->getType($typeName);
-    }
-
-    public function getIndices() {
+    public function getInstance() {
         return $this->_instance;
     }
 }
