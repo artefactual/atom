@@ -45,6 +45,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
     public $index;
 
     /**
+     * Current batch type, used for batch flush.
+     *
+     * @var mixed defaults to null
+     */
+    protected $currentBatchType;
+
+    /**
      * Mappings configuration, mapping.yml.
      *
      * @var mixed defaults to null
@@ -90,7 +97,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Verify the version running in the server
         $this->checkVersion();
 
-        $this->index = $this->client->getIndex($this->config['index']['name']);
+        $this->index = new arElasticSearchIndexDecorator($this->config['index']['name']);
 
         // Load batch mode configuration
         $this->batchMode = true === $this->config['batch_mode'];
@@ -184,7 +191,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // Batch add documents, if any
             if (count($this->batchAddDocs) > 0) {
                 try {
-                    $this->index->addDocuments($this->batchAddDocs);
+                    $this->index->addDocuments($this->currentBatchType, $this->batchAddDocs);
                 } catch (Exception $e) {
                     // Clear batchAddDocs if something went wrong too
                     $this->batchAddDocs = [];
@@ -198,7 +205,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // Batch delete documents, if any
             if (count($this->batchDeleteDocs) > 0) {
                 try {
-                    $this->index->deleteDocuments($this->batchDeleteDocs);
+                    $this->index->deleteDocuments($this->currentBatchType, $this->batchDeleteDocs);
                 } catch (Exception $e) {
                     // Clear batchDeleteDocs if something went wrong too
                     $this->batchDeleteDocs = [];
@@ -341,10 +348,20 @@ class arElasticSearchPlugin extends QubitSearchEngine
         unset($data['id']);
 
         $document = new \Elastica\Document($id, $data);
-        $document->setType($type);
+        $document->setType($this->index->getIndexTypeName($type));
+
+        if (!$this->currentBatchType) {
+            $this->currentBatchType = $type;
+        }
 
         if ($this->batchMode) {
             // Add this document to the batch add queue
+            if ($this->currentBatchType != $type) {
+                $this->flushBatch();
+                $this->currentBatchType = $type;
+                $this->index->refresh();
+            }
+
             $this->batchAddDocs[] = $document;
 
             // If we have a full batch, send additions and deletions in bulk
@@ -353,7 +370,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $this->index->refresh();
             }
         } else {
-            $this->index->getType($type)->addDocument($document);
+            $this->index->getType($type)->addDocuments([$document]);
         }
     }
 
@@ -425,12 +442,24 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         if ($this->batchMode) {
+            $type = get_class($object);
+
+            if (!$this->currentBatchType) {
+                $this->currentBatchType = $type;
+            }
+
             // The document being deleted may not have been added to the index yet (if it's
             // still queued up in $this->batchAddDocs) so create a document object representing
             // the document to be deleted and add this document object to the batch delete
             // queue.
             $document = new \Elastica\Document($object->id);
-            $document->setType(get_class($object));
+            $document->setType($this->index->getIndexTypeName($type));
+
+            if ($this->currentBatchType != $type) {
+                $this->flushBatch();
+                $this->currentBatchType = $type;
+                $this->index->refresh();
+            }
 
             $this->batchDeleteDocs[] = $document;
 
@@ -441,7 +470,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         } else {
             try {
-                $this->index->getType(get_class($object))->deleteById($object->id);
+                $this->index->getType($type)->deleteById($object->id);
             } catch (\Elastica\Exception\NotFoundException $e) {
                 // Ignore
             }
@@ -491,57 +520,74 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
 
-        try {
-            $this->index->open();
-        } catch (Exception $e) {
-            // If the index has not been initialized, create it
-            if ($e instanceof \Elastica\Exception\ResponseException) {
-                // Based on the markdown_enabled setting, add a new filter to strip Markdown tags
-                if (
-                    sfConfig::get('app_markdown_enabled', true)
-                    && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
-                ) {
-                    foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-                        $filters = ['strip_md'];
+        // Load and normalize mappings
+        $this->loadAndNormalizeMappings();
 
-                        if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
-                            $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+        // Iterate over types (actor, informationobject, ...)
+        foreach ($this->mappings as $typeName => $typeProperties) {
+            $typeName = 'Qubit'.sfInflector::camelize($typeName);
+            $this->index->createIndex($typeName,
+                $this->client->getIndex($this->index->getIndexTypeName($typeName))
+            );
+        }
+
+        foreach ($this->index->getIndices() as $indexType => $index) {
+            try {
+                $index->open();
+            } catch (Exception $e) {
+                // If the index has not been initialized, create it
+                if ($e instanceof \Elastica\Exception\ResponseException) {
+                    // Based on the markdown_enabled setting, add a new filter to strip Markdown tags
+                    if (
+                        sfConfig::get('app_markdown_enabled', true)
+                        && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
+                    ) {
+                        foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+                            $filters = ['strip_md'];
+
+                            if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
+                                $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+                            }
+
+                            if (sfConfig::get('app_diacritics')) {
+                                $filters = array_merge($filters, ['diacritics_lowercase']);
+                            }
+
+                            $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
                         }
-
-                        if (sfConfig::get('app_diacritics')) {
-                            $filters = array_merge($filters, ['diacritics_lowercase']);
-                        }
-
-                        $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
                     }
+
+                    $index->create(
+                        $this->config['index']['configuration'],
+                        ['recreate' => true]
+                    );
                 }
 
-                $this->index->create(
-                    $this->config['index']['configuration'],
-                    ['recreate' => true]
-                );
-            }
+                // Load and normalize mappings
+                $this->loadAndNormalizeMappings();
 
-            // Load and normalize mappings
-            $this->loadAndNormalizeMappings();
+                // Iterate over types (actor, informationobject, ...)
+                foreach ($this->mappings as $typeName => $typeProperties) {
+                    $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
-            // Iterate over types (actor, informationobject, ...)
-            foreach ($this->mappings as $typeName => $typeProperties) {
-                $typeName = 'Qubit'.sfInflector::camelize($typeName);
+                    if ($indexType != $this->index->getIndexTypeName($typeName)) {
+                        continue;
+                    }
 
-                // Define mapping in elasticsearch
-                $mapping = new \Elastica\Type\Mapping();
-                $mapping->setType($this->index->getType($typeName));
-                $mapping->setProperties($typeProperties['properties']);
+                    // Define mapping in elasticsearch
+                    $mapping = new \Elastica\Type\Mapping();
+                    $mapping->setType($index->getType($indexType));
+                    $mapping->setProperties($typeProperties['properties']);
 
-                // Parse other parameters
-                unset($typeProperties['properties']);
-                foreach ($typeProperties as $key => $value) {
-                    $mapping->setParam($key, $value);
+                    // Parse other parameters
+                    unset($this->mapping[$typeName]->typeProperties['properties']);
+                    foreach ($this->mapping[$typeName]->typeProperties as $key => $value) {
+                        $mapping->setParam($key, $value);
+                    }
+
+                    $this->log(sprintf('Defining mapping %s...', $typeName));
+                    $mapping->send();
                 }
-
-                $this->log(sprintf('Defining mapping %s...', $typeName));
-                $mapping->send();
             }
         }
     }
