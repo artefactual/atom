@@ -397,7 +397,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document = new \Elastica\Document($object->id, $data);
 
         try {
-            $this->index->getType(get_class($object))->updateDocument($document);
+            $this->index->getType(get_class($object))->updateDocuments([$document]);
         } catch (\Elastica\Exception\NotFoundException $e) {
             // Create document if it's not found
             $this->update($object);
@@ -417,7 +417,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document = new \Elastica\Document($id, $data);
 
         try {
-            $this->index->getType($className)->updateDocument($document);
+            $this->index->getType($className)->updateDocuments([$document]);
         } catch (\Elastica\Exception\ResponseException $e) {
             // Create document if none exists
             $modelPdoClassName = self::modelClassFromQubitObjectClass($className).'Pdo';
