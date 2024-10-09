@@ -531,7 +531,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             );
         }
 
-        foreach ($this->index->getIndices() as $indexType => $index) {
+        foreach ($this->index->getInstance() as $indexType => $index) {
             try {
                 $index->open();
             } catch (Exception $e) {
