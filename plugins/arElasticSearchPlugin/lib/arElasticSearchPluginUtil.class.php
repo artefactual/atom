@@ -483,7 +483,7 @@ class arElasticSearchPluginUtil
                 elseif (
                     (
                         !isset($propertyProperties['copy_to'])
-                        || ($propertyProperties['copy_to'] == '_all')
+                        || ('_all' == $propertyProperties['copy_to'])
                     ) && (
                         isset($propertyProperties['type'])
                         && 'text' == $propertyProperties['type']
