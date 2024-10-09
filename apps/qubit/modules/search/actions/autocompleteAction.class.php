@@ -76,7 +76,7 @@ class SearchAutocompleteAction extends sfAction
 
         foreach ($items as $item) {
             $search = new \Elastica\Search($client);
-            foreach($indices as $type => $index) {
+            foreach ($indices as $type => $index) {
                 $itemType = QubitSearch::getInstance()->index->getIndexTypeName($item['type']);
                 $search->addIndex($index)->addType($index->getType($itemType));
             }
