@@ -92,8 +92,9 @@ class QubitLftSyncer
         $results = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
 
         $bulk = new Elastica\Bulk(QubitSearch::getInstance()->client);
-        $bulk->setIndex(QubitSearch::getInstance()->index->getName());
-        $bulk->setType('QubitInformationObject');
+        $type = 'QubitInformationObject';
+        $bulk->setIndex(QubitSearch::getInstance()->index->getType($type)->getName());
+        $bulk->setType(QubitSearch::getInstance->index->getIndexTypeName($type));
 
         foreach ($results as $row) {
             $bulk->addAction(
