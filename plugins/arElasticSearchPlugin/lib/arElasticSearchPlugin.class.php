@@ -394,10 +394,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
+        $type = get_class($object);
+
         $document = new \Elastica\Document($object->id, $data);
+        $document->setType($this->index->getIndexTypeName($type));
 
         try {
-            $this->index->getType(get_class($object))->updateDocuments([$document]);
+            $this->index->getType($type)->updateDocuments([$document]);
         } catch (\Elastica\Exception\NotFoundException $e) {
             // Create document if it's not found
             $this->update($object);

@@ -17,11 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Elastica\Query;
-use Elastica\Response;
-use Elastica\Script\AbstractScript;
-use Elasticsearch\Endpoints\UpdateByQuery;
-
 class arElasticSearchIndexDecorator
 {
     protected $_instance;
