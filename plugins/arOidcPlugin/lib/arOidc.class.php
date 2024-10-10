@@ -33,12 +33,12 @@ class arOidc
     {
         $oidc = new OpenIDConnectClient();
 
-        // Validate redirect URL.
-        $redirectUrl = sfConfig::get('app_oidc_redirect_url', '');
-        if (empty($redirectUrl)) {
-            throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
-        }
-        $oidc->setRedirectURL($redirectUrl);
+        // // Validate redirect URL.
+        // $redirectUrl = sfConfig::get('app_oidc_redirect_url', '');
+        // if (empty($redirectUrl)) {
+        //     throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
+        // }
+        // $oidc->setRedirectURL($redirectUrl);
 
         return $oidc;
     }

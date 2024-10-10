@@ -36,9 +36,18 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
 
         parent::initialize($dispatcher, $storage, $options);
 
-        if (null === $this->oidcClient) {
-            $this->setOidcClient(arOidc::getOidcInstance());
+        $this->setOidcClient(arOidc::getOidcInstance());
+
+        $this->setRedirectURL();
+    }
+
+    public function setRedirectUrl()
+    {
+        $redirectUrl = sfConfig::get('app_oidc_redirect_url', '');
+        if (empty($redirectUrl)) {
+            throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
         }
+        $this->oidcClient->setRedirectURL($redirectUrl);
     }
 
     /**
