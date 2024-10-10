@@ -232,7 +232,7 @@ class QubitMigrate104 extends QubitMigrate
             'parent_id' => 'QubitMenu_mainmenu',
             'source_culture' => 'en',
             'name' => 'admin',
-            'label' => ['de' => 'Administrator', 'en' => 'admin', 'es' => 'administrador', 'fa' => 'مدير', 'fr' => 'administrer', 'it' => 'amministra',  'sl' => 'administrator'],
+            'label' => ['de' => 'Administrator', 'en' => 'admin', 'es' => 'administrador', 'fa' => 'مدير', 'fr' => 'administrer', 'it' => 'amministra', 'sl' => 'administrator'],
             'path' => 'user/list',
         ];
         $this->data['QubitMenu']['QubitMenu_mainmenu_addedit_informationobject'] = [

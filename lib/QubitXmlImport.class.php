@@ -1116,8 +1116,8 @@ class QubitXmlImport
      * @param QubitInformationObject $io The information object to check
      *
      * @throws sfException When the limit option is not accepted
-     *
      * @return bool The information object passes the limit option or not
+     *
      */
     private function passesLimitOptionForIo($io)
     {
@@ -1149,8 +1149,8 @@ class QubitXmlImport
      * @param QubitActor $actor The actor object to check
      *
      * @throws sfException When the limit option is not accepted
-     *
      * @return bool The actor passes the limit option or not
+     *
      */
     private function passesLimitOptionForActor($actor)
     {

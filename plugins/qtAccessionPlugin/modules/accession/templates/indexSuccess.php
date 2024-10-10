@@ -221,7 +221,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><?php echo link_to(__('Create new rights'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit']); ?></li>
+            <li><?php echo link_to(__('Create new rights'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit']); ?></li>
             <li><?php echo link_to(__('Link physical storage'), [$resource, 'module' => 'object', 'action' => 'editPhysicalObjects']); ?></li>
           </ul>
         </div>

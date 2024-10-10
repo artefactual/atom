@@ -2149,7 +2149,7 @@ class QubitFlatfileImport
             AND n.type_id=?
             AND i.culture=?';
 
-        $statement = self::sqlQuery($query, [$objectId, $typeId,  $culture]);
+        $statement = self::sqlQuery($query, [$objectId, $typeId, $culture]);
 
         foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $row) {
             $existingNotes[] = $row->content;

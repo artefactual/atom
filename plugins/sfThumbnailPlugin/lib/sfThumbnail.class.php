@@ -75,8 +75,8 @@ class sfThumbnail
      * @param mixed $image
      *
      * @throws Exception If the image cannot be loaded, or if its mime type is not supported
-     *
      * @return bool True if the image was properly loaded
+     *
      */
     public function loadFile($image)
     {
@@ -123,8 +123,8 @@ class sfThumbnail
      * @param mixed $mime
      *
      * @throws Exception If image mime type is not supported
-     *
      * @return bool True if the image was properly loaded
+     *
      */
     public function loadData($image, $mime)
     {
