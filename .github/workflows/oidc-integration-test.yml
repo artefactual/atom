@@ -106,6 +106,7 @@ jobs:
         sudo cp test/etc/worker_conf /usr/lib/systemd/system/atom-worker.service
         sudo systemctl daemon-reload
         sudo systemctl start atom-worker
+
     - name: Install and configure Nginx
       run: |
         sudo apt install nginx
@@ -114,10 +115,15 @@ jobs:
         sudo rm -f /etc/nginx/sites-enabled/default
         sudo nginx -t
         sudo systemctl restart nginx
+
     - name: Create writable Cypress videos and screenshots dirs
       run: |
         sudo mkdir -p ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
         sudo chmod a=rwx ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
+
+    - name: Ensure NGINX is Running
+      run: sudo systemctl status nginx
+
     - name: Run tests
       env:
         BROWSER: ${{ matrix.browser }}
@@ -125,8 +131,20 @@ jobs:
         CYPRESS_BASE_URL: http://localhost
       run: npx cypress run --config-file cypress.config.oidc.js --browser ${BROWSER,}
 
-    - name: Output NGINX Error Log
+    - name: Ensure NGINX is Running
+      run: sudo systemctl status nginx
+
+    - name: Output NGINX error log
+      if: always()
       run: sudo cat /var/log/nginx/error.log
+
+    - name: Output AtoM error test log
+      if: always()
+      run: sudo cat ./log/qubit_test.log
+
+    - name: Output AtoM error prod log
+      if: always()
+      run: sudo cat ./log/qubit_prod.log
 
     - name: Tear down services
       if: always()
