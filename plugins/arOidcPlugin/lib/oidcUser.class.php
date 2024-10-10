@@ -34,11 +34,11 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
     {
         $this->logger = sfContext::getInstance()->getLogger();
 
+        parent::initialize($dispatcher, $storage, $options);
+
         if (null === $this->oidcClient) {
             $this->setOidcClient(arOidc::getOidcInstance());
         }
-
-        parent::initialize($dispatcher, $storage, $options);
     }
 
     /**
