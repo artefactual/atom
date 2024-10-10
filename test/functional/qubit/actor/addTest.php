@@ -23,8 +23,7 @@ $browser
     ->with('request')->begin()
     ->isParameter('module', 'actor')
     ->isParameter('action', 'indexIsaar')
-    ->end()
-;
+    ->end();
 
 $object = QubitObject::getById($browser->getRequest()->id);
 

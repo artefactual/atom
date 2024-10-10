@@ -22,6 +22,4 @@
  *
  * @see lib/model/om/BaseInformationObjectI18n.php
  */
-class QubitInformationObjectI18n extends BaseInformationObjectI18n
-{
-}
+class QubitInformationObjectI18n extends BaseInformationObjectI18n {}

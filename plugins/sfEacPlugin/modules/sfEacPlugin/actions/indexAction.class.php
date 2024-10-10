@@ -31,8 +31,7 @@ class sfEacPluginIndexAction extends ActorIndexAction
         return FluentDOM($content)
             ->namespaces(['eac' => 'urn:isbn:1-931666-33-4'])
             ->find('//eac:languageDeclaration[not(*)]')
-            ->remove()
-        ;
+            ->remove();
     }
 
     public function execute($request)

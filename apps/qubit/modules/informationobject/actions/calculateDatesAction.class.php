@@ -92,7 +92,7 @@ class InformationObjectCalculateDatesAction extends sfAction
 
         foreach ($eventData as $event) {
             $eventTypeTerm = QubitTerm::getById($event['type_id']);
-            $eventTypes[($event['type_id'])] = $eventTypeTerm->getName(['cultureFallback' => true]);
+            $eventTypes[$event['type_id']] = $eventTypeTerm->getName(['cultureFallback' => true]);
         }
 
         return $eventTypes;

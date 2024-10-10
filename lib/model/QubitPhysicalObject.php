@@ -297,7 +297,7 @@ class QubitPhysicalObject extends BasePhysicalObject
         }
     }
 
-    public function getRelationsAsArray(int $typeId = null)
+    public function getRelationsAsArray(?int $typeId = null)
     {
         if (empty($this->id)) {
             throw new sfException('Invalid QubitPhysicalObject id');

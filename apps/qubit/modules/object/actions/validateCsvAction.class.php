@@ -52,9 +52,7 @@ class ObjectValidateCsvAction extends DefaultEditAction
         return parent::addField($name);
     }
 
-    protected function processField($field)
-    {
-    }
+    protected function processField($field) {}
 
     /**
      * Launch the file import background job and return.

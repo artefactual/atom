@@ -22,6 +22,4 @@
  *
  * @see plugins/qbAclPlugin/lib/model/om/BaseAclGroupI18n.php
  */
-class QubitAclGroupI18n extends BaseAclGroupI18n
-{
-}
+class QubitAclGroupI18n extends BaseAclGroupI18n {}

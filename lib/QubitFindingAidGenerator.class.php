@@ -435,7 +435,7 @@ class QubitFindingAidGenerator
      * Apache FOP requires certain namespaces to be included in the XML in order
      * to process it.
      */
-    public function addEadNamespaces(string $filename, string $url = null): void
+    public function addEadNamespaces(string $filename, ?string $url = null): void
     {
         $content = file_get_contents($filename);
 

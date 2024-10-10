@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvEventValuesValidator
  */
 class CsvEventValuesTest extends \PHPUnit\Framework\TestCase

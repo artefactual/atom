@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvColumnCountValidator
  */
 class CsvColumnCountTest extends \PHPUnit\Framework\TestCase

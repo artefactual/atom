@@ -272,8 +272,8 @@ class QubitActor extends BaseActor
 
     public static function getAllExceptUsers($options = [])
     {
-        //returns all Actor objects except those that are
-        //also an instance of the User class
+        // returns all Actor objects except those that are
+        // also an instance of the User class
         $criteria = new Criteria();
         $criteria->add(QubitObject::CLASS_NAME, 'QubitActor');
 
@@ -448,7 +448,7 @@ class QubitActor extends BaseActor
         $newTermRelation = new QubitObjectTermRelation();
         $newTermRelation->setTermId($termId);
 
-        //TODO: move to QubitNote
+        // TODO: move to QubitNote
         //  $newTermRelation->setRelationNote($relationNote);
         $newTermRelation->setObjectId($this->id);
         $newTermRelation->save();
@@ -476,7 +476,7 @@ class QubitActor extends BaseActor
 
     public function getDatesOfChanges()
     {
-        //TO DO
+        // TO DO
 
         return null;
     }

@@ -117,6 +117,7 @@ class QubitInformationObject extends BaseInformationObject
                 }
 
                 return $this->identifier;
+
             // It may happen that the sourceStandard column is undefined, in that case
             // look up for the value in higher levels
             case 'sourceStandard':
@@ -1384,8 +1385,8 @@ class QubitInformationObject extends BaseInformationObject
      * 2. Actors associated with this information object by relation (either subject or object)
      * 3. Actors that have the same name
      *
-     * @param $name  The name of the actor
-     * @param $options  an array of options filling in the new event or name access point info
+     * @param $name    The name of the actor
+     * @param $options an array of options filling in the new event or name access point info
      *
      * @return QubitActor the new or existing actor just added to the event/name access point list
      */
@@ -1499,7 +1500,7 @@ class QubitInformationObject extends BaseInformationObject
      * be amalgamated as text. Note that when EAD exported from AtoM the content
      * is exported in a p tag within the originalsloc tag.
      *
-     * @param $originalsNode  DOMNode  EAD originalsloc DOM node
+     * @param $originalsNode DOMNode  EAD originalsloc DOM node
      */
     public function importOriginalsLocationEadData($originalsNode)
     {
@@ -1523,7 +1524,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import language-related data from a <langusage> tag in EAD2002.
      *
-     * @param $langusageNode  DOMNode  EAD langusage DOM node
+     * @param $langusageNode DOMNode  EAD langusage DOM node
      */
     public function importLangusageEadData($langusageNode)
     {
@@ -1579,7 +1580,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import language-related data from a <langmaterial> tag in EAD2002.
      *
-     * @param $langmaterialNode  DOMNode  EAD langmaterial DOM node
+     * @param $langmaterialNode DOMNode  EAD langmaterial DOM node
      */
     public function importLangmaterialEadData($langmaterialNode)
     {
@@ -1653,7 +1654,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import creator data from an <origination> tag in EAD2002.
      *
-     * @param $node  DOMNode  EAD origination DOM node
+     * @param $node DOMNode  EAD origination DOM node
      */
     public function importOriginationEadData($node)
     {
@@ -1686,8 +1687,8 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import creation-related data from an <bioghist> tag in EAD2002.
      *
-     * @param $biogHistNode  DOMNode  EAD bioghist DOM node
-     * @param $key Position of the current bioghist node
+     * @param $biogHistNode DOMNode  EAD bioghist DOM node
+     * @param $key          Position of the current bioghist node
      */
     public function importBioghistEadData($biogHistNode, $key)
     {
@@ -1802,7 +1803,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set publication status using a status name.
      *
-     * @param $name  valid publication status name
+     * @param $name valid publication status name
      */
     public function setPublicationStatusByName($name)
     {
@@ -1818,7 +1819,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set description level of detail using a name.
      *
-     * @param $name  valid description detail level name
+     * @param $name valid description detail level name
      */
     public function setDescriptionLevelOfDetailByName($name)
     {
@@ -1832,7 +1833,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set description status using a status name.
      *
-     * @param $name  valid publication status name
+     * @param $name valid publication status name
      */
     public function setDescriptionStatusByName($name)
     {
@@ -1846,9 +1847,9 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set term ID property using term name.
      *
-     * @param $property  object property to set
-     * @param $name  valid term name
-     * @param $taxonomyId  taxonomy ID
+     * @param $property   object property to set
+     * @param $name       valid term name
+     * @param $taxonomyId taxonomy ID
      */
     public function setTermIdPropertyUsingTermName($property, $name, $taxonomyId)
     {
@@ -2659,8 +2660,8 @@ class QubitInformationObject extends BaseInformationObject
      * is related to this information object (either as a subject
      * or an object).
      *
-     * @param $name  The actor name
-     * @param $relatedBy  The relation type, either 'object' or 'subject'
+     * @param $name      The actor name
+     * @param $relatedBy The relation type, either 'object' or 'subject'
      *
      * @return QubitActor matching the specified parameters, null otherwise
      */
@@ -2694,7 +2695,7 @@ class QubitInformationObject extends BaseInformationObject
      * Returns an actor if one exists with the specified name and
      * who is also part of an event related to this information object.
      *
-     * @param $name  The actor name
+     * @param $name The actor name
      *
      * @return QubitActor matching the specified parameters, null otherwise
      */
@@ -2822,7 +2823,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Returns a date string YYYY-MM-DD when given a date from an EAD <unitdate> @normal attribute.
      *
-     * @param $date  A date string from an EAD file, e.g. 19601103
+     * @param $date A date string from an EAD file, e.g. 19601103
      *
      * @return Will return a MySQL friendly YYYY-MM-DD date string (uses '-0' if missing a field)
      */

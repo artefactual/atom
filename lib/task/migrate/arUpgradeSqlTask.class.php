@@ -163,8 +163,7 @@ EOF;
                     ->maxdepth(0)
                     ->sort_by_name()
                     ->name('arUpgrader*.class.php')
-                    ->in(sfConfig::get('sf_lib_dir').'/task/migrate')
-                as $filename
+                    ->in(sfConfig::get('sf_lib_dir').'/task/migrate') as $filename
             ) {
                 $className = preg_replace('/.*(arUpgrader\d+).*/', '$1', $filename);
                 $class = new $className();
@@ -546,8 +545,7 @@ EOF;
                 ->maxdepth(0)
                 ->sort_by_name()
                 ->name('arMigration*.class.php')
-                ->in($migrationsDirectory)
-            as $filename
+                ->in($migrationsDirectory) as $filename
         ) {
             // Initialize migration class
             $className = preg_replace('/.*(arMigration\d+).*/', '$1', $filename);
@@ -698,7 +696,7 @@ EOF;
     /**
      * Get plugins that are currently present in the plugins/ directory.
      *
-     * @param $themePluginsOnly  Whether to get all plugins or just theme plugins
+     * @param $themePluginsOnly Whether to get all plugins or just theme plugins
      *
      * @return array An array containing the theme names and paths ($name => $path)
      */

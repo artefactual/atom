@@ -19,7 +19,5 @@
 
 class UserReadOnlyAction extends sfAction
 {
-    public function execute($request)
-    {
-    }
+    public function execute($request) {}
 }

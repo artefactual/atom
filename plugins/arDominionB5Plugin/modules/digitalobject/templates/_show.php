@@ -17,8 +17,7 @@
 <?php } else { ?>
   <div class="digital-object-reference text-center<?php echo $editForm
       ? ''
-      : ' p-3 border-bottom'
-  ; ?>">
+      : ' p-3 border-bottom'; ?>">
     <?php if (!empty($accessWarning)) { ?>
       <div class="access-warning">
         <?php echo $accessWarning; ?>

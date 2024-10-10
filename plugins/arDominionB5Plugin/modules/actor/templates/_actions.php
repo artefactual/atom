@@ -2,7 +2,7 @@
 
 <ul class="actions mb-3 nav gap-2">
 
-  <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+  <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
     <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'actor', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
   <?php } ?>
 

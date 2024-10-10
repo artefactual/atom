@@ -193,7 +193,7 @@ class QubitMigrate
     /**
      * Recursively delete a hierarchical data tree.
      *
-     * @param $objectList array full dataset
+     * @param $objectList      array full dataset
      * @param $deleteObjectKey string key of array object to delete
      */
     public static function cascadeDelete($objectList, $deleteObjectKey)
@@ -515,6 +515,7 @@ class QubitMigrate
                         }
 
                         break;
+
                     // Foreign keys
                     case 'CONSTRAINT':
                         // Build array with DROP FOREIGN KEY commands

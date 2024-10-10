@@ -13,7 +13,8 @@
       </tr>
     </thead><tbody>
 
-      <?php $i = 0; foreach ($alternativeIdentifiers as $item) { ?>
+      <?php $i = 0;
+      foreach ($alternativeIdentifiers as $item) { ?>
         <?php $form->getWidgetSchema()->setNameFormat("alternativeIdentifiers[{$i}][%s]"); ?>
 
         <tr class="<?php echo 0 == $i % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $item->id; ?>">

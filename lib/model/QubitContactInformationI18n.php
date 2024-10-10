@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitContactInformationI18n extends BaseContactInformationI18n
-{
-}
+class QubitContactInformationI18n extends BaseContactInformationI18n {}

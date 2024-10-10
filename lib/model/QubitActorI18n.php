@@ -22,6 +22,4 @@
  *
  * @see lib/model/om/BaseActorI18n.php
  */
-class QubitActorI18n extends BaseActorI18n
-{
-}
+class QubitActorI18n extends BaseActorI18n {}
