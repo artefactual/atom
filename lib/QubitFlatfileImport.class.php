@@ -1585,7 +1585,7 @@ class QubitFlatfileImport
             ) {
                 $self->rowStatusVars[$self->columnNames[$index]] = $value;
             } elseif (
-                isset($self->columnNames[$index], $self->arrayColumns[($self->columnNames[$index])])
+                isset($self->columnNames[$index], $self->arrayColumns[$self->columnNames[$index]])
             ) {
                 $self->arrayColumnHandler($columnName, $self->arrayColumns[$columnName], $value);
             }
@@ -1622,7 +1622,7 @@ class QubitFlatfileImport
                     );
                 }
             } elseif (
-                isset($self->columnNames[$index], $self->handlers[($self->columnNames[$index])])
+                isset($self->columnNames[$index], $self->handlers[$self->columnNames[$index]])
             ) {
                 // otherwise, if column is data and a handler for it is set, use it
                 call_user_func_array(
@@ -2149,7 +2149,7 @@ class QubitFlatfileImport
             AND n.type_id=?
             AND i.culture=?';
 
-        $statement = self::sqlQuery($query, [$objectId, $typeId,  $culture]);
+        $statement = self::sqlQuery($query, [$objectId, $typeId, $culture]);
 
         foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $row) {
             $existingNotes[] = $row->content;

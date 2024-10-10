@@ -281,8 +281,7 @@ abstract class csvImportBaseTask extends arBaseTask
                     'type' => 'eventTypes',
                     'place' => 'eventPlaces',
                 ],
-            ]
-            as $version => $propertyColumns
+            ] as $version => $propertyColumns
         ) {
             // Get event data if one of the columns is populated in the current index
             $index = 0;

@@ -162,6 +162,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
                 ]);
 
                 break;
+
             // Avoid sorting when we are just counting records
             case null:
                 break;

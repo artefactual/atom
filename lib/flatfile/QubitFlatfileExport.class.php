@@ -355,8 +355,8 @@ class QubitFlatfileExport
             // Get list of elements hidden from settings
             foreach (sfConfig::getAll() as $setting => $value) {
                 if (
-                    (false !== strpos($setting, ('app_element_visibility_'.$template)))
-                    && (!strpos($setting, ('__source')))
+                    (false !== strpos($setting, 'app_element_visibility_'.$template))
+                    && (!strpos($setting, '__source'))
                     && (0 == sfConfig::get($setting))
                 ) {
                     array_push($nonVisibleElements, $setting);
@@ -391,9 +391,7 @@ class QubitFlatfileExport
      *
      * @return void
      */
-    protected function config(&$config)
-    {
-    }
+    protected function config(&$config) {}
 
     /*
      *

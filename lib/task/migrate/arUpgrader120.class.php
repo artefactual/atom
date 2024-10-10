@@ -42,6 +42,7 @@ class arUpgrader120
                 $setting->save();
 
                 break;
+
             // Add SWORD deposit directory setting
             case 76:
                 $setting = new QubitSetting();
@@ -52,6 +53,7 @@ class arUpgrader120
                 $setting->save();
 
                 break;
+
             // Add security settings
             case 77:
                 $setting = new QubitSetting();
@@ -73,6 +75,7 @@ class arUpgrader120
                 $setting->save();
 
                 break;
+
             // Add browse sort settings
             case 78:
                 $setting = new QubitSetting();
@@ -88,6 +91,7 @@ class arUpgrader120
                 $setting->save();
 
                 break;
+
             // Add 'Language note' term
             case 79:
                 QubitMigrate::bumpTerm(QubitTerm::LANGUAGE_NOTE_ID, $configuration);
@@ -100,12 +104,14 @@ class arUpgrader120
                 $term->save();
 
                 break;
+
             // Add 'active' column to user table
             case 80:
                 // NOTE: ALTER automatically sets `active`=1 (the DEFAULT) for existing rows
                 QubitMigrate::addColumn(QubitUser::TABLE_NAME, 'active TINYINT DEFAULT 1', ['after' => 'salt']);
 
                 break;
+
             // Use repository slug instead of id in acl_permission conditionals,
             // (r10996)
             case 81:
@@ -153,6 +159,7 @@ class arUpgrader120
                 }
 
                 break;
+
             // Increase VARCHAR column limit to 1024 to avoid truncating long strings
             // Issue 1628
             case 82:
@@ -258,12 +265,14 @@ class arUpgrader120
                 }
 
                 break;
+
             // Increase width of digital_object.mime_type to 255 chars
             case 83:
                 $sql = 'ALTER TABLE '.QubitDigitalObject::TABLE_NAME.' MODIFY `mime_type` VARCHAR(255);';
                 QubitPdo::modify($sql);
 
                 break;
+
             // Add accrual constant to term table
             case 84:
                 QubitMigrate::bumpTerm(QubitTerm::ACCRUAL_ID, $configuration);
@@ -276,6 +285,7 @@ class arUpgrader120
                 $term->save();
 
                 break;
+
             // Fix typo: r11890
             case 85:
                 $sql = 'UPDATE '.QubitTermI18n::TABLE_NAME;
@@ -285,6 +295,7 @@ class arUpgrader120
                 QubitPdo::modify($sql);
 
                 break;
+
             // Fix issue 2344
             case 86:
                 // Type of relation: right
@@ -324,18 +335,21 @@ class arUpgrader120
                 }
 
                 break;
+
             // Change property name from dipUUID to aipUUID
             case 87:
                 $sql = 'UPDATE '.QubitProperty::TABLE_NAME.' SET name = "aipUUID" WHERE name = "dipUUID"';
                 QubitPdo::modify($sql);
 
                 break;
+
             // According to r10747, keymap.source_id changed from INTEGER to TEXT
             case 88:
                 $sql = 'ALTER TABLE '.QubitKeymap::TABLE_NAME.' CHANGE source_id source_id TEXT';
                 QubitPdo::modify($sql);
 
                 break;
+
             // Add "Visible elements" assets
             case 89:
                 $elements = [
@@ -399,17 +413,20 @@ class arUpgrader120
                 }
 
                 break;
+
             // Make property_i18n.value field TEXT to accommodate pdf text (r12026)
             case 90:
                 $sql = 'ALTER TABLE `property_i18n` MODIFY `value` TEXT;';
                 QubitPdo::modify($sql);
 
                 break;
+
             // Update translations from fixtures
             case 91:
                 QubitMigrate::addNewFixtureI18ns();
 
                 break;
+
             // Return false if no upgrade available
             default:
                 return false;

@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitEventI18n extends BaseEventI18n
-{
-}
+class QubitEventI18n extends BaseEventI18n {}

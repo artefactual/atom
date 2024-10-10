@@ -2,7 +2,7 @@
   
   <ul class="actions mb-3 nav gap-2">
 
-    <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+    <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
     <?php } ?>
 
@@ -62,9 +62,9 @@
 
             <li><hr class="dropdown-divider"></li>
 
-            <li><?php echo link_to(__('Create new rights'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
+            <li><?php echo link_to(__('Create new rights'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
             <?php if ($resource->hasChildren()) { ?>
-              <li><?php echo link_to(__('Manage rights inheritance'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage'], ['class' => 'dropdown-item']); ?></li>
+              <li><?php echo link_to(__('Manage rights inheritance'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage'], ['class' => 'dropdown-item']); ?></li>
             <?php } ?>
 
             <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>

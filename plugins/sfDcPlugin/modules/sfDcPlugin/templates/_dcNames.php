@@ -13,7 +13,8 @@
       </tr>
     </thead><tbody>
 
-      <?php $i = 0; foreach ($resource->getActorEvents() as $item) { ?>
+      <?php $i = 0;
+      foreach ($resource->getActorEvents() as $item) { ?>
 
         <?php if (isset($item->actor)) { ?>
 

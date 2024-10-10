@@ -23,7 +23,7 @@
         <tr>
           <td<?php if (QubitMenu::ROOT_ID == $item['parentId']) { ?> style="font-weight: bold"<?php } ?>>
 
-            <?php echo str_repeat('&nbsp;&nbsp;', ($item['depth'] - 1)); ?>
+            <?php echo str_repeat('&nbsp;&nbsp;', $item['depth'] - 1); ?>
 
             <?php if (isset($item['prev'])) { ?>
               <?php echo link_to(image_tag('up.gif', ['alt' => __('Move up')]), ['module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'before' => $item['prev']], ['title' => __('Move item up in list')]); ?>

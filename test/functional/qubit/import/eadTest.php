@@ -42,8 +42,7 @@ $browser
     ->with('request')->begin()
     ->isParameter('module', 'sfIsadPlugin')
     ->isParameter('action', 'index')
-    ->end()
-;
+    ->end();
 
 $object = QubitObject::getById($browser->getRequest()->id);
 

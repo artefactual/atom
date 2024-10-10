@@ -89,7 +89,7 @@ EOF;
     /**
      * Allow the user to bail out if they aren't sure they want to delete targeted descriptions.
      *
-     * @param $noConfirmation  whether or not to bypass the confirmation warning (true = bypass)
+     * @param $noConfirmation whether or not to bypass the confirmation warning (true = bypass)
      *
      * @return bool true if we want to proceed with the task, false if we want to abort
      */
@@ -154,7 +154,7 @@ EOF;
     /**
      * Delete specified description & its descendants from AtoM.
      *
-     * @param $root  a top level QubitInformationObject which will be deleted along with its descendants
+     * @param $root a top level QubitInformationObject which will be deleted along with its descendants
      */
     private function deleteDescriptions($root)
     {

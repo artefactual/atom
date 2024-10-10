@@ -51,8 +51,7 @@ class DonorPrimaryContactAction extends sfAction
                 'latitude',
                 'longitude',
                 'note',
-            ]
-            as $field
+            ] as $field
         ) {
             if (isset($primaryContactInformation->{$field})) {
                 $data[$field] = $primaryContactInformation->{$field};

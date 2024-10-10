@@ -45,7 +45,7 @@
 <?php slot('after-content'); ?>
   <section class="actions">
     <ul>
-      <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
         <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'deaccession', 'action' => 'edit'], ['class' => 'c-btn']); ?></li>
       <?php } ?>
       <?php if (QubitAcl::check($resource, 'delete')) { ?>

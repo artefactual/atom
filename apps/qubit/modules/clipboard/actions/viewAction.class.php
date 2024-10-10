@@ -124,6 +124,7 @@ class ClipboardViewAction extends DefaultBrowseAction
                 $this->search->query->addSort(['referenceCode.untouched' => $request->sortDir]);
 
                 break;
+
             // Sort by title if information object, go with authorized form of name if repository / actor
             case 'alphabetic':
                 $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';

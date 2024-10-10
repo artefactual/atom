@@ -68,7 +68,7 @@ class RightEditAction extends sfAction
     {
         switch ($name) {
             case 'endDate':
-                $this->form->setDefault('endDate', ($this->right->endDate));
+                $this->form->setDefault('endDate', $this->right->endDate);
                 $this->form->setValidator('endDate', new sfValidatorString());
                 $this->form->setWidget('endDate', $this->dateWidget());
                 $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
@@ -396,12 +396,12 @@ class RightEditAction extends sfAction
         $form->setValidator('startDate', new sfValidatorString());
         $form->setWidget('startDate', $this->dateWidget());
         $form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
-        $form->setDefault('startDate', ($grantedRight->startDate));
+        $form->setDefault('startDate', $grantedRight->startDate);
 
         $form->setValidator('endDate', new sfValidatorString());
         $form->setWidget('endDate', $this->dateWidget());
         $form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
-        $form->setDefault('endDate', ($grantedRight->endDate));
+        $form->setDefault('endDate', $grantedRight->endDate);
 
         $res_choices[1] = $this->context->i18n->__('Allow');
         $res_choices[2] = $this->context->i18n->__('Conditional');

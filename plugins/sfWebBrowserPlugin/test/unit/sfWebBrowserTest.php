@@ -350,7 +350,7 @@ foreach ($adapter_list as $adapter) {
 
     $b = new myTestWebBrowser([], $adapter);
     $b->call($askeet_params['url'].'/index.php/login', 'POST', ['nickname' => $askeet_params['login'], 'password' => $askeet_params['password']]);
-    //$t->like($b->getResponseText(), '/url='.preg_quote($askeet_params['url'], '/').'\/index\.php/', 'does NOT follow a 302 redirect after a POST');
+    // $t->like($b->getResponseText(), '/url='.preg_quote($askeet_params['url'], '/').'\/index\.php/', 'does NOT follow a 302 redirect after a POST');
     $t->like($b->getResponseText(), '/featured questions/', 'follows 302 redirect after POST ****** DESPITE THE HTTP SPEC ******');
     $t->is($b->getRequestMethod(), 'GET', 'request method is changed to GET after POST for 302 redirect ***** DESPITE THE HTTP SPEC *****');
     $t->todo('request method is changed to GET after POST for 303 redirect');

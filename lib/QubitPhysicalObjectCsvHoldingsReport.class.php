@@ -68,7 +68,7 @@ class QubitPhysicalObjectCsvHoldingsReport
         ]);
     }
 
-    public function setOptions(array $options = null)
+    public function setOptions(?array $options = null)
     {
         if (empty($options)) {
             return;

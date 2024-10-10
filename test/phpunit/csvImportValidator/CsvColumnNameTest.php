@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvColumnNameValidator
  */
 class CsvColumnNameTest extends \PHPUnit\Framework\TestCase

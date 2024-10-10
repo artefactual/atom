@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvDigitalObjectUriValidator
  */
 class CsvDigitalObjectUriTest extends \PHPUnit\Framework\TestCase

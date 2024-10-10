@@ -1,7 +1,7 @@
 <section class="actions">
   <ul>
 
-      <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
         <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['class' => 'c-btn c-btn-submit']); ?></li>
       <?php } ?>
 
@@ -63,9 +63,9 @@
 
               <li class="divider"></li>
 
-              <li><?php echo link_to(__('Create new rights'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit']); ?></li>
+              <li><?php echo link_to(__('Create new rights'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit']); ?></li>
               <?php if ($resource->hasChildren()) { ?>
-                <li><?php echo link_to(__('Manage rights inheritance'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage']); ?></li>
+                <li><?php echo link_to(__('Manage rights inheritance'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage']); ?></li>
               <?php } ?>
 
               <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>

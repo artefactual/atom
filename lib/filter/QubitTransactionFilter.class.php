@@ -89,8 +89,7 @@ class QubitTransactionFilter extends sfFilter
             ->getController()
             ->getActionStack()
             ->getLastEntry()
-            ->getActionInstance()
-        ;
+            ->getActionInstance();
 
         // Create a new filter chain and reload config
         $filterChain = new sfFilterChain();
