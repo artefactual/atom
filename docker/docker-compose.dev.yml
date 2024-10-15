@@ -1,11 +1,111 @@
 ---
+networks:
+  solr:
+
 volumes:
   elasticsearch_data:
   percona_data:
   composer_deps:
   npm_deps:
+  solr-data:
 
 services:
+
+  zoo1:
+    image: zookeeper
+    container_name: zoo1
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+      - 7001:7000
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+      ZOO_CFG_EXTRA: "metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7000 metricsProvider.exportJvmInfo=true"
+    networks:
+      - solr
+
+  zoo2:
+    image: zookeeper
+    container_name: zoo2
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+      - 7002:7000
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+      ZOO_CFG_EXTRA: "metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7000 metricsProvider.exportJvmInfo=true"
+    networks:
+      - solr
+
+  zoo3:
+    image: zookeeper
+    container_name: zoo3
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+      - 7003:7000
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+      ZOO_CFG_EXTRA: "metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=7000 metricsProvider.exportJvmInfo=true"
+    networks:
+      - solr
+
+  solr1:
+    image: solr
+    container_name: solr1
+    ports:
+     - "8981:8983"
+    environment:
+      - ZK_HOST=zoo1:2181,zoo2:2181,zoo3:2181
+    networks:
+      - solr
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - solr-data:/var/solr
+
+  solr2:
+    image: solr
+    container_name: solr2
+    ports:
+     - "8982:8983"
+    environment:
+      - ZK_HOST=zoo1:2181,zoo2:2181,zoo3:2181
+    networks:
+      - solr
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - solr-data:/var/solr
+
+  solr3:
+    image: solr
+    container_name: solr3
+    ports:
+     - "8983:8983"
+    environment:
+      - ZK_HOST=zoo1:2181,zoo2:2181,zoo3:2181
+    networks:
+      - solr
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - solr-data:/var/solr
 
   atom:
     build: ..
@@ -16,6 +116,8 @@ services:
       - composer_deps:/atom/src/vendor/composer
       - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
+    networks:
+      - solr
 
   atom_worker:
     build: ..
@@ -31,6 +133,8 @@ services:
       - composer_deps:/atom/src/vendor/composer
       - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
+    networks:
+      - solr
 
   nginx:
     image: nginx:latest
@@ -41,6 +145,8 @@ services:
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "63001:80"
+    networks:
+      - solr
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
@@ -53,6 +159,8 @@ services:
       - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - "127.0.0.1:63002:9200"
+    networks:
+      - solr
 
   percona:
     image: percona:8.0
@@ -62,14 +170,20 @@ services:
       - ./etc/mysql/mysqld.cnf:/etc/my.cnf.d/mysqld.cnf:ro
     ports:
       - "127.0.0.1:63003:3306"
+    networks:
+      - solr
 
   memcached:
     image: memcached
     command: -p 11211 -m 128 -u memcache
     ports:
       - "127.0.0.1:63004:11211"
+    networks:
+      - solr
 
   gearmand:
     image: artefactual/gearmand
     ports:
       - "127.0.0.1:63005:4730"
+    networks:
+      - solr

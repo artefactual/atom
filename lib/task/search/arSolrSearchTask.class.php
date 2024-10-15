@@ -1,0 +1,140 @@
+<?php
+
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * Populate search index.
+ */
+class arSolrSearchTask extends sfBaseTask
+{
+    public function execute($arguments = [], $options = [])
+    {
+        sfContext::createInstance($this->configuration);
+        sfConfig::add(QubitSetting::getSettingsArray());
+
+        new sfDatabaseManager($this->configuration);
+
+        $solr = new arSolrPlugin($options);
+
+        $this->runSolrQuery($solr, $arguments['query'], (int) $options['rows'], (int) $options['start'], $options['fields'], $options['type']);
+    }
+
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('query', sfCommandArgument::OPTIONAL, 'Search query.'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('start', null, sfCommandOption::PARAMETER_OPTIONAL, 'Offset for the result set output. 0 by default', 0),
+            new sfCommandOption('rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of rows to return in the results', 5),
+            new sfCommandOption('fields', null, sfCommandOption::PARAMETER_OPTIONAL, 'Fields to query("comma seperated")', null),
+            new sfCommandOption('type', null, sfCommandOption::PARAMETER_OPTIONAL, 'Query type', null),
+        ]);
+
+        $this->namespace = 'solr';
+        $this->name = 'search';
+
+        $this->briefDescription = 'Search the search index for a result';
+        $this->detailedDescription = <<<'EOF'
+The [solr:search] task runs a search query on solr. Usage:
+  php symfony solr:search <query>
+
+To get paginated results, use rows and start. For example:
+  php symfony solr:search fonds --rows=5 --start=10
+
+This wll get 5 search results starting from the 10th result
+
+To search specific fields use the --fields option. For example:
+  php symfony solr:search fonds --fields=QubitInformationObject.i18n.%s.title^10,QubitInformationObject.identifier^5
+
+This will search only i18n.(language code).title and identifier fields and
+boost them by 10 and 5 respectively
+
+EOF;
+    }
+
+    private function createQuery($queryText, $fields)
+    {
+        $query = new arSolrStringQuery(arSolrPluginUtil::escapeTerm($queryText));
+        if ($fields) {
+            $fieldsArr = explode(',', $fields);
+            $newFields = [];
+            foreach ($fieldsArr as $field) {
+                $newField = explode('^', $field);
+                $fieldName = $newField[0];
+                $fieldBoost = $newField[1];
+                if (!$fieldBoost) {
+                    $fieldBoost = 1;
+                }
+                $newFields[$fieldName] = (int) $fieldBoost;
+            }
+            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($newFields));
+        } else {
+            $fields = arSolrPluginUtil::getAllFields('informationObject');
+            $query->setFields(arSolrPluginUtil::getBoostedSearchFields($fields));
+        }
+
+        return $query;
+    }
+
+    private function runSolrQuery($solrInstance, $queryText, $rows, $start, $fields, $type)
+    {
+        $modelType = 'QubitInformationObject';
+        if ('matchall' === $type) {
+            $query = new arSolrMatchAllQuery();
+            $modelType = null;
+        } elseif ('term' === $type) {
+            $term = explode(',', $queryText);
+            $query = new arSolrTermQuery([$term[0] => $term[1]]);
+            $query->setType($modelType);
+        } elseif ('match' === $type) {
+            $queryField = explode(',', $queryText);
+            $query = new arSolrMatchQuery([$queryField[0] => $queryField[1]]);
+            $query->setType($modelType);
+        } elseif ('bool' === $type) {
+            $query = new arSolrBoolQuery();
+            $mustClause = $this->createQuery($queryText, $fields);
+            $mustClause->setType($modelType);
+            $query->addMust($mustClause);
+        } else {
+            $query = $this->createQuery($queryText, $fields);
+            $query->setType($modelType);
+        }
+        $query->setSize($rows);
+        $query->setOffset($start);
+
+        $resultSet = $solrInstance->search($query, $modelType);
+        if ($resultSet->count() > 0) {
+            $docs = $resultSet->getDocuments();
+            foreach ($docs as $resp) {
+                $this->log(sprintf('%s - %s', $resp['id'][0], $resp['i18n']['en']['title']));
+
+                // print entire object if no title is present
+                if (!$resp['i18n']['en']['title']) {
+                    $this->log(var_export($resp, true));
+                }
+            }
+        } else {
+            $this->log('No results found');
+            $this->log(print_r($resultSet->getResults(), true));
+        }
+    }
+}
