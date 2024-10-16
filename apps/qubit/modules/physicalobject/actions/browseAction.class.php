@@ -29,7 +29,7 @@ class PhysicalObjectBrowseAction extends sfAction
         }
 
         if (sfConfig::get('app_enable_institutional_scoping')) {
-            //remove search-realm
+            // remove search-realm
             $this->context->user->removeAttribute('search-realm');
         }
 

@@ -36,8 +36,10 @@
                   .' #name">';
           }
       ?>
-      <?php $i = 0; foreach ($occupations as $item) { ?>
-        <?php $form->getWidgetSchema()->setNameFormat("occupations[{$i}][%s]"); ++$i; ?>
+      <?php $i = 0;
+      foreach ($occupations as $item) { ?>
+        <?php $form->getWidgetSchema()->setNameFormat("occupations[{$i}][%s]");
+        ++$i; ?>
 
         <tr class="related_obj_<?php echo $item->id; ?>">
           <td>

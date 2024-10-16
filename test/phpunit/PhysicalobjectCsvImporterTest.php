@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \PhysicalObjectCsvImporter
  */
 class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
@@ -673,8 +674,7 @@ EOM;
     {
         $stub = $this->createStub(QubitTaxonomy::class);
         $stub->method('getTermNameToIdLookupTable')
-            ->willReturn($this->typeIdLookupTableFixture)
-        ;
+            ->willReturn($this->typeIdLookupTableFixture);
 
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
         $importer->setPhysicalObjectTypeTaxonomy($stub);
@@ -689,8 +689,7 @@ EOM;
     {
         $stub = $this->createStub(QubitTaxonomy::class);
         $stub->method('getTermNameToIdLookupTable')
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
 
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
         $importer->setPhysicalObjectTypeTaxonomy($stub);

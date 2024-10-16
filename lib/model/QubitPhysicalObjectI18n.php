@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitPhysicalObjectI18n extends BasePhysicalObjectI18n
-{
-}
+class QubitPhysicalObjectI18n extends BasePhysicalObjectI18n {}

@@ -71,7 +71,7 @@ class PhysicalObjectCsvImporter
     //
 
     public function __construct(
-        sfContext $context = null,
+        ?sfContext $context = null,
         $dbcon = null,
         $options = []
     ) {
@@ -165,7 +165,7 @@ class PhysicalObjectCsvImporter
         return $filename;
     }
 
-    public function setOptions(array $options = null)
+    public function setOptions(?array $options = null)
     {
         if (empty($options)) {
             return;
@@ -198,6 +198,7 @@ class PhysicalObjectCsvImporter
                 $this->setProgressFrequency($value);
 
                 break;
+
             // boolean options
             case 'debug':
             case 'insertNew':
@@ -247,7 +248,7 @@ class PhysicalObjectCsvImporter
         return $this->offset;
     }
 
-    public function setHeader(string $str = null)
+    public function setHeader(?string $str = null)
     {
         if (null === $str) {
             $this->options['header'] = null;
@@ -769,7 +770,7 @@ EOQ;
         }
     }
 
-    protected function processDescriptionSlugs(string $str = null)
+    protected function processDescriptionSlugs(?string $str = null)
     {
         $ids = [];
 
@@ -842,8 +843,7 @@ EOL;
         if (null === $this->typeIdLookupTable) {
             $this->typeIdLookupTable = $this
                 ->getPhysicalObjectTypeTaxonomy()
-                ->getTermNameToIdLookupTable($this->getDbConnection())
-            ;
+                ->getTermNameToIdLookupTable($this->getDbConnection());
 
             if (null === $this->typeIdLookupTable) {
                 throw new sfException(

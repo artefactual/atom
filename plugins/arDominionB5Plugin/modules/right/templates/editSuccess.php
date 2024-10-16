@@ -200,8 +200,7 @@
                   <button
                     class="btn atom-btn-white active-primary text-wrap<?php echo 0 == $i
                         ? ' active'
-                        : ''
-                    ; ?>"
+                        : ''; ?>"
                     id="act-rights-<?php echo $i; ?>"
                     data-bs-toggle="pill"
                     data-bs-target="#act-rights-content-<?php echo $i; ?>"

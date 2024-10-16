@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitFunctionObjectI18n extends BaseFunctionObjectI18n
-{
-}
+class QubitFunctionObjectI18n extends BaseFunctionObjectI18n {}

@@ -18,9 +18,11 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i = 0; foreach ($resource->getActorEvents() as $item) { ?>
+      <?php $i = 0;
+      foreach ($resource->getActorEvents() as $item) { ?>
         <?php if (isset($item->actor)) { ?>
-          <?php $form->getWidgetSchema()->setNameFormat("editNames[{$i}][%s]"); ++$i; ?>
+          <?php $form->getWidgetSchema()->setNameFormat("editNames[{$i}][%s]");
+          ++$i; ?>
 
           <tr class="related_obj_<?php echo $item->id; ?>">
             <td>

@@ -1024,5 +1024,5 @@ foreach ($testingDataSets as $item) {
 
     $result = $methodGetRootConcepts->invoke($importer);
 
-    $t->is(count($result), $totalConcepts, "Number of concepts found in ${item[name]} equals to {$totalConcepts}");
+    $t->is(count($result), $totalConcepts, "Number of concepts found in {$item[name]} equals to {$totalConcepts}");
 }

@@ -138,7 +138,7 @@ class CsvDigitalObjectUriValidator extends CsvBaseValidator
 
             $parsedUri = parse_url($uri);
 
-            if (('https' != $parsedUri['scheme'] && 'http' != $parsedUri['scheme'])) {
+            if ('https' != $parsedUri['scheme'] && 'http' != $parsedUri['scheme']) {
                 array_push($invalidUris, $uri);
             }
         }

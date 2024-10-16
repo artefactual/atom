@@ -15,7 +15,8 @@
       </tr>
     </thead><tbody>
 
-    <?php $i = 0; foreach ($eventData as $event) { ?>
+    <?php $i = 0;
+    foreach ($eventData as $event) { ?>
       <?php $form->getWidgetSchema()->setNameFormat("events[{$i}][%s]"); ?>
 
       <tr class="<?php echo 0 == $i % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $event['id']; ?>">

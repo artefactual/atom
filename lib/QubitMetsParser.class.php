@@ -567,9 +567,9 @@ class QubitMetsParser
     protected function getOriginalFile($fileId)
     {
         if (
-            (false !== $file = $this->document->xpath(
+            false !== $file = $this->document->xpath(
                 sprintf('//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="%s"]', $fileId)
-            ))
+            )
         ) {
             return $file[0];
         }
@@ -605,9 +605,9 @@ class QubitMetsParser
     protected function getOriginalFileNameFromAmdSec($admId)
     {
         if (
-            (false !== $originalName = $this->document->xpath(
+            false !== $originalName = $this->document->xpath(
                 sprintf('//m:amdSec[@ID="%s"]/m:techMD/m:mdWrap/m:xmlData/p:object/p:originalName', $admId)
-            ))
+            )
         ) {
             $parts = explode('/', (string) $originalName[0]);
 
@@ -625,9 +625,9 @@ class QubitMetsParser
     protected function getSizeFromAmdSec($admId)
     {
         if (
-            (false !== $size = $this->document->xpath(
+            false !== $size = $this->document->xpath(
                 sprintf('//m:amdSec[@ID="%s"]/m:techMD/m:mdWrap/m:xmlData/p:object/p:objectCharacteristics/p:size', $admId)
-            ))
+            )
         ) {
             return $size[0];
         }

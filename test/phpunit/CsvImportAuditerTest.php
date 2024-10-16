@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvImportAuditer
  */
 class CsvImportAuditerTest extends \PHPUnit\Framework\TestCase

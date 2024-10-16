@@ -217,7 +217,7 @@
 
 <?php slot('after-content'); ?>
   <ul class="actions mb-3 nav gap-2">
-    <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+    <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'accession', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
     <?php } ?>
 
@@ -237,7 +237,7 @@
         </button>
         <ul class="dropdown-menu mb-2">
           <li><?php echo link_to(__('Create %1%', ['%1%' => sfConfig::get('app_ui_label_informationobject')]), [$resource, 'module' => 'accession', 'action' => 'addInformationObject'], ['class' => 'dropdown-item']); ?></li>
-          <li><?php echo link_to(__('Create new rights'), [$resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
+          <li><?php echo link_to(__('Create new rights'), [$resource, 'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit'], ['class' => 'dropdown-item']); ?></li>
           <li><?php echo link_to(__('Link physical storage'), [$resource, 'module' => 'object', 'action' => 'editPhysicalObjects'], ['class' => 'dropdown-item']); ?></li>
         </ul>
       </div>

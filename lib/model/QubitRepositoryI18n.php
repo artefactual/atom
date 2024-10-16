@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitRepositoryI18n extends BaseRepositoryI18n
-{
-}
+class QubitRepositoryI18n extends BaseRepositoryI18n {}

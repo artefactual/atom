@@ -19,7 +19,8 @@
     <?php foreach ($informationObjects as $item) { ?>
       <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?>">
         <td>
-          <?php $isad = new sfIsadPlugin($item); echo render_value_inline($isad->referenceCode); ?>
+          <?php $isad = new sfIsadPlugin($item);
+          echo render_value_inline($isad->referenceCode); ?>
         </td><td>
           <?php echo link_to(render_title($item), [$item, 'module' => 'informationobject']); ?>
         </td><td>

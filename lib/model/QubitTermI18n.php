@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitTermI18n extends BaseTermI18n
-{
-}
+class QubitTermI18n extends BaseTermI18n {}

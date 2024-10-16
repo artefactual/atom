@@ -37,8 +37,10 @@
         </tr>
       </thead>
       <tbody>
-        <?php $i = 0; foreach ($alternativeIdentifierData as $identifier) { ?>
-          <?php $form->getWidgetSchema()->setNameFormat("alternativeIdentifiers[{$i}][%s]"); ++$i; ?>
+        <?php $i = 0;
+        foreach ($alternativeIdentifierData as $identifier) { ?>
+          <?php $form->getWidgetSchema()->setNameFormat("alternativeIdentifiers[{$i}][%s]");
+          ++$i; ?>
 
           <tr class="related_obj_<?php echo $identifier['id']; ?>">
             <td>
