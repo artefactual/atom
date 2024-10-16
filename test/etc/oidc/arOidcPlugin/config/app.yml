@@ -66,5 +66,5 @@ all:
         auto_create_atom_user: true
     primary_provider_name: primary
     provider_query_param_name: secondary
-    redirect_url: 'http://127.0.0.1/index.php/oidc/login'
+    redirect_url: 'http://localhost/index.php/oidc/login'
     logout_redirect_url: 'http://127.0.0.1'
