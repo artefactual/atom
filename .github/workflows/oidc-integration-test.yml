@@ -136,6 +136,11 @@ jobs:
       run: |
         php symfony cc
 
+    - name: Restart php-fpm
+      run: |
+        sudo systemctl restart php7.4-fpm
+        sudo php-fpm7.4 --test
+
     - name: Change filesystem permissions
       run: sudo chown -R www-data:www-data ${{ github.workspace }}
 
