@@ -843,8 +843,7 @@ EOL;
         if (null === $this->typeIdLookupTable) {
             $this->typeIdLookupTable = $this
                 ->getPhysicalObjectTypeTaxonomy()
-                ->getTermNameToIdLookupTable($this->getDbConnection())
-            ;
+                ->getTermNameToIdLookupTable($this->getDbConnection());
 
             if (null === $this->typeIdLookupTable) {
                 throw new sfException(

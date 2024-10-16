@@ -206,8 +206,7 @@ class DigitalObjectMetadataComponent extends sfComponent
             || $this->showMasterFileMediaType
             || $this->showMasterFileMimeType
             || $this->showMasterFileSize
-            || $this->showMasterFileCreatedAt
-        ;
+            || $this->showMasterFileCreatedAt;
     }
 
     protected function setReferenceCopyShowProperties()

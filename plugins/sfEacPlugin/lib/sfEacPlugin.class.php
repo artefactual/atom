@@ -1012,8 +1012,7 @@ str;
             ->find('eac:list/eac:item')
             ->replaceWith(function ($node) {
                 return '* '.$node->textContent;
-            })
-        ;
+            });
 
         return $value->text();
     }
