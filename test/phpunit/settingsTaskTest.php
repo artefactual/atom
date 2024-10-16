@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \settingsTask
  */
 class settingsTaskTest extends \PHPUnit\Framework\TestCase

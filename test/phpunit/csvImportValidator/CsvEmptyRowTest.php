@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvEmptyRowValidator
  */
 class CsvEmptyRowTest extends \PHPUnit\Framework\TestCase

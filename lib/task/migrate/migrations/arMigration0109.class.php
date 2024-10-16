@@ -83,8 +83,7 @@ class arMigration0109
                 ['en' => 'Social Organizations and Activities', 'fr' => 'Vie sociale'],
                 ['en' => 'Transportation', 'fr' => 'Transport'],
                 ['en' => 'Travel and Exploration', 'fr' => 'Voyages et exploration'],
-            ]
-            as $termNames
+            ] as $termNames
         ) {
             $term = new QubitTerm();
             $term->parentId = QubitTerm::ROOT_ID;

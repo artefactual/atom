@@ -2,6 +2,7 @@
 
 /**
  * @internal
+ *
  * @covers \QubitPhysicalObjectCsvHoldingsReport
  */
 class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase

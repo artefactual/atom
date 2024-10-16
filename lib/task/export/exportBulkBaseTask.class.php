@@ -109,9 +109,9 @@ abstract class exportBulkBaseTask extends sfBaseTask
     /**
      * Generate a suitable file name for export files.
      *
-     * @param $resource  The information object we're exporting
-     * @param $extension  The file extension (e.g. csv, xml)
-     * @param $formatAbbreviation  The type of export format (e.g. ead, eac, mods)
+     * @param $resource           The information object we're exporting
+     * @param $extension          The file extension (e.g. csv, xml)
+     * @param $formatAbbreviation The type of export format (e.g. ead, eac, mods)
      *
      * @return string The generated filename based on the format, info object id, slug, and extension
      */

@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitTaxonomyI18n extends BaseTaxonomyI18n
-{
-}
+class QubitTaxonomyI18n extends BaseTaxonomyI18n {}

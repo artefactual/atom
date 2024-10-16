@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \PhysicalObjectCsvImporter
  */
 class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase

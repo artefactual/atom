@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvScriptValidator
  */
 class CsvScriptTest extends \PHPUnit\Framework\TestCase

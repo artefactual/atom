@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvRepoValidator
  */
 class CsvRepoTest extends \PHPUnit\Framework\TestCase

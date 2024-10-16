@@ -40,7 +40,8 @@ if (null !== $io = QubitObject::getBySlug('peanut-12345')) {
 }
 $io = new QubitInformationObject();
 $io->parentId = QubitInformationObject::ROOT_ID;
-$io->slug = 'peanut-12345'; $io->save();
+$io->slug = 'peanut-12345';
+$io->save();
 
 $t->diag('Create QubitActor "actor-12345"');
 if (null !== $actor = QubitObject::getBySlug('actor-12345')) {
@@ -79,7 +80,9 @@ $taxonomy->name = 'Taxonomy 12345';
 $taxonomy->save();
 
 $t->diag('Create QubitContactInformation');
-$contactInformation = new QubitContactInformation(); $contactInformation->actor = $actor; $contactInformation->save();
+$contactInformation = new QubitContactInformation();
+$contactInformation->actor = $actor;
+$contactInformation->save();
 
 // Test generation of routes
 $t->diag('Test suite intended to check behaviour of ->generate()');
@@ -222,7 +225,8 @@ foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::INFORMATION_OBJECT_TEMPL
     $t->is($info['action'], 'index');
 }
 
-$io->displayStandardId = null; $io->save();
+$io->displayStandardId = null;
+$io->save();
 $t->diag('/peanut-12345 '.'(displayStandardId is NULL, default application template is '.$defaultIoTemplateCode.')');
 $info = $routing->parse('/peanut-12345');
 $t->is($routing->getCurrentRouteName(), 'slug');

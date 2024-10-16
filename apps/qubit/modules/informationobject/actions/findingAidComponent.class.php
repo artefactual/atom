@@ -131,6 +131,7 @@ class InformationObjectFindingAidComponent extends sfComponent
                     $this->status = $this->context->i18n->__('Uploaded');
 
                     break;
+
                 // It should never get here if we don't add more finding aid
                 // statuses
                 default:

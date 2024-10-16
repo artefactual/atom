@@ -1,11 +1,10 @@
 <?php
 
-class CsvMockValidator extends CsvBaseValidator
-{
-}
+class CsvMockValidator extends CsvBaseValidator {}
 
 /**
  * @internal
+ *
  * @covers \CsvBaseValidator
  */
 class CsvBaseValidatorTest extends \PHPUnit\Framework\TestCase

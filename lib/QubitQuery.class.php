@@ -114,9 +114,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return call_user_func_array([$this, '__set'], $args);
     }
 
-    public function offsetUnset($offset)
-    {
-    }
+    public function offsetUnset($offset) {}
 
     public function count()
     {

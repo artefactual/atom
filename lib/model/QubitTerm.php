@@ -766,6 +766,7 @@ class QubitTerm extends BaseTerm
             case 'name':
                 $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
                 $criteria->addAscendingOrderByColumn('name');
+
                 // no break
             case 'lft':
             default:

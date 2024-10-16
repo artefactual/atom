@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class sfSkosPluginException extends Exception
-{
-}
+class sfSkosPluginException extends Exception {}

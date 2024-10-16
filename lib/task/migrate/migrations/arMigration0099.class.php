@@ -41,8 +41,7 @@ class arMigration0099
             [
                 'taxonomies' => 'taxonomy/browse',
                 'browseDigitalObjects' => 'digitalobject/browse',
-            ]
-            as $key => $value
+            ] as $key => $value
         ) {
             if (null !== $menu = QubitMenu::getByName($key)) {
                 $menu->path = $value;

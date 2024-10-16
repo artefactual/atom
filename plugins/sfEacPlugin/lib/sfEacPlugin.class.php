@@ -984,7 +984,7 @@ str;
      * It was either this or a massive conditional statement like:
      * (isset($a) && $a) || (isset($b) && $b) || ...).
      *
-     * @param $resource  The actor we're getting information from
+     * @param $resource The actor we're getting information from
      *
      * @return bool True if there are one or more description elements, false otherwise
      */

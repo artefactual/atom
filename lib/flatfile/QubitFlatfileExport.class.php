@@ -391,9 +391,7 @@ class QubitFlatfileExport
      *
      * @return void
      */
-    protected function config(&$config)
-    {
-    }
+    protected function config(&$config) {}
 
     /*
      *

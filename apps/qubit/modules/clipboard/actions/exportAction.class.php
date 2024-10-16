@@ -338,6 +338,7 @@ class ClipboardExportAction extends DefaultEditAction
                 );
 
                 break;
+
             // Enable field includeDescendants if:
             // options enabled
             // and, information object type
@@ -357,6 +358,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeAllLevels if:
             // options enabled
             // and, information object type
@@ -372,6 +374,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field levels if:
             // options enabled
             // and, information object type
@@ -405,6 +408,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeDigitalObjects if:
             // digital objects are available
             case 'includeDigitalObjects':
@@ -429,6 +433,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeDrafts if:
             // information object type
             // and, user is authenticated
@@ -451,6 +456,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeNonVisibleElements if:
             // information object type
             // and, user is authenticated

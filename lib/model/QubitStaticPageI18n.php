@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitStaticPageI18n extends BaseStaticPageI18n
-{
-}
+class QubitStaticPageI18n extends BaseStaticPageI18n {}

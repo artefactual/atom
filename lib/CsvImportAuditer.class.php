@@ -116,7 +116,7 @@ class CsvImportAuditer
         return $filename;
     }
 
-    public function setOptions(array $options = null): void
+    public function setOptions(?array $options = null): void
     {
         if (empty($options)) {
             return;

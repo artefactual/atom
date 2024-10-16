@@ -97,8 +97,7 @@ sql;
                 QubitTerm::ARTWORK_MATERIAL_ID => 'Artwork material',
                 QubitTerm::SUPPORTING_DOCUMENTATION_ID => 'Supporting documentation',
                 QubitTerm::SUPPORTING_TECHNOLOGY_ID => 'Supporting technology',
-            ]
-            as $id => $value
+            ] as $id => $value
         ) {
             QubitMigrate::bumpTerm($id, $configuration);
             $term = new QubitTerm();

@@ -3260,9 +3260,11 @@ class QubitDigitalObject extends BaseDigitalObject
             // The 'G' modifier is available since PHP 5.1.0
             case 'g':
                 $val *= 1024;
+
                 // no break
             case 'm':
                 $val *= 1024;
+
                 // no break
             case 'k':
                 $val *= 1024;
@@ -3340,6 +3342,7 @@ class QubitDigitalObject extends BaseDigitalObject
                 return $contents;
             }
         }
+
         // Return false on failure so CLI task will log an error and continue importing.
         return false;
     }
