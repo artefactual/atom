@@ -121,12 +121,30 @@ jobs:
         sudo nginx -t
         sudo systemctl restart nginx
 
+    - name: Dump contents of app.yml BEFORE copy
+      run: sudo cat plugins/arOidcPlugin/config/app.yml
+
     - name: Update OIDC plugin app.yml file
       run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+
+    - name: Dump contents of app.yml AFTER copy
+      run: sudo cat plugins/arOidcPlugin/config/app.yml
 
     - name: Update factories.yml to use oidcUser
       run: |
         sudo sed -i 's/class: myUser/class: oidcUser/' config/factories.yml
+
+    - name: Dump contents of factories.yml
+      run: |
+        sudo cat config/factories.yml
+
+    - name: Update settings.yml login module to oidc
+      run: |
+        sudo sed -i 's/login_module:\s*user/login_module: oidc/' apps/qubit/config/settings.yml
+
+    - name: Dump contents of settings.yml
+      run: |
+        sudo cat apps/qubit/config/settings.yml
 
     - name: Install OIDC Plugin
       run: |
