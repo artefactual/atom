@@ -1276,7 +1276,7 @@ class QubitDigitalObject extends BaseDigitalObject
         $cleanFileName = self::sanitizeFilename($asset->getName());
 
         // If file has not extension, try to get it from asset mime type
-        if (0 == strlen(pathinfo($cleanFileName, PATHINFO_EXTENSION)) && null !== ($assetMimeType = $asset->mimeType) && 0 < strlen(($newFileExtension = array_search($assetMimeType, self::$qubitMimeTypes)))) {
+        if (0 == strlen(pathinfo($cleanFileName, PATHINFO_EXTENSION)) && null !== ($assetMimeType = $asset->mimeType) && 0 < strlen($newFileExtension = array_search($assetMimeType, self::$qubitMimeTypes))) {
             $cleanFileName .= '.'.$newFileExtension;
         }
 

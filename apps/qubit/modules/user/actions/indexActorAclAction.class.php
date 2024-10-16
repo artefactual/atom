@@ -27,7 +27,7 @@ class UserIndexActorAclAction extends sfAction
             $this->forward404();
         }
 
-        //except for administrators, only allow users to see their own profile
+        // except for administrators, only allow users to see their own profile
         if (!$this->context->user->isAdministrator()) {
             if ($this->resource->id != $this->context->user->getAttribute('user_id')) {
                 $this->redirect('admin/secure');

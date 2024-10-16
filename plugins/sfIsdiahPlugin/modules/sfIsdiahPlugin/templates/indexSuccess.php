@@ -247,7 +247,7 @@
 
     <section class="actions">
       <ul>
-        <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+        <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
           <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'repository', 'action' => 'edit'], ['class' => 'c-btn', 'title' => __('Edit')]); ?></li>
         <?php } ?>
         <?php if (QubitAcl::check($resource, 'delete')) { ?>
@@ -260,7 +260,7 @@
           <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'c-btn', 'title' => __('Add description')]); ?></li>
         <?php } ?>
         <li class="divider"></li>
-        <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+        <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
           <li><?php echo link_to(__('Edit theme'), [$resource, 'module' => 'repository', 'action' => 'editTheme'], ['class' => 'c-btn', 'title' => 'Edit theme']); ?></li>
         <?php } ?>
       </ul>

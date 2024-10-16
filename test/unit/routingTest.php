@@ -195,7 +195,7 @@ $t->is($routing->getCurrentRouteName(), 'default');
 $t->is($info['module'], 'foo');
 $t->is($info['action'], 'bar');
 
-//#
+// #
 // QubitMetadataResource
 //
 
@@ -218,7 +218,7 @@ foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::INFORMATION_OBJECT_TEMPL
     // Update object
     $io->displayStandardId = $term->id;
     $io->save();
-    $t->diag('/peanut-12345 '.'(displayStandardId points to '.$term->code.')');
+    $t->diag('/peanut-12345 (displayStandardId points to '.$term->code.')');
     $info = $routing->parse('/peanut-12345');
     $t->is($routing->getCurrentRouteName(), 'slug');
     $t->is($info['module'], $ioTemplates[$term->code], $ioTemplates[$term->code]);
@@ -227,7 +227,7 @@ foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::INFORMATION_OBJECT_TEMPL
 
 $io->displayStandardId = null;
 $io->save();
-$t->diag('/peanut-12345 '.'(displayStandardId is NULL, default application template is '.$defaultIoTemplateCode.')');
+$t->diag('/peanut-12345 (displayStandardId is NULL, default application template is '.$defaultIoTemplateCode.')');
 $info = $routing->parse('/peanut-12345');
 $t->is($routing->getCurrentRouteName(), 'slug');
 $t->is($info['module'], $defaultIoTemplateModule, $defaultIoTemplateModule);

@@ -138,14 +138,14 @@ class QubitXmlImport
             'http://www.loc.gov/mods/' => 'mods',
             'http://www.loc.gov/MARC21/slim' => 'marc',
             // root element names
-            //'collection' => 'marc',
-            //'record' => 'marc',
+            // 'collection' => 'marc',
+            // 'record' => 'marc',
             'record' => 'oai_dc_record',
             'dc' => 'dc',
             'oai_dc:dc' => 'dc',
             'dublinCore' => 'dc',
             'metadata' => 'dc',
-            //'mets' => 'mets',
+            // 'mets' => 'mets',
             'mods' => 'mods',
             'ead' => 'ead',
             'add' => 'alouette',
@@ -477,7 +477,7 @@ class QubitXmlImport
     {
         $nodeValue = '';
 
-        if (!($node instanceof DOMAttr)) {
+        if (!$node instanceof DOMAttr) {
             $nodeList = $node->getElementsByTagName('p');
 
             if (0 < $nodeList->length) {

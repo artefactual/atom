@@ -83,11 +83,11 @@ class ClipboardExportAction extends DefaultEditAction
 
         // Determine if there are non-visible elements that should be hidden
         $this->nonVisibleElementsIncluded = false;
-        $defTemplate = sfConfig::get(('app_default_template_'.strtolower($this->objectType)));
+        $defTemplate = sfConfig::get('app_default_template_'.strtolower($this->objectType));
 
         foreach (sfConfig::getAll() as $setting => $value) {
             if (
-                (false !== strpos($setting, ('app_element_visibility_'.$defTemplate)))
+                (false !== strpos($setting, 'app_element_visibility_'.$defTemplate))
                 && (0 == sfConfig::get($setting))
             ) {
                 $this->nonVisibleElementsIncluded = true;

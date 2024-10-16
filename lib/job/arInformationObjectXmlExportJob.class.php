@@ -146,8 +146,8 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
         // Get list of elements hidden from settings
         foreach (sfConfig::getAll() as $setting => $value) {
             if (
-                (false !== strpos($setting, ('app_element_visibility_'.$template)))
-                && (!strpos($setting, ('__source')))
+                (false !== strpos($setting, 'app_element_visibility_'.$template))
+                && (!strpos($setting, '__source'))
                 && (0 == sfConfig::get($setting))
             ) {
                 array_push($nonVisibleElements, $setting);

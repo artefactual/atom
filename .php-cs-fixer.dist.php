@@ -28,11 +28,8 @@ return (new PhpCsFixer\Config())
         'fully_qualified_strict_types' => false,
         'statement_indentation' => false,
         'string_implicit_backslashes' => false,
-        'single_line_comment_spacing' => false,
-        'no_unneeded_control_parentheses' => ['statements' => ['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield']],
         'multiline_whitespace_before_semicolons' => false,
         'no_superfluous_phpdoc_tags' => false,
-        'no_useless_concat_operator' => false,
     ])
     ->setFinder($finder)
 ;

@@ -443,7 +443,7 @@ function hr_filesize($val)
         }
     }
 
-    return round(($val / pow(1024, $i)), 1).' '.$units[$i];
+    return round($val / pow(1024, $i), 1).' '.$units[$i];
 }
 
 function render_treeview_node($item, array $classes = [], array $options = [])
@@ -485,7 +485,7 @@ function render_treeview_node($item, array $classes = [], array $options = [])
         }
 
         if (0 < count($dataTitle)) {
-            $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
+            $node .= ' data-title="'.strip_tags(implode(' - ', $dataTitle)).'"';
         }
     } elseif ($item instanceof QubitTerm) {
         $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
@@ -580,7 +580,7 @@ function render_b5_treeview_node($item, array $classes = [], array $options = []
         }
 
         if (0 < count($dataTitle)) {
-            $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
+            $node .= ' data-title="'.strip_tags(implode(' - ', $dataTitle)).'"';
         }
     } elseif ($item instanceof QubitTerm) {
         $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';

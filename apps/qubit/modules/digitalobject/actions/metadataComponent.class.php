@@ -320,9 +320,8 @@ class DigitalObjectMetadataComponent extends sfComponent
             check_field_visibility('app_element_visibility_digital_object_preservation_system_original_ingested')
             && !$this->isEmpty($this->originalFileIngestedAt)
         );
-        $this->showOriginalFilePermissions = (
-            check_field_visibility('app_element_visibility_digital_object_preservation_system_original_permissions')
-        );
+        $this->showOriginalFilePermissions =
+            check_field_visibility('app_element_visibility_digital_object_preservation_system_original_permissions');
 
         return $this->showOriginalFileName
             || $this->showOriginalFormatName
@@ -351,9 +350,8 @@ class DigitalObjectMetadataComponent extends sfComponent
             check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_normalized')
             && !$this->isEmpty($this->preservationCopyNormalizedAt)
         );
-        $this->showPreservationCopyPermissions = (
-            check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_permissions')
-        );
+        $this->showPreservationCopyPermissions =
+            check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_permissions');
 
         return $this->showPreservationCopyFileName
             || $this->showPreservationCopyFileSize
