@@ -391,17 +391,20 @@ class sfYamlParser
       }
       return $this->refs[$value];
     }
-
     if (preg_match('/^(?P<separator>\||>)(?P<modifiers>\+|\-|\d+|\+\d+|\-\d+|\d+\+|\d+\-)?(?P<comments> +#.*)?$/', $value, $matches))
     {
       $modifiers = isset($matches['modifiers']) ? $matches['modifiers'] : '';
 
-      return $this->parseFoldedScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), intval(abs($modifiers)));
+      // Extract the numeric value from $modifiers
+      $numericModifiers = intval(preg_replace('/[^\d\-]/', '', $modifiers));
+
+      return $this->parseFoldedScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), abs($numericModifiers));
     }
     else
     {
       return sfYamlInline::load($value);
     }
+
   }
 
   /**
