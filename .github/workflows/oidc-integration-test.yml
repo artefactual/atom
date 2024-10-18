@@ -148,7 +148,7 @@ jobs:
 
     - name: Install OIDC Plugin
       run: |
-        php symfony tools:atom-plugins add arOidcPlugin
+        touch activate-oidc-plugin
 
     - name: Clear Symfony cache
       run: |
