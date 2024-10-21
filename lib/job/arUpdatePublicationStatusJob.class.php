@@ -78,7 +78,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
 
         $queryScript = \Elastica\Script\AbstractScript::create([
             'script' => [
-                'inline' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
+                'source' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
                 'lang' => 'painless',
             ],
         ]);
@@ -91,7 +91,8 @@ class arUpdatePublicationStatusJob extends arBaseJob
             'conflicts' => 'proceed',
         ];
 
-        $response = QubitSearch::getInstance()->index->updateByQuery($query, $queryScript, $options)->getData();
+        $type = 'QubitInformationObject';
+        $response = QubitSearch::getInstance()->index->getType($type)->updateByQuery($query, $queryScript, $options)->getData();
 
         $message = $this->i18n->__(
             'Index update completed in %1 ms.',

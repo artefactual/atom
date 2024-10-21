@@ -263,7 +263,7 @@ class arElasticSearchMapping
                         throw new sfException('No i18n_languages in database settings.');
                     }
 
-                    $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', ['type' => 'keyword', 'include_in_all' => false]);
+                    $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', ['type' => 'keyword']);
 
                     // We are using the same mapping for all the i18n fields
                     $nestedI18nFields = [];
@@ -342,7 +342,7 @@ class arElasticSearchMapping
             $mapping = $this->mapping[$foreignTypeNameCamelized];
 
             // Add id of the foreign resource
-            $mapping['properties']['id'] = ['type' => 'integer', 'include_in_all' => 'false'];
+            $mapping['properties']['id'] = ['type' => 'integer'];
 
             $typeProperties['properties'][$fieldNameCamelized] = $mapping;
         }
@@ -368,7 +368,7 @@ class arElasticSearchMapping
                 }
 
                 // Add source culture property
-                $this->setIfNotSet($mapping['properties'], 'sourceCulture', ['type' => 'keyword', 'include_in_all' => false]);
+                $this->setIfNotSet($mapping['properties'], 'sourceCulture', ['type' => 'keyword']);
 
                 $nestedI18nFields = [];
                 foreach ($mapping['_i18nFields'] as $i18nFieldName) {
@@ -403,7 +403,7 @@ class arElasticSearchMapping
             }
 
             // Add id of the partial foreign resource
-            $mapping['properties']['id'] = ['type' => 'integer', 'include_in_all' => 'false'];
+            $mapping['properties']['id'] = ['type' => 'integer'];
 
             $typeProperties['properties'][$fieldNameCamelized] = $mapping;
         }
@@ -443,7 +443,7 @@ class arElasticSearchMapping
     {
         return [
             'type' => 'text',
-            'include_in_all' => true,
+            'copy_to' => '_all',
         ];
     }
 
@@ -492,7 +492,6 @@ class arElasticSearchMapping
             $nestedI18nFields[$item]['fields']['alphasort'] = [
                 'type' => 'keyword',
                 'normalizer' => 'alphasort',
-                'include_in_all' => false,
             ];
         }
 
