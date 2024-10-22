@@ -3,7 +3,7 @@ all:
   oidc:
     providers:
       demo:
-        url: 'http://keycloak:8080/realms/demo'
+        url: 'http://localhost:8080/realms/demo'
         client_id: 'atom'
         client_secret: 'example-secret'
         send_oidc_logout: true
@@ -34,7 +34,7 @@ all:
         user_matching_source: 'oidc-email'
         auto_create_atom_user: true
       secondary:
-        url: 'http://keycloak:8080/realms/secondary'
+        url: 'http://localhost:8080/realms/secondary'
         client_id: 'atom-secondary'
         client_secret: 'example-secret'
         send_oidc_logout: true
@@ -67,4 +67,4 @@ all:
     primary_provider_name: demo
     provider_query_param_name: secondary
     redirect_url: 'http://localhost/index.php/oidc/login'
-    logout_redirect_url: 'http://127.0.0.1'
+    logout_redirect_url: 'http://localhost'
