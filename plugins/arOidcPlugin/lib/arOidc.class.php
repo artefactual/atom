@@ -21,7 +21,6 @@ use Jumbojett\OpenIDConnectClient;
 
 class arOidc
 {
-    protected static $oidcIsInitialized = false;
     protected static $validTokenNames = ['access-token', 'id-token', 'verified-claims', 'user-info'];
     protected static $validUserMatchingSources = ['oidc-email', 'oidc-username'];
 
@@ -32,11 +31,6 @@ class arOidc
      */
     public static function getOidcInstance()
     {
-        // Return if already initialized.
-        if (self::$oidcIsInitialized) {
-            return;
-        }
-
         $oidc = new OpenIDConnectClient();
 
         // Validate redirect URL.
@@ -45,8 +39,6 @@ class arOidc
             throw new Exception('Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.');
         }
         $oidc->setRedirectURL($redirectUrl);
-
-        self::$oidcIsInitialized = true;
 
         return $oidc;
     }
