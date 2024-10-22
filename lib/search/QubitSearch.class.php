@@ -23,9 +23,40 @@
 class QubitSearch
 {
     protected static $instance;
+    protected static $solrInstance;
 
     // protected function __construct() { }
     // protected function __clone() { }
+
+    public static function getSolrInstance(array $options = [])
+    {
+        $configuration = ProjectConfiguration::getActive();
+        if (!$configuration->isPluginEnabled('arSolrPlugin')) {
+            return false;
+        }
+
+        if (!isset(self::$solrInstance)) {
+            self::$solrInstance = new arSolrPlugin($options);
+        }
+
+        return self::$solrInstance;
+    }
+
+    public static function disableSolr()
+    {
+        if (!isset(self::$solrInstance)) {
+            self::$solrInstance = self::getSolrInstance(['initialize' => false]);
+        }
+
+        self::$solrInstance->disable();
+    }
+
+    public static function enableSolr()
+    {
+        self::$solrInstance = self::getSolrInstance();
+
+        self::$solrInstance->enable();
+    }
 
     public static function getInstance(array $options = [])
     {
@@ -33,6 +64,10 @@ class QubitSearch
             // Using arElasticSearchPlugin but other classes could be
             // implemented, for example: arSphinxSearchPlugin
             self::$instance = new arElasticSearchPlugin($options);
+            //$configuration = ProjectConfiguration::getActive();
+            //if ($configuration->isPluginEnabled('arSolrPlugin')) {
+              //self::$solr = new arSolrPlugin($options);
+            //}
         }
 
         return self::$instance;
