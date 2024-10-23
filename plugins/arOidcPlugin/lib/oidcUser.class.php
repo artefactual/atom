@@ -359,7 +359,7 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
 
     // Parse the query params from a URL. If a param matches the provider ID selector
     // then return the value.
-    public function parseProviderIdFromURL(string $url): ?string
+    public function parseProviderIdFromURL(?string $url): ?string
     {
         if (empty($url)) {
             return null;
