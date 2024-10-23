@@ -106,7 +106,7 @@ jobs:
       run: echo "REALM_FILE=../test/etc/keycloak/realm.json" >> $GITHUB_ENV
     - name: Launch Keycloak service
       run: |
-        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
+        docker compose -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
     - name: Wait for Keycloak to be Ready
       run: |
         echo "Waiting for Keycloak to be ready..."
@@ -147,5 +147,5 @@ jobs:
     - name: Tear down services
       if: always()
       run: |
-        docker compose -p ci down
-        docker compose -p ci -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml down
+        docker compose down
+        docker compose -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml down
