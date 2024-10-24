@@ -35,6 +35,8 @@
         "id": "demo",
         "email": "demo@example.com",
         "username": "demo",
+        "firstName": "Firstname",
+        "lastName": "Lastname",
         "enabled": true,
         "emailVerified": true,
         "credentials": [
@@ -99,6 +101,8 @@
         "id": "support",
         "email": "support@example.com",
         "username": "support",
+        "firstName": "Firstname",
+        "lastName": "Lastname",
         "enabled": true,
         "emailVerified": true,
         "credentials": [
