@@ -6,11 +6,13 @@ describe('SSO Login with Keycloak', () => {
     //cy.url({ timeout: 1000 }).should('include', 'oidc/login');
     //cy.url({ timeout: 1000 }).should('include', 'realms/demo/protocol/openid-connect/auth')
     cy.get('#username').type(Cypress.env('adminEmail'))
-    // cy.get('#password').type(Cypress.env('adminPassword'))
+    cy.get('#password').type(Cypress.env('adminPassword'))
 
-    // cy.get('#kc-login').click();
+    cy.get('#kc-login').click();
     // cy.url().should('not.include', 'auth');
     // cy.url().should('include', '/dashboard');
-    // cy.contains('Log out')
+    cy.contains('Demo').should('be.visible').click()
+    cy.contains('Log out').should('be.visible').click()
+    cy.contains('Log in')
   })
 })
