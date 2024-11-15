@@ -2,6 +2,9 @@
 
   <?php include 'indexSuccessBodyPhysloc.xml.php'; ?>
 
+  <?php $template = strtolower(substr($ead->getMetadataParameter('relatedencoding'), 0, 3)); ?>
+  <?php 'isa' == $template ? $template = 'isad' : $template = 'rad'; ?>
+
   <?php if (
     0 < strlen(${$resourceVar}->getPropertyByName('titleProperOfPublishersSeries')->__toString())
     || 0 < strlen(${$resourceVar}->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())
@@ -33,7 +36,7 @@
 
   <?php } ?>
 
-  <?php if (0 < strlen($value = ${$resourceVar}->getTitle(['cultureFallback' => true]) ?? '')) { ?>
+  <?php if ('dc' != $defTemplate && 0 < strlen($value = ${$resourceVar}->getTitle(['cultureFallback' => true]))) { ?>
     <unittitle encodinganalog="<?php echo $ead->getMetadataParameter('unittitle'); ?>"><?php echo escape_dc(esc_specialchars($value)); ?></unittitle>
   <?php } ?>
 
@@ -58,7 +61,7 @@
   <?php } ?>
 
   <?php $repository = null; ?>
-  <?php if (0 < strlen(${$resourceVar}->getIdentifier() ?? '')) { ?>
+  <?php if ('dc' != $defTemplate && 0 < strlen(${$resourceVar}->getIdentifier())) { ?>
     <?php foreach (${$resourceVar}->ancestors->andSelf()->orderBy('rgt') as $item) { ?>
       <?php if (isset($item->repository)) { ?>
         <?php $repository = $item->repository; ?>
@@ -89,7 +92,7 @@
   <?php if ($value = ${$resourceVar}->getRepository(['inherit' => $topLevelDid])) { ?>
     <repository>
       <corpname><?php echo escape_dc(esc_specialchars($value->__toString())); ?></corpname>
-      <?php if ($address = $value->getPrimaryContact()) { ?>
+      <?php if (('mods' != $defTemplate && 'dc' != $defTemplate) && $address = $value->getPrimaryContact()) { ?>
         <address>
           <?php if (0 < strlen($addressline = $address->getStreetAddress() ?? '')) { ?>
             <addressline><?php echo escape_dc(esc_specialchars($addressline)); ?></addressline>
@@ -137,11 +140,13 @@
     </langmaterial>
   <?php } ?>
 
-  <?php if (${$resourceVar}->sources) { ?>
+  <?php $controlSources = 'app_element_visibility_'.$template.'_control_sources'; ?>
+  <?php if (${$resourceVar}->sources && ($authenticated || 1 == sfConfig::get($controlSources))) { ?>
     <note type="sourcesDescription"><p><?php echo escape_dc(esc_specialchars(${$resourceVar}->sources)); ?></p></note>
   <?php } ?>
 
-  <?php if (0 < count($notes = ${$resourceVar}->getNotesByType(['noteTypeId' => QubitTerm::GENERAL_NOTE_ID]))) { ?>
+  <?php 'isad' == $template ? $generalNotes = 'app_element_visibility_isad_notes' : $generalNotes = 'app_element_visibility_rad_general_notes'; ?>
+  <?php if (0 < count($notes = ${$resourceVar}->getNotesByType(['noteTypeId' => QubitTerm::GENERAL_NOTE_ID])) && ($authenticated || 1 == sfConfig::get($generalNotes))) { ?>
     <?php foreach ($notes as $note) { ?>
       <note type="generalNote" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('generalNote') ?? '')) { ?>encodinganalog="<?php echo $encoding; ?>"<?php } ?>>
         <p><?php echo escape_dc(esc_specialchars($note->getContent(['cultureFallback' => true]))); ?></p>
