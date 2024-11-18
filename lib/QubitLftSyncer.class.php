@@ -68,7 +68,7 @@ class QubitLftSyncer
         // Get results
         $result = QubitSearch::getInstance()
             ->index
-            ->getType('QubitInformationObject')
+            ->getIndex('QubitInformationObject')
             ->search($query->getQuery(false, false));
 
         // Amalgamate lft values in array
@@ -93,8 +93,8 @@ class QubitLftSyncer
 
         $bulk = new Elastica\Bulk(QubitSearch::getInstance()->client);
         $type = 'QubitInformationObject';
-        $bulk->setIndex(QubitSearch::getInstance()->index->getType($type)->getName());
-        $bulk->setType(QubitSearch::getInstance()->index->getIndexTypeName($type));
+        $bulk->setIndex(QubitSearch::getInstance()->index->getIndex($type)->getName());
+        $bulk->setType(QubitSearch::getInstance()->index->getIndexName($type));
 
         foreach ($results as $row) {
             $bulk->addAction(

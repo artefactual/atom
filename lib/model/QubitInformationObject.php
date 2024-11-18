@@ -2184,7 +2184,7 @@ class QubitInformationObject extends BaseInformationObject
 
             $query = new \Elastica\Query($queryBool);
             $query->setSize(1);
-            $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+            $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($query);
 
             if ($resultSet->count()) {
                 return $resultSet[0]->getId();

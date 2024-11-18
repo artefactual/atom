@@ -244,7 +244,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
+        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->search->getQuery(false, true));
 
         // Page results
         $this->pager = new QubitSearchPager($resultSet);

@@ -73,7 +73,9 @@ class arElasticSearchMultiIndexWrapper
         }
     }
 
-    public function getType($name)
+    // Return the index element from the array of indices
+    // that matches the qualified index name
+    public function getIndex($name)
     {
         $name = $this->getIndexName($name);
 

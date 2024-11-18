@@ -174,7 +174,7 @@ EOF;
         $options = ['conflicts' => 'proceed'];
 
         $type = 'QubitInformationObject';
-        $response = QubitSearch::getInstance()->index->getType($type)->updateByQuery($query, $queryScript, $options)->getData();
+        $response = QubitSearch::getInstance()->index->getIndex($type)->updateByQuery($query, $queryScript, $options)->getData();
 
         if (!empty($response['failures'])) {
             $this->failures += count($response['failures']);

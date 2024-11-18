@@ -154,7 +154,7 @@ class AccessionBrowseAction extends sfAction
                 break;
         }
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitAccession')->search($this->query);
+        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitAccession')->search($this->query);
 
         $this->pager = new QubitSearchPager($resultSet);
         $this->pager->setPage($request->page ? $request->page : 1);

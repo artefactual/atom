@@ -280,7 +280,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 // If excluding types then index as a whole hasn't been flushed: delete
                 // type's documents if not updating
                 if (count($excludeTypes) && !$update) {
-                    $this->index->getType('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
+                    $this->index->getIndex('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
                 }
 
                 $class = new $className();
@@ -370,7 +370,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $this->index->refresh();
             }
         } else {
-            $this->index->getType($type)->addDocuments([$document]);
+            $this->index->getIndex($type)->addDocuments([$document]);
         }
     }
 
@@ -400,7 +400,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document->setType($this->index->getIndexName($type));
 
         try {
-            $this->index->getType($type)->updateDocuments([$document]);
+            $this->index->getIndex($type)->updateDocuments([$document]);
         } catch (\Elastica\Exception\NotFoundException $e) {
             // Create document if it's not found
             $this->update($object);
@@ -420,7 +420,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document = new \Elastica\Document($id, $data);
 
         try {
-            $this->index->getType($className)->updateDocuments([$document]);
+            $this->index->getIndex($className)->updateDocuments([$document]);
         } catch (\Elastica\Exception\ResponseException $e) {
             // Create document if none exists
             $modelPdoClassName = self::modelClassFromQubitObjectClass($className).'Pdo';
@@ -473,7 +473,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         } else {
             try {
-                $this->index->getType($type)->deleteById($object->id);
+                $this->index->getIndex($type)->deleteById($object->id);
             } catch (\Elastica\Exception\NotFoundException $e) {
                 // Ignore
             }
