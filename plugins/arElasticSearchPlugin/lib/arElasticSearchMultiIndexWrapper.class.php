@@ -17,7 +17,12 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arElasticSearchIndexDecorator
+/**
+ * arElasticSearchMultiIndexWrapper facilitates handling ElasticSearch indices so that
+ * all indices for an AtoM installation can share a common prefix without having to
+ * explicitly specify it in common indexing and search functions.
+ */
+class arElasticSearchMultiIndexWrapper
 {
     protected $_instance;
 
@@ -30,16 +35,16 @@ class arElasticSearchIndexDecorator
         $this->_indexPrefix = $prefix;
     }
 
-    public function createIndex($typeName, Elastica\Index $index)
+    public function createIndex($name, Elastica\Index $index)
     {
-        $typeName = $this->getIndexTypeName($typeName);
-        $this->_instance[$typeName] = $index;
+        $name = $this->getIndexName($name);
+        $this->_instance[$name] = $index;
     }
 
     // Converts camelized Qubit class names to lower case index name used for ElasticSearch
-    public function getIndexTypeName($typeName)
+    public function getIndexName($name)
     {
-        return $this->_indexPrefix.'_'.strtolower($typeName);
+        return $this->_indexPrefix.'_'.strtolower($name);
     }
 
     public function delete()
@@ -49,16 +54,16 @@ class arElasticSearchIndexDecorator
         }
     }
 
-    public function addDocuments($typeName, $documents)
+    public function addDocuments($name, $documents)
     {
-        $typeName = $this->getIndexTypeName($typeName);
-        $this->_instance[$typeName]->addDocuments($documents);
+        $name = $this->getIndexName($name);
+        $this->_instance[$name]->addDocuments($documents);
     }
 
-    public function deleteDocuments($typeName, $documents)
+    public function deleteDocuments($name, $documents)
     {
-        $typeName = $this->getIndexTypeName($typeName);
-        $this->_instance[$typeName]->deleteDocuments($documents);
+        $name = $this->getIndexName($name);
+        $this->_instance[$name]->deleteDocuments($documents);
     }
 
     public function refresh()
@@ -68,11 +73,11 @@ class arElasticSearchIndexDecorator
         }
     }
 
-    public function getType($typeName)
+    public function getType($name)
     {
-        $typeName = $this->getIndexTypeName($typeName);
+        $name = $this->getIndexName($name);
 
-        return $this->_instance[$typeName];
+        return $this->_instance[$name];
     }
 
     public function getInstance()

@@ -97,7 +97,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Verify the version running in the server
         $this->checkVersion();
 
-        $this->index = new arElasticSearchIndexDecorator($this->config['index']['name']);
+        $this->index = new arElasticSearchMultiIndexWrapper($this->config['index']['name']);
 
         // Load batch mode configuration
         $this->batchMode = true === $this->config['batch_mode'];
@@ -348,7 +348,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         unset($data['id']);
 
         $document = new \Elastica\Document($id, $data);
-        $document->setType($this->index->getIndexTypeName($type));
+        $document->setType($this->index->getIndexName($type));
 
         if (!$this->currentBatchType) {
             $this->currentBatchType = $type;
@@ -397,7 +397,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $type = get_class($object);
 
         $document = new \Elastica\Document($object->id, $data);
-        $document->setType($this->index->getIndexTypeName($type));
+        $document->setType($this->index->getIndexName($type));
 
         try {
             $this->index->getType($type)->updateDocuments([$document]);
@@ -456,7 +456,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // the document to be deleted and add this document object to the batch delete
             // queue.
             $document = new \Elastica\Document($object->id);
-            $document->setType($this->index->getIndexTypeName($type));
+            $document->setType($this->index->getIndexName($type));
 
             if ($this->currentBatchType != $type) {
                 $this->flushBatch();
@@ -530,7 +530,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         foreach ($this->mappings as $typeName => $typeProperties) {
             $typeName = 'Qubit'.sfInflector::camelize($typeName);
             $this->index->createIndex($typeName,
-                $this->client->getIndex($this->index->getIndexTypeName($typeName))
+                $this->client->getIndex($this->index->getIndexName($typeName))
             );
         }
 
@@ -560,6 +560,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
                         }
                     }
 
+                    // In ES 7.x if the mapping type is updated to a dummy type,
+                    // this may need to include a param for include_type_name
+                    // set to false in order to avoid automatically creating a
+                    // type for the index that was just created
                     $index->create(
                         $this->config['index']['configuration'],
                         ['recreate' => true]
@@ -573,12 +577,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 foreach ($this->mappings as $typeName => $typeProperties) {
                     $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
-                    if ($indexType != $this->index->getIndexTypeName($typeName)) {
+                    if ($indexType != $this->index->getIndexName($typeName)) {
                         continue;
                     }
 
                     // Define mapping in elasticsearch
                     $mapping = new \Elastica\Type\Mapping();
+
+                    // This type will need to be changed to a dummy type like _doc in 7.x
                     $mapping->setType($index->getType($indexType));
                     $mapping->setProperties($typeProperties['properties']);
 
@@ -589,6 +595,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     }
 
                     $this->log(sprintf('Defining mapping %s...', $typeName));
+
+                    // In ES 7.x, if the mapping types are updated to a dummy type,
+                    // this should be changed to:
+                    // $mapping->send($index, [ 'include_type_name' => false ])
+                    // which can be removed in 8.x since that is the default behaviour
+                    // and will have be removed by 9.x when it is discontinued
                     $mapping->send();
                 }
             }
