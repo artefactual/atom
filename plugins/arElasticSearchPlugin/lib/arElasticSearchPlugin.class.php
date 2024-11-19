@@ -31,6 +31,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
     public const MIN_VERSION = '1.3.0';
 
     /**
+     * Dummy type for the ElasticSearch index.
+     * This is required in ES 6.x but it is optional in
+     * ES 7.x and can be removed when ElasticSearch and
+     * Elastica are upgraded.
+     */
+    public const ES_TYPE = '_doc';
+
+    /**
      * Elastic_Client object.
      *
      * @var mixed defaults to null
@@ -348,7 +356,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
         unset($data['id']);
 
         $document = new \Elastica\Document($id, $data);
-        $document->setType($this->index->getIndexName($type));
+
+        // Setting a dummy type since it is required in ES 6.x
+        // but it can be removed in 7.x when it becomes optional
+        $document->setType(self::ES_TYPE);
 
         if (!$this->currentBatchType) {
             $this->currentBatchType = $type;
@@ -397,7 +408,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $type = get_class($object);
 
         $document = new \Elastica\Document($object->id, $data);
-        $document->setType($this->index->getIndexName($type));
+
+        // Setting a dummy type since it is required in ES 6.x
+        // but it can be removed in 7.x when it becomes optional
+        $document->setType(self::ES_TYPE);
 
         try {
             $this->index->getIndex($type)->updateDocuments([$document]);
@@ -456,7 +470,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // the document to be deleted and add this document object to the batch delete
             // queue.
             $document = new \Elastica\Document($object->id);
-            $document->setType($this->index->getIndexName($type));
+            $document->setType(self::ES_TYPE);
 
             if ($this->currentBatchType != $type) {
                 $this->flushBatch();
@@ -584,8 +598,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     // Define mapping in elasticsearch
                     $mapping = new \Elastica\Type\Mapping();
 
-                    // This type will need to be changed to a dummy type like _doc in 7.x
-                    $mapping->setType($index->getType($indexType));
+                    // Setting a dummy type since it is required in ES 6.x
+                    // but it can be removed in 7.x when it becomes optional
+                    $mapping->setType($index->getType(self::ES_TYPE));
                     $mapping->setProperties($typeProperties['properties']);
 
                     // Parse other parameters
@@ -596,8 +611,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
                     $this->log(sprintf('Defining mapping %s...', $typeName));
 
-                    // In ES 7.x, if the mapping types are updated to a dummy type,
-                    // this should be changed to:
+                    // In ES 7.x this should be changed to:
                     // $mapping->send($index, [ 'include_type_name' => false ])
                     // which can be removed in 8.x since that is the default behaviour
                     // and will have be removed by 9.x when it is discontinued
