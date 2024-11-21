@@ -28,7 +28,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     /**
      * Minimum version of Elasticsearch supported.
      */
-    public const MIN_VERSION = '1.3.0';
+    public const MIN_VERSION = '6.0.0';
 
     /**
      * Dummy type for the ElasticSearch index.
@@ -53,11 +53,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
     public $index;
 
     /**
-     * Current batch type, used for batch flush.
+     * Current batch index name, used for batch flush.
      *
      * @var mixed defaults to null
      */
-    protected $currentBatchType;
+    protected $currentBatchIndexName;
 
     /**
      * Mappings configuration, mapping.yml.
@@ -199,7 +199,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // Batch add documents, if any
             if (count($this->batchAddDocs) > 0) {
                 try {
-                    $this->index->addDocuments($this->currentBatchType, $this->batchAddDocs);
+                    $this->index->addDocuments($this->currentBatchIndexName, $this->batchAddDocs);
                 } catch (Exception $e) {
                     // Clear batchAddDocs if something went wrong too
                     $this->batchAddDocs = [];
@@ -213,7 +213,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // Batch delete documents, if any
             if (count($this->batchDeleteDocs) > 0) {
                 try {
-                    $this->index->deleteDocuments($this->currentBatchType, $this->batchDeleteDocs);
+                    $this->index->deleteDocuments($this->currentBatchIndexName, $this->batchDeleteDocs);
                 } catch (Exception $e) {
                     // Clear batchDeleteDocs if something went wrong too
                     $this->batchDeleteDocs = [];
@@ -280,9 +280,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $errors = [];
         $showErrors = false;
 
-        foreach ($this->mappings as $typeName => $typeProperties) {
-            if (!in_array(strtolower($typeName), $excludeTypes)) {
-                $camelizedTypeName = sfInflector::camelize($typeName);
+        foreach ($this->mappings as $indexName => $indexProperties) {
+            if (!in_array(strtolower($indexName), $excludeTypes)) {
+                $camelizedTypeName = sfInflector::camelize($indexName);
                 $className = 'arElasticSearch'.$camelizedTypeName;
 
                 // If excluding types then index as a whole hasn't been flushed: delete
@@ -342,10 +342,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
      * Centralize document addition to keep control of the batch queue.
      *
      * @param mixed $data
-     * @param mixed $type
+     * @param mixed $indexName
      */
-    public function addDocument($data, $type)
+    public function addDocument($data, $indexName)
     {
+        if (!$this->enabled) {
+            return;
+        }
+
         if (!isset($data['id'])) {
             throw new sfException('Failed to parse id field.');
         }
@@ -361,15 +365,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // but it can be removed in 7.x when it becomes optional
         $document->setType(self::ES_TYPE);
 
-        if (!$this->currentBatchType) {
-            $this->currentBatchType = $type;
+        if (!$this->currentBatchIndexName) {
+            $this->currentBatchIndexName = $indexName;
         }
 
         if ($this->batchMode) {
             // Add this document to the batch add queue
-            if ($this->currentBatchType != $type) {
+            if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
-                $this->currentBatchType = $type;
+                $this->currentBatchIndexName = $indexName;
                 $this->index->refresh();
             }
 
@@ -381,7 +385,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $this->index->refresh();
             }
         } else {
-            $this->index->getIndex($type)->addDocuments([$document]);
+            $this->index->getIndex($indexName)->addDocuments([$document]);
         }
     }
 
@@ -405,7 +409,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
-        $type = get_class($object);
+        $indexName = get_class($object);
 
         $document = new \Elastica\Document($object->id, $data);
 
@@ -414,7 +418,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document->setType(self::ES_TYPE);
 
         try {
-            $this->index->getIndex($type)->updateDocuments([$document]);
+            $this->index->getIndex($indexName)->updateDocuments([$document]);
         } catch (\Elastica\Exception\NotFoundException $e) {
             // Create document if it's not found
             $this->update($object);
@@ -459,10 +463,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         if ($this->batchMode) {
-            $type = get_class($object);
+            $indexName = get_class($object);
 
-            if (!$this->currentBatchType) {
-                $this->currentBatchType = $type;
+            if (!$this->currentBatchIndexName) {
+                $this->currentBatchIndexName = $indexName;
             }
 
             // The document being deleted may not have been added to the index yet (if it's
@@ -472,9 +476,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $document = new \Elastica\Document($object->id);
             $document->setType(self::ES_TYPE);
 
-            if ($this->currentBatchType != $type) {
+            if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
-                $this->currentBatchType = $type;
+                $this->currentBatchIndexName = $indexName;
                 $this->index->refresh();
             }
 
@@ -487,7 +491,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         } else {
             try {
-                $this->index->getIndex($type)->deleteById($object->id);
+                $this->index->getIndex($indexName)->deleteById($object->id);
             } catch (\Elastica\Exception\NotFoundException $e) {
                 // Ignore
             }
@@ -541,14 +545,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $this->loadAndNormalizeMappings();
 
         // Iterate over types (actor, informationobject, ...)
-        foreach ($this->mappings as $typeName => $typeProperties) {
-            $typeName = 'Qubit'.sfInflector::camelize($typeName);
-            $this->index->createIndex($typeName,
-                $this->client->getIndex($this->index->getIndexName($typeName))
+        foreach ($this->mappings as $indexName => $indexProperties) {
+            $indexName = 'Qubit'.sfInflector::camelize($indexName);
+            $this->index->addIndex($indexName,
+                $this->client->getIndex($this->index->getIndexName($indexName))
             );
         }
 
-        foreach ($this->index->getInstance() as $indexType => $index) {
+        foreach ($this->index->getIndices() as $indexType => $index) {
             try {
                 $index->open();
             } catch (Exception $e) {
@@ -584,14 +588,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     );
                 }
 
-                // Load and normalize mappings
-                $this->loadAndNormalizeMappings();
-
                 // Iterate over types (actor, informationobject, ...)
-                foreach ($this->mappings as $typeName => $typeProperties) {
-                    $typeName = 'Qubit'.sfInflector::camelize($typeName);
+                foreach ($this->mappings as $indexName => $indexProperties) {
+                    $indexName = 'Qubit'.sfInflector::camelize($indexName);
 
-                    if ($indexType != $this->index->getIndexName($typeName)) {
+                    if ($indexType != $this->index->getIndexName($indexName)) {
                         continue;
                     }
 
@@ -601,15 +602,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     // Setting a dummy type since it is required in ES 6.x
                     // but it can be removed in 7.x when it becomes optional
                     $mapping->setType($index->getType(self::ES_TYPE));
-                    $mapping->setProperties($typeProperties['properties']);
+                    $mapping->setProperties($indexProperties['properties']);
 
                     // Parse other parameters
-                    unset($this->mapping[$typeName]->typeProperties['properties']);
-                    foreach ($this->mapping[$typeName]->typeProperties as $key => $value) {
+                    unset($this->mapping[$indexName]->indexProperties['properties']);
+                    foreach ($this->mapping[$indexName]->indexProperties as $key => $value) {
                         $mapping->setParam($key, $value);
                     }
 
-                    $this->log(sprintf('Defining mapping %s...', $typeName));
+                    $this->log(sprintf('Defining mapping %s...', $indexName));
 
                     // In ES 7.x this should be changed to:
                     // $mapping->send($index, [ 'include_type_name' => false ])
@@ -678,9 +679,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $this->log('Types that will be indexed:');
 
-        foreach ($this->mappings as $typeName => $typeProperties) {
-            if (!in_array(strtolower($typeName), $excludeTypes)) {
-                $this->log(' - '.$typeName);
+        foreach ($this->mappings as $indexName => $indexProperties) {
+            if (!in_array(strtolower($indexName), $excludeTypes)) {
+                $this->log(' - '.$indexName);
                 ++$typeCount;
             }
         }

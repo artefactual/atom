@@ -24,32 +24,32 @@
  */
 class arElasticSearchMultiIndexWrapper
 {
-    protected $_instance;
+    protected $indices;
 
-    protected $_indexPrefix;
+    protected $indexPrefix;
 
     public function __construct($prefix)
     {
-        $this->_instance = [];
+        $this->indices = [];
 
-        $this->_indexPrefix = $prefix;
+        $this->indexPrefix = $prefix;
     }
 
-    public function createIndex($name, Elastica\Index $index)
+    public function addIndex($name, Elastica\Index $index)
     {
         $name = $this->getIndexName($name);
-        $this->_instance[$name] = $index;
+        $this->indices[$name] = $index;
     }
 
     // Converts camelized Qubit class names to lower case index name used for ElasticSearch
     public function getIndexName($name)
     {
-        return $this->_indexPrefix.'_'.strtolower($name);
+        return $this->indexPrefix.'_'.strtolower($name);
     }
 
     public function delete()
     {
-        foreach ($this->_instance as $index) {
+        foreach ($this->indices as $index) {
             $index->delete();
         }
     }
@@ -57,18 +57,18 @@ class arElasticSearchMultiIndexWrapper
     public function addDocuments($name, $documents)
     {
         $name = $this->getIndexName($name);
-        $this->_instance[$name]->addDocuments($documents);
+        $this->indices[$name]->addDocuments($documents);
     }
 
     public function deleteDocuments($name, $documents)
     {
         $name = $this->getIndexName($name);
-        $this->_instance[$name]->deleteDocuments($documents);
+        $this->indices[$name]->deleteDocuments($documents);
     }
 
     public function refresh()
     {
-        foreach ($this->_instance as $index) {
+        foreach ($this->indices as $index) {
             $index->refresh();
         }
     }
@@ -79,11 +79,19 @@ class arElasticSearchMultiIndexWrapper
     {
         $name = $this->getIndexName($name);
 
-        return $this->_instance[$name];
+        return $this->indices[$name];
     }
 
-    public function getInstance()
+    // Alias for getIndex. Can be safely removed once
+    // calls to getIndex that are external to the plugin have
+    // been removed or refactored.
+    public function getType($name)
     {
-        return $this->_instance;
+        return $this->getIndex($name);
+    }
+
+    public function getIndices()
+    {
+        return $this->indices;
     }
 }
