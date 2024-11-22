@@ -18,33 +18,23 @@
  */
 
 /**
- * arElasticSearchMultiIndexWrapper facilitates handling ElasticSearch indices so that
- * all indices for an AtoM installation can share a common prefix without having to
- * explicitly specify it in common indexing and search functions.
+ * arElasticSearchMultiIndexWrapper facilitates handling ElasticSearch indices
+ * and has methods that match signatures of pre ES 6.x methods that used a
+ * single index with multiple types instead of multiple index with a single
+ * type or no type.
  */
 class arElasticSearchMultiIndexWrapper
 {
     protected $indices;
 
-    protected $indexPrefix;
-
-    public function __construct($prefix)
+    public function __construct()
     {
         $this->indices = [];
-
-        $this->indexPrefix = $prefix;
     }
 
     public function addIndex($name, Elastica\Index $index)
     {
-        $name = $this->getIndexName($name);
         $this->indices[$name] = $index;
-    }
-
-    // Converts camelized Qubit class names to lower case index name used for ElasticSearch
-    public function getIndexName($name)
-    {
-        return $this->indexPrefix.'_'.strtolower($name);
     }
 
     public function delete()
@@ -56,13 +46,11 @@ class arElasticSearchMultiIndexWrapper
 
     public function addDocuments($name, $documents)
     {
-        $name = $this->getIndexName($name);
         $this->indices[$name]->addDocuments($documents);
     }
 
     public function deleteDocuments($name, $documents)
     {
-        $name = $this->getIndexName($name);
         $this->indices[$name]->deleteDocuments($documents);
     }
 
@@ -77,8 +65,6 @@ class arElasticSearchMultiIndexWrapper
     // that matches the qualified index name
     public function getIndex($name)
     {
-        $name = $this->getIndexName($name);
-
         return $this->indices[$name];
     }
 

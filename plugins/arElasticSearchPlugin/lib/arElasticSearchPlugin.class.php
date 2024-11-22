@@ -105,7 +105,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Verify the version running in the server
         $this->checkVersion();
 
-        $this->index = new arElasticSearchMultiIndexWrapper($this->config['index']['name']);
+        $this->index = new arElasticSearchMultiIndexWrapper();
 
         // Load batch mode configuration
         $this->batchMode = true === $this->config['batch_mode'];
@@ -547,8 +547,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Iterate over types (actor, informationobject, ...)
         foreach ($this->mappings as $indexName => $indexProperties) {
             $indexName = 'Qubit'.sfInflector::camelize($indexName);
+            $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
             $this->index->addIndex($indexName,
-                $this->client->getIndex($this->index->getIndexName($indexName))
+                $this->client->getIndex($prefixedIndexName)
             );
         }
 
@@ -592,7 +593,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 foreach ($this->mappings as $indexName => $indexProperties) {
                     $indexName = 'Qubit'.sfInflector::camelize($indexName);
 
-                    if ($indexType != $this->index->getIndexName($indexName)) {
+                    if ($indexType != $indexName) {
                         continue;
                     }
 
