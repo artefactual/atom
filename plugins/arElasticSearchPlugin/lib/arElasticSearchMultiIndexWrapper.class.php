@@ -22,6 +22,9 @@
  * and has methods that match signatures of pre ES 6.x methods that used a
  * single index with multiple types instead of multiple index with a single
  * type or no type.
+ * This class has an indices property which is an array of ElasticSearch
+ * indices in order to keep arElasticSearchPlugin's index property backwards
+ * compatible with custom themes.
  */
 class arElasticSearchMultiIndexWrapper
 {
@@ -52,6 +55,16 @@ class arElasticSearchMultiIndexWrapper
     public function deleteDocuments($name, $documents)
     {
         $this->indices[$name]->deleteDocuments($documents);
+    }
+
+    public function updateDocuments($name, $documents)
+    {
+        $this->indices[$name]->updateDocuments($documents);
+    }
+
+    public function deleteById($name, $documentId)
+    {
+        $this->indices[$name]->deleteById($documentId);
     }
 
     public function refresh()

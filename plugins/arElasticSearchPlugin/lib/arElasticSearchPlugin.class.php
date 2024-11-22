@@ -385,7 +385,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $this->index->refresh();
             }
         } else {
-            $this->index->getIndex($indexName)->addDocuments([$document]);
+            $this->index->addDocuments($indexName, [$document]);
         }
     }
 
@@ -418,7 +418,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document->setType(self::ES_TYPE);
 
         try {
-            $this->index->getIndex($indexName)->updateDocuments([$document]);
+            $this->index->updateDocuments($indexName, [$document]);
         } catch (\Elastica\Exception\NotFoundException $e) {
             // Create document if it's not found
             $this->update($object);
@@ -438,7 +438,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $document = new \Elastica\Document($id, $data);
 
         try {
-            $this->index->getIndex($className)->updateDocuments([$document]);
+            $this->index->updateDocuments($className, [$document]);
         } catch (\Elastica\Exception\ResponseException $e) {
             // Create document if none exists
             $modelPdoClassName = self::modelClassFromQubitObjectClass($className).'Pdo';
@@ -462,9 +462,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
+        $indexName = get_class($object);
         if ($this->batchMode) {
-            $indexName = get_class($object);
-
             if (!$this->currentBatchIndexName) {
                 $this->currentBatchIndexName = $indexName;
             }
@@ -491,7 +490,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         } else {
             try {
-                $this->index->getIndex($indexName)->deleteById($object->id);
+                $this->index->deleteById($indexName, $object->id);
             } catch (\Elastica\Exception\NotFoundException $e) {
                 // Ignore
             }

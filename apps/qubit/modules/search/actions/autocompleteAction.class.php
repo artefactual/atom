@@ -39,7 +39,6 @@ class SearchAutocompleteAction extends sfAction
         $culture = $this->context->user->getCulture();
 
         $client = QubitSearch::getInstance()->client;
-        $indices = QubitSearch::getInstance()->index->getIndices();
 
         // Multisearch object
         $mSearch = new \Elastica\Multi\Search($client);
@@ -76,12 +75,8 @@ class SearchAutocompleteAction extends sfAction
 
         foreach ($items as $item) {
             $search = new \Elastica\Search($client);
-            foreach ($indices as $type => $index) {
-                $elasticSearchTypeName = QubitSearch::getInstance()::ES_TYPE;
-
-                // This can be updated in ES 7.x when type params are optional
-                $search->addIndex($index)->addType($index->getType($elasticSearchTypeName));
-            }
+            $indexWrapper = QubitSearch::getInstance()->index;
+            $search->addIndex($indexWrapper->getIndex($item['type']));
 
             $query = new \Elastica\Query();
             $query->setSize(3)->setSource($item['fields']);
