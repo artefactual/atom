@@ -32,11 +32,11 @@ mapping:
       nested_only: true
     dynamic: strict
     properties:
-      contact_person: { type: keyword, copy_to: _all }
+      contact_person: { type: keyword }
       street_address: { type: text, index: false }
       postal_code: { type: text }
       country_code: { type: keyword }
-      location: { type: geo_point, copy_to: _all }
+      location: { type: geo_point }
 
   other_name:
     _attributes:
@@ -63,8 +63,8 @@ mapping:
     properties:
       start_date: { type: date }
       end_date: { type: date }
-      start_date_string: { type: keyword, copy_to: _all }
-      end_date_string: { type: keyword, copy_to: _all }
+      start_date_string: { type: keyword }
+      end_date_string: { type: keyword }
       type_id: { type: integer }
       actor_id: { type: integer }
 
@@ -92,7 +92,7 @@ mapping:
     dynamic: strict
     properties:
       date: { type: date }
-      date_string: { type: keyword, copy_to: _all }
+      date_string: { type: keyword }
 
   donor:
     _attributes:
@@ -102,7 +102,7 @@ mapping:
     _foreign_types: { contact_informations: contact_information }
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
 
   basis_right:
     _attributes:
@@ -350,7 +350,7 @@ mapping:
     _foreign_types: { use_for: other_name, scope_notes: note }
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       taxonomy_id: { type: integer }
       is_protected: { type: boolean }
       number_of_descendants: { type: integer }
@@ -378,13 +378,13 @@ mapping:
           id: { type: integer }
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       description_identifier:
         type: text
         fields:
           untouched:
             type: keyword
-      corporate_body_identifiers: { type: keyword, copy_to: _all }
+      corporate_body_identifiers: { type: keyword }
       entity_type_id: { type: integer }
       maintaining_repository_id: { type: integer }
       direct_subjects: { type: integer }
@@ -396,7 +396,7 @@ mapping:
         properties:
           media_type_id: { type: integer }
           usage_id: { type: integer }
-          thumbnail_path: { type: keyword, copy_to: _all }
+          thumbnail_path: { type: keyword }
           filename: { type: text, copy_to: _all }
           digital_object_alt_text: { type: text, copy_to: _all }
 
@@ -422,7 +422,7 @@ mapping:
       donors: donor
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       identifier:
         type: text
         fields:
@@ -444,7 +444,7 @@ mapping:
       parallel_names: other_name
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       identifier:
         type: text
         fields:
@@ -465,7 +465,7 @@ mapping:
       parallel_names: other_name
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       description_status_id: { type: integer }
       description_detail_id: { type: integer }
       description_identifier:
@@ -513,15 +513,15 @@ mapping:
         dynamic: strict
         properties:
           id: { type: integer }
-          slug: { type: keyword, copy_to: _all }
+          slug: { type: keyword }
       repository:
         _i18nFields: [authorizedFormOfName]
         _rawFields: [authorizedFormOfName]
         dynamic: strict
         properties:
           id: { type: integer }
-          slug: { type: keyword, copy_to: _all }
-          identifier: { type: keyword, copy_to: _all }
+          slug: { type: keyword }
+          identifier: { type: keyword }
       names:
         _i18nFields: [authorizedFormOfName]
         dynamic: strict
@@ -580,13 +580,13 @@ mapping:
       publication_notes: note
     dynamic: strict
     properties:
-      slug: { type: keyword, copy_to: _all }
+      slug: { type: keyword }
       identifier:
         type: text
         fields:
           untouched:
             type: keyword
-      reference_code_without_country_and_repo: { type: keyword, copy_to: _all }
+      reference_code_without_country_and_repo: { type: keyword }
       level_of_description_id: { type: integer }
       lft: { type: integer }
       publication_status_id: { type: integer }
@@ -610,7 +610,7 @@ mapping:
         properties:
           media_type_id: { type: integer }
           usage_id: { type: integer }
-          thumbnail_path: { type: keyword, copy_to: _all }
+          thumbnail_path: { type: keyword }
           filename: { type: text, copy_to: _all }
           digital_object_alt_text: { type: text, copy_to: _all }
       alternative_identifiers:
