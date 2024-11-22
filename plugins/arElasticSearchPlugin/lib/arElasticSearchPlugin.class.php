@@ -547,36 +547,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
         foreach ($this->mappings as $indexName => $indexProperties) {
             $indexName = 'Qubit'.sfInflector::camelize($indexName);
             $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
-            $this->index->addIndex($indexName,
-                $this->client->getIndex($prefixedIndexName)
-            );
-        }
+            $index = $this->client->getIndex($prefixedIndexName);
+            $this->index->addIndex($indexName, $index);
 
-        foreach ($this->index->getIndices() as $indexType => $index) {
             try {
                 $index->open();
             } catch (Exception $e) {
                 // If the index has not been initialized, create it
                 if ($e instanceof \Elastica\Exception\ResponseException) {
-                    // Based on the markdown_enabled setting, add a new filter to strip Markdown tags
-                    if (
-                        sfConfig::get('app_markdown_enabled', true)
-                        && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
-                    ) {
-                        foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
-                            $filters = ['strip_md'];
-
-                            if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
-                                $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
-                            }
-
-                            if (sfConfig::get('app_diacritics')) {
-                                $filters = array_merge($filters, ['diacritics_lowercase']);
-                            }
-
-                            $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
-                        }
-                    }
+                    $this->configureFilters();
 
                     // In ES 7.x if the mapping type is updated to a dummy type,
                     // this may need to include a param for include_type_name
@@ -588,36 +567,53 @@ class arElasticSearchPlugin extends QubitSearchEngine
                     );
                 }
 
-                // Iterate over types (actor, informationobject, ...)
-                foreach ($this->mappings as $indexName => $indexProperties) {
-                    $indexName = 'Qubit'.sfInflector::camelize($indexName);
+                // Define mapping in elasticsearch
+                $mapping = new \Elastica\Type\Mapping();
 
-                    if ($indexType != $indexName) {
-                        continue;
-                    }
+                // Setting a dummy type since it is required in ES 6.x
+                // but it can be removed in 7.x when it becomes optional
+                $mapping->setType($index->getType(self::ES_TYPE));
+                $mapping->setProperties($indexProperties['properties']);
 
-                    // Define mapping in elasticsearch
-                    $mapping = new \Elastica\Type\Mapping();
-
-                    // Setting a dummy type since it is required in ES 6.x
-                    // but it can be removed in 7.x when it becomes optional
-                    $mapping->setType($index->getType(self::ES_TYPE));
-                    $mapping->setProperties($indexProperties['properties']);
-
-                    // Parse other parameters
-                    unset($this->mapping[$indexName]->indexProperties['properties']);
-                    foreach ($this->mapping[$indexName]->indexProperties as $key => $value) {
-                        $mapping->setParam($key, $value);
-                    }
-
-                    $this->log(sprintf('Defining mapping %s...', $indexName));
-
-                    // In ES 7.x this should be changed to:
-                    // $mapping->send($index, [ 'include_type_name' => false ])
-                    // which can be removed in 8.x since that is the default behaviour
-                    // and will have be removed by 9.x when it is discontinued
-                    $mapping->send();
+                // Parse other parameters
+                unset($this->mapping[$indexName]->indexProperties['properties']);
+                foreach ($this->mapping[$indexName]->indexProperties as $key => $value) {
+                    $mapping->setParam($key, $value);
                 }
+
+                $this->log(sprintf('Defining mapping for index %s...', $prefixedIndexName));
+
+                // In ES 7.x this should be changed to:
+                // $mapping->send($index, [ 'include_type_name' => false ])
+                // which can be removed in 8.x since that is the default behaviour
+                // and will have be removed by 9.x when it is discontinued
+                $mapping->send();
+            }
+        }
+    }
+
+    /**
+     *  Set filter configuration params based on markdown settings.
+     */
+    private function configureFilters()
+    {
+        // Based on markdown_enabled setting, add a new filter to strip Markdown tags
+        if (
+            sfConfig::get('app_markdown_enabled', true)
+            && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
+        ) {
+            foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+                $filters = ['strip_md'];
+
+                if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
+                    $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+                }
+
+                if (sfConfig::get('app_diacritics')) {
+                    $filters = array_merge($filters, ['diacritics_lowercase']);
+                }
+
+                $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
             }
         }
     }
