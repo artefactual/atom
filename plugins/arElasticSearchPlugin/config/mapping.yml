@@ -34,8 +34,8 @@ mapping:
     properties:
       contact_person: { type: keyword, copy_to: _all }
       street_address: { type: text, index: false }
-      postal_code: { type: text, copy_to: _all }
-      country_code: { type: keyword, copy_to: _all }
+      postal_code: { type: text }
+      country_code: { type: keyword }
       location: { type: geo_point, copy_to: _all }
 
   other_name:
@@ -61,8 +61,8 @@ mapping:
     dynamic: strict
     type: nested
     properties:
-      start_date: { type: date, copy_to: _all }
-      end_date: { type: date, copy_to: _all }
+      start_date: { type: date }
+      end_date: { type: date }
       start_date_string: { type: keyword, copy_to: _all }
       end_date_string: { type: keyword, copy_to: _all }
       type_id: { type: integer }
@@ -91,7 +91,7 @@ mapping:
         dynamic: strict
     dynamic: strict
     properties:
-      date: { type: date, copy_to: _all }
+      date: { type: date }
       date_string: { type: keyword, copy_to: _all }
 
   donor:
@@ -109,104 +109,104 @@ mapping:
       nested_only: true
     dynamic: strict
     properties:
-      basis: { type: text, copy_to: _all }
-      start_date: { type: date, copy_to: _all }
-      end_date: { type: date, copy_to: _all }
-      copyright_status: { type: text, copy_to: _all }
-      rights_holder: { type: text, copy_to: _all }
-      rights_note: { type: text, copy_to: _all }
-      license_terms: { type: text, copy_to: _all }
+      basis: { type: text }
+      start_date: { type: date }
+      end_date: { type: date }
+      copyright_status: { type: text }
+      rights_holder: { type: text }
+      rights_note: { type: text }
+      license_terms: { type: text }
 
   act_right:
     _attributes:
       nested_only: true
     dynamic: strict
     properties:
-      act: { type: text, copy_to: _all }
-      restriction: { type: text, copy_to: _all }
-      start_date: { type: date, copy_to: _all }
-      end_date: { type: date, copy_to: _all }
+      act: { type: text }
+      restriction: { type: text }
+      start_date: { type: date }
+      end_date: { type: date }
 
   mediainfo_track:
     _attributes:
       nested_only: true
     dynamic: strict
     properties:
-      count: { type: integer, copy_to: _all }
-      video_format_list: { type: keyword, copy_to: _all }
-      video_format_with_hint_list: { type: keyword, copy_to: _all }
-      codecs_video: { type: keyword, copy_to: _all }
-      video_language_list: { type: keyword, copy_to: _all }
-      audio_format_list: { type: keyword, copy_to: _all }
-      audio_format_with_hint_list: { type: keyword, copy_to: _all }
-      audio_codecs: { type: keyword, copy_to: _all }
-      audio_language_list: { type: keyword, copy_to: _all }
-      complete_name: { type: keyword, copy_to: _all }
-      file_name: { type: keyword, copy_to: _all }
-      file_extension: { type: keyword, copy_to: _all }
-      format: { type: keyword, copy_to: _all }
-      format_info: { type: keyword, copy_to: _all }
-      format_url: { type: keyword, copy_to: _all }
-      format_profile: { type: keyword, copy_to: _all }
-      format_settings: { type: keyword, copy_to: _all }
-      format_settings_cabac: { type: keyword, copy_to: _all }
+      count: { type: integer }
+      video_format_list: { type: keyword }
+      video_format_with_hint_list: { type: keyword }
+      codecs_video: { type: keyword }
+      video_language_list: { type: keyword }
+      audio_format_list: { type: keyword }
+      audio_format_with_hint_list: { type: keyword }
+      audio_codecs: { type: keyword }
+      audio_language_list: { type: keyword }
+      complete_name: { type: keyword }
+      file_name: { type: keyword }
+      file_extension: { type: keyword }
+      format: { type: keyword }
+      format_info: { type: keyword }
+      format_url: { type: keyword }
+      format_profile: { type: keyword }
+      format_settings: { type: keyword }
+      format_settings_cabac: { type: keyword }
       format_settings_re_frames: { type: integer }
-      format_settings_gop: { type: keyword, copy_to: _all }
-      format_extensions_usually_used: { type: keyword, copy_to: _all }
-      commercial_name: { type: keyword, copy_to: _all }
-      internet_media_type: { type: keyword, copy_to: _all }
-      codec_id: { type: keyword, copy_to: _all }
-      codec_id_info: { type: keyword, copy_to: _all }
-      codec_id_url: { type: keyword, copy_to: _all }
-      codec: { type: keyword, copy_to: _all }
-      codec_family: { type: keyword, copy_to: _all }
-      codec_info: { type: keyword, copy_to: _all }
-      codec_url: { type: keyword, copy_to: _all }
-      codec_cc: { type: keyword, copy_to: _all }
-      codec_profile: { type: keyword, copy_to: _all }
-      codec_settings: { type: keyword, copy_to: _all }
-      codec_settings_cabac: { type: keyword, copy_to: _all }
-      codec_settings_ref_frames: { type: integer, copy_to: _all }
-      codec_extensions_usually_used: { type: keyword, copy_to: _all }
-      file_size: { type: long, copy_to: _all }
-      duration: { type: integer, copy_to: _all }
-      bit_rate: { type: integer, copy_to: _all }
-      bit_rate_mode: { type: keyword, copy_to: _all }
-      overall_bit_rate: { type: integer, copy_to: _all }
-      channels: { type: integer, copy_to: _all }
-      channel_positions: { type: keyword, copy_to: _all }
-      sampling_rate: { type: integer, copy_to: _all }
-      samples_count: { type: integer, copy_to: _all }
-      compression_mode: { type: keyword, copy_to: _all }
-      width: { type: integer, copy_to: _all }
-      height: { type: integer, copy_to: _all }
-      pixel_aspect_ratio: { type: float, copy_to: _all }
-      display_aspect_ratio: { type: keyword, copy_to: _all }
-      rotation: { type: float, copy_to: _all }
-      frame_rate_mode: { type: keyword, copy_to: _all }
-      frame_rate: { type: float, copy_to: _all }
-      frame_count: { type: integer, copy_to: _all }
-      resolution: { type: integer, copy_to: _all }
-      colorimetry: { type: keyword, copy_to: _all }
-      color_space: { type: keyword, copy_to: _all }
-      chroma_subsampling: { type: keyword, copy_to: _all }
-      bit_depth: { type: integer, copy_to: _all }
-      scan_type: { type: keyword, copy_to: _all }
-      interlacement: { type: keyword, copy_to: _all }
-      bits_pixel_frame: { type: float, copy_to: _all }
-      stream_size: { type: long, copy_to: _all }
-      proportion_of_this_stream: { type: float, copy_to: _all }
-      header_size: { type: long, copy_to: _all }
-      data_size: { type: long, copy_to: _all }
-      footer_size: { type: long, copy_to: _all }
-      language: { type: keyword, copy_to: _all }
-      color_primaries: { type: keyword, copy_to: _all }
-      transfer_characteristics: { type: keyword, copy_to: _all }
-      matrix_coefficients: { type: keyword, copy_to: _all }
-      is_streamable: { type: boolean, copy_to: _all }
-      writing_application: { type: keyword, copy_to: _all }
-      file_last_modification_date: { type: date, copy_to: _all }
-      file_last_modification_date_local: { type: date, copy_to: _all }
+      format_settings_gop: { type: keyword }
+      format_extensions_usually_used: { type: keyword }
+      commercial_name: { type: keyword }
+      internet_media_type: { type: keyword }
+      codec_id: { type: keyword }
+      codec_id_info: { type: keyword }
+      codec_id_url: { type: keyword }
+      codec: { type: keyword }
+      codec_family: { type: keyword }
+      codec_info: { type: keyword }
+      codec_url: { type: keyword }
+      codec_cc: { type: keyword }
+      codec_profile: { type: keyword }
+      codec_settings: { type: keyword }
+      codec_settings_cabac: { type: keyword }
+      codec_settings_ref_frames: { type: integer }
+      codec_extensions_usually_used: { type: keyword }
+      file_size: { type: long }
+      duration: { type: integer }
+      bit_rate: { type: integer }
+      bit_rate_mode: { type: keyword }
+      overall_bit_rate: { type: integer }
+      channels: { type: integer }
+      channel_positions: { type: keyword }
+      sampling_rate: { type: integer }
+      samples_count: { type: integer }
+      compression_mode: { type: keyword }
+      width: { type: integer }
+      height: { type: integer }
+      pixel_aspect_ratio: { type: float }
+      display_aspect_ratio: { type: keyword }
+      rotation: { type: float }
+      frame_rate_mode: { type: keyword }
+      frame_rate: { type: float }
+      frame_count: { type: integer }
+      resolution: { type: integer }
+      colorimetry: { type: keyword }
+      color_space: { type: keyword }
+      chroma_subsampling: { type: keyword }
+      bit_depth: { type: integer }
+      scan_type: { type: keyword }
+      interlacement: { type: keyword }
+      bits_pixel_frame: { type: float }
+      stream_size: { type: long }
+      proportion_of_this_stream: { type: float }
+      header_size: { type: long }
+      data_size: { type: long }
+      footer_size: { type: long }
+      language: { type: keyword }
+      color_primaries: { type: keyword }
+      transfer_characteristics: { type: keyword }
+      matrix_coefficients: { type: keyword }
+      is_streamable: { type: boolean }
+      writing_application: { type: keyword }
+      file_last_modification_date: { type: date }
+      file_last_modification_date_local: { type: date }
 
   mediainfo:
     _attributes:
@@ -223,84 +223,84 @@ mapping:
       mediainfo: mediainfo
     dynamic: strict
     properties:
-      puid: { type: keyword, copy_to: _all }
-      filename: { type: keyword, copy_to: _all }
-      last_modified: { type: date, copy_to: _all }
-      date_ingested: { type: date, copy_to: _all }
-      size: { type: long, copy_to: _all }
-      mime_type: { type: keyword, copy_to: _all }
+      puid: { type: keyword }
+      filename: { type: keyword }
+      last_modified: { type: date }
+      date_ingested: { type: date }
+      size: { type: long }
+      mime_type: { type: keyword }
       audio:
         type: object
         properties:
-          bit_depth: { type: integer, copy_to: _all }
-          sample_rate: { type: keyword, copy_to: _all }
-          channels: { type: integer, copy_to: _all }
-          data_encoding: { type: keyword, copy_to: _all }
-          offset: { type: integer, copy_to: _all }
-          byte_order: { type: keyword, copy_to: _all }
+          bit_depth: { type: integer }
+          sample_rate: { type: keyword }
+          channels: { type: integer }
+          data_encoding: { type: keyword }
+          offset: { type: integer }
+          byte_order: { type: keyword }
       document:
         type: object
         properties:
-          title: { type: keyword, copy_to: _all }
-          author: { type: keyword, copy_to: _all }
-          page_count: { type: integer, copy_to: _all }
-          word_count: { type: integer, copy_to: _all }
-          character_count: { type: integer, copy_to: _all }
-          language: { type: keyword, copy_to: _all }
-          is_protected: { type: boolean, copy_to: _all }
-          is_rights_managed: { type: boolean, copy_to: _all }
-          is_tagged: { type: boolean, copy_to: _all }
-          has_outline: { type: boolean, copy_to: _all }
-          has_annotations: { type: boolean, copy_to: _all }
-          has_forms: { type: boolean, copy_to: _all }
+          title: { type: keyword }
+          author: { type: keyword }
+          page_count: { type: integer }
+          word_count: { type: integer }
+          character_count: { type: integer }
+          language: { type: keyword }
+          is_protected: { type: boolean }
+          is_rights_managed: { type: boolean }
+          is_tagged: { type: boolean }
+          has_outline: { type: boolean }
+          has_annotations: { type: boolean }
+          has_forms: { type: boolean }
       text:
         type: object
         properties:
-          linebreak: { type: keyword, copy_to: _all }
-          charset: { type: keyword, copy_to: _all }
-          markup_basis: { type: keyword, copy_to: _all }
-          markup_basis_version: { type: keyword, copy_to: _all }
-          markup_language: { type: keyword, copy_to: _all }
+          linebreak: { type: keyword }
+          charset: { type: keyword }
+          markup_basis: { type: keyword }
+          markup_basis_version: { type: keyword }
+          markup_language: { type: keyword }
       format_identification_event:
         type: object
         properties:
-          type: { type: keyword, copy_to: _all }
-          dateTime: { type: date, copy_to: _all }
-          detail: { type: keyword, copy_to: _all }
-          outcome: { type: keyword, copy_to: _all }
-          outcomeDetailNote: { type: keyword, copy_to: _all }
+          type: { type: keyword }
+          dateTime: { type: date }
+          detail: { type: keyword }
+          outcome: { type: keyword }
+          outcomeDetailNote: { type: keyword }
           linkingAgentIdentifier:
             type: object
             properties:
-              type: { type: keyword, copy_to: _all }
-              value: { type: keyword, copy_to: _all }
+              type: { type: keyword }
+              value: { type: keyword }
       other_events:
         type: object
         properties:
-          type: { type: keyword, copy_to: _all }
-          dateTime: { type: date, copy_to: _all }
-          detail: { type: keyword, copy_to: _all }
-          outcome: { type: keyword, copy_to: _all }
-          outcomeDetailNote: { type: keyword, copy_to: _all }
+          type: { type: keyword }
+          dateTime: { type: date }
+          detail: { type: keyword }
+          outcome: { type: keyword }
+          outcomeDetailNote: { type: keyword }
           linkingAgentIdentifier:
             type: object
             properties:
-              type: { type: keyword, copy_to: _all }
-              value: { type: keyword, copy_to: _all }
+              type: { type: keyword }
+              value: { type: keyword }
       agents:
         type: object
         properties:
-          identifier_type: { type: keyword, copy_to: _all }
-          identifier_value: { type: keyword, copy_to: _all }
-          name: { type: keyword, copy_to: _all }
-          type: { type: keyword, copy_to: _all }
+          identifier_type: { type: keyword }
+          identifier_value: { type: keyword }
+          name: { type: keyword }
+          type: { type: keyword }
       format:
         type: object
         properties:
-          name: { type: keyword, copy_to: _all }
-          version: { type: keyword, copy_to: _all }
-          registry_name: { type: keyword, copy_to: _all }
-          registry_key: { type: keyword, copy_to: _all }
+          name: { type: keyword }
+          version: { type: keyword }
+          registry_name: { type: keyword }
+          registry_key: { type: keyword }
 
   physical_object:
     _attributes:
@@ -334,11 +334,11 @@ mapping:
       digital_objects: premis_object
     dynamic: strict
     properties:
-      uuid: { type: keyword, copy_to: _all }
-      filename: { type: keyword, copy_to: _all }
-      size_on_disk: { type: long, copy_to: _all }
-      digital_object_count: { type: integer, copy_to: _all }
-      created_at: { type: date, copy_to: _all }
+      uuid: { type: keyword }
+      filename: { type: keyword }
+      size_on_disk: { type: long }
+      digital_object_count: { type: integer }
+      created_at: { type: date }
 
   term:
     _attributes:
@@ -352,8 +352,8 @@ mapping:
     properties:
       slug: { type: keyword, copy_to: _all }
       taxonomy_id: { type: integer }
-      is_protected: { type: boolean, copy_to: _all }
-      number_of_descendants: { type: integer, copy_to: _all }
+      is_protected: { type: boolean }
+      number_of_descendants: { type: integer }
 
   actor:
     _attributes:
@@ -387,10 +387,10 @@ mapping:
       corporate_body_identifiers: { type: keyword, copy_to: _all }
       entity_type_id: { type: integer }
       maintaining_repository_id: { type: integer }
-      direct_subjects: { type: integer, copy_to: _all }
-      direct_places: { type: integer, copy_to: _all }
-      actor_direct_relation_types: { type: integer, copy_to: _all }
-      has_digital_object: { type: boolean, copy_to: _all }
+      direct_subjects: { type: integer }
+      direct_places: { type: integer }
+      actor_direct_relation_types: { type: integer }
+      has_digital_object: { type: boolean }
       digital_object:
         type: object
         properties:
@@ -428,7 +428,7 @@ mapping:
         fields:
           untouched:
             type: keyword
-      date: { type: date, copy_to: _all }
+      date: { type: date }
 
   repository:
     _attributes:
@@ -450,10 +450,10 @@ mapping:
         fields:
           untouched:
             type: keyword
-      types: { type: integer, copy_to: _all }
-      geographic_subregions: { type: integer, copy_to: _all }
-      thematic_areas: { type: integer, copy_to: _all }
-      logo_path: { type: keyword, copy_to: _all }
+      types: { type: integer }
+      geographic_subregions: { type: integer }
+      thematic_areas: { type: integer }
+      logo_path: { type: keyword }
 
   function_object:
     _attributes:
@@ -587,24 +587,24 @@ mapping:
           untouched:
             type: keyword
       reference_code_without_country_and_repo: { type: keyword, copy_to: _all }
-      level_of_description_id: { type: integer, copy_to: _all }
-      lft: { type: integer, copy_to: _all }
+      level_of_description_id: { type: integer }
+      lft: { type: integer }
       publication_status_id: { type: integer }
       parent_id: { type: integer }
-      ancestors: { type: integer, copy_to: _all }
-      children: { type: integer, copy_to: _all }
+      ancestors: { type: integer }
+      children: { type: integer }
       copyright_status_id: { type: integer }
       material_type_id: { type: integer }
       transcript: { type: text, copy_to: _all }
-      direct_subjects: { type: integer, copy_to: _all }
-      direct_places: { type: integer, copy_to: _all }
-      direct_genres: { type: integer, copy_to: _all }
-      has_digital_object: { type: boolean, copy_to: _all }
+      direct_subjects: { type: integer }
+      direct_places: { type: integer }
+      direct_genres: { type: integer }
+      has_digital_object: { type: boolean }
       finding_aid:
         type: object
         properties:
           transcript: { type: text, copy_to: _all }
-          status: { type: integer, copy_to: _all }
+          status: { type: integer }
       digital_object:
         type: object
         properties:
@@ -630,5 +630,5 @@ mapping:
             search_analyzer: standard
             term_vector: with_positions_offsets
       # Not nested date fields for sorting
-      start_date_sort: { type: date, copy_to: _all }
-      end_date_sort: { type: date, copy_to: _all }
+      start_date_sort: { type: date }
+      end_date_sort: { type: date }
