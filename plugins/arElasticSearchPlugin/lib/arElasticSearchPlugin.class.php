@@ -370,13 +370,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         if ($this->batchMode) {
-            // Add this document to the batch add queue
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
                 $this->currentBatchIndexName = $indexName;
                 $this->index->refresh();
             }
 
+            // Add this document to the batch add queue
             $this->batchAddDocs[] = $document;
 
             // If we have a full batch, send additions and deletions in bulk

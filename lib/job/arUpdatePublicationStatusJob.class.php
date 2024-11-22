@@ -91,8 +91,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
             'conflicts' => 'proceed',
         ];
 
-        $type = 'QubitInformationObject';
-        $response = QubitSearch::getInstance()->index->getIndex($type)->updateByQuery($query, $queryScript, $options)->getData();
+        $response = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->updateByQuery($query, $queryScript, $options)->getData();
 
         $message = $this->i18n->__(
             'Index update completed in %1 ms.',
