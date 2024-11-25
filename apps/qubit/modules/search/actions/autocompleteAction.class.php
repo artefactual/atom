@@ -73,9 +73,11 @@ class SearchAutocompleteAction extends sfAction
             ],
         ];
 
+        // Wrapper to access ElasticSearch indices
+        $indexWrapper = QubitSearch::getInstance()->index;
+
         foreach ($items as $item) {
             $search = new \Elastica\Search($client);
-            $indexWrapper = QubitSearch::getInstance()->index;
             $search->addIndex($indexWrapper->getIndex($item['type']));
 
             $query = new \Elastica\Query();

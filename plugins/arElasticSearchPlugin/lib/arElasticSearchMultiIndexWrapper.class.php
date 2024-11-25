@@ -67,8 +67,19 @@ class arElasticSearchMultiIndexWrapper
         $this->indices[$name]->deleteById($documentId);
     }
 
-    public function refresh()
+    /**
+     * Refresh ElasticSearch indices. If an index name is provided,
+     * only that specific index will be refreshed.
+     *
+     * @param string $name Index name to be refreshed (optional)
+     */
+    public function refresh($name = null)
     {
+        if ($name && $this->indices[$name]) {
+            $this->indices[$name]->refresh();
+
+            return;
+        }
         foreach ($this->indices as $index) {
             $index->refresh();
         }
@@ -87,10 +98,5 @@ class arElasticSearchMultiIndexWrapper
     public function getType($name)
     {
         return $this->getIndex($name);
-    }
-
-    public function getIndices()
-    {
-        return $this->indices;
     }
 }

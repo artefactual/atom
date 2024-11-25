@@ -372,8 +372,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
         if ($this->batchMode) {
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
+
+                // Refresh only previous index
+                $this->index->refresh($this->currentBatchIndexName);
                 $this->currentBatchIndexName = $indexName;
-                $this->index->refresh();
             }
 
             // Add this document to the batch add queue
@@ -382,7 +384,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // If we have a full batch, send additions and deletions in bulk
             if (count($this->batchAddDocs) >= $this->batchSize) {
                 $this->flushBatch();
-                $this->index->refresh();
+
+                // Refresh current index
+                $this->index->refresh($this->currentBatchIndexName);
             }
         } else {
             $this->index->addDocuments($indexName, [$document]);
@@ -477,8 +481,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
+
+                // Refresh only previous index
+                $this->index->refresh($this->currentBatchIndexName);
+
                 $this->currentBatchIndexName = $indexName;
-                $this->index->refresh();
             }
 
             $this->batchDeleteDocs[] = $document;
@@ -486,7 +493,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // If we have a full batch, send additions and deletions in bulk
             if (count($this->batchDeleteDocs) >= $this->batchSize) {
                 $this->flushBatch();
-                $this->index->refresh();
+
+                // Refresh current index
+                $this->index->refresh($this->currentBatchIndexName);
             }
         } else {
             try {
@@ -576,8 +585,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $mapping->setProperties($indexProperties['properties']);
 
                 // Parse other parameters
-                unset($this->mapping[$indexName]->indexProperties['properties']);
-                foreach ($this->mapping[$indexName]->indexProperties as $key => $value) {
+                unset($indexProperties['properties']);
+                foreach ($indexProperties as $key => $value) {
                     $mapping->setParam($key, $value);
                 }
 
