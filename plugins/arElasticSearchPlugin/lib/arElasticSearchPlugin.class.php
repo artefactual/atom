@@ -177,16 +177,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
         return $this->client->optimizeAll($args);
     }
 
-    public function flush()
-    {
-        try {
-            $this->index->delete();
-        } catch (Exception $e) {
-        }
-
-        $this->initialize();
-    }
-
     /*
      * Flush batch of documents if we're in batch mode.
      *
@@ -226,6 +216,52 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
     }
 
+    private function recreateIndex($indexName, $indexProperties) {
+        $index = $this->index->getIndex($indexName);
+        $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
+        try {
+            $index->open();
+            $index->delete();
+        } catch (Exception $e) {
+            // If the index has not been initialized, create it
+            if ($e instanceof \Elastica\Exception\ResponseException) {
+                $this->configureFilters();
+
+                // In ES 7.x if the mapping type is updated to a dummy type,
+                // this may need to include a param for include_type_name
+                // set to false in order to avoid automatically creating a
+                // type for the index that was just created
+                $index->create(
+                    $this->config['index']['configuration'],
+                    ['recreate' => true]
+                );
+            }
+
+            // Define mapping in elasticsearch
+            $mapping = new \Elastica\Type\Mapping();
+
+            // Setting a dummy type since it is required in ES 6.x
+            // but it can be removed in 7.x when it becomes optional
+            $index = $this->index->getIndex($indexName);
+            $mapping->setType($index->getType(self::ES_TYPE));
+            $mapping->setProperties($indexProperties['properties']);
+
+            // Parse other parameters
+            unset($indexProperties['properties']);
+            foreach ($indexProperties as $key => $value) {
+                $mapping->setParam($key, $value);
+            }
+
+            $this->log(sprintf('Defining mapping for index %s...', $prefixedIndexName));
+
+            // In ES 7.x this should be changed to:
+            // $mapping->send($index, [ 'include_type_name' => false ])
+            // which can be removed in 8.x since that is the default behaviour
+            // and will have be removed by 9.x when it is discontinued
+            $mapping->send();
+        }
+    }
+
     /**
      * Populate index.
      *
@@ -236,18 +272,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $excludeTypes = (!empty($options['excludeTypes'])) ? $options['excludeTypes'] : [];
         $update = (!empty($options['update'])) ? $options['update'] : false;
 
-        // Delete index and initialize again if all document types are to be
-        // indexed and not updating
-        if (!count($excludeTypes) && !$update) {
-            $this->flush();
-            $this->log('Index erased.');
-        } else {
-            // Initialize index if necessary
-            $this->initialize();
+        // Initialize index if necessary
+        //$this->initialize();
 
-            // Load mappings if index initialization wasn't needed
-            $this->loadAndNormalizeMappings();
+        if (sfConfig::get('app_diacritics')) {
+            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
+
+        $this->loadAndNormalizeMappings();
 
         // Display what types will be indexed
         $this->displayTypesToIndex($excludeTypes);
@@ -272,7 +304,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             );
         }
 
-        $this->log('Populating index...');
+        $this->log('Defining and populating index...');
 
         // Document counter, timer and errors
         $total = 0;
@@ -284,11 +316,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
             if (!in_array(strtolower($indexName), $excludeTypes)) {
                 $camelizedTypeName = sfInflector::camelize($indexName);
                 $className = 'arElasticSearch'.$camelizedTypeName;
+                $indexName = 'Qubit'.$camelizedTypeName;
 
                 // If excluding types then index as a whole hasn't been flushed: delete
                 // type's documents if not updating
-                if (count($excludeTypes) && !$update) {
-                    $this->index->getIndex('Qubit'.$camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll());
+                if (!$update) {
+                    $this->recreateIndex($indexName, $indexProperties);
                 }
 
                 $class = new $className();
@@ -545,59 +578,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     protected function initialize()
     {
-        if (sfConfig::get('app_diacritics')) {
-            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
-        }
-
-        // Load and normalize mappings
-        $this->loadAndNormalizeMappings();
-
         // Iterate over types (actor, informationobject, ...)
-        foreach ($this->mappings as $indexName => $indexProperties) {
+        $indices = ['aip', 'term', 'actor', 'accession', 'repository', 'functionObject', 'informationObject'];
+        //$this->loadAndNormalizeMappings();
+        foreach ($indices as $indexName) {
+            $this->log(sprintf('index names %s...', $indexName));
             $indexName = 'Qubit'.sfInflector::camelize($indexName);
             $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
             $index = $this->client->getIndex($prefixedIndexName);
             $this->index->addIndex($indexName, $index);
-
-            try {
-                $index->open();
-            } catch (Exception $e) {
-                // If the index has not been initialized, create it
-                if ($e instanceof \Elastica\Exception\ResponseException) {
-                    $this->configureFilters();
-
-                    // In ES 7.x if the mapping type is updated to a dummy type,
-                    // this may need to include a param for include_type_name
-                    // set to false in order to avoid automatically creating a
-                    // type for the index that was just created
-                    $index->create(
-                        $this->config['index']['configuration'],
-                        ['recreate' => true]
-                    );
-                }
-
-                // Define mapping in elasticsearch
-                $mapping = new \Elastica\Type\Mapping();
-
-                // Setting a dummy type since it is required in ES 6.x
-                // but it can be removed in 7.x when it becomes optional
-                $mapping->setType($index->getType(self::ES_TYPE));
-                $mapping->setProperties($indexProperties['properties']);
-
-                // Parse other parameters
-                unset($indexProperties['properties']);
-                foreach ($indexProperties as $key => $value) {
-                    $mapping->setParam($key, $value);
-                }
-
-                $this->log(sprintf('Defining mapping for index %s...', $prefixedIndexName));
-
-                // In ES 7.x this should be changed to:
-                // $mapping->send($index, [ 'include_type_name' => false ])
-                // which can be removed in 8.x since that is the default behaviour
-                // and will have be removed by 9.x when it is discontinued
-                $mapping->send();
-            }
         }
     }
 
