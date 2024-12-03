@@ -312,7 +312,23 @@ class InformationObjectEditAction extends DefaultEditAction
                         $criteria->add(QubitRelation::TYPE_ID, QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID);
 
                         foreach ($this->relatedMaterialDescriptions = QubitRelation::get($criteria) as $item) {
-                            $choices[$value[] = $this->context->routing->generate(null, [$item->object, 'module' => 'informationobject'])] = $item->object;
+                            $itemTitle = $item->object->__toString();
+
+                            if (isset($item->object->levelOfDescription) || isset($item->object->identifier)) {
+                                $itemTitle = "- {$itemTitle}";
+                                if (isset($item->object->identifier)) {
+                                    $itemTitle = "{$item->object->referenceCode} {$itemTitle}";
+                                }
+                                if (isset($item->object->levelOfDescription)) {
+                                    $itemTitle = "{$item->object->levelOfDescription} {$itemTitle}";
+                                }
+                            }
+
+                            if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->object->getPublicationStatus()->statusId) {
+                              $itemTitle .= " ({$item->object->getPublicationStatus()})";
+                            }
+
+                            $choices[$value[] = $this->context->routing->generate(null, [$item->object, 'module' => 'informationobject'])] = $itemTitle;
                         }
 
                         // Add also relations where it's the object
@@ -322,7 +338,24 @@ class InformationObjectEditAction extends DefaultEditAction
 
                         foreach (QubitRelation::get($criteria) as $item) {
                             $this->relatedMaterialDescriptions[] = $item;
-                            $choices[$value[] = $this->context->routing->generate(null, [$item->subject, 'module' => 'informationobject'])] = $item->subject;
+
+                            $itemTitle = $item->subject->__toString();
+
+                            if (isset($item->subject->levelOfDescription) || isset($item->subject->identifier)) {
+                                $itemTitle = "- {$itemTitle}";
+                                if (isset($item->subject->identifier)) {
+                                    $itemTitle = "{$item->subject->referenceCode} {$itemTitle}";
+                                }
+                                if (isset($item->subject->levelOfDescription)) {
+                                    $itemTitle = "{$item->subject->levelOfDescription} {$itemTitle}";
+                                }
+                            }
+
+                            if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->subject->getPublicationStatus()->statusId) {
+                              $itemTitle .= " ({$item->subject->getPublicationStatus()})";
+                            }
+
+                            $choices[$value[] = $this->context->routing->generate(null, [$item->subject, 'module' => 'informationobject'])] = $itemTitle;
                         }
 
                         break;
