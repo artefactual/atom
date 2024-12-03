@@ -9,13 +9,17 @@
   <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
       <?php foreach ($resource->relationsRelatedBysubjectId as $item) { ?>
-        <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
-          <li><?php echo link_to(render_title($item->object), [$item->object, 'module' => 'informationobject']); ?></li>
+        <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->object->getPublicationStatus()->statusId) { ?>
+          <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
+            <li><?php echo link_to(render_title($item->object), [$item->object, 'module' => 'informationobject']); ?></li>
+          <?php } ?>
         <?php } ?>
       <?php } ?>
       <?php foreach ($resource->relationsRelatedByobjectId as $item) { ?>
-        <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
-          <li><?php echo link_to(render_title($item->subject), [$item->subject, 'module' => 'informationobject']); ?></li>
+        <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->subject->getPublicationStatus()->statusId) { ?>
+          <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
+            <li><?php echo link_to(render_title($item->subject), [$item->subject, 'module' => 'informationobject']); ?></li>
+          <?php } ?>
         <?php } ?>
       <?php } ?>
     </ul>
