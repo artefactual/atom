@@ -212,14 +212,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $excludeTypes = (!empty($options['excludeTypes'])) ? $options['excludeTypes'] : [];
         $update = (!empty($options['update'])) ? $options['update'] : false;
 
-        if (sfConfig::get('app_diacritics')) {
-            $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
-        }
-
         // Make sure it's initialized, QubitSearch::disable() gets an instance
         // without initialization and it's used in the install/purgue tasks.
         $this->initialize();
         $this->loadAndNormalizeMappings();
+        $this->loadDiacriticsMappings();
         $this->configureFilters();
 
         $indicesCount = $this->countAndDisplayIndices($excludeTypes, $update);
@@ -571,6 +568,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
     private function loadDiacriticsMappings()
     {
+        if (!sfConfig::get('app_diacritics')) {
+            return;
+        }
+
         // Find diacritics_mapping.yml
         $diacriticsFinder = sfFinder::type('file')->name('diacritics_mapping.yml');
         $diacriticsFiles = array_unique(
@@ -583,7 +584,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             throw new sfException('You must create a diacritics_mapping.yml file.');
         }
 
-        return sfYaml::load(array_shift($diacriticsFiles));
+        $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = sfYaml::load(array_shift($diacriticsFiles));
     }
 
     /**
