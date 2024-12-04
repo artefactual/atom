@@ -230,6 +230,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = $this->loadDiacriticsMappings();
         }
 
+        // Make sure it's initialized, QubitSearch::disable() gets an instance
+        // without initialization and it's used in the install/purgue tasks.
+        $this->initialize();
+
         $this->loadAndNormalizeMappings();
 
         // Display what types will be indexed
