@@ -222,8 +222,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $this->loadAndNormalizeMappings();
 
-        // Display what types will be indexed
-        $this->displayTypesToIndex($excludeTypes);
+        $indicesCount = $this->countAndDisplayIndices($excludeTypes, $update);
+        if (0 == $indicesCount) {
+            return;
+        }
 
         // If we're indexing IOs or Actors we'll cache a term id => parent id
         // array with all terms from the needed taxonomies in sfConfig. This
@@ -245,7 +247,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
             );
         }
 
-        $this->log('Defining and populating index...');
+        if ($update) {
+            $this->log('Populating indices...');
+        } else {
+            $this->log('Defining and populating indices...');
+        }
 
         // Document counter, timer and errors
         $total = 0;
@@ -281,7 +287,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $this->log(
             vsprintf(
-                'Index populated with %s documents in %s seconds.',
+                'Indices populated with %s documents in %s seconds.',
                 [$total, $timer->elapsed()]
             )
         );
@@ -503,14 +509,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     /**
-     * Initialize ES index if it does not exist.
+     * Initialize indices wrapper.
      */
-    protected function initialize()
+    private function initialize()
     {
-        // Iterate over types (actor, informationobject, ...)
         $indices = ['aip', 'term', 'actor', 'accession', 'repository', 'functionObject', 'informationObject'];
         foreach ($indices as $indexName) {
-            $this->log(sprintf('index names %s...', $indexName));
             $indexName = 'Qubit'.sfInflector::camelize($indexName);
             $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
             $index = $this->client->getIndex($prefixedIndexName);
@@ -521,7 +525,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
     private function recreateIndex($indexName, $indexProperties)
     {
         $index = $this->index->getIndex($indexName);
-        $prefixedIndexName = $this->config['index']['name'].'_'.strtolower($indexName);
 
         try {
             $index->delete();
@@ -531,7 +534,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
             }
         }
 
-        // If the index has not been initialized, create it
         $this->configureFilters();
 
         // In ES 7.x if the mapping type is updated to a dummy type,
@@ -557,7 +559,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $mapping->setParam($key, $value);
         }
 
-        $this->log(sprintf('Defining mapping for index %s...', $prefixedIndexName));
+        $this->log(sprintf(
+            'Defining mapping for index %s...',
+            $this->config['index']['name'].'_'.strtolower($indexName)
+        ));
 
         // In ES 7.x this should be changed to:
         // $mapping->send($index, [ 'include_type_name' => false ])
@@ -656,25 +661,31 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     /**
-     * Display types that will be indexed.
+     * Count and display indices that will be created/updated.
      *
-     * @param mixed $excludeTypes
+     * @param array $excludeTypes
+     * @param bool  $update
+     *
+     * @return int Count of indices
      */
-    private function displayTypesToIndex($excludeTypes)
+    private function countAndDisplayIndices($excludeTypes, $update)
     {
-        $typeCount = 0;
+        $count = 0;
 
-        $this->log('Types that will be indexed:');
+        $this->log(sprintf('Indices that will be %s:', $update ? 'updated' : 'created'));
 
         foreach ($this->mappings as $indexName => $indexProperties) {
-            if (!in_array(strtolower($indexName), $excludeTypes)) {
-                $this->log(' - '.$indexName);
-                ++$typeCount;
+            $indexName = strtolower($indexName);
+            if (!in_array($indexName, $excludeTypes)) {
+                $this->log(' - '.$this->config['index']['name'].'_'.$indexName);
+                ++$count;
             }
         }
 
-        if (!$typeCount) {
+        if (!$count) {
             $this->log('   None');
         }
+
+        return $count;
     }
 }
