@@ -265,10 +265,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $className = 'arElasticSearch'.$camelizedTypeName;
             $indexName = 'Qubit'.$camelizedTypeName;
 
-            // If not updating, recreate index.
-            if (!$update) {
-                $this->recreateIndex($indexName, $indexProperties);
-            }
+            $this->recreateIndex($indexName, $indexProperties, $update);
 
             $class = new $className();
             $class->setTimer($timer);
@@ -519,9 +516,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
     }
 
-    private function recreateIndex($indexName, $indexProperties)
+    private function recreateIndex($indexName, $indexProperties, $update)
     {
         $index = $this->index->getIndex($indexName);
+
+        // No need to recreate updating an existing index.
+        if ($update && $index->exists()) {
+            return;
+        }
 
         try {
             $index->delete();
