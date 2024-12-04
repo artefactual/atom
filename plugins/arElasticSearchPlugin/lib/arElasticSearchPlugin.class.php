@@ -543,7 +543,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
         try {
             $index->delete();
         } catch (\Elastica\Exception\ResponseException $e) {
-            // TODO?: make sure it's a non exist error.
+            if (404 != $e->getResponse()->getStatus()) {
+                throw $e;
+            }
         }
 
         // If the index has not been initialized, create it
