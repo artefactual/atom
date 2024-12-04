@@ -525,14 +525,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
-        try {
-            $index->delete();
-        } catch (\Elastica\Exception\ResponseException $e) {
-            if (404 != $e->getResponse()->getStatus()) {
-                throw $e;
-            }
-        }
-
         // In ES 7.x if the mapping type is updated to a dummy type,
         // this may need to include a param for include_type_name
         // set to false in order to avoid automatically creating a
