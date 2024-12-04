@@ -125,7 +125,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         $this->flushBatch();
-        $this->index->refresh();
     }
 
     public static function loadMappings()
@@ -185,35 +184,39 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     public function flushBatch()
     {
-        if ($this->batchMode) {
-            // Batch add documents, if any
-            if (count($this->batchAddDocs) > 0) {
-                try {
-                    $this->index->addDocuments($this->currentBatchIndexName, $this->batchAddDocs);
-                } catch (Exception $e) {
-                    // Clear batchAddDocs if something went wrong too
-                    $this->batchAddDocs = [];
-
-                    throw $e;
-                }
-
-                $this->batchAddDocs = [];
-            }
-
-            // Batch delete documents, if any
-            if (count($this->batchDeleteDocs) > 0) {
-                try {
-                    $this->index->deleteDocuments($this->currentBatchIndexName, $this->batchDeleteDocs);
-                } catch (Exception $e) {
-                    // Clear batchDeleteDocs if something went wrong too
-                    $this->batchDeleteDocs = [];
-
-                    throw $e;
-                }
-
-                $this->batchDeleteDocs = [];
-            }
+        if (!$this->batchMode) {
+            return;
         }
+
+        // Batch add documents, if any
+        if (count($this->batchAddDocs) > 0) {
+            try {
+                $this->index->addDocuments($this->currentBatchIndexName, $this->batchAddDocs);
+            } catch (Exception $e) {
+                // Clear batchAddDocs if something went wrong too
+                $this->batchAddDocs = [];
+
+                throw $e;
+            }
+
+            $this->batchAddDocs = [];
+        }
+
+        // Batch delete documents, if any
+        if (count($this->batchDeleteDocs) > 0) {
+            try {
+                $this->index->deleteDocuments($this->currentBatchIndexName, $this->batchDeleteDocs);
+            } catch (Exception $e) {
+                // Clear batchDeleteDocs if something went wrong too
+                $this->batchDeleteDocs = [];
+
+                throw $e;
+            }
+
+            $this->batchDeleteDocs = [];
+        }
+
+        $this->index->refresh($this->currentBatchIndexName);
     }
 
     /**
@@ -361,9 +364,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
         if ($this->batchMode) {
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
-
-                // Refresh only previous index
-                $this->index->refresh($this->currentBatchIndexName);
                 $this->currentBatchIndexName = $indexName;
             }
 
@@ -373,9 +373,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // If we have a full batch, send additions and deletions in bulk
             if (count($this->batchAddDocs) >= $this->batchSize) {
                 $this->flushBatch();
-
-                // Refresh current index
-                $this->index->refresh($this->currentBatchIndexName);
             }
         } else {
             $this->index->addDocuments($indexName, [$document]);
@@ -470,10 +467,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
-
-                // Refresh only previous index
-                $this->index->refresh($this->currentBatchIndexName);
-
                 $this->currentBatchIndexName = $indexName;
             }
 
@@ -482,9 +475,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // If we have a full batch, send additions and deletions in bulk
             if (count($this->batchDeleteDocs) >= $this->batchSize) {
                 $this->flushBatch();
-
-                // Refresh current index
-                $this->index->refresh($this->currentBatchIndexName);
             }
         } else {
             try {

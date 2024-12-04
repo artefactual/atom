@@ -84,16 +84,9 @@ class arElasticSearchMultiIndexWrapper
      *
      * @param string $name Index name to be refreshed (optional)
      */
-    public function refresh($name = null)
+    public function refresh($name)
     {
-        if ($name && $this->indices[$name]) {
-            $this->indices[$name]->refresh();
-
-            return;
-        }
-        foreach ($this->indices as $index) {
-            $index->refresh();
-        }
+        $this->indices[$name]->refresh();
     }
 
     // Return the index element from the array of indices
