@@ -149,23 +149,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
         return $esMapping;
     }
 
-    public function loadDiacriticsMappings()
-    {
-        // Find diacritics_mapping.yml
-        $diacriticsFinder = sfFinder::type('file')->name('diacritics_mapping.yml');
-        $diacriticsFiles = array_unique(
-            array_merge(
-                $diacriticsFinder->in(sfConfig::get('sf_upload_dir')),
-            )
-        );
-
-        if (!count($diacriticsFiles)) {
-            throw new sfException('You must create a diacritics_mapping.yml file.');
-        }
-
-        return sfYaml::load(array_shift($diacriticsFiles));
-    }
-
     /**
      * Optimize index.
      *
@@ -581,6 +564,23 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // which can be removed in 8.x since that is the default behaviour
         // and will have be removed by 9.x when it is discontinued
         $mapping->send();
+    }
+
+    private function loadDiacriticsMappings()
+    {
+        // Find diacritics_mapping.yml
+        $diacriticsFinder = sfFinder::type('file')->name('diacritics_mapping.yml');
+        $diacriticsFiles = array_unique(
+            array_merge(
+                $diacriticsFinder->in(sfConfig::get('sf_upload_dir')),
+            )
+        );
+
+        if (!count($diacriticsFiles)) {
+            throw new sfException('You must create a diacritics_mapping.yml file.');
+        }
+
+        return sfYaml::load(array_shift($diacriticsFiles));
     }
 
     /**
