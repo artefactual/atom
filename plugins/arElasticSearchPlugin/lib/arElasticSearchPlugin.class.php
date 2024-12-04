@@ -219,8 +219,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Make sure it's initialized, QubitSearch::disable() gets an instance
         // without initialization and it's used in the install/purgue tasks.
         $this->initialize();
-
         $this->loadAndNormalizeMappings();
+        $this->configureFilters();
 
         $indicesCount = $this->countAndDisplayIndices($excludeTypes, $update);
         if (0 == $indicesCount) {
@@ -533,8 +533,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 throw $e;
             }
         }
-
-        $this->configureFilters();
 
         // In ES 7.x if the mapping type is updated to a dummy type,
         // this may need to include a param for include_type_name
