@@ -40,24 +40,6 @@ class arElasticSearchMultiIndexWrapper
         $this->indices[$name] = $index;
     }
 
-    /**
-     * Delete ElasticSearch indices. If an index name is provided,
-     * only that specific index will be deleted.
-     *
-     * @param string $name Index name to be deleted (optional)
-     */
-    public function delete($name = null)
-    {
-        if ($name && $this->indices[$name]) {
-            $this->indices[$name]->delete();
-
-            return;
-        }
-        foreach ($this->indices as $index) {
-            $index->delete();
-        }
-    }
-
     public function addDocuments($name, $documents)
     {
         $this->indices[$name]->addDocuments($documents);
