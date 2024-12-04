@@ -184,7 +184,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     public function flushBatch()
     {
-        if (!$this->batchMode) {
+        if (!$this->batchMode || !$this->currentBatchIndexName) {
             return;
         }
 
@@ -357,11 +357,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // but it can be removed in 7.x when it becomes optional
         $document->setType(self::ES_TYPE);
 
-        if (!$this->currentBatchIndexName) {
-            $this->currentBatchIndexName = $indexName;
-        }
-
         if ($this->batchMode) {
+            if (!$this->currentBatchIndexName) {
+                $this->currentBatchIndexName = $indexName;
+            }
+
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
                 $this->currentBatchIndexName = $indexName;
