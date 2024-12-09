@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: BaseExtendSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 199994295e0eb776fdb3987075804074171abef4 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/types/selectors/ExtendFileSelector.php';
 require_once 'phing/types/selectors/BaseSelector.php';
 include_once 'phing/types/Parameter.php';
@@ -34,7 +34,8 @@ include_once 'phing/types/Parameter.php';
  * @author Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
-abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector {
+abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector
+{
 
     /** The passed in parameter array. */
     protected $parameters = null;
@@ -43,9 +44,11 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      * Set all the Parameters for this custom selector, collected by
      * the ExtendSelector class.
      *
-     * @param parameters the complete set of parameters for this selector
+     * @param array $parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         $this->parameters = $parameters;
     }
 
@@ -53,10 +56,10 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      * Allows access to the parameters gathered and set within the
      * &lt;custom&gt; tag.
      *
-     * @return the set of parameters defined for this selector
+     * @return array the set of parameters defined for this selector
      */
-    protected function getParameters() {
+    protected function getParameters()
+    {
         return $this->parameters;
     }
 }
-

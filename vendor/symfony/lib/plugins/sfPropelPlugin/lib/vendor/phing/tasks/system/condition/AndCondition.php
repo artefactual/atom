@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: AndCondition.php 43 2006-03-10 14:31:51Z mrook $
+ * $Id: 8449167915cfddb5dead1d8e7535c49920f792c5 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,25 +22,31 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <and> condition container.
+ * <and> condition container.
  *
- *  Iterates over all conditions and returns false as soon as one
- *  evaluates to false.
- * 
- *  @author    Hans Lellelid <hans@xmpl.org>
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.7 $
- *  @package   phing.tasks.system.condition
+ * Iterates over all conditions and returns false as soon as one
+ * evaluates to false.
+ *
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id: 8449167915cfddb5dead1d8e7535c49920f792c5 $
+ * @package   phing.tasks.system.condition
  */
-class AndCondition extends ConditionBase implements Condition {
+class AndCondition extends ConditionBase implements Condition
+{
 
-    public function evaluate() {
-        foreach($this as $c) { // ConditionBase implements IteratorAggregator
-              if (!$c->evaluate()) {
+    /**
+     * @return bool
+     */
+    public function evaluate()
+    {
+        foreach ($this as $c) { // ConditionBase implements IteratorAggregator
+            if (!$c->evaluate()) {
                 return false;
             }
         }
-        return true;       
+
+        return true;
     }
 }

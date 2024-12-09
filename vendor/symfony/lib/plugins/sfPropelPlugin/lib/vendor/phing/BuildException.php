@@ -1,6 +1,6 @@
 <?php
-/*
- *  $Id: BuildException.php 287 2007-11-04 14:59:39Z hans $
+/**
+ *  $Id: b20e9c95f1db91e9c0ec65ff977bfb22f0308601 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,30 +16,31 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
  * BuildException is for when things go wrong in a build execution.
  *
  * @author   Andreas Aderhold <andi@binarycloud.com>
- * @version  $Revision: 1.12 $
+ * @version  $Id: b20e9c95f1db91e9c0ec65ff977bfb22f0308601 $
  * @package  phing
  */
-class BuildException extends Exception {
+class BuildException extends RuntimeException
+{
 
     /**
-	 * Location in the xml file.
-	 * @var Location
-	 */
+     * Location in the xml file.
+     * @var Location
+     */
     protected $location;
-            
+
     /**
-	 * The nested "cause" exception.
-	 * @var Exception
-	 */
+     * The nested "cause" exception.
+     * @var Exception
+     */
     protected $cause;
-    
+
     /**
      * Construct a BuildException.
      * Supported signatures:
@@ -49,13 +50,17 @@ class BuildException extends Exception {
      *         throw new BuildException($msg, $causeExc);
      *         throw new BuildException($msg, $loc);
      *         throw new BuildException($msg, $causeExc, $loc);
+     * @param Exception|string        $p1
+     * @param Location|Exception|null $p2
+     * @param Location|null           $p3
      */
-    function __construct($p1, $p2 = null, $p3 = null) {        
-        
+    public function __construct($p1 = "", $p2 = null, $p3 = null)
+    {
+
         $cause = null;
         $loc = null;
         $msg = "";
-        
+
         if ($p3 !== null) {
             $cause = $p2;
             $loc = $p3;
@@ -77,45 +82,48 @@ class BuildException extends Exception {
         } else {
             $msg = $p1;
         }
-        
+
         parent::__construct($msg);
-        
+
         if ($cause !== null) {
             $this->cause = $cause;
-            $this->message .= " [wrapped: " . $cause->getMessage() ."]";
+            $this->message .= "\n" . $this->getTraceAsString();
+            $this->message .= "\n\nPrevious " . (string) $cause;
         }
-        
+
         if ($loc !== null) {
             $this->setLocation($loc);
-        }                
+        }
     }
-    
+
     /**
      * Gets the cause exception.
      *
      * @return Exception
      */
-    public function getCause() {
+    public function getCause()
+    {
         return $this->cause;
     }
-    
+
     /**
      * Gets the location of error in XML file.
      *
      * @return Location
      */
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
     /**
      * Sets the location of error in XML file.
      *
-     * @param Locaiton $loc
+     * @param Location $loc
      */
-    public function setLocation(Location $loc) {        
+    public function setLocation(Location $loc)
+    {
         $this->location = $loc;
         $this->message = $loc->toString() . ': ' . $this->message;
     }
-
 }

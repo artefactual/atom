@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id: StripPhpComments.php 325 2007-12-20 15:44:58Z hans $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,8 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
-
+ */
 include_once 'phing/filters/BaseFilterReader.php';
 include_once 'phing/filters/ChainableReader.php';
 
@@ -28,16 +24,16 @@ include_once 'phing/filters/ChainableReader.php';
  * those lexical tokens out for purposes of simple Php parsing.
  * (if you have more complex Php parsing needs, use a real lexer).
  * Since this class heavily relies on the single char read function,
- * you are reccomended to make it work on top of a buffered reader.
+ * you are recommended to make it work on top of a buffered reader.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2007-12-20 07:44:58 -0800 (Thu, 20 Dec 2007) $
- * @access    public
+ * @version   $Id: e46d7849417c2b8249f317003a3ebc161fac0e96 $
  * @see       FilterReader
  * @package   phing.filters
  */
-class StripPhpComments extends BaseFilterReader implements ChainableReader {
+class StripPhpComments extends BaseFilterReader implements ChainableReader
+{
     /**
      * The read-ahead character, used for effectively pushing a single
      * character back. -1 indicates that no character is in the buffer.
@@ -49,117 +45,95 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader {
      * literal.
      * @var boolean
      */
-    private $_inString = false;    
+    private $_inString = false;
 
     /**
      * Returns the  stream without Php comments.
-     * 
-     * @return the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
-     * @throws IOException if the underlying stream throws an IOException
-     *                        during reading     
+     *
+     * @param null $len
+     * @return string the resulting stream, or -1
+     *             if the end of the resulting stream has been reached
+     *
      */
-    function read($len = null) {
-    
+    public function read($len = null)
+    {
+
         $buffer = $this->in->read($len);
-        if($buffer === -1) {
+        if ($buffer === -1) {
             return -1;
         }
-        
-        // This regex replace /* */ and // style comments
-        $buffer = preg_replace('/\/\*[^*]*\*+([^\/*][^*]*\*+)*\/|\/\/[^\n]*|("(\\\\.|[^"\\\\])*"|\'(\\\\.|[^\'\\\\])*\'|.[^\/"\'\\\\]*)/s', "$2", $buffer);
-                
-        // The regex above is not identical to, but is based on the expression below:
-        //
-        // created by Jeffrey Friedl
-        //   and later modified by Fred Curtis.
-        //     s{
-        //          /\*         ##  Start of /* ... */ comment
-        //          [^*]*\*+    ##  Non-* followed by 1-or-more *'s
-        //          (
-        //            [^/*][^*]*\*+
-        //          )*          ##  0-or-more things which don't start with /
-        //                      ##    but do end with '*'
-        //          /           ##  End of /* ... */ comment
-        //
-        //        |         ##     OR  various things which aren't comments:
-        //
-        //          (
-        //            "           ##  Start of " ... " string
-        //            (
-        //              \\.           ##  Escaped char
-        //            |               ##    OR
-        //              [^"\\]        ##  Non "\
-        //            )*
-        //           "           ##  End of " ... " string
-        //
-        //          |         ##     OR
-        //
-        //            '           ##  Start of ' ... ' string
-        //            (
-        //              \\.           ##  Escaped char
-        //            |               ##    OR
-        //              [^'\\]        ##  Non '\
-        //            )*
-        //            '           ##  End of ' ... ' string
-        //
-        //          |         ##     OR
-        //
-        //            .           ##  Anything other char
-        //            [^/"'\\]*   ##  Chars which doesn't start a comment, string or escape
-        //          )
-        //        }{$2}gxs;
-                                
-        return $buffer;
+        $newStr = '';
+        $tokens = token_get_all($buffer);
+
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                list($id, $text) = $token;
+
+                switch ($id) {
+                    case T_COMMENT:
+                    case T_DOC_COMMENT:
+                        // no action on comments
+                        continue 2;
+
+                    default:
+                        $newStr .= $text;
+                        continue 2;
+                }
+            }
+            $newStr .= $token;
+        }
+
+        return $newStr;
     }
-        
-    
-    /*
+
+    /**
      * Returns the next character in the filtered stream, not including
      * Php comments.
-     * 
-     * @return the next character in the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
+     *
+     * @return int the next character in the resulting stream, or -1
+     *             if the end of the resulting stream has been reached
+     *
      * @throws IOException if the underlying stream throws an IOException
-     *                        during reading     
+     *                     during reading
      * @deprecated
      */
-    function readChar() {
+    public function readChar()
+    {
         $ch = -1;
 
-        if ( $this->_readAheadCh !== -1 ) {
+        if ($this->_readAheadCh !== -1) {
             $ch = $this->_readAheadCh;
             $this->_readAheadCh = -1;
         } else {
             $ch = $this->in->readChar();
-            if ( $ch === "\"" ) {
+            if ($ch === "\"") {
                 $this->_inString = !$this->_inString;
             } else {
-                if ( !$this->_inString ) {
-                    if ( $ch === "/" ) {
+                if (!$this->_inString) {
+                    if ($ch === "/") {
                         $ch = $this->in->readChar();
-                        if ( $ch === "/" ) {
-                            while ( $ch !== "\n" && $ch !== -1 ) {
+                        if ($ch === "/") {
+                            while ($ch !== "\n" && $ch !== -1) {
                                 $ch = $this->in->readChar();
-                            }
-                        } else if ( $ch === "*" ) {
-                            while ( $ch !== -1 ) {
-                                $ch = $this->in->readChar();
-                                while ( $ch === "*" && $ch !== -1 ) {
-                                    $ch = $this->in->readChar();
-                                }
-
-                                if ( $ch === "/" ) {
-                                    $ch = $this->readChar();
-                                    echo "$ch\n";
-                                    break;
-                                }
                             }
                         } else {
-                            $this->_readAheadCh = $ch;
-                            $ch = "/";
+                            if ($ch === "*") {
+                                while ($ch !== -1) {
+                                    $ch = $this->in->readChar();
+                                    while ($ch === "*" && $ch !== -1) {
+                                        $ch = $this->in->readChar();
+                                    }
+
+                                    if ($ch === "/") {
+                                        $ch = $this->readChar();
+                                        echo "$ch\n";
+                                        break;
+                                    }
+                                }
+                            } else {
+                                $this->_readAheadCh = $ch;
+                                $ch = "/";
+                            }
                         }
                     }
                 }
@@ -172,17 +146,19 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader {
     /**
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
-     * 
-     * @param reader A Reader object providing the underlying stream.
+     *
+     * @param A|Reader $reader
+     * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
-     * @return a new filter based on this configuration, but filtering
-     *         the specified reader
+     *
+     * @return $this a new filter based on this configuration, but filtering
+     *           the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new StripPhpComments($reader);
-        $newFilter->setProject($this->getProject());        
+        $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 }
-

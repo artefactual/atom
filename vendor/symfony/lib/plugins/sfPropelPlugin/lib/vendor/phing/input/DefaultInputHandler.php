@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id: DefaultInputHandler.php 293 2007-11-04 16:51:45Z hans $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,7 +16,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/input/InputHandler.php';
 include_once 'phing/system/io/ConsoleReader.php';
 
@@ -28,24 +25,30 @@ include_once 'phing/system/io/ConsoleReader.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Revision: 1.6 $
+ *
  * @package phing.input
  */
-class DefaultInputHandler implements InputHandler {
-    
+class DefaultInputHandler implements InputHandler
+{
     /**
-     * Prompts and requests input.  May loop until a valid input has
-     * been entered.
-     * @throws BuildException 
+     * Prompts and requests input.
+     * May loop until a valid input has been entered.
+     *
+     * @param InputRequest $request
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
-    public function handleInput(InputRequest $request) {
+    public function handleInput(InputRequest $request)
+    {
         $prompt = $this->getPrompt($request);
-        $in = new ConsoleReader();           
+        $in = new ConsoleReader();
         do {
             print $prompt;
             try {
                 $input = $in->readLine();
-                if ($input === "" && ($request->getDefaultValue() !== null) ) {
+                if ($input === "" && ($request->getDefaultValue() !== null)) {
                     $input = $request->getDefaultValue();
                 }
                 $request->setInput($input);
@@ -61,21 +64,29 @@ class DefaultInputHandler implements InputHandler {
      * <p>This implementation adds (choice1,choice2,choice3,...) to the
      * prompt for <code>MultipleChoiceInputRequest</code>s.</p>
      *
-     * @param $request the request to construct the prompt for.
-     *                Must not be <code>null</code>.
+     * @param InputRequest $request the request to construct the prompt for.
+     *                              Must not be <code>null</code>.
+     *
+     * @return string
      */
-    protected function getPrompt(InputRequest $request) {
+    protected function getPrompt(InputRequest $request)
+    {
         $prompt = $request->getPrompt();
-        
+        $defaultValue = $request->getDefaultValue();
+
         if ($request instanceof YesNoInputRequest) {
-            $prompt .= '(' . implode('/', $request->getChoices()) .')';
+            $choices = $request->getChoices();
+            $defaultValue = $choices[(int) !$request->getDefaultValue()];
+            $prompt .= '(' . implode('/', $request->getChoices()) . ')';
         } elseif ($request instanceof MultipleChoiceInputRequest) { // (a,b,c,d)
-            $prompt .= '(' . implode(',', $request->getChoices()) . ')';            
+            $prompt .= '(' . implode(',', $request->getChoices()) . ')';
         }
+
         if ($request->getDefaultValue() !== null) {
-            $prompt .= ' ['.$request->getDefaultValue().']';
+            $prompt .= ' [' . $defaultValue . ']';
         }
-        $pchar = $request->getPromptChar();        
+        $pchar = $request->getPromptChar();
+
         return $prompt . ($pchar ? $pchar . ' ' : ' ');
-    } 
+    }
 }

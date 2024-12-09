@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Task.php 174 2007-03-12 21:01:37Z hans $
+ *  $Id: b1b87e93a3e875cdbc3e27db9244118557e4e5d2 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,41 +28,48 @@ include_once 'phing/RuntimeConfigurable.php';
  * Use {@link Project#createTask} to register a new Task.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright � 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.11 $
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id: b1b87e93a3e875cdbc3e27db9244118557e4e5d2 $
  * @see       Project#createTask()
  * @package   phing
  */
-abstract class Task extends ProjectComponent {
+abstract class Task extends ProjectComponent
+{
 
     /**
-	 * @var Target owning Target object
-	 */
+     * Owning Target object
+     * @var Target
+     */
     protected $target;
-    
+
     /**
-	 * @var string description of the task
-	 */
+     * Description of the task
+     * @var string
+     */
     protected $description;
-    
+
     /**
-	 * @var string internal taskname (req)
-	 */
+     * Internal taskname (req)
+     * @var string
+     */
     protected $taskType;
-    
+
     /**
-	 * @var string Taskname for logger
-	 */
+     * Taskname for logger
+     * @var string
+     */
     protected $taskName;
-    
+
     /**
-	 * @var Location stored buildfile location
-	 */
+     * Stored buildfile location
+     * @var Location
+     */
     protected $location;
-    
+
     /**
-	 * @var RuntimeConfigurable wrapper of the task
-	 */
+     * Wrapper of the task
+     * @var RuntimeConfigurable
+     */
     protected $wrapper;
 
     /**
@@ -70,7 +77,8 @@ abstract class Task extends ProjectComponent {
      *
      * @param Target Reference to owning target
      */
-    public function setOwningTarget(Target $target) {
+    public function setOwningTarget(Target $target)
+    {
         $this->target = $target;
     }
 
@@ -79,7 +87,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return Target The target object that owns this task
      */
-    public function getOwningTarget() {
+    public function getOwningTarget()
+    {
         return $this->target;
     }
 
@@ -88,7 +97,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string Name of this task
      */
-    public function getTaskName() {
+    public function getTaskName()
+    {
         if ($this->taskName === null) {
             // if no task name is set, then it's possible
             // this task was created from within another task.  We don't
@@ -97,15 +107,18 @@ abstract class Task extends ProjectComponent {
             // for log messages, so we don't have to worry much about accuracy.
             return preg_replace('/task$/i', '', get_class($this));
         }
+
         return $this->taskName;
     }
 
     /**
      * Sets the name of this task for log messages
      *
+     * @param  string $name
      * @return string A string representing the name of this task for log
      */
-    public function setTaskName($name) {
+    public function setTaskName($name)
+    {
         $this->taskName = (string) $name;
     }
 
@@ -115,7 +128,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string The type of this task (XML Tag)
      */
-    public function getTaskType() {
+    public function getTaskType()
+    {
         return $this->taskType;
     }
 
@@ -124,27 +138,31 @@ abstract class Task extends ProjectComponent {
      *
      * @param string The type of this task (XML Tag)
      */
-    public function setTaskType($name) {
+    public function setTaskType($name)
+    {
         $this->taskType = (string) $name;
     }
-	
-	/**
-	 * Returns a name 
-	 * 
-	 */
-	protected function getRegisterSlot($slotName) {
-		return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
-	}
-	
+
+    /**
+     * Returns a name
+     * @param string $slotName
+     * @return \RegisterSlot
+     */
+    protected function getRegisterSlot($slotName)
+    {
+        return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
+    }
+
     /**
      * Provides a project level log event to the task.
      *
-     * @param string  The message to log
-     * @param integer The priority of the message
+     * @param string $msg The message to log
+     * @param integer $level The priority of the message
      * @see BuildEvent
      * @see BuildListener
      */
-    function log($msg, $level = Project::MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO)
+    {
         $this->project->logObject($this, $msg, $level);
     }
 
@@ -153,7 +171,8 @@ abstract class Task extends ProjectComponent {
      *
      * @param string $desc The text describing the task
      */
-    public function setDescription($desc) {
+    public function setDescription($desc)
+    {
         $this->description = $desc;
     }
 
@@ -162,7 +181,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string The text description of the task
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -174,7 +194,8 @@ abstract class Task extends ProjectComponent {
      *
      * @throws BuildException
      */
-    public function init() {
+    public function init()
+    {
     }
 
     /**
@@ -196,7 +217,8 @@ abstract class Task extends ProjectComponent {
      * @return Location The location object describing the position of this
      *                  task within the buildfile.
      */
-    function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
@@ -205,9 +227,10 @@ abstract class Task extends ProjectComponent {
      * the parser to set location information.
      *
      * @param Location $location The location object describing the position of this
-     *                  		 task within the buildfile.
+     *                           task within the buildfile.
      */
-    function setLocation(Location $location) {
+    public function setLocation(Location $location)
+    {
         $this->location = $location;
     }
 
@@ -216,10 +239,12 @@ abstract class Task extends ProjectComponent {
      *
      * @return RuntimeConfigurable The wrapper object used by this task
      */
-    function getRuntimeConfigurableWrapper() {
+    public function getRuntimeConfigurableWrapper()
+    {
         if ($this->wrapper === null) {
             $this->wrapper = new RuntimeConfigurable($this, $this->getTaskName());
         }
+
         return $this->wrapper;
     }
 
@@ -229,14 +254,16 @@ abstract class Task extends ProjectComponent {
      *
      * @param RuntimeConfigurable $wrapper The wrapper object this task should use
      */
-    function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper) {
+    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper)
+    {
         $this->wrapper = $wrapper;
     }
 
     /**
      *  Configure this task if it hasn't been done already.
      */
-    public function maybeConfigure() {
+    public function maybeConfigure()
+    {
         if ($this->wrapper !== null) {
             $this->wrapper->maybeConfigure($this->project);
         }
@@ -244,17 +271,20 @@ abstract class Task extends ProjectComponent {
 
     /**
      * Perfrom this task
+     *
+     * @throws BuildException
      */
-    public function perform() {
+    public function perform()
+    {
 
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
             $this->main();
-            $this->project->fireTaskFinished($this, $null=null);
+            $this->project->fireTaskFinished($this, $null = null);
         } catch (Exception $exc) {
             if ($exc instanceof BuildException) {
-                if ($exc->getLocation() === null) {
+                if ($this->getLocation() !== null) {
                     $exc->setLocation($this->getLocation());
                 }
             }

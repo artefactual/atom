@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id: SizeSelector.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,36 +17,81 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Selector that filters files based on their size.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ *
  * @package phing.types.selectors
  */
-class SizeSelector extends BaseExtendSelector {
-
+class SizeSelector extends BaseExtendSelector
+{
+    /** @var int $size */
     private $size = -1;
+
+    /** @var int $multiplier */
     private $multiplier = 1;
+
+    /** @var int $sizelimit */
     private $sizelimit = -1;
+
+    /** @var int $cmp */
     private $cmp = 2;
+
     const SIZE_KEY = "value";
     const UNITS_KEY = "units";
     const WHEN_KEY = "when";
 
-    private static $sizeComparisons =  array("less", "more", "equal");
-    private static $byteUnits = array("K", "k", "kilo", "KILO",
-                                 "Ki", "KI", "ki", "kibi", "KIBI",
-                                 "M", "m", "mega", "MEGA",
-                                 "Mi", "MI", "mi", "mebi", "MEBI",
-                                 "G", "g", "giga", "GIGA",
-                                 "Gi", "GI", "gi", "gibi", "GIBI",
-                                 "T", "t", "tera", "TERA",
-            /* You wish! */      "Ti", "TI", "ti", "tebi", "TEBI"
-                                 );
+    /** @var array $sizeComparisons */
+    private static $sizeComparisons = array("less", "more", "equal");
 
-    public function toString() {
+    /** @var array $byteUnits */
+    private static $byteUnits = array(
+        "K",
+        "k",
+        "kilo",
+        "KILO",
+        "Ki",
+        "KI",
+        "ki",
+        "kibi",
+        "KIBI",
+        "M",
+        "m",
+        "mega",
+        "MEGA",
+        "Mi",
+        "MI",
+        "mi",
+        "mebi",
+        "MEBI",
+        "G",
+        "g",
+        "giga",
+        "GIGA",
+        "Gi",
+        "GI",
+        "gi",
+        "gibi",
+        "GIBI",
+        "T",
+        "t",
+        "tera",
+        "TERA",
+        /* You wish! */
+        "Ti",
+        "TI",
+        "ti",
+        "tebi",
+        "TEBI"
+    );
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "{sizeselector value: ";
         $buf .= $this->sizelimit;
         $buf .= "compare: ";
@@ -61,6 +103,7 @@ class SizeSelector extends BaseExtendSelector {
             $buf .= "equal";
         }
         $buf .= "}";
+
         return $buf;
     }
 
@@ -69,9 +112,12 @@ class SizeSelector extends BaseExtendSelector {
      * This will be further modified by the multiplier to get an
      * actual size limit.
      *
-     * @param size the size to select against expressed in units
+     * @param int $size the size to select against expressed in units
+     *
+     * @return void
      */
-    public function setValue($size) {
+    public function setValue($size)
+    {
         $this->size = $size;
         if (($this->multiplier !== 0) && ($this->size > -1)) {
             $this->sizelimit = $size * $this->multiplier;
@@ -101,13 +147,17 @@ class SizeSelector extends BaseExtendSelector {
      * unit prefix can occur in and translates them into a single
      * multiplier.
      *
-     * @param $units The units to compare the size to.
+     * @param array $units The units to compare the size to.
+     *
      * @return void
      */
-    public function setUnits($units) {
+    public function setUnits($units)
+    {
         $i = array_search($units, self::$byteUnits, true);
-        if ($i === false) $i = -1; // make it java-like
-        
+        if ($i === false) {
+            $i = -1;
+        } // make it java-like
+
         $this->multiplier = 0;
         if (($i > -1) && ($i < 4)) {
             $this->multiplier = 1000;
@@ -136,9 +186,12 @@ class SizeSelector extends BaseExtendSelector {
      * when the file matches a particular size, when it is smaller,
      * or whether it is larger.
      *
-     * @param cmp The comparison to perform, an EnumeratedAttribute
+     * @param array $cmp The comparison to perform, an EnumeratedAttribute
+     *
+     * @return void
      */
-    public function setWhen($cmp) {
+    public function setWhen($cmp)
+    {
         $c = array_search($cmp, self::$sizeComparisons, true);
         if ($c !== false) {
             $this->cmp = $c;
@@ -149,29 +202,38 @@ class SizeSelector extends BaseExtendSelector {
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param parameters the complete set of parameters for this selector
+     * {@inheritdoc}
+     *
+     * @param array $parameters the complete set of parameters for this selector
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         parent::setParameters($parameters);
         if ($parameters !== null) {
-            for ($i = 0, $size=count($parameters); $i < $size; $i++) {
+            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
                 $paramname = $parameters[$i]->getName();
-                switch(strtolower($paramname)) {
+                switch (strtolower($paramname)) {
                     case self::SIZE_KEY:
                         try {
                             $this->setValue($parameters[$i]->getValue());
-                           } catch (Exception $nfe) {
-                               $this->setError("Invalid size setting "
-                                . $parameters[$i]->getValue());
-                           }
+                        } catch (Exception $nfe) {
+                            $this->setError(
+                                "Invalid size setting "
+                                . $parameters[$i]->getValue()
+                            );
+                        }
                         break;
-                    case self::UNITS_KEY:                                                
+                    case self::UNITS_KEY:
                         $this->setUnits($parameters[$i]->getValue());
                         break;
                     case self::WHEN_KEY:
                         $this->setWhen($parameters[$i]->getValue());
                         break;
-                    default:    
+                    default:
                         $this->setError("Invalid parameter " . $paramname);
                 }
             }
@@ -187,8 +249,13 @@ class SizeSelector extends BaseExtendSelector {
      * </p>
      * <p>If a problem is detected, the setError() method is called.
      * </p>
+     *
+     * {@inheritdoc}
+     *
+     * @return void
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->size < 0) {
             $this->setError("The value attribute is required, and must be positive");
         } elseif ($this->multiplier < 1) {
@@ -202,13 +269,16 @@ class SizeSelector extends BaseExtendSelector {
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir A PhingFile object for the base directory
-     * @param filename The name of the file to check
-     * @param file A PhingFile object for this filename
-     * @return whether the file should be selected or not
+     * {@inheritdoc}
+     *
+     * @param PhingFile $basedir A PhingFile object for the base directory
+     * @param string $filename The name of the file to check
+     * @param PhingFile $file A PhingFile object for this filename
+     *
+     * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
-
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
         $this->validate();
 
         // Directory size never selected for
@@ -223,6 +293,4 @@ class SizeSelector extends BaseExtendSelector {
             return ($file->length() === $this->sizelimit);
         }
     }
-    
 }
-

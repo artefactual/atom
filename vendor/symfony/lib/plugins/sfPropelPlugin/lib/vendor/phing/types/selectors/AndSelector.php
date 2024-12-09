@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: AndSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: a48248c2ea6319b26b375825aa437e5b1a9e7f78 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,15 +29,21 @@ require_once 'phing/types/selectors/BaseSelectorContainer.php';
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
  * @package phing.types.selectors
  */
-class AndSelector extends BaseSelectorContainer {
+class AndSelector extends BaseSelectorContainer
+{
 
-    public function toString() {
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{andselect: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
@@ -45,23 +51,24 @@ class AndSelector extends BaseSelectorContainer {
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should be selected.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename the name of the file to check
-     * @param file a PhingFile object for the filename that the selector
+     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file a PhingFile object for the filename that the selector
      * can use
-     * @return whether the file should be selected or not
+     * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
         $this->validate();
-        $selectors = $this->selectorElements();       
-           for($i=0,$size=count($selectors); $i < $size; $i++) {
+        $selectors = $this->selectorElements();
+        for ($i = 0, $size = count($selectors); $i < $size; $i++) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if (!$result) {
                 return false;
             }
         }
+
         return true;
     }
 
 }
-

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: UnknownElement.php 205 2007-07-29 21:04:42Z hans $
+ *  $Id: 65dd645aab6f4357dacee3260c63aa716e3a8780 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,10 +31,11 @@ require_once 'phing/Task.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.9 $
+ * @version   $Id: 65dd645aab6f4357dacee3260c63aa716e3a8780 $
  * @package   phing
  */
-class UnknownElement extends Task {
+class UnknownElement extends Task
+{
 
     private $elementName;
     private $realThing;
@@ -44,9 +45,9 @@ class UnknownElement extends Task {
      * Constructs a UnknownElement object
      *
      * @param    string  The XML element name that is unknown
-     * @access   public
      */
-    function __construct($elementName) {
+    public function __construct($elementName)
+    {
         $this->elementName = (string) $elementName;
     }
 
@@ -54,65 +55,72 @@ class UnknownElement extends Task {
      * Return the XML element name that this <code>UnnownElement</code>
      * handles.
      *
-     * @return  string  The XML element name that is unknown
+     * @return string The XML element name that is unknown
      */
-    public function getTag() {
+    public function getTag()
+    {
         return (string) $this->elementName;
     }
 
     /**
      * Tries to configure the unknown element
      *
-     * @throws  BuildException if the element can not be configured
+     * @throws BuildException if the element can not be configured
      */
-    public function maybeConfigure() {
-    
+    public function maybeConfigure()
+    {
+
         $this->realThing = $this->makeObject($this, $this->wrapper);
         $this->wrapper->setProxy($this->realThing);
         if ($this->realThing instanceof Task) {
             $this->realThing->setRuntimeConfigurableWrapper($this->wrapper);
+            $this->realThing->maybeConfigure();
+        } else {
+            $this->wrapper->maybeConfigure($this->getProject());
         }
-    
         $this->handleChildren($this->realThing, $this->wrapper);
-        $this->wrapper->maybeConfigure($this->getProject());
-                                    
+
     }
 
     /**
      * Called when the real task has been configured for the first time.
      *
-     * @throws  BuildException if the task can not be created
+     * @throws BuildException if the task can not be created
      */
-    public function main() {
-    
+    public function main()
+    {
+
         if ($this->realThing === null) {
             // plain impossible to get here, maybeConfigure should
             // have thrown an exception.
             throw new BuildException("Should not be executing UnknownElement::main() -- task/type: {$this->elementName}");
         }
-        
+
         if ($this->realThing instanceof Task) {
             $this->realThing->main();
         }
-        
+
     }
 
     /**
      * Add a child element to the unknown element
      *
-     * @param   object  The object representing the child element
+     * @param UnknownElement $child
+     * @internal param The $object object representing the child element
      */
-    public function addChild(UnknownElement $child) {
+    public function addChild(UnknownElement $child)
+    {
         $this->children[] = $child;
     }
 
     /**
      *  Handle child elemets of the unknown element, if any.
      *
-     *  @param ProjectComponent The parent object the unkown element belongs to
-     *  @param object The parent wrapper object
+     * @param object $parent        The parent object the unknown element belongs to
+     * @param object $parentWrapper The parent wrapper object
      */
-    function handleChildren(ProjectComponent $parent, $parentWrapper) {
+    public function handleChildren($parent, $parentWrapper)
+    {
 
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
@@ -121,71 +129,98 @@ class UnknownElement extends Task {
         $parentClass = get_class($parent);
         $ih = IntrospectionHelper::getHelper($parentClass);
 
-        for ($i=0, $childrenCount=count($this->children); $i < $childrenCount; $i++) {
+        for ($i = 0, $childrenCount = count($this->children); $i < $childrenCount; $i++) {
 
             $childWrapper = $parentWrapper->getChild($i);
             $child = $this->children[$i];
+
             $realChild = null;
             if ($parent instanceof TaskContainer) {
-                $realChild = $this->makeTask($child, $childWrapper, false);
-                $parent->addTask($realChild);
-            } else {
-				$project = $this->project === null ? $parent->project : $this->project;
-				$realChild = $ih->createElement($project, $parent, $child->getTag());
+                $parent->addTask($child);
+                continue;
             }
+
+            $project = $this->project === null ? $parent->project : $this->project;
+            $realChild = $ih->createElement($project, $parent, $child->getTag());
 
             $childWrapper->setProxy($realChild);
             if ($realChild instanceof Task) {
                 $realChild->setRuntimeConfigurableWrapper($childWrapper);
             }
-			
-            if ($realChild instanceof ProjectComponent) {
-            	$child->handleChildren($realChild, $childWrapper);
-            }
-            
-            if ($realChild instanceof Task) {
-                $realChild->maybeConfigure();
-            }
+
+            $childWrapper->maybeConfigure($this->project);
+            $child->handleChildren($realChild, $childWrapper);
         }
+    }
+
+    /**
+     * @param IntrospectionHelper $ih
+     * @param $parent
+     * @param UnknownElement $child
+     * @param RuntimeConfigurable $childWrapper
+     * @return bool
+     */
+    public function handleChild(
+        IntrospectionHelper $ih,
+        $parent,
+        UnknownElement $child,
+        RuntimeConfigurable $childWrapper
+    ) {
+        $childWrapper->setProxy($realChild);
+        if ($realChild instanceof Task) {
+            $realChild->setRuntimeConfigurableWrapper($childWrapper);
+        }
+
+        $childWrapper->maybeConfigure($this->project);
+        $child->handleChildren($realChild, $childWrapper);
+
+        return true;
     }
 
     /**
      * Creates a named task or data type. If the real object is a task,
      * it is configured up to the init() stage.
      *
-     * @param UnknownElement $ue The unknown element to create the real object for.
-     *           Must not be <code>null</code>.
-     * @param RuntimeConfigurable $w  Ignored in this implementation.
-     * @return object The Task or DataType represented by the given unknown element.
+     * @param  UnknownElement $ue The unknown element to create the real object for.
+     *                                 Must not be <code>null</code>.
+     * @param  RuntimeConfigurable $w Ignored in this implementation.
+     * @throws BuildException
+     * @return object              The Task or DataType represented by the given unknown element.
      */
-    protected function makeObject(UnknownElement $ue, RuntimeConfigurable $w) {
+    protected function makeObject(UnknownElement $ue, RuntimeConfigurable $w)
+    {
         $o = $this->makeTask($ue, $w, true);
         if ($o === null) {
             $o = $this->project->createDataType($ue->getTag());
         }
         if ($o === null) {
-            throw new BuildException("Could not create task/type: '".$ue->getTag()."'. Make sure that this class has been declared using taskdef / typedef.");
+            throw new BuildException("Could not create task/type: '" . $ue->getTag(
+                ) . "'. Make sure that this class has been declared using taskdef / typedef.");
         }
+
         return $o;
     }
-    
+
     /**
      *  Create a named task and configure it up to the init() stage.
      *
-     * @param UnknownElement $ue The unknwon element to create a task from
-     * @param RuntimeConfigurable $w The wrapper object
-     * @param boolean $onTopLevel Whether to treat this task as if it is top-level.
-     * @return Task The freshly created task
+     * @param  UnknownElement $ue The unknwon element to create a task from
+     * @param  RuntimeConfigurable $w The wrapper object
+     * @param  boolean $onTopLevel Whether to treat this task as if it is top-level.
+     * @throws BuildException
+     * @return Task                The freshly created task
      */
-    protected function makeTask(UnknownElement $ue, RuntimeConfigurable $w, $onTopLevel = false) {
+    protected function makeTask(UnknownElement $ue, RuntimeConfigurable $w, $onTopLevel = false)
+    {
 
         $task = $this->project->createTask($ue->getTag());
 
         if ($task === null) {
             if (!$onTopLevel) {
-                throw new BuildException("Could not create task of type: '".$this->elementName."'. Make sure that this class has been declared using taskdef.");
+                throw new BuildException("Could not create task of type: '" . $this->elementName . "'. Make sure that this class has been declared using taskdef.");
             }
-            return null;            
+
+            return null;
         }
 
         // used to set the location within the xmlfile so that exceptions can
@@ -197,19 +232,24 @@ class UnknownElement extends Task {
             $this->project->addReference($attrs['id'], $task);
         }
 
-        // UnknownElement always has an associated target
-        $task->setOwningTarget($this->target);
+        if ($this->target !== null) {
+            $task->setOwningTarget($this->target);
+        }
 
         $task->init();
+
         return $task;
     }
 
     /**
      *  Get the name of the task to use in logging messages.
      *
-     *  @return  string  The task's name
+     * @return string The task's name
      */
-    function getTaskName() {
-        return $this->realThing === null ? parent::getTaskName() : $this->realThing->getTaskName();
+    public function getTaskName()
+    {
+        return $this->realThing === null || !$this->realThing instanceof Task
+            ? parent::getTaskName()
+            : $this->realThing->getTaskName();
     }
 }

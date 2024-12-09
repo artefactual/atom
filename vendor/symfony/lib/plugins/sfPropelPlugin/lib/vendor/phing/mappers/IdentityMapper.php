@@ -1,6 +1,6 @@
 <?php
-/* 
- *  $Id: IdentityMapper.php 123 2006-09-14 20:19:08Z mrook $
+/**
+ *  $Id: c534489effaaf9876a0ec7d087e5b37f8521c43c $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,39 +16,49 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * This mapper does nothing ;)
- * 
+ *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.7 $
+ * @version   $Id: c534489effaaf9876a0ec7d087e5b37f8521c43c $
  * @package   phing.mappers
  */
-class IdentityMapper implements FileNameMapper {
-
+class IdentityMapper implements FileNameMapper
+{
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
      * @param  string $sourceFileName The data the mapper works on.
-     * @return array The data after the mapper has been applied
+     * @return array  The data after the mapper has been applied
      */
-    function main($sourceFileName) {
+    public function main($sourceFileName)
+    {
         return array($sourceFileName);
     }
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
-    function setTo($to) {}
+    public function setTo($to)
+    {
+    }
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
      */
-    function setFrom($from) {}
-
+    public function setFrom($from)
+    {
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: EventObject.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 28ebd7c756b8f49284fa9a4b29301a125e7e4844 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +20,20 @@
  */
 
 /**
- *  @package phing.system.lang
+ * @package phing.system.lang
  */
-class EventObject {
+class EventObject
+{
 
     /** The object on which the Event initially occurred. */
     protected $source;
 
-    /** Constructs a prototypical Event. */
-    function __construct($source) {
+    /** Constructs a prototypical Event.
+     * @param $source
+     * @throws Exception
+     */
+    public function __construct($source)
+    {
         if ($source === null) {
             throw new Exception("Null source");
         }
@@ -36,17 +41,18 @@ class EventObject {
     }
 
     /** The object on which the Event initially occurred. */
-    function getSource() {
+    public function getSource()
+    {
         return $this->source;
     }
 
     /** Returns a String representation of this EventObject.*/
-    function toString() {
+    public function toString()
+    {
         if (method_exists($this->source, "toString")) {
-            return get_class($this)."[source=".$this->source->toString()."]";
+            return get_class($this) . "[source=" . $this->source->toString() . "]";
         } else {
-            return get_class($this)."[source=".get_class($this->source)."]";
+            return get_class($this) . "[source=" . get_class($this->source) . "]";
         }
     }
 }
-

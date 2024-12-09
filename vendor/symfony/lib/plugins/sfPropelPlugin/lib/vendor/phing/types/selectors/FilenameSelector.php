@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id: FilenameSelector.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,7 +17,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
@@ -28,9 +24,11 @@ include_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author Hans Lellelid, hans@xmpl.org (Phing)
  * @author Bruce Atherton, bruce@callenish.com (Ant)
+ *
  * @package phing.types.selectors
  */
-class FilenameSelector extends BaseExtendSelector {
+class FilenameSelector extends BaseExtendSelector
+{
 
     private $pattern = null;
     private $casesensitive = true;
@@ -39,7 +37,11 @@ class FilenameSelector extends BaseExtendSelector {
     const CASE_KEY = "casesensitive";
     const NEGATE_KEY = "negate";
 
-    public function toString() {
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "{filenameselector name: ";
         $buf .= $this->pattern;
         $buf .= " negate: ";
@@ -55,6 +57,7 @@ class FilenameSelector extends BaseExtendSelector {
             $buf .= "false";
         }
         $buf .= "}";
+
         return $buf;
     }
 
@@ -62,13 +65,16 @@ class FilenameSelector extends BaseExtendSelector {
      * The name of the file, or the pattern for the name, that
      * should be used for selection.
      *
-     * @param pattern the file pattern that any filename must match
-     *                against in order to be selected.
+     * @param string $pattern the file pattern that any filename must match
+     *                        against in order to be selected.
+     *
+     * @return void
      */
-    public function setName($pattern) {
+    public function setName($pattern)
+    {
         $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
         $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                
+
         if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
             $pattern .= "**";
         }
@@ -78,9 +84,12 @@ class FilenameSelector extends BaseExtendSelector {
     /**
      * Whether to ignore case when checking filenames.
      *
-     * @param casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
+     *
+     * @return void
      */
-    public function setCasesensitive($casesensitive) {
+    public function setCasesensitive($casesensitive)
+    {
         $this->casesensitive = $casesensitive;
     }
 
@@ -90,9 +99,12 @@ class FilenameSelector extends BaseExtendSelector {
      * negate to true. This is identical to surrounding the selector
      * with &lt;not&gt;&lt;/not&gt;.
      *
-     * @param negated whether to negate this selection
+     * @param bool $negated whether to negate this selection
+     *
+     * @return void
      */
-    public function setNegate($negated) {
+    public function setNegate($negated)
+    {
         $this->negated = $negated;
     }
 
@@ -101,13 +113,16 @@ class FilenameSelector extends BaseExtendSelector {
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     *
+     * @return void
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         parent::setParameters($parameters);
         if ($parameters !== null) {
-            for ($i=0, $len=count($parameters); $i < $len; $i++) {
+            for ($i = 0, $len = count($parameters); $i < $len; $i++) {
                 $paramname = $parameters[$i]->getName();
-                switch(strtolower($paramname)) {
+                switch (strtolower($paramname)) {
                     case self::NAME_KEY:
                         $this->setName($parameters[$i]->getValue());
                         break;
@@ -128,8 +143,12 @@ class FilenameSelector extends BaseExtendSelector {
      * Checks to make sure all settings are kosher. In this case, it
      * means that the name attribute has been set.
      *
+     * {@inheritdoc}
+     *
+     * @return void
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->pattern === null) {
             $this->setError("The name attribute is required");
         }
@@ -142,16 +161,19 @@ class FilenameSelector extends BaseExtendSelector {
      * that provides the same services for both FilenameSelector and
      * DirectoryScanner.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     * {@inheritdoc}
+     *
+     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param string $filename is the name of the file to check
+     * @param PhingFile $file is a PhingFile object the selector can use
+     *
+     * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
         $this->validate();
-        return (SelectorUtils::matchPath($this->pattern, $filename, $this->casesensitive) 
+
+        return (SelectorUtils::matchPath($this->pattern, $filename, $this->casesensitive)
             === !($this->negated));
     }
-
 }
-

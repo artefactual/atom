@@ -1,6 +1,6 @@
 <?php
-/* 
- *  $Id: FlattenMapper.php 123 2006-09-14 20:19:08Z mrook $
+/**
+ *  $Id: 8181ebf4f40374d9a706a4961a0e17f902fea000 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/mappers/FileNameMapper.php';
@@ -25,31 +25,42 @@ require_once 'phing/mappers/FileNameMapper.php';
  * Removes any directory information from the passed path.
  *
  * @author   Andreas Aderhold <andi@binarycloud.com>
- * @version  $Revision: 1.9 $
+ * @version  $Id: 8181ebf4f40374d9a706a4961a0e17f902fea000 $
  * @package  phing.mappers
  */
-class FlattenMapper implements FileNameMapper {
-
+class FlattenMapper implements FileNameMapper
+{
     /**
      * The mapper implementation. Returns string with source filename
      * but without leading directory information
      *
-     * @param string $sourceFileName The data the mapper works on
-     * @return array The data after the mapper has been applied
+     * @param  string $sourceFileName The data the mapper works on
+     * @return array  The data after the mapper has been applied
      */
-    function main($sourceFileName) {
+    public function main($sourceFileName)
+    {
         $f = new PhingFile($sourceFileName);
+
         return array($f->getName());
     }
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
-    function setTo($to) {}
+    public function setTo($to)
+    {
+    }
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
      */
-    function setFrom($from) {}
-
+    public function setFrom($from)
+    {
+    }
 }

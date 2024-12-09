@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: FileNotFoundException.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 203d7f55e3f1c0a9fc19a0603648ef688cfa68ae $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +20,8 @@
  */
 
 /**
- *  @package   phing.system.lang
+ * @package   phing.system.lang
  */
-class FileNotFoundException extends Exception {}
-
+class FileNotFoundException extends Exception
+{
+}

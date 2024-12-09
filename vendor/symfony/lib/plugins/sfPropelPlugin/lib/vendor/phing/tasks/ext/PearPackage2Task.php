@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: PearPackage2Task.php 210 2007-08-01 22:48:36Z hans $
+ *  $Id: 2d0f1f7fa10c416782647339da7fc5d26780d911 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -74,6 +74,7 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  *    <element key="name" value="Hans"/>
  *    <element key="email" value="hans@xmpl.org"/>
  *    <element key="role" value="lead"/>
+ *    <element key="active" value="yes"/>
  *   </element>
  *  </mapping>
  * </pearpkg2>
@@ -85,11 +86,13 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  * @author   Stuart Binge <stuart.binge@complinet.com>
  * @author   Hans Lellelid <hans@xmpl.org>
  * @package  phing.tasks.ext
- * @version  $Revision: 1.9 $
+ * @version  $Id: 2d0f1f7fa10c416782647339da7fc5d26780d911 $
  */
-class PearPackage2Task extends PearPackageTask {
+class PearPackage2Task extends PearPackageTask
+{
 
-    public function init() {
+    public function init()
+    {
         include_once 'PEAR/PackageFileManager2.php';
         if (!class_exists('PEAR_PackageFileManager2')) {
             throw new BuildException("You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml version 2.0 file.");
@@ -100,7 +103,7 @@ class PearPackage2Task extends PearPackageTask {
     {
         $this->pkg->setPackage($this->package);
         $this->pkg->setDate(strftime('%Y-%m-%d'));
-        $this->pkg->setTime(strftime('%H:%M:%S')); 
+        $this->pkg->setTime(strftime('%H:%M:%S'));
 
         $newopts = array();
         foreach ($this->options as $opt) {
@@ -172,18 +175,25 @@ class PearPackage2Task extends PearPackageTask {
                     foreach ($deps as $dep) {
                         $type = isset($dep['optional']) ? 'optional' : 'required';
                         $min = isset($dep['min']) ? $dep['min'] : $dep['version'];
-                        $max = isset($dep['max']) ? $dep['max'] : $dep['version'];
-                        $rec = isset($dep['recommended']) ? $dep['recommended'] : $dep['version'];
+                        $max = isset($dep['max']) ? $dep['max'] : null;
+                        $rec = isset($dep['recommended']) ? $dep['recommended'] : null;
                         $channel = isset($dep['channel']) ? $dep['channel'] : false;
                         $uri = isset($dep['uri']) ? $dep['uri'] : false;
 
                         if (!empty($channel)) {
                             $this->pkg->addPackageDepWithChannel(
-                                $type, $dep['name'], $channel, $min, $max, $rec
+                                $type,
+                                $dep['name'],
+                                $channel,
+                                $min,
+                                $max,
+                                $rec
                             );
                         } elseif (!empty($uri)) {
                             $this->pkg->addPackageDepWithUri(
-                                $type, $dep['name'], $uri
+                                $type,
+                                $dep['name'],
+                                $uri
                             );
                         }
                     };
@@ -198,7 +208,11 @@ class PearPackage2Task extends PearPackageTask {
                         $rec = isset($dep['recommended']) ? $dep['recommended'] : $dep['version'];
 
                         $this->pkg->addExtensionDep(
-                            $type, $dep['name'], $min, $max, $rec
+                            $type,
+                            $dep['name'],
+                            $min,
+                            $max,
+                            $rec
                         );
                     };
                     break;
@@ -209,6 +223,8 @@ class PearPackage2Task extends PearPackageTask {
                     foreach ($maintainers as $maintainer) {
                         if (!isset($maintainer['active'])) {
                             $maintainer['active'] = 'yes';
+                        } else {
+                            $maintainer['active'] = $maintainer['active'] === false ? 'no' : 'yes';
                         }
                         $this->pkg->addMaintainer(
                             $maintainer['role'],
@@ -223,15 +239,21 @@ class PearPackage2Task extends PearPackageTask {
                 case 'replacements':
                     $replacements = $map->getValue();
 
-                    foreach($replacements as $replacement) { 
+                    foreach ($replacements as $replacement) {
                         $this->pkg->addReplacement(
-                            $replacement['path'], 
-							$replacement['type'], 
-							$replacement['from'], 
-							$replacement['to']
-						);
-					}
-				    break;
+                            $replacement['path'],
+                            $replacement['type'],
+                            $replacement['from'],
+                            $replacement['to']
+                        );
+                    }
+                    break;
+
+                case 'role':
+                    foreach ($map->getValue() as $role) {
+                        $this->pkg->addRole($role['extension'], $role['role']);
+                    }
+                    break;
 
                 default:
                     $newmaps[] = $map;
@@ -242,6 +264,7 @@ class PearPackage2Task extends PearPackageTask {
 
     /**
      * Main entry point.
+     * @throws BuildException
      * @return void
      */
     public function main()
@@ -262,7 +285,7 @@ class PearPackage2Task extends PearPackageTask {
         $this->pkg->addRelease();
         $this->pkg->generateContents();
         $e = $this->pkg->writePackageFile();
-        if (PEAR::isError($e)) {
+        if (@PEAR::isError($e)) {
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
     }

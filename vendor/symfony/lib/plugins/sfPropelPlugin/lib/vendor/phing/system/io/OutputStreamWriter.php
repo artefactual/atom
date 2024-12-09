@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id: FileWriter.php 123 2006-09-14 20:19:08Z mrook $  
- * 
+ *  $Id: 0c7982f0908210ce92301f7f79ed35f8ad7cdbe2 $
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,67 +18,74 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 
 /**
  * Writer class for OutputStream objects.
- * 
+ *
  * Unlike the Java counterpart, this class does not (yet) handle
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
  *
  * @package   phing.system.io
  */
-class OutputStreamWriter extends Writer {
+class OutputStreamWriter extends Writer
+{
 
-	/**
-	 * @var OutputStream
-	 */
+    /**
+     * @var OutputStream
+     */
     protected $outStream;
-    
+
     /**
      * Construct a new OutputStreamWriter.
      * @param OutputStream $outStream OutputStream to write to
      */
-    public function __construct(OutputStream $outStream) {
+    public function __construct(OutputStream $outStream)
+    {
         $this->outStream = $outStream;
     }
-	
+
     /**
      * Close the stream.
+     * @return void
      */
-    public function close() {
-    	return $this->outStream->close();
+    public function close()
+    {
+        $this->outStream->close();
     }
-	
+
     /**
      * Write char data to stream.
      *
-     * @param unknown_type $buf
-     * @param unknown_type $off
-     * @param unknown_type $len
-     * @return unknown
+     * @param  string $buf
+     * @param  int $off
+     * @param  int $len
+     *
+     * @return void
      */
-    public function write($buf, $off = null, $len = null) {
-    	return $this->outStream->write($buf, $off, $len);
+    public function write($buf, $off = null, $len = null)
+    {
+        return $this->outStream->write($buf, $off, $len);
     }
-    
+
     /**
      * Flush output to the stream.
      */
-	public function flush() {
-    	$this->outStream->flush();
+    public function flush()
+    {
+        $this->outStream->flush();
     }
-    
+
     /**
      * Gets a string representation of attached stream resource.
      *
      * @return string String representation of output stream
      */
-    public function getResource() {
-    	return $this->outStream->__toString();
+    public function getResource()
+    {
+        return $this->outStream->__toString();
     }
 }
-

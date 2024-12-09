@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: ContainsCondition.php 410 2008-10-21 13:10:52Z hans $
+ *  $Id: d3373cdf3bbaa92ac40c577198e5a01c6c114796 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
@@ -27,10 +27,11 @@ require_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Revision: 1.3 $
+ * @version $Id: d3373cdf3bbaa92ac40c577198e5a01c6c114796 $
  * @package phing.tasks.system.condition
  */
-class ContainsCondition implements Condition {
+class ContainsCondition implements Condition
+{
 
     private $string;
     private $subString;
@@ -40,7 +41,8 @@ class ContainsCondition implements Condition {
      * The string to search in.
      * @param string $a1
      */
-    public function setString($a1) {
+    public function setString($a1)
+    {
         $this->string = $a1;
     }
 
@@ -48,28 +50,32 @@ class ContainsCondition implements Condition {
      * The string to search for.
      * @param string $a2
      */
-    public function setSubstring($a2) {
+    public function setSubstring($a2)
+    {
         $this->subString = $a2;
     }
 
     /**
      * Whether to search ignoring case or not.
+     * @param $b
      */
-    public function setCaseSensitive($b) {
+    public function setCaseSensitive($b)
+    {
         $this->caseSensitive = (boolean) $b;
     }
 
-    /** 
+    /**
      * Check whether string contains substring.
      * @throws BuildException
      */
-    public function evaluate()  {
+    public function evaluate()
+    {
         if ($this->string === null || $this->subString === null) {
             throw new BuildException("both string and substring are required "
-                                     . "in contains");
+                . "in contains");
         }
 
-        return $this->caseSensitive 
+        return $this->caseSensitive
             ? strpos($this->string, $this->subString) !== false
             : strpos(strtolower($this->string), strtolower($this->subString)) !== false;
     }

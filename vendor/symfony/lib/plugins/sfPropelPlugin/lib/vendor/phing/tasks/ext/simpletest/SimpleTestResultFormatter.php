@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: SimpleTestResultFormatter.php 325 2007-12-20 15:44:58Z hans $
+ * $Id: 019c9ca9df741e3a91efdb19aa9988db486e725b $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,143 +19,177 @@
  * <http://phing.info>.
  */
 
-require_once 'simpletest/scorer.php';
+@include_once 'simpletest/scorer.php';
 
 require_once 'phing/system/io/Writer.php';
 
 /**
  * This abstract class describes classes that format the results of a SimpleTest testrun.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: SimpleTestResultFormatter.php 325 2007-12-20 15:44:58Z hans $
- * @package phing.tasks.ext.phpunit2
+ * @author Michiel Rook <mrook@php.net>
+ * @version $Id: 019c9ca9df741e3a91efdb19aa9988db486e725b $
+ * @package phing.tasks.ext.simpletest
  * @since 2.2.0
  */
 abstract class SimpleTestResultFormatter extends SimpleReporter
 {
-	protected $out = NULL;
-	
-	protected $project = NULL;
-	
-	private $timer = NULL;
+    protected $out = null;
 
-	private $runCount = 0;
-	
-	private $failureCount = 0;
-	
-	private $errorCount = 0;	
+    protected $project = null;
 
-	private $currentTest = "";
-	
-	/**
-	 * Sets the writer the formatter is supposed to write its results to.
-   	 */
-	function setOutput(Writer $out)
-	{
-		$this->out = $out;	
-	}
+    private $timer = null;
 
-	/**
-	 * Returns the extension used for this formatter
-	 *
-	 * @return string the extension
-	 */
-	function getExtension()
-	{
-		return "";
-	}
+    private $runCount = 0;
 
-	/**
-	 * Sets the project
-	 *
-	 * @param Project the project
-	 */
-	function setProject(Project $project)
-	{
-		$this->project = $project;
-	}
-	
-	function getPreferredOutfile()
-	{
-		return "";
-	}
-	
-	function paintMethodStart($test_name)
-	{
-		parent::paintMethodStart($test_name);
-		
-		$this->currentTest = $test_name;
-	}
-	
-	function paintMethodEnd($test_name)
-	{
-		parent::paintMethodEnd($test_name);
-		
-		$this->runCount++;
-	}
-	
-	function paintCaseStart($test_name)
-	{
-		parent::paintCaseStart($test_name);
-		
-		$this->runCount = 0;
-		$this->failureCount = 0;
-		$this->errorCount = 0;
-		
-		$this->timer = new Timer();
-		$this->timer->start();
-	}
-		
-	function paintCaseEnd($test_name)
-	{
-		parent::paintCaseEnd($test_name);
-		
-		$this->timer->stop();
-	}
+    private $failureCount = 0;
 
-	function paintError($message)
-	{
-		parent::paintError($message);
-		
-		$this->errorCount++;
-	}
+    private $errorCount = 0;
 
-	function paintFail($message)
-	{
-		parent::paintFail($message);
-		
-		$this->failureCount++;
-	}
+    private $currentTest = "";
 
-	function getRunCount()
-	{
-		return $this->runCount;
-	}
-	
-	function getFailureCount()
-	{
-		return $this->failureCount;
-	}
-	
-	function getErrorCount()
-	{
-		return $this->errorCount;
-	}
-	
-	function getTestName()
-	{
-		return $this->currentTest;
-	}
-	
-	function getElapsedTime()
-	{
-		if ($this->timer)
-		{
-			return $this->timer->getElapsedTime();
-		}
-		else
-		{
-			return 0;
-		}
-	}
+    /**
+     * Sets the writer the formatter is supposed to write its results to.
+     * @param Writer $out
+     */
+    public function setOutput(Writer $out)
+    {
+        $this->out = $out;
+    }
+
+    /**
+     * Returns the extension used for this formatter
+     *
+     * @return string the extension
+     */
+    public function getExtension()
+    {
+        return "";
+    }
+
+    /**
+     * Sets the project
+     *
+     * @param Project the project
+     */
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreferredOutfile()
+    {
+        return "";
+    }
+
+    /**
+     * @param string $test_name
+     */
+    public function paintMethodStart($test_name)
+    {
+        parent::paintMethodStart($test_name);
+
+        $this->currentTest = $test_name;
+    }
+
+    /**
+     * @param string $test_name
+     */
+    public function paintMethodEnd($test_name)
+    {
+        parent::paintMethodEnd($test_name);
+
+        $this->runCount++;
+    }
+
+    /**
+     * @param string $test_name
+     */
+    public function paintCaseStart($test_name)
+    {
+        parent::paintCaseStart($test_name);
+
+        $this->runCount = 0;
+        $this->failureCount = 0;
+        $this->errorCount = 0;
+
+        $this->timer = new Timer();
+        $this->timer->start();
+    }
+
+    /**
+     * @param string $test_name
+     */
+    public function paintCaseEnd($test_name)
+    {
+        parent::paintCaseEnd($test_name);
+
+        $this->timer->stop();
+    }
+
+    /**
+     * @param string $message
+     */
+    public function paintError($message)
+    {
+        parent::paintError($message);
+
+        $this->errorCount++;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function paintFail($message)
+    {
+        parent::paintFail($message);
+
+        $this->failureCount++;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRunCount()
+    {
+        return $this->runCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFailureCount()
+    {
+        return $this->failureCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getErrorCount()
+    {
+        return $this->errorCount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTestName()
+    {
+        return $this->currentTest;
+    }
+
+    /**
+     * @return int
+     */
+    public function getElapsedTime()
+    {
+        if ($this->timer) {
+            return $this->timer->getElapsedTime();
+        } else {
+            return 0;
+        }
+    }
 }

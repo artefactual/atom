@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: NotSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 11f5ebfbb271f1fc34e3f6e2795510f22306099e $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,15 +32,21 @@ require_once 'phing/types/selectors/NoneSelector.php';
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-class NotSelector extends NoneSelector {
+class NotSelector extends NoneSelector
+{
 
-    public function toString() {
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{notselect: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
@@ -48,12 +54,14 @@ class NotSelector extends NoneSelector {
      * Makes sure that there is only one entry, sets an error message if
      * not.
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->selectorCount() != 1) {
-            $this->setError("One and only one selector is allowed within the " .
-                    "<not> tag");
+            $this->setError(
+                "One and only one selector is allowed within the " .
+                "<not> tag"
+            );
         }
     }
 
 }
-

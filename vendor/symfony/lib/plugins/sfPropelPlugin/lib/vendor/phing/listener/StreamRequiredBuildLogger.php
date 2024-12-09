@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: BuildLogger.php 147 2007-02-06 20:32:22Z hans $
+ *  $Id: e02403f7640929e2b0650bcaf270709fe6281b3c $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,17 +23,18 @@ require_once 'phing/BuildLogger.php';
 
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
- * 
+ *
  * This is just an empty sub-interface to BuildLogger, but is used by Phing to throw
- * graceful errors when classes like phing.listener.DefaultLogger are being used as 
+ * graceful errors when classes like phing.listener.DefaultLogger are being used as
  * -listener.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Id: e02403f7640929e2b0650bcaf270709fe6281b3c $
  * @see       BuildEvent
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface StreamRequiredBuildLogger extends BuildLogger {
+interface StreamRequiredBuildLogger extends BuildLogger
+{
 
 }

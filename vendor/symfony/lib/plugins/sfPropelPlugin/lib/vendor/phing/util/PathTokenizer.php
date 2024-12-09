@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id: PathTokenizer.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,153 +14,93 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
-
-
 
 include_once 'phing/util/StringHelper.php';
 
-
-
 /**
-
  * A Path tokenizer takes a path and returns the components that make up
-
  * that path.
-
  *
-
  * The path can use path separators of either ':' or ';' and file separators
-
  * of either '/' or '\'.
-
  *
-
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
-
  * @author Conor MacNeill (Ant)
-
  * @author Jeff Tulley <jtulley@novell.com>  (Ant)
-
- * @pacakge phing.util
-
- */ 
-
-class PathTokenizer {
-
-    
-
+ *
+ * @package phing.util
+ */
+class PathTokenizer
+{
     /**
-
      * A array of tokens, created by preg_split().
-
      */
-
     private $tokens = array();
 
-    
-
     /**
-
      * A string which stores any path components which have been read ahead
-
      * due to DOS filesystem compensation.
-
      * @var string
-
      */
-
     private $lookahead;
 
-    
-
     /**
-
      * Flag to indicate whether or not we are running on a platform with a
-
      * DOS style filesystem
-
      * @var boolean
-
      */
-
     private $dosStyleFilesystem;
 
 
-
     /**
-
      * Constructs a path tokenizer for the specified path.
-
-     * 
-
-     * @param path The path to tokenize. Must not be <code>null</code>.
-
+     *
+     * @param string $path The path to tokenize. Must not be <code>null</code>.
      */
-
-    public function __construct($path) {
+    public function __construct($path)
+    {
 
         // on Windows and Unix, we can ignore delimiters and still have
 
-        // enough information to tokenize correctly.    
+        // enough information to tokenize correctly.
 
         $this->tokens = preg_split("/[;:]/", $path, -1, PREG_SPLIT_NO_EMPTY);
 
-        $this->dosStyleFilesystem = ( PATH_SEPARATOR == ';');
+        $this->dosStyleFilesystem = (PATH_SEPARATOR == ';');
 
     }
 
 
-
     /**
-
      * Tests if there are more path elements available from this tokenizer's
-
-     * path. If this method returns <code>true</code>, then a subsequent call 
-
+     * path. If this method returns <code>true</code>, then a subsequent call
      * to nextToken will successfully return a token.
-
-     * 
-
-     * @return <code>true</code> if and only if there is at least one token 
-
-     * in the string after the current position; <code>false</code> otherwise.
-
+     *
+     * @return bool <code>true</code> if and only if there is at least one token
+     *                                in the string after the current position; <code>false</code> otherwise.
      */
-
-    public function hasMoreTokens() {
+    public function hasMoreTokens()
+    {
 
         if ($this->lookahead !== null) {
-
             return true;
 
-        }        
+        }
 
         return !empty($this->tokens);
-
     }
 
-    
-
     /**
-
      * Returns the next path element from this tokenizer.
-
-     * 
-
-     * @return the next path element from this tokenizer.
-
-     * 
-
+     *
+     * @return string the next path element from this tokenizer.
+     *
      * @throws Exception if there are no more elements in this tokenizer's path.
-
      */
-
-    public function nextToken() {
-
-            
-
+    public function nextToken()
+    {
         if ($this->lookahead !== null) {
 
             $token = $this->lookahead;
@@ -175,15 +113,13 @@ class PathTokenizer {
 
         }
 
-            
-
-
 
         if (strlen($token) === 1 && Character::isLetter($token[0])
 
-                                && $this->dosStyleFilesystem
+            && $this->dosStyleFilesystem
 
-                                && !empty($this->tokens)) {
+            && !empty($this->tokens)
+        ) {
 
             // we are on a dos style system so this path could be a drive
 
@@ -195,7 +131,7 @@ class PathTokenizer {
 
                 // we know we are on a DOS style platform and the next path
 
-                // starts with a slash or backslash, so we know this is a 
+                // starts with a slash or backslash, so we know this is a
 
                 // drive spec
 
@@ -211,35 +147,19 @@ class PathTokenizer {
 
         }
 
-        
-
         return $token;
-
     }
-
-
 
     /**
-
      * Non StringTokenizer function, that indicates whether the specified path is contained in loaded tokens.
-
      * We can do this easily because in PHP implimentation we're using arrays.
-
-     * @param string $path path to search for.
-
+     *
+     * @param  string  $path path to search for.
+     *
      * @return boolean
-
      */
-
-    public function contains($path) {
-
-        return in_array($path, $this->tokens, true);        
-
+    public function contains($path)
+    {
+        return in_array($path, $this->tokens, true);
     }
-
-    
-
 }
-
-
-

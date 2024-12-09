@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: FileSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 2d5d97b30ed0615591f57a2ff2b3346b09f902f5 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,8 @@
  * @author Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
-interface FileSelector {
+interface FileSelector
+{
 
     /**
      * Method that each selector will implement to create their
@@ -35,13 +36,12 @@ interface FileSelector {
      * of a selector, it can throw a BuildException to indicate
      * the problem.
      *
-     * @param basedir A PhingFile object for the base directory
-     * @param filename The name of the file to check
-     * @param file A PhingFile object for this filename
-     * @return whether the file should be selected or not
+     * @param PhingFile $basedir A PhingFile object for the base directory
+     * @param string $filename The name of the file to check
+     * @param PhingFile $file A PhingFile object for this filename
+     * @return whether        the file should be selected or not
      * @throws BuildException if the selector was not configured correctly
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file);
 
 }
-

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: DbDeployTask.php 59 2006-04-28 14:49:47Z lcrouch $
+ *  $Id: e8f266768b58a63d2f0a4a40e1c4c220b81901ec $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,17 +18,22 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
-/**
- *  Utility class for generating necessary server-specific SQL commands
- *
- *  @author   Luke Crouch at SourceForge (http://sourceforge.net)
- *  @version  $Revision: 1.1 $
- *  @package  phing.tasks.ext.dbdeploy
- */
 
+/**
+ * Utility class for generating necessary server-specific SQL commands
+ *
+ * @author   Luke Crouch at SourceForge (http://sourceforge.net)
+ * @version  $Id: e8f266768b58a63d2f0a4a40e1c4c220b81901ec $
+ * @package  phing.tasks.ext.dbdeploy
+ */
 abstract class DbmsSyntax
 {
-	public abstract function generateTimestamp();
-}
+    /**
+     * @param $db
+     */
+    public function applyAttributes($db)
+    {
+    }
 
+    abstract public function generateTimestamp();
+}

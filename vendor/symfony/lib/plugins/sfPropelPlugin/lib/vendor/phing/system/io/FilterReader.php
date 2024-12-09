@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: FilterReader.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 8c0c1c8e5668e3d3c53912a61ee5003eff6e536c $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/system/io/Reader.php';
@@ -25,44 +25,65 @@ require_once 'phing/system/io/Reader.php';
  * Wrapper class for readers, which can be used to apply filters.
  * @package phing.system.io
  */
-class FilterReader extends Reader {
-    
-	/** 
-	 * @var Reader
-	 */
+class FilterReader extends Reader
+{
+
+    /**
+     * @var Reader
+     */
     protected $in;
-    
-    function __construct(Reader $in = null) {
+
+    /**
+     * @param Reader $in
+     */
+    public function __construct(Reader $in = null)
+    {
         $this->in = $in;
     }
-    
-    public function setReader(Reader $in) {
+
+    /**
+     * @param Reader $in
+     */
+    public function setReader(Reader $in)
+    {
         $this->in = $in;
     }
-    
-    public function skip($n) {
+
+    /**
+     * @param int $n
+     */
+    public function skip($n)
+    {
         return $this->in->skip($n);
     }
-    
+
     /**
      * Read data from source.
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
+     * @param null $len
+     * @return
      */
-    public function read($len = null) {
+    public function read($len = null)
+    {
         return $this->in->read($len);
     }
 
-    public function reset() {
+    public function reset()
+    {
         return $this->in->reset();
     }
-    
-    public function close() {
+
+    public function close()
+    {
         return $this->in->close();
     }
-    
-    function getResource() {
+
+    /**
+     * @return string
+     */
+    public function getResource()
+    {
         return $this->in->getResource();
     }
 }
-

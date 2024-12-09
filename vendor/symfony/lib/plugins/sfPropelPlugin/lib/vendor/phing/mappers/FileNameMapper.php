@@ -1,6 +1,6 @@
 <?php
-/* 
- *  $Id: FileNameMapper.php 123 2006-09-14 20:19:08Z mrook $
+/*
+ *  $Id: a5a4cdae56af93ef6e8f999d3d29868ec5e049fe $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -24,16 +24,17 @@
  *
  * @author Andreas Aderhold, andi@binarycloud.com
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision: 1.7 $
+ * @version $Id: a5a4cdae56af93ef6e8f999d3d29868ec5e049fe $
  * @package phing.mappers
  */
-interface FileNameMapper {
+interface FileNameMapper
+{
 
     /**
      * The mapper implementation.
      *
-     * @param mixed $sourceFileName The data the mapper works on.
-     * @return  array The data after the mapper has been applied; must be in array format (for some reason).
+     * @param  mixed $sourceFileName The data the mapper works on.
+     * @return array The data after the mapper has been applied; must be in array format (for some reason).
      */
     public function main($sourceFileName);
 
@@ -41,7 +42,7 @@ interface FileNameMapper {
      * Accessor. Sets the to property. The actual implementation
      * depends on the child class.
      *
-     * @param string $to To what this mapper should convert the from string
+     * @param  string $to To what this mapper should convert the from string
      * @return void
      */
     public function setTo($to);
@@ -51,7 +52,7 @@ interface FileNameMapper {
      * recognize. The actual implementation is dependent upon the
      * child class
      *
-     * @param string $from On what this mapper should work
+     * @param  string $from On what this mapper should work
      * @return void
      */
     public function setFrom($from);

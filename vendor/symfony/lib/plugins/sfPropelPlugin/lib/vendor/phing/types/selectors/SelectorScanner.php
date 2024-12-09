@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: SelectorScanner.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: cdf80453207d82ddc2bb959a2a63939fdfb98f6d $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * An interface used to describe the actions required by any type of
  * directory scanner that supports Selecters.
@@ -29,12 +28,13 @@
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-interface SelectorScanner {
+interface SelectorScanner
+{
 
     /**
      * Sets the selectors the scanner should use.
      *
-     * @param selectors the list of selectors
+     * @param $selectors the list of selectors
      */
     public function setSelectors($selectors);
 

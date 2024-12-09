@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id: FileWriter.php 123 2006-09-14 20:19:08Z mrook $  
- * 
+ *  $Id: 4c7e9ad51a553d391c01cd7df08f4638279b620d $
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,25 +24,28 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Output stream subclass for file streams.
- * 
+ *
  * @package   phing.system.io
  */
-class FileOutputStream extends OutputStream {
-	
-	/**
-	 * @var PhingFile The associated file.
-	 */
-	protected $file;
-	
+class FileOutputStream extends OutputStream
+{
+
+    /**
+     * @var PhingFile The associated file.
+     */
+    protected $file;
+
     /**
      * Construct a new FileOutputStream.
-     * @param mixed $file
-     * @param boolean $append Whether to append bytes to end of file rather than beginning.
-     * @throws Exception - if invalid argument specified.
+     * @param  mixed       $file
+     * @param  boolean     $append Whether to append bytes to end of file rather than beginning.
+     * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */
-    public function __construct($file, $append = false) {
-    	if ($file instanceof PhingFile) {
+    public function __construct($file, $append = false)
+    {
+        global $php_errormsg;
+        if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
@@ -50,22 +53,22 @@ class FileOutputStream extends OutputStream {
             throw new Exception("Invalid argument type for \$file.");
         }
         if ($append) {
-        	$stream = @fopen($this->file->getAbsolutePath(), "ab");
+            $stream = @fopen($this->file->getAbsolutePath(), "ab");
         } else {
-        	$stream = @fopen($this->file->getAbsolutePath(), "wb");
+            $stream = @fopen($this->file->getAbsolutePath(), "wb");
         }
         if ($stream === false) {
-        	throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
         }
         parent::__construct($stream);
     }
-    
+
     /**
      * Returns a string representation of the attached file.
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->file->getPath();
     }
 }
-

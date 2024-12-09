@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: CreoleTask.php 59 2006-04-28 14:49:47Z mrook $
+ *  $Id: ff221a5d49c565473f836701865b39a315acddb9 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,10 +31,11 @@ include_once 'phing/types/Reference.php';
  * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @version   $Revision: 1.13 $
+ * @version   $Id: ff221a5d49c565473f836701865b39a315acddb9 $
  * @package   phing.tasks.system
  */
-abstract class PDOTask extends Task {
+abstract class PDOTask extends Task
+{
 
     private $caching = true;
 
@@ -42,7 +43,7 @@ abstract class PDOTask extends Task {
      * Autocommit flag. Default value is false
      */
     private $autocommit = false;
-    
+
     /**
      * DB url.
      */
@@ -62,14 +63,15 @@ abstract class PDOTask extends Task {
      * RDBMS Product needed for this SQL.
      **/
     private $rdbms;
-   
-      /**
-     * Initialize CreoleTask.
-     * This method includes any necessary Creole libraries and triggers
+
+    /**
+     * Initialize the PDOTask
+     * This method checks if the PDO classes are available and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
-    function init() {
+    public function init()
+    {
         if (!class_exists('PDO')) {
             throw new Exception("PDOTask depends on PDO feature being included in PHP.");
         }
@@ -81,96 +83,114 @@ abstract class PDOTask extends Task {
      * multiple times in a row; default: true
      * @param $enable
      */
-    public function setCaching($enable) {
+    public function setCaching($enable)
+    {
         $this->caching = $enable;
     }
 
     /**
      * Sets the database connection URL; required.
-     * @param url The url to set
+     * @param The $url
+     * @internal param The $url url to set
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
     }
-        
+
     /**
      * Sets the password; required.
-     * @param password The password to set
+     * @param The $password
+     * @internal param The $password password to set
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
     /**
      * Auto commit flag for database connection;
      * optional, default false.
-     * @param autocommit The autocommit to set
+     * @param The $autocommit
+     * @internal param The $autocommit autocommit to set
      */
-    public function setAutocommit($autocommit) {
+    public function setAutocommit($autocommit)
+    {
         $this->autocommit = $autocommit;
     }
 
     /**
-     * Sets the version string, execute task only if 
+     * Sets the version string, execute task only if
      * rdbms version match; optional.
-     * @param version The version to set
+     * @param The $version
+     * @internal param The $version version to set
      */
-    public function setVersion($version) {
+    public function setVersion($version)
+    {
         $this->version = $version;
     }
-       
-    protected function getLoaderMap() {
+
+    /**
+     * @return mixed
+     */
+    protected function getLoaderMap()
+    {
         return self::$loaderMap;
     }
-
 
     /**
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
-     * @return Connection the newly created connection.
+     * @return Connection     the newly created connection.
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
-    protected function getConnection() {
-            
+    protected function getConnection()
+    {
+
         if ($this->url === null) {
             throw new BuildException("Url attribute must be set!", $this->location);
         }
-                
+
         try {
 
             $this->log("Connecting to " . $this->getUrl(), Project::MSG_VERBOSE);
-            
+
             $user = null;
             $pass = null;
-				
+
             if ($this->userId) {
-            	$user = $this->getUserId();
+                $user = $this->getUserId();
             }
-            
+
             if ($this->password) {
                 $pass = $this->getPassword();
-            }            
-            
+            }
+
             $conn = new PDO($this->getUrl(), $user, $pass);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            if ($this->autocommit) {
-            	try {
-					$conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
-				} catch (PDOException $pe) {
-					$this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), Project::MSG_WARN);
-				}
-			}
-            
+
+            try {
+                $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
+            } catch (PDOException $pe) {
+                $this->log(
+                    "Unable to enable auto-commit for this database: " . $pe->getMessage(),
+                    Project::MSG_VERBOSE
+                );
+            }
+
             return $conn;
-            
-        } catch (SQLException $e) {
+
+        } catch (PDOException $e) {
             throw new BuildException($e->getMessage(), $this->location);
         }
 
     }
 
-    public function isCaching($value) {
+    /**
+     * @param $value
+     */
+    public function isCaching($value)
+    {
         $this->caching = $value;
     }
 
@@ -178,40 +198,44 @@ abstract class PDOTask extends Task {
      * Gets the autocommit.
      * @return Returns a boolean
      */
-    public function isAutocommit() {
+    public function isAutocommit()
+    {
         return $this->autocommit;
     }
 
     /**
      * Gets the url.
-     * @return Returns a String
+     * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
     /**
      * Gets the userId.
-     * @return Returns a String
+     * @return string
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
     /**
      * Set the user name for the connection; required.
-     * @param userId The userId to set
+     * @param string $userId
      */
-    public function setUserid($userId) {
+    public function setUserid($userId)
+    {
         $this->userId = $userId;
     }
 
     /**
      * Gets the password.
-     * @return Returns a String
+     * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
-
 }

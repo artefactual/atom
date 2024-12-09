@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: StringReader.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: a5eae277c8aacb2581042018690ebf58ff5e4a02 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,69 +16,100 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
- * Dummy class for reading from string of characters. 
+ * Dummy class for reading from string of characters.
  * @package phing.system.io
  */
-class StringReader extends Reader {
-    
-	/**
-	 * @var string
-	 */
+class StringReader extends Reader
+{
+
+    /**
+     * @var string
+     */
     private $_string;
-    
+
     /**
      * @var int
      */
     private $mark = 0;
-    
+
     /**
      * @var int
      */
     private $currPos = 0;
-    
-    function __construct($string) {
+
+    /**
+     * @param $string
+     */
+    public function __construct($string)
+    {
         $this->_string = $string;
     }
 
-    function skip($n) {}
+    /**
+     * @param int $n
+     */
+    public function skip($n)
+    {
+    }
 
-    function read($len = null) {
+    /**
+     * @param null $len
+     * @return int|string
+     */
+    public function read($len = null)
+    {
         if ($len === null) {
             return $this->_string;
-        } else {            
+        } else {
             if ($this->currPos >= strlen($this->_string)) {
                 return -1;
-            }            
+            }
             $out = substr($this->_string, $this->currPos, $len);
             $this->currPos += $len;
+
             return $out;
         }
     }
 
-    function mark() {
+    public function mark()
+    {
         $this->mark = $this->currPos;
     }
 
-    function reset() {
+    public function reset()
+    {
         $this->currPos = $this->mark;
     }
 
-    function close() {}
+    public function close()
+    {
+    }
 
-    function open() {}
+    public function open()
+    {
+    }
 
-    function ready() {}
+    public function ready()
+    {
+    }
 
-    function markSupported() {
+    /**
+     * @return bool
+     */
+    public function markSupported()
+    {
         return true;
     }
-    
-    function getResource() {
-        return '(string) "'.$this->_string . '"';
+
+    /**
+     * @return string
+     */
+    public function getResource()
+    {
+        return '(string) "' . $this->_string . '"';
     }
 }
-

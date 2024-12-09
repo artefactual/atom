@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: BaseFilterReader.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 85cbd982d211b5d05761bd3043d2583b890bdc64 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,21 +23,20 @@
 include_once 'phing/system/io/FilterReader.php';
 include_once 'phing/system/io/StringReader.php';
 
-
 /**
  * Base class for core filter readers.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.8 $ $Date: 2007-12-20 07:44:58 -0800 (Thu, 20 Dec 2007) $
- * @access    public
+ * @version   $Id: 85cbd982d211b5d05761bd3043d2583b890bdc64 $
  * @see       FilterReader
  * @package   phing.filters
  */
-class BaseFilterReader extends FilterReader {
-    
+class BaseFilterReader extends FilterReader
+{
+
     /** Have the parameters passed been interpreted? */
     protected $initialized = false;
-    
+
     /** The Phing project this filter is part of. */
     protected $project = null;
 
@@ -48,10 +47,11 @@ class BaseFilterReader extends FilterReader {
      * it would be useless for filtering purposes, as it has
      * no real data to filter). ChainedReaderHelper uses
      * this placeholder instance to create a chain of real filters.
-     * 
+     *
      * @param Reader $in
      */
-    function __construct($in = null) {
+    public function __construct($in = null)
+    {
         if ($in === null) {
             $dummy = "";
             $in = new StringReader($dummy);
@@ -61,97 +61,107 @@ class BaseFilterReader extends FilterReader {
 
     /**
      * Returns the initialized status.
-     * 
+     *
      * @return boolean whether or not the filter is initialized
      */
-    function getInitialized() {
+    public function getInitialized()
+    {
         return $this->initialized;
     }
 
     /**
      * Sets the initialized status.
-     * 
+     *
      * @param boolean $initialized Whether or not the filter is initialized.
      */
-    function setInitialized($initialized) {
+    public function setInitialized($initialized)
+    {
         $this->initialized = (boolean) $initialized;
     }
 
     /**
      * Sets the project to work with.
-     * 
-     * @param object $project The project this filter is part of. 
-     *                Should not be <code>null</code>.
+     *
+     * @param object|Project $project The project this filter is part of.
+     *                        Should not be <code>null</code>.
      */
-    function setProject(Project $project) {
-        // type check, error must never occur, bad code of it does      
+    public function setProject(Project $project)
+    {
+        // type check, error must never occur, bad code of it does
         $this->project = $project;
     }
 
     /**
      * Returns the project this filter is part of.
-     * 
+     *
      * @return object The project this filter is part of
      */
-    function getProject() {
+    public function getProject()
+    {
         return $this->project;
     }
 
     /**
      * Reads characters.
      *
-     * @param  off  Offset at which to start storing characters.
-     * @param  len  Maximum number of characters to read.
+     * @param  int $len  Maximum number of characters to read.
      *
-     * @return Characters read, or -1 if the end of the stream
-     *         has been reached
+     * @return string Characters read, or -1 if the end of the stream
+     *                    has been reached
      *
      * @throws IOException If an I/O error occurs
      */
-    function read($len = null) {
+    public function read($len = null)
+    {
         return $this->in->read($len);
     }
 
     /**
      * Reads a line of text ending with '\n' (or until the end of the stream).
      * The returned String retains the '\n'.
-     * 
-     * @return the line read, or <code>null</code> if the end of the
-               stream has already been reached
-     * 
-     * @throws IOException if the underlying reader throws one during 
-     *                        reading
+     *
+     * @return string the line read, or <code>null</code> if the end of the
+     *             stream has already been reached
+     *
+     * @throws IOException if the underlying reader throws one during
+     *                     reading
      */
-    function readLine() {
+    public function readLine()
+    {
         $line = null;
 
-        while ( ($ch = $this->in->read(1)) !== -1 ) {
+        while (($ch = $this->in->read(1)) !== -1) {
             $line .= $ch;
-            if ( $ch === "\n" )
+            if ($ch === "\n") {
                 break;
+            }
         }
 
         return $line;
     }
-    
+
     /**
      * Returns whether the end of file has been reached with input stream.
+     *
      * @return boolean
-     */ 
-    function eof() {
+     */
+    public function eof()
+    {
         return $this->in->eof();
     }
-    
+
     /**
      * Convenience method to support logging in filters.
-     * @param string $msg Message to log.
-     * @param int $level Priority level.
+     *
+     * @param string $msg   Message to log.
+     * @param int    $level Priority level.
+     *
+     * @return void
      */
-    function log($msg, $level = Project::MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO)
+    {
         if ($this->project !== null) {
-            $this->project->log("[filter:".get_class($this)."] ".$msg, $level);    
+            $this->project->log("[filter:" . get_class($this) . "] " . $msg, $level);
         }
     }
 }
-
-

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: Condition.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 746f4adc744f89eadf0ccdea8c137cbf5f5614b9 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,10 +26,11 @@
  * Each condition must implement a method applying to this prototye:
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision: 1.4 $
+ * @version $Id: 746f4adc744f89eadf0ccdea8c137cbf5f5614b9 $
  * @package phing.tasks.system.condition
  */
-interface Condition {
+interface Condition
+{
     /**
      * @return boolean
      * @throws BuildException

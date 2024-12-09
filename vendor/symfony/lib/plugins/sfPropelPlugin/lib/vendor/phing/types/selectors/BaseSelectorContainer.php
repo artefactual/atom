@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: BaseSelectorContainer.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: d344784133b397d4e9b2e450de370ba39dc9bd69 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,39 +29,47 @@ require_once 'phing/types/selectors/BaseSelector.php';
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
  * @package phing.types.selectors
  */
-abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer {
+abstract class BaseSelectorContainer extends BaseSelector implements SelectorContainer
+{
 
     private $selectorsList = array();
 
     /**
      * Indicates whether there are any selectors here.
      */
-    public function hasSelectors() {
+    public function hasSelectors()
+    {
         return !(empty($this->selectorsList));
     }
 
     /**
      * Gives the count of the number of selectors in this container
      */
-    public function selectorCount() {
+    public function selectorCount()
+    {
         return count($this->selectorsList);
     }
 
     /**
      * Returns a copy of the selectors as an array.
+     * @param Project $p
+     * @return array
      */
-    public function getSelectors(Project $p) {
+    public function getSelectors(Project $p)
+    {
         $result = array();
-        for($i=0,$size=count($this->selectorsList); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
             $result[] = clone $this->selectorsList[$i];
         }
+
         return $result;
     }
 
     /**
      * Returns an array for accessing the set of selectors (not a copy).
      */
-    public function selectorElements() {
+    public function selectorElements()
+    {
         return $this->selectorsList;
     }
 
@@ -70,24 +78,28 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      * just be a helper class for the subclasses that put their own name
      * around the contents listed here.
      *
-     * @return comma separated list of Selectors contained in this one
+     * @return string comma separated list of Selectors contained in this one
      */
-    public function toString() {
+    public function toString()
+    {
         $buf = "";
         $arr = $this->selectorElements();
-        for($i=0,$size=count($arr); $i < $size; $i++) {
-            $buf .= $arr[$i]->toString() . (isset($arr[$i+1]) ? ', ' : '');
+        for ($i = 0, $size = count($arr); $i < $size; $i++) {
+            $buf .= $arr[$i]->toString() . (isset($arr[$i + 1]) ? ', ' : '');
         }
+
         return $buf;
     }
 
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @internal param the $selector new selector to add
      * @return the selector that was added
      */
-    public function appendSelector(FileSelector $selector) {
+    public function appendSelector(FileSelector $selector)
+    {
         $this->selectorsList[] = $selector;
     }
 
@@ -107,17 +119,18 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      * is never made.
      * </ul>
      */
-    public function validate() {
+    public function validate()
+    {
         $this->verifySettings();
         $errmsg = $this->getError();
         if ($errmsg !== null) {
             throw new BuildException($errmsg);
         }
-        foreach($this->selectorsList as $o) {
+        foreach ($this->selectorsList as $o) {
             if ($o instanceof BaseSelector) {
                 $o->validate();
             }
-        }    
+        }
     }
 
     /* Methods below all add specific selectors */
@@ -125,146 +138,209 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
     /**
      * add a "Select" selector entry on the selector list
      */
-    public function createSelector() {
+    public function createSelector()
+    {
         $o = new SelectSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add an "And" selector entry on the selector list
      */
-    public function createAnd() {
+    public function createAnd()
+    {
         $o = new AndSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add an "Or" selector entry on the selector list
      */
-    public function createOr() {
+    public function createOr()
+    {
         $o = new OrSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a "Not" selector entry on the selector list
      */
-    public function createNot() {
+    public function createNot()
+    {
         $o = new NotSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a "None" selector entry on the selector list
      */
-    public function createNone() {
+    public function createNone()
+    {
         $o = new NoneSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a majority selector entry on the selector list
      */
-    public function createMajority() {
+    public function createMajority()
+    {
         $o = new MajoritySelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a selector date entry on the selector list
      */
-    public function createDate() {
+    public function createDate()
+    {
         $o = new DateSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a selector size entry on the selector list
      */
-    public function createSize() {
+    public function createSize()
+    {
         $o = new SizeSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a selector filename entry on the selector list
      */
-    public function createFilename() {
+    public function createFilename()
+    {
         $o = new FilenameSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add an extended selector entry on the selector list
      */
-    public function createCustom() {
+    public function createCustom()
+    {
         $o = new ExtendSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a contains selector entry on the selector list
      */
-    public function createContains() {
+    public function createContains()
+    {
         $o = new ContainsSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a contains selector entry on the selector list
      */
-    public function createContainsRegexp() {
+    public function createContainsRegexp()
+    {
         $o = new ContainsRegexpSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a present selector entry on the selector list
      */
-    public function createPresent() {
+    public function createPresent()
+    {
         $o = new PresentSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a depth selector entry on the selector list
      */
-    public function createDepth() {
+    public function createDepth()
+    {
         $o = new DepthSelector();
         $this->appendSelector($o);
+
         return $o;
     }
 
     /**
      * add a depends selector entry on the selector list
      */
-    public function createDepend() {
+    public function createDepend()
+    {
         $o = new DependSelector();
         $this->appendSelector($o);
+
         return $o;
     }
-    
+
+    /**
+     * add a different selector entry on the selector list
+     */
+    public function createDifferent()
+    {
+        $o = new DifferentSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
     /**
      * add a type selector entry on the selector list
      */
-    public function createType() {
+    public function createType()
+    {
         $o = new TypeSelector();
         $this->appendSelector($o);
+
         return $o;
     }
-    
-}
 
+    /**
+     * add a readable selector entry on the selector list
+     */
+    public function createReadable()
+    {
+        $o = new ReadableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+
+    /**
+     * add a writable selector entry on the selector list
+     */
+    public function createWritable()
+    {
+        $o = new WritableSelector();
+        $this->appendSelector($o);
+
+        return $o;
+    }
+}

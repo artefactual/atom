@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id: Reference.php 325 2007-12-20 15:44:58Z hans $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -16,41 +14,65 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
-/** Class to hold a reference to another object in the project.
+/**
+ * Class to hold a reference to another object in the project.
+ *
  * @package phing.types
  */
-class Reference {
-
+class Reference
+{
+    /** @var string $refid */
     protected $refid;
 
-    function __construct($id = null) {
+    /**
+     * @param string $id
+     */
+    public function __construct($id = null)
+    {
         if ($id !== null) {
             $this->setRefId($id);
         }
     }
 
-    function setRefId($id) {
+    /**
+     * @param $id
+     */
+    public function setRefId($id)
+    {
         $this->refid = (string) $id;
     }
 
-    function getRefId() {
+    /**
+     * @return string
+     */
+    public function getRefId()
+    {
         return $this->refid;
     }
 
-    /** returns reference to object in references container of project */
-    function getReferencedObject($project) {    
+    /**
+     * returns reference to object in references container of project
+     *
+     * @param Project $project
+     *
+     * @throws BuildException
+     *
+     * @return Reference
+     */
+    public function getReferencedObject(Project $project)
+    {
         if ($this->refid === null) {
             throw new BuildException("No reference specified");
         }
         $refs = $project->getReferences();
         $o = @$refs[$this->refid];
-        if (!is_object($o)) {       
+        if (!is_object($o)) {
             throw new BuildException("Reference {$this->refid} not found.");
         }
+
         return $o;
     }
 }
-

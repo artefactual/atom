@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: NotCondition.php 43 2006-03-10 14:31:51Z mrook $
+ *  $Id: 9bcbe1b79aee7edb15117fbde13481e5e7ec098a $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,20 +22,25 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <not> condition.
+ * <not> condition.
  *
- *  Evaluates to true if the single condition nested into it is false
- *  and vice versa.
+ * Evaluates to true if the single condition nested into it is false
+ * and vice versa.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.6 $ $Date: 2006-03-10 06:31:51 -0800 (Fri, 10 Mar 2006) $
- *  @access    public
- *  @package   phing.tasks.system.condition
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id: 9bcbe1b79aee7edb15117fbde13481e5e7ec098a $
+ * @package   phing.tasks.system.condition
  */
-class NotCondition extends ConditionBase implements Condition {
+class NotCondition extends ConditionBase implements Condition
+{
 
-    function evaluate() {
+    /**
+     * @return bool
+     * @throws BuildException
+     */
+    public function evaluate()
+    {
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <not>");
         }
@@ -43,6 +48,7 @@ class NotCondition extends ConditionBase implements Condition {
             throw new BuildException("You must nest a condition into <not>");
         }
         $conds = $this->getIterator();
+
         return !$conds->current()->evaluate();
     }
 }

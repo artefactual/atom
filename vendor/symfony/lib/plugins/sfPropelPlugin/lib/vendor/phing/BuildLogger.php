@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: BuildLogger.php 147 2007-02-06 20:32:22Z hans $
+ *  $Id: 695c190fb6a2339063b67d1557a6af553e6ef936 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,26 +23,27 @@ require_once 'phing/BuildListener.php';
 
 /**
  * Interface for build loggers.
- * 
+ *
  * Build loggers are build listeners but with some additional functionality:
  *   - They can be configured with a log level (below which they will ignore messages)
- *   - They have error and output streams 
+ *   - They have error and output streams
  *
  * Classes that implement a listener must implement this interface.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Id: 695c190fb6a2339063b67d1557a6af553e6ef936 $
  * @see       BuildEvent
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface BuildLogger extends BuildListener {
+interface BuildLogger extends BuildListener
+{
 
-	/**
-	 * Sets the min log level that this logger should respect.
-	 * 
-	 * Messages below this level are ignored.
-	 *
+    /**
+     * Sets the min log level that this logger should respect.
+     *
+     * Messages below this level are ignored.
+     *
      * Constants for the message levels are in Project.php. The order of
      * the levels, from least to most verbose, is:
      *   - Project::MSG_ERR
@@ -51,13 +52,13 @@ interface BuildLogger extends BuildListener {
      *   - Project::MSG_VERBOSE
      *   - Project::MSG_DEBUG
      *
-	 * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
-	 */
+     * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
+     */
     public function setMessageOutputLevel($level);
 
     /**
      * Sets the standard output stream to use.
-     * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output. 
+     * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output.
      */
     public function setOutputStream(OutputStream $output);
 
@@ -67,4 +68,11 @@ interface BuildLogger extends BuildListener {
      */
     public function setErrorStream(OutputStream $err);
 
+    /**
+     * Sets this logger to produce emacs (and other editor) friendly output.
+     *
+     * @param bool $emacsMode true if output is to be unadorned so that emacs and other editors
+     *                             can parse files names, etc.
+     */
+    public function setEmacsMode($emacsMode);
 }

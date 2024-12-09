@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: TouchTask.php 144 2007-02-05 15:19:00Z hans $
+ *  $Id: 8269fd7fedc201ff6bd3bd61b0d902f80152c674 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,26 +31,36 @@ include_once 'phing/system/io/IOException.php';
  *
  * If the file to touch doesn't exist, an empty one is created.
  *
- * @version $Revision: 1.12 $
+ * @version $Id: 8269fd7fedc201ff6bd3bd61b0d902f80152c674 $
  * @package phing.tasks.system
  */
-class TouchTask extends Task {
-
+class TouchTask extends Task
+{
+    /** @var PhingFile $file */
     private $file;
-    private $millis    = -1;
+    private $millis = -1;
     private $dateTime;
     private $filesets = array();
     private $fileUtils;
+    private $mkdirs = false;
+    private $verbose = true;
 
-    function __construct() {
+    /**
+     *
+     */
+    public function __construct()
+    {
         $this->fileUtils = new FileUtils();
     }
 
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param PhingFile $file
+     * @return void
      */
-    function setFile(PhingFile $file) {        
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
     }
 
@@ -58,8 +68,11 @@ class TouchTask extends Task {
      * the new modification time of the file
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
+     * @param $millis
+     * @return void
      */
-    function setMillis($millis) {
+    public function setMillis($millis)
+    {
         $this->millis = (int) $millis;
     }
 
@@ -67,24 +80,51 @@ class TouchTask extends Task {
      * the new modification time of the file
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
+     * @param $dateTime
+     * @return void
      */
-    function setDatetime($dateTime) {
+    public function setDatetime($dateTime)
+    {
         $this->dateTime = (string) $dateTime;
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * @return FileSet
+     * Set whether nonexistent parent directories should be created
+     * when touching new files.
+     * @param boolean $mkdirs whether to create parent directories.
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function setMkdirs($mkdirs)
+    {
+        $this->mkdirs = $mkdirs;
+    }
+
+    /**
+     * Set whether the touch task will report every file it creates;
+     * defaults to <code>true</code>.
+     * @param boolean $verbose flag.
+     */
+    public function setVerbose($verbose)
+    {
+        $this->verbose = $verbose;
+    }
+
+    /**
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @param FileSet $fs
+     * @return void
+     */
+    public function addFileSet(FileSet $fs)
+    {
+        $this->filesets[] = $fs;
     }
 
     /**
      * Execute the touch operation.
+     * @throws BuildException
      */
-    function main() {
+    public function main()
+    {
         $savedMillis = $this->millis;
 
         if ($this->file === null && count($this->filesets) === 0) {
@@ -106,22 +146,24 @@ class TouchTask extends Task {
         } catch (Exception $ex) {
             throw new BuildException("Error touch()ing file", $ex, $this->location);
         }
-        
+
         $this->millis = $savedMillis;
-        
+
     }
 
     /**
      * Does the actual work.
      */
-    function _touch() {
+    public function _touch()
+    {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
-                $this->log("Creating " . $this->file->__toString(), Project::MSG_INFO);
+                $this->log("Creating " . $this->file->__toString(), $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE);
                 try { // try to create file
-                    $this->file->createNewFile();
-                } catch(IOException  $ioe) {
-                    throw new BuildException("Error creating new file " . $this->file->__toString(), $ioe, $this->location);
+                    $this->file->createNewFile($this->mkdirs);
+                } catch (IOException  $ioe) {
+                    throw new BuildException("Error creating new file " . $this->file->__toString(
+                        ), $ioe, $this->location);
                 }
             }
         }
@@ -137,19 +179,19 @@ class TouchTask extends Task {
         }
 
         // deal with the filesets
-        foreach($this->filesets as $fs) {
-        
+        foreach ($this->filesets as $fs) {
+
             $ds = $fs->getDirectoryScanner($this->getProject());
             $fromDir = $fs->getDir($this->getProject());
 
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
-            for ($j=0,$_j=count($srcFiles); $j < $_j; $j++) {
+            for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
             }
-            
-            for ($j=0,$_j=count($srcDirs); $j < $_j ; $j++) {
+
+            for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
             }
         }
@@ -159,12 +201,16 @@ class TouchTask extends Task {
         }
     }
 
-    private function touchFile($file) {
-        if ( !$file->canWrite() ) {
+    /**
+     * @param $file
+     * @throws BuildException
+     */
+    private function touchFile($file)
+    {
+        if (!$file->canWrite()) {
             throw new BuildException("Can not change modification date of read-only file " . $file->__toString());
         }
         $file->setLastModified($this->millis);
     }
 
 }
-

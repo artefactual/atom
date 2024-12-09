@@ -1,6 +1,6 @@
 <?php
-/* 
- *  $Id: MergeMapper.php 123 2006-09-14 20:19:08Z mrook $
+/*
+ *  $Id: fd79adda1c462f048bfaee486b9d5fb3be7ff7e2 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 include_once 'phing/mappers/FileNameMapper.php';
@@ -26,44 +26,50 @@ include_once 'phing/mappers/FileNameMapper.php';
  * was set for "to".
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Revision: 1.8 $
+ * @version   $Id: fd79adda1c462f048bfaee486b9d5fb3be7ff7e2 $
  * @package   phing.mappers
  */
-class MergeMapper implements FileNameMapper {
-    
+class MergeMapper implements FileNameMapper
+{
+
     /** the merge */
     private $mergedFile;
 
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param    mixed     The data the mapper works on
-     * @returns  mixed     The data after the mapper has been applied
-     * @access   public
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @param mixed $sourceFileName The data the mapper works on
+     * @throws BuildException
+     * @return mixed The data after the mapper has been applied
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
-    function main($sourceFileName) {
-        if ($this->mergedFile === null) {            
-            throw new BuildException("MergeMapper error, to attribute not set");            
-        }         
+    public function main($sourceFileName)
+    {
+        if ($this->mergedFile === null) {
+            throw new BuildException("MergeMapper error, to attribute not set");
+        }
+
         return array($this->mergedFile);
     }
 
     /**
      * Accessor. Sets the to property
      *
-     * @param    string     To what this mapper should convert the from string
-     * @returns  boolean    True
-     * @access   public
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @param   string     To what this mapper should convert the from string
+     * @return boolean True
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
-    function setTo($to) {
+    public function setTo($to)
+    {
         $this->mergedFile = $to;
-    }    
+    }
 
     /**
      * Ignored.
+     * @param string $from
      */
-    function setFrom($from) {}
+    public function setFrom($from)
+    {
+    }
 
 }

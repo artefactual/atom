@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id: MultipleChoiceInputRequest.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,34 +23,38 @@ require_once 'phing/input/InputRequest.php';
  * Encapsulates an input request.
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
- * @version $Revision: 1.5 $
+ *
  * @package phing.input
  */
-class MultipleChoiceInputRequest extends InputRequest {
-
+class MultipleChoiceInputRequest extends InputRequest
+{
+    /** @var array $choises */
     protected $choices = array();
 
     /**
-     * @param string $prompt The prompt to show to the user.  Must not be null.
-     * @param array $choices holds all input values that are allowed.
-     *                Must not be null.
+     * @param string $prompt  The prompt to show to the user.  Must not be null.
+     * @param array  $choices holds all input values that are allowed.
+     *                        Must not be null.
      */
-    public function __construct($prompt, $choices) {
-        parent::__construct($prompt);        
+    public function __construct($prompt, $choices)
+    {
+        parent::__construct($prompt);
         $this->choices = $choices;
     }
 
     /**
-     * @return The possible values.
+     * @return array The possible values.
      */
-    public function getChoices() {
+    public function getChoices()
+    {
         return $this->choices;
     }
 
     /**
-     * @return true if the input is one of the allowed values.
+     * @return bool true if the input is one of the allowed values.
      */
-    public function isInputValid() {
+    public function isInputValid()
+    {
         return in_array($this->getInput(), $this->choices); // not strict (?)
     }
 }

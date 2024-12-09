@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ReferenceExistsCondition.php 227 2007-08-28 02:17:00Z hans $
+ *  $Id: 7321246363e6d75f8a2d47d9dfcd82aaf0038708 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,34 +19,42 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php'; require_once 'phing/tasks/system/condition/Condition.php';
+require_once 'phing/ProjectComponent.php';
+require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Condition that tests whether a given reference exists.
  *
  * @author Matthias Pigulla <mp@webfactory.de> (Phing)
- * @version $Revision: 1.1 $
- * @package phing.tasks.system.condition  */
-class ReferenceExistsCondition extends ProjectComponent implements Condition {
-    
+ * @version $Id: 7321246363e6d75f8a2d47d9dfcd82aaf0038708 $
+ * @package phing.tasks.system.condition
+ */
+class ReferenceExistsCondition extends ProjectComponent implements Condition
+{
+
     private $refid;
 
-    public function setRef($id) {
-      $this->refid = (string) $id;
+    /**
+     * @param $id
+     */
+    public function setRef($id)
+    {
+        $this->refid = (string) $id;
     }
 
     /**
      * Check whether the reference exists.
      * @throws BuildException
      */
-    public function evaluate()  {
+    public function evaluate()
+    {
         if ($this->refid === null) {
             throw new BuildException("No ref attribute specified for reference-exists "
-                                     . "condition");
-        }        
+                . "condition");
+        }
         $refs = $this->project->getReferences();
-        return isset($refs[$this->refid]);
+
+        return !($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
     }
 
 }
-

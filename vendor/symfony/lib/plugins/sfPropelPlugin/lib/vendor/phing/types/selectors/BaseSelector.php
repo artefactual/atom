@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id: BaseSelector.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,20 +25,27 @@ require_once 'phing/types/selectors/FileSelector.php';
  * for Selectors to inherit from this class, it is only necessary that
  * they implement FileSelector.
  *
+ * {@inheritdoc}
+ *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
+ *
  * @package phing.types.selectors
  */
-abstract class BaseSelector extends DataType implements FileSelector {
-
+abstract class BaseSelector extends DataType implements FileSelector
+{
+    /** @var string $errmsg */
     private $errmsg = null;
 
     /**
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param msg The error message any BuildException should throw.
+     * @param string $msg The error message any BuildException should throw.
+     *
+     * @return void
      */
-    public function setError($msg) {
+    public function setError($msg)
+    {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
         }
@@ -49,12 +54,12 @@ abstract class BaseSelector extends DataType implements FileSelector {
     /**
      * Returns any error messages that have been set.
      *
-     * @return the error condition
+     * @return string the error condition
      */
-    public function getError() {
+    public function getError()
+    {
         return $this->errmsg;
     }
-
 
     /**
      * <p>Subclasses can override this method to provide checking of their
@@ -63,22 +68,23 @@ abstract class BaseSelector extends DataType implements FileSelector {
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
     }
 
     /**
      * Subclasses can use this to throw the requisite exception
      * in isSelected() in the case of an error condition.
+     *
+     * @throws BuildException
      */
-    public function validate() {
+    public function validate()
+    {
         if ($this->getError() === null) {
             $this->verifySettings();
         }
         if ($this->getError() !== null) {
             throw new BuildException($this->errmsg);
         }
-    }   
-
+    }
 }
-
-

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ExpatParseException.php 123 2006-09-14 20:19:08Z mrook $
+ *  $Id: 0421e1fce5039a2e55c1e35273382691c5830a48 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,16 +16,18 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildException.php';
 
 /**
  * This class throws errors for Expat, the XML processor.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.5 $ $Date: 2006-09-14 13:19:08 -0700 (Thu, 14 Sep 2006) $
+ * @version  $Id: 0421e1fce5039a2e55c1e35273382691c5830a48 $
  * @package  phing.parser
  */
-class ExpatParseException extends BuildException {}
+class ExpatParseException extends BuildException
+{
+}

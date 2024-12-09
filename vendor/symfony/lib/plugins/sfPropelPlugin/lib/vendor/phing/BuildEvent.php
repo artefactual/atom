@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: BuildEvent.php 173 2007-03-12 20:34:30Z hans $
+ *  $Id: f406bad78fbfd0f905a64e9f8b1933356ecb87b6 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@ require_once 'phing/system/lang/EventObject.php';
  * Encapsulates a build specific event.
  *
  * <p>We have three sources of events all handled by this class:
- * 
+ *
  * <ul>
  *  <li>Project level events</li>
  *  <li>Target level events</li>
@@ -37,10 +37,11 @@ require_once 'phing/system/lang/EventObject.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.10 $
+ * @version   $Id: f406bad78fbfd0f905a64e9f8b1933356ecb87b6 $
  * @package   phing
  */
-class BuildEvent extends EventObject {
+class BuildEvent extends EventObject
+{
 
     /**
      * A reference to the project
@@ -76,7 +77,7 @@ class BuildEvent extends EventObject {
     protected $priority = Project::MSG_VERBOSE;
 
     /**
-     * The execption that caused the event, if any
+     * The exception that caused the event, if any
      *
      * @var    object
      */
@@ -85,9 +86,12 @@ class BuildEvent extends EventObject {
     /**
      * Construct a BuildEvent for a project, task or target source event
      *
-     * @param  object  project the project that emitted the event.
+     * @param Project|Target|Task $source
+     *
+     * @throws Exception
      */
-    public function __construct($source) {
+    public function __construct($source)
+    {
         parent::__construct($source);
         if ($source instanceof Project) {
             $this->project = $source;
@@ -112,7 +116,8 @@ class BuildEvent extends EventObject {
      * @param  string   The string message of the event
      * @param  integer  The priority this message should have
      */
-    public function setMessage($message, $priority) {
+    public function setMessage($message, $priority)
+    {
         $this->message = (string) $message;
         $this->priority = (int) $priority;
     }
@@ -122,7 +127,8 @@ class BuildEvent extends EventObject {
      *
      * @param  Exception The exception that caused the event
      */
-    public function setException($exception) {
+    public function setException($exception)
+    {
         $this->exception = $exception;
     }
 
@@ -132,9 +138,10 @@ class BuildEvent extends EventObject {
      * The reference to the project instance is set by the constructor if this
      * event was fired from the project class.
      *
-     * @return  Project  The project instance that fired this event
+     * @return Project The project instance that fired this event
      */
-    public function getProject() {
+    public function getProject()
+    {
         return $this->project;
     }
 
@@ -146,7 +153,8 @@ class BuildEvent extends EventObject {
      *
      * @return Target The target that fired this event
      */
-    public function getTarget() {
+    public function getTarget()
+    {
         return $this->target;
     }
 
@@ -158,7 +166,8 @@ class BuildEvent extends EventObject {
      *
      * @return Task The task that fired this event
      */
-    public function getTask() {
+    public function getTask()
+    {
         return $this->task;
     }
 
@@ -168,7 +177,8 @@ class BuildEvent extends EventObject {
      *
      * @return string The log message
      */
-    function getMessage() {
+    public function getMessage()
+    {
         return $this->message;
     }
 
@@ -178,7 +188,8 @@ class BuildEvent extends EventObject {
      *
      * @return integer The message priority
      */
-    function getPriority() {
+    public function getPriority()
+    {
         return $this->priority;
     }
 
@@ -192,7 +203,8 @@ class BuildEvent extends EventObject {
      * @see BuildListener::buildFinished()
      * @return Exception
      */
-    public function getException() {
+    public function getException()
+    {
         return $this->exception;
     }
 }

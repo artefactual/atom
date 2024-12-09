@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: DbDeployTask.php 59 2006-04-28 14:49:47Z lcrouch $
+ *  $Id: 1d817a30c44e1f87a0f51ecebdc9fefe3177790c $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,42 +18,56 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntax.php';
 
 /**
- *  Factory for generating dbms-specific syntax-generating objects
+ * Factory for generating dbms-specific syntax-generating objects
  *
- *  @author   Luke Crouch at SourceForge (http://sourceforge.net)
- *  @version  $Revision: 1.1 $
- *  @package  phing.tasks.ext.dbdeploy
+ * @author   Luke Crouch at SourceForge (http://sourceforge.net)
+ * @version  $Id: 1d817a30c44e1f87a0f51ecebdc9fefe3177790c $
+ * @package  phing.tasks.ext.dbdeploy
  */
-
 class DbmsSyntaxFactory
 {
-	private $dbms;
-	
-	public function __construct($dbms)
-	{
-		$this->dbms = $dbms;
-	}
-	
-	public function getDbmsSyntax()
-	{
-		switch ($this->dbms){
-			case('sqlite') :
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
-				return new DbmsSyntaxSQLite();
-			case('mysql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
-				return new DbmsSyntaxMysql();
-			case('mssql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
-				return new DbmsSyntaxMsSql();
-			default:
-				throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
-		}
-	}
-}
+    private $dbms;
 
+    /**
+     * @param $dbms
+     */
+    public function __construct($dbms)
+    {
+        $this->dbms = $dbms;
+    }
+
+    public function getDbmsSyntax()
+    {
+        switch ($this->dbms) {
+            case('sqlite') :
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
+
+                return new DbmsSyntaxSQLite();
+            case('mysql'):
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
+
+                return new DbmsSyntaxMysql();
+            case 'odbc':
+            case('mssql'):
+            case 'dblib':
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
+
+                return new DbmsSyntaxMsSql();
+            case('pgsql'):
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
+
+                return new DbmsSyntaxPgSQL();
+            case 'oci':
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
+
+                return new DbmsSyntaxOracle();
+            default:
+                throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
+        }
+    }
+}

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: ChainableReader.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 372e133ade942dbf87ea7e148b86116459dd4050 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,19 +24,19 @@
  * Interface indicating that a reader may be chained to another one.
  *
  * @author Magesh Umasankar
+ * @package phing.filters
  */
-interface ChainableReader {
+interface ChainableReader
+{
 
     /**
      * Returns a reader with the same configuration as this one,
      * but filtering input from the specified reader.
-     * 
+     *
      * @param Reader $rdr the reader which the returned reader should be filtering
-     * 
+     *
      * @return Reader A reader with the same configuration as this one, but
-     *         filtering input from the specified reader
+     *                filtering input from the specified reader
      */
     public function chain(Reader $rdr);
 }
-
-

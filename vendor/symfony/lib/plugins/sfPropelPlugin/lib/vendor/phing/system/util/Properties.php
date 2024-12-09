@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: Properties.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 190416eac21bc9e62ab01bec7b78357e18afa10a $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,148 +22,179 @@
 
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/FileWriter.php';
+include_once 'phing/system/io/FileParserInterface.php';
+include_once 'phing/system/io/IniFileParser.php';
 
 /**
  * Convenience class for reading and writing property files.
- * 
+ *
  * FIXME
  *        - Add support for arrays (separated by ',')
  *
  * @package    phing.system.util
- * @version $Revision: 1.13 $
+ * @version $Id: 190416eac21bc9e62ab01bec7b78357e18afa10a $
  */
-class Properties {
+class Properties
+{
 
     private $properties = array();
 
     /**
+     * @var FileParserInterface
+     */
+    private $fileParser;
+
+    /**
+     * @var PhingFile
+     */
+    private $file = null;
+
+    /**
+     * Constructor
+     *
+     * @param array $properties
+     * @param FileParserInterface $fileParser
+     */
+    public function __construct($properties = null, FileParserInterface $fileParser = null)
+    {
+        $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
+
+        if (is_array($properties)) {
+            foreach ($properties as $key => $value) {
+                $this->setProperty($key, $value);
+            }
+        }
+    }
+
+    /**
      * Load properties from a file.
      *
-     * @param PhingFile $file
+     * @param  PhingFile $file
      * @return void
      * @throws IOException - if unable to read file.
      */
-    function load(PhingFile $file) {
+    public function load(PhingFile $file)
+    {
         if ($file->canRead()) {
-            $this->parse($file->getPath(), false);                    
-        } else {
-            throw new IOException("Can not read file ".$file->getPath());
-        }
-        
-    }
-    
-    /**
-     * Replaces parse_ini_file() or better_parse_ini_file().
-     * Saves a step since we don't have to parse and then check return value
-     * before throwing an error or setting class properties.
-     * 
-     * @param string $filePath
-     * @param boolean $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array Properties loaded from file (no prop replacements done yet).
-     */
-    protected function parse($filePath) {
+            $this->parse($file, false);
 
-        // load() already made sure that file is readable                
-        // but we'll double check that when reading the file into 
-        // an array
-        
-        if (($lines = @file($filePath)) === false) {
-            throw new IOException("Unable to parse contents of $filePath");
+            $this->file = $file;
+        } else {
+            throw new IOException("Can not read file " . $file->getPath());
         }
-        
-        $this->properties = array();
-        $sec_name = "";
-        
-        foreach($lines as $line) {
-            
-            $line = trim($line);
-    
-            if($line == "")
-                continue;
-                    
-            if ($line[0] == '#' or $line[0] == ';') {
-                // it's a comment, so continue to next line
-                continue;
-            } else {
-                $pos = strpos($line, '=');
-                $property = trim(substr($line, 0, $pos));
-                $value = trim(substr($line, $pos + 1));                
-                $this->properties[$property] = $this->inVal($value);
-            }
-            
-        } // for each line        
     }
-    
+
     /**
-     * Process values when being read in from properties file.
-     * does things like convert "true" => true
-     * @param string $val Trimmed value.
-     * @return mixed The new property value (may be boolean, etc.)
+     * Parses the file given.
+     *
+     * @param  PhingFile $file
+     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
+     * @return array   Properties loaded from file (no prop replacements done yet).
      */
-    protected function inVal($val) {
-        if ($val === "true") { 
-            $val = true;
-        } elseif ($val === "false") { 
-            $val = false; 
-        }
-        return $val;
+    protected function parse(PhingFile $file)
+    {
+        $this->properties = $this->fileParser->parseFile($file);
     }
-    
+
     /**
      * Process values when being written out to properties file.
      * does things like convert true => "true"
-     * @param mixed $val The property value (may be boolean, etc.)
+     * @param  mixed  $val The property value (may be boolean, etc.)
      * @return string
      */
-    protected function outVal($val) {
+    protected function outVal($val)
+    {
         if ($val === true) {
             $val = "true";
         } elseif ($val === false) {
             $val = "false";
         }
+
         return $val;
     }
-    
+
     /**
      * Create string representation that can be written to file and would be loadable using load() method.
-     * 
+     *
      * Essentially this function creates a string representation of properties that is ready to
      * write back out to a properties file.  This is used by store() method.
      *
      * @return string
      */
-    public function toString() {
-        $buf = "";        
-        foreach($this->properties as $key => $item) {
+    public function toString()
+    {
+        $buf = "";
+        foreach ($this->properties as $key => $item) {
             $buf .= $key . "=" . $this->outVal($item) . PHP_EOL;
         }
-        return $buf;    
+
+        return $buf;
     }
-    
+
     /**
      * Stores current properties to specified file.
-     * 
-     * @param PhingFile $file File to create/overwrite with properties.
-     * @param string $header Header text that will be placed (within comments) at the top of properties file.
+     *
+     * @param  PhingFile   $file   File to create/overwrite with properties.
+     * @param  string      $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    function store(PhingFile $file, $header = null) {
+    public function store(PhingFile $file = null, $header = null)
+    {
+        if ($file == null) {
+            $file = $this->file;
+        }
+
+        if ($file == null) {
+            throw new IOException("Unable to write to empty filename");
+        }
+
         // stores the properties in this object in the file denoted
         // if file is not given and the properties were loaded from a
-        // file prior, this method stores them in the file used by load()        
+        // file prior, this method stores them in the file used by load()
         try {
             $fw = new FileWriter($file);
             if ($header !== null) {
-                $fw->write( "# " . $header . PHP_EOL );
+                $fw->write("# " . $header . PHP_EOL);
             }
             $fw->write($this->toString());
             $fw->close();
         } catch (IOException $e) {
             throw new IOException("Error writing property file: " . $e->getMessage());
-        }                
+        }
     }
-    
+
+    public function storeOutputStream(OutputStream $os, $comments)
+    {
+        $this->_storeOutputStream(new BufferedWriter(new OutputStreamWriter($os)), $comments);
+    }
+
+    private function _storeOutputStream(BufferedWriter $bw, $comments)
+    {
+        if ($comments != null) {
+            self::writeComments($bw, $comments);
+        }
+        $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        $bw->newLine();
+        foreach ($this->getProperties() as $key => $value) {
+                $bw->write($key . "=" . $value);
+                $bw->newLine();
+
+        }
+        $bw->flush();
+    }
+
+    private static function writeComments(BufferedWriter $bw, $comments)
+    {
+        $rows = explode("\n", $comments);
+        $bw->write("#" . PHP_EOL);
+        foreach ($rows as $row) {
+            $bw->write(sprintf("#%s%s", trim($row), PHP_EOL));
+        }
+        $bw->write("#");
+        $bw->newLine();
+    }
+
     /**
      * Returns copy of internal properties hash.
      * Mostly for performance reasons, property hashes are often
@@ -171,22 +202,25 @@ class Properties {
      *
      * @return array
      */
-    function getProperties() {
+    public function getProperties()
+    {
         return $this->properties;
     }
-    
+
     /**
      * Get value for specified property.
      * This is the same as get() method.
      *
-     * @param string $prop The property name (key).
+     * @param  string $prop The property name (key).
      * @return mixed
      * @see get()
      */
-    function getProperty($prop) {
+    public function getProperty($prop)
+    {
         if (!isset($this->properties[$prop])) {
             return null;
         }
+
         return $this->properties[$prop];
     }
 
@@ -195,33 +229,37 @@ class Properties {
      * This function exists to provide a hashtable-like interface for
      * properties.
      *
-     * @param string $prop The property name (key).
+     * @param  string $prop The property name (key).
      * @return mixed
      * @see getProperty()
-     */    
-    function get($prop) {
-         if (!isset($this->properties[$prop])) {
+     */
+    public function get($prop)
+    {
+        if (!isset($this->properties[$prop])) {
             return null;
         }
+
         return $this->properties[$prop];
     }
-    
+
     /**
      * Set the value for a property.
      *
-     * @param string $key
-     * @param mixed $value
-     * @return mixed Old property value or NULL if none was set.
+     * @param  string $key
+     * @param  mixed  $value
+     * @return mixed  Old property value or null if none was set.
      */
-    function setProperty($key, $value) {
-    	$oldValue = null;
-    	if (isset($this->properties[$key])) {
-    		$oldValue = $this->properties[$key];
-    	}
+    public function setProperty($key, $value)
+    {
+        $oldValue = null;
+        if (isset($this->properties[$key])) {
+            $oldValue = $this->properties[$key];
+        }
         $this->properties[$key] = $value;
+
         return $oldValue;
     }
-    
+
     /**
      * Set the value for a property.
      * This function exists to provide hashtable-lie
@@ -229,44 +267,67 @@ class Properties {
      *
      * @param string $key
      * @param mixed $value
+     * @return mixed
      */
-    function put($key, $value) {
+    public function put($key, $value)
+    {
         return $this->setProperty($key, $value);
     }
-    
+
+    /**
+     * Appends a value to a property if it already exists with a delimiter
+     *
+     * If the property does not, it just adds it.
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @param string $delimiter
+     */
+    public function append($key, $value, $delimiter = ',')
+    {
+        $newValue = $value;
+        if (isset($this->properties[$key]) && !empty($this->properties[$key])) {
+            $newValue = $this->properties[$key] . $delimiter . $value;
+        }
+        $this->properties[$key] = $newValue;
+    }
+
     /**
      * Same as keys() function, returns an array of property names.
      * @return array
      */
-    function propertyNames() {
+    public function propertyNames()
+    {
         return $this->keys();
     }
-    
+
     /**
      * Whether loaded properties array contains specified property name.
+     * @param $key
      * @return boolean
      */
-    function containsKey($key) {
+    public function containsKey($key)
+    {
         return isset($this->properties[$key]);
     }
 
     /**
      * Returns properties keys.
-     * Use this for foreach() {} iterations, as this is
+     * Use this for foreach () {} iterations, as this is
      * faster than looping through property values.
      * @return array
      */
-    function keys() {
+    public function keys()
+    {
         return array_keys($this->properties);
     }
-    
+
     /**
      * Whether properties list is empty.
      * @return boolean
      */
-    function isEmpty() {
+    public function isEmpty()
+    {
         return empty($this->properties);
     }
-
 }
-

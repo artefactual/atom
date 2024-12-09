@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: NoneSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: fd4957709aa83a67caa6cc34ffafeeae062d0625 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/types/selectors/BaseSelectorContainer.php';
 
 /**
@@ -30,15 +30,21 @@ require_once 'phing/types/selectors/BaseSelectorContainer.php';
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-class NoneSelector extends BaseSelectorContainer {
+class NoneSelector extends BaseSelectorContainer
+{
 
-    public function toString() {
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{noneselect: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
@@ -46,26 +52,27 @@ class NoneSelector extends BaseSelectorContainer {
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should not be selected.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a java.io.File object for the filename that the selector
+     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param string $filename is the name of the file to check
+     * @param PhingFile $file is a java.io.File object for the filename that the selector
      * can use
-     * @return whether the file should be selected or not
+     * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
-        
-        $this->validate();
-        
-        $selectors = $this->selectorElements();        
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
 
-        for($i=0,$size=count($selectors); $i < $size; $i++) {
+        $this->validate();
+
+        $selectors = $this->selectorElements();
+
+        for ($i = 0, $size = count($selectors); $i < $size; $i++) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if ($result) {
                 return false;
             }
         }
+
         return true;
     }
 
 }
-

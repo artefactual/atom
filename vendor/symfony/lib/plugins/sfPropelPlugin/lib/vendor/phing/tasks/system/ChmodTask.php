@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ChmodTask.php 242 2007-09-26 15:39:45Z mrook $
+ *  $Id: 741147001b778cde9fb227e3e984b8a15fc85595 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,10 +27,11 @@ include_once 'phing/types/FileSet.php';
  *
  * @author    Manuel Holtgrewe <grin@gmx.net>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.12 $
+ * @version   $Id: 741147001b778cde9fb227e3e984b8a15fc85595 $
  * @package   phing.tasks.system
  */
-class ChmodTask extends Task {
+class ChmodTask extends Task
+{
 
     private $file;
 
@@ -39,74 +40,92 @@ class ChmodTask extends Task {
     private $filesets = array();
 
     private $filesystem;
-	
-	private $quiet = false;	
-	private $failonerror = true;
-	private $verbose = true;
-    
-	/**
-	 * This flag means 'note errors to the output, but keep going'
-	 * @see setQuiet()
-	 */
-    function setFailonerror($bool) {
+
+    private $quiet = false;
+    private $failonerror = true;
+    private $verbose = true;
+
+    /**
+     * This flag means 'note errors to the output, but keep going'
+     * @see setQuiet()
+     * @param $bool
+     */
+    public function setFailonerror($bool)
+    {
         $this->failonerror = $bool;
-    }	
+    }
 
     /**
      * Set quiet mode, which suppresses warnings if chmod() fails.
-	 * @see setFailonerror()
+     * @see setFailonerror()
+     * @param $bool
      */
-    function setQuiet($bool) {
+    public function setQuiet($bool)
+    {
         $this->quiet = $bool;
         if ($this->quiet) {
             $this->failonerror = false;
         }
     }
-    
+
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
+     * @param $bool
      */
-    function setVerbose($bool) {
-        $this->verbose = (bool)$bool;
+    public function setVerbose($bool)
+    {
+        $this->verbose = (bool) $bool;
     }
-	
+
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param PhingFile $file
      */
-    function setFile(PhingFile $file) {        
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
-    } 
+    }
 
-    function setMode($str) {
+    /**
+     * @param $str
+     */
+    public function setMode($str)
+    {
         $this->mode = $str;
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @param FileSet $fs
+     * @return void
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs)
+    {
+        $this->filesets[] = $fs;
     }
 
     /**
      * Execute the touch operation.
      * @return void
      */
-    function main() {
+    public function main()
+    {
         // Check Parameters
-        $this->checkParams();       
+        $this->checkParams();
         $this->chmod();
     }
-    
+
     /**
      * Ensure that correct parameters were passed in.
+     * @throws BuildException
      * @return void
      */
-    private function checkParams() {
-    
+    private function checkParams()
+    {
+
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
@@ -119,26 +138,27 @@ class ChmodTask extends Task {
         if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
             throw new BuildException("You have specified an invalid mode.");
         }
-     
+
     }
 
     /**
      * Does the actual work.
      * @return void
      */
-    private function chmod() {
-    	
-		if (strlen($this->mode) === 4) {
-			$mode = octdec($this->mode);
-		} else {
-			// we need to prepend the 0 before converting
-			$mode = octdec("0". $this->mode);
-		}
-        
+    private function chmod()
+    {
+
+        if (strlen($this->mode) === 4) {
+            $mode = octdec($this->mode);
+        } else {
+            // we need to prepend the 0 before converting
+            $mode = octdec("0" . $this->mode);
+        }
+
         // counters for non-verbose output
         $total_files = 0;
         $total_dirs = 0;
-        
+
         // one file
         if ($this->file !== null) {
             $total_files = 1;
@@ -146,8 +166,8 @@ class ChmodTask extends Task {
         }
 
         // filesets
-        foreach($this->filesets as $fs) {
-                    
+        foreach ($this->filesets as $fs) {
+
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
 
@@ -162,42 +182,43 @@ class ChmodTask extends Task {
 
             $dircount = count($srcDirs);
             $total_dirs = $total_dirs + $dircount;
-            for ($j = 0; $j <  $dircount; $j++) {
+            for ($j = 0; $j < $dircount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcDirs[$j]), $mode);
             }
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
-            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_files);
+            $this->log('Total directories changed to ' . vsprintf('%o', [$mode]) . ': ' . $total_dirs);
         }
 
     }
 
-	/**
-	 * Actually change the mode for the file.
-	 * @param PhingFile $file
-	 * @param int $mode
-	 */
-    private function chmodFile(PhingFile $file, $mode) {
-        if ( !$file->exists() ) {
+    /**
+     * Actually change the mode for the file.
+     * @param PhingFile $file
+     * @param int $mode
+     * @throws BuildException
+     * @throws Exception
+     */
+    private function chmodFile(PhingFile $file, $mode)
+    {
+        if (!$file->exists()) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");
-        }   
-		     
-		try {
-			$file->setMode($mode);
-			if ($this->verbose) {
-				$this->log("Changed file mode on '" . $file->__toString() ."' to " . vsprintf("%o", $mode));
-			}
-		} catch (Exception $e) {
-			if($this->failonerror) {
-				throw $e;
-			} else {
-				$this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
-			}
-		}
+        }
+
+        try {
+            $file->setMode($mode);
+            if ($this->verbose) {
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
+            }
+        } catch (Exception $e) {
+            if ($this->failonerror) {
+                throw $e;
+            } else {
+                $this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+            }
+        }
     }
-	
+
 }
-
-

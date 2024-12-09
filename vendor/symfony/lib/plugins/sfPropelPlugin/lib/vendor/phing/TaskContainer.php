@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id: TaskContainer.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -23,20 +21,18 @@
  *  Abstract interface for objects which can contain tasks (targets)
  *  Used to check if a class can contain tasks (via instanceof)
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.5 $ $Date: 2006-09-14 13:19:08 -0700 (Thu, 14 Sep 2006) $
- *  @access    public
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ *
+ * @package   phing
  */
-interface TaskContainer {
-
+interface TaskContainer
+{
     /**
-     *  Adds a task to this task container. Must be implemented
-     *  by derived class
+     * Adds a task to this task container. Must be implemented
+     * by derived class
      *
-     *  @param  object  The task to be added to the container
-     *  @access public
+     * @param Task $task The task to be added to the container.
      */
-    function addTask(Task $task);
+    public function addTask(Task $task);
 }

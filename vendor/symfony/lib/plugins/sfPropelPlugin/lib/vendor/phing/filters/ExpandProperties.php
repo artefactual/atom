@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: ExpandProperties.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: e675c5b0a48221a1627266abd6e88c1d495badbc $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,50 +33,79 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Id: e675c5b0a48221a1627266abd6e88c1d495badbc $
  * @see       BaseFilterReader
  * @package   phing.filters
  */
-class ExpandProperties extends BaseFilterReader implements ChainableReader {
-   
+class ExpandProperties extends BaseFilterReader implements ChainableReader
+{
+    protected $logLevel = Project::MSG_VERBOSE;
+
     /**
-     * Returns the filtered stream. 
+     * Set level of log messages generated (default = info)
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        switch ($level) {
+            case "error":
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case "warning":
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case "info":
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case "verbose":
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case "debug":
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
+        }
+    }
+
+    /**
+     * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
-     * 
-     * @return mixed     the filtered stream, or -1 if the end of the resulting stream has been reached.
-     * 
+     *
+     * @param null $len
+     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
+     *
      * @exception IOException if the underlying stream throws an IOException
      * during reading
      */
-    function read($len = null) {
-                
+    public function read($len = null)
+    {
+
         $buffer = $this->in->read($len);
-        
-        if($buffer === -1) {
+
+        if ($buffer === -1) {
             return -1;
         }
-        
+
         $project = $this->getProject();
-        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties());
-        
+        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties(), $this->logLevel);
+
         return $buffer;
     }
-        
+
     /**
      * Creates a new ExpandProperties filter using the passed in
      * Reader for instantiation.
-     * 
-     * @param object A Reader object providing the underlying stream.
+     *
+     * @param Reader $reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
-     * @return object A new filter based on this configuration, but filtering
-     *         the specified reader
+     *
+     * @return ExpandProperties A new filter based on this configuration, but filtering
+     *                the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new ExpandProperties($reader);
         $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 }
-
-

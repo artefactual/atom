@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: MkdirTask.php 43 2006-03-10 14:31:51Z mrook $
+ *  $Id: e330e2db38e780989e79afe3bdbd269afe8b02fa $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,39 +26,79 @@ include_once 'phing/system/io/PhingFile.php';
  * Task to create a directory.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.8 $
+ * @version  $Id: e330e2db38e780989e79afe3bdbd269afe8b02fa $
  * @package  phing.tasks.system
  */
-class MkdirTask extends Task {
+class MkdirTask extends Task
+{
 
-    /** directory to create*/
+    /**
+     * Directory to create.
+     * @var PhingFile $dir
+     */
     private $dir;
+
+    /**
+     * Mode to create directory with
+     * @var integer
+     */
+    private $mode = 0;
+
+    /**
+     * Sets up this object internal stuff. i.e. the default mode.
+     */
+    public function __construct()
+    {
+        $this->mode = 0777 - umask();
+    }
 
     /**
      * create the directory and all parents
      *
      * @throws BuildException if dir is somehow invalid, or creation failed.
      */
-    function main() {
+    public function main()
+    {
         if ($this->dir === null) {
             throw new BuildException("dir attribute is required", $this->location);
         }
         if ($this->dir->isFile()) {
-            throw new BuildException("Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath());
+            throw new BuildException("Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath(
+                ));
         }
         if (!$this->dir->exists()) {
-            $result = $this->dir->mkdirs();
+            $result = $this->dir->mkdirs($this->mode);
             if (!$result) {
-                $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
+                if ($this->dir->exists()) {
+                    $this->log("A different process or task has already created " . $this->dir->getAbsolutePath());
+
+                    return;
+                }
+                $msg = "Directory " . $this->dir->getAbsolutePath(
+                    ) . " creation was not successful for an unknown reason";
                 throw new BuildException($msg, $this->location);
             }
             $this->log("Created dir: " . $this->dir->getAbsolutePath());
         }
     }
 
-    /** the directory to create; required. */
-    function setDir(PhingFile $dir) {
+    /**
+     * The directory to create; required.
+     * @param PhingFile $dir
+     * @return void
+     */
+    public function setDir(PhingFile $dir)
+    {
         $this->dir = $dir;
     }
 
+    /**
+     * Sets mode to create directory with
+     * @param mixed $mode
+     * @return void
+     */
+    public function setMode($mode)
+    {
+        $this->mode = base_convert((int) $mode, 8, 10);
+    }
 }

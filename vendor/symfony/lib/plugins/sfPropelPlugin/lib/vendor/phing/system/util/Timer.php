@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id: Timer.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
 
 /**
  * This class can be used to obtain the execution time of all of the scripts
@@ -37,35 +34,47 @@
  *
  * @author    Charles Killian
  * @author    Hans Lellelid <hans@xmpl.org>
+ *
  * @package    phing.system.util
- * @version    $Revision: 1.5 $ $Date: 2006-09-14 13:19:08 -0700 (Thu, 14 Sep 2006) $
  */
-class Timer {
-
-    /** start time */
+class Timer
+{
+    /**
+     * start time
+     *
+     * @var float
+     */
     protected $stime;
-    
-    /** end time */
-    protected $etime;  
+
+    /**
+     * end time
+     *
+     * @var float
+     */
+    protected $etime;
 
     /**
      * This function sets the class variable $stime to the current time in
      * microseconds.
+     *
      * @return void
      */
-    public function start() {
-        $this->stime = $this->getMicrotime();
+    public function start()
+    {
+        $this->stime = microtime(true);
     }
 
     /**
      * This function sets the class variable $etime to the current time in
      * microseconds.
+     *
      * @return void
      */
-    function stop() {
-        $this->etime = $this->getMicrotime();
+    public function stop()
+    {
+        $this->etime = microtime(true);
     }
-    
+
     /**
      * This function returns the elapsed time in seconds.
      *
@@ -73,24 +82,15 @@ class Timer {
      * the end of script execution.  Then, call elapsed_time() to obtain the
      * difference between start_time() and end_time().
      *
-     * @param    $places  decimal place precision of elapsed time (default is 5)
+     * @param  int $places decimal place precision of elapsed time (default is 5)
+     *
      * @return string Properly formatted time.
      */
-    function getElapsedTime($places=5) {
+    public function getElapsedTime($places = 5)
+    {
         $etime = $this->etime - $this->stime;
-        $format = "%0.".$places."f";
-        return (sprintf ($format, $etime));
-    }
+        $format = "%0." . $places . "f";
 
-    /**
-     * This function returns the current time in microseconds.
-     *
-     * @author    Everett Michaud, Zend.com
-     * @return    current time in microseconds
-     * @access    private
-     */
-    function getMicrotime() {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
+        return (sprintf($format, $etime));
     }
 }

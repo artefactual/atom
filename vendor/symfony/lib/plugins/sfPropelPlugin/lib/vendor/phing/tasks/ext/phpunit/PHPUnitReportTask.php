@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: PHPUnitReportTask.php 325 2007-12-20 15:44:58Z hans $
+ * $Id: 73ee928b954e62bad8f9e4b644a28e56c1e0df85 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,162 +25,249 @@ require_once 'phing/system/io/FileWriter.php';
 require_once 'phing/util/ExtendedFileStream.php';
 
 /**
- * Transform a PHPUnit2 xml report using XSLT.
+ * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
- * style. The non-framed style is convenient to have a concise report via mail, 
- * the framed report is much more convenient if you want to browse into 
+ * style. The non-framed style is convenient to have a concise report via mail,
+ * the framed report is much more convenient if you want to browse into
  * different packages or testcases since it is a Javadoc like report.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: PHPUnitReportTask.php 325 2007-12-20 15:44:58Z hans $
+ * @author Michiel Rook <mrook@php.net>
+ * @version $Id: 73ee928b954e62bad8f9e4b644a28e56c1e0df85 $
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
 class PHPUnitReportTask extends Task
 {
-	private $format = "noframes";
-	private $styleDir = "";
-	private $toDir = "";
+    private $format = "noframes";
+    private $styleDir = "";
 
-	/** the directory where the results XML can be found */
-	private $inFile = "testsuites.xml";
+    /**
+     * @var PhingFile
+     */
+    private $toDir;
 
-	/**
-	 * Set the filename of the XML results file to use.
-	 */
-	function setInFile($inFile)
-	{
-		$this->inFile = $inFile;
-	}
+    /**
+     * Whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @var boolean
+     */
+    private $useSortTable = false;
 
-	/**
-	 * Set the format of the generated report. Must be noframes or frames.
-	 */
-	function setFormat($format)
-	{
-		$this->format = $format;
-	}
+    /** the directory where the results XML can be found */
+    private $inFile = "testsuites.xml";
 
-	/**
-	 * Set the directory where the stylesheets are located.
-	 */
-	function setStyleDir($styleDir)
-	{
-		$this->styleDir = $styleDir;
-	}
+    /**
+     * Set the filename of the XML results file to use.
+     * @param PhingFile $inFile
+     * @return void
+     */
+    public function setInFile(PhingFile $inFile)
+    {
+        $this->inFile = $inFile;
+    }
 
-	/**
-	 * Set the directory where the files resulting from the 
-	 * transformation should be written to.
-	 */
-	function setToDir($toDir)
-	{
-		$this->toDir = $toDir;
-	}
-	
-	/**
-	 * Returns the path to the XSL stylesheet
-	 */
-	private function getStyleSheet()
-	{
-		$xslname = "phpunit2-" . $this->format . ".xsl";
+    /**
+     * Set the format of the generated report. Must be noframes or frames.
+     * @param $format
+     * @return void
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
+    }
 
-		if ($this->styleDir)
-		{
-			$file = new PhingFile($this->styleDir, $xslname);
-		}
-		else
-		{
-			$path = Phing::getResourcePath("phing/etc/$xslname");
-			
-			if ($path === NULL)
-			{
-				$path = Phing::getResourcePath("etc/$xslname");
+    /**
+     * Set the directory where the stylesheets are located.
+     * @param $styleDir
+     * @return void
+     */
+    public function setStyleDir($styleDir)
+    {
+        $this->styleDir = $styleDir;
+    }
 
-				if ($path === NULL)
-				{
-					throw new BuildException("Could not find $xslname in resource path");
-				}
-			}
-			
-			$file = new PhingFile($path);
-		}
+    /**
+     * Set the directory where the files resulting from the
+     * transformation should be written to.
+     * @param PhingFile $toDir
+     * @return void
+     */
+    public function setToDir(PhingFile $toDir)
+    {
+        $this->toDir = $toDir;
+    }
 
-		if (!$file->exists())
-		{
-			throw new BuildException("Could not find file " . $file->getPath());
-		}
+    /**
+     * Sets whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @param boolean $useSortTable
+     * @return void
+     */
+    public function setUseSortTable($useSortTable)
+    {
+        $this->useSortTable = (boolean) $useSortTable;
+    }
 
-		return $file;
-	}
-	
-	/**
-	 * Transforms the DOM document
-	 */
-	private function transform(DOMDocument $document)
-	{
-		$dir = new PhingFile($this->toDir);
-		
-		if (!$dir->exists())
-		{
-			throw new BuildException("Directory '" . $this->toDir . "' does not exist");
-		}
-		
-		$xslfile = $this->getStyleSheet();
+    /**
+     * Returns the path to the XSL stylesheet
+     * @throws BuildException
+     */
+    protected function getStyleSheet()
+    {
+        $xslname = "phpunit-" . $this->format . ".xsl";
 
-		$xsl = new DOMDocument();
-		$xsl->load($xslfile->getAbsolutePath());
+        if ($this->styleDir) {
+            $file = new PhingFile($this->styleDir, $xslname);
+        } else {
+            $path = Phing::getResourcePath("phing/etc/$xslname");
 
-		$proc = new XSLTProcessor();
-		$proc->importStyleSheet($xsl);
+            if ($path === null) {
+                $path = Phing::getResourcePath("etc/$xslname");
 
-		if ($this->format == "noframes")
-		{
-			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit2-noframes.html"));
-			$writer->write($proc->transformToXML($document));
-			$writer->close();
-		}
-		else
-		{
-			ExtendedFileStream::registerStream();
+                if ($path === null) {
+                    throw new BuildException("Could not find $xslname in resource path");
+                }
+            }
 
-			// no output for the framed report
-			// it's all done by extension...
-			$dir = new PhingFile($this->toDir);
-			$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
-			$proc->transformToXML($document);
-		}
-	}
-	
-	/**
-	 * Fixes 'testsuite' elements with no package attribute, adds
-	 * package="default" to those elements.
-	 */
-	private function fixPackages(DOMDocument $document)
-	{
-		$testsuites = $document->getElementsByTagName('testsuite');
-		
-		foreach ($testsuites as $testsuite)
-		{
-			if (!$testsuite->hasAttribute('package'))
-			{
-				$testsuite->setAttribute('package', 'default');
-			}
-		}
-	}
+            $file = new PhingFile($path);
+        }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	public function main()
-	{
-		$testSuitesDoc = new DOMDocument();
-		$testSuitesDoc->load($this->inFile);
-		
-		$this->fixPackages($testSuitesDoc);
-		
-		$this->transform($testSuitesDoc);
-	}
+        if (!$file->exists()) {
+            throw new BuildException("Could not find file " . $file->getPath());
+        }
+
+        return $file;
+    }
+
+    /**
+     * Transforms the DOM document
+     * @param DOMDocument $document
+     * @throws BuildException
+     * @throws IOException
+     */
+    protected function transform(DOMDocument $document)
+    {
+        if (!$this->toDir->exists()) {
+            throw new BuildException("Directory '" . $this->toDir . "' does not exist");
+        }
+
+        $xslfile = $this->getStyleSheet();
+
+        $xsl = new DOMDocument();
+        $xsl->load($xslfile->getAbsolutePath());
+
+        $proc = new XSLTProcessor();
+        if (defined('XSL_SECPREF_WRITE_FILE')) {
+            if (version_compare(PHP_VERSION, '5.4', "<")) {
+                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            } else {
+                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
+        }
+
+        $proc->importStylesheet($xsl);
+        $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
+
+        if ($this->format == "noframes") {
+            $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
+            $writer->write($proc->transformToXml($document));
+            $writer->close();
+        } else {
+            ExtendedFileStream::registerStream();
+
+            $toDir = (string) $this->toDir;
+
+            // urlencode() the path if we're on Windows
+            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+                $toDir = urlencode($toDir);
+            }
+
+            // no output for the framed report
+            // it's all done by extension...
+            $proc->setParameter('', 'output.dir', $toDir);
+            $proc->transformToXml($document);
+
+            ExtendedFileStream::unregisterStream();
+        }
+    }
+
+    /**
+     * Fixes DOM document tree:
+     *   - adds package="default" to 'testsuite' elements without
+     *     package attribute
+     *   - removes outer 'testsuite' container(s)
+     * @param DOMDocument $document
+     */
+    protected function fixDocument(DOMDocument $document)
+    {
+        $rootElement = $document->firstChild;
+
+        $xp = new DOMXPath($document);
+
+        $nodes = $xp->query("/testsuites/testsuite");
+
+        foreach ($nodes as $node) {
+            $children = $xp->query("./testsuite", $node);
+
+            if ($children->length) {
+                /** @var $child DOMElement */
+                foreach ($children as $child) {
+                    $rootElement->appendChild($child);
+
+                    if ($child->hasAttribute('package')) {
+                        continue;
+                    }
+
+                    if ($child->hasAttribute('namespace')) {
+                        $child->setAttribute('package', $child->getAttribute('namespace'));
+                        continue;
+                    }
+
+                    $package = 'default';
+                    $refClass = new ReflectionClass($child->getAttribute('name'));
+
+                    if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                        $package = end($matches);
+                    } elseif (method_exists($refClass, 'getNamespaceName')) {
+                        $namespace = $refClass->getNamespaceName();
+
+                        if ($namespace !== '') {
+                            $package = $namespace;
+                        }
+                    }
+
+                    $child->setAttribute('package', trim($package));
+                }
+
+                $rootElement->removeChild($node);
+            }
+        }
+    }
+
+    /**
+     * Initialize the task
+     */
+    public function init()
+    {
+        if (!class_exists('XSLTProcessor')) {
+            throw new BuildException("PHPUnitReportTask requires the XSL extension");
+        }
+    }
+
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    public function main()
+    {
+        $testSuitesDoc = new DOMDocument();
+        $testSuitesDoc->load((string) $this->inFile);
+
+        $this->fixDocument($testSuitesDoc);
+
+        $this->transform($testSuitesDoc);
+    }
 }

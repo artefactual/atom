@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: IOException.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: 6332c0926e183bd18739ccc50aa58e4d79eb984f $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -24,4 +24,6 @@
  *
  * @package   phing.system.io
  */
-class IOException extends Exception {}
+class IOException extends Exception
+{
+}

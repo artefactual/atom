@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: IsFalseCondition.php 43 2006-03-10 14:31:51Z mrook $
+ *  $Id: 9701c89d600f9a53d49b95974dc3bbaa9d84e30a $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,37 +24,40 @@ require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Condition that tests whether a given string evals to false.
- * 
+ *
  * @author Hans Lellelid (Phing)
  * @author Steve Loughran (Ant)
- * @version $Revision: 1.4 $
+ * @version $Id: 9701c89d600f9a53d49b95974dc3bbaa9d84e30a $
  * @package phing.tasks.system.condition
  */
-class IsFalseCondition extends ProjectComponent implements Condition {
-    
-    /**  
+class IsFalseCondition extends ProjectComponent implements Condition
+{
+
+    /**
      * what we eval
-     */ 
+     */
     private $value;
 
     /**
      * Set the value to be tested.
      * @param boolean $value
-     */ 
-    public function setValue($value) {
+     */
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
     /**
      * return the inverted value;
      * @throws BuildException if someone forgot to spec a value
-     */ 
-    public function evaluate() {
+     */
+    public function evaluate()
+    {
         if ($this->value === null) {
             throw new BuildException("Nothing to test for falsehood");
         }
+
         return !$this->value;
     }
 
 }
-

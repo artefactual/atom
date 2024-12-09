@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: TstampTask.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: e185e05826c5bf6bd0fac6652f483c67548095c6 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
 /**
@@ -26,42 +26,41 @@ require_once 'phing/Task.php';
  * The default properties are TSTAMP, DSTAMP and TODAY;
  *
  * Based on Ant's Tstamp task.
- * 
- * @author   Michiel Rook <michiel.rook@gmail.com>
- * @version  $Revision: 1.6 $
+ *
+ * @author   Michiel Rook <mrook@php.net>
+ * @version  $Id: e185e05826c5bf6bd0fac6652f483c67548095c6 $
  * @package  phing.tasks.system
  * @since    2.2.0
  */
 class TstampTask extends Task
 {
-	private $customFormats = array();
-	
-	private $prefix = "";
-	
-	/**
-	 * Set a prefix for the properties. If the prefix does not end with a "."
-	 * one is automatically added.
-	 * @param prefix the prefix to use.
-	 */
-	public function setPrefix($prefix)
-	{
-		$this->prefix = $prefix;
-		
-		if (!empty($this->prefix))
-		{
-			$this->prefix.= ".";
-		}
-	}
-	
+    private $customFormats = array();
+
+    private $prefix = "";
+
+    /**
+     * Set a prefix for the properties. If the prefix does not end with a "."
+     * one is automatically added.
+     * @param string $prefix the prefix to use.
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        if (!empty($this->prefix)) {
+            $this->prefix .= ".";
+        }
+    }
+
     /**
      * Adds a custom format
      *
-	 * @param TstampCustomFormat custom format
+     * @param TstampCustomFormat custom format
      */
-	public function addFormat(TstampCustomFormat $cf)
-	{
-		$this->customFormats[] = $cf;
-	}
+    public function addFormat(TstampCustomFormat $cf)
+    {
+        $this->customFormats[] = $cf;
+    }
 
     /**
      * Create the timestamps. Custom ones are done before
@@ -71,24 +70,25 @@ class TstampTask extends Task
      */
     public function main()
     {
-		foreach ($this->customFormats as $cf)
-		{
-			$cf->execute($this);
-		}
-		
-		$dstamp = strftime('%Y%m%d');
-		$this->prefixProperty('DSTAMP', $dstamp);
-		
-		$tstamp = strftime('%H%M');
-		$this->prefixProperty('TSTAMP', $tstamp);
-		
-		$today = strftime('%B %d %Y');
-		$this->prefixProperty('TODAY', $today);
-	}
-	
+        foreach ($this->customFormats as $cf) {
+            $cf->execute($this);
+        }
+
+        $dstamp = strftime('%Y%m%d');
+        $this->prefixProperty('DSTAMP', $dstamp);
+
+        $tstamp = strftime('%H%M');
+        $this->prefixProperty('TSTAMP', $tstamp);
+
+        $today = strftime('%B %d %Y');
+        $this->prefixProperty('TODAY', $today);
+    }
+
     /**
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
+     * @param $name
+     * @param $value
      */
     public function prefixProperty($name, $value)
     {
@@ -96,73 +96,92 @@ class TstampTask extends Task
     }
 }
 
+/**
+ * @package  phing.tasks.system
+ */
 class TstampCustomFormat
 {
-	private $propertyName = "";
-	private $pattern = "";
-	private $locale = "";
-	
-	/**
-	 * The property to receive the date/time string in the given pattern
-	 *
-	 * @param propertyName the name of the property.
-	 */
-	public function setProperty($propertyName)
-	{
-		$this->propertyName = $propertyName;
-	}
+    private $propertyName = "";
+    private $pattern = "";
+    private $locale = "";
+    private $timezone = "";
 
-	/**
-	 * The date/time pattern to be used. The values are as
-	 * defined by the PHP strftime() function.
-	 *
-	 * @param pattern
-	 */
-	public function setPattern($pattern)
-	{
-		$this->pattern = $pattern;
-	}
-	
-	/**
-	 * The locale used to create date/time string.
-	 *
-	 * @param locale
-	 */
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-	
-	/**
-	 * validate parameter and execute the format.
-	 *
-	 * @param TstampTask reference to task
-	 */
-	public function execute(TstampTask $tstamp)
-	{
-		if (empty($this->propertyName))
-		{
-			throw new BuildException("property attribute must be provided");
-		}
+    /**
+     * The property to receive the date/time string in the given pattern
+     *
+     * @param string $propertyName the name of the property.
+     */
+    public function setProperty($propertyName)
+    {
+        $this->propertyName = $propertyName;
+    }
 
-		if (empty($this->pattern))
-		{
-			throw new BuildException("pattern attribute must be provided");
-		}
-		
-		if (!empty($this->locale))
-		{
-			setlocale(LC_ALL, $this->locale);
-		}
-		
-		$value = strftime($this->pattern);
-		$tstamp->prefixProperty($this->propertyName, $value);
-		
-		if (!empty($this->locale))
-		{
-			// reset locale
-			setlocale(LC_ALL, NULL);
-		}
-	}
+    /**
+     * The date/time pattern to be used. The values are as
+     * defined by the PHP strftime() function.
+     *
+     * @param pattern
+     */
+    public function setPattern($pattern)
+    {
+        $this->pattern = $pattern;
+    }
+
+    /**
+     * The locale used to create date/time string.
+     *
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @param string $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
+    /**
+     * validate parameter and execute the format.
+     *
+     * @param TstampTask $tstamp reference to task
+     * @throws BuildException
+     */
+    public function execute(TstampTask $tstamp)
+    {
+        if (empty($this->propertyName)) {
+            throw new BuildException("property attribute must be provided");
+        }
+
+        if (empty($this->pattern)) {
+            throw new BuildException("pattern attribute must be provided");
+        }
+
+        $oldlocale = "";
+        if (!empty($this->locale)) {
+            $oldlocale = setlocale(LC_ALL, 0);
+            setlocale(LC_ALL, $this->locale);
+        }
+
+        $savedTimezone = date_default_timezone_get();
+        if (!empty($this->timezone)) {
+            date_default_timezone_set($this->timezone);
+        }
+
+        $value = strftime($this->pattern);
+        $tstamp->prefixProperty($this->propertyName, $value);
+
+        if (!empty($this->locale)) {
+            // reset locale
+            setlocale(LC_ALL, $oldlocale);
+        }
+
+        if (!empty($this->timezone)) {
+            date_default_timezone_set($savedTimezone);
+        }
+    }
 }
-

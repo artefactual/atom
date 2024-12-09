@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ExpatParser.php 123 2006-09-14 20:19:08Z mrook $
+ *  $Id: 0e78856d8464d655550baa5a20b235b4049625f8 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/parser/AbstractSAXParser.php';
 include_once 'phing/parser/ExpatParseException.php';
 include_once 'phing/system/io/IOException.php';
@@ -34,29 +34,29 @@ include_once 'phing/system/io/FileReader.php';
  * Those methods then invoke the represenatative methods in the registered
  * handler classes.
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.8 $ $Date: 2006-09-14 13:19:08 -0700 (Thu, 14 Sep 2006) $
- * @access    public
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id: 0e78856d8464d655550baa5a20b235b4049625f8 $
  * @package   phing.parser
  */
 
-class ExpatParser extends AbstractSAXParser {
-    
+class ExpatParser extends AbstractSAXParser
+{
+
     /** @var resource */
     private $parser;
-    
+
     /** @var Reader */
     private $reader;
-    
+
     private $file;
-    
+
     private $buffer = 4096;
-    
+
     private $error_string = "";
-    
+
     private $line = 0;
-    
+
     /** @var Location Current cursor pos in XML file. */
     private $location;
 
@@ -67,11 +67,12 @@ class ExpatParser extends AbstractSAXParser {
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
-     * @param Reader $reader  The Reader Object that is to be read from.
-     * @param string $filename Filename to read.
+     * @param  Reader    $reader   The Reader Object that is to be read from.
+     * @param  string    $filename Filename to read.
      * @throws Exception if the given argument is not a PhingFile object
      */
-    function __construct(Reader $reader, $filename=null) {
+    public function __construct(Reader $reader, $filename = null)
+    {
 
         $this->reader = $reader;
         if ($filename !== null) {
@@ -81,19 +82,20 @@ class ExpatParser extends AbstractSAXParser {
         $this->buffer = 4096;
         $this->location = new Location();
         xml_set_object($this->parser, $this);
-        xml_set_element_handler($this->parser, array($this,"startElement"),array($this,"endElement"));
+        xml_set_element_handler($this->parser, array($this, "startElement"), array($this, "endElement"));
         xml_set_character_data_handler($this->parser, array($this, "characters"));
     }
 
     /**
      * Override PHP's parser default settings, created in the constructor.
      *
-     * @param  string  the option to set
-     * @throws mixed   the value to set
+     * @param $opt
+     * @param $val
+     * @internal param the $string option to set
      * @return boolean true if the option could be set, otherwise false
-     * @access public
      */
-    function parserSetOption($opt, $val) {
+    public function parserSetOption($opt, $val)
+    {
         return xml_parser_set_option($this->parser, $opt, $val);
     }
 
@@ -101,16 +103,19 @@ class ExpatParser extends AbstractSAXParser {
      * Returns the location object of the current parsed element. It describes
      * the location of the element within the XML file (line, char)
      *
-     * @return object  the location of the current parser
-     * @access public
+     * @return object the location of the current parser
      */
-    function getLocation() {
+    public function getLocation()
+    {
         if ($this->file !== null) {
             $path = $this->file->getAbsolutePath();
         } else {
             $path = $this->reader->getResource();
         }
-        $this->location = new Location($path, xml_get_current_line_number($this->parser), xml_get_current_column_number($this->parser));
+        $this->location = new Location($path, xml_get_current_line_number($this->parser), xml_get_current_column_number(
+            $this->parser
+        ));
+
         return $this->location;
     }
 
@@ -118,23 +123,23 @@ class ExpatParser extends AbstractSAXParser {
      * Starts the parsing process.
      *
      * @param  string  the option to set
-     * @return int     1 if the parsing succeeded
+     * @return int                 1 if the parsing succeeded
      * @throws ExpatParseException if something gone wrong during parsing
-     * @throws IOException if XML file can not be accessed
-     * @access public
+     * @throws IOException         if XML file can not be accessed
      */
-    function parse() {
-    
-        while ( ($data = $this->reader->read()) !== -1 ) {            
+    public function parse()
+    {
+
+        while (($data = $this->reader->read()) !== -1) {
             if (!xml_parse($this->parser, $data, $this->reader->eof())) {
                 $error = xml_error_string(xml_get_error_code($this->parser));
                 $e = new ExpatParseException($error, $this->getLocation());
-                xml_parser_free($this->parser);                
-                throw $e;  
+                xml_parser_free($this->parser);
+                throw $e;
             }
         }
         xml_parser_free($this->parser);
-        
+
         return 1;
     }
 }

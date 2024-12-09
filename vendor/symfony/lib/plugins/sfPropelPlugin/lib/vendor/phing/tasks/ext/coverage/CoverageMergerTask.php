@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: CoverageMergerTask.php 325 2007-12-20 15:44:58Z hans $
+ * $Id: 6d4732d2b352c992dc03cd92cd83ad1b81bf9e45 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,65 +28,61 @@ require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 /**
  * Merges code coverage snippets into a code coverage database
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: CoverageMergerTask.php 325 2007-12-20 15:44:58Z hans $
+ * @author Michiel Rook <mrook@php.net>
+ * @version $Id: 6d4732d2b352c992dc03cd92cd83ad1b81bf9e45 $
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
 class CoverageMergerTask extends Task
 {
-	/** the list of filesets containing the .php filename rules */
-	private $filesets = array();
+    /** the list of filesets containing the .php filename rules */
+    private $filesets = array();
 
-	/**
-	 * Add a new fileset containing the .php files to process
-	 *
-	 * @param FileSet the new fileset containing .php files
-	 */
-	function addFileSet(FileSet $fileset)
-	{
-		$this->filesets[] = $fileset;
-	}
+    /**
+     * Add a new fileset containing the .php files to process
+     *
+     * @param FileSet the new fileset containing .php files
+     */
+    public function addFileSet(FileSet $fileset)
+    {
+        $this->filesets[] = $fileset;
+    }
 
-	/**
-	 * Iterate over all filesets and return all the filenames.
-	 *
-	 * @return array an array of filenames
-	 */
-	private function getFilenames()
-	{
-		$files = array();
+    /**
+     * Iterate over all filesets and return all the filenames.
+     *
+     * @return array an array of filenames
+     */
+    private function getFilenames()
+    {
+        $files = array();
 
-		foreach ($this->filesets as $fileset)
-		{
-			$ds = $fileset->getDirectoryScanner($this->project);
-			$ds->scan();
+        foreach ($this->filesets as $fileset) {
+            $ds = $fileset->getDirectoryScanner($this->project);
+            $ds->scan();
 
-			$includedFiles = $ds->getIncludedFiles();
-			
-			foreach ($includedFiles as $file)
-			{
-				$fs = new PhingFile(basename($ds->getBaseDir()), $file);
-					
-				$files[] = $fs->getAbsolutePath();
-			}
-		}
+            $includedFiles = $ds->getIncludedFiles();
 
-		return $files;
-	}
-	
-	function main()
-	{
-		$files = $this->getFilenames();
-		
-		$this->log("Merging " . count($files) . " coverage files");
+            foreach ($includedFiles as $file) {
+                $fs = new PhingFile(basename($ds->getBaseDir()), $file);
 
-		foreach ($files as $file)
-		{
-			$coverageInformation = unserialize(file_get_contents($file));
-			
-			CoverageMerger::merge($this->project, array($coverageInformation));
-		}
-	}
+                $files[] = $fs->getAbsolutePath();
+            }
+        }
+
+        return $files;
+    }
+
+    public function main()
+    {
+        $files = $this->getFilenames();
+
+        $this->log("Merging " . count($files) . " coverage files");
+
+        foreach ($files as $file) {
+            $coverageInformation = unserialize(file_get_contents($file));
+
+            CoverageMerger::merge($this->project, array($coverageInformation));
+        }
+    }
 }
-

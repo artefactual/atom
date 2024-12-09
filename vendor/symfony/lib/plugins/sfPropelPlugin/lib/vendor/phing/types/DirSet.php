@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: DirSet.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 61cd2b26a7d3430fb6b1a2dbedd959e832440686 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/types/AbstractFileSet.php';
 
 /**
@@ -28,17 +28,23 @@ include_once 'phing/types/AbstractFileSet.php';
  *
  * @package phing.types
  */
-class DirSet extends AbstractFileSet {
-    
-    public function __construct($dirset = null) {
+class DirSet extends AbstractFileSet
+{
+
+    /**
+     * @param null $dirset
+     */
+    public function __construct($dirset = null)
+    {
         parent::__construct($dirset);
-    }    
+    }
 
     /**
      * Return a DirSet that has the same basedir and same patternsets
      * as this one.
      */
-    public function __clone() {
+    public function __clone()
+    {
         if ($this->isReference()) {
             return new DirSet($this->getRef($this->getProject()));
         } else {

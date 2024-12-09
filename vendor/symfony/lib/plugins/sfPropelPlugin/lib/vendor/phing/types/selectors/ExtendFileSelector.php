@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: ExtendFileSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 3b9bc23a59e95799a682b7e868b6ac384e498107 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@ require_once 'phing/types/selectors/FileSelector.php';
 /**
  * This is the interface to be used by all custom selectors, those that are
  * called through the &lt;custom&gt; tag. It is the amalgamation of two
- * interfaces, the FileSelector and the Paramterizable interface. Note that
+ * interfaces, the FileSelector and the Parameterizable interface. Note that
  * you will almost certainly want the default behaviour for handling
  * Parameters, so you probably want to use the BaseExtendSelector class
  * as the base class for your custom selector rather than implementing
@@ -36,8 +36,8 @@ require_once 'phing/types/selectors/FileSelector.php';
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-interface ExtendFileSelector extends Parameterizable, FileSelector {
-  // No further methods necessary. This is just an amalgamation of two other
-  // interfaces.
+interface ExtendFileSelector extends Parameterizable, FileSelector
+{
+    // No further methods necessary. This is just an amalgamation of two other
+    // interfaces.
 }
-

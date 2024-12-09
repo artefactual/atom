@@ -1,6 +1,6 @@
 <?php
-/* 
- *  $Id: GlobMapper.php 123 2006-09-14 20:19:08Z mrook $
+/*
+ *  $Id: bbd21ce62611adac2da693d64941edf0272d7f72 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,98 +16,125 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 include_once 'phing/mappers/FileNameMapper.php';
 
 /**
- * description here
+ * Uses glob patterns to perform filename transformations.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.10 $
+ * @version  $Id: bbd21ce62611adac2da693d64941edf0272d7f72 $
  * @package   phing.mappers
  */
-class GlobMapper implements FileNameMapper {
-
+class GlobMapper implements FileNameMapper
+{
     /**
-     * Part of &quot;from&quot; pattern before the *.
+     * Part of &quot;from&quot; pattern before the <code>.*</code>.
+     * @var string $fromPrefix
      */
     private $fromPrefix = null;
 
     /**
-     * Part of &quot;from&quot; pattern after the *.
+     * Part of &quot;from&quot; pattern after the <code>.*</code>.
+     * @var string $fromPostfix
      */
     private $fromPostfix = null;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
+     * @var int $prefixLength
      */
     private $prefixLength;
 
     /**
      * Length of the postfix (&quot;from&quot; pattern).
+     * @var int $postfixLength
      */
     private $postfixLength;
 
     /**
-     * Part of &quot;to&quot; pattern before the *.
+     * Part of &quot;to&quot; pattern before the <code>*.</code>.
+     * @var string $toPrefix
      */
     private $toPrefix = null;
 
     /**
-     * Part of &quot;to&quot; pattern after the *.
+     * Part of &quot;to&quot; pattern after the <code>*.</code>.
+     * @var string $toPostfix
      */
     private $toPostfix = null;
 
-
-    function main($_sourceFileName) {
+    /**
+     * {@inheritdoc}
+     * @param mixed $sourceFileName
+     * @return array|null
+     */
+    public function main($sourceFileName)
+    {
         if (($this->fromPrefix === null)
-            || !StringHelper::startsWith($this->fromPrefix, $_sourceFileName)
-            || !StringHelper::endsWith($this->fromPostfix, $_sourceFileName)) {
+            || !StringHelper::startsWith($this->fromPrefix, $sourceFileName)
+            || !StringHelper::endsWith($this->fromPostfix, $sourceFileName)
+        ) {
             return null;
         }
-        $varpart = $this->_extractVariablePart($_sourceFileName);
-        $substitution = $this->toPrefix.$varpart.$this->toPostfix;
+        $varpart = $this->extractVariablePart($sourceFileName);
+        $substitution = $this->toPrefix . $varpart . $this->toPostfix;
+
         return array($substitution);
     }
 
-
-
-   function setFrom($from) {
+    /**
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
+     */
+    public function setFrom($from)
+    {
         $index = strrpos($from, '*');
 
         if ($index === false) {
             $this->fromPrefix = $from;
             $this->fromPostfix = "";
         } else {
-            $this->fromPrefix  = substr($from, 0, $index);
-            $this->fromPostfix = substr($from, $index+1);
+            $this->fromPrefix = substr($from, 0, $index);
+            $this->fromPostfix = substr($from, $index + 1);
         }
-        $this->prefixLength  = strlen($this->fromPrefix);
+        $this->prefixLength = strlen($this->fromPrefix);
         $this->postfixLength = strlen($this->fromPostfix);
     }
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
-    function setTo($to) {
+    public function setTo($to)
+    {
         $index = strrpos($to, '*');
         if ($index === false) {
             $this->toPrefix = $to;
             $this->toPostfix = "";
         } else {
-            $this->toPrefix  = substr($to, 0, $index);
-            $this->toPostfix = substr($to, $index+1);
+            $this->toPrefix = substr($to, 0, $index);
+            $this->toPostfix = substr($to, $index + 1);
         }
     }
 
-    private function _extractVariablePart($_name) {
+    /**
+     * Extracts the variable part.
+     * @param string $name
+     * @return string
+     */
+    private function extractVariablePart($name)
+    {
         // ergh, i really hate php's string functions .... all but natural
         $start = ($this->prefixLength === 0) ? 0 : $this->prefixLength;
-        $end   = ($this->postfixLength === 0) ? strlen($_name) : strlen($_name) - $this->postfixLength;
-        $len   = $end-$start;
-        return substr($_name, $start, $len);
-    }
+        $end = ($this->postfixLength === 0) ? strlen($name) : strlen($name) - $this->postfixLength;
+        $len = $end - $start;
 
+        return substr($name, $start, $len);
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: LineContains.php 325 2007-12-20 15:44:58Z hans $
+ *  $Id: feaa90aaa736282a3599e8e5f655c31870b436cc $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,104 +47,111 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@velum.net>
- * @version   $Revision: 1.11 $
+ * @version   $Id: feaa90aaa736282a3599e8e5f655c31870b436cc $
  * @see       PhingFilterReader
  * @package   phing.filters
-*/
-class LineContains extends BaseParamFilterReader implements ChainableReader {
+ */
+class LineContains extends BaseParamFilterReader implements ChainableReader
+{
 
     /**
      * The parameter name for the string to match on.
      * @var string
-     */ 
+     */
     const CONTAINS_KEY = "contains";
 
     /**
      * Array of Contains objects.
      * @var array
-     */ 
+     */
     private $_contains = array();
 
     /**
-     * [Deprecated] 
+     * [Deprecated]
      * @var string
-     */ 
+     */
     private $_line = null;
 
     /**
      * Returns all lines in a buffer that contain specified strings.
+     * @param null $len
      * @return mixed buffer, -1 on EOF
      */
-    function read($len = null) {
-        if ( !$this->getInitialized() ) {
+    public function read($len = null)
+    {
+        if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-        
+
         $buffer = $this->in->read($len);
-        
+
         if ($buffer === -1) {
             return -1;
         }
-        
-        $lines = explode("\n", $buffer);        
-        $matched = array();        
+
+        $lines = explode("\n", $buffer);
+        $matched = array();
         $containsSize = count($this->_contains);
-        
-        foreach($lines as $line) {                                
-            for($i = 0 ; $i < $containsSize ; $i++) {
+
+        foreach ($lines as $line) {
+            for ($i = 0; $i < $containsSize; $i++) {
                 $containsStr = $this->_contains[$i]->getValue();
-                if ( strstr($line, $containsStr) === false ) {
+                if (strstr($line, $containsStr) === false) {
                     $line = null;
                     break;
                 }
-            }                
-            if($line !== null) {
+            }
+            if ($line !== null) {
                 $matched[] = $line;
-            }                
-        }        
-        $filtered_buffer = implode("\n", $matched);    
+            }
+        }
+        $filtered_buffer = implode("\n", $matched);
+
         return $filtered_buffer;
     }
-    
+
     /**
-     * [Deprecated. For reference only, used to be read() method.] 
+     * [Deprecated. For reference only, used to be read() method.]
      * Returns the next character in the filtered stream, only including
      * lines from the original stream which contain all of the specified words.
      *
      * @return the next character in the resulting stream, or -1
-     * if the end of the resulting stream has been reached
+     *             if the end of the resulting stream has been reached
      *
      * @exception IOException if the underlying stream throws an IOException
      * during reading
      */
-    function readChar() {
-        if ( !$this->getInitialized() ) {
+    public function readChar()
+    {
+        if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
         }
 
         $ch = -1;
 
-        if ( $this->_line !== null ) {
+        if ($this->_line !== null) {
             $ch = substr($this->_line, 0, 1);
-            if ( strlen($this->_line) === 1 )
+            if (strlen($this->_line) === 1) {
                 $this->_line = null;
-            else
+            } else {
                 $this->_line = substr($this->_line, 1);
+            }
         } else {
             $this->_line = $this->readLine();
-            if ( $this->_line === null ) {
+            if ($this->_line === null) {
                 $ch = -1;
             } else {
                 $containsSize = count($this->_contains);
-                for($i = 0 ; $i < $containsSize ; $i++) {
+                for ($i = 0; $i < $containsSize; $i++) {
                     $containsStr = $this->_contains[$i]->getValue();
-                    if ( strstr($this->_line, $containsStr) === false ) {
+                    if (strstr($this->_line, $containsStr) === false) {
                         $this->_line = null;
                         break;
                     }
                 }
+
                 return $this->readChar();
             }
         }
@@ -153,14 +160,16 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
     }
 
     /**
-     * Adds a <code><contains></code> nested element.
+     * Adds a <code>contains</code> nested element.
      *
      * @return Contains The <code>contains</code> element added.
      *                  Must not be <code>null</code>.
      */
-    function createContains() {
+    public function createContains()
+    {
         $num = array_push($this->_contains, new Contains());
-        return $this->_contains[$num-1];
+
+        return $this->_contains[$num - 1];
     }
 
     /**
@@ -168,12 +177,14 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
      * from the original stream in order for it to match this filter.
      *
      * @param array $contains An array of words which must be contained
-     *                 within a line in order for it to match in this filter.
-     *                 Must not be <code>null<code>.
+     *                        within a line in order for it to match in this filter.
+     *                        Must not be <code>null</code>.
+     * @throws Exception
      */
-    function setContains($contains) {
+    public function setContains($contains)
+    {
         // type check, error must never occur, bad code of it does
-        if ( !is_array($contains) ) {
+        if (!is_array($contains)) {
             throw new Exception("Excpected array got something else");
         }
 
@@ -185,11 +196,12 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
      * from the original stream in order for it to match this filter.
      *
      * @return array The array of words which must be contained within a line read
-     *         from the original stream in order for it to match this filter. The
-     *         returned object is "live" - in other words, changes made to the
-     *         returned object are mirrored in the filter.
+     *               from the original stream in order for it to match this filter. The
+     *               returned object is "live" - in other words, changes made to the
+     *               returned object are mirrored in the filter.
      */
-    function getContains() {
+    public function getContains()
+    {
         return $this->_contains;
     }
 
@@ -197,28 +209,31 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
      * Creates a new LineContains using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
-     *         the specified reader
+     * @return LineContains A new filter based on this configuration, but filtering
+     *                      the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());
         $newFilter->setInitialized(true);
-        $newFilter->setProject($this->getProject());        
+        $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 
     /**
      * Parses the parameters to add user-defined contains strings.
      */
-    private function _initialize() {
+    private function _initialize()
+    {
         $params = $this->getParameters();
-        if ( $params !== null ) {
-            foreach($params as $param) {
-                if ( self::CONTAINS_KEY == $param->getType() ) {
+        if ($params !== null) {
+            foreach ($params as $param) {
+                if (self::CONTAINS_KEY == $param->getType()) {
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
                     array_push($this->_contains, $cont);
@@ -231,28 +246,32 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
 
 /**
  * Holds a contains element.
+ *
+ * @package phing.filters
  */
-class Contains {
+class Contains
+{
 
     /**
      * @var string
-     */ 
+     */
     private $_value;
-    
+
     /**
      * Set 'contains' value.
      * @param string $contains
-     */ 
-    function setValue($contains) {
+     */
+    public function setValue($contains)
+    {
         $this->_value = (string) $contains;
     }
-    
+
     /**
      * Returns 'contains' value.
      * @return string
-     */ 
-    function getValue() {
+     */
+    public function getValue()
+    {
         return $this->_value;
     }
 }
-

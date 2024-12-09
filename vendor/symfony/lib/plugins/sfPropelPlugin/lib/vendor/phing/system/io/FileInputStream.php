@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id: FileWriter.php 123 2006-09-14 20:19:08Z mrook $  
- * 
+ *  $Id: 0e41dd4805552f11260977c86fbbc05fa5b57f54 $
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,53 +24,65 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Input stream subclass for file streams.
- * 
+ *
  * @package   phing.system.io
  */
-class FileInputStream extends InputStream {
-	
-	/**
-	 * @var PhingFile The associated file.
-	 */
-	protected $file;
-	
+class FileInputStream extends InputStream
+{
+
+    /**
+     * The associated file.
+     * @var PhingFile
+     */
+    protected $file;
+
     /**
      * Construct a new FileInputStream.
-     * @param mixed $file
-     * @throws Exception - if invalid argument specified.
-     * @throws IOException - if unable to open file.
+     *
+     * @param  PhingFile|string $file   Path to the file
+     * @param  boolean          $append Whether to append (ignored)
+     * @throws Exception        - if invalid argument specified.
+     * @throws IOException      - if unable to open file.
      */
-    public function __construct($file, $append = false) {
-    	if ($file instanceof PhingFile) {
+    public function __construct($file, $append = false)
+    {
+        if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }
-        
+
+        if (!$this->file->exists()) {
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File does not exists.");
+        }
+        if (!$this->file->canRead()) {
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File not readable.");
+        }
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
-        	throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(error_get_last(), true));
         }
-        
+
         parent::__construct($stream);
     }
-    
+
     /**
      * Returns a string representation of the attached file.
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->file->getPath();
     }
-    
+
     /**
      * Mark is supported by FileInputStream.
      * @return boolean TRUE
      */
-	public function markSupported() {
+    public function markSupported()
+    {
         return true;
     }
 }
-

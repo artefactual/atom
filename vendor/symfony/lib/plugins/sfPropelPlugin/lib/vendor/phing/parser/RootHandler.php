@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: RootHandler.php 123 2006-09-14 20:19:08Z mrook $
+ *  $Id: 53455515ad7c75ce22073d8bfbc06779e2ec7e54 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,11 +30,12 @@ include_once 'phing/parser/ProjectHandler.php';
  * specific parsing starts. RootHandler decides what to do next.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.7 $
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id: 53455515ad7c75ce22073d8bfbc06779e2ec7e54 $
  * @package   phing.parser
  */
-class RootHandler extends AbstractHandler {
+class RootHandler extends AbstractHandler
+{
 
     /**
      * The phing project configurator object
@@ -42,19 +43,28 @@ class RootHandler extends AbstractHandler {
     private $configurator;
 
     /**
+     * @var PhingXMLContext
+     */
+    private $context;
+
+    /**
      * Constructs a new RootHandler
      *
      * The root filter is required so the parser knows what to do. It's
      * called by the ExpatParser that is instatiated in ProjectConfigurator.
      *
-     * It recieves the expat parse object ref and a reference to the
+     * It receives the expat parse object ref and a reference to the
      * configurator
      *
      * @param AbstractSAXParser $parser The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
+     * @param PhingXMLContext $context
      */
-    function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator) {
+    public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
+    {
         $this->configurator = $configurator;
+        $this->context = $context;
+
         parent::__construct($parser, $this);
     }
 
@@ -62,21 +72,23 @@ class RootHandler extends AbstractHandler {
      * Kick off a custom action for a start element tag.
      *
      * The root element of our buildfile is the &lt;project&gt; element. The
-     * root filter handles this element if it occurs, creates ProjectHandler 
+     * root filter handles this element if it occurs, creates ProjectHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param string $tag The xml tagname
-     * @param array  $attrs The attributes of the tag
+     * @param  string              $tag   The xml tagname
+     * @param  array               $attrs The attributes of the tag
      * @throws ExpatParseException if the first element within our build file
-     *         is not the &gt;project&lt; element
+     *                                   is not the &gt;project&lt; element
      */
-    function startElement($tag, $attrs) {
+    public function startElement($tag, $attrs)
+    {
         if ($tag === "project") {
-            $ph = new ProjectHandler($this->parser, $this, $this->configurator);
+            $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);
             $ph->init($tag, $attrs);
         } else {
-            throw new ExpatParseException("Unexpected tag <$tag> in top-level of build file.", $this->parser->getLocation());
+            throw new ExpatParseException("Unexpected tag <$tag> in top-level of build file.", $this->parser->getLocation(
+            ));
         }
     }
 }

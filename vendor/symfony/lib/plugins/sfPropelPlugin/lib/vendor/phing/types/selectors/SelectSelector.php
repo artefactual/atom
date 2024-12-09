@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: SelectSelector.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: 7c818dba6e4f6075f71fee4beb41767a280706ad $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,18 +32,24 @@ require_once 'phing/types/selectors/AndSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Revision: 1.6 $
+ * @version   $Id: 7c818dba6e4f6075f71fee4beb41767a280706ad $
  * @package   phing.types.selectors
  */
-class SelectSelector extends AndSelector {
-         
-    public function toString() {
+class SelectSelector extends AndSelector
+{
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{select: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
@@ -51,58 +57,73 @@ class SelectSelector extends AndSelector {
      * Performs the check for circular references and returns the
      * referenced Selector.
      */
-    private function getRef() {
+    private function getRef()
+    {
         $o = $this->getCheckedRef(get_class($this), "SelectSelector");
+
         return $o;
     }
 
     /**
      * Indicates whether there are any selectors here.
      */
-    public function hasSelectors() {
+    public function hasSelectors()
+    {
         if ($this->isReference()) {
             return $this->getRef()->hasSelectors();
         }
+
         return parent::hasSelectors();
     }
 
     /**
      * Gives the count of the number of selectors in this container
      */
-    public function selectorCount() {
+    public function selectorCount()
+    {
         if ($this->isReference()) {
             return $this->getRef()->selectorCount();
         }
+
         return parent::selectorCount();
     }
 
     /**
      * Returns the set of selectors as an array.
+     * @param Project $p
+     * @return \an|array
      */
-    public function getSelectors(Project $p) {
+    public function getSelectors(Project $p)
+    {
         if ($this->isReference()) {
             return $this->getRef()->getSelectors($p);
         }
+
         return parent::getSelectors($p);
     }
 
     /**
      * Returns an enumerator for accessing the set of selectors.
      */
-    public function selectorElements() {
+    public function selectorElements()
+    {
         if ($this->isReference()) {
             return $this->getRef()->selectorElements();
         }
+
         return parent::selectorElements();
     }
 
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @throws BuildException
+     * @internal param the $selector new selector to add
      * @return the selector that was added
      */
-    public function appendSelector(FileSelector $selector) {
+    public function appendSelector(FileSelector $selector)
+    {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
@@ -113,12 +134,14 @@ class SelectSelector extends AndSelector {
      * Makes sure that there is only one entry, sets an error message if
      * not.
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->selectorCount() != 1) {
-            $this->setError("One and only one selector is allowed within the "
-            . "<selector> tag");
+            $this->setError(
+                "One and only one selector is allowed within the "
+                . "<selector> tag"
+            );
         }
     }
 
 }
-

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: PackageAsPathTask.php 43 2006-03-10 14:31:51Z mrook $
+ *  $Id: 7fee76167437d1ca7bdca2fef13aafc08811085f $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +17,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/Task.php';
@@ -26,24 +26,25 @@ require_once 'phing/Task.php';
  * Convert dot-notation packages to relative paths.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.5 $
+ * @version   $Id: 7fee76167437d1ca7bdca2fef13aafc08811085f $
  * @package   phing.tasks.ext
  */
-class PackageAsPathTask extends Task {
+class PackageAsPathTask extends Task
+{
 
     /** The package to convert. */
     protected $pckg;
 
-    /** The value to store the conversion in. */
+    /** The property to store the conversion in. */
     protected $name;
-    
+
     /**
      * Executes the package to patch converstion and stores it
-     * in the user property <code>value</code>.
+     * in the user property <code>name</code>.
      */
     public function main()
     {
-        $this->project->setUserProperty($this->name, strtr($this->pckg, '.', '/'));        
+        $this->project->setUserProperty($this->name, strtr($this->pckg, '.', '/'));
     }
 
     /**
@@ -55,11 +56,11 @@ class PackageAsPathTask extends Task {
     }
 
     /**
-     * @param string $name the Ant variable to store the path in
+     * @param string $name the property to store the path in
      */
     public function setName($name)
     {
         $this->name = $name;
     }
-    
+
 }

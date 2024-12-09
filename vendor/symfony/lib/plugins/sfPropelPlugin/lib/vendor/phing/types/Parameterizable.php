@@ -1,7 +1,7 @@
 <?php
 
 /*
- * $Id: Parameterizable.php 123 2006-09-14 20:19:08Z mrook $
+ * $Id: cb26c02b1c8efb2408fecd8c36b2aa5d18d37977 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,6 +27,11 @@
  * @author Magesh Umasankar (Ant)
  * @package phing.types
  */
-interface Parameterizable {
-    function setParameters($parameters);
+interface Parameterizable
+{
+    /**
+     * @param $parameters
+     * @return mixed
+     */
+    public function setParameters($parameters);
 }

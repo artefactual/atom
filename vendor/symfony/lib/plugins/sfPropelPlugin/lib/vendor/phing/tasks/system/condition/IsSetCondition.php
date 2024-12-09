@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: IsSetCondition.php 43 2006-03-10 14:31:51Z mrook $
+ *  $Id: e2ad6d80f1e516b7d6bf6a0e384705450b0a2862 $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,14 +27,19 @@ require_once 'phing/tasks/system/condition/Condition.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Revision: 1.4 $
+ * @version $Id: e2ad6d80f1e516b7d6bf6a0e384705450b0a2862 $
  * @package phing.tasks.system.condition
  */
-class IsSetCondition extends ProjectComponent implements Condition {
-    
+class IsSetCondition extends ProjectComponent implements Condition
+{
+
     private $property;
 
-    public function setProperty($p) {
+    /**
+     * @param $p
+     */
+    public function setProperty($p)
+    {
         $this->property = $p;
     }
 
@@ -42,11 +47,13 @@ class IsSetCondition extends ProjectComponent implements Condition {
      * Check whether property is set.
      * @throws BuildException
      */
-    public function evaluate()  {
+    public function evaluate()
+    {
         if ($this->property === null) {
             throw new BuildException("No property specified for isset "
-                                     . "condition");
-        }        
+                . "condition");
+        }
+
         return $this->project->getProperty($this->property) !== null;
     }
 

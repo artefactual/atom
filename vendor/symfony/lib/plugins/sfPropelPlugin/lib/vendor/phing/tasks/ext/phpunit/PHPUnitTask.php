@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: PHPUnitTask.php 427 2008-10-28 19:34:15Z mrook $
+ * $Id: 8db5f2b968a9a111de7bbd1f1ddbc9f5a3c9d55a $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,368 +23,593 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 require_once 'phing/util/LogWriter.php';
+require_once 'phing/tasks/ext/phpunit/BatchTest.php';
+require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
- * Runs PHPUnit2/3 tests.
+ * Runs PHPUnit tests.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: PHPUnitTask.php 427 2008-10-28 19:34:15Z mrook $
+ * @author Michiel Rook <mrook@php.net>
+ * @version $Id: 8db5f2b968a9a111de7bbd1f1ddbc9f5a3c9d55a $
  * @package phing.tasks.ext.phpunit
  * @see BatchTest
  * @since 2.1.0
  */
 class PHPUnitTask extends Task
 {
-	private $batchtests = array();
-	private $formatters = array();
-	private $haltonerror = false;
-	private $haltonfailure = false;
-	private $haltonincomplete = false;
-	private $haltonskipped = false;
-	private $errorproperty;
-	private $failureproperty;
-	private $incompleteproperty;
-	private $skippedproperty;
-	private $printsummary = false;
-	private $testfailed = false;
-	private $codecoverage = false;
-	private $groups = array();
-	private $excludeGroups = array();
+    private $batchtests = array();
+    private $formatters = array();
+    private $bootstrap = "";
+    private $haltonerror = false;
+    private $haltonfailure = false;
+    private $haltonincomplete = false;
+    private $haltonskipped = false;
+    private $errorproperty;
+    private $failureproperty;
+    private $incompleteproperty;
+    private $skippedproperty;
+    private $printsummary = false;
+    private $testfailed = false;
+    private $testfailuremessage = "";
+    private $codecoverage = null;
+    private $groups = array();
+    private $excludeGroups = array();
+    private $processIsolation = false;
+    private $usecustomerrorhandler = true;
+    private $listeners = array();
 
-	/**
-	 * Initialize Task.
- 	 * This method includes any necessary PHPUnit2 libraries and triggers
-	 * appropriate error if they cannot be found.  This is not done in header
-	 * because we may want this class to be loaded w/o triggering an error.
-	 */
-	function init() {
-		if (version_compare(PHP_VERSION, '5.0.3') < 0) {
-		    throw new BuildException("PHPUnit2Task requires PHP version >= 5.0.3.", $this->getLocation());
-		}
-		
-		/**
-		 * Determine PHPUnit version number
-		 */
-		@include_once 'PHPUnit/Runner/Version.php';
-		@include_once 'PHPUnit2/Runner/Version.php';
+    /**
+     * @var string
+     */
+    private $pharLocation = "";
 
-		if (class_exists('PHPUnit_Runner_Version'))
-		{
-			$version = PHPUnit_Runner_Version::id();
-		}
-		elseif (class_exists('PHPUnit2_Runner_Version'))
-		{
-			$version = PHPUnit2_Runner_Version::id();
-		}
-		else
-		{
-			throw new BuildException("PHPUnit task depends on PHPUnit 2 or 3 package being installed.", $this->getLocation());
-		}
-		
-		if (version_compare($version, "3.0.0") >= 0)
-		{
-			PHPUnitUtil::$installedVersion = 3;
-			if (version_compare($version, "3.2.0") >= 0)
-			{
-				PHPUnitUtil::$installedMinorVersion = 2;
-			}
-		}
-		else
-		{
-			PHPUnitUtil::$installedVersion = 2;
-		}
-		
-		/**
-		 * Other dependencies that should only be loaded when class is actually used.
-		 */
-		require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
-		require_once 'phing/tasks/ext/phpunit/BatchTest.php';
-		require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
+    /**
+     * @var PhingFile
+     */
+    private $configuration = null;
 
-		/**
-		 * Add some defaults to the PHPUnit filter
-		 */
-		$pwd = dirname(__FILE__);
+    /**
+     * Initialize Task.
+     * This method includes any necessary PHPUnit libraries and triggers
+     * appropriate error if they cannot be found.  This is not done in header
+     * because we may want this class to be loaded w/o triggering an error.
+     */
+    public function init()
+    {
+    }
 
-		if (PHPUnitUtil::$installedVersion == 3)
-		{
-			require_once 'PHPUnit/Framework.php';
-			require_once 'PHPUnit/Util/Filter.php';
-			
-			// point PHPUnit_MAIN_METHOD define to non-existing method
-			if (!defined('PHPUnit_MAIN_METHOD')) {
-				define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
-			}
-			
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Task.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Target.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php', 'PHING');
-		}
-		else
-		{
-			require_once 'PHPUnit2/Framework.php';
-			require_once 'PHPUnit2/Util/Filter.php';
-			
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Task.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Target.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Project.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php');
-		}
-	}
-	
-	function setErrorproperty($value)
-	{
-		$this->errorproperty = $value;
-	}
-	
-	function setFailureproperty($value)
-	{
-		$this->failureproperty = $value;
-	}
-	
-	function setIncompleteproperty($value)
-	{
-		$this->incompleteproperty = $value;
-	}
-	
-	function setSkippedproperty($value)
-	{
-		$this->skippedproperty = $value;
-	}
-	
-	function setHaltonerror($value)
-	{
-		$this->haltonerror = $value;
-	}
+    private function loadPHPUnit()
+    {
+        /**
+         * Determine PHPUnit version number, try
+         * PEAR old-style, then composer, then PHAR
+         */
+        @include_once 'PHPUnit/Runner/Version.php';
+        if (!class_exists('PHPUnit_Runner_Version')) {
+            @include_once 'phpunit/Runner/Version.php';
+        }
+        if (!empty($this->pharLocation)) {
+            $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+            ob_start();
+            @include $this->pharLocation;
+            ob_end_clean();
+        }
+        @include_once 'PHPUnit/Autoload.php';
 
-	function setHaltonfailure($value)
-	{
-		$this->haltonfailure = $value;
-	}
+        if (!class_exists('PHPUnit_Runner_Version')) {
+            throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
+        }
 
-	function setHaltonincomplete($value)
-	{
-		$this->haltonincomplete = $value;
-	}
+        $version = PHPUnit_Runner_Version::id();
 
-	function setHaltonskipped($value)
-	{
-		$this->haltonskipped = $value;
-	}
+        if (version_compare($version, '3.6.0') < 0) {
+            throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
+        }
 
-	function setPrintsummary($printsummary)
-	{
-		$this->printsummary = $printsummary;
-	}
-	
-	function setCodecoverage($codecoverage)
-	{
-		$this->codecoverage = $codecoverage;
-	}
+        /**
+         * Other dependencies that should only be loaded when class is actually used.
+         */
+        require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 
-	function setGroups($groups)
-	{
-		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
-		{
-			$this->log("The 'groups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
-		}
-		$token = ' ,;';
-		$this->groups = array();
-		$tok = strtok($groups, $token);
-		while ($tok !== false) {
-			$this->groups[] = $tok;
-			$tok = strtok($token);
-		}
-	}
+        /**
+         * point PHPUnit_MAIN_METHOD define to non-existing method
+         */
+        if (!defined('PHPUnit_MAIN_METHOD')) {
+            define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
+        }
+    }
 
-	function setExcludeGroups($excludeGroups)
-	{
-		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
-		{
-			$this->log("The 'excludeGroups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
-		}
-		$token = ' ,;';
-		$this->excludeGroups = array();
-		$tok = strtok($groups, $token);
-		while ($tok !== false) {
-			$this->excludeGroups[] = $tok;
-			$tok = strtok($token);
-		}
-	}
+    /**
+     * Sets the name of a bootstrap file that is run before
+     * executing the tests
+     *
+     * @param string $bootstrap the name of the bootstrap file
+     */
+    public function setBootstrap($bootstrap)
+    {
+        $this->bootstrap = $bootstrap;
+    }
 
-	/**
-	 * Add a new formatter to all tests of this task.
-	 *
-	 * @param FormatterElement formatter element
-	 */
-	function addFormatter(FormatterElement $fe)
-	{
-		$this->formatters[] = $fe;
-	}
+    /**
+     * @param $value
+     */
+    public function setErrorproperty($value)
+    {
+        $this->errorproperty = $value;
+    }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$tests = array();
-		
-		if ($this->printsummary)
-		{
-			$fe = new FormatterElement();
-			$fe->setType("summary");
-			$fe->setUseFile(false);
-			$this->formatters[] = $fe;
-		}
-		
-		foreach ($this->batchtests as $batchtest)
-		{
-			$tests = array_merge($tests, $batchtest->elements());
-		}			
-		
-		foreach ($this->formatters as $fe)
-		{
-			$formatter = $fe->getFormatter();			
-			$formatter->setProject($this->getProject());
+    /**
+     * @param $value
+     */
+    public function setFailureproperty($value)
+    {
+        $this->failureproperty = $value;
+    }
 
-			if ($fe->getUseFile())
-			{
-				$destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
-				
-				$writer = new FileWriter($destFile->getAbsolutePath());
+    /**
+     * @param $value
+     */
+    public function setIncompleteproperty($value)
+    {
+        $this->incompleteproperty = $value;
+    }
 
-				$formatter->setOutput($writer);
-			}
-			else
-			{
-				$formatter->setOutput($this->getDefaultOutput());
-			}
+    /**
+     * @param $value
+     */
+    public function setSkippedproperty($value)
+    {
+        $this->skippedproperty = $value;
+    }
 
-			$formatter->startTestRun();
-		}
-		
-		foreach ($tests as $test)
-		{
-			$suite = NULL;
-			
-			if ((PHPUnitUtil::$installedVersion == 3 && is_subclass_of($test, 'PHPUnit_Framework_TestSuite')) || (PHPUnitUtil::$installedVersion == 2 && is_subclass_of($test, 'PHPUnit2_Framework_TestSuite')))
-			{
-				if (is_object($test))
-				{
-					$suite = $test;
-				}
-				else
-				{
-					$suite = new $test();
-				}
-			}
-			else
-			{
-				if (PHPUnitUtil::$installedVersion == 3)
-				{
-					require_once 'PHPUnit/Framework/TestSuite.php';
-					$suite = new PHPUnit_Framework_TestSuite(new ReflectionClass($test));
-				}
-				else
-				{
-					require_once 'PHPUnit2/Framework/TestSuite.php';
-					$suite = new PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
-				}
-			}
-			
-			$this->execute($suite);
-		}
+    /**
+     * @param $value
+     */
+    public function setHaltonerror($value)
+    {
+        $this->haltonerror = $value;
+    }
 
-		foreach ($this->formatters as $fe)
-		{
-			$formatter = $fe->getFormatter();
-			$formatter->endTestRun();
-		}
-		
-		if ($this->testfailed)
-		{
-			throw new BuildException("One or more tests failed");
-		}
-	}
+    /**
+     * @param $value
+     */
+    public function setHaltonfailure($value)
+    {
+        $this->haltonfailure = $value;
+    }
 
-	/**
-	 * @throws BuildException
-	 */
-	private function execute($suite)
-	{
-		$runner = new PHPUnitTestRunner($suite, $this->project, $this->groups, $this->excludeGroups);
-		
-		$runner->setCodecoverage($this->codecoverage);
+    /**
+     * @return bool
+     */
+    public function getHaltonfailure()
+    {
+        return $this->haltonfailure;
+    }
 
-		foreach ($this->formatters as $fe)
-		{
-			$formatter = $fe->getFormatter();
+    /**
+     * @param $value
+     */
+    public function setHaltonincomplete($value)
+    {
+        $this->haltonincomplete = $value;
+    }
 
-			$runner->addFormatter($formatter);
-		}
+    /**
+     * @return bool
+     */
+    public function getHaltonincomplete()
+    {
+        return $this->haltonincomplete;
+    }
 
-		$runner->run();
+    /**
+     * @param $value
+     */
+    public function setHaltonskipped($value)
+    {
+        $this->haltonskipped = $value;
+    }
 
-		$retcode = $runner->getRetCode();
-		
-		if ($retcode == PHPUnitTestRunner::ERRORS) {
-		    if ($this->errorproperty) {
-				$this->project->setNewProperty($this->errorproperty, true);
-			}
-			if ($this->haltonerror) {
-			    $this->testfailed = true;
-			}
-		} elseif ($retcode == PHPUnitTestRunner::FAILURES) {
-			if ($this->failureproperty) {
-				$this->project->setNewProperty($this->failureproperty, true);
-			}
-			
-			if ($this->haltonfailure) {
-				$this->testfailed = true;
-			}
-		} elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
-			if ($this->incompleteproperty) {
-				$this->project->setNewProperty($this->incompleteproperty, true);
-			}
-			
-			if ($this->haltonincomplete) {
-				$this->testfailed = true;
-			}
-		} elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
-			if ($this->skippedproperty) {
-				$this->project->setNewProperty($this->skippedproperty, true);
-			}
-			
-			if ($this->haltonskipped) {
-				$this->testfailed = true;
-			}
-		}
-	}
+    /**
+     * @return bool
+     */
+    public function getHaltonskipped()
+    {
+        return $this->haltonskipped;
+    }
 
-	private function getDefaultOutput()
-	{
-		return new LogWriter($this);
-	}
+    /**
+     * @param $printsummary
+     */
+    public function setPrintsummary($printsummary)
+    {
+        $this->printsummary = $printsummary;
+    }
 
-	/**
-	 * Adds a set of tests based on pattern matching.
-	 *
-	 * @return BatchTest a new instance of a batch test.
-	 */
-	function createBatchTest()
-	{
-		$batchtest = new BatchTest($this->getProject());
+    /**
+     * @param $codecoverage
+     */
+    public function setCodecoverage($codecoverage)
+    {
+        $this->codecoverage = $codecoverage;
+    }
 
-		$this->batchtests[] = $batchtest;
+    /**
+     * @param $processIsolation
+     */
+    public function setProcessIsolation($processIsolation)
+    {
+        $this->processIsolation = $processIsolation;
+    }
 
-		return $batchtest;
-	}
+    /**
+     * @param $usecustomerrorhandler
+     */
+    public function setUseCustomErrorHandler($usecustomerrorhandler)
+    {
+        $this->usecustomerrorhandler = $usecustomerrorhandler;
+    }
+
+    /**
+     * @param $groups
+     */
+    public function setGroups($groups)
+    {
+        $token = ' ,;';
+        $this->groups = array();
+        $tok = strtok($groups, $token);
+        while ($tok !== false) {
+            $this->groups[] = $tok;
+            $tok = strtok($token);
+        }
+    }
+
+    /**
+     * @param $excludeGroups
+     */
+    public function setExcludeGroups($excludeGroups)
+    {
+        $token = ' ,;';
+        $this->excludeGroups = array();
+        $tok = strtok($excludeGroups, $token);
+        while ($tok !== false) {
+            $this->excludeGroups[] = $tok;
+            $tok = strtok($token);
+        }
+    }
+
+    /**
+     * Add a new formatter to all tests of this task.
+     *
+     * @param FormatterElement formatter element
+     */
+    public function addFormatter(FormatterElement $fe)
+    {
+        $fe->setParent($this);
+        $this->formatters[] = $fe;
+    }
+
+    /**
+     * Add a new listener to all tests of this taks
+     *
+     * @param $listener
+     */
+    private function addListener($listener)
+    {
+        $this->listeners[] = $listener;
+    }
+
+    /**
+     * @param PhingFile $configuration
+     */
+    public function setConfiguration(PhingFile $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
+    /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
+     * Load and processes the PHPUnit configuration
+     * @param $configuration
+     * @throws BuildException
+     * @return array
+     */
+    protected function handlePHPUnitConfiguration($configuration)
+    {
+        if (!$configuration->exists()) {
+            throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
+        }
+
+        $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+
+        if (empty($config)) {
+            return;
+        }
+
+        $phpunit = $config->getPHPUnitConfiguration();
+
+        if (empty($phpunit)) {
+            return;
+        }
+
+        $config->handlePHPConfiguration();
+
+        if (isset($phpunit['bootstrap'])) {
+            $this->setBootstrap($phpunit['bootstrap']);
+        }
+
+        if (isset($phpunit['stopOnFailure'])) {
+            $this->setHaltonfailure($phpunit['stopOnFailure']);
+        }
+
+        if (isset($phpunit['stopOnError'])) {
+            $this->setHaltonerror($phpunit['stopOnError']);
+        }
+
+        if (isset($phpunit['stopOnSkipped'])) {
+            $this->setHaltonskipped($phpunit['stopOnSkipped']);
+        }
+
+        if (isset($phpunit['stopOnIncomplete'])) {
+            $this->setHaltonincomplete($phpunit['stopOnIncomplete']);
+        }
+
+        if (isset($phpunit['processIsolation'])) {
+            $this->setProcessIsolation($phpunit['processIsolation']);
+        }
+
+        foreach ($config->getListenerConfiguration() as $listener) {
+            if (!class_exists($listener['class'], false) &&
+                $listener['file'] !== '') {
+                require_once $listener['file'];
+            }
+
+            if (class_exists($listener['class'])) {
+                if (count($listener['arguments']) == 0) {
+                    $listener = new $listener['class'];
+                } else {
+                    $listenerClass = new ReflectionClass(
+                                       $listener['class']
+                                     );
+                    $listener      = $listenerClass->newInstanceArgs(
+                                       $listener['arguments']
+                                     );
+                }
+
+                if ($listener instanceof PHPUnit_Framework_TestListener) {
+                    $this->addListener($listener);
+                }
+            }
+        }
+
+        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
+            $browsers = $config->getSeleniumBrowserConfiguration();
+
+            if (!empty($browsers) &&
+                class_exists('PHPUnit_Extensions_SeleniumTestCase')
+            ) {
+                PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
+            }
+        }
+
+        return $phpunit;
+    }
+
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    public function main()
+    {
+        if ($this->codecoverage && !extension_loaded('xdebug')) {
+            throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
+        }
+
+        $this->loadPHPUnit();
+
+        $suite = new PHPUnit_Framework_TestSuite('AllTests');
+
+        $autoloadSave = spl_autoload_functions();
+
+        if ($this->bootstrap) {
+            require $this->bootstrap;
+        }
+
+        if ($this->configuration) {
+            $arguments = $this->handlePHPUnitConfiguration($this->configuration);
+
+            if ($arguments['backupGlobals'] === false) {
+                $suite->setBackupGlobals(false);
+            }
+
+            if ($arguments['backupStaticAttributes'] === true) {
+                $suite->setBackupStaticAttributes(true);
+            }
+        }
+
+        if ($this->printsummary) {
+            $fe = new FormatterElement();
+            $fe->setParent($this);
+            $fe->setType("summary");
+            $fe->setUseFile(false);
+            $this->formatters[] = $fe;
+        }
+
+        foreach ($this->batchtests as $batchTest) {
+            $this->appendBatchTestToTestSuite($batchTest, $suite);
+        }
+
+        $this->execute($suite);
+
+        if ($this->testfailed) {
+            throw new BuildException($this->testfailuremessage);
+        }
+
+        $autoloadNew = spl_autoload_functions();
+        if(is_array($autoloadNew)) {
+            foreach ($autoloadNew as $autoload) {
+                spl_autoload_unregister($autoload);
+            }
+        }
+
+        if(is_array($autoloadSave)) {
+            foreach ($autoloadSave as $autoload) {
+                spl_autoload_register($autoload);
+            }
+        }
+    }
+
+    /**
+     * @param $suite
+     */
+    protected function execute($suite)
+    {
+        $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
+
+        if ($this->codecoverage) {
+            /**
+             * Add some defaults to the PHPUnit filter
+             */
+            $pwd = dirname(__FILE__);
+            $path = realpath($pwd . '/../../../');
+
+            if (class_exists('PHP_CodeCoverage_Filter')) {
+                $filter = new PHP_CodeCoverage_Filter();
+            } elseif (class_exists('\SebastianBergmann\CodeCoverage\Filter')) {
+                $filterClass = '\SebastianBergmann\CodeCoverage\Filter';
+                $filter = new $filterClass;
+            }
+            if (method_exists($filter, 'addDirectoryToBlacklist')) {
+                $filter->addDirectoryToBlacklist($path);
+            }
+            if (class_exists('PHP_CodeCoverage')) {
+                $codeCokverage = new PHP_CodeCoverage(null, $filter);
+            } elseif (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                $codeCokverageClass = '\SebastianBergmann\CodeCoverage\CodeCoverage';
+                $codeCokverage = new $codeCokverageClass(null, $filter);
+            }
+            $runner->setCodecoverage($codeCokverage);
+        }
+
+        $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
+
+        foreach ($this->listeners as $listener) {
+            $runner->addListener($listener);
+        }
+
+        foreach ($this->formatters as $fe) {
+            $formatter = $fe->getFormatter();
+
+            if ($fe->getUseFile()) {
+                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+
+                $writer = new FileWriter($destFile->getAbsolutePath());
+
+                $formatter->setOutput($writer);
+            } else {
+                $formatter->setOutput($this->getDefaultOutput());
+            }
+
+            $runner->addFormatter($formatter);
+
+            $formatter->startTestRun();
+        }
+
+        $runner->run($suite);
+
+        foreach ($this->formatters as $fe) {
+            $formatter = $fe->getFormatter();
+            $formatter->endTestRun();
+        }
+
+        if ($runner->hasErrors()) {
+            if ($this->errorproperty) {
+                $this->project->setNewProperty($this->errorproperty, true);
+            }
+            if ($this->haltonerror) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastErrorMessage();
+            }
+        }
+
+        if ($runner->hasFailures()) {
+            if ($this->failureproperty) {
+                $this->project->setNewProperty($this->failureproperty, true);
+            }
+
+            if ($this->haltonfailure) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastFailureMessage();
+            }
+        }
+
+        if ($runner->hasIncomplete()) {
+            if ($this->incompleteproperty) {
+                $this->project->setNewProperty($this->incompleteproperty, true);
+            }
+
+            if ($this->haltonincomplete) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastIncompleteMessage();
+            }
+        }
+
+        if ($runner->hasSkipped()) {
+            if ($this->skippedproperty) {
+                $this->project->setNewProperty($this->skippedproperty, true);
+            }
+
+            if ($this->haltonskipped) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastSkippedMessage();
+            }
+        }
+    }
+
+    /**
+     * Add the tests in this batchtest to a test suite
+     *
+     * @param BatchTest                   $batchTest
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
+    protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
+    {
+        foreach ($batchTest->elements() as $element) {
+            $testClass = new $element();
+            if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
+                $testClass = new ReflectionClass($element);
+            }
+            $suite->addTestSuite($testClass);
+        }
+    }
+
+    /**
+     * @return LogWriter
+     */
+    protected function getDefaultOutput()
+    {
+        return new LogWriter($this);
+    }
+
+    /**
+     * Adds a set of tests based on pattern matching.
+     *
+     * @return BatchTest a new instance of a batch test.
+     */
+    public function createBatchTest()
+    {
+        $batchtest = new BatchTest($this->getProject());
+
+        $this->batchtests[] = $batchtest;
+
+        return $batchtest;
+    }
 }
-

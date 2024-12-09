@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id: PresentSelector.php 123 2006-09-14 20:19:08Z mrook $
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,17 +25,22 @@
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ *
  * @package phing.types.selectors
  */
-class PresentSelector extends BaseSelector {
-
+class PresentSelector extends BaseSelector
+{
     private $targetdir = null;
     private $mapperElement = null;
     private $map = null;
     private $destmustexist = true;
     private static $filePresence = array("srconly", "both");
-    
-    public function toString() {
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
         $buf = "{presentselector targetdir: ";
         if ($this->targetdir === null) {
             $buf .= "NOT YET SET";
@@ -57,6 +59,7 @@ class PresentSelector extends BaseSelector {
             $buf .= $this->mapperElement->toString();
         }
         $buf .= "}";
+
         return $buf;
     }
 
@@ -64,24 +67,31 @@ class PresentSelector extends BaseSelector {
      * The name of the file or directory which is checked for matching
      * files.
      *
-     * @param targetdir the directory to scan looking for matching files.
+     * @param PhingFile $targetdir the directory to scan looking for matching files.
+     *
+     * @return void
      */
-    public function setTargetdir(PhingFile $targetdir) {
+    public function setTargetdir(PhingFile $targetdir)
+    {
         $this->targetdir = $targetdir;
     }
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
-     * @throws BuildException 
+     *
+     * @return Mapper
+     *
+     * @throws BuildException
      */
-    public function createMapper() {
+    public function createMapper()
+    {
         if ($this->mapperElement !== null) {
             throw new BuildException("Cannot define more than one mapper");
         }
         $this->mapperElement = new Mapper($this->getProject());
+
         return $this->mapperElement;
     }
-
 
     /**
      * This sets whether to select a file if its dest file is present.
@@ -92,12 +102,15 @@ class PresentSelector extends BaseSelector {
      * that already exist in the source directory, hence the lack of
      * a <code>destonly</code> option.
      *
-     * @param string $fp An attribute set to either <code>srconly</code or
-     *           ><code>both</code>.
+     * @param string $fp An attribute set to either <code>srconly</code> or
+     *                   <code>both</code>.
+     *
+     * @return void
      */
-    public function setPresent($fp) {
+    public function setPresent($fp)
+    {
         $idx = array_search($fp, self::$filePresence, true);
-        if ( $idx === 0 ) {
+        if ($idx === 0) {
             $this->destmustexist = false;
         }
     }
@@ -105,8 +118,11 @@ class PresentSelector extends BaseSelector {
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the targetdir attribute has been set and we have a mapper.
+     *
+     * @return void
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->targetdir === null) {
             $this->setError("The targetdir attribute is required.");
         }
@@ -124,12 +140,16 @@ class PresentSelector extends BaseSelector {
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file a PhingFile object the selector can use
+     *
+     * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
 
         $this->validate();
 
@@ -147,8 +167,7 @@ class PresentSelector extends BaseSelector {
         }
         $destname = $destfiles[0];
         $destfile = new PhingFile($this->targetdir, $destname);
+
         return $destfile->exists() === $this->destmustexist;
     }
-
 }
-
