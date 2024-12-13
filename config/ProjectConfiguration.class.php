@@ -56,6 +56,9 @@ class ProjectConfiguration extends sfProjectConfiguration
 
         $this->enablePlugins($plugins);
 
+        sfConfig::set('sf_phing_path', sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'vendor/phing/phing');
+        sfConfig::set('sf_propel_path', sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony/lib/plugins/sfPropelPlugin/lib/vendor/propel/');
+
         $this->dispatcher->connect(
             'debug.web.load_panels',
             ['arWebDebugPanel', 'listenToLoadDebugWebPanelEvent']
