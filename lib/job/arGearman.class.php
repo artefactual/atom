@@ -98,7 +98,7 @@ class arGearman
                 $abilities = array_merge($abilities, $config['worker_types'][$type]);
             }
         } else {
-            $abilities = call_user_func_array('array_merge', $config['worker_types']);
+            $abilities = call_user_func_array('array_merge', array_values($config['worker_types']));
         }
 
         return $abilities;

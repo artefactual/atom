@@ -245,6 +245,10 @@ class QubitMigrate
                         continue;
                     }
 
+                    if (!is_array($column)) {
+                        continue;
+                    }
+
                     if ('integer' != $column['type']) {
                         continue;
                     }
@@ -481,12 +485,16 @@ class QubitMigrate
                 $connection->exec($query);
             }
         } catch (Exception $e) {
-            $connection->rollback();
+            if ($connection->inTransaction()) {
+                $connection->rollback();
+            }
 
             throw $e;
         }
 
-        $connection->commit();
+        if ($connection->inTransaction()) {
+            $connection->commit();
+        }
     }
 
     public static function dropColumn($table, $column)
