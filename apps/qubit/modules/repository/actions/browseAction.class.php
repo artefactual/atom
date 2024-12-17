@@ -211,7 +211,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     private function setI18nFieldCultures()
     {
         foreach (self::$AGGS as $key => &$value) {
-            if (false !== array_search('i18n.%s', $value['field'])) {
+            if (is_array($value['field']) && false !== array_search('i18n.%s', $value['field'])) {
                 $value['field'] = sprintf($value['field'], $this->context->user->getCulture());
             }
         }

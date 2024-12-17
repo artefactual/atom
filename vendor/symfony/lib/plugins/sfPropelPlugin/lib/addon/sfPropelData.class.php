@@ -114,7 +114,9 @@ class sfPropelData extends sfData
           }
 
           // foreign key?
-          if (isset($column) && $column->isForeignKey() && isset($this->object_references[$value]))
+          $columnCheck = !empty($column) && (isset($column) ? true : false);
+-         $objectCheck = !empty($value) && is_string($value) && (isset($this->object_references[$value]) ? true : false);
+          if ($columnCheck && $column->isForeignKey() && $objectCheck)
           {
             $value = $this->object_references[$value]->getPrimaryKey();
           }

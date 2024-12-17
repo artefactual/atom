@@ -256,7 +256,7 @@
         <?php if (QubitAcl::check($resource, 'create')) { ?>
           <li><?php echo link_to(__('Add new'), ['module' => 'repository', 'action' => 'add'], ['class' => 'c-btn', 'title' => __('Add new')]); ?></li>
         <?php } ?>
-        <?php if (QubitAcl::check(QubitInformationObject, 'create')) { ?>
+        <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) { ?>
           <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'c-btn', 'title' => __('Add description')]); ?></li>
         <?php } ?>
         <li class="divider"></li>

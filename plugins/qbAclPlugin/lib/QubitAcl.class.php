@@ -580,7 +580,7 @@ class QubitAcl
             if (!in_array($role->id, $this->_roles)) {
                 foreach ($role->getAncestorsAndSelfForAcl() as $ancestor) {
                     if (!in_array($ancestor->id, $this->_roles)) {
-                        $this->acl->addRole($ancestor, $ancestor->parentId);
+                        $this->acl->addRole((string) $ancestor, $ancestor->parentId);
                     }
                 }
             }
@@ -618,7 +618,7 @@ class QubitAcl
             }
 
             // Add user role
-            $this->acl->addRole($user->getUserID(), $parents);
+            $this->acl->addRole((string) $user->getUserID(), $parents);
             $this->_roles[] = $user->getUserID();
         } else {
             // Add anonymous role
@@ -642,7 +642,7 @@ class QubitAcl
         if (is_object($resource)) {
             foreach ($resource->getAncestorsAndSelfForAcl() as $r) {
                 if (!in_array($r->id, $this->_resources)) {
-                    $this->acl->addResource($r->id, $r->parentId);
+                    $this->acl->addResource((string) $r->id, $r->parentId);
                     $this->_resources[] = $r->id;
                 }
             }

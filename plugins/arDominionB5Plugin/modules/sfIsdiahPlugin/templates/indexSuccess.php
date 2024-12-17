@@ -278,7 +278,7 @@
       <?php if (QubitAcl::check($resource, 'create')) { ?>
         <li><?php echo link_to(__('Add new'), ['module' => 'repository', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
-      <?php if (QubitAcl::check(QubitInformationObject, 'create')) { ?>
+      <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) { ?>
         <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
       <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
