@@ -1,0 +1,34 @@
+{
+    "name": "brianlmoon/net_gearman",
+    "homepage": "http://brian.moonspot.net/GearmanManager",
+    "description": "PHP daemon for managing gearman workers",
+    "keywords": ["gearman","net_gearman","gearman-manager"],
+    "type": "library",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Brian Moon",
+            "homepage": "http://brian.moonspot.net"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/brianlmoon/net_gearman/issues"
+    },
+    "require": {
+        "php": "^7.0.0|^8.0.0"
+    },
+    "autoload": {
+        "classmap": [ "Net/Gearman" ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Net\\Gearman\\Tests\\": "tests/"
+        }
+    },
+    "include-path": [
+        "."
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+}
