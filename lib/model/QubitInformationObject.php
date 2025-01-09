@@ -2171,14 +2171,14 @@ class QubitInformationObject extends BaseInformationObject
             $queryBool = new \Elastica\Query\BoolQuery();
 
             // Use match query for exact matches.
-            $queryText = new \Elastica\Query\Match();
+            $queryText = new \Elastica\Query\MatchQuery();
             $queryBool->addMust($queryText->setFieldQuery('identifier', $identifier));
 
-            $queryText = new \Elastica\Query\Match();
+            $queryText = new \Elastica\Query\MatchQuery();
             $queryBool->addMust($queryText->setFieldQuery(sprintf('i18n.%s.title.untouched', $currentCulture), $title));
 
             if (null !== $repoName) {
-                $queryText = new \Elastica\Query\Match();
+                $queryText = new \Elastica\Query\MatchQuery();
                 $queryBool->addMust($queryText->setFieldQuery(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture), $repoName));
             }
 
