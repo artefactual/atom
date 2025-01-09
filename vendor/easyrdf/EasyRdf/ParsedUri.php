@@ -242,7 +242,7 @@ class EasyRdf_ParsedUri
         }
 
         // Construct the new normalised path
-        $this->path = implode($newSegments, '/');
+        $this->path = implode('/', $newSegments);
 
         // Allow easy chaining of methods
         return $this;
