@@ -120,6 +120,7 @@ class PropelPDO extends PDO {
 	/**
 	 * Overrides PDO::beginTransaction() to prevent errors due to already-in-progress transaction.
 	 */
+  #[\ReturnTypeWillChange]
 	public function beginTransaction()
 	{
 		$return = true;
@@ -136,6 +137,7 @@ class PropelPDO extends PDO {
 	 * Overrides PDO::commit() to only commit the transaction if we are in the outermost
 	 * transaction nesting level.
 	 */
+  #[\ReturnTypeWillChange]
 	public function commit()
 	{
 		$return = true;
@@ -158,6 +160,7 @@ class PropelPDO extends PDO {
 	 * transaction nesting level
 	 * @return     boolean Whether operation was successful.
 	 */
+  #[\ReturnTypeWillChange]
 	public function rollBack()
 	{
 		$return = true;
@@ -203,6 +206,7 @@ class PropelPDO extends PDO {
 	 * @param      int $attribute The attribute to set (e.g. PropelPDO::PROPEL_ATTR_CACHE_PREPARES).
 	 * @param      mixed $value The attribute value.
 	 */
+  #[\ReturnTypeWillChange]
 	public function setAttribute($attribute, $value)
 	{
 		switch($attribute) {
@@ -222,6 +226,7 @@ class PropelPDO extends PDO {
 	 *
 	 * @param      int $attribute The attribute to get (e.g. PropelPDO::PROPEL_ATTR_CACHE_PREPARES).
 	 */
+  #[\ReturnTypeWillChange]
 	public function getAttribute($attribute)
 	{
 		switch($attribute) {
@@ -241,6 +246,7 @@ class PropelPDO extends PDO {
 	 * @param      array
 	 * @return     PDOStatement
 	 */
+  #[\ReturnTypeWillChange]
 	public function prepare($sql, $driver_options = array())
 	{
 		if ($this->cachePreparedStatements) {
