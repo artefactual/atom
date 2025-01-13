@@ -190,7 +190,7 @@ EOF;
             }
 
             if ($deleteCreators) {
-                self::removeCreator($io, $creatorIds);
+                self::removeCreator($creatorIds, $io);
             }
         }
     }
@@ -201,7 +201,7 @@ EOF;
      * @param null|mixed $infoObj
      * @param mixed      $creatorIds
      */
-    private function removeCreator($infoObj = null, $creatorIds)
+    private function removeCreator($creatorIds, $infoObj = null)
     {
         // This will unlink this Actor from all creation events on this IO.
         foreach ($infoObj->getActorEvents(['eventTypeId' => QubitTerm::CREATION_ID]) as $event) {

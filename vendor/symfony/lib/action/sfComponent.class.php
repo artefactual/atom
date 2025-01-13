@@ -307,6 +307,7 @@ abstract class sfComponent implements ArrayAccess
     return $this->varHolder->setByRef($key, $value);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -332,6 +333,7 @@ abstract class sfComponent implements ArrayAccess
     return $this->varHolder->get($key);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -357,6 +359,7 @@ abstract class sfComponent implements ArrayAccess
     return isset($value);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -378,6 +381,7 @@ abstract class sfComponent implements ArrayAccess
     $this->varHolder->remove($name);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();

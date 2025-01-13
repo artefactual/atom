@@ -167,7 +167,7 @@ class sfAutoloadConfigHandler extends sfYamlConfigHandler
     // move plugin files to front
     foreach ($configFiles as $i => $configFile)
     {
-      $path = preg_replace('/(?:\/[^\/]+){2}$/', null, $configFile);
+      $path = preg_replace('/(?:\/[^\/]+){2}$/', '', $configFile);
       if (in_array($path, $pluginPaths))
       {
         $pluginConfigFiles[] = $configFile;

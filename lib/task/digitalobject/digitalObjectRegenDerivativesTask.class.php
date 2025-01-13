@@ -19,6 +19,8 @@
 
 class digitalObjectRegenDerivativesTask extends arBaseTask
 {
+    private $validTypes = [];
+
     public static function regenerateDerivatives(&$digitalObject, $options = [])
     {
         // Determine usage ID from type flag

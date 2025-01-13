@@ -57,6 +57,7 @@ class PropelConfiguration implements ArrayAccess
 	/**
 	 * @see        http://www.php.net/ArrayAccess
 	 */
+  #[\ReturnTypeWillChange]
 	public function offsetExists($offset)
 	{
 		return isset($this->parameter[$offset]) || array_key_exists($offset, $this->parameters);
@@ -65,6 +66,7 @@ class PropelConfiguration implements ArrayAccess
 	/**
 	 * @see        http://www.php.net/ArrayAccess
 	 */
+  #[\ReturnTypeWillChange]
 	public function offsetSet($offset, $value)
 	{
 		$this->parameter[$offset] = $value;
@@ -73,6 +75,7 @@ class PropelConfiguration implements ArrayAccess
 	/**
 	 * @see        http://www.php.net/ArrayAccess
 	 */
+  #[\ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		return $this->parameters[$offset];
@@ -81,6 +84,7 @@ class PropelConfiguration implements ArrayAccess
 	/**
 	 * @see        http://www.php.net/ArrayAccess
 	 */
+  #[\ReturnTypeWillChange]
 	public function offsetUnset($offset)
 	{
 		unset($this->parameters[$offset]);
