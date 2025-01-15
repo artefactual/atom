@@ -228,6 +228,7 @@ abstract class BaseContactInformation implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -299,6 +300,7 @@ abstract class BaseContactInformation implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -355,6 +357,7 @@ abstract class BaseContactInformation implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -396,6 +399,7 @@ abstract class BaseContactInformation implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();
