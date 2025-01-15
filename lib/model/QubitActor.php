@@ -70,7 +70,7 @@ class QubitActor extends BaseActor
                 return [];
         }
 
-        return call_user_func_array([$this, 'BaseActor::__get'], $args);
+        return call_user_func_array('BaseActor::__get', $args);
     }
 
     public function __set($name, $value)
@@ -104,7 +104,7 @@ class QubitActor extends BaseActor
                 return $this;
         }
 
-        return call_user_func_array([$this, 'BaseActor::__set'], $args);
+        return call_user_func_array('BaseActor::__set', $args);
     }
 
     public function save($connection = null)

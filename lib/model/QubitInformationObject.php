@@ -123,7 +123,7 @@ class QubitInformationObject extends BaseInformationObject
             case 'sourceStandard':
                 foreach ($this->ancestors->andSelf()->orderBy('rgt') as $item) {
                     if (isset($item->sourceStandard)) {
-                        return call_user_func_array([$item, 'QubitObject::__get'], $args);
+                        return call_user_func_array('QubitObject::__get', $args);
                     }
 
                     // Stop iteration before the root object is reached
@@ -135,7 +135,7 @@ class QubitInformationObject extends BaseInformationObject
                 break;
 
             default:
-                return call_user_func_array([$this, 'BaseInformationObject::__get'], $args);
+                return call_user_func_array('BaseInformationObject::__get', $args);
         }
     }
 
@@ -172,7 +172,7 @@ class QubitInformationObject extends BaseInformationObject
                 return $this;
 
             default:
-                return call_user_func_array([$this, 'BaseInformationObject::__set'], $args);
+                return call_user_func_array('BaseInformationObject::__set', $args);
         }
     }
 
