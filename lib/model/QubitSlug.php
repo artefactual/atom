@@ -78,7 +78,7 @@ class QubitSlug extends BaseSlug
         $slugCreation = (null === $creationType) ? sfConfig::get('app_permissive_slug_creation', QubitSlug::SLUG_RESTRICTIVE) : $creationType;
 
         // Remove apostrophes from slug
-        $slug = preg_replace('/\'/', '', $slug);
+        $slug = preg_replace('/\'/', '', (string) $slug);
 
         switch ($slugCreation) {
             case QubitSlug::SLUG_PERMISSIVE:

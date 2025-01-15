@@ -90,6 +90,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     private $batchDeleteDocs = [];
 
+    private $batchSize;
+    private $batchMode;
+    private $cache;
+    private $config;
+
     /**
      * Constructor.
      */
