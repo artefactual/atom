@@ -106,11 +106,11 @@
         </div>
       <?php } ?>
       <?php if (QubitTerm::VIDEO_ID == $resource->mediaTypeId || QubitTerm::AUDIO_ID == $resource->mediaTypeId) { ?>
-      
+
         <?php foreach ($videoTracks as $usageId => $videoTrack) { ?>
 
           <?php if (QubitTerm::VIDEO_ID == $resource->mediaTypeId && QubitTerm::SUBTITLES_ID == $usageId) { ?>
-            
+
             <?php echo include_partial('editSubtitles', ['resource' => $resource, 'subtitles' => $videoTrack, 'form' => $form, 'usageId' => $usageId]); ?>
 
           <?php } elseif (QubitTerm::SUBTITLES_ID != $usageId) { ?>
@@ -132,7 +132,7 @@
                   <?php } ?>
                 </div>
               </div>
-            </div>             
+            </div>
           <?php } ?>
         <?php } ?>
       <?php } ?>

@@ -129,7 +129,7 @@ class QubitAcl
             }
 
             // OR condition, first "true" result returns
-            if ($hasAccess = self::checkAccessByClass($resource, $user, $action, $options)) {
+            if (null !== $resource && $hasAccess = self::checkAccessByClass($resource, $user, $action, $options)) {
                 return $hasAccess;
             }
         }
