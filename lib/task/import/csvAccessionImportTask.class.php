@@ -225,7 +225,9 @@ EOF;
                     if (!empty($identifiers) || !empty($identifierNotes)) {
                         $identifierTypes = $self->rowStatusVars['alternativeIdentifierTypes'];
 
-                        for ($index = 0; $index < max(count($identifiers), count($identifierNotes)); ++$index) {
+                        $identifierCount = empty($identifiers) ? 0 : count($identifiers);
+                        $identifierNotesCount = empty($identifierNotes) ? 0 : count($identifierNotes);
+                        for ($index = 0; $index < max($identifierCount, $identifierNotesCount); ++$index) {
                             $identifier = (empty($identifiers[$index])) ? null : $identifiers[$index];
 
                             if (!empty($identifier) || !empty($identifierNotes[$index])) {
