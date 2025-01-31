@@ -23,9 +23,9 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <section id="content" class="border-bottom-0 rounded-0 rounded-top">
+    <div class="border border-bottom-0 rounded-0 rounded-top bg-white">
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID]); ?>
-    </section>
+    </div>
 
     <div class="accordion mb-3">
       <div class="accordion-item rounded-0">
