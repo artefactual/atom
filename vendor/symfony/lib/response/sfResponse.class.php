@@ -175,7 +175,6 @@ abstract class sfResponse implements Serializable
   public function __serialize() {
     return array('content' => $this->content);
   }
-
   /**
    * Unserializes a sfResponse instance for php 7.4+
    *

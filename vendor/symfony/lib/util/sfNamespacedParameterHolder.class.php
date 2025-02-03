@@ -362,41 +362,20 @@ class sfNamespacedParameterHolder extends sfParameterHolder
   /**
    * Serializes the current instance.
    *
-   * @return string Objects instance
+   * @return array Objects instance
    */
   public function serialize()
   {
-    return serialize($this->__serialize());
+    return serialize(array($this->default_namespace, $this->parameters));
   }
 
   /**
-   * Unserializes a sfNamespacedParameterHolder instance.
-   *
-   * @param string $serialized  A serialized sfNamespacedParameterHolder instance
    */
   public function unserialize($serialized)
   {
-    $this->__unserialize(unserialize($serialized));
-  }
+    $data = unserialize($serialized);
 
-  /**
-   * Serializes the current instance for PHP 7.4+
-   *
-   * @return array
-   */
-  public function __serialize()
-  {
-    return array($this->default_namespace, $this->parameters);
-  }
-
-  /**
-   * Unserializes a sfParameterHolder instance. for PHP 7.4
-   *
-   * @param array $data
-   */
-  public function __unserialize($data)
-  {
-      $this->default_namespace = $data[0];
-      $this->parameters = $data[1];
+    $this->default_namespace = $data[0];
+    $this->parameters = $data[1];
   }
 }

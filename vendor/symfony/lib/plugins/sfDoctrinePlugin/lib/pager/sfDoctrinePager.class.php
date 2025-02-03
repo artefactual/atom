@@ -66,7 +66,6 @@ class sfDoctrinePager extends sfPager implements Serializable
 
     return $this->__unserialize($array);
   }
-
   /**
    * Serializes the current instance for php 7.4+
    *
@@ -78,7 +77,6 @@ class sfDoctrinePager extends sfPager implements Serializable
     unset($vars['query']);
     return $vars;
   }
-
   /**
    * Unserializes a sfDoctrinePager instance for php 7.4+
    *
@@ -86,7 +84,6 @@ class sfDoctrinePager extends sfPager implements Serializable
    */
   public function __unserialize($data)
   {
-
     foreach ($data as $name => $values)
     {
        $this->$name = $values;
