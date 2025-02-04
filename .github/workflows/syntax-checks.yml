@@ -7,15 +7,15 @@ on:
     - stable/**
 jobs:
   php-cs-fixer:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: PHP CS Fixer
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Setup PHP 7.4
+    - name: Setup PHP 8.3
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 8.3
         coverage: none
     - name: Cache dependencies
       uses: actions/cache@v4
@@ -27,7 +27,7 @@ jobs:
     - name: Run php-cs-fixer
       run: composer php-cs-fixer -- fix --dry-run
   prettier:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Prettier
     steps:
     - name: Checkout code

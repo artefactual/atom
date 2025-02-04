@@ -3,7 +3,7 @@
 user = www-data
 group = www-data
 
-listen = /run/php7.4-fpm.atom.sock
+listen = /run/php8.3-fpm.atom.sock
 listen.owner = www-data
 listen.group = www-data
 listen.mode = 0600
