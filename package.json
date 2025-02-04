@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.3.0",
-    "cypress": "^13.13.0",
+    "cypress": "^14.0.1",
     "cypress-file-upload": "^5.0.8",
     "cypress-wait-until": "^1.7.2",
     "expose-loader": "^3.0.0",
