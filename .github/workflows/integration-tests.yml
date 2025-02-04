@@ -33,7 +33,7 @@ jobs:
         sudo apt install php7.4-fpm
         sudo service php7.4-fpm start
     - name: Cache Composer dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.composer/cache/files
         key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
