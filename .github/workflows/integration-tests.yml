@@ -5,6 +5,7 @@ on:
     branches:
     - qa/**
     - stable/**
+    - dev/integration-test-test
 jobs:
   integration-tests:
     runs-on: ubuntu-24.04
@@ -50,7 +51,7 @@ jobs:
       run: sudo npm install -g npm && npm ci
     - name: Modify Gearman config
       run: |
-        echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
+        sudo echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
           > apps/qubit/config/gearman.yml
     - name: Build themes
       run: |
@@ -107,14 +108,12 @@ jobs:
     - name: Print logs
       if: failure()
       run: |
-        echo 'Print qubit_cli.log'
-        sudo tail ${{ github.workspace }}/log/qubit_cli.log
         echo 'Print qubit_worker.log'
         sudo tail ${{ github.workspace }}/log/qubit_worker.log
         echo 'Print qubit_prod.log'
         sudo tail ${{ github.workspace }}/log/qubit_prod.log
         echo 'Print nginx/error.log'
-        sudo tail /var/log/nginx/error.log
+        sudo tail -n 30 /var/log/nginx/error.log
         echo 'Print php8.3-fpm.log'
         sudo tail /var/log/php8.3-fpm.log
     - name: Upload Cypress Screenshots

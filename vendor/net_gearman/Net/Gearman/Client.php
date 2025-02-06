@@ -78,6 +78,7 @@ class Net_Gearman_Client
      */
     public function __construct($servers, $timeout = 1000)
     {
+        prodlog('servers', $servers);
         if (!is_array($servers) && strlen($servers) > 0) {
             $servers = array($servers);
         } elseif (is_array($servers) && !count($servers)) {
