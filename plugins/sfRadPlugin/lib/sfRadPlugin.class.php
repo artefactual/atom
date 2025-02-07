@@ -105,7 +105,7 @@ class sfRadPlugin
 
             case 'languageNotes':
                 $note = $this->resource->getMemoryNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0);
-                $missingNote = 0 === count($note);
+                $missingNote = 0 === strlen($note);
 
                 if (0 == strlen($value)) {
                     // Delete note if it's available

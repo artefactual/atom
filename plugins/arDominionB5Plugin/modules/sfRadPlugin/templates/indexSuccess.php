@@ -100,7 +100,7 @@
     <div class="titleNotes <?php echo render_b5_show_value_css_classes(); ?>">
       <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($resource->getNotesByTaxonomy(['taxonomyId' => QubitTaxonomy::RAD_TITLE_NOTE_ID]) as $item) { ?>
-          <?php if (0 != count($item->getContent(['cultureFallback' => true]))) { ?>
+          <?php if (0 != strlen($item->getContent(['cultureFallback' => true]))) { ?>
             <li><?php echo render_value_inline($item->type); ?>: <?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
           <?php } ?>
         <?php } ?>
