@@ -104,3 +104,22 @@ jobs:
         CYPRESS_BASE_URL: http://localhost
         LIBGL_ALWAYS_SOFTWARE: 1
       run: npx cypress run -b ${BROWSER,}
+    - name: Print logs
+      if: failure()
+      run: |
+        echo 'Print qubit_cli.log'
+        sudo tail ${{ github.workspace }}/log/qubit_cli.log
+        echo 'Print qubit_worker.log'
+        sudo tail ${{ github.workspace }}/log/qubit_worker.log
+        echo 'Print qubit_prod.log'
+        sudo tail ${{ github.workspace }}/log/qubit_prod.log
+        echo 'Print nginx/error.log'
+        sudo tail /var/log/nginx/error.log
+        echo 'Print php8.3-fpm.log'
+        sudo tail /var/log/php8.3-fpm.log
+    - name: Upload Cypress Screenshots
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
