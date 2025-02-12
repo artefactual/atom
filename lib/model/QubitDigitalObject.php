@@ -2562,7 +2562,8 @@ class QubitDigitalObject extends BaseDigitalObject
      * copy of the file if it's already an mp3 file.
      *
      * @param string $originalPath Path to the original audio file
-     * @param string $newPath Path to the new mp3 file
+     * @param string $newPath      Path to the new mp3 file
+     *
      * @return bool true if successful, false otherwise
      */
     public static function convertAudioToMp3($originalPath, $newPath)
@@ -2576,8 +2577,8 @@ class QubitDigitalObject extends BaseDigitalObject
 
         $formatName = $format['format_name'] ?? null;
 
-        $reformatFile = $formatName !== 'mp3' ||
-                        strtolower(pathinfo($originalPath, PATHINFO_EXTENSION)) !== 'mp3';
+        $reformatFile = 'mp3' !== $formatName
+                        || 'mp3' !== strtolower(pathinfo($originalPath, PATHINFO_EXTENSION));
 
         $status = null;
         if ($reformatFile) {
@@ -2587,7 +2588,7 @@ class QubitDigitalObject extends BaseDigitalObject
             $status = copy($originalPath, $newPath) ? 0 : 1;
         }
 
-        if ($status !== 0 && !file_exists($newPath)) {
+        if (0 !== $status && !file_exists($newPath)) {
             return false;
         }
 
@@ -2679,7 +2680,7 @@ class QubitDigitalObject extends BaseDigitalObject
     /**
      * Test if FFprobe is installed. FFprobe is typically installed with FFmpeg.
      *
-     * @return boolean  true if FFprobe exists, false otherwise
+     * @return bool true if FFprobe exists, false otherwise
      */
     public static function hasFfprobe()
     {
@@ -2695,13 +2696,13 @@ class QubitDigitalObject extends BaseDigitalObject
      * Only reads information about the first audio stream and the first video
      * stream.
      *
-     * @param string  $filePath  path to the audio or video file
+     * @param string $filePath path to the audio or video file
      *
      * @return array codec and format information for the first video and
-     * audio streams, or an empty array if the file does not have audio or
-     * video. The video or audio key may be missing if the file does not
-     * have audio or video. Also contains a format_name key if the format
-     * could be read with ffprobe.
+     *               audio streams, or an empty array if the file does not have audio or
+     *               video. The video or audio key may be missing if the file does not
+     *               have audio or video. Also contains a format_name key if the format
+     *               could be read with ffprobe.
      */
     public static function readStreamInformation($filePath)
     {
@@ -2716,7 +2717,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
         exec($command, $output, $status);
 
-        if ($status !== 0) {
+        if (0 !== $status) {
             return [];
         }
 
@@ -2733,7 +2734,7 @@ class QubitDigitalObject extends BaseDigitalObject
             $format['format_name'] = $ffProbeInfo['format']['format_name'];
         }
 
-        foreach($ffProbeInfo['streams'] as $stream) {
+        foreach ($ffProbeInfo['streams'] as $stream) {
             // Read only the first video and audio streams
             if (!empty($format['video']) && !empty($format['audio'])) {
                 break;
@@ -2741,13 +2742,13 @@ class QubitDigitalObject extends BaseDigitalObject
 
             $codecType = strtolower($stream['codec_type']);
 
-            if ($codecType === 'video' && empty($format['video'])) {
+            if ('video' === $codecType && empty($format['video'])) {
                 $format['video'] = [];
                 $format['video']['codec_name'] = $stream['codec_name'];
-                $format['video']['pix_fmt']    = $stream['pix_fmt'] ?? null;
-                $format['video']['width']      = (int) $stream['width'];
-                $format['video']['height']     = (int) $stream['height'];
-            } else if ($codecType === 'audio' && empty($format['audio'])) {
+                $format['video']['pix_fmt'] = $stream['pix_fmt'] ?? null;
+                $format['video']['width'] = (int) $stream['width'];
+                $format['video']['height'] = (int) $stream['height'];
+            } elseif ('audio' === $codecType && empty($format['audio'])) {
                 $format['audio'] = [];
                 $format['audio']['codec_name'] = $stream['codec_name'];
                 $format['audio']['sample_rate'] = (int) $stream['sample_rate'];
@@ -2765,24 +2766,24 @@ class QubitDigitalObject extends BaseDigitalObject
      * @param string $filePath path to the video file
      *
      * @return bool true if moov atom is at the front, false otherwise or if
-     * moov atom does not exist, which means the file is not a valid MP4 file
+     *              moov atom does not exist, which means the file is not a valid MP4 file
      */
     public static function isFastStarted($filePath)
     {
-        $command = "ffprobe -v trace " . escapeshellarg($filePath) . " 2>&1";
+        $command = 'ffprobe -v trace '.escapeshellarg($filePath).' 2>&1';
         exec($command, $output, $status);
 
-        if ($status !== 0) {
+        if (0 !== $status) {
             return false;
         }
 
         $moovFound = false;
         foreach ($output as $line) {
-            if (strpos($line, "type:'moov'") !== false) {
+            if (false !== strpos($line, "type:'moov'")) {
                 $moovFound = true;
             }
             // If we find the 'mdat' atom before we find the 'moov' atom, then the 'moov' atom is not at the front
-            elseif (strpos($line, "type:'mdat'") !== false) {
+            elseif (false !== strpos($line, "type:'mdat'")) {
                 return $moovFound;
             }
         }
@@ -2824,10 +2825,10 @@ class QubitDigitalObject extends BaseDigitalObject
         $sampleRate = $format['audio']['sample_rate'] ?? null;
         $formatName = $format['format_name'] ?? null;
 
-        $reencodeVideo = $videoCodec !== 'h264' || $pixelFormat !== 'yuv420p';
-        $reencodeAudio = $audioCodec !== 'aac' || $sampleRate !== 44100;
-        $reformatFile = strpos($formatName, 'mp4') === false ||
-                        strtolower(pathinfo($originalPath, PATHINFO_EXTENSION)) !== 'mp4';
+        $reencodeVideo = 'h264' !== $videoCodec || 'yuv420p' !== $pixelFormat;
+        $reencodeAudio = 'aac' !== $audioCodec || 44100 !== $sampleRate;
+        $reformatFile = false === strpos($formatName, 'mp4')
+                        || 'mp4' !== strtolower(pathinfo($originalPath, PATHINFO_EXTENSION));
 
         $needFastStart = !self::isFastStarted($originalPath);
 
@@ -2866,7 +2867,7 @@ class QubitDigitalObject extends BaseDigitalObject
             $status = copy($originalPath, $newPath) ? 0 : 1;
         }
 
-        if ($status !== 0 && !file_exists($newPath)) {
+        if (0 !== $status && !file_exists($newPath)) {
             return false;
         }
 
