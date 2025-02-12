@@ -2562,20 +2562,24 @@ class QubitDigitalObject extends BaseDigitalObject
             return false;
         }
 
-        $command = 'ffmpeg -y -i '.$originalPath.' '.$newPath.' 2>&1';
-        exec($command, $output, $status);
+        $format = self::readStreamInformation($originalPath);
 
-        if ($status) {
-            $error = true;
+        $formatName = $format['format_name'] ?? null;
 
-            for ($i = count($output) - 1; $i >= 0; --$i) {
-                if (strpos($output[$i], 'output buffer too small')) {
-                    $error = false;
+        $reformatFile = $formatName !== 'mp3' ||
+                        strtolower(pathinfo($originalPath, PATHINFO_EXTENSION)) !== 'mp3';
 
-                    break;
-                }
-            }
+        $status = null;
+        if ($reformatFile) {
+            $command = sprintf('ffmpeg -y -i %s %s 2>&1', escapeshellarg($originalPath), escapeshellarg($newPath));
+            exec($command, $output, $status);
+        } else {
+            $status = copy($originalPath, $newPath) ? 0 : 1;
         }
+
+        if ($status !== 0 && !file_exists($newPath)) {
+            return false;
+        }  
 
         chmod($newPath, 0644);
 
@@ -2804,11 +2808,11 @@ class QubitDigitalObject extends BaseDigitalObject
         $pixelFormat = $format['video']['pix_fmt'] ?? null;
         $audioCodec = $format['audio']['codec_name'] ?? null;
         $sampleRate = $format['audio']['sample_rate'] ?? null;
-        $format_name = $format['format_name'] ?? null;
+        $formatName = $format['format_name'] ?? null;
 
         $reencodeVideo = $videoCodec !== 'h264' || $pixelFormat !== 'yuv420p';
         $reencodeAudio = $audioCodec !== 'aac' || $sampleRate !== 44100;
-        $reformatFile = strpos($format_name, 'mp4') === false ||
+        $reformatFile = strpos($formatName, 'mp4') === false ||
                         strtolower(pathinfo($originalPath, PATHINFO_EXTENSION)) !== 'mp4';
 
         $needFastStart = !self::isFastStarted($originalPath);
