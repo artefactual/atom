@@ -2555,6 +2555,16 @@ class QubitDigitalObject extends BaseDigitalObject
         }
     }
 
+    /**
+     * Convert an audio file to mp3 using ffmpeg.
+     *
+     * Uses ffmpeg's default mp3 audio encoder (typically libmp3lame). Makes a
+     * copy of the file if it's already an mp3 file.
+     *
+     * @param string $originalPath Path to the original audio file
+     * @param string $newPath Path to the new mp3 file
+     * @return bool true if successful, false otherwise
+     */
     public static function convertAudioToMp3($originalPath, $newPath)
     {
         // Test for FFmpeg library
@@ -2579,7 +2589,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
         if ($status !== 0 && !file_exists($newPath)) {
             return false;
-        }  
+        }
 
         chmod($newPath, 0644);
 
@@ -2693,7 +2703,7 @@ class QubitDigitalObject extends BaseDigitalObject
      * have audio or video. Also contains a format_name key if the format
      * could be read with ffprobe.
      */
-    public static function readStreamInformation(string $filePath): array
+    public static function readStreamInformation($filePath)
     {
         if (!self::hasFfprobe()) {
             return [];
@@ -2783,6 +2793,10 @@ class QubitDigitalObject extends BaseDigitalObject
     /**
      * Create a mp4 video derivative using the FFmpeg library.
      *
+     * If the output video file is already in the proper format, a copy of the
+     * file is made. Otherwise, a minimal ffmpeg command is constructed to do
+     * the least amount of work to convert the video to the proper format.
+     *
      * @param string     $originalPath path to original video
      * @param string     $newPath      path to derivative video
      * @param int        $maxwidth     derivative video maximum width
@@ -2838,6 +2852,7 @@ class QubitDigitalObject extends BaseDigitalObject
             $codecOptions = '-c copy -movflags +faststart';
         }
 
+        $status = null;
         if ($codecOptions) {
             $command = sprintf(
                 'ffmpeg -y -i %s %s %s 2>&1',
@@ -2848,7 +2863,11 @@ class QubitDigitalObject extends BaseDigitalObject
             exec($command, $output, $status);
         } else {
             // No reencoding, reformatting, or fast-starting needed
-            copy($originalPath, $newPath);
+            $status = copy($originalPath, $newPath) ? 0 : 1;
+        }
+
+        if ($status !== 0 && !file_exists($newPath)) {
+            return false;
         }
 
         chmod($newPath, 0644);
