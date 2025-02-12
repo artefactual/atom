@@ -14,7 +14,7 @@ jobs:
         browser: [Chrome, Electron, Firefox]
     name: ${{ matrix.browser }}
     env:
-      COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
+      COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.test.yml
     steps:
     - name: Check out code
       uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
       run: sudo npm install -g npm && npm ci
     - name: Modify Gearman config
       run: |
-        echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
+        echo -e "all:\n  servers:\n    default: 127.0.0.1:4730" \
           > apps/qubit/config/gearman.yml
     - name: Build themes
       run: |
@@ -107,8 +107,6 @@ jobs:
     - name: Print logs
       if: failure()
       run: |
-        echo 'Print qubit_cli.log'
-        sudo tail ${{ github.workspace }}/log/qubit_cli.log
         echo 'Print qubit_worker.log'
         sudo tail ${{ github.workspace }}/log/qubit_worker.log
         echo 'Print qubit_prod.log'
