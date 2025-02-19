@@ -74,20 +74,14 @@ class DigitalObjectShowComponent extends sfComponent
      */
     private function checkShowGenericIcon()
     {
-        $resourceObject = $this->resource->object;
-
-        // Get the parent resouce (IO or Actor) for Acl check
-        // if resource->object is empty and parent exists
-        if (!$resourceObject && $this->resource->parent) {
-            $resourceObject = $this->resource->parent->object;
-        }
-
         switch ($this->usageType) {
             case QubitTerm::REFERENCE_ID:
-                return !QubitAcl::check($resourceObject, 'readReference');
+                // Use the parent resource (IO or Actor) for Acl check
+                return !QubitAcl::check($this->resource->object, 'readReference');
 
             case QubitTerm::THUMBNAIL_ID:
-                return !QubitAcl::check($resourceObject, 'readThumbnail');
+                // Use the parent resource (IO or Actor) for Acl check
+                return !QubitAcl::check($this->resource->object, 'readThumbnail');
         }
     }
 

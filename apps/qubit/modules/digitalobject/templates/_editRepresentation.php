@@ -9,7 +9,7 @@
       <?php echo get_component('digitalobject', 'show', [
           'iconOnly' => true,
           'link' => public_path($representation->getFullPath()),
-          'resource' => $representation,
+          'resource' => $resource,
           'usageType' => QubitTerm::THUMBNAIL_ID, ]); ?>
 
     <?php } ?>
