@@ -1997,7 +1997,9 @@ class QubitFlatfileImport
                 $this->columnValue('repository')
             );
 
-            $this->object = QubitInformationObject::getById($objectId);
+            if ($objectId) {
+                $this->object = QubitInformationObject::getById($objectId);
+            }
         }
     }
 
