@@ -2790,7 +2790,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     public static function hasPdfToText()
     {
-        exec('which pdftotext', $output, $status);
+        exec('command -v pdftotext', $output, $status);
 
         return 0 == $status && 0 < count($output);
     }
