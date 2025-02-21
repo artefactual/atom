@@ -320,7 +320,7 @@ function render_b5_show_value($value, $options = [])
     if (is_array($value) || $value instanceof sfOutputEscaperObjectDecorator || $value instanceof sfOutputEscaperArrayDecorator) {
         $finalValue = '<ul class="'.render_b5_show_list_css_classes().'">';
         foreach ($value as $item) {
-            $finalValue .= '<li>'.render_value($item).'</li>';
+            $finalValue .= '<li>'.render_value_html($item).'</li>';
         }
         $finalValue .= '</ul>';
     }
