@@ -55,7 +55,7 @@ class arExportJob extends arBaseJob
 
         $this->doExport($tempPath);
 
-        if (count($this->itemsExported) > 0) {
+        if ($this->itemsExported > 0) {
             $this->info($this->i18n->__(
                 'Exported %1 records.',
                 ['%1' => $this->itemsExported]
