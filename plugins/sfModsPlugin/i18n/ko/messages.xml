@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2024-05-17T02:58:25Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-03-05T18:17:57Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -82,10 +82,6 @@
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>자원의 특성과 내용의 일반적 유형을 상술하는 용어. 자원 선택 유형은 MODS typeOfResource 최상위계층 내의 값으로 제한됩니다.</target>
       </trans-unit>
-      <trans-unit id="845">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target>컬렉션 계층 기술에서 하위 계층을 추가하기 위해 이 두 필드를 사용하시오. 필요한 새 하위 계층을 추가하기 위해 새 필드 추가를 클릭하시오. 식별자: 자원을 식별할 수 있는 고유 표준번호나 코드를 입력하시오. 제목: 단어, 구, 글자, 글자 그룹, 자원에서 일반적으로 나타나는 단어, 자원 또는 자원에 포함된 저작을 입력하시오.</target>
-      </trans-unit>
       <trans-unit id="846">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
         <target>기록물에서 사용된 언어의 지정. 가능한 한 많은 언어들을 선택하시오.</target>
@@ -145,6 +141,10 @@
       <trans-unit id="865">
         <source>Add new</source>
         <target>새 항목 추가</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

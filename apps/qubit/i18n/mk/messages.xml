@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2024-05-17T03:01:58Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-03-05T18:21:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -174,9 +174,9 @@
         <target xml:space="preserve" state="final">%1% &#x43E;&#x433;&#x440;&#x430;&#x43D;&#x438;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435;&#x442;&#x43E; &#x437;&#x430; &#x43F;&#x440;&#x438;&#x43A;&#x430;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x43E;&#x434; %2% GB &#x435; &#x43D;&#x430;&#x434;&#x43C;&#x438;&#x43D;&#x430;&#x442;&#x43E; &#x437;&#x430; %3%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
       </trans-unit>
-      <trans-unit id="aa7a47d3b9df07e362e900798b498f5265ebcfc2">
-        <source xml:space="preserve">%1% upload limits</source>
-        <target xml:space="preserve" state="final">%1% &#x43E;&#x433;&#x440;&#x430;&#x43D;&#x438;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x437;&#x430; &#x43F;&#x440;&#x438;&#x43A;&#x430;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435;</target>
+      <trans-unit id="96a056677f96828bf6f46d5b8433c2155a4ad8cb">
+        <source xml:space="preserve">%1% upload limits meter display</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="0a4d6fa2c4dab64280355e4b1dc617e015edab41">
@@ -209,9 +209,9 @@
         <target xml:space="preserve" state="final">%du% &#x43E;&#x434; %limit% &lt;abbr title="1 GB = 1 000 000 000 &#x431;&#x430;&#x458;&#x442;&#x438;"&gt;GB&lt;/abbr&gt; (% &#x43F;&#x440;&#x43E;&#x446;&#x435;&#x43D;&#x442;&#x438;%%)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
       </trans-unit>
-      <trans-unit id="c5586b6c10565cb9a28b2b613de13f08b530f515">
-        <source xml:space="preserve">%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after aperiod of time to free up storage space. When your export is ready you should download it as soon as possible.</source>
-        <target xml:space="preserve" state="final">%open_strong_tag%&#x411;&#x435;&#x43B;&#x435;&#x448;&#x43A;&#x430;:%close_strong_tag% AtoM &#x43C;&#x43E;&#x436;&#x435; &#x434;&#x430; &#x433;&#x438; &#x43E;&#x442;&#x441;&#x442;&#x440;&#x430;&#x43D;&#x438; &#x438;&#x437;&#x432;&#x43E;&#x437;&#x43D;&#x438;&#x442;&#x435; &#x43F;&#x430;&#x43A;&#x435;&#x442;&#x438; &#x43F;&#x43E; &#x43E;&#x434;&#x440;&#x435;&#x434;&#x435;&#x43D; &#x432;&#x440;&#x435;&#x43C;&#x435;&#x43D;&#x441;&#x43A;&#x438; &#x43F;&#x435;&#x440;&#x438;&#x43E;&#x434; &#x437;&#x430; &#x434;&#x430; &#x43E;&#x441;&#x43B;&#x43E;&#x431;&#x43E;&#x434;&#x438; &#x43F;&#x440;&#x43E;&#x441;&#x442;&#x43E;&#x440; &#x437;&#x430; &#x441;&#x43A;&#x43B;&#x430;&#x434;&#x438;&#x440;&#x430;&#x45A;&#x435;. &#x41A;&#x43E;&#x433;&#x430; &#x432;&#x430;&#x448;&#x438;&#x43E;&#x442; &#x438;&#x437;&#x432;&#x43E;&#x437; &#x435; &#x43F;&#x43E;&#x434;&#x433;&#x43E;&#x442;&#x432;&#x435;&#x43D;, &#x442;&#x440;&#x435;&#x431;&#x430; &#x434;&#x430; &#x433;&#x43E; &#x43F;&#x440;&#x435;&#x437;&#x435;&#x43C;&#x435;&#x442;&#x435; &#x448;&#x442;&#x43E; &#x435; &#x43C;&#x43E;&#x436;&#x43D;&#x43E; &#x43F;&#x43E;&#x441;&#x43A;&#x43E;&#x440;&#x43E;.</target>
+      <trans-unit id="f84dacf705bf94703f171f2dea4fb8808ade64a3">
+        <source xml:space="preserve">%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after a period of time to free up storage space. When your export is ready you should download it as soon as possible.</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="05f2f2376c5ced3da85c4ce70e44762215d42719">
@@ -1431,9 +1431,9 @@
         <target xml:space="preserve" state="final">&#x421;&#x442;&#x430;&#x43D;&#x434;&#x430;&#x440;&#x434;&#x43D;&#x43E; %1% &#x43E;&#x433;&#x440;&#x430;&#x43D;&#x438;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x437;&#x430; &#x43F;&#x440;&#x435;&#x43D;&#x43E;&#x441; (GB)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
-      <trans-unit id="4bbded30b10f05b74c782c11c781e5d2e392c88b">
-        <source xml:space="preserve">Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
-        <target xml:space="preserve" state="final">&#x421;&#x442;&#x430;&#x43D;&#x434;&#x430;&#x440;&#x434;&#x43D;&#x43E; %1% &#x43E;&#x433;&#x440;&#x430;&#x43D;&#x438;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x43D;&#x430; &#x43F;&#x440;&#x438;&#x43A;&#x430;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x437;&#x430; &#x43D;&#x43E;&#x432; %2%. &#x412;&#x440;&#x435;&#x434;&#x43D;&#x43E;&#x441;&#x442;&#x430; &#x43D;&#x430; &amp;quot;0&amp;quot; (&#x43D;&#x443;&#x43B;&#x430;) &#x43D;&#x435; &#x434;&#x43E;&#x437;&#x432;&#x43E;&#x43B;&#x443;&#x432;&#x430; &#x43F;&#x440;&#x438;&#x43A;&#x430;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x435; &#x43D;&#x430; &#x434;&#x430;&#x442;&#x43E;&#x442;&#x435;&#x43A;&#x438;. &#x412;&#x440;&#x435;&#x434;&#x43D;&#x43E;&#x441;&#x442;&#x430; &#x43D;&#x430; &amp;quot;-1&amp;quot; &#x434;&#x43E;&#x437;&#x432;&#x43E;&#x43B;&#x443;&#x432;&#x430; &#x43D;&#x435;&#x43E;&#x433;&#x440;&#x430;&#x43D;&#x438;&#x447;&#x435;&#x43D;&#x438; &#x43F;&#x440;&#x438;&#x43A;&#x430;&#x447;&#x443;&#x432;&#x430;&#x45A;&#x430;</target>
+      <trans-unit id="d7ec1112216f9e03622bcfa0a715802e0da7b172">
+        <source xml:space="preserve">Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/uploadsSuccess.php</note>
       </trans-unit>
       <trans-unit id="f255e4d2285844da586eed823a8fd90d24c49279">
@@ -3019,6 +3019,11 @@
       <trans-unit id="ddcb77ff769ea54ca622848f6bedd4004fa4f4fa">
         <source xml:space="preserve">Load</source>
         <target xml:space="preserve" state="final">&#x412;&#x447;&#x438;&#x442;&#x430;&#x458;</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/templates/loadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="2281c3abe81774a22d70ddd2b0ef93eebcb66ec1">
+        <source xml:space="preserve">Load and view</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/templates/loadSuccess.php</note>
       </trans-unit>
       <trans-unit id="712d34daeb6370130057024748385f2b0c466f6f">

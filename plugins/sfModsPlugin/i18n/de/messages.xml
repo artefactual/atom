@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2024-05-17T02:59:04Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2025-03-05T18:18:38Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -82,10 +82,6 @@
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>Ein Begriff der die Charakteristik und den allgemeinen Typ des Inhalts der Ressource bestimmt. Ordnen Sie so viele Typen wie sinnvoll zu. Die Optionen "Typ der Ressource" sind auf die Werte des MODS-Elementes "typeOfResource" auf der obersten Ebene  beschränkt.</target>
       </trans-unit>
-      <trans-unit id="912">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="913">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
         <target>Eine Bestimmung der Sprache, in der der Inhalt der Ressource ausgedrückt ist. Wählen sie so viele Sprachen wie nötig aus.</target>
@@ -145,6 +141,10 @@
       <trans-unit id="932">
         <source>Add new</source>
         <target>Neu hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="933">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

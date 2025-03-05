@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2024-05-17T03:00:01Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-03-05T18:19:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target/>
+        <target>‫%1%المُعرف%2% -‮ هذا عنصر إلزامي.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Title%2% - This is a mandatory element.</source>

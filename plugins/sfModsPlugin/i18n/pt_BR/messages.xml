@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2024-05-17T02:59:13Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2025-03-05T18:18:47Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -81,10 +81,6 @@
       <trans-unit id="912">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>Um termo que especifica as características e tipo geral do conteúdo do recurso. Atribuir tantos tipos quantos os aplicáveis. O tipo de opções de recursos são limitados aos valores da typeOfResource MODS, elemento de nível superior.</target>
-      </trans-unit>
-      <trans-unit id="913">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target>Use esses dois campos para adicionar níveis mais baixos de uma descrição em nível de coleção. Clique em Adicionar para adicionar novos níveis como muitas crianças, se necessário. Identificador: digite um número único padrão ou código que identifica o recurso distintamente. Título: Introduza uma palavra, frase, caractere, ou grupo de caracteres, normalmente aparecendo como um recurso, de que os nomes ou o trabalho nele contidos.</target>
       </trans-unit>
       <trans-unit id="914">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>

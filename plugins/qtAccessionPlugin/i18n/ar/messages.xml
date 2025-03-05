@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2024-05-17T03:00:03Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-03-05T18:19:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>المنطقة %1%</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
@@ -522,7 +522,7 @@
       </trans-unit>
       <trans-unit id="138">
         <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
-        <target/>
+        <target>%1% الجهة المسؤولة:%2% أدخل الجهة المسؤولة المرتبطة بالحدث.%3%</target>
       </trans-unit>
       <trans-unit id="139">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>

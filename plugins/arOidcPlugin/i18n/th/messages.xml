@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="th" datatype="plaintext" original="messages" date="2024-05-17T02:59:40Z" product-name="messages">
+  <file source-language="en" target-language="th" datatype="plaintext" original="messages" date="2025-03-05T18:19:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -112,10 +112,6 @@
         <source>Log in</source>
         <target>เข้าสู่ระบบ</target>
       </trans-unit>
-      <trans-unit id="28">
-        <source>SSO</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="29">
         <source>This user is inactive</source>
         <target>This ผู้ใช้ is inactive</target>
@@ -174,6 +170,22 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Hi, %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target>The user name or e-mail address you entered is already in use</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Add new</source>
+        <target>เพิ่มใหม</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Create</source>
+        <target>สร้าง</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Log in with SSO</source>
         <target/>
       </trans-unit>
     </body>

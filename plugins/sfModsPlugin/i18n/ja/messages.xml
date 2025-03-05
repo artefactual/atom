@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2024-05-17T02:59:40Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-03-05T18:19:15Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -82,10 +82,6 @@
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>資料内容の特徴と一般的なタイプを明記する用語。 適切なタイプを割り当ててください。資料タイプの選択は、資料の上位要素のMODSタイプの数値からに限定される。</target>
       </trans-unit>
-      <trans-unit id="845">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target>低いコレクションレベルの記述するにはこの２つのフィールドを使用してください。必要な数だけ低いレベルを追加するには新規作成をクリックしてください。識別子：特定のリソースを識別する固有の標準番号またはコードを入力します。タイトル：通常はリソースに表示されている言葉、フレーズ、文字、または文字のグループをを入力します。</target>
-      </trans-unit>
       <trans-unit id="846">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
         <target>資料内容が表現している言語の指定。必要な言語より選んでください。</target>
@@ -146,6 +142,10 @@
       <trans-unit id="865">
         <source>Add new</source>
         <target>新規追加</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

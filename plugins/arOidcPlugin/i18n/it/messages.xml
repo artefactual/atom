@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2024-05-17T02:59:29Z" product-name="messages">
+  <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2025-03-05T18:19:03Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -112,10 +112,6 @@
         <source>Log in</source>
         <target>Accedi</target>
       </trans-unit>
-      <trans-unit id="28">
-        <source>SSO</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="29">
         <source>This user is inactive</source>
         <target>Questo utente non è attivo</target>
@@ -175,6 +171,22 @@
       <trans-unit id="43">
         <source>Hi, %1%</source>
         <target>Ciao, %1%</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target>Il nome utente o l'indirizzo di posta elettronica che hai inserito è già utilizzato</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Add new</source>
+        <target>Aggiungi nuovo</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Create</source>
+        <target>Crea</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Log in with SSO</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

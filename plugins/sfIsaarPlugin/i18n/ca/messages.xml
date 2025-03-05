@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2024-05-17T02:59:37Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-03-05T18:19:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="106">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identificador de registre d'autenticitat%2% - Aquest és un element %3%obligatori%4%.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Access points</source>
@@ -406,11 +406,11 @@
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Identificador de registre d'autoritat</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Maintaining repository</source>
-        <target/>
+        <target>S'està mantenint el repositori</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Clipboard</source>
@@ -418,11 +418,11 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
-        <target/>
+        <target>Àrea de punts d'accés</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points area</source>
-        <target/>
+        <target>Edita l'àrea de punts d'accés</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Occupations</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="121">
         <source>%1%Authority record identifier%2% - value not unique.</source>
-        <target/>
+        <target>%1%Identificador de registre d'autenticitat%2% - valor no únic.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Please complete all required fields.</source>

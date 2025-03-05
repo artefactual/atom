@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2024-05-17T03:00:03Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-03-05T18:19:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -106,7 +106,7 @@
       </trans-unit>
       <trans-unit id="26">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
-        <target/>
+        <target>"حدد ما إذا كان الوصف عبارة عن وظيفة أو أحد أقسامها الفرعية." (ISDF 5.1.1) حدد النوع من القائمة المنسدلة؛ يتم استخلاص هذه القيم من تصنيف أنواع الوظائف ISDF.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Type</source>
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target/>
+        <target>"سجل المصادر التي تم الاطلاع عليها لوصف الوظيفة." (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>

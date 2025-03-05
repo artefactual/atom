@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2024-05-17T02:59:43Z" product-name="messages">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2025-03-05T18:19:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -112,10 +112,6 @@
         <source>Log in</source>
         <target>ログイン</target>
       </trans-unit>
-      <trans-unit id="28">
-        <source>SSO</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="29">
         <source>This user is inactive</source>
         <target>このユーザは非アクテイブです</target>
@@ -174,6 +170,22 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Hi, %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target>入力したユーザー名はすでに使用されています</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Add new</source>
+        <target>新規追加</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Create</source>
+        <target>作成する</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Log in with SSO</source>
         <target/>
       </trans-unit>
     </body>

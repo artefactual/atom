@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2024-05-17T02:58:35Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-03-05T18:18:08Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -82,10 +82,6 @@
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>Um termo que especifica as características e tipo geral do conteúdo do recurso. Atribuir tantos tipos quantos os aplicáveis. O tipo de opções de recursos são limitados aos valores da typeOfResource MODS, elemento de nível superior.</target>
       </trans-unit>
-      <trans-unit id="913">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target>Use estes dois campos para adicionar níveis inferiores a uma descrição ao nível de colecção. Clicar em - Adicionar novo - tantas vezes quanto o necessário. Identificador: digitar um número único normalizado que garanta uma identificação única  do recurso. Título: digitar uma palavra, frase, caracter ou grupo de caracteres existentes no recurso, para procurar a descrição onde está contido.</target>
-      </trans-unit>
       <trans-unit id="914">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
         <target>A indicação do idioma no qual é expresso o recurso. Seleccionar tantos idiomas quanto os necessários.</target>
@@ -145,6 +141,10 @@
       <trans-unit id="933">
         <source>Add new</source>
         <target>Adicionar novo</target>
+      </trans-unit>
+      <trans-unit id="934">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

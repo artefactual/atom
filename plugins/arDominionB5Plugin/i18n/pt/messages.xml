@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2024-05-17T02:59:17Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2025-03-05T18:18:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -2168,10 +2168,6 @@
         <source>Total space available for uploads</source>
         <target>Espaço total disponível para a realização de uploads</target>
       </trans-unit>
-      <trans-unit id="570">
-        <source>%1% upload limits</source>
-        <target>Limites de upload para %1%</target>
-      </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
         <target>Limite de upload padrão para %1% (em GB)</target>
@@ -3466,7 +3462,7 @@
       </trans-unit>
       <trans-unit id="906">
         <source>Search hierarchy</source>
-        <target>Hierarquia de busca</target>
+        <target>Busca hierárquica</target>
       </trans-unit>
       <trans-unit id="907">
         <source>Add new child levels</source>
@@ -5396,10 +5392,6 @@
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
         <target>Quando habilitado, um medidor de "Limites de upload" é exibido para usuários autenticados na página de visualização de %1%, e os administradores podem limitar o espaço em disco permitido para o upload de %2% para cada %1%</target>
       </trans-unit>
-      <trans-unit id="1404">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
-        <target>Limite de uploads de %1% padrão para um(a) novo(a) %2%. O valor "0" (zero) desabilita o upload de arquivos. O valor "-1" permite uploads ilimitados</target>
-      </trans-unit>
       <trans-unit id="1405">
         <source>Diacritics settings</source>
         <target>Definições de diacríticos</target>
@@ -5530,6 +5522,18 @@
       </trans-unit>
       <trans-unit id="1437">
         <source>Log in with SSO</source>
+        <target>Conectar usando SSO</target>
+      </trans-unit>
+      <trans-unit id="1438">
+        <source>Load and view</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1439">
+        <source>%1% upload limits meter display</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1440">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
         <target/>
       </trans-unit>
     </body>

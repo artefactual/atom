@@ -749,6 +749,7 @@ QubitSetting:
     source_culture: en
     value:
       bs: Žanr
+      ca: Gènere
       cy: Genre
       de: Genre
       de-CH: Genre
@@ -849,6 +850,7 @@ QubitSetting:
     source_culture: en
     value:
       bs: 'Sakrij hijerarhiju'
+      ca: 'Amaga la jerarquia'
       cy: 'Cuddio''r hierarchaeth'
       en: 'Hide hierarchy'
       es: 'Ocultar jerarquía'
@@ -880,6 +882,7 @@ QubitSetting:
     source_culture: en
     value:
       bs: 'Veze normiranog zapisa'
+      ca: 'Relacions de registre d''autoritat'
       cy: 'Cysylltiadau cofnod awdurdod'
       en: 'Authority record relationships'
       es: 'Relaciones de los archivos de autoridad'

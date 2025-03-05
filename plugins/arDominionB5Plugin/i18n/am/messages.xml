@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="am" datatype="plaintext" original="messages" date="2024-03-13T13:19:21Z" product-name="messages">
+  <file source-language="en" target-language="am" datatype="plaintext" original="messages" date="2025-03-05T17:41:47Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -2344,20 +2344,12 @@
         <source>Total space available for uploads</source>
         <target/>
       </trans-unit>
-      <trans-unit id="586">
-        <source>%1% upload limits</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="587">
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
         <target/>
       </trans-unit>
       <trans-unit id="588">
         <source>Default %1% upload limit (GB)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="589">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
         <target/>
       </trans-unit>
       <trans-unit id="590">
@@ -5530,6 +5522,18 @@
       </trans-unit>
       <trans-unit id="1382">
         <source>Log in with SSO</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>Load and view</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>%1% upload limits meter display</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
         <target/>
       </trans-unit>
     </body>

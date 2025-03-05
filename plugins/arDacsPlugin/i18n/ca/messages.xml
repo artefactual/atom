@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2024-05-17T02:59:38Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-03-05T18:19:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -258,7 +258,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Indiqueu explícitament el nom del repositori, incloent-hi qualsevol cos pare (DACS 2.2.2). Cerqueu un nom existent als registres de la institució d'arxiu escrivint els primers caràcters del nom. Alternativament, escriviu un nom nou per a crear i enllaçar amb un registre nou d'una institució d'arxiu.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Història Administrativa / Biogràfica</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Administrative history</source>
