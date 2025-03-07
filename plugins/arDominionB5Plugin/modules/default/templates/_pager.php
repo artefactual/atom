@@ -1,4 +1,4 @@
-<?php if ($pager->haveToPaginate()) { ?>
+<?php if (isset($pager) && $pager->haveToPaginate()) { ?>
 <nav aria-label="<?php echo __('Page navigation'); ?>">
 
   <div class="result-count text-center mb-2">
