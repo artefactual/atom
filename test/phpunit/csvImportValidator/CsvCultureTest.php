@@ -11,11 +11,21 @@ class CsvCultureTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $csvData;
+    protected $csvDataValidCulture;
+    protected $csvDataCulturesSomeInvalid;
+    protected $csvDataDupedCulturesSomeInvalid;
+    protected $csvDataValidCultures;
+    protected $csvDataMissingCulture;
+    protected $csvHeader;
+    protected $csvHeaderDupedCulture;
+    protected $csvHeaderMissingCulture;
+    protected $vfs;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderMissingCulture = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository';

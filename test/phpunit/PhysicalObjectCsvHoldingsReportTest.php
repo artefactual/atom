@@ -9,6 +9,7 @@ class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase
 {
     protected $csvData;
     protected $ormClasses;
+    protected $typeMap;
 
     // Fixtures
 

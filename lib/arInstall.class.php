@@ -180,7 +180,7 @@ class arInstall
             'dev' => [
                 'propel' => [
                     'param' => [
-                        'classname' => 'DebugPDO',
+                        'classname' => 'PropelPDO',
                         'debug' => [
                             'realmemoryusage' => true,
                             'details' => [
@@ -200,7 +200,7 @@ class arInstall
             'test' => [
                 'propel' => [
                     'param' => [
-                        'classname' => 'DebugPDO',
+                        'classname' => 'PropelPDO',
                     ],
                 ],
             ],

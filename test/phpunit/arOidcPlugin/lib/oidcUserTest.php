@@ -12,6 +12,9 @@ require_once 'plugins/arOidcPlugin/config/arOidcPluginConfiguration.class.php';
  */
 class OidcUserTest extends TestCase
 {
+    protected $dispatcher;
+    protected $storage;
+
     public function setUp(): void
     {
         @session_start();

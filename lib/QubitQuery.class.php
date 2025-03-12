@@ -93,6 +93,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return $query;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         $args = func_get_args();
@@ -100,6 +101,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return call_user_func_array([$this, '__isset'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $args = func_get_args();
@@ -107,6 +109,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return call_user_func_array([$this, '__get'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $args = func_get_args();
@@ -114,13 +117,16 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return call_user_func_array([$this, '__set'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset) {}
 
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->getCount($this);
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         list($objects, $sorted) = $this->getData($this);
@@ -128,6 +134,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return current($this->objects);
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         list($objects, $sorted) = $this->getData($this);
@@ -135,6 +142,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return key($this->objects);
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         ++$this->offset;
@@ -144,6 +152,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return next($this->objects);
     }
 
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->offset = 0;
@@ -153,6 +162,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return reset($this->objects);
     }
 
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         list($objects, $sorted) = $this->getData($this);
@@ -160,6 +170,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
         return $this->offset < count($this->objects);
     }
 
+    #[\ReturnTypeWillChange]
     public function orderBy($name)
     {
         $query = new QubitQuery();

@@ -11,11 +11,20 @@ class CsvColumnCountTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $csvData;
+    protected $csvDataShortRow;
+    protected $csvDataShortRows;
+    protected $csvDataLongRow;
+    protected $csvDataLongRows;
+    protected $csvHeader;
+    protected $csvHeaderShort;
+    protected $csvHeaderLong;
+    protected $vfs;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderShort = 'legacyId,parentId,identifier,title,levelOfDescription,repository,culture';

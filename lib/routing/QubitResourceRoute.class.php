@@ -19,6 +19,8 @@
 
 class QubitResourceRoute extends QubitRoute
 {
+    public $resource;
+
     public function bind($context, $params)
     {
         $criteria = new Criteria();

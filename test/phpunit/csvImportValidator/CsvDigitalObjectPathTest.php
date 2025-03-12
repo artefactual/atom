@@ -11,11 +11,19 @@ class CsvDigitalObjectPathTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvData;
+    protected $csvDataWithDigitalObjectCols;
+    protected $csvDataWithDigitalObjectColsPopulated;
+    protected $csvDataWithDigitalObjectColsPopulatedDupedPath;
+    protected $csvHeader;
+    protected $csvHeaderWithDigitalObjectCols;
+    protected $csvHeaderDupedPath;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithDigitalObjectCols = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,digitalObjectPath,digitalObjectURI,culture';

@@ -11,11 +11,21 @@ class CsvFieldLengthTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvData;
+    protected $csvDataCultureLanguage;
+    protected $csvDataCultureLanguageMulErrors;
+    protected $csvDataCulturesSomeInvalid;
+    protected $csvDataMissingCulture;
+    protected $csvHeader;
+    protected $csvHeaderWithLanguage;
+    protected $csvHeaderMissingCulture;
+    protected $csvDataCultureLanguageMultErrors;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithLanguage = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,language';

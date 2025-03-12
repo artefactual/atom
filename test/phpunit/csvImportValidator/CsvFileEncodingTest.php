@@ -11,11 +11,19 @@ class CsvFileEncodingTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvData;
+    protected $csvHeader;
+    protected $csvHeaderWithUtf8Bom;
+    protected $csvHeaderWithUtf16LEBom;
+    protected $csvHeaderWithUtf16BEBom;
+    protected $csvHeaderWithUtf32LEBom;
+    protected $csvHeaderWithUtf32BEBom;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithUtf8Bom = CsvImportValidator::UTF8_BOM.$this->csvHeader;

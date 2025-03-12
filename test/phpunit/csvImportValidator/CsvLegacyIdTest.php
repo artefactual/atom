@@ -11,11 +11,21 @@ class CsvLegacyIdTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvDataDuplicatedLegacyIdColumn;
+    protected $csvDataMissingLegacyId;
+    protected $csvDataDuplicatedLegacyId;
+    protected $csvDataDuplicatedLegacyIdCulture;
+    protected $csvData;
+    protected $csvHeaderDupedLegacyId;
+    protected $csvHeaderMissingLegacyId;
+    protected $csvHeader;
+    protected $duplicateTranslationRows;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderMissingLegacyId = 'parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';

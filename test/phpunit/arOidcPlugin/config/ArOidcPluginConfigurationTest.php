@@ -15,6 +15,10 @@ require_once 'plugins/arOidcPlugin/config/arOidcPluginConfiguration.class.php';
  */
 class ArOidcPluginConfigurationTest extends TestCase
 {
+    protected $pluginConfiguration;
+    protected $sfProjectConfigurationObj;
+    protected $qubitConfigrationObj;
+
     public function oidcPluginConfigurationProvider(): array
     {
         $this->sfProjectConfigurationObj = new sfProjectConfiguration();

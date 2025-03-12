@@ -33,26 +33,31 @@ class CsvValidatorResultCollection implements Iterator
         $this->index = 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->index = 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->results[$this->index];
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->index;
     }
 
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return isset($this->results[$this->index]);
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         ++$this->index;
@@ -127,6 +132,7 @@ class CsvValidatorResultCollection implements Iterator
     public function renderResultsAsText(bool $verbose = false): string
     {
         $outputString = "CSV Results:\n";
+        $filename = null;
 
         foreach ($this->results as $result) {
             if ($filename !== $result->getFilename()) {

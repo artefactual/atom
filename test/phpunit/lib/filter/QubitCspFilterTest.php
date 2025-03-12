@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase;
  */
 class QubitCspFilterTest extends TestCase
 {
+    protected $vfs;
+
     public function setUp(): void
     {
         $app_yml = <<<'EOT'

@@ -38,6 +38,7 @@ class QubitMetadataRoute extends QubitRoute
         'repository' => 'sfIsdiahPlugin',
         'function' => 'sfIsdfPlugin',
     ];
+    public $resource;
 
     /**
      * Returns an array of parameters if the $url matches this route by looking up

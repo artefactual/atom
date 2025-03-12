@@ -370,7 +370,8 @@ EOM;
         $culture = $this->getRecordCulture($data['culture']);
 
         foreach (self::$columnMap as $oldkey => $newkey) {
-            $prow[$newkey] = $this->processColumn($oldkey, $data[$oldkey], $culture);
+            $colData = array_key_exists($oldkey, $data) ? $data[$oldkey] : '';
+            $prow[$newkey] = $this->processColumn($oldkey, $colData, $culture);
         }
 
         $timer->add();
@@ -380,7 +381,7 @@ EOM;
 
     public function getRecordCulture($culture = null)
     {
-        $culture = trim($culture);
+        $culture = trim((string) $culture);
 
         if (!empty($culture)) {
             return strtolower($culture);
@@ -827,7 +828,7 @@ EOQ;
         $name = trim(strtolower($name));
         $culture = trim(strtolower($culture));
 
-        if (null === $typeId = $lookupTable[$culture][$name]) {
+        if (!array_key_exists($name, $lookupTable[$culture]) || null === $lookupTable[$culture][$name]) {
             $msg = <<<EOL
 Couldn't find physical object type "{$name}" for culture "{$culture}"
 EOL;
@@ -835,7 +836,7 @@ EOL;
             throw new UnexpectedValueException($msg);
         }
 
-        return $typeId;
+        return $lookupTable[$culture][$name];
     }
 
     protected function getTypeIdLookupTable()

@@ -37,6 +37,7 @@ class QubitFindingAidGenerator
     protected $resource;
     protected $options;
     protected $path;
+    protected $model;
 
     // Valid authorization levels
     protected static $authLevels = [

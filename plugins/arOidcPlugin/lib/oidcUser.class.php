@@ -21,6 +21,9 @@ use Jumbojett\OpenIDConnectClient;
 
 class oidcUser extends myUser implements Zend_Acl_Role_Interface
 {
+    protected $logger;
+    protected $storage;
+    protected $dispatcher;
     private ?OpenIDConnectClient $oidcClient = null;
 
     /**
@@ -179,18 +182,18 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                 // Get OIDC claims if rolesSource and rolesPath set correctly.
                 if (arOidc::validateRolesSource($rolesSource) && !empty($rolesPath)) {
                     $claims = $this->getTokenContents($rolesSource);
-                }
 
-                // Extract user groups at $rolesPath.
-                $groups = $this->parseOidcRoleClaims($claims, $rolesPath);
+                    // Extract user groups at $rolesPath.
+                    $groups = $this->parseOidcRoleClaims($claims, $rolesPath);
 
-                if (null === $groups) {
-                    $this->logger->err('OIDC group mapping is configured but group claims not received from upstream.');
-                }
+                    if (null === $groups) {
+                        $this->logger->err('OIDC group mapping is configured but group claims not received from upstream.');
+                    }
 
-                // Delete user's previous groups and re-set them from the OIDC roles.
-                if (null !== $groups) {
-                    $this->setGroupsFromOidcGroups($user, $groups);
+                    // Delete user's previous groups and re-set them from the OIDC roles.
+                    if (null !== $groups) {
+                        $this->setGroupsFromOidcGroups($user, $groups);
+                    }
                 }
             }
 

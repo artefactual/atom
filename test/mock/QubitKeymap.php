@@ -36,8 +36,8 @@ class QubitKeymap
 
         if (
           isset($keymap[$targetName], $keymap[$targetName][$sourceName], $keymap[$targetName][$sourceName][$sourceId])
-      ) {
-            return $keymap[$sourceName][$sourceId];
+        ) {
+            return $keymap[$targetName][$sourceName][$sourceId];
         }
 
         return false;

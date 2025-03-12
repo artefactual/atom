@@ -15,13 +15,15 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     protected $ormClasses;
     protected $vfs;               // virtual filesystem
     protected $vdbcon;            // virtual database connection
+    protected $typeIdLookupTableFixture;
+    protected $context;
 
     // Fixtures
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
         $this->ormClasses = [
             'informationObject' => \AccessToMemory\test\mock\QubitInformationObject::class,
             'keymap' => \AccessToMemory\test\mock\QubitKeymap::class,
@@ -165,6 +167,10 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
             [
                 'name' => 'DJ003',
                 'location' => 'Aisle 11, Shelf J',
+                'culture' => 'en',
+                'legacyId' => '',
+                'type' => '',
+                'descriptionSlugs' => '',
             ],
             [
                 'legacyId' => '',
@@ -506,6 +512,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
             'type' => 'Spam',
             'location' => 'Camelot',
             'culture' => 'en',
+            'legacyId' => '',
+            'descriptionSlugs' => '',
         ]);
     }
 

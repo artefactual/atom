@@ -206,7 +206,7 @@ return [
     'dev' => [
         'propel' => [
             'param' => [
-                'classname' => 'DebugPDO',
+                'classname' => 'PropelPDO',
                 'debug' => [
                     'realmemoryusage' => true,
                     'details' => [
@@ -234,7 +234,7 @@ return [
     'test' => [
         'propel' => [
             'param' => [
-                'classname' => 'DebugPDO',
+                'classname' => 'PropelPDO',
             ],
         ],
     ],

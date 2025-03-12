@@ -269,7 +269,7 @@ class CsvImportAuditer
         }
     }
 
-    protected function getErrorLogHandle(): resource
+    protected function getErrorLogHandle()
     {
         if (null === $filename = $this->getOption('errorLog')) {
             return STDERR;

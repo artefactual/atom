@@ -94,6 +94,7 @@ class DebugPDOStatement extends PDOStatement
 	 * 
 	 * @return     bool
 	 */
+ 	#[\ReturnTypeWillChange]
 	public function execute($input_parameters = null)
 	{
 		$debug	= $this->pdo->getDebugSnapshot();
@@ -116,6 +117,7 @@ class DebugPDOStatement extends PDOStatement
 	 * @param      int $type Explicit data type for the parameter using the PDO::PARAM_* constants. Defaults to PDO::PARAM_STR.
 	 * @return     boolean
 	 */
+ 	#[\ReturnTypeWillChange]
 	public function bindValue($pos, $value, $type = PDO::PARAM_STR)
 	{
 		$debug		= $this->pdo->getDebugSnapshot();

@@ -41,6 +41,8 @@ class QubitPhysicalObjectCsvHoldingsReport
     ];
     protected $ormClasses;
     protected $typeMap;
+    protected $holdingType;
+    protected $suppressEmpty;
 
     // Default options
     protected $options = [

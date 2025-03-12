@@ -7,8 +7,8 @@ on:
     - stable/**
 jobs:
   unit-tests:
-    runs-on: ubuntu-20.04
-    name: PHP 7.4
+    runs-on: ubuntu-24.04
+    name: PHP 8.3
     env:
       COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
     steps:
@@ -18,17 +18,17 @@ jobs:
       run: |
         sudo sysctl -w vm.max_map_count=262144
         docker compose up -d percona elasticsearch
-    - name: Setup PHP 7.4
+    - name: Setup PHP 8.3
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 8.3
         coverage: none
         extensions: apcu
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
         path: ~/.composer/cache/files
-        key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
+        key: 24.04-8.3-composer-${{ hashFiles('composer.lock') }}
     - name: Install dependencies
       run: composer install
     - name: Wait for containerized services

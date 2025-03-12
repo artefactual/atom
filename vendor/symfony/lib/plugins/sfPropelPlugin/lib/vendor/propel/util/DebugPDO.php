@@ -306,6 +306,7 @@ class DebugPDO extends PropelPDO
 	 * 
 	 * @return     int
 	 */
+ 	#[\ReturnTypeWillChange]
 	public function exec($sql)
 	{
 		$debug	= $this->getDebugSnapshot();
@@ -321,9 +322,9 @@ class DebugPDO extends PropelPDO
 	/**
 	 * Executes an SQL statement, returning a result set as a PDOStatement object.  Despite its signature here,
 	 * this method takes a variety of parameters.
-	 * 
+	 *
 	 * Overridden for query counting and logging.
-	 * 
+	 *
 	 * @see        http://php.net/manual/en/pdo.query.php for a description of the possible parameters.
 	 * @return     PDOStatement
 	 */
