@@ -81,25 +81,25 @@
     <note type="otherFormats"><?php echo esc_specialchars($otherFormats); ?></note>
   <?php } ?>
 
-  <?php if (count($generalNotes = $mods->generalNotes)) { ?>
+  <?php if (null !== $mods->generalNotes && count($generalNotes = $mods->generalNotes)) { ?>
     <?php foreach ($generalNotes as $generalNote) { ?>
       <note><?php echo esc_specialchars($generalNote); ?></note>
     <?php } ?>
   <?php } ?>
 
-  <?php if (count($generalNotes = $mods->radGeneralNotes)) { ?>
+  <?php if (null !== $mods->radGeneralNotes && count($generalNotes = $mods->radGeneralNotes)) { ?>
     <?php foreach ($generalNotes as $generalNote) { ?>
       <note type="genNote"><?php echo esc_specialchars($generalNote); ?></note>
     <?php } ?>
   <?php } ?>
 
-  <?php if (count($alphanumericNotes = $mods->alphanumericNotes)) { ?>
+  <?php if (null !== $mods->alphanumericNotes && count($alphanumericNotes = $mods->alphanumericNotes)) { ?>
     <?php foreach ($alphanumericNotes as $alphanumericNote) { ?>
       <note type="numbering"><?php echo esc_specialchars($alphanumericNote); ?></note>
     <?php } ?>
   <?php } ?>
 
-  <?php if (count($languageNotes = $mods->languageNotes)) { ?>
+  <?php if (null !== $mods->languageNotes && count($languageNotes = $mods->languageNotes)) { ?>
     <?php foreach ($languageNotes as $languageNote) { ?>
       <note type="language"><?php echo esc_specialchars($languageNote); ?></note>
     <?php } ?>
