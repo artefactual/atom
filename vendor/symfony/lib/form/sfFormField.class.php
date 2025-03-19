@@ -351,6 +351,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this->parent->getWidget()->__get($this->name), 'getOption'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -358,6 +359,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this, '__get'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function __set($name, $value)
   {
     $args = func_get_args();
@@ -365,6 +367,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this->parent->getWidget()->__get($this->name), 'setOption'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -372,6 +375,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this, '__set'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();
