@@ -103,7 +103,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__isset'), $args);
+      return call_user_func_array('QubitObject::__isset', $args);
     }
     catch (sfException $e)
     {
@@ -337,7 +337,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__get'), $args);
+      return call_user_func_array('QubitObject::__get', $args);
     }
     catch (sfException $e)
     {

@@ -1117,7 +1117,7 @@ class QubitDigitalObject extends BaseDigitalObject
                 return $this->values['reference'];
         }
 
-        return call_user_func_array([$this, 'BaseDigitalObject::__get'], $args);
+        return call_user_func_array('BaseDigitalObject::__get', $args);
     }
 
     public function save($connection = null)
