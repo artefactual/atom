@@ -25,6 +25,7 @@ class sfEadPlugin
     public $resource;
     public $siteBaseUrl;
     public $options;
+    public $version;
 
     public static $ENCODING_MAP = [
         'isad' => [
