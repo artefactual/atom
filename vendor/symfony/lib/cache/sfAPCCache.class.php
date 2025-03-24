@@ -18,6 +18,9 @@
  */
 class sfAPCCache extends sfCache
 {
+  public $infoKey;
+  public $createTimeKey;
+  public $modTimeKey;
   /**
    * Initializes this sfCache instance.
    *
