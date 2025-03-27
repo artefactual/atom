@@ -1,3 +1,5 @@
+@use "sass:string";
+
 // Custom
 $atom-gray-box-shadow: 0 0 0 0.25rem #ced4da !default;
 
@@ -70,8 +72,8 @@ $accordion-button-focus-box-shadow: $atom-gray-box-shadow !default;
 $accordion-bg: $white !default;
 $table-bg: $white !default;
 $table-striped-bg: $gray-200 !default;
-$breadcrumb-divider: quote("»") !default;
-$breadcrumb-divider-flipped: quote("«") !default;
+$breadcrumb-divider: string.quote("»") !default;
+$breadcrumb-divider-flipped: string.quote("«") !default;
 $breadcrumb-divider-color: $primary !default;
 $zindex-dropdown: 1035 !default;
 

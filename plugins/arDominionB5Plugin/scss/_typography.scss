@@ -1,4 +1,4 @@
-@import "@fontsource/open-sans/scss/mixins";
+@use "@fontsource/open-sans/scss/mixins";
 
 // Add font-face declarations for all Open Sans weights and styles
 @include faces($subsets: all, $weights: all, $styles: all);

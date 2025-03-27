@@ -1,73 +1,74 @@
 // Default variable overrides
-@import "variables";
+@use "variables";
 
 // Bootstrap required
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
+@use "bootstrap/scss/functions";
+@use "bootstrap/scss/variables";
+@use "bootstrap/scss/mixins";
+@use "bootstrap/scss/variables-dark";
+@use "bootstrap/scss/maps";
+@use "bootstrap/scss/utilities";
+@use "bootstrap/scss/bootstrap";
 
 // Custom utilities
-@import "utilities";
+@use "utilities";
 
 // Bootstrap optional
-@import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
-@import "bootstrap/scss/tables";
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/buttons";
-@import "bootstrap/scss/transitions";
-@import "bootstrap/scss/dropdown";
-@import "bootstrap/scss/button-group";
-@import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar";
-@import "bootstrap/scss/card";
-@import "bootstrap/scss/accordion";
-@import "bootstrap/scss/breadcrumb";
-@import "bootstrap/scss/pagination";
-@import "bootstrap/scss/badge";
-@import "bootstrap/scss/alert";
-@import "bootstrap/scss/progress";
-@import "bootstrap/scss/list-group";
-@import "bootstrap/scss/close";
-@import "bootstrap/scss/toasts";
-@import "bootstrap/scss/modal";
-@import "bootstrap/scss/tooltip";
-@import "bootstrap/scss/popover";
-@import "bootstrap/scss/carousel";
-@import "bootstrap/scss/spinners";
-@import "bootstrap/scss/offcanvas";
-@import "bootstrap/scss/placeholders";
-@import "bootstrap/scss/helpers";
-@import "bootstrap/scss/utilities/api";
+@use "bootstrap/scss/root";
+@use "bootstrap/scss/reboot";
+@use "bootstrap/scss/type";
+@use "bootstrap/scss/images";
+@use "bootstrap/scss/containers";
+@use "bootstrap/scss/grid";
+@use "bootstrap/scss/tables";
+@use "bootstrap/scss/forms";
+@use "bootstrap/scss/buttons";
+@use "bootstrap/scss/transitions";
+@use "bootstrap/scss/dropdown";
+@use "bootstrap/scss/button-group";
+@use "bootstrap/scss/nav";
+@use "bootstrap/scss/navbar";
+@use "bootstrap/scss/card";
+@use "bootstrap/scss/accordion";
+@use "bootstrap/scss/breadcrumb";
+@use "bootstrap/scss/pagination";
+@use "bootstrap/scss/badge";
+@use "bootstrap/scss/alert";
+@use "bootstrap/scss/progress";
+@use "bootstrap/scss/list-group";
+@use "bootstrap/scss/close";
+@use "bootstrap/scss/toasts";
+@use "bootstrap/scss/modal";
+@use "bootstrap/scss/tooltip";
+@use "bootstrap/scss/popover";
+@use "bootstrap/scss/carousel";
+@use "bootstrap/scss/spinners";
+@use "bootstrap/scss/offcanvas";
+@use "bootstrap/scss/placeholders";
+@use "bootstrap/scss/helpers";
+@use "bootstrap/scss/utilities/api";
 
 // Font Awesome
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "@fortawesome/fontawesome-free/scss/solid";
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/solid";
 
 // Other components (CSS files)
-@import "@uppy/core/dist/style";
-@import "@uppy/dashboard/dist/style";
-@import "jquery-ui-dist/jquery-ui";
-@import "jstree/dist/themes/default/style";
-@import "mediaelement/build/mediaelementplayer";
-@import "@accessible360/accessible-slick/slick/slick";
-@import "@accessible360/accessible-slick/slick/slick-theme";
+@use "@uppy/core/dist/style";
+@use "@uppy/dashboard/dist/style";
+@use "jquery-ui-dist/jquery-ui";
+@use "jstree/dist/themes/default/style";
+@use "mediaelement/build/mediaelementplayer";
+@use "@accessible360/accessible-slick/slick/slick";
+@use "@accessible360/accessible-slick/slick/slick-theme";
 
 // sfTranslatePlugin
-@import "../../../plugins/sfTranslatePlugin/css/l10n_client";
+@use "../../../plugins/sfTranslatePlugin/css/l10n_client";
 
 // Custom
-@import "typography";
-@import "layout";
-@import "buttonsandlinks";
-@import "forms";
-@import "carousel";
-@import "treeview";
-@import "fullwidthtreeview";
+@use "typography";
+@use "layout";
+@use "buttonsandlinks";
+@use "forms";
+@use "carousel";
+@use "treeview";
+@use "fullwidthtreeview";
