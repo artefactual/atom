@@ -32,6 +32,7 @@ class QubitMarkdown
     ];
 
     private $enabled;
+    private $parsedown;
 
     protected function __construct()
     {
@@ -173,7 +174,11 @@ class QubitMarkdown
      */
     protected function getUnescapedString($content)
     {
-        $content = sfOutputEscaper::unescape($content);
+        $contentArr = explode('&quot;', $content);
+        foreach ($contentArr as $key => $value) {
+            $contentArr[$key] = sfOutputEscaper::unescape($value);
+        }
+        $content = join('&quot;', $contentArr);
 
         if (is_string($content)) {
             return $content;
