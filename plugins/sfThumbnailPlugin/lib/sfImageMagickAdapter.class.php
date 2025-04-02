@@ -479,9 +479,21 @@ class sfImageMagickAdapter
         return $this->sourceMime;
     }
 
+    /**
+     * Test for the pdfinfo command and cache whether it was found.
+     *
+     * @return bool true if pdfinfo is available, false if not
+     */
     public static function pdfinfoToolAvailable()
     {
-        return !empty(shell_exec('which pdfinfo'));
+        if (null !== self::$pdfInfoAvailable) {
+            return self::$pdfInfoAvailable;
+        }
+
+        exec('pdfinfo -h 2>&1', $stdout);
+        self::$pdfInfoAvailable = false !== strpos($stdout[0], 'pdfinfo');
+
+        return self::$pdfInfoAvailable;
     }
 
     public static function getPdfPageCount($filename)
