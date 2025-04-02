@@ -141,17 +141,31 @@ class sfImageMagickAdapter
     public function __construct($maxWidth, $maxHeight, $scale, $inflate, $quality, $options)
     {
         $this->magickCommands = [];
-        $this->magickCommands['convert'] = isset($options['convert']) ? escapeshellcmd($options['convert']) : 'convert';
-        $this->magickCommands['identify'] = isset($options['identify']) ? escapeshellcmd($options['identify']) : 'identify';
 
-        exec($this->magickCommands['convert'], $stdout);
-        if (false === strpos($stdout[0], 'ImageMagick')) {
-            throw new Exception(sprintf('ImageMagick convert command not found'));
+        if (isset($options['convert'])) {
+            $this->magickCommands['convert'] = escapeshellcmd($options['convert']);
+
+            $stdout = [];
+            exec($this->magickCommands['convert'], $stdout);
+
+            if (false === strpos($stdout[0], 'ImageMagick')) {
+                throw new Exception(sprintf('Could not find the ImageMagick convert command: %s', $options['convert']));
+            }
+        } else {
+            $this->magickCommands['convert'] = self::getDefaultConvertCommand();
         }
 
-        exec($this->magickCommands['identify'], $stdout);
-        if (false === strpos($stdout[0], 'ImageMagick')) {
-            throw new Exception(sprintf('ImageMagick identify command not found'));
+        if (isset($options['identify'])) {
+            $this->magickCommands['identify'] = escapeshellcmd($options['identify']);
+
+            $stdout = [];
+            exec($this->magickCommands['identify'], $stdout);
+
+            if (false === strpos($stdout[0], 'ImageMagick')) {
+                throw new Exception(sprintf('Could not find the ImageMagick identify command: %s', $options['identify']));
+            }
+        } else {
+            $this->magickCommands['identify'] = self::getDefaultIdentifyCommand();
         }
 
         $this->maxWidth = $maxWidth;
