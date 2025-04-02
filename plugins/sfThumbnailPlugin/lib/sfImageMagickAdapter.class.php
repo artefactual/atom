@@ -457,7 +457,8 @@ class sfImageMagickAdapter
         $output = (is_null($thumbDest)) ? '-' : $thumbDest;
         $output = (($mime = array_search($targetMime, $this->mimeMap)) ? $mime.':' : '').$output;
 
-        $cmd = $this->magickCommands['convert'].' '.$command.' '.escapeshellarg($this->image).$extract.' '.escapeshellarg($output);
+        $cmd = $this->magickCommands['convert'].' '.escapeshellarg($this->image).$extract.' '.$command.' '.escapeshellarg($output);
+
         (is_null($thumbDest)) ? passthru($cmd) : exec($cmd);
     }
 
