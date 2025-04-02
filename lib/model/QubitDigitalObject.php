@@ -1937,7 +1937,7 @@ class QubitDigitalObject extends BaseDigitalObject
      */
     public function setPageCount($connection = null)
     {
-        if ($this->canThumbnail() && self::hasImageMagick()) {
+        if ($this->canThumbnail() && sfImageMagickAdapter::isImageMagickAvailable()) {
             $filename = ($this->derivativesGeneratedFromExternalMaster($this->usageId)) ? $this->getLocalPath() : $this->getAbsolutePath();
 
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -2047,7 +2047,7 @@ class QubitDigitalObject extends BaseDigitalObject
     public function createCompoundChildren($connection = null)
     {
         // Bail out if the imagemagick library is not installed
-        if (false === self::hasImageMagick()) {
+        if (false === sfImageMagickAdapter::isImageMagickAvailable()) {
             return $this;
         }
 
@@ -2396,7 +2396,7 @@ class QubitDigitalObject extends BaseDigitalObject
             return $context->get('thumbnailAdapter');
         }
 
-        if (QubitDigitalObject::hasImageMagick()) {
+        if (sfImageMagickAdapter::isImageMagickAvailable()) {
             $adapter = 'sfImageMagickAdapter';
         } elseif (QubitDigitalObject::hasGdExtension()) {
             $adapter = 'sfGDAdapter';
@@ -2405,19 +2405,6 @@ class QubitDigitalObject extends BaseDigitalObject
         $context->set('thumbnailAdapter', $adapter);
 
         return $adapter;
-    }
-
-    /**
-     * Test if ImageMagick library is installed.
-     *
-     * @return bool true if ImageMagick is found
-     */
-    public static function hasImageMagick()
-    {
-        $command = 'convert -version';
-        exec($command, $output, $status);
-
-        return 0 < count($output) && false !== strpos($output[0], 'ImageMagick');
     }
 
     /**

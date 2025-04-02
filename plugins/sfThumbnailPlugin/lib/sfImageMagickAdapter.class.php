@@ -29,6 +29,12 @@ class sfImageMagickAdapter
     protected $source;
     protected $magickCommands;
 
+    // Cached static properties
+    protected static $defaultConvertCommand;
+    protected static $defaultIdentifyCommand;
+    protected static $imageMagickAvailable;
+    protected static $pdfInfoAvailable;
+
     /**
      * Mime types this adapter supports.
      */
@@ -154,6 +160,87 @@ class sfImageMagickAdapter
         $this->inflate = $inflate;
         $this->quality = $quality;
         $this->options = $options;
+    }
+
+    /**
+     * Test for the ImageMagick commands convert & identify, and cache whether they were found or
+     * not.
+     *
+     * @return bool true if ImageMagick is available, false if not
+     */
+    public static function isImageMagickAvailable()
+    {
+        if (null !== self::$imageMagickAvailable) {
+            return self::$imageMagickAvailable;
+        }
+
+        try {
+            // Either of these functions will throw an exception if ImageMagick is not installed
+            self::getDefaultConvertCommand();
+            self::getDefaultIdentifyCommand();
+            self::$imageMagickAvailable = true;
+        } catch (Exception) {
+            self::$imageMagickAvailable = false;
+        }
+
+        return self::$imageMagickAvailable;
+    }
+
+    /**
+     * Get (and cache) the default ImageMagick convert command.
+     *
+     * The convert command changed to "magick" in ImageMagick version 7.
+     *
+     * @throws Exception when the convert command is not found
+     *
+     * @return string The command string used to invoke convert
+     */
+    public static function getDefaultConvertCommand()
+    {
+        if (self::$defaultConvertCommand) {
+            return self::$defaultConvertCommand;
+        }
+
+        $convertCommand = 'convert';
+
+        exec("{$convertCommand} -help 2>&1", $stdout);
+
+        // The convert command is deprected in v7, use magick instead
+        if (false !== strpos($stdout[0], 'The convert command is deprecated')) {
+            $convertCommand = 'magick';
+        } elseif (false === strpos($stdout[0], 'ImageMagick')) {
+            throw new Exception('ImageMagick convert command not found');
+        }
+
+        self::$defaultConvertCommand = $convertCommand;
+
+        return self::$defaultConvertCommand;
+    }
+
+    /**
+     * Get (and cache) the default ImageMagick identify command.
+     *
+     * @throws Exception when the identify command is not found
+     *
+     * @return string The command string used to invoke identify
+     */
+    public static function getDefaultIdentifyCommand()
+    {
+        if (self::$defaultIdentifyCommand) {
+            return self::$defaultIdentifyCommand;
+        }
+
+        $identifyCommand = 'identify';
+
+        exec("{$identifyCommand} -help", $stdout);
+
+        if (false === strpos($stdout[0], 'ImageMagick')) {
+            throw new Exception('ImageMagick identify command not found');
+        }
+
+        self::$defaultIdentifyCommand = $identifyCommand;
+
+        return self::$defaultIdentifyCommand;
     }
 
     public function toString($thumbnail, $targetMime = null)
