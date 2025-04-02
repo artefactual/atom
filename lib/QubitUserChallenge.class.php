@@ -19,6 +19,10 @@
 
 class QubitUserChallenge
 {
+    protected $testHeadless;
+    protected $cookieNameHeadless;
+    protected $context;
+
     public function __construct(bool $testHeadless, string $cookieNameHeadless)
     {
         $this->testHeadless = $testHeadless;

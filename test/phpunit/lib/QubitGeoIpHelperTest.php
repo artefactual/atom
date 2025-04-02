@@ -89,6 +89,7 @@ class QubitGeoIpHelperTest extends TestCase
 
     public function testGetCountryReturnsNullForInvalidIP()
     {
+        $this->geoIpHelper->setCityDbPath('/new/city/db/path');
         $this->assertNull($this->geoIpHelper->getCountry('invalid-ip'), 'Invalid IP should return null.');
         $this->assertNull($this->geoIpHelper->getCountry(''), 'Empty IP should return null.');
     }
@@ -105,6 +106,7 @@ class QubitGeoIpHelperTest extends TestCase
 
     public function testGetAsnReturnsNullForInvalidIP()
     {
+        $this->geoIpHelper->setAsnDbPath('/new/asn/db/path');
         $this->assertNull($this->geoIpHelper->getAsn('invalid-ip'), 'Invalid IP should return null.');
         $this->assertNull($this->geoIpHelper->getAsn(''), 'Empty IP should return null.');
     }

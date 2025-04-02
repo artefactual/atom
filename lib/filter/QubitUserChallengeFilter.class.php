@@ -19,6 +19,9 @@
 
 class QubitUserChallengeFilter extends sfFilter
 {
+    protected $request;
+    protected $remoteIp;
+
     public function execute($filterChain)
     {
         $this->context = $this->getContext();
@@ -146,7 +149,7 @@ class QubitUserChallengeFilter extends sfFilter
     {
         $pathInfo = $this->request->getPathInfoArray();
 
-        return $pathInfo['REMOTE_ADDR'];
+        return $pathInfo['REMOTE_ADDR'] ?? null;
     }
 
     /**
