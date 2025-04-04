@@ -205,9 +205,9 @@ class sfImageMagickAdapter
      *
      * The convert command changed to "magick" in ImageMagick version 7.
      *
-     * @throws Exception when the convert command is not found
-     *
      * @return string The command string used to invoke convert
+     *
+     * @throws Exception when the convert command is not found
      */
     public static function getDefaultConvertCommand()
     {
@@ -234,9 +234,9 @@ class sfImageMagickAdapter
     /**
      * Get (and cache) the default ImageMagick identify command.
      *
-     * @throws Exception when the identify command is not found
-     *
      * @return string The command string used to invoke identify
+     *
+     * @throws Exception when the identify command is not found
      */
     public static function getDefaultIdentifyCommand()
     {
