@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: composer install
     - name: Run php-cs-fixer
-      run: composer php-cs-fixer -- fix --dry-run
+      run: composer php-cs-fixer -- fix --dry-run -v
   prettier:
     runs-on: ubuntu-24.04
     name: Prettier
