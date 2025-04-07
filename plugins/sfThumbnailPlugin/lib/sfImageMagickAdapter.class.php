@@ -193,7 +193,7 @@ class sfImageMagickAdapter
             self::getDefaultConvertCommand();
             self::getDefaultIdentifyCommand();
             self::$imageMagickAvailable = true;
-        } catch (Exception) {
+        } catch (Exception $e) {
             self::$imageMagickAvailable = false;
         }
 
