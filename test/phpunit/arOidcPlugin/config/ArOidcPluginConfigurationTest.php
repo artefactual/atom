@@ -19,19 +19,6 @@ class ArOidcPluginConfigurationTest extends TestCase
     protected $sfProjectConfigurationObj;
     protected $qubitConfigrationObj;
 
-    public function oidcPluginConfigurationProvider(): array
-    {
-        $this->sfProjectConfigurationObj = new sfProjectConfiguration();
-        $this->qubitConfigrationObj = new qubitConfiguration('test', false);
-
-        return [
-            'Supply sfProjectConfiguration only' => [$this->sfProjectConfigurationObj, null, null],
-            'Supply qubitConfiguration only' => [$this->qubitConfigrationObj, null, null],
-            'Supply sfProjectConfiguration with params' => [$this->sfProjectConfigurationObj, 'plugins/arOidcPlugin', 'arOidcPlugin'],
-            'Supply qubitConfiguration with params' => [$this->qubitConfigrationObj, 'plugins/arOidcPlugin', 'arOidcPlugin'],
-        ];
-    }
-
     /**
      * @dataProvider oidcPluginConfigurationProvider
      *
@@ -45,5 +32,18 @@ class ArOidcPluginConfigurationTest extends TestCase
         $this->pluginConfiguration->initialize();
 
         $this->assertTrue($this->pluginConfiguration instanceof arOidcPluginConfiguration, 'Plugin object is not of type arOidcPluginConfiguration.');
+    }
+
+    public function oidcPluginConfigurationProvider(): array
+    {
+        $this->sfProjectConfigurationObj = new sfProjectConfiguration();
+        $this->qubitConfigrationObj = new qubitConfiguration('test', false);
+
+        return [
+            'Supply sfProjectConfiguration only' => [$this->sfProjectConfigurationObj, null, null],
+            'Supply qubitConfiguration only' => [$this->qubitConfigrationObj, null, null],
+            'Supply sfProjectConfiguration with params' => [$this->sfProjectConfigurationObj, 'plugins/arOidcPlugin', 'arOidcPlugin'],
+            'Supply qubitConfiguration with params' => [$this->qubitConfigrationObj, 'plugins/arOidcPlugin', 'arOidcPlugin'],
+        ];
     }
 }

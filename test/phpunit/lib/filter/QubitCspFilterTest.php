@@ -59,16 +59,6 @@ EOT;
         $this->vfs = vfsStream::setup('root', null, $directory);
     }
 
-    public function getCspResponseHeaderProvider()
-    {
-        return [
-            'Standard app.yml with single line directive' => [
-                'filename' => '/app.yml',
-                'expected' => 'Content-Security-Policy-Report-Only',
-            ],
-        ];
-    }
-
     /**
      * @dataProvider getCspResponseHeaderProvider
      *
@@ -91,20 +81,12 @@ EOT;
         $this->assertSame($expected, $settingValue, 'Assert CSP response header read correctly.');
     }
 
-    public function getCspDirectivesProvider()
+    public function getCspResponseHeaderProvider()
     {
         return [
             'Standard app.yml with single line directive' => [
                 'filename' => '/app.yml',
-                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
-            ],
-            'app.yml with multiline directive - greaterthan yml string concatenator' => [
-                'filename' => '/app_yml_multiline_greaterthan',
-                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
-            ],
-            'app.yml with multiline directive - pipe yml string concatenator' => [
-                'filename' => '/app_yml_multiline_pipe',
-                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
+                'expected' => 'Content-Security-Policy-Report-Only',
             ],
         ];
     }
@@ -129,5 +111,23 @@ EOT;
         $settingValue = $qubitCspFilterInstance->getCspDirectives(sfContext::getInstance());
 
         $this->assertSame($expected, trim($settingValue), 'CSP directive read from config did not match expected value.');
+    }
+
+    public function getCspDirectivesProvider()
+    {
+        return [
+            'Standard app.yml with single line directive' => [
+                'filename' => '/app.yml',
+                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
+            ],
+            'app.yml with multiline directive - greaterthan yml string concatenator' => [
+                'filename' => '/app_yml_multiline_greaterthan',
+                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
+            ],
+            'app.yml with multiline directive - pipe yml string concatenator' => [
+                'filename' => '/app_yml_multiline_pipe',
+                'expected' => "default-src 'self'; font-src 'self'; img-src 'self' blob:; script-src 'self' 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; frame-ancestors 'self';",
+            ],
+        ];
     }
 }

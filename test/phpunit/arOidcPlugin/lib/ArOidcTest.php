@@ -13,16 +13,6 @@ require_once 'plugins/arOidcPlugin/lib/arOidc.class.php';
  */
 class ArOidcTest extends TestCase
 {
-    public function getOidcInstanceProvider(): array
-    {
-        return [
-            'OIDC redirect URL defined' => [
-                'redirectUrl' => 'http://127.0.0.1:63001/index.php/oidc/login',
-                'expected' => 'http://127.0.0.1:63001/index.php/oidc/login',
-            ],
-        ];
-    }
-
     /**
      * @dataProvider getOidcInstanceProvider
      *
@@ -40,13 +30,12 @@ class ArOidcTest extends TestCase
         $this->assertSame($expected, $redirectUrl, 'OIDC redirect URL not set correctly.');
     }
 
-    public function getOidcInstanceExceptionProvider(): array
+    public function getOidcInstanceProvider(): array
     {
         return [
-            'OIDC set empty redirect URL' => [
-                'redirectUrl' => '',
-                'expectedException' => '\Exception',
-                'expectedExceptionMessage' => 'Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.',
+            'OIDC redirect URL defined' => [
+                'redirectUrl' => 'http://127.0.0.1:63001/index.php/oidc/login',
+                'expected' => 'http://127.0.0.1:63001/index.php/oidc/login',
             ],
         ];
     }
@@ -68,16 +57,13 @@ class ArOidcTest extends TestCase
         arOidc::getOidcInstance();
     }
 
-    public function validateScopesProvider()
+    public function getOidcInstanceExceptionProvider(): array
     {
         return [
-            'OIDC scopes' => [
-                'scopes' => ['one', 'two'],
-                'expected' => ['one', 'two'],
-            ],
-            'OIDC scopes with extra spaces' => [
-                'scopes' => ['one  ', '  two'],
-                'expected' => ['one', 'two'],
+            'OIDC set empty redirect URL' => [
+                'redirectUrl' => '',
+                'expectedException' => '\Exception',
+                'expectedExceptionMessage' => 'Invalid OIDC redirect URL. Please review the app_oidc_redirect_url parameter in plugin app.yml.',
             ],
         ];
     }
@@ -93,6 +79,35 @@ class ArOidcTest extends TestCase
         $result = arOidc::validateScopes($scopes);
 
         $this->assertSame($expected, $result, 'OIDC scopes not set correctly.');
+    }
+
+    public function validateScopesProvider()
+    {
+        return [
+            'OIDC scopes' => [
+                'scopes' => ['one', 'two'],
+                'expected' => ['one', 'two'],
+            ],
+            'OIDC scopes with extra spaces' => [
+                'scopes' => ['one  ', '  two'],
+                'expected' => ['one', 'two'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider validateScopesExceptionProvider
+     *
+     * @param mixed $scopes
+     * @param mixed $expectedException
+     * @param mixed $expectedExceptionMessage
+     */
+    public function testValidateScopesException($scopes, $expectedException, $expectedExceptionMessage)
+    {
+        $this->expectException($expectedException);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+
+        arOidc::validateScopes($scopes);
     }
 
     public function validateScopesExceptionProvider()
@@ -122,18 +137,16 @@ class ArOidcTest extends TestCase
     }
 
     /**
-     * @dataProvider validateScopesExceptionProvider
+     * @dataProvider validateRolesSourceProvider
      *
-     * @param mixed $scopes
-     * @param mixed $expectedException
-     * @param mixed $expectedExceptionMessage
+     * @param mixed $tokenName
+     * @param mixed $expected
      */
-    public function testValidateScopesException($scopes, $expectedException, $expectedExceptionMessage)
+    public function testValidateRolesSource($tokenName, $expected)
     {
-        $this->expectException($expectedException);
-        $this->expectExceptionMessage($expectedExceptionMessage);
+        $result = arOidc::validateRolesSource($tokenName);
 
-        arOidc::validateScopes($scopes);
+        $this->assertSame($expected, $result, 'OIDC arOidc::validateRolesSource returned unexpected value.');
     }
 
     public function validateRolesSourceProvider()
@@ -175,16 +188,16 @@ class ArOidcTest extends TestCase
     }
 
     /**
-     * @dataProvider validateRolesSourceProvider
+     * @dataProvider validateUserMatchingSourceProvider
      *
-     * @param mixed $tokenName
+     * @param mixed $matchingSource
      * @param mixed $expected
      */
-    public function testValidateRolesSource($tokenName, $expected)
+    public function testValidateUserMatchingSource($matchingSource, $expected)
     {
-        $result = arOidc::validateRolesSource($tokenName);
+        $result = arOidc::validateUserMatchingSource($matchingSource);
 
-        $this->assertSame($expected, $result, 'OIDC arOidc::validateRolesSource returned unexpected value.');
+        $this->assertSame($expected, $result, 'OIDC arOidc::validateUserMatchingSource returned unexpected value.');
     }
 
     public function validateUserMatchingSourceProvider()
@@ -215,18 +228,5 @@ class ArOidcTest extends TestCase
                 'expected' => false,
             ],
         ];
-    }
-
-    /**
-     * @dataProvider validateUserMatchingSourceProvider
-     *
-     * @param mixed $matchingSource
-     * @param mixed $expected
-     */
-    public function testValidateUserMatchingSource($matchingSource, $expected)
-    {
-        $result = arOidc::validateUserMatchingSource($matchingSource);
-
-        $this->assertSame($expected, $result, 'OIDC arOidc::validateUserMatchingSource returned unexpected value.');
     }
 }

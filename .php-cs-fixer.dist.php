@@ -66,6 +66,7 @@ return (new PhpCsFixer\Config())
         'string_implicit_backslashes' => false,
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
         'no_superfluous_phpdoc_tags' => false,
+        'operator_linebreak' => ['only_booleans' => true],
     ])
     ->setFinder($finder)
 ;

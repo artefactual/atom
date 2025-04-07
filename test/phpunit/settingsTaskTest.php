@@ -67,6 +67,21 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         $file->chown(vfsStream::OWNER_USER_1);
     }
 
+    // Tests
+
+    /**
+     * @dataProvider getSettingValueProvider
+     *
+     * @param mixed $params
+     * @param mixed $expected
+     */
+    public function testGetSettingValue($params, $expected): void
+    {
+        $value = $this->task->getSettingValue($params['name'], ['culture' => 'en']);
+
+        $this->assertSame($value, $expected['value']);
+    }
+
     // Data providers
 
     public function getSettingValueProvider(): array
@@ -99,6 +114,21 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @dataProvider setSettingValueProvider
+     *
+     * @param mixed $params
+     * @param mixed $expected
+     */
+    public function testSetSettingValue($params, $expected): void
+    {
+        $this->task->setSettingValue($params['name'], $params['value'], ['culture' => 'en']);
+
+        $setting = $this->task->getSetting($params['name'], $params['options']);
+
+        $this->assertSame($setting->getValue(), $expected['value']);
+    }
+
     public function setSettingValueProvider(): array
     {
         $inputs = [
@@ -128,36 +158,6 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         return [
             [$inputs[0], $outputs[0]],
         ];
-    }
-
-    // Tests
-
-    /**
-     * @dataProvider getSettingValueProvider
-     *
-     * @param mixed $params
-     * @param mixed $expected
-     */
-    public function testGetSettingValue($params, $expected): void
-    {
-        $value = $this->task->getSettingValue($params['name'], ['culture' => 'en']);
-
-        $this->assertSame($value, $expected['value']);
-    }
-
-    /**
-     * @dataProvider setSettingValueProvider
-     *
-     * @param mixed $params
-     * @param mixed $expected
-     */
-    public function testSetSettingValue($params, $expected): void
-    {
-        $this->task->setSettingValue($params['name'], $params['value'], ['culture' => 'en']);
-
-        $setting = $this->task->getSetting($params['name'], $params['options']);
-
-        $this->assertSame($setting->getValue(), $expected['value']);
     }
 
     public function testGetSettingValueForNonexistent(): void
