@@ -50,7 +50,7 @@
               <?php } elseif (0 == $repository->uploadLimit) { ?>
 
                 <div class="alert alert-warning" role="alert">
-                  <?php echo __('Uploads for <a class="alert-link" href="%1%">%2%</a> are disabled', [
+                  <?php echo __("Uploads for <a class='alert-link' href='%1%'>%2%</a> are disabled", [
                       '%1%' => url_for([$repository, 'module' => 'repository']),
                       '%2%' => $repository->__toString(),
                   ]); ?>
@@ -59,7 +59,7 @@
               <?php } else { ?>
 
                 <div class="alert alert-warning" role="alert">
-                  <?php echo __('The upload limit of %1% GB for <a class="alert-link" href="%2%">%3%</a> has been reached', [
+                  <?php echo __("The upload limit of %1% GB for <a class='alert-link' href='%2%'>%3%</a> has been reached", [
                       '%1%' => $repository->uploadLimit,
                       '%2%' => url_for([$repository, 'module' => 'repository']),
                       '%3%' => $repository->__toString(), ]); ?>

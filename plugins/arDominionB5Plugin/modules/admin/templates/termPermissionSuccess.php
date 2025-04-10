@@ -15,7 +15,7 @@
           <?php echo __('The existing term values are required by the application to operate correctly'); ?>
         <?php } else { ?>
           <?php echo __(
-              'This is a non-preferred term and cannot be edited - please use <a href="%1%">%2%</a>.',
+              "This is a non-preferred term and cannot be edited - please use <a href='%1%'>%2%</a>.",
               ['%1%' => url_for([$use, 'module' => 'term']), '%2%' => $use->__toString()]
           ); ?>
         <?php } ?>

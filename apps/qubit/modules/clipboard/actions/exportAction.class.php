@@ -272,7 +272,7 @@ class ClipboardExportAction extends DefaultEditAction
                 'The %open_link%job management page%close_link% will show progress and a download link when complete.',
                 [
                     '%open_link%' => sprintf(
-                        '<strong><a class="alert-link" href="%s">',
+                        "<strong><a class='alert-link' href='%s'>",
                         $this->context->routing->generate(null, [
                             'module' => 'jobs',
                             'action' => 'browse',
