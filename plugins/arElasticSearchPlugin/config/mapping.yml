@@ -620,6 +620,7 @@ mapping:
           identifier: { type: text, copy_to: _all }
       reference_code:
         type: text
+        copy_to: _all
         fields:
           untouched:
             type: keyword
