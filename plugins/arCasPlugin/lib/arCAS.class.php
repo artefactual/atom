@@ -34,7 +34,7 @@ class arCAS
             return;
         }
 
-        require_once sfConfig::get('sf_root_dir').'/vendor/composer/jasig/phpcas/CAS.php';
+        require_once sfConfig::get('sf_root_dir').'/vendor/composer/autoload.php';
 
         if (true == sfConfig::get('sf_debug', false)) {
             $debugLogPath = sfConfig::get('sf_log_dir').'/phpcas.log';
@@ -51,6 +51,7 @@ class arCAS
             sfConfig::get('app_cas_server_name'),
             sfConfig::get('app_cas_server_port'),
             sfConfig::get('app_cas_server_path'),
+            sfConfig::get('app_cas_service_url'),
             false  // Let Symfony handle the session
         );
 

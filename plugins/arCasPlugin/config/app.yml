@@ -38,8 +38,8 @@ all:
             attribute_value: 'atom-translators'
             group_id: 103
 
-    # Override default service URL.
-    # Needed when hostname does not match the host part of the AtoM
+    # Set the default service URL. (Required)
+    # phpCAS requires setting a default service URL
     # instance URL
     # e.g. https://atom.somedomain.org/cas/login
     service_url:
