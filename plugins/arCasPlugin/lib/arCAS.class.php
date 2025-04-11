@@ -34,7 +34,7 @@ class arCAS
             return;
         }
 
-        if (true == sfConfig::get('sf_debug', false)) {
+        if (true == sfConfig::get('sf_debug', false) || true == sfConfig::get('app_cas_debug', false)) {
             $debugLogPath = sfConfig::get('sf_log_dir').'/phpcas.log';
             phpCAS::setDebug($debugLogPath);
             phpCAS::setVerbose(true);

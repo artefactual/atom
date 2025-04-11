@@ -5,6 +5,9 @@ all:
     # CAS version 3.0 is required for parsing CAS attributes into user groups.
     cas_version: '3.0'
 
+    # Enable debugging of CAS
+    debug: false
+
     # Default to live demo server for testing and QA.
     server_name: 'django-cas-ng-demo-server.herokuapp.com'
     server_port: 443 
