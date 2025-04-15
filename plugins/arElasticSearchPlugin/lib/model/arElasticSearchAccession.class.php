@@ -177,6 +177,11 @@ class arElasticSearchAccession extends arElasticSearchModelBase
             $serialized['creators'][] = $creators;
         }
 
+        if (null !== $data['acquisition_type_id']) {
+            $node = new arElasticSearchTermPdo($data['acquisition_type_id']);
+            $serialized['acquisitionType'] = $node->serialize();
+        }
+
         $serialized['accessionEvents'] = self::getAccessionEvents($id);
 
         return $serialized;

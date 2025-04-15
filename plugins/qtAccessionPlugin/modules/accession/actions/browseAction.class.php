@@ -101,6 +101,7 @@ class AccessionBrowseAction extends sfAction
                 'i18n.%s.physicalCharacteristics' => 1,
                 'i18n.%s.receivedExtentUnits' => 1,
                 'alternativeIdentifiers.i18n.%s.name' => 1,
+                'acquisitionType.i18n.%s.name' => 1,
                 'creators.i18n.%s.authorizedFormOfName' => 1,
                 'alternativeIdentifiers.i18n.%s.note' => 1,
                 'alternativeIdentifiers.type.i18n.%s.name' => 1,
