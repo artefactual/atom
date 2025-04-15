@@ -12,18 +12,22 @@
         <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->object->getPublicationStatus()->statusId) { ?>
           <?php $itemTitle = $item->object->__toString(); ?>
 
-          <?php if (isset($item->object->levelOfDescription) || isset($item->object->identifier)) { ?>
+          <?php if (property_exists($item->object, 'levelOfDescription') || property_exists($item->object, 'identifier')) { ?>
             <?php $itemTitle = "- {$itemTitle}"; ?>
-              <?php if (isset($item->object->identifier)) { ?>
+              <?php if (property_exists($item->object, 'identifier')) { ?>
                 <?php $itemTitle = "{$item->object->referenceCode} {$itemTitle}"; ?>
               <?php } ?>
-              <?php if (isset($item->object->levelOfDescription)) { ?>
+              <?php if (property_exists($item->object, 'levelOfDescription')) { ?>
                 <?php $itemTitle = "{$item->object->levelOfDescription} {$itemTitle}"; ?>
               <?php } ?>
           <?php } ?>
 
-          <?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->object->getPublicationStatus()->statusId) { ?>
-            <?php $itemTitle .= " ({$item->object->getPublicationStatus()})"; ?>
+
+          <?php if (method_exists($item->object, 'getPublicationStatus')) { ?>
+            <?php $status = $item->object->getPublicationStatus(); ?>
+            <?php if ($status && QubitTerm::PUBLICATION_STATUS_DRAFT_ID === $status->id) { ?>
+              <?php $itemTitle .= " ({$status})"; ?>
+            <?php } ?>
           <?php } ?>
 
           <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
@@ -36,18 +40,21 @@
         <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->subject->getPublicationStatus()->statusId) { ?>
           <?php $itemTitle = $item->subject->__toString(); ?>
 
-          <?php if (isset($item->subject->levelOfDescription) || isset($item->subject->identifier)) { ?>
+          <?php if (property_exists($item->subject, 'levelOfDescription') || property_exists($item->subject, 'identifier')) { ?>
             <?php $itemTitle = "- {$itemTitle}"; ?>
-              <?php if (isset($item->subject->identifier)) { ?>
+              <?php if (property_exists($item->subject, 'identifier')) { ?>
                 <?php $itemTitle = "{$item->subject->referenceCode} {$itemTitle}"; ?>
               <?php } ?>
-              <?php if (isset($item->subject->levelOfDescription)) { ?>
+              <?php if (property_exists($item->subject, 'levelOfDescription')) { ?>
                 <?php $itemTitle = "{$item->subject->levelOfDescription} {$itemTitle}"; ?>
               <?php } ?>
           <?php } ?>
 
-          <?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->subject->getPublicationStatus()->statusId) { ?>
-            <?php $itemTitle .= " ({$item->subject->getPublicationStatus()})"; ?>
+          <?php if (method_exists($item->subject, 'getPublicationStatus')) { ?>
+            <?php $status = $item->subject->getPublicationStatus(); ?>
+            <?php if ($status && QubitTerm::PUBLICATION_STATUS_DRAFT_ID === $status->id) { ?>
+              <?php $itemTitle .= " ({$status})"; ?>
+            <?php } ?>
           <?php } ?>
 
           <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->type->id) { ?>
