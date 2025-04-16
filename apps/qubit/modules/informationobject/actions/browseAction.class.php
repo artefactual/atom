@@ -196,9 +196,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         // Add advanced form filter to the query
         $this->search->addAdvancedSearchFilters($this::$NAMES, $this->getParameters, $this->template);
 
+        // Bind filled values to form (skip null and empty fields)
+        $filteredRequestParams = array_filter($request->getRequestParameters(), fn ($item) => !empty($item));
+        $filteredGetParams = array_filter($this->getParameters, fn ($item) => !empty($item));
+
+        $this->form->bind($filteredRequestParams + $filteredGetParams);
+
         // Stop if the input is not valid. It must be after the query is created but before
         // it's executed to keep the boolean search and other params for the next request
-        $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
         if (!$this->form->isValid()) {
             return;
         }
@@ -509,7 +514,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         }
 
         // Set label for date range
-        if (isset($request->startDate) || isset($request->endDate)) {
+        if (!empty($request->startDate) || !empty($request->endDate)) {
             $dateRangeLabel = '[ '.$request->startDate.' - '.$request->endDate.' ]';
             $this->setFilterTagLabel('dateRange', $dateRangeLabel);
         }
