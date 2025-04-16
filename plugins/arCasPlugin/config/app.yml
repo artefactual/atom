@@ -5,6 +5,9 @@ all:
     # CAS version 3.0 is required for parsing CAS attributes into user groups.
     cas_version: '3.0'
 
+    # Enable debugging of CAS
+    debug: false
+
     # Default to live demo server for testing and QA.
     server_name: 'django-cas-ng-demo-server.herokuapp.com'
     server_port: 443 
@@ -38,8 +41,8 @@ all:
             attribute_value: 'atom-translators'
             group_id: 103
 
-    # Override default service URL.
-    # Needed when hostname does not match the host part of the AtoM
+    # Set the default service URL. (Required)
+    # phpCAS requires setting a default service URL
     # instance URL
     # e.g. https://atom.somedomain.org/cas/login
     service_url:
