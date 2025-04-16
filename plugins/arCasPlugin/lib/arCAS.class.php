@@ -34,8 +34,6 @@ class arCAS
             return;
         }
 
-        require_once sfConfig::get('sf_root_dir').'/vendor/composer/autoload.php';
-
         if (true == sfConfig::get('sf_debug', false)) {
             $debugLogPath = sfConfig::get('sf_log_dir').'/phpcas.log';
             phpCAS::setDebug($debugLogPath);
