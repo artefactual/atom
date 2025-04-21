@@ -5,7 +5,7 @@
     <p><?php echo __('The existing term values are required by the application to operate correctly'); ?></p>
   <?php } else { ?>
     <h2><?php echo __('Sorry, this Term is locked'); ?></h2>
-    <p><?php echo __("This is a non-preferred term and cannot be edited - please use <a href='%1%'>%2%</a>.", ['%1%' => url_for([$use, 'module' => 'term']), '%2%' => $use->__toString()]); ?></p>
+    <p><?php echo __('This is a non-preferred term and cannot be edited - please use <a href="%1%">%2%</a>.', ['%1%' => url_for([$use, 'module' => 'term']), '%2%' => $use->__toString()]); ?></p>
   <?php } ?>
 
   <div class="tips">

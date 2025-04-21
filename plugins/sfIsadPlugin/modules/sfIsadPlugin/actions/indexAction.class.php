@@ -82,7 +82,7 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
                     [
                         '%1%' => '<a class="alert-link" href="http://ica-atom.org/doc/RS-1#3.1.3">',
                         '%2%' => '</a>',
-                        '%3%' => "<a class='alert-link' href='%ancestor%'>",
+                        '%3%' => '<a class="alert-link" href="%ancestor%">',
                     ]
                 )]
             );

@@ -65,7 +65,7 @@ class ClipboardExportCheckAction extends sfAction
                 $message .= $this->context->i18n->__(
                     ' %1%Download%2% (%3% b)',
                     [
-                        '%1%' => sprintf("<a href='%s'>", sfConfig::get('app_siteBaseUrl').'/'.$job->downloadPath),
+                        '%1%' => sprintf('<a href="%s">', sfConfig::get('app_siteBaseUrl').'/'.$job->downloadPath),
                         '%2%' => '</a>',
                         '%3%' => hr_filesize(filesize($job->downloadPath)),
                     ]

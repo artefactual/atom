@@ -57,7 +57,7 @@
               <?php echo $form->toggleDigitalObjectMap->label('Digital object map')->renderLabel(); ?>
               <?php if (!$googleMapsApiKeySet) { ?>
                 <div class="description">
-                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => "<a href='".url_for('settings/global')."'>", '%2%' => '</a>']); ?>
+                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => '<a href="'.url_for('settings/global').'">', '%2%' => '</a>']); ?>
                 </div>
               <?php } ?>
             </td>

@@ -46,7 +46,7 @@
 
             <?php $help = $googleMapsApiKeySet
                 ? null
-                : __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => "<a href='".url_for('settings/global')."'>", '%2%' => '</a>']); ?>
+                : __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => '<a href="'.url_for('settings/global').'">', '%2%' => '</a>']); ?>
             <?php echo render_field($form->toggleDigitalObjectMap
                     ->label('Digital object map')->help($help)); ?>
 

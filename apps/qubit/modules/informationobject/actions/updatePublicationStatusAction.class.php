@@ -58,7 +58,7 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
                     $this->context->getConfiguration()->loadHelpers(['Url']);
                     $jobsUrl = url_for(['module' => 'jobs', 'action' => 'browse']);
                     $message = $i18n->__(
-                        "Your description has been updated. Lower level descriptions are being updated now – check the <a href='%1'>job scheduler page</a> for status and details.",
+                        'Your description has been updated. Lower level descriptions are being updated now – check the <a href="%1">job scheduler page</a> for status and details.',
                         ['%1' => $jobsUrl]
                     );
                     $this->getUser()->setFlash('notice', $message);
