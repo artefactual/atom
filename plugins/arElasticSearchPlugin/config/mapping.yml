@@ -420,6 +420,9 @@ mapping:
       accession_events: accession_event
       alternative_identifiers: other_name
       acquisition_type: term
+      processing_priority: term
+      processing_status: term
+      resource_type: term
       donors: donor
     dynamic: strict
     properties:
