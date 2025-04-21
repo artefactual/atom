@@ -328,7 +328,7 @@ class DebugPDO extends PropelPDO
 	 * @see        http://php.net/manual/en/pdo.query.php for a description of the possible parameters.
 	 * @return     PDOStatement
 	 */
-	public function query()
+	public function query(string $query, ?int $fetchMode = null, mixed ...$fetchModeArgs): PDOStatement|false
 	{
 		$debug	= $this->getDebugSnapshot();
 		$args	= func_get_args();
