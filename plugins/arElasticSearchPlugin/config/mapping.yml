@@ -419,6 +419,7 @@ mapping:
     _foreign_types:
       accession_events: accession_event
       alternative_identifiers: other_name
+      acquisition_type: term
       donors: donor
     dynamic: strict
     properties:
