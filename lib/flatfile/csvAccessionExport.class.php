@@ -84,6 +84,7 @@ class csvAccessionExport extends QubitFlatfileExport
      *
      * alternativeIdentifiers
      * alternativeIdentifierTypes
+     * alternativeIdentifierNotes
      *
      * @return void
      */
