@@ -98,8 +98,8 @@ class csvAccessionExport extends QubitFlatfileExport
 
         foreach ($altIds as $altId) {
             $alternativeIdentifiers[] = $altId->name;
-            $alternativeIdentifierTypes[] = $this->alternateIdTypes[$altId->typeId] ?? 'NULL';
-            $alternativeIdentifierNotes[] = $altId->note ?? 'NULL';
+            $alternativeIdentifierTypes[] = $this->alternateIdTypes[$altId->typeId] ?? '';
+            $alternativeIdentifierNotes[] = $altId->note ?? '';
         }
 
         $this->setColumn('alternativeIdentifiers', $alternativeIdentifiers);
