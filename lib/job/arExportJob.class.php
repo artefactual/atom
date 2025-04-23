@@ -32,6 +32,10 @@ class arExportJob extends arBaseJob
     protected $zipFileDownload;
     protected $filenames = [];
     protected $itemsExported = 0;
+    protected $params;
+    protected $logger;
+    protected $job;
+    protected $i18n;
 
     public function runJob($parameters)
     {

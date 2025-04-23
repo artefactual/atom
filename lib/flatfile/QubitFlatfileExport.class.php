@@ -42,6 +42,8 @@ class QubitFlatfileExport
     protected $separatorChar = '|';          // character to use when imploding arrays to a single value
     protected $params;
     protected $nonVisibleElementsIncluded;
+    protected $path;
+    protected $standard;
 
     /*
      * Constructor
@@ -310,7 +312,7 @@ class QubitFlatfileExport
 
             // If row value hasn't been set to anything and element is not hidden,
             // attempt to get resource property
-            if (null === $value && !in_array($column, $this->nonVisibleElementsIncluded)) {
+            if (null === $value && !in_array($column, $this->nonVisibleElementsIncluded ?? [])) {
                 if (in_array($column, $this->standardColumns)) {
                     $value = $this->resource->{$column};
                 } elseif (($sourceColumn = array_search($column, $this->columnMap)) !== false) {
@@ -356,8 +358,8 @@ class QubitFlatfileExport
             foreach (sfConfig::getAll() as $setting => $value) {
                 if (
                     (false !== strpos($setting, 'app_element_visibility_'.$template))
-                    && (!strpos($setting, '__source'))
-                    && str_ends_with('_area', $setting) // Ignore hidden element headers
+                    && (!str_ends_with($setting, '__source'))
+                    && (!str_ends_with($setting, '_area')) // Ignore hidden element headers
                     && (0 == sfConfig::get($setting))
                 ) {
                     array_push($nonVisibleElements, $setting);
