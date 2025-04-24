@@ -91,7 +91,7 @@
         error: function(xhr)
         {
           var data = JSON.parse(xhr.responseText);
-          this.showAlert(data.error, 'alert-error');
+          this.showAlert(data.error, 'alert-danger');
         }
       });
     },
@@ -125,7 +125,7 @@
         },
         error: function()
         {
-          this.showAlert(this.$element.data('load-alert-message'), 'alert-error');
+          this.showAlert(this.$element.data('load-alert-message'), 'alert-danger');
         }
       });
     },
@@ -156,7 +156,7 @@
         error: function(xhr)
         {
           var data = JSON.parse(xhr.responseText);
-          this.showAlert(data.error, 'alert-error');
+          this.showAlert(data.error, 'alert-danger');
         }
       });
     },
@@ -171,7 +171,7 @@
         this.items['repository'].length === 0
       )
       {
-        this.showAlert($sendButton.data('empty-message'), 'alert-error');
+        this.showAlert($sendButton.data('empty-message'), 'alert-danger');
 
         return;
       }
@@ -237,7 +237,7 @@
       // Avoid request if there are no slugs for the type
       if (this.items[type].length === 0)
       {
-        this.showAlert(this.$element.data('export-alert-message'), 'alert-error');
+        this.showAlert(this.$element.data('export-alert-message'), 'alert-danger');
 
         return;
       }
@@ -269,7 +269,7 @@
         error: function(xhr)
         {
           var data = JSON.parse(xhr.responseText);
-          this.showAlert(data.error, 'alert-error');
+          this.showAlert(data.error, 'alert-danger');
         }
       });
     },
@@ -318,7 +318,7 @@
         error: function(xhr)
         {
           var data = JSON.parse(xhr.responseText);
-          this.showAlert(data.error, 'alert-error');
+          this.showAlert(data.error, 'alert-danger');
         }
       });
     },

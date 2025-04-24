@@ -183,7 +183,7 @@
         }
         else {
           // In error state with zero successful uploads. Prevent POST.
-          this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-error');
+          this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-danger');
 
           return false;
         }
@@ -193,8 +193,8 @@
         this.uppy.upload().then((result) => {
           if (result.failed.length > 0) {
             (this.checkUploadSuccessful() === true) ?
-              this.showAlert(Qubit.multiFileUpload.i18nSomeFilesFailedError, 'alert-error') :
-              this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-error');
+              this.showAlert(Qubit.multiFileUpload.i18nSomeFilesFailedError, 'alert-danger') :
+              this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-danger');
 
             this.$retryButton.show();
           }

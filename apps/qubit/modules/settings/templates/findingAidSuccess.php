@@ -21,7 +21,7 @@
     data-cy="settings-finding-aid-form"
   >
     <?php if (isset($error) && 'formInvalid' == $error) { ?>
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
       <?php echo __('There was an error submitting the form.'); ?>
     </div>
     <?php } ?>

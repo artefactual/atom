@@ -201,7 +201,7 @@
       if ($('body').is('.clipboard.export') && $('#wrapper.container > .alert').length == 0)
       {
         $(
-          '<div class="alert alert-error">' +
+          '<div class="alert alert-danger">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(this.$exportDiv.data('export-alert-message'))
