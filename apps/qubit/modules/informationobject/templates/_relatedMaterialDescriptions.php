@@ -9,7 +9,7 @@
   <div>
     <ul>
       <?php foreach ($resource->relationsRelatedBysubjectId as $item) { ?>
-        <?php if (method_exists($item->object, 'getPublicationStatus') && ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->object->getPublicationStatus()->statusId)) { ?>
+        <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->object->getPublicationStatus()->statusId) { ?>
           <?php $itemTitle = $item->object->__toString(); ?>
 
           <?php if (property_exists($item->object, 'levelOfDescription') || property_exists($item->object, 'identifier')) { ?>
