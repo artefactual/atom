@@ -49,14 +49,14 @@ class ClipboardSaveAction extends sfAction
 
             $loadUrl = $this->context->routing->generate(null, ['module' => 'clipboard', 'action' => 'load']);
 
-            if ($itemsCount == 1) {
+            if (1 == $itemsCount) {
                 $itemsUnit = $this->context->i18n->__('item');
             } else {
                 $itemsUnit = $this->context->i18n->__('items');
             }
 
             $retention = sfconfig::get('app_clipboard_save_max_age');
-            if ($retention == 1) {
+            if (1 == $retention) {
                 $retentionUnit = $this->context->i18n->__('day');
             } else {
                 $retentionUnit = $this->context->i18n->__('days');
