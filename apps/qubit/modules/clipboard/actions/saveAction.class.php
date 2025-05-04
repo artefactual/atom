@@ -62,7 +62,7 @@ class ClipboardSaveAction extends sfAction
                 $retentionUnit = $this->context->i18n->__('days');
             }
 
-            $message = $this->context->i18n->__('Clipboard saved with %1% %2%. Clipboard ID is <b>%3%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a class="alert-link" href="%4%">Load clipboard</a>, and enter this number in the Clipboard ID field. Clipboards are eligible for deletion after <b>%5% %6%.<b>', ['%1%' => $itemsCount, '%2%' => $itemsUnit, '%3%' => $password, '%4%' => $loadUrl, '%5%' => $retention, '%6%' => $retentionUnit]);
+            $message = $this->context->i18n->__('Clipboard saved with %1% %2%. Clipboard ID is <b>%3%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a class="alert-link" href="%4%">Load clipboard</a>, and enter this number in the Clipboard ID field. Clipboards are eligible for deletion after <b>%5% %6%<b>.', ['%1%' => $itemsCount, '%2%' => $itemsUnit, '%3%' => $password, '%4%' => $loadUrl, '%5%' => $retention, '%6%' => $retentionUnit]);
             $this->response->setStatusCode(200);
             $responseData = ['success' => $message];
         }
