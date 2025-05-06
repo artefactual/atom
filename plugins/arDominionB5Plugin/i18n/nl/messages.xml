@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2025-03-10T19:13:09Z" product-name="messages">
+  <file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2025-05-06T21:02:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -4444,10 +4444,6 @@ Beschrijf de genealogie van een familie (bijvoorbeeld door middel van een stambo
         <source>Upload is disabled</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1155">
-        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1156">
         <source>Edit upload limit</source>
         <target/>
@@ -5538,6 +5534,10 @@ Beschrijf de genealogie van een familie (bijvoorbeeld door middel van een stambo
       </trans-unit>
       <trans-unit id="1440">
         <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1441">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
         <target/>
       </trans-unit>
     </body>

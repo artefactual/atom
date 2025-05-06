@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-03-10T19:20:20Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-05-06T21:09:58Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
-        <source xml:space="preserve"> %1%Download%2% (%3% b)</source>
-        <target xml:space="preserve"> &#x66A; 1&#x66A; &#x62A;&#x646;&#x632;&#x64A;&#x644;&#x66A; 2&#x66A; (&#x66A; 3&#x66A; b)</target>
+      <trans-unit id="32e271bec7e31df1838efd94cf39df8b980c7283">
+        <source xml:space="preserve"> %1%Download%2% (%3%)</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportCheckAction.class.php</note>
       </trans-unit>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -2940,9 +2940,9 @@
         <target xml:space="preserve">&#x634;&#x631;&#x648;&#x637; &#x627;&#x644;&#x62A;&#x631;&#x62E;&#x64A;&#x635;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
-      <trans-unit id="0aec43eb4c2b031ef28ef83c23dc31ce14b31192">
-        <source xml:space="preserve">Limit administrator functionality to one or more IP addresses, separated by semicolons.</source>
-        <target xml:space="preserve">&#x642;&#x635;&#x631; &#x648;&#x638;&#x627;&#x626;&#x641; &#x627;&#x644;&#x645;&#x633;&#x624;&#x648;&#x644; &#x639;&#x644;&#x649; &#x648;&#x627;&#x62D;&#x62F; &#x623;&#x648; &#x623;&#x643;&#x62B;&#x631; &#x645;&#x646; &#x639;&#x646;&#x627;&#x648;&#x64A;&#x646; IP&#x60C; &#x645;&#x641;&#x635;&#x648;&#x644;&#x629; &#x628;&#x641;&#x648;&#x627;&#x635;&#x644; &#x645;&#x646;&#x642;&#x648;&#x637;&#x629;.</target>
+      <trans-unit id="31cb8ebdd8929e1a64627c0799b74b8fdf1d195d">
+        <source xml:space="preserve">Limit authenticated functionality to one or more IP addresses, separated by semicolons.</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/securityAction.class.php</note>
       </trans-unit>
       <trans-unit id="c9a63a518c70a777f5be69334e81ea8c972ca31d">
