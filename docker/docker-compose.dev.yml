@@ -9,6 +9,7 @@ services:
 
   atom:
     build: ..
+    platform: linux/amd64
     env_file: etc/environment
     environment:
       - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
@@ -20,6 +21,7 @@ services:
 
   atom_worker:
     build: ..
+    platform: linux/amd64
     command: worker
     env_file: etc/environment
     environment:
@@ -35,6 +37,7 @@ services:
 
   nginx:
     image: nginx:latest
+    platform: linux/amd64
     volumes:
       - composer_deps:/atom/src/vendor/composer
       - npm_deps:/atom/src/node_modules
@@ -45,6 +48,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.23
+    platform: linux/amd64
     env_file: etc/environment
     ulimits:
       memlock:
@@ -57,6 +61,7 @@ services:
 
   percona:
     image: percona:8.0
+    platform: linux/amd64
     env_file: etc/environment
     volumes:
       - percona_data:/var/lib/mysql:rw
@@ -66,11 +71,13 @@ services:
 
   memcached:
     image: memcached
+    platform: linux/amd64
     command: -p 11211 -m 128 -u memcache
     ports:
       - "127.0.0.1:63004:11211"
 
   gearmand:
     image: artefactual/gearmand
+    platform: linux/amd64
     ports:
       - "127.0.0.1:63005:4730"

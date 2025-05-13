@@ -2,6 +2,7 @@
 bootstrap.memory_lock=true
 cluster.routing.allocation.disk.threshold_enabled=false
 ES_JAVA_OPTS=-Xms640m -Xmx640m
+bootstrap.system_call_filter = false
 
 # MySQL
 MYSQL_ROOT_PASSWORD=my-secret-pw
