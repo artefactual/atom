@@ -46,6 +46,7 @@ class ProjectConfiguration extends sfProjectConfiguration
             'sfWebBrowserPlugin',
             // sfPluginAdminPlugin depends on sfPropelPlugin
             'sfPluginAdminPlugin',
+            'arOidcPlugin',
         ];
 
         // Check if the OIDC plugin should be enabled.

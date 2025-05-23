@@ -1,0 +1,82 @@
+{
+  "id": "${KC_REALM_NAME}",
+  "realm": "${KC_REALM_NAME}",
+  "sslRequired": "none",
+  "enabled": true,
+  "eventsEnabled": true,
+  "eventsExpiration": 900,
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": true,
+  "attributes": {
+    "adminEventsExpiration": "900"
+  },
+  "clients": [
+    {
+      "id": "artefactual-atom",
+      "clientId": "artefactual-atom",
+      "name": "atom",
+      "enabled": true,
+      "rootUrl": "${KC_ATOM_CLIENT_URL}",
+      "adminUrl": "${KC_ATOM_CLIENT_URL}",
+      "baseUrl": "${KC_ATOM_CLIENT_URL}",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "example-secret",
+      "redirectUris": ["${KC_ATOM_CLIENT_URL}/*"],
+      "webOrigins": ["${KC_ATOM_CLIENT_URL}"],
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "publicClient": false
+    },
+    {
+      "id": "artefactual-archivematica-dashboard",
+      "clientId": "artefactual-archivematica-dashboard",
+      "name": "archivematica-dashboard",
+      "enabled": true,
+      "rootUrl": "${KC_AM_CLIENT_URL}",
+      "adminUrl": "${KC_AM_CLIENT_URL}",
+      "baseUrl": "${KC_AM_CLIENT_URL}",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "example-secret",
+      "redirectUris": ["${KC_AM_CLIENT_URL}/*"],
+      "webOrigins": ["${KC_AM_CLIENT_URL}"],
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "publicClient": false
+    },
+    {
+      "id": "artefactual-am-storage-service",
+      "clientId": "artefactual-am-storage-service",
+      "name": "am-storage-service",
+      "enabled": true,
+      "rootUrl": "${KC_AM_CLIENT_URL}",
+      "adminUrl": "${KC_AM_CLIENT_URL}",
+      "baseUrl": "${KC_AM_CLIENT_URL}",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "example-secret",
+      "redirectUris": ["${KC_AM_CLIENT_URL}/*"],
+      "webOrigins": ["${KC_AM_CLIENT_URL}"],
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "publicClient": false
+    }
+  ],
+  "users": [
+    {
+      "id": "demo",
+      "email": "${ATOM_USERNAME}${ATOM_DOMAIN}",
+      "username": "${ATOM_USERNAME}",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "temporary": false,
+          "type": "password",
+          "value": "${ATOM_PASSWORD}"
+        }
+      ]
+    }
+  ]
+}

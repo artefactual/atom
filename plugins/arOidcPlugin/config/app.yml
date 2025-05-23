@@ -16,7 +16,7 @@ all:
     # NOTE: Always configure url using SSL in production.
     providers:
       primary:
-        url: 'https://keycloak:8443/realms/artefactual'
+        url: 'http://keycloak:8080/realms/artefactual'
         client_id: 'artefactual-atom'
         client_secret: 'example-secret'
 
@@ -39,7 +39,7 @@ all:
         # Relative path to sf_root_dir:    'data/oidc/cert/mycert.pem'
         # Absolute path:                   '/usr/var/certif/xxx.pem'
         # Disable server validation:       false
-        server_cert: false
+        server_cert: 'certs/cert.pem'
 
         # Settings for parsing OIDC groups into AtoM group membership.
         # Set set_groups_from_attributes to true to enable.
