@@ -67,7 +67,41 @@ all:
       # 'Content-Security-Policy-Report-Only' or 'Content-Security-Policy'
       response_header: Content-Security-Policy-Report-Only
       # Configure CSP response directives.
-      directives: "default-src 'self'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:; script-src 'self' https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:; style-src 'self' 'nonce' https://fonts.googleapis.com; worker-src 'self' blob:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:; frame-ancestors 'self';"
+      directives: >
+        default-src 'self';
+        font-src 'self' https://fonts.gstatic.com;
+        form-action 'self';
+        img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
+        script-src 'self' https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+        style-src 'self' 'nonce' https://fonts.googleapis.com;
+        worker-src 'self' blob:;
+        connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
+        frame-ancestors 'self';
 
   ldap:
       enable_tls_encryption: true
+
+  # Javascript browser verification configuration. Js challenge will be run
+  # when 'activated' setting is 'true'.
+  # IMPORTANT: The 'salt' value must be changed to a new secret string before
+  # activating this feature.
+  #
+  # user_challenge:
+  #   activated: true
+  #   test_headless: false
+  #   cookiename_visited: atom_visited
+  #   cookiename_headless: atom_headless
+  #   cookiename_js: atom_js
+  #   salt: 'REPLACE_WITH_SECRET'
+  #   delay_seconds: 5
+  #   cookie_days: 90
+  #   cidr_exceptions:
+  #     - '192.168.1.0/24'
+  #     - '10.0.0.0/8'
+
+  # GeoIp configuration settings. GeoIp is required for user_challenge features.
+  # The country and asn filters both require GeoIp to be set up.
+  #
+  # geoip:
+  #   asn_db_path: %SF_ROOT_DIR%/geoip/GeoLite2-ASN.mmdb
+  #   city_db_path: %SF_ROOT_DIR%/geoip/GeoLite2-City.mmdb

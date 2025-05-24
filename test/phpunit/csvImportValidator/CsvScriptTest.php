@@ -4,17 +4,27 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvScriptValidator
  */
 class CsvScriptTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvDataDupedScripts;
+    protected $csvDataScriptsSomeInvalid;
+    protected $csvDataScripts;
+    protected $csvHeader;
+    protected $csvHeaderWithScript;
+    protected $csvHeaderDupedScript;
+    protected $csvDataValidScripts;
+    protected $csvData;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithScript = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,scriptOfDescription';

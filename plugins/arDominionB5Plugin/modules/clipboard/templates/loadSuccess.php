@@ -33,9 +33,10 @@
       </div>
     </div>
 
-    <section class="actions mb-3">
-      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Load'); ?>">
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><input class="btn atom-btn-outline-light" type="submit" name="load" value="<?php echo __('Load'); ?>"/></li>
+      <li><input class="btn atom-btn-outline-light" type="submit" name="loadView" value="<?php echo __('Load and view'); ?>"/></li>
+    </ul>
 
   </form>
 

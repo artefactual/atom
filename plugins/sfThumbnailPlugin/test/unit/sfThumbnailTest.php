@@ -20,7 +20,7 @@ $data = [
     'invalid' => dirname(__FILE__).'/../data/invalid.txt',
     'blob' => dirname(__FILE__).'/../data/image.blob',
     'image/jpeg' => dirname(__FILE__).'/../data/einstein.jpg',
-    //'image/pjpeg'  => dirname(__FILE__).'/../data/pjpeg.jpg',
+    // 'image/pjpeg'  => dirname(__FILE__).'/../data/pjpeg.jpg',
     'image/png' => dirname(__FILE__).'/../data/gnome.png',
     'image/gif' => dirname(__FILE__).'/../data/symfony.gif',
     'document/pdf' => dirname(__FILE__).'/../data/mogpres.pdf',
@@ -84,11 +84,11 @@ foreach ($adapters as $adapter) {
     checkResult($t, 150, 150, 'image/jpeg');
 
     $t->todo('handles image/pjpeg mime type');
-    //$t->diag('handles image/pjpeg mime type');
-    //$thmb = new sfThumbnail(150, 150, false, true, 75, $adapter, array());
-    //$thmb->loadFile($data['image/pjpeg']);
-    //$thmb->save($result.'.jpg');
-    //checkResult($t, 150, 150, 'image/jpeg');
+    // $t->diag('handles image/pjpeg mime type');
+    // $thmb = new sfThumbnail(150, 150, false, true, 75, $adapter, array());
+    // $thmb->loadFile($data['image/pjpeg']);
+    // $thmb->save($result.'.jpg');
+    // checkResult($t, 150, 150, 'image/jpeg');
 
     $t->diag('creates inflated thumbnail');
     $thmb = new sfThumbnail(200, 200, false, true, 75, $adapter, []);

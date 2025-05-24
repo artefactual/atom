@@ -141,6 +141,7 @@ QubitMenu:
     name: browseInstitution
     label:
       bs: 'Pregledaj našu zbirku'
+      ca: 'Navegueu per la nostra col·lecció'
       cy: 'Porwch ein casgliad'
       de: 'Sammlung durchsuchen'
       de-CH: 'Unsere Bestände durchsuchen'
@@ -239,6 +240,7 @@ QubitMenu:
     name: jobs
     label:
       bs: Poslovi
+      ca: Tasques
       cy: Tasgau
       de: Aufgaben
       de-CH: Aufträge
@@ -776,6 +778,8 @@ QubitMenu:
       bs: 'Potvrdi CSV'
       cy: 'Dilysu CSV'
       en: 'Validate CSV'
+      fr: 'Valider le CSV'
+      hr: 'Potvrdi CSV'
       mk: 'Потврдете го CSV'
       pt_BR: 'Validar CSV'
     path: object/validateCsv
@@ -2184,6 +2188,7 @@ QubitMenu:
     name: clearClipboard
     label:
       bs: 'Izbriši sve odabire'
+      ca: 'Neteja totes les seleccions'
       cy: 'Clirio''r holl ddewisiadau'
       de: 'Alle Einschränkungen löschen'
       de-CH: 'Auswahl löschen'
@@ -2206,6 +2211,7 @@ QubitMenu:
     name: goToClipboard
     label:
       bs: 'Idi na međuspremnik'
+      ca: 'Ves al porta-retalls'
       cy: 'Ewch i''r clipfwrdd'
       de: 'Zur Zwischenablage gehen'
       de-CH: 'Gehen Sie zur Zwischenablage'

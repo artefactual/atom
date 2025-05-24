@@ -162,6 +162,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
                 ]);
 
                 break;
+
             // Avoid sorting when we are just counting records
             case null:
                 break;
@@ -174,6 +175,6 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
         QubitAclSearch::filterDrafts($queryBool);
         $query->setQuery($queryBool);
 
-        return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+        return QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($query);
     }
 }

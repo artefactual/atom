@@ -54,7 +54,7 @@ class QubitActorAcl extends QubitAcl
     {
         // Do custom ACL checks for digital object actions
         if (in_array($action, self::$_digitalObjectActions)) {
-            return self::isDigitalObjectActionAllowed(
+            return QubitActorAcl::isDigitalObjectActionAllowed(
                 $user,
                 $resource,
                 $action,
@@ -77,7 +77,7 @@ class QubitActorAcl extends QubitAcl
      *
      * @return bool true if $user is authorized to perform $action
      */
-    private function isDigitalObjectActionAllowed(
+    private static function isDigitalObjectActionAllowed(
         $user,
         $resource,
         $action,

@@ -164,7 +164,7 @@ class sfWebRequest extends sfRequest
   {
     $contentType = $this->getHttpHeader('Content-Type', null);
 
-    if ($trim && false !== $pos = strpos($contentType, ';'))
+    if ($trim && false !== $pos = strpos((string) $contentType, ';'))
     {
       $contentType = substr($contentType, 0, $pos);
     }
@@ -802,6 +802,9 @@ class sfWebRequest extends sfRequest
 
   static protected function fixPhpFilesArray($data)
   {
+    // remove full_path added on php8.1
+    unset($data['full_path']);
+
     $fileKeys = array('error', 'name', 'size', 'tmp_name', 'type');
     $keys = array_keys($data);
     sort($keys);

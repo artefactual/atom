@@ -31,18 +31,27 @@ class OidcLoginAction extends sfAction
         // user/list (for example) if the user was attempting to access a secure resource. When redirected
         // back from the OIDC endpoint, the referrer will be empty.
         if ($request->isMethod('post') && !empty($request->getReferer())) {
-            $this->context->user->setAttribute('atom-login-referrer', $request->getReferer());
+            $this->context->user->setAttribute('atom-login-referer', $request->getReferer());
         }
 
         if ($request->isMethod('post') || isset($_REQUEST['code'])) {
-            $this->getUser()->authenticate();
+            if (null !== $providerId = $this->context->user->parseProviderIdFromUrl($this->context->user->getAttribute('atom-login-referer', null))) {
+                $this->context->user->validateProviderId($providerId, true);
+            }
+
+            $result = $this->context->user->authenticate();
+            if (false == $result) {
+                $this->context->user->logout(false);
+
+                $this->redirect('admin/secure');
+            }
         }
 
         // Redirect to module/action the user was trying to reach before being redirected
         // to the OIDC IAM system for authentication. We prefer a redirect to a forward so that the ticket
         // parameter is not accidentally exposed in the user's browser.
         if (null !== $redirectUrl = $this->context->user->getAttribute('atom-login-referrer', null)) {
-            $this->context->user->setAttribute('atom-login-referrer', null);
+            $this->context->user->setAttribute('atom-login-referer', null);
             $this->redirect($redirectUrl);
         }
 

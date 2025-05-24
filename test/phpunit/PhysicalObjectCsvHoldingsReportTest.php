@@ -2,12 +2,14 @@
 
 /**
  * @internal
+ *
  * @covers \QubitPhysicalObjectCsvHoldingsReport
  */
 class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase
 {
     protected $csvData;
     protected $ormClasses;
+    protected $typeMap;
 
     // Fixtures
 
@@ -22,72 +24,6 @@ class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase
         $this->typeMap = [
             'description' => \AccessToMemory\test\mock\QubitInformationObject::class,
             'accession' => \AccessToMemory\test\mock\QubitAccession::class,
-        ];
-    }
-
-    // Data providers
-
-    public function fetchHoldingsRowsProvider()
-    {
-        $rows = [
-            [
-                'object_id' => 111111,
-                'class_name' => 'QubitInformationObject',
-            ],
-            [
-                'object_id' => 222222,
-                'class_name' => 'QubitInformationObject',
-            ],
-            [
-                'object_id' => 516,
-                'class_name' => 'QubitAccession',
-            ],
-            [
-                'object_id' => 533,
-                'class_name' => 'QubitAccession',
-            ],
-        ];
-
-        return [
-            [$rows],
-        ];
-    }
-
-    public function mixedHoldingsDataProvider()
-    {
-        $holdingsData = [
-            'total' => 4,
-            'types' => [
-                \AccessToMemory\test\mock\QubitInformationObject::class => [
-                    'total' => 2,
-                    'holdings' => [111111, 222222],
-                ],
-                \AccessToMemory\test\mock\QubitAccession::class => [
-                    'total' => 2,
-                    'holdings' => [444, 555],
-                ],
-            ],
-        ];
-
-        return [
-            [$holdingsData],
-        ];
-    }
-
-    public function informationObjectHoldingsDataProvider()
-    {
-        $holdingsData = [
-            'total' => 2,
-            'types' => [
-                \AccessToMemory\test\mock\QubitInformationObject::class => [
-                    'total' => 2,
-                    'holdings' => [111111, 222222],
-                ],
-            ],
-        ];
-
-        return [
-            [$holdingsData],
         ];
     }
 
@@ -219,6 +155,34 @@ class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(2, $summary['types']['QubitAccession']['total']);
     }
 
+    // Data providers
+
+    public function fetchHoldingsRowsProvider()
+    {
+        $rows = [
+            [
+                'object_id' => 111111,
+                'class_name' => 'QubitInformationObject',
+            ],
+            [
+                'object_id' => 222222,
+                'class_name' => 'QubitInformationObject',
+            ],
+            [
+                'object_id' => 516,
+                'class_name' => 'QubitAccession',
+            ],
+            [
+                'object_id' => 533,
+                'class_name' => 'QubitAccession',
+            ],
+        ];
+
+        return [
+            [$rows],
+        ];
+    }
+
     /**
      * @dataProvider mixedHoldingsDataProvider
      *
@@ -308,6 +272,27 @@ EOM;
         $this->assertSame('', $writer->getContent());
     }
 
+    public function mixedHoldingsDataProvider()
+    {
+        $holdingsData = [
+            'total' => 4,
+            'types' => [
+                \AccessToMemory\test\mock\QubitInformationObject::class => [
+                    'total' => 2,
+                    'holdings' => [111111, 222222],
+                ],
+                \AccessToMemory\test\mock\QubitAccession::class => [
+                    'total' => 2,
+                    'holdings' => [444, 555],
+                ],
+            ],
+        ];
+
+        return [
+            [$holdingsData],
+        ];
+    }
+
     /**
      * @dataProvider informationObjectHoldingsDataProvider
      *
@@ -361,5 +346,22 @@ EOM;
         $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
 
         $this->assertSame('', $writer->getContent());
+    }
+
+    public function informationObjectHoldingsDataProvider()
+    {
+        $holdingsData = [
+            'total' => 2,
+            'types' => [
+                \AccessToMemory\test\mock\QubitInformationObject::class => [
+                    'total' => 2,
+                    'holdings' => [111111, 222222],
+                ],
+            ],
+        ];
+
+        return [
+            [$holdingsData],
+        ];
     }
 }

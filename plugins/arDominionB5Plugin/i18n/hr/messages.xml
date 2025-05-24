@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2024-05-17T02:58:13Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2025-05-06T21:02:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -934,7 +934,7 @@
       </trans-unit>
       <trans-unit id="249">
         <source>The following resources could not be created:</source>
-        <target/>
+        <target>Nije bilo moguće stvoriti sljedeće resurse:</target>
       </trans-unit>
       <trans-unit id="250">
         <source>Could not load relation data.</source>
@@ -1318,7 +1318,7 @@
       </trans-unit>
       <trans-unit id="354">
         <source>of %lastPage%</source>
-        <target/>
+        <target>od %lastPage%</target>
       </trans-unit>
       <trans-unit id="355">
         <source>Next</source>
@@ -1362,7 +1362,7 @@
       </trans-unit>
       <trans-unit id="365">
         <source>View options</source>
-        <target/>
+        <target>Prikaži opcije</target>
       </trans-unit>
       <trans-unit id="366">
         <source>Card view</source>
@@ -1370,11 +1370,11 @@
       </trans-unit>
       <trans-unit id="367">
         <source>Table view</source>
-        <target/>
+        <target>Tablični prikaz</target>
       </trans-unit>
       <trans-unit id="368">
         <source>A %1%release %2% upgrade is available.</source>
-        <target/>
+        <target>Dostupna je nadogradnja za %1%izdanje %2%.</target>
       </trans-unit>
       <trans-unit id="369">
         <source>Job report</source>
@@ -1522,7 +1522,7 @@
       </trans-unit>
       <trans-unit id="405">
         <source>Validate</source>
-        <target/>
+        <target>Potvrdi</target>
       </trans-unit>
       <trans-unit id="406">
         <source>Related places</source>
@@ -1638,7 +1638,7 @@
       </trans-unit>
       <trans-unit id="434">
         <source>Uploads for &lt;a class="alert-link" href="%1%"&gt;%2%&lt;/a&gt; are disabled</source>
-        <target/>
+        <target>Prijenosi za &lt;a class="alert-link" href="%1%"&gt;%2%&lt;/a&gt; su deaktivirani</target>
       </trans-unit>
       <trans-unit id="435">
         <source>The upload limit of %1% GB for &lt;a class="alert-link" href="%2%"&gt;%3%&lt;/a&gt; has been reached</source>
@@ -2162,15 +2162,11 @@
       </trans-unit>
       <trans-unit id="568">
         <source>Upload settings</source>
-        <target/>
+        <target>Postavke prijenosa</target>
       </trans-unit>
       <trans-unit id="569">
         <source>Total space available for uploads</source>
         <target>Ukupna količina dostupnog mjesta za prijenose</target>
-      </trans-unit>
-      <trans-unit id="570">
-        <source>%1% upload limits</source>
-        <target>%1% ograničenja prijenosa</target>
       </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
@@ -2470,7 +2466,7 @@
       </trans-unit>
       <trans-unit id="647">
         <source>i18n language settings</source>
-        <target/>
+        <target>i18n postavke jezika</target>
       </trans-unit>
       <trans-unit id="648">
         <source>Identifier-related</source>
@@ -3142,7 +3138,7 @@
       </trans-unit>
       <trans-unit id="824">
         <source>Uploading</source>
-        <target/>
+        <target>Prijenos</target>
       </trans-unit>
       <trans-unit id="825">
         <source>Complete</source>
@@ -3182,11 +3178,11 @@
       </trans-unit>
       <trans-unit id="834">
         <source>Uploading %{smart_count} file</source>
-        <target/>
+        <target>Prijenos %{smart_count} datoteke</target>
       </trans-unit>
       <trans-unit id="835">
         <source>Uploading %{smart_count} files</source>
-        <target/>
+        <target>Prijenos %{smart_count} datoteka</target>
       </trans-unit>
       <trans-unit id="836">
         <source>Importing digital objects - please wait...</source>
@@ -4170,7 +4166,7 @@
       </trans-unit>
       <trans-unit id="1085">
         <source>View file</source>
-        <target/>
+        <target>Prikaži datoteku</target>
       </trans-unit>
       <trans-unit id="1086">
         <source>%1% metadata</source>
@@ -4443,10 +4439,6 @@
       <trans-unit id="1154">
         <source>Upload is disabled</source>
         <target>Prijenos je deaktiviran</target>
-      </trans-unit>
-      <trans-unit id="1155">
-        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
-        <target>%du% &lt;abbr title="1 GB = 1.000.000.000 bajtova"&gt;GB&lt;/abbr&gt; od &lt;em&gt;Neograničeno&lt;/em&gt;&nbsp;</target>
       </trans-unit>
       <trans-unit id="1156">
         <source>Edit upload limit</source>
@@ -4797,7 +4789,7 @@
         <target>Broj akcesije</target>
       </trans-unit>
       <trans-unit id="1248">
-        <source>Server error while checking identifer availability.</source>
+        <source>Server error while checking identifier availability.</source>
         <target>Greška poslužitelja prilikom provjere dostupnosti identifikatora.</target>
       </trans-unit>
       <trans-unit id="1249">
@@ -5262,7 +5254,7 @@
       </trans-unit>
       <trans-unit id="1370">
         <source>Update authorized form of name</source>
-        <target/>
+        <target>Aktualiziraj autoriziran oblik imena</target>
       </trans-unit>
       <trans-unit id="1371">
         <source>Editing the authorized form of name will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
@@ -5270,14 +5262,14 @@
       </trans-unit>
       <trans-unit id="1372">
         <source>Original authorized form of name</source>
-        <target/>
+        <target>Izvorno autorizirani oblik imena</target>
       </trans-unit>
       <trans-unit id="1373">
         <source>A slug based on this name already exists so a number has been added to pad the slug.</source>
         <target/>
       </trans-unit>
       <trans-unit id="1374">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
         <target>Koristi ova dva polja za dodavanje nižih razina opisu na razini zbirke. Pritisni „Dodaj novo” za dodavanje potrebnih podređenih razina. Identifikator: upiši jedinstveni standardni broj ili kôd koji identificira resurs. Naslov: upiši riječ, izraz, znak ili grupu znakova koji se obično pojavljuju u resursu, koji određuju njegovo ime ili djelo koje se u njemu nalazi.</target>
       </trans-unit>
       <trans-unit id="1375">
@@ -5394,10 +5386,6 @@
       </trans-unit>
       <trans-unit id="1403">
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1404">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
         <target/>
       </trans-unit>
       <trans-unit id="1405">
@@ -5530,6 +5518,22 @@
       </trans-unit>
       <trans-unit id="1437">
         <source>Log in with SSO</source>
+        <target>Prijavi se sa SSO</target>
+      </trans-unit>
+      <trans-unit id="1438">
+        <source>Load and view</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1439">
+        <source>%1% upload limits meter display</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1440">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1441">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
         <target/>
       </trans-unit>
     </body>

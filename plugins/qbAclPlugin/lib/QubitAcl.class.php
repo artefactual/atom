@@ -188,7 +188,7 @@ class QubitAcl
      * Add permissions to repository access array.
      *
      * @param $repositoryAccess input access array
-     * @param $permissions QubitQuery permission list
+     * @param $permissions      QubitQuery permission list
      *
      * @return array output access array
      */
@@ -230,7 +230,7 @@ class QubitAcl
     /**
      * List the repository access rules for the current user.
      *
-     * @param $action integer Access privilige being requested
+     * @param $action  integer Access privilige being requested
      * @param $options array optional parameters
      *
      * @return array
@@ -580,7 +580,7 @@ class QubitAcl
             if (!in_array($role->id, $this->_roles)) {
                 foreach ($role->getAncestorsAndSelfForAcl() as $ancestor) {
                     if (!in_array($ancestor->id, $this->_roles)) {
-                        $this->acl->addRole($ancestor, $ancestor->parentId);
+                        $this->acl->addRole((string) $ancestor, $ancestor->parentId);
                     }
                 }
             }
@@ -618,7 +618,7 @@ class QubitAcl
             }
 
             // Add user role
-            $this->acl->addRole($user->getUserID(), $parents);
+            $this->acl->addRole((string) $user->getUserID(), $parents);
             $this->_roles[] = $user->getUserID();
         } else {
             // Add anonymous role
@@ -642,7 +642,7 @@ class QubitAcl
         if (is_object($resource)) {
             foreach ($resource->getAncestorsAndSelfForAcl() as $r) {
                 if (!in_array($r->id, $this->_resources)) {
-                    $this->acl->addResource($r->id, $r->parentId);
+                    $this->acl->addResource((string) $r->id, $r->parentId);
                     $this->_resources[] = $r->id;
                 }
             }
@@ -771,10 +771,12 @@ class QubitAcl
             case 'QubitDonor':
             case 'QubitFunctionObject':
             case 'QubitRightsHolder':
+            case 'QubitContactInformation':
                 $hasAccess = $user->isAuthenticated() && ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID)
                             || $user->hasGroup(QubitAclGroup::EDITOR_ID));
 
                 break;
+
             // Administrator only
             case 'QubitUser':
             case 'QubitMenu':
@@ -784,6 +786,7 @@ class QubitAcl
                 $hasAccess = $user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID);
 
                 break;
+
             // Class specific ACL rules
             case 'QubitActor':
                 $hasAccess = QubitActorAcl::isAllowed(
@@ -804,6 +807,7 @@ class QubitAcl
                 );
 
                 break;
+
             // Rely on ACL for authorization
             // TODO Switch *all* authorization to ACL
             default:

@@ -52,7 +52,7 @@ EOF;
             if (!$confirmation) {
                 $this->log('Aborted.');
 
-                exit();
+                exit;
             }
         }
 

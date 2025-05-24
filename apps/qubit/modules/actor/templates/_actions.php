@@ -2,7 +2,7 @@
 
   <ul>
 
-    <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+    <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
       <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'actor', 'action' => 'edit'], ['class' => 'c-btn c-btn-submit', 'title' => __('Edit')]); ?></li>
     <?php } ?>
 

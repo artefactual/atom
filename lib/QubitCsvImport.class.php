@@ -169,7 +169,7 @@ class QubitCsvImport
 
         // Throw exception if exit code is greater than zero.
         if (0 < $exitCode) {
-            $output = implode(array_filter($output), '; ');
+            $output = implode('; ', array_filter($output));
 
             throw new sfException($output);
         }

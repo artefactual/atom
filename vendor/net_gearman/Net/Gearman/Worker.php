@@ -20,6 +20,7 @@
  * @link      http://www.danga.com/gearman/
  */
 
+
 /**
  * Gearman worker class
  *
@@ -47,7 +48,7 @@
  *     exit;
  * }
  *
- * ?>
+ *
  * </code>
  *
  * @category  Net
@@ -76,6 +77,20 @@ class Net_Gearman_Worker
     protected $retryConn = array();
 
     /**
+     * List of servers that have failed a connection
+     *
+     * @var array $conn
+     */
+    protected $failedConn = array();
+
+    /**
+     * Holds a count of jobs done for each server
+     *
+     * @var array $stats
+     */
+    protected $stats = array();
+
+    /**
      * Pool of worker abilities
      *
      * @var array $conn
@@ -90,17 +105,55 @@ class Net_Gearman_Worker
     protected $initParams = array();
 
     /**
+     * Number of seconds to wait to retry a connection after it has failed.
+     * If a server is already in the retry list when a new connection is
+     * attempted, the retry time for that server will be increased using
+     * this value as the base + a multiple.
+     *
+     * @var float
+     */
+    protected $retryTime = 3;
+
+    /**
+     * The maximum of amount of time in seconds to wait before trying to
+     * reconnect to a server.
+     *
+     * @var integer
+     */
+    protected $maxRetryTime = 60;
+
+    /**
+     * Stores the minimum current retry time of the servers in the retry list.
+     * We use this when putting workers into pre_sleep so we can wake up
+     * after this time and retry connections.
+     *
+     * @var integer
+     */
+    protected $minCurrentRetryTime = null;
+
+    /**
+     * The time in seconds to to read on the sockets when we have had no work
+     * to do. This prevents the worker from constantly requesting jobs
+     * from the server.
+     *
+     * @var integer
+     */
+    protected $sleepTime = 30;
+
+    /**
      * Callbacks registered for this worker
      *
      * @var array $callback
      * @see Net_Gearman_Worker::JOB_START
      * @see Net_Gearman_Worker::JOB_COMPLETE
      * @see Net_Gearman_Worker::JOB_FAIL
+     * @see Net_Gearman_Worker::WORKER_STATUS
      */
     protected $callback = array(
         self::JOB_START     => array(),
         self::JOB_COMPLETE  => array(),
-        self::JOB_FAIL      => array()
+        self::JOB_FAIL      => array(),
+        self::WORKER_STATUS => array(),
     );
 
     /**
@@ -111,22 +164,39 @@ class Net_Gearman_Worker
     protected $id = "";
 
     /**
-     * Socket return timeout
+     * Socket timeout in milliseconds
      *
      * @var int $socket_timeout
      */
-    protected $socket_timeout = 1;
+    protected $socket_timeout = 250;
 
     /**
-     * Callback types
+     * Callback type
      *
-     * @const integer JOB_START    Ran when a job is started
-     * @const integer JOB_COMPLETE Ran when a job is finished
-     * @const integer JOB_FAIL     Ran when a job fails
+     * @const integer JOB_START Runs when a job is started
      */
-    const JOB_START    = 1;
-    const JOB_COMPLETE = 2;
-    const JOB_FAIL     = 3;
+    const JOB_START         = 1;
+
+    /**
+     * Callback type
+     *
+     * @const integer JOB_COMPLETE Runs when a job is finished
+     */
+    const JOB_COMPLETE      = 2;
+
+    /**
+     * Callback type
+     *
+     * @const integer JOB_COMPLETE Runs when a job is finished
+     */
+    const JOB_FAIL          = 3;
+
+    /**
+     * Callback type
+     *
+     * @const integer WORKER_STATUS Runs to send status info for servers
+     */
+    const WORKER_STATUS = 4;
 
     /**
      * Constructor
@@ -147,52 +217,158 @@ class Net_Gearman_Worker
             throw new Net_Gearman_Exception('Invalid servers specified');
         }
 
-        if(empty($id)){
+        if (empty($id)) {
             $id = "pid_".getmypid()."_".uniqid();
         }
 
         $this->id = $id;
 
-        if(!is_null($socket_timeout)){
-            if(is_numeric($socket_timeout)){
+        if (!is_null($socket_timeout)) {
+            if (is_numeric($socket_timeout)) {
                 $this->socket_timeout = (int)$socket_timeout;
             } else {
-                throw Net_Gearman_Exception("Invalid valid for socket timeout");
+                throw new Net_Gearman_Exception("Invalid valid for socket timeout");
             }
         }
+
+        /**
+         * Randomize the server list so all the workers don't try and connect
+         * to the same server first causing a connection stampede
+         */
+        shuffle($servers);
 
         foreach ($servers as $s) {
-            try {
-                $conn = Net_Gearman_Connection::connect($s);
 
-                Net_Gearman_Connection::send($conn, "set_client_id", array("client_id" => $this->id));
+            $this->connect($s);
 
-                $this->conn[$s] = $conn;
-
-            } catch (Net_Gearman_Exception $e) {
-
-                $this->retryConn[$s] = time();
-            }
         }
 
-        if (empty($this->conn)) {
-            throw new Net_Gearman_Exception(
-                "Couldn't connect to any available servers"
+    }
+
+
+    /**
+     * Connects to a gearman server and puts failed connections into the retry
+     * list.
+     *
+     * @param  string $server Server name/ip and optional port to connect
+     *
+     * @return bool
+     */
+    private function connect($server) {
+        $success = false;
+
+        try {
+
+            /**
+             * If this is a reconnect, be sure we close the old connection
+             * before making a new one.
+             */
+            if (isset($this->conn[$server]) && is_resource($this->conn[$server])) {
+                $this->close($server);
+            }
+
+            $this->conn[$server] = new Net_Gearman_Connection($server, $this->socket_timeout);
+
+            $this->conn[$server]->send("set_client_id", array("client_id" => $this->id));
+
+            $this->addAbilities($this->conn[$server]);
+
+            if (isset($this->retryConn[$server])) {
+                unset($this->retryConn[$server]);
+                $this->status("Removing server from the retry list.", $server);
+            }
+
+            $this->status("Connected to $server", $server);
+
+            $success = true;
+
+        } catch (Net_Gearman_Exception $e) {
+
+            $this->sleepConnection($server);
+
+            $this->status(
+                "Connection failed",
+                $server
             );
         }
+
+        return $success;
+
     }
+
+    /**
+     * Removes a server from the connection list and adds it to a
+     * reconnect list.
+     *
+     * @param  string $server Server and port
+     * @return void
+     */
+    private function sleepConnection($server) {
+
+        if (isset($this->conn[$server])) {
+            $this->close($server);
+        }
+
+        if (empty($this->failedConn[$server])) {
+            $this->failedConn[$server] = 1;
+        } else {
+            $this->failedConn[$server]++;
+        }
+
+        $waitTime = $this->retryTime($this->failedConn[$server]);
+        $this->retryConn[$server] = time() + $waitTime;
+
+        if (is_null($this->minCurrentRetryTime)) {
+            $this->minCurrentRetryTime = $waitTime;
+        } else {
+            $this->minCurrentRetryTime = min(array_values($this->retryConn)) - time();
+        }
+
+        $this->status(
+            "Putting $server connection to sleep for ".$waitTime." seconds",
+            $server
+        );
+    }
+
+    /**
+     * Returns the status of the gearmand connections for this object
+     *
+     * @return array    An array containing a connected count, disconnected count
+     *                  and array that lists each server and true/false for connected
+     */
+    public function connection_status()
+    {
+        $servers = array();
+
+        foreach ($this->conn as $server=>$socket) {
+            $servers[$server] = true;
+        }
+        foreach ($this->retryConn as $server=>$status) {
+            $servers[$server] = false;
+        }
+
+        return array(
+            "connected" => count($this->conn),
+            "disconnected" => count($this->retryConn),
+            "servers" => $servers,
+            "stats" => $this->stats
+        );
+    }
+
 
     /**
      * Announce an ability to the job server
      *
-     * @param string  $ability Name of functcion/ability
-     * @param integer $timeout How long to give this job
-     * @param array $initParams Parameters for job constructor
+     * @param string  $ability    Name of functcion/ability
+     * @param integer $timeout    How long to give this job
+     * @param array   $initParams Parameters for job constructor
+     * @param int     $conn       Optional connection to add ability to. if not set, all
+     *                            connections are used
      *
      * @return void
-     * @see Net_Gearman_Connection::send()
+     * @see $conn->send()
      */
-    public function addAbility($ability, $timeout = null, $initParams=array())
+    public function addAbility($ability, $timeout = null, $initParams=array(), $conn=null)
     {
         $call   = 'can_do';
         $params = array('func' => $ability);
@@ -205,10 +381,31 @@ class Net_Gearman_Worker
 
         $this->abilities[$ability] = $timeout;
 
-        foreach ($this->conn as $conn) {
-            Net_Gearman_Connection::send($conn, $call, $params);
+        if ($conn) {
+            $conn->send($call, $params);
+        } else {
+            foreach ($this->conn as $conn) {
+                $conn->send($call, $params);
+            }
         }
     }
+
+    /**
+     * Announce all abilities to all servers or one server
+     *
+     * @param int     $conn    Optional connection to add ability to. if not set, all
+     *                         connections are used
+     * @return void
+     */
+    protected function addAbilities($conn=null)
+    {
+        foreach ($this->abilities as $ability => $timeout) {
+            $this->addAbility(
+                $ability, $timeout, $this->initParams[$ability], $conn
+            );
+        }
+    }
+
 
     /**
      * Begin working
@@ -217,12 +414,14 @@ class Net_Gearman_Worker
      * argument is a PHP callback to a function that can be used to monitor
      * the worker. If no callback is provided then the worker works until it
      * is killed. The monitor is passed two arguments; whether or not the
-     * worker is idle and when the last job was ran.
+     * worker is idle and when the last job was ran. If the monitor returns
+     * true, then the worker will stop working.
      *
-     * @param callback $monitor Function to monitor work
+     * @param  callback $monitor Function to monitor work
      *
      * @return void
-     * @see Net_Gearman_Connection::send(), Net_Gearman_Connection::connect()
+     *
+     * @see $conn->send(), $conn->connect()
      * @see Net_Gearman_Worker::doWork(), Net_Gearman_Worker::addAbility()
      */
     public function beginWork($monitor = null)
@@ -231,74 +430,249 @@ class Net_Gearman_Worker
             $monitor = array($this, 'stopWork');
         }
 
-        $write     = null;
-        $except    = null;
-        $working   = true;
-        $lastJob   = time();
-        $retryTime = 5;
+        $keep_working = true;
+        $lastJobTime  = time();
 
-        while ($working) {
-            $sleep = true;
-            $currentTime = time();
+        while ($keep_working) {
 
-            foreach ($this->conn as $server => $socket) {
-                $worked = false;
-                try {
-                    $worked = $this->doWork($socket);
-                } catch (Net_Gearman_Exception $e) {
-                    unset($this->conn[$server]);
-                    $this->retryConn[$server] = $currentTime;
-                }
+            $worked = false;
+
+            $this->retryConnections();
+
+            if (!empty($this->conn)) {
+                $worked = $this->askForWork();
+
                 if ($worked) {
-                    $lastJob = time();
-                    $sleep   = false;
+                    $lastJobTime = time();
                 }
             }
 
-            $idle = false;
-            if ($sleep && count($this->conn)) {
-                foreach ($this->conn as $socket) {
-                    Net_Gearman_Connection::send($socket, 'pre_sleep');
-                }
-
-                $read = $this->conn;
-                @socket_select($read, $write, $except, $this->socket_timeout);
-                $idle = (count($read) == 0);
+            if ($this->retryConnections()) {
+                $sleep = false;
+            } else {
+                $sleep = !$worked;
             }
 
-            $retryChange = false;
-            foreach ($this->retryConn as $s => $lastTry) {
-                if (($lastTry + $retryTime) < $currentTime) {
-                    try {
-                        $conn = Net_Gearman_Connection::connect($s);
-                        $this->conn[$s]         = $conn;
-                        $retryChange            = true;
-                        unset($this->retryConn[$s]);
-                        Net_Gearman_Connection::send($conn, "set_client_id", array("client_id" => $this->id));
-                    } catch (Net_Gearman_Exception $e) {
-                        $this->retryConn[$s] = $currentTime;
+            if ($sleep && !empty($this->conn)) {
+                $this->waitQuietly($monitor, $lastJobTime);
+            }
+
+            if (empty($this->conn)) {
+                $this->deepSleep($monitor, $lastJobTime);
+            }
+
+            $keep_working = !call_user_func($monitor, !$worked, $lastJobTime);
+        }
+    }
+
+    /**
+     * Monitors the sockets for incoming data which should cause an
+     * immediate wake to perform work
+     *
+     * @return bool True if there was data on any socket; false if not
+     */
+    protected function waitQuietly($monitor, $lastJobTime)
+    {
+        // This is sent to notify the server that the worker is about to
+        // sleep, and that it should be woken up with a NOOP packet if a
+        // job comes in for a function the worker is able to perform.
+        foreach ($this->conn as $server => $conn) {
+            try {
+                $conn->send('pre_sleep');
+            } catch (Net_Gearman_Exception $e) {
+                $this->sleepConnection($server);
+            }
+        }
+
+        $this->status(
+            "Worker going quiet for ".$this->sleepTime." seconds"
+        );
+
+        $idle   = true;
+        $write  = null;
+        $except = null;
+
+        $wakeTime = time() + $this->sleepTime;
+
+        $socket_timeout = Net_Gearman_Connection::calculateTimeout($this->socket_timeout);
+
+        while ($idle && $wakeTime > time()) {
+
+            if (!empty($this->conn)) {
+
+                foreach ($this->conn as $conn) {
+                    $read_conns[] = $conn->socket;
+                    socket_clear_error($conn->socket);
+                }
+
+                $success = @socket_select($read_conns, $write, $except, $socket_timeout[0], $socket_timeout[1]);
+
+                if (call_user_func($monitor, true, $lastJobTime)) {
+                    break;
+                }
+
+                // check for errors on any sockets
+                if ($success === false) {
+                    foreach ($this->conn as $server => $conn) {
+                        $errno = socket_last_error($conn->socket);
+                        if ($errno > 0) {
+                            $this->status(
+                                "Error while listening for wake up; Socket error ($errno): ".socket_strerror($errno),
+                                $server
+                            );
+                            $this->sleepConnection($server);
+                        }
+                    }
+                }
+
+                // if we have any read connections left
+                // after the socket_select call, then there
+                // is work to do and we need to break
+                $idle = empty($read_conns);
+            }
+        }
+
+        return !$idle;
+    }
+
+    /**
+     * If we have no open connections, sleep for the retry time. We don't
+     * actually want to call sleep() for the whole time as the process will
+     * not respond to signals. So, we will loop and sleep for 1s until the
+     * retry time has passed.
+     *
+     * @return void
+     */
+    protected function deepSleep($monitor, $lastJobTime)
+    {
+        $retryTime = !empty($this->minCurrentRetryTime) ? $this->minCurrentRetryTime : $this->retryTime;
+
+        $this->status(
+            "No open connections. Sleeping for ".$retryTime." seconds"
+        );
+
+        $now = time();
+        do {
+            sleep(1);
+            if (call_user_func($monitor, true, $lastJobTime)) {
+                break;
+            }
+        }
+        while (microtime(true) - $now < $retryTime);
+    }
+
+    /**
+     * Asks each server for work and performs any work that is sent
+     *
+     * @return bool True if any work was done, false if not
+     */
+    protected function askForWork($monitor = null, $lastJobTime = null)
+    {
+
+        $workDone = false;
+
+        /**
+         * Shuffle the list so we are not always starting with the same
+         * server on every loop through the while loop.
+         *
+         * shuffle() destroys keys, so we have to loop a shuffle of the
+         * keys.
+         */
+
+        $servers = array_keys($this->conn);
+        shuffle($servers);
+
+        foreach ($servers as $server) {
+
+            $conn = $this->conn[$server];
+
+            $worked = false;
+
+            try {
+                $this->status(
+                    "Asking $server for work",
+                    $server
+                );
+
+                $worked = $this->doWork($conn);
+
+                if ($worked) {
+                    $workDone = true;
+                    if (empty($this->stats[$server])) {
+                        $this->stats[$server] = 0;
+                    }
+                    $this->stats[$server]++;
+                }
+
+            } catch (Net_Gearman_Exception $e) {
+
+                $this->status(
+                    "Exception caught while doing work: ".$e->getMessage(),
+                    $server
+                );
+
+                $this->sleepConnection($server);
+            }
+
+            if ($monitor && call_user_func($monitor, true, $lastJobTime)) {
+                break;
+            }
+        }
+
+        return $workDone;
+    }
+
+    /**
+     * Attempts to reconnect to servers which are in a failed state
+     *
+     * @return bool True if new connections were created, false if not
+     */
+    protected function retryConnections()
+    {
+        $newConnections = false;
+
+        if (count($this->retryConn)) {
+
+            $now = time();
+
+            foreach ($this->retryConn as $server => $retryTime) {
+
+                if ($retryTime <= $now) {
+
+                    $this->status(
+                        "Attempting to reconnect to $server",
+                        $server
+                    );
+
+                    /**
+                     * If we reconnect to a server, don't sleep
+                     */
+                    if ($this->connect($server)) {
+                        $newConnections = true;
                     }
                 }
             }
 
-            if (count($this->conn) == 0) {
-                // sleep to avoid wasted cpu cycles if no connections to block on using socket_select
-                sleep(1);
-            }
-
-            if ($retryChange === true) {
-                // broadcast all abilities to all servers
-                foreach ($this->abilities as $ability => $timeout) {
-                    $this->addAbility(
-                        $ability, $timeout, $this->initParams[$ability]
-                    );
-                }
-            }
-
-            if (call_user_func($monitor, $idle, $lastJob) == true) {
-                $working = false;
+            // reset the min retry time as needed
+            if (empty($this->retryConn)) {
+                $this->minCurrentRetryTime = null;
+            } else {
+                $this->minCurrentRetryTime = min(array_values($this->retryConn)) - time();
             }
         }
+
+        return $newConnections;
+    }
+
+    /**
+     * Calculates the connection retry timeout
+     *
+     * @param  int $retry_count The number of times the connection has been retried
+     * @return int              The number of seconds to wait before retrying
+     */
+    protected function retryTime($retry_count)
+    {
+        return min($this->maxRetryTime, $this->retryTime << ($retry_count - 1));
     }
 
     /**
@@ -312,15 +686,37 @@ class Net_Gearman_Worker
      *
      * @return boolean Returns true if work was done, false if not
      * @throws Net_Gearman_Exception
-     * @see Net_Gearman_Connection::send()
+     * @see $conn->send()
      */
-    protected function doWork($socket)
+    protected function doWork($conn)
     {
-        Net_Gearman_Connection::send($socket, 'grab_job');
+        $conn->send('grab_job');
 
         $resp = array('function' => 'noop');
         while (count($resp) && $resp['function'] == 'noop') {
-            $resp = Net_Gearman_Connection::blockingRead($socket);
+            $resp = $conn->blockingRead();
+        }
+
+        /**
+         * The response can be empty during shut down. We don't need to proceed
+         * in those cases. But, most of the time, it should not be.
+         */
+        if (!is_array($resp) || empty($resp)) {
+            foreach ($this->conn as $s => $this_conn) {
+                if ($conn == $this_conn) {
+                    $server = $s;
+                    break;
+                }
+            }
+
+            $this->sleepConnection($server);
+
+            $this->status(
+                "No job was returned from the server",
+                $server
+            );
+
+            return false;
         }
 
         if (in_array($resp['function'], array('noop', 'no_job'))) {
@@ -338,15 +734,21 @@ class Net_Gearman_Worker
         if (isset($resp['data']['arg']) &&
             Net_Gearman_Connection::stringLength($resp['data']['arg'])) {
             $arg = json_decode($resp['data']['arg'], true);
-            if($arg === null){
+            if ($arg === null) {
                 $arg = $resp['data']['arg'];
             }
         }
 
-        $job = Net_Gearman_Job::factory(
-            $name, $socket, $handle, $this->initParams[$name]
-        );
         try {
+
+            if (empty($this->initParams[$name])) {
+                $this->initParams[$name] = [];
+            }
+
+            $job = Net_Gearman_Job::factory(
+                $name, $conn, $handle, $this->initParams[$name]
+            );
+
             $this->start($handle, $name, $arg);
             $res = $job->run($arg);
 
@@ -357,7 +759,11 @@ class Net_Gearman_Worker
             $job->complete($res);
             $this->complete($handle, $name, $res);
         } catch (Net_Gearman_Job_Exception $e) {
-            $job->fail();
+            // If the factory method call fails, we won't have a job.
+            if (isset($job) && $job instanceof Net_Gearman_Job_Common) {
+                $job->fail();
+            }
+
             $this->fail($handle, $name, $e);
         }
 
@@ -449,14 +855,61 @@ class Net_Gearman_Worker
     }
 
     /**
+     * Run the worker status callbacks
+     *
+     * @param string $message    A message about the worker's status.
+     * @param string $server     The server name related to the status
+     *
+     * @return void
+     */
+    protected function status($message, $server = null)
+    {
+        if (count($this->callback[self::WORKER_STATUS]) == 0) {
+            return; // No callbacks to run
+        }
+
+        if (!empty($server)) {
+            $failed_conns = isset($this->failedConn[$server]) ? $this->failedConn[$server] : 0;
+            $connected = isset($this->conn[$server]) && $this->conn[$server]->isConnected();
+        } else {
+            $failed_conns = null;
+            $connected = null;
+        }
+
+        foreach ($this->callback[self::WORKER_STATUS] as $callback) {
+            call_user_func(
+                $callback,
+                $message,
+                $server,
+                $connected,
+                $failed_conns
+            );
+        }
+    }
+
+    /**
      * Stop working
      *
      * @return void
      */
     public function endWork()
     {
-        foreach ($this->conn as $conn) {
-            Net_Gearman_Connection::close($conn);
+        foreach ($this->conn as $server => $conn) {
+            $this->close($server);
+        }
+    }
+
+    protected function close($server) {
+        if (isset($this->conn[$server])) {
+            $conn = $this->conn[$server];
+
+            try {
+              $conn->send("reset_abilities");
+            } catch (Net_Gearman_Exception $e) {
+
+            }
+            $conn->close();
+            unset($this->conn[$server]);
         }
     }
 

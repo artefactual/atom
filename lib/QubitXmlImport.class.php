@@ -138,14 +138,14 @@ class QubitXmlImport
             'http://www.loc.gov/mods/' => 'mods',
             'http://www.loc.gov/MARC21/slim' => 'marc',
             // root element names
-            //'collection' => 'marc',
-            //'record' => 'marc',
+            // 'collection' => 'marc',
+            // 'record' => 'marc',
             'record' => 'oai_dc_record',
             'dc' => 'dc',
             'oai_dc:dc' => 'dc',
             'dublinCore' => 'dc',
             'metadata' => 'dc',
-            //'mets' => 'mets',
+            // 'mets' => 'mets',
             'mods' => 'mods',
             'ead' => 'ead',
             'add' => 'alouette',
@@ -262,6 +262,7 @@ class QubitXmlImport
             if (is_object($urlValues = $importDOM->xpath->query('//eadheader/eadid/@url'))) {
                 foreach ($urlValues as $url) {
                     $this->eadUrl = trim(preg_replace('/[\n\r\s]+/', ' ', $url->nodeValue));
+
                     // Possibly more than one url but we can only take one. Take first
                     // valid one.
                     break;
@@ -296,6 +297,7 @@ class QubitXmlImport
                         $this->errors[] = $this->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'" ('.format_language($twoCharCode, 'en').'). '.$this->i18n->__('Your XML document has been saved in this language and your user interface has just been switched to this language.');
                     }
                     $sf_user->setCulture($twoCharCode);
+
                     // can only set to one language, so have to break once the first valid language is encountered
                     break;
                 }
@@ -475,7 +477,7 @@ class QubitXmlImport
     {
         $nodeValue = '';
 
-        if (!($node instanceof DOMAttr)) {
+        if (!$node instanceof DOMAttr) {
             $nodeList = $node->getElementsByTagName('p');
 
             if (0 < $nodeList->length) {
@@ -1115,9 +1117,9 @@ class QubitXmlImport
      *
      * @param QubitInformationObject $io The information object to check
      *
-     * @throws sfException When the limit option is not accepted
-     *
      * @return bool The information object passes the limit option or not
+     *
+     * @throws sfException When the limit option is not accepted
      */
     private function passesLimitOptionForIo($io)
     {
@@ -1148,9 +1150,9 @@ class QubitXmlImport
      *
      * @param QubitActor $actor The actor object to check
      *
-     * @throws sfException When the limit option is not accepted
-     *
      * @return bool The actor passes the limit option or not
+     *
+     * @throws sfException When the limit option is not accepted
      */
     private function passesLimitOptionForActor($actor)
     {

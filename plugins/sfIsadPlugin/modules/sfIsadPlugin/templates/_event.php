@@ -19,15 +19,20 @@
       </tr>
     </thead><tbody>
 
-      <?php $i = 0; foreach ($resource->getDates() as $item) { ?>
+      <?php $i = 0;
+      foreach ($resource->getDates() as $item) { ?>
 
-        <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]"); ++$i; ?>
+        <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]");
+        ++$i; ?>
 
         <tr class="date <?php echo 0 == ++$i % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $item->id; ?>">
           <td>
             <div class="animateNicely">
               <input name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>" type="hidden" value="<?php echo url_for([$item, 'module' => 'event']); ?>"/>
-              <?php $save = $form->type->choices; $form->type->choices += [url_for([$item->type, 'module' => 'term']) => $item->type]; echo $form->getWidgetSchema()->renderField('type', url_for([$item->type, 'module' => 'term'])); $form->type->choices = $save; ?>
+              <?php $save = $form->type->choices;
+              $form->type->choices += [url_for([$item->type, 'module' => 'term']) => $item->type];
+              echo $form->getWidgetSchema()->renderField('type', url_for([$item->type, 'module' => 'term']));
+              $form->type->choices = $save; ?>
             </div>
           </td><td>
             <div class="animateNicely">
@@ -46,7 +51,8 @@
 
       <?php } ?>
 
-      <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]"); ++$i; ?>
+      <?php $form->getWidgetSchema()->setNameFormat("editEvents[{$i}][%s]");
+      ++$i; ?>
 
       <tr class="date <?php echo 0 == ++$i % 2 ? 'even' : 'odd'; ?>">
         <td>

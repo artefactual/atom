@@ -53,3 +53,11 @@
 </table>
 
 <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
+
+<?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
+  <section class="actions">
+    <ul>
+      <li><?php echo link_to(__('Add new'), ['module' => 'user', 'action' => 'add'], ['class' => 'c-btn']); ?></li>
+    </ul>
+  </div>
+<?php } ?>

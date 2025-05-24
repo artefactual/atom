@@ -21,17 +21,19 @@ class sfBrowser extends sfBrowserBase
   protected
     $listeners        = array(),
     $context          = null,
-    $currentException = null;
+    $currentException = null,
+    $rawConfiguration = array();
 
   /**
    * Calls a request to a uri.
    */
   protected function doCall()
   {
+    // Before getContext, it can trigger some
+    sfConfig::set('sf_test', true);
+
     // recycle our context object
     $this->context = $this->getContext(true);
-
-    sfConfig::set('sf_test', true);
 
     // we register a fake rendering filter
     sfConfig::set('sf_rendering_filter', array('sfFakeRenderingFilter', null));

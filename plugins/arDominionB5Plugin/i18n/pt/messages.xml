@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2024-05-17T02:59:17Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2025-05-06T21:03:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Forneça um código de referência local específico, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível de descrição:&lt;/strong&gt; Registre o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Forneça um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e as convenções nacionais.</target>
+        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Fornecer um código de referência local específico, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível de descrição:&lt;/strong&gt; Registe o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Fornecer um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e as convenções nacionais.</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target>Forneça informações sobre as condições, como direitos autorais, que regulam a reprodução da unidade de descrição após o acesso ter sido facultado. Se a existência de tais condições for desconhecida, registre isso. Se não houver restrições, nenhuma declaração é necessária. (ISAD 3.4.2)</target>
+        <target>Forneça informações sobre as condições, como direitos de autor, que regulam a reprodução da unidade de descrição após o acesso ter sido facultado. Se a existência de tais condições for desconhecida, registe isso. Se não houver restrições, nenhuma declaração é necessária. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Conditions governing reproduction</source>
@@ -310,7 +310,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target>Registre o(s) tipo(s) de escrita dos materiais que compõem a unidade de descrição. (ISAD 3.4.3)</target>
+        <target>Registar o(s) idioma(s) e/ou escritas dos documentos incluídos na unidade de descrição. Especificar qualquer tipo de alfabeto, escrita, sistema de símbolos ouabreviaturas utilizados. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Scripts of the material</source>
@@ -2168,10 +2168,6 @@
         <source>Total space available for uploads</source>
         <target>Espaço total disponível para a realização de uploads</target>
       </trans-unit>
-      <trans-unit id="570">
-        <source>%1% upload limits</source>
-        <target>Limites de upload para %1%</target>
-      </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
         <target>Limite de upload padrão para %1% (em GB)</target>
@@ -3466,7 +3462,7 @@
       </trans-unit>
       <trans-unit id="906">
         <source>Search hierarchy</source>
-        <target>Hierarquia de busca</target>
+        <target>Busca hierárquica</target>
       </trans-unit>
       <trans-unit id="907">
         <source>Add new child levels</source>
@@ -4444,10 +4440,6 @@
         <source>Upload is disabled</source>
         <target>A realização de uploads está desabilitada</target>
       </trans-unit>
-      <trans-unit id="1155">
-        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
-        <target>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; de &lt;em&gt;Ilimitado&lt;/em&gt;;</target>
-      </trans-unit>
       <trans-unit id="1156">
         <source>Edit upload limit</source>
         <target>Editar limite de upload</target>
@@ -4797,7 +4789,7 @@
         <target>Número de ingresso</target>
       </trans-unit>
       <trans-unit id="1248">
-        <source>Server error while checking identifer availability.</source>
+        <source>Server error while checking identifier availability.</source>
         <target>Erro do servidor ao verificar a disponibilidade do identificador.</target>
       </trans-unit>
       <trans-unit id="1249">
@@ -5277,7 +5269,7 @@
         <target>Um slug baseado neste nome já existe. Logo, um número foi adicionado para adequar o slug.</target>
       </trans-unit>
       <trans-unit id="1374">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
         <target>Use esses dois campos para adicionar níveis mais baixos de uma descrição em nível de coleção. Clique em Adicionar para adicionar novos níveis como muitas crianças, se necessário. Identificador: digite um número único padrão ou código que identifica o recurso distintamente. Título: Introduza uma palavra, frase, caractere, ou grupo de caracteres, normalmente aparecendo como um recurso, de que os nomes ou o trabalho nele contidos.</target>
       </trans-unit>
       <trans-unit id="1375">
@@ -5290,11 +5282,11 @@
       </trans-unit>
       <trans-unit id="1377">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target>Para buscar um termo existente na taxonomia de Lugares, digite os primeiros caracteres do termo. De forma alternativa, digite um novo termo para criar e vincular a um novo termo de lugar.</target>
+        <target>Procure um termo existente na taxonomia de Lugares introduzindo os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respetiva ligação.</target>
       </trans-unit>
       <trans-unit id="1378">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>"Escolha o autor, proveniência e outros pontos de acesso que não sejam assuntos da descrição arquivística, conforme o caso. Todos os pontos de acesso devem ser evidentes a partir da descrição arquivística a que se referem." (RAD 21.0B) Os valores deste campo são retirados da forma autorizada de nome no campo de registros de autoridade. Busque por um nome existente, digitando os primeiros caracteres do nome. De forma alternativa, digite um novo nome para criar e vincular a um novo registro de autoridade.</target>
+        <target>"Escolher autor, proveniência e outros pontos de acesso que não sejam assuntos da descrição arquivística, conforme o caso. Todos os pontos de acesso devem ser evidentes a partir da descrição arquivística a que se referem." (RAD 21.0B) Os valores deste campo são retirados a forma autorizada do nome no campo de registos de autoridade. Pesquisar um nome existente, digitando os primeiros caracteres do nome. Alternativamente, digite um novo nome para criar e ligar a um novo registo autoridade.</target>
       </trans-unit>
       <trans-unit id="1379">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
@@ -5314,7 +5306,7 @@
       </trans-unit>
       <trans-unit id="1383">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target>Para criar um relacionamento entre esta descrição e outra existente no AtoM, digite o nome da descrição relacionada e selecione-a no menu suspenso de sugestões quando o mesmo aparecer abaixo. Vários relacionamentos podem ser criados.</target>
+        <target>Para criar uma relação entre esta descrição e outra existente no AtoM, comece por escrever o nome da descrição relacionada e selecione-a na lista de menu quando surgir. Várias relações podem ser criadas.</target>
       </trans-unit>
       <trans-unit id="1384">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
@@ -5326,7 +5318,7 @@
       </trans-unit>
       <trans-unit id="1386">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target>Elemento obrigatório para este recurso ou um de seus níveis de descrição superiores (caso seja parte de uma coleção hierárquica).</target>
+        <target>É um elemento obrigatório para este recurso ou um de seus níveis descritivos mais elevados (se parte de uma hierarquia de coleção).</target>
       </trans-unit>
       <trans-unit id="1387">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
@@ -5395,10 +5387,6 @@
       <trans-unit id="1403">
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
         <target>Quando habilitado, um medidor de "Limites de upload" é exibido para usuários autenticados na página de visualização de %1%, e os administradores podem limitar o espaço em disco permitido para o upload de %2% para cada %1%</target>
-      </trans-unit>
-      <trans-unit id="1404">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
-        <target>Limite de uploads de %1% padrão para um(a) novo(a) %2%. O valor "0" (zero) desabilita o upload de arquivos. O valor "-1" permite uploads ilimitados</target>
       </trans-unit>
       <trans-unit id="1405">
         <source>Diacritics settings</source>
@@ -5530,6 +5518,22 @@
       </trans-unit>
       <trans-unit id="1437">
         <source>Log in with SSO</source>
+        <target>Conectar usando SSO</target>
+      </trans-unit>
+      <trans-unit id="1438">
+        <source>Load and view</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1439">
+        <source>%1% upload limits meter display</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1440">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1441">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
         <target/>
       </trans-unit>
     </body>

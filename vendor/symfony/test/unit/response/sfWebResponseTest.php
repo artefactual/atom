@@ -3,7 +3,7 @@
 /*
  * This file is part of the symfony package.
  * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -132,7 +132,7 @@ $t->is($response->getContentType(), $response->getHttpHeader('content-type'), '-
 
 $response->setContentType('text/xml');
 $response->setContentType('text/html');
-$t->is(count($response->getHttpHeader('content-type')), 1, '->setContentType() overrides previous content type if replace is true');
+$t->is($response->getHttpHeader('content-type'), 'text/html; charset=ISO-8859-1', '->setContentType() overrides previous content type if replace is true');
 
 // ->getTitle() ->setTitle()
 $t->diag('->getTitle() ->setTitle()');

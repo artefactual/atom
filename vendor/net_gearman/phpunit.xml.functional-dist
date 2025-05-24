@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./tests/bootstrap.php" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory>./Net</directory>
+    </include>
+  </coverage>
+  <php>
+    <const name="NET_GEARMAN_TEST_SERVER" value="localhost:4730"/>
+  </php>
+  <testsuites>
+    <testsuite name="Main">
+      <directory suffix="Test.php">./tests</directory>
+    </testsuite>
+  </testsuites>
+  <groups>
+    <include>
+      <group>functional</group>
+    </include>
+  </groups>
+</phpunit>

@@ -60,27 +60,27 @@ foreach ($filePaths as $filePath) {
 }
 
 $snifferExceptions = [
-    //'\.yml$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/config\/config\.php$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/config\/tidy\.conf$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/lib\/helper\/mySubmitTagHelper\.php$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/modules\/[^\/]+\/templates\/[^\/.]+\.php$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/templates\/[^\/.]+\.php$',
+    // '\.yml$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/config\/config\.php$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/config\/tidy\.conf$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/lib\/helper\/mySubmitTagHelper\.php$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/modules\/[^\/]+\/templates\/[^\/.]+\.php$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/apps\/qubit\/templates\/[^\/.]+\.php$',
     preg_quote(SF_ROOT_DIR, '/').'\/batch\/[^\/.]+\.php$',
     preg_quote(SF_ROOT_DIR, '/').'\/config\/[^\/.]+\.[^\/]+$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/COPYRIGHT$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/data',
+    // preg_quote(SF_ROOT_DIR, '/').'\/COPYRIGHT$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/data',
     preg_quote(SF_ROOT_DIR, '/').'\/lib\/GoogleMapAPI',
     preg_quote(SF_ROOT_DIR, '/').'\/lib\/model\/map\/[^\/.]+\.php$',
     preg_quote(SF_ROOT_DIR, '/').'\/lib\/model\/om\/[^\/.]+\.php$',
     preg_quote(SF_ROOT_DIR, '/').'\/lib\/PHP',
-    //preg_quote(SF_ROOT_DIR, '/').'\/LICENSE$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/README$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/LICENSE$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/README$',
     preg_quote(SF_ROOT_DIR, '/').'\/symfony$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/test\/archival_description\/[^\/.]+\.php$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/test\/archival_description\/[^\/.]+\.php$',
     preg_quote(SF_ROOT_DIR, '/').'\/test\/bootstrap\/[^\/.]+\.php$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/test\/functional\/qubit\/[^\/.]+\.php$',
-    //preg_quote(SF_ROOT_DIR, '/').'\/web')).'/';
+    // preg_quote(SF_ROOT_DIR, '/').'\/test\/functional\/qubit\/[^\/.]+\.php$',
+    // preg_quote(SF_ROOT_DIR, '/').'\/web')).'/';
 ];
 
 function _readDir($dirPath, &$filePaths)

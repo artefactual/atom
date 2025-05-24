@@ -9,7 +9,8 @@
 
   <title type="text">ERROR</title>
 
-  <updated><?php $dt = new DateTime(); echo $dt->format('c'); ?></updated>
+  <updated><?php $dt = new DateTime();
+  echo $dt->format('c'); ?></updated>
 
   <generator uri="<?php echo url_for('@homepage', true); ?>" version="<?php echo qubitConfiguration::VERSION; ?>">Qubit <?php echo qubitConfiguration::VERSION; ?></generator>
 

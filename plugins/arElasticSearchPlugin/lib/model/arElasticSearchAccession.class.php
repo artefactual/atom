@@ -177,6 +177,23 @@ class arElasticSearchAccession extends arElasticSearchModelBase
             $serialized['creators'][] = $creators;
         }
 
+        $propertyTermMapping = [
+            'acquisition_type_id' => 'acquisitionType',
+            'processing_priority_id' => 'processingPriority',
+            'processing_status_id' => 'processingStatus',
+            'resource_type_id' => 'resourceType',
+        ];
+
+        // Serialize linked terms
+        foreach ($propertyTermMapping as $property => $serializedName) {
+            if (empty($data[$property])) {
+                continue;
+            }
+
+            $node = new arElasticSearchTermPdo($data[$property]);
+            $serialized[$serializedName] = $node->serialize();
+        }
+
         $serialized['accessionEvents'] = self::getAccessionEvents($id);
 
         return $serialized;

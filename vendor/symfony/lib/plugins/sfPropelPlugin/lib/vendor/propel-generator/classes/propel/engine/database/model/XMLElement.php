@@ -19,8 +19,6 @@
  * <http://propel.phpdb.org>.
  */
 
-include_once 'propel/engine/database/model/VendorInfo.php';
-
 /**
  * An abstract class for elements represented by XML tags (e.g. Column, Table).
  *

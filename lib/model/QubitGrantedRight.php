@@ -77,8 +77,8 @@ class QubitGrantedRight extends BaseGrantedRight
     /**
      * Get all the granted rights for a particular information object.
      *
-     * @param $id  The information object ID
-     * @param $actId  The optional ID for the act type (gets all types by default)
+     * @param $id    The information object ID
+     * @param $actId The optional ID for the act type (gets all types by default)
      *
      * @return array An array of QubitGrantedRight objects
      */

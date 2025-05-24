@@ -102,11 +102,7 @@ class QubitPhysicalObject
         return $results;
     }
 
-    public function addInfobjRelations(array $infobjIds = null)
-    {
-    }
+    public function addInfobjRelations(?array $infobjIds = null) {}
 
-    public function updateInfobjRelations(array $infobjIds = null)
-    {
-    }
+    public function updateInfobjRelations(?array $infobjIds = null) {}
 }

@@ -37,7 +37,7 @@
     foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
         $resources[] = link_to(render_title($item), [$item, 'module' => 'informationobject']);
     }
-    echo render_show(__('Related resources'), $resources, ['valueClass' => 'field']);
+    echo render_show(__('Related resources'), $resources, ['valueClass' => 'field', 'renderAsIs' => true]);
 ?>
 
 <?php

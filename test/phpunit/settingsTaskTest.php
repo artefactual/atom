@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \settingsTask
  */
 class settingsTaskTest extends \PHPUnit\Framework\TestCase
@@ -30,19 +31,19 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         // Add test settings
         $setting = new $this->ormClasses['setting']();
         $setting->name = 'siteTitle';
-        $setting->setValue('My Site');
+        $setting->setValue('My Site', ['culture' => 'en']);
         $setting->save();
 
         $setting = new $this->ormClasses['setting']();
         $setting->name = 'informationobject';
         $setting->scope = 'ui_label';
-        $setting->setValue('Archival description');
+        $setting->setValue('Archival description', ['culture' => 'en']);
         $setting->save();
 
         $setting = new $this->ormClasses['setting']();
         $setting->name = 'informationobject';
         $setting->scope = 'bad_scope';
-        $setting->setValue('Bad Scope Setting Value');
+        $setting->setValue('Bad Scope Setting Value', ['culture' => 'en']);
         $setting->save();
 
         $setting = new $this->ormClasses['setting']();
@@ -64,6 +65,21 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         $file = $this->vfs->getChild('root/unreadable.txt');
         $file->chmod('0400');
         $file->chown(vfsStream::OWNER_USER_1);
+    }
+
+    // Tests
+
+    /**
+     * @dataProvider getSettingValueProvider
+     *
+     * @param mixed $params
+     * @param mixed $expected
+     */
+    public function testGetSettingValue($params, $expected): void
+    {
+        $value = $this->task->getSettingValue($params['name'], ['culture' => 'en']);
+
+        $this->assertSame($value, $expected['value']);
     }
 
     // Data providers
@@ -98,6 +114,21 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @dataProvider setSettingValueProvider
+     *
+     * @param mixed $params
+     * @param mixed $expected
+     */
+    public function testSetSettingValue($params, $expected): void
+    {
+        $this->task->setSettingValue($params['name'], $params['value'], ['culture' => 'en']);
+
+        $setting = $this->task->getSetting($params['name'], $params['options']);
+
+        $this->assertSame($setting->getValue(), $expected['value']);
+    }
+
     public function setSettingValueProvider(): array
     {
         $inputs = [
@@ -129,36 +160,6 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    // Tests
-
-    /**
-     * @dataProvider getSettingValueProvider
-     *
-     * @param mixed $params
-     * @param mixed $expected
-     */
-    public function testGetSettingValue($params, $expected): void
-    {
-        $value = $this->task->getSettingValue($params['name'], $params['options']);
-
-        $this->assertSame($value, $expected['value']);
-    }
-
-    /**
-     * @dataProvider setSettingValueProvider
-     *
-     * @param mixed $params
-     * @param mixed $expected
-     */
-    public function testSetSettingValue($params, $expected): void
-    {
-        $this->task->setSettingValue($params['name'], $params['value'], $params['options']);
-
-        $setting = $this->task->getSetting($params['name'], $params['options']);
-
-        $this->assertSame($setting->getValue(), $expected['value']);
-    }
-
     public function testGetSettingValueForNonexistent(): void
     {
         $this->expectException(Exception::class);
@@ -173,7 +174,7 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Culture is invalid.');
 
         $arguments = ['operation' => 'get', 'name' => 'setting name'];
-        $this->task->validateOptions($arguments, []);
+        $this->task->validateOptions($arguments, ['culture' => '']);
     }
 
     public function testValidateOptionsBadCulture(): void
@@ -266,7 +267,7 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
 
     public function testSettingGetOperationValue(): void
     {
-        $value = $this->task->getOperation('siteTitle', []);
+        $value = $this->task->getOperation('siteTitle', ['culture' => 'en']);
 
         $this->assertSame($value, 'My Site');
     }
@@ -275,7 +276,7 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
     {
         $toFilePath = $this->vfs->url().'/setting.txt';
 
-        $options = ['file' => $toFilePath];
+        $options = ['file' => $toFilePath, 'culture' => 'en'];
         $this->task->getOperation('siteTitle', $options);
 
         $toFileContents = file_get_contents($toFilePath);
@@ -284,18 +285,18 @@ class settingsTaskTest extends \PHPUnit\Framework\TestCase
 
     public function testSettingSetOperationValue(): void
     {
-        $this->task->setOperation('siteTitle', 'Another Title', []);
+        $this->task->setOperation('siteTitle', 'Another Title', ['culture' => 'en']);
 
-        $updatedValue = $this->task->getSettingValue('siteTitle', []);
+        $updatedValue = $this->task->getSettingValue('siteTitle', ['culture' => 'en']);
         $this->assertSame($updatedValue, 'Another Title');
     }
 
     public function testSettingSetOperationFile(): void
     {
-        $options = ['file' => $this->vfs->url().'/title.txt'];
+        $options = ['file' => $this->vfs->url().'/title.txt', 'culture' => 'en'];
         $this->task->setOperation('siteTitle', null, $options);
 
-        $updatedValue = $this->task->getSettingValue('siteTitle', []);
+        $updatedValue = $this->task->getSettingValue('siteTitle', ['culture' => 'en']);
         $this->assertSame($updatedValue, 'My New Site');
     }
 

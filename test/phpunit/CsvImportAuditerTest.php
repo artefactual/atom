@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvImportAuditer
  */
 class CsvImportAuditerTest extends \PHPUnit\Framework\TestCase
@@ -53,88 +54,6 @@ class CsvImportAuditerTest extends \PHPUnit\Framework\TestCase
             explode(',', $this->csvHeader),
             str_getcsv($this->csvData[$row])
         );
-    }
-
-    // Data providers
-
-    public function setOptionsProvider(): array
-    {
-        $defaultOptions = [
-            'quiet' => false,
-            'errorLog' => null,
-            'progressFrequency' => 1,
-            'idColumnName' => 'legacyId',
-        ];
-
-        $inputs = [
-            null,
-            [],
-            [
-                'progressFrequency' => 2,
-            ],
-        ];
-
-        $outputs = [
-            $defaultOptions,
-            $defaultOptions,
-            [
-                'quiet' => false,
-                'errorLog' => null,
-                'progressFrequency' => 2,
-                'idColumnName' => 'legacyId',
-            ],
-        ];
-
-        return [
-            [$inputs[0], $outputs[0]],
-            [$inputs[1], $outputs[1]],
-            [$inputs[2], $outputs[2]],
-        ];
-    }
-
-    public function processRowProvider(): array
-    {
-        $inputs = [
-            [
-                'source' => 'test_import',
-                'row' => [
-                    'legacyId' => '123',
-                    'title' => 'Row with no issues',
-                ],
-            ],
-            [
-                'source' => 'test_import',
-                'row' => [
-                    'legacyId' => '124',
-                    'title' => 'Row with new source ID',
-                ],
-            ],
-            [
-                'source' => 'bad_source',
-                'row' => [
-                    'legacyId' => '123',
-                    'title' => 'Row with bad source name',
-                ],
-            ],
-        ];
-
-        $expectedResults = [
-            [
-                'missing' => [],
-            ],
-            [
-                'missing' => [124 => 1],
-            ],
-            [
-                'missing' => [123 => 1],
-            ],
-        ];
-
-        return [
-            [$inputs[0], $expectedResults[0]],
-            [$inputs[1], $expectedResults[1]],
-            [$inputs[2], $expectedResults[2]],
-        ];
     }
 
     // Tests
@@ -198,6 +117,43 @@ class CsvImportAuditerTest extends \PHPUnit\Framework\TestCase
         $importer = new CsvImportAuditer();
         $importer->setOptions($options);
         $this->assertSame($expected, $importer->getOptions());
+    }
+
+    // Data providers
+
+    public function setOptionsProvider(): array
+    {
+        $defaultOptions = [
+            'quiet' => false,
+            'errorLog' => null,
+            'progressFrequency' => 1,
+            'idColumnName' => 'legacyId',
+        ];
+
+        $inputs = [
+            null,
+            [],
+            [
+                'progressFrequency' => 2,
+            ],
+        ];
+
+        $outputs = [
+            $defaultOptions,
+            $defaultOptions,
+            [
+                'quiet' => false,
+                'errorLog' => null,
+                'progressFrequency' => 2,
+                'idColumnName' => 'legacyId',
+            ],
+        ];
+
+        return [
+            [$inputs[0], $outputs[0]],
+            [$inputs[1], $outputs[1]],
+            [$inputs[2], $outputs[2]],
+        ];
     }
 
     public function testSetOptionsThrowsTypeError(): void
@@ -302,6 +258,51 @@ class CsvImportAuditerTest extends \PHPUnit\Framework\TestCase
         $result = $auditer->processRow($data['row']);
 
         $this->assertSame($auditer->getMissingIds(), $expectedResult['missing']);
+    }
+
+    public function processRowProvider(): array
+    {
+        $inputs = [
+            [
+                'source' => 'test_import',
+                'row' => [
+                    'legacyId' => '123',
+                    'title' => 'Row with no issues',
+                ],
+            ],
+            [
+                'source' => 'test_import',
+                'row' => [
+                    'legacyId' => '124',
+                    'title' => 'Row with new source ID',
+                ],
+            ],
+            [
+                'source' => 'bad_source',
+                'row' => [
+                    'legacyId' => '123',
+                    'title' => 'Row with bad source name',
+                ],
+            ],
+        ];
+
+        $expectedResults = [
+            [
+                'missing' => [],
+            ],
+            [
+                'missing' => [124 => 1],
+            ],
+            [
+                'missing' => [123 => 1],
+            ],
+        ];
+
+        return [
+            [$inputs[0], $expectedResults[0]],
+            [$inputs[1], $expectedResults[1]],
+            [$inputs[2], $expectedResults[2]],
+        ];
     }
 
     public function testProcessRowThrowsExceptionIfBadLegacyIdColumn(): void

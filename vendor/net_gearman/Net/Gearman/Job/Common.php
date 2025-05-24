@@ -21,6 +21,7 @@
  * @link      http://www.danga.com/gearman/
  */
 
+
 /**
  * Base job class for all Gearman jobs
  *
@@ -54,6 +55,7 @@ abstract class Net_Gearman_Job_Common
      * Parameters for Job instantiation
      * @var array $initParams
      */
+    protected $initParams;
 
     /**
      * Constructor
@@ -64,7 +66,7 @@ abstract class Net_Gearman_Job_Common
      *
      * @return void
      */
-    public function __construct($conn, $handle, array $initParams=array())
+    public function __construct(Net_Gearman_Connection $conn, $handle, array $initParams=array())
     {
         $this->conn   = $conn;
         $this->handle = $handle;
@@ -92,7 +94,7 @@ abstract class Net_Gearman_Job_Common
      */
     public function status($numerator, $denominator)
     {
-        Net_Gearman_Connection::send($this->conn, 'work_status', array(
+        $this->conn->send('work_status', array(
             'handle' => $this->handle,
             'numerator' => $numerator,
             'denominator' => $denominator
@@ -100,12 +102,14 @@ abstract class Net_Gearman_Job_Common
     }
 
     /**
-     * Mark your job as complete with its status
+     * Mark your job as complete with its status.
      *
      * Net_Gearman communicates between the client and jobs in JSON. The main
      * benefit of this is that we can send fairly complex data types between
      * different languages. You should always pass an array as the result to
      * this function.
+     *
+     * NOTE: Your actual worker code should not call this if you are using the GearmanManager
      *
      * @param array $result Result of your job
      *
@@ -115,7 +119,7 @@ abstract class Net_Gearman_Job_Common
     public function complete(array $result)
     {
 
-        Net_Gearman_Connection::send($this->conn, 'work_complete', array(
+        $this->conn->send('work_complete', array(
             'handle' => $this->handle,
             'result' => json_encode($result)
         ));
@@ -128,12 +132,15 @@ abstract class Net_Gearman_Job_Common
      * this function and exit from your run() method. This will tell Gearman
      * (and the client by proxy) that the job has failed.
      *
+     * NOTE: Your actual worker code should not call this if you are using the GearmanManager, you should
+     * throw a Net_Gearman_Job_Exception instead.
+     *
      * @return void
      * @see Net_Gearman_Connection::send()
      */
     public function fail()
     {
-        Net_Gearman_Connection::send($this->conn, 'work_fail', array(
+        $this->conn->send('work_fail', array(
             'handle' => $this->handle
         ));
     }

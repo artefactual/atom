@@ -9,6 +9,8 @@ use org\bovigo\vfs\vfsStream;
  */
 class QubitFindingAidTest extends \PHPUnit\Framework\TestCase
 {
+    protected $vfs;
+
     public function setUp(): void
     {
         // define virtual file system

@@ -1117,7 +1117,7 @@ class QubitDigitalObject extends BaseDigitalObject
                 return $this->values['reference'];
         }
 
-        return call_user_func_array([$this, 'BaseDigitalObject::__get'], $args);
+        return call_user_func_array('BaseDigitalObject::__get', $args);
     }
 
     public function save($connection = null)
@@ -1276,7 +1276,7 @@ class QubitDigitalObject extends BaseDigitalObject
         $cleanFileName = self::sanitizeFilename($asset->getName());
 
         // If file has not extension, try to get it from asset mime type
-        if (0 == strlen(pathinfo($cleanFileName, PATHINFO_EXTENSION)) && null !== ($assetMimeType = $asset->mimeType) && 0 < strlen(($newFileExtension = array_search($assetMimeType, self::$qubitMimeTypes)))) {
+        if (0 == strlen(pathinfo($cleanFileName, PATHINFO_EXTENSION)) && null !== ($assetMimeType = $asset->mimeType) && 0 < strlen($newFileExtension = array_search($assetMimeType, self::$qubitMimeTypes))) {
             $cleanFileName .= '.'.$newFileExtension;
         }
 
@@ -1937,7 +1937,7 @@ class QubitDigitalObject extends BaseDigitalObject
      */
     public function setPageCount($connection = null)
     {
-        if ($this->canThumbnail() && self::hasImageMagick()) {
+        if ($this->canThumbnail() && sfImageMagickAdapter::isImageMagickAvailable()) {
             $filename = ($this->derivativesGeneratedFromExternalMaster($this->usageId)) ? $this->getLocalPath() : $this->getAbsolutePath();
 
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -2047,7 +2047,7 @@ class QubitDigitalObject extends BaseDigitalObject
     public function createCompoundChildren($connection = null)
     {
         // Bail out if the imagemagick library is not installed
-        if (false === self::hasImageMagick()) {
+        if (false === sfImageMagickAdapter::isImageMagickAvailable()) {
             return $this;
         }
 
@@ -2396,7 +2396,7 @@ class QubitDigitalObject extends BaseDigitalObject
             return $context->get('thumbnailAdapter');
         }
 
-        if (QubitDigitalObject::hasImageMagick()) {
+        if (sfImageMagickAdapter::isImageMagickAvailable()) {
             $adapter = 'sfImageMagickAdapter';
         } elseif (QubitDigitalObject::hasGdExtension()) {
             $adapter = 'sfGDAdapter';
@@ -2405,19 +2405,6 @@ class QubitDigitalObject extends BaseDigitalObject
         $context->set('thumbnailAdapter', $adapter);
 
         return $adapter;
-    }
-
-    /**
-     * Test if ImageMagick library is installed.
-     *
-     * @return bool true if ImageMagick is found
-     */
-    public static function hasImageMagick()
-    {
-        $command = 'convert -version';
-        exec($command, $output, $status);
-
-        return 0 < count($output) && false !== strpos($output[0], 'ImageMagick');
     }
 
     /**
@@ -2555,6 +2542,17 @@ class QubitDigitalObject extends BaseDigitalObject
         }
     }
 
+    /**
+     * Convert an audio file to mp3 using ffmpeg.
+     *
+     * Uses ffmpeg's default mp3 audio encoder (typically libmp3lame). Makes a
+     * copy of the file if it's already an mp3 file.
+     *
+     * @param string $originalPath Path to the original audio file
+     * @param string $newPath      Path to the new mp3 file
+     *
+     * @return bool true if successful, false otherwise
+     */
     public static function convertAudioToMp3($originalPath, $newPath)
     {
         // Test for FFmpeg library
@@ -2562,19 +2560,23 @@ class QubitDigitalObject extends BaseDigitalObject
             return false;
         }
 
-        $command = 'ffmpeg -y -i '.$originalPath.' '.$newPath.' 2>&1';
-        exec($command, $output, $status);
+        $format = self::readStreamInformation($originalPath);
 
-        if ($status) {
-            $error = true;
+        $formatName = $format['format_name'] ?? null;
 
-            for ($i = count($output) - 1; $i >= 0; --$i) {
-                if (strpos($output[$i], 'output buffer too small')) {
-                    $error = false;
+        $reformatFile = 'mp3' !== $formatName
+                        || 'mp3' !== strtolower(pathinfo($originalPath, PATHINFO_EXTENSION));
 
-                    break;
-                }
-            }
+        $status = null;
+        if ($reformatFile) {
+            $command = sprintf('ffmpeg -y -i %s %s 2>&1', escapeshellarg($originalPath), escapeshellarg($newPath));
+            exec($command, $output, $status);
+        } else {
+            $status = copy($originalPath, $newPath) ? 0 : 1;
+        }
+
+        if (0 !== $status && !file_exists($newPath)) {
+            return false;
         }
 
         chmod($newPath, 0644);
@@ -2663,7 +2665,125 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     /**
+     * Test if FFprobe is installed. FFprobe is typically installed with FFmpeg.
+     *
+     * @return bool true if FFprobe exists, false otherwise
+     */
+    public static function hasFfprobe()
+    {
+        $command = 'ffprobe -version 2>&1';
+        exec($command, $output, $status);
+
+        return 0 < count($output) && false !== strpos(strtolower($output[0]), 'ffprobe');
+    }
+
+    /**
+     * Get stream information for an audio or video file from ffprobe.
+     *
+     * Only reads information about the first audio stream and the first video
+     * stream.
+     *
+     * @param string $filePath path to the audio or video file
+     *
+     * @return array codec and format information for the first video and
+     *               audio streams, or an empty array if the file does not have audio or
+     *               video. The video or audio key may be missing if the file does not
+     *               have audio or video. Also contains a format_name key if the format
+     *               could be read with ffprobe.
+     */
+    public static function readStreamInformation($filePath)
+    {
+        if (!self::hasFfprobe()) {
+            return [];
+        }
+
+        $command = sprintf(
+            'ffprobe -v quiet -show_entries format=format_name -show_streams -print_format json %s 2>&1',
+            escapeshellarg($filePath)
+        );
+
+        exec($command, $output, $status);
+
+        if (0 !== $status) {
+            return [];
+        }
+
+        $ffProbeInfo = json_decode(implode($output), true);
+
+        // json decoding may fail - don't try to use the data if so
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            return [];
+        }
+
+        $format = [];
+
+        if (!empty($ffProbeInfo['format']) && !empty($ffProbeInfo['format']['format_name'])) {
+            $format['format_name'] = $ffProbeInfo['format']['format_name'];
+        }
+
+        foreach ($ffProbeInfo['streams'] as $stream) {
+            // Read only the first video and audio streams
+            if (!empty($format['video']) && !empty($format['audio'])) {
+                break;
+            }
+
+            $codecType = strtolower($stream['codec_type']);
+
+            if ('video' === $codecType && empty($format['video'])) {
+                $format['video'] = [];
+                $format['video']['codec_name'] = $stream['codec_name'];
+                $format['video']['pix_fmt'] = $stream['pix_fmt'] ?? null;
+                $format['video']['width'] = (int) $stream['width'];
+                $format['video']['height'] = (int) $stream['height'];
+            } elseif ('audio' === $codecType && empty($format['audio'])) {
+                $format['audio'] = [];
+                $format['audio']['codec_name'] = $stream['codec_name'];
+                $format['audio']['sample_rate'] = (int) $stream['sample_rate'];
+            }
+        }
+
+        return $format;
+    }
+
+    /**
+     * Check if the video file's moov atom is at the front of the file.
+     *
+     * This is used to check whether an h264 video file is fast started.
+     *
+     * @param string $filePath path to the video file
+     *
+     * @return bool true if moov atom is at the front, false otherwise or if
+     *              moov atom does not exist, which means the file is not a valid MP4 file
+     */
+    public static function isFastStarted($filePath)
+    {
+        $command = 'ffprobe -v trace '.escapeshellarg($filePath).' 2>&1';
+        exec($command, $output, $status);
+
+        if (0 !== $status) {
+            return false;
+        }
+
+        $moovFound = false;
+        foreach ($output as $line) {
+            if (false !== strpos($line, "type:'moov'")) {
+                $moovFound = true;
+            }
+            // If we find the 'mdat' atom before we find the 'moov' atom, then the 'moov' atom is not at the front
+            elseif (false !== strpos($line, "type:'mdat'")) {
+                return $moovFound;
+            }
+        }
+
+        return $moovFound;
+    }
+
+    /**
      * Create a mp4 video derivative using the FFmpeg library.
+     *
+     * If the output video file is already in the proper format, a copy of the
+     * file is made. Otherwise, a minimal ffmpeg command is constructed to do
+     * the least amount of work to convert the video to the proper format.
      *
      * @param string     $originalPath path to original video
      * @param string     $newPath      path to derivative video
@@ -2683,8 +2803,60 @@ class QubitDigitalObject extends BaseDigitalObject
             return false;
         }
 
-        $command = 'ffmpeg -y -i '.$originalPath.' -ar 44100 -c:v libx264 -pix_fmt yuv420p -c:a aac -movflags +faststart '.$newPath.' 2>&1';
-        exec($command, $output, $status);
+        // Read stream information
+        $format = self::readStreamInformation($originalPath);
+
+        $videoCodec = $format['video']['codec_name'] ?? null;
+        $pixelFormat = $format['video']['pix_fmt'] ?? null;
+        $audioCodec = $format['audio']['codec_name'] ?? null;
+        $sampleRate = $format['audio']['sample_rate'] ?? null;
+        $formatName = $format['format_name'] ?? null;
+
+        $reencodeVideo = 'h264' !== $videoCodec || 'yuv420p' !== $pixelFormat;
+        $reencodeAudio = 'aac' !== $audioCodec || 44100 !== $sampleRate;
+        $reformatFile = false === strpos($formatName, 'mp4')
+                        || 'mp4' !== strtolower(pathinfo($originalPath, PATHINFO_EXTENSION));
+
+        $needFastStart = !self::isFastStarted($originalPath);
+
+        $codecOptions = '';
+
+        // Determine the appropriate ffmpeg command
+        if ($reencodeVideo && $reencodeAudio) {
+            $codecOptions = '-c:v libx264 -pix_fmt yuv420p -c:a aac -ar 44100';
+        } elseif ($reencodeAudio) {
+            $codecOptions = '-c:v copy -c:a aac -ar 44100';
+        } elseif ($reencodeVideo) {
+            $codecOptions = '-c:v libx264 -pix_fmt yuv420p -c:a copy';
+        } elseif ($reformatFile) {
+            // All the above options also reformat the file
+            $codecOptions = '-c copy';
+        }
+
+        if ($codecOptions && $needFastStart) {
+            $codecOptions .= ' -movflags +faststart';
+        } elseif (!$codecOptions && $needFastStart) {
+            // Even if we don't need to reencode or reformat, we still need ffmpeg to faststart the file
+            $codecOptions = '-c copy -movflags +faststart';
+        }
+
+        $status = null;
+        if ($codecOptions) {
+            $command = sprintf(
+                'ffmpeg -y -i %s %s %s 2>&1',
+                escapeshellarg($originalPath),
+                $codecOptions,
+                escapeshellarg($newPath),
+            );
+            exec($command, $output, $status);
+        } else {
+            // No reencoding, reformatting, or fast-starting needed
+            $status = copy($originalPath, $newPath) ? 0 : 1;
+        }
+
+        if (0 !== $status && !file_exists($newPath)) {
+            return false;
+        }
 
         chmod($newPath, 0644);
 
@@ -2790,7 +2962,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     public static function hasPdfToText()
     {
-        exec('which pdftotext', $output, $status);
+        exec('command -v pdftotext', $output, $status);
 
         return 0 == $status && 0 < count($output);
     }
@@ -3260,9 +3432,11 @@ class QubitDigitalObject extends BaseDigitalObject
             // The 'G' modifier is available since PHP 5.1.0
             case 'g':
                 $val *= 1024;
+
                 // no break
             case 'm':
                 $val *= 1024;
+
                 // no break
             case 'k':
                 $val *= 1024;
@@ -3340,6 +3514,7 @@ class QubitDigitalObject extends BaseDigitalObject
                 return $contents;
             }
         }
+
         // Return false on failure so CLI task will log an error and continue importing.
         return false;
     }

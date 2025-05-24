@@ -46,9 +46,8 @@ class arActorExportJob extends arExportJob
 
         return QubitSearch::getInstance()
             ->index
-            ->getType('QubitActor')
-            ->createSearch($query->getQuery(false, false))
-        ;
+            ->getIndex('QubitActor')
+            ->createSearch($query->getQuery(false, false));
     }
 
     /**

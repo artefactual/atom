@@ -4,17 +4,37 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvParentValidator
  */
 class CsvParentTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $ormClasses;
+    protected $vfs;
+    protected $csvDataDupedParentId;
+    protected $csvData;
+    protected $csvDataMissingLegacyId;
+    protected $csvDataMissingParentIdLegacyId;
+    protected $csvDataParentIdColumnEmpty;
+    protected $csvHeaderMissingParentIdLegacyId;
+    protected $csvHeaderWithParentIdQubitParentSlug;
+    protected $csvHeaderDupedParentId;
+    protected $csvHeaderMissingLegacyId;
+    protected $csvHeader;
+    protected $csvHeaderMissingParentId;
+    protected $csvHeaderWithQubitParentSlug;
+    protected $csvDataMissingParentId;
+    protected $csvDataParentIdMatches;
+    protected $csvDataParentIdMatchesInKeymap;
+    protected $csvDataQubitParentSlug;
+    protected $csvDataParentIdAndQubitParentSlug;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderMissingParentId = 'legacyId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';

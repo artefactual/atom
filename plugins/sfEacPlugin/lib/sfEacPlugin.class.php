@@ -431,6 +431,7 @@ return;
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         $args = func_get_args();
@@ -438,6 +439,7 @@ return;
         return call_user_func_array([$this, '__isset'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $args = func_get_args();
@@ -445,6 +447,7 @@ return;
         return call_user_func_array([$this, '__get'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $args = func_get_args();
@@ -452,6 +455,7 @@ return;
         return call_user_func_array([$this, '__set'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $args = func_get_args();
@@ -484,7 +488,7 @@ return;
             throw new sfException($error);
         }
 
-        //$fd->find('eac:control/eac:otherRecordId');
+        // $fd->find('eac:control/eac:otherRecordId');
 
         $this->maintenanceStatus = $fd->find('eac:control/eac:maintenanceStatus')->text();
 
@@ -514,7 +518,7 @@ return;
         $this->resource->rules = $fd->find('eac:control/eac:conventionDeclaration/eac:citation')->text();
 
         // TODO <abbreviation/>, <descriptiveNote/>
-        //$fd->find('eac:control/eac:localTypeDeclaration');
+        // $fd->find('eac:control/eac:localTypeDeclaration');
 
         // TODO <date/>, <dateRange/>, <term/>
         $this->descriptionDetail = $fd->find('eac:control/eac:localControl[@localType="detailLevel"]/eac:term')->text();
@@ -561,9 +565,9 @@ return;
 
             $this->resource->otherNames[] = $item;
         }
-        //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:authorizedForm');
-        //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:alternativeForm');
-        //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:preferredForm');
+        // $fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:authorizedForm');
+        // $fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:alternativeForm');
+        // $fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:preferredForm');
 
         // TODO eac:cpfDescription/eac:identity/eac:descriptiveNote
 
@@ -576,14 +580,14 @@ return;
 
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
         // <placeEntry/>, <term/>
-        //$fd->find('eac:cpfDescription/eac:description/eac:localDescription');
-        //$fd->find('eac:cpfDescription/eac:description/eac:localDescriptions');
+        // $fd->find('eac:cpfDescription/eac:description/eac:localDescription');
+        // $fd->find('eac:cpfDescription/eac:description/eac:localDescriptions');
 
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
         // <placeEntry/>
         $this->resource->legalStatus = $fd->find('eac:cpfDescription/eac:description/eac:legalStatus/eac:term|eac:cpfDescription/eac:description/eac:legalStatuses/eac:legalStatus/eac:term')->text();
 
-        //$fd->find('eac:cpfDescription/eac:description/eac:languageUsed');
+        // $fd->find('eac:cpfDescription/eac:description/eac:languageUsed');
 
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
         // <placeEntry/>
@@ -984,7 +988,7 @@ str;
      * It was either this or a massive conditional statement like:
      * (isset($a) && $a) || (isset($b) && $b) || ...).
      *
-     * @param $resource  The actor we're getting information from
+     * @param $resource The actor we're getting information from
      *
      * @return bool True if there are one or more description elements, false otherwise
      */
@@ -1012,8 +1016,7 @@ str;
             ->find('eac:list/eac:item')
             ->replaceWith(function ($node) {
                 return '* '.$node->textContent;
-            })
-        ;
+            });
 
         return $value->text();
     }

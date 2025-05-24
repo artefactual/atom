@@ -482,8 +482,8 @@ class arElasticSearchPluginUtil
                 // Get string fields included in _all
                 elseif (
                     (
-                        !isset($propertyProperties['include_in_all'])
-                        || $propertyProperties['include_in_all']
+                        isset($propertyProperties['copy_to'])
+                        && ('_all' == $propertyProperties['copy_to'])
                     ) && (
                         isset($propertyProperties['type'])
                         && 'text' == $propertyProperties['type']

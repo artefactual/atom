@@ -19,7 +19,5 @@
 
 class AdminError404Action extends sfAction
 {
-    public function execute($request)
-    {
-    }
+    public function execute($request) {}
 }

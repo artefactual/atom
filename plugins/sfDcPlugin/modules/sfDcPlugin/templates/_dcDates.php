@@ -17,7 +17,8 @@
       </tr>
     </thead><tbody>
 
-      <?php $i = 0; foreach ($resource->getDates() as $item) { ?>
+      <?php $i = 0;
+      foreach ($resource->getDates() as $item) { ?>
 
         <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]"); ?>
 

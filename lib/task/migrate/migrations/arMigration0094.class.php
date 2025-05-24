@@ -69,8 +69,7 @@ class arMigration0094
                 'dc' => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
                 'mods' => 'MODS, Version 3.3. U.S. Library of Congress',
                 'rad' => 'RAD, July 2008 version. Canadian Council of Archives',
-            ]
-            as $key => $value
+            ] as $key => $value
         ) {
             $term = new QubitTerm();
             $term->parentId = QubitTerm::ROOT_ID;

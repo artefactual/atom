@@ -20,7 +20,9 @@ abstract class sfBaseTask extends sfCommandApplicationTask
 {
   protected
     $configuration = null,
-    $pluginManager = null;
+    $pluginManager = null,
+    $filesystem    = null,
+    $tokens        = array();
 
   /**
    * @see sfTask

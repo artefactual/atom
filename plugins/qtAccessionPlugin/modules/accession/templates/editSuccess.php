@@ -38,7 +38,7 @@
             ->label(__('Accession number'))
             ->renderRow(); ?>
 
-        <div id="identifier-check-server-error" class="alert alert-danger hidden"><?php echo __('Server error while checking identifer availability.'); ?></div>
+        <div id="identifier-check-server-error" class="alert alert-danger hidden"><?php echo __('Server error while checking identifier availability.'); ?></div>
 
         <?php echo get_partial('informationobject/identifierOptions', ['hideGenerateButton' => true]); ?>
         <?php echo get_component('accession', 'alternativeIdentifiers', ['resource' => $resource]); ?>

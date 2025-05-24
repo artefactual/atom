@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2024-05-17T02:58:54Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-05-06T21:03:07Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -293,7 +293,7 @@
         <target>Пристапниот/инвентарниот број треба да биде комбинација од вредности запишани во полето и треба да биде единствен инвентарен број за депото (Регистар на фондови/збирки)</target>
       </trans-unit>
       <trans-unit id="74">
-        <source>Server error while checking identifer availability.</source>
+        <source>Server error while checking identifier availability.</source>
         <target>Грешка на серверот при проверка на достапноста на идентификаторот/сигнатурата.</target>
       </trans-unit>
       <trans-unit id="75">
@@ -569,7 +569,7 @@
         <target>&lt;strong&gt;Тип:&lt;/strong&gt; Внесете име за поле на алтернативен идентификатор што ја означува неговата намена и употреба.&lt;br/&gt;&lt;strong&gt;Идентификатор:&lt;/strong&gt; Внесете ја старата сигнатура, алтернативен идентификатор или било која друга алфа-нумеричка низа поврзана со записот.</target>
       </trans-unit>
       <trans-unit id="141">
-        <source>This identifer is already in use.</source>
+        <source>This identifier is already in use.</source>
         <target>Овој идентификатор веќе се користи.</target>
       </trans-unit>
       <trans-unit id="142">

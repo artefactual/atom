@@ -48,7 +48,7 @@ class SearchIndexAction extends DefaultBrowseAction
         QubitAclSearch::filterDrafts($this->search->queryBool);
         $this->search->query->setQuery($this->search->queryBool);
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
+        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->search->query);
 
         $total = $resultSet->getTotalHits();
         if (1 > $total) {

@@ -10,6 +10,12 @@
       <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'user', 'action' => 'delete'], ['class' => 'c-btn c-btn-delete']); ?></li>
     <?php } ?>
     
+    <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
+      <?php if (QubitAcl::check($resource, 'create')) { ?>
+        <li><?php echo link_to(__('Add new'), ['module' => 'user', 'action' => 'add'], ['class' => 'c-btn']); ?></li>
+      <?php } ?>
+    <?php } ?>
+
     <?php if (QubitAcl::check($resource, 'list')) { ?>
       <li><?php echo link_to(__('Return to user list'), ['module' => 'user', 'action' => 'list'], ['class' => 'c-btn']); ?></li>
     <?php } ?>

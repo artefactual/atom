@@ -40,7 +40,7 @@ class QubitNote extends BaseNote
             return QubitPdo::fetchColumn($sql, [$this->typeId, $this->id, $this->sourceCulture]);
         }
 
-        return call_user_func_array([$this, 'BaseNote::__get'], $args);
+        return call_user_func_array('BaseNote::__get', $args);
     }
 
     public function __toString()

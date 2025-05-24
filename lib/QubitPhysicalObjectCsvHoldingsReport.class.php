@@ -41,6 +41,8 @@ class QubitPhysicalObjectCsvHoldingsReport
     ];
     protected $ormClasses;
     protected $typeMap;
+    protected $holdingType;
+    protected $suppressEmpty;
 
     // Default options
     protected $options = [
@@ -68,7 +70,7 @@ class QubitPhysicalObjectCsvHoldingsReport
         ]);
     }
 
-    public function setOptions(array $options = null)
+    public function setOptions(?array $options = null)
     {
         if (empty($options)) {
             return;

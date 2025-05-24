@@ -70,6 +70,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
                 $order = 'asc';
 
                 break;
+
             // I don't think that this is going to scale, but let's leave it for now
             case 'alphabetic':
                 $field = sprintf('i18n.%s.title.alphasort', sfContext::getInstance()->user->getCulture());
@@ -96,7 +97,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
         $this->search->query->setSort([$field => $order]);
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
+        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->search->getQuery(false, true));
 
         // Build array from results
         $results = $lodMapping = [];

@@ -158,6 +158,7 @@ class sfModsPlugin implements ArrayAccess
         return $string;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         $args = func_get_args();
@@ -226,6 +227,7 @@ class sfModsPlugin implements ArrayAccess
         return QubitRights::getOne($criteria);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $args = func_get_args();
@@ -233,6 +235,7 @@ class sfModsPlugin implements ArrayAccess
         return call_user_func_array([$this, '__get'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $args = func_get_args();
@@ -240,6 +243,7 @@ class sfModsPlugin implements ArrayAccess
         return call_user_func_array([$this, '__set'], $args);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $args = func_get_args();

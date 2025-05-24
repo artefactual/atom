@@ -76,9 +76,11 @@ class DigitalObjectShowComponent extends sfComponent
     {
         switch ($this->usageType) {
             case QubitTerm::REFERENCE_ID:
+                // Use the parent resource (IO or Actor) for Acl check
                 return !QubitAcl::check($this->resource->object, 'readReference');
 
             case QubitTerm::THUMBNAIL_ID:
+                // Use the parent resource (IO or Actor) for Acl check
                 return !QubitAcl::check($this->resource->object, 'readThumbnail');
         }
     }

@@ -69,7 +69,7 @@ class CsvImportValidator
     ];
 
     public function __construct(
-        sfContext $context = null,
+        ?sfContext $context = null,
         $dbcon = null,
         $options = []
     ) {
@@ -213,7 +213,7 @@ class CsvImportValidator
         return $this->validatorCollection;
     }
 
-    public function setOptions(array $options = null)
+    public function setOptions(?array $options = null)
     {
         if (empty($options)) {
             return;

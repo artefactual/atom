@@ -223,7 +223,7 @@ function getNameIdArrayFromTable(&$self, $tableName, $keyColumn, $idColumn, $whe
     if (!$statement) {
         echo 'DB error';
 
-        exit();
+        exit;
     }
 
     while ($subject = $statement->fetch(PDO::FETCH_OBJ)) {

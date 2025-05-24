@@ -29,7 +29,8 @@ abstract class sfCommandApplication
     $currentTask    = null,
     $dispatcher     = null,
     $options        = array(),
-    $formatter      = null;
+    $formatter      = null,
+    $commandOptions = null;
 
   /**
    * Constructor.

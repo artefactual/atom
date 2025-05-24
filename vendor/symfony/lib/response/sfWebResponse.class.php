@@ -312,7 +312,7 @@ class sfWebResponse extends sfResponse
   /**
    * Gets response content type.
    *
-   * @return array
+   * @return string
    */
   public function getContentType()
   {
@@ -365,7 +365,8 @@ class sfWebResponse extends sfResponse
     // cookies
     foreach ($this->cookies as $cookie)
     {
-      setrawcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httpOnly']);
+      $expire = isset($cookie['expire']) ? $cookie['expire'] : 0;
+      setrawcookie($cookie['name'], $cookie['value'], $expire, $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httpOnly']);
 
       if ($this->options['logging'])
       {
@@ -822,7 +823,7 @@ class sfWebResponse extends sfResponse
    */
   public function serialize()
   {
-    return serialize(array($this->content, $this->statusCode, $this->statusText, $this->options, $this->headerOnly, $this->headers, $this->metas, $this->httpMetas, $this->stylesheets, $this->javascripts, $this->slots));
+    return serialize($this->__serialize());
   }
 
   /**
@@ -830,7 +831,25 @@ class sfWebResponse extends sfResponse
    */
   public function unserialize($serialized)
   {
-    list($this->content, $this->statusCode, $this->statusText, $this->options, $this->headerOnly, $this->headers, $this->metas, $this->httpMetas, $this->stylesheets, $this->javascripts, $this->slots) = unserialize($serialized);
+    $this->__unserialize(unserialize($serialized));
+  }
+
+  /**
+   * @see sfResponse
+   * @return array
+   */
+  public function __serialize()
+  {
+    return array($this->content, $this->statusCode, $this->statusText, $this->options, $this->headerOnly, $this->headers, $this->metas, $this->httpMetas, $this->stylesheets, $this->javascripts, $this->slots);
+  }
+
+  /**
+   * @see sfResponse
+   * @param array $data
+   */
+  public function __unserialize($data)
+  {
+    list($this->content, $this->statusCode, $this->statusText, $this->options, $this->headerOnly, $this->headers, $this->metas, $this->httpMetas, $this->stylesheets, $this->javascripts, $this->slots) = $data;
   }
 
   /**

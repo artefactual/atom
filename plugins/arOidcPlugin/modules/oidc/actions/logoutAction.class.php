@@ -21,7 +21,7 @@ class OidcLogoutAction extends sfAction
 {
     public function execute($request)
     {
-        $this->getUser()->logout();
+        $this->getUser()->logout($this->getUser()->getProviderConfigValue('send_oidc_logout', false));
         $this->redirect('@homepage');
     }
 }

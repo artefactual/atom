@@ -49,7 +49,7 @@ class TermTreeViewAction extends sfAction
                     array_pop($nextItems);
                 }
 
-                //Merge siblings and self
+                // Merge siblings and self
                 $this->items = array_merge($prevItems, [$this->resource], $nextItems);
 
                 break;

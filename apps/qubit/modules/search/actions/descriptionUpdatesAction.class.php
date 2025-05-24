@@ -187,7 +187,7 @@ class SearchDescriptionUpdatesAction extends sfAction
         $query->setFrom($limit * ($page - 1));
         $query->setSort(['createdAt' => 'desc']);
 
-        $resultSet = QubitSearch::getInstance()->index->getType($this->form->getValue('className'))->search($query);
+        $resultSet = QubitSearch::getInstance()->index->getIndex($this->form->getValue('className'))->search($query);
 
         // Page results
         $this->pager = new QubitSearchPager($resultSet);

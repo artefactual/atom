@@ -14,11 +14,11 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Net_Gearman
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 
 /**
@@ -27,10 +27,10 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   Release: @package_version@
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  * @see       Net_Gearman_Set, Net_Gearman_Client
  */
 class Net_Gearman_Task
@@ -73,6 +73,15 @@ class Net_Gearman_Task
      * @see Net_Gearman_Client
      */
     public $handle = '';
+
+    /**
+     * List of servers this task can run on. If not set, the servers the client
+     * has will be used. This is for cases where different tasks all in one
+     * set may only be available on certain servers.
+     *
+     * @var array
+     */
+    public $servers = array();
 
     /**
      * Server used for the task
@@ -225,7 +234,7 @@ class Net_Gearman_Task
      * @throws Net_Gearman_Exception
      */
     public function __construct($func, $arg, $uniq = null,
-                                $type = self::JOB_NORMAL)
+                                $type = self::JOB_NORMAL, array $servers = array())
     {
         $this->func = $func;
         $this->arg  = $arg;
@@ -234,6 +243,10 @@ class Net_Gearman_Task
             $this->uniq = md5($func . serialize($arg) . $type);
         } else {
             $this->uniq = $uniq;
+        }
+
+        if(!empty($servers)){
+            $this->servers = $servers;
         }
 
         $this->type = $type;

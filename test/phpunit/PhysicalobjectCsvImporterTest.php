@@ -4,6 +4,7 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \PhysicalObjectCsvImporter
  */
 class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
@@ -14,13 +15,15 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     protected $ormClasses;
     protected $vfs;               // virtual filesystem
     protected $vdbcon;            // virtual database connection
+    protected $typeIdLookupTableFixture;
+    protected $context;
 
     // Fixtures
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
         $this->ormClasses = [
             'informationObject' => \AccessToMemory\test\mock\QubitInformationObject::class,
             'keymap' => \AccessToMemory\test\mock\QubitKeymap::class,
@@ -80,144 +83,6 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    // Data providers
-
-    public function setOptionsProvider()
-    {
-        $defaultOptions = [
-            'debug' => false,
-            'defaultCulture' => 'en',
-            'errorLog' => null,
-            'header' => null,
-            'insertNew' => true,
-            'multiValueDelimiter' => '|',
-            'onMultiMatch' => 'skip',
-            'overwriteWithEmpty' => false,
-            'partialMatches' => false,
-            'progressFrequency' => 1,
-            'quiet' => false,
-            'sourceName' => null,
-            'updateExisting' => false,
-            'updateSearchIndex' => false,
-        ];
-
-        $inputs = [
-            null,
-            [],
-            [
-                'insertNew' => false,
-                'onMultiMatch' => 'first',
-                'updateExisting' => true,
-            ],
-        ];
-
-        $outputs = [
-            $defaultOptions,
-            $defaultOptions,
-            [
-                'debug' => false,
-                'defaultCulture' => 'en',
-                'errorLog' => null,
-                'header' => null,
-                'insertNew' => false,
-                'multiValueDelimiter' => '|',
-                'onMultiMatch' => 'first',
-                'overwriteWithEmpty' => false,
-                'partialMatches' => false,
-                'progressFrequency' => 1,
-                'quiet' => false,
-                'sourceName' => null,
-                'updateExisting' => true,
-                'updateSearchIndex' => false,
-            ],
-        ];
-
-        return [
-            [$inputs[0], $outputs[0]],
-            [$inputs[1], $outputs[1]],
-            [$inputs[2], $outputs[2]],
-        ];
-    }
-
-    public function processRowProvider()
-    {
-        $inputs = [
-            // Leading and trailing whitespace is intentional
-            [
-                'legacyId' => 'B10101 ',
-                'name' => ' DJ001',
-                'type' => 'Boîte Hollinger ',
-                'location' => ' Voûte, étagère 0074',
-                'culture' => 'fr ',
-                'descriptionSlugs' => ' test-fonds-1 | test-collection ',
-            ],
-            [
-                'legacyId' => ' ',
-                'name' => 'DJ002 ',
-                'type' => 'Folder',
-                'location' => 'Aisle 25, Shelf D',
-                // Test case insensitivity (should match 'en')
-                'culture' => 'EN',
-                // Slugs are case sensitive
-                'descriptionSlugs' => '|Mixed-Case-Fonds|no-match|',
-            ],
-            [
-                'name' => 'DJ003',
-                'location' => 'Aisle 11, Shelf J',
-            ],
-            [
-                'legacyId' => '',
-                'name' => 'DJ004',
-                'type' => '',
-                'location' => '',
-                'culture' => '',
-                'descriptionSlugs' => '',
-            ],
-        ];
-
-        $expectedResults = [
-            [
-                'legacyId' => 'B10101',
-                'name' => 'DJ001',
-                'typeId' => 1,
-                'location' => 'Voûte, étagère 0074',
-                'culture' => 'fr',
-                'informationObjectIds' => [111111, 222222],
-            ],
-            [
-                'legacyId' => null,
-                'name' => 'DJ002',
-                'typeId' => 2,
-                'location' => 'Aisle 25, Shelf D',
-                'culture' => 'en',
-                'informationObjectIds' => [333333],
-            ],
-            [
-                'legacyId' => null,
-                'name' => 'DJ003',
-                'typeId' => null,
-                'location' => 'Aisle 11, Shelf J',
-                'culture' => 'en',
-                'informationObjectIds' => [],
-            ],
-            [
-                'legacyId' => null,
-                'name' => 'DJ004',
-                'typeId' => null,
-                'location' => null,
-                'culture' => 'en',
-                'informationObjectIds' => [],
-            ],
-        ];
-
-        return [
-            [$inputs[0], $expectedResults[0]],
-            [$inputs[1], $expectedResults[1]],
-            [$inputs[2], $expectedResults[2]],
-            [$inputs[3], $expectedResults[3]],
-        ];
-    }
-
     // Tests
 
     public function testConstructorWithNoContextPassed()
@@ -225,13 +90,6 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         $importer = new PhysicalObjectCsvImporter(null, $this->vdbcon);
 
         $this->assertSame(sfContext::class, get_class($importer->context));
-    }
-
-    public function testConstructorWithNoDbconPassed()
-    {
-        $importer = new PhysicalObjectCsvImporter($this->context, null);
-
-        $this->assertSame(DebugPDO::class, get_class($importer->dbcon));
     }
 
     public function testMagicGetInvalidPropertyException()
@@ -292,6 +150,65 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
         $importer->setOptions($options);
         $this->assertSame($expected, $importer->getOptions());
+    }
+
+    // Data providers
+
+    public function setOptionsProvider()
+    {
+        $defaultOptions = [
+            'debug' => false,
+            'defaultCulture' => 'en',
+            'errorLog' => null,
+            'header' => null,
+            'insertNew' => true,
+            'multiValueDelimiter' => '|',
+            'onMultiMatch' => 'skip',
+            'overwriteWithEmpty' => false,
+            'partialMatches' => false,
+            'progressFrequency' => 1,
+            'quiet' => false,
+            'sourceName' => null,
+            'updateExisting' => false,
+            'updateSearchIndex' => false,
+        ];
+
+        $inputs = [
+            null,
+            [],
+            [
+                'insertNew' => false,
+                'onMultiMatch' => 'first',
+                'updateExisting' => true,
+            ],
+        ];
+
+        $outputs = [
+            $defaultOptions,
+            $defaultOptions,
+            [
+                'debug' => false,
+                'defaultCulture' => 'en',
+                'errorLog' => null,
+                'header' => null,
+                'insertNew' => false,
+                'multiValueDelimiter' => '|',
+                'onMultiMatch' => 'first',
+                'overwriteWithEmpty' => false,
+                'partialMatches' => false,
+                'progressFrequency' => 1,
+                'quiet' => false,
+                'sourceName' => null,
+                'updateExisting' => true,
+                'updateSearchIndex' => false,
+            ],
+        ];
+
+        return [
+            [$inputs[0], $outputs[0]],
+            [$inputs[1], $outputs[1]],
+            [$inputs[2], $outputs[2]],
+        ];
     }
 
     public function testSetOptionsThrowsTypeError()
@@ -485,6 +402,89 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedResult, $result);
     }
 
+    public function processRowProvider()
+    {
+        $inputs = [
+            // Leading and trailing whitespace is intentional
+            [
+                'legacyId' => 'B10101 ',
+                'name' => ' DJ001',
+                'type' => 'Boîte Hollinger ',
+                'location' => ' Voûte, étagère 0074',
+                'culture' => 'fr ',
+                'descriptionSlugs' => ' test-fonds-1 | test-collection ',
+            ],
+            [
+                'legacyId' => ' ',
+                'name' => 'DJ002 ',
+                'type' => 'Folder',
+                'location' => 'Aisle 25, Shelf D',
+                // Test case insensitivity (should match 'en')
+                'culture' => 'EN',
+                // Slugs are case sensitive
+                'descriptionSlugs' => '|Mixed-Case-Fonds|no-match|',
+            ],
+            [
+                'name' => 'DJ003',
+                'location' => 'Aisle 11, Shelf J',
+                'culture' => 'en',
+                'legacyId' => '',
+                'type' => '',
+                'descriptionSlugs' => '',
+            ],
+            [
+                'legacyId' => '',
+                'name' => 'DJ004',
+                'type' => '',
+                'location' => '',
+                'culture' => '',
+                'descriptionSlugs' => '',
+            ],
+        ];
+
+        $expectedResults = [
+            [
+                'legacyId' => 'B10101',
+                'name' => 'DJ001',
+                'typeId' => 1,
+                'location' => 'Voûte, étagère 0074',
+                'culture' => 'fr',
+                'informationObjectIds' => [111111, 222222],
+            ],
+            [
+                'legacyId' => null,
+                'name' => 'DJ002',
+                'typeId' => 2,
+                'location' => 'Aisle 25, Shelf D',
+                'culture' => 'en',
+                'informationObjectIds' => [333333],
+            ],
+            [
+                'legacyId' => null,
+                'name' => 'DJ003',
+                'typeId' => null,
+                'location' => 'Aisle 11, Shelf J',
+                'culture' => 'en',
+                'informationObjectIds' => [],
+            ],
+            [
+                'legacyId' => null,
+                'name' => 'DJ004',
+                'typeId' => null,
+                'location' => null,
+                'culture' => 'en',
+                'informationObjectIds' => [],
+            ],
+        ];
+
+        return [
+            [$inputs[0], $expectedResults[0]],
+            [$inputs[1], $expectedResults[1]],
+            [$inputs[2], $expectedResults[2]],
+            [$inputs[3], $expectedResults[3]],
+        ];
+    }
+
     public function testProcessRowThrowsExceptionIfNoNameOrLocation()
     {
         $this->expectException(UnexpectedValueException::class);
@@ -512,6 +512,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
             'type' => 'Spam',
             'location' => 'Camelot',
             'culture' => 'en',
+            'legacyId' => '',
+            'descriptionSlugs' => '',
         ]);
     }
 
@@ -673,8 +675,7 @@ EOM;
     {
         $stub = $this->createStub(QubitTaxonomy::class);
         $stub->method('getTermNameToIdLookupTable')
-            ->willReturn($this->typeIdLookupTableFixture)
-        ;
+            ->willReturn($this->typeIdLookupTableFixture);
 
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
         $importer->setPhysicalObjectTypeTaxonomy($stub);
@@ -689,8 +690,7 @@ EOM;
     {
         $stub = $this->createStub(QubitTaxonomy::class);
         $stub->method('getTermNameToIdLookupTable')
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
 
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
         $importer->setPhysicalObjectTypeTaxonomy($stub);

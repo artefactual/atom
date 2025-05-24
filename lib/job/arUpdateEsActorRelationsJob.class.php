@@ -101,8 +101,10 @@ class arUpdateEsActorRelationsJob extends arBaseJob
     public static function previousRelationActorIds($actorId)
     {
         try {
+            // Dummy type is needed for ES 6, this should be updated in ES 7.x when type is not required for getDocument()
+            $esType = QubitSearch::getInstance()::ES_TYPE;
             // Get actor's previously indexed relations from Elasticsearch
-            $doc = QubitSearch::getInstance()->index->getType('QubitActor')->getDocument($actorId);
+            $doc = QubitSearch::getInstance()->index->getIndex('QubitActor')->getType($esType)->getDocument($actorId);
 
             return self::uniqueIdsFromRelationData($doc->getData()['actorRelations']);
         } catch (\Elastica\Exception\NotFoundException $e) {

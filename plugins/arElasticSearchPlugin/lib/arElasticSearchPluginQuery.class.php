@@ -114,7 +114,7 @@ class arElasticSearchPluginQuery
             if ('collection' == $param) {
                 $collection = QubitInformationObject::getById($value);
 
-                $querySelf = new \Elastica\Query\Match();
+                $querySelf = new \Elastica\Query\MatchQuery();
                 $querySelf->setFieldQuery('slug', $collection->slug);
 
                 $queryBool = new \Elastica\Query\BoolQuery();

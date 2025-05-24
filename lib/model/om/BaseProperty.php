@@ -206,6 +206,7 @@ abstract class BaseProperty implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -263,7 +264,7 @@ abstract class BaseProperty implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentpropertyI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen($value = call_user_func_array(array($this->getCurrentpropertyI18n($options), '__get'), $args) ?? '') && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentpropertyI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -277,6 +278,7 @@ abstract class BaseProperty implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -333,6 +335,7 @@ abstract class BaseProperty implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -374,6 +377,7 @@ abstract class BaseProperty implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();

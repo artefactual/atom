@@ -64,8 +64,7 @@
                 echo $form->siteBaseUrl->renderLabel(
                   'Site base URL (used in MODS and EAD exports)',
                   [
-                      'title' => 'Used to create absolute URLs, pointing to ' +
-                      'resources, in XML exports',
+                      'title' => 'Used to create absolute URLs, pointing to resources, in XML exports',
                   ]
                 ); ?>
             </td>

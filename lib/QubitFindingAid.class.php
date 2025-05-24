@@ -56,7 +56,7 @@ class QubitFindingAid
         $this->setLogger($options['logger']);
 
         // Set Finding Aid home directory
-        $this->setHomeDir($options['homeDir']);
+        isset($options['homeDir']) ? $this->setHomeDir($options['homeDir']) : $this->setHomeDir(null);
     }
 
     /**

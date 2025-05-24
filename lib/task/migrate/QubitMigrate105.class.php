@@ -247,7 +247,7 @@ class QubitMigrate105 extends QubitMigrate
     protected function sortQubitTerms()
     {
         $qubitTermConstantIds = [
-            //EventType taxonomy
+            // EventType taxonomy
             'CREATION_ID',
             'SUBJECT_ID',
             'CUSTODY_ID',
@@ -255,7 +255,7 @@ class QubitMigrate105 extends QubitMigrate
             'CONTRIBUTION_ID',
             'COLLECTION_ID',
             'ACCUMULATION_ID',
-            //NoteType taxonomy
+            // NoteType taxonomy
             'TITLE_NOTE_ID',
             'PUBLICATION_NOTE_ID',
             'SOURCE_NOTE_ID',
@@ -264,34 +264,34 @@ class QubitMigrate105 extends QubitMigrate
             'ARCHIVIST_NOTE_ID',
             'GENERAL_NOTE_ID',
             'OTHER_DESCRIPTIVE_DATA_ID',
-            //CollectionType taxonomy
+            // CollectionType taxonomy
             'ARCHIVAL_MATERIAL_ID',
             'PUBLISHED_MATERIAL_ID',
             'ARTEFACT_MATERIAL_ID',
-            //ActorEntityType taxonomy
+            // ActorEntityType taxonomy
             'CORPORATE_BODY_ID',
             'PERSON_ID',
             'FAMILY_ID',
-            //OtherNameType taxonomy
+            // OtherNameType taxonomy
             'FAMILY_NAME_FIRST_NAME_ID',
-            //MediaType taxonomy
+            // MediaType taxonomy
             'AUDIO_ID',
             'IMAGE_ID',
             'TEXT_ID',
             'VIDEO_ID',
             'OTHER_ID',
-            //Digital Object Usage taxonomy
+            // Digital Object Usage taxonomy
             'MASTER_ID',
             'REFERENCE_ID',
             'THUMBNAIL_ID',
             'COMPOUND_ID',
-            //Physical Object Type taxonomy
+            // Physical Object Type taxonomy
             'LOCATION_ID',
             'CONTAINER_ID',
             'ARTEFACT_ID',
-            //Relation Type taxonomy
+            // Relation Type taxonomy
             'HAS_PHYSICAL_OBJECT_ID',
-            //Actor name type taxonomy
+            // Actor name type taxonomy
             'PARALLEL_FORM_OF_NAME_ID',
             'OTHER_FORM_OF_NAME_ID',
         ];

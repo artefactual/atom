@@ -49,6 +49,7 @@
 
       var $form = $(event.target);
       var mode = $form.find('select#mode').val();
+      var loadType = $(document.activeElement).attr("name");
 
       $.ajax({
         url: $form.attr('action'),
@@ -82,6 +83,10 @@
           this.storage.setItem('clipboard', JSON.stringify(this.items));
           this.updateCounts();
           this.showAlert(data.success, 'alert-info');
+
+          if (loadType == "loadView") {
+            window.location.href = "/clipboard/view";
+          }
         },
         error: function(xhr)
         {

@@ -10,6 +10,9 @@ security: ~
 settings:
   class: QubitSettingsFilter
 
+QubitUserChallengeFilter:
+  class: QubitUserChallengeFilter
+
 QubitLimitIp:
   class: QubitLimitIpFilter
 

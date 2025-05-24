@@ -135,7 +135,8 @@
 
         <?php echo render_show(__('Title'), link_to(render_title($item->object->getTitle(['cultureFallback' => true])), [$item->object, 'module' => 'informationobject']), ['isSubField' => true]); ?>
 
-        <?php $isad = new sfIsadPlugin($item->object); echo render_show(__('Identifier'), render_value_inline($isad->referenceCode), ['isSubField' => true]); ?>
+        <?php $isad = new sfIsadPlugin($item->object);
+        echo render_show(__('Identifier'), render_value_inline($isad->referenceCode), ['isSubField' => true]); ?>
 
         <?php if (null !== $item->description) { ?>
           <?php echo render_show(__('Nature of relationship'), render_value($item->description), ['isSubField' => true]); ?>

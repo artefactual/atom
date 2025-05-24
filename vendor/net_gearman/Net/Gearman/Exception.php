@@ -14,11 +14,11 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Net_Gearman
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 
 /**
@@ -27,12 +27,11 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
- * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.danga.com/gearman/
- * @version   Release: @package_version@
- * @see       PEAR_Exception
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 class Net_Gearman_Exception extends Exception
 {
+
 }

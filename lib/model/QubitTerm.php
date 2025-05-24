@@ -766,6 +766,7 @@ class QubitTerm extends BaseTerm
             case 'name':
                 $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
                 $criteria->addAscendingOrderByColumn('name');
+
                 // no break
             case 'lft':
             default:
@@ -895,7 +896,7 @@ class QubitTerm extends BaseTerm
         $query = new \Elastica\Query($queryBool);
         $query->setSize($limit);
 
-        return QubitSearch::getInstance()->index->getType('QubitTerm')->search($query);
+        return QubitSearch::getInstance()->index->getIndex('QubitTerm')->search($query);
     }
 
     /**

@@ -119,7 +119,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__isset'), $args);
+      return call_user_func_array('QubitObject::__isset', $args);
     }
     catch (sfException $e)
     {
@@ -178,7 +178,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__get'), $args);
+      return call_user_func_array('QubitObject::__get', $args);
     }
     catch (sfException $e)
     {
@@ -237,7 +237,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentinformationObjectI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -301,7 +301,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__set'), $args);
+    call_user_func_array('QubitObject::__set', $args);
 
     call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__set'), $args);
 
@@ -318,7 +318,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__unset'), $args);
+    call_user_func_array('QubitObject::__unset', $args);
 
     call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__unset'), $args);
 

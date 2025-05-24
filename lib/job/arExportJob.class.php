@@ -32,6 +32,10 @@ class arExportJob extends arBaseJob
     protected $zipFileDownload;
     protected $filenames = [];
     protected $itemsExported = 0;
+    protected $params;
+    protected $logger;
+    protected $job;
+    protected $i18n;
 
     public function runJob($parameters)
     {
@@ -55,7 +59,7 @@ class arExportJob extends arBaseJob
 
         $this->doExport($tempPath);
 
-        if (count($this->itemsExported) > 0) {
+        if ($this->itemsExported > 0) {
             $this->info($this->i18n->__(
                 'Exported %1 records.',
                 ['%1' => $this->itemsExported]

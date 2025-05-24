@@ -23,9 +23,9 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <section id="content" class="border-bottom-0 rounded-0 rounded-top">
+    <div class="border border-bottom-0 rounded-0 rounded-top bg-white">
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID]); ?>
-    </section>
+    </div>
 
     <div class="accordion mb-3">
       <div class="accordion-item rounded-0">
@@ -106,11 +106,11 @@
         </div>
       <?php } ?>
       <?php if (QubitTerm::VIDEO_ID == $resource->mediaTypeId || QubitTerm::AUDIO_ID == $resource->mediaTypeId) { ?>
-      
+
         <?php foreach ($videoTracks as $usageId => $videoTrack) { ?>
 
           <?php if (QubitTerm::VIDEO_ID == $resource->mediaTypeId && QubitTerm::SUBTITLES_ID == $usageId) { ?>
-            
+
             <?php echo include_partial('editSubtitles', ['resource' => $resource, 'subtitles' => $videoTrack, 'form' => $form, 'usageId' => $usageId]); ?>
 
           <?php } elseif (QubitTerm::SUBTITLES_ID != $usageId) { ?>
@@ -132,7 +132,7 @@
                   <?php } ?>
                 </div>
               </div>
-            </div>             
+            </div>
           <?php } ?>
         <?php } ?>
       <?php } ?>

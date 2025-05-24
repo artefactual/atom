@@ -29,6 +29,12 @@ class sfImageMagickAdapter
     protected $source;
     protected $magickCommands;
 
+    // Cached static properties
+    protected static $defaultConvertCommand;
+    protected static $defaultIdentifyCommand;
+    protected static $imageMagickAvailable;
+    protected static $pdfInfoAvailable;
+
     /**
      * Mime types this adapter supports.
      */
@@ -135,17 +141,31 @@ class sfImageMagickAdapter
     public function __construct($maxWidth, $maxHeight, $scale, $inflate, $quality, $options)
     {
         $this->magickCommands = [];
-        $this->magickCommands['convert'] = isset($options['convert']) ? escapeshellcmd($options['convert']) : 'convert';
-        $this->magickCommands['identify'] = isset($options['identify']) ? escapeshellcmd($options['identify']) : 'identify';
 
-        exec($this->magickCommands['convert'], $stdout);
-        if (false === strpos($stdout[0], 'ImageMagick')) {
-            throw new Exception(sprintf('ImageMagick convert command not found'));
+        if (isset($options['convert'])) {
+            $this->magickCommands['convert'] = escapeshellcmd($options['convert']);
+
+            $stdout = [];
+            exec($this->magickCommands['convert'], $stdout);
+
+            if (false === strpos($stdout[0], 'ImageMagick')) {
+                throw new Exception(sprintf('Could not find the ImageMagick convert command: %s', $options['convert']));
+            }
+        } else {
+            $this->magickCommands['convert'] = self::getDefaultConvertCommand();
         }
 
-        exec($this->magickCommands['identify'], $stdout);
-        if (false === strpos($stdout[0], 'ImageMagick')) {
-            throw new Exception(sprintf('ImageMagick identify command not found'));
+        if (isset($options['identify'])) {
+            $this->magickCommands['identify'] = escapeshellcmd($options['identify']);
+
+            $stdout = [];
+            exec($this->magickCommands['identify'], $stdout);
+
+            if (false === strpos($stdout[0], 'ImageMagick')) {
+                throw new Exception(sprintf('Could not find the ImageMagick identify command: %s', $options['identify']));
+            }
+        } else {
+            $this->magickCommands['identify'] = self::getDefaultIdentifyCommand();
         }
 
         $this->maxWidth = $maxWidth;
@@ -154,6 +174,87 @@ class sfImageMagickAdapter
         $this->inflate = $inflate;
         $this->quality = $quality;
         $this->options = $options;
+    }
+
+    /**
+     * Test for the ImageMagick commands convert & identify, and cache whether they were found or
+     * not.
+     *
+     * @return bool true if ImageMagick is available, false if not
+     */
+    public static function isImageMagickAvailable()
+    {
+        if (null !== self::$imageMagickAvailable) {
+            return self::$imageMagickAvailable;
+        }
+
+        try {
+            // Either of these functions will throw an exception if ImageMagick is not installed
+            self::getDefaultConvertCommand();
+            self::getDefaultIdentifyCommand();
+            self::$imageMagickAvailable = true;
+        } catch (Exception $e) {
+            self::$imageMagickAvailable = false;
+        }
+
+        return self::$imageMagickAvailable;
+    }
+
+    /**
+     * Get (and cache) the default ImageMagick convert command.
+     *
+     * The convert command changed to "magick" in ImageMagick version 7.
+     *
+     * @return string The command string used to invoke convert
+     *
+     * @throws Exception when the convert command is not found
+     */
+    public static function getDefaultConvertCommand()
+    {
+        if (self::$defaultConvertCommand) {
+            return self::$defaultConvertCommand;
+        }
+
+        $convertCommand = 'convert';
+
+        exec("{$convertCommand} -help 2>&1", $stdout);
+
+        // The convert command is deprected in v7, use magick instead
+        if (false !== strpos($stdout[0], 'The convert command is deprecated')) {
+            $convertCommand = 'magick';
+        } elseif (false === strpos($stdout[0], 'ImageMagick')) {
+            throw new Exception('ImageMagick convert command not found');
+        }
+
+        self::$defaultConvertCommand = $convertCommand;
+
+        return self::$defaultConvertCommand;
+    }
+
+    /**
+     * Get (and cache) the default ImageMagick identify command.
+     *
+     * @return string The command string used to invoke identify
+     *
+     * @throws Exception when the identify command is not found
+     */
+    public static function getDefaultIdentifyCommand()
+    {
+        if (self::$defaultIdentifyCommand) {
+            return self::$defaultIdentifyCommand;
+        }
+
+        $identifyCommand = 'identify';
+
+        exec("{$identifyCommand} -help", $stdout);
+
+        if (false === strpos($stdout[0], 'ImageMagick')) {
+            throw new Exception('ImageMagick identify command not found');
+        }
+
+        self::$defaultIdentifyCommand = $identifyCommand;
+
+        return self::$defaultIdentifyCommand;
     }
 
     public function toString($thumbnail, $targetMime = null)
@@ -356,7 +457,8 @@ class sfImageMagickAdapter
         $output = (is_null($thumbDest)) ? '-' : $thumbDest;
         $output = (($mime = array_search($targetMime, $this->mimeMap)) ? $mime.':' : '').$output;
 
-        $cmd = $this->magickCommands['convert'].' '.$command.' '.escapeshellarg($this->image).$extract.' '.escapeshellarg($output);
+        $cmd = $this->magickCommands['convert'].' '.escapeshellarg($this->image).$extract.' '.$command.' '.escapeshellarg($output);
+
         (is_null($thumbDest)) ? passthru($cmd) : exec($cmd);
     }
 
@@ -377,9 +479,21 @@ class sfImageMagickAdapter
         return $this->sourceMime;
     }
 
+    /**
+     * Test for the pdfinfo command and cache whether it was found.
+     *
+     * @return bool true if pdfinfo is available, false if not
+     */
     public static function pdfinfoToolAvailable()
     {
-        return !empty(shell_exec('which pdfinfo'));
+        if (null !== self::$pdfInfoAvailable) {
+            return self::$pdfInfoAvailable;
+        }
+
+        exec('pdfinfo -h 2>&1', $stdout);
+        self::$pdfInfoAvailable = false !== strpos($stdout[0], 'pdfinfo');
+
+        return self::$pdfInfoAvailable;
     }
 
     public static function getPdfPageCount($filename)

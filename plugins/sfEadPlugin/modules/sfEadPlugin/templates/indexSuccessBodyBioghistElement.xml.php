@@ -1,5 +1,7 @@
+<?php $template = strtolower(substr($ead->getMetadataParameter('relatedencoding'), 0, 3)); ?>
+<?php 'isa' == $template ? $template = 'isad' : $template = 'rad'; ?>
 
-<?php if (0 < count($creators)) { ?>
+<?php if (('mods' != $defTemplate && 'dc' != $defTemplate) && 0 < count($creators)) { ?>
   <?php foreach ($events as $date) { ?>
     <?php $creator = QubitActor::getById($date->actorId); ?>
 

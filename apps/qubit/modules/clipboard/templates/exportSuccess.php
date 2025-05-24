@@ -20,7 +20,7 @@
     <section id="content">
 
       <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.', ['%1%' => '<strong>', '%2%' => '</strong>']); ?>">
-        
+
         <fieldset class="collapsible">
 
           <legend><?php echo __('Export options'); ?></legend>
@@ -57,6 +57,9 @@
               <?php } ?>
               <?php if (isset($form->includeDrafts)) { ?>
                 <?php echo $form->includeDrafts->renderRow(); ?>
+              <?php } ?>
+              <?php if (isset($form->includeNonVisibleElements)) { ?>
+                <?php echo $form->includeNonVisibleElements->renderRow(); ?>
               <?php } ?>
               <?php if (!empty($helpMessages)) { ?>
                 <div class="alert alert-info generic-help animateNicely">

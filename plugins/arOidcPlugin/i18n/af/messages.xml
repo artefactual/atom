@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-03-05T18:29:38Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>-- Select action --</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>(Re)generate API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Delete API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Edit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add new</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Return to user list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>User %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Active</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Access control</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>User groups</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Allowed languages for translation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>REST API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>OAI-PMH API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>List users</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Search users</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Show active only</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Show inactive only</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>User name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Email</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>you</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Please log in to access that page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Log in</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Log in with SSO</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>This user is inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>User details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Repository affiliation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>REST API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Not generated yet.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>OAI-PMH API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Editing history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Loading ...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Previous</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Next</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Have an account?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Hi, %1%</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

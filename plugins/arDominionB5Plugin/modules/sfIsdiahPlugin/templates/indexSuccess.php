@@ -54,7 +54,7 @@
     <h4 class="h5 mb-2"><?php echo __('Clipboard'); ?></h4>
     <ul class="list-unstyled">
       <li>
-        <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'informationObject']); ?>
+        <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'repository']); ?>
       </li>
     </ul>
 
@@ -269,7 +269,7 @@
   <?php slot('after-content'); ?>
 
     <ul class="actions mb-3 nav gap-2">
-      <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
         <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'repository', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
       <?php if (QubitAcl::check($resource, 'delete')) { ?>
@@ -278,10 +278,10 @@
       <?php if (QubitAcl::check($resource, 'create')) { ?>
         <li><?php echo link_to(__('Add new'), ['module' => 'repository', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
-      <?php if (QubitAcl::check(QubitInformationObject, 'create')) { ?>
+      <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) { ?>
         <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
-      <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))) { ?>
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
         <li><?php echo link_to(__('Edit theme'), [$resource, 'module' => 'repository', 'action' => 'editTheme'], ['class' => 'btn atom-btn-outline-light']); ?></li>
       <?php } ?>
     </ul>

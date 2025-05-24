@@ -1,6 +1,4 @@
 ---
-version: "2.1"
-
 volumes:
   elasticsearch_data:
   percona_data:
@@ -18,6 +16,7 @@ services:
       - composer_deps:/atom/src/vendor/composer
       - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
+      - ./etc/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
 
   atom_worker:
     build: ..
@@ -45,7 +44,7 @@ services:
       - "63001:80"
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.23
     env_file: etc/environment
     ulimits:
       memlock:

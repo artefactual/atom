@@ -208,6 +208,7 @@ abstract class BaseNote implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -279,6 +280,7 @@ abstract class BaseNote implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -335,6 +337,7 @@ abstract class BaseNote implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -376,6 +379,7 @@ abstract class BaseNote implements ArrayAccess
     return $this;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();
@@ -405,7 +409,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if ($this->deleted)
     {
-      throw new PropelException('You cannot save an object that has been deleted.');
+      return $this;
     }
 
     if ($this->new)

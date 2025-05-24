@@ -14,11 +14,10 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Net_Gearman
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 
 /**
@@ -31,10 +30,10 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   Release: @package_version@
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 class Net_Gearman_Manager
 {
@@ -61,28 +60,30 @@ class Net_Gearman_Manager
     /**
      * Constructor
      *
-     * @param string  $server  Host and port (e.g. 'localhost:7003')
+     * @param string  $server  Host and port (e.g. 'localhost:4730')
      * @param integer $timeout Connection timeout
      *
      * @throws Net_Gearman_Exception
      * @see Net_Gearman_Manager::$conn
      */
-    public function __construct($server, $timeout = 5)
+    public function __construct($server = null, $timeout = 5)
     {
-        if (strpos($server, ':')) {
-            list($host, $port) = explode(':', $server);
-        } else {
-            $host = $server;
-            $port = 4730;
-        }
+        if (func_num_args() > 0) {
+            if (strpos($server, ':')) {
+                list($host, $port) = explode(':', $server);
+            } else {
+                $host = $server;
+                $port = 4730;
+            }
 
-        $errCode    = 0;
-        $errMsg     = '';
-        $this->conn = @fsockopen($host, $port, $errCode, $errMsg, $timeout);
-        if ($this->conn === false) {
-            throw new Net_Gearman_Exception(
-                'Could not connect to ' . $host . ':' . $port
-            );
+            $errCode    = 0;
+            $errMsg     = '';
+            $this->conn = @fsockopen($host, $port, $errCode, $errMsg, $timeout);
+            if ($this->conn === false) {
+                throw new Net_Gearman_Exception(
+                    'Could not connect to ' . $host . ':' . $port
+                );
+            }
         }
     }
 
@@ -134,7 +135,17 @@ class Net_Gearman_Manager
     public function workers()
     {
         $this->sendCommand('workers');
-        $res     = $this->recvCommand();
+        $res = $this->recvCommand();
+        return $this->parseWorkersResponse($res);
+    }
+
+    /**
+     * Parses a 'workers' response payload
+     * @param  string $res Response payload from a `workers` command
+     * @return array
+     */
+    public function parseWorkersResponse($res)
+    {
         $workers = array();
         $tmp     = explode("\n", $res);
         foreach ($tmp as $t) {
@@ -142,17 +153,17 @@ class Net_Gearman_Manager
                 continue;
             }
 
-            list($info, $abilities) = explode(" : ", $t);
-            list($fd, $ip, $id)     = explode(' ', $info);
+            $t = trim($t);
 
-            $abilities = trim($abilities);
-
-            $workers[] = array(
-                'fd' => $fd,
-                'ip' => $ip,
-                'id' => $id,
-                'abilities' => empty($abilities) ? array() : explode(' ', $abilities)
-            );
+            if (preg_match("/^(.+?) (.+?) (.+?) :(.*)$/", $t, $matches)) {
+                $abilities = trim($matches[4]);
+                $workers[] = array(
+                    'fd' => $matches[1],
+                    'ip' => $matches[2],
+                    'id' => $matches[3],
+                    'abilities' => empty($abilities) ? [] : explode(' ', $abilities)
+                );
+            }
         }
 
         return $workers;
@@ -288,7 +299,7 @@ class Net_Gearman_Manager
         $data = trim($data);
         if (preg_match('/^ERR/', $data)) {
             list(, $code, $msg) = explode(' ', $data);
-            throw new Net_Gearman_Exception($msg, urldecode($code));
+            throw new Net_Gearman_Exception($msg . ' [error code: ' . urldecode($code) . ']');
         }
     }
 
@@ -315,5 +326,3 @@ class Net_Gearman_Manager
         $this->disconnect();
     }
 }
-
-?>
