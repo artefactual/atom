@@ -62,6 +62,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       var $form = $(event.target);
       var mode = $form.find("select#mode").val();
+      var loadType = $(document.activeElement).attr("name");
 
       $.ajax({
         url: $form.attr("action"),
@@ -87,6 +88,10 @@ import Tooltip from "bootstrap/js/dist/tooltip";
           this.storage.setItem("clipboard", JSON.stringify(this.items));
           this.updateCounts();
           this.showAlert(data.success, "alert-info");
+
+          if (loadType == "loadView") {
+            window.location.href = "/clipboard/view";
+          }
         },
         error: function (xhr) {
           var data = JSON.parse(xhr.responseText);

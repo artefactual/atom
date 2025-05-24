@@ -141,9 +141,7 @@ class qtPackageExtractorBase
     }
 
     // This method will be frequently extended from the derived class
-    protected function process()
-    {
-    }
+    protected function process() {}
 
     protected function grab()
     {
@@ -162,6 +160,7 @@ class qtPackageExtractorBase
                     $this->filename = sfConfig::get('app_sword_deposit_dir', '/tmp').DIRECTORY_SEPARATOR.$name;
 
                     break;
+
                 // Other locations that we could support in the future
                 case 'http':
                 case 'https':

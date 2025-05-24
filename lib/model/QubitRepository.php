@@ -53,7 +53,7 @@ class QubitRepository extends BaseRepository
                 break;
 
             default:
-                return call_user_func_array([$this, 'BaseRepository::__get'], $args);
+                return call_user_func_array('BaseRepository::__get', $args);
         }
     }
 
@@ -88,7 +88,7 @@ class QubitRepository extends BaseRepository
                 return $this;
 
             default:
-                return call_user_func_array([$this, 'BaseRepository::__set'], $args);
+                return call_user_func_array('BaseRepository::__set', $args);
         }
     }
 
@@ -503,7 +503,7 @@ class QubitRepository extends BaseRepository
      * the first one that has the field set.
      *
      * @param       $getFunction The get function for the field we want to return.
-     *                           e.g. getFromPrimaryOrFirstValidContact('getCity')
+     *                          e.g. getFromPrimaryOrFirstValidContact('getCity')
      * @param mixed $options
      *
      * @return mixed Returns the field if found, null otherwise

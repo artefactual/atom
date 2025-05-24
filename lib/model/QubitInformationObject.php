@@ -117,12 +117,13 @@ class QubitInformationObject extends BaseInformationObject
                 }
 
                 return $this->identifier;
+
             // It may happen that the sourceStandard column is undefined, in that case
             // look up for the value in higher levels
             case 'sourceStandard':
                 foreach ($this->ancestors->andSelf()->orderBy('rgt') as $item) {
                     if (isset($item->sourceStandard)) {
-                        return call_user_func_array([$item, 'QubitObject::__get'], $args);
+                        return call_user_func_array('QubitObject::__get', $args);
                     }
 
                     // Stop iteration before the root object is reached
@@ -134,7 +135,7 @@ class QubitInformationObject extends BaseInformationObject
                 break;
 
             default:
-                return call_user_func_array([$this, 'BaseInformationObject::__get'], $args);
+                return call_user_func_array('BaseInformationObject::__get', $args);
         }
     }
 
@@ -171,7 +172,7 @@ class QubitInformationObject extends BaseInformationObject
                 return $this;
 
             default:
-                return call_user_func_array([$this, 'BaseInformationObject::__set'], $args);
+                return call_user_func_array('BaseInformationObject::__set', $args);
         }
     }
 
@@ -1384,8 +1385,8 @@ class QubitInformationObject extends BaseInformationObject
      * 2. Actors associated with this information object by relation (either subject or object)
      * 3. Actors that have the same name
      *
-     * @param $name  The name of the actor
-     * @param $options  an array of options filling in the new event or name access point info
+     * @param $name    The name of the actor
+     * @param $options an array of options filling in the new event or name access point info
      *
      * @return QubitActor the new or existing actor just added to the event/name access point list
      */
@@ -1499,7 +1500,7 @@ class QubitInformationObject extends BaseInformationObject
      * be amalgamated as text. Note that when EAD exported from AtoM the content
      * is exported in a p tag within the originalsloc tag.
      *
-     * @param $originalsNode  DOMNode  EAD originalsloc DOM node
+     * @param $originalsNode DOMNode  EAD originalsloc DOM node
      */
     public function importOriginalsLocationEadData($originalsNode)
     {
@@ -1523,7 +1524,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import language-related data from a <langusage> tag in EAD2002.
      *
-     * @param $langusageNode  DOMNode  EAD langusage DOM node
+     * @param $langusageNode DOMNode  EAD langusage DOM node
      */
     public function importLangusageEadData($langusageNode)
     {
@@ -1579,7 +1580,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import language-related data from a <langmaterial> tag in EAD2002.
      *
-     * @param $langmaterialNode  DOMNode  EAD langmaterial DOM node
+     * @param $langmaterialNode DOMNode  EAD langmaterial DOM node
      */
     public function importLangmaterialEadData($langmaterialNode)
     {
@@ -1653,7 +1654,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import creator data from an <origination> tag in EAD2002.
      *
-     * @param $node  DOMNode  EAD origination DOM node
+     * @param $node DOMNode  EAD origination DOM node
      */
     public function importOriginationEadData($node)
     {
@@ -1686,8 +1687,8 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Import creation-related data from an <bioghist> tag in EAD2002.
      *
-     * @param $biogHistNode  DOMNode  EAD bioghist DOM node
-     * @param $key Position of the current bioghist node
+     * @param $biogHistNode DOMNode  EAD bioghist DOM node
+     * @param $key          Position of the current bioghist node
      */
     public function importBioghistEadData($biogHistNode, $key)
     {
@@ -1802,7 +1803,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set publication status using a status name.
      *
-     * @param $name  valid publication status name
+     * @param $name valid publication status name
      */
     public function setPublicationStatusByName($name)
     {
@@ -1818,7 +1819,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set description level of detail using a name.
      *
-     * @param $name  valid description detail level name
+     * @param $name valid description detail level name
      */
     public function setDescriptionLevelOfDetailByName($name)
     {
@@ -1832,7 +1833,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set description status using a status name.
      *
-     * @param $name  valid publication status name
+     * @param $name valid publication status name
      */
     public function setDescriptionStatusByName($name)
     {
@@ -1846,9 +1847,9 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Set term ID property using term name.
      *
-     * @param $property  object property to set
-     * @param $name  valid term name
-     * @param $taxonomyId  taxonomy ID
+     * @param $property   object property to set
+     * @param $name       valid term name
+     * @param $taxonomyId taxonomy ID
      */
     public function setTermIdPropertyUsingTermName($property, $name, $taxonomyId)
     {
@@ -2161,34 +2162,59 @@ class QubitInformationObject extends BaseInformationObject
      *
      * @return int InfoObj id
      */
-    public static function getByTitleIdentifierAndRepo($identifier, $title, $repoName)
+    public static function getByTitleIdentifierAndRepo($identifier, $title, $repoName): ?int
     {
+        // Proceed only if both identifier and title are provided.
         if (null !== $identifier && null !== $title) {
-            $sf_user = sfContext::getInstance()->user;
-            $currentCulture = $sf_user->getCulture();
+            // Get the current culture from the user session.
+            $sf_user = sfContext::getInstance()->getUser();
+            $culture = $sf_user->getCulture();
 
-            $queryBool = new \Elastica\Query\BoolQuery();
+            $selectClause = '
+                SELECT io.id
+                FROM information_object io
+                INNER JOIN information_object_i18n io_i18n 
+                    ON io_i18n.id = io.id 
+                AND io_i18n.culture = :culture
+            ';
+            $whereClause = '
+                WHERE io.identifier = :identifier
+                AND io_i18n.title = :title
+            ';
+            // Parameters for the query.
+            $params = [
+                ':identifier' => $identifier,
+                ':title' => $title,
+                ':culture' => $culture,
+            ];
 
-            // Use match query for exact matches.
-            $queryText = new \Elastica\Query\Match();
-            $queryBool->addMust($queryText->setFieldQuery('identifier', $identifier));
-
-            $queryText = new \Elastica\Query\Match();
-            $queryBool->addMust($queryText->setFieldQuery(sprintf('i18n.%s.title.untouched', $currentCulture), $title));
-
+            // If a repository name is provided, add joins and condition on the repository authorized name.
             if (null !== $repoName) {
-                $queryText = new \Elastica\Query\Match();
-                $queryBool->addMust($queryText->setFieldQuery(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture), $repoName));
+                $selectClause .= '
+                    INNER JOIN repository r 
+                        ON r.id = io.repository_id
+                    INNER JOIN actor a 
+                        ON a.id = io.repository_id
+                    INNER JOIN actor_i18n a_i18n 
+                        ON a_i18n.id = a.id 
+                    AND a_i18n.culture = :culture
+                ';
+                $whereClause .= '
+                    AND a_i18n.authorized_form_of_name = :repoName
+                ';
+                $params[':repoName'] = $repoName;
             }
 
-            $query = new \Elastica\Query($queryBool);
-            $query->setSize(1);
-            $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+            $sql = $selectClause.$whereClause.' LIMIT 1';
 
-            if ($resultSet->count()) {
-                return $resultSet[0]->getId();
+            // If a matching record is found, return its ID.
+            if ($row = QubitPdo::fetchOne($sql, $params)) {
+                return $row->id;
             }
         }
+
+        // Return null if no match is found.
+        return null;
     }
 
     // Publication Status
@@ -2597,7 +2623,7 @@ class QubitInformationObject extends BaseInformationObject
      *
      * @return string the generated identifier
      */
-    public static function generateIdentiferFromMask()
+    public static function generateIdentifierFromMask()
     {
         $counter = self::getIdentifierCounter();
         $counterValue = $counter->getValue(['sourceCulture' => true]);
@@ -2659,8 +2685,8 @@ class QubitInformationObject extends BaseInformationObject
      * is related to this information object (either as a subject
      * or an object).
      *
-     * @param $name  The actor name
-     * @param $relatedBy  The relation type, either 'object' or 'subject'
+     * @param $name      The actor name
+     * @param $relatedBy The relation type, either 'object' or 'subject'
      *
      * @return QubitActor matching the specified parameters, null otherwise
      */
@@ -2694,7 +2720,7 @@ class QubitInformationObject extends BaseInformationObject
      * Returns an actor if one exists with the specified name and
      * who is also part of an event related to this information object.
      *
-     * @param $name  The actor name
+     * @param $name The actor name
      *
      * @return QubitActor matching the specified parameters, null otherwise
      */
@@ -2822,7 +2848,7 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Returns a date string YYYY-MM-DD when given a date from an EAD <unitdate> @normal attribute.
      *
-     * @param $date  A date string from an EAD file, e.g. 19601103
+     * @param $date A date string from an EAD file, e.g. 19601103
      *
      * @return Will return a MySQL friendly YYYY-MM-DD date string (uses '-0' if missing a field)
      */

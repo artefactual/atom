@@ -21,8 +21,10 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i = 0; foreach ($resource->getDates() as $item) { ?>
-        <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]"); ++$i; ?>
+      <?php $i = 0;
+      foreach ($resource->getDates() as $item) { ?>
+        <?php $form->getWidgetSchema()->setNameFormat("editDates[{$i}][%s]");
+        ++$i; ?>
 
         <tr class="date related_obj_<?php echo $item->id; ?>">
           <td>

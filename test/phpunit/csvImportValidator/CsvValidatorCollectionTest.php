@@ -2,6 +2,7 @@
 
 /**
  * @internal
+ *
  * @covers \CsvValidatorCollection
  */
 class CsvValidatorCollectionTest extends \PHPUnit\Framework\TestCase

@@ -83,7 +83,7 @@ class importDipObjectsTask extends arBaseTask
     {
         // Return cached column index, if present
         if (isset($this->columnIndexes[$column])) {
-            return $row[($this->columnIndexes[$column])];
+            return $row[$this->columnIndexes[$column]];
         }
 
         // Determine column index and cache

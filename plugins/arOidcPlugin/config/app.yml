@@ -1,26 +1,158 @@
 ## OIDC Plugin configuration.
 all:
   oidc:
+    # 'providers' is a list of one or many oidc providers. The provider identified in 
+    # 'primary_provider_name' setting will be selected when authenticating using the "Log in
+    # with SSO" button in AtoM. Additional providers can be selected by adding a query param
+    # to the URL before selecting "Log in with SSO". See 'provider_query_param_name' setting
+    # for more info.
+    #
+    # Any number of secondary providers can be configured in this list. Provider names must be
+    # unique.
+    #
     # OIDC provider endpoint settings:
     #   Default for Dex: 'http://dex:5556/dex'
-    #   Default for Keycloak direct using https: 'https://keycloak:8443/realms/artefactual'
-    # NOTE: Always configure using SSL in production.
-    provider_url: 'https://keycloak:8443/realms/artefactual'
-    client_id: 'artefactual-atom'
-    client_secret: 'example-secret'
+    #   Default for Keycloak direct using https: 'https://keycloak:8443/realms/client'
+    # NOTE: Always configure url using SSL in production.
+    providers:
+      primary:
+        url: 'https://keycloak:8443/realms/artefactual'
+        client_id: 'artefactual-atom'
+        client_secret: 'example-secret'
+
+        # Set to true if OIDC endpoint supports logout.
+        # Setting examples for tested OpenID providers:
+        # --------
+        # Keycloak via Dex:
+        #   send_oidc_logout: false
+        # Keycloak direct:
+        #   send_oidc_logout: true
+        send_oidc_logout: true
+
+        # Set to true if OIDC endpoint is configured to send refresh tokens.
+        enable_refresh_token_use: true
+
+        # OIDC server SSL certificate location for server validation.
+        # Accepts a filepath or false (to disable, e.g. for development).
+        # Examples
+        # --------
+        # Relative path to sf_root_dir:    'data/oidc/cert/mycert.pem'
+        # Absolute path:                   '/usr/var/certif/xxx.pem'
+        # Disable server validation:       false
+        server_cert: false
+
+        # Settings for parsing OIDC groups into AtoM group membership.
+        # Set set_groups_from_attributes to true to enable.
+        set_groups_from_attributes: true
+        user_groups:
+          administrator:
+            attribute_value: 'atom-admin'
+            group_id: 100
+          editor:
+            attribute_value: 'atom-editor'
+            group_id: 101
+          contributor:
+            attribute_value: 'atom-contributor'
+            group_id: 102
+          translator:
+            attribute_value: 'atom-translator'
+            group_id: 103
+
+        scopes:
+          - 'openid'
+          # Use with Dex
+          # - 'offline_access'
+          - 'profile'
+          - 'email'
+          # Use with Dex
+          # - 'groups'
+
+        # Identify token which contains role claims. Options are 'access-token',
+        # 'id-token', 'verified-claims', or 'user-info'.
+        # 'set_groups_from_attributes' must be 'true' to enable.
+        roles_source: 'access-token'
+
+        # Identify the location of role claims within the token identified in
+        # `roles_source` above. This is an array containing the node path to
+        # locate the roles array in the OIDC token. By default this is found
+        # in Keycloak's access token under 'realm_access'/'roles'.
+        roles_path:
+          - 'realm_access'
+          - 'roles'
+
+        # Identify how IAM users are matched to users in AtoM. Two values are allowed:
+        #   user_matching_source: oidc-email
+        #   user_matching_source: oidc-username
+        # Using oidc-username will work without additional scopes being requested.
+        #
+        # Using oidc-email requires the 'email' scope to be set above in the
+        # 'scopes' setting. 'email' is an optional user setup field in Keycloak but
+        # MUST be set if matching to pre-existing AtoM user accounts is going to work.
+        user_matching_source: 'oidc-email'
+
+        # Activate or disable the automatic creation of AtoM user records from OIDC
+        # endpoint details. Allowed settings are:
+        #
+        # true (default): AtoM will automatically create a user record on first login.
+        #
+        # false: AtoM will not automatically create a user record on first login - AtoM
+        #        user must be created in advance to successfully authenticate in AtoM.
+        auto_create_atom_user: true
+
+      # The following is an example secondary provider called 'sample_provider'. If
+      # uncommented, a second OIDC provider in the 'sample' Keycloak realm will be available.
+      #sample_provider:
+        #url: 'https://keycloak:8443/realms/sample'
+        #client_id: 'sample-atom'
+        #client_secret: 'example-secret'
+        #send_oidc_logout: true
+        #enable_refresh_token_use: true
+        #server_cert: false
+        #set_groups_from_attributes: true
+        #user_groups:
+        #  administrator:
+        #    attribute_value: 'atom-admin'
+        #    group_id: 100
+        #  editor:
+        #    attribute_value: 'atom-editor'
+        #    group_id: 101
+        #  contributor:
+        #    attribute_value: 'atom-contributor'
+        #    group_id: 102
+        #  translator:
+        #    attribute_value: 'atom-translator'
+        #    group_id: 103
+        #scopes:
+        #  - 'openid'
+        #  - 'profile'
+        #  - 'email'
+        #roles_source: 'access-token'
+        #roles_path:
+        #  - 'realm_access'
+        #  - 'roles'
+        #user_matching_source: 'oidc-email'
+        #auto_create_atom_user: true
+
+    # Identifies the primary OIDC provider and corresponds to an entry in 'providers' above.
+    # The default provider name is 'primary'. If this setting is not defined, AtoM will default
+    # to the provider named "primary".
+    #
+    # primary_provider_name: primary
+
+    # This setting enables the use of additional providers and identifies the name of the query
+    # param that can be added to the refering URL when selecting "Log in with SSO" button in AtoM. 
+    # To use: append the query param and the provider name to the URL before selecting 
+    # "Log in with SSO". Must be uncommented to activate use of secondary providers.
+    #
+    # E.g. Use the 'sample_provider' provider by modifying the URL before pressing "Log in with SSO":
+    # http://127.0.0.1:63001/index.php?secondary=sample_provider
+    #
+    # provider_query_param_name: secondary
+
     # Localhost port 63001 (127.0.0.1:63001) is used as a placeholder and
     # should be replaced with your AtoM site's public IP and port.
     # NOTE: Always configure using SSL in production.
     redirect_url: 'http://127.0.0.1:63001/index.php/oidc/login'
-
-    # Set to true if OIDC endpoint supports logout.
-    # Setting examples for tested OpenID providers:
-    # --------
-    # Keycloak via Dex:
-    #   send_oidc_logout: false
-    # Keycloak direct:
-    #   send_oidc_logout: true
-    send_oidc_logout: true
 
     # OIDC logout requires a URL to redirect to. Use this setting to
     # specify a page to redirect the user to on logout when
@@ -29,64 +161,3 @@ all:
     # public IP and port.
     # NOTE: Always configure using SSL in production.
     logout_redirect_url: 'http://127.0.0.1:63001'
-
-    # Set to true if OIDC endpoint is configured to send refresh tokens.
-    enable_refresh_token_use: true
-
-    # OIDC server SSL certificate location for server validation.
-    # Accepts a filepath or false (to disable, e.g. for development).
-    # Examples
-    # --------
-    # Relative path to sf_root_dir:    'data/oidc/cert/mycert.pem'
-    # Absolute path:                   '/usr/var/certif/xxx.pem'
-    # Disable server validation:       false
-    server_cert: false
-
-    scopes:
-        - 'openid'
-        # Use with Dex
-        # - 'offline_access'
-        - 'profile'
-        - 'email'
-        # Use with Dex
-        # - 'groups'
-
-    # Settings for parsing OIDC groups into AtoM group membership.
-    # Set set_groups_from_attributes to true to enable.
-    set_groups_from_attributes: true
-    user_groups:
-        administrator:
-            attribute_value: 'atom-admin'
-            group_id: 100
-        editor:
-            attribute_value: 'atom-editor'
-            group_id: 101
-        contributor:
-            attribute_value: 'atom-contributor'
-            group_id: 102
-        translator:
-            attribute_value: 'atom-translator'
-            group_id: 103
-
-    # Identify token which contains role claims. Options are 'access-token',
-    # 'id-token', 'verified-claims', or 'user-info'.
-    # 'set_groups_from_attributes' must be 'true' to enable.
-    roles_source: access-token
-
-    # Identify the location of role claims within the token identified in
-    # `roles_source` above. This is an array containing the node path to
-    # locate the roles array in the OIDC token. By default this is found
-    # in Keycloak's access token under 'realm_access'/'roles'.
-    roles_path:
-        - realm_access
-        - roles
-
-    # Identify how IAM users are matched to users in AtoM. Two values are allowed:
-    #   user_matching_source: oidc-email
-    #   user_matching_source: oidc-username
-    # Using oidc-username will work without additional scopes being requested.
-    #
-    # Using oidc-email requires the 'email' scope to be set above in the
-    # 'scopes' setting. 'email' is an optional user setup field in Keycloak but
-    # MUST be set if matching to pre-existing AtoM user accounts is going to work.
-    user_matching_source: oidc-email

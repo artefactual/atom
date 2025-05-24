@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $sf_user->getCulture(); ?>" dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction; ?>">
   <head>
+    <?php echo get_partial('default/googleAnalytics'); ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include_title(); ?>

@@ -35,6 +35,7 @@ class CsvLegacyIdValidator extends CsvBaseValidator
     protected $nonUniqueLegacyIdValues = [];
     protected $prevRowLegacyId = 0;
     protected $prevRowCulture = '';
+    protected $duplicateTranslationRows;
 
     public function __construct(?array $options = null)
     {

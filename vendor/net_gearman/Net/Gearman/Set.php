@@ -14,11 +14,11 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Net_Gearman
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 
 /**
@@ -58,10 +58,10 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version   Release: @package_version@
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  * @see       Net_Gearman_Job_Common, Net_Gearman_Worker
  */
 class Net_Gearman_Set implements IteratorAggregate, Countable
@@ -194,6 +194,7 @@ class Net_Gearman_Set implements IteratorAggregate, Countable
      *
      * @return ArrayIterator Tasks
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->tasks);
@@ -205,6 +206,7 @@ class Net_Gearman_Set implements IteratorAggregate, Countable
      * @return int Number of tasks in the set
      * @see    {@link Countable::count()}
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->tasksCount;

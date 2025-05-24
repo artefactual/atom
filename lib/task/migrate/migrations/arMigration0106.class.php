@@ -74,8 +74,7 @@ class arMigration0106
                     'is the associate of' => 'itself',
                     'is the friend of' => 'itself',
                 ],
-            ]
-            as $parentId => $terms
+            ] as $parentId => $terms
         ) {
             foreach ($terms as $termName => $converseTermName) {
                 // Obtain/create object term

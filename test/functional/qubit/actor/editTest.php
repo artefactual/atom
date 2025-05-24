@@ -16,5 +16,4 @@ $browser
     ->end()
     ->with('response')->begin()
     ->isStatusCode(404)
-    ->end()
-;
+    ->end();

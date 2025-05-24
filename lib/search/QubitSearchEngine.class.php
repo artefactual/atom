@@ -22,6 +22,9 @@
  */
 abstract class QubitSearchEngine
 {
+    private $dispatcher;
+    private $event;
+
     /**
      * Constructor.
      */

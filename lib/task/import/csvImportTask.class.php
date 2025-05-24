@@ -61,6 +61,11 @@ EOF;
     {
         parent::execute($arguments, $options);
 
+        // Make sure QubitSearch is initialized since
+        // QubitActor needs it and is set to disable
+        // indexing by default which results in the
+        // index not being initialized
+        QubitSearch::getInstance();
         $this->validateOptions($options);
 
         if (false === $fh = fopen($arguments['filename'], 'rb')) {

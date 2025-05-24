@@ -79,7 +79,7 @@ copy(_ATOM_DIR.'/config/propel.ini.tmpl', _ATOM_DIR.'/config/propel.ini');
 $gearman_yml = <<<EOT
 all:
   servers:
-    default: ${CONFIG['atom.gearmand_host']}
+    default: {$CONFIG['atom.gearmand_host']}
 EOT;
 
 @unlink(_ATOM_DIR.'/apps/qubit/config/gearman.yml');
@@ -97,16 +97,38 @@ all:
   download_timeout: 10
   cache_engine: sfMemcacheCache
   cache_engine_param:
-    host: ${parts['host']}
-    port: ${parts['port']}
+    host: {$parts['host']}
+    port: {$parts['port']}
     prefix: atom
     storeCacheInfo: true
     persistent: true
   read_only: false
   htmlpurifier_enabled: false
   csp:
-    response_header: Content-Security-Policy-Report-Only
-    directives: "default-src 'self'; font-src 'self'; img-src 'self' https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:; script-src 'self' https://*.googletagmanager.com 'nonce'; style-src 'self' 'nonce'; worker-src 'self' blob:; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'self';"
+    response_header: Content-Security-Policy
+    directives: >
+      default-src 'self';
+      font-src 'self' https://fonts.gstatic.com;
+      form-action 'self';
+      img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data: https://www.gravatar.com/avatar/ https://*.google-analytics.com https://*.googletagmanager.com blob:;
+      script-src 'self' https://*.googletagmanager.com 'nonce' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+      style-src 'self' 'nonce' https://fonts.googleapis.com;
+      worker-src 'self' blob:;
+      connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
+      frame-ancestors 'self';
+  user_challenge:
+    activated: false
+    test_headless: true
+    cookiename_visited: atom_visited
+    cookiename_headless: atom_headless
+    cookiename_js: atom_js
+    salt: 'REPLACE_WITH_SECRET'
+    delay_seconds: 5
+    cookie_days: 3
+    cidr_exceptions:
+      - '192.168.1.0/24'
+      - '10.0.0.0/8'
+
 EOT;
 
     file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
@@ -129,8 +151,8 @@ prod:
       cache:
         class: sfMemcacheCache
         param:
-          host: ${parts['host']}
-          port: ${parts['port']}
+          host: {$parts['host']}
+          port: {$parts['port']}
           prefix: atom
           storeCacheInfo: true
           persistent: true
@@ -145,8 +167,8 @@ dev:
       cache:
         class: sfMemcacheCache
         param:
-          host: ${parts['host']}
-          port: ${parts['port']}
+          host: {$parts['host']}
+          port: {$parts['port']}
           prefix: atom
           storeCacheInfo: true
           persistent: true
@@ -164,8 +186,8 @@ $parts = get_host_and_port($CONFIG['atom.elasticsearch_host'], 9200);
 $search_yml = <<<EOT
 all:
   server:
-    host: ${parts['host']}
-    post: ${parts['port']}
+    host: {$parts['host']}
+    post: {$parts['port']}
 
 EOT;
 
@@ -187,16 +209,16 @@ return [
                 'encoding' => 'utf8mb4',
                 'persistent' => true,
                 'pooling' => true,
-                'dsn' => '${CONFIG['atom.mysql_dsn']}',
-                'username' => '${CONFIG['atom.mysql_username']}',
-                'password' => '${CONFIG['atom.mysql_password']}',
+                'dsn' => '{$CONFIG['atom.mysql_dsn']}',
+                'username' => '{$CONFIG['atom.mysql_username']}',
+                'password' => '{$CONFIG['atom.mysql_password']}',
             ],
         ],
     ],
     'dev' => [
         'propel' => [
             'param' => [
-                'classname' => 'DebugPDO',
+                'classname' => 'PropelPDO',
                 'debug' => [
                     'realmemoryusage' => true,
                     'details' => [
@@ -224,7 +246,7 @@ return [
     'test' => [
         'propel' => [
             'param' => [
-                'classname' => 'DebugPDO',
+                'classname' => 'PropelPDO',
             ],
         ],
     ],
@@ -247,16 +269,16 @@ log_errors = on
 error_reporting = E_ALL
 display_errors = stderr
 display_startup_errors = on
-max_execution_time = ${CONFIG['php.max_execution_time']}
-max_input_time = ${CONFIG['php.max_input_time']}
-memory_limit = ${CONFIG['php.memory_limit']}
+max_execution_time = {$CONFIG['php.max_execution_time']}
+max_input_time = {$CONFIG['php.max_input_time']}
+memory_limit = {$CONFIG['php.memory_limit']}
 log_errors = on
-post_max_size = ${CONFIG['php.post_max_size']}
+post_max_size = {$CONFIG['php.post_max_size']}
 default_charset = UTF-8
 cgi.fix_pathinfo = off
-upload_max_filesize = ${CONFIG['php.upload_max_filesize']}
-max_file_uploads = ${CONFIG['php.max_file_uploads']}
-date.timezone = ${CONFIG['php.date.timezone']}
+upload_max_filesize = {$CONFIG['php.upload_max_filesize']}
+max_file_uploads = {$CONFIG['php.max_file_uploads']}
+date.timezone = {$CONFIG['php.date.timezone']}
 session.use_only_cookies = off
 opcache.fast_shutdown = on
 opcache.max_accelerated_files = 10000

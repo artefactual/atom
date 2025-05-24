@@ -23,11 +23,11 @@ class QubitRights extends BaseRights
     {
         $string = [];
 
-        if (isset($this->basis)) {
+        if (property_exists($this, 'basis') && isset($this->basis)) {
             $string[] = $this->basis;
         }
 
-        if (isset($this->act)) {
+        if (property_exists($this, 'act') && isset($this->act)) {
             $string[] = $this->act;
         }
 

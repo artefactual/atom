@@ -23,10 +23,15 @@
         <fieldset class="collapsible" id="basicInfo">
 
           <legend><?php echo __('Basic info'); ?></legend>
-          
-            <?php echo $form->active
-                ->label(__('Active'))
-                ->renderRow(); ?>
+
+          <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
+            <?php echo $form->username->renderRow(); ?>
+            <?php echo $form->email->renderRow(); ?>
+          <?php } ?>
+
+          <?php echo $form->active
+              ->label(__('Active'))
+              ->renderRow(); ?>
 
         </fieldset> <!-- /#basicInfo -->
       <?php } ?>
@@ -66,6 +71,9 @@
           <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
         <?php } else { ?>
           <li><?php echo link_to(__('Cancel'), ['module' => 'user', 'action' => 'list'], ['class' => 'c-btn']); ?></li>
+          <?php if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) { ?>
+            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
+          <?php } ?>
         <?php } ?>
       </ul>
     </section>

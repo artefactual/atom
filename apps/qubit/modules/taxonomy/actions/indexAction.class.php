@@ -224,7 +224,7 @@ class TaxonomyIndexAction extends sfAction
                 $this->query->setSort(['updatedAt' => $request->sortDir]);
         }
 
-        $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
+        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitTerm')->search($this->query);
 
         // Return special response in JSON for XHR requests
         if ($request->isXmlHttpRequest()) {

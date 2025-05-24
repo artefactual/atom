@@ -78,7 +78,7 @@ EOF;
         // Determine model class name from document type name
         $docTypeModelClass = 'Qubit'.ucfirst($docType);
 
-        return QubitSearch::getInstance()->index->getType($docTypeModelClass)->count();
+        return QubitSearch::getInstance()->index->getIndex($docTypeModelClass)->count();
     }
 
     private function objectsAvailableToIndex($docType)

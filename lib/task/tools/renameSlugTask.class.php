@@ -106,19 +106,31 @@ EOF;
 
     protected function renameSlug($oldSlug, $newSlug)
     {
+        // Search for both the new and old slugs
         $criteria = new Criteria();
-        $criteria->add(QubitSlug::SLUG, $oldSlug);
-        $slug = QubitSlug::getOne($criteria);
+        $c1 = $criteria->getNewCriterion(QubitSlug::SLUG, $oldSlug);
+        $c2 = $criteria->getNewCriterion(QubitSlug::SLUG, $newSlug);
+        $c1->addOr($c2);
+        $criteria->add($c1);
 
-        $existingSlugs = $this->getAllSlugs();
+        $oldSlugObject = null;
+        $newSlugObject = null;
 
-        if (in_array($newSlug, $existingSlugs)) {
+        foreach (QubitSlug::get($criteria) as $slug) {
+            if ($slug->slug === $oldSlug) {
+                $oldSlugObject = $slug;
+            } elseif ($slug->slug === $newSlug) {
+                $newSlugObject = $slug;
+            }
+        }
+
+        if (null !== $newSlugObject) {
             $this->failedSlugs[] = "{$newSlug} already exists.";
-        } elseif (!$slug) {
+        } elseif (null === $oldSlugObject) {
             $this->failedSlugs[] = "{$oldSlug} not found.";
         } else {
-            $slug->slug = $newSlug;
-            $slug->save();
+            $oldSlugObject->slug = $newSlug;
+            $oldSlugObject->save();
             $this->logSection('rename-slug', "Slug {$oldSlug} updated to {$newSlug} successfully.");
             $this->addToLogFile($oldSlug, $newSlug);
         }
@@ -149,20 +161,5 @@ EOF;
         $log = "/{$oldSlug} updated to /{$newSlug}.\n";
         $custom_logger = new sfFileLogger(new sfEventDispatcher(), ['file' => $this->logFile]);
         $custom_logger->info($log);
-    }
-
-    protected function getAllSlugs()
-    {
-        $slugs = [];
-        $databaseManager = new sfDatabaseManager($this->configuration);
-        $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-        // Create hash of slugs already in database
-        $sql = 'SELECT slug FROM slug ORDER BY slug';
-        foreach ($conn->query($sql, PDO::FETCH_NUM) as $row) {
-            $slugs[] = $row[0];
-        }
-
-        return $slugs;
     }
 }

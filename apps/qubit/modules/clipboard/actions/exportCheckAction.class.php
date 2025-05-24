@@ -63,7 +63,7 @@ class ClipboardExportCheckAction extends sfAction
             // Add download path if applicable
             if (isset($job->downloadPath) && QubitTerm::JOB_STATUS_COMPLETED_ID == $job->statusId) {
                 $message .= $this->context->i18n->__(
-                    ' %1%Download%2% (%3% b)',
+                    ' %1%Download%2% (%3%)',
                     [
                         '%1%' => sprintf('<a href="%s">', sfConfig::get('app_siteBaseUrl').'/'.$job->downloadPath),
                         '%2%' => '</a>',

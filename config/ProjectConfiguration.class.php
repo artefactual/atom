@@ -48,6 +48,12 @@ class ProjectConfiguration extends sfProjectConfiguration
             'sfPluginAdminPlugin',
         ];
 
+        // Check if the OIDC plugin should be enabled.
+        $filePath = 'activate-oidc-plugin';
+        if (file_exists($filePath) && 0 === filesize($filePath)) {
+            $plugins[] = 'arOidcPlugin';
+        }
+
         $this->enablePlugins($plugins);
 
         $this->dispatcher->connect(

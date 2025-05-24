@@ -252,10 +252,10 @@ class CsvParentValidator extends CsvBaseValidator
                 $source,
                 $objectType
             );
-        }
 
-        if ($mapEntry) {
-            return true;
+            if ($mapEntry) {
+                return true;
+            }
         }
 
         return false;

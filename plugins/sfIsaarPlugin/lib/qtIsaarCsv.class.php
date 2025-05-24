@@ -42,13 +42,13 @@ class qtIsaarCsv extends sfIsaarPlugin
         'legalStatus',
         'maintenanceNotes',
         'mandates',
-        //'otherNames',
-        //'parallelNames',
+        // 'otherNames',
+        // 'parallelNames',
         'places',
         'rules',
         'scripts',
         'sources',
-        //'standardizedNames'
+        // 'standardizedNames'
         'uniqueId',
     ];
     protected $resource;

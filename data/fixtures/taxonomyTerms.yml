@@ -785,7 +785,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       bs: 'Vrsta MODS resursa'
-      ca: 'MODS Resource Type'
+      ca: 'Tipus de recurs MODS'
       ca@valencia: 'MODS Resource Type'
       cy: 'Math o Adnodd MODS'
       de: 'MODS Ressourcentyp'
@@ -1522,6 +1522,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       bs: Žanr
+      ca: Gènere
       cy: Genre
       de: Genre
       de-CH: Genre
@@ -1605,6 +1606,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       bs: 'Zanimanje stvaratelja'
+      ca: 'Ocupacions d''actor'
       cy: 'Galwedigaethau actor'
       el: Ασχολίες
       en: 'Actor occupations'
@@ -1641,6 +1643,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       bs: 'Pristup alternativnom tipu identifikatora'
+      ca: 'Tipus d''identificador alternatiu d''accés'
       cy: 'Math o ddynodwr gwahanol derbyn'
       el: 'Τύπος εναλλακτικού κωδικού εισαγωγής'
       en: 'Accession alternative identifier type'
@@ -1656,6 +1659,7 @@ QubitTaxonomy:
     source_culture: en
     name:
       bs: 'Vrsta događaja akcesije'
+      ca: 'Tipus d''esdeveniment d''accés'
       cy: 'Math o ddigwyddiad derbyn'
       en: 'Accession event type'
       es: 'Tipo de evento del ingreso'
@@ -2774,6 +2778,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Vanjski predmet/fajl'
+      ca: 'Fitxer extern'
       cy: 'Ffeil allanol'
       en: 'External file'
       es: 'Archivo externo'
@@ -2930,7 +2935,7 @@ QubitTerm:
       mk: Артефакт
       nl: Artefact
       pl: Artefakt
-      pt: 'Objeto tridimensional'
+      pt: artefato
       pt_BR: Artefato
       ru: Артефакт
       sl: Artefakt
@@ -2983,6 +2988,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Održavanje repozitorija'
+      ca: 'S''està mantenint el repositori'
       cy: 'Cynnal lleoliad'
       el: 'Φορέας διατήρησης'
       en: 'Maintaining repository'
@@ -4236,6 +4242,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Komponenta umjetničkog djela'
+      ca: 'Component de l''obra d''art'
       cy: 'Cydran Gwaith Celf'
       de: 'Bestandteil eines Kunstwerkes'
       en: 'Artwork component'
@@ -4382,6 +4389,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: Završeno
+      ca: Completat
       cy: Cwblhawyd
       de: Abgeschlossen
       de-CH: Fertig
@@ -4435,6 +4443,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Napomena uz zanimanje stvaratelja'
+      ca: 'Nota d''ocupació de l''actor'
       cy: 'Nodyn galwediageth actor'
       el: Σημειώσεις
       en: 'Actor occupation note'
@@ -4501,6 +4510,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: Promjena
+      ca: Modificació
       cy: Addasiad
       en: Modification
       es: Modificación
@@ -4519,6 +4529,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Pristupni alternativni identifikator'
+      ca: 'Identificador alternatiu d''accessibilitat'
       cy: 'Dynodwr gwahanol derbyn'
       en: 'Accession alternative identifier'
       es: 'Identificador alternativo del ingreso'
@@ -4547,6 +4558,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Napomena uz događaj akcesije'
+      ca: 'Nota d''esdeveniment d''accés'
       cy: 'Nodyn digwyddiad derbyn'
       en: 'Accession event note'
       es: 'Nota de evento del ingreso'
@@ -7155,7 +7167,7 @@ QubitTerm:
       ko: '물리적 객체'
       mk: 'Физички објект'
       nl: 'fysiek object'
-      pt: 'Objeto tridimensional'
+      pt: 'Objeto físico'
       pt_BR: 'Objeto físico'
       ru: 'Физический объект'
       sl: 'Fizični objekt'
@@ -11149,6 +11161,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Reklame
+      ca: Publicitat
       cy: Hysbysiadau
       de: Werbebotschaften
       de-CH: Werbebotschaften
@@ -11175,6 +11188,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Albumi
+      ca: Àlbums
       cy: Albymau
       de: Alben
       de-CH: Alben
@@ -11202,6 +11216,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Arhitektura
+      ca: Arquitectura
       cy: Pensaernïaeth
       de: Architektur
       de-CH: Architektur
@@ -11230,6 +11245,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Prazni obrasci'
+      ca: 'Formularis en blanc'
       cy: 'Ffurflenni gwag'
       de: Leerformulare
       de-CH: Leerformulare
@@ -11256,6 +11272,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Knjige
+      ca: Llibres
       cy: Llyfrau
       de: Bücher
       de-CH: Bücher
@@ -11284,6 +11301,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Oglasi/Plakati
+      ca: Cartells
       cy: Ochrau
       de: Breitseiten
       de-CH: Prospekte
@@ -11307,6 +11325,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Crteži/Karikature (komentar)'
+      ca: 'Còmics (Comentari)'
       cy: 'Cartŵnau (Sylwebaeth)'
       en: 'Cartoons (Commentary)'
       es: 'Dibujos animados (Comentario)'
@@ -11329,6 +11348,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Katalozi
+      ca: Catàlegs
       cy: Catalogau
       de: Verzeichnisse
       de-CH: Verzeichnisse
@@ -11356,6 +11376,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Gradski prikazi'
+      ca: 'Paisatges urbans'
       cy: Dinasweddau
       de: Stadtbilder
       en: Cityscapes
@@ -11380,6 +11401,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Isječci
+      ca: Retalls
       cy: Toriadau
       de: Zwischenablage
       en: Clippings
@@ -11403,6 +11425,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Korespondencija
+      ca: Correspondència
       cy: Gohebiaeth
       de: Korrespondenz
       de-CH: Korrespondenz
@@ -11427,6 +11450,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Dnevnici
+      ca: Diaris
       cy: Dyddiaduron
       de: Tagebücher
       de-CH: Tagebücher
@@ -11453,6 +11477,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Crteži
+      ca: Dibuixos
       cy: Lluniadau
       de: Zeichnungen
       de-CH: Zeichnungen
@@ -11477,6 +11502,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Efemera
+      ca: Efemèride
       cy: Effemera
       de: Ephemera
       en: Ephemera
@@ -11499,6 +11525,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Eseji
+      ca: Assajos
       cy: Traethodau
       de: Essays
       de-CH: Essays
@@ -11523,6 +11550,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Etnografija
+      ca: Etnografia
       cy: Ethnograffeg
       de: Ethnographie
       de-CH: Ethnographie
@@ -11548,6 +11576,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Napomene uz polje'
+      ca: 'Notes de camp'
       cy: 'Nodiadau maes'
       de: 'Anmerkungen zu Feldern'
       en: Fieldnotes
@@ -11571,6 +11600,7 @@ QubitTerm:
     name:
       ar: 'رسوم توضيحية'
       bs: Ilustracije
+      ca: Il·lustracions
       cy: Darluniau
       de: Illustrationen
       de-CH: Illustrationen
@@ -11597,6 +11627,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Intervjui
+      ca: Entrevistes
       cy: Cyfweliadau
       de: Interviews
       de-CH: Interviews
@@ -11622,6 +11653,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Pejsaži
+      ca: Paisatges
       cy: Tirweddau
       de: Landschaften
       de-CH: Landschaften
@@ -11645,6 +11677,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Letci
+      ca: Tríptics
       cy: Taflenni
       de: Merkblätter
       en: Leaflets
@@ -11725,6 +11758,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Razni dokumenti'
+      ca: 'Documents diversos'
       cy: 'Dogfennau Amrywiol'
       de: 'Sonstige Dokumente'
       de-CH: 'Sonstige Dokumente'
@@ -11751,6 +11785,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: 'Pokretne slike'
+      ca: 'Imatges en moviment'
       cy: 'Ffilmiau Symudol'
       de: Filme
       de-CH: Filme
@@ -11777,6 +11812,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Muzika
+      ca: Música
       cy: Cerddoriaeth
       de: Musik
       de-CH: Musik
@@ -11806,6 +11842,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     name:
       bs: Narativi
+      ca: Narratives
       cy: Naratifau
       de: Erzählungen
       de-CH: Erzählungen
@@ -12289,6 +12326,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Napomena uz izvođače'
+      ca: 'Nota de repartiment'
       cy: 'Bwrw nodyn'
       en: 'Cast note'
       es: 'Nota de reparto'
@@ -12308,6 +12346,7 @@ QubitTerm:
     source_culture: en
     name:
       bs: 'Napomena uz zasluge'
+      ca: 'Nota de crèdits'
       cy: 'Nodyn cydnabyddiaeth'
       en: 'Credits note'
       es: 'Nota de créditos'

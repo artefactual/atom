@@ -4,17 +4,27 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvRepoValidator
  */
 class CsvRepoTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $ormClasses;
+    protected $vfs;
+    protected $csvDataDupedRepo;
+    protected $csvDataReposSomeInvalid;
+    protected $csvDataValidRepos;
+    protected $csvData;
+    protected $csvHeaderDupedRepo;
+    protected $csvHeaderWithRepo;
+    protected $csvHeader;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,culture';
         $this->csvHeaderWithRepo = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
@@ -61,7 +71,7 @@ class CsvRepoTest extends \PHPUnit\Framework\TestCase
 
         $this->ormClasses = [
             'QubitFlatfileImport' => \AccessToMemory\test\mock\QubitFlatfileImport::class,
-            //'QubitObject' => \AccessToMemory\test\mock\QubitObject::class,
+            // 'QubitObject' => \AccessToMemory\test\mock\QubitObject::class,
         ];
     }
 

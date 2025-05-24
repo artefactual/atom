@@ -7,6 +7,4 @@
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class QubitRelationI18n extends BaseRelationI18n
-{
-} // QubitRelationI18n
+class QubitRelationI18n extends BaseRelationI18n {} // QubitRelationI18n

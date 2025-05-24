@@ -37,7 +37,8 @@
 
     <section class="actions">
       <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Load'); ?>"/></li>
+        <li><input class="c-btn c-btn-submit" name="load" type="submit" value="<?php echo __('Load'); ?>"/></li>
+        <li><input class="c-btn c-btn-submit" name="loadView" type="submit" value="<?php echo __('Load and view'); ?>"/></li>
       </ul>
     </section>
 

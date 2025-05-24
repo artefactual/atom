@@ -499,7 +499,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
         $this->search->query->setQuery($this->search->queryBool);
 
-        return QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false));
+        return QubitSearch::getInstance()->index->getIndex('QubitActor')->search($this->search->getQuery(false));
     }
 
     private function getRelatedAuthorityUsingSlug($slug)

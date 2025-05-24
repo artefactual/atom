@@ -36,6 +36,6 @@ class QubitValidatorCountable extends sfValidatorBase
      */
     protected function isEmpty($value)
     {
-        return 1 > count($value);
+        return empty($value);
     }
 }

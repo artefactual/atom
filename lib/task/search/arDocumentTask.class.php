@@ -34,10 +34,12 @@ class arSearchDocumentTask extends arBaseTask
     {
         parent::execute($arguments, $options);
 
-        if (null !== $slugObject = QubitObject::getBySlug($arguments[slug])) {
+        if (null !== $slugObject = QubitObject::getBySlug($arguments['slug'])) {
             $this->log(sprintf("Fetching data for %s ID %d...\n", $slugObject->className, $slugObject->id));
 
-            $doc = QubitSearch::getInstance()->index->getType($slugObject->className)->getDocument($slugObject->id);
+            // Dummy type is needed for ES 6, this should be updated in ES 7.x when type is not required for getDocument()
+            $esType = QubitSearch::getInstance()::ES_TYPE;
+            $doc = QubitSearch::getInstance()->index->getIndex($slugObject->className)->getType($esType)->getDocument($slugObject->id);
 
             echo json_encode($doc->getData(), JSON_PRETTY_PRINT)."\n";
         } else {

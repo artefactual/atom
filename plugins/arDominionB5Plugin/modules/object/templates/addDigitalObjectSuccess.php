@@ -43,7 +43,7 @@
           </h2>
           <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading">
             <div class="accordion-body">
-              <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)) { ?>
+              <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit) || -1 == sfConfig::get('app_upload_limit')) { ?>
 
                 <?php echo render_field($form->file); ?>
 

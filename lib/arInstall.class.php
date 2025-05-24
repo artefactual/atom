@@ -180,7 +180,7 @@ class arInstall
             'dev' => [
                 'propel' => [
                     'param' => [
-                        'classname' => 'DebugPDO',
+                        'classname' => 'PropelPDO',
                         'debug' => [
                             'realmemoryusage' => true,
                             'details' => [
@@ -200,7 +200,7 @@ class arInstall
             'test' => [
                 'propel' => [
                     'param' => [
-                        'classname' => 'DebugPDO',
+                        'classname' => 'PropelPDO',
                     ],
                 ],
             ],
@@ -334,8 +334,7 @@ class arInstall
 
         $premisAccessRightValues = [];
         foreach (
-            QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID)
-            as $item
+            QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item
         ) {
             $premisAccessRightValues[$item->slug] = [
                 'allow_master' => 1,
@@ -367,8 +366,7 @@ class arInstall
         );
 
         foreach (
-            QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID)
-            as $item
+            QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item
         ) {
             $setting = new QubitSetting();
             $setting->name = "{$item->slug}_disallow";
@@ -376,8 +374,7 @@ class arInstall
             $setting->setValue($accessDisallowWarning, ['culture' => 'en']);
 
             foreach (
-                QubitI18N::getTranslations($accessDisallowWarning)
-                as $langCode => $message
+                QubitI18N::getTranslations($accessDisallowWarning) as $langCode => $message
             ) {
                 $setting->setValue($message, ['culture' => $langCode]);
             }
@@ -390,8 +387,7 @@ class arInstall
             $setting->setValue($accessConditionalWarning, ['culture' => 'en']);
 
             foreach (
-                QubitI18N::getTranslations($accessConditionalWarning)
-                as $langCode => $message
+                QubitI18N::getTranslations($accessConditionalWarning) as $langCode => $message
             ) {
                 $setting->setValue($message, ['culture' => $langCode]);
             }

@@ -44,9 +44,7 @@ class arWebDebugPanel extends sfWebDebugPanel
         return 'AtoM';
     }
 
-    public function getPanelContent()
-    {
-    }
+    public function getPanelContent() {}
 
     protected function getCurrentGitRevision()
     {

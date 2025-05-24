@@ -82,6 +82,6 @@ class RepositoryMaintainedActorsAction extends sfAction
         $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', sfContext::getInstance()->user->getCulture());
         $query->setSort([$field => 'asc']);
 
-        return QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
+        return QubitSearch::getInstance()->index->getIndex('QubitActor')->search($query);
     }
 }

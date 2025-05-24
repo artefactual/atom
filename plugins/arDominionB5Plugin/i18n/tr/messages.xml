@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2024-05-17T02:59:30Z" product-name="messages">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2025-05-06T21:03:45Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -2166,10 +2166,6 @@
       </trans-unit>
       <trans-unit id="569">
         <source>Total space available for uploads</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="570">
-        <source>%1% upload limits</source>
         <target/>
       </trans-unit>
       <trans-unit id="572">
@@ -4444,10 +4440,6 @@
         <source>Upload is disabled</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1155">
-        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1156">
         <source>Edit upload limit</source>
         <target/>
@@ -4797,7 +4789,7 @@
         <target/>
       </trans-unit>
       <trans-unit id="1248">
-        <source>Server error while checking identifer availability.</source>
+        <source>Server error while checking identifier availability.</source>
         <target/>
       </trans-unit>
       <trans-unit id="1249">
@@ -5277,7 +5269,7 @@
         <target/>
       </trans-unit>
       <trans-unit id="1374">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
         <target/>
       </trans-unit>
       <trans-unit id="1375">
@@ -5394,10 +5386,6 @@
       </trans-unit>
       <trans-unit id="1403">
         <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed for authenticated users on the %1% view page, and administrators can limit the disk space each %1% is allowed for %2% uploads</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1404">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
         <target/>
       </trans-unit>
       <trans-unit id="1405">
@@ -5530,6 +5518,22 @@
       </trans-unit>
       <trans-unit id="1437">
         <source>Log in with SSO</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1438">
+        <source>Load and view</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1439">
+        <source>%1% upload limits meter display</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1440">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads for all %2%s, overriding limit set for individual %2%s.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1441">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
         <target/>
       </trans-unit>
     </body>

@@ -178,7 +178,7 @@ EOF;
 
             $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
 
-            switch ($options['fix']) {
+            switch ($options['mode']) {
                 case 'fix':
                     $this->fix($affectedIosById);
 

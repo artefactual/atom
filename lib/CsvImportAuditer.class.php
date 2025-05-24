@@ -116,7 +116,7 @@ class CsvImportAuditer
         return $filename;
     }
 
-    public function setOptions(array $options = null): void
+    public function setOptions(?array $options = null): void
     {
         if (empty($options)) {
             return;
@@ -269,7 +269,7 @@ class CsvImportAuditer
         }
     }
 
-    protected function getErrorLogHandle(): resource
+    protected function getErrorLogHandle()
     {
         if (null === $filename = $this->getOption('errorLog')) {
             return STDERR;

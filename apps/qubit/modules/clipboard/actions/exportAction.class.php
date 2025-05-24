@@ -83,11 +83,11 @@ class ClipboardExportAction extends DefaultEditAction
 
         // Determine if there are non-visible elements that should be hidden
         $this->nonVisibleElementsIncluded = false;
-        $defTemplate = sfConfig::get(('app_default_template_'.strtolower($this->objectType)));
+        $defTemplate = sfConfig::get('app_default_template_'.strtolower($this->objectType));
 
         foreach (sfConfig::getAll() as $setting => $value) {
             if (
-                (false !== strpos($setting, ('app_element_visibility_'.$defTemplate)))
+                (false !== strpos($setting, 'app_element_visibility_'.$defTemplate))
                 && (0 == sfConfig::get($setting))
             ) {
                 $this->nonVisibleElementsIncluded = true;
@@ -128,8 +128,8 @@ class ClipboardExportAction extends DefaultEditAction
         // options enabled
         // and, user is authenticated
         $this->nonVisibleElementsIncluded = $this->showOptions
-        && $this->context->user->isAdministrator()
-        && 'on' == $request->getParameter('includeNonVisibleElements');
+            && $this->context->user->isAdministrator()
+            && 'on' == $request->getParameter('includeNonVisibleElements');
 
         parent::execute($request);
 
@@ -293,7 +293,7 @@ class ClipboardExportAction extends DefaultEditAction
 
         $responseData['success'] .= '</p><p>';
         $responseData['success'] .= $this->context->i18n->__(
-            '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after aperiod of time to free up storage space. When your export is ready you should download it as soon as possible.',
+            '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after a period of time to free up storage space. When your export is ready you should download it as soon as possible.',
             [
                 '%open_strong_tag%' => '<strong>',
                 '%close_strong_tag%' => '</strong>',
@@ -338,6 +338,7 @@ class ClipboardExportAction extends DefaultEditAction
                 );
 
                 break;
+
             // Enable field includeDescendants if:
             // options enabled
             // and, information object type
@@ -357,6 +358,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeAllLevels if:
             // options enabled
             // and, information object type
@@ -372,6 +374,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field levels if:
             // options enabled
             // and, information object type
@@ -405,6 +408,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeDigitalObjects if:
             // digital objects are available
             case 'includeDigitalObjects':
@@ -429,6 +433,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeDrafts if:
             // information object type
             // and, user is authenticated
@@ -451,6 +456,7 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 break;
+
             // Enable field includeNonVisibleElements if:
             // information object type
             // and, user is authenticated

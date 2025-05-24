@@ -1,6 +1,6 @@
 (function ($) {
   function showOrRemoveIdentifierError($identifierEl, allowable, message) {
-    // Remove any currently displayed identifer errors
+    // Remove any currently displayed identifier errors
     $('.identifier-error').remove();
 
     // Show error if identifier not available

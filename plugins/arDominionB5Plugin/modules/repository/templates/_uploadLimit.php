@@ -37,7 +37,7 @@
     <?php } elseif ('disabled' == $quotaType) { ?>
       <p class="card-text"><?php echo __('Upload is disabled'); ?></p>
     <?php } elseif ('unlimited' == $quotaType) { ?>
-      <p class="card-text"><?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>&nbsp;', ['%du%' => $sf_data->getRaw('diskUsage')]); ?></p>
+      <p class="card-text"><?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>', ['%du%' => $sf_data->getRaw('diskUsage')]); ?>&nbsp;</p>
     <?php } ?>
   </div>
 

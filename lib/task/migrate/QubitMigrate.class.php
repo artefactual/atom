@@ -193,7 +193,7 @@ class QubitMigrate
     /**
      * Recursively delete a hierarchical data tree.
      *
-     * @param $objectList array full dataset
+     * @param $objectList      array full dataset
      * @param $deleteObjectKey string key of array object to delete
      */
     public static function cascadeDelete($objectList, $deleteObjectKey)
@@ -242,6 +242,10 @@ class QubitMigrate
             foreach ($schemaArray['classes'] as $classKey => $class) {
                 foreach ($class['columns'] as $columnKey => $column) {
                     if ('id' == $columnKey) {
+                        continue;
+                    }
+
+                    if (!is_array($column)) {
                         continue;
                     }
 
@@ -481,12 +485,16 @@ class QubitMigrate
                 $connection->exec($query);
             }
         } catch (Exception $e) {
-            $connection->rollback();
+            if ($connection->inTransaction()) {
+                $connection->rollback();
+            }
 
             throw $e;
         }
 
-        $connection->commit();
+        if ($connection->inTransaction()) {
+            $connection->commit();
+        }
     }
 
     public static function dropColumn($table, $column)
@@ -515,6 +523,7 @@ class QubitMigrate
                         }
 
                         break;
+
                     // Foreign keys
                     case 'CONSTRAINT':
                         // Build array with DROP FOREIGN KEY commands

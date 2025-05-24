@@ -60,7 +60,7 @@ function __($text, $args = array(), $catalogue = 'messages')
  *
  * @return string Result of the translation
  */
-function format_number_choice($text, $args = array(), $number, $catalogue = 'messages')
+function format_number_choice($text, $args = array(), $number = null, $catalogue = 'messages')
 {
   $translated = __($text, $args, $catalogue);
 

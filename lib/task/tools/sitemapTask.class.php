@@ -52,8 +52,7 @@ class sitemapTask extends sfBaseTask
             ->name('sitemap*.xml')
             ->name('sitemap*.xml.gz')
             ->maxdepth(0)
-            ->in($options['output-directory'])
-        ;
+            ->in($options['output-directory']);
         if (count($files) > 0) {
             if (!$options['no-confirmation']) {
                 $result = $this->askConfirmation(['Do you want to delete the previous sitemap(s)? (Y/n)'], 'QUESTION_LARGE', true);

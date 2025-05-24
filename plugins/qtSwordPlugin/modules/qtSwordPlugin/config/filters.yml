@@ -16,5 +16,8 @@ QubitTransaction: ~
 QubitCSP:
   enable: false
 
+QubitUserChallengeFilter:
+  enable: false
+
 cache: ~
 execution: ~

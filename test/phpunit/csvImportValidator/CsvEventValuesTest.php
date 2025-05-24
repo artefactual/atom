@@ -4,17 +4,26 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * @internal
+ *
  * @covers \CsvEventValuesValidator
  */
 class CsvEventValuesTest extends \PHPUnit\Framework\TestCase
 {
     protected $vdbcon;
     protected $context;
+    protected $vfs;
+    protected $csvData;
+    protected $csvDataWithAllEventCols;
+    protected $csvDataWithEventType;
+    protected $csvDataWithEventTypeMismatches;
+    protected $csvHeader;
+    protected $csvHeaderWithEventType;
+    protected $csvHeaderWithAllEventCols;
 
     public function setUp(): void
     {
         $this->context = sfContext::getInstance();
-        $this->vdbcon = $this->createMock(DebugPDO::class);
+        $this->vdbcon = $this->createMock(PropelPDO::class);
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
         $this->csvHeaderWithEventType = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,eventTypes,eventDates,eventStartDates,eventEndDates,repository,culture';

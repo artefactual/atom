@@ -61,7 +61,7 @@ class FunctionEditAction extends DefaultEditAction
             $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden());
         } else {
             // Check authorization
-            if (!QubitAcl::check($this->parent, 'create')) {
+            if (!QubitAcl::check($this->resource, 'create')) {
                 QubitAcl::forwardUnauthorized();
             }
         }

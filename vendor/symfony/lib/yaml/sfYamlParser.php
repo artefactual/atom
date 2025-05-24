@@ -396,7 +396,7 @@ class sfYamlParser
     {
       $modifiers = isset($matches['modifiers']) ? $matches['modifiers'] : '';
 
-      return $this->parseFoldedScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), intval(abs($modifiers)));
+      return $this->parseFoldedScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), intval(abs((int) $modifiers)));
     }
     else
     {
@@ -449,7 +449,7 @@ class sfYamlParser
 
       if (preg_match('#^(?P<indent> {'.strlen($textIndent).',})(?P<text>.+)$#u', $this->currentLine, $matches))
       {
-        if (' ' == $separator && $previousIndent != $matches['indent'])
+        if (' ' == $separator && ($previousIndent && $previousIndent != $matches['indent']))
         {
           $text = substr($text, 0, -1)."\n";
         }

@@ -71,7 +71,7 @@ class PhysicalObjectCsvImporter
     //
 
     public function __construct(
-        sfContext $context = null,
+        ?sfContext $context = null,
         $dbcon = null,
         $options = []
     ) {
@@ -165,7 +165,7 @@ class PhysicalObjectCsvImporter
         return $filename;
     }
 
-    public function setOptions(array $options = null)
+    public function setOptions(?array $options = null)
     {
         if (empty($options)) {
             return;
@@ -198,6 +198,7 @@ class PhysicalObjectCsvImporter
                 $this->setProgressFrequency($value);
 
                 break;
+
             // boolean options
             case 'debug':
             case 'insertNew':
@@ -247,7 +248,7 @@ class PhysicalObjectCsvImporter
         return $this->offset;
     }
 
-    public function setHeader(string $str = null)
+    public function setHeader(?string $str = null)
     {
         if (null === $str) {
             $this->options['header'] = null;
@@ -369,7 +370,8 @@ EOM;
         $culture = $this->getRecordCulture($data['culture']);
 
         foreach (self::$columnMap as $oldkey => $newkey) {
-            $prow[$newkey] = $this->processColumn($oldkey, $data[$oldkey], $culture);
+            $colData = array_key_exists($oldkey, $data) ? $data[$oldkey] : '';
+            $prow[$newkey] = $this->processColumn($oldkey, $colData, $culture);
         }
 
         $timer->add();
@@ -379,7 +381,7 @@ EOM;
 
     public function getRecordCulture($culture = null)
     {
-        $culture = trim($culture);
+        $culture = trim((string) $culture);
 
         if (!empty($culture)) {
             return strtolower($culture);
@@ -769,7 +771,7 @@ EOQ;
         }
     }
 
-    protected function processDescriptionSlugs(string $str = null)
+    protected function processDescriptionSlugs(?string $str = null)
     {
         $ids = [];
 
@@ -826,7 +828,7 @@ EOQ;
         $name = trim(strtolower($name));
         $culture = trim(strtolower($culture));
 
-        if (null === $typeId = $lookupTable[$culture][$name]) {
+        if (!array_key_exists($name, $lookupTable[$culture]) || null === $lookupTable[$culture][$name]) {
             $msg = <<<EOL
 Couldn't find physical object type "{$name}" for culture "{$culture}"
 EOL;
@@ -834,7 +836,7 @@ EOL;
             throw new UnexpectedValueException($msg);
         }
 
-        return $typeId;
+        return $lookupTable[$culture][$name];
     }
 
     protected function getTypeIdLookupTable()
@@ -842,8 +844,7 @@ EOL;
         if (null === $this->typeIdLookupTable) {
             $this->typeIdLookupTable = $this
                 ->getPhysicalObjectTypeTaxonomy()
-                ->getTermNameToIdLookupTable($this->getDbConnection())
-            ;
+                ->getTermNameToIdLookupTable($this->getDbConnection());
 
             if (null === $this->typeIdLookupTable) {
                 throw new sfException(

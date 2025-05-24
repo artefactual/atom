@@ -14,11 +14,11 @@
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Net_Gearman
- * @link      http://www.danga.com/gearman/
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 
 // Define this if you want your Jobs to be stored in a different
@@ -38,11 +38,9 @@ if (!defined('NET_GEARMAN_JOB_CLASS_PREFIX')) {
  * @category  Net
  * @package   Net_Gearman
  * @author    Joe Stump <joe@joestump.net>
+ * @author    Brian Moon <brianm@dealnews.com>
  * @copyright 2007-2008 Digg.com, Inc.
- * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @link      http://www.danga.com/gearman/
- * @version   Release: @package_version@
- * @see       Net_Gearman_Job_Common, Net_Gearman_Worker
+ * @link      https://github.com/brianlmoon/net_gearman
  */
 abstract class Net_Gearman_Job
 {
@@ -65,29 +63,49 @@ abstract class Net_Gearman_Job
      */
     static public function factory($job, $conn, $handle, $initParams=array())
     {
-        $file = NET_GEARMAN_JOB_PATH . '/' . $job . '.php';
-        include_once $file;
-        $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
+        if (empty($initParams['path'])) {
+            $paths = explode(',', NET_GEARMAN_JOB_PATH);
+            $file = null;
 
-        // Strip out any potential prefixes used in uniquely identifying AtoM installs.
-        // e.g. "fdd4764376d2f763-arFindingAidJob" -> "arFindingAidJob"
-        // See issue #7423.
-        $prefix = QubitJob::getJobPrefix();
-        if (substr($class, 0, strlen($prefix)) === $prefix) {
-          $class = substr($class, strlen($prefix));
+            foreach ($paths as $path) {
+                $tmpFile = $path . '/' . $job . '.php';
+
+                if (file_exists(realpath($tmpFile))) {
+                    $file = $tmpFile;
+                    break;
+                }
+            }
+        }
+        else {
+            $file = $initParams['path'];
         }
 
+        include_once $file;
+
+        if (empty($initParams['class_name'])) {
+            $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
+        }
+        else {
+            $class = $initParams['class_name'];
+        }
+
+	// Strip out any potential prefixes used in uniquely identifying AtoM installs.
+	// // e.g. "fdd4764376d2f763-arFindingAidJob" -> "arFindingAidJob"
+	// // See issue #7423.
+	$prefix = QubitJob::getJobPrefix();
+	if (substr($class, 0, strlen($prefix)) === $prefix) {
+	   $class = substr($class, strlen($prefix));
+	}
+
         if (!class_exists($class)) {
-            throw new Net_Gearman_Job_Exception('Invalid Job class');
+            throw new Net_Gearman_Job_Exception('Invalid Job class: ' . (empty($class) ? '<empty>' : $class) . ' in ' . (empty($file) ? '<empty>' : $file) );
         }
 
         $instance = new $class($conn, $handle, $initParams);
         if (!$instance instanceof Net_Gearman_Job_Common) {
-            throw new Net_Gearman_Job_Exception('Job is of invalid type');
+            throw new Net_Gearman_Job_Exception('Job is of invalid type: ' . get_class($instance));
         }
 
         return $instance;
     }
 }
-
-?>

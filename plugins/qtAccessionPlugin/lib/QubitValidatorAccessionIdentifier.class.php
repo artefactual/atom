@@ -46,6 +46,6 @@ class QubitValidatorAccessionIdentifier extends sfValidatorBase
             return $value;
         }
 
-        throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifer is already in use.'), ['value' => $value]);
+        throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifier is already in use.'), ['value' => $value]);
     }
 }

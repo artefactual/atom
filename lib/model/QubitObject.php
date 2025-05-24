@@ -43,7 +43,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
                 return isset($this->values['slug']);
 
             default:
-                return call_user_func_array([$this, 'BaseObject::__isset'], $args);
+                return call_user_func_array('BaseObject::__isset', $args);
         }
     }
 
@@ -69,7 +69,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
                 return $this->values['slug'];
 
             default:
-                return call_user_func_array([$this, 'BaseObject::__get'], $args);
+                return call_user_func_array('BaseObject::__get', $args);
         }
     }
 
@@ -84,7 +84,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
                 return $this;
 
             default:
-                return call_user_func_array([$this, 'BaseObject::__set'], $args);
+                return call_user_func_array('BaseObject::__set', $args);
         }
     }
 

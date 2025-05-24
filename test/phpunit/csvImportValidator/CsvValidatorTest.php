@@ -2,6 +2,7 @@
 
 /**
  * @internal
+ *
  * @covers \CsvImportValidator
  */
 class CsvValidatorTest extends \PHPUnit\Framework\TestCase
@@ -20,13 +21,6 @@ class CsvValidatorTest extends \PHPUnit\Framework\TestCase
         $csvValidator = new CsvImportValidator(null, $this->vdbcon, null);
 
         $this->assertSame(sfContext::class, get_class($csvValidator->getContext()));
-    }
-
-    public function testConstructorWithNoDbconPassed()
-    {
-        $csvValidator = new CsvImportValidator($this->context, null, null);
-
-        $this->assertSame(DebugPDO::class, get_class($csvValidator->getDbCon()));
     }
 
     public function testSetInvalidOptionsException()

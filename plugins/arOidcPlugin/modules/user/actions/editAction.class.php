@@ -22,8 +22,10 @@ class UserEditAction extends DefaultEditAction
     // Arrays not allowed in class constants
     public static $NAMES = [
         'active',
+        'email',
         'groups',
         'translate',
+        'username',
         'restApiKey',
         'oaiApiKey',
     ];
@@ -79,9 +81,34 @@ class UserEditAction extends DefaultEditAction
         }
     }
 
+    public function exists($validator, $values)
+    {
+        $criteria = new Criteria();
+
+        if (isset($this->resource->id)) {
+            $criteria->add(QubitUser::ID, $this->resource->id, Criteria::NOT_EQUAL);
+        }
+
+        $criterion1 = $criteria->getNewCriterion(QubitUser::USERNAME, $values['username']);
+        $criterion2 = $criteria->getNewCriterion(QubitUser::EMAIL, $values['email']);
+        $criteria->add($criterion1->addOr($criterion2));
+
+        if (0 < count(QubitUser::get($criteria))) {
+            throw new sfValidatorError($validator, $this->context->i18n->__('The username or e-mail address you entered is already in use'));
+        }
+
+        return $values;
+    }
+
     protected function earlyExecute()
     {
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+        if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
+            $this->form->getValidatorSchema()->setPostValidator(
+                new sfValidatorCallback(['callback' => [$this, 'exists']])
+            );
+        }
 
         $this->resource = new QubitUser();
         if (isset($this->getRoute()->resource)) {
@@ -108,6 +135,24 @@ class UserEditAction extends DefaultEditAction
     protected function addField($name)
     {
         switch ($name) {
+            case 'username':
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
+                    $this->form->setDefault('username', $this->resource->username);
+                    $this->form->setValidator('username', new sfValidatorString(['required' => true]));
+                    $this->form->setWidget('username', new sfWidgetFormInput());
+                }
+
+                break;
+
+            case 'email':
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
+                    $this->form->setDefault('email', $this->resource->email);
+                    $this->form->setValidator('email', new sfValidatorEmail(['required' => true]));
+                    $this->form->setWidget('email', new sfWidgetFormInput());
+                }
+
+                break;
+
             case 'active':
                 if (isset($this->resource->id)) {
                     $this->form->setDefault('active', (bool) $this->resource->active);
@@ -264,6 +309,14 @@ class UserEditAction extends DefaultEditAction
                         }
 
                         break;
+                }
+
+                break;
+
+            case 'username':
+            case 'email':
+                if (false === sfContext::getinstance()->user->getProviderConfigValue('auto_create_atom_user', true)) {
+                    $this->resource[$name] = $this->form->getValue($name);
                 }
 
                 break;

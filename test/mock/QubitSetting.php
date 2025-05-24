@@ -140,7 +140,7 @@ class QubitSetting
 
     public function setValue($value, $options = [])
     {
-        $culture = ($options['culture'])
+        $culture = isset($options['culture'])
             ? $options['culture']
             : self::DEFAULT_CULTURE;
 

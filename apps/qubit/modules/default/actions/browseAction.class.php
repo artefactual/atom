@@ -146,7 +146,7 @@ class DefaultBrowseAction extends sfAction
 
                     $this->search->query->setRawQuery($queryParams);
 
-                    $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->search->query);
+                    $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getIndex($this::INDEX_TYPE)->search($this->search->query);
 
                     $count = $resultSetWithoutLanguageFilter->getTotalHits();
                 }

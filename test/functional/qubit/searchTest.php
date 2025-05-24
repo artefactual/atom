@@ -13,8 +13,7 @@ $browser
     ->get(';search?query=testtitle')
     ->with('response')->begin()
     ->checkElement('body', '/testtitle/')
-    ->end()
-;
+    ->end();
 
 $informationObject->title = 'TesTTItLe';
 $informationObject->save();
@@ -23,8 +22,7 @@ $browser
     ->get(';search?query=TEsTtiTLE')
     ->with('response')->begin()
     ->checkElement('body', '/TesTTItLe/')
-    ->end()
-;
+    ->end();
 
 // Issue 849
 $informationObject->title = 'testtitlé';
@@ -34,8 +32,7 @@ $browser
     ->get(';search?query=testtitle')
     ->with('response')->begin()
     ->checkElement('body', '/testtitlé/')
-    ->end()
-;
+    ->end();
 
 // Issue 848
 $informationObject->title = 'tEStTitLÉ';
@@ -45,8 +42,7 @@ $browser
     ->get(';search?query=teSTtiTle')
     ->with('response')->begin()
     ->checkElement('body', '/tEStTitLÉ/')
-    ->end()
-;
+    ->end();
 
 $informationObject->delete();
 
@@ -54,5 +50,4 @@ $browser
     ->get(';search?query=testtitle')
     ->with('response')->begin()
     ->checkElement('body', '!/testtitle/')
-    ->end()
-;
+    ->end();

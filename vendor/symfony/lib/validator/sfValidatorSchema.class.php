@@ -306,6 +306,7 @@ class sfValidatorSchema extends sfValidatorBase implements ArrayAccess
     return isset($this->fields[$name]);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
     $args = func_get_args();
@@ -325,6 +326,7 @@ class sfValidatorSchema extends sfValidatorBase implements ArrayAccess
     return isset($this->fields[$name]) ? $this->fields[$name] : null;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -348,6 +350,7 @@ class sfValidatorSchema extends sfValidatorBase implements ArrayAccess
     $this->fields[$name] = clone $validator;
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -365,6 +368,7 @@ class sfValidatorSchema extends sfValidatorBase implements ArrayAccess
     unset($this->fields[$name]);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();

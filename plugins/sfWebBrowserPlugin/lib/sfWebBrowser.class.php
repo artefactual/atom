@@ -553,6 +553,7 @@ class sfWebBrowser
                 $text = $this->decodeGzip($text);
 
                 break;
+
             // Handle deflate encoding
             case 'deflate':
                 $text = $this->decodeDeflate($text);
@@ -617,9 +618,9 @@ class sfWebBrowser
     /**
      * Get a SimpleXML version of the response.
      *
-     * @throws sfWebBrowserInvalidResponseException when response is not in a valid format
-     *
      * @return SimpleXMLElement The reponse contents
+     *
+     * @throws sfWebBrowserInvalidResponseException when response is not in a valid format
      */
     public function getResponseXML()
     {

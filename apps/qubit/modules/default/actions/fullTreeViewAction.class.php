@@ -175,9 +175,8 @@ class DefaultFullTreeViewAction extends sfAction
         // Get results, with drafts filtered when appropriate
         return QubitSearch::getInstance()
             ->index
-            ->getType('QubitInformationObject')
-            ->search($query->getQuery(false, false))
-        ;
+            ->getIndex('QubitInformationObject')
+            ->search($query->getQuery(false, false));
     }
 
     /**
@@ -238,9 +237,8 @@ class DefaultFullTreeViewAction extends sfAction
         // Return a count of the results found
         return QubitSearch::getInstance()
             ->index
-            ->getType('QubitInformationObject')
-            ->count($query->getQuery(false, false))
-        ;
+            ->getIndex('QubitInformationObject')
+            ->count($query->getQuery(false, false));
     }
 
     /**
@@ -460,7 +458,7 @@ class DefaultFullTreeViewAction extends sfAction
      */
     protected function addIdentifier($text, $record)
     {
-        $identifer = null;
+        $identifier = null;
 
         // If show identifier setting is "no" return the input text unaltered
         if ('no' === $this->showIdentifier) {

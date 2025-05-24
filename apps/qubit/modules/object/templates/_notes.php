@@ -19,7 +19,8 @@
       </tr>
     </thead><tbody>
 
-      <?php $i = 0; foreach ($notes as $item) { ?>
+      <?php $i = 0;
+      foreach ($notes as $item) { ?>
 
         <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ?>
 

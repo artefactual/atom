@@ -316,11 +316,11 @@ class sfFormField implements ArrayAccess
   /**
    * Returns true is the field has an error.
    *
-   * @return Boolean true if the field has some errors, false otherwise
+   * @return bool true if the field has some errors, false otherwise
    */
   public function hasError()
   {
-    return null !== $this->error && count($this->error);
+    return !empty($this->error);
   }
 
   public function __call($name, $args)
@@ -329,7 +329,10 @@ class sfFormField implements ArrayAccess
 
     array_unshift($args, $name);
 
-    call_user_func_array(array($clone->parent->getWidget()->__get($clone->name), 'setOption'), $args);
+    if ($clone->parent && $clone->parent->getWidget()->__get($clone->name))
+    {
+      call_user_func_array(array($clone->parent->getWidget()->__get($clone->name), 'setOption'), $args);
+    }
 
     return $clone;
   }
@@ -348,6 +351,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this->parent->getWidget()->__get($this->name), 'getOption'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
     $args = func_get_args();
@@ -355,6 +359,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this, '__get'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function __set($name, $value)
   {
     $args = func_get_args();
@@ -362,6 +367,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this->parent->getWidget()->__get($this->name), 'setOption'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
   {
     $args = func_get_args();
@@ -369,6 +375,7 @@ class sfFormField implements ArrayAccess
     return call_user_func_array(array($this, '__set'), $args);
   }
 
+  #[\ReturnTypeWillChange]
   public function offsetUnset($offset)
   {
     $args = func_get_args();

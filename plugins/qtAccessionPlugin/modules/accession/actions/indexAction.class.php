@@ -23,6 +23,10 @@ class AccessionIndexAction extends sfAction
     {
         $this->resource = $this->getRoute()->resource;
 
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
+
         // Check user authorization
         if (!QubitAcl::check($this->resource, 'read')) {
             QubitAcl::forwardToSecureAction();

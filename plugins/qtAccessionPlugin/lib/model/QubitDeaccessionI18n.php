@@ -17,6 +17,4 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitDeaccessionI18n extends BaseDeaccessionI18n
-{
-}
+class QubitDeaccessionI18n extends BaseDeaccessionI18n {}

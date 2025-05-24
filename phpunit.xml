@@ -1,4 +1,4 @@
-<phpunit bootstrap="test/bootstrap/phpunit.php">
+<phpunit bootstrap="test/bootstrap/phpunit.php" stderr="true">
   <testsuites>
     <testsuite name="unit">
       <directory>test/phpunit</directory>
@@ -12,6 +12,7 @@
       <directory suffix=".php">cache</directory>
       <directory suffix=".php">test</directory>
       <directory suffix=".php">vendor</directory>
+      <directory suffix=".php">docker</directory>
     </exclude>
   </coverage>
 </phpunit>

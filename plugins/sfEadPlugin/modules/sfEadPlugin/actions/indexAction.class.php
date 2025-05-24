@@ -36,6 +36,10 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
             ['public' => !$this->context->user->isAuthenticated()]
         );
 
+        // Variables for hidden elements
+        $this->authenticated = $this->getUser()->isAuthenticated();
+        $this->defTemplate = sfConfig::get('app_default_template_informationobject');
+
         // Determine language(s) used in the export
         $this->exportLanguage = sfContext::getInstance()->user->getCulture();
         $this->sourceLanguage = $this->resource->getSourceCulture();

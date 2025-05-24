@@ -64,9 +64,7 @@ abstract class AbstractSitemapUrl
         return '/'.$this->slug;
     }
 
-    protected function getPriority()
-    {
-    }
+    protected function getPriority() {}
 
     protected function getLastmod()
     {

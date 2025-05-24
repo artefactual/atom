@@ -24,8 +24,10 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i = 0; foreach ($eventData as $event) { ?>
-        <?php $form->getWidgetSchema()->setNameFormat("events[{$i}][%s]"); ++$i; ?>
+      <?php $i = 0;
+      foreach ($eventData as $event) { ?>
+        <?php $form->getWidgetSchema()->setNameFormat("events[{$i}][%s]");
+        ++$i; ?>
 
         <tr class="related_obj_<?php echo $event['id']; ?>">
           <td>

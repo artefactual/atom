@@ -26,6 +26,7 @@
 class arInformationObjectCsvExportJob extends arInformationObjectExportJob
 {
     protected $csvWriter;
+    protected $user;
 
     /**
      * Export clipboard item metadata to a CSV file, and related digital objects.

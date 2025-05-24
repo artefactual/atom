@@ -85,7 +85,7 @@ class arRepositoryCsvExportJob extends arExportJob
     {
         $itemsExported = 0;
 
-        $search = QubitSearch::getInstance()->index->getType('QubitRepository')->createSearch($this->search->getQuery(false, false));
+        $search = QubitSearch::getInstance()->index->getIndex('QubitRepository')->createSearch($this->search->getQuery(false, false));
 
         $writer = new csvRepositoryExport($path, null, 10000);
         $writer->loadResourceSpecificConfiguration('QubitRepository');
