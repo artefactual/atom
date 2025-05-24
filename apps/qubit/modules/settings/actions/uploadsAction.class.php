@@ -25,6 +25,9 @@ class SettingsUploadsAction extends SettingsEditAction
         'explode_multipage_files',
         'repository_quota',
         'upload_quota',
+        'convert_density',
+        'convert_quality',
+        'convert_memory',
     ];
 
     public function earlyExecute()
@@ -38,6 +41,9 @@ class SettingsUploadsAction extends SettingsEditAction
             'explode_multipage_files' => 0,
             'repository_quota' => 0,
             'upload_quota' => -1,
+            'convert_density' => 150,
+            'convert_quality' => 90,
+            'convert_memory' => "500M",
         ];
 
         // Set form decorator
@@ -89,6 +95,31 @@ class SettingsUploadsAction extends SettingsEditAction
                 ));
                 $this->form->setWidget($name, new sfWidgetFormInput());
 
+                break;
+
+            case 'convert_density':
+                $this->form->setValidator($name, new sfValidatorNumber(
+                    ['required' => true, 'min' => 10, 'max' => 2000],
+                    ['min' => $this->i18n->__('Minimum value is "%min%"'),
+                        'max' => $this->i18n->__('Maximum value is "%max%"')]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'convert_quality':
+                $this->form->setValidator($name, new sfValidatorNumber(
+                    ['required' => true, 'min' => 10, 'max' => 100],
+                    ['min' => $this->i18n->__('Minimum value is "%min%"'),
+                        'max' => $this->i18n->__('Maximum value is "%max%"')]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'convert_memory':
+                $this->form->setValidator($name, new sfValidatorString(['required' => true]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
                 break;
 
             case 'upload_quota':

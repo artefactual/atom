@@ -80,6 +80,27 @@
               ->renderRow();
           ?>
 
+          <?php echo $form
+              ->convert_density
+              ->label(__('Derivatives density'))
+              ->help(__('Density of media conversion in dpi, reduce it to reduce quality.'))
+              ->renderRow();
+          ?>
+
+          <?php echo $form
+              ->convert_quality
+              ->label(__('Derivatives quality'))
+              ->help(__('Quality of derivatives, a number from 1 to 100, the higher the number, the better the quality, but large derivative files.'))
+              ->renderRow();
+          ?>
+
+          <?php echo $form
+              ->convert_memory
+              ->label(__('Derivatives memory limit'))
+              ->help(__('Memory limit, you can use suffixes like MB, GB, or KiB, MiB, GiB to specify the unit.'))
+              ->renderRow();
+          ?>
+
         </tbody>
       </table>
 
