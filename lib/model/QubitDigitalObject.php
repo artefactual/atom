@@ -36,6 +36,10 @@ class QubitDigitalObject extends BaseDigitalObject
     // Flag for updating search index on save or delete
     public $createDerivatives = true;
 
+    public static $defaultConvertDensity = 150;
+    public static $defaultConvertQuality = 90;
+    public static $defaultConvertMemoryLimit = "500MiB";
+    
     /*
      * The following mime-type array is taken from the Gallery 2 project
      * http://gallery.menalto.com
@@ -1997,12 +2001,15 @@ class QubitDigitalObject extends BaseDigitalObject
     /**
      * Explode multi-page asset into multiple image files.
      *
-     * @return unknown
+     * @return array
+     * @throws sfException
      */
     public function explodeMultiPageAsset()
     {
-        $pageCount = $this->getPageCount();
+        $logger = sfContext::getInstance()->getLogger();
 
+        $pageCount = $this->getPageCount();
+        $fileList = [];
         if ($pageCount > 1 && $this->canThumbnail()) {
             if ($this->derivativesGeneratedFromExternalMaster($this->usageId)) {
                 $path = $this->localPath;
@@ -2012,9 +2019,27 @@ class QubitDigitalObject extends BaseDigitalObject
 
             $filenameMinusExtension = preg_replace('/\.[a-zA-Z]{2,3}$/', '', $path);
 
-            $command = 'convert -density 300 -alpha remove -quality 100 ';
-            $command .= $path;
+            $command = 'convert -alpha remove ';
+            $params = [];
+            $memory = sfConfig::get('convert_memory', $this::$defaultConvertMemoryLimit);
+            if ($memory) {
+                $params[] = "-limit memory $memory";
+            }
+
+            $density = sfConfig::get('convert_density', $this::$defaultConvertDensity);
+            if ($density) {
+                $params[] = "-density $density";
+            }
+
+            $quality = sfConfig::get('convert_quality', self::$defaultConvertQuality);
+            if ($quality) {
+                $params[] = "-quality $quality";
+            }
+
+            $command .= implode(' ', $params);
+            $command .= ' '.$path;
             $command .= ' '.$filenameMinusExtension.'_%02d.'.self::THUMB_EXTENSION;
+            $logger->info($command);
             exec($command, $output, $status);
 
             if (1 == $status) {
@@ -2204,7 +2229,7 @@ class QubitDigitalObject extends BaseDigitalObject
         if (null === $this->localPath && QubitTerm::EXTERNAL_FILE_ID == $this->usageId) {
             $filename = basename($this->path);
             if (false === $contents = $this->file_get_contents_if_not_empty($this->path)) {
-                throw new sfException(sprintf('Error reading file or file is empty.', $filepath));
+                throw new sfException(sprintf('Error reading file or file is empty.', $this->path));
             }
             $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
         }
