@@ -243,9 +243,7 @@ class QubitFlatfileExport
      */
     public function exportResource(&$resource)
     {
-        if (!$this->configurationLoaded) {
-            $this->loadResourceSpecificConfiguration(get_class($resource));
-        }
+        $this->loadResourceSpecificConfiguration(get_class($resource));
 
         if (!$this->params['nonVisibleElementsIncluded']) {
             $this->getHiddenVisibleElementCsvHeaders();
