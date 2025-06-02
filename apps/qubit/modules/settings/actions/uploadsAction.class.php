@@ -43,7 +43,7 @@ class SettingsUploadsAction extends SettingsEditAction
             'upload_quota' => -1,
             'convert_density' => 150,
             'convert_quality' => 90,
-            'convert_memory' => "500M",
+            'convert_memory' => '500M',
         ];
 
         // Set form decorator
@@ -120,6 +120,7 @@ class SettingsUploadsAction extends SettingsEditAction
             case 'convert_memory':
                 $this->form->setValidator($name, new sfValidatorString(['required' => true]));
                 $this->form->setWidget($name, new sfWidgetFormInput());
+
                 break;
 
             case 'upload_quota':

@@ -38,8 +38,8 @@ class QubitDigitalObject extends BaseDigitalObject
 
     public static $defaultConvertDensity = 150;
     public static $defaultConvertQuality = 90;
-    public static $defaultConvertMemoryLimit = "500MiB";
-    
+    public static $defaultConvertMemoryLimit = '500MiB';
+
     /*
      * The following mime-type array is taken from the Gallery 2 project
      * http://gallery.menalto.com
@@ -2002,6 +2002,7 @@ class QubitDigitalObject extends BaseDigitalObject
      * Explode multi-page asset into multiple image files.
      *
      * @return array
+     *
      * @throws sfException
      */
     public function explodeMultiPageAsset()
@@ -2023,17 +2024,17 @@ class QubitDigitalObject extends BaseDigitalObject
             $params = [];
             $memory = sfConfig::get('convert_memory', $this::$defaultConvertMemoryLimit);
             if ($memory) {
-                $params[] = "-limit memory $memory";
+                $params[] = "-limit memory {$memory}";
             }
 
             $density = sfConfig::get('convert_density', $this::$defaultConvertDensity);
             if ($density) {
-                $params[] = "-density $density";
+                $params[] = "-density {$density}";
             }
 
             $quality = sfConfig::get('convert_quality', self::$defaultConvertQuality);
             if ($quality) {
-                $params[] = "-quality $quality";
+                $params[] = "-quality {$quality}";
             }
 
             $command .= implode(' ', $params);
