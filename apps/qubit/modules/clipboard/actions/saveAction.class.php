@@ -48,8 +48,10 @@ class ClipboardSaveAction extends sfAction
             }
 
             $loadUrl = $this->context->routing->generate(null, ['module' => 'clipboard', 'action' => 'load']);
-            $message = $this->context->i18n->__('Clipboard saved with %1% items. Clipboard ID is <b>%2%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a class="alert-link" href="%3%">Load clipboard</a>, and enter this number in the Clipboard ID field.', ['%1%' => $itemsCount, '%2%' => $password, '%3%' => $loadUrl]);
 
+            $retention = sfconfig::get('app_clipboard_save_max_age');
+
+            $message = $this->context->i18n->__('Clipboard saved with %1% item(s). Clipboard ID is <b>%2%</b>. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select <a class="alert-link" href="%3%">Load clipboard</a>, and enter this number in the Clipboard ID field. Clipboards are eligible for deletion after <b>%4% day(s)</b>.', ['%1%' => $itemsCount, '%2%' => $password, '%3%' => $loadUrl, '%4%' => $retention]);
             $this->response->setStatusCode(200);
             $responseData = ['success' => $message];
         }

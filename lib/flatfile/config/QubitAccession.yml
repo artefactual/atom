@@ -1,31 +1,104 @@
 # All columns that can be either imported or exported
 columnNames:
-  - appraisal
-  - archivalHistory
+  - accessionNumber
+  - alternativeIdentifiers
+  - alternativeIdentifierTypes
+  - alternativeIdentifierNotes
   - acquisitionDate
+  - sourceOfAcquisition
   - locationInformation
+  - acquisitionType
+  - resourceType
+  - title
+  - archivalHistory
+  - scopeAndContent
+  - appraisal
+  - physicalCondition
+  - receivedExtentUnits
+  - processingStatus
+  - processingPriority
+  - processingNotes
+  - physicalObjectName
+  - physicalObjectLocation
+  - physicalObjectType
+  - donorName
+  - donorStreetAddress
+  - donorCity
+  - donorRegion
+  - donorCountry
+  - donorPostalCode
+  - donorTelephone
+  - donorFax
+  - donorEmail
+  - donorNote
+  - donorContactPerson
+  - eventActors
+  - eventTypes
+  - eventDates
+  - eventStartDates
+  - eventEndDates
+  - culture
+
+# Object properties that have the same name as a column
+direct:
+  - title
+  - archivalHistory
+  - locationInformation
+  - appraisal
   - processingNotes
   - receivedExtentUnits
   - scopeAndContent
   - sourceOfAcquisition
-  - title
-  - eventActors
-  - eventActorHistories
-  - eventTypes
-  - eventPlaces
-  - eventDates
-  - eventStartDates
-  - eventEndDates
-  - eventDescriptions
-  - creators
-  - creatorHistories
-  - creatorDates
-  - creatorDatesStart
-  - creatorDatesEnd
-  - creatorDateNotes
-  - creationDates
-  - creationDatesStart
-  - creationDatesEnd
-  - creationDateNotes
-  - creationDatesType
-  - physicalCondition
+  - culture
+
+# Object properties to map to columns. Use like:
+#
+# property: column name
+#
+map:
+  identifier: accessionNumber
+  date: acquisitionDate
+  physicalCharacteristics: physicalCondition
+
+# Taxonomies to load into exporter when initialized
+cacheTaxonomies:
+  alternateIdTypes:     ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID
+  eventTypeTerms:       EVENT_TYPE_ID
+  resourceTypeTerms:    ACCESSION_RESOURCE_TYPE_ID
+  acquisitionTypeTerms: ACCESSION_ACQUISITION_TYPE_ID
+  priorityTerms:        ACCESSION_PROCESSING_PRIORITY_ID
+  statusTerms:          ACCESSION_PROCESSING_STATUS_ID
+  physicalObjectTypes:  PHYSICAL_OBJECT_TYPE_ID
+
+# Map from taxonomy properties to columns. Use like:
+#
+# propertyName:
+#   column: columnName
+#   terms: cachedTaxonomyName
+#
+taxonomyMap:
+  resourceTypeId:
+    column: resourceType
+    terms: resourceTypeTerms
+  acquisitionTypeId:
+    column: acquisitionType
+    terms: acquisitionTypeTerms
+  processingPriorityId:
+    column: processingPriority
+    terms: priorityTerms
+  processingStatusId:
+    column: processingStatus
+    terms: statusTerms
+
+# Map from donor contact info to columns
+contactInfoMap:
+  streetAddress: donorStreetAddress
+  city: donorCity
+  region: donorRegion
+  countryCode: donorCountry
+  postalCode: donorPostalCode
+  telephone: donorTelephone
+  fax: donorFax
+  email: donorEmail
+  note: donorNote
+  contactPerson: donorContactPerson
