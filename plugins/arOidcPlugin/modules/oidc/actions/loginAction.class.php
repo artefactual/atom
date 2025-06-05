@@ -50,7 +50,7 @@ class OidcLoginAction extends sfAction
         // Redirect to module/action the user was trying to reach before being redirected
         // to the OIDC IAM system for authentication. We prefer a redirect to a forward so that the ticket
         // parameter is not accidentally exposed in the user's browser.
-        if (null !== $redirectUrl = $this->context->user->getAttribute('atom-login-referrer', null)) {
+        if (null !== $redirectUrl = $this->context->user->getAttribute('atom-login-referer', null)) {
             $this->context->user->setAttribute('atom-login-referer', null);
             $this->redirect($redirectUrl);
         }
