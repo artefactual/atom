@@ -72,6 +72,7 @@ class csvAccessionExport extends QubitFlatfileExport
      */
     protected function modifyRowBeforeExport()
     {
+        parent::modifyRowBeforeExport();
         $this->setAlternativeIdentifierColumns();
         $this->setEventsAndActors();
         $this->setTaxonomies();
