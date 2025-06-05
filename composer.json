@@ -31,6 +31,10 @@
     },
     "scripts": {
         "test": "phpunit",
+        "test-debug": [
+            "@putenv XDEBUG_SESSION=1",
+            "phpunit"
+        ],
         "test-cov": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/html",
         "test-cov-strict": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/html --strict-coverage",
         "php-cs-fixer": "php-cs-fixer"
