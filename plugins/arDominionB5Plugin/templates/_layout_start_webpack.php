@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include_title(); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
-    <link rel="shortcut icon" href="<?php echo public_path('favicon.ico'); ?>">
+    <?php if (file_exists(sfConfig::get('sf_web_dir').'/uploads/favicon.ico')) { ?>
+      <?php $faviconLoc = '../../uploads/favicon.ico'; ?>
+    <?php } else { ?>
+      <?php $faviconLoc = public_path('favicon.ico'); ?>
+    <?php } ?>
+    <link rel="shortcut icon" href="<?php echo $faviconLoc; ?>">
     <%= htmlWebpackPlugin.tags.headTags %>
     <?php echo get_component_slot('css'); ?>
   </head>

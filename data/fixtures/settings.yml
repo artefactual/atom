@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 194
+    value: 195
   milestone:
     name: milestone
     editable: 0
@@ -1039,6 +1039,10 @@ QubitSetting:
     source_culture: en
     value:
       en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
+  QubitSetting_headerBackgroundColour:
+    name: header_background_colour
+    editable: 1
+    value: '#212529'
   Qubit_Settings_visibleElements_IsadImmediateSource:
     name: isad_immediate_source
     scope: element_visibility
