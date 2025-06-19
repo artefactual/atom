@@ -62,7 +62,7 @@
     <?php if ('mods' != $defTemplate && 'dc' != $defTemplate) { ?>
       <langusage>
         <language langcode="<?php echo strtolower($iso639convertor->getID2($exportLanguage)); ?>"><?php echo format_language($exportLanguage); ?></language>
-        <?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString()) && ($authenticated || 1 == sfConfig::get('app_element_visibility_isad_control_languages'))) { ?>
+        <?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString()) && ($authenticated || (1 == sfConfig::get('app_element_visibility_isad_control_languages') && !$findingAid))) { ?>
           <?php $langsOfDesc = unserialize($languageOfDescription); ?>
           <?php if (is_array($langsOfDesc)) { ?>
             <?php foreach ($langsOfDesc as $langcode) { ?>
@@ -72,7 +72,7 @@
             <?php } ?>
           <?php } ?>
         <?php } ?>
-        <?php if ($authenticated || 1 == sfConfig::get('app_element_visibility_isad_control_scripts')) { ?>
+        <?php if ($authenticated || (1 == sfConfig::get('app_element_visibility_isad_control_scripts') && !$findingAid)) { ?>
           <?php foreach ($resource->scriptOfDescription as $code) { ?>
             <language scriptcode="<?php echo $code; ?>"><?php echo format_script($code); ?></language>
           <?php } ?>
@@ -104,20 +104,20 @@
     <odd type="publicationStatus"><p><?php echo escape_dc(esc_specialchars($resource->getPublicationStatus())); ?></p></odd>
   <?php } ?>
   <?php $levelOfDetail = 'app_element_visibility_'.$template.'_control_level_of_detail'; ?>
-  <?php if ($resource->descriptionDetailId && ($authenticated || 1 == sfConfig::get($levelOfDetail))) { ?>
+  <?php if ($resource->descriptionDetailId && ($authenticated || (1 == sfConfig::get($levelOfDetail) && !$findingAid))) { ?>
     <odd type="levelOfDetail"><p><?php echo escape_dc(esc_specialchars((string) QubitTerm::getById($resource->descriptionDetailId))); ?></p></odd>
   <?php } ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php $status = 'app_element_visibility_'.$template.'_control_status'; ?>
-  <?php if ($descriptionStatus && ($authenticated || 1 == sfConfig::get($status))) { ?>
+  <?php if ($descriptionStatus && ($authenticated || (1 == sfConfig::get($status) && !$findingAid))) { ?>
     <odd type="statusDescription"><p><?php echo escape_dc(esc_specialchars((string) $descriptionStatus)); ?></p></odd>
   <?php } ?>
   <?php $descId = 'app_element_visibility_'.$template.'_control_description_identifier'; ?>
-  <?php if ($resource->descriptionIdentifier && ($authenticated || 1 == sfConfig::get($descId))) { ?>
+  <?php if ($resource->descriptionIdentifier && ($authenticated || (1 == sfConfig::get($descId) && !$findingAid))) { ?>
     <odd type="descriptionIdentifier"><p><?php echo escape_dc(esc_specialchars($resource->descriptionIdentifier)); ?></p></odd>
   <?php } ?>
   <?php $instId = 'app_element_visibility_'.$template.'_control_institution_identifier'; ?>
-  <?php if ($resource->institutionResponsibleIdentifier && ($authenticated || 1 == sfConfig::get($instId))) { ?>
+  <?php if ($resource->institutionResponsibleIdentifier && ($authenticated || (1 == sfConfig::get($instId) && !$findingAid))) { ?>
     <odd type="institutionIdentifier"><p><?php echo escape_dc(esc_specialchars($resource->institutionResponsibleIdentifier)); ?></p></odd>
   <?php } ?>
 
@@ -246,19 +246,19 @@
     </controlaccess>
   <?php } ?>
   <?php 'isad' == $template ? $physCond = 'app_element_visibility_isad_physical_condition' : $physCond = 'app_element_visibility_rad_physical_access'; ?>
-  <?php if (0 < strlen($value = $resource->getPhysicalCharacteristics(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get($physCond))) { ?>
+  <?php if (0 < strlen($value = $resource->getPhysicalCharacteristics(['cultureFallback' => true])) && ($authenticated || (1 == sfConfig::get($physCond) && !$findingAid))) { ?>
     <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></phystech>
   <?php } ?>
   <?php if (0 < strlen($value = $resource->getAppraisal(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get('app_element_visibility_isad_appraisal_destruction'))) { ?>
     <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal'))) { ?>encodinganalog="<?php echo $encoding; ?>"<?php } ?>><p><?php echo escape_dc(esc_specialchars($value)); ?></p></appraisal>
   <?php } ?>
-  <?php if (0 < strlen($value = $resource->getAcquisition(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get('app_element_visibility_isad_archival_history'))) { ?>
+  <?php if (0 < strlen($value = $resource->getAcquisition(['cultureFallback' => true])) && ($authenticated || (1 == sfConfig::get('app_element_visibility_isad_archival_history') && !$findingAid))) { ?>
     <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></acqinfo>
   <?php } ?>
   <?php if (0 < strlen($value = $resource->getAccruals(['cultureFallback' => true]) ?? '')) { ?>
     <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></accruals>
   <?php } ?>
-  <?php if (0 < strlen($value = $resource->getArchivalHistory(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get('app_element_visibility_isad_archival_history'))) { ?>
+  <?php if (0 < strlen($value = $resource->getArchivalHistory(['cultureFallback' => true])) && ($authenticated || (1 == sfConfig::get('app_element_visibility_isad_archival_history') && !$findingAid))) { ?>
     <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></custodhist>
   <?php } ?>
 
@@ -266,7 +266,7 @@
   <?php if (0 < strlen($value = $resource->getRevisionHistory(['cultureFallback' => true])) || 0 < count($archivistsNotes)) { ?>
     <?php 'isad' == $template ? $datesOfCreation = 'app_element_visibility_isad_control_dates' : $datesOfCreation = 'app_element_visibility_rad_control_dates'; ?>
     <processinfo>
-      <?php if ($value && ($authenticated || 1 == sfConfig::get($datesOfCreation))) { ?>
+      <?php if ($value && ($authenticated || (1 == sfConfig::get($datesOfCreation) && !$findingAid))) { ?>
         <p><date><?php echo escape_dc(esc_specialchars($value)); ?></date></p>
       <?php } ?>
 
@@ -402,7 +402,7 @@
         <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal') ?? '')) { ?>encodinganalog="<?php echo $encoding; ?>"<?php } ?>><p><?php echo escape_dc(esc_specialchars($value)); ?></p></appraisal>
       <?php } ?>
 
-      <?php if (0 < strlen($value = $descendant->getAcquisition(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get('app_element_visibility_rad_immediate_source'))) { ?>
+      <?php if (0 < strlen($value = $descendant->getAcquisition(['cultureFallback' => true])) && ($authenticated || (1 == sfConfig::get('app_element_visibility_rad_immediate_source') && !$findingAid))) { ?>
         <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></acqinfo>
       <?php } ?>
 
@@ -410,7 +410,7 @@
         <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></accruals>
       <?php } ?>
 
-      <?php if (0 < strlen($value = $descendant->getArchivalHistory(['cultureFallback' => true])) && ($authenticated || 1 == sfConfig::get('app_element_visibility_rad_archival_history'))) { ?>
+      <?php if (0 < strlen($value = $descendant->getArchivalHistory(['cultureFallback' => true])) && ($authenticated || (1 == sfConfig::get('app_element_visibility_rad_archival_history') && !$findingAid))) { ?>
         <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist'); ?>"><p><?php echo escape_dc(esc_specialchars($value)); ?></p></custodhist>
       <?php } ?>
 

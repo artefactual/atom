@@ -268,14 +268,8 @@ class QubitFindingAidGenerator
         // Ensure 'downloads' directory exists
         Qubit::createDownloadsDirIfNeeded();
 
-        // Get the path to this resource's cached EAD file, if caching is
-        // enabled
-        $eadFilePath = $this->getEadCacheFilePath();
-
-        // Generate an EAD file, if there is no cached EAD file
-        if (empty($eadFilePath)) {
-            $eadFilePath = $this->generateEadFile();
-        }
+        // Generate an EAD file
+        $eadFilePath = $this->generateEadFile();
 
         $foFilePath = $this->generateXslFoFile($eadFilePath);
         $this->path = $this->generateFindingAid($foFilePath);
@@ -317,31 +311,6 @@ class QubitFindingAidGenerator
         return $cacher::resourceExportFilePath(
             $this->resource, self::XML_STANDARD
         );
-    }
-
-    /**
-     * Get the path to the cached XML file for this resource.
-     *
-     * @return null|string path to cache file, null if there is none
-     */
-    public function getEadCacheFilePath(): ?string
-    {
-        // If XML caching is disabled, then don't look for a cache file
-        if (!$this->isXmlCachingEnabled()) {
-            return null;
-        }
-
-        $filepath = QubitInformationObjectXmlCache::resourceExportFilePath(
-            $this->resource, self::XML_STANDARD
-        );
-
-        if (!empty($filepath) && file_exists($filepath)) {
-            return $filepath;
-        }
-
-        // If a cached file doesn't exist already, attempt to generate one and
-        // return the file path
-        return $this->generateEadCacheFile();
     }
 
     /**
@@ -392,6 +361,7 @@ class QubitFindingAidGenerator
 
         $options = [
             'public' => ('public' === $this->getAuthLevel()),
+            'findingAidVisibility' => true,
         ];
 
         try {
