@@ -19,31 +19,37 @@
 
 class QubitLimitIpFilter extends sfFilter
 {
+    public const LOGOUT_MODULES = ['user', 'oidc', 'cas'];
+    protected $request;
+    protected $limit;
+
     public function execute($filterChain)
     {
         $this->context = $this->getContext();
         $this->request = $this->context->getRequest();
 
-        $this->limit = explode(';', sfConfig::get('app_limit_admin_ip'));
+        $this->setLimit();
 
         // Pass if:
         // - Debug mode is on
         // - Setting "limit_admin_ip" is not set
         // - The filter is forwarding to admin/secure (isFirstCall)
-        // - Route is user/logout
-        if (
-            $this->context->getConfiguration()->isDebug()
-            || !$this->limit
-            || !$this->isFirstCall()
-            || ('user' == $this->request->getParameter('module') && 'logout' == $this->request->getParameter('action'))
-        ) {
+        // - Route is /logout
+        if ($this->shouldBypassLimit(
+                $this->context->getConfiguration()->isDebug(),
+                $this->limit,
+                $this->isFirstCall(),
+                $this->request->getParameter('module'),
+                $this->request->getParameter('action'),
+        )) {
             $filterChain->execute();
 
             return;
         }
 
         // Forward to admin/secure if not allowed (only applies if user is authenticated)
-        if ($this->context->user->isAuthenticated() && !$this->isAllowed()) {
+        if ($this->context->user->isAuthenticated()
+            && !$this->isAllowed($this->getRemoteAddress())) {
             $this->context->getController()->forward(sfConfig::get('sf_secure_module'), sfConfig::get('sf_secure_action'));
 
             throw new sfStopException();
@@ -52,16 +58,44 @@ class QubitLimitIpFilter extends sfFilter
         $filterChain->execute();
     }
 
-    protected function getRemoteAddress()
+    public function setLimit()
     {
-        $pathInfo = $this->request->getPathInfoArray();
-
-        return $pathInfo['REMOTE_ADDR'];
+        $this->limit = explode(';', sfConfig::get('app_limit_admin_ip', []));
     }
 
-    protected function isAllowed()
+    /**
+     * Check if this request matches any exception rules.
+     * Returns true if a match is found, otherwise false.
+     *
+     * @param $debug
+     * @param $limit
+     * @param $firstCall
+     * @param $module
+     * @param $action
+     */
+    public function shouldBypassLimit($debug, $limit, $firstCall, $module, $action)
     {
-        $address = $this->getRemoteAddress();
+        if ($debug) {
+            return true;
+        }
+
+        if (empty($limit) || (1 === count($limit) && '' === $limit[0])) {
+            return true;
+        }
+
+        if (!$firstCall) {
+            return true;
+        }
+
+        if (in_array($module, self::LOGOUT_MODULES, true) && 'logout' === $action) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isAllowed($address)
+    {
         $addressBinary = inet_pton($address);
 
         // Check if empty
@@ -96,5 +130,12 @@ class QubitLimitIpFilter extends sfFilter
         }
 
         return false;
+    }
+
+    protected function getRemoteAddress()
+    {
+        $pathInfo = $this->request->getPathInfoArray();
+
+        return $pathInfo['REMOTE_ADDR'];
     }
 }
