@@ -237,7 +237,7 @@ class arGenerateReportJob extends arBaseJob
                     'referenceCode' => $informationObject->referenceCode,
                     'physicalObjectName' => $item->__toString(),
                     'title' => $informationObject->__toString(),
-                    'creationDates' => implode($creationDates, '|'),
+                    'creationDates' => implode('|', $creationDates),
                 ];
             }
         }
