@@ -891,6 +891,7 @@ QubitSetting:
       mk: 'Врски помеѓу нормативни записи'
       pt: 'Relacionamentos de registro de autoridade'
       pt_BR: 'Relacionamentos de registro de autoridade'
+      sr: 'Односи нормативних записа'
   QubitSetting_26:
     name: en
     scope: i18n_languages

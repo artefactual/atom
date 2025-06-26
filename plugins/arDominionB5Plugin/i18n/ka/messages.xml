@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ka" datatype="plaintext" original="messages" date="2025-05-06T21:02:41Z" product-name="messages">
+  <file source-language="en" target-language="ka" datatype="plaintext" original="messages" date="2025-06-26T17:40:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5270,7 +5270,7 @@
       </trans-unit>
       <trans-unit id="1374">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target> გამოიყენეთ ეს ორი ველი დაბალი დონეების დასამატებლად  დონეების კრებულთან. დააჭირეთ დამატებას (Add new) რომ დაამატოს როგორც ბევრი ახალი დონე, როგორც შესაძლებელია . იდენთიფიკატორი: შეიყვანეთ უნიკალური სტანდარტული ნომერი ან კოდი რომელიც ნათლად გააკეთებს იდეტიფიკაციას შედეგისა. სათაური: შეიყვანეთ სიტყვა, ფრაზა, ხასიათი, ან ხასიათთა ჯგუფი,  ნორმალურად გამოაჩენს რესურსში , რომ სახელები ან მუშაობა შეიცავს ამას.</target>
+        <target>გამოიყენეთ ეს ორი ველი დაბალი დონეების დასამატებლად დონეების კრებულთან. დააჭირეთ დამატებას (Add new) რომ დაამატოს როგორც ბევრი ახალი დონე, როგორც შესაძლებელია . იდენთიფიკატორი: შეიყვანეთ უნიკალური სტანდარტული ნომერი ან კოდი რომელიც ნათლად გააკეთებს იდეტიფიკაციას შედეგისა. სათაური: შეიყვანეთ სიტყვა, ფრაზა, ხასიათი, ან ხასიათთა ჯგუფი, ნორმალურად გამოაჩენს რესურსში , რომ სახელები ან მუშაობა შეიცავს ამას.</target>
       </trans-unit>
       <trans-unit id="1375">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>

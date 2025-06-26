@@ -521,7 +521,7 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Coleção'
       ru: 'Типы Коллекции'
       sl: 'Vrste zbirke'
-      sr: 'Врсте колекција'
+      sr: 'Врсте збирки'
       sv: Samlingstyper
       th: ชนิดคอลเลกชัน
       vi: 'Loại Collection'
@@ -1653,6 +1653,7 @@ QubitTaxonomy:
       mk: 'Тип на алтернативен идентификатор за пристап'
       pt: 'Tipo de identificador alternativo de acesso'
       pt_BR: 'Tipo de identificador alternativo do ingresso'
+      sr: 'Врста алтернативног идентификатора набавке'
   QubitTaxonomy_accession_event_types:
     id: 83
     parent_id: QubitTaxonomy_root
@@ -2822,6 +2823,7 @@ QubitTerm:
       bs: 'Napomena o grešci posla'
       cy: 'Nodyn gwall tasg'
       en: 'Job error note'
+      hr: 'Bilješka o grešci posla'
       mk: 'Забелешка за грешка во работата'
       pt_BR: 'Nota de erro da tarefa'
   QubitTerm_140:
@@ -2999,7 +3001,7 @@ QubitTerm:
       id: 'Repositori pemeliharaan'
       it: 'Deposito che lo mantiene'
       mk: 'Одржување на депото/репозиториумот'
-      pt: 'Entidade custodiadora gestora'
+      pt: 'Manutenção do repositório'
       pt_BR: 'Entidade custodiadora gestora'
       sr: 'Одржавање репозиторијума'
       sv: 'Förvaltande arkivinstitution'
@@ -4538,6 +4540,7 @@ QubitTerm:
       mk: 'Алтернативен идентификатор за пристап'
       pt: 'Identificador alternativo de acesso'
       pt_BR: 'Identificador alternativo de ingresso'
+      sr: 'Алтернативни идентификатор набавке'
   QubitTerm_accession_event_type_physical_transfer:
     id: 193
     parent_id: QubitTerm_110
@@ -4547,6 +4550,7 @@ QubitTerm:
       bs: 'Fizički prijenos'
       cy: 'Trosglwyddiad ffisegol'
       en: 'Physical transfer'
+      es: 'Transferencia física'
       fr: 'Transfert physique'
       hr: 'Fizički prijenos'
       mk: 'Физички пренос'
@@ -4566,6 +4570,7 @@ QubitTerm:
       hr: 'Napomena uz događaj akcesije'
       mk: 'Белешка за настан за пристапување'
       pt_BR: 'Nota do evento de ingresso'
+      sr: 'Напомена о процесу набавке'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -10183,7 +10188,7 @@ QubitTerm:
       pt: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
       pt_BR: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
       sl: 'Dublin Core, verzija 1.1., Iniciativa o metapodatkih Dublin Core (DCMI)'
-      sr: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      sr: 'Dublin Core, верзија 1.1. Dublin Core Metadata Initiative'
       sv: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       vi: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       zh: '都柏林核心, 版本1.1. 都柏林核心元数据元素集'
@@ -11339,7 +11344,7 @@ QubitTerm:
       pt: 'Desenhos (Comentário)'
       pt_BR: 'Desenhos animados (Comentário)'
       sl: 'Karikature (komentar)'
-      sr: 'Цртеж (Илустрације)'
+      sr: 'Цртежи (Илустрације)'
       sv: 'Tecknade serier (Kommentar)'
       zh: 卡通(评论)
   QubitTerm_genre_catalogs:
@@ -11392,7 +11397,7 @@ QubitTerm:
       pt: 'Paisagens urbanas'
       pt_BR: 'Paisagens urbanas'
       sl: 'Mestne pokrajine'
-      sr: 'Панорама града'
+      sr: 'Приказ града'
       sv: Stadsvyer
       zh: 城市景观
   QubitTerm_genre_clippings:

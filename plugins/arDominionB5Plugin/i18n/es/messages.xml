@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2025-05-06T21:03:49Z" product-name="messages">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2025-06-26T17:41:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -1254,7 +1254,7 @@
       </trans-unit>
       <trans-unit id="338">
         <source>Phone</source>
-        <target/>
+        <target>Teléfono</target>
       </trans-unit>
       <trans-unit id="339">
         <source>Region/province</source>
@@ -2474,7 +2474,7 @@
       </trans-unit>
       <trans-unit id="649">
         <source>Please clear the application cache and rebuild the search index if you are changing the reference code separator setting.</source>
-        <target/>
+        <target>Por favor, borre la caché de la aplicación y reconstruya el índice de búsqueda si va a cambiar la configuración del separador de códigos de referencia.</target>
       </trans-unit>
       <trans-unit id="650">
         <source>Identifier settings</source>
@@ -2550,7 +2550,7 @@
       </trans-unit>
       <trans-unit id="668">
         <source>Please rebuild the search index if you are enabling/disabling Markdown support.</source>
-        <target/>
+        <target>Debe reconstruir el índice de búsqueda si activa o desactiva la compatibilidad con Markdown.</target>
       </trans-unit>
       <trans-unit id="669">
         <source>Markdown settings</source>
@@ -2642,7 +2642,7 @@
       </trans-unit>
       <trans-unit id="691">
         <source>Port</source>
-        <target/>
+        <target>Puerto</target>
       </trans-unit>
       <trans-unit id="692">
         <source>Base DN</source>
@@ -4174,15 +4174,15 @@
       </trans-unit>
       <trans-unit id="1087">
         <source>Preservation Copies</source>
-        <target/>
+        <target>Copias de preservación</target>
       </trans-unit>
       <trans-unit id="1088">
         <source>Original file</source>
-        <target/>
+        <target>Archivo original</target>
       </trans-unit>
       <trans-unit id="1089">
         <source>Preservation copy</source>
-        <target/>
+        <target>Copia de preservación</target>
       </trans-unit>
       <trans-unit id="1090">
         <source>Access Copies</source>

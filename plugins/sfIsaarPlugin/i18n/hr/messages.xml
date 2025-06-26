@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2025-05-06T21:02:41Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2025-06-26T17:39:55Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -454,7 +454,7 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Please complete all required fields.</source>
-        <target>Ispuni sva potrebna polja.</target>
+        <target>Ispuni sva obavezna polja.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier of related entity</source>

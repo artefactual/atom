@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2025-05-06T21:03:32Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2025-06-26T17:41:03Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -146,7 +146,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
+        <target>Defnyddiwch y ddau faes hyn i ychwanegu lefelau is at ddisgrifiad lefel casgliad. Cliciwch Ychwanegu newydd i ychwanegu cymaint o lefelau plentyn sydd angen. Dynodwr: Rhowch rif neu god safonol unigryw sy'n unigryw i'r adnodd. Teitl: nodwch air, ymadrodd, nod, neu grŵp o nodau, sydd fel arfer yn ymddangos mewn adnodd, sy'n enwi'r adnodd neu'r gwaith a gynhwysir ynddo.</target>
       </trans-unit>
     </body>
   </file>

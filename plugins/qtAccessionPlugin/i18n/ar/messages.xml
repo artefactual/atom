@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-05-06T21:04:20Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -514,7 +514,7 @@
       </trans-unit>
       <trans-unit id="136">
         <source>%1%Type:%2% Select the type of the event.%3%</source>
-        <target/>
+        <target>%1%النوع:%2% حدد نوع الحدث.%3%</target>
       </trans-unit>
       <trans-unit id="137">
         <source>%1%Date:%2% Enter the date of the event.%3%</source>
@@ -526,7 +526,7 @@
       </trans-unit>
       <trans-unit id="139">
         <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
-        <target/>
+        <target>%1%ملاحظة:%2% أدخل الملاحظات المرتبطة بالحدث.%3%</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Event(s)</source>

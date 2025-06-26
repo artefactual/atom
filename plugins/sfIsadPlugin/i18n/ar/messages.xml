@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-05-06T21:04:17Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%مستوى الوصف%2% - القيمة "%value%" غير متوافقة مع المستويات الأعلى.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2025-05-06T21:02:30Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2025-06-26T17:40:01Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target>Историјат ствараоца</target>
+        <target>Административна/ Биографска историја</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
@@ -26,15 +26,15 @@
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target>%1%Датум(и)%2% - нису усаглашени са %3%вишим нивоима%2%</target>
+        <target>%1%Датум(и)%2% - нису усаглашени са %3%вишим нивоима%2%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Датум(и)%2% - Ово је %3%обавезнo%4% поље</target>
+        <target>%1%Датум(и)%2% - Ово је %3%обавезнo%4% поље.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Обим и носач%2% - Ово је %3%обавезнo%4% поље</target>
+        <target>%1%Обим и носач%2% - Ово је %3%обавезнo%4% поље.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
@@ -46,11 +46,11 @@
       </trans-unit>
       <trans-unit id="11">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Ниво описа%2% - Ово је %3%обавезнo%4% поље</target>
+        <target>%1%Ниво описа%2% - Ово је %3%обавезнo%4% поље.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Назив%2% - Ово је %3%обавезнo%4% поље</target>
+        <target>%1%Назив%2% - Ово је %3%обавезнo%4% поље.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
@@ -378,7 +378,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Edit context area</source>
-        <target>Уреди подручје контекста </target>
+        <target>Уреди подручје контекста</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
