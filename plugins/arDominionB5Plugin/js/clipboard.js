@@ -440,14 +440,27 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       }
 
       // Menu dropdown header count
-      var countText = this.$menuHeaderCount.data("information-object-label");
-      countText += iosCount + "<br />";
-      countText += this.$menuHeaderCount.data("actor-object-label");
-      countText += actorsCount + "<br />";
-      countText += this.$menuHeaderCount.data("repository-object-label");
-      countText += reposCount + "<br />";
+      var isRTL = $("html").attr("dir") === "rtl";
+      var countText = "";
+      var infoLabel = this.$menuHeaderCount.attr(
+        "data-information-object-label"
+      );
+      var actorLabel = this.$menuHeaderCount.attr("data-actor-object-label");
+      var repoLabel = this.$menuHeaderCount.attr(
+        "data-repository-object-label"
+      );
 
-      this.$menuHeaderCount.html(countText);
+      if (isRTL) {
+        countText += iosCount + infoLabel + "<br />";
+        countText += actorsCount + actorLabel + "<br />";
+        countText += reposCount + repoLabel + "<br />";
+        this.$menuHeaderCount.attr("dir", "ltr").html(countText);
+      } else {
+        countText += infoLabel + iosCount + "<br />";
+        countText += actorLabel + actorsCount + "<br />";
+        countText += repoLabel + reposCount + "<br />";
+        this.$menuHeaderCount.html(countText);
+      }
     }
 
     updateAllButtons() {
