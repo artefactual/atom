@@ -397,8 +397,10 @@ mapping:
           media_type_id: { type: integer }
           usage_id: { type: integer }
           thumbnail_path: { type: keyword }
-          filename: { type: text, copy_to: _all }
-          digital_object_alt_text: { type: text, copy_to: _all }
+          # filename: { type: text, copy_to: _all }
+          # digital_object_alt_text: { type: text, copy_to: _all }
+          filename: { type: text }
+          digital_object_alt_text: { type: text }
 
   accession:
     _attributes:
@@ -599,7 +601,8 @@ mapping:
       children: { type: integer }
       copyright_status_id: { type: integer }
       material_type_id: { type: integer }
-      transcript: { type: text, copy_to: _all }
+      # transcript: { type: text, copy_to: _all }
+      transcript: { type: text }
       direct_subjects: { type: integer }
       direct_places: { type: integer }
       direct_genres: { type: integer }
@@ -607,7 +610,8 @@ mapping:
       finding_aid:
         type: object
         properties:
-          transcript: { type: text, copy_to: _all }
+          # transcript: { type: text, copy_to: _all }
+          transcript: { type: text }
           status: { type: integer }
       digital_object:
         type: object
@@ -615,16 +619,20 @@ mapping:
           media_type_id: { type: integer }
           usage_id: { type: integer }
           thumbnail_path: { type: keyword }
-          filename: { type: text, copy_to: _all }
-          digital_object_alt_text: { type: text, copy_to: _all }
+          # filename: { type: text, copy_to: _all }
+          # digital_object_alt_text: { type: text, copy_to: _all }
+          filename: { type: text }
+          digital_object_alt_text: { type: text }
       alternative_identifiers:
         type: object
         properties:
-          label: { type: text, copy_to: _all }
-          identifier: { type: text, copy_to: _all }
+          # label: { type: text, copy_to: _all }
+          # identifier: { type: text, copy_to: _all }
+          label: { type: text }
+          identifier: { type: text }
       reference_code:
         type: text
-        copy_to: _all
+        # copy_to: _all
         fields:
           untouched:
             type: keyword
