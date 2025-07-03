@@ -250,7 +250,7 @@ class arElasticSearchPluginQuery
      * Each set of parameters is numbered, starting at zero, and includes three
      * properties: query text (prefixed by "sq"), operation (prefixed by "so":
      * "and" or "or"), and fields (prefixed by "sf") to return (defaulting to
-     * "_all").
+     * "all").
      *
      * For example:
      *
@@ -275,7 +275,7 @@ class arElasticSearchPluginQuery
             $query = $params['sq'.$count];
 
             if (!empty($query)) {
-                $field = '_all';
+                $field = 'all';
                 if (!empty($params['sf'.$count])) {
                     $field = $params['sf'.$count];
                 }
@@ -415,7 +415,7 @@ class arElasticSearchPluginQuery
 
                 break;
 
-            case '_all':
+            case 'all':
             default:
                 if ('isaar' == $archivalStandard) {
                     $documentType = 'actor';

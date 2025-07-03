@@ -113,7 +113,7 @@ class arElasticSearchPluginUtil
             $i18nIncludeInAll = $mappings[$indexType]['_attributes']['i18nIncludeInAll'];
         }
 
-        // Get all string fields included in _all for the index type
+        // Get all string fields included in all for the index type
         $allFields = self::getAllObjectStringFields(
             $indexType,
             $mappings[$indexType],
@@ -408,7 +408,7 @@ class arElasticSearchPluginUtil
     }
 
     /**
-     * Gets all string fields included in _all from a mapping object array and cultures.
+     * Gets all string fields included in all from a mapping object array and cultures.
      *
      * This function will be called recursively on foreign types and nested fields.
      *
@@ -421,7 +421,7 @@ class arElasticSearchPluginUtil
      * @param string $prefix           The current prefix for the prop name, e.g. "informationObject." in "informationObject.slug"
      * @param bool   $foreignType      Whether or not this field in question is being parsed for a foreign type,
      *                                 e.g. inside informationObject.creators
-     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching _all
+     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching all
      */
     protected static function getAllObjectStringFields(
         $rootIndexType,
@@ -434,7 +434,7 @@ class arElasticSearchPluginUtil
 
         if (isset($object['properties'])) {
             foreach ($object['properties'] as $propertyName => $propertyProperties) {
-                // Get i18n fields, they're always included in _all
+                // Get i18n fields, they're always included in all
                 if ('i18n' == $propertyName) {
                     // Get the fields from a single culture and format them with
                     // 'i18n.%s.' to set the required cultures at query time.
@@ -479,11 +479,11 @@ class arElasticSearchPluginUtil
 
                     $fields = array_merge($fields, $foreignObjectFields);
                 }
-                // Get string fields included in _all
+                // Get string fields included in all
                 elseif (
                     (
                         isset($propertyProperties['copy_to'])
-                        && ('_all' == $propertyProperties['copy_to'])
+                        && ('all' == $propertyProperties['copy_to'])
                     ) && (
                         isset($propertyProperties['type'])
                         && 'text' == $propertyProperties['type']
@@ -628,13 +628,13 @@ class arElasticSearchPluginUtil
     }
 
     /**
-     * Check whether an i18n field should be included in the list of fields for an _all search.
+     * Check whether an i18n field should be included in the list of fields for an all search.
      *
      * @param string $prefix           The current prefix for the field name, e.g. "creators." for "creators.name"
      * @param string $fieldName        The current field name, e.g. "name" in "creators.name"
-     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching _all
+     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching all
      *
-     * @return bool true if we should include this field in the _all search, false otherwise
+     * @return bool true if we should include this field in the all search, false otherwise
      */
     private static function checkI18nIncludeInAll($prefix, $fieldName, $i18nIncludeInAll)
     {
@@ -656,12 +656,12 @@ class arElasticSearchPluginUtil
      *                               Note that since we recursively call getAllObjectStringFields to get foreign type
      *                               fields, this value may not be the "current" index being parsed, e.g. when adding
      *                               creators.name actor fields inside informationObject.
-     * @param array  &$fields          A reference to our list of fields we're searching over with our _all query
+     * @param array  &$fields          A reference to our list of fields we're searching over with our all query
      * @param string $prefix           The current prefix for the field name, e.g. "creators." for "creators.name"
      * @param string $fieldName        The current field name, e.g. "name" in "creators.name"
      * @param bool   $foreignType      Whether or not this field in question is being parsed for a foreign type,
      *                                 e.g. inside informationObject.creators
-     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching _all
+     * @param array  $i18nIncludeInAll A list of i18n fields to be allowed when searching all
      */
     private static function handleI18nStringFields(
         $rootIndexType,
@@ -697,7 +697,7 @@ class arElasticSearchPluginUtil
      *                               Note that since we recursively call getAllObjectStringFields to get foreign type
      *                               fields, this value may not be the "current" index being parsed, e.g. when adding
      *                               creators.name actor fields inside informationObject.
-     * @param array  &$fields      A reference to our list of fields we're searching over with our _all query
+     * @param array  &$fields      A reference to our list of fields we're searching over with our all query
      * @param string $prefix       The current prefix for the prop name, e.g. "informationObject." in "informationObject.slug"
      * @param string $propertyName The current property name, e.g. "slug" in "informationObject.slug"
      * @param bool   $foreignType  Whether or not this field in question is being parsed for a foreign type,

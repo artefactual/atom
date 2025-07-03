@@ -444,7 +444,7 @@ class arElasticSearchMapping
     {
         return [
             'type' => 'text',
-            // 'copy_to' => '_all',
+            'copy_to' => 'all',
         ];
     }
 
