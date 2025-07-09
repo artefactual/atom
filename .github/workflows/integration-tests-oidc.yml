@@ -29,6 +29,8 @@ jobs:
         docker compose -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
     - name: Update OIDC plugin app.yml file
       run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+    - name: Activate OIDC plugin
+      run: sudo touch activate-oidc-plugin
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
