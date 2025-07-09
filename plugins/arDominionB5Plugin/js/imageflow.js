@@ -48,6 +48,33 @@
           });
 
           $("#atom-slider-images").slick("slickGoTo", 0);
+
+          // Mouse scroll navigation
+          $("#collapse-carousel").on("wheel", function (e) {
+            e.preventDefault();
+
+            const slider = $("#atom-slider-images");
+            const titleSlider = $("#atom-slider-title");
+            let currentSlide = slider.slick("slickCurrentSlide");
+            let delta = e.originalEvent.deltaY;
+
+            // Scroll amount
+            let absDelta = Math.abs(delta);
+
+            // Decide how many slides to move based on scroll strength
+            let sensitivity = 50;
+            let maxSlidesScroll = 3;
+            let jump = Math.min(
+              Math.ceil(absDelta / sensitivity),
+              maxSlidesScroll
+            );
+
+            let targetSlide =
+              delta > 0 ? currentSlide + jump : currentSlide - jump;
+
+            slider.slick("slickGoTo", targetSlide, true);
+            titleSlider.slick("slickGoTo", targetSlide, true);
+          });
         });
     },
   };
