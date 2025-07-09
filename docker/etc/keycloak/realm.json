@@ -14,11 +14,11 @@
     "roles": {
       "realm": [
         {
-          "name": "admin",
+          "name": "atom-admin",
           "description": "Administrator role"
         },
         {
-          "name": "editor",
+          "name": "atom-editor",
           "description": "Editor role"
         }
       ]
@@ -63,7 +63,7 @@
           }
         ],
         "realmRoles": [
-          "editor"
+          "atom-editor"
         ]
       },
       {
@@ -82,7 +82,7 @@
           }
         ],
         "realmRoles": [
-          "admin"
+          "atom-admin"
         ]
       }
     ]
@@ -102,11 +102,11 @@
     "roles": {
       "realm": [
         {
-          "name": "admin-secondary",
+          "name": "atom-admin-secondary",
           "description": "Administrator role"
         },
         {
-          "name": "editor-secondary",
+          "name": "atom-editor-secondary",
           "description": "Editor role"
         }
       ]
@@ -151,7 +151,7 @@
           }
         ],
         "realmRoles": [
-          "admin-secondary"
+          "atom-admin-secondary"
         ]
       },
       {
@@ -170,7 +170,7 @@
           }
         ],
         "realmRoles": [
-          "editor-secondary"
+          "atom-editor-secondary"
         ]
       }
     ]
