@@ -31,7 +31,7 @@
 
             <?php } ?>
           <?php } ?>
-          <?php } ?>
+        <?php } ?>
 
         <?php foreach ($resource->relationsRelatedByobjectId as $item) { ?>
           <?php if (QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->getTypeId()) { ?>
@@ -60,5 +60,4 @@
 
     </ul>
   </div>
-
 </div>
