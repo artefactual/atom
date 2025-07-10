@@ -378,11 +378,11 @@ class ApiInformationObjectsReadAction extends QubitApiAction
             $this->addItemToArray($ioData, 'digital_object', $doData);
         }
 
-        $systemDates = [];
-        $this->addItemToArray($systemDates, 'created_at', $this->resource->createdAt);
-        $this->addItemToArray($systemDates, 'updated_at', $this->resource->updatedAt);
+        $timestamps = [];
+        $this->addItemToArray($timestamps, 'created_at', $this->resource->createdAt);
+        $this->addItemToArray($timestamps, 'updated_at', $this->resource->updatedAt);
 
-        $this->addItemToArray($ioData, 'system_dates', $systemDates);
+        $this->addItemToArray($ioData, 'atom_timestamps', $timestamps);
 
         return $ioData;
     }
