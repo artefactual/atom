@@ -40,25 +40,25 @@ class DeaccessionIndexAction extends sfAction
 
             $validatorSchema->identifier = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Identifier - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Identifier - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['identifier'] = $this->resource->identifier;
 
             $validatorSchema->date = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Date of acquisition - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Date of acquisition - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['date'] = $this->resource->date;
 
             $validatorSchema->scope = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Scope - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Scope - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['scope'] = $this->resource->scope;
 
             $validatorSchema->description = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Description - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Description - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['description'] = $this->resource->getDescription(['culltureFallback' => true]);
 

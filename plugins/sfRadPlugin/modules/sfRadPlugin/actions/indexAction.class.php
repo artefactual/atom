@@ -69,18 +69,18 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->extentAndMedium = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Physical description - This is a mandatory element.')]);
+                ['required' => $this->context->i18n->__('Physical description - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']);
             $values['extentAndMedium'] = $this->resource->getExtentAndMedium(['cultureFallback' => true]);
 
             $validatorSchema->title = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Title - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Title - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['title'] = $this->resource->getTitle(['cultureFallback' => true]);
 
             $this->addField($validatorSchema, 'levelOfDescription');
             $validatorSchema->levelOfDescription->setMessage('forbidden', $this->context->i18n->__('Level of description - Value "%value%" is not consistent with higher levels.'));
-            $validatorSchema->levelOfDescription->setMessage('required', $this->context->i18n->__('Level of description - This is a mandatory element.'));
+            $validatorSchema->levelOfDescription->setMessage('required', $this->context->i18n->__('Level of description - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>');
 
             if (isset($this->resource->levelOfDescription)) {
                 $values['levelOfDescription'] = $this->resource->levelOfDescription->getName(['sourceCulture' => true]);
@@ -154,7 +154,7 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
                     case 'Subfonds':
                         $validatorSchema->scopeAndContent = new sfValidatorString(
                             ['required' => true],
-                            ['required' => $this->context->i18n->__('Scope and content - This is a mandatory element.')]
+                            ['required' => $this->context->i18n->__('Scope and content - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
                         );
                         $values['scopeAndContent'] = $this->resource->getScopeAndContent(['cultureFallback' => true]);
 

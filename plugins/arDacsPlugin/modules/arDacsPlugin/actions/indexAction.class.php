@@ -52,13 +52,13 @@ class arDacsPluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->identifier = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Identifier - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Identifier - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['identifier'] = $this->resource->identifier;
 
             $validatorSchema->repository = new QubitValidatorCountable(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Name and location of repository - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             if (null !== $repository = $this->resource->getRepository(['inherit' => true])) {
                 $values['repository'] = $repository;
@@ -66,7 +66,7 @@ class arDacsPluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->title = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Title - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Title - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['title'] = $this->resource->getTitle(['cultureFallback' => true]);
 
@@ -78,13 +78,13 @@ class arDacsPluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->dates = new QubitValidatorCountable(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Date(s) - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Date(s) - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['dates'] = $this->resource->getDates();
 
             $validatorSchema->extentAndMedium = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Extent - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Extent - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['extentAndMedium'] = $this->resource->getExtentAndMedium(['cultureFallback' => true]);
 
@@ -101,7 +101,7 @@ class arDacsPluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->scopeAndContent = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Scope and content - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Scope and content - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['scopeAndContent'] = $this->resource->getScopeAndContent(['cultureFallback' => true]);
 
