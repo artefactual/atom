@@ -25,6 +25,7 @@
 class QubitFlatfileExport
 {
     public $columnNames = [];       // ordered header column names
+    public $maxColumnIndexes = 0;     // total column indexes used for removing hidden elements
     public $standardColumns = [];       // flatfile columns that are object properties
     public $columnMap = [];       // flatfile columns that map to object properties
     public $propertyMap = [];       // flatfile columns that map to Qubit properties
@@ -42,6 +43,7 @@ class QubitFlatfileExport
     protected $separatorChar = '|';          // character to use when imploding arrays to a single value
     protected $params;
     protected $nonVisibleElementsIncluded;
+    protected $nonVisibleElementsIndexes = [];
     protected $path;
     protected $standard;
 
@@ -106,6 +108,8 @@ class QubitFlatfileExport
         }
 
         $this->columnNames = $config['columnNames'];
+        // Add 1 for referenceCode which is not part of columnNames
+        $this->maxColumnIndexes = count($this->columnNames) + 1;
         $this->standardColumns = isset($config['direct']) ? $config['direct'] : [];
         $this->columnMap = isset($config['map']) ? $config['map'] : [];
         $this->propertyMap = isset($config['property']) ? $config['property'] : [];
@@ -295,7 +299,16 @@ class QubitFlatfileExport
         }
 
         // Write row to file and initialize row
-        $this->row = array_slice($this->row, 0, count($this->columnNames));
+        if (!empty($this->nonVisibleElementsIncluded)) {
+            $totalRows = $this->maxColumnIndexes - count($this->nonVisibleElementsIncluded);
+            if (count($this->row) > $totalRows) {
+                sort($this->nonVisibleElementsIndexes);
+                foreach ($this->nonVisibleElementsIndexes as $index) {
+                    unset($this->row[$index]);
+                }
+            }
+        }
+
         $this->appendRowToCsvFile($filePath, $this->row);
         $this->row = array_fill(0, count($this->columnNames), null);
         ++$this->rowsExported;
@@ -378,6 +391,10 @@ class QubitFlatfileExport
                     if (array_key_exists($element, $headers)) {
                         foreach ($headers[$element]['csv'] as $ele) {
                             array_push($nonVisibleElementsIncluded, $ele);
+                            $index = array_search($ele, $this->columnNames);
+                            if (is_int($index) && !in_array($index, $this->nonVisibleElementsIndexes)) {
+                                array_push($this->nonVisibleElementsIndexes, $index);
+                            }
                         }
                     }
                 }
