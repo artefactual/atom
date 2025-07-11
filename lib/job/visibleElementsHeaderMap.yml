@@ -542,5 +542,5 @@ dacs_access_points_area:
 dacs_physical_access:
   label: "Physical access"
   csv:
-    - accessionNumber
+    - physicalCharacteristics
   xml:
