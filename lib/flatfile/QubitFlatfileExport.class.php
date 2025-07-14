@@ -281,6 +281,18 @@ class QubitFlatfileExport
             }
         }
 
+        // Remove accessionNumber from public exports
+        if (!$this->user->isAuthenticated()) {
+            if (!in_array('accessionNumber', $this->nonVisibleElementsIncluded)) {
+                array_push($this->nonVisibleElementsIncluded, 'accessionNumber');
+            }
+
+            $accessionIndex = array_search('accessionNumber', $this->columnNames);
+            if (false !== $accessionIndex && !in_array($accessionIndex, $this->nonVisibleElementsIndexes)) {
+                array_push($this->nonVisibleElementsIndexes, $accessionIndex);
+            }
+        }
+
         $this->prepareRowFromResource();
 
         if (!empty($this->nonVisibleElementsIncluded)) {
