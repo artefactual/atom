@@ -541,7 +541,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // $mapping->send($index, [ 'include_type_name' => false ])
         // which can be removed in 8.x since that is the default behaviour
         // and will have be removed by 9.x when it is discontinued
-        $mapping->send($index, [ 'include_type_name' => false ]);
+        $mapping->send($index, ['include_type_name' => false]);
     }
 
     private function loadDiacriticsMappings()
