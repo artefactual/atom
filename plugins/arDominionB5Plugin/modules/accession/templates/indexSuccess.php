@@ -244,3 +244,13 @@
     </li>
   </ul>
 <?php end_slot(); ?>
+
+<?php slot('context-menu'); ?>
+
+  <nav>
+
+    <?php echo get_partial('accession/actionIcons', ['resource' => $resource]); ?>
+
+  </nav>
+
+<?php end_slot(); ?>

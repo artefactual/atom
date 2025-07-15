@@ -60,11 +60,20 @@ class ClipboardViewAction extends DefaultBrowseAction
         $this->pager->setMaxPerPage($maxPerPage);
         $this->pager->init();
 
-        $this->uiLabels = [
-            'informationObject' => sfConfig::get('app_ui_label_informationobject'),
-            'actor' => sfConfig::get('app_ui_label_actor'),
-            'repository' => sfConfig::get('app_ui_label_repository'),
-        ];
+        if ($this->context->user->isAuthenticated()) {
+            $this->uiLabels = [
+                'informationObject' => sfConfig::get('app_ui_label_informationobject'),
+                'actor' => sfConfig::get('app_ui_label_actor'),
+                'repository' => sfConfig::get('app_ui_label_repository'),
+                'accession' => $this->context->i18n->__('Accession'),
+            ];
+        } else {
+            $this->uiLabels = [
+                'informationObject' => sfConfig::get('app_ui_label_informationobject'),
+                'actor' => sfConfig::get('app_ui_label_actor'),
+                'repository' => sfConfig::get('app_ui_label_repository'),
+            ];
+        }
 
         // Remove slugs parameter. In some templates (entity type dropdown
         // for example) the links are generated with all the request params
