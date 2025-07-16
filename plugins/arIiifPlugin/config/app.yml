@@ -1,0 +1,33 @@
+all:
+  # IIIF Plugin Configuration
+  
+  # IIIF Image Server Configuration
+  # URL to IIIF image server (e.g., Cantaloupe, Loris)
+  app_iiif_server_url: 'http://cantaloupe:8182/iiif/2'
+  
+  # IIIF Manifest Configuration
+  # Default image dimensions when actual dimensions cannot be determined
+  app_iiif_default_width: 800
+  app_iiif_default_height: 600
+  
+  # HTTP caching settings for manifests
+  app_iiif_manifest_cache_ttl: 3600  # 1 hour in seconds
+  
+  # Debug mode - adds additional error information to responses
+  app_iiif_debug: false
+  
+  # Feature flags
+  app_iiif_enable_compound_objects: true
+  app_iiif_enable_thumbnails: true
+  app_iiif_enable_metadata: true
+
+dev:
+  # Development-specific settings
+  app_iiif_debug: true
+  app_iiif_manifest_cache_ttl: 0  # No caching in development
+
+test:
+  # Test-specific settings
+  app_iiif_server_url: 'http://test-cantaloupe:8182/iiif/2'
+  app_iiif_debug: true
+  app_iiif_manifest_cache_ttl: 0
