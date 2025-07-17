@@ -83,9 +83,13 @@ class ClipboardViewAction extends DefaultBrowseAction
             'alphabetic' => $this->context->i18n->__('Name'),
         ];
 
-        // IOs and Repos have identifier sort option in common
-        if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository'])) {
+        // IOs, Repos, and Accessions have identifier sort option in common
+        if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository', 'QubitAccession'])) {
             $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
+        }
+
+        if ('QubitAccession' == $this->entityType) {
+            $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
         }
 
         // IO specific sort options
@@ -126,9 +130,9 @@ class ClipboardViewAction extends DefaultBrowseAction
 
                 break;
 
-            // Sort by title if information object, go with authorized form of name if repository / actor
+            // Sort by title if information object or accession, go with authorized form of name if repository / actor
             case 'alphabetic':
-                $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
+                $fieldName = in_array($this->entityType, ['QubitInformationObject', 'QubitAccession']) ? 'title' : 'authorizedFormOfName';
                 $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
                 $this->search->query->addSort([$field => $request->sortDir]);
 
