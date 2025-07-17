@@ -40,7 +40,14 @@
         id="counts-block"
         data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject'); ?>"
         data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor'); ?>"
-        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository'); ?>">
+        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository'); ?>"
+        <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
+          data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accession'); ?>"
+          data-show-accessions="1"
+        <?php } else { ?>
+          data-show-accessions="0"
+        <?php } ?>
+        >
       </span>
     </li>
     <?php foreach ($menu->getChildren() as $child) { ?>

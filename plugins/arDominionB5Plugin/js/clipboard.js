@@ -458,8 +458,11 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       countText += " count: " + actorsCount + "<br />";
       countText += this.$menuHeaderCount.data("repository-object-label");
       countText += " count: " + reposCount + "<br />";
-      countText += this.$menuHeaderCount.data("accession-object-label");
-      countText += " count: " + accessionsCount + "<br />";
+
+      if (this.$menuHeaderCount.data("show-accessions") == "1") {
+        countText += this.$menuHeaderCount.data("accession-object-label");
+        countText += " count: " + accessionsCount + "<br />";
+      }
 
       this.$menuHeaderCount.html(countText);
     }
