@@ -11,8 +11,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       this.storage = localStorage;
       this.types = ["informationObject", "actor", "repository", "accession"];
-      this.showAccessions =
-        this.$element.attr("data-show-accessions") == "1" ? true : false;
+      this.showAccessions = this.$element.attr("data-show-accessions") == "1";
       this.initialItems = {
         informationObject: [],
         actor: [],
@@ -240,6 +239,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         $form.append($repositorySlugs);
       }
 
+<<<<<<< HEAD
       if (this.showAccessions) {
         if (this.items["accession"].length !== 0) {
           let $accessionSlugs = $("<input />", {
@@ -249,6 +249,15 @@ import Tooltip from "bootstrap/js/dist/tooltip";
           });
           $form.append($accessionSlugs);
         }
+=======
+      if (this.items["accession"].length !== 0) {
+        let $accessionSlugs = $("<input />", {
+          type: "hidden",
+          name: "accession_slugs",
+          value: JSON.stringify(this.items["accession"]),
+        });
+        $form.append($accessionSlugs);
+>>>>>>> a5728710a (Add accessions to clipboard.js)
       }
 
       // Show sending alert and assign it to a variable
@@ -453,22 +462,27 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
+<<<<<<< HEAD
       var accessionCount = 0;
       if (this.showAccessions) {
         accessionCount = this.items["accession"].length;
       }
       var totalCount = iosCount + actorsCount + reposCount + accessionCount;
+=======
+      var accessionsCount = this.items["accession"].length;
+      var totalCount = iosCount + actorsCount + reposCount + accessionsCount;
+>>>>>>> a5728710a (Add accessions to clipboard.js)
 
       // Menu button count
       var $buttonSpan = this.$element.find("> span.clipboard-count");
       if (!$buttonSpan.length && totalCount > 0) {
         this.$element.append(
           '<span class="clipboard-count position-absolute top-0 start-0' +
-            ' badge rounded-pill bg-primary">' +
-            totalCount +
-            '<span class="visually-hidden">' +
-            this.$element.data("total-count-label") +
-            "</span></span>"
+          ' badge rounded-pill bg-primary">' +
+          totalCount +
+          '<span class="visually-hidden">' +
+          this.$element.data("total-count-label") +
+          "</span></span>"
         );
       } else if (totalCount > 0) {
         $buttonSpan.text(totalCount);
@@ -537,8 +551,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       var $alert = $(
         '<div class="alert ' +
-          type +
-          ' alert-dismissible fade show" role="alert">'
+        type +
+        ' alert-dismissible fade show" role="alert">'
       ).append(message);
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
