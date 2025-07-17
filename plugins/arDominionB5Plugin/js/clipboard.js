@@ -11,7 +11,12 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       this.storage = localStorage;
       this.types = ["informationObject", "actor", "repository", "accession"];
-      this.initialItems = { informationObject: [], actor: [], repository: [], accession: [] };
+      this.initialItems = {
+        informationObject: [],
+        actor: [],
+        repository: [],
+        accession: [],
+      };
       this.items =
         JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
       this.exportTokens =
