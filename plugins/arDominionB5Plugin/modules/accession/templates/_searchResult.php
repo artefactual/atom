@@ -39,6 +39,15 @@
           </span>
           <?php $showDash = true; ?>
         <?php } ?>
+
+        <?php if (!empty($doc['updatedAt'])) { ?>
+          <?php if ($showDash) { ?>
+            <span class="text-muted mx-2"> · </span>
+          <?php } ?>
+          <span class="text-muted">
+            <?php echo sprintf("%s: %s", __("Last updated"), format_date($doc['updatedAt'], 'f')); ?>
+          </span>
+        <?php } ?>
       </div>
 
       <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent', ['culture' => $culture])) { ?>

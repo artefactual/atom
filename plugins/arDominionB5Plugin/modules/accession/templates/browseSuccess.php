@@ -19,49 +19,16 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-  <div class="table-responsive mb-3">
-    <table class="table table-bordered mb-0">
-      <thead>
-        <tr>
-          <th>
-            <?php echo __('Accession number'); ?>
-          </th>
-          <th>
-            <?php echo __('Title'); ?>
-          </th>
-          <th>
-            <?php echo __('Acquisition date'); ?>
-          </th>
-          <?php if ('lastUpdated' == $sf_request->sort) { ?>
-            <th>
-              <?php echo __('Updated'); ?>
-            </th>
-          <?php } ?>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($pager->getResults() as $hit) { ?>
-          <?php $doc = $hit->getData(); ?>
-          <tr>
-            <td class="w-20">
-              <?php echo link_to($doc['identifier'], ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-            </td>
-            <td>
-              <?php echo link_to(render_title(get_search_i18n($doc, 'title')), ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-            </td>
-            <td class="w-20">
-              <?php echo format_date($doc['date'], 'i'); ?>
-            </td>
-            <?php if ('lastUpdated' == $sf_request->sort) { ?>
-              <td class="w-20">
-                <?php echo format_date($doc['updatedAt'], 'f'); ?>
-              </td>
-            <?php } ?>
-          </tr>
-        <?php } ?>
-      </tbody>
-    </table>
-  </div>
+
+    <div id="content">
+
+      <?php foreach ($pager->getResults() as $hit) { ?>
+        <?php $doc = $hit->getData(); ?>
+        <?php echo include_partial('accession/searchResult', ['doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture, 'clipboardType' => 'accession']); ?>
+      <?php } ?>
+
+    </div>
+
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
