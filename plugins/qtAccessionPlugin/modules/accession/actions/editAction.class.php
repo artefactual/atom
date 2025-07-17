@@ -233,7 +233,7 @@ class AccessionEditAction extends DefaultEditAction
                     $this->form->setDefault('date', $dt->format('Y-m-d'));
                 }
 
-                $this->form->setWidget('date', new sfWidgetFormInput());
+                $this->form->setWidget('date', new sfWidgetFormInput([], ['max' => '9999-12-31']));
                 $this->form->setValidator('date', new sfValidatorDate([
                     'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
                     'date_format_error' => 'YYYY-MM-DD',
