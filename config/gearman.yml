@@ -39,3 +39,5 @@ all:
       - arPhysicalObjectCsvHoldingsReportJob
     csv_validation:
       - arValidateCsvJob
+    accession_csv_export:
+      - arAccessionCsvExportJob
