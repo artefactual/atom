@@ -12,12 +12,19 @@
 <?php end_slot(); ?>
 
 <?php slot('context-menu'); ?>
+  <nav>
+    <h4 class="h5 mb-2"><?php echo __('Clipboard'); ?></h4>
+    <ul class="list-unstyled">
+      <li>
+        <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'accession']); ?>
+      </li>
+    </ul>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
-    <nav>
-      <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
-    </nav>
-  <?php } ?>
+    <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
+        <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
+    <?php } ?>
+
+  </nav>
 
 <?php end_slot(); ?>
 
