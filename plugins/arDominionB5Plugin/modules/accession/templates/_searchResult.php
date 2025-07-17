@@ -45,7 +45,7 @@
             <span class="text-muted mx-2"> · </span>
           <?php } ?>
           <span class="text-muted">
-            <?php echo sprintf("%s: %s", __("Last updated"), format_date($doc['updatedAt'], 'f')); ?>
+            <?php echo sprintf('%s: %s', __('Last updated'), format_date($doc['updatedAt'], 'f')); ?>
           </span>
         <?php } ?>
       </div>

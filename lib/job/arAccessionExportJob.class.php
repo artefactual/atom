@@ -54,7 +54,7 @@ class arAccessionExportJob extends arExportJob
     }
 
     /**
-     * Export accession metadata
+     * Export accession metadata.
      *
      * @param string $path to temporary export directory
      */
@@ -94,9 +94,9 @@ class arAccessionExportJob extends arExportJob
 
     /**
      * Export resource and all related I18Ns as CSV.
-     * @param QubitAccession $resource
+     *
+     * @param QubitAccession     $resource
      * @param csvAccessionExport $writer
-     * @return void
      */
     protected function csvActionExport($resource, $writer)
     {
