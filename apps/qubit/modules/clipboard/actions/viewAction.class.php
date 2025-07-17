@@ -64,6 +64,7 @@ class ClipboardViewAction extends DefaultBrowseAction
             'informationObject' => sfConfig::get('app_ui_label_informationobject'),
             'actor' => sfConfig::get('app_ui_label_actor'),
             'repository' => sfConfig::get('app_ui_label_repository'),
+            'accession' => sfConfig::get('app_ui_label_accession'),
         ];
 
         // Remove slugs parameter. In some templates (entity type dropdown
