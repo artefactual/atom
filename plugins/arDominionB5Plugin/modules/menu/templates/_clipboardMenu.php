@@ -48,8 +48,16 @@
         data-information-object-label="<?php echo sfConfig::get('app_ui_label_descriptioncount'); ?>"
         data-actor-object-label="<?php echo sfConfig::get('app_ui_label_authorityrecordcount'); ?>"
         data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repositorycount'); ?>"
+<<<<<<< HEAD
         <?php if ($showAccessions) { ?>
           data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accessioncount'); ?>"
+=======
+        <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
+          data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accessioncount'); ?>"
+          data-show-accessions="1"
+        <?php } else { ?>
+          data-show-accessions="0"
+>>>>>>> 05e4102e6 (Hide accession export from users w/o permission)
         <?php } ?>
         >
       </span>

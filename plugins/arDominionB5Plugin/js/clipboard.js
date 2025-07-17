@@ -239,25 +239,13 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         $form.append($repositorySlugs);
       }
 
-<<<<<<< HEAD
-      if (this.showAccessions) {
-        if (this.items["accession"].length !== 0) {
-          let $accessionSlugs = $("<input />", {
-            type: "hidden",
-            name: "accession_slugs",
-            value: JSON.stringify(this.items["accession"]),
-          });
-          $form.append($accessionSlugs);
-        }
-=======
-      if (this.items["accession"].length !== 0) {
+      if (this.showAccessions && this.items["accession"].length !== 0) {
         let $accessionSlugs = $("<input />", {
           type: "hidden",
           name: "accession_slugs",
           value: JSON.stringify(this.items["accession"]),
         });
         $form.append($accessionSlugs);
->>>>>>> a5728710a (Add accessions to clipboard.js)
       }
 
       // Show sending alert and assign it to a variable
@@ -462,16 +450,11 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
-<<<<<<< HEAD
       var accessionCount = 0;
       if (this.showAccessions) {
         accessionCount = this.items["accession"].length;
       }
       var totalCount = iosCount + actorsCount + reposCount + accessionCount;
-=======
-      var accessionsCount = this.items["accession"].length;
-      var totalCount = iosCount + actorsCount + reposCount + accessionsCount;
->>>>>>> a5728710a (Add accessions to clipboard.js)
 
       // Menu button count
       var $buttonSpan = this.$element.find("> span.clipboard-count");
