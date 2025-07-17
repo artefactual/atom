@@ -10,8 +10,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       this.onClipboardPage = $("body").is(".clipboard.view");
 
       this.storage = localStorage;
-      this.types = ["informationObject", "actor", "repository"];
-      this.initialItems = { informationObject: [], actor: [], repository: [] };
+      this.types = ["informationObject", "actor", "repository", "accession"];
+      this.initialItems = { informationObject: [], actor: [], repository: [], accession: [] };
       this.items =
         JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
       this.exportTokens =
@@ -141,7 +141,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (
         this.items["informationObject"].length === 0 &&
         this.items["actor"].length === 0 &&
-        this.items["repository"].length === 0
+        this.items["repository"].length === 0 &&
+        this.items["accession"].length === 0
       ) {
         return;
       }
@@ -169,7 +170,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (
         this.items["informationObject"].length === 0 &&
         this.items["actor"].length === 0 &&
-        this.items["repository"].length === 0
+        this.items["repository"].length === 0 &&
+        this.items["accession"].length === 0
       ) {
         this.showAlert($sendButton.data("empty-message"), "alert-danger");
 
@@ -216,6 +218,15 @@ import Tooltip from "bootstrap/js/dist/tooltip";
           value: JSON.stringify(this.items["repository"]),
         });
         $form.append($repositorySlugs);
+      }
+
+      if (this.items["accession"].length !== 0) {
+        let $accessionSlugs = $("<input />", {
+          type: "hidden",
+          name: "accession_slugs",
+          value: JSON.stringify(this.items["accession"]),
+        });
+        $form.append($accessionSlugs);
       }
 
       // Show sending alert and assign it to a variable
@@ -420,7 +431,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
-      var totalCount = iosCount + actorsCount + reposCount;
+      var accessionsCount = this.items["accession"].length;
+      var totalCount = iosCount + actorsCount + reposCount + accessionsCount;
 
       // Menu button count
       var $buttonSpan = this.$element.find("> span.clipboard-count");
@@ -446,6 +458,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       countText += " count: " + actorsCount + "<br />";
       countText += this.$menuHeaderCount.data("repository-object-label");
       countText += " count: " + reposCount + "<br />";
+      countText += this.$menuHeaderCount.data("accession-object-label");
+      countText += " count: " + accessionsCount + "<br />";
 
       this.$menuHeaderCount.html(countText);
     }
