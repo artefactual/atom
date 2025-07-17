@@ -53,8 +53,6 @@
           <?php echo get_partial('actor/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'actor']); ?>
         <?php } elseif ('QubitRepository' === $entityType) { ?>
           <?php echo get_partial('actor/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'repository']); ?>
-        <?php } elseif ('QubitAccession' === $entityType) { ?>
-          <?php echo get_partial('accession/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'accession']); ?>
         <?php } ?>
       <?php } ?>
     </div>
