@@ -892,6 +892,14 @@ QubitSetting:
       pt: 'Relacionamentos de registro de autoridade'
       pt_BR: 'Relacionamentos de registro de autoridade'
       sr: 'Односи нормативних записа'
+  QubitSetting_accession:
+    name: accession
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Accession'
   QubitSetting_26:
     name: en
     scope: i18n_languages
