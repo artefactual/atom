@@ -87,12 +87,13 @@ class ClipboardViewAction extends DefaultBrowseAction
             'alphabetic' => $this->context->i18n->__('Name'),
         ];
 
-        // IOs, Repos, and Accessions have identifier sort option in common
-        if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository', 'QubitAccession'])) {
+        // IOs and Repos have identifier sort option in common
+        if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository'])) {
             $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
         }
 
         if ('QubitAccession' == $this->entityType) {
+            $this->sortOptions['identifier'] = $this->context->i18n->__('Accession number');
             $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
         }
 
