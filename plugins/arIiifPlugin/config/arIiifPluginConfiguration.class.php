@@ -9,8 +9,7 @@ class arIiifPluginConfiguration extends sfPluginConfiguration
   public function initialize()
   {
     // Only initialize if plugin is enabled
-    if ($this->isEnabled())
-    {
+    if ($this->isEnabled()) {
       $enabledModules = sfConfig::get('sf_enabled_modules');
       $enabledModules[] = 'iiif';
       sfConfig::set('sf_enabled_modules', $enabledModules);
@@ -39,17 +38,17 @@ class arIiifPluginConfiguration extends sfPluginConfiguration
   }
 
   /**
-   * Check if this plugin is enabled via the plugin management system
+   * Check if this plugin is enabled via the plugin management system.
    */
   private function isEnabled()
   {
     $enabledPlugins = QubitSetting::getByName('plugins');
-    if ($enabledPlugins)
-    {
+    if ($enabledPlugins) {
       $pluginSettings = unserialize($enabledPlugins->value);
+
       return is_array($pluginSettings) && in_array('arIiifPlugin', $pluginSettings);
     }
-    
+
     // Default to enabled if no plugin settings exist (backward compatibility)
     return false;
   }

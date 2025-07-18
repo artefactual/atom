@@ -52,8 +52,8 @@ class IiifManifestAction extends sfActions
 
     // Determine the type of manifest to create based on digital object configuration
     $manifestType = $this->determineManifestType($digitalObjects);
-    
-    if ($manifestType === 'none') {
+
+    if ('none' === $manifestType) {
       return $this->renderError('No accessible digital objects found', 404);
     }
 
@@ -81,6 +81,7 @@ class IiifManifestAction extends sfActions
       if (sfConfig::get('app_iiif_debug', false)) {
         $message .= ': '.$e->getMessage();
       }
+
       return $this->renderError($message, 500);
     }
   }
@@ -129,11 +130,11 @@ class IiifManifestAction extends sfActions
 
   private function determineManifestType($digitalObjects)
   {
-    if (count($digitalObjects) === 0) {
+    if (0 === count($digitalObjects)) {
       return 'none'; // No digital objects available
     }
 
-    if (count($digitalObjects) === 1) {
+    if (1 === count($digitalObjects)) {
       return 'single';
     }
 
@@ -151,22 +152,21 @@ class IiifManifestAction extends sfActions
     switch ($manifestType) {
       case 'single':
         return $this->buildSingleImageManifest($manifestId, $io, $digitalObjects);
-      
+
       case 'collection':
         return $this->buildCollectionManifest($manifestId, $io, $digitalObjects);
-      
       // case 'compound':
       //   return $this->buildCompoundManifest($manifestId, $io);
-      
+
       default:
-        throw new Exception('Unknown manifest type: ' . $manifestType);
+        throw new Exception('Unknown manifest type: '.$manifestType);
     }
   }
 
   private function buildSingleImageManifest($manifestId, $io, $digitalObjects)
   {
     $do = $digitalObjects[0];
-    
+
     if (!isset($do)) {
       throw new Exception('No valid image found for single image manifest');
     }
@@ -176,19 +176,19 @@ class IiifManifestAction extends sfActions
     }
 
     $manifest = [
-      '@context' => 'http://iiif.io/api/presentation/2/context.json',
-      '@type' => 'sc:Manifest',
-      '@id' => $manifestId,
-      'label' => $io->title ?: 'Untitled',
-      'metadata' => $this->buildMetadata($io),
+        '@context' => 'http://iiif.io/api/presentation/2/context.json',
+        '@type' => 'sc:Manifest',
+        '@id' => $manifestId,
+        'label' => $io->title ?: 'Untitled',
+        'metadata' => $this->buildMetadata($io),
     ];
 
     // For single images, create one canvas
     $canvas = $this->buildCanvas($manifestId, $do, 1);
     if ($canvas) {
       $manifest['sequences'] = [[
-        '@type' => 'sc:Sequence',
-        'canvases' => [$canvas],
+          '@type' => 'sc:Sequence',
+          'canvases' => [$canvas],
       ]];
     }
 
@@ -206,7 +206,7 @@ class IiifManifestAction extends sfActions
     // Filter to only image objects
     $imageObjects = [];
     foreach ($digitalObjects as $digitalObject) {
-      if (QubitDigitalObject::isImageFile(basename($digitalObject->getAbsolutePath()))) { 
+      if (QubitDigitalObject::isImageFile(basename($digitalObject->getAbsolutePath()))) {
         $imageObjects[] = $digitalObject;
       }
     }
@@ -216,29 +216,29 @@ class IiifManifestAction extends sfActions
     }
 
     $manifest = [
-      '@context' => 'http://iiif.io/api/presentation/2/context.json',
-      '@type' => 'sc:Manifest',
-      '@id' => $manifestId,
-      'label' => $io->title ?: 'Untitled',
-      'metadata' => $this->buildMetadata($io),
+        '@context' => 'http://iiif.io/api/presentation/2/context.json',
+        '@type' => 'sc:Manifest',
+        '@id' => $manifestId,
+        'label' => $io->title ?: 'Untitled',
+        'metadata' => $this->buildMetadata($io),
     ];
 
     // Create canvases for each image
     $canvases = [];
     $canvasNumber = 1;
-    
+
     foreach ($imageObjects as $digitalObject) {
       $canvas = $this->buildCanvas($manifestId, $digitalObject, $canvasNumber);
       if ($canvas) {
         $canvases[] = $canvas;
-        $canvasNumber++;
+        ++$canvasNumber;
       }
     }
 
     if (!empty($canvases)) {
       $manifest['sequences'] = [[
-        '@type' => 'sc:Sequence',
-        'canvases' => $canvases,
+          '@type' => 'sc:Sequence',
+          'canvases' => $canvases,
       ]];
     }
 
@@ -256,7 +256,7 @@ class IiifManifestAction extends sfActions
   // private function buildCompoundManifest($manifestId, $object)
   // {
   //   $digitalObject = $object->getDigitalObject();
-    
+
   //   if (!$digitalObject) {
   //     throw new Exception('No digital object found for compound manifest');
   //   }
@@ -271,7 +271,7 @@ class IiifManifestAction extends sfActions
 
   //   // Get all child objects for compound display
   //   $childObjects = $digitalObject->digitalObjectsRelatedByparentId;
-    
+
   //   // If no children, treat parent as single canvas
   //   if (empty($childObjects)) {
   //     if ($this->isImageType($digitalObject)) {
@@ -287,7 +287,7 @@ class IiifManifestAction extends sfActions
   //     // Create canvases for each child (like pages in a book)
   //     $canvases = [];
   //     $canvasNumber = 1;
-      
+
   //     foreach ($childObjects as $childObject) {
   //       if ($this->isImageType($childObject)) {
   //         $canvas = $this->buildCanvas($manifestId, $childObject, $canvasNumber);
