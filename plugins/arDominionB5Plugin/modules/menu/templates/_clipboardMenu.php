@@ -6,9 +6,6 @@
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
-    data-io-count="<?php echo __('Archival description count'); ?>"
-    data-ar-count="<?php echo __('Authority record count'); ?>"
-    data-repo-count="<?php echo __('Archival institution count'); ?>"
     data-total-count-label="<?php echo __('records added'); ?>"
     data-alert-close="<?php echo __('Close'); ?>"
     data-load-alert-message="<?php echo __('There was an error loading the clipboard content.'); ?>"
@@ -41,9 +38,9 @@
     <li class="text-muted text-nowrap px-3 pb-2">
       <span
         id="counts-block"
-        data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject'); ?>"
-        data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor'); ?>"
-        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository'); ?>">
+        data-information-object-label="<?php echo sfConfig::get('app_ui_label_descriptioncount'); ?>"
+        data-actor-object-label="<?php echo sfConfig::get('app_ui_label_authorityrecordcount'); ?>"
+        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repositorycount'); ?>">
       </span>
     </li>
     <?php foreach ($menu->getChildren() as $child) { ?>
