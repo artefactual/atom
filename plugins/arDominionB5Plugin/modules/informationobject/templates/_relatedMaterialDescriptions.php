@@ -9,7 +9,7 @@
   <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
       <?php foreach ($resource->relationsRelatedBysubjectId as $item) { ?>
-          <?php if (QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->getTypeId()) { ?>
+          <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->getTypeId()) { ?>
             <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->object->getPublicationStatus()->statusId) { ?>
               <?php $itemTitle = $item->object->__toString(); ?>
 
@@ -34,7 +34,7 @@
         <?php } ?>
 
         <?php foreach ($resource->relationsRelatedByobjectId as $item) { ?>
-          <?php if (QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->getTypeId()) { ?>
+          <?php if (isset($item->type) && QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $item->getTypeId()) { ?>
             <?php if ($sf_user->isAuthenticated() || QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $item->subject->getPublicationStatus()->statusId) { ?>
               <?php $itemTitle = $item->subject->__toString(); ?>
 
@@ -57,7 +57,7 @@
             <?php } ?>
           <?php } ?>
         <?php } ?>
-
     </ul>
   </div>
+
 </div>
