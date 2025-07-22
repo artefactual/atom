@@ -5,6 +5,7 @@
   <?php } else { ?>
     <h3><?php echo __('Related descriptions'); ?></h3>
   <?php } ?>
+  
   <div>
     <ul>
       <?php foreach ($resource->relationsRelatedBysubjectId as $item) { ?>
