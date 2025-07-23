@@ -18,7 +18,7 @@
  */
 
 /**
- * Import authority record to information object relations using CSV.
+ * Import authority record to information object name access points using CSV.
  *
  * @author     Steve Breker <sbreker@artefactual.com>
  */
@@ -39,7 +39,7 @@ class csvAuthorityInfoObjectRelationImportTask extends csvImportBaseTask
 
         $this->validateUpdateOptions($options);
 
-        $this->log('Importing authority to information object relations...');
+        $this->log('Importing authority to information object name access points...');
 
         $this->import($arguments['filename'], $options['index'], $options['update']);
 
@@ -94,12 +94,12 @@ class csvAuthorityInfoObjectRelationImportTask extends csvImportBaseTask
 
         $this->namespace = 'csv';
         $this->name = 'authority-info-object-relation-import';
-        $this->briefDescription = 'Import authority record to information object relations using CSV data.';
+        $this->briefDescription = 'Import authority record to information object name access points using CSV data.';
         $this->detailedDescription = <<<'EOF'
-Import authority record to information object relations using CSV data.
+Import authority record to information object name access points using CSV data.
 This task creates name access point relationships between existing authority records (actors) and information objects.
 
-The relationships are created as QubitRelation objects with configurable relation types from the Event Type taxonomy.
+The name access points are created as QubitEvent objects with configurable event types from the Event Type taxonomy.
 
 The CSV should contain columns for:
 - authorityAuthorizedFormOfName: The authorized form of name of the authority record
@@ -265,36 +265,40 @@ EOF;
 
         if ($updateMode) {
             if ('delete-and-replace' == $updateMode) {
-                // Delete existing relations of this type between the information object and actor
-                $relations = $this->getRelations($informationObjectId, $actorId, $relationTypeId);
+                // Delete existing events of this type between the information object and actor
+                $events = $this->getRelations($informationObjectId, $actorId, $relationTypeId);
 
-                foreach ($relations as $relationId) {
-                    // Don't delete relations that have been added during this import
-                    if (!in_array($relationId, $this->newlyAdded)) {
-                        $relation = QubitRelation::getById($relationId);
-                        if ($relation) {
-                            $relation->delete();
+                foreach ($events as $eventId) {
+                    // Don't delete events that have been added during this import
+                    if (!in_array($eventId, $this->newlyAdded)) {
+                        $event = QubitEvent::getById($eventId);
+                        if ($event) {
+                            $event->delete();
                         }
                     }
                 }
-            } elseif ($relationId = $this->getRelationByType($informationObjectId, $actorId, $relationTypeId)) {
-                // Relation already exists in match-and-update mode
-                $this->import->log('Relation already exists, skipping...');
+            } elseif ($eventId = $this->getRelationByType($informationObjectId, $actorId, $relationTypeId)) {
+                // Event already exists in match-and-update mode
+                $this->import->log('Event already exists, skipping...');
 
                 return;
             }
         } elseif ($this->getRelationByType($informationObjectId, $actorId, $relationTypeId)) {
-            // If not updating, but relation already exists, skip
-            echo $this->import->logError('Skipping row as relationship already exists');
+            // If not updating, but event already exists, skip
+            echo $this->import->logError('Skipping row as event already exists');
 
             return;
         }
 
-        // Create the relation
-        $relation = $this->import->createRelation($informationObjectId, $actorId, $relationTypeId);
+        // Create the event (name access point) in the event table
+        $event = new QubitEvent();
+        $event->informationObjectId = $informationObjectId;
+        $event->actorId = $actorId;
+        $event->typeId = $relationTypeId;
+        $event->save();
 
-        if ($relation && 'delete-and-replace' == $updateMode) {
-            $this->newlyAdded[] = $relation->id;
+        if ($event && 'delete-and-replace' == $updateMode) {
+            $this->newlyAdded[] = $event->id;
         }
 
         // Track updated objects for indexing
@@ -302,25 +306,25 @@ EOF;
     }
 
     /**
-     * Use SQL to fetch the ID of a relation, of a certain type, if it exists.
+     * Use SQL to fetch the ID of an event, of a certain type, if it exists.
      *
      * @param int $informationObjectId ID of information object
      * @param int $actorId             ID of actor
-     * @param int $relationTypeId      ID of relation type
+     * @param int $relationTypeId      ID of event type
      *
-     * @return mixed integer ID of the relation or boolean false if there's no result
+     * @return mixed integer ID of the event or boolean false if there's no result
      */
     private function getRelationByType($informationObjectId, $actorId, $relationTypeId)
     {
-        $sql = 'SELECT id FROM relation
-            WHERE subject_id = :subject_id
-            AND object_id = :object_id
+        $sql = 'SELECT id FROM event
+            WHERE information_object_id = :information_object_id
+            AND actor_id = :actor_id
             AND type_id = :type_id
             LIMIT 1';
 
         $params = [
-            ':subject_id' => $informationObjectId,
-            ':object_id' => $actorId,
+            ':information_object_id' => $informationObjectId,
+            ':actor_id' => $actorId,
             ':type_id' => $relationTypeId,
         ];
 
@@ -328,26 +332,26 @@ EOF;
     }
 
     /**
-     * Use SQL to fetch relations of a specific type.
+     * Use SQL to fetch events of a specific type.
      *
      * @param int $informationObjectId ID of information object
      * @param int $actorId             ID of actor
-     * @param int $relationTypeId      ID of relation type
+     * @param int $relationTypeId      ID of event type
      *
-     * @return array array of relation IDs
+     * @return array array of event IDs
      */
     private function getRelations($informationObjectId, $actorId, $relationTypeId)
     {
-        $sql = 'SELECT id FROM relation
-            WHERE subject_id = :subject_id
-            AND object_id = :object_id
+        $sql = 'SELECT id FROM event
+            WHERE information_object_id = :information_object_id
+            AND actor_id = :actor_id
             AND type_id = :type_id';
 
         $results = QubitPdo::fetchAll(
             $sql,
             [
-                ':subject_id' => $informationObjectId,
-                ':object_id' => $actorId,
+                ':information_object_id' => $informationObjectId,
+                ':actor_id' => $actorId,
                 ':type_id' => $relationTypeId,
             ],
             ['fetchMode' => PDO::FETCH_ASSOC]
