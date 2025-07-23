@@ -1,0 +1,8 @@
+authorityAuthorizedFormOfName,informationObjectIdentifier,relationType,relationTypeId,culture
+"Smith, John","test-document-001","Member",,en
+"Johnson, Mary","test-document-002","Creator",,en
+"Williams, Robert","test-document-003","Contributor",,en
+"Brown, Sarah","test-document-001","Member",,en
+"Davis, Michael","test-document-002","Publisher",,en
+"Wilson, Lisa","test-document-003","Editor",,en
+"Anderson, James","some-slug-here","Member",,en
