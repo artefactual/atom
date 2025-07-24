@@ -267,20 +267,20 @@
     </xsl:template>
     <!-- Named template to generate table headers -->
     <xsl:template name="tableHeaders">
-            <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt" role="TH" keep-with-next="always">
-                <fo:table-cell>
-                    <fo:block>Reference code</fo:block>
-                </fo:table-cell>
-                <fo:table-cell>
-                    <fo:block>Title</fo:block>
-                </fo:table-cell>
-                <fo:table-cell>
-                    <fo:block>Dates</fo:block>
-                </fo:table-cell>
-                <fo:table-cell>
-                    <fo:block>Physical description</fo:block>
-                </fo:table-cell>
-            </fo:table-row>
+        <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt" role="TH" keep-with-next="always">
+            <fo:table-cell>
+                <fo:block>Reference code</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <fo:block>Title</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <fo:block>Dates</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <fo:block>Physical description</fo:block>
+            </fo:table-cell>
+        </fo:table-row>
     </xsl:template>
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">

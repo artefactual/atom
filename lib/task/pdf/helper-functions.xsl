@@ -286,7 +286,8 @@
     </xsl:function>
     <!-- 
         Language code look-up map
-        List based on the ISO 639-2 language codes variants (https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes).
+        List based on the ISO 639 sets 1,2 and 3 language codes variants 
+        (https://www.loc.gov/standards/iso639-2/php/code_list.php and https://iso639-3.sil.org/code_tables/639/data).
         Used for printing full language name and from converting between 2- and 3-letter codes.
     -->
     <xsl:variable name="languages">
