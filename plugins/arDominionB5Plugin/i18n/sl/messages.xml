@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sl" datatype="plaintext" original="messages" date="2025-06-26T17:41:47Z" product-name="messages">
+  <file source-language="en" target-language="sl" datatype="plaintext" original="messages" date="2025-07-28T20:04:36Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -27,10 +27,6 @@
       <trans-unit id="6">
         <source>Authorized form of name</source>
         <target>Standardizirana oblika imena</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>This is a mandatory element.</source>
-        <target>Vnos tega elementa je obvezen.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Contact area</source>
@@ -1667,10 +1663,6 @@
       <trans-unit id="441">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
         <target>"Zabeležite standardizirano obliko imena institucije in, če je potrebno, dodajte ustrezne kvalifikatorje (npr. datume, kraje itn). Ločeno v elementu Uporabljena pravila in/ali dogovori (5.6.3) navedite tudi, katera pravila so bila uporabljena za ta element." (ISDIAH 5.1.2)</target>
-      </trans-unit>
-      <trans-unit id="442">
-        <source>This is a mandatory element</source>
-        <target>Vnos tega elementa je obvezen</target>
       </trans-unit>
       <trans-unit id="443">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
@@ -5534,6 +5526,10 @@
       </trans-unit>
       <trans-unit id="1441">
         <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1442">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

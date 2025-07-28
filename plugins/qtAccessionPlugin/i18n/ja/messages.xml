@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-06-26T17:41:30Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-07-28T20:04:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,10 +15,6 @@
       <trans-unit id="3">
         <source>Edit %1%</source>
         <target> %1%を編集する</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Authorized form of name - This is a mandatory element.</source>
-        <target>正式名称- 必須項目。</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Name</source>
@@ -92,22 +88,6 @@
         <source>Add new deaccession record</source>
         <target>新規の廃棄資料を追加</target>
       </trans-unit>
-      <trans-unit id="32">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>識別子　- 必須項目。</target>
-      </trans-unit>
-      <trans-unit id="33">
-        <source>Date of acquisition - This is a mandatory element.</source>
-        <target>取得日付- 必須項目。</target>
-      </trans-unit>
-      <trans-unit id="34">
-        <source>Scope - This is a mandatory element.</source>
-        <target>範囲 - 必須項目。</target>
-      </trans-unit>
-      <trans-unit id="35">
-        <source>Description - This is a mandatory element.</source>
-        <target>記述 - 必須項目。</target>
-      </trans-unit>
       <trans-unit id="36">
         <source>Edit deaccession record</source>
         <target>廃棄記録を編集する</target>
@@ -147,18 +127,6 @@
       <trans-unit id="45">
         <source>Add new accession record</source>
         <target>新規の受入記録を追加</target>
-      </trans-unit>
-      <trans-unit id="46">
-        <source>Acquisition date - This is a mandatory element.</source>
-        <target>受入日付　 - 必須項目</target>
-      </trans-unit>
-      <trans-unit id="47">
-        <source>Source of acquisition - This is a mandatory element.</source>
-        <target>取得の情報源 - 必須項目。</target>
-      </trans-unit>
-      <trans-unit id="48">
-        <source>Location information - This is a mandatory element.</source>
-        <target>所在情報 - 必須項目。</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Related donors</source>
@@ -570,6 +538,42 @@
       </trans-unit>
       <trans-unit id="169">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Authorized form of name - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>Date of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>Scope - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="176">
+        <source>Acquisition date - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="177">
+        <source>Source of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="178">
+        <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

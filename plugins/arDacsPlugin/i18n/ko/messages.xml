@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ko" datatype="plaintext" original="messages" date="2025-06-26T17:40:10Z" product-name="messages">
+  <file source-language="en" target-language="ko" datatype="plaintext" original="messages" date="2025-07-28T20:02:59Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -16,37 +16,13 @@
         <source>Edit %1%</source>
         <target>%1% 편집</target>
       </trans-unit>
-      <trans-unit id="4">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>식별자 - 이 항목은 필수 요소입니다. </target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Name and location of repository - This is a mandatory element.</source>
-        <target>기록보존소의 이름과 위치 - 필수요소입니다.</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Title - This is a mandatory element.</source>
-        <target>제목 - 이 항목은 필수 요소입니다. </target>
-      </trans-unit>
       <trans-unit id="7">
         <source>Date(s) - are not consistent with higher levels.</source>
         <target>날짜(들) - 상위계층과 일치하지 않습니다.</target>
       </trans-unit>
-      <trans-unit id="8">
-        <source>Date(s) - This is a mandatory element.</source>
-        <target>일자(들) - 이것은 </target>
-      </trans-unit>
-      <trans-unit id="9">
-        <source>Extent - This is a mandatory element.</source>
-        <target>규모 - 이 항목은 필수 요소입니다.</target>
-      </trans-unit>
       <trans-unit id="10">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>이 기록물 기술 또는 상위 계층 요소는 적어도 한명의 생산자 정보가 필요합니다.</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>범위와 내용 - 이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a duplicate of record %1%</source>
@@ -411,6 +387,34 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Date(s) - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Extent - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-06-26T17:40:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:07Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -37,14 +37,6 @@
       <trans-unit id="845">
         <source>Rights</source>
         <target>Direitos</target>
-      </trans-unit>
-      <trans-unit id="896">
-        <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target>%1%Identificador%2 - é um elemento obrigatório.</target>
-      </trans-unit>
-      <trans-unit id="897">
-        <source>%1%Title%2% - This is a mandatory element.</source>
-        <target>%1%Título%2% - é uma elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="902">
         <source>Creator</source>
@@ -197,6 +189,18 @@
       <trans-unit id="954">
         <source>Add new</source>
         <target>Adicionar novo</target>
+      </trans-unit>
+      <trans-unit id="955">
+        <source>%1%Identifier%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="956">
+        <source>This field is marked as mandatory in the relevant descriptive standard.&lt;/span&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:52Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
         <source>SKOS import</source>
-        <target/>
+        <target>استيراد باستخدام ملف نظام تنظيم المعرفة البسيط SKOS</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Select a file to import</source>
@@ -18,15 +18,15 @@
       </trans-unit>
       <trans-unit id="8">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>المصطلح الحالي لا ينتمي إلى التصنيف المُختار.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>يجب عليك اختيار مصدر للمتابعة.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>حدث خطأٌ ما ! رجاءً التحقق من سجلات التتبع. الخطأ: %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
@@ -38,59 +38,59 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Select source</source>
-        <target/>
+        <target>اختر المصدر</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Or a remote resource</source>
-        <target/>
+        <target>أو مورد بعيد</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>تعذر العثور على نظام تصنيف المحتوى المُحكم ذي المُعرِّف %1%</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>تعذر العثور على المصطلح ذو المُعرِّف %1%</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Malformed URI.</source>
-        <target/>
+        <target>رابط URI غير صحيح التنسيق.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>نوع المُخطط: %1%</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
-        <target>التصنيف:٪ 1٪</target>
+        <target>تصنيف المحتوى المُحكم لـ :٪ 1٪</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Term ID: %1%</source>
-        <target/>
+        <target>مُعرِّف المصطلح: %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>مُخطط غير مدعوم!</target>
       </trans-unit>
       <trans-unit id="22">
         <source>The graph is empty.</source>
-        <target/>
+        <target>الرسم البياني فارغ.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>يحتوي الرسم البياني على %1% من المفاهيم.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>تم استلام نوع / مفهوم غير مُتوقع: %1%.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>اللغات التالية مُستخدمة في مجموعة البيانات المستوردة لكنها غير مدعومة بواسطة AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>المجموع الكُلي %1% تمت المُعالجة.</target>
       </trans-unit>
     </body>
   </file>

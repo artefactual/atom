@@ -38,6 +38,7 @@ QubitStaticPage:
     slug: about
     source_culture: en
     title:
+      ar: حول
       bs: Informacije
       ca: 'Quant a'
       ca@valencia: Sobre
@@ -84,6 +85,7 @@ QubitStaticPage:
     slug: privacy
     source_culture: en
     title:
+      ar: 'سياسة الخصوصية'
       bs: 'Politika privatnosti'
       cy: 'Polisi Preifatrwydd'
       en: 'Privacy Policy'

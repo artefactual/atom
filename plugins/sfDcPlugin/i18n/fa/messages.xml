@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-06-26T17:40:23Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -36,14 +36,6 @@
       </trans-unit>
       <trans-unit id="770">
         <source>Rights</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="821">
-        <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="822">
-        <source>%1%Title%2% - This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="827">
@@ -197,6 +189,18 @@
       <trans-unit id="879">
         <source>Add new</source>
         <target> &#x627;&#x641;&#x632;&#x648;&#x62F;&#x646; &#x622;&#x64A;&#x62A;&#x645; &#x62C;&#x62F;&#x64A;&#x62F; </target>
+      </trans-unit>
+      <trans-unit id="880">
+        <source>%1%Identifier%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="881">
+        <source>This field is marked as mandatory in the relevant descriptive standard.&lt;/span&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="882">
+        <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

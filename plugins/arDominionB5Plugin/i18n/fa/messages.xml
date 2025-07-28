@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="fa" datatype="plaintext" original="messages" date="2025-06-26T17:40:23Z" product-name="messages">
+  <file source-language="en" target-language="fa" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -27,10 +27,6 @@
       <trans-unit id="6">
         <source>Authorized form of name</source>
         <target>شكل مصوب عنوان</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>This is a mandatory element.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="8">
         <source>Contact area</source>
@@ -1666,10 +1662,6 @@
       </trans-unit>
       <trans-unit id="441">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="442">
-        <source>This is a mandatory element</source>
         <target/>
       </trans-unit>
       <trans-unit id="443">
@@ -5534,6 +5526,10 @@
       </trans-unit>
       <trans-unit id="1441">
         <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1442">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

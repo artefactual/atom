@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-06-26T17:45:11Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-07-28T20:08:01Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="32e271bec7e31df1838efd94cf39df8b980c7283">
+      <trans-unit id="32e271bec7e31df1838efd94cf39df8b980c7283" xml:space="preserve">
         <source xml:space="preserve"> %1%Download%2% (%3%)</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final"> .%1%Baixar%2% (%3%)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportCheckAction.class.php</note>
       </trans-unit>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf" xml:space="preserve">
@@ -1121,9 +1121,9 @@
         <target xml:space="preserve" state="final">Exporta&#xE7;&#xE3;o da &#xE1;rea de transfer&#xEA;ncia</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportAction.class.php</note>
       </trans-unit>
-      <trans-unit id="6b15a735d588300e17abdac3a7795f9ab6b5084c">
+      <trans-unit id="6b15a735d588300e17abdac3a7795f9ab6b5084c" xml:space="preserve">
         <source xml:space="preserve">Clipboard saved with %1% item(s). Clipboard ID is &lt;b&gt;%2%&lt;/b&gt;. Please write this number down. When you want to reload this clipboard in the future, open the Clipboard menu, select &lt;a class="alert-link" href="%3%"&gt;Load clipboard&lt;/a&gt;, and enter this number in the Clipboard ID field. Clipboards are eligible for deletion after &lt;b&gt;%4% day(s)&lt;/b&gt;.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#xC1;rea de transfer&#xEA;ncia salva com %1% item(s). O ID da &#xC1;rea de Transfer&#xEA;ncia &#xE9; &lt;b&gt;%2%&lt;/b&gt;. Por favor, anote este n&#xFA;mero. Quando quiser acessar essa &#xE1;rea de transfer&#xEA;ncia no futuro, abra o menu da &#xC1;rea de Transfer&#xEA;ncia, selecione &lt;a class="alert-link" href="%3%"&gt;Carregar &#xC1;rea de Transfer&#xEA;ncia&lt;/a&gt;, e insira este n&#xFA;mero no campo de ID da &#xC1;rea de Transfer&#xEA;ncia. As &#xC1;reas de Transfer&#xEA;ncia s&#xE3;o eleg&#xED;veis a serem deletadas ap&#xF3;s &lt;b&gt;%4% dia(s)&lt;/b&gt;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/saveAction.class.php</note>
       </trans-unit>
       <trans-unit id="54054d2f15dc66beed2305c2532cc1b4ae8d8acb" xml:space="preserve">
@@ -2946,9 +2946,9 @@
         <target xml:space="preserve" state="final">Termos de licen&#xE7;a</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
-      <trans-unit id="31cb8ebdd8929e1a64627c0799b74b8fdf1d195d">
+      <trans-unit id="31cb8ebdd8929e1a64627c0799b74b8fdf1d195d" xml:space="preserve">
         <source xml:space="preserve">Limit authenticated functionality to one or more IP addresses, separated by semicolons.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">Limitar as funcionalidades de autenticados para um ou mais endere&#xE7;os de IP, separados por ponto e v&#xED;rgula.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/securityAction.class.php</note>
       </trans-unit>
       <trans-unit id="c9a63a518c70a777f5be69334e81ea8c972ca31d" xml:space="preserve">
@@ -4293,12 +4293,12 @@
       </trans-unit>
       <trans-unit id="a75dfe6efd6ee90b0cf31c7b23fb02f3c77ca7dd" xml:space="preserve">
         <source xml:space="preserve">Require SSL for all administrator funcionality</source>
-        <target xml:space="preserve" state="final">Requer SSL para todas as funcionalidades de administrador</target>
+        <target xml:space="preserve" state="final">Exigir SSL para todas as funcionalidades de administrador</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="96d0b83c87240246f808996e2cdc5bdee63b4cd8" xml:space="preserve">
         <source xml:space="preserve">Require SSL for all administrator functionality</source>
-        <target xml:space="preserve" state="final">Requer SSL para todas as funcionalidades de administrador</target>
+        <target xml:space="preserve" state="final">Exigir SSL para todas as funcionalidades de administrador</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/securityAction.class.php</note>
       </trans-unit>
       <trans-unit id="2f7513657ba7cafee5dfd8e46b81cd9002e5bcc0" xml:space="preserve">
@@ -4788,7 +4788,7 @@
       </trans-unit>
       <trans-unit id="4a022cd9e053eafed83bd9c151265ba28a7577ab" xml:space="preserve">
         <source xml:space="preserve">Slug was adjusted to remove special characters or</source>
-        <target xml:space="preserve" state="final">O slug foi ajustado para remover caracteres especiais ou porque ele j&#xE1; foi utilizado por outra descri&#xE7;&#xE3;o.</target>
+        <target xml:space="preserve" state="final">O slug foi ajustado para remover caracteres especiais ou porque ele j&#xE1; foi utilizado por outra descri&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/renameAction.class.php</note>
       </trans-unit>
       <trans-unit id="03460faf0899aefda5737701da2cbfbadde2a0c2" xml:space="preserve">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:52Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>التاريخ الإداري / السيرة الذاتية المختصرة</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
@@ -18,63 +18,47 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical sketch</source>
-        <target/>
+        <target>نبذة عن السيرة الذاتية</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description requires at least one date.</source>
-        <target/>
+        <target>يتطلب هذا الوصف الأرشيفي إدخال تاريخ واحد على الأقل.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Physical description - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>التاريخ (التواريخ) - غير مُتوافقة مع %1%المستويات العُليا%2%.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Level of description - This is a mandatory element.</source>
-        <target/>
+        <target>مستوى الوصف - القيمة"%value%" لا يتوافق مع المستويات الأعلى.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>بيان المقياس (المعماري) - هذا عنصر إلزامي في الرسم المعماري.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>بيان الإحداثيات (خرائطي) – هذا عنصر إلزامي للمواد الخرائطية.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>بيان الإسقاط (الخرائطي) - هذا عنصر إلزامي للمواد الخرائطية.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>بيان مقياس الرسم (الخرائطي) - هذا عنصر إلزامي للمواد الخرائطية.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>السلطة المُصدِرة والفئة (في الطوابع البريدية) – يُعد هذا عنصراً إلزامياً في السجل البريدي.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>بيان الطبعة- هذا عنصر إلزامي للمواد المنشورة في حال وجود عدة طبعات لها.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target/>
+        <target>وصف أرشيفي جديد</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
@@ -90,11 +74,11 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>اختر نوع النشاط الذي أنشأ العلاقة بين تسجيلة الملف الاستنادي وتسجيلة الوصف الأرشيفي (مثل: الإنشاء، التراكم، الجمع، النشر، وغيرها.)</target>
       </trans-unit>
       <trans-unit id="23">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>هُناك تسجيلة مُكررة %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
@@ -102,11 +86,11 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>أدخل العنوان الصحيح، سواءً كان منسوخًا أو مُقدمًا. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
-        <target/>
+        <target>عنوان رسمي</target>
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
@@ -114,7 +98,7 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target/>
+        <target>اختر التعيين العام لنوع المادة في أعلى مستوى من مستويات الوصف. إذا وُجد أكثر من ثلاثة أنواع، فاختر "وسائط متعددة". (RAD 1.1C)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>General material designation</source>
@@ -126,7 +110,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel titles</source>
-        <target/>
+        <target>عناوين مُوازية</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
@@ -134,7 +118,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Other title information</source>
-        <target/>
+        <target>معلومات عنوان أخرى</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
@@ -142,11 +126,11 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Statement of responsibility</source>
-        <target/>
+        <target>بيان المسؤولية</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target/>
+        <target>اختر مستوى الوصف من القائمة المنسدلة. راجع معيار RAD 1.0A للاطلاع على القواعد والاتفاقيات المتعلقة باختيار مستويات الوصف.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Level of description</source>
@@ -154,15 +138,15 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>المُعرِّف: أدخِل رمزًا واضحًا وغير غامض يُستخدم للتعريف الفريد بالتسجيلة الوصفية. المستوى: اختر مستوى الوصف من القائمة المنسدلة. يُرجى الرجوع إلى القاعدة RAD 1.0A للاطّلاع على القواعد والضوابط الخاصة باختيار مستويات الوصف. العنوان: أدخِل العنوان الرسمي، سواء كان منقولًا (من الوثيقة الأصلية) أو مُنشأً (مفترضًا). (راجع RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target/>
+        <target>اختر مركز (مستودع أو جهة) الحفظ الذي يتولى حيازة المواد الأرشيفية والسيطرة عليها. يتم جلب القيم في هذا الحقل من حقل "الصيغة المعتمدة للاسم" في الملف الخاص بتسجيلات المؤسسات الأرشيفية. ابحث عن اسم موجود بإدخال الأحرف الأولى منه، أو أدخل اسمًا جديدًا لإنشاء مؤسسة أرشيفية جديدة وربطها بالتسجيلة الحالية.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>أدخل رمزًا واضحًا يُستخدم لتعريف الوصف بشكل فريد.</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -174,11 +158,11 @@
       </trans-unit>
       <trans-unit id="43">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"استخدم هذا النطاق فقط في الوصف على مستوى الوحدة (العنصر) لتسجيل البيانات المتعلقة بالنسخ التي توجد منها إصدارات أو حالات متعددة، سواء في نسخة واحدة أو في نسخ مُتعددة." (RAD 1.2A1) "انسخ بيان الطبعة المرتبط بالوحدة (العنصر) موضوع الوصف." (RAD 1.2B1) "إذا كانت الوحدة (العنصر) موضوع الوصف تفتقر إلى بيان طبعة، ولكن من المعروف أنها تحتوي على تغييرات جوهرية مقارنةً بطبعات أخرى، فقم بإدراج بيان موجز مناسب باللغة ونوع الخط المستخدمَين في العنوان الرسمي، وضعه بين معقوفتين [ ]." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Edition statement</source>
-        <target/>
+        <target>بيان الطبعة</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -186,7 +170,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Statement of responsibility relating to the edition</source>
-        <target/>
+        <target>بيان المسؤولية المتعلق بالطبعة</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Class of material specific details area</source>
@@ -198,7 +182,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>بيان المقياس (الخرائطي)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
@@ -206,7 +190,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>بيان الإسقاط (الخرائطي)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
@@ -214,7 +198,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target>بيان الإحداثيات (خرائطي)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
@@ -222,7 +206,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>بيان المقياس (المعماري)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
@@ -230,7 +214,7 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>سلطة الإصدار والفئة (البريدية)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Dates of creation area</source>
@@ -238,7 +222,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
-        <target/>
+        <target>إضافة اسم جديد و/أو تاريخ/تواريخ</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
@@ -246,11 +230,11 @@
       </trans-unit>
       <trans-unit id="61">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target>"سجل على جميع المستويات مدى وصف الوحدة بإعطاء عدد الوحدات المادية بالأرقام العربية وتسمية المادة المحددة كما هو موضح في القاعدة الفرعية .5B في الفصل (الفصول) الذي يتعامل مع فئة (فئات) واسعة من المواد إلى التي تنتمي إليها الوحدة الموصوفة ". (RAD 1.5B1) قم بتضمين التفاصيل المادية الأخرى والأبعاد كما هو محدد في RAD 1.5C و 1.5D. افصل بين الإدخالات المتعددة في هذا الحقل بالضغط على زر رجوع (على سبيل المثال ، اضغط على مفتاح Enter بلوحة المفاتيح).</target>
+        <target>"سَجِّل على جميع مستويات الوصف مدى وصف الوحدة بإعطاء عدد الوحدات المادية بالأرقام العربية وتسمية المادة المحددة كما هو موضح في القاعدة الفرعية .5B في الفصل (الفصول) الذي يتعامل مع فئة (فئات) واسعة من المواد إلى التي تنتمي إليها الوحدة الموصوفة ". (RAD 1.5B1) قم بتضمين التفاصيل المادية الأخرى والأبعاد كما هو محدد في RAD 1.5C و 1.5D. افصل بين الإدخالات المتعددة في هذا الحقل بالضغط على زر رجوع (على سبيل المثال ، اضغط على مفتاح Enter بلوحة المفاتيح).</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Physical description</source>
-        <target/>
+        <target>وصف مادي</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Publisher's series area</source>
@@ -262,7 +246,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>عنوان رسمي لسلسلة الناشر</target>
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
@@ -270,7 +254,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
-        <target/>
+        <target>عنوان مُوازي لسلسلة الناشرين</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
@@ -278,7 +262,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Other title information of publisher's series</source>
-        <target/>
+        <target>معلومات عنوان أخرى لسلسلة الناشر</target>
       </trans-unit>
       <trans-unit id="70">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
@@ -286,7 +270,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
+        <target>بيان المسؤولية المتعلق بسلسلة الناشر</target>
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
@@ -294,7 +278,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
-        <target/>
+        <target>ترقيم ضمن سلسلة الناشرين</target>
       </trans-unit>
       <trans-unit id="74">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
@@ -302,15 +286,15 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Note on publisher's series</source>
-        <target/>
+        <target>ملاحظة حول سلسلة الناشرين</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target>الوصف الأرشيفي</target>
+        <target>نطاق حقول الوصف الأرشيفي</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
-        <target/>
+        <target>تحرير ملف استنادي</target>
       </trans-unit>
       <trans-unit id="78">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
@@ -358,7 +342,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Language of material</source>
-        <target/>
+        <target>لغة المادة الأرشيفية</target>
       </trans-unit>
       <trans-unit id="90">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
@@ -366,7 +350,7 @@
       </trans-unit>
       <trans-unit id="91">
         <source>Script of material</source>
-        <target/>
+        <target>نص المادة</target>
       </trans-unit>
       <trans-unit id="92">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
@@ -374,7 +358,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Language and script notes</source>
-        <target/>
+        <target>ملاحظات حول اللغة والنص/الخط</target>
       </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -386,7 +370,7 @@
       </trans-unit>
       <trans-unit id="96">
         <source>Availability of other formats</source>
-        <target/>
+        <target>توفر صيغ وأشكال أُخرى</target>
       </trans-unit>
       <trans-unit id="97">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
@@ -394,15 +378,15 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Restrictions on access</source>
-        <target/>
+        <target>قيود على الوصول</target>
       </trans-unit>
       <trans-unit id="99">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>فيما يتعلق بشروط الاستخدام والاستنساخ: "قدِّم معلومات حول القيود القانونية أو قيود المانح التي قد تؤثر على استخدام أو استنساخ المادة الأرشيفية." (RAD 1.8B16c) فيما يتعلق بشروط النشر: "قدِّم معلومات حول القيود القانونية أو قيود المانح التي قد تؤثر على نشر المادة الأرشيفية." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>الشروط المُنظمة للاستخدام، والاستنساخ، والنشر</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
@@ -410,11 +394,11 @@
       </trans-unit>
       <trans-unit id="102">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
-        <target/>
+        <target>"إذا كانت هناك تسجيلات وصفية في مؤسسة أخرى ترتبط بالوحدة الجاري وصفها من حيث أن لها نفس المنشأ (provenance)، فقم بإحالة إلى المواد المرتبطة بها على مستوى الوحدة الأرشيفية (fonds)، أو السلسلة، أو المجموعة، أو بالنسبة للوحدات المنفصلة، مع بيان موقعها إذا كان معروفًا." (RAD 1.8B18) أما بالنسبة للمواد ذات العلاقة: "أشر إلى مجموعات من التسجيلات الوصفية التي لها علاقة ذات أهمية نتيجة لتقاسم المسؤولية أو المجال الوظيفي المشترك، وذلك في وحدة أو أكثر من المواد التي تقع خارج الوحدة الجاري وصفها." (المعيار RAD 1.8B20)</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Associated materials</source>
-        <target/>
+        <target>مواد مُرتبطة</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Related materials</source>
@@ -422,11 +406,11 @@
       </trans-unit>
       <trans-unit id="105">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>لإنشاء علاقة بين هذا الوصف ووصف آخر محفوظ في نظام AtoM، ابدأ بكتابة اسم الوصف المُرتبط واختره من القائمة المُنسدلة التلقائية عند ظهوره أدناه. يمكن إنشاء علاقات مُتعددة.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>"عندما تكون الوحدة الجاري وصفها غير مكتملة بعد، مثل وحدة أرشيفية أو سلسلة أرشيفية ما زالت مفتوحة وقابلة للإضافة عليها، دوِّن ملاحظة توضّح أنه من المتوقع أن تُزوَّد بإضافات... وإذا لم تكن هناك إضافات متوقعة، بيِّن أن الوحدة تُعتبر مُغلقة." (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
@@ -446,7 +430,7 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>ابحث عن مصطلح موجود في نظام تصنيف المحتوى الخاص بالموضوعات عن طريق كتابة الأحرف الأولى من المصطلح. بدلاً من ذلك، يمكنك كتابة مصطلح جديد لإنشائه وربطه كمصطلح موضوع جديد.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
@@ -454,7 +438,7 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>ابحث عن مصطلح موجود في نظام تصنيف المحتوى الخاص بالأماكن عن طريق كتابة الأحرف الأولى من اسم المصطلح. بدلاً من ذلك، يمكنك كتابة مصطلح جديد لإنشائه وربطه كمصطلح مكان جديد.</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
@@ -462,11 +446,11 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>ابحث عن مصطلح موجود في أيٍ من أنواع تصنيفات المحتوى بالنظام (Genre taxonomy) بكتابة الأحرف الأولى من اسم المصطلح. بدلاً من ذلك، يمكنك كتابة مصطلح جديد لإنشائه وربطه كمصطلح تصنيفي جديد في الفئة التابع لها.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>نقاط وصول الأسماء (المواضيع)</target>
       </trans-unit>
       <trans-unit id="117">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -478,7 +462,7 @@
       </trans-unit>
       <trans-unit id="119">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>سجِّل مُعرّفًا فريدًا للوصف، وفقًا للمعايير المحلية و/أو الوطنية. وإذا كان من المقرر استخدام الوصف دوليًا، فقم بتسجيل رمز الدولة التي تم فيها إنشاء الوصف، وذلك وفقًا لأحدث إصدار من معيار ISO 3166 - رموز تمثيل أسماء الدول. وإذا كان منشئ الوصف منظمة دولية، فقم بإدراج مُعرّف المنظمة بدلاً من رمز الدولة.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Description identifier</source>
@@ -486,7 +470,7 @@
       </trans-unit>
       <trans-unit id="121">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>سَجِّل الشكل الكامل المصرح به للاسم / الأسماء الخاصة بالجهة / الجهات المسؤولة عن إنشاء أو تعديل أو نشر الوصف، أو بدلاً من ذلك، سَجِّل رمزًا للجهة وفقًا للمعيار الوطني أو الدولي لأكواد الجهات.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Institution identifier</source>
@@ -494,7 +478,7 @@
       </trans-unit>
       <trans-unit id="123">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target/>
+        <target>سَجِّل القواعد أو الاتفاقيات الدولية أو الوطنية و / أو المحلية التي تم اتباعها في إعداد الوصف.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
@@ -506,11 +490,11 @@
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>سَجِّل حالة التسجيلة الوصفية، مع الإشارة إلى ما إذا كان مسودة، أو مُنتهية، أو مُعدلة، أو محذوفة.</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>سَجِّل ما إذا كان الوصف يتكوَّن من مستوى تفصيل أدنى، جزئي، أو كامل، وذلك وفقًا للإرشادات و/أو القواعد الدولية و/أو الوطنية المعتمدة.</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
@@ -518,7 +502,7 @@
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>سَجِّل التاريخ أو التواريخ التي تم فيها إعداد المدخل و/أو تعديله.</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
@@ -526,7 +510,7 @@
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>اشر إلى اللغة أو اللغات التي استُخدمت في إعداد وصف المادة الأرشيفية.</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
@@ -534,7 +518,7 @@
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>حدّد وسجّل تاريخ (أو تواريخ) وحدة الوصف. عيّن نوع التاريخ المُدخل. سجِّل التاريخ كتاريخ واحد أو كمدى زمني حسب ما يَقتضيه السياق. يمكن استخدام حقل "عرض التاريخ" لإدخال معلومات التاريخ كنص حر، بما في ذلك العلامات الطباعية للتعبير عن أن التاريخ تقريبي أو عدم التأكد أو التوضيح. استخدم حقلي البداية والنهاية لجعل التواريخ قابلة للبحث. لا تستخدم أي علامات أو رموز طباعية للتعبير عن عدم التأكد من التاريخ. صِيَغ التواريخ المقبولة هي: YYYYMMDD، YYYY-MM-DD، YYYY-MM، YYYY.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
@@ -542,7 +526,7 @@
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>سجِّل الاستشهادات بأي مصادر خارجية تم استخدامها في الوصف الأرشيفي (مثل مجالات النطاق والمحتوى، التاريخ الحيازي، أو الملاحظات).</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
@@ -550,15 +534,15 @@
       </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات العنوان وبيان المسؤولية</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Parallel title</source>
-        <target/>
+        <target>عنوان مُوازي</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>بيانات المسؤولية المرتبطة بالعنوان</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Title notes</source>
@@ -570,98 +554,118 @@
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الطبعة</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Edition statement of responsibility</source>
-        <target/>
+        <target>بيان المسؤولية عن الطبعة</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Edit class of material specific details area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات تفاصيل فئة المادة المُخصصة</target>
       </trans-unit>
       <trans-unit id="145">
         <source>Edit dates of creation area</source>
-        <target/>
+        <target>تحرير نطاق حقول تواريخ الإنشاء</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Edit physical description area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الوصف المادي</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Edit publisher's series area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات سلسلة الناشر</target>
       </trans-unit>
       <trans-unit id="148">
         <source>Parallel titles of publisher's series</source>
-        <target/>
+        <target>عناوين مُوازية لسلسلة الناشرين</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Edit archival description area</source>
-        <target/>
+        <target>تحرير نطاق حقول الوصف الأرشيفي</target>
       </trans-unit>
       <trans-unit id="150">
         <source>Edit notes area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الملاحظات</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Arrangement</source>
-        <target/>
+        <target>الترتيب</target>
       </trans-unit>
       <trans-unit id="152">
         <source>Language and script note</source>
-        <target/>
+        <target>ملاحظة حول اللغة والنص/الخط</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Location of originals</source>
-        <target/>
+        <target>موقع النسخ الأصلية</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Finding aids</source>
-        <target/>
+        <target>أدوات الإيجاد</target>
       </trans-unit>
       <trans-unit id="155">
         <source>Accruals</source>
-        <target/>
+        <target>إضافات لاحقة</target>
       </trans-unit>
       <trans-unit id="156">
         <source>General note</source>
-        <target/>
+        <target>ملاحظة عامة</target>
       </trans-unit>
       <trans-unit id="157">
         <source>Edit standard number area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الرقم القياسي</target>
       </trans-unit>
       <trans-unit id="158">
         <source>Standard number</source>
-        <target/>
+        <target>الرقم المعياري</target>
       </trans-unit>
       <trans-unit id="159">
         <source>Edit access points</source>
-        <target/>
+        <target>أضف نقاط وصول للإتاحة</target>
       </trans-unit>
       <trans-unit id="160">
         <source>Edit control area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات التحكم</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Description record identifier</source>
-        <target/>
+        <target>المُعِّرف الفريد للتسجيلة الوصفية</target>
       </trans-unit>
       <trans-unit id="162">
         <source>Language of description</source>
-        <target/>
+        <target>لغة الوصف</target>
       </trans-unit>
       <trans-unit id="163">
         <source>Script of description</source>
-        <target/>
+        <target>نص الوصف</target>
       </trans-unit>
       <trans-unit id="164">
         <source>Rights area</source>
-        <target/>
+        <target>نطاق حقول بيانات الحقوق</target>
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
+        <target>نطاق حقول الإضافة الأرشيفية</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Physical description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Level of description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

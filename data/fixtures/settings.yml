@@ -74,6 +74,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'وصف الأرشيف'
       bs: 'Opis arhivske građe'
       ca: 'Descripció arxivística'
       ca@valencia: 'Descripció arxivística'
@@ -116,6 +117,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'ملف استنادي'
       bs: 'Normirani zapis'
       ca: 'Registre d''autoritat'
       ca@valencia: 'Registre d''autoritat'
@@ -200,6 +202,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'مؤسسة أرشيفية'
       bs: 'Arhivska ustanova/institucija'
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
@@ -241,6 +244,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: وظيفة
       bs: Funkcija
       ca: Funció
       ca@valencia: Funció
@@ -282,6 +286,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: مصطلح
       bs: Pojam
       ca: Terme
       ca@valencia: Terme
@@ -365,6 +370,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'الوحدة الأرشيفية'
       bs: Fondovi
       ca: Fons
       ca@valencia: Fons
@@ -543,6 +549,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'كائن رقمي'
       bs: 'Digitalni objekt'
       ca: 'Objecte digital'
       ca@valencia: 'Objecte digital'
@@ -673,6 +680,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'نوع المادة'
       bs: 'Tip građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
@@ -713,6 +721,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'تضييق النتائج حسب:'
       bs: 'Ograniči rezultate za:'
       ca: 'Filtreu els resultats per:'
       ca@valencia: 'Restringir resultats per:'
@@ -748,6 +757,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'فئة نوعية'
       bs: Žanr
       ca: Gènere
       cy: Genre
@@ -827,6 +837,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'ابحث في مُقتنياتنا الأرشيفية'
       bs: 'Pretraži našu zbirku'
       cy: 'Chwiliwch ein casgliad'
       de: 'Durchsuche: unsere Sammlungen'
@@ -849,6 +860,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'إخفاء التسلسل الترتيبي'
       bs: 'Sakrij hijerarhiju'
       ca: 'Amaga la jerarquia'
       cy: 'Cuddio''r hierarchaeth'
@@ -866,6 +878,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'عرض التسلسل الهرمي للمحتوى الأرشيفي'
       bs: 'Prikaži hijerarhiju'
       cy: 'Dangos hierarchaeth'
       en: 'Show hierarchy'
@@ -881,6 +894,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'علاقات الملف الاستنادي'
       bs: 'Veze normiranog zapisa'
       ca: 'Relacions de registre d''autoritat'
       cy: 'Cysylltiadau cofnod awdurdod'

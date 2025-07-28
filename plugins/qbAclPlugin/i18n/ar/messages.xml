@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:52Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Group %1%</source>
-        <target/>
+        <target>مجموعة %1%</target>
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
@@ -102,23 +102,23 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
-        <target/>
+        <target>صلاحية</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permissions by taxonomy</source>
-        <target/>
+        <target>صلاحيات حسب التصنيف</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Taxonomy name</source>
-        <target/>
+        <target>اسم التصنيف المُحكم</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Add permissions by taxonomy</source>
-        <target/>
+        <target>إضافة الصلاحيات وفقًا لأنظمة تصنيف المحتوى بالنظام</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add taxonomy</source>
-        <target/>
+        <target>إضافة جديدة بأنظمة تصنيف المحتوى بالنظام</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Permissions by %1%</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Group details</source>
-        <target/>
+        <target>تفاصيل المجموعة</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
@@ -138,27 +138,27 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>
-        <target/>
+        <target>ترجم</target>
       </trans-unit>
       <trans-unit id="35">
         <source>List groups</source>
-        <target/>
+        <target>قائمة المجموعات</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Group</source>
-        <target/>
+        <target>مجموعة</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Members</source>
-        <target/>
+        <target>أعضاء</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Taxonomy: %1%</source>
-        <target>التصنيف:٪ 1٪</target>
+        <target>تصنيف المحتوى المُحكم لـ :٪ 1٪</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Return to group list</source>
-        <target/>
+        <target>العودة إلى قائمة المجموعات</target>
       </trans-unit>
     </body>
   </file>

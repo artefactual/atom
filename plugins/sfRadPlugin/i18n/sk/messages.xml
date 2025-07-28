@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sk" datatype="plaintext" original="messages" date="2015-08-27T12:08:29Z" product-name="messages">
+  <file source-language="en" target-language="sk" datatype="plaintext" original="messages" date="2025-07-28T19:15:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -28,20 +28,8 @@
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="7">
-        <source>Physical description - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Title - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Level of description - This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="11">
@@ -62,10 +50,6 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Scope and content - This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="17">
@@ -662,6 +646,26 @@
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Physical description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Level of description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

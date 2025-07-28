@@ -17,6 +17,7 @@ QubitMenu:
     source_culture: en
     name: browse
     label:
+      ar: تصفح
       bs: Pregledaj
       ca: Explora
       ca@valencia: Navegar
@@ -100,6 +101,7 @@ QubitMenu:
     source_culture: en
     name: manage
     label:
+      ar: 'تصفح إداري لـ'
       bs: Upravljaj
       ca: Administra
       ca@valencia: Administrar
@@ -140,6 +142,7 @@ QubitMenu:
     source_culture: en
     name: browseInstitution
     label:
+      ar: 'تصفح المُقتنيات الأرشيفية'
       bs: 'Pregledaj našu zbirku'
       ca: 'Navegueu per la nostra col·lecció'
       cy: 'Porwch ein casgliad'
@@ -163,6 +166,7 @@ QubitMenu:
     source_culture: en
     name: accessions
     label:
+      ar: 'الإضافات الأرشيفية'
       bs: 'Pristupi (akcesije)'
       ca: Ingressos
       ca@valencia: Ingressos
@@ -201,6 +205,7 @@ QubitMenu:
     source_culture: en
     name: donors
     label:
+      ar: المانحون
       bs: Donatori
       ca: Donants
       ca@valencia: Donants
@@ -239,6 +244,7 @@ QubitMenu:
     source_culture: en
     name: jobs
     label:
+      ar: 'مُسميات وظيفية'
       bs: Poslovi
       ca: Tasques
       cy: Tasgau
@@ -308,6 +314,7 @@ QubitMenu:
     source_culture: en
     name: rightsholders
     label:
+      ar: 'أصحاب الحقوق'
       bs: 'Nositelji prava'
       ca: 'Titulars dels drets'
       ca@valencia: 'Titulars de drets'
@@ -348,6 +355,7 @@ QubitMenu:
     source_culture: en
     name: taxonomies
     label:
+      ar: 'أنظمة تصنيف المحتوى المُحكم بالنظام'
       bs: Taksonomije
       ca: Taxonomies
       ca@valencia: Taxonomies
@@ -430,6 +438,7 @@ QubitMenu:
     source_culture: en
     name: admin
     label:
+      ar: إدارة
       bs: Administrator
       ca: Administrador
       ca@valencia: Administrador
@@ -468,6 +477,7 @@ QubitMenu:
     source_culture: en
     name: addAccessionRecord
     label:
+      ar: 'تسجيلات الإضافة الأرشيفية'
       bs: 'Evidencija o pristupanju'
       ca: 'Registres d''ingressos'
       ca@valencia: 'Registres d''ingressos'
@@ -506,6 +516,7 @@ QubitMenu:
     source_culture: en
     name: addInformationObject
     label:
+      ar: 'ملفات الوصف الأرشيفي'
       bs: 'Opis arhivske građe'
       ca: 'Descripcions arxivístiques'
       ca@valencia: 'Descripcions arxivístiques'
@@ -544,6 +555,7 @@ QubitMenu:
     source_culture: en
     name: addActor
     label:
+      ar: 'الملفات الاستنادية'
       bs: 'Normirani zapisi'
       ca: 'Registres d''autoritat'
       ca@valencia: 'Registre d''autoritats'
@@ -580,6 +592,7 @@ QubitMenu:
     source_culture: en
     name: addRepository
     label:
+      ar: 'المؤسسات الأرشيفية (مراكز حفظ الوثائق والمحفوظات)'
       bs: 'Arhivske ustanove/institucije'
       ca: 'Institucions arxivístiques'
       ca@valencia: 'Institucions arxivístiques'
@@ -619,6 +632,7 @@ QubitMenu:
     source_culture: en
     name: addTerm
     label:
+      ar: الشروط
       bs: Pojmovi
       ca: Termes
       ca@valencia: Termes
@@ -657,6 +671,7 @@ QubitMenu:
     source_culture: en
     name: addFunction
     label:
+      ar: وظيفة
       bs: Funkcija
       ca: Funció
       ca@valencia: Funció
@@ -775,6 +790,7 @@ QubitMenu:
     source_culture: en
     name: validateCsv
     label:
+      ar: 'تحقّق من ملف CSV'
       bs: 'Potvrdi CSV'
       cy: 'Dilysu CSV'
       en: 'Validate CSV'
@@ -828,6 +844,7 @@ QubitMenu:
     source_culture: en
     name: users
     label:
+      ar: مُستخدمون
       bs: Korisnici
       ca: Usuaris
       ca@valencia: Usuaris
@@ -870,6 +887,7 @@ QubitMenu:
     path: 'user/index?slug=%currentSlug%'
     source_culture: en
     label:
+      ar: 'الملف الشخصي'
       bs: Profil
       ca: Perfil
       ca@valencia: Perfil
@@ -913,6 +931,7 @@ QubitMenu:
     path: 'user/indexInformationObjectAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع ملفات الوصف الأرشيفي'
       bs: 'Dozvole za opis arhivske građe'
       ca: 'Permisos de les descripcions arxivístiques'
       ca@valencia: 'Permisos de descripció arxivística'
@@ -948,6 +967,7 @@ QubitMenu:
     path: 'user/indexActorAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع الملف الاستنادي'
       bs: 'Dozvole normiranog zapisa'
       ca: 'Permisos del registre d''autoritat'
       ca@valencia: 'Permisos registre d''autoritat'
@@ -981,6 +1001,7 @@ QubitMenu:
     path: 'user/indexRepositoryAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع ملفات المؤسسات الأرشيفية'
       bs: 'Dozvole arhivske institucije'
       ca: 'Permisos de les institucions arxivístiques'
       ca@valencia: 'Permisos institucions arxivístiques'
@@ -1013,6 +1034,7 @@ QubitMenu:
     path: 'user/indexTermAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع نظام تصنيف المحتوى المُحكم'
       bs: 'Dozvole taksonomije'
       ca: 'Permisos per a les taxonomies'
       ca@valencia: 'Permisos per a taxonomies'
@@ -1047,6 +1069,7 @@ QubitMenu:
     source_culture: en
     name: groups
     label:
+      ar: المجموعات
       bs: Grupe
       ca: Grups
       ca@valencia: Grups
@@ -1087,6 +1110,7 @@ QubitMenu:
     path: 'aclGroup/index?id=%currentId%'
     source_culture: en
     label:
+      ar: 'الملف الشخصي'
       bs: Profil
       ca: Perfil
       ca@valencia: Perfil
@@ -1130,6 +1154,7 @@ QubitMenu:
     path: 'aclGroup/indexInformationObjectAcl?id=%currentId%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع ملفات الوصف الأرشيفي'
       bs: 'Dozvole za opis arhivske građe'
       ca: 'Permisos de les descripcions arxivístiques'
       ca@valencia: 'Permisos de descripció arxivística'
@@ -1165,6 +1190,7 @@ QubitMenu:
     path: 'aclGroup/indexActorAcl?id=%currentId%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع الملف الاستنادي'
       bs: 'Dozvole normiranog zapisa'
       ca: 'Permisos del registre d''autoritat'
       ca@valencia: 'Permisos registre d''autoritat'
@@ -1198,6 +1224,7 @@ QubitMenu:
     path: 'aclGroup/indexRepositoryAcl?id=%currentId%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع ملفات المؤسسات الأرشيفية'
       bs: 'Dozvole arhivske institucije'
       ca: 'Permisos de les institucions arxivístiques'
       ca@valencia: 'Permisos institucions arxivístiques'
@@ -1230,6 +1257,7 @@ QubitMenu:
     path: 'aclGroup/indexTermAcl?id=%currentId%'
     source_culture: en
     label:
+      ar: 'صلاحيات التعامل مع نظام تصنيف المحتوى المُحكم'
       bs: 'Dozvole taksonomije'
       ca: 'Permisos per a les taxonomies'
       ca@valencia: 'Permisos per a taxonomies'
@@ -1264,6 +1292,7 @@ QubitMenu:
     source_culture: en
     name: staticPages
     label:
+      ar: 'صفحات المحتوى الثابت'
       bs: 'Statička stranica'
       ca: 'Pàgines estàtiques'
       ca@valencia: 'Pàgines estàtiques'
@@ -1304,6 +1333,7 @@ QubitMenu:
     source_culture: en
     name: menu
     label:
+      ar: قوائم
       bs: Izbornici
       ca: Menús
       ca@valencia: Menús
@@ -1341,6 +1371,7 @@ QubitMenu:
     source_culture: en
     name: plugins
     label:
+      ar: الإضافات
       bs: Dodaci
       ca: Connectors
       ca@valencia: Plugins
@@ -1378,6 +1409,7 @@ QubitMenu:
     source_culture: en
     name: themes
     label:
+      ar: الموضوعات
       bs: Teme
       ca: Plantilles
       ca@valencia: Temes
@@ -1415,6 +1447,7 @@ QubitMenu:
     source_culture: en
     name: settings
     label:
+      ar: الإعدادات
       bs: Postavke
       ca: Paràmetres
       ca@valencia: Configuració
@@ -1456,6 +1489,7 @@ QubitMenu:
     source_culture: en
     name: descriptionUpdates
     label:
+      ar: 'تحديثات الوصف'
       bs: 'Aktualiziranja opisa'
       ca: 'Actualitzacions de descripció'
       ca@valencia: 'Actualitzacions de descripció'
@@ -1575,6 +1609,7 @@ QubitMenu:
     source_culture: en
     name: about
     label:
+      ar: حول
       bs: Informacije
       ca: 'Quant a'
       ca@valencia: Sobre
@@ -1613,6 +1648,7 @@ QubitMenu:
     source_culture: en
     name: privacy
     label:
+      ar: 'سياسة الخصوصية'
       bs: 'Politika privatnosti'
       cy: 'Polisi Preifatrwydd'
       en: 'Privacy Policy'
@@ -1630,6 +1666,7 @@ QubitMenu:
     source_culture: en
     name: help
     label:
+      ar: مساعدة
       bs: Pomoć
       ca: Ajuda
       ca@valencia: Ajuda
@@ -1671,6 +1708,7 @@ QubitMenu:
     source_culture: en
     name: myProfile
     label:
+      ar: 'ملفي الشخصي'
       bs: 'Moj profil'
       ca: 'El meu perfil'
       ca@valencia: 'El meu perfil'
@@ -1756,6 +1794,7 @@ QubitMenu:
     source_culture: en
     name: logout
     label:
+      ar: 'تسجيل الخروج'
       bs: Odjava
       ca: 'Tanca la sessió'
       ca@valencia: 'Tancar sessió'
@@ -1799,6 +1838,7 @@ QubitMenu:
     source_culture: en
     name: browseInformationObjects
     label:
+      ar: 'ملفات الوصف الأرشيفي'
       bs: 'Opis arhivske građe'
       ca: 'Descripcions arxivístiques'
       ca@valencia: 'Descripcions arxivístiques'
@@ -1836,6 +1876,7 @@ QubitMenu:
     source_culture: en
     name: browseActors
     label:
+      ar: 'الملفات الاستنادية'
       bs: 'Normirani zapisi'
       ca: 'Registres d''autoritat'
       ca@valencia: 'Registre d''autoritats'
@@ -1871,6 +1912,7 @@ QubitMenu:
     source_culture: en
     name: browseRepositories
     label:
+      ar: 'المؤسسات الأرشيفية (مراكز حفظ الوثائق والمحفوظات)'
       bs: 'Arhivske ustanove/institucije'
       ca: 'Institucions arxivístiques'
       ca@valencia: 'Institucions arxivístiques'
@@ -1909,6 +1951,7 @@ QubitMenu:
     source_culture: en
     name: browseFunctions
     label:
+      ar: وظائف
       bs: Funkcije
       ca: Funcions
       ca@valencia: Funcions
@@ -1989,7 +2032,7 @@ QubitMenu:
     source_culture: en
     name: browsePlaces
     label:
-      ar: أماكن
+      ar: أماكنالأماكن
       bs: Mjesta
       ca: Llocs
       ca@valencia: Llocs
@@ -2120,6 +2163,7 @@ QubitMenu:
     source_culture: en
     name: staticPagesMenu
     label:
+      ar: 'صفحات المحتوى الثابت'
       bs: 'Statička stranica'
       ca: 'Pàgines estàtiques'
       ca@valencia: 'Pàgines estàtiques'
@@ -2187,6 +2231,7 @@ QubitMenu:
     source_culture: en
     name: clearClipboard
     label:
+      ar: 'مسح جميع التحديدات'
       bs: 'Izbriši sve odabire'
       ca: 'Neteja totes les seleccions'
       cy: 'Clirio''r holl ddewisiadau'
@@ -2210,6 +2255,7 @@ QubitMenu:
     source_culture: en
     name: goToClipboard
     label:
+      ar: 'انتقل إلى الحافظة'
       bs: 'Idi na međuspremnik'
       ca: 'Ves al porta-retalls'
       cy: 'Ewch i''r clipfwrdd'
@@ -2258,6 +2304,7 @@ QubitMenu:
     source_culture: en
     name: saveClipboard
     label:
+      ar: 'حفظ الحافظة'
       bs: 'Sačuvaj međuspremnik'
       cy: 'Cadw''r clipfwrdd'
       en: 'Save clipboard'
@@ -2276,6 +2323,7 @@ QubitMenu:
     source_culture: en
     name: browseInformationObjectsInstitution
     label:
+      ar: 'ملفات الوصف الأرشيفي'
       bs: 'Opis arhivske građe'
       ca: 'Descripcions arxivístiques'
       ca@valencia: 'Descripcions arxivístiques'

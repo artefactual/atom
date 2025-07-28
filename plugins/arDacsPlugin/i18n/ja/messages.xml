@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2025-06-26T17:41:30Z" product-name="messages">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2025-07-28T20:04:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -16,37 +16,13 @@
         <source>Edit %1%</source>
         <target> %1%を編集する</target>
       </trans-unit>
-      <trans-unit id="4">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>識別子　- 必須項目。</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Name and location of repository - This is a mandatory element.</source>
-        <target>リポジトリの名称と所在―必須項目</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Title - This is a mandatory element.</source>
-        <target>タイトル - 必須項目</target>
-      </trans-unit>
       <trans-unit id="7">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Date(s) - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="9">
-        <source>Extent - This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="10">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>このアーカイブ記述、あるいはその高度なレベルには少なくとも１人の作成者が必要です。</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>範囲と内容 - 必須項目。</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a duplicate of record %1%</source>
@@ -411,6 +387,34 @@
       <trans-unit id="109">
         <source>Genre access points</source>
         <target>ジャンルのアクセスポイント</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Date(s) - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Extent - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
