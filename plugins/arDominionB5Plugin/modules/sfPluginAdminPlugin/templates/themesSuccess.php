@@ -40,7 +40,7 @@
               <input
                 <?php if (
                     $form->isBound()
-                    && in_array($name, $form->getValue('enabled'))
+                    && $form->getValue('enabled')
                     || !$form->isBound()
                     && in_array($name, $form->getDefault('enabled'))
                 ) { ?>

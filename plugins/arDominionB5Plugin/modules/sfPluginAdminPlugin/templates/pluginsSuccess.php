@@ -39,7 +39,7 @@
             <td align="center">
               <input
                 <?php if (
-                    $form->isBound() && in_array($name, $form->getValue('enabled'))
+                    $form->isBound() && $form->getValue('enabled')
                     || !$form->isBound() && in_array($name, $form->getDefault('enabled'))
                 ) { ?>
                   checked="checked"
