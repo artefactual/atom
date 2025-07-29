@@ -82,7 +82,7 @@ EOF;
         // Extract translation strings
         foreach ($files as $file) {
             $culture = self::getTargetCulture($file);
-            $xliff = new sfMessageSource_XLIFF(substr($file, 0, strrpos('/')));
+            $xliff = new sfMessageSource_XLIFF(substr($file, 0, strrpos($file, '/')));
 
             if (!($messages = $xliff->loadData($file))) {
                 continue;
