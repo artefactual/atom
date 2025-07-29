@@ -1497,3 +1497,27 @@ QubitSetting:
   Qubit_Settings_csvValidatorDefaultImportBehaviour:
     name: csv_validator_default_import_behaviour
     value: 0
+  QubitSettings_descriptioncount:
+    name: descriptioncount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Archival description count:&nbsp;'
+  QubitSettings_authorityrecordcount:
+    name: authorityrecordcount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Authority record count:&nbsp;'
+  QubitSettings_repositorycount:
+    name: repositorycount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Archival institution count:&nbsp;'
