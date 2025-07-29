@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:07Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-29T13:29:17Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -288,7 +288,7 @@
       </trans-unit>
       <trans-unit id="954">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target>Indicar qualquer condição física, tal como requisitos de preservação, que afecte a conservação da unidade  descrita. Especificar qualquer programa ou equipamento exigido para leitura da mesma.</target>
+        <target>Indique qualquer condição física importante, tal como requisitos de preservação, que afete o uso da unidade de descrição. Especifique qualquer software e/ou equipamento exigido para acessar a unidade de descrição.</target>
       </trans-unit>
       <trans-unit id="963">
         <source>Add new archival description</source>
@@ -328,7 +328,7 @@
       </trans-unit>
       <trans-unit id="982">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target>Registar a data(s) em que foi elaborada ou revista. </target>
+        <target>Registre a(s) data(s) em que foi elaborada ou revisada.</target>
       </trans-unit>
       <trans-unit id="983">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -368,7 +368,7 @@
       </trans-unit>
       <trans-unit id="994">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target>Indicar, de acordo com o nível de descrição, um sumário do âmbito (tais como cronológico e geográfico) e um resumo do conteúdo (tais como tipos de documentos, assuntos, procedimentos administrativos) da unidade de descrição.  (ISAD 3.3.1)</target>
+        <target>Indique, de acordo com o nível de descrição, um resumo do âmbito (tais como cronológico e geográfico) e um resumo do conteúdo (tais como tipos documentais, assuntos, processos administrativos) da unidade de descrição. (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="995">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
@@ -380,13 +380,11 @@
       </trans-unit>
       <trans-unit id="997">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
-        <target>Facultar informação sobre a estrutura interna, ordenação e/ou sistema de classificação
-da unidade de descrição. Para documentos electrónicos, registar ou referenciar informação sobre a arquitectura do sistema. (ISAD 3.3.4)</target>
+        <target>Descreva a estrutura interna, ordem e/ou sistema de arranjo da unidade de descrição. Aponte como foram tratados pelo arquivista. Para documentos eletrônicos, registre ou referencie informação sobre o desenho do sistema. (ISAD 3.3.4)</target>
       </trans-unit>
       <trans-unit id="998">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
-        <target>Facultar informação sobre o estatuto legal ou outras disposições que restrinjam ou
-afectem o acesso à unidade de descrição. (ISAD 3.4.1)</target>
+        <target>Especifique a lei ou estado legal, contrato, regulamento ou política que afete o acesso à unidade de descrição. Indique, se for o caso, a duração do período de restrição de acesso e a data em que o material poderá ser consultado. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="1000">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
@@ -402,13 +400,11 @@ afectem o acesso à unidade de descrição. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="1004">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target>Se houver cópia disponível da unidade de descrição (seja na entidade detentora ou
-noutro lugar), registar a sua localização, bem como quaisquer números de controlo significativos. (ISAD 3.5.2)</target>
+        <target>Se a cópia da unidade de descrição estiver disponível (seja na entidade custodiadora ou em outro lugar), registre a sua localização, bem como quaisquer números de controle significativos. (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="1005">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target>Registar informação sobre unidades de descrição existentes na mesma entidade detentora, ou em qualquer outro lugar, que com elas estejam relacionadas, pela proveniência ou outro tipo de associação. Elaborar uma introdução adequada, explicando
-a natureza da relação. Se a unidade de descrição relacionada for um instrumento de descrição, usar o elemento de informação Instrumentos de descrição (3.4.5) para o referenciar. (ISAD 3.5.3)</target>
+        <target>Registre informações sobre unidades de descrição existentes na mesma entidade custodiadora, ou em qualquer outro lugar, que com elas estejam relacionadas, pela proveniência ou outro tipo de associação. Elabore uma introdução adequada, explicando a natureza da relação. Se a unidade de descrição relacionada for um instrumento de descrição, usar o elemento de informação Instrumentos de descrição (3.4.5) para o referenciar. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="1008">
         <source>Name access points (subjects)</source>
@@ -416,8 +412,7 @@ a natureza da relação. Se a unidade de descrição relacionada for um instrume
       </trans-unit>
       <trans-unit id="1009">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target>Registar as regras ou convenções internacionais, nacionais e/ou locais utilizadas na
-elaboração da descrição. (ISAD 3.7.2)</target>
+        <target>Registre as regras ou convenções internacionais, nacionais e/ou locais utilizadas na elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1011">
         <source>Rights area</source>
@@ -449,7 +444,7 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target>Registar as citações para quaisquer fontes externas utilizadas na descrição arquivística (tais como nos campos &lt;strong&gt;Âmbito e conteúdo&lt;/strong&gt;, &lt;strong&gt;História do arquivo&lt;/strong&gt;, ou &lt;strong&gt;Notas&lt;/strong&gt;)</target>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Conteúdo, Arquivo Histórico, ou Campos de notas).</target>
       </trans-unit>
       <trans-unit id="1027">
         <source>Related descriptions</source>
