@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:51Z" product-name="messages">
+  <file source-language="en" target-language="pt" datatype="plaintext" original="messages" date="2025-07-29T11:58:01Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -5310,7 +5310,7 @@
       </trans-unit>
       <trans-unit id="1386">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target>Elemento obrigatório para este recurso ou um de seus níveis de descrição superiores (caso seja parte de uma coleção hierárquica).</target>
+        <target>É um elemento obrigatório para este recurso ou um de seus níveis descritivos mais elevados (se parte de uma hierarquia de coleção).</target>
       </trans-unit>
       <trans-unit id="1387">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
