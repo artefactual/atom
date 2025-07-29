@@ -30,6 +30,7 @@ class UserEditAction extends DefaultEditAction
         'username',
         'restApiKey',
         'oaiApiKey',
+        'currentPassword',
     ];
 
     public function execute($request)
@@ -100,6 +101,14 @@ class UserEditAction extends DefaultEditAction
         }
 
         return $values;
+    }
+
+    public function verify($validator, $value)
+    {
+        $verifyUser = $this->context->user->user->email;
+        if (!$this->context->user->authenticate($verifyUser, $value)) {
+            throw new sfValidatorError($validator, $this->context->i18n->__('%1%\'s current password does not match our records', ['%1%' => $this->context->user->getUserName()]));
+        }
     }
 
     protected function earlyExecute()
@@ -180,6 +189,21 @@ class UserEditAction extends DefaultEditAction
                 // Required field only if a new user is being created
                 $this->form->setValidator('confirmPassword', new sfValidatorString(['required' => !isset($this->getRoute()->resource)]));
                 $this->form->setWidget('confirmPassword', new sfWidgetFormInputPassword());
+
+                break;
+
+            case 'currentPassword':
+                $this->form->setDefault('currentPassword', null);
+
+                $this->form->setValidator('currentPassword', new sfValidatorAnd([
+                    new sfValidatorString(['required' => !isset($this->getRoute()->resource)]),
+                    new sfValidatorCallback(['callback' => [$this, 'verify']]),
+                ], ['required' => true]));
+
+                $this->form->setWidget('currentPassword', new sfWidgetFormInputPassword([], [
+                    'autocomplete' => 'new-password',
+                    'value' => '',
+                ]));
 
                 break;
 
@@ -273,6 +297,10 @@ class UserEditAction extends DefaultEditAction
     protected function processField($field)
     {
         switch ($name = $field->getName()) {
+            case 'currentPassword':
+                // Don't do anything for currentPassword
+                break;
+
             case 'password':
                 if (0 < strlen(trim($this->form->getValue('password')))) {
                     $this->resource->setPassword($this->form->getValue('password'));
