@@ -168,6 +168,148 @@ CREATE TABLE `audit_log`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- feedback
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `feedback`;
+
+
+CREATE TABLE `feedback`
+(
+	`id` INTEGER  NOT NULL,
+	`feed_name` VARCHAR(50),
+	`feed_surname` VARCHAR(50),
+	`feed_phone` VARCHAR(50),
+	`feed_email` VARCHAR(50),
+	`feed_relationship` TEXT,
+	`parent_id` VARCHAR(50),
+	`feed_type_id` INTEGER,
+	`lft` INTEGER  NOT NULL,
+	`rgt` INTEGER  NOT NULL,
+	`source_culture` VARCHAR(14)  NOT NULL,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `feedback_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- feedback_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `feedback_i18n`;
+
+
+CREATE TABLE `feedback_i18n`
+(
+	`name` VARCHAR(1024),
+	`unique_identifier` VARCHAR(1024),
+	`remarks` TEXT,
+	`id` INTEGER  NOT NULL,
+	`object_id` TEXT,
+	`completed_at` DATETIME NOT NULL,
+	`created_at` DATETIME NOT NULL,
+	`status_id` INTEGER NOT NULL,
+	`culture` VARCHAR(14)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `feedback_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `feedback` (`id`)
+		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- favorites
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `favorites`;
+
+
+CREATE TABLE `favorites`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`user_id` VARCHAR(50),
+	`archival_description_id` VARCHAR(50),
+	`archival_description` VARCHAR(1024),
+	`slug` VARCHAR(1024),
+	`completed_at` DATETIME NOT NULL,
+	`created_at` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- cart
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `cart`;
+
+
+CREATE TABLE `cart`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`user_id` VARCHAR(50),
+	`archival_description_id` VARCHAR(50),
+	`archival_description` VARCHAR(1024),
+	`slug` VARCHAR(1024),
+	`completed_at` DATETIME NOT NULL,
+	`created_at` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- request_to_publish
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `request_to_publish`;
+
+
+CREATE TABLE `request_to_publish` (
+  `id` INTEGER NOT NULL,
+  `parent_id` VARCHAR(50),
+  `rtp_type_id` INTEGER,
+  `lft` INTEGER NOT NULL,
+  `rgt` INTEGER NOT NULL,
+  `source_culture` VARCHAR(14) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `requesttopublish_FK_1`
+    FOREIGN KEY (`id`)
+    REFERENCES `object` (`id`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+#-----------------------------------------------------------------------------
+#-- request_to_publish_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `request_to_publish_i18n`;
+
+
+CREATE TABLE `request_to_publish_i18n` (
+  `unique_identifier` VARCHAR(1024),
+  `rtp_name`          VARCHAR(50),
+  `rtp_surname`       VARCHAR(50),
+  `rtp_phone`         VARCHAR(50),
+  `rtp_email`         VARCHAR(50),
+  `rtp_institution`   VARCHAR(200),
+  `rtp_motivation`    TEXT,
+  `rtp_planned_use`   TEXT,
+  `rtp_need_image_by` DATETIME,
+  `status_id`         INTEGER NOT NULL,
+  `id`                INTEGER NOT NULL,
+  `object_id`         VARCHAR(50),
+  `completed_at`      DATETIME NOT NULL,
+  `created_at`        DATETIME NOT NULL,
+  `culture`           VARCHAR(14) NOT NULL,
+  PRIMARY KEY (`id`, `culture`),
+  CONSTRAINT `requesttopublish_i18n_FK_1`
+    FOREIGN KEY (`id`)
+    REFERENCES `feedback` (`id`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- job
 #-----------------------------------------------------------------------------
 
