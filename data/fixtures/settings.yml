@@ -1504,7 +1504,9 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: '&nbsp;:عدد أوصاف الأرشيف'
       en: 'Archival description count:&nbsp;'
+      fr: 'Nombre de descriptions archivistiques:&nbsp;'
   QubitSettings_authorityrecordcount:
     name: authorityrecordcount
     scope: ui_label
@@ -1512,7 +1514,9 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: '&nbsp;:عدد سجلات الهيئة الاستنادية'
       en: 'Authority record count:&nbsp;'
+      fr: 'Nombre de notices d''autorité:&nbsp;'
   QubitSettings_repositorycount:
     name: repositorycount
     scope: ui_label
@@ -1520,4 +1524,6 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: '&nbsp;:عدد المؤسسات الأرشيفية'
       en: 'Archival institution count:&nbsp;'
+      fr: 'Nombre d''institutions archivistiques:&nbsp;'
