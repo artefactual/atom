@@ -652,7 +652,7 @@ QubitTaxonomy:
     id: 49
     parent_id: QubitTaxonomy_root
     name:
-      ar: 'نوع العلاقة'
+      ar: 'نوع العلاقة (العلاقات)'
       bs: 'Vrsta veze'
       ca: 'Tipus de relació'
       ca@valencia: 'Tipus de relació'
@@ -689,7 +689,7 @@ QubitTaxonomy:
     id: 50
     parent_id: QubitTaxonomy_root
     name:
-      ar: 'نوع المادة'
+      ar: 'نوع المادة (قائمة الأنواع)'
       bs: 'Tip Građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
@@ -5848,7 +5848,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
-      ar: كامل
+      ar: 'كامل (مُكتملة)'
       bs: Potpuno
       ca: Complet
       ca@valencia: Complet

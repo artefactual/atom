@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-07-28T20:10:53Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-08-01T15:02:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="32e271bec7e31df1838efd94cf39df8b980c7283" xml:space="preserve">
@@ -561,7 +561,7 @@
       </trans-unit>
       <trans-unit id="6a72085653e4c5be8c7640c868ef787cbcf063d1" xml:space="preserve">
         <source xml:space="preserve">All</source>
-        <target xml:space="preserve" state="final">&#x627;&#x644;&#x643;&#x644;</target>
+        <target xml:space="preserve" state="final">&#x627;&#x644;&#x643;&#x644; (&#x627;&#x644;&#x62C;&#x645;&#x64A;&#x639;)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/descriptionUpdatesAction.class.php</note>
       </trans-unit>
       <trans-unit id="88c26a8d2b6de5c969354798026cae55c1e0211f" xml:space="preserve">
@@ -4883,7 +4883,7 @@
       </trans-unit>
       <trans-unit id="f4d79a3ada581696213a87e17750d829a059f297" xml:space="preserve">
         <source xml:space="preserve">Specialized note(s)</source>
-        <target xml:space="preserve" state="final">&#x645;&#x644;&#x627;&#x62D;&#x638;&#x627;&#x62A; &#x645;&#x62A;&#x62E;&#x635;&#x635;&#x629;</target>
+        <target xml:space="preserve" state="final">&#x645;&#x644;&#x627;&#x62D;&#x638;&#x627;&#x62A; &#x645;&#x64F;&#x62A;&#x62E;&#x635;&#x635;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="27c1fec3c024ff05b1b6b31d6308e1b9afb9307f" xml:space="preserve">

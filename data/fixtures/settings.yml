@@ -680,7 +680,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: 'نوع المادة'
+      ar: 'نوع المادة (قائمة مُحكمة)'
       bs: 'Tip građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'

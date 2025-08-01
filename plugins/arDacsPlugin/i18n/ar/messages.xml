@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:43Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-08-01T14:59:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="96">
         <source>Specialized notes</source>
-        <target>ملاحظات متخصصة</target>
+        <target>مُلاحظة (ملاحظات) مُتخصصة</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Edit description control element</source>
@@ -390,31 +390,31 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>المُعرِّف – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>موقع ومُسمى المستودع الأرشيفي – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>العنوان – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Date(s) - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>التاريخ (التواريخ) – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Extent - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>المدى – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>المحتوى والنطاق – تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
     </body>
   </file>
