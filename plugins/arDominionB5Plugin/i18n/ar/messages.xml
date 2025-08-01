@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-08-01T14:59:19Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-08-01T15:34:35Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Are you sure you want to delete %1%?</source>
-        <target>هل أنت متأكد أنك تريد حذف٪ 1٪؟</target>
+        <target>هل أنت متأكد أنك تريد حذف %1%؟</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Cancel</source>
@@ -646,7 +646,7 @@
       </trans-unit>
       <trans-unit id="172">
         <source>Showing %1% results</source>
-        <target>عرض نتائج٪ 1٪</target>
+        <target>عرض نتائج %1%</target>
       </trans-unit>
       <trans-unit id="173">
         <source>No results found</source>
@@ -666,7 +666,7 @@
       </trans-unit>
       <trans-unit id="177">
         <source>Search %1%</source>
-        <target>البحث٪ 1٪</target>
+        <target>البحث %1%</target>
       </trans-unit>
       <trans-unit id="178">
         <source>%1% of</source>
@@ -678,7 +678,7 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Browse %1% results</source>
-        <target>استعرض نتائج٪ 1٪</target>
+        <target>استعرض نتائج %1%</target>
       </trans-unit>
       <trans-unit id="181">
         <source>Occupation(s)</source>
@@ -1062,11 +1062,11 @@
       </trans-unit>
       <trans-unit id="291">
         <source>Edit %1%</source>
-        <target>تحرير٪ 1٪</target>
+        <target>تحرير %1%</target>
       </trans-unit>
       <trans-unit id="292">
         <source>Link %1%</source>
-        <target>الرابط٪ 1٪</target>
+        <target>الرابط %1%</target>
       </trans-unit>
       <trans-unit id="293">
         <source>List taxonomies</source>
@@ -1102,7 +1102,7 @@
       </trans-unit>
       <trans-unit id="301">
         <source>Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.</source>
-        <target>خطأ: يجب أن يكون لديك واحد على الأقل٪ 1٪ مستوى الوصف٪ 2٪ محدد أو اختر٪ 1٪ قم بتضمين جميع المستويات التنازلية للوصف٪ 2٪ للمتابعة.</target>
+        <target>خطأ: يجب أن يكون لديك واحد على الأقل %1% مستوى الوصف %2% محدد أو اختر %1% قم بتضمين جميع المستويات التنازلية للوصف %2% للمتابعة.</target>
       </trans-unit>
       <trans-unit id="302">
         <source>Export options</source>
@@ -1146,7 +1146,7 @@
       </trans-unit>
       <trans-unit id="312">
         <source>Clear %1 clipboard</source>
-        <target>مسح٪ 1 الحافظة</target>
+        <target>مسح %1 الحافظة</target>
       </trans-unit>
       <trans-unit id="313">
         <source>Sending...</source>
@@ -1330,7 +1330,7 @@
       </trans-unit>
       <trans-unit id="358">
         <source>Move %1%</source>
-        <target>نقل٪ 1٪</target>
+        <target>نقل %1%</target>
       </trans-unit>
       <trans-unit id="359">
         <source>Search title or identifier</source>
@@ -1346,7 +1346,7 @@
       </trans-unit>
       <trans-unit id="362">
         <source>Results %1% to %2% of %3%</source>
-        <target>النتائج٪ 1٪ إلى٪ 2٪ من٪ 3٪</target>
+        <target>النتائج%1% إلى %2% من %3%</target>
       </trans-unit>
       <trans-unit id="363">
         <source>No results</source>
@@ -1354,7 +1354,7 @@
       </trans-unit>
       <trans-unit id="364">
         <source>Go to page %1%</source>
-        <target>الذهاب إلى الصفحة٪ 1٪</target>
+        <target>الذهاب إلى الصفحة %1%</target>
       </trans-unit>
       <trans-unit id="365">
         <source>View options</source>
@@ -1530,7 +1530,7 @@
       </trans-unit>
       <trans-unit id="408">
         <source>If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%</source>
-        <target>إذا كنت تقوم باستيراد ملف SKOS إلى تصنيف آخر غير الموضوعات، فيرجى الانتقال إلى٪ 1٪</target>
+        <target>إذا كنت تقوم باستيراد ملف SKOS إلى تصنيف آخر غير الموضوعات، فيرجى الانتقال إلى %1%</target>
       </trans-unit>
       <trans-unit id="409">
         <source>SKOS import page</source>
@@ -1626,11 +1626,11 @@
       </trans-unit>
       <trans-unit id="432">
         <source>The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.</source>
-        <target>تم الوصول إلى الحد الأقصى لمساحة القرص البالغة٪ 1٪ جيجابايت المتوفرة لتحميل الكائنات الرقمية. يرجى الاتصال بمسؤول نظام AtoM الخاص بك لزيادة مساحة القرص المتاحة.</target>
+        <target>تم الوصول إلى الحد الأقصى لمساحة القرص البالغة %1% جيجابايت المتوفرة لتحميل الكائنات الرقمية. يرجى الاتصال بمسؤول نظام AtoM الخاص بك لزيادة مساحة القرص المتاحة.</target>
       </trans-unit>
       <trans-unit id="433">
         <source>Upload a %1%</source>
-        <target>رفع٪ 1٪</target>
+        <target>رفع %1%</target>
       </trans-unit>
       <trans-unit id="434">
         <source>Uploads for &lt;a class="alert-link" href="%1%"&gt;%2%&lt;/a&gt; are disabled</source>
@@ -1642,7 +1642,7 @@
       </trans-unit>
       <trans-unit id="436">
         <source>Link to an external %1%</source>
-        <target>رابط خارجي إلى٪ 1٪</target>
+        <target>رابط خارجي إلى %1%</target>
       </trans-unit>
       <trans-unit id="437">
         <source>Import initiated</source>
@@ -2074,7 +2074,7 @@
       </trans-unit>
       <trans-unit id="548">
         <source>When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.</source>
-        <target>عند التمكين، سيظهر النص التالي كلما حاول المستخدم تنزيل رسالة رئيسية٪ 1٪ مع بيان الحقوق المرتبطة حيث يكون الأساس = حقوق الطبع والنشر والتقييد = مشروط. يمكنك تصميم وتخصيص النص كما في صفحة ثابتة.</target>
+        <target>عند التمكين، سيظهر النص التالي كلما حاول المستخدم تنزيل رسالة رئيسية %1% مع بيان الحقوق المرتبطة حيث يكون الأساس = حقوق الطبع والنشر والتقييد = مشروط. يمكنك تصميم وتخصيص النص كما في صفحة ثابتة.</target>
       </trans-unit>
       <trans-unit id="549">
         <source>Preview</source>
@@ -2162,7 +2162,7 @@
       </trans-unit>
       <trans-unit id="572">
         <source>Default %1% upload limit (GB)</source>
-        <target>الحد الافتراضي للتحميل٪ 1٪ (GB)</target>
+        <target>الحد الافتراضي للتحميل %1% (GB)</target>
       </trans-unit>
       <trans-unit id="574">
         <source>Upload multi-page files as multiple descriptions</source>
@@ -2526,7 +2526,7 @@
       </trans-unit>
       <trans-unit id="664">
         <source>This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.</source>
-        <target>لن تعمل هذه الميزة حتى يتم تحديد مفتاح API لخرائط Google في٪ 1٪الدولية %2% صفحة الإعدادات.</target>
+        <target>لن تعمل هذه الميزة حتى يتم تحديد مفتاح API لخرائط Google في %1% الدولية %2% صفحة الإعدادات.</target>
       </trans-unit>
       <trans-unit id="665">
         <source>User interface label</source>
@@ -2730,7 +2730,7 @@
       </trans-unit>
       <trans-unit id="723">
         <source>Inherited from %1%</source>
-        <target>موروثة من٪ 1٪</target>
+        <target>موروثة من %1%</target>
       </trans-unit>
       <trans-unit id="724">
         <source>Documentation Identifier Type</source>
@@ -2866,11 +2866,11 @@
       </trans-unit>
       <trans-unit id="758">
         <source>It has %1% descendants that will also be deleted:</source>
-        <target>يحتوي على أحفاد٪ 1٪ سيتم حذفها أيضًا:</target>
+        <target>يحتوي على أحفاد %1% سيتم حذفها أيضًا:</target>
       </trans-unit>
       <trans-unit id="759">
         <source>Only %1% descriptions were shown.</source>
-        <target>تم عرض أوصاف٪ 1٪ فقط.</target>
+        <target>تم عرض أوصاف %1% فقط.</target>
       </trans-unit>
       <trans-unit id="760">
         <source>View the full list of descendants.</source>
@@ -2882,7 +2882,7 @@
       </trans-unit>
       <trans-unit id="762">
         <source>Are you sure you want to delete the finding aid of %1%?</source>
-        <target>هل أنت متأكد من أنك تريد حذف وسيلة الإيجاد ٪ 1٪؟</target>
+        <target>هل أنت متأكد من أنك تريد حذف وسيلة الإيجاد %1%؟</target>
       </trans-unit>
       <trans-unit id="763">
         <source>The following file will be deleted from the file system:</source>
@@ -2910,7 +2910,7 @@
       </trans-unit>
       <trans-unit id="769">
         <source>Status: %1</source>
-        <target>الحالة:٪ 1</target>
+        <target>الحالة: %1</target>
       </trans-unit>
       <trans-unit id="770">
         <source>Generate</source>
@@ -3078,11 +3078,11 @@
       </trans-unit>
       <trans-unit id="811">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
-        <target>متصفحك لا يدعم جافا سكريبت. انظر٪ 1٪ الحد الأدنى من المتطلبات٪ 2٪.</target>
+        <target>متصفحك لا يدعم جافا سكريبت. انظر %1% الحد الأدنى من المتطلبات %2%.</target>
       </trans-unit>
       <trans-unit id="812">
         <source>The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.</source>
-        <target>تم الوصول إلى الحد الأقصى لمساحة القرص البالغة٪ 1٪ جيجابايت المتوفرة لتحميل الكائنات الرقمية. يرجى الاتصال بمسؤول النظام لزيادة مساحة القرص المتوفرة.</target>
+        <target>تم الوصول إلى الحد الأقصى لمساحة القرص البالغة %1% جيجابايت المتوفرة لتحميل الكائنات الرقمية. يرجى الاتصال بمسؤول النظام لزيادة مساحة القرص المتوفرة.</target>
       </trans-unit>
       <trans-unit id="813">
         <source>Maximum file size: </source>
@@ -3234,7 +3234,7 @@
       </trans-unit>
       <trans-unit id="850">
         <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
-        <target>استخدم هذه الواجهة لتحديث عنوان الوصف ، ومعرف slug (الرابط الثابت)، و / أو اسم الملف٪ 1٪.</target>
+        <target>استخدم هذه الواجهة لتحديث عنوان الوصف ، ومعرف slug (الرابط الثابت)، و / أو اسم الملف %1%.</target>
       </trans-unit>
       <trans-unit id="851">
         <source>Update title</source>
@@ -3402,7 +3402,7 @@
       </trans-unit>
       <trans-unit id="892">
         <source>You can check %1% page to determine the current status of the update job.</source>
-        <target>يمكنك التحقق من صفحة٪ 1٪ لتحديد الحالة الحالية لمهمة التحديث.</target>
+        <target>يمكنك التحقق من صفحة %1% لتحديد الحالة الحالية لمهمة التحديث.</target>
       </trans-unit>
       <trans-unit id="893">
         <source>Update digital object titles</source>
@@ -3638,7 +3638,7 @@
       </trans-unit>
       <trans-unit id="954">
         <source>This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.</source>
-        <target>هذا المستخدم لديه٪ 1٪ ملاحظة (ملاحظات) في النظام. لن يتم حذف هذه الملاحظات ، لكن ستتم إزالة ارتباطها بهذا المستخدم.</target>
+        <target>هذا المستخدم لديه %1% ملاحظة (ملاحظات) في النظام. لن يتم حذف هذه الملاحظات ، لكن ستتم إزالة ارتباطها بهذا المستخدم.</target>
       </trans-unit>
       <trans-unit id="955">
         <source>List users</source>
@@ -3674,7 +3674,7 @@
       </trans-unit>
       <trans-unit id="963">
         <source>User %1%</source>
-        <target>المستخدم٪ 1٪</target>
+        <target>المستخدم %1%</target>
       </trans-unit>
       <trans-unit id="964">
         <source>Reset password</source>
@@ -3794,7 +3794,7 @@
       </trans-unit>
       <trans-unit id="993">
         <source>List %1%</source>
-        <target>قائمة٪ 1٪</target>
+        <target>قائمة %1%</target>
       </trans-unit>
       <trans-unit id="994">
         <source>Edit rights holder</source>
@@ -3822,7 +3822,7 @@
       </trans-unit>
       <trans-unit id="1000">
         <source>Are you sure you want to delete %1% and all its descendants?</source>
-        <target>هل أنت متأكد من أنك تريد حذف٪ 1٪ وكل أحفاده؟</target>
+        <target>هل أنت متأكد من أنك تريد حذف %1% وكل أحفاده؟</target>
       </trans-unit>
       <trans-unit id="1001">
         <source>Edit menu</source>
@@ -3866,7 +3866,7 @@
       </trans-unit>
       <trans-unit id="1011">
         <source>Hi, %1%</source>
-        <target>مرحبًا ،٪ 1٪</target>
+        <target>مرحبًا ، %1%</target>
       </trans-unit>
       <trans-unit id="1012">
         <source>Site menu list</source>
@@ -3926,11 +3926,11 @@
       </trans-unit>
       <trans-unit id="1027">
         <source>It's used in %1% events that will also be deleted</source>
-        <target>يتم استخدامه في أحداث٪ 1٪ التي سيتم حذفها أيضًا</target>
+        <target>يتم استخدامه في أحداث %1% التي سيتم حذفها أيضًا</target>
       </trans-unit>
       <trans-unit id="1028">
         <source>It has %1% descendants that will also be deleted</source>
-        <target>يحتوي على أحفاد٪ 1٪ سيتم حذفها أيضًا</target>
+        <target>يحتوي على أحفاد %1% سيتم حذفها أيضًا</target>
       </trans-unit>
       <trans-unit id="1029">
         <source>Only %1% terms were shown.</source>
@@ -3998,7 +3998,7 @@
       </trans-unit>
       <trans-unit id="1045">
         <source>Map of %1%</source>
-        <target>خريطة٪ 1٪</target>
+        <target>خريطة %1%</target>
       </trans-unit>
       <trans-unit id="1046">
         <source>Scope note(s)</source>
@@ -4038,7 +4038,7 @@
       </trans-unit>
       <trans-unit id="1055">
         <source>RT %1%</source>
-        <target>RT٪ 1٪</target>
+        <target>RT %1%</target>
       </trans-unit>
       <trans-unit id="1056">
         <source>SKOS</source>
@@ -4050,7 +4050,7 @@
       </trans-unit>
       <trans-unit id="1058">
         <source>Browse %1%:</source>
-        <target>استعرض٪ 1٪:</target>
+        <target>استعرض %1%:</target>
       </trans-unit>
       <trans-unit id="1059">
         <source>Treeview</source>
@@ -4086,7 +4086,7 @@
       </trans-unit>
       <trans-unit id="1067">
         <source>Are you sure you want to delete the %1% linked to %2%?</source>
-        <target>هل تريد بالتأكيد حذف٪ 1٪ المرتبط بـ٪ 2٪؟</target>
+        <target>هل تريد بالتأكيد حذف %1% المرتبط بـ %2%؟</target>
       </trans-unit>
       <trans-unit id="1068">
         <source>Download movie</source>
@@ -4110,7 +4110,7 @@
       </trans-unit>
       <trans-unit id="1073">
         <source>View children as a compound %1%?</source>
-        <target>عرض الأنسال كمركب٪ 1٪؟</target>
+        <target>عرض الأنسال كمركب %1%؟</target>
       </trans-unit>
       <trans-unit id="1074">
         <source>%1% representation</source>
@@ -4210,7 +4210,7 @@
       </trans-unit>
       <trans-unit id="1098">
         <source>Download %1%</source>
-        <target>تنزيل ٪ 1٪</target>
+        <target>تنزيل %1%</target>
       </trans-unit>
       <trans-unit id="1099">
         <source>Sorry, page not found</source>
@@ -4250,7 +4250,7 @@
       </trans-unit>
       <trans-unit id="1108">
         <source>Sorry, you do not have permission to make %1% language translations</source>
-        <target>عذرًا، ليس لديك إذن بإجراء ترجمات لغة٪ 1٪</target>
+        <target>عذرًا، ليس لديك إذن بإجراء ترجمات لغة %1%</target>
       </trans-unit>
       <trans-unit id="1109">
         <source>Sorry, you do not have permission to access that page</source>
@@ -4370,7 +4370,7 @@
       </trans-unit>
       <trans-unit id="1139">
         <source>Requirements: PNG format, 256K max. size.&lt;br /&gt;Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.</source>
-        <target>المتطلبات: تنسيق PNG ، 256 كيلو بايت كحد أقصى. بحجم.&lt;br /&gt;أبعاد٪ 1٪ x٪ 2٪ px الموصى بها ، سيتم اقتصاصها إذا تم تثبيت ImageMagick.</target>
+        <target>المتطلبات: تنسيق PNG ، 256 كيلو بايت كحد أقصى. بحجم.&lt;br /&gt;أبعاد%1% x%2% px الموصى بها ، سيتم اقتصاصها إذا تم تثبيت ImageMagick.</target>
       </trans-unit>
       <trans-unit id="1140">
         <source>Logo</source>
@@ -4422,11 +4422,11 @@
       </trans-unit>
       <trans-unit id="1152">
         <source>for %repo%</source>
-        <target>لـ٪ repo٪</target>
+        <target>لـ %repo%</target>
       </trans-unit>
       <trans-unit id="1153">
         <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
-        <target>%حوالي% من%الحدود%&lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;جيجا بايت (%نسبة مئوية%%)</target>
+        <target>%du%limit%الحدود%&lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;جيجا بايت (%percent%%)</target>
       </trans-unit>
       <trans-unit id="1154">
         <source>Upload is disabled</source>
@@ -4438,7 +4438,7 @@
       </trans-unit>
       <trans-unit id="1157">
         <source>Set the upload limit for this %1%</source>
-        <target>قم بتعيين حد التحميل لهذا٪ 1٪</target>
+        <target>قم بتعيين حد التحميل لهذا %1%</target>
       </trans-unit>
       <trans-unit id="1158">
         <source>Disable uploads</source>
@@ -4446,7 +4446,7 @@
       </trans-unit>
       <trans-unit id="1159">
         <source>Limit uploads to %1% GB</source>
-        <target>حد التحميلات إلى٪ 1٪ جيجابايت</target>
+        <target>حد التحميلات إلى %1% جيجابايت</target>
       </trans-unit>
       <trans-unit id="1160">
         <source>Allow unlimited uploads</source>
@@ -4458,11 +4458,11 @@
       </trans-unit>
       <trans-unit id="1162">
         <source>The upload limit of %1% GB for &lt;a href="%2%"&gt;%3%&lt;/a&gt; has been exceeded (%4% GB currently used)</source>
-        <target>حد التحميل البالغ ٪ 1٪ جيجا بايت لـ&lt;a href="%2%"&gt;%3%&lt;/a&gt;تم تجاوز(٪ 4٪ جيجا بايت المُستخدمة حاليًا)</target>
+        <target>حد التحميل البالغ%1% جيجا بايت لـ&lt;a href="%2%"&gt;%3%&lt;/a&gt;تم تجاوز(%4% جيجا بايت المُستخدمة حاليًا)</target>
       </trans-unit>
       <trans-unit id="1163">
         <source>To upload a new %1%</source>
-        <target>لتحميل٪ 1٪ جديد</target>
+        <target>لتحميل %1% جديد</target>
       </trans-unit>
       <trans-unit id="1164">
         <source>Email your &lt;a href="mailto:%1%"&gt;system administrator&lt;/a&gt; and request a larger upload limit</source>
@@ -4470,7 +4470,7 @@
       </trans-unit>
       <trans-unit id="1165">
         <source>Delete an existing %1% to reduce disk usage</source>
-        <target>احذف٪ 1٪ موجود لتقليل استخدام القرص</target>
+        <target>احذف %1% موجود لتقليل استخدام القرص</target>
       </trans-unit>
       <trans-unit id="1166">
         <source>Sort</source>
@@ -4486,7 +4486,7 @@
       </trans-unit>
       <trans-unit id="1169">
         <source>Go to %1%</source>
-        <target>انتقل إلى٪ 1٪</target>
+        <target>انتقل إلى %1%</target>
       </trans-unit>
       <trans-unit id="1170">
         <source>Edit %1% - ISDF</source>
@@ -4606,11 +4606,11 @@
       </trans-unit>
       <trans-unit id="1204">
         <source>Edit %1% permissions of %2%</source>
-        <target>تحرير أذونات٪ 1٪ من٪ 2٪</target>
+        <target>تحرير أذونات %1% من %2%</target>
       </trans-unit>
       <trans-unit id="1205">
         <source>Permissions for all %1%</source>
-        <target>صلاحيات لجميع٪ 1٪</target>
+        <target>صلاحيات لجميع %1%</target>
       </trans-unit>
       <trans-unit id="1206">
         <source>Permissions by taxonomy</source>
@@ -4626,11 +4626,11 @@
       </trans-unit>
       <trans-unit id="1209">
         <source>Permissions by %1%</source>
-        <target>صلاحيات بنسبة٪ 1٪</target>
+        <target>صلاحيات بنسبة %1%</target>
       </trans-unit>
       <trans-unit id="1210">
         <source>Add permissions by %1%</source>
-        <target>إضافة أذونات بنسبة٪ 1٪</target>
+        <target>إضافة أذونات بنسبة %1%</target>
       </trans-unit>
       <trans-unit id="1211">
         <source>Group %1%</source>
@@ -4702,7 +4702,7 @@
       </trans-unit>
       <trans-unit id="1228">
         <source>Browse %1%</source>
-        <target>تصفح٪ 1٪</target>
+        <target>تصفح %1%</target>
       </trans-unit>
       <trans-unit id="1229">
         <source>Location</source>
@@ -4730,7 +4730,7 @@
       </trans-unit>
       <trans-unit id="1235">
         <source>View %1%</source>
-        <target>عرض٪ 1٪</target>
+        <target>عرض %1%</target>
       </trans-unit>
       <trans-unit id="1236">
         <source>Related accessions</source>
@@ -5278,7 +5278,7 @@
       </trans-unit>
       <trans-unit id="1378">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>"اختر المصدر والمؤلف ونقاط الوصول الأخرى غير الموضوعية من الوصف الأرشيفي ، عند الحاجة. يجب أن تكون جميع نقاط الوصول واضحة في الوصف الأرشيفي الذي تتعلق به." (RAD 21.0B) القيم الموجودة في هذا الحقل مأخوذة من حقل الاسم المعتمد في التسجيلات الاستنادية. ابحث عن اسم موجود عن طريق كتابة الأحرف الأولى من الاسم. بدلًا من ذلك ، اكتب اسمًا جديدًا لإنشاء وربط تسجيلة استنادية جديدة.</target>
+        <target>"اختر المصدر والمؤلف ونقاط الوصول الأخرى غير الموضوعية من الوصف الأرشيفي ، عند الحاجة. يجب أن تكون جميع نقاط الوصول واضحة في الوصف الأرشيفي الذي تتعلق به." (RAD 21.0B) القيم الموجودة في هذا الحقل مأخوذة من حقل الاسم المُعتمد في التسجيلات الاستنادية. ابحث عن اسم موجود عن طريق كتابة الأحرف الأولى من الاسم. بدلًا من ذلك ، اكتب اسمًا جديدًا لإنشاء وربط تسجيلة استنادية جديدة.</target>
       </trans-unit>
       <trans-unit id="1379">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
