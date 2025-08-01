@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-08-01T13:40:42Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -552,7 +552,7 @@
       </trans-unit>
       <trans-unit id="1024">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target>Registar a data(s) em que foi elaborada ou revista. </target>
+        <target>Registre a(s) data(s) em que foi elaborada ou revisada.</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>Indicate the language(s) used to create the description of the archival material.</source>

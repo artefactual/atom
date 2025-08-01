@@ -438,7 +438,7 @@ QubitMenu:
     source_culture: en
     name: admin
     label:
-      ar: إدارة
+      ar: 'إدارة (لوحة التحكُم)'
       bs: Administrator
       ca: Administrador
       ca@valencia: Administrador

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:38Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-08-01T13:40:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -194,15 +194,15 @@
       </trans-unit>
       <trans-unit id="50">
         <source>%1%Identifier%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>%1% المُعرِّف %2% - هذا الحقل تم تحديده كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
       <trans-unit id="51">
         <source>This field is marked as mandatory in the relevant descriptive standard.&lt;/span&gt;</source>
-        <target/>
+        <target>تم تحديد هذا الحقل كحقل إلزامي في المعيار الوصفي ذو العلاقة &lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="52">
         <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
-        <target/>
+        <target>%1% العنوان %2% - هذا الحقل تم تحديده كحقل إلزامي في المعيار الوصفي ذو العلاقة.</target>
       </trans-unit>
     </body>
   </file>
