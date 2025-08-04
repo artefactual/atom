@@ -83,12 +83,16 @@ class DigitalObjectUploadAction extends sfAction
             $tmpFileName = basename($tmpFilePath);
             $tmpFileMimeType = QubitDigitalObject::deriveMimeType($tmpFileName);
 
+            // Extract EXIF metadata if available
+            $exifData = $this->extractExifMetadata($tmpFilePath);
+
             $uploadFiles = [
                 'name' => $file['name'],
                 'md5sum' => md5_file($tmpFilePath),
                 'size' => hr_filesize($file['size']),
                 'tmpName' => $tmpFileName,
                 'warning' => $warning,
+                'exifData' => $exifData, // Add EXIF data to response
             ];
 
             // Keep running total of disk usage
@@ -99,5 +103,145 @@ class DigitalObjectUploadAction extends sfAction
         $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
         return $this->renderText(json_encode($uploadFiles));
+    }
+
+    /**
+     * Extract EXIF metadata from uploaded image file
+     */
+    private function extractExifMetadata($filePath)
+    {
+        // Check if EXIF extension is loaded
+        if (!extension_loaded('exif')) {
+            return null;
+        }
+
+        // Check if file exists and is an image
+        if (!file_exists($filePath) || !$this->isImageFile($filePath)) {
+            return null;
+        }
+
+        try {
+            $exif = exif_read_data($filePath, 'ANY_TAG', true);
+            
+            if (!$exif) {
+                return null;
+            }
+
+            // Extract relevant EXIF data
+            $extractedData = [];
+
+            // Camera information
+            if (isset($exif['IFD0']['Make'])) {
+                $extractedData['camera_make'] = $exif['IFD0']['Make'];
+            }
+            if (isset($exif['IFD0']['Model'])) {
+                $extractedData['camera_model'] = $exif['IFD0']['Model'];
+            }
+
+            // Date information
+            if (isset($exif['EXIF']['DateTimeOriginal'])) {
+                $extractedData['date_taken'] = $exif['EXIF']['DateTimeOriginal'];
+            } elseif (isset($exif['EXIF']['DateTime'])) {
+                $extractedData['date_taken'] = $exif['EXIF']['DateTime'];
+            }
+
+            // Creator/Artist
+            if (isset($exif['IFD0']['Artist'])) {
+                $extractedData['artist'] = $exif['IFD0']['Artist'];
+            }
+
+            // Description
+            if (isset($exif['IFD0']['ImageDescription'])) {
+                $extractedData['description'] = $exif['IFD0']['ImageDescription'];
+            }
+
+            // Copyright
+            if (isset($exif['IFD0']['Copyright'])) {
+                $extractedData['copyright'] = $exif['IFD0']['Copyright'];
+            }
+
+            // Camera settings
+            if (isset($exif['EXIF']['FocalLength'])) {
+                $extractedData['focal_length'] = $exif['EXIF']['FocalLength'];
+            }
+            if (isset($exif['EXIF']['FNumber'])) {
+                $extractedData['aperture'] = $exif['EXIF']['FNumber'];
+            }
+            if (isset($exif['EXIF']['ExposureTime'])) {
+                $extractedData['shutter_speed'] = $exif['EXIF']['ExposureTime'];
+            }
+            if (isset($exif['EXIF']['ISOSpeedRatings'])) {
+                $extractedData['iso'] = $exif['EXIF']['ISOSpeedRatings'];
+            }
+
+            // GPS coordinates
+            if (isset($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLongitude'])) {
+                $lat = $this->convertGpsCoordinate($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+                $lon = $this->convertGpsCoordinate($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+                $extractedData['gps_latitude'] = $lat;
+                $extractedData['gps_longitude'] = $lon;
+            }
+
+            // Image dimensions
+            if (isset($exif['COMPUTED']['Width'], $exif['COMPUTED']['Height'])) {
+                $extractedData['width'] = $exif['COMPUTED']['Width'];
+                $extractedData['height'] = $exif['COMPUTED']['Height'];
+            }
+
+            return $extractedData;
+
+        } catch (Exception $e) {
+            // Log error but don't break the upload process
+            error_log("EXIF extraction failed for {$filePath}: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Check if file is a supported image type for EXIF
+     */
+    private function isImageFile($filePath)
+    {
+        $imageType = @exif_imagetype($filePath);
+        $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM];
+        
+        return in_array($imageType, $supportedTypes);
+    }
+
+    /**
+     * Convert GPS coordinate from EXIF format to decimal degrees
+     */
+    private function convertGpsCoordinate($coordinate, $hemisphere)
+    {
+        if (!is_array($coordinate) || count($coordinate) < 3) {
+            return null;
+        }
+
+        $degrees = count($coordinate) > 0 ? $this->evaluateFraction($coordinate[0]) : 0;
+        $minutes = count($coordinate) > 1 ? $this->evaluateFraction($coordinate[1]) : 0;
+        $seconds = count($coordinate) > 2 ? $this->evaluateFraction($coordinate[2]) : 0;
+
+        $flip = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
+        
+        $decimal = $flip * ($degrees + $minutes / 60 + $seconds / 3600);
+        
+        return round($decimal, 6);
+    }
+
+    /**
+     * Evaluate fraction strings from EXIF data
+     */
+    private function evaluateFraction($fraction)
+    {
+        if (is_numeric($fraction)) {
+            return (float)$fraction;
+        }
+
+        $parts = explode('/', (string)$fraction);
+        if (count($parts) == 2 && $parts[1] != 0) {
+            return $parts[0] / $parts[1];
+        }
+
+        return (float)$fraction;
     }
 }
