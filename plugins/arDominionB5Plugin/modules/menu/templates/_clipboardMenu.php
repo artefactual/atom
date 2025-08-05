@@ -13,7 +13,14 @@
     data-export-check-url="<?php echo url_for(['module' => 'clipboard', 'action' => 'exportCheck']); ?>"
     data-delete-alert-message="<?php echo __(
         'Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!'
-    ); ?>">
+    ); ?>"
+    <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
+      <?php $showAccessions = true; ?>
+      data-show-accessions="1"
+    <?php } else { ?>
+      <?php $showAccessions = false; ?>
+      data-show-accessions="0"
+    <?php } ?>>
     <i
       class="fas fa-2x fa-fw fa-paperclip px-0 px-lg-2 py-2"
       data-bs-toggle="tooltip"
@@ -41,11 +48,8 @@
         data-information-object-label="<?php echo sfConfig::get('app_ui_label_descriptioncount'); ?>"
         data-actor-object-label="<?php echo sfConfig::get('app_ui_label_authorityrecordcount'); ?>"
         data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repositorycount'); ?>"
-        <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
+        <?php if ($showAccessions) { ?>
           data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accessioncount'); ?>"
-          data-show-accessions="1"
-        <?php } else { ?>
-          data-show-accessions="0"
         <?php } ?>
         >
       </span>

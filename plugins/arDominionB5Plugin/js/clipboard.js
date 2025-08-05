@@ -11,6 +11,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       this.storage = localStorage;
       this.types = ["informationObject", "actor", "repository", "accession"];
+      this.showAccessions = this.$element.attr("data-show-accessions") == "1" ? true : false;
       this.initialItems = {
         informationObject: [],
         actor: [],
@@ -238,13 +239,15 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         $form.append($repositorySlugs);
       }
 
-      if (this.items["accession"].length !== 0) {
-        let $accessionSlugs = $("<input />", {
-          type: "hidden",
-          name: "accession_slugs",
-          value: JSON.stringify(this.items["accession"]),
-        });
-        $form.append($accessionSlugs);
+      if (this.showAccessions) {
+        if (this.items["accession"].length !== 0) {
+          let $accessionSlugs = $("<input />", {
+            type: "hidden",
+            name: "accession_slugs",
+            value: JSON.stringify(this.items["accession"]),
+          });
+          $form.append($accessionSlugs);
+        }
       }
 
       // Show sending alert and assign it to a variable
@@ -449,7 +452,10 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
-      var accessionCount = this.items["accession"].length;
+      var accessionCount = 0;
+      if (this.showAccessions) {
+        accessionCount = this.items["accession"].length;
+      }
       var totalCount = iosCount + actorsCount + reposCount + accessionCount;
 
       // Menu button count
@@ -481,7 +487,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       );
 
       var accessionLabel = "";
-      if (this.$menuHeaderCount.attr("data-show-accessions") == "1") {
+      if (this.showAccessions) {
         accessionLabel = this.$menuHeaderCount.attr("data-accession-object-label");
       }
 
@@ -490,8 +496,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         countText += actorsCount + actorLabel + "<br />";
         countText += reposCount + repoLabel + "<br />";
 
-        if (accessionLabel) {
-          countText += accessionLabel + accessionCount + "<br />";
+        if (this.showAccessions) {
+          countText += accessionCount + accessionLabel + "<br />";
         }
 
         this.$menuHeaderCount.attr("dir", "ltr").html(countText);
@@ -500,7 +506,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         countText += actorLabel + actorsCount + "<br />";
         countText += repoLabel + reposCount + "<br />";
 
-        if (accessionLabel) {
+        if (this.showAccessions) {
           countText += accessionLabel + accessionCount + "<br />";
         }
 
