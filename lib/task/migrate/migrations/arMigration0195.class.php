@@ -19,9 +19,6 @@
 
 /**
  * Add accession label.
- *
- * @package    AccesstoMemory
- * @subpackage migration
  */
 class arMigration0195
 {
