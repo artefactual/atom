@@ -43,9 +43,14 @@ class arAccessionExportJob extends arExportJob
             arElasticSearchPluginUtil::SCROLL_SIZE
         );
 
-        $query->queryBool->addMust(
-            new \Elastica\Query\Terms('slug', $parameters['params']['slugs'])
-        );
+        // If slugs contains '*', export all records; otherwise filter by specific slugs
+        if (in_array('*', $parameters['params']['slugs'])) {
+            $query->queryBool->addMust(new \Elastica\Query\MatchAll());
+        } else {
+            $query->queryBool->addMust(
+                new \Elastica\Query\Terms('slug', $parameters['params']['slugs'])
+            );
+        }
 
         return QubitSearch::getInstance()
             ->index

@@ -19,6 +19,19 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <?php if ($sf_user->isAuthenticated() && !isset($sf_request->subquery)) { ?>
+        <a
+          class="btn btn-sm atom-btn-white"
+          href="<?php echo url_for(array_merge(
+              $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+              ['module' => 'accession', 'action' => 'exportCsv']
+          )); ?>">
+          <i class="fas fa-upload me-1" aria-hidden="true"></i>
+          <?php echo __('Export CSV'); ?>
+        </a>
+      <?php } ?>
+    </div>
 
     <div id="content">
 
