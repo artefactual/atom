@@ -23,10 +23,6 @@ class AccessionExportCsvAction extends sfAction
     public function execute($request)
     {
         if ($this->context->user->isAuthenticated()) {
-            // The only way to filter accessions is with the search subquery.
-            // $getParameters = $request->getGetParameters();
-            // $subquery = $getParameters['subquery'];
-
             $options = [
                 'params' => [
                     'slugs' => ['*'],
@@ -36,14 +32,29 @@ class AccessionExportCsvAction extends sfAction
             QubitJob::runJob('arAccessionCsvExportJob', $options);
 
             // Let user know export has started
-            sfContext::getInstance()->getConfiguration()->loadHelpers(['Url']);
+            $this->context->getConfiguration()->loadHelpers(['Url', 'I18N']);
 
-            $message = $this->context->i18n->__(
-                '<strong>Export of accessions initiated.</strong> Check <a class="alert-link" href="%1%">job management</a> page to download the results when it has completed.',
+            $message = '<strong>';
+            $message .= $this->context->i18n->__(
+                'Your %entity_type% export package is being built.',
+                ['%entity_type%' => strtolower(sfConfig::get('app_ui_label_accession', __('Accession')))]
+            );
+            $message .= '</strong> ';
+
+            $message .= $this->context->i18n->__(
+                'The %open_link%job management page%close_link% will show progress and a download link when complete.',
                 [
-                    '%1%' => url_for(['module' => 'jobs', 'action' => 'browse']),
+                    '%open_link%' => sprintf(
+                        '<strong><a class="alert-link" href="%s">',
+                        $this->context->routing->generate(null, [
+                            'module' => 'jobs',
+                            'action' => 'browse',
+                        ])
+                    ),
+                    '%close_link%' => '</a></strong>',
                 ]
             );
+
             $this->getUser()->setFlash('notice', $message);
         }
 
