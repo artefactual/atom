@@ -288,7 +288,7 @@ class QubitFlatfileExport
         }
 
         // Remove accessionNumber from public exports
-        if (!in_array($this->environment, ['cli', 'worker']) && $this->user && !$this->user->isAuthenticated()) {
+        if (!in_array($this->environment, ['cli', 'worker']) && (!$this->user || !$this->user->isAuthenticated())) {
             if (!in_array('accessionNumber', $this->nonVisibleElementsIncluded)) {
                 array_push($this->nonVisibleElementsIncluded, 'accessionNumber');
             }
