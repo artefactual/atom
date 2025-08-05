@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-06-26T17:41:44Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-07-28T20:04:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -19,18 +19,6 @@
       <trans-unit id="6">
         <source>Relevance</source>
         <target>Liên quan</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Acquisition date - This is a mandatory element.</source>
-        <target>Ngày thu được - Đây là yếu tố bắt buộc.</target>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Source of acquisition - This is a mandatory element.</source>
-        <target>Nguồn của thu được - Đây là yếu tố bắt buộc phải có.</target>
-      </trans-unit>
-      <trans-unit id="9">
-        <source>Location information - This is a mandatory element.</source>
-        <target>Thông tin một vị trí - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Accession number</source>
@@ -310,10 +298,6 @@ Loại thu được
         <source>Add new donor</source>
         <target>Thêm người tặng  mới</target>
       </trans-unit>
-      <trans-unit id="81">
-        <source>Authorized form of name - This is a mandatory element.</source>
-        <target>Hình thức ủy quyền của tên- Đây là yếu tố bắt buộc.</target>
-      </trans-unit>
       <trans-unit id="83">
         <source>Identifier</source>
         <target>Đặc điểm nhận dạng</target>
@@ -358,22 +342,6 @@ Loại thu được
       <trans-unit id="93">
         <source>Add new deaccession record</source>
         <target>Thêm  mới ghi lại deaccession</target>
-      </trans-unit>
-      <trans-unit id="94">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>Định danh  - Đây là yếu tố bắt buộc.</target>
-      </trans-unit>
-      <trans-unit id="95">
-        <source>Date of acquisition - This is a mandatory element.</source>
-        <target>Ngày của thu được- Đây là yếu tố bắt buộc.</target>
-      </trans-unit>
-      <trans-unit id="96">
-        <source>Scope - This is a mandatory element.</source>
-        <target> Phạm vi - Đây là yếu tố bắt buộc.</target>
-      </trans-unit>
-      <trans-unit id="97">
-        <source>Description - This is a mandatory element.</source>
-        <target>Mô tả - Đây là một yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="98">
         <source>View deaccession record</source>
@@ -579,6 +547,42 @@ Loại thu được
       </trans-unit>
       <trans-unit id="150">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Authorized form of name - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Date of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Scope - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Acquisition date - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>Source of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

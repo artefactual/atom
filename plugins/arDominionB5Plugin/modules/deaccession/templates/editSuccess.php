@@ -33,28 +33,30 @@
         <div id="deaccession-collapse" class="accordion-collapse collapse" aria-labelledby="deaccession-heading">
           <div class="accordion-body">
             <?php echo render_field($form->identifier
-                ->label(__('Deaccession number').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Deaccession number').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>')
             ); ?>
 
             <?php echo render_field($form->scope
                 ->help(__('Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.'))
-                ->label(__('Scope').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Scope').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>')
             ); ?>
 
             <?php echo render_field(
                 $form->date->help(__('Date of deaccession'))->label(
                     __('Date')
                     .' <span class="form-required" title="'
-                    .__('This is a mandatory element.')
-                    .'">*</span>'
-                ),
+                    .__('This field is marked as mandatory in the relevant descriptive standard.')
+                    .'">*</span><span class="visually-hidden">'
+                    .__('This field is marked as mandatory in the relevant descriptive standard.')
+                    .'</span>'
+                  ),
                 null,
                 ['type' => 'date']
             ); ?>
 
             <?php echo render_field($form->description
                 ->help(__('Identify what materials are being deaccessioned.'))
-                ->label(__('Description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, ['class' => 'resizable']); ?>
+                ->label(__('Description').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>'), $resource, ['class' => 'resizable']); ?>
 
             <?php echo render_field($form->extent
                 ->help(__('The number of units as a whole number and the measurement of the records to be deaccessioned.')), $resource, ['class' => 'resizable']); ?>

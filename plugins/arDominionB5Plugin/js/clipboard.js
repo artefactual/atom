@@ -22,6 +22,19 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       this.exportTokens =
         JSON.parse(this.storage.getItem("exportTokens")) || [];
 
+      let changed = false;
+      for (let type of this.types) {
+        if (!(type in this.items)) {
+          this.items[type] = [];
+          changed = true;
+        }
+      }
+
+      // Propagate changes to array to storage
+      if (changed) {
+        this.storage.setItem("clipboard", JSON.stringify(this.items));
+      }
+
       this.init();
     }
 
@@ -436,19 +449,19 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var iosCount = this.items["informationObject"].length;
       var actorsCount = this.items["actor"].length;
       var reposCount = this.items["repository"].length;
-      var accessionsCount = this.items["accession"].length;
-      var totalCount = iosCount + actorsCount + reposCount + accessionsCount;
+      var accessionCount = this.items["accession"].length;
+      var totalCount = iosCount + actorsCount + reposCount + accessionCount;
 
       // Menu button count
       var $buttonSpan = this.$element.find("> span.clipboard-count");
       if (!$buttonSpan.length && totalCount > 0) {
         this.$element.append(
           '<span class="clipboard-count position-absolute top-0 start-0' +
-            ' badge rounded-pill bg-primary">' +
-            totalCount +
-            '<span class="visually-hidden">' +
-            this.$element.data("total-count-label") +
-            "</span></span>"
+          ' badge rounded-pill bg-primary">' +
+          totalCount +
+          '<span class="visually-hidden">' +
+          this.$element.data("total-count-label") +
+          "</span></span>"
         );
       } else if (totalCount > 0) {
         $buttonSpan.text(totalCount);
@@ -457,19 +470,42 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       }
 
       // Menu dropdown header count
-      var countText = this.$menuHeaderCount.data("information-object-label");
-      countText += " count: " + iosCount + "<br />";
-      countText += this.$menuHeaderCount.data("actor-object-label");
-      countText += " count: " + actorsCount + "<br />";
-      countText += this.$menuHeaderCount.data("repository-object-label");
-      countText += " count: " + reposCount + "<br />";
+      var isRTL = $("html").attr("dir") === "rtl";
+      var countText = "";
+      var infoLabel = this.$menuHeaderCount.attr(
+        "data-information-object-label"
+      );
+      var actorLabel = this.$menuHeaderCount.attr("data-actor-object-label");
+      var repoLabel = this.$menuHeaderCount.attr(
+        "data-repository-object-label"
+      );
 
-      if (this.$menuHeaderCount.data("show-accessions") == "1") {
-        countText += this.$menuHeaderCount.data("accession-object-label");
-        countText += " count: " + accessionsCount + "<br />";
+      var accessionLabel = "";
+      if (this.$menuHeaderCount.attr("data-show-accessions") == "1") {
+        accessionLabel = this.$menuHeaderCount.attr("data-accession-object-label");
       }
 
-      this.$menuHeaderCount.html(countText);
+      if (isRTL) {
+        countText += iosCount + infoLabel + "<br />";
+        countText += actorsCount + actorLabel + "<br />";
+        countText += reposCount + repoLabel + "<br />";
+
+        if (accessionLabel) {
+          countText += accessionLabel + accessionCount + "<br />";
+        }
+
+        this.$menuHeaderCount.attr("dir", "ltr").html(countText);
+      } else {
+        countText += infoLabel + iosCount + "<br />";
+        countText += actorLabel + actorsCount + "<br />";
+        countText += repoLabel + reposCount + "<br />";
+
+        if (accessionLabel) {
+          countText += accessionLabel + accessionCount + "<br />";
+        }
+
+        this.$menuHeaderCount.html(countText);
+      }
     }
 
     updateAllButtons() {
@@ -492,8 +528,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       var $alert = $(
         '<div class="alert ' +
-          type +
-          ' alert-dismissible fade show" role="alert">'
+        type +
+        ' alert-dismissible fade show" role="alert">'
       ).append(message);
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +

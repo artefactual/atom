@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-06-26T17:40:38Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-07-28T20:03:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
         <target>Без наслов</target>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Authorized form of name - This is a mandatory element.</source>
-        <target>Нормативен облик на име - Ова е задолжителен елемент.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
@@ -116,22 +112,6 @@
         <source>Edit</source>
         <target>Уреди</target>
       </trans-unit>
-      <trans-unit id="29">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>Идентификатор - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Date of acquisition - This is a mandatory element.</source>
-        <target>Датум на преземање - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="31">
-        <source>Scope - This is a mandatory element.</source>
-        <target>Опсег - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="32">
-        <source>Description - This is a mandatory element.</source>
-        <target>Опис - Ова е задолжителен елемент.</target>
-      </trans-unit>
       <trans-unit id="33">
         <source>Add new deaccession record</source>
         <target>Додај нов запис за излачување</target>
@@ -199,18 +179,6 @@
       <trans-unit id="49">
         <source>Identifier unavailable.</source>
         <target>Идентификаторот е недостапен.</target>
-      </trans-unit>
-      <trans-unit id="50">
-        <source>Acquisition date - This is a mandatory element.</source>
-        <target>Датум на преземање - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="51">
-        <source>Source of acquisition - This is a mandatory element.</source>
-        <target>Извор на стекнување - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Location information - This is a mandatory element.</source>
-        <target>Информации за локација - Ова е задолжителен елемент.</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Accession number</source>
@@ -575,6 +543,42 @@
       <trans-unit id="142">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
         <target>Ве пренасочивме на првата страница со резултати. За да избегне користење на огромни количини на меморија, AtoM ја ограничува пагинацијата на %1% записи. За преглед на последните записи во тековниот сет на резултати, обидете се да ја промените насоката на сортирање.</target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>Authorized form of name - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>Date of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="147">
+        <source>Scope - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>Description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>Acquisition date - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>Source of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

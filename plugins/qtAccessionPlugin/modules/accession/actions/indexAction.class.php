@@ -44,13 +44,13 @@ class AccessionIndexAction extends sfAction
 
             $validatorSchema->date = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Acquisition date - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Acquisition date - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['date'] = $this->resource->date;
 
             $validatorSchema->sourceOfAcquisition = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Source of acquisition - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Source of acquisition - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['sourceOfAcquisition'] = $this->resource->getSourceOfAcquisition(['culltureFallback' => true]);
 
@@ -58,7 +58,7 @@ class AccessionIndexAction extends sfAction
             $locationRequired = 0 == count($this->resource->getPhysicalObjects());
             $validatorSchema->locationInformation = new sfValidatorString(
                 ['required' => $locationRequired],
-                ['required' => $this->context->i18n->__('Location information - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Location information - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['locationInformation'] = $this->resource->getLocationInformation(['culltureFallback' => true]);
 

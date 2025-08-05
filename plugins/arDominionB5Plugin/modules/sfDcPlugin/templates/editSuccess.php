@@ -42,7 +42,7 @@
           <div class="accordion-body">
             <?php echo render_field($form->identifier
                 ->help(__('The unambiguous reference code used to uniquely identify this resource.'))
-                ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+                ->label(__('Identifier').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>')
             ); ?>
 
             <?php echo get_partial(
@@ -52,7 +52,7 @@
 
             <?php echo render_field($form->title
                 ->help(__('The name given to this resource.'))
-                ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
+                ->label(__('Title').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>'), $resource); ?>
 
             <?php echo get_partial('dcNames', $sf_data->getRaw('dcNamesComponent')->getVarHolder()->getAll()); ?>
 
@@ -173,6 +173,11 @@
                             'This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).'
                         )
                         .'">*</span>'
+                        .'<span class="visually-hidden">'
+                        .__(
+                          'This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).'
+                        )
+                        .'</span>'
                     )
                     ->help(__(
                         '<p>The name of the organization which has custody of the resource.</p><p>Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.</p>'

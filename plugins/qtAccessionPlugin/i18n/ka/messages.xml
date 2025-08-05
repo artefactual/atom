@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2025-06-26T17:40:13Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2025-07-28T20:03:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,22 +15,6 @@
       <trans-unit id="3">
         <source>Edit %1%</source>
         <target>რედაქტირება %1%</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>იდენტიფიკატორი-ესაა სავალდებულო ელემენტი </target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Date of acquisition - This is a mandatory element.</source>
-        <target>შეძენილის, მონაპოვარის თარიღი- ესაა სამანდატო ელემენტი</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Scope - This is a mandatory element.</source>
-        <target>სკოპი- ესაა სავალდებულო ელემენტი</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Description - This is a mandatory element.</source>
-        <target>აღწერა- ესაა, სავალდებულო ელემენტი</target>
       </trans-unit>
       <trans-unit id="8">
         <source>View deaccession record</source>
@@ -120,10 +104,6 @@
         <source>Add new donor</source>
         <target>ახალი დონორის დამატება</target>
       </trans-unit>
-      <trans-unit id="32">
-        <source>Authorized form of name - This is a mandatory element.</source>
-        <target>სახელის ავტორიზირებული ფორმა-ესაა სამანდატო ელემენტი</target>
-      </trans-unit>
       <trans-unit id="33">
         <source>View donor</source>
         <target>დონორის(შემომწირველის) ნახვა </target>
@@ -167,18 +147,6 @@
       <trans-unit id="48">
         <source>Add new accession record</source>
         <target>შემონატანის შესახებ ახალი ჩანაწერის დამატება</target>
-      </trans-unit>
-      <trans-unit id="49">
-        <source>Acquisition date - This is a mandatory element.</source>
-        <target>მოძიების თარიღი - სავალდებულო ელემენტი.</target>
-      </trans-unit>
-      <trans-unit id="50">
-        <source>Source of acquisition - This is a mandatory element.</source>
-        <target>შეძენის წყარო - ესაა სავალდებულო ელემენტი</target>
-      </trans-unit>
-      <trans-unit id="51">
-        <source>Location information - This is a mandatory element.</source>
-        <target>ადგილობრივი ინფორმაცია- ესაა სავალდებულო ელემენტი </target>
       </trans-unit>
       <trans-unit id="52">
         <source>Related donors</source>
@@ -570,6 +538,42 @@
       </trans-unit>
       <trans-unit id="161">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Authorized form of name - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Date of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Scope - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Acquisition date - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Source of acquisition - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

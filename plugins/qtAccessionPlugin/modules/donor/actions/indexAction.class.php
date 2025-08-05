@@ -40,7 +40,7 @@ class DonorIndexAction extends sfAction
 
             $validatorSchema->authorizedFormOfName = new sfValidatorString(
                 ['required' => true],
-                ['required' => $this->context->i18n->__('Authorized form of name - This is a mandatory element.')]
+                ['required' => $this->context->i18n->__('Authorized form of name - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.').'</span>']
             );
             $values['authorizedFormOfName'] = $this->resource->getAuthorizedFormOfName(['cultureFallback' => true]);
 

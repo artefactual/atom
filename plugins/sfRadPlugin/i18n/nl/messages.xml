@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2025-06-26T17:39:51Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2025-07-28T20:02:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -36,25 +36,9 @@
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="9">
-        <source>Physical description - This is a mandatory element.</source>
-        <target>Fysieke beschrijnving - Dit is een verplicht veld.</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>Bereik en inhoud - dit is een verplicht veld</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>Title - This is a mandatory element.</source>
-        <target>Titel - Dit is een verplicht veld</target>
-      </trans-unit>
       <trans-unit id="12">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
         <target>Beschrijvingsdniveau - Waarde "%value%" is niet consisetent met hogere niveaus.</target>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Level of description - This is a mandatory element.</source>
-        <target>Beschrijvingsniveau - Dit is een verplicht veld.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
@@ -663,6 +647,26 @@
       <trans-unit id="188">
         <source>General note</source>
         <target>Algemene aantekening</target>
+      </trans-unit>
+      <trans-unit id="189">
+        <source>Physical description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="190">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="191">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="192">
+        <source>Level of description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="193">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-06-26T17:40:10Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-07-28T20:02:59Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -146,25 +146,9 @@
         <source>Description record identifier</source>
         <target>기록식별자 기술</target>
       </trans-unit>
-      <trans-unit id="828">
-        <source>Level of description - This is a mandatory element.</source>
-        <target>기술 계층 - 이는 필수 요소입니다. </target>
-      </trans-unit>
-      <trans-unit id="829">
-        <source>Title - This is a mandatory element.</source>
-        <target>제목 - 이 항목은 필수 요소입니다. </target>
-      </trans-unit>
       <trans-unit id="835">
         <source>This archival description requires at least one date.</source>
         <target>이 기록물 기술에는 최소한 한 개이상의 날짜 정보가 필요합니다. </target>
-      </trans-unit>
-      <trans-unit id="836">
-        <source>Physical description - This is a mandatory element.</source>
-        <target>물리적 기술 - 이 항목은 필수 요소입니다.</target>
-      </trans-unit>
-      <trans-unit id="837">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>범위와 내용 - 이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="841">
         <source>Title and statement of responsibility area</source>
@@ -661,6 +645,26 @@
       <trans-unit id="987">
         <source>General note</source>
         <target>일반 주기</target>
+      </trans-unit>
+      <trans-unit id="988">
+        <source>Physical description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="989">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="990">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="991">
+        <source>Level of description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="992">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -3,15 +3,16 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      2.1.1                                             *
+        * VERSION:      2.1.2                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
         *               david@artefactual.com                             *
+        *               thomas@tgconsulting.ca                            *
         *                                                                 *
-        * DATE:         2022-06-07                                        *
+        * DATE:         2024-04-10                                        *
         *                                                                 *
         *******************************************************************
     -->
@@ -23,8 +24,10 @@
     <!-- Institution logo on title page -->
     <xsl:template name="logo">
         <fo:block xsl:use-attribute-sets="h1">
-            <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
-            <xsl:text> </xsl:text>
+            <fo:wrapper role="artifact">
+                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <xsl:text> </xsl:text>
+            </fo:wrapper>
             <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
         </fo:block>
     </xsl:template>
@@ -138,18 +141,20 @@
     <xsl:template match="ead:archdesc/ead:dsc">
         <xsl:if test="*">
             <fo:block xsl:use-attribute-sets="sectionTable">
-                <fo:block xsl:use-attribute-sets="h2ID">
+                <fo:block role="H2" xsl:use-attribute-sets="h2ID">
                     <xsl:value-of select="local:tagName(.)"/>
                 </fo:block>
                 <fo:table table-layout="fixed" space-after="12pt" width="100%" font-size="10pt" border-bottom="1pt solid #000" border-top="1pt solid #000" border-left="1pt solid #000" border-right="1pt solid #000" text-align="left" border-after-width.length="1pt" border-after-width.conditionality="retain" border-before-width.length="1pt" border-before-width.conditionality="retain">
-                    <fo:table-column column-number="1" column-width="1.25in" border-right="1pt solid #000"/>
+                    <fo:table-column xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" fox:header="true" column-number="1" column-width="1.25in" border-right="1pt solid #000"/>
                     <fo:table-column column-number="2" column-width="2.75in"/>
                     <fo:table-column column-number="3" column-width="1.3in"/>
                     <fo:table-column column-number="4" column-width="2.1in"/>
-                    <fo:table-body start-indent="0in">
-                        <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
+                    <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
+                        <fo:table-header>
                             <xsl:call-template name="tableHeaders"/>
-                        </xsl:if>
+                        </fo:table-header>
+                    </xsl:if>
+                    <fo:table-body start-indent="0in">
                         <xsl:apply-templates select="*[not(self::ead:head)]"/>
                     </fo:table-body>
                 </fo:table>
@@ -208,9 +213,9 @@
                 </fo:table-row>
                 <!-- Adds column headings if series/subseries is followed by an item -->
                 <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
-                    <fo:table-row border-top="1px solid #000" border-bottom="1pt solid #000" margin-top="3pt">
+                    <fo:table-row border-top="1px solid #000" border-bottom="1pt solid #000" margin-top="3pt" keep-with-next="always">
                         <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="4">
-                            <fo:block text-align="center" xsl:use-attribute-sets="h4">
+                            <fo:block role="H4" text-align="center" xsl:use-attribute-sets="h4">
                                 File / item list
                             </fo:block>
                         </fo:table-cell>
@@ -219,10 +224,13 @@
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-                <fo:table-row border-top="1px solid #000" padding-left="2pt" margin-left="2pt">
+                <fo:table-row border-top="1px solid #000" padding-left="2pt" margin-left="2pt" keep-with-next="always" keep-together.within-page="always">
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="ead:did/ead:unitid"/>
+                            <!-- To prevent long inventory numbers from bleeding across columns, add zero-width space characters to allow text wrap after hyphens -->
+                            <xsl:for-each select="ead:did/ead:unitid">
+                                <xsl:value-of select="replace(.,'-','-&#x200b;')"/>
+                            </xsl:for-each>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
@@ -241,7 +249,7 @@
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
-                <fo:table-row padding-left="2pt" margin-left="2pt">
+                <fo:table-row padding-left="2pt" margin-left="2pt" keep-together.within-page="always">
                     <fo:table-cell/>
                     <fo:table-cell number-columns-spanned="3">
                         <fo:block margin-top="6pt">
@@ -259,7 +267,7 @@
     </xsl:template>
     <!-- Named template to generate table headers -->
     <xsl:template name="tableHeaders">
-        <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt">
+        <fo:table-row background-color="#f7f7f9" padding-left="2pt" margin-left="2pt" role="TH" keep-with-next="always">
             <fo:table-cell>
                 <fo:block>Reference code</fo:block>
             </fo:table-cell>

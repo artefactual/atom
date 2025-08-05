@@ -18,7 +18,7 @@
  */
 
 /*
- * Modify database for caption/subtitle/chapter support.
+ * Add new setting for enabling institutional scoping.
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -28,18 +28,41 @@ class arMigration0194
     public const VERSION = 194;
     public const MIN_MILESTONE = 2;
 
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
     public function up($configuration)
     {
-        if (null === QubitSetting::getByName('accession')) {
-            $setting = new QubitSetting();
-            $setting->name = 'accession';
-            $setting->scope = 'ui_label';
-            $setting->editable = 1;
-            $setting->deleteable = 0;
-            $setting->source_culture = 'en';
-            $setting->setValue('Accession', ['culture' => 'en']);
-            $setting->save();
-        }
+        $setting = new QubitSetting();
+        $setting->name = 'descriptioncount';
+        $setting->scope = 'ui_label';
+        $setting->editable = 1;
+        $setting->deleteable = 0;
+        $setting->source_culture = 'en';
+        $setting->setValue('Archival description count:&nbsp;', ['culture' => 'en']);
+        $setting->save();
+
+        $setting = new QubitSetting();
+        $setting->name = 'authorityrecordcount';
+        $setting->scope = 'ui_label';
+        $setting->editable = 1;
+        $setting->deleteable = 0;
+        $setting->source_culture = 'en';
+        $setting->setValue('Authority record count:&nbsp;', ['culture' => 'en']);
+        $setting->save();
+
+        $setting = new QubitSetting();
+        $setting->name = 'repositorycount';
+        $setting->scope = 'ui_label';
+        $setting->editable = 1;
+        $setting->deleteable = 0;
+        $setting->source_culture = 'en';
+        $setting->setValue('Archival institution count:&nbsp;', ['culture' => 'en']);
+        $setting->save();
 
         return true;
     }

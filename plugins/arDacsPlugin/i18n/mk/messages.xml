@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-06-26T17:40:38Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-07-28T20:03:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -20,37 +20,13 @@
         <source>Biographical history</source>
         <target>Биографски историјат</target>
       </trans-unit>
-      <trans-unit id="5">
-        <source>Identifier - This is a mandatory element.</source>
-        <target>Идентификатор - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Name and location of repository - This is a mandatory element.</source>
-        <target>Име и локација на складиштето/архивот - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Title - This is a mandatory element.</source>
-        <target>Наслов - Ова е задолжителен елемент.</target>
-      </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
         <target>Датум(и) - не се во согласност со повисоки нивоа.</target>
       </trans-unit>
-      <trans-unit id="9">
-        <source>Date(s) - This is a mandatory element.</source>
-        <target>Датум(и) - Ова е задолжителен елемент.</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Extent - This is a mandatory element.</source>
-        <target>Обем - Ова е задолжителен елемент.</target>
-      </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
         <target>За овој архивски опис, или едно од неговите повисоки нивоа, е потребен барем еден создавач.</target>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>Опсег и содржина - Ова е задолжителен елемент.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
@@ -411,6 +387,34 @@
       <trans-unit id="102">
         <source>Accession area</source>
         <target>Подрачје на пристап/влезен инвентар</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Date(s) - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Extent - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -378,7 +378,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
             case 'startDate':
             case 'endDate':
                 $this->form->setValidator($name, new sfValidatorString());
-                $this->form->setWidget($name, new sfWidgetFormInput([], ['placeholder' => 'YYYY-MM-DD']));
+                $this->form->setWidget($name, new sfWidgetFormInput([], ['placeholder' => 'YYYY-MM-DD', 'max' => '9999-12-31']));
                 $this->form->setValidator($name, new sfValidatorDate([
                     'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
                     'date_format_error' => 'YYYY-MM-DD',

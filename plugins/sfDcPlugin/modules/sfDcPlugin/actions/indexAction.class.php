@@ -43,7 +43,7 @@ class sfDcPluginIndexAction extends InformationObjectIndexAction
             $validatorSchema->identifier = new sfValidatorString(
                 ['required' => true],
                 ['required' => $this->context->i18n->__(
-                    '%1%Identifier%2% - This is a mandatory element.',
+                    '%1%Identifier%2% - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.</span>',
                     [
                         '%1%' => '<a class="alert-link" href="http://dublincore.org/documents/dcmi-terms/#elements-identifier">',
                         '%2%' => '</a>',
@@ -55,7 +55,7 @@ class sfDcPluginIndexAction extends InformationObjectIndexAction
             $validatorSchema->title = new sfValidatorString(
                 ['required' => true],
                 ['required' => $this->context->i18n->__(
-                    '%1%Title%2% - This is a mandatory element.',
+                    '%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.').'"<span>*</span><span class="visually-hidden">'.$this->context->i18n->__('This field is marked as mandatory in the relevant descriptive standard.</span>',
                     [
                         '%1%' => '<a class="alert-link" href="http://dublincore.org/documents/dcmi-terms/#elements-title">',
                         '%2%' => '</a>',

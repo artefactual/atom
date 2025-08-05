@@ -60,6 +60,7 @@ class RightEditAction extends sfAction
     {
         $widget = new sfWidgetFormInput();
         $widget->setAttribute('type', 'date');
+        $widget->setAttribute('max', '9999-12-31');
 
         return $widget;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:52Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -174,7 +174,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>The username or e-mail address you entered is already in use</source>
-        <target>اسم المستخدم أو عنوان البريد الإلكتروني الذي أدخلته قيد الاستخدام بالفعل</target>
+        <target>اسم المستخدم أو عنوان البريد الإلكتروني الذي أدخلته مُستخدم بالفعل</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Add new</source>
@@ -186,7 +186,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Log in with SSO</source>
-        <target/>
+        <target>تسجيل الدخول عبر SSO (تسجيل الدخول الموحد)</target>
       </trans-unit>
     </body>
   </file>

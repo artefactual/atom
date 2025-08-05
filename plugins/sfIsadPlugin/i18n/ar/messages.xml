@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-06-26T17:41:49Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2025-07-28T20:04:38Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>التاريخ الإداري / السيرة الذاتية</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
@@ -22,23 +22,23 @@
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
-        <target/>
+        <target>هذا الوصف الأرشيفي أو أحد مستوياته الوصفية العُليا، %1% يتطلب %2% تواجد %3% مُنشئ واحد على أقل تقدير %4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1%التاريخ (التواريخ)%2% - لا تتماشى مع %3%المستويات الأعلى%2%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%التاريخ (التواريخ)%2% - هذا %3%إلزامي%4% حقل.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%المدى والوسيط%2% - هذا %3%إلزامي%4% عنصر.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%المُعرِّف%2% - هذا%3%إلزامي%4% عنصر.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
@@ -50,11 +50,11 @@
       </trans-unit>
       <trans-unit id="12">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%العنوان%2% - هذا %3%إلزامي%4% عنصر.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>وصف أرشيفي جديد</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>هُناك تسجيلة مُكررة %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
-        <target/>
+        <target>قدِّم رمزًا مرجعيًا محليًا محددًا، أو رقم ضبط، أو أي مُعرّف فريد آخر. سيتم تلقائيًا إضافة رمز الدولة والمستودع من التسجيلة المُرتبطة بالمستودع لتكوين رمز مرجعي كامل. (ISAD 3.1.1)</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Identifier</source>
@@ -102,15 +102,15 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
-        <target/>
+        <target>قدِّم عنوانًا رسميًا أو عنوانًا موجزًا مُعدًّا وفقًا لقواعد الوصف متعدد المستويات والتقاليد الوطنية. (ISAD 3.1.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>"حدد وسجل تاريخ (تواريخ) وحدة الوصف. حدد نوع التاريخ المقدم. سجل كتاريخ واحد أو نطاق من التواريخ حسب الاقتضاء." (ISAD 3.1.3). يمكن استخدام حقل عرض التاريخ لإدخال معلومات التاريخ بالنص الحر ، بما في ذلك العلامات المطبعية للتعبير عن التقريب أو عدم التأكد من التاريخ. استخدم حقلي البداية والنهاية لجعل التواريخ قابلة للبحث. لا تستخدم الأشكال أو الرموز المطبعية للتعبير عن عدم التأكد من التاريخ. تنسيقات التاريخ المقبولة: YYYYMMDD ، YYYY-MM-DD ، YYYY-MM ، YYYY.</target>
+        <target>"حدد وسَجِّل تاريخ (تواريخ) وحدة الوصف. حدد نوع التاريخ المقدم. سَجِّل كتاريخ واحد أو نطاق من التواريخ حسب الاقتضاء." (ISAD 3.1.3). يمكن استخدام حقل عرض التاريخ لإدخال معلومات التاريخ بالنص الحر ، بما في ذلك العلامات المطبعية للتعبير عن التقريب أو عدم التأكد من التاريخ. استخدم حقلي البداية والنهاية لجعل التواريخ قابلة للبحث. لا تستخدم الأشكال أو الرموز المطبعية للتعبير عن عدم التأكد من التاريخ. تنسيقات التاريخ المقبولة: YYYYMMDD ، YYYY-MM-DD ، YYYY-MM ، YYYY.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
-        <target/>
+        <target>سَجِّل مستوى وحدة الوصف. (ISAD 3.1.4)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Level of description</source>
@@ -118,11 +118,11 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>المُعرِّف: أدرج رمزًا مرجعيًا محليًا محددًا، أو رقم ضبط، أو أي مُعرِّف فريد آخر. مستوى الوصف: سجِّل مستوى هذه الوحدة الوصفية. العنوان: أدرج عنوانًا رسميًا إن وُجد، أو عنوانًا موجزًا مُنشأً، وذلك وفقًا لقواعد الوصف الهرمي والمعايير الوطنية المُعتمدة.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
-        <target/>
+        <target>سَجِّل مدى وحدة الوصف بذكر عدد الوحدات المادية أو المنطقية بالأرقام العربية ووحدة القياس. اذكر الوسيط المحدد لوحدة الوصف. في حال وجود أكثر من مدى، افصل بينها بسطر جديد. (ISAD 3.1.5)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Extent and medium</source>
@@ -134,27 +134,27 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>اسم المُنشئ / المُنشئون</target>
       </trans-unit>
       <trans-unit id="34">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>هذا الوصف الأرشيفي، أو أحد مستوياته الوصفية العُليا، يتطلب وجود منشئ واحد على أقل تقدير.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
-        <target/>
+        <target>سَجِّل اسم المنظمة أو الأفراد المسؤولين عن إنشاء وتراكم وصيانة التسجيلات في وحدة الوصف. ابحث عن اسم موجود في ملف الهيئات المرجعية بكتابة الأحرف الأولى من الاسم. أو بدلاً من ذلك، اكتب اسمًا جديدًا لإنشاء تسجيلة هيئة مرجعية جديد وربطها بوحدة الوصف. (ISAD 3.2.1)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>سَجِّل اسم المؤسسة التي تحتفظ بالمواد الأرشيفية. ابحث عن اسم موجود في تسجيلات المؤسسات الأرشيفية بكتابة الأحرف الأولى من الاسم. أو بدلاً من ذلك، اكتب اسمًا جديدًا لإنشاء تسجيلة جديدة لمؤسسة أرشيفية.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
-        <target/>
+        <target>سَجِّل التحويلات المُتعاقبة في الملكية أو المسؤولية و/أو الحيازة لوحدة الوصف، وبيّن تلك الإجراءات، مثل تاريخ الترتيب، إنتاج أدوات إيجاد مُعاصرة، إعادة استخدام التسجيلات لأغراض أخرى، أو ترحيلها بين البرمجيات، والتي ساهمت في تشكيلها وترتيبها الحالي. اذكر تواريخ هذه الإجراءات ما أمكن التحقق منها. إذا كانت التاريخ الأرشيفي غير معروف، فقم بتوثيق ذلك. (ISAD 3.2.3)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
-        <target/>
+        <target>سَجِّل المصدر الذي تم منه اقتناء وحدة الوصف، بالإضافة إلى التاريخ و/أو طريقة الاقتناء، إذا لم تكن هذه المعلومات سرّية. إذا كان المصدر غير معروف، فقم بتوثيق ذلك. وبشكل اختياري، يمكن إضافة أرقام أو رموز الإضافة الأرشيفية. (ISAD 3.2.4)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Immediate source of acquisition or transfer</source>
@@ -166,27 +166,27 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>قدّم ملخصًا لنطاق الوحدة محل الوصف (مثل الفترات الزمنية، والمواقع الجغرافية) ومحتواها (مثل نماذج التوثيق أو الأشكال الوثائقية، والموضوعات، والإجراءات الإدارية)، وذلك بما يتناسب مع مستوى الوصف. (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>سجِّل إجراءات التقييم، والإتلاف، والجدولة التي تم اتخاذها أو المُخطط لها بشأن وحدة الوصف، خاصةً إذا كانت قد تؤثر على تفسير المحتوى. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>التقييم، الإتلاف، والجدولة الزمنية (مُدد الاستبقاء)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>اشر ما إذا كانت هناك إضافات لاحقة متوقعة. وعند الاقتضاء، قدم تقديرًا لكمّيتها وبيانً لتواترها. (ISAD 3.3.3)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
-        <target/>
+        <target>حدّد البنية الداخلية، والترتيب، و/أو نظام التصنيف الخاص بوحدة الوصف. أشر إلى كيفية معالجة هذه الجوانب من قِبل الأرشيفي. وفي حالة الوثائق الرقمية، سجّل أو أدرج مرجعًا للمعلومات التي تتعلق بتصميم النظام. (ISAD 3.3.4)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>System of arrangement</source>
-        <target/>
+        <target>نظام الترتيب</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Conditions of access and use area</source>
@@ -194,43 +194,43 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
-        <target/>
+        <target>حدِّد القانون أو الوضع القانوني أو اللائحة أو السياسة التي تؤثر على إمكانية الوصول إلى وحدة الوصف. بيِّن مدة فترة الإغلاق وتاريخ فتح المادة، إن وُجد. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>قدّم معلومات حول الشروط التي تحكم استنساخ وحدة الوصف بعد إتاحة الوصول إليها، مثل حقوق النشر. إذا كانت هذه الشروط غير معروفة، فقم بتوثيق ذلك. أما إذا لم تكن هناك شروط، فلا حاجة لإدراج أي بيان. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>شروط النسخ المسموح بها</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>سَجِّل اللغة أو اللغات التي تتكوّن منها وحدة الوصف. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Language of material</source>
-        <target/>
+        <target>لغة المادة الأرشيفية</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>سَجِّل نوع أو أنواع الخطوط المُستخدمة في المواد المكوّنة لوحدة الوصف. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Script of material</source>
-        <target/>
+        <target>نص المادة</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>سجّل أي أبجديات مُميزة، أو أنظمة كتابة، أو نظم رموز، أو اختصارات مُستخدمة. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Language and script notes</source>
-        <target/>
+        <target>ملاحظات حول اللغة والنص/الخط</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
+        <target>حدد أي حالات مادية هامة، مثل متطلبات الحفظ، التي تؤثر على استخدام وحدة الوصف. قم بتدوين أي برامج و/أو أجهزة مطلوبة للوصول إلى وحدة الوصف.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Physical characteristics and technical requirements</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>قدّم معلومات حول أي أدوات إيجاد قد تكون متوفرة لدى مستودع الحفظ أو الجهة المُنشئة، والتي توفّر معلومات تتعلق بسياق ومحتوى وحدة الوصف. وعند الاقتضاء، أدرج معلومات حول كيفية الحصول على نسخة من تلك الأدوات. (ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Allied materials area</source>
@@ -246,27 +246,27 @@
       </trans-unit>
       <trans-unit id="61">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
-        <target/>
+        <target>إذا كانت النسخة الأصلية لوحدة الوصف متوفرة (في المؤسسة أو في مكان آخر)، فقم بتسجيل موقعها مع ذكر أي أرقام تحكم مهمة مرتبطة بها. وإذا لم تعد النسخ الأصلية موجودة، أو كان موقعها غير معروف، فقم بتوثيق هذه المعلومات. (ISAD 3.5.1)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>وجود وموقع النُسخ الأصلية</target>
       </trans-unit>
       <trans-unit id="63">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target/>
+        <target>إذا كانت نسخة من وحدة الوصف متوفرة (في المؤسسة أو في مكان آخر)، فقم بتسجيل موقعها، مع ذكر أي أرقام تحكم مهمة مرتبطة بها. (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>وجود وموقع النُسخ</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target/>
+        <target>سَجِّل معلومات حول وحدات الوصف الموجودة في نفس الجهة الحافظة أو في أماكن أخرى، والتي ترتبط بوحدة الوصف المعنية إما من حيث المصدر أو المنشأ (provenance) أو من خلال روابط أخرى. استخدم صياغة تمهيدية مناسبة، وبيّن طبيعة العلاقة بين الوحدتين. إذا كانت وحدة الوصف المرتبطة هي أداة الإيجاد (Finding Aid)، فقم باستخدام عنصر الوصف الخاص بأدوات الإيجاد (3.4.5) للإشارة إليها. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Related units of description</source>
-        <target/>
+        <target>وحدات الوصف ذات العلاقة</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related descriptions</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>لإنشاء علاقة بين هذا الوصف ووصف آخر محفوظ في نظام AtoM، ابدأ بكتابة اسم الوصف المُرتبط واختره من القائمة المُنسدلة التلقائية عند ظهوره أدناه. يمكن إنشاء علاقات مُتعددة.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Notes area</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>نقاط وصول الأسماء (المواضيع)</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Description control area</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>سجِّل مُعرّفًا فريدًا للوصف، وفقًا للمعايير المحلية و/أو الوطنية. وإذا كان من المقرر استخدام الوصف دوليًا، فقم بتسجيل رمز الدولة التي تم فيها إنشاء الوصف، وذلك وفقًا لأحدث إصدار من معيار ISO 3166 - رموز تمثيل أسماء الدول. وإذا كان منشئ الوصف منظمة دولية، فقم بإدراج مُعرّف المنظمة بدلاً من رمز الدولة.</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Description identifier</source>
@@ -310,7 +310,7 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>سَجِّل الشكل الكامل المصرح به للاسم / الأسماء الخاصة بالجهة / الجهات المسؤولة عن إنشاء أو تعديل أو نشر الوصف، أو بدلاً من ذلك، سَجِّل رمزًا للجهة وفقًا للمعيار الوطني أو الدولي لأكواد الجهات.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Institution identifier</source>
@@ -318,7 +318,7 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
+        <target>سَجِّل القواعد أو الاتفاقيات الدولية أو الوطنية و/أو المحلية التي تم اتباعها في إعداد الوصف. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Rules or conventions</source>
@@ -330,11 +330,11 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>سَجِّل حالة التسجيلة الوصفية، مع الإشارة إلى ما إذا كان مسودة، أو مُنتهية، أو مُعدلة، أو محذوفة.</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>سَجِّل ما إذا كان الوصف يتكوَّن من مستوى تفصيل أدنى، جزئي، أو كامل، وذلك وفقًا للإرشادات و/أو القواعد الدولية و/أو الوطنية المعتمدة.</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Level of detail</source>
@@ -342,7 +342,7 @@
       </trans-unit>
       <trans-unit id="85">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>سَجِّل التاريخ أو التواريخ التي تم فيها إعداد المدخل و/أو تعديله.</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Dates of creation, revision and deletion</source>
@@ -350,7 +350,7 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>اشر إلى اللغة أو اللغات التي استُخدمت في إعداد وصف المادة الأرشيفية.</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Language(s)</source>
@@ -358,7 +358,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>حدّد وسجّل تاريخ (أو تواريخ) وحدة الوصف. عيّن نوع التاريخ المُدخل. سجِّل التاريخ كتاريخ واحد أو كمدى زمني حسب ما يَقتضيه السياق. يمكن استخدام حقل "عرض التاريخ" لإدخال معلومات التاريخ كنص حر، بما في ذلك العلامات الطباعية للتعبير عن أن التاريخ تقريبي أو عدم التأكد أو التوضيح. استخدم حقلي البداية والنهاية لجعل التواريخ قابلة للبحث. لا تستخدم أي علامات أو رموز طباعية للتعبير عن عدم التأكد من التاريخ. صِيَغ التواريخ المقبولة هي: YYYYMMDD، YYYY-MM-DD، YYYY-MM، YYYY.</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Script(s)</source>
@@ -366,7 +366,7 @@
       </trans-unit>
       <trans-unit id="91">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>سجِّل الاستشهادات بأي مصادر خارجية تم استخدامها في الوصف الأرشيفي (مثل مجالي النطاق والمحتوى، التاريخ الأرشيفي، أو حقول الملاحظات).</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
@@ -374,15 +374,15 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Edit identity area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الهوية</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit context area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات السياق</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
-        <target/>
+        <target>وظيفة ذات علاقة</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Repository</source>
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات المحتوى والبنية</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
@@ -402,27 +402,27 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Accruals</source>
-        <target/>
+        <target>إضافات لاحقة</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات شروط الوصول والاستخدام</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Finding aids</source>
-        <target/>
+        <target>أدوات الإيجاد</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>تحرير نطاق حقول المواد ذات العلاقة</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Publication note</source>
-        <target/>
+        <target>ملاحظة النشر</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Edit notes area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات الملاحظات</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Note</source>
@@ -430,31 +430,31 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access points</source>
-        <target/>
+        <target>أضف نقاط وصول للإتاحة</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Edit description control area</source>
-        <target/>
+        <target>تحرير نطاق حقول بيانات ضبط التسجيلة الوصفية</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>القواعد و/أو الاتفاقيات المستخدمة</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>تواريخ الإنشاء والتعديل والحذف</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Archivist's note</source>
-        <target/>
+        <target>ملاحظة الأرشيفي</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Rights area</source>
-        <target/>
+        <target>نطاق حقول بيانات الحقوق</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Accession area</source>
-        <target/>
+        <target>نطاق حقول الإضافة الأرشيفية</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Type</source>

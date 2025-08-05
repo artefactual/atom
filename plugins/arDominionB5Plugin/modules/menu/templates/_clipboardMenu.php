@@ -38,11 +38,11 @@
     <li class="text-muted text-nowrap px-3 pb-2">
       <span
         id="counts-block"
-        data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject'); ?>"
-        data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor'); ?>"
-        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository'); ?>"
+        data-information-object-label="<?php echo sfConfig::get('app_ui_label_descriptioncount'); ?>"
+        data-actor-object-label="<?php echo sfConfig::get('app_ui_label_authorityrecordcount'); ?>"
+        data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repositorycount'); ?>"
         <?php if ($sf_user->hasCredential(['contributor', 'editor', 'administrator'], false)) { ?>
-          data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accession'); ?>"
+          data-accession-object-label="<?php echo sfConfig::get('app_ui_label_accessioncount'); ?>"
           data-show-accessions="1"
         <?php } else { ?>
           data-show-accessions="0"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2025-06-26T17:41:16Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2025-07-28T20:04:05Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -20,36 +20,12 @@
         <source>Biographical history</source>
         <target/>
       </trans-unit>
-      <trans-unit id="5">
-        <source>Identifier - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Title - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="9">
-        <source>Date(s) - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Extent - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Scope and content - This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="13">
@@ -410,6 +386,34 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Identifier - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Name and location of repository - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Date(s) - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Extent - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

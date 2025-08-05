@@ -513,7 +513,7 @@ EOL;
 
         // Use FO file generated in previous step to generate finding aid
         $cmd = sprintf(
-            "fop -r -q -fo '%s' -%s '%s' 2>&1",
+            "fop -r -q -a -fo '%s' -%s '%s' 2>&1",
             $foFilePath, $this->getFormat(),
             $findingAidPath
         );

@@ -41,7 +41,9 @@ class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
             isset($validatorSchema[$name])
             && $validatorSchema[$name]->getOption('required')
         ) {
-            $label .= '<span aria-hidden="true" class="text-primary ms-1">'
+            $label .= '<span aria-hidden="true" class="text-primary ms-1" title="'
+                .__('This field is required.')
+                .'">'
                 .'<strong>*</strong></span>'
                 .'<span class="visually-hidden">'
                 .__('This field is required.')

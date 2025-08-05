@@ -46,3 +46,7 @@ cypress/downloads
 cypress/screenshots
 cypress/videos
 cypress.env.json
+
+# IDE-specific files
+.vscode/
+*.code-workspace

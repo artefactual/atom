@@ -1,6 +1,7 @@
 <h3 class="fs-6 mb-2">
   <?php echo __('Date(s)'); ?>
-  <span class="form-required" title="<?php echo __('This is a mandatory element.'); ?>">*</span>
+  <span class="form-required" title="<?php echo __('This field is marked as mandatory in the relevant descriptive standard.'); ?>">*</span>
+  <span class="visually-hidden"><?php echo __('This field is marked as mandatory in the relevant descriptive standard.'); ?></span>
 </h3>
 
 <div class="table-responsive mb-2">

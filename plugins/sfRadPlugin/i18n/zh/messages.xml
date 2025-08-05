@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2025-06-26T17:41:11Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2025-07-28T20:04:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -28,21 +28,9 @@
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
         <target>日期 - 与 %1%更高层级%2%不一致.</target>
       </trans-unit>
-      <trans-unit id="7">
-        <source>Physical description - This is a mandatory element.</source>
-        <target>物理描述-必填.</target>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Title - This is a mandatory element.</source>
-        <target>标题-必填.</target>
-      </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
         <target>描述层级-值 "%value%" 与更高层级不一致. </target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Level of description - This is a mandatory element.</source>
-        <target>著录层级-必填</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
@@ -63,10 +51,6 @@
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target>发行(邮票)管辖权和面值-对邮票记录, 该项必填.</target>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Scope and content - This is a mandatory element.</source>
-        <target>范围和内容-必填.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
@@ -663,6 +647,26 @@
       <trans-unit id="165">
         <source>Accession area</source>
         <target>登记版块</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Physical description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Title - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Level of description - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

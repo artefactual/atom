@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ta" datatype="plaintext" original="messages" date="2025-06-26T17:41:47Z" product-name="messages">
+  <file source-language="en" target-language="ta" datatype="plaintext" original="messages" date="2025-07-28T20:04:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
         <target>தலைப்பற்றது</target>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>%1%Title%2% - This is a mandatory element.</source>
-        <target/>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
@@ -198,6 +190,18 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>%1%Identifier%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>This field is marked as mandatory in the relevant descriptive standard.&lt;/span&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

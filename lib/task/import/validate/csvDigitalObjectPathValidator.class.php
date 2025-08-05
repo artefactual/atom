@@ -199,7 +199,8 @@ class CsvDigitalObjectPathValidator extends CsvBaseValidator
         $missingDigitalObjects = [];
 
         foreach ($this->digitalObjectUseCountList as $file => $uses) {
-            if (!file_exists($this->pathToDigitalObjects.'/'.$file)) {
+            empty($this->pathToDigitalObjects) ? $filePath = $file : $filePath = $this->pathToDigitalObjects.'/'.$file;
+            if (!file_exists($filePath)) {
                 array_push($missingDigitalObjects, $file);
             }
         }

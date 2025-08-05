@@ -3,15 +3,16 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:      2.1.1                                             *
+        * VERSION:      2.1.2                                             *
         *                                                                 *
         * AUTHOR:       Winona Salesky                                    *
         *               wsalesky@gmail.com                                *
         *                                                                 *
         * MODIFIED BY:  mikeg@artefactual.com                             *
         *               david@artefactual.com                             *
+        *               thomas@tgconsulting.ca                            *
         *                                                                 *
-        * DATE:         2022-06-07                                        *
+        * DATE:         2024-04-10                                        *
         *                                                                 *
         *******************************************************************
     -->
@@ -23,8 +24,10 @@
     <!-- Institution logo on title page -->
     <xsl:template name="logo">
         <fo:block xsl:use-attribute-sets="h1">
-            <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
-            <xsl:text> </xsl:text>
+            <fo:wrapper role="artifact">
+                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <xsl:text> </xsl:text>
+            </fo:wrapper>
             <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
         </fo:block>
     </xsl:template>
@@ -98,7 +101,7 @@
     <!-- Collection Inventory (dsc) templates -->
     <xsl:template match="ead:archdesc/ead:dsc">
         <fo:block xsl:use-attribute-sets="sectionTable" margin-top="10pt">
-            <fo:block xsl:use-attribute-sets="h2ID">Collection holdings</fo:block>
+            <fo:block role="H2" xsl:use-attribute-sets="h2ID">Collection holdings</fo:block>
             <xsl:apply-templates select="*[not(self::ead:head)]"/>
         </fo:block>
     </xsl:template>
@@ -116,7 +119,7 @@
     <!--This is a named template that processes all the components -->
     <xsl:template name="clevel">
         <xsl:param name="level"/>
-        <fo:block border-bottom="1pt dotted #333">
+        <fo:block border-bottom="1pt dotted #333" keep-together.within-page="always">
             <fo:block margin-left="{($level - 1)*16+4}pt" font-size="10pt" text-align="left">
                 <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
                 <xsl:apply-templates select="ead:did" mode="dscSeries"/>
@@ -166,7 +169,7 @@
     </xsl:template>
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">
-        <fo:block font-weight="bold" font-size="14" margin-bottom="5pt" margin-top="20pt" id="{local:buildID(parent::*)}">
+        <fo:block role="H3" font-weight="bold" font-size="14" margin-bottom="5pt" margin-top="20pt" id="{local:buildID(parent::*)}">
             <xsl:choose>
                 <xsl:when test="../@level='series'">Series: </xsl:when>
                 <xsl:when test="../@level='subseries'">Subseries: </xsl:when>
