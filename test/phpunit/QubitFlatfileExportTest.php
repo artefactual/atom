@@ -82,8 +82,8 @@ class QubitFlatfileExportTest extends TestCase
                     array_push($indices, $index);
                 }
 
-                $nonVisibleElementsIncludedProperty = $reflection->getProperty('nonVisibleElementsIndexes');
-                $nonVisibleElementsIncludedProperty->setValue($exporter, $indices);
+                $nonVisibleElementsIndexesProperty = $reflection->getProperty('nonVisibleElementsIndexes');
+                $nonVisibleElementsIndexesProperty->setValue($exporter, $indices);
             });
 
         $exporter->setParams([
