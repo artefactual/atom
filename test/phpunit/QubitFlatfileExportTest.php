@@ -43,19 +43,27 @@ class QubitFlatfileExportTest extends TestCase
         $exporter->method('loadResourceSpecificConfiguration')
             ->willReturnCallback(function () use ($exporter, $columnNames) {
                 // Simulate what loadResourceSpecificConfiguration does
+
+                $mockUser = $this->getMockBuilder(stdClass::class)
+                    ->addMethods(['isAuthenticated'])
+                    ->getMock();
+
+                $mockUser->method('isAuthenticated')
+                    ->willReturn(true);
+
                 $exporter->columnNames = $columnNames;
                 $exporter->standardColumns = $columnNames;
                 $exporter->totalColumnsIncludingHidden = count($columnNames);
                 $exporter->columnMap = [];
                 $exporter->propertyMap = [];
+                $exporter->user = $mockUser;
 
+                // Need to use reflection to change protected members
                 $reflection = new ReflectionClass($exporter);
 
                 $configurationLoadedProperty = $reflection->getProperty('configurationLoaded');
                 $configurationLoadedProperty->setValue($exporter, true);
 
-                // Initialize row array like the real method does
-                // Need to use reflection because row is protected
                 $rowProperty = $reflection->getProperty('row');
                 $rowProperty->setAccessible(true);
                 $rowProperty->setValue($exporter, array_fill(0, count($exporter->columnNames), null));
