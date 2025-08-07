@@ -245,7 +245,7 @@ class QubitFlatfileExportTest extends TestCase
         $csvContent = file_get_contents($csvFile);
         $rows = str_getcsv($csvContent, "\n");
 
-        // Should have two rows (one header, one data row)
+        // Should have four rows (one header, three data rows)
         $this->assertCount(4, $rows);
 
         $headerData = str_getcsv($rows[0]);
@@ -286,7 +286,7 @@ class QubitFlatfileExportTest extends TestCase
         $csvContent = file_get_contents($csvFile);
         $rows = str_getcsv($csvContent, "\n");
 
-        // Should have two rows (one header, one data row)
+        // Should have four rows (one header, three data rows)
         $this->assertCount(4, $rows);
 
         $headerData = str_getcsv($rows[0]);
