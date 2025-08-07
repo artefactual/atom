@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 196
+    value: 197
   milestone:
     name: milestone
     editable: 0
@@ -1047,6 +1047,10 @@ QubitSetting:
     source_culture: en
     value:
       en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
+  QubitSetting_googleAnalytics:
+    name: google_analytics
+    editable: 1
+    value: ''
   QubitSetting_headerBackgroundColour:
     name: header_background_colour
     editable: 1

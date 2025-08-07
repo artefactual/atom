@@ -129,6 +129,10 @@ class SettingsMenuComponent extends sfComponent
                 'label' => $i18n->__('User interface labels'),
                 'action' => 'interfaceLabel',
             ],
+            [
+                'label' => $i18n->__('Web analytics'),
+                'action' => 'analytics',
+            ],
         ];
 
         foreach ($this->nodes as $i => &$node) {
