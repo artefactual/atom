@@ -184,7 +184,42 @@ class QubitFlatfileExportTest extends TestCase
         $this->assertEquals(['1|2|3', 'u|v|w', 'C'], $rowData);
     }
 
-    public function testExportSingleResourceHiddenCols(): void
+    public function testExportSingleResourceOneHiddenCol(): void
+    {
+        $csvFile = $this->vfs->url().'/output.csv';
+
+        // Hide colA
+        $mockExporter = $this->createMockExporter(
+            outputPath: $csvFile,
+            columnNames: ['colA', 'colB', 'colC', 'colD'],
+            hiddenColumns: ['colA'],
+        );
+
+        $mockResource = $this->createMockResource(properties: [
+            'colA' => 'A',
+            'colB' => 'B',
+            'colC' => 'C',
+            'colD' => 'D',
+        ]);
+
+        $mockExporter->exportResource($mockResource);
+
+        $this->assertTrue(file_exists($csvFile));
+
+        $csvContent = file_get_contents($csvFile);
+        $rows = str_getcsv($csvContent, "\n");
+
+        // Should have two rows (one header, one data row)
+        $this->assertCount(2, $rows);
+
+        $headerData = str_getcsv($rows[0]);
+        $rowData = str_getcsv($rows[1]);
+
+        $this->assertEquals(['colB', 'colC', 'colD'], $headerData);
+        $this->assertEquals(['B', 'C', 'D'], $rowData);
+    }
+
+    public function testExportSingleResourceMultipleHiddenCols(): void
     {
         $csvFile = $this->vfs->url().'/output.csv';
 
@@ -259,7 +294,7 @@ class QubitFlatfileExportTest extends TestCase
         $this->assertEquals(['A3', 'B3', 'C3'], $rowData3);
     }
 
-    public function testExportMultipleResourcesHiddenCols(): void
+    public function testExportMultipleResourcesOneHiddenCol(): void
     {
         $csvFile = $this->vfs->url().'/output.csv';
 
@@ -298,5 +333,47 @@ class QubitFlatfileExportTest extends TestCase
         $this->assertEquals(['B1', 'C1'], $rowData1);
         $this->assertEquals(['B2', 'C2'], $rowData2);
         $this->assertEquals(['B3', 'C3'], $rowData3);
+    }
+
+    public function testExportMultipleResourcesMultipleHiddenCols(): void
+    {
+        $csvFile = $this->vfs->url().'/output.csv';
+
+        // Hide colB, colD
+        $mockExporter = $this->createMockExporter(
+            outputPath: $csvFile,
+            columnNames: ['colA', 'colB', 'colC', 'colD'],
+            hiddenColumns: ['colB', 'colD'],
+        );
+
+        // Create and export 3 resources
+        foreach (range(1, 3) as $i) {
+            $mockResource = $this->createMockResource([
+                'colA' => "A{$i}",
+                'colB' => "B{$i}",
+                'colC' => "C{$i}",
+                'colD' => "D{$i}",
+            ]);
+
+            $mockExporter->exportResource($mockResource);
+        }
+
+        $this->assertTrue(file_exists($csvFile));
+
+        $csvContent = file_get_contents($csvFile);
+        $rows = str_getcsv($csvContent, "\n");
+
+        // Should have four rows (one header, three data rows)
+        $this->assertCount(4, $rows);
+
+        $headerData = str_getcsv($rows[0]);
+        $rowData1 = str_getcsv($rows[1]);
+        $rowData2 = str_getcsv($rows[2]);
+        $rowData3 = str_getcsv($rows[3]);
+
+        $this->assertEquals(['colA', 'colC'], $headerData);
+        $this->assertEquals(['A1', 'C1'], $rowData1);
+        $this->assertEquals(['A2', 'C2'], $rowData2);
+        $this->assertEquals(['A3', 'C3'], $rowData3);
     }
 }
