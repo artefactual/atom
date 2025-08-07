@@ -92,6 +92,11 @@ class QubitInformationObjectTest extends TestCase
         ];
     }
 
+    /**
+     * Runs a function within a transaction.
+     *
+     * @param mixed $callback the function to run in the transaction
+     */
     private function withTransaction($callback)
     {
         try {
