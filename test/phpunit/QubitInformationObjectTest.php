@@ -23,46 +23,48 @@ class QubitInformationObjectTest extends TestCase
      */
     public function testGetByTitleIdentifierAndRepo($identifier, $title, $repoName, $hasLinkedRepo, $expectedTitle)
     {
-        $randomString = rand(1000000, 9999999);
+        $this->withTransaction(function () use ($identifier, $title, $repoName, $hasLinkedRepo, $expectedTitle) {
+            $randomString = rand(1000000, 9999999);
 
-        $io = new QubitInformationObject();
-        $io->title = 'TestDescriptionTitle'.$randomString;
-        $io->identifier = 'TestDescriptionIdentifier'.$randomString;
+            $io = new QubitInformationObject();
+            $io->title = 'TestDescriptionTitle'.$randomString;
+            $io->identifier = 'TestDescriptionIdentifier'.$randomString;
 
-        // Set up a linked repository if needed for the test.
-        if (true === $hasLinkedRepo) {
-            $repository = new QubitRepository();
-            $repository->indexOnSave = false;
-            $repository->setAuthorizedFormOfName('TestRepository'.$randomString);
-            $repository->save();
-            $io->setRepositoryId($repository->id);
-        }
+            // Set up a linked repository if needed for the test.
+            if (true === $hasLinkedRepo) {
+                $repository = new QubitRepository();
+                $repository->indexOnSave = false;
+                $repository->setAuthorizedFormOfName('TestRepository'.$randomString);
+                $repository->save();
+                $io->setRepositoryId($repository->id);
+            }
 
-        $io->indexOnSave = false;
-        $io->save();
+            $io->indexOnSave = false;
+            $io->save();
 
-        if (null !== $repoName) {
-            $repoName .= $randomString;
-        }
+            if (null !== $repoName) {
+                $repoName .= $randomString;
+            }
 
-        $result = QubitInformationObject::getByTitleIdentifierAndRepo(
-            $identifier.$randomString,
-            $title.$randomString,
-            $repoName
-        );
+            $result = QubitInformationObject::getByTitleIdentifierAndRepo(
+                $identifier.$randomString,
+                $title.$randomString,
+                $repoName
+            );
 
-        if (null === $expectedTitle) {
-            // No match expected.
-            $this->assertNull($result, 'Expected null result when no matching record exists.');
-        } else {
-            // A match is expected.
-            $this->assertNotNull($result, 'Expected a valid integer id when data should match.');
-            $this->assertIsInt($result, 'Expected the returned id to be an integer.');
+            if (null === $expectedTitle) {
+                // No match expected.
+                $this->assertNull($result, 'Expected null result when no matching record exists.');
+            } else {
+                // A match is expected.
+                $this->assertNotNull($result, 'Expected a valid integer id when data should match.');
+                $this->assertIsInt($result, 'Expected the returned id to be an integer.');
 
-            $resultIo = QubitInformationObject::getById($result);
-            $this->assertNotNull($resultIo, 'Expected a valid information object.');
-            $this->assertEquals($expectedTitle.$randomString, $resultIo->title, 'The information object title does not match expected.');
-        }
+                $resultIo = QubitInformationObject::getById($result);
+                $this->assertNotNull($resultIo, 'Expected a valid information object.');
+                $this->assertEquals($expectedTitle.$randomString, $resultIo->title, 'The information object title does not match expected.');
+            }
+        });
     }
 
     public function dataProviderForGetByTitleIdentifierAndRepo()
@@ -88,5 +90,17 @@ class QubitInformationObjectTest extends TestCase
             // Id, title and repository specified but id not matched: matching fail.
             ['TestDescriptionIdentifierX', 'TestDescriptionTitle', 'TestRepository', true, null],
         ];
+    }
+
+    private function withTransaction($callback)
+    {
+        try {
+            $conn = Propel::getConnection();
+            $conn->beginTransaction();
+
+            return call_user_func($callback);
+        } finally {
+            $conn->rollBack();
+        }
     }
 }
