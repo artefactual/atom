@@ -93,6 +93,12 @@ EOF;
 
         // For information objects, allow optional skipping of descendants
         if ($resource instanceof QubitInformationObject) {
+            if ($options['ignore-descendants']) {
+                $this->log(sprintf('Indexing "%s"...', $options['slug']));
+            } else {
+                $this->log(sprintf('Indexing "%s" and its descendants...', $options['slug']));
+            }
+
             $options = ['updateDescendants' => !$options['ignore-descendants']];
             QubitSearch::getInstance()->update($resource, $options);
         } else {
