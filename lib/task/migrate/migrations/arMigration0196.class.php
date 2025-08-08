@@ -17,25 +17,35 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Add new setting for header colour customization.
- *
- * @package    AccesstoMemory
- * @subpackage migration
+/**
+ * Add accession label.
  */
-class arMigration0195
+class arMigration0196
 {
-    public const VERSION = 195;
+    public const VERSION = 196;
     public const MIN_MILESTONE = 2;
 
     public function up($configuration)
     {
-        // Add Header background colour settings.
-        if (null === QubitSetting::getByName('header_background_colour')) {
+        if (null === QubitSetting::getByName('accession')) {
             $setting = new QubitSetting();
-            $setting->name = 'header_background_colour';
+            $setting->name = 'accession';
+            $setting->scope = 'ui_label';
             $setting->editable = 1;
-            $setting->value = '#212529';
+            $setting->deleteable = 0;
+            $setting->source_culture = 'en';
+            $setting->setValue('Accession', ['culture' => 'en']);
+            $setting->save();
+        }
+
+        if (null === QubitSetting::getByName('accessioncount')) {
+            $setting = new QubitSetting();
+            $setting->name = 'accessioncount';
+            $setting->scope = 'ui_label';
+            $setting->editable = 1;
+            $setting->deleteable = 0;
+            $setting->source_culture = 'en';
+            $setting->setValue('Accession count:&nbsp;', ['culture' => 'en']);
             $setting->save();
         }
 

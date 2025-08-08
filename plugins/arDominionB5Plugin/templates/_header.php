@@ -3,7 +3,7 @@
     <?php echo __('Skip to main content'); ?>
   </a>
 </div>
-    
+
 <?php echo get_component('default', 'privacyMessage'); ?>
 
 <?php echo get_component('default', 'updateCheck'); ?>
@@ -14,12 +14,17 @@
   </div>
 <?php } ?>
 
-<header id="top-bar" class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
+<header id="top-bar" style="<?php echo 'background-color: '.sfConfig::get('app_header_background_colour').' !important;'; ?>" class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
   <div class="container-fluid">
     <?php if (sfConfig::get('app_toggleLogo') || sfConfig::get('app_toggleTitle')) { ?>
       <a class="navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('Home'); ?>" rel="home">
+        <?php if (file_exists(sfConfig::get('sf_web_dir').'/uploads/logo.png')) { ?>
+          <?php $logoLoc = '../../uploads'.DIRECTORY_SEPARATOR.'logo.png'; ?>
+        <?php } else { ?>
+          <?php $logoLoc = '/plugins/arDominionB5Plugin/images/logo.png'; ?>
+        <?php } ?>
         <?php if (sfConfig::get('app_toggleLogo')) { ?>
-          <?php echo image_tag('/plugins/arDominionB5Plugin/images/logo', ['alt' => __('AtoM logo'), 'class' => 'd-inline-block my-2 me-3', 'height' => '35']); ?>
+          <?php echo image_tag($logoLoc, ['alt' => __('AtoM logo'), 'class' => 'd-inline-block my-2 me-3', 'height' => '35']); ?>
         <?php } ?>
         <?php if (sfConfig::get('app_toggleTitle') && !empty(sfConfig::get('app_siteTitle'))) { ?>
           <span class="text-wrap my-1 me-3"><?php echo esc_specialchars(sfConfig::get('app_siteTitle')); ?></span>

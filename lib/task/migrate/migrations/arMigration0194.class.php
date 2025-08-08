@@ -18,7 +18,7 @@
  */
 
 /*
- * Add new setting for enabling institutional scoping.
+ * Add new UI labels for clipboard counts.
  *
  * @package    AccesstoMemory
  * @subpackage migration
