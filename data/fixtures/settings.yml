@@ -1535,3 +1535,11 @@ QubitSetting:
       ar: '&nbsp;:عدد المؤسسات الأرشيفية'
       en: 'Archival institution count:&nbsp;'
       fr: 'Nombre d''institutions archivistiques:&nbsp;'
+  QubitSettings_accessioncount:
+    name: accessioncount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Accession count:&nbsp;'
