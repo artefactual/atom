@@ -18,15 +18,13 @@
  */
 
 /**
- * Export information objects to a single CSV file.
- *
- * @author     Mike Cantelon <mike@artefactual.com>
+ * Bulk export data to CSV.
  */
-class csvExportInformationObjectsTask extends exportBulkBaseTask
+class csvExportBulkTask extends exportBulkBaseTask
 {
-    protected $namespace = 'csv';
-    protected $name = 'export';
-    protected $briefDescription = 'Export descriptions as CSV file(s)';
+    protected $namespace = 'export';
+    protected $name = 'bulk-csv';
+    protected $briefDescription = 'Bulk export multiple CSV files at once';
 
     /**
      * @see sfTask
@@ -42,6 +40,10 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
             ['isad', 'rad']
         );
 
+        if (!isset($options['single-slug'])) {
+            $this->checkPathIsWritable($arguments['path']);
+        }
+
         $configuration = ProjectConfiguration::getApplicationConfiguration(
             'qubit',
             'cli',
@@ -55,7 +57,9 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
         $itemsExported = 0;
 
         $conn = $this->getDatabaseConnection();
-        $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
+        $rows = $conn->query(
+            $this->informationObjectQuerySql($options), PDO::FETCH_ASSOC
+        );
 
         echo 'Exporting as '.strtoupper($options['standard']).".\n";
 
@@ -75,10 +79,30 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
 
             // Don't export draft descriptions with public option
             if (
-                isset($options['public']) && $options['public']
-                && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $resource->getPublicationStatus()->statusId
+                isset($options['public'])
+                && $options['public']
+                && QubitTerm::PUBLICATION_STATUS_DRAFT_ID ==
+                    $resource->getPublicationStatus()->statusId
             ) {
                 continue;
+            }
+
+            if (isset($options['single-slug'])) {
+                if (is_dir($arguments['path'])) {
+                    throw new sfException(
+                      'When using the single-slug option, path should'.
+                      ' be a file.'
+                    );
+                }
+
+                // If we're just exporting a single hierarchy of descriptions,
+                // the given path is actually the full path and filename
+                $filePath = $arguments['path'];
+            } else {
+                $filename = $this->generateSortableFilename(
+                  $resource, 'csv', $options['standard']
+                );
+                $filePath = sprintf('%s/%s', $arguments['path'], $filename);
             }
 
             $writer->exportResource($resource);
@@ -86,6 +110,10 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
             $this->indicateProgress($options['items-until-update']);
 
             ++$itemsExported;
+
+            if (0 == $itemsExported++ % 1000) {
+                Qubit::clearClassCaches();
+            }
         }
 
         echo "\nExport complete (".$itemsExported." descriptions exported).\n";
