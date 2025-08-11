@@ -25,7 +25,7 @@
 class QubitFlatfileExport
 {
     public $columnNames = [];       // ordered header column names
-    public $maxColumnIndexes = 0;     // total column indexes used for removing hidden elements
+    public $totalColumnsIncludingHidden = 0;  // total number of columns including hidden elements
     public $standardColumns = [];       // flatfile columns that are object properties
     public $columnMap = [];       // flatfile columns that map to object properties
     public $propertyMap = [];       // flatfile columns that map to Qubit properties
@@ -108,8 +108,7 @@ class QubitFlatfileExport
         }
 
         $this->columnNames = $config['columnNames'];
-        // Add 1 for referenceCode which is not part of columnNames
-        $this->maxColumnIndexes = count($this->columnNames) + 1;
+        $this->totalColumnsIncludingHidden = count($this->columnNames);
         $this->standardColumns = isset($config['direct']) ? $config['direct'] : [];
         $this->columnMap = isset($config['map']) ? $config['map'] : [];
         $this->propertyMap = isset($config['property']) ? $config['property'] : [];
@@ -311,18 +310,17 @@ class QubitFlatfileExport
         }
 
         // Write row to file and initialize row
-        if (!empty($this->nonVisibleElementsIncluded)) {
-            $totalRows = $this->maxColumnIndexes - count($this->nonVisibleElementsIncluded);
-            if (count($this->row) > $totalRows) {
-                sort($this->nonVisibleElementsIndexes);
-                foreach ($this->nonVisibleElementsIndexes as $index) {
+        if (!empty($this->nonVisibleElementsIndexes)) {
+            sort($this->nonVisibleElementsIndexes);
+            foreach ($this->nonVisibleElementsIndexes as $index) {
+                if (array_key_exists($index, $this->row)) {
                     unset($this->row[$index]);
                 }
             }
         }
 
         $this->appendRowToCsvFile($filePath, $this->row);
-        $this->row = array_fill(0, count($this->columnNames), null);
+        $this->row = array_fill(0, $this->totalColumnsIncludingHidden, null);
         ++$this->rowsExported;
     }
 
