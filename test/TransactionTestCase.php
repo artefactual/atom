@@ -4,10 +4,13 @@ namespace AccessToMemory\test;
 
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * Custom test case class for tests that modify the database. Runs all tests in a
  * separate transaction.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
 class TransactionTestCase extends TestCase
 {
