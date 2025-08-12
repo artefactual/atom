@@ -14,7 +14,15 @@
   </div>
 <?php } ?>
 
-<header id="top-bar" style="<?php echo 'background-color: '.sfConfig::get('app_header_background_colour').' !important;'; ?>" class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
+<?php $bgColor = sfConfig::get('app_header_background_colour'); ?>
+<?php if (!empty($bgColor)) { ?>
+  <style <?php echo __(sfConfig::get('csp_nonce')); ?>>
+    #top-bar {
+      background-color: <?php echo $bgColor; ?> !important;
+    }
+  </style>
+<?php } ?>
+<header id="top-bar" class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
   <div class="container-fluid">
     <?php if (sfConfig::get('app_toggleLogo') || sfConfig::get('app_toggleTitle')) { ?>
       <a class="navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('Home'); ?>" rel="home">
