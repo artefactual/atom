@@ -99,7 +99,14 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
         // Update description
         $node = new arElasticSearchInformationObjectPdo($object->id);
-        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
+        $serialized = $node->serialize();
+
+        $qubitSearch = QubitSearch::getInstance();
+        $qubitSearch->addDocument($serialized, 'QubitInformationObject');
+        $qubitSearch->log(sprintf('    [%s] %d - "%s" inserted',
+            str_replace('arElasticSearch', '', self::class),
+            ++self::$counter,
+            $serialized['i18n'][$serialized['sourceCulture']]['title']));
 
         // Update descendants if requested and they exists
         if ($options['updateDescendants'] && $object->rgt - $object->lft > 1) {
