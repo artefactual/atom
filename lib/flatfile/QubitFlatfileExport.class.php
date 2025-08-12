@@ -30,6 +30,7 @@ class QubitFlatfileExport
     public $columnMap = [];       // flatfile columns that map to object properties
     public $propertyMap = [];       // flatfile columns that map to Qubit properties
     public $user;          // user doing the export
+    public $environment;   // environment the export is being run in
     protected $configurationLoaded = false;  // has the configuuration been loaded?
 
     protected $resource;                     // current resource being exported
@@ -70,6 +71,11 @@ class QubitFlatfileExport
         if (false !== $rowsPerFile) {
             $this->rowsPerFile = $rowsPerFile;
         }
+
+        $context = sfContext::getInstance();
+
+        $this->user = $context->getUser();
+        $this->environment = $context->getConfiguration()->getEnvironment();
 
         include_once sfConfig::get('sf_root_dir').'/lib/helper/QubitHelper.php';
     }
@@ -281,7 +287,7 @@ class QubitFlatfileExport
         }
 
         // Remove accessionNumber from public exports
-        if (!$this->user->isAuthenticated()) {
+        if (!in_array($this->environment, ['cli', 'worker']) && (!$this->user || !$this->user->isAuthenticated())) {
             if (!in_array('accessionNumber', $this->nonVisibleElementsIncluded)) {
                 array_push($this->nonVisibleElementsIncluded, 'accessionNumber');
             }
