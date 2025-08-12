@@ -1,13 +1,13 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+use AccessToMemory\test\TransactionTestCase;
 
 /**
  * @internal
  *
  * @covers \QubitInformationObject::getByTitleIdentifierAndRepo
  */
-class QubitInformationObjectTest extends TestCase
+class QubitInformationObjectTest extends TransactionTestCase
 {
     protected $io;
     protected $repo;
