@@ -171,6 +171,15 @@ class ClipboardExportAction extends DefaultEditAction
             return $this->renderText(json_encode(['error' => $message]));
         }
 
+        if ('QubitAccession' === $className && !$this->context->user->hasCredential(['contributor', 'editor', 'administrator'], false)) {
+            $this->response->setStatusCode(403);
+            $message = $this->context->i18n->__(
+                'You are not allowed to export this entity type.'
+            );
+
+            return $this->renderText(json_encode(['error' => $message]));
+        }
+
         $this->processForm();
 
         // Create array of selections to pass to background job where

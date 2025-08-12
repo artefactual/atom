@@ -264,6 +264,15 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var $form = $(event.target);
       var type = $form.find("select#type").val();
 
+      if (type === "accession" && !this.showAccessions) {
+        this.showAlert(
+          this.$element.data("export-alert-message"),
+          "alert-danger"
+        );
+
+        return;
+      }
+
       // Avoid request if there are no slugs for the type
       if (this.items[type].length === 0) {
         this.showAlert(
