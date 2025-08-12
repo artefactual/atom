@@ -461,11 +461,11 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (!$buttonSpan.length && totalCount > 0) {
         this.$element.append(
           '<span class="clipboard-count position-absolute top-0 start-0' +
-          ' badge rounded-pill bg-primary">' +
-          totalCount +
-          '<span class="visually-hidden">' +
-          this.$element.data("total-count-label") +
-          "</span></span>"
+            ' badge rounded-pill bg-primary">' +
+            totalCount +
+            '<span class="visually-hidden">' +
+            this.$element.data("total-count-label") +
+            "</span></span>"
         );
       } else if (totalCount > 0) {
         $buttonSpan.text(totalCount);
@@ -534,8 +534,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       var $alert = $(
         '<div class="alert ' +
-        type +
-        ' alert-dismissible fade show" role="alert">'
+          type +
+          ' alert-dismissible fade show" role="alert">'
       ).append(message);
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
