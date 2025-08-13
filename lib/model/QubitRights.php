@@ -59,7 +59,7 @@ class QubitRights extends BaseRights
     public function grantedRightsFindById($id)
     {
         foreach ($this->grantedRights as $gr) {
-            if ($gr->id === $id) {
+            if ($gr->id === (int) $id) {
                 return $gr;
             }
         }
