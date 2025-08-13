@@ -35,7 +35,7 @@
 <?php
     $resources = [];
     foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
-        $resources[] = link_to(render_title($item), [$item, 'module' => 'informationobject']);
+      $resources[] = link_to(render_title($item), [$item, 'module' => 'informationobject']);
     }
     echo render_show(__('Related resources'), $resources, ['valueClass' => 'field', 'renderAsIs' => true]);
 ?>
@@ -43,9 +43,9 @@
 <?php
     $accessions = [];
     foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitAccession', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
-        $accesssions[] = link_to(render_title($item), [$item, 'module' => 'accession']);
+      $accessions[] = link_to(render_title($item), [$item, 'module' => 'accession']);
     }
-    echo render_show(__('Related accessions'), $accessions, ['valueClass' => 'field']);
+    echo render_show(__('Related accessions'), $accessions, ['valueClass' => 'field', 'renderAsIs' => true]);
 ?>
 
 <?php slot('after-content'); ?>
