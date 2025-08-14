@@ -22,7 +22,12 @@ class AccessionExportCsvAction extends sfAction
     // Export CSV representation of descriptions occurring in search/browse results
     public function execute($request)
     {
-        if ($this->context->user->isAuthenticated()) {
+        if (!$this->context->user->isAuthenticated() || !$this->context->user->hasCredential(['editor', 'administrator'], false)) {
+            $message = $this->context->i18n->__(
+                'You are not allowed to export this entity type.'
+            );
+            $this->getUser()->setFlash('error', $message);
+        } else {
             $options = [
                 'params' => [
                     'slugs' => ['*'],

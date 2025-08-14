@@ -67,7 +67,7 @@ class ClipboardViewAction extends DefaultBrowseAction
         ];
 
         // Some users cannot see accessions - don't show them in that case
-        if ($this->context->user->hasCredential(['contributor', 'editor', 'administrator'], false)) {
+        if ($this->context->user->hasCredential(['editor', 'administrator'], false)) {
             $this->uiLabels['accession'] = sfConfig::get('app_ui_label_accession');
         }
 

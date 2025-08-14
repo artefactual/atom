@@ -19,8 +19,10 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
+    <?php $canExportAccessions = $sf_user->hasCredential(['editor', 'administrator']); ?>
+
     <div class="d-flex flex-wrap gap-2 mb-3">
-      <?php if ($sf_user->isAuthenticated() && !isset($sf_request->subquery)) { ?>
+      <?php if ($sf_user->isAuthenticated() && $canExportAccessions && !isset($sf_request->subquery)) { ?>
         <a
           class="btn btn-sm atom-btn-white"
           href="<?php echo url_for(array_merge(
@@ -37,7 +39,13 @@
 
       <?php foreach ($pager->getResults() as $hit) { ?>
         <?php $doc = $hit->getData(); ?>
-        <?php echo include_partial('accession/searchResult', ['doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture, 'clipboardType' => 'accession']); ?>
+        <?php echo include_partial('accession/searchResult', [
+            'doc' => $doc,
+            'pager' => $pager,
+            'culture' => $selectedCulture,
+            'clipboardType' => 'accession',
+            'canExportAccessions' => $canExportAccessions,
+        ]); ?>
       <?php } ?>
 
     </div>

@@ -13,11 +13,13 @@
           ['class' => 'h5 mb-0 text-truncate'],
       ); ?>
 
-      <?php echo get_component('clipboard', 'button', [
-          'slug' => $doc['slug'],
-          'type' => $clipboardType,
-          'wide' => false,
-      ]); ?>
+      <?php if ($canExportAccessions) { ?>
+        <?php echo get_component('clipboard', 'button', [
+            'slug' => $doc['slug'],
+            'type' => $clipboardType,
+            'wide' => false,
+        ]); ?>
+      <?php } ?>
     </div>
 
     <div class="d-flex flex-column gap-2">
