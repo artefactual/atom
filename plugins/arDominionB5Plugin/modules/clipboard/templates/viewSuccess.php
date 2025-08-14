@@ -52,6 +52,8 @@
   <?php end_slot(); ?>
 
   <?php slot('content'); ?>
+    <?php $canExportAccessions = $sf_user->hasCredential(['editor', 'administrator'], false); ?>
+
     <div id="content">
       <?php if (!isset($pager) || !$pager->getNbResults()) { ?>
         <div class="text-section p-3">
@@ -67,7 +69,7 @@
         <?php } elseif ('QubitRepository' === $entityType) { ?>
           <?php echo get_partial('actor/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'repository']); ?>
         <?php } elseif ('QubitAccession' === $entityType) { ?>
-          <?php echo get_partial('accession/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'accession']); ?>
+          <?php echo get_partial('accession/searchResult', ['doc' => $hit->getData(), 'culture' => $selectedCulture, 'clipboardType' => 'accession', 'canExportAccessions' => $canExportAccessions]); ?>
         <?php } ?>
       <?php } ?>
     </div>
