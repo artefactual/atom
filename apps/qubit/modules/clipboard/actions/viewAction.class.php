@@ -38,7 +38,10 @@ class ClipboardViewAction extends DefaultBrowseAction
 
         $slugs = $request->getPostParameter('slugs', []);
 
-        if (empty($slugs)) {
+        $canExportAccessions = $this->context->user->hasCredential(['editor', 'administrator'], false);
+
+        // Do not try searching for results if the user is not allowed to export accessions
+        if (empty($slugs) || ('QubitAccession' == $this->entityType && !$canExportAccessions)) {
             $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query(), []);
         } else {
             $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
@@ -66,8 +69,8 @@ class ClipboardViewAction extends DefaultBrowseAction
             'repository' => sfConfig::get('app_ui_label_repository'),
         ];
 
-        // Some users cannot see accessions - don't show them in that case
-        if ($this->context->user->hasCredential(['editor', 'administrator'], false)) {
+        // Some users cannot export accessions - don't show them the option to export them
+        if ($canExportAccessions) {
             $this->uiLabels['accession'] = sfConfig::get('app_ui_label_accession');
         }
 
