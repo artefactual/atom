@@ -19,7 +19,7 @@
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-    <?php $canExportAccessions = $sf_user->hasCredential(['editor', 'administrator']); ?>
+    <?php $canExportAccessions = $sf_user->hasCredential(['editor', 'administrator'], false); ?>
 
     <div class="d-flex flex-wrap gap-2 mb-3">
       <?php if ($sf_user->isAuthenticated() && $canExportAccessions && !isset($sf_request->subquery)) { ?>
