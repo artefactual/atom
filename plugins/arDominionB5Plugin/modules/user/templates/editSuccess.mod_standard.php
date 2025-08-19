@@ -47,7 +47,8 @@
                   data-confirm-failure="<?php echo __('Your password confirmation did not match your password.'); ?>"
                 >
                 </div>
-                <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+                <?php $resourceAlreadyExists = isset($sf_request->getAttribute('sf_route')->resource); ?>
+                <?php if ($resourceAlreadyExists) { ?>
                   <?php echo render_field($form->currentPassword->label($sf_user->user->username.__('\'s current password')), null); ?>
                   <?php echo render_field($form->password->label(__('New password')), null, ['class' => 'password-strength']); ?>
                 <?php } else { ?>
@@ -56,7 +57,9 @@
                 <?php echo render_field($form->confirmPassword->label(__('Confirm new password')), null, ['class' => 'password-confirm']); ?>
               </div>
               <div class="col-md-6 template" hidden>
-                <div class="mb-3 bg-light p-3 rounded border-start border-4">Your current password is required to confirm your identity before making changes to this user's account</div>
+                <?php if ($resourceAlreadyExists) { ?>
+                  <div class="mb-3 bg-light p-3 rounded border-start border-4">Your current password is required to confirm your identity before making changes to this user's account</div>
+                <?php } ?>
                 <div class="mb-3 bg-light p-3 rounded border-start border-4">
                   <label class="form-label"><?php echo __('Password strength:'); ?></label>
 		  <div class="progress mb-3">

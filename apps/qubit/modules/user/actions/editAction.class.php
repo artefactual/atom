@@ -196,9 +196,9 @@ class UserEditAction extends DefaultEditAction
                 $this->form->setDefault('currentPassword', null);
 
                 $this->form->setValidator('currentPassword', new sfValidatorAnd([
-                    new sfValidatorString(['required' => !isset($this->getRoute()->resource)]),
+                    new sfValidatorString(['required' => isset($this->getRoute()->resource)]),
                     new sfValidatorCallback(['callback' => [$this, 'verify']]),
-                ], ['required' => true]));
+                ]));
 
                 $this->form->setWidget('currentPassword', new sfWidgetFormInputPassword([], [
                     'autocomplete' => 'new-password',
