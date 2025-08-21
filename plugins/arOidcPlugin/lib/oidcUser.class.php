@@ -255,8 +255,8 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
                     return false;
                 }
 
-                if (isset($refreshResult->refresh_expires_in) && is_numeric($refreshResult->refresh_expires_in)) {
-                    $newExpiryTime = $currentTime + (int) $refreshResult->refresh_expires_in;
+                if (isset($refreshResult->expires_in) && is_numeric($refreshResult->expires_in)) {
+                    $newExpiryTime = $currentTime + (int) $refreshResult->expires_in;
                     $this->logger->info(sprintf('$newExpiryTime: %s', $newExpiryTime));
                 } else {
                     $this->logger->err('Error calculating new token expiry. Session no longer active.');
