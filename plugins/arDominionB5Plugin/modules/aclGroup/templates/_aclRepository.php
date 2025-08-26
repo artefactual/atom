@@ -43,7 +43,7 @@
         <div class="accordion-body">
           <?php echo get_component('aclGroup', 'aclTable', [
               'object' => QubitRepository::getById(QubitRepository::ROOT_ID),
-              'permissions' => $item,
+              'permissions' => $permissions,
               'actions' => $basicActions,
           ]); ?>
         </div>

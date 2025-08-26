@@ -27,8 +27,7 @@
         </tr>
         <?php foreach ($actions as $action => $groupPermission) { ?>
           <tr>
-            <td>&nbsp;</td>
-            <td>
+            <td colspan="2">
               <?php if ('' != $action) { ?>
                 <?php echo QubitAcl::$ACTIONS[$action]; ?>
               <?php } else { ?>
