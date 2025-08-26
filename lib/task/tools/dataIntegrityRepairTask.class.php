@@ -152,16 +152,24 @@ EOF;
             AND st.status_id IS NULL;';
         $this->logSection('data-integrity-repair', sprintf("  - Descriptions without publication status: %d\n", QubitPdo::fetchColumn($sql)));
 
+        $sql = 'SELECT COUNT(o.id)
+            FROM information_object_i18n o
+            WHERE o.id<>1
+            AND coalesce(o.access_conditions, o.accruals, o.acquisition, o.alternate_title, o.appraisal, o.archival_history, o.arrangement, o.edition, o.extent_and_medium, o.finding_aids, o.location_of_copies, o.location_of_originals, o.physical_characteristics, o.related_units_of_description, o.reproduction_conditions, o.revision_history, o.rules, o.scope_and_content, o.sources, o.title) IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions with all fields NULL: %d\n", QubitPdo::fetchColumn($sql)));
+
         $sql = 'SELECT io.id, o.id as object_id, io.parent_id, p.id as parent, st.id as status, st.status_id
             FROM information_object io
             LEFT JOIN object o ON io.id=o.id
             LEFT JOIN information_object p ON io.parent_id=p.id
             LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
+            INNER JOIN information_object_i18n i18n ON o.id=i18n.id
             WHERE io.id<>1
             AND (o.id IS NULL OR io.parent_id IS NULL
             OR p.id IS NULL
             OR st.id IS NULL
-            OR st.status_id IS NULL);';
+            OR st.status_id IS NULL
+            OR coalesce(i18n.access_conditions, i18n.accruals, i18n.acquisition, i18n.alternate_title, i18n.appraisal, i18n.archival_history, i18n.arrangement, i18n.edition, i18n.extent_and_medium, i18n.finding_aids, i18n.location_of_copies, i18n.location_of_originals, i18n.physical_characteristics, i18n.related_units_of_description, i18n.reproduction_conditions, i18n.revision_history, i18n.rules, i18n.scope_and_content, i18n.sources, i18n.title) IS NULL);';
         $affectedIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
         $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions: %d\n", count($affectedIos)));
 
