@@ -62,7 +62,7 @@ class SettingsFindingAidForm extends sfForm
                 'finding_aid_format' => $i18n->__('Finding Aid format'),
                 'finding_aid_model' => $i18n->__('Finding Aid model'),
                 'public_finding_aid' => $i18n->__(
-                    'Generate Finding Aid as public user'
+                    'Generate Finding Aid from public records'
                 ),
             ]
         );
@@ -73,7 +73,7 @@ class SettingsFindingAidForm extends sfForm
                 'finding_aids_enabled' => $i18n->__(
 <<<'EOL'
 When disabled: Finding Aid links are not displayed, Finding Aid generation is
-disabled, and the 'Advanced Search > Finding Aid' filter is hidden.
+disabled, and the 'Advanced Search > Finding Aid' filter is hidden
 EOL
                 ),
                 'finding_aid_format' => $i18n->__(
@@ -91,7 +91,10 @@ Finding Aid model:
 EOL
                 ),
                 'public_finding_aid' => $i18n->__(
-                    "When set to 'yes' generated Finding Aids will exclude Drafts"
+<<<'EOL'
+When set to 'yes' generated Finding Aids will exclude unpublished records and
+hidden elements
+EOL
                 ),
             ]
         );
