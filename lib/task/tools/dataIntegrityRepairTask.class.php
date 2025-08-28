@@ -173,7 +173,18 @@ EOF;
         $affectedIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
         $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions: %d\n", count($affectedIos)));
 
-        if (0 == count($affectedIos)) {
+        $this->logSection('data-integrity-repair', "Checking for invalid descriptions:\n");
+
+        $sql = 'SELECT s.object_id, s.slug
+            FROM slug s
+            INNER JOIN object o
+            ON o.id = s.object_id
+            WHERE class_name="QubitInformationObject"
+            AND object_id NOT IN (SELECT id FROM information_object);';
+        $invalidIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
+        $this->logSection('data-integrity-repair', sprintf("  - Invalid descriptions: %d\n", count($invalidIos)));
+
+        if (0 == count($affectedIos) && 0 == count($invalidIos)) {
             $this->logSection('data-integrity-repair', "All descriptions seem to be okay.\n");
         } else {
             $affectedIosAndDescendantIds = [];
@@ -184,7 +195,7 @@ EOF;
             }
             $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions (including descendants): %d\n", count($affectedIosAndDescendantIds)));
 
-            $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
+            $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds, $invalidIos);
 
             switch ($options['mode']) {
                 case 'fix':
@@ -193,7 +204,7 @@ EOF;
                     break;
 
                 case 'delete':
-                    $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds);
+                    $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds, $invalidIos);
 
                     break;
             }
@@ -236,10 +247,22 @@ EOF;
         $affectedIosAndDescendantIds[] = $id;
     }
 
-    private function report($filename, $affectedIosById, $affectedIosAndDescendantIds)
+    private function report($filename, $affectedIosById, $affectedIosAndDescendantIds, $invalidIos)
     {
         $csvFile = fopen($filename, 'w');
         fputcsv($csvFile, ['id', 'parent_id', 'slug', 'issue(s)']);
+
+        if (count($invalidIos) > 0) {
+            foreach ($invalidIos as $io) {
+                $details = [];
+
+                $details[] = $io['object_id'];
+                $details[] = 'parent not set';
+                $details[] = $io['slug'];
+                $details[] = 'invalid description entry';
+                fputcsv($csvFile, $details);
+            }
+        }
 
         // Reverse IOs to show ancestors first on the report
         foreach (array_reverse($affectedIosAndDescendantIds) as $id) {
@@ -317,10 +340,29 @@ EOF;
         $this->logSection('data-integrity-repair', sprintf("%d descriptions fixed.\n", count($affectedIosById)));
     }
 
-    private function deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds)
+    private function deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds, $invalidIos)
     {
         $count = 0;
         $this->logSection('data-integrity-repair', "Deleting descriptions ...\n");
+
+        if (count($invalidIos) > 0) {
+            $sql = 'DELETE FROM object
+                WHERE id IN (
+                    SELECT * FROM (
+                        SELECT object_id
+                        FROM slug s
+                        INNER JOIN object o
+                        ON o.id = s.object_id
+                        WHERE class_name="QubitInformationObject"
+                        AND object_id NOT IN (SELECT id FROM information_object)
+                    ) as temp
+                );';
+            $stmt = QubitPdo::prepareAndExecute($sql);
+            $count = count($invalidIos);
+            if (0 == $count % 100) {
+                $this->logSection('data-integrity-repair', sprintf("%d descriptions deleted ...\n", $count));
+            }
+        }
 
         // Description trees are already flattened and reversed to avoid foreign key issues
         foreach ($affectedIosAndDescendantIds as $id) {
