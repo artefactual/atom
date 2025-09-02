@@ -76,10 +76,6 @@
     <echo>Install production dependencies with composer</echo>
     <exec command="composer install --no-dev" dir="${phing.dir}" checkreturn="true"/>
 
-    <echo>Compile css with less</echo>
-    <exec command="make" dir="${phing.dir}/plugins/arDominionPlugin" checkreturn="true"/>
-    <exec command="make" dir="${phing.dir}/plugins/arArchivesCanadaPlugin" checkreturn="true"/>
-
     <echo>Build Bootstrap 5 theme</echo>
     <exec command="npm install" dir="${phing.dir}" checkreturn="true"/>
     <exec command="npm run build" dir="${phing.dir}" checkreturn="true"/>

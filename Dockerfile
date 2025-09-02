@@ -75,8 +75,6 @@ WORKDIR /atom/src
 RUN set -xe \
     && mv /atom/build/vendor/composer vendor/ \
     && mv /atom/build/node_modules . \
-    && make -C plugins/arDominionPlugin \
-    && make -C plugins/arArchivesCanadaPlugin \
     && npm run build \
     && rm -rf /atom/build
 
