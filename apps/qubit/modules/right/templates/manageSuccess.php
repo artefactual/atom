@@ -1,10 +1,14 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo render_title($resource); ?>
-    <span class="sub"><?php __('Manage rights inheritance'); ?></span>
-  </h1>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="heading-label">
+      <?php echo render_title($resource); ?>
+    </h1>
+    <span class="small" id="heading-label">
+      <?php echo __('Manage rights inheritance'); ?>
+    </span>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
@@ -14,33 +18,38 @@
   <form method="post">
 
     <?php echo $form->renderHiddenFields(); ?>
-    
-    <div id="content">
-      <fieldset class="collapsible">
-        <legend><?php echo __('Inheritance options'); ?></legend>
 
-        <div class="well">
-        <?php echo $form->all_or_digital_only
-            ->label(__('All descendants or just digital objects'))
-            ->renderRow(); ?>
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="inheritance-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#inheritance-collapse" aria-expanded="true" aria-controls="inheritance-collapse">
+            <?php echo __('Inheritance options'); ?>
+          </button>
+        </h2>
+        <div id="inheritance-collapse" class="accordion-collapse collapse show" aria-labelledby="inheritance-heading">
+          <div class="accordion-body">
+            <div class="well">
+              <?php echo render_field($form->all_or_digital_only
+                  ->label(__('All descendants or just digital objects'))
+              ); ?>
+            </div>
+
+            <div class="well">
+              <?php echo render_field($form->overwrite_or_combine
+                  ->help(__('Set if you want to combine the current set of rights with any existing rights, or remove the existing rights and apply these new rights'))
+                  ->label(__('Overwrite or combine rights'))
+              ); ?>
+            </div>
+          </div>
         </div>
-
-        <div class="well">
-        <?php echo $form->overwrite_or_combine
-            ->help(__('Set if you want to combine the current set of rights with any existing rights, or remove the existing rights and apply these new rights'))
-            ->label(__('Overwrite or combine rights'))
-            ->renderRow(); ?>
-        </div>
-
-      </fieldset>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Apply'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Apply'); ?>"></li>
+    </ul>
+
   </form>
 
 <?php end_slot(); ?>

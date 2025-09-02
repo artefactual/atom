@@ -20,9 +20,7 @@
 </fieldset>
 
 <?php slot('after-content'); ?>
-  <section class="actions">
-    <ul class="clearfix links">
-      <li><?php echo link_to(__('Back'), [$resource, 'module' => 'informationobject', 'action' => 'reports'], ['class' => 'c-btn']); ?></li>
-    </ul>
+  <section class="actions mb-3">
+    <?php echo link_to(__('Back'), [$resource, 'module' => 'informationobject', 'action' => 'reports'], ['class' => 'btn atom-btn-outline-light']); ?></li>
   </section>
 <?php end_slot(); ?>

@@ -15,54 +15,43 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="style-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#style-collapse" aria-expanded="true" aria-controls="style-collapse">
+            <?php echo __('Style'); ?>
+          </button>
+        </h2>
+        <div id="style-collapse" class="accordion-collapse collapse show" aria-labelledby="style-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->backgroundColor); ?>
 
-      <fieldset class="collapsible" id="styleArea">
+            <?php echo render_field($form->banner); ?>
 
-        <legend><?php echo __('Style'); ?></legend>
-
-        <?php echo $form->backgroundColor
-            ->label(__('Background color'))
-            ->renderRow(); ?>
-
-        <div class="form-item form-item-banner">
-          <?php echo $form->banner->renderLabel(); ?>
-          <div>
-            <?php echo $form->banner->render(); ?>
-            <?php echo $form->banner->renderError(); ?>
-            <?php echo $form->getWidget('banner')->getHelp(); ?>
+            <?php echo render_field($form->logo); ?>
           </div>
         </div>
-
-        <div class="form-item form-item-logo">
-          <?php echo $form->logo->renderLabel(); ?>
-          <div>
-            <?php echo $form->logo->render(); ?>
-            <?php echo $form->logo->renderError(); ?>
-            <?php echo $form->getWidget('logo')->getHelp(); ?>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="content-heading">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#content-collapse" aria-expanded="false" aria-controls="content-collapse">
+            <?php echo __('Page content'); ?>
+          </button>
+        </h2>
+        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->htmlSnippet
+                ->label(__('Description'))
+                ->help(__('Content in this area will appear below an uploaded banner and above the institution\'s description areas. It can be used to offer a summary of the institution\'s mandate, include a tag line or important information, etc. HTML and inline CSS can be used to style the contents.')), $resource, ['class' => 'resizable']); ?>
           </div>
         </div>
-
-      </fieldset>
-
-      <fieldset class="collapsible" id="pageContentArea">
-
-        <legend><?php echo __('Page content'); ?></legend>
-
-        <?php echo render_field($form->htmlSnippet
-            ->label(__('Description'))
-            ->help(__('Content in this area will appear below an uploaded banner and above the institution\'s description areas. It can be used to offer a summary of the institution\'s mandate, include a tag line or important information, etc. HTML and inline CSS can be used to style the contents.')), $resource, ['class' => 'resizable']); ?>
-
-      </fieldset>
-
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'repository'], ['class' => 'c-btn', 'title' => __('Edit')]); ?></li>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'repository'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+    </ul>
 
   </form>
 <?php end_slot(); ?>

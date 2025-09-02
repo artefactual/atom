@@ -14,38 +14,35 @@
 
 <?php slot('content'); ?>
 
-  <form
-    id="settings-finding-aid-form"
-    action="<?php echo url_for('settings/findingAid'); ?>"
-    method="post"
-    data-cy="settings-finding-aid-form"
-  >
-    <?php if (isset($error) && 'formInvalid' == $error) { ?>
-    <div class="alert alert-danger">
-      <?php echo __('There was an error submitting the form.'); ?>
+  <?php echo $findingAidForm->renderGlobalErrors(); ?>
+
+  <?php echo $findingAidForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'findingAid']), ['data-cy' => 'settings-finding-aid-form']); ?>
+
+    <?php echo $findingAidForm->renderHiddenFields(); ?>
+
+    <div class="accordion mb-3" id="finding-aid-settings">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="finding-aid-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#finding-aid-collapse" aria-expanded="true" aria-controls="finding-aid-collapse">
+            <?php echo __('Finding Aid settings'); ?>
+          </button>
+        </h2>
+        <div id="finding-aid-collapse" class="accordion-collapse collapse show" aria-labelledby="finding-aid-heading">
+          <div class="accordion-body">
+            <?php echo render_field($findingAidForm->finding_aids_enabled); ?>
+
+            <?php echo render_field($findingAidForm->finding_aid_format); ?>
+
+            <?php echo render_field($findingAidForm->finding_aid_model); ?>
+
+            <?php echo render_field($findingAidForm->public_finding_aid); ?>
+          </div>
+        </div>
+      </div>
     </div>
-    <?php } ?>
 
-    <div id="content">
-
-      <table class="table sticky-enabled" id="finding-aid-settings">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $findingAidForm; ?>
-        </tbody>
-      </table>
-
-    </div>
-
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

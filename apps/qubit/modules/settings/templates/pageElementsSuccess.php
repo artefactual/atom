@@ -16,70 +16,52 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/pageElements'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'pageElements'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
-    <p><?php echo __('Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.'); ?></p>
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="default-page-elements-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#default-page-elements-collapse" aria-expanded="true" aria-controls="default-page-elements-collapse">
+            <?php echo __('Default page elements settings'); ?>
+          </button>
+        </h2>
+        <div id="default-page-elements-collapse" class="accordion-collapse collapse show" aria-labelledby="default-page-elements-heading">
+          <div class="accordion-body">
+            <p><?php echo __('Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.'); ?></p>
 
-    <div id="content">
+            <?php echo render_field($form->toggleLogo->label('Logo')); ?>
 
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?php echo $form->toggleLogo->label('Logo')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleLogo; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleTitle->label('Title')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleTitle; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleDescription->label('Description')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleDescription; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleLanguageMenu->label('Language menu')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleLanguageMenu; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleIoSlider->label('Digital object carousel')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleIoSlider; ?></td>
-          </tr>
-          <tr>
-            <td>
-              <?php echo $form->toggleDigitalObjectMap->label('Digital object map')->renderLabel(); ?>
-              <?php if (!$googleMapsApiKeySet) { ?>
-                <div class="description">
-                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => '<a href="'.url_for('settings/global').'">', '%2%' => '</a>']); ?>
-                </div>
-              <?php } ?>
-            </td>
-            <td><?php echo $form->toggleDigitalObjectMap; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleCopyrightFilter->label('Copyright status filter')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleCopyrightFilter; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $form->toggleMaterialFilter->label('General material designation filter')->renderLabel(); ?></td>
-            <td><?php echo $form->toggleMaterialFilter; ?></td>
-          </tr>
-        </tbody>
-      </table>
+            <?php echo render_field($form->toggleTitle->label('Title')); ?>
 
+            <?php echo render_field($form->toggleDescription
+                ->label('Description')); ?>
+
+            <?php echo render_field($form->toggleLanguageMenu
+                ->label('Language menu')); ?>
+
+            <?php echo render_field($form->toggleIoSlider
+                ->label('Digital object carousel')); ?>
+
+            <?php $help = $googleMapsApiKeySet
+                ? null
+                : __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', ['%1%' => '<a href="'.url_for('settings/global').'">', '%2%' => '</a>']); ?>
+            <?php echo render_field($form->toggleDigitalObjectMap
+                    ->label('Digital object map')->help($help)); ?>
+
+            <?php echo render_field($form->toggleCopyrightFilter
+                ->label('Copyright status filter')); ?>
+
+            <?php echo render_field($form->toggleMaterialFilter
+                ->label('General material designation filter')); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

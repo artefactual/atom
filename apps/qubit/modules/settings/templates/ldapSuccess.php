@@ -20,36 +20,29 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="ldap-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ldap-collapse" aria-expanded="true" aria-controls="ldap-collapse">
+            <?php echo __('LDAP authentication settings'); ?>
+          </button>
+        </h2>
+        <div id="ldap-collapse" class="accordion-collapse collapse show" aria-labelledby="ldap-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->ldapHost->label(__('Host'))); ?>
 
-      <fieldset class="collapsible">
+            <?php echo render_field($form->ldapPort->label(__('Port'))); ?>
 
-        <legend><?php echo __('LDAP authentication settings'); ?></legend>
+            <?php echo render_field($form->ldapBaseDn->label(__('Base DN'))); ?>
 
-        <?php echo $form->ldapHost
-            ->label(__('Host'))
-            ->renderRow(); ?>
-
-        <?php echo $form->ldapPort
-            ->label(__('Port'))
-            ->renderRow(); ?>
-
-        <?php echo $form->ldapBaseDn
-            ->label(__('Base DN'))
-            ->renderRow(); ?>
-
-        <?php echo $form->ldapBindAttribute
-            ->label(__('Bind Lookup Attribute'))
-            ->renderRow(); ?>
-
-      </fieldset>
-
+            <?php echo render_field($form->ldapBindAttribute->label(__('Bind Lookup Attribute'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

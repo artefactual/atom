@@ -20,16 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($resource->parent)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource->parent, 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'c-btn']); ?></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'c-btn']); ?></li>
-        <?php } ?>
-        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <?php if (isset($resource->parent)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource->parent, 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } ?>
+      <li><input class="btn atom-btn-outline-danger" type="submit" value="<?php echo __('Delete'); ?>"></li>
+    </ul>
 
   </form>
 

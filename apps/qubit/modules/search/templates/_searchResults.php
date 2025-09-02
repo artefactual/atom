@@ -6,8 +6,8 @@
 
 <?php } else { ?>
 
-  <div>
-    <h2><?php echo __('We couldn\'t find any results matching your search.'); ?></h2>
+  <div class="p-3">
+    <?php echo __('We couldn\'t find any results matching your search.'); ?>
   </div>
 
 <?php } ?>

@@ -34,14 +34,8 @@
     </form>
   </div>
 </div>
-<?php $l10nSourceMessages = json_encode(array_keys($sf_data->getRaw('messages'))); ?>
-<?php $l10nTargetMessages = json_encode(array_values($sf_data->getRaw('messages'))); ?>
-<?php echo javascript_tag(<<<EOF
-jQuery(function($) {
-  $.extend(Drupal, {
-    l10nSourceMessages: {$l10nSourceMessages},
-    l10nTargetMessages: {$l10nTargetMessages}
-  });
-});
-EOF
-); ?>
+<div
+  id="translate-plugin"
+  data-l10n-source-messages="<?php echo htmlspecialchars(json_encode(array_keys($sf_data->getRaw('messages')))); ?>"
+  data-l10n-target-messages="<?php echo htmlspecialchars(json_encode(array_values($sf_data->getRaw('messages')))); ?>">
+</div>

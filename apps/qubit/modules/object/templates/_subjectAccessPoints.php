@@ -1,15 +1,15 @@
-<div class="field">
+<div class="field<?php echo isset($sidebar) ? '' : ' '.render_b5_show_field_css_classes(); ?>">
 
   <?php if (isset($sidebar)) { ?>
-    <h4><?php echo __('Related subjects'); ?></h4>
+    <h4 class="h5 mb-2"><?php echo __('Related subjects'); ?></h4>
   <?php } elseif (isset($mods)) { ?>
-    <h3><?php echo __('Subjects'); ?></h3>
+    <?php echo render_b5_show_label(__('Subjects')); ?>
   <?php } else { ?>
-    <h3><?php echo __('Subject access points'); ?></h3>
+    <?php echo render_b5_show_label(__('Subject access points')); ?>
   <?php } ?>
 
-  <div>
-    <ul>
+  <div<?php echo isset($sidebar) ? '' : ' class="'.render_b5_show_value_css_classes().'"'; ?>>
+    <ul class="<?php echo isset($sidebar) ? 'list-unstyled' : render_b5_show_list_css_classes(); ?>">
       <?php foreach ($resource->getSubjectAccessPoints() as $item) { ?>
         <li>
           <?php foreach ($item->term->ancestors->andSelf()->orderBy('lft') as $key => $subject) { ?>

@@ -1,9 +1,9 @@
 <?php $actorsShown = []; ?>
 <?php foreach ($ancestor->getCreators() as $item) { ?>
   <?php if (!isset($actorsShown[$item->id])) { ?>
-    <div class="field">
-      <h3><?php echo __('Name of creator'); ?></h3>
-      <div>
+    <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+      <?php echo render_b5_show_label(__('Name of creator')); ?>
+      <div class="<?php echo render_b5_show_value_css_classes(); ?>">
 
         <div class="creator">
           <?php if (0 < count($resource->getCreators())) { ?>
@@ -20,16 +20,13 @@
         <?php } ?>
 
         <?php if (0 < count($resource->getCreators())) { ?>
-          <div class="field">
+          <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
             <?php if (QubitTerm::CORPORATE_BODY_ID == $item->entityTypeId) { ?>
               <?php $history_kind = __('Administrative history'); ?>
             <?php } else { ?>
               <?php $history_kind = __('Biographical history'); ?>
             <?php } ?>
-            <h3><?php echo $history_kind; ?></h3>
-            <div class="history">
-              <?php echo render_value($item->getHistory(['cultureFallback' => true])); ?>
-            </div>
+            <?php echo render_show($history_kind, render_value($item->getHistory(['cultureFallback' => true])), ['isSubField' => true]); ?>
           </div>
         <?php } ?>
 

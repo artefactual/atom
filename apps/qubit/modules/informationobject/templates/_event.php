@@ -1,126 +1,190 @@
-<?php
-
-$sf_response->addJavaScript('date', 'last');
-$sf_response->addJavaScript('/vendor/yui/datasource/datasource-min', 'last');
-$sf_response->addJavaScript('/vendor/yui/container/container-min', 'last');
-$sf_response->addJavaScript('dialog', 'last');
-
-use_helper('Javascript');
-
-// Template for new display table rows
-$editHtml = image_tag('pencil', ['alt' => __('Edit'), 'style' => 'align: top']);
-
-$rowTemplate = json_encode(<<<value
-<tr id="{{$form->getWidgetSchema()->generateName('id')}}">
-  <td>
-    {{$form->actor->renderName()}}
-  </td><td>
-    {{$form->type->renderName()}}
-  </td><td>
-    {{$form->place->renderName()}}
-  </td><td>
-    {{$form->date->renderName()}}
-  </td><td style="text-align: right">
-    {$editHtml} <button class="delete-small" name="delete" type="button"/>
-  </td>
-</tr>
-
-value
-);
-
-// Omit edit button if object is being duplicated
-$editButtonJs = null;
-if (!isset($sf_request->source)) {
-    $editButtonJs = <<<editButtonJs
-// Add edit button to rows
-jQuery('#relatedEvents tr[id]', context)
-  .click(function ()
-    {
-      dialog.open(this.id);
-    })
-  .find('td:last')
-  .prepend('{$editHtml}');
-
-editButtonJs;
-}
-
-echo javascript_tag(<<<content
-Drupal.behaviors.event = {
-  attach: function (context)
-    {
-      // Add special rendering rules
-      var handleFieldRender = function (fname)
-        {
-          if (-1 !== fname.indexOf('date')
-              && 1 > this.getField('date').value.length
-              && (0 < this.getField('startDate').value.length
-                || 0 < this.getField('endDate').value.length))
-          {
-            return this.getField('startDate').value + ' - ' + this.getField('endDate').value;
-          }
-
-          return this.renderField(fname);
-        }
-
-      // Define dialog
-      var dialog = new QubitDialog('updateEvent', {
-        'displayTable': 'relatedEvents',
-        'handleFieldRender': handleFieldRender,
-        'newRowTemplate': {$rowTemplate} });
-
-      {$editButtonJs}
-    } }
-
-content
-); ?>
-
-<!-- NOTE dialog.js wraps this *entire* table in a YUI dialog -->
-<div class="date section" id="updateEvent">
-
-  <h3><?php echo __('Event'); ?></h3>
-
-  <div class="form-item">
-
-    <?php echo $form->actor
-        ->label(__('Actor name'))
-        ->renderLabel(); ?>
-    <?php echo $form->actor->render(['class' => 'form-autocomplete']); ?>
-
-    <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')) { ?>
-      <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'actor', 'action' => 'add']); ?> #authorizedFormOfName"/>
-    <?php } ?>
-
-    <input class="list" type="hidden" value="<?php echo url_for(['module' => 'actor', 'action' => 'autocomplete']); ?>"/>
-    <?php echo $form->actor->renderHelp(); ?>
-
+<div
+  class="atom-table-modal"
+  data-current-resource="<?php echo url_for([$resource]); ?>"
+  data-required-fields="<?php echo $form->type->renderId(); ?>"
+  data-delete-field-name="deleteEvents"
+  data-iframe-error="<?php echo __('The following resources could not be created:'); ?>">
+  <div class="alert alert-danger d-none load-error" role="alert">
+    <?php echo __('Could not load event data.'); ?>
   </div>
 
-  <?php echo $form->type
-      ->label(__('Event type'))
-      ->renderRow(); ?>
-
-  <div class="form-item form-item-place">
-
-    <?php echo $form->place->renderLabel(); ?>
-    <?php echo $form->place->render(['class' => 'form-autocomplete']); ?>
-
-    <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')) { ?>
-      <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(['module' => 'term', 'action' => 'add', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy'])]); ?> #name"/>
-    <?php } ?>
-
-    <input class="list" type="hidden" value="<?php echo url_for(['module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for([QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy'])]); ?>"/>
-    <?php echo $form->place->renderHelp(); ?>
-
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead class="table-light">
+	<tr>
+          <th class="w-30">
+            <?php echo __('Name'); ?>
+          </th>
+          <th class="w-20">
+            <?php echo __('Role/event'); ?>
+          </th>
+          <th class="w-25">
+            <?php echo __('Place'); ?>
+          </th>
+          <th class="w-25">
+            <?php echo __('Date(s)'); ?>
+          </th>
+          <th>
+            <span class="visually-hidden"><?php echo __('Actions'); ?></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-template d-none">
+          <td data-field-id="<?php echo $form->actor->renderId(); ?>"></td>
+          <td data-field-id="<?php echo $form->type->renderId(); ?>"></td>
+          <td data-field-id="<?php echo $form->place->renderId(); ?>"></td>
+          <td data-field-id="<?php echo $form->date->renderId(); ?>"></td>
+          <td class="text-nowrap">
+            <?php if (!isset($sf_request->source)) { ?>
+              <button type="button" class="btn atom-btn-white me-1 edit-row">
+                <i class="fas fa-fw fa-pencil-alt" aria-hidden="true"></i>
+                <span class="visually-hidden"><?php echo __('Edit row'); ?></span>
+              </button>
+            <?php } ?>
+            <button type="button" class="btn atom-btn-white delete-row">
+              <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
+          </td>
+        </tr>
+        <?php foreach ($resource->eventsRelatedByobjectId as $item) { ?>
+          <tr id="<?php echo url_for([$item, 'module' => 'event']); ?>">
+            <td data-field-id="<?php echo $form->actor->renderId(); ?>">
+              <?php if (isset($item->actor)) { ?>
+                <?php echo render_title($item->actor); ?>
+              <?php } ?>
+            </td>
+            <td data-field-id="<?php echo $form->type->renderId(); ?>">
+              <?php echo render_value_inline($item->type); ?>
+            </td>
+            <td data-field-id="<?php echo $form->place->renderId(); ?>">
+              <?php if (null !== $relation = QubitObjectTermRelation::getOneByObjectId($item->id)) { ?>
+                <?php echo render_value_inline($relation->term); ?>
+              <?php } ?>
+            </td>
+            <td data-field-id="<?php echo $form->date->renderId(); ?>">
+              <?php echo render_value_inline(Qubit::renderDateStartEnd(
+                  $item->getDate(['cultureFallback' => true]),
+                  $item->startDate,
+                  $item->endDate
+              )); ?>
+            </td>
+            <td class="text-nowrap">
+              <?php if (!isset($sf_request->source)) { ?>
+                <button type="button" class="btn atom-btn-white me-1 edit-row">
+                  <i class="fas fa-fw fa-pencil-alt" aria-hidden="true"></i>
+                  <span class="visually-hidden"><?php echo __('Edit row'); ?></span>
+                </button>
+              <?php } ?>
+              <button type="button" class="btn atom-btn-white delete-row">
+                <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+              </button>
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <button type="button" class="btn atom-btn-white add-row">
+              <i class="fas fa-plus me-1" aria-hidden="true"></i>
+              <?php echo __('Add new'); ?>
+            </button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 
-  <?php echo $form->date->renderRow(); ?>
+  <div 
+    class="modal fade"
+    data-bs-backdrop="static"
+    tabindex="-1"
+    aria-labelledby="related-events-heading"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="h5 modal-title" id="related-events-heading">
+            <?php echo __('Event'); ?>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+            <span class="visually-hidden"><?php echo __('Close'); ?></span>
+          </button>
+        </div>
 
-  <?php echo $form->startDate->renderRow(); ?>
+        <div class="modal-body pb-2">
+          <?php echo $form->renderHiddenFields(); ?>
 
-  <?php echo $form->endDate->renderRow(); ?>
+          <?php
+              $extraInputs = '<input class="list" type="hidden" value="'
+                  .url_for(['module' => 'actor', 'action' => 'autocomplete'])
+                  .'">';
+              if (QubitAcl::check(QubitActor::getRoot(), 'create')) {
+                  $extraInputs .= '<input class="add" type="hidden"'
+                      .' data-link-existing="true" value="'
+                      .url_for(['module' => 'actor', 'action' => 'add'])
+                      .' #authorizedFormOfName">';
+              }
+              echo render_field(
+                  $form->actor->label(__('Actor name')),
+                  null,
+                  ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+              );
+          ?>
 
-  <?php echo $form->description
-      ->label(__('Event note'))
-      ->renderRow(); ?>
+          <?php echo render_field($form->type->label(__('Event type'))); ?>
 
+          <?php
+              $extraInputs = '<input class="list" type="hidden" value="'
+                  .url_for([
+                      'module' => 'term',
+                      'action' => 'autocomplete',
+                      'taxonomy' => url_for([
+                          QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID),
+                          'module' => 'taxonomy',
+                      ]),
+                  ])
+                  .'">';
+              if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')) {
+                  $extraInputs .= '<input class="add" type="hidden" data-link-existing="true" value="'
+                      .url_for([
+                          'module' => 'term',
+                          'action' => 'add',
+                          'taxonomy' => url_for([
+                              QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID),
+                              'module' => 'taxonomy',
+                          ]),
+                      ])
+                      .' #name">';
+              }
+              echo render_field(
+                  $form->place,
+                  null,
+                  ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+              );
+          ?>
+
+          <div class="date">
+            <?php echo render_field($form->date); ?>
+            <?php echo render_field($form->startDate); ?>
+            <?php echo render_field($form->endDate); ?>
+          </div>
+
+          <?php echo render_field($form->description->label(__('Event note'))); ?>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <?php echo __('Cancel'); ?>
+          </button>
+          <button type="button" class="btn btn-success modal-submit">
+            <?php echo __('Submit'); ?>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

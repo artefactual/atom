@@ -1,9 +1,9 @@
-<div class="field">
-  <h3><?php echo __('Date(s)'); ?></h3>
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+  <?php echo render_b5_show_label(__('Date(s)')); ?>
 
-  <div xmlns:dc="http://purl.org/dc/elements/1.1/" about="<?php echo url_for([$resource, 'module' => 'informationobject'], true); ?>">
+    <div xmlns:dc="http://purl.org/dc/elements/1.1/" about="<?php echo url_for([$resource, 'module' => 'informationobject'], true); ?>" class="<?php echo render_b5_show_value_css_classes(); ?>">
 
-    <ul>
+    <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
       <?php foreach ($resource->getDates() as $item) { ?>
         <li>
           <div class="date">
@@ -11,18 +11,18 @@
             <?php if ('dc' !== sfConfig::get('app_default_template_informationobject')) { ?>
               <span class="date-type">(<?php echo render_value_inline($item->type->__toString()); ?>)</span>
             <?php } ?>
-            <dl>
+            <dl class="mb-0">
               <?php if (isset($item->actor) && null !== $item->type->getRole()) { ?>
-                <dt><?php echo render_value_inline($item->type->getRole()); ?></dt>
-                <dd><?php echo link_to(render_title($item->actor), [$item->actor, 'module' => 'actor', 'action' => 'index']); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo render_value_inline($item->type->getRole()); ?></dt>
+                <dd class="mb-0"><?php echo render_title($item->actor); ?></dd>
               <?php } ?>
               <?php if (null !== $item->getPlace()) { ?>
-                <dt><?php echo __('Place'); ?></dt>
-                <dd><?php echo render_value_inline($item->getPlace()); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo __('Place'); ?></dt>
+                <dd class="mb-0"><?php echo render_value_inline($item->getPlace()); ?></dd>
               <?php } ?>
               <?php if (0 < strlen($item->description)) { ?>
-                <dt><?php echo __('Note'); ?></dt>
-                <dd><?php echo render_value_inline($item->description); ?></dd>
+                <dt class="fw-normal text-muted"><?php echo __('Note'); ?></dt>
+                <dd class="mb-0"><?php echo render_value_inline($item->description); ?></dd>
               <?php } ?>
             </dl>
 

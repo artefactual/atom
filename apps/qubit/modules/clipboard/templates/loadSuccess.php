@@ -17,30 +17,26 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <fieldset class="collapsible">
-
-        <legend class="sr-only"><?php echo __('Load options'); ?></legend>
-
-        <div class="fieldset-wrapper">
-          <?php echo $form->clipboardPassword->label(__('Clipboard ID'))->renderRow(); ?>
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="load-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#load-collapse" aria-expanded="true" aria-controls="load-collapse">
+            <?php echo __('Load options'); ?>
+          </button>
+        </h2>
+        <div id="load-collapse" class="accordion-collapse collapse show" aria-labelledby="load-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->clipboardPassword->label(__('Clipboard ID'))); ?>
+            <?php echo render_field($form->mode->label(__('Action'))); ?>
+          </div>
         </div>
-
-        <div class="fieldset-wrapper">
-          <?php echo $form->mode->label(__('Action'))->renderRow(); ?>
-        </div>
-
-      </fieldset>
-
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" name="load" type="submit" value="<?php echo __('Load'); ?>"/></li>
-        <li><input class="c-btn c-btn-submit" name="loadView" type="submit" value="<?php echo __('Load and view'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><input class="btn atom-btn-outline-light" type="submit" name="load" value="<?php echo __('Load'); ?>"/></li>
+      <li><input class="btn atom-btn-outline-light" type="submit" name="loadView" value="<?php echo __('Load and view'); ?>"/></li>
+    </ul>
 
   </form>
 

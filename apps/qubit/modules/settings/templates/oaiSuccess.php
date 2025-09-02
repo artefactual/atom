@@ -14,30 +14,43 @@
 
 <?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/oai'); ?>" method="post">
+  <?php echo $oaiRepositoryForm->renderGlobalErrors(); ?>
 
-    <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).'); ?></p>
+  <?php echo $oaiRepositoryForm->renderFormTag(url_for(['module' => 'settings', 'action' => 'oai'])); ?>
 
-    <div id="content">
+    <?php echo $oaiRepositoryForm->renderHiddenFields(); ?>
 
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th width="30%"><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php echo $oaiRepositoryForm; ?>
-        </tbody>
-      </table>
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="oai-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#oai-collapse" aria-expanded="true" aria-controls="oai-collapse">
+            <?php echo __('OAI repository settings'); ?>
+          </button>
+        </h2>
+        <div id="oai-collapse" class="accordion-collapse collapse show" aria-labelledby="oai-heading">
+          <div class="accordion-body">
+            <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).'); ?></p>
 
+            <?php echo render_field($oaiRepositoryForm->oai_authentication_enabled); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_repository_code); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_admin_emails); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_repository_identifier); ?>
+
+            <?php echo render_field($oaiRepositoryForm->sample_oai_identifier); ?>
+
+            <?php echo render_field($oaiRepositoryForm->resumption_token_limit, null, ['type' => 'number']); ?>
+
+            <?php echo render_field($oaiRepositoryForm->oai_additional_sets_enabled); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

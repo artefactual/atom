@@ -25,29 +25,24 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?php echo $form->enabled->label(__('Enable Markdown support'))->renderLabel(); ?></td>
-            <td><?php echo $form->enabled; ?></td>
-          </tr>
-        </tbody>
-      </table>
-
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="markdown-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#markdown-collapse" aria-expanded="true" aria-controls="markdown-collapse">
+            <?php echo __('Markdown settings'); ?>
+          </button>
+        </h2>
+        <div id="markdown-collapse" class="accordion-collapse collapse show" aria-labelledby="markdown-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->enabled
+                ->label(__('Enable Markdown support'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

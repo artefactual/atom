@@ -1,85 +1,120 @@
-<div class="section">
+<h3 class="fs-6 mb-2">
+  <?php echo $tableName; ?>
+</h3>
 
-  <table class="table table-bordered multiRow">
-
-    <thead>
+<div class="table-responsive mb-2">
+  <table class="table table-bordered mb-0 multi-row">
+    <thead class="table-light">
       <tr>
-        <?php if ($hiddenType) { ?>
-          <th style="width: 100%">
-            <?php echo $tableName; ?>
+	<?php if ($hiddenType) { ?>
+          <th id="<?php echo $arrayName; ?>-content-head" class="w-100">
+            <?php echo __('Content'); ?>
           </th>
-        <?php } else { ?>
-          <th style="width: 65%">
-            <?php echo $tableName; ?>
+	<?php } else { ?>
+          <th id="<?php echo $arrayName; ?>-content-head" class="w-70">
+            <?php echo __('Content'); ?>
           </th>
-          <th style="width: 30%">
-            <?php echo __('Note type'); ?>
+          <th id="<?php echo $arrayName; ?>-type-head" class="w-30">
+            <?php echo __('Type'); ?>
           </th>
         <?php } ?>
+        <th>
+          <span class="visually-hidden"><?php echo __('Delete'); ?></span>
+        </th>
       </tr>
-    </thead><tbody>
-
+    </thead>
+    <tbody>
       <?php $i = 0;
       foreach ($notes as $item) { ?>
+        <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]");
+        ++$i; ?>
 
-        <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ?>
-
-        <tr class="<?php echo 0 == $i % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $item->id; ?>">
+        <tr class="related_obj_<?php echo $item->id; ?>">
           <td>
-            <div class="animateNicely">
-              <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][id]" value="<?php echo $item->id; ?>"/>
-              <?php if ($hiddenType) { ?>
-                <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][type]" value="<?php echo $hiddenTypeId; ?>"/>
-              <?php } ?>
-              <?php $form->setDefault('content', $item->getContent()); ?>
-              <?php echo render_field($form->content, $item, ['onlyInput' => true, 'class' => 'resizable']); ?>
-            </div>
+            <input
+              type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('id'); ?>"
+              value="<?php echo $item->id; ?>">
+            <?php if ($hiddenType) { ?>
+              <input
+                type="hidden"
+                name="<?php echo $form->getWidgetSchema()->generateName('type'); ?>"
+                value="<?php echo $hiddenTypeId; ?>">
+            <?php } ?>
+            <?php $form->setDefault('content', $item->getContent()); ?>
+            <?php echo render_field($form->content, $item, [
+                'aria-labelledby' => $arrayName.'-content-head',
+                'aria-describedby' => $arrayName.'-table-help',
+                'onlyInputs' => true,
+            ]); ?>
           </td>
           <?php if (!$hiddenType) { ?>
             <td>
-              <div class="animateNicely">
-                <?php echo $form->getWidgetSchema()->renderField('type', $item->typeId); ?>
-              </div>
+              <?php $form->setDefault('type', $item->typeId); ?>
+              <?php echo render_field($form->type, null, [
+                  'aria-labelledby' => $arrayName.'-type-head',
+                  'aria-describedby' => $arrayName.'-table-help',
+                  'onlyInputs' => true,
+              ]); ?>
             </td>
           <?php } ?>
+          <td>
+            <button type="button" class="multi-row-delete btn atom-btn-white">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
+          </td>
         </tr>
-
-        <?php ++$i; ?>
       <?php } ?>
 
       <?php $form->getWidgetSchema()->setNameFormat($arrayName."[{$i}][%s]"); ?>
 
-      <tr class="<?php echo 0 == $i % 2 ? 'even' : 'odd'; ?>">
+      <tr>
         <td>
-          <div class="animateNicely">
-            <?php if ($hiddenType) { ?>
-              <input type="hidden" name="<?php echo $arrayName; ?>[<?php echo $i; ?>][type]" value="<?php echo $hiddenTypeId; ?>"/>
-            <?php } ?>
-            <?php $form->setDefault('content', ''); ?>
-            <?php echo $form->content->render(['class' => 'resizable']); ?>
-          </div>
+          <?php if ($hiddenType) { ?>
+            <input
+              type="hidden"
+              name="<?php echo $form->getWidgetSchema()->generateName('type'); ?>"
+              value="<?php echo $hiddenTypeId; ?>">
+          <?php } ?>
+          <?php $form->setDefault('content', ''); ?>
+          <?php echo render_field($form->content, null, [
+              'aria-labelledby' => $arrayName.'-content-head',
+              'aria-describedby' => $arrayName.'-table-help',
+              'onlyInputs' => true,
+          ]); ?>
         </td>
         <?php if (!$hiddenType) { ?>
           <td>
-            <div class="animateNicely">
-              <?php echo $form->type; ?>
-            </div>
+            <?php $form->setDefault('type', ''); ?>
+            <?php echo render_field($form->type, null, [
+                'aria-labelledby' => $arrayName.'-type-head',
+                'aria-describedby' => $arrayName.'-table-help',
+                'onlyInputs' => true,
+            ]); ?>
           </td>
         <?php } ?>
+        <td>
+          <button type="button" class="multi-row-delete btn atom-btn-white">
+            <i class="fas fa-times" aria-hidden="true"></i>
+            <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+          </button>
+        </td>
       </tr>
-
     </tbody>
-
     <tfoot>
       <tr>
-        <td colspan="<?php echo $hiddenType ? 2 : 3; ?>"><a href="#" class="multiRowAddButton"><?php echo __('Add new'); ?></a></td>
+        <td colspan="<?php echo $hiddenType ? '2' : '3'; ?>">
+          <button type="button" class="multi-row-add btn atom-btn-white">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i>
+            <?php echo __('Add new'); ?>
+          </button>
+        </td>
       </tr>
     </tfoot>
-
   </table>
+</div>
 
-  <div class="description">
-    <?php echo $help; ?>
-  </div>
-
+<div class="form-text mb-3" id="<?php echo $arrayName; ?>-table-help">
+  <?php echo $help; ?>
 </div>

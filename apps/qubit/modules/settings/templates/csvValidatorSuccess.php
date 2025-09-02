@@ -20,24 +20,23 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <fieldset class="collapsible">
-
-        <legend><?php echo __('CSV Validator settings'); ?></legend>
-
-        <?php echo $form->csv_validator_default_import_behaviour
-            ->label(__('CSV Validator default behaviour when CSV Import is run'))
-            ->renderRow(); ?>
-
-      </fieldset>
-
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="validator-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#validator-collapse" aria-expanded="true" aria-controls="validator-collapse">
+            <?php echo __('CSV Validator settings'); ?>
+          </button>
+        </h2>
+        <div id="validator-collapse" class="accordion-collapse collapse show" aria-labelledby="validator-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->csv_validator_default_import_behaviour->label(__('CSV Validator default behaviour when CSV Import is run'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

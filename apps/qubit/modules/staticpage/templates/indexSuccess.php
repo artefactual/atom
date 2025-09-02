@@ -12,7 +12,7 @@
   <h1><?php echo render_title($resource->getTitle(['cultureFallback' => true])); ?></h1>
 <?php end_slot(); ?>
 
-<div class="page">
+<div class="page p-3">
 
   <div>
     <?php echo render_value_html($sf_data->getRaw('content')); ?>
@@ -22,13 +22,11 @@
 
 <?php if (QubitAcl::check($resource, 'update')) { ?>
   <?php slot('after-content'); ?>
-      <section class="actions">
-        <ul>
-          <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'c-btn c-btn-submit', 'title' => __('Edit this page')]); ?></li>
-          <?php if (QubitAcl::check($resource, 'delete')) { ?>
-            <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'staticpage', 'action' => 'delete'], ['class' => 'c-btn c-btn-delete']); ?></li>
-          <?php } ?>
-        </ul>
-      </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php if (QubitAcl::check($resource, 'delete')) { ?>
+        <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'staticpage', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger']); ?></li>
+      <?php } ?>
+    </ul>
   <?php end_slot(); ?>
 <?php } ?>

@@ -1,89 +1,76 @@
 <?php echo render_show(__('Taxonomy'), link_to(render_title($resource->taxonomy), [$resource->taxonomy, 'module' => 'taxonomy'])); ?>
 
-<div class="field">
-  <h3><?php echo __('Code'); ?></h3>
-  <div>
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+  <?php echo render_b5_show_label(__('Code')); ?>
+  <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <?php echo $resource->code; ?>
-    <?php if (!empty($resource->code) && QubitTaxonomy::PLACE_ID == $resource->taxonomy->id) { ?>
-      <?php echo image_tag('https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&center='.$resource->code,
-        ['class' => 'static-map', 'alt' => __('Map of %1%',
+    <?php if (!empty($resource->code) && QubitTaxonomy::PLACE_ID == $resource->taxonomy->id && $mapApiKey = sfConfig::get('app_google_maps_api_key')) { ?>
+      <?php echo image_tag('https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&key='.$mapApiKey.'&center='.$resource->code,
+        ['class' => 'img-thumbnail d-block mt-2', 'alt' => __('Map of %1%',
         ['%1%' => truncate_text(strip_markdown($resource), 100)])]); ?>
     <?php } ?>
   </div>
 </div>
 
-<div class="field">
-  <h3><?php echo __('Scope note(s)'); ?></h3>
-  <div>
-    <ul>
-      <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SCOPE_NOTE_ID]) as $item) { ?>
-        <li><?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
-      <?php } ?>
-    </ul>
-  </div>
-</div>
+<?php
+    $scopeNotes = [];
+    foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SCOPE_NOTE_ID]) as $item) {
+        $scopeNotes[] = $item->getContent(['cultureFallback' => true]);
+    }
+    echo render_show(__('Scope note(s)'), $scopeNotes);
+?>
 
-<div class="field">
-  <h3><?php echo __('Source note(s)'); ?></h3>
-  <div>
-    <ul>
-      <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SOURCE_NOTE_ID]) as $item) { ?>
-        <li><?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
-      <?php } ?>
-    </ul>
-  </div>
-</div>
+<?php
+    $sourceNotes = [];
+    foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::SOURCE_NOTE_ID]) as $item) {
+        $sourceNotes[] = $item->getContent(['cultureFallback' => true]);
+    }
+    echo render_show(__('Source note(s)'), $sourceNotes);
+?>
 
-<div class="field">
-  <h3><?php echo __('Display note(s)'); ?></h3>
-  <div>
-    <ul>
-      <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::DISPLAY_NOTE_ID]) as $item) { ?>
-        <li><?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
-      <?php } ?>
-    </ul>
-  </div>
-</div>
+<?php
+    $displayNotes = [];
+    foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::DISPLAY_NOTE_ID]) as $item) {
+        $displayNotes[] = $item->getContent(['cultureFallback' => true]);
+    }
+    echo render_show(__('Display note(s)'), $displayNotes);
+?>
 
-<div class="field">
-  <h3><?php echo __('Hierarchical terms'); ?></h3>
-  <div>
-
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+  <?php echo render_b5_show_label(__('Hierarchical terms')); ?>
+  <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <?php if (QubitTerm::ROOT_ID != $resource->parent->id) { ?>
       <?php echo render_show(
-                   render_title($resource), __('BT %1%', [
-                       '%1%' => link_to(render_title($resource->parent), [$resource->parent, 'module' => 'term']), ])); ?>
+          render_title($resource),
+          __('BT %1%', ['%1%' => link_to(render_title($resource->parent), [$resource->parent, 'module' => 'term'])]),
+          ['isSubField' => true]
+      ); ?>
     <?php } ?>
 
-    <div class="field">
-      <h3><?php echo render_title($resource); ?></h3>
-      <div>
-        <ul>
-          <?php foreach ($resource->getChildren(['sortBy' => 'name']) as $item) { ?>
-            <li><?php echo __('NT %1%', ['%1%' => link_to(render_title($item), [$item, 'module' => 'term'])]); ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-    </div>
-
+    <?php
+        $hierarchicalTerms = [];
+        foreach ($resource->getChildren(['sortBy' => 'name']) as $item) {
+            $hierarchicalTerms[] = __('NT %1%', ['%1%' => link_to(render_title($item), [$item, 'module' => 'term'])]);
+        }
+        echo render_show(
+            render_title($resource),
+            $hierarchicalTerms,
+            ['isSubField' => true]
+        );
+    ?>
   </div>
 </div>
 
-<div class="field">
-  <h3><?php echo __('Equivalent terms'); ?></h3>
-  <div>
-
-    <div class="field">
-      <h3><?php echo render_title($resource); ?></h3>
-      <div>
-        <ul>
-          <?php foreach ($resource->otherNames as $item) { ?>
-            <li><?php echo __('UF %1%', ['%1%' => render_title($item)]); ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-    </div>
-
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+  <?php echo render_b5_show_label(__('Equivalent terms')); ?>
+  <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+    <?php
+        $equivalentTerms = [];
+        foreach ($resource->otherNames as $item) {
+            $equivalentTerms[] = __('UF %1%', ['%1%' => render_title($item)]);
+        }
+        echo render_show(render_title($resource), $equivalentTerms, ['isSubField' => true]);
+    ?>
   </div>
 </div>
 
@@ -92,21 +79,15 @@
                $converseTerms[0]->getOpposedObject($resource)), [$converseTerms[0]->getOpposedObject($resource), 'module' => 'term'])); ?>
 <?php } ?>
 
-<div class="field">
-  <h3><?php echo __('Associated terms'); ?></h3>
-  <div>
-
-    <div class="field">
-      <h3><?php echo render_title($resource); ?></h3>
-      <div>
-        <ul>
-          <?php foreach (QubitRelation::getBySubjectOrObjectId($resource->id, ['typeId' => QubitTerm::TERM_RELATION_ASSOCIATIVE_ID]) as $item) { ?>
-            <li><?php echo __('RT %1%', ['%1%' => link_to(render_title(
-                          $item->getOpposedObject($resource->id)), [$item->getOpposedObject($resource->id), 'module' => 'term'])]); ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-    </div>
-
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+  <?php echo render_b5_show_label(__('Associated terms')); ?>
+  <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+    <?php
+        $associatedTerms = [];
+        foreach (QubitRelation::getBySubjectOrObjectId($resource->id, ['typeId' => QubitTerm::TERM_RELATION_ASSOCIATIVE_ID]) as $item) {
+            $associatedTerms[] = __('RT %1%', ['%1%' => link_to(render_title($item->getOpposedObject($resource->id)), [$item->getOpposedObject($resource->id), 'module' => 'term'])]);
+        }
+        echo render_show(render_title($resource), $associatedTerms, ['isSubField' => true]);
+    ?>
   </div>
 </div>

@@ -1,20 +1,15 @@
-<div class="sidebar-lowering settings-menu">
-  <table class="table table-bordered table-hover table-condensed">
-    <tbody>
-      <?php foreach ($nodes as $node) { ?>
-        <?php if ($node['active']) { ?>
-          <tr class="info">
-        <?php } else { ?>
-          <tr>
-        <?php } ?>
-          <td>
-            <?php echo link_to($node['label'], [
-                'module' => $node['module'] ?? 'settings',
-                'action' => $node['action'],
-            ]); ?>
-          </td>
-        </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-</div>
+<nav id="settings-menu" class="list-group mb-3 sticky-top">
+  <?php foreach ($nodes as $node) { ?>
+    <?php echo link_to(
+      $node['label'],
+      [
+          'module' => $node['module'] ?? 'settings',
+          'action' => $node['action'],
+      ],
+      [
+          'class' => 'list-group-item list-group-item-action'
+                     .($node['active'] ? ' active' : ''),
+      ]
+    ); ?>
+  <?php } ?>
+</nav>
