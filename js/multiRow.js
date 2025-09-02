@@ -1,224 +1,160 @@
-(function ($)
-  {
-    Qubit.multiRow = Qubit.multiRow || {};
+(($) => {
+  "use strict";
 
-    Qubit.multiRow.addNewRow = function (sender)
-      {
-        var table = $(sender).parents('table:first');
-        var lastRow = table.find('> tbody > tr:last');
-        var newRow = lastRow.clone();
+  $(() => {
+    $("table.multi-row").each((_, table) => {
+      var $table = $(table);
+
+      $table.on("click", ".multi-row-add", function () {
+        var $lastRow = $table.find("> tbody > tr:last");
+        var $newRow = $lastRow.clone().hide();
 
         // Get the last row number (e.g.: foo[0][bar])
-        var lastRowNumber = parseInt(lastRow.find("select, input, textarea").filter(":first").attr("name").match(/\d+/).shift());
+        var lastRowNumber = parseInt(
+          $lastRow
+            .find("select, input, textarea")
+            .first()
+            .attr("name")
+            .match(/\d+/)
+            .shift()
+        );
 
-        // Replace yui div with form-autocomplete elements
-        newRow.find('.yui-ac').each(function()
-          {
-            var name = $(this).children('input[name]:first').attr("name");
-            var id = $(this).children('input[id]:first').attr("id");
-            var inputAdd = $(this).children('input[class=add]')[0];
-            var inputList = $(this).children('input[class=list]')[0];
-            $(this).replaceWith('<select name="' + name + '" class="form-autocomplete" id="' + id + '"></select>'
-              + inputAdd.outerHTML
-              + inputList.outerHTML);
-          });
+        // Replace YUI div with form-autocomplete elements
+        $newRow.find(".yui-ac").each(function () {
+          var $this = $(this);
+          var name = $this.children("input[name]:first").attr("name");
+          var id = $this.children("input[id]:first").attr("id");
+          var inputAdd = $this.children("input[class=add]")[0];
+          var inputList = $this.children("input[class=list]")[0];
+          $this.replaceWith(
+            $("<div>")
+              .append(
+                $("<select>", {
+                  id: id,
+                  name: name,
+                  class: "form-autocomplete form-control",
+                })
+              )
+              .append(inputAdd)
+              .append(inputList)
+          );
+        });
 
         // Iterate over each input, select and textarea elements
-        newRow.find('input, select, textarea').each(function(i)
-          {
-            // Input values are removed except hidden ones (not in childsTable)
-            if ($(this).is('input, textarea') && ($(this).attr("type") != "hidden" || table.attr("id") == "childsTable"))
-            {
-              $(this).val('');
-            }
+        $newRow.find("input, select, textarea").each(function (i) {
+          var $this = $(this);
+
+          // Input values are removed, except those hidden
+          // that are not related to start/end dates.
+          if (
+            $this.is("input, textarea") &&
+            ($this.attr("type") != "hidden" ||
+              ($this.attr("id") && $this.attr("id").endsWith("Date")))
+          ) {
+            $this.val("");
+          } else if ($this.is("select")) {
             // Select index is preserved
-            else if ($(this).is('select'))
-            {
-              var oldSelect = lastRow.find('input, select, textarea').eq(i);
-              var selectedIndex = oldSelect[0].selectedIndex;
+            var oldSelect = $lastRow.find("input, select, textarea").eq(i);
+            var selectedIndex = oldSelect[0].selectedIndex;
 
-              $(this)[0].selectedIndex = selectedIndex;
-            }
+            $this[0].selectedIndex = selectedIndex;
+          }
 
-            // Increment row number
-            if ($(this).attr('name'))
-            {
-              var newName = $(this).attr('name').replace(/\[\d+\]/, '[' + (lastRowNumber + 1) + ']');
-              $(this).attr('name', newName);
-            }
-            if ($(this).attr('id'))
-            {
-              var newId = $(this).attr('id').replace(/\_\d+\_/, '_' + (lastRowNumber + 1) + '_');
-              $(this).attr('id', newId);
-            }
-          });
+          // Increment row number
+          if ($this.attr("name")) {
+            var newName = $this
+              .attr("name")
+              .replace(/\[\d+\]/, "[" + (lastRowNumber + 1) + "]");
+            $this.attr("name", newName);
+          }
+          if ($this.attr("id")) {
+            var newId = $this
+              .attr("id")
+              .replace(/\_\d+\_/, "_" + (lastRowNumber + 1) + "_");
+            $this.attr("id", newId);
+          }
+        });
 
-        // Alternate row style
-        if (newRow.hasClass('even'))
-        {
-          newRow.removeClass('even').addClass('odd');
+        // Append, attach autocomplete, show and trigger focus on first input
+        $table.children("tbody").append($newRow);
+        Drupal.behaviors.autocomplete.attach();
+        $newRow.show(250, () =>
+          $newRow.find(":input:focusable").first().trigger("focus")
+        );
+      });
+
+      // If user press enter, add new row
+      $table.on("keydown", "input, select", function (event) {
+        if (event.key == "Enter" && 0 == $table.find(":animated").length) {
+          $table.find(".multi-row-add").trigger("click");
+          return false;
         }
-        else if (newRow.hasClass('odd'))
-        {
-          newRow.removeClass('odd').addClass('even');
-        }
+      });
 
-        // Iterate over each cell
-        newRow.find('td').each(function(i)
-          {
-            // Wrap cell with div animateNicely for jQuery.show effect
-            if (0 == $(this).find('div.animateNicely').length)
-            {
-              $(this).wrapInner('<div class="animateNicely"></div>');
-            }
+      $table.on("click", ".multi-row-delete", function () {
+        var $this = $(this);
+        var $rows = $table.find("tbody tr");
+        var $objectRows = $table.find('tr[class^="related_obj_"]');
+        var $row = $this.closest("tr");
 
-            // Hide the div
-            $(this).children().hide();
-          });
+        // Deleting element sometimes causes focusout not to fire in Firefox
+        $this.trigger("focusout");
 
-        // Remove any calendar icons from new row then add new one
-        if (undefined !== Drupal.behaviors.date)
-        {
-          newRow.find("button > img[src='/images/calendar.png']").parent().remove();
-          Drupal.behaviors.date.attach(newRow);
-        }
+        // Only remove row if it isn't the last one without a related object.
+        // Adding a new row based on a related object row may creates id
+        // duplication or not form fields in the new row.
+        if (
+          1 < $rows.length - $objectRows.length ||
+          ($row.attr("class") &&
+            $row.attr("class").indexOf("related_obj_") >= 0)
+        ) {
+          var rowNumber = parseInt(
+            $row
+              .find("select, input, textarea")
+              .first()
+              .attr("name")
+              .match(/\d+/)
+              .shift()
+          );
 
-        table.children('tbody')
+          rowNumber--;
 
-          // Append the row to body
-          .append(newRow)
+          $row.nextAll().each(function () {
+            rowNumber++;
 
-          // Show effect
-          .find('> tr:last div.animateNicely').show('normal')
-
-          // Focus first field and trigger event to load functions
-          .first().children("select, input, textarea").focus().trigger('loadFunctions');
-      }
-
-    /**
-     * On page load, "multiRow" tables are prepared to add as many rows as users want
-     */
-    Drupal.behaviors.multiRow = {
-      attach: function (context)
-        {
-          var tables = $('table.multiRow');
-
-          // Add delete button to existing rows
-          $('thead tr:first', tables).append('<th>&nbsp;</th>');
-          $('tbody tr', tables).append('<td><button name="delete" class="delete-small" /></td>');
-
-          tables
-
-            // Add tfoot new row button
-            // TODO: use append + on or delegate, embed addNewRow
-            .each(function()
-              {
-                $(this).find('.multiRowAddButton').click(function()
-                  {
-                    Qubit.multiRow.addNewRow(this);
-                    return false;
-                  }
-                );
-              })
-
-            // If user press enter, add new row
-            .on('keydown', 'input, select', function(event)
-              {
-                if (event.which == 13)
-                {
-                  var table = $(this).parents('table:first');
-
-                  if (0 == table.find(':animated').length)
-                  {
-                    table.find('tfoot a').trigger('click');
-                  }
-
-                  return false;
+            $(this)
+              .find("input, select, textarea")
+              .each(function () {
+                var $this = $(this);
+                if ($this.attr("name")) {
+                  var newName = $this
+                    .attr("name")
+                    .replace(/\[\d+\]/, "[" + rowNumber + "]");
+                  $this.attr("name", newName);
                 }
-              })
-
-            .on('click', '.delete-small', function(event)
-              {
-                event.preventDefault();
-
-                $this = $(this);
-
-                // deleting element sometimes causes focusout not to fire in Firefox
-                $this.trigger('focusout');
-
-                table = $this.closest('table');
-                rows = table.find('tbody tr');
-                objectRows = table.find('tr[class^="even related_obj_"], tr[class^="odd related_obj_"]');
-                row = $this.closest('tr');
-
-                // Only remove row if it isn't the last one without a related object. Adding a new row based
-                // on a related object row may creates id duplication or not form fields in the new row
-                if (1 < rows.length - objectRows.length || $(row).attr("class").indexOf('related_obj_') >= 0)
-                {
-                  if (1 > row.children('div.animateNicely').length)
-                  {
-                    row.find('td').each(function(i)
-                      {
-                        if (0 == $(this).find('div.animateNicely').length)
-                        {
-                          $(this).wrapInner('<div class="animateNicely"></div>');
-                        }
-                      });
-                  }
-
-                  var rowNumber = parseInt(row.find("select, input, textarea").filter(":first").attr("name").match(/\d+/).shift());
-
-                  rowNumber--;
-
-                  row.nextAll().each(function()
-                    {
-                      rowNumber++;
-
-                      $(this).find('input, select, textarea').each(function()
-                        {
-                          if ($(this).attr('name'))
-                          {
-                            var newName = $(this).attr('name').replace(/\[\d+\]/, '[' + rowNumber + ']');
-                            $(this).attr('name', newName);
-                          }
-                          if ($(this).attr('id'))
-                          {
-                            var newId = $(this).attr('id').replace(/\_\d+\_/, '_' + rowNumber + '_');
-                            $(this).attr('id', newId);
-                          }
-                        });
-
-                      // Alternate row style
-                      if ($(this).hasClass('even'))
-                      {
-                        $(this).removeClass('even').addClass('odd');
-                      }
-                      else if ($(this).hasClass('odd'))
-                      {
-                        $(this).removeClass('odd').addClass('even');
-                      }
-                    });
-
-                  row.find('div').hide('normal', function()
-                  {
-                    row.remove();
-                  });
-                }
-                else
-                {
-                  row.find('input, select, textarea').each(function()
-                    {
-                      // Input values are removed except hidden ones
-                      if ($(this).is('input, textarea') && $(this).attr("type") != "hidden")
-                      {
-                        $(this).val('');
-                      }
-                      else if ($(this).is('select'))
-                      {
-                        $(this)[0].selectedIndex = 0;
-                      }
-                    });
+                if ($this.attr("id")) {
+                  var newId = $this
+                    .attr("id")
+                    .replace(/\_\d+\_/, "_" + rowNumber + "_");
+                  $this.attr("id", newId);
                 }
               });
-        }};
-  })(jQuery);
+          });
+
+          $row.hide(250, () => $row.remove());
+        } else {
+          $row.find("input, select, textarea").each(function () {
+            var $this = $(this);
+
+            // Input values are removed except hidden ones
+            if ($this.is("input, textarea") && $this.attr("type") != "hidden") {
+              $this.val("");
+            } else if ($this.is("select")) {
+              $this[0].selectedIndex = 0;
+            }
+          });
+        }
+      });
+    });
+  });
+})(jQuery);
