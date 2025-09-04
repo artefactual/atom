@@ -277,17 +277,27 @@ EOF;
             // Check issues
             $issues = [];
             if (isset($affectedIosById[$id])) {
+                $flag = false;
                 if (!isset($affectedIosById[$id]['object_id'])) {
                     $issues[] = 'missing object row';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['parent'])) {
                     $issues[] = 'parent does not exist';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['parent_id'])) {
                     $issues[] = 'parent not set';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['status_id']) || !isset($affectedIosById[$id]['status'])) {
                     $issues[] = 'missing publication status';
+                    $flag = true;
+                }
+
+                // If none of the above issues has been flagged, this is an empty IO
+                if (!$flag) {
+                    $issues[] = 'empty information object with no data';
                 }
             } else {
                 $issues[] = 'descendant';
