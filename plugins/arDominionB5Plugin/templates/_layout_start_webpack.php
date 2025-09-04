@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include_title(); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
-    <?php if (file_exists(sfConfig::get('sf_web_dir').'/uploads/favicon.ico')) { ?>
-      <?php $faviconLoc = '../../uploads/favicon.ico'; ?>
+    <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/favicon.ico')) { ?>
+      <?php $faviconLoc = '/uploads/r/favicon.ico'; ?>
     <?php } else { ?>
       <?php $faviconLoc = public_path('favicon.ico'); ?>
     <?php } ?>

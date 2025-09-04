@@ -43,7 +43,7 @@ class SettingsHeaderAction extends SettingsEditAction
             'restore_favicon' => '0',
         ];
 
-        $this->uploadsDir = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'uploads';
+        $this->uploadsDir = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.'r';
 
         if ($this->getRequest()->hasParameter('restore_logo')) {
             $this->restoreDefaultLogo();
