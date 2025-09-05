@@ -124,7 +124,7 @@ class sfCurlAdapter
 
     public function __destruct()
     {
-        curl_close($this->curl);
+        $this->close();
     }
 
     public function close()
