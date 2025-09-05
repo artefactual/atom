@@ -3496,11 +3496,13 @@ class QubitDigitalObject extends BaseDigitalObject
             }
 
             if (false !== $contents = $browser->getResponseText()) {
+                $browser->close();
                 return $contents;
             }
         }
 
         // Throw exception on failure
+        $browser->close();
         throw new sfException(sprintf('Error downloading "%s" (attempts: %s).', $uri, $i));
     }
 
