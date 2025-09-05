@@ -122,18 +122,17 @@ class sfCurlAdapter
         curl_setopt($this->curl, CURLOPT_HEADERFUNCTION, [$this, 'read_header']);
     }
 
+    public function __destruct()
+    {
+        curl_close($this->curl);
+    }
+
     public function close()
     {
         if ($this->curl) {     // works for resource and CurlHandle
             curl_close($this->curl);
             $this->curl = null;
         }
-    }
-
-
-    public function __destruct()
-    {
-        curl_close($this->curl);
     }
 
     /**

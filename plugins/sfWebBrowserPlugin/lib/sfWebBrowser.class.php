@@ -743,8 +743,7 @@ class sfWebBrowser
         return $headers;
     }
 
-
-    /* Explicitly close the underlying adapter if it supports close(). */
+    // Explicitly close the underlying adapter if it supports close().
     public function close()
     {
         if (isset($this->adapter) && method_exists($this->adapter, 'close')) {
