@@ -63,6 +63,7 @@ class arStorageServiceUtils
         $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
         curl_close($ch);
+        $ch = null;
 
         return $status;
     }

@@ -299,6 +299,7 @@ class arInstall
 
         $curlHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+        $curl = null;
 
         if (200 !== $curlHttpCode) {
             throw new Exception("Elasticsearch error: {$curlHttpCode}");

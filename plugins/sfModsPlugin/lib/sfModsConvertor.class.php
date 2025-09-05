@@ -339,6 +339,7 @@ class sfModsConvertor extends QubitSaxParser
         file_put_contents($tempFile, curl_exec($curlSession));
 
         curl_close($curlSession);
+        $curlSession = null;
 
         // Add temp file to digital object import queue
         $pathParts = pathinfo($this->data());
