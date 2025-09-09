@@ -129,8 +129,8 @@ class sfCurlAdapter
 
     public function close()
     {
-        if ($this->curl) {     // works for resource and CurlHandle
-            curl_close($this->curl);
+        // If curl handle exists, set it to null to close connection
+        if ($this->curl) {
             $this->curl = null;
         }
     }
