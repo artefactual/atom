@@ -19,7 +19,7 @@
 
 class SettingsHeaderAction extends SettingsEditAction
 {
-    public $uploadsDir;
+    public $staticDir;
 
     public static $NAMES = [
         'logo',
@@ -43,7 +43,7 @@ class SettingsHeaderAction extends SettingsEditAction
             'restore_favicon' => '0',
         ];
 
-        $this->uploadsDir = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.'r';
+        $this->staticDir = sfConfig::get('app_static_abs_path');
 
         if ($this->getRequest()->hasParameter('restore_logo')) {
             $this->restoreDefaultLogo();
@@ -95,7 +95,7 @@ class SettingsHeaderAction extends SettingsEditAction
             case 'logo':
                 $logoFile = $this->form->getValue('logo');
 
-                $logoImgPath = $this->uploadsDir.DIRECTORY_SEPARATOR.'logo.png';
+                $logoImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'logo.png';
 
                 if (null !== $logoFile) {
                     $logoFile->save($logoImgPath);
@@ -106,7 +106,7 @@ class SettingsHeaderAction extends SettingsEditAction
             case 'favicon':
                 $faviconFile = $this->form->getValue('favicon');
 
-                $faviconImgPath = $this->uploadsDir.DIRECTORY_SEPARATOR.'favicon.ico';
+                $faviconImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon.ico';
 
                 if (null !== $faviconFile) {
                     $faviconFile->save($faviconImgPath);
@@ -138,7 +138,7 @@ class SettingsHeaderAction extends SettingsEditAction
 
     protected function restoreDefaultLogo()
     {
-        $logoImgPath = $this->uploadsDir.DIRECTORY_SEPARATOR.'logo.png';
+        $logoImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'logo.png';
         $defaultAtoMLogoPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR.'arDominionB5Plugin'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'default_atom_logo.png';
 
         if (file_exists($defaultAtoMLogoPath)) {
@@ -150,7 +150,7 @@ class SettingsHeaderAction extends SettingsEditAction
 
     protected function restoreDefaultFavicon()
     {
-        $faviconImgPath = $this->uploadsDir.DIRECTORY_SEPARATOR.'favicon.ico';
+        $faviconImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon.ico';
         $defaultAtoMFaviconPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'default_atom_favicon.ico';
 
         if (file_exists($defaultAtoMFaviconPath)) {
