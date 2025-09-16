@@ -82,5 +82,5 @@ all:
       enable_tls_encryption: true
 
   static:
-      abs_path: /mnt/atom_static
-      alias: static
+      abs_path: uploads
+      alias: uploads
