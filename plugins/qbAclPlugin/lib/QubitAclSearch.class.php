@@ -147,15 +147,46 @@ class QubitAclSearch
      */
     public static function filterDrafts(Elastica\Query\BoolQuery $queryBool)
     {
+        $user = sfContext::getInstance()->user;
+
         // Filter out 'draft' items by repository
         $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
         if (1 == count($repositoryViewDrafts)) {
             if (QubitAcl::DENY == $repositoryViewDrafts[0]['access']) {
-                // Don't show *any* draft info objects
-                $query = new \Elastica\Query\Term();
-                $query->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+                // Get granted viewDraft permissions by description
+                $permissions = QubitAcl::getUserPermissionsByAction($user, 'QubitInformationObject', 'viewDraft');
+                if (count($permissions) > 0) {
+                    $allowedDraftIds = [];
 
-                $queryBool->addMust($query);
+                    foreach ($permissions as $permission) {
+                        $resourceId = $permission->objectId;
+
+                        if (is_numeric($resourceId)) {
+                            $resource = QubitInformationObject::getById($resourceId);
+
+                            if (
+                                $resource
+                                && QubitAcl::check($resource, 'viewDraft', ['user' => $user])
+                            ) {
+                                $allowedDraftIds[] = (string) $resource->id;
+                            }
+                        }
+                    }
+
+                    $query = new \Elastica\Query\BoolQuery();
+
+                    // Always include published items
+                    $query->addShould(new \Elastica\Query\Term(['publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]));
+
+                    // Allow permitted drafts
+                    $allowedDraftQuery = new \Elastica\Query\Terms('ancestors', $allowedDraftIds);
+                    $query->addShould($allowedDraftQuery);
+
+                    $queryBool->addMust($query);
+                } else {
+                    // Don't show *any* draft info objects
+                    $queryBool->addMust(new \Elastica\Query\Term(['publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]));
+                }
             }
         } else {
             // Get last rule in list, it will be the global rule with the opposite
