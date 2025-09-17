@@ -12,8 +12,8 @@ prod:
       cache:
         class: sfMemcacheCache
         param:
-          host: memcached
-          port: 11211
+          host: 127.0.0.1
+          port: 63004
           prefix: atom
           storeCacheInfo: true
           persistent: true
@@ -28,9 +28,8 @@ dev:
       cache:
         class: sfMemcacheCache
         param:
-          host: memcached
-          port: 11211
+          host: 127.0.0.1
+          port: 63004
           prefix: atom
           storeCacheInfo: true
           persistent: true
-
