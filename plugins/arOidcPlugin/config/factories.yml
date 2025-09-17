@@ -1,0 +1,4 @@
+all:
+  user:
+    class: oidcUser
+
