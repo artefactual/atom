@@ -38,6 +38,8 @@ jobs:
       run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
     - name: Activate OIDC plugin
       run: sudo touch activate-oidc-plugin
+    - name: Override factories.yml with oidcUser for CI
+      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -134,5 +136,5 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: cypress-screenshots
+        name: cypress-screenshots-${{ matrix.browser }}
         path: cypress/screenshots
