@@ -26,10 +26,10 @@
   <div class="container-fluid">
     <?php if (sfConfig::get('app_toggleLogo') || sfConfig::get('app_toggleTitle')) { ?>
       <a class="navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('Home'); ?>" rel="home">
-        <?php if (file_exists(sfConfig::get('app_static_abs_path').DIRECTORY_SEPARATOR.'logo.png')) { ?>
-          <?php $logoLoc = '/'.sfConfig::get('app_static_alias').'/logo.png'; ?>
+        <?php if (file_exists($staticPath = sfConfig::get('app_static_path').DIRECTORY_SEPARATOR.'logo.png')) { ?>
+          <?php $logoLoc = sfConfig::get('app_static_alias').'/logo.png'; ?>
         <?php } else { ?>
-          <?php $logoLoc = '/plugins/arDominionB5Plugin/images/logo.png'; ?>
+          <?php $logoLoc = DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR.'arDominionB5Plugin'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'logo.png'; ?>
         <?php } ?>
         <?php if (sfConfig::get('app_toggleLogo')) { ?>
           <?php echo image_tag($logoLoc, ['alt' => __('AtoM logo'), 'class' => 'd-inline-block my-2 me-3', 'height' => '35']); ?>

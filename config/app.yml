@@ -81,6 +81,9 @@ all:
   ldap:
       enable_tls_encryption: true
 
+  # Static directory for uploading logo and favicon
+  # path: path to static directory
+  # alias: href alias to static directory
   static:
-      abs_path: uploads
-      alias: uploads
+      path: uploads/r/static/conf
+      alias: /uploads/r/static/conf

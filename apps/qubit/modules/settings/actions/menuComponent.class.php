@@ -63,7 +63,7 @@ class SettingsMenuComponent extends sfComponent
                 'action' => 'global',
             ],
             [
-                'label' => $i18n->__('Header customzations'),
+                'label' => $i18n->__('Header customizations'),
                 'action' => 'header',
             ],
             [

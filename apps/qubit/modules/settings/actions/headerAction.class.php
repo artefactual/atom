@@ -43,14 +43,10 @@ class SettingsHeaderAction extends SettingsEditAction
             'restore_favicon' => '0',
         ];
 
-        $this->staticDir = sfConfig::get('app_static_abs_path');
-
-        if ($this->getRequest()->hasParameter('restore_logo')) {
-            $this->restoreDefaultLogo();
-        }
-
-        if ($this->getRequest()->hasParameter('restore_favicon')) {
-            $this->restoreDefaultFavicon();
+        if (str_starts_with(sfConfig::get('app_static_path'), 'uploads')) {
+            $this->staticDir = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_static_path');
+        } else {
+            $this->staticDir = sfConfig::get('app_static_path');
         }
     }
 

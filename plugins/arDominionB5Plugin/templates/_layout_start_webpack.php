@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include_title(); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
-    <?php if (file_exists(sfConfig::get('app_static_abs_path').DIRECTORY_SEPARATOR.'favicon.ico')) { ?>
-      <?php $faviconLoc = '/'.sfConfig::get('app_static_alias').'/favicon.ico'; ?>
+    <?php if (file_exists($staticPath = sfConfig::get('app_static_path').DIRECTORY_SEPARATOR.'favicon.ico')) { ?>
+      <?php $faviconLoc = sfConfig::get('app_static_alias').'/favicon.ico'; ?>
     <?php } else { ?>
       <?php $faviconLoc = public_path('favicon.ico'); ?>
     <?php } ?>
