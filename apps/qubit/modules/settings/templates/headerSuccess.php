@@ -39,7 +39,7 @@
       <div class="accordion-body">
         <?php echo render_field($form->logo->label(__('Upload logo'))); ?>
 
-        <input class="btn atom-btn-white mb-3" type="submit" name="restore_logo" value="<?php echo __('Restore Default AtoM Logo'); ?>"/>
+        <?php echo render_field($form->restore_logo->label(__('Restore logo'))); ?>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
       <div class="accordion-body">
         <?php echo render_field($form->favicon->label(__('Upload favicon'))); ?>
 
-        <input class="btn atom-btn-white mb-3" type="submit" name="restore_favicon" value="<?php echo __('Restore Default AtoM Favicon'); ?>"/>
+        <?php echo render_field($form->restore_favicon->label(__('Restore favicon'))); ?>
       </div>
     </div>
   </div>

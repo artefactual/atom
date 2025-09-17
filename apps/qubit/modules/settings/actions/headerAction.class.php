@@ -39,6 +39,8 @@ class SettingsHeaderAction extends SettingsEditAction
             'logo' => '0',
             'header_background_colour' => '#212529',
             'favicon' => '0',
+            'restore_logo' => '0',
+            'restore_favicon' => '0',
         ];
 
         $this->uploadsDir = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'uploads';
@@ -61,21 +63,17 @@ class SettingsHeaderAction extends SettingsEditAction
 
                 break;
 
-            case 'restore_logo':
-                $this->form->setWidget('restore_logo', new sfWidgetFormInputHidden());
-                $this->form->setValidator('restore_logo', new sfValidatorPass());
-
-                break;
-
             case 'favicon':
                 $this->form->setWidget($name, new sfWidgetFormInputFile([], ['accept' => '.ico']));
                 $this->form->setValidator($name, new sfValidatorFile(['mime_types' => ['image/x-icon', 'image/vnd.microsoft.icon']]));
 
                 break;
 
+            case 'restore_logo':
             case 'restore_favicon':
-                $this->form->setWidget('restore_favicon', new sfWidgetFormInputHidden());
-                $this->form->setValidator('restore_favicon', new sfValidatorPass());
+                $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
+                $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
 
                 break;
 
@@ -119,6 +117,20 @@ class SettingsHeaderAction extends SettingsEditAction
             case 'header_background_colour':
                 $colour = $this->form->getValue('header_background_colour');
                 QubitSetting::findAndSave('header_background_colour', $colour, ['sourceCulture' => true]);
+
+                break;
+
+            case 'restore_logo':
+                if (1 == $field->getValue()) {
+                    $this->restoreDefaultLogo();
+                }
+
+                break;
+
+            case 'restore_favicon':
+                if (1 == $field->getValue()) {
+                    $this->restoreDefaultFavicon();
+                }
 
                 break;
         }
