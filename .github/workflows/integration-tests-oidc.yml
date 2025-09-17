@@ -27,6 +27,13 @@ jobs:
     - name: Launch Keycloak service
       run: |
         docker compose -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
+    - name: Wait for Keycloak readiness
+      run: |
+        echo "Waiting for Keycloak to serve demo realm..."
+        for i in {1..60}; do
+          if curl -fsS http://127.0.0.1:8080/realms/demo/.well-known/openid-configuration >/dev/null; then
+            echo "Keycloak is ready"; break; fi; sleep 2; done
+        curl -fsS http://127.0.0.1:8080/realms/demo/.well-known/openid-configuration | head -c 200 || true
     - name: Update OIDC plugin app.yml file
       run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
     - name: Activate OIDC plugin
@@ -105,27 +112,27 @@ jobs:
       run: |
         sudo mkdir -p ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
         sudo chmod a=rwx ${{ github.workspace }}/cypress/screenshots ${{ github.workspace }}/cypress/videos
-    # - name: Run tests
-    #   env:
-    #     BROWSER: ${{ matrix.browser }}
-    #     CYPRESS_VIDEO: false
-    #     CYPRESS_BASE_URL: http://localhost
-    #     LIBGL_ALWAYS_SOFTWARE: 1
-    #   run: npx cypress run -b ${BROWSER,}
-    # - name: Print logs
-    #   if: failure()
-    #   run: |
-    #     echo 'Print qubit_worker.log'
-    #     sudo tail ${{ github.workspace }}/log/qubit_worker.log
-    #     echo 'Print qubit_prod.log'
-    #     sudo tail ${{ github.workspace }}/log/qubit_prod.log
-    #     echo 'Print nginx/error.log'
-    #     sudo tail /var/log/nginx/error.log
-    #     echo 'Print php8.3-fpm.log'
-    #     sudo tail /var/log/php8.3-fpm.log
-    # - name: Upload Cypress Screenshots
-    #   uses: actions/upload-artifact@v4
-    #   if: always()
-    #   with:
-    #     name: cypress-screenshots
-    #     path: cypress/screenshots
+    - name: Run tests
+      env:
+        BROWSER: ${{ matrix.browser }}
+        CYPRESS_VIDEO: false
+        CYPRESS_BASE_URL: http://localhost
+        LIBGL_ALWAYS_SOFTWARE: 1
+      run: npx cypress run -b ${BROWSER,} --config baseUrl=${CYPRESS_BASE_URL} --spec cypress/e2e/oidc_auth.cy.js
+    - name: Print logs
+      if: failure()
+      run: |
+        echo 'Print qubit_worker.log'
+        sudo tail ${{ github.workspace }}/log/qubit_worker.log || true
+        echo 'Print qubit_prod.log'
+        sudo tail ${{ github.workspace }}/log/qubit_prod.log || true
+        echo 'Print nginx/error.log'
+        sudo tail /var/log/nginx/error.log || true
+        echo 'Print php8.3-fpm.log'
+        sudo tail /var/log/php8.3-fpm.log || true
+    - name: Upload Cypress Screenshots
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots

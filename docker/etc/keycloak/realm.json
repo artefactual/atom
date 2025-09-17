@@ -29,13 +29,21 @@
         "clientId": "atom",
         "name": "atom",
         "enabled": true,
-        "rootUrl": "http://atom:8000",
-        "adminUrl": "http://atom:8000",
-        "baseUrl": "http://atom:8000",
+        "rootUrl": "http://localhost",
+        "adminUrl": "http://localhost",
+        "baseUrl": "http://localhost",
         "clientAuthenticatorType": "client-secret",
         "secret": "example-secret",
-        "redirectUris": ["http://atom:8000/*"],
-        "webOrigins": ["http://atom:8000"],
+        "redirectUris": [
+          "http://localhost/*",
+          "http://127.0.0.1/*",
+          "http://atom:8000/*"
+        ],
+        "webOrigins": [
+          "http://localhost",
+          "http://127.0.0.1",
+          "http://atom:8000"
+        ],
         "standardFlowEnabled": true,
         "serviceAccountsEnabled": true,
         "authorizationServicesEnabled": true,
@@ -117,13 +125,21 @@
         "clientId": "atom-secondary",
         "name": "atom-secondary",
         "enabled": true,
-        "rootUrl": "http://atom:8000",
-        "adminUrl": "http://atom:8000",
-        "baseUrl": "http://atom:8000",
+        "rootUrl": "http://localhost",
+        "adminUrl": "http://localhost",
+        "baseUrl": "http://localhost",
         "clientAuthenticatorType": "client-secret",
         "secret": "example-secret-secondary",
-        "redirectUris": ["http://atom:8000/*"],
-        "webOrigins": ["http://atom:8000"],
+        "redirectUris": [
+          "http://localhost/*",
+          "http://127.0.0.1/*",
+          "http://atom:8000/*"
+        ],
+        "webOrigins": [
+          "http://localhost",
+          "http://127.0.0.1",
+          "http://atom:8000"
+        ],
         "standardFlowEnabled": true,
         "serviceAccountsEnabled": true,
         "authorizationServicesEnabled": true,
