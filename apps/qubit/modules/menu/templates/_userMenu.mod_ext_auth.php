@@ -12,7 +12,7 @@
       <?php if ($sf_context->getConfiguration()->isPluginEnabled('arCasPlugin')) { ?>
         <?php echo $form->renderFormTag(url_for(['module' => 'cas', 'action' => 'login']), ['class' => 'mx-3 my-2']); ?>
       <?php } elseif ($sf_context->getConfiguration()->isPluginEnabled('arOidcPlugin')) { ?>
-        <?php echo $form->renderFormTag(url_for(['module' => 'oidc', 'action' => 'login']), ['class' => 'mx-3 my-2']); ?>
+        <?php echo $form->renderFormTag(url_for(['module' => 'oidc', 'action' => 'login']), ['class' => 'mx-3 my-2', 'method' => 'post']); ?>
       <?php } ?>
         <?php echo $form->renderHiddenFields(); ?>
         <button class="btn btn-sm atom-btn-secondary" type="submit">

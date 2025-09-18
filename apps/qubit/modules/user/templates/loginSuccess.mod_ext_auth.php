@@ -8,7 +8,7 @@
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('arCasPlugin')) { ?>
       <?php echo $form->renderFormTag(url_for(['module' => 'cas', 'action' => 'login'])); ?>
     <?php } elseif ($sf_context->getConfiguration()->isPluginEnabled('arOidcPlugin')) { ?>
-      <?php echo $form->renderFormTag(url_for(['module' => 'oidc', 'action' => 'login'])); ?>
+      <?php echo $form->renderFormTag(url_for(['module' => 'oidc', 'action' => 'login']), ['method' => 'post']); ?>
     <?php } ?>
 
     <?php echo $form->renderHiddenFields(); ?>
