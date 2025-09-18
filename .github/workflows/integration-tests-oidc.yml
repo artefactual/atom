@@ -34,12 +34,9 @@ jobs:
           if curl -fsS http://127.0.0.1:8080/realms/demo/.well-known/openid-configuration >/dev/null; then
             echo "Keycloak is ready"; break; fi; sleep 2; done
         curl -fsS http://127.0.0.1:8080/realms/demo/.well-known/openid-configuration | head -c 200 || true
-    - name: Update OIDC plugin app.yml file
-      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+
     - name: Activate OIDC plugin
       run: sudo touch activate-oidc-plugin
-    - name: Override factories.yml with oidcUser for CI
-      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -93,6 +90,16 @@ jobs:
         sudo chown -R www-data:www-data ${{ github.workspace }}
         sudo chmod 755 /home
         sudo chmod 755 /home/runner
+
+    - name: Update OIDC plugin app.yml file
+      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+
+    - name: Override factories.yml with oidcUser
+      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
+
+    - name: Override settings.yml with login_module 'oidc'
+      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
+
     - name: Start application services
       run: |
         sudo cp test/etc/fpm_conf /etc/php/8.3/fpm/pool.d/atom.conf
