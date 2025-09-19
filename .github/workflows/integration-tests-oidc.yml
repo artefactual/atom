@@ -100,6 +100,10 @@ jobs:
     - name: Override settings.yml with login_module 'oidc'
       run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
 
+    - name: Clear Symfony cache
+      run: |
+        php symfony cc
+
     - name: Start application services
       run: |
         sudo cp test/etc/fpm_conf /etc/php/8.3/fpm/pool.d/atom.conf
@@ -109,6 +113,7 @@ jobs:
         sudo cp test/etc/worker_conf /usr/lib/systemd/system/atom-worker.service
         sudo systemctl daemon-reload
         sudo systemctl start atom-worker
+
     - name: Install and configure Nginx
       run: |
         sudo apt install nginx
