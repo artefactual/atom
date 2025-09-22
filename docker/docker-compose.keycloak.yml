@@ -10,6 +10,6 @@ services:
       KC_METRICS_ENABLED: true
       KC_LOG_LEVEL: INFO
     ports:
-      - 8080:8080
+      - "127.0.0.1:8080:8080"
     volumes:
       - "./etc/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro"
