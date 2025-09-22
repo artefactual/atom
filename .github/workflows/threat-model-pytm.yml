@@ -30,14 +30,11 @@ jobs:
       - name: Generate Threat Report
         run: |
           mkdir -p atom_tm
-          # Resolve the built-in basic_template.md from the pytm package
-          TEMPLATE=$(python -c "import os, pytm; print(os.path.join(os.path.dirname(pytm.__file__), 'docs', 'basic_template.md'))")
-          echo "Using template: $TEMPLATE"
-          test -f "$TEMPLATE" || { echo "Template not found"; exit 1; }
 
           # Report (Markdown -> HTML)
-          python ./atom_tm.py --report "$TEMPLATE" | pandoc -f markdown -t html -s --metadata title="AtoM Threat Model" -o atom_tm/report.html
-          python ./atom_tm.py --report "$TEMPLATE" > atom_tm/report.md
+          python ./atom_tm.py --report pytm/basic_template.md | pandoc -f markdown -t html -s --metadata title="AtoM Threat Model" -o atom_tm/report.html
+          python ./atom_tm.py --report pytm/advanced_template.md | pandoc -f markdown -t html -s --metadata title="AtoM Threat Model Advanced" -o atom_tm/report-adv.html
+          python ./atom_tm.py --report pytm/basic_template.md > atom_tm/report.md
 
           # DFD
           python ./atom_tm.py --dfd > atom_tm/dfd.dot
