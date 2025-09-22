@@ -1,0 +1,53 @@
+name: Generate threat model
+
+on:
+  push:
+    branches:
+    - qa/**
+    - dev/**
+  # We may want to run this on a timed cadence instead of on every push.
+
+jobs:
+  build-threat-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytm
+          sudo apt-get update
+          sudo apt-get install -y pandoc graphviz plantuml default-jre
+
+      - name: Generate Threat Report
+        run: |
+          mkdir -p atom_tm
+          # Resolve the built-in basic_template.md from the pytm package
+          TEMPLATE=$(python -c "import os, pytm; print(os.path.join(os.path.dirname(pytm.__file__), 'docs', 'basic_template.md'))")
+          echo "Using template: $TEMPLATE"
+          test -f "$TEMPLATE" || { echo "Template not found"; exit 1; }
+
+          # Report (Markdown -> HTML)
+          python ./atom_tm.py --report "$TEMPLATE" | pandoc -f markdown -t html -s --metadata title="AtoM Threat Model" -o atom_tm/report.html
+          python ./atom_tm.py --report "$TEMPLATE" > atom_tm/report.md
+
+          # DFD
+          python ./atom_tm.py --dfd > atom_tm/dfd.dot
+          dot -Tpng atom_tm/dfd.dot -o atom_tm/dfd.png
+          dot -Tsvg atom_tm/dfd.dot -o atom_tm/dfd.svg
+
+          # Sequence diagram (PlantUML)
+          python ./atom_tm.py --seq | plantuml -tpng -pipe > atom_tm/seq.png
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: threat-model
+          path: atom_tm/
