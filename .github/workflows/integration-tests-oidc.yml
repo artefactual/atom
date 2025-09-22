@@ -27,6 +27,7 @@ jobs:
     - name: Launch Keycloak service
       run: |
         docker compose -f ${{ github.workspace }}/docker/docker-compose.keycloak.yml up -d
+
     - name: Wait for Keycloak readiness
       run: |
         echo "Waiting for Keycloak to serve demo realm..."
@@ -98,7 +99,7 @@ jobs:
       run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
 
     - name: Override settings.yml with login_module 'oidc'
-      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
+      run: sudo cp -v test/etc/oidc/settings.yml apps/qubit/config/settings.yml
 
     - name: Clear Symfony cache
       run: |
