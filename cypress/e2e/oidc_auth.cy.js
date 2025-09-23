@@ -10,11 +10,33 @@ const KEYCLOAK_ORIGIN = Cypress.env('KEYCLOAK_ORIGIN') || 'http://127.0.0.1:8080
 describe('OIDC SSO (Keycloak) - primary realm', () => {
   it('logs in via "Log in with SSO" and logs out', () => {
     // Go to AtoM login page and trigger OIDC login
+
+    cy.intercept('POST', '/oidc/login').as('oidcLogin');
+
     cy.visit('/user/login')
     // Submit the first OIDC login form directly (handles duplicate forms)
     // Click the second "Log in with SSO" button on the page
     // cy.contains('button', 'Log in with SSO').last().click();
-    cy.contains('button', 'Log in with SSO').last().debug().click();
+    cy.contains('button', 'Log in with SSO').last().click();
+
+    // Wait for the POST to happen
+    cy.wait('@oidcLogin').then((interception) => {
+      // Print out request details
+      cy.log('Intercepted OIDC login POST');
+
+      // Print to GitHub Actions log
+      // requestBody will contain form fields like "next"
+      // response?.statusCode will show 200/302 etc.
+      console.log('OIDC POST request body:', interception.request?.body);
+      console.log('OIDC POST response status:', interception.response?.statusCode);
+
+      // Assert form contained the "next" parameter
+      expect(interception.request?.body).to.have.property('next');
+
+      // Assert redirect response
+      expect(interception.response?.statusCode).to.be.oneOf([200, 302]);
+    });
+
     // Wait for top-level navigation to Keycloak before running cross-origin commands
     cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
 
