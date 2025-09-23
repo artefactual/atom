@@ -11,6 +11,10 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
   it('logs in via "Log in with SSO" and logs out', () => {
     cy.visit('/user/login');
 
+    cy.document().then((doc) => {
+      console.log('Page HTML in CI:', doc.documentElement.outerHTML.slice(0, 2000)); // first 2k chars
+    });
+
     cy.get('form[action="/oidc/login"]').then(($forms) => {
       console.log('Found OIDC forms:', $forms.length);
       $forms.each((i, el) => console.log(`Form ${i}:`, el.outerHTML));
