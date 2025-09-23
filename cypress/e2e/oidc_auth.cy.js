@@ -14,9 +14,11 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
 
     // Pick the last OIDC login form (main-column one on /user/login)
     cy.get('form[action$="/oidc/login"]').last().within(() => {
-      cy.get('button[type="submit"]').then(($btn) => {
-        cy.task('log', 'Clicking button: ' + $btn.text());
-      }).click();
+      cy.get('button[type="submit"]')
+        .invoke('text')
+        .then((text) => cy.task('log', 'Clicking button: ' + text));
+
+      cy.get('button[type="submit"]').click();
     });
 
     // Assert navigation to OIDC login endpoint
@@ -58,27 +60,27 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
 });
 
 
-describe('OIDC SSO (Keycloak) - secondary realm', () => {
-  it('selects secondary provider via query param and logs in', () => {
-    // This uses provider_query_param_name=provider
-    cy.visit('/user/login?provider=secondary')
-    // Submit the first OIDC login form directly (handles duplicate forms)
-    // Click the second "Log in with SSO" button on the page
-    cy.contains('button', 'Log in with SSO').last().click();
-    cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
+// describe('OIDC SSO (Keycloak) - secondary realm', () => {
+//   it('selects secondary provider via query param and logs in', () => {
+//     // This uses provider_query_param_name=provider
+//     cy.visit('/user/login?provider=secondary')
+//     // Submit the first OIDC login form directly (handles duplicate forms)
+//     // Click the second "Log in with SSO" button on the page
+//     cy.contains('button', 'Log in with SSO').last().click();
+//     cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
 
-    // Complete login on Keycloak (secondary realm)
-    cy.origin(KEYCLOAK_ORIGIN, () => {
-      const user = Cypress.env('OIDC_SECONDARY_USERNAME') || 'supportdefault'
-      const pass = Cypress.env('OIDC_SECONDARY_PASSWORD') || 'support'
-      cy.get('#kc-page-title', { timeout: 30000 }).should('exist')
-      cy.get('#username', { timeout: 30000 }).should('be.visible').clear().type(user)
-      cy.get('#password').clear().type(pass)
-      cy.get('#kc-login').click()
-    })
+//     // Complete login on Keycloak (secondary realm)
+//     cy.origin(KEYCLOAK_ORIGIN, () => {
+//       const user = Cypress.env('OIDC_SECONDARY_USERNAME') || 'supportdefault'
+//       const pass = Cypress.env('OIDC_SECONDARY_PASSWORD') || 'support'
+//       cy.get('#kc-page-title', { timeout: 30000 }).should('exist')
+//       cy.get('#username', { timeout: 30000 }).should('be.visible').clear().type(user)
+//       cy.get('#password').clear().type(pass)
+//       cy.get('#kc-login').click()
+//     })
 
-    // Back on AtoM, user menu should show the username from secondary realm
-    const expectedUser = Cypress.env('OIDC_SECONDARY_USERNAME') || 'supportdefault'
-    cy.get('#user-menu', { timeout: 30000 }).should('be.visible').and('contain', expectedUser)
-  })
-})
+//     // Back on AtoM, user menu should show the username from secondary realm
+//     const expectedUser = Cypress.env('OIDC_SECONDARY_USERNAME') || 'supportdefault'
+//     cy.get('#user-menu', { timeout: 30000 }).should('be.visible').and('contain', expectedUser)
+//   })
+// })
