@@ -12,7 +12,8 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     // Go to AtoM login page and trigger OIDC login
     cy.visit('/user/login')
     // Submit the first OIDC login form directly (handles duplicate forms)
-    cy.get('form[action$="/oidc/login"]').first().submit()
+    // Click the second "Log in with SSO" button on the page
+    cy.contains('button', 'Log in with SSO').last().click();
     // Wait for top-level navigation to Keycloak before running cross-origin commands
     cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
 
@@ -42,7 +43,8 @@ describe('OIDC SSO (Keycloak) - secondary realm', () => {
     // This uses provider_query_param_name=provider
     cy.visit('/user/login?provider=secondary')
     // Submit the first OIDC login form directly (handles duplicate forms)
-    cy.get('form[action$="/oidc/login"]').first().submit()
+    // Click the second "Log in with SSO" button on the page
+    cy.contains('button', 'Log in with SSO').last().click();
     cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
 
     // Complete login on Keycloak (secondary realm)
