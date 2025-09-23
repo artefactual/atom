@@ -22,9 +22,9 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     });
 
     // Assert navigation to OIDC login endpoint
-    cy.url().then((url) => {
-      cy.task('log', 'URL after clicking SSO button: ' + url);
-    }).should('include', '/oidc/login');
+    cy.url().should('include', '/oidc/login')
+      .then((url) => cy.task('log', 'URL after clicking SSO button: ' + url));
+
 
     // Wait for navigation to Keycloak
     cy.location('origin', { timeout: 30000 }).then((origin) => {
