@@ -19,3 +19,23 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 }
+
+
+/// <reference types="cypress" />
+
+/**
+ * @type {Cypress.PluginConfig}
+ */
+module.exports = (on, config) => {
+  // other plugins you may already have...
+
+  // Add a simple log task
+  on('task', {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+  });
+
+  return config;
+};

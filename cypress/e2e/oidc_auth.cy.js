@@ -12,12 +12,12 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     cy.visit('/user/login');
 
     cy.document().then((doc) => {
-      console.log('Page HTML in CI:', doc.documentElement.outerHTML.slice(0, 2000)); // first 2k chars
+      cy.task('log', 'Page HTML in CI: ' + doc.documentElement.outerHTML.slice(0, 2000));
     });
 
-    cy.get('form[action="/oidc/login"]').then(($forms) => {
-      console.log('Found OIDC forms:', $forms.length);
-      $forms.each((i, el) => console.log(`Form ${i}:`, el.outerHTML));
+    cy.get('form').then(($forms) => {
+      cy.task('log', `Found ${$forms.length} forms`);
+      $forms.each((i, el) => cy.task('log', `Form ${i}: ${el.outerHTML}`));
     });
 
     // Select the second form (the always-visible one)
