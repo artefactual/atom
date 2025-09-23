@@ -34,7 +34,7 @@ test:
 all:
   .settings:
     # Form security secret (CSRF protection)
-    csrf_secret:            change_me
+    csrf_secret:            false
 
     enabled_modules:        [default, aclGroup]
 
