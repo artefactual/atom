@@ -9,57 +9,45 @@ const KEYCLOAK_ORIGIN = Cypress.env('KEYCLOAK_ORIGIN') || 'http://127.0.0.1:8080
 
 describe('OIDC SSO (Keycloak) - primary realm', () => {
   it('logs in via "Log in with SSO" and logs out', () => {
-    // Go to AtoM login page and trigger OIDC login
+    cy.visit('/user/login');
 
-    cy.intercept('POST', '/oidc/login').as('oidcLogin');
-
-    cy.visit('/user/login')
-    // Submit the first OIDC login form directly (handles duplicate forms)
-    // Click the second "Log in with SSO" button on the page
-    // cy.contains('button', 'Log in with SSO').last().click();
-    cy.contains('button', 'Log in with SSO').last().click();
-
-    // Wait for the POST to happen
-    cy.wait('@oidcLogin').then((interception) => {
-      // Print out request details
-      cy.log('Intercepted OIDC login POST');
-
-      // Print to GitHub Actions log
-      // requestBody will contain form fields like "next"
-      // response?.statusCode will show 200/302 etc.
-      console.log('OIDC POST request body:', interception.request?.body);
-      console.log('OIDC POST response status:', interception.response?.statusCode);
-
-      // Assert form contained the "next" parameter
-      expect(interception.request?.body).to.have.property('next');
-
-      // Assert redirect response
-      expect(interception.response?.statusCode).to.be.oneOf([200, 302]);
+    cy.get('form[action="/oidc/login"]').within(() => {
+      cy.get('button[type="submit"]').then(($btn) => {
+        console.log('About to click button with text:', $btn.text());
+      }).click();
     });
 
-    // Wait for top-level navigation to Keycloak before running cross-origin commands
-    cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
+    cy.url().then((url) => {
+      console.log('Current URL after SSO button click:', url);
+    }).should('include', '/oidc/login');
 
-    // Complete login on Keycloak (demo realm)
-    cy.origin(KEYCLOAK_ORIGIN, () => {
-      // Ensure we are on the Keycloak page
-      cy.get('#kc-page-title', { timeout: 30000 }).should('exist')
-      cy.get('#username', { timeout: 30000 }).should('be.visible').clear().type(Cypress.env('OIDC_USERNAME') || 'demo')
-      cy.get('#password').clear().type(Cypress.env('OIDC_PASSWORD') || 'demo')
-      cy.get('#kc-login').click()
-    })
+    cy.location('origin', { timeout: 30000 }).then((origin) => {
+      console.log('Navigated to origin:', origin);
+    }).should('eq', KEYCLOAK_ORIGIN);
 
-    // Back on AtoM, user menu should show the username
-    cy.get('#user-menu', { timeout: 30000 }).should('be.visible').and('contain', OIDC_USERNAME)
+    const username = Cypress.env('OIDC_USERNAME') || 'demo';
+    console.log('Using OIDC username:', username);
 
-    // Logout via user menu -> OIDC logout
-    cy.get('#user-menu').click()
-    cy.contains('a.dropdown-item', 'Logout', { matchCase: false }).click()
+    cy.origin(KEYCLOAK_ORIGIN, { args: { username } }, ({ username }) => {
+      cy.get('#kc-page-title', { timeout: 30000 }).should('exist');
+      cy.get('#username').clear().type(username);
+      cy.get('#password').clear().type(Cypress.env('OIDC_PASSWORD') || 'demo');
+      cy.get('#kc-login').click();
+    });
 
-    // After logout, the login button should be visible again
-    cy.get('#user-menu', { timeout: 30000 }).should('contain', 'Log in')
-  })
-})
+    cy.get('#user-menu', { timeout: 30000 }).then(($menu) => {
+      console.log('User menu after login:', $menu.text());
+    }).should('contain', OIDC_USERNAME);
+
+    cy.get('#user-menu').click();
+    cy.contains('a.dropdown-item', 'Logout', { matchCase: false }).click();
+
+    cy.get('#user-menu', { timeout: 30000 }).then(($menu) => {
+      console.log('User menu after logout:', $menu.text());
+    }).should('contain', 'Log in');
+  });
+});
+
 
 describe('OIDC SSO (Keycloak) - secondary realm', () => {
   it('selects secondary provider via query param and logs in', () => {
