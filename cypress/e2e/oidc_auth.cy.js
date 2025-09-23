@@ -13,7 +13,8 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     cy.visit('/user/login')
     // Submit the first OIDC login form directly (handles duplicate forms)
     // Click the second "Log in with SSO" button on the page
-    cy.contains('button', 'Log in with SSO').last().click();
+    // cy.contains('button', 'Log in with SSO').last().click();
+    cy.contains('button', 'Log in with SSO').last().debug().click();
     // Wait for top-level navigation to Keycloak before running cross-origin commands
     cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN)
 
