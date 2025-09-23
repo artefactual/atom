@@ -93,7 +93,7 @@ jobs:
         sudo chmod 755 /home/runner
 
     - name: Update OIDC plugin app.yml file
-      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml plugins/arOidcPlugin/config
+      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml apps/qubit/config/app.yml
 
     - name: Override factories.yml with oidcUser
       run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml

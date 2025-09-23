@@ -1,5 +1,15 @@
 ## OIDC Plugin configuration.
 all:
+  upload_limit: -1
+  download_timeout: 10
+  cache_engine: sfAPCCache
+  read_only: false
+  htmlpurifier_enabled: false
+  workers_key:
+  password_hash_algorithm: PASSWORD_ARGON2I
+  password_hash_algorithm_options: {"memory_cost": "2048", "time_cost": "4", "threads": "3"}
+  treeview_items_per_page_max: 10000
+
   oidc:
     providers:
       demo:
