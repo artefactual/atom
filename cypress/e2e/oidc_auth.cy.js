@@ -25,6 +25,15 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     cy.url().should('include', '/oidc/login')
       .then((url) => cy.task('log', 'URL after clicking SSO button: ' + url));
 
+    cy.get('form[action$="/oidc/login"]').last().within(() => {
+      cy.get('button[type="submit"]').click();
+    });
+
+    // Wait for the page to unload/reload
+    cy.location('pathname', { timeout: 10000 }).then((path) => {
+      cy.task('log', 'Path after clicking button: ' + path);
+    });
+
 
     // Wait for navigation to Keycloak
     cy.location('origin', { timeout: 30000 }).then((origin) => {
