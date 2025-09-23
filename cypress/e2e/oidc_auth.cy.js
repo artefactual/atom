@@ -7,53 +7,52 @@ const OIDC_USERNAME = Cypress.env('OIDC_USERNAME') || 'demo'
 const OIDC_PASSWORD = Cypress.env('OIDC_PASSWORD') || 'demo'
 const KEYCLOAK_ORIGIN = Cypress.env('KEYCLOAK_ORIGIN') || 'http://127.0.0.1:8080'
 
+// cypress/e2e/oidc_auth.cy.js
 describe('OIDC SSO (Keycloak) - primary realm', () => {
   it('logs in via "Log in with SSO" and logs out', () => {
     cy.visit('/user/login');
 
-    cy.document().then((doc) => {
-      cy.task('log', 'Page HTML in CI: ' + doc.documentElement.outerHTML.slice(0, 2000));
-    });
-
-    cy.get('form').then(($forms) => {
-      cy.task('log', `Found ${$forms.length} forms`);
-      $forms.each((i, el) => cy.task('log', `Form ${i}: ${el.outerHTML}`));
-    });
-
-    // Select the second form (the always-visible one)
-    cy.get('form[action="/oidc/login"]').last().within(() => {
+    // Pick the last OIDC login form (main-column one on /user/login)
+    cy.get('form[action$="/oidc/login"]').last().within(() => {
       cy.get('button[type="submit"]').then(($btn) => {
-        console.log('About to click button with text:', $btn.text());
+        cy.task('log', 'Clicking button: ' + $btn.text());
       }).click();
     });
 
+    // Assert navigation to OIDC login endpoint
     cy.url().then((url) => {
-      console.log('Current URL after SSO button click:', url);
+      cy.task('log', 'URL after clicking SSO button: ' + url);
     }).should('include', '/oidc/login');
 
+    // Wait for navigation to Keycloak
     cy.location('origin', { timeout: 30000 }).then((origin) => {
-      console.log('Navigated to origin:', origin);
+      cy.task('log', 'Navigated to origin: ' + origin);
     }).should('eq', KEYCLOAK_ORIGIN);
 
+    // Grab username for login
     const username = Cypress.env('OIDC_USERNAME') || 'demo';
-    console.log('Using OIDC username:', username);
+    cy.task('log', 'Using OIDC username: ' + username);
 
+    // Complete login inside Keycloak
     cy.origin(KEYCLOAK_ORIGIN, { args: { username } }, ({ username }) => {
       cy.get('#kc-page-title', { timeout: 30000 }).should('exist');
-      cy.get('#username').clear().type(username);
+      cy.get('#username', { timeout: 30000 }).clear().type(username);
       cy.get('#password').clear().type(Cypress.env('OIDC_PASSWORD') || 'demo');
       cy.get('#kc-login').click();
     });
 
+    // Verify user menu shows username
     cy.get('#user-menu', { timeout: 30000 }).then(($menu) => {
-      console.log('User menu after login:', $menu.text());
+      cy.task('log', 'User menu after login: ' + $menu.text());
     }).should('contain', OIDC_USERNAME);
 
+    // Logout
     cy.get('#user-menu').click();
     cy.contains('a.dropdown-item', 'Logout', { matchCase: false }).click();
 
+    // Verify login button is visible again
     cy.get('#user-menu', { timeout: 30000 }).then(($menu) => {
-      console.log('User menu after logout:', $menu.text());
+      cy.task('log', 'User menu after logout: ' + $menu.text());
     }).should('contain', 'Log in');
   });
 });
