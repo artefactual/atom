@@ -40,6 +40,8 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <contents>
     <file name="index.php" role="php"/>
     <file name="qubit_dev.php" role="php"/>
+    <file name="composer.json" role="data"/>
+    <file name="composer.lock" role="data"/>
     <file name="package.json" role="data"/>
     <file name="package-lock.json" role="data"/>
     <file name="webpack.config.js" role="data"/>
