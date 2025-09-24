@@ -93,13 +93,19 @@ jobs:
         sudo chmod 755 /home/runner
 
     - name: Update OIDC plugin app.yml file
-      run: sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml apps/qubit/config/app.yml
+      run: |
+        sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml apps/qubit/config/app.yml
+        sudo cp -v test/etc/oidc/arOidcPlugin/config/app.yml config/app.yml
 
     - name: Override factories.yml with oidcUser
-      run: sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
+      run: |
+        sudo cp -v test/etc/oidc/factories.yml apps/qubit/config/factories.yml
+        sudo cp -v test/etc/oidc/factories.yml config/factories.yml
 
     - name: Override settings.yml with login_module 'oidc'
-      run: sudo cp -v test/etc/oidc/settings.yml apps/qubit/config/settings.yml
+      run: |
+        sudo cp -v test/etc/oidc/settings.yml apps/qubit/config/settings.yml
+        sudo cp -v test/etc/oidc/settings.yml config/settings.yml
 
     - name: Clear Symfony cache
       run: |
