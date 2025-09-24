@@ -154,9 +154,18 @@ jobs:
         echo 'Print qubit_prod.log'
         sudo tail ${{ github.workspace }}/log/qubit_prod.log || true
         echo 'Print nginx/error.log'
-        sudo tail /var/log/nginx/error.log || true
+        sudo tail -50 /var/log/nginx/error.log || true
+        echo 'Print nginx/access.log'
+        sudo tail -50 /var/log/nginx/access.log || true
         echo 'Print php8.3-fpm.log'
-        sudo tail /var/log/php8.3-fpm.log || true
+        sudo tail -50 /var/log/php8.3-fpm.log || true
+
+    - name: Print Keycloak logs
+      if: failure()
+      run: |
+        echo 'Print Keycloak logs'
+        docker compose -f docker/docker-compose.keycloak.yml logs keycloak
+
     - name: Upload Cypress Screenshots
       uses: actions/upload-artifact@v4
       if: always()
