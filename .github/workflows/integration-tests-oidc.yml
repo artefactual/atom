@@ -135,6 +135,11 @@ jobs:
         CYPRESS_KEYCLOAK_ORIGIN: http://127.0.0.1:8080
         LIBGL_ALWAYS_SOFTWARE: 1
       run: npx cypress run -b ${BROWSER,} --config baseUrl=${CYPRESS_BASE_URL} --spec cypress/e2e/oidc_auth.cy.js
+
+    - name: Dump AtoM log
+      run: |
+        docker compose -f docker/docker-compose.yml logs -n 200 php
+
     - name: Print logs
       if: failure()
       run: |
