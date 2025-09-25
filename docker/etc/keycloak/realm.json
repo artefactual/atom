@@ -47,11 +47,7 @@
         "standardFlowEnabled": true,
         "serviceAccountsEnabled": true,
         "authorizationServicesEnabled": true,
-        "publicClient": false,
-        "attributes": {
-          "pkce.required": "true",
-          "pkce.code.challenge.method": "S256"
-        }
+        "publicClient": false
       }
     ],
     "users": [
@@ -143,11 +139,7 @@
         "standardFlowEnabled": true,
         "serviceAccountsEnabled": true,
         "authorizationServicesEnabled": true,
-        "publicClient": false,
-        "attributes": {
-          "pkce.required": "true",
-          "pkce.code.challenge.method": "S256"
-        }
+        "publicClient": false
       }
     ],
     "users": [
