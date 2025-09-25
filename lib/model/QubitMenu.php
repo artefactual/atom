@@ -470,6 +470,7 @@ class QubitMenu extends BaseMenu
 
         $module = $route['parameters']['module'];
         $action = $route['parameters']['action'];
+
         // Check access from security.yml rules
         return $context->getUser()->checkModuleActionAccess($module, $action);
     }
