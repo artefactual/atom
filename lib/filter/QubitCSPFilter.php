@@ -21,8 +21,8 @@ class QubitCSP extends sfFilter
 {
     public function execute($filterChain)
     {
-        // Only use CSP headers if theme is b5.
-        if (!sfConfig::get('app_b5_theme', false)) {
+        // Only use CSP headers if theme is b5, or if not debugging
+        if (!sfConfig::get('app_b5_theme', false) || $this->getContext()->getConfiguration()->isDebug()) {
             $filterChain->execute();
 
             return;
