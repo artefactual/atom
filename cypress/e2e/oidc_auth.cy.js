@@ -19,22 +19,19 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
       cy.get('button[type="submit"]').click();
     });
 
-    // Wait until we’ve navigated away from AtoM
-    cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN);
-
     // Complete login inside Keycloak
-    cy.origin(KEYCLOAK_ORIGIN, { args: { username: OIDC_USERNAME, password: OIDC_PASSWORD } },
-      ({ username, password }) => {
-        cy.task('log', `Using OIDC credentials: ${username}/*****`);
-        cy.url().should('include', '/realms/demo/protocol/openid-connect/auth');
-        cy.get('#kc-page-title', { timeout: 30000 }).should('exist');
-        cy.get('#username').clear().type(username);
-        cy.get('#password').clear().type(password);
-        cy.get('#kc-login').click();
-      }
-    );
+    cy.origin(KEYCLOAK_ORIGIN, { args: { username: OIDC_USERNAME, password: OIDC_PASSWORD } }, ({ username, password }) => {
+      cy.location('origin', { timeout: 30000 }).should('eq', 'http://127.0.0.1:8080');
 
-    // Verify user menu shows username
+      cy.task('log', `Using OIDC credentials: ${username}/*****`);
+      cy.url().should('include', '/realms/demo/protocol/openid-connect/auth');
+      cy.get('#kc-page-title', { timeout: 30000 }).should('exist');
+      cy.get('#username').clear().type(username);
+      cy.get('#password').clear().type(password);
+      cy.get('#kc-login').click();
+    });
+
+    // Verify user menu shows username once redirected back to AtoM
     cy.get('#user-menu', { timeout: 30000 }).then(($menu) => {
       cy.task('log', 'User menu after login: ' + $menu.text());
     }).should('contain', OIDC_USERNAME);
