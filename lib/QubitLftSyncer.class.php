@@ -93,7 +93,6 @@ class QubitLftSyncer
 
         $bulk = new Elastica\Bulk(QubitSearch::getInstance()->client);
         $bulk->setIndex(QubitSearch::getInstance()->index->getIndex('QubitInformationObject'));
-        $bulk->setType(QubitSearch::getInstance()::ES_TYPE);
 
         foreach ($results as $row) {
             $bulk->addAction(
