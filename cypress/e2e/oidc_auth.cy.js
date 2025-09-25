@@ -22,24 +22,26 @@ describe('OIDC SSO (Keycloak) - primary realm', () => {
     });
 
     // Log snippet of body after click (first 300 chars)
-    cy.get('body').then(($body) => {
-      cy.task('log', 'Body after click: ' + $body.text().slice(0, 300));
-    });
+    // cy.get('body').then(($body) => {
+    //   cy.task('log', 'Body after click: ' + $body.text().slice(0, 300));
+    // });
 
     // Log page title after click
-    cy.get('title').then(($title) => {
-      cy.task('log', 'Page title after click: ' + $title.text());
-    });
+    // cy.get('title').then(($title) => {
+    //   cy.task('log', 'Page title after click: ' + $title.text());
+    // });
 
-    // Wait for navigation to Keycloak (skip strict /oidc/login check)
-    cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN);
+    cy.origin(KEYCLOAK_ORIGIN, () => {
+      cy.location('origin', { timeout: 30000 }).should('eq', KEYCLOAK_ORIGIN);
+
+    })
 
     const username = Cypress.env('OIDC_USERNAME') || 'demo';
     const password = Cypress.env('OIDC_PASSWORD') || 'demo';
-    cy.task('log', `Using OIDC credentials: ${username}/*****`);
 
     // Complete login inside Keycloak
     cy.origin(KEYCLOAK_ORIGIN, { args: { username, password } }, ({ username, password }) => {
+      cy.task('log', `Using OIDC credentials: ${username}/*****`);
       cy.url().should('include', '/realms/demo/protocol/openid-connect/auth');
       cy.get('#kc-page-title', { timeout: 30000 }).should('exist');
       cy.get('#username').clear().type(username);
