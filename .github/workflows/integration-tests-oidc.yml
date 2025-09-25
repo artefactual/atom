@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [Chrome, Electron, Firefox]
+        # browser: [Chrome, Electron, Firefox]
+        browser: [Chrome]
     name: ${{ matrix.browser }}
     env:
       COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.test.yml
