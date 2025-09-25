@@ -395,16 +395,24 @@
         let url =
           parentNode.a_attr.href + "/informationobject/fullWidthTreeViewSync";
 
-        $.get(url, (response) => {
-          if (response["repair_successful"] === true) {
-            // Refresh parent's child nodes if a repair was needed and was successful
-            this.$fwTreeView.jstree("refresh_node", parent);
-          } else if (response["repair_successful"] === false) {
-            // Allow for syncing to be attempted again if a repair was needed, but failed
-            delete this.syncInitiated[parent];
-          }
+        $.ajax({
+          url: url,
+          type: 'GET',
+          dataType: 'json',
+          success: (response) => {
+            if ("repair_successful" in response && response["repair_successful"] === true) {
+              // Refresh parent's child nodes if a repair was needed and was successful
+              this.$fwTreeView.jstree("refresh_node", parent);
+            } else if ("repair_successful" in response && response["repair_successful"] === false) {
+              // Allow for syncing to be attempted again if a repair was needed, but failed
+              delete this.syncInitiated[parent];
+            }
 
-          this.commandNodeAndChildren(this.$fwTreeView, parent, "enable_node");
+            this.commandNodeAndChildren(this.$fwTreeView, parent, "enable_node");
+          },
+          error: (response) => {
+            console.error(response);
+          }
         });
       }
     };
