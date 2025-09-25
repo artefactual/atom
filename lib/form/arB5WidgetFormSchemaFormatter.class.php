@@ -19,6 +19,7 @@
 
 class arB5WidgetFormSchemaFormatter extends sfWidgetFormSchemaFormatter
 {
+    public $form;
     protected $rowFormat = "<div class=\"mb-3\">\n  %label%\n  %field%\n"
         ."  %error%\n  %help%\n  %hidden_fields%\n</div>";
     protected $formErrorListFormat = '<div class="alert alert-danger"'

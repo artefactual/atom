@@ -31,6 +31,8 @@ class QubitMarkdown
         'bold' => '__',
     ];
 
+    protected $parsedown;
+
     private $enabled;
 
     protected function __construct()
