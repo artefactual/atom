@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2025-07-28T20:03:52Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2025-09-26T19:34:47Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -65,10 +65,6 @@
       <trans-unit id="507">
         <source>Numbering within publisher's series</source>
         <target>Numeração das publicações do editor</target>
-      </trans-unit>
-      <trans-unit id="706">
-        <source>Edit authority record</source>
-        <target>Editar registro de autoridade</target>
       </trans-unit>
       <trans-unit id="777">
         <source>Title proper</source>
@@ -154,10 +150,6 @@
         <source>Title and statement of responsibility area</source>
         <target>Área de título e declaração de responsabilidade</target>
       </trans-unit>
-      <trans-unit id="910">
-        <source>Edit title and statement of responsibility area</source>
-        <target>Editar título e declaração de responsabilidade</target>
-      </trans-unit>
       <trans-unit id="911">
         <source>Title statements of responsibility</source>
         <target>Título(s) de declaração(ões) de responsabilidade</target>
@@ -170,10 +162,6 @@
         <source>Edition area</source>
         <target>Área de edição</target>
       </trans-unit>
-      <trans-unit id="914">
-        <source>Edit edition area</source>
-        <target>Área de edição de edição</target>
-      </trans-unit>
       <trans-unit id="915">
         <source>Edition statement of responsibility</source>
         <target>Declaração de responsabilidade da edição</target>
@@ -182,33 +170,17 @@
         <source>Class of material specific details area</source>
         <target>Área de detalhes da classe de materiais específicos</target>
       </trans-unit>
-      <trans-unit id="917">
-        <source>Edit class of material specific details area</source>
-        <target>Área de edição da classe de detalhes específicos do material</target>
-      </trans-unit>
       <trans-unit id="918">
         <source>Dates of creation area</source>
         <target>Área de datas de criação</target>
-      </trans-unit>
-      <trans-unit id="919">
-        <source>Edit dates of creation area</source>
-        <target>Área de edição de data de produção</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Physical description area</source>
         <target>Área de descrição física</target>
       </trans-unit>
-      <trans-unit id="921">
-        <source>Edit physical description area</source>
-        <target>Área de edição de descrição física</target>
-      </trans-unit>
       <trans-unit id="922">
         <source>Publisher's series area</source>
         <target>Área das séries dos editores</target>
-      </trans-unit>
-      <trans-unit id="923">
-        <source>Edit publisher's series area</source>
-        <target>Área de edição de publicações de editores</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Parallel titles of publisher's series</source>
@@ -222,10 +194,6 @@
         <source>Archival description area</source>
         <target>Área de descrição arquivística</target>
       </trans-unit>
-      <trans-unit id="927">
-        <source>Edit archival description area</source>
-        <target>Área de edição da descrição arquivística</target>
-      </trans-unit>
       <trans-unit id="928">
         <source>Scope and content</source>
         <target>Âmbito e conteúdo</target>
@@ -233,10 +201,6 @@
       <trans-unit id="929">
         <source>Notes area</source>
         <target>Área de notas</target>
-      </trans-unit>
-      <trans-unit id="930">
-        <source>Edit notes area</source>
-        <target>Área de edição de notas</target>
       </trans-unit>
       <trans-unit id="931">
         <source>Arrangement</source>
@@ -266,10 +230,6 @@
         <source>Standard number area</source>
         <target>Área de número padrão</target>
       </trans-unit>
-      <trans-unit id="939">
-        <source>Edit standard number area</source>
-        <target>Área de edição de número normalizado</target>
-      </trans-unit>
       <trans-unit id="940">
         <source>Standard number</source>
         <target>Número normalizado</target>
@@ -277,14 +237,6 @@
       <trans-unit id="941">
         <source>Access points</source>
         <target>Pontos de acesso</target>
-      </trans-unit>
-      <trans-unit id="942">
-        <source>Edit access points</source>
-        <target>Editar pontos de acesso</target>
-      </trans-unit>
-      <trans-unit id="943">
-        <source>Edit control area</source>
-        <target>Área de edição de controle</target>
       </trans-unit>
       <trans-unit id="945">
         <source>Language of description</source>
@@ -366,10 +318,6 @@
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Registre o título próprio, seja transcrito ou atribuído. (RAD 1.1B)</target>
       </trans-unit>
-      <trans-unit id="972">
-        <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório.</target>
-      </trans-unit>
       <trans-unit id="973">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
         <target>Selecione a Designação Geral do Material da descrição de nível mais alto. Se houver mais do que três, escolha "múltiplas mídias" (RAD 1.1C)</target>
@@ -429,10 +377,6 @@
       <trans-unit id="990">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>"Indique o nome da jurisdição (por exemplo, governo) responsável pela emissão dos registros de filatelia". (RAD 12.3B1) "Para todas as unidades que possuam uma denominação (por exemplo, selos postais, artigos de papelaria postais), denomine em um formato normalizado, registrando o número de denominação em algarismos árabes seguidos pelo nome da unidade monetária. Inclua uma declaração de denominação, mesmo que a mesma já esteja registrada como parte das informações de título próprio ou de outra informação do título. "(RAD 12.3C1)</target>
-      </trans-unit>
-      <trans-unit id="991">
-        <source>Add new name and/or date(s)</source>
-        <target>Adicionar novo nome e/ou data</target>
       </trans-unit>
       <trans-unit id="992">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
@@ -558,17 +502,9 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>Indicar o idioma(s) utilizado para criar a descrição do material arquivístico.</target>
       </trans-unit>
-      <trans-unit id="1026">
-        <source>Language</source>
-        <target>Idioma</target>
-      </trans-unit>
       <trans-unit id="1027">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Indicar o script(s) utilizado para criar a descrição do material arquívistico.</target>
-      </trans-unit>
-      <trans-unit id="1028">
-        <source>Script</source>
-        <target>Sistema de escrita</target>
       </trans-unit>
       <trans-unit id="1029">
         <source>Name access points (subjects)</source>

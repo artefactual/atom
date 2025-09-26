@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-07-28T20:04:16Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-09-26T19:34:34Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -81,14 +81,6 @@
       <trans-unit id="403">
         <source>Date(s)</source>
         <target>日付</target>
-      </trans-unit>
-      <trans-unit id="697">
-        <source>Edit identity area</source>
-        <target>アイデンティティのエリアを編集する</target>
-      </trans-unit>
-      <trans-unit id="698">
-        <source>Edit context area</source>
-        <target>コンテキストのエリアを編集する</target>
       </trans-unit>
       <trans-unit id="732">
         <source>Rules or conventions</source>
@@ -182,10 +174,6 @@
         <source>Content and structure area</source>
         <target>内容と構造のエリア</target>
       </trans-unit>
-      <trans-unit id="846">
-        <source>Edit content and structure area</source>
-        <target>内容と構造のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="847">
         <source>Scope and content</source>
         <target>範囲と内容</target>
@@ -197,10 +185,6 @@
       <trans-unit id="849">
         <source>Conditions of access and use area</source>
         <target>アクセスの条件のエリア</target>
-      </trans-unit>
-      <trans-unit id="850">
-        <source>Edit conditions of access and use area</source>
-        <target>アクセスと利用のエリアの条件を編集する</target>
       </trans-unit>
       <trans-unit id="851">
         <source>Language of material</source>
@@ -218,10 +202,6 @@
         <source>Allied materials area</source>
         <target>関連資料エリア</target>
       </trans-unit>
-      <trans-unit id="855">
-        <source>Edit alied materials area</source>
-        <target>関連する資料のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="856">
         <source>Publication note</source>
         <target>出版物の注記</target>
@@ -230,25 +210,13 @@
         <source>Notes area</source>
         <target>注記のエリア</target>
       </trans-unit>
-      <trans-unit id="858">
-        <source>Edit notes area</source>
-        <target>注記のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="859">
         <source>Access points</source>
         <target>アクセスポイント</target>
       </trans-unit>
-      <trans-unit id="860">
-        <source>Edit access points</source>
-        <target>アクセスポイントを編集する</target>
-      </trans-unit>
       <trans-unit id="861">
         <source>Description control area</source>
         <target>記述コントロールのエリア</target>
-      </trans-unit>
-      <trans-unit id="862">
-        <source>Edit description control area</source>
-        <target>記述のコントロールのエリアを編集する</target>
       </trans-unit>
       <trans-unit id="863">
         <source>Rules and/or conventions used</source>
@@ -273,10 +241,6 @@
       <trans-unit id="869">
         <source>This is a duplicate of record %1%</source>
         <target>これは記録の複製です%1%</target>
-      </trans-unit>
-      <trans-unit id="870">
-        <source>This is a mandatory element.</source>
-        <target>必須項目</target>
       </trans-unit>
       <trans-unit id="875">
         <source>Name of creator(s)</source>
@@ -478,6 +442,26 @@
       <trans-unit id="966">
         <source>Add new</source>
         <target>新規追加</target>
+      </trans-unit>
+      <trans-unit id="967">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="968">
+        <source>Delete</source>
+        <target>削除</target>
+      </trans-unit>
+      <trans-unit id="969">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="970">
+        <source>Languages of the material</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="971">
+        <source>Scripts of the material</source>
+        <target>資料に用いられている文字</target>
       </trans-unit>
     </body>
   </file>

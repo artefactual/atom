@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-09-26T19:34:46Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -81,14 +81,6 @@
       <trans-unit id="403">
         <source>Date(s)</source>
         <target>&#x62A;&#x627;&#x631;&#x64A;&#x62E; (&#x647;&#x627;)</target>
-      </trans-unit>
-      <trans-unit id="690">
-        <source>Edit identity area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="691">
-        <source>Edit context area</source>
-        <target/>
       </trans-unit>
       <trans-unit id="725">
         <source>Rules or conventions</source>
@@ -182,10 +174,6 @@
         <source>Content and structure area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="839">
-        <source>Edit content and structure area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="840">
         <source>Scope and content</source>
         <target/>
@@ -196,10 +184,6 @@
       </trans-unit>
       <trans-unit id="842">
         <source>Conditions of access and use area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="843">
-        <source>Edit conditions of access and use area</source>
         <target/>
       </trans-unit>
       <trans-unit id="844">
@@ -218,10 +202,6 @@
         <source>Allied materials area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="848">
-        <source>Edit alied materials area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="849">
         <source>Publication note</source>
         <target/>
@@ -230,24 +210,12 @@
         <source>Notes area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="851">
-        <source>Edit notes area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="852">
         <source>Access points</source>
         <target/>
       </trans-unit>
-      <trans-unit id="853">
-        <source>Edit access points</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="854">
         <source>Description control area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="855">
-        <source>Edit description control area</source>
         <target/>
       </trans-unit>
       <trans-unit id="856">
@@ -272,10 +240,6 @@
       </trans-unit>
       <trans-unit id="862">
         <source>This is a duplicate of record %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="863">
-        <source>This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="868">
@@ -477,6 +441,26 @@
       <trans-unit id="959">
         <source>Add new</source>
         <target> &#x627;&#x641;&#x632;&#x648;&#x62F;&#x646; &#x622;&#x64A;&#x62A;&#x645; &#x62C;&#x62F;&#x64A;&#x62F; </target>
+      </trans-unit>
+      <trans-unit id="960">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="961">
+        <source>Delete</source>
+        <target>&#x62D;&#x630;&#x641;</target>
+      </trans-unit>
+      <trans-unit id="962">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="963">
+        <source>Languages of the material</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="964">
+        <source>Scripts of the material</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-07-28T20:04:33Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-09-26T19:34:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -68,10 +68,6 @@
         <source>Title and statement of responsibility area</source>
         <target>Vùng nhan đề và minh xác về trách nhiệm</target>
       </trans-unit>
-      <trans-unit id="25">
-        <source>Edit title and statement of responsibility area</source>
-        <target>Hiệu chỉnh khu vực nhan đề và tuyên bố về trách nhiệm</target>
-      </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
         <target>Nhan đề chính </target>
@@ -115,10 +111,6 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>Edition area</source>
         <target>Nơi phiên bản</target>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Edit edition area</source>
-        <target>Hiệu nơi phiên bản</target>
-      </trans-unit>
       <trans-unit id="37">
         <source>Edition statement</source>
         <target>Vấn đề phiên bản</target>
@@ -130,10 +122,6 @@ Tiêu đề tuyên bố về trách nhiệm
       <trans-unit id="39">
         <source>Class of material specific details area</source>
         <target>Nhóm khu vực tài liệu cụ thể, chi tiết.</target>
-      </trans-unit>
-      <trans-unit id="40">
-        <source>Edit class of material specific details area</source>
-        <target>Chỉnh sửa phần dữ liệu cụ thể đặc biệt.</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Statement of scale (cartographic)</source>
@@ -159,17 +147,9 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>Dates of creation area</source>
         <target>Vùng ngày tháng năm tạo</target>
       </trans-unit>
-      <trans-unit id="47">
-        <source>Edit dates of creation area</source>
-        <target>Hiệu chỉnh vùng ngày tháng năm tạo</target>
-      </trans-unit>
       <trans-unit id="48">
         <source>Physical description area</source>
         <target>Khu mô tả vật lý</target>
-      </trans-unit>
-      <trans-unit id="49">
-        <source>Edit physical description area</source>
-        <target>Hiệu chỉnh khu vực mô tả vật lý</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Physical description</source>
@@ -178,10 +158,6 @@ Tiêu đề tuyên bố về trách nhiệm
       <trans-unit id="51">
         <source>Publisher's series area</source>
         <target>Vùng  series của nhà xuất bản </target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Edit publisher's series area</source>
-        <target>Hiệu chỉnh vùng series của nhà xuất bản </target>
       </trans-unit>
       <trans-unit id="53">
         <source>Title proper of publisher's series</source>
@@ -212,10 +188,6 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>Archival description area</source>
         <target>Vùng mô tả lưu trữ</target>
       </trans-unit>
-      <trans-unit id="60">
-        <source>Edit archival description area</source>
-        <target>Hiệu khu chỉnh mô tả lưu trữ</target>
-      </trans-unit>
       <trans-unit id="61">
         <source>Custodial history</source>
         <target>Lịch sử lưu giữ</target>
@@ -227,10 +199,6 @@ Tiêu đề tuyên bố về trách nhiệm
       <trans-unit id="63">
         <source>Notes area</source>
         <target>Vùng  ghi chú</target>
-      </trans-unit>
-      <trans-unit id="64">
-        <source>Edit notes area</source>
-        <target>Hiệu chỉnh vùng ghi chú</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Physical condition</source>
@@ -289,10 +257,6 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>Standard number area</source>
         <target>Khu vực số tiêu chuẩn</target>
       </trans-unit>
-      <trans-unit id="80">
-        <source>Edit standard number area</source>
-        <target>Hiệu  khu các Số sách tiêu chuẩn </target>
-      </trans-unit>
       <trans-unit id="81">
         <source>Standard number</source>
         <target>Số tiêu chuẩn</target>
@@ -301,17 +265,9 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>Access points</source>
         <target>điểm truy cập</target>
       </trans-unit>
-      <trans-unit id="83">
-        <source>Edit access points</source>
-        <target>Hiệu điểm truy cập</target>
-      </trans-unit>
       <trans-unit id="84">
         <source>Control area</source>
         <target>Vùng kiểm soát</target>
-      </trans-unit>
-      <trans-unit id="85">
-        <source>Edit control area</source>
-        <target>Hiệu chỉnh vùng kiểm soát</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Description record identifier</source>
@@ -365,10 +321,6 @@ Tiêu đề tuyên bố về trách nhiệm
       <trans-unit id="99">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Nhập tiêu đề thích hợp, hoặc sao chép hoặc cung cấp. (RAD 1.1B)</target>
-      </trans-unit>
-      <trans-unit id="100">
-        <source>This is a mandatory element.</source>
-        <target>Đây là yếu tố bắt buộc phải có.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -438,10 +390,6 @@ Tiêu đề tuyên bố về trách nhiệm
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>Cho biết tên của cơ quan có thẩm quyền (ví dụ, chính phủ) chịu trách nhiệm phát hành các hồ sơ sưu tập. "(RAD 12.3B1)" Đối với tất cả các đơn vị sở hữu một mệnh giá (ví dụ, tem bưu chính, tem thuế, các mặt hàng văn phòng phẩm có tem bưu chính), cung cấp mệnh giá trong một định dạng tiêu chuẩn, ghi lại số mệnh giá bằng số Ả Rập theo sau là tên của đơn vị tiền tệ. Bao gồm một tuyên bố mệnh giá ngay cả khi các giá đã được ghi nhận như là một phần của thông tin tiêu đề thích hợp hay thông tin tiêu đề khác. "(RAD 12.3C1 )</target>
       </trans-unit>
-      <trans-unit id="119">
-        <source>Add new name and/or date(s)</source>
-        <target>Thêm tên và / hoặc ngày mới</target>
-      </trans-unit>
       <trans-unit id="120">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
         <target>Tại tất cả các cấp ghi lại mức độ của các đơn vị được mô tả bằng cách chỉ ra số lượng đơn vị vật lý trong các số Ả rập và chỉ định các tài liệu cụ thể theo hướng dẫn tại tiểu quy tắc 0,5B trong chương giải quyết các nhóm tài liệu lơn mà đơn vị được mô tả thuộc về. "(RAD 1.5B1) Bao gồm các kích thước và chi tiết vật lý khác như quy định tại RAD 1.5C và 1.5D. Nhiều mục riêng biệt trong lĩnh vực này với một sự vận chuyển trở lại (nhấn phím Enter trên bàn phím của bạn) </target>
@@ -481,10 +429,6 @@ Tiêu đề tuyên bố về trách nhiệm
       <trans-unit id="129">
         <source>Biographical sketch</source>
         <target>Phác họa tiểu sử</target>
-      </trans-unit>
-      <trans-unit id="130">
-        <source>Edit authority record</source>
-        <target>Hiệu biểu ghi</target>
       </trans-unit>
       <trans-unit id="131">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
@@ -620,17 +564,9 @@ phù hợp với các tiêu chuẩn đang cơ quan quốc gia hoặc quốc tế
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>Chỉ ra các ngôn ngữ được sử dụng để tạo ra các mô tả về tài liệu lưu trữ.</target>
       </trans-unit>
-      <trans-unit id="164">
-        <source>Language</source>
-        <target>Ngôn ngữ</target>
-      </trans-unit>
       <trans-unit id="165">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Chỉ ra các kịch bản được sử dụng để tạo ra các mô tả về tài liệu lưu trữ.</target>
-      </trans-unit>
-      <trans-unit id="166">
-        <source>Script</source>
-        <target>Script</target>
       </trans-unit>
       <trans-unit id="167">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -675,6 +611,26 @@ phù hợp với các tiêu chuẩn đang cơ quan quốc gia hoặc quốc tế
       <trans-unit id="177">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="178">
+        <source>Names and dates</source>
+        <target>Tên và ngày</target>
+      </trans-unit>
+      <trans-unit id="179">
+        <source>Languages of the material</source>
+        <target>Ngôn ngữ của các tài liệu</target>
+      </trans-unit>
+      <trans-unit id="180">
+        <source>Scripts of the material</source>
+        <target>Scripts của vật liệu </target>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Language(s)</source>
+        <target>Ngôn ngữ </target>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Script(s)</source>
+        <target>Script(s) </target>
       </trans-unit>
     </body>
   </file>

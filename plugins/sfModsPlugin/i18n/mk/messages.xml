@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-07-28T20:03:22Z" product-name="messages">
+  <file source-language="en" target-language="mk" datatype="plaintext" original="messages" date="2025-09-26T19:34:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -39,10 +39,6 @@
       <trans-unit id="9">
         <source>Names and origin info</source>
         <target>Имиња и информации за потеклото</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Add new name and/or origin info</source>
-        <target>Додадете ново име и/или информации за потеклото</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
@@ -100,10 +96,6 @@
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target>Информации за ограничувањата наметнати за пристап до извор. Види го елементот од највисоко ниво со MODS услови за достапност (accessCondition) со насоки како да го користите ова поле.</target>
       </trans-unit>
-      <trans-unit id="26">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>Ја идентификува институцијата или депото што го чува изворот. Пребарајте постоечко име на депо со впишување на првите неколку букви од името. Алтернативно, напишете ново име за креирање и поврзување со нов запис во депото.</target>
-      </trans-unit>
       <trans-unit id="27">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
         <target>Апстракт, содржина или опис на обемот и содржината на изворот.</target>
@@ -111,14 +103,6 @@
       <trans-unit id="28">
         <source>Description</source>
         <target>Опис</target>
-      </trans-unit>
-      <trans-unit id="29">
-        <source>Edit elements area</source>
-        <target>Уредете го подрачјето за елементи</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Language</source>
-        <target>Јазик</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Internet media type</source>
@@ -144,9 +128,29 @@
         <source>Accession area</source>
         <target>Подрачје на пристап/влезен инвентар</target>
       </trans-unit>
-      <trans-unit id="37">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
+      <trans-unit id="38">
+        <source>Delete</source>
+        <target>Избриши</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Delete row</source>
+        <target>Избриши ред</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Користете ги овие две полиња за да додадете пониски нивоа на опис на ниво на збирка/колекција. Кликнете Додај ново за да додадете онолку подредени/пониски нивоа колку што е потребно. Идентификатор: внесете единствен стандарден број или код што карактеристично го идентификува изворот. Наслов: внесете збор, фраза, знак или група знаци, кои обично се појавуваат во изворот, што го именува или делото содржано во него.</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target>Ja идентификува институцијата или депото кој го поседува изворот. Пребарајте постоечко име со внесување на првите неколку букви од името. Или, внесете ново име за да креирате и поврзете нов запис за депо/репозиториум.</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Types of resource</source>
+        <target>Видови на извори</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Languages</source>
+        <target>Јазици</target>
       </trans-unit>
     </body>
   </file>

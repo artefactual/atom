@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-07-28T19:15:30Z" product-name="messages">
+  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-09-26T19:20:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -38,10 +38,6 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Authorized form of name</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>This is a mandatory element.</source>
         <target/>
       </trans-unit>
       <trans-unit id="12">
@@ -114,10 +110,6 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Add new deaccession record</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="34">
-        <source>Edit deaccession record</source>
         <target/>
       </trans-unit>
       <trans-unit id="35">
@@ -254,10 +246,6 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Basic info</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="72">
-        <source>Loading...</source>
         <target/>
       </trans-unit>
       <trans-unit id="73">
@@ -400,14 +388,6 @@
         <source>Please complete all required fields.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="108">
-        <source>This is the legal entity field and provides the contact
-                information for the person(s) or the institution that donated or
-                transferred the materials. It has the option of multiple
-                instances and provides the option of creating more than one
-                contact record using the same form.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="109">
         <source>Primary contact information</source>
         <target/>
@@ -452,16 +432,8 @@
         <source>View accession record</source>
         <target/>
       </trans-unit>
-      <trans-unit id="120">
-        <source>Edit donor/transferring body area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="121">
         <source>Related donor</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="122">
-        <source>Edit administrative area</source>
         <target/>
       </trans-unit>
       <trans-unit id="123">
@@ -502,10 +474,6 @@
       </trans-unit>
       <trans-unit id="132">
         <source>Rights area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="133">
-        <source>Edit rights area</source>
         <target/>
       </trans-unit>
       <trans-unit id="134">
@@ -574,6 +542,70 @@
       </trans-unit>
       <trans-unit id="150">
         <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Accession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>You are not allowed to export this entity type.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Your %entity_type% export package is being built.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>The %open_link%job management page%close_link% will show progress and a download link when complete.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Export CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Last updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Actions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Add alternative identifier(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Clipboard</source>
         <target/>
       </trans-unit>
     </body>

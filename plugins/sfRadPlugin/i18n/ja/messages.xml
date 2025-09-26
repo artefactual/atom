@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-07-28T20:04:19Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-09-26T19:34:34Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -65,10 +65,6 @@
       <trans-unit id="439">
         <source>Numbering within publisher's series</source>
         <target>出版社のシリーズの番号</target>
-      </trans-unit>
-      <trans-unit id="638">
-        <source>Edit authority record</source>
-        <target>典拠レコードを編集する</target>
       </trans-unit>
       <trans-unit id="709">
         <source>Title proper</source>
@@ -154,10 +150,6 @@
         <source>Title and statement of responsibility area</source>
         <target>タイトルおよび責任表示のエリア</target>
       </trans-unit>
-      <trans-unit id="842">
-        <source>Edit title and statement of responsibility area</source>
-        <target>タイトルと責任表示のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="843">
         <source>Title statements of responsibility</source>
         <target>責任のタイトル表示</target>
@@ -170,10 +162,6 @@
         <source>Edition area</source>
         <target>版次エリア</target>
       </trans-unit>
-      <trans-unit id="846">
-        <source>Edit edition area</source>
-        <target>版次のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="847">
         <source>Edition statement of responsibility</source>
         <target>責任表示の編集</target>
@@ -182,33 +170,17 @@
         <source>Class of material specific details area</source>
         <target>資料詳細の分類のエリア</target>
       </trans-unit>
-      <trans-unit id="849">
-        <source>Edit class of material specific details area</source>
-        <target>資料の特定の詳細エリアの階層を編集する</target>
-      </trans-unit>
       <trans-unit id="850">
         <source>Dates of creation area</source>
         <target>作成日のエリア</target>
-      </trans-unit>
-      <trans-unit id="851">
-        <source>Edit dates of creation area</source>
-        <target>作成日のエリアを編集する</target>
       </trans-unit>
       <trans-unit id="852">
         <source>Physical description area</source>
         <target>物理的記述エリア</target>
       </trans-unit>
-      <trans-unit id="853">
-        <source>Edit physical description area</source>
-        <target>物理的記述のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="854">
         <source>Publisher's series area</source>
         <target>出版社のシリーズエリア</target>
-      </trans-unit>
-      <trans-unit id="855">
-        <source>Edit publisher's series area</source>
-        <target>出版社のシリーズのエリアを編集する</target>
       </trans-unit>
       <trans-unit id="856">
         <source>Parallel titles of publisher's series</source>
@@ -222,10 +194,6 @@
         <source>Archival description area</source>
         <target>アーカイブズ記述エリア</target>
       </trans-unit>
-      <trans-unit id="859">
-        <source>Edit archival description area</source>
-        <target>アーカイブ記述エリアを編集する</target>
-      </trans-unit>
       <trans-unit id="860">
         <source>Scope and content</source>
         <target>範囲と内容</target>
@@ -233,10 +201,6 @@
       <trans-unit id="861">
         <source>Notes area</source>
         <target>注記のエリア</target>
-      </trans-unit>
-      <trans-unit id="862">
-        <source>Edit notes area</source>
-        <target>注記のエリアを編集する</target>
       </trans-unit>
       <trans-unit id="863">
         <source>Arrangement</source>
@@ -266,10 +230,6 @@
         <source>Standard number area</source>
         <target>標準番号エリア</target>
       </trans-unit>
-      <trans-unit id="871">
-        <source>Edit standard number area</source>
-        <target>標準番号のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="872">
         <source>Standard number</source>
         <target>標準番号</target>
@@ -277,14 +237,6 @@
       <trans-unit id="873">
         <source>Access points</source>
         <target>アクセスポイント</target>
-      </trans-unit>
-      <trans-unit id="874">
-        <source>Edit access points</source>
-        <target>アクセスポイントを編集する</target>
-      </trans-unit>
-      <trans-unit id="875">
-        <source>Edit control area</source>
-        <target>コントロールのエリアを編集する</target>
       </trans-unit>
       <trans-unit id="877">
         <source>Language of description</source>
@@ -366,10 +318,6 @@
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>転写されたあるいは供給されたタイトルを入力してください。 (RAD 1.1B)</target>
       </trans-unit>
-      <trans-unit id="904">
-        <source>This is a mandatory element.</source>
-        <target>必須項目</target>
-      </trans-unit>
       <trans-unit id="905">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
         <target>最上位の記述レベルで一般的な物質の状態を選択する。もし三種類以上の場合は、”複数の媒体”を選択する。 (RAD 1.1C)</target>
@@ -429,10 +377,6 @@
       <trans-unit id="922">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>切手等については、発行権者（例えば政府）の名称を記載してください。" (RAD 12.3B1) "額面金額がある記述単位については（例えば切手、収入印紙、postal stationary itemsなど）、標準の形式―額面金額をアラビア数字で、続いて貨幣の単位名称を記載―で額面金額を表示してください。額面金額がタイトル情報としてすでに入力されていても、額面情報は別に記載してください。" (RAD 12.3C1)</target>
-      </trans-unit>
-      <trans-unit id="923">
-        <source>Add new name and/or date(s)</source>
-        <target>新規の名称および/または日付を追加</target>
       </trans-unit>
       <trans-unit id="924">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
@@ -560,17 +504,9 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>アーカイブズ史料の記述を作成するのに使用する言語を表示する。</target>
       </trans-unit>
-      <trans-unit id="958">
-        <source>Language</source>
-        <target>言語</target>
-      </trans-unit>
       <trans-unit id="959">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>アーカイブズ史料の記述を作成するのに使用するスクリプトを表示する。</target>
-      </trans-unit>
-      <trans-unit id="960">
-        <source>Script</source>
-        <target>スクリプト</target>
       </trans-unit>
       <trans-unit id="961">
         <source>Name access points (subjects)</source>
@@ -667,6 +603,26 @@
       <trans-unit id="992">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="993">
+        <source>Names and dates</source>
+        <target>名称と日付</target>
+      </trans-unit>
+      <trans-unit id="994">
+        <source>Languages of the material</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="995">
+        <source>Scripts of the material</source>
+        <target>資料に用いられている文字</target>
+      </trans-unit>
+      <trans-unit id="996">
+        <source>Language(s)</source>
+        <target>言語</target>
+      </trans-unit>
+      <trans-unit id="997">
+        <source>Script(s)</source>
+        <target>文字</target>
       </trans-unit>
     </body>
   </file>

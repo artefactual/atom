@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2025-07-28T20:03:46Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2025-09-26T19:34:48Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
         <target>Título</target>
-      </trans-unit>
-      <trans-unit id="111">
-        <source>Language</source>
-        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
@@ -45,10 +41,6 @@
       <trans-unit id="903">
         <source>Names and origin info</source>
         <target>Informação de nomes e origem</target>
-      </trans-unit>
-      <trans-unit id="904">
-        <source>Add new name and/or origin info</source>
-        <target>Adicionar novo nome e/ou informação de origem</target>
       </trans-unit>
       <trans-unit id="905">
         <source>Add new child levels (if describing a collection)</source>
@@ -93,10 +85,6 @@
       <trans-unit id="916">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target>Informação acerca de restrições de acesso ao recurso. Ver MOS acessCondition elemento de topo para mais informação sobre a utilização deste campo.</target>
-      </trans-unit>
-      <trans-unit id="917">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>Identifique a instituição ou entidade custodiadora que detém o recurso. Busque por um nome digitando alguns caracteres ou, de forma alternativa, digite um novo nome para criar e vincular a uma nova entidade.</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Rights area</source>

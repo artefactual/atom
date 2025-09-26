@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2025-07-28T20:03:52Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2025-09-26T19:34:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -95,10 +95,6 @@
       <trans-unit id="23">
         <source>Identifier</source>
         <target>Dynodwr</target>
-      </trans-unit>
-      <trans-unit id="24">
-        <source>This is a mandatory element.</source>
-        <target>Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
@@ -372,14 +368,6 @@
         <source>Sources</source>
         <target>Ffynonellau</target>
       </trans-unit>
-      <trans-unit id="93">
-        <source>Edit identity area</source>
-        <target>Golygu ardal dynodi</target>
-      </trans-unit>
-      <trans-unit id="94">
-        <source>Edit context area</source>
-        <target>Golygu ardal cyd-destun</target>
-      </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
         <target>Ffwythiant cysylltiedig</target>
@@ -392,10 +380,6 @@
         <source>Archival history</source>
         <target>Hanes archifol</target>
       </trans-unit>
-      <trans-unit id="98">
-        <source>Edit content and structure area</source>
-        <target>Golygu ardal cynnwys a strwythur</target>
-      </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
         <target>Natur a chynnwys</target>
@@ -404,37 +388,17 @@
         <source>Accruals</source>
         <target>Croniadau</target>
       </trans-unit>
-      <trans-unit id="101">
-        <source>Edit conditions of access and use area</source>
-        <target>Golygu ardal amodau mynediad a defnydd</target>
-      </trans-unit>
       <trans-unit id="102">
         <source>Finding aids</source>
         <target>Cymhorthion chwilio</target>
-      </trans-unit>
-      <trans-unit id="103">
-        <source>Edit alied materials area</source>
-        <target>Golygu ardal deunyddiau perthynol</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Publication note</source>
         <target>Nodyn cyhoeddiad</target>
       </trans-unit>
-      <trans-unit id="105">
-        <source>Edit notes area</source>
-        <target>Golygu ardal nodiadau</target>
-      </trans-unit>
       <trans-unit id="106">
         <source>Note</source>
         <target>Nodiadau</target>
-      </trans-unit>
-      <trans-unit id="107">
-        <source>Edit access points</source>
-        <target>Golygu pwyntiau mynediad</target>
-      </trans-unit>
-      <trans-unit id="108">
-        <source>Edit description control area</source>
-        <target>Golygu ardal rheoli disgrifiad</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Rules and/or conventions used</source>
@@ -479,6 +443,26 @@
       <trans-unit id="119">
         <source>Add new</source>
         <target>Ychwanegu newydd</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Delete</source>
+        <target>Dileu</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Delete row</source>
+        <target>Dileu'r rhes</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Languages of the material</source>
+        <target>Ieithoedd y deunydd</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Scripts of the material</source>
+        <target>Sgriptiau o'r deunydd</target>
       </trans-unit>
     </body>
   </file>

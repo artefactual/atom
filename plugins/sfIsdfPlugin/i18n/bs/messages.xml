@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2025-07-28T20:04:24Z" product-name="messages">
+  <file source-language="en" target-language="bs" datatype="plaintext" original="messages" date="2025-09-26T19:34:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -43,10 +43,6 @@
       <trans-unit id="10">
         <source>Type</source>
         <target>Tip</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>This is a mandatory element.</source>
-        <target>Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
@@ -240,17 +236,9 @@
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
         <target>Odabrati naslov iz padajućeg izbornika; upisati identifikatora ili prvih par slova za sužavanje izbora. (ISDF 6.1)</target>
       </trans-unit>
-      <trans-unit id="60">
-        <source>Edit identity area</source>
-        <target>Uredi područje identiteta</target>
-      </trans-unit>
       <trans-unit id="61">
         <source>Classification</source>
         <target>Klasifikacija</target>
-      </trans-unit>
-      <trans-unit id="62">
-        <source>Edit context area</source>
-        <target>Uredi područje konteksta</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Description</source>
@@ -263,10 +251,6 @@
       <trans-unit id="65">
         <source>Legislation</source>
         <target>Zakonodavstvo</target>
-      </trans-unit>
-      <trans-unit id="66">
-        <source>Edit relationships area</source>
-        <target>Uredi područje veza</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related function</source>
@@ -291,10 +275,6 @@
       <trans-unit id="72">
         <source>Dates of the relationship</source>
         <target>Datumi veze</target>
-      </trans-unit>
-      <trans-unit id="73">
-        <source>Edit control area</source>
-        <target>Uredi područje kontrole</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Sources</source>
@@ -335,6 +315,38 @@
       <trans-unit id="83">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
         <target>„Zabilježiti precizan opis prirode veze između funkcije i povezane funkcije.” (ISDF 5.3.3) Napomena: upisani tekst u ovom polju bit će vidljiv i u povezanoj funkciji.</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>The following resources could not be created:</source>
+        <target>Nije moguće kreirati sljedeće resurse:</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Could not load relation data.</source>
+        <target>Nije moguće učitati podatke o odnosu.</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Actions</source>
+        <target>Radnje</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Edit row</source>
+        <target>Uredi red</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Delete row</source>
+        <target>Izbriši red</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Close</source>
+        <target>Zatvori</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Submit</source>
+        <target>Pošalji</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -680,7 +680,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: 'نوع المادة'
+      ar: 'نوع المادة (قائمة مُحكمة)'
       bs: 'Tip građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
@@ -913,7 +913,40 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'Accession'
+      ar: الإضافة
+      bs: Akcesija
+      ca: Ingrés
+      ca@valencia: Adhesió
+      cy: Derbyn
+      de: Akzession
+      de_AT: Akzession
+      de_CH: Akzession
+      el: Πρόσκτηση
+      en: Accession
+      es: Ingreso
+      eu: Atxikimendua
+      fr: Acquisition
+      gl: Ingreso
+      hr: Akcesija
+      hu: Gyarapodás
+      id: Akuisisi
+      is: Afhending
+      it: Acquisizione
+      ja: 受入
+      ka: დაშვება
+      ko: 인수
+      mk: Пристапување
+      pl: Nabycie
+      pt: Incorporação
+      pt_BR: Ingresso
+      sl: 'Prevzem gradiva'
+      sr: 'Улазни инвентар'
+      sv: Accession
+      ta: சேர்வு
+      th: การเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish'
+      vi: 'Truy cập'
+      zh: 登记
   QubitSetting_26:
     name: en
     scope: i18n_languages

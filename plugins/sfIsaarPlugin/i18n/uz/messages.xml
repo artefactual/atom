@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2025-07-28T20:03:29Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2025-09-26T19:34:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -47,10 +47,6 @@
       <trans-unit id="11">
         <source>Type of entity</source>
         <target>Obyekt turi</target>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>This is a mandatory element.</source>
-        <target>Bu majburiy element</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
@@ -248,10 +244,6 @@
         <source>Dates</source>
         <target>Sanalar</target>
       </trans-unit>
-      <trans-unit id="62">
-        <source>Edit</source>
-        <target>Tahrirlash</target>
-      </trans-unit>
       <trans-unit id="63">
         <source>Title of related resource</source>
         <target>Bog`langan resurs sarlavhasi</target>
@@ -292,14 +284,6 @@
         <source>EAC</source>
         <target/>
       </trans-unit>
-      <trans-unit id="73">
-        <source>Edit identity area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="74">
-        <source>Edit description area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="75">
         <source>History</source>
         <target/>
@@ -315,10 +299,6 @@
       <trans-unit id="78">
         <source>General context</source>
         <target>Umumiy kontekst</target>
-      </trans-unit>
-      <trans-unit id="79">
-        <source>Edit relationships area</source>
-        <target/>
       </trans-unit>
       <trans-unit id="80">
         <source>Related entity</source>
@@ -340,10 +320,6 @@
         <source>Access points area</source>
         <target>Foydalanish nuqtalari sohasi</target>
       </trans-unit>
-      <trans-unit id="88">
-        <source>Edit access points area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="89">
         <source>Occupations</source>
         <target/>
@@ -351,10 +327,6 @@
       <trans-unit id="90">
         <source>Note</source>
         <target>Izoh</target>
-      </trans-unit>
-      <trans-unit id="91">
-        <source>Edit control area</source>
-        <target/>
       </trans-unit>
       <trans-unit id="92">
         <source>Maintained by</source>
@@ -463,6 +435,50 @@
       <trans-unit id="122">
         <source>Dates of relationship</source>
         <target>Aloqadorlik sanalari</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Actions</source>
+        <target>Harakatlar</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>Add new</source>
+        <target>Yangi qo'shish</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Show more</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Related resource</source>
+        <target>Aloqador resurs</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Close</source>
+        <target>Yopish</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

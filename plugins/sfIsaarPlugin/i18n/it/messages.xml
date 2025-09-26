@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2025-07-28T20:04:04Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2025-09-26T19:34:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -135,10 +135,6 @@
       <trans-unit id="34">
         <source>Type of entity</source>
         <target>Tipo di entità</target>
-      </trans-unit>
-      <trans-unit id="35">
-        <source>This is a mandatory element.</source>
-        <target>Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
@@ -348,26 +344,6 @@
         <source>Maintenance notes</source>
         <target>Note di manutenzione</target>
       </trans-unit>
-      <trans-unit id="95">
-        <source>Edit</source>
-        <target>Modifica</target>
-      </trans-unit>
-      <trans-unit id="98">
-        <source>Edit identity area</source>
-        <target>Modifica area dell'identificazione</target>
-      </trans-unit>
-      <trans-unit id="99">
-        <source>Edit description area</source>
-        <target>Modifica area della descrizione</target>
-      </trans-unit>
-      <trans-unit id="100">
-        <source>Edit relationships area</source>
-        <target>Modifica area delle relazioni</target>
-      </trans-unit>
-      <trans-unit id="101">
-        <source>Edit control area</source>
-        <target>Modifica area di controllo</target>
-      </trans-unit>
       <trans-unit id="103">
         <source>Export</source>
         <target>Esporta</target>
@@ -420,10 +396,6 @@
         <source>Access points area</source>
         <target>Area dei punti di accesso</target>
       </trans-unit>
-      <trans-unit id="116">
-        <source>Edit access points area</source>
-        <target>Modifica l'area dei punti di accesso</target>
-      </trans-unit>
       <trans-unit id="117">
         <source>Occupations</source>
         <target>Occupazioni</target>
@@ -463,6 +435,50 @@
       <trans-unit id="128">
         <source>Dates of relationship</source>
         <target>Date della relazione</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Actions</source>
+        <target>Azioni</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Add new</source>
+        <target>Aggiungi nuovo</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Show more</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Related resource</source>
+        <target>Risorsa collegata</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>Close</source>
+        <target>Chiudi</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Submit</source>
+        <target>Invia</target>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2025-07-28T20:04:05Z" product-name="messages">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2025-09-26T19:34:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -60,10 +60,6 @@
         <source>Identity area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="16">
-        <source>Edit identity area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="17">
         <source>Identifier</source>
         <target/>
@@ -88,16 +84,8 @@
         <source>Contact area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="23">
-        <source>Edit contact area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="24">
         <source>Description area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="25">
-        <source>Edit description area</source>
         <target/>
       </trans-unit>
       <trans-unit id="26">
@@ -136,10 +124,6 @@
         <source>Access area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="35">
-        <source>Edit access area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="36">
         <source>Opening times</source>
         <target/>
@@ -156,10 +140,6 @@
         <source>Services area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="40">
-        <source>Edit services area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="41">
         <source>Research services</source>
         <target/>
@@ -174,10 +154,6 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Control area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Edit control area</source>
         <target/>
       </trans-unit>
       <trans-unit id="46">
@@ -224,10 +200,6 @@
         <source>Access points</source>
         <target/>
       </trans-unit>
-      <trans-unit id="57">
-        <source>Edit access points</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="58">
         <source>Access Points</source>
         <target/>
@@ -260,16 +232,8 @@
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="66">
-        <source>This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="67">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>This is a mandatory element</source>
         <target/>
       </trans-unit>
       <trans-unit id="69">
@@ -422,6 +386,10 @@
       </trans-unit>
       <trans-unit id="107">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>
