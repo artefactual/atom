@@ -8,7 +8,7 @@
   <property name="build.dir" value="${phing.dir}/build"/>
 
   <!-- package.version: e.g. 1.4 -->
-  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.\d\.\d'" outputProperty="package.version"/>
+  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.(\d)+\.\d'" outputProperty="package.version"/>
 
   <!-- package.is_2: e.g. True -->
   <php function="version_compare" returnProperty="package.is_2">
