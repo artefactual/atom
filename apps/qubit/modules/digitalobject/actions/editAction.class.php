@@ -29,7 +29,7 @@ class DigitalObjectEditAction extends sfAction
         $this->form = new sfForm();
         $this->form
             ->getValidatorSchema()
-            ->setOption("allow_extra_fields", true);
+            ->setOption('allow_extra_fields', true);
 
         $this->resource = $this->getRoute()->resource;
 
@@ -42,7 +42,7 @@ class DigitalObjectEditAction extends sfAction
 
         // Check user authorization
         if (
-            !QubitAcl::check($this->object, "update") &&
+            !QubitAcl::check($this->object, 'update') &&
             !$this->getUser()->hasGroup(QubitAcl::EDITOR_ID)
         ) {
             QubitAcl::forwardUnauthorized();
@@ -76,7 +76,7 @@ class DigitalObjectEditAction extends sfAction
         $this->addFormFields();
 
         // Process forms
-        if ($request->isMethod("post")) {
+        if ($request->isMethod('post')) {
             $this->form->bind(
                 $request->getPostParameters(),
                 $request->getFiles()
@@ -92,7 +92,7 @@ class DigitalObjectEditAction extends sfAction
 
                 $this->redirect([
                     $this->object,
-                    "module" => "informationobject",
+                    'module' => 'informationobject',
                 ]);
             }
         }
@@ -105,25 +105,25 @@ class DigitalObjectEditAction extends sfAction
      */
     public function processForm()
     {
-        error_log("=== PROCESSFORM CALLED ===");
+        error_log('=== PROCESSFORM CALLED ===');
         // Set property 'displayAsCompound'
         $this->resource->setDisplayAsCompoundObject(
-            $this->form->getValue("displayAsCompound")
+            $this->form->getValue('displayAsCompound')
         );
 
         $this->resource->setDigitalObjectAltText(
-            $this->form->getValue("digitalObjectAltText")
+            $this->form->getValue('digitalObjectAltText')
         );
 
         // Update media type
-        $this->resource->mediaTypeId = $this->form->getValue("mediaType");
+        $this->resource->mediaTypeId = $this->form->getValue('mediaType');
 
         // Upload new representations
         $uploadedFiles = [];
         foreach ($this->representations as $usageId => $representation) {
             if (
                 null !==
-                ($uploadedFile = $this->form->getValue("repFile_{$usageId}"))
+                ($uploadedFile = $this->form->getValue('repFile_{$usageId}'))
             ) {
                 $uploadedFiles[$usageId] = $uploadedFile;
             }
@@ -144,8 +144,8 @@ class DigitalObjectEditAction extends sfAction
                 );
 
                 if (QubitTerm::REFERENCE_ID == $usageId) {
-                    $maxwidth = sfConfig::get("app_reference_image_maxwidth")
-                        ? sfConfig::get("app_reference_image_maxwidth")
+                    $maxwidth = sfConfig::get('app_reference_image_maxwidth')
+                        ? sfConfig::get('app_reference_image_maxwidth')
                         : 480;
                     $maxheight = null;
                 } elseif (QubitTerm::THUMBNAIL_ID == $usageId) {
@@ -192,28 +192,28 @@ class DigitalObjectEditAction extends sfAction
         foreach ($this->videoTracks as $usageId => $videoTrack) {
             if (
                 null !==
-                ($uploadedTrack = $this->form->getValue("trackFile_{$usageId}"))
+                ($uploadedTrack = $this->form->getValue('trackFile_{$usageId}'))
             ) {
-                $lang = $this->form->getValue("lang_{$usageId}");
+                $lang = $this->form->getValue('lang_{$usageId}');
                 $uploadedTracks[$usageId] = [
-                    "track" => $uploadedTrack,
-                    "language" => $lang,
+                    'track' => $uploadedTrack,
+                    'language' => $lang,
                 ];
             }
         }
 
         foreach ($uploadedTracks as $usageId => $uploadTrack) {
-            $content = file_get_contents($uploadTrack["track"]->getTempName());
+            $content = file_get_contents($uploadTrack['track']->getTempName());
 
             $track = new QubitDigitalObject();
             $track->usageId = $usageId;
             $track->assets[] = new QubitAsset(
-                $uploadTrack["track"]->getOriginalName(),
+                $uploadTrack['track']->getOriginalName(),
                 $content
             );
             $track->parentId = $this->resource->id;
             $track->createDerivatives = false;
-            $track->language = $uploadTrack["language"];
+            $track->language = $uploadTrack['language'];
 
             $track->save();
         }
@@ -222,7 +222,7 @@ class DigitalObjectEditAction extends sfAction
         if (
             null !=
             $this->form->getValue(
-                "generateDerivative_" . QubitTerm::REFERENCE_ID
+                'generateDerivative_' . QubitTerm::REFERENCE_ID
             )
         ) {
             $this->resource->createReferenceImage();
@@ -232,14 +232,14 @@ class DigitalObjectEditAction extends sfAction
         if (
             null !=
             $this->form->getValue(
-                "generateDerivative_" . QubitTerm::THUMBNAIL_ID
+                'generateDerivative_' . QubitTerm::THUMBNAIL_ID
             )
         ) {
             $this->resource->createThumbnail();
         }
 
         // Store latitude and longitude as properties
-        foreach (["latitude", "longitude"] as $geoPropertyField) {
+        foreach (['latitude', 'longitude'] as $geoPropertyField) {
             // Create or update property
             $geoProperty = $this->resource->getPropertyByName(
                 $geoPropertyField
@@ -263,11 +263,11 @@ class DigitalObjectEditAction extends sfAction
     {
         try {
             if (
-                class_exists("arEmbeddedMetadataParser", /*autoload*/ true) &&
+                class_exists('arEmbeddedMetadataParser', /*autoload*/ true) &&
                 isset($digitalObject) &&
                 $digitalObject instanceof QubitDigitalObject
             ) {
-                $absPath = method_exists($digitalObject, "getAbsolutePath")
+                $absPath = method_exists($digitalObject, 'getAbsolutePath')
                     ? $digitalObject->getAbsolutePath()
                     : (string) $digitalObject->getPath();
 
@@ -280,12 +280,12 @@ class DigitalObjectEditAction extends sfAction
 
                         if (
                             $this->object instanceof QubitInformationObject &&
-                            $summary !== ""
+                            $summary !== ''
                         ) {
                             $existing =
                                 (string) $this->object->physicalCharacteristics;
                             $this->object->physicalCharacteristics = $existing
-                                ? $existing . "\n\n" . $summary
+                                ? $existing . '\n\n' . $summary
                                 : $summary;
                             $this->object->save();
                         }
@@ -303,7 +303,7 @@ class DigitalObjectEditAction extends sfAction
     private function extractExifMetadata($filePath)
     {
         // Check if EXIF extension is loaded
-        if (!extension_loaded("exif")) {
+        if (!extension_loaded('exif')) {
             return null;
         }
 
@@ -316,18 +316,18 @@ class DigitalObjectEditAction extends sfAction
 
         // Extract specific fields for backward compatibility
         $extractedData = [
-            "all_exif" => arEmbeddedMetadataParser::formatSummary($meta),
+            'all_exif' => arEmbeddedMetadataParser::formatSummary($meta),
         ];
 
         // Get normalized data
-        $norm = $meta["_norm"] ?? [];
+        $norm = $meta['_norm'] ?? [];
 
-        if (isset($norm["createDate"])) {
-            $extractedData["date_taken"] = $norm["createDate"];
+        if (isset($norm['createDate'])) {
+            $extractedData['date_taken'] = $norm['createDate'];
         }
 
-        if (isset($norm["creator"])) {
-            $extractedData["artist"] = $norm["creator"];
+        if (isset($norm['creator'])) {
+            $extractedData['artist'] = $norm['creator'];
         }
 
         return $extractedData;
@@ -343,18 +343,18 @@ class DigitalObjectEditAction extends sfAction
         }
 
         // Handle creation date
-        if (isset($exifData["date_taken"])) {
-            $this->addCreationDate($exifData["date_taken"]);
+        if (isset($exifData['date_taken'])) {
+            $this->addCreationDate($exifData['date_taken']);
         }
 
         // Handle creator/artist
-        if (isset($exifData["artist"])) {
-            $this->addCreator($exifData["artist"]);
+        if (isset($exifData['artist'])) {
+            $this->addCreator($exifData['artist']);
         }
 
         // Add ALL EXIF data to physical characteristics
-        if (isset($exifData["all_exif"])) {
-            $this->addAllExifData($exifData["all_exif"]);
+        if (isset($exifData['all_exif'])) {
+            $this->addAllExifData($exifData['all_exif']);
         }
 
         // Save the information object
@@ -367,7 +367,7 @@ class DigitalObjectEditAction extends sfAction
     private function addCreationDate($dateString)
     {
         try {
-            $date = DateTime::createFromFormat("Y:m:d H:i:s", $dateString);
+            $date = DateTime::createFromFormat('Y:m:d H:i:s', $dateString);
             if ($date) {
                 // Check if creation date already exists - use correct constant
                 $criteria = new Criteria();
@@ -380,18 +380,18 @@ class DigitalObjectEditAction extends sfAction
                     $event = new QubitEvent();
                     $event->setObjectId($this->object->id); // Changed from setInformationObjectId
                     $event->setTypeId(QubitTerm::CREATION_ID);
-                    $event->setDate($date->format("Y-m-d"));
+                    $event->setDate($date->format('Y-m-d'));
                     $event->save();
 
                     error_log(
-                        "EXIF: Added creation date: " . $date->format("Y-m-d")
+                        'EXIF: Added creation date: ' . $date->format('Y-m-d')
                     );
                 } else {
-                    error_log("EXIF: Creation date already exists, skipping");
+                    error_log('EXIF: Creation date already exists, skipping');
                 }
             }
         } catch (Exception $e) {
-            error_log("Failed to parse EXIF date: " . $e->getMessage());
+            error_log('Failed to parse EXIF date: ' . $e->getMessage());
         }
     }
 
@@ -429,7 +429,7 @@ class DigitalObjectEditAction extends sfAction
                 $relation->save();
             }
         } catch (Exception $e) {
-            error_log("Failed to add EXIF creator: " . $e->getMessage());
+            error_log('Failed to add EXIF creator: ' . $e->getMessage());
         }
     }
 
@@ -444,28 +444,28 @@ class DigitalObjectEditAction extends sfAction
             // Remove any existing EXIF data first
             if (
                 $currentPhysical &&
-                strpos($currentPhysical, "EXIF Technical Data:") !== false
+                strpos($currentPhysical, 'EXIF Technical Data:') !== false
             ) {
-                // Remove everything from "EXIF Technical Data:" to the end or next section
+                // Remove everything from 'EXIF Technical Data:' to the end or next section
                 $currentPhysical = preg_replace(
                     '/\n\nEXIF Technical Data:.*$/s',
-                    "",
+                    '',
                     $currentPhysical
                 );
-                error_log("EXIF: Removed existing EXIF data");
+                error_log('EXIF: Removed existing EXIF data');
             }
 
-            $newExifData = "\n\nEXIF Technical Data:\n" . $allExifText;
+            $newExifData = '\n\nEXIF Technical Data:\n' . $allExifText;
 
             $this->object->setPhysicalCharacteristics(
-                ($currentPhysical ?: "") . $newExifData
+                ($currentPhysical ?: '') . $newExifData
             );
             $this->object->save(); // Force save immediately
 
-            error_log("EXIF: Successfully added comprehensive EXIF data");
+            error_log('EXIF: Successfully added comprehensive EXIF data');
         } catch (Exception $e) {
             error_log(
-                "EXIF: Error adding comprehensive EXIF data: " .
+                'EXIF: Error adding comprehensive EXIF data: ' .
                     $e->getMessage()
             );
         }
@@ -478,22 +478,22 @@ class DigitalObjectEditAction extends sfAction
         $criteria = new Criteria();
         $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
         foreach (QubitTerm::get($criteria) as $item) {
-            $choices[$item->id] = $item->getName(["cultureFallback" => true]);
+            $choices[$item->id] = $item->getName(['cultureFallback' => true]);
         }
 
         asort($choices); // Sort media types by name
 
         $this->form->setValidator(
-            "mediaType",
-            new sfValidatorChoice(["choices" => array_keys($choices)])
+            'mediaType',
+            new sfValidatorChoice(['choices' => array_keys($choices)])
         );
         $this->form->setWidget(
-            "mediaType",
-            new sfWidgetFormSelect(["choices" => $choices])
+            'mediaType',
+            new sfWidgetFormSelect(['choices' => $choices])
         );
-        $this->form->setDefault("mediaType", $this->resource->mediaTypeId);
+        $this->form->setDefault('mediaType', $this->resource->mediaTypeId);
 
-        // Only display "compound digital object" toggle if we have a child with a
+        // Only display 'compound digital object' toggle if we have a child with a
         // digital object
         $this->showCompoundObjectToggle = false;
         if ($this->object instanceof QubitInformationObject) {
@@ -508,40 +508,40 @@ class DigitalObjectEditAction extends sfAction
 
         if ($this->showCompoundObjectToggle) {
             $this->form->setValidator(
-                "displayAsCompound",
+                'displayAsCompound',
                 new sfValidatorBoolean()
             );
             $this->form->setWidget(
-                "displayAsCompound",
+                'displayAsCompound',
                 new sfWidgetFormSelectRadio([
-                    "choices" => [
-                        "1" => $this->context->i18n->__("Yes"),
-                        "0" => $this->context->i18n->__("No"),
+                    'choices' => [
+                        '1' => $this->context->i18n->__('Yes'),
+                        '0' => $this->context->i18n->__('No'),
                     ],
                 ])
             );
 
-            // Set "displayAsCompound" value from QubitProperty
+            // Set 'displayAsCompound' value from QubitProperty
             $criteria = new Criteria();
             $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-            $criteria->add(QubitProperty::NAME, "displayAsCompound");
+            $criteria->add(QubitProperty::NAME, 'displayAsCompound');
 
             if (
                 null != ($compoundProperty = QubitProperty::getOne($criteria))
             ) {
                 $this->form->setDefault(
-                    "displayAsCompound",
-                    $compoundProperty->getValue(["sourceCulture" => true])
+                    'displayAsCompound',
+                    $compoundProperty->getValue(['sourceCulture' => true])
                 );
             }
         }
 
         $this->form->setValidator(
-            "digitalObjectAltText",
+            'digitalObjectAltText',
             new sfValidatorString()
         );
         $this->form->setWidget(
-            "digitalObjectAltText",
+            'digitalObjectAltText',
             new sfWidgetFormTextarea()
         );
         if (
@@ -549,20 +549,20 @@ class DigitalObjectEditAction extends sfAction
             ($this->digitalObjectAltText = $this->resource->getDigitalObjectAltText())
         ) {
             $this->form->setDefault(
-                "digitalObjectAltText",
+                'digitalObjectAltText',
                 $this->digitalObjectAltText
             );
         }
 
         $maxUploadSize = QubitDigitalObject::getMaxUploadSize();
 
-        ProjectConfiguration::getActive()->loadHelpers("Qubit");
+        ProjectConfiguration::getActive()->loadHelpers('Qubit');
 
         // If reference representation doesn't exist, include upload widget
         foreach ($this->representations as $usageId => $representation) {
             if (null === $representation) {
-                $repName = "repFile_{$usageId}";
-                $derName = "generateDerivative_{$usageId}";
+                $repName = 'repFile_{$usageId}';
+                $derName = 'generateDerivative_{$usageId}';
 
                 $this->form->setValidator($repName, new sfValidatorFile());
                 $this->form->setWidget($repName, new sfWidgetFormInputFile());
@@ -571,19 +571,19 @@ class DigitalObjectEditAction extends sfAction
                     $this->form
                         ->getWidgetSchema()
                         ->{$repName}->setHelp(
-                            $this->context->i18n->__("Max. size ~%1%", [
-                                "%1%" => hr_filesize($maxUploadSize),
+                            $this->context->i18n->__('Max. size ~%1%', [
+                                '%1%' => hr_filesize($maxUploadSize),
                             ])
                         );
                 } else {
-                    $this->form->getWidgetSchema()->{$repName}->setHelp("");
+                    $this->form->getWidgetSchema()->{$repName}->setHelp('');
                 }
 
-                // Add "auto-generate" checkbox
+                // Add 'auto-generate' checkbox
                 $this->form->setValidator($derName, new sfValidatorBoolean());
                 $this->form->setWidget(
                     $derName,
-                    new sfWidgetFormInputCheckbox([], ["value" => 1])
+                    new sfWidgetFormInputCheckbox([], ['value' => 1])
                 );
             }
         }
@@ -593,15 +593,15 @@ class DigitalObjectEditAction extends sfAction
         foreach ($this->videoTracks as $usageId => $videoTrack) {
             if (QubitTerm::SUBTITLES_ID != $usageId) {
                 if (null === $videoTrack) {
-                    $trackName = "trackFile_{$usageId}";
+                    $trackName = 'trackFile_{$usageId}';
 
                     $this->form->setValidator(
                         $trackName,
                         new sfValidatorAnd([
                             new QubitValidatorMimeType([
-                                "mime_types" => [
-                                    "text/vtt",
-                                    "application/x-subrip",
+                                'mime_types' => [
+                                    'text/vtt',
+                                    'application/x-subrip',
                                 ],
                             ]),
                             new sfValidatorFile(),
@@ -616,27 +616,27 @@ class DigitalObjectEditAction extends sfAction
                         $this->form
                             ->getWidgetSchema()
                             ->{$trackName}->setHelp(
-                                $this->context->i18n->__("Max. size ~%1%", [
-                                    "%1%" => hr_filesize($maxUploadSize),
+                                $this->context->i18n->__('Max. size ~%1%', [
+                                    '%1%' => hr_filesize($maxUploadSize),
                                 ])
                             );
                     } else {
                         $this->form
                             ->getWidgetSchema()
-                            ->{$trackName}->setHelp("");
+                            ->{$trackName}->setHelp('');
                     }
                 }
             } else {
-                $trackName = "trackFile_{$usageId}";
-                $langName = "lang_{$usageId}";
+                $trackName = 'trackFile_{$usageId}';
+                $langName = 'lang_{$usageId}';
 
                 $this->form->setValidator(
                     $trackName,
                     new sfValidatorAnd([
                         new QubitValidatorMimeType([
-                            "mime_types" => [
-                                "text/vtt",
-                                "application/x-subrip",
+                            'mime_types' => [
+                                'text/vtt',
+                                'application/x-subrip',
                             ],
                         ]),
                         new sfValidatorFile(),
@@ -657,18 +657,18 @@ class DigitalObjectEditAction extends sfAction
                     $this->form
                         ->getWidgetSchema()
                         ->{$trackName}->setHelp(
-                            $this->context->i18n->__("Max. size ~%1%", [
-                                "%1%" => hr_filesize($maxUploadSize),
+                            $this->context->i18n->__('Max. size ~%1%', [
+                                '%1%' => hr_filesize($maxUploadSize),
                             ])
                         );
                 } else {
-                    $this->form->getWidgetSchema()->{$trackName}->setHelp("");
+                    $this->form->getWidgetSchema()->{$trackName}->setHelp('');
                 }
             }
         }
 
         // Add latitude and longitude fields
-        foreach (["latitude", "longitude"] as $geoPropertyField) {
+        foreach (['latitude', 'longitude'] as $geoPropertyField) {
             $this->form->setValidator(
                 $geoPropertyField,
                 new sfValidatorNumber()

@@ -29,14 +29,14 @@ class ObjectAddDigitalObjectAction extends sfAction
         $this->form = new sfForm();
         $this->form
             ->getValidatorSchema()
-            ->setOption("allow_extra_fields", true);
+            ->setOption('allow_extra_fields', true);
 
         $this->resource = $this->getRoute()->resource;
 
         // Get repository to test upload limits
         if ($this->resource instanceof QubitInformationObject) {
             $this->repository = $this->resource->getRepository([
-                "inherit" => true,
+                'inherit' => true,
             ]);
         } elseif ($this->resource instanceof QubitActor) {
             $this->repository = $this->resource->getMaintainingRepository();
@@ -50,16 +50,16 @@ class ObjectAddDigitalObjectAction extends sfAction
         // Assemble resource description
         sfContext::getInstance()
             ->getConfiguration()
-            ->loadHelpers(["Qubit"]);
+            ->loadHelpers(['Qubit']);
 
         if ($this->resource instanceof QubitActor) {
             $this->resourceDescription = render_title($this->resource);
         } elseif ($this->resource instanceof QubitInformationObject) {
-            $this->resourceDescription = "";
+            $this->resourceDescription = '';
 
             if (isset($this->resource->identifier)) {
                 $this->resourceDescription .=
-                    $this->resource->identifier . " - ";
+                    $this->resource->identifier . ' - ';
             }
 
             $this->resourceDescription .= render_title(
@@ -74,7 +74,7 @@ class ObjectAddDigitalObjectAction extends sfAction
         }
 
         // Check user authorization
-        if (!QubitAcl::check($this->resource, "update")) {
+        if (!QubitAcl::check($this->resource, 'update')) {
             QubitAcl::forwardUnauthorized();
         }
 
@@ -87,7 +87,7 @@ class ObjectAddDigitalObjectAction extends sfAction
         $this->addFields($request);
 
         // Process form
-        if ($request->isMethod("post")) {
+        if ($request->isMethod('post')) {
             $this->form->bind(
                 $request->getPostParameters(),
                 $request->getFiles()
@@ -100,7 +100,7 @@ class ObjectAddDigitalObjectAction extends sfAction
                 if ($this->resource instanceof QubitInformationObject) {
                     $this->resource->updateXmlExports();
                 }
-                $this->redirect([$this->resource, "module" => "object"]);
+                $this->redirect([$this->resource, 'module' => 'object']);
             }
         }
     }
@@ -115,9 +115,9 @@ class ObjectAddDigitalObjectAction extends sfAction
     {
         $digitalObject = new QubitDigitalObject();
 
-        if (null !== $this->form->getValue("file")) {
-            $tempFilePath = $this->form->getValue("file")->getTempName();
-            $name = $this->form->getValue("file")->getOriginalName();
+        if (null !== $this->form->getValue('file')) {
+            $tempFilePath = $this->form->getValue('file')->getTempName();
+            $name = $this->form->getValue('file')->getOriginalName();
             $content = file_get_contents($tempFilePath);
 
             // Extract comprehensive metadata from the uploaded file
@@ -142,54 +142,54 @@ class ObjectAddDigitalObjectAction extends sfAction
 
             // NOW check for GPS coordinates (after metadata is processed)
             error_log(
-                "GPS DEBUG: processForm - checking for GPS coordinates after comprehensive metadata"
+                'GPS DEBUG: processForm - checking for GPS coordinates after comprehensive metadata'
             );
             error_log(
-                "GPS DEBUG: processForm - has gpsLatitude: " .
+                'GPS DEBUG: processForm - has gpsLatitude: ' .
                     (isset($this->gpsLatitude)
-                        ? "YES (" . $this->gpsLatitude . ")"
-                        : "NO")
+                        ? 'YES (' . $this->gpsLatitude . ')'
+                        : 'NO')
             );
             error_log(
-                "GPS DEBUG: processForm - has gpsLongitude: " .
+                'GPS DEBUG: processForm - has gpsLongitude: ' .
                     (isset($this->gpsLongitude)
-                        ? "YES (" . $this->gpsLongitude . ")"
-                        : "NO")
+                        ? 'YES (' . $this->gpsLongitude . ')'
+                        : 'NO')
             );
 
             if (isset($this->gpsLatitude) && isset($this->gpsLongitude)) {
                 try {
                     error_log(
-                        "GPS DEBUG: processForm - about to save digital object"
+                        'GPS DEBUG: processForm - about to save digital object'
                     );
                     $digitalObject->save(); // Ensure digital object has an ID
                     error_log(
-                        "GPS DEBUG: processForm - digital object saved successfully, ID: " .
+                        'GPS DEBUG: processForm - digital object saved successfully, ID: ' .
                             $digitalObject->id
                     );
 
                     error_log(
-                        "GPS DEBUG: processForm - about to call setGpsCoordinatesOnDigitalObject"
+                        'GPS DEBUG: processForm - about to call setGpsCoordinatesOnDigitalObject'
                     );
                     $this->setGpsCoordinatesOnDigitalObject($digitalObject);
                     error_log(
-                        "GPS DEBUG: processForm - setGpsCoordinatesOnDigitalObject completed"
+                        'GPS DEBUG: processForm - setGpsCoordinatesOnDigitalObject completed'
                     );
                 } catch (Exception $e) {
                     error_log(
-                        "GPS DEBUG: processForm - EXCEPTION: " .
+                        'GPS DEBUG: processForm - EXCEPTION: ' .
                             $e->getMessage()
                     );
                     error_log(
-                        "GPS DEBUG: processForm - STACK TRACE: " .
+                        'GPS DEBUG: processForm - STACK TRACE: ' .
                             $e->getTraceAsString()
                     );
                 }
             } else {
-                error_log("GPS DEBUG: processForm - no GPS coordinates to set");
+                error_log('GPS DEBUG: processForm - no GPS coordinates to set');
             }
 
-            error_log("GPS DEBUG: processForm - GPS section completed");
+            error_log('GPS DEBUG: processForm - GPS section completed');
 
             //Exif The AHG
             if (
@@ -203,14 +203,14 @@ class ObjectAddDigitalObjectAction extends sfAction
             ) {
                 $this->appendEmbeddedTechMetadata($this->digitalObject);
             }
-        } elseif (null !== $this->form->getValue("url")) {
+        } elseif (null !== $this->form->getValue('url')) {
             // Catch errors trying to download remote resource
             try {
-                $digitalObject->importFromURI($this->form->getValue("url"));
+                $digitalObject->importFromURI($this->form->getValue('url'));
                 $this->resource->digitalObjectsRelatedByobjectId[] = $digitalObject;
             } catch (sfException $e) {
                 // Log download exception
-                $this->logMessage($e->getMessage(), "err");
+                $this->logMessage($e->getMessage(), 'err');
             }
         }
     }
@@ -219,11 +219,11 @@ class ObjectAddDigitalObjectAction extends sfAction
     {
         try {
             if (
-                class_exists("arEmbeddedMetadataParser", /*autoload*/ true) &&
+                class_exists('arEmbeddedMetadataParser', /*autoload*/ true) &&
                 isset($digitalObject) &&
                 $digitalObject instanceof QubitDigitalObject
             ) {
-                $absPath = method_exists($digitalObject, "getAbsolutePath")
+                $absPath = method_exists($digitalObject, 'getAbsolutePath')
                     ? $digitalObject->getAbsolutePath()
                     : (string) $digitalObject->getPath();
 
@@ -241,11 +241,11 @@ class ObjectAddDigitalObjectAction extends sfAction
 
                         if (
                             $io instanceof QubitInformationObject &&
-                            $summary !== ""
+                            $summary !== ''
                         ) {
                             $existing = (string) $io->physicalCharacteristics;
                             $io->physicalCharacteristics = $existing
-                                ? $existing . "\n\n" . $summary
+                                ? $existing . '\n\n' . $summary
                                 : $summary;
                             $io->save();
                         }
@@ -270,22 +270,22 @@ class ObjectAddDigitalObjectAction extends sfAction
         }
 
         // Handle creation date
-        if (isset($exifData["date_taken"])) {
-            $this->addCreationDate($exifData["date_taken"]);
+        if (isset($exifData['date_taken'])) {
+            $this->addCreationDate($exifData['date_taken']);
         }
 
         // Handle creator/artist
-        if (isset($exifData["artist"])) {
-            $this->addCreator($exifData["artist"]);
+        if (isset($exifData['artist'])) {
+            $this->addCreator($exifData['artist']);
         }
 
         // Add ALL EXIF data to physical characteristics
-        if (isset($exifData["all_exif"])) {
-            $this->addAllExifData($exifData["all_exif"]);
+        if (isset($exifData['all_exif'])) {
+            $this->addAllExifData($exifData['all_exif']);
         }
 
         error_log(
-            "EXIF: Applied EXIF data to information object from master upload"
+            'EXIF: Applied EXIF data to information object from master upload'
         );
     }
 
@@ -295,7 +295,7 @@ class ObjectAddDigitalObjectAction extends sfAction
     private function addCreationDate($dateString)
     {
         try {
-            $date = DateTime::createFromFormat("Y:m:d H:i:s", $dateString);
+            $date = DateTime::createFromFormat('Y:m:d H:i:s', $dateString);
             if ($date) {
                 // Check if creation date already exists
                 $criteria = new Criteria();
@@ -308,18 +308,18 @@ class ObjectAddDigitalObjectAction extends sfAction
                     $event = new QubitEvent();
                     $event->setObjectId($this->resource->id);
                     $event->setTypeId(QubitTerm::CREATION_ID);
-                    $event->setDate($date->format("Y-m-d"));
+                    $event->setDate($date->format('Y-m-d'));
                     $event->save();
 
                     error_log(
-                        "EXIF: Added creation date from master upload: " .
-                            $date->format("Y-m-d")
+                        'EXIF: Added creation date from master upload: ' .
+                            $date->format('Y-m-d')
                     );
                 }
             }
         } catch (Exception $e) {
             error_log(
-                "Failed to parse EXIF date from master upload: " .
+                'Failed to parse EXIF date from master upload: ' .
                     $e->getMessage()
             );
         }
@@ -331,7 +331,7 @@ class ObjectAddDigitalObjectAction extends sfAction
     private function addCreator($creatorName)
     {
         try {
-            error_log("METADATA: Attempting to add creator: " . $creatorName);
+            error_log('METADATA: Attempting to add creator: ' . $creatorName);
 
             // Search for existing actor using i18n table (correct method for AtoM 2.9)
             $criteria = new Criteria();
@@ -343,15 +343,15 @@ class ObjectAddDigitalObjectAction extends sfAction
             $actor = QubitActor::getOne($criteria);
 
             if (!$actor) {
-                error_log("METADATA: Creating new actor: " . $creatorName);
+                error_log('METADATA: Creating new actor: ' . $creatorName);
                 $actor = new QubitActor();
                 $actor->setAuthorizedFormOfName($creatorName);
                 $actor->setEntityTypeId(QubitTerm::PERSON_ID);
                 $actor->save();
-                error_log("METADATA: New actor created with ID: " . $actor->id);
+                error_log('METADATA: New actor created with ID: ' . $actor->id);
             } else {
                 error_log(
-                    "METADATA: Found existing actor with ID: " . $actor->id
+                    'METADATA: Found existing actor with ID: ' . $actor->id
                 );
             }
 
@@ -365,9 +365,9 @@ class ObjectAddDigitalObjectAction extends sfAction
 
             if (!$existingRelation) {
                 error_log(
-                    "METADATA: Creating relation between actor " .
+                    'METADATA: Creating relation between actor ' .
                         $actor->id .
-                        " and object " .
+                        ' and object ' .
                         $this->resource->id
                 );
                 $relation = new QubitRelation();
@@ -377,12 +377,12 @@ class ObjectAddDigitalObjectAction extends sfAction
                 $relation->save();
 
                 error_log(
-                    "METADATA: Successfully added creator relation: " .
+                    'METADATA: Successfully added creator relation: ' .
                         $creatorName
                 );
             } else {
                 error_log(
-                    "METADATA: Relation already exists for creator: " .
+                    'METADATA: Relation already exists for creator: ' .
                         $creatorName
                 );
             }
@@ -396,7 +396,7 @@ class ObjectAddDigitalObjectAction extends sfAction
             $existingEvent = QubitEvent::getOne($criteria);
 
             if (!$existingEvent) {
-                error_log("METADATA: Creating creation event for Context area");
+                error_log('METADATA: Creating creation event for Context area');
                 $event = new QubitEvent();
                 $event->setObjectId($this->resource->id);
                 $event->setActorId($actor->id);
@@ -404,23 +404,23 @@ class ObjectAddDigitalObjectAction extends sfAction
                 $event->save();
 
                 error_log(
-                    "METADATA: Successfully added creator event for Context area: " .
+                    'METADATA: Successfully added creator event for Context area: ' .
                         $creatorName
                 );
             } else {
                 error_log(
-                    "METADATA: Creation event already exists for creator: " .
+                    'METADATA: Creation event already exists for creator: ' .
                         $creatorName
                 );
             }
         } catch (Exception $e) {
             error_log(
-                "METADATA: Failed to add creator '" .
+                'METADATA: Failed to add creator '' .
                     $creatorName .
-                    "': " .
+                    '': ' .
                     $e->getMessage()
             );
-            error_log("METADATA: Stack trace: " . $e->getTraceAsString());
+            error_log('METADATA: Stack trace: ' . $e->getTraceAsString());
         }
     }
 
@@ -431,9 +431,9 @@ class ObjectAddDigitalObjectAction extends sfAction
     {
         try {
             error_log(
-                "METADATA: Attempting to add " .
+                'METADATA: Attempting to add ' .
                     count($keywords) .
-                    " subject access points"
+                    ' subject access points'
             );
 
             foreach ($keywords as $keyword) {
@@ -442,7 +442,7 @@ class ObjectAddDigitalObjectAction extends sfAction
                     continue;
                 }
 
-                error_log("METADATA: Processing keyword: " . $keyword);
+                error_log('METADATA: Processing keyword: ' . $keyword);
 
                 // Check if term already exists
                 $criteria = new Criteria();
@@ -456,17 +456,17 @@ class ObjectAddDigitalObjectAction extends sfAction
                 $term = QubitTerm::getOne($criteria);
 
                 if (!$term) {
-                    error_log("METADATA: Creating new term: " . $keyword);
+                    error_log('METADATA: Creating new term: ' . $keyword);
                     $term = new QubitTerm();
                     $term->setTaxonomyId(QubitTaxonomy::SUBJECT_ID);
                     $term->setName($keyword);
                     $term->save();
                     error_log(
-                        "METADATA: New term created with ID: " . $term->id
+                        'METADATA: New term created with ID: ' . $term->id
                     );
                 } else {
                     error_log(
-                        "METADATA: Found existing term with ID: " . $term->id
+                        'METADATA: Found existing term with ID: ' . $term->id
                     );
                 }
 
@@ -481,29 +481,29 @@ class ObjectAddDigitalObjectAction extends sfAction
                 $existingRelation = QubitObjectTermRelation::getOne($criteria);
 
                 if (!$existingRelation) {
-                    error_log("METADATA: Creating object-term relation");
+                    error_log('METADATA: Creating object-term relation');
                     $relation = new QubitObjectTermRelation();
                     $relation->setObjectId($this->resource->id);
                     $relation->setTermId($term->id);
                     $relation->save();
 
                     error_log(
-                        "METADATA: Successfully added subject access point: " .
+                        'METADATA: Successfully added subject access point: ' .
                             $keyword
                     );
                 } else {
                     error_log(
-                        "METADATA: Relation already exists for keyword: " .
+                        'METADATA: Relation already exists for keyword: ' .
                             $keyword
                     );
                 }
             }
         } catch (Exception $e) {
             error_log(
-                "METADATA: Failed to add subject access points: " .
+                'METADATA: Failed to add subject access points: ' .
                     $e->getMessage()
             );
-            error_log("METADATA: Stack trace: " . $e->getTraceAsString());
+            error_log('METADATA: Stack trace: ' . $e->getTraceAsString());
         }
     }
 
@@ -512,14 +512,14 @@ class ObjectAddDigitalObjectAction extends sfAction
      */
     private function applyMetadataToInformationObject($metadataCollection)
     {
-        error_log("=== APPLY METADATA CALLED ===");
+        error_log('=== APPLY METADATA CALLED ===');
         error_log(
-            "Current resource title: '" . $this->resource->getTitle() . "'"
+            'Current resource title: '' . $this->resource->getTitle() . '''
         );
         error_log(
-            "Current resource scope: '" .
+            'Current resource scope: '' .
                 $this->resource->getScopeAndContent() .
-                "'"
+                '''
         );
 
         if (
@@ -527,12 +527,12 @@ class ObjectAddDigitalObjectAction extends sfAction
             !($this->resource instanceof QubitInformationObject)
         ) {
             error_log(
-                "DEBUG: Early return - metadataCollection: " .
-                    ($metadataCollection ? "EXISTS" : "NULL") .
-                    ", resource instanceof QubitInformationObject: " .
+                'DEBUG: Early return - metadataCollection: ' .
+                    ($metadataCollection ? 'EXISTS' : 'NULL') .
+                    ', resource instanceof QubitInformationObject: ' .
                     ($this->resource instanceof QubitInformationObject
-                        ? "YES"
-                        : "NO")
+                        ? 'YES'
+                        : 'NO')
             );
             return;
         }
@@ -541,20 +541,20 @@ class ObjectAddDigitalObjectAction extends sfAction
 
         // Handle title - enhanced EXIF extraction
         $title = null;
-        if (isset($metadataCollection["xmp"]["title"])) {
-            $title = $metadataCollection["xmp"]["title"];
-            error_log("METADATA: Using XMP title: " . $title);
-        } elseif (isset($metadataCollection["iptc"]["headline"])) {
-            $title = $metadataCollection["iptc"]["headline"];
-            error_log("METADATA: Using IPTC headline as title: " . $title);
-        } elseif (isset($metadataCollection["exif"]["image_description"])) {
-            $title = $metadataCollection["exif"]["image_description"];
-            error_log("METADATA: Using EXIF description as title: " . $title);
+        if (isset($metadataCollection['xmp']['title'])) {
+            $title = $metadataCollection['xmp']['title'];
+            error_log('METADATA: Using XMP title: ' . $title);
+        } elseif (isset($metadataCollection['iptc']['headline'])) {
+            $title = $metadataCollection['iptc']['headline'];
+            error_log('METADATA: Using IPTC headline as title: ' . $title);
+        } elseif (isset($metadataCollection['exif']['image_description'])) {
+            $title = $metadataCollection['exif']['image_description'];
+            error_log('METADATA: Using EXIF description as title: ' . $title);
         } else {
             // Generate descriptive title from EXIF data
             $title = $this->generateTitleFromExif($metadataCollection);
             if ($title) {
-                error_log("METADATA: Generated title from EXIF: " . $title);
+                error_log('METADATA: Generated title from EXIF: ' . $title);
             }
         }
         //To Fix PSIS/AHG - Add flag to overwrite
@@ -566,47 +566,47 @@ class ObjectAddDigitalObjectAction extends sfAction
                 empty($currentTitle) ||
                 strlen($currentTitle) <= 3 ||
                 in_array(strtolower($currentTitle), [
-                    "test",
-                    "ss",
-                    "gg",
-                    "temp",
-                    "new",
+                    'test',
+                    'ss',
+                    'gg',
+                    'temp',
+                    'new',
                 ])
             ) {
                 $this->resource->setTitle($title);
                 error_log(
-                    "METADATA: Set title from metadata: " .
+                    'METADATA: Set title from metadata: ' .
                         $title .
-                        " (replaced: '" .
+                        ' (replaced: '' .
                         $currentTitle .
-                        "')"
+                        '')'
                 );
             } else {
                 error_log(
-                    "METADATA: Title not set - resource already has meaningful title: '" .
+                    'METADATA: Title not set - resource already has meaningful title: '' .
                         $currentTitle .
-                        "'"
+                        '''
                 );
             }
         } else {
-            error_log("METADATA: No title generated from metadata");
+            error_log('METADATA: No title generated from metadata');
         }
 
         // Handle description/scope and content - enhanced with EXIF details
         $description = null;
-        if (isset($metadataCollection["xmp"]["description"])) {
-            $description = $metadataCollection["xmp"]["description"];
-            error_log("METADATA: Using XMP description");
-        } elseif (isset($metadataCollection["iptc"]["caption"])) {
-            $description = $metadataCollection["iptc"]["caption"];
-            error_log("METADATA: Using IPTC caption");
+        if (isset($metadataCollection['xmp']['description'])) {
+            $description = $metadataCollection['xmp']['description'];
+            error_log('METADATA: Using XMP description');
+        } elseif (isset($metadataCollection['iptc']['caption'])) {
+            $description = $metadataCollection['iptc']['caption'];
+            error_log('METADATA: Using IPTC caption');
         } else {
             // Generate description from EXIF data
             $description = $this->generateDescriptionFromExif(
                 $metadataCollection
             );
             if ($description) {
-                error_log("METADATA: Generated description from EXIF");
+                error_log('METADATA: Generated description from EXIF');
             }
         }
 
@@ -614,18 +614,18 @@ class ObjectAddDigitalObjectAction extends sfAction
             $currentScope = $this->resource->getScopeAndContent();
             if (empty($currentScope)) {
                 $this->resource->setScopeAndContent($description);
-                error_log("METADATA: Set scope and content from metadata");
+                error_log('METADATA: Set scope and content from metadata');
             } else {
                 error_log(
-                    "METADATA: Scope and content not set - already exists"
+                    'METADATA: Scope and content not set - already exists'
                 );
             }
         }
 
         // Handle creation date (EXIF preferred for accuracy)
         $dateString = null;
-        if (isset($metadataCollection["exif"]["date_taken"])) {
-            $dateString = $metadataCollection["exif"]["date_taken"];
+        if (isset($metadataCollection['exif']['date_taken'])) {
+            $dateString = $metadataCollection['exif']['date_taken'];
         }
 
         if ($dateString) {
@@ -634,47 +634,47 @@ class ObjectAddDigitalObjectAction extends sfAction
 
         // Handle creator/artist - enhanced with device info fallback
         $creator = null;
-        if (isset($metadataCollection["xmp"]["creator"])) {
-            $creator = $metadataCollection["xmp"]["creator"];
-            error_log("METADATA: Using XMP creator: " . $creator);
-        } elseif (isset($metadataCollection["iptc"]["creator"])) {
-            $creator = $metadataCollection["iptc"]["creator"];
-            error_log("METADATA: Using IPTC creator: " . $creator);
-        } elseif (isset($metadataCollection["exif"]["artist"])) {
-            $creator = $metadataCollection["exif"]["artist"];
-            error_log("METADATA: Using EXIF artist: " . $creator);
+        if (isset($metadataCollection['xmp']['creator'])) {
+            $creator = $metadataCollection['xmp']['creator'];
+            error_log('METADATA: Using XMP creator: ' . $creator);
+        } elseif (isset($metadataCollection['iptc']['creator'])) {
+            $creator = $metadataCollection['iptc']['creator'];
+            error_log('METADATA: Using IPTC creator: ' . $creator);
+        } elseif (isset($metadataCollection['exif']['artist'])) {
+            $creator = $metadataCollection['exif']['artist'];
+            error_log('METADATA: Using EXIF artist: ' . $creator);
         } else {
             // Generate creator from device information
             $creator = $this->generateCreatorFromExif($metadataCollection);
             if ($creator) {
-                error_log("METADATA: Generated creator from EXIF: " . $creator);
+                error_log('METADATA: Generated creator from EXIF: ' . $creator);
             }
         }
 
         if ($creator) {
             $this->addCreator($creator);
         } else {
-            error_log("METADATA: No creator found in metadata");
+            error_log('METADATA: No creator found in metadata');
         }
 
         // Handle keywords/subject access points - enhanced with EXIF-derived terms
         $keywords = [];
-        if (isset($metadataCollection["xmp"]["keywords"])) {
-            $keywords = $metadataCollection["xmp"]["keywords"];
+        if (isset($metadataCollection['xmp']['keywords'])) {
+            $keywords = $metadataCollection['xmp']['keywords'];
             error_log(
-                "METADATA: Using XMP keywords: " . json_encode($keywords)
+                'METADATA: Using XMP keywords: ' . json_encode($keywords)
             );
-        } elseif (isset($metadataCollection["iptc"]["keywords"])) {
-            $keywords = $metadataCollection["iptc"]["keywords"];
+        } elseif (isset($metadataCollection['iptc']['keywords'])) {
+            $keywords = $metadataCollection['iptc']['keywords'];
             error_log(
-                "METADATA: Using IPTC keywords: " . json_encode($keywords)
+                'METADATA: Using IPTC keywords: ' . json_encode($keywords)
             );
         } else {
             // Generate subject terms from EXIF data
             $keywords = $this->generateKeywordsFromExif($metadataCollection);
             if (!empty($keywords)) {
                 error_log(
-                    "METADATA: Generated keywords from EXIF: " .
+                    'METADATA: Generated keywords from EXIF: ' .
                         json_encode($keywords)
                 );
             }
@@ -683,57 +683,57 @@ class ObjectAddDigitalObjectAction extends sfAction
         if (!empty($keywords)) {
             $this->addSubjectAccessPoints($keywords);
         } else {
-            error_log("METADATA: No keywords found in metadata");
+            error_log('METADATA: No keywords found in metadata');
         }
 
         // Store GPS coordinates for later use (after digital object is created)
         // Add this in applyMetadataToInformationObject() after keywords section
-        error_log("GPS DEBUG: Checking for GPS coordinates in metadata");
+        error_log('GPS DEBUG: Checking for GPS coordinates in metadata');
         error_log(
-            "GPS DEBUG: metadataCollection keys: " .
+            'GPS DEBUG: metadataCollection keys: ' .
                 json_encode(array_keys($metadataCollection))
         );
 
-        if (isset($metadataCollection["exif"])) {
+        if (isset($metadataCollection['exif'])) {
             error_log(
-                "GPS DEBUG: EXIF keys: " .
-                    json_encode(array_keys($metadataCollection["exif"]))
+                'GPS DEBUG: EXIF keys: ' .
+                    json_encode(array_keys($metadataCollection['exif']))
             );
-            if (isset($metadataCollection["exif"]["gps_latitude"])) {
+            if (isset($metadataCollection['exif']['gps_latitude'])) {
                 error_log(
-                    "GPS DEBUG: Found GPS latitude: " .
-                        $metadataCollection["exif"]["gps_latitude"]
+                    'GPS DEBUG: Found GPS latitude: ' .
+                        $metadataCollection['exif']['gps_latitude']
                 );
             }
-            if (isset($metadataCollection["exif"]["gps_longitude"])) {
+            if (isset($metadataCollection['exif']['gps_longitude'])) {
                 error_log(
-                    "GPS DEBUG: Found GPS longitude: " .
-                        $metadataCollection["exif"]["gps_longitude"]
+                    'GPS DEBUG: Found GPS longitude: ' .
+                        $metadataCollection['exif']['gps_longitude']
                 );
             }
         }
 
         if (
-            isset($metadataCollection["exif"]["gps_latitude"]) &&
-            isset($metadataCollection["exif"]["gps_longitude"])
+            isset($metadataCollection['exif']['gps_latitude']) &&
+            isset($metadataCollection['exif']['gps_longitude'])
         ) {
-            $this->gpsLatitude = $metadataCollection["exif"]["gps_latitude"];
-            $this->gpsLongitude = $metadataCollection["exif"]["gps_longitude"];
+            $this->gpsLatitude = $metadataCollection['exif']['gps_latitude'];
+            $this->gpsLongitude = $metadataCollection['exif']['gps_longitude'];
             error_log(
-                "GPS DEBUG: Stored GPS coordinates for digital object: Lat=" .
+                'GPS DEBUG: Stored GPS coordinates for digital object: Lat=' .
                     $this->gpsLatitude .
-                    ", Lon=" .
+                    ', Lon=' .
                     $this->gpsLongitude
             );
         } else {
-            error_log("GPS DEBUG: No GPS coordinates found in EXIF metadata");
+            error_log('GPS DEBUG: No GPS coordinates found in EXIF metadata');
         }
 
         // Add comprehensive technical metadata to physical characteristics
         $this->addComprehensiveMetadata($metadataCollection);
 
         error_log(
-            "METADATA: Applied comprehensive metadata to information object from master upload"
+            'METADATA: Applied comprehensive metadata to information object from master upload'
         );
     }
 
@@ -748,30 +748,30 @@ class ObjectAddDigitalObjectAction extends sfAction
             // Remove any existing EXIF data first
             if (
                 $currentPhysical &&
-                strpos($currentPhysical, "EXIF Technical Data:") !== false
+                strpos($currentPhysical, 'EXIF Technical Data:') !== false
             ) {
                 $currentPhysical = preg_replace(
                     '/\n\nEXIF Technical Data:.*$/s',
-                    "",
+                    '',
                     $currentPhysical
                 );
                 error_log(
-                    "EXIF: Removed existing EXIF data from master upload"
+                    'EXIF: Removed existing EXIF data from master upload'
                 );
             }
 
-            $newExifData = "\n\nEXIF Technical Data:\n" . $allExifText;
+            $newExifData = '\n\nEXIF Technical Data:\n' . $allExifText;
 
             $this->resource->setPhysicalCharacteristics(
-                ($currentPhysical ?: "") . $newExifData
+                ($currentPhysical ?: '') . $newExifData
             );
 
             error_log(
-                "EXIF: Successfully added comprehensive EXIF data from master upload"
+                'EXIF: Successfully added comprehensive EXIF data from master upload'
             );
         } catch (Exception $e) {
             error_log(
-                "EXIF: Error adding comprehensive EXIF data from master upload: " .
+                'EXIF: Error adding comprehensive EXIF data from master upload: ' .
                     $e->getMessage()
             );
         }
@@ -794,111 +794,111 @@ class ObjectAddDigitalObjectAction extends sfAction
         }
 
         $metadata = [];
-        $norm = $meta["_norm"] ?? [];
+        $norm = $meta['_norm'] ?? [];
 
         // Build metadata array from normalized data
         $exifData = [];
 
         // Dates
-        if (isset($norm["createDate"])) {
-            $exifData["date_taken"] = $norm["createDate"];
+        if (isset($norm['createDate'])) {
+            $exifData['date_taken'] = $norm['createDate'];
         }
 
         // Creator (could be from EXIF Artist, IPTC Byline, or XMP Creator)
-        if (isset($norm["creator"])) {
-            $exifData["artist"] = $norm["creator"];
+        if (isset($norm['creator'])) {
+            $exifData['artist'] = $norm['creator'];
         }
 
         // GPS (from EXIF GPS tags)
-        if (isset($meta["GPSLatitude"]) && isset($meta["GPSLongitude"])) {
-            $exifData["gps_latitude"] = $meta["GPSLatitude"];
-            $exifData["gps_longitude"] = $meta["GPSLongitude"];
+        if (isset($meta['GPSLatitude']) && isset($meta['GPSLongitude'])) {
+            $exifData['gps_latitude'] = $meta['GPSLatitude'];
+            $exifData['gps_longitude'] = $meta['GPSLongitude'];
         }
 
         // Camera info
-        if (isset($meta["Make"])) {
-            $exifData["camera_make"] = $meta["Make"];
+        if (isset($meta['Make'])) {
+            $exifData['camera_make'] = $meta['Make'];
         }
-        if (isset($meta["Model"])) {
-            $exifData["camera_model"] = $meta["Model"];
+        if (isset($meta['Model'])) {
+            $exifData['camera_model'] = $meta['Model'];
         }
 
         // Technical details for title/description generation
-        if (isset($meta["FocalLength"])) {
-            $exifData["focal_length"] = $meta["FocalLength"];
+        if (isset($meta['FocalLength'])) {
+            $exifData['focal_length'] = $meta['FocalLength'];
         }
-        if (isset($meta["FNumber"])) {
-            $exifData["aperture"] = $meta["FNumber"];
+        if (isset($meta['FNumber'])) {
+            $exifData['aperture'] = $meta['FNumber'];
         }
-        if (isset($meta["ExposureTime"])) {
-            $exifData["shutter_speed"] = $meta["ExposureTime"];
+        if (isset($meta['ExposureTime'])) {
+            $exifData['shutter_speed'] = $meta['ExposureTime'];
         }
-        if (isset($meta["ISO"])) {
-            $exifData["iso"] = $meta["ISO"];
+        if (isset($meta['ISO'])) {
+            $exifData['iso'] = $meta['ISO'];
         }
-        if (isset($meta["ImageWidth"])) {
-            $exifData["width"] = $meta["ImageWidth"];
+        if (isset($meta['ImageWidth'])) {
+            $exifData['width'] = $meta['ImageWidth'];
         }
-        if (isset($meta["ImageHeight"])) {
-            $exifData["height"] = $meta["ImageHeight"];
+        if (isset($meta['ImageHeight'])) {
+            $exifData['height'] = $meta['ImageHeight'];
         }
 
         // Description (could be from EXIF, IPTC Caption, or XMP Description)
-        if (isset($norm["description"])) {
-            $exifData["image_description"] = $norm["description"];
+        if (isset($norm['description'])) {
+            $exifData['image_description'] = $norm['description'];
         }
 
-        $metadata["exif"] = $exifData;
+        $metadata['exif'] = $exifData;
 
         // IPTC-specific (headline, caption from IPTC tags)
         $iptcData = [];
-        if (isset($norm["title"])) {
-            $iptcData["headline"] = $norm["title"];
+        if (isset($norm['title'])) {
+            $iptcData['headline'] = $norm['title'];
         }
-        if (isset($norm["description"])) {
-            $iptcData["caption"] = $norm["description"];
+        if (isset($norm['description'])) {
+            $iptcData['caption'] = $norm['description'];
         }
-        if (isset($norm["creator"])) {
-            $iptcData["creator"] = $norm["creator"];
+        if (isset($norm['creator'])) {
+            $iptcData['creator'] = $norm['creator'];
         }
-        if (isset($norm["rights"])) {
-            $iptcData["copyright"] = $norm["rights"];
+        if (isset($norm['rights'])) {
+            $iptcData['copyright'] = $norm['rights'];
         }
 
         if (!empty($iptcData)) {
-            $metadata["iptc"] = $iptcData;
+            $metadata['iptc'] = $iptcData;
         }
 
         // XMP-specific
         $xmpData = [];
-        if (isset($norm["title"])) {
-            $xmpData["title"] = $norm["title"];
+        if (isset($norm['title'])) {
+            $xmpData['title'] = $norm['title'];
         }
-        if (isset($norm["description"])) {
-            $xmpData["description"] = $norm["description"];
+        if (isset($norm['description'])) {
+            $xmpData['description'] = $norm['description'];
         }
-        if (isset($norm["creator"])) {
-            $xmpData["creator"] = $norm["creator"];
+        if (isset($norm['creator'])) {
+            $xmpData['creator'] = $norm['creator'];
         }
-        if (isset($norm["rights"])) {
-            $xmpData["rights"] = $norm["rights"];
+        if (isset($norm['rights'])) {
+            $xmpData['rights'] = $norm['rights'];
         }
 
         // Keywords from XMP Subject
-        if (isset($meta["Subject"])) {
-            $keywords = $meta["Subject"];
+        if (isset($meta['Subject'])) {
+            $keywords = $meta['Subject'];
             if (is_string($keywords)) {
-                $xmpData["keywords"] = array_map(
-                    "trim",
-                    explode(",", $keywords)
+                $xmpData['keywords'] = array_map(
+                    'trim',
+                    explode(',', $keywords)
                 );
             } elseif (is_array($keywords)) {
-                $xmpData["keywords"] = $keywords;
+                $xmpData['keywords'] = $keywords;
             }
         }
 
         if (!empty($xmpData)) {
-            $metadata["xmp"] = $xmpData;
+            $metadata['xmp'] = $xmpData;
         }
 
         return !empty($metadata) ? $metadata : null;
@@ -909,29 +909,29 @@ class ObjectAddDigitalObjectAction extends sfAction
      */
     private function generateTitleFromExif($metadataCollection)
     {
-        if (!isset($metadataCollection["exif"])) {
+        if (!isset($metadataCollection['exif'])) {
             return null;
         }
 
-        $exif = $metadataCollection["exif"];
+        $exif = $metadataCollection['exif'];
         $titleParts = [];
 
         // Use camera make/model as base
-        if (isset($exif["camera_make"]) && isset($exif["camera_model"])) {
+        if (isset($exif['camera_make']) && isset($exif['camera_model'])) {
             $titleParts[] =
-                "Photo taken with " .
-                trim($exif["camera_make"] . " " . $exif["camera_model"]);
+                'Photo taken with ' .
+                trim($exif['camera_make'] . ' ' . $exif['camera_model']);
         }
 
         // Add date if available
-        if (isset($exif["date_taken"])) {
+        if (isset($exif['date_taken'])) {
             try {
                 $date = DateTime::createFromFormat(
-                    "Y:m:d H:i:s",
-                    $exif["date_taken"]
+                    'Y:m:d H:i:s',
+                    $exif['date_taken']
                 );
                 if ($date) {
-                    $titleParts[] = "captured on " . $date->format("F j, Y");
+                    $titleParts[] = 'captured on ' . $date->format('F j, Y');
                 }
             } catch (Exception $e) {
                 // Continue without date
@@ -939,22 +939,22 @@ class ObjectAddDigitalObjectAction extends sfAction
         }
 
         // Add technical details if interesting
-        if (isset($exif["focal_length"]) || isset($exif["aperture"])) {
+        if (isset($exif['focal_length']) || isset($exif['aperture'])) {
             $techDetails = [];
-            if (isset($exif["focal_length"])) {
-                $focalLength = (float)$exif["focal_length"];
-                $techDetails[] = $focalLength . "mm";
+            if (isset($exif['focal_length'])) {
+                $focalLength = (float)$exif['focal_length'];
+                $techDetails[] = $focalLength . 'mm';
             }
-            if (isset($exif["aperture"])) {
-                $aperture = (float)$exif["aperture"];
-                $techDetails[] = "f/" . $aperture;
+            if (isset($exif['aperture'])) {
+                $aperture = (float)$exif['aperture'];
+                $techDetails[] = 'f/' . $aperture;
             }
             if (!empty($techDetails)) {
-                $titleParts[] = "(" . implode(", ", $techDetails) . ")";
+                $titleParts[] = '(' . implode(', ', $techDetails) . ')';
             }
         }
 
-        return !empty($titleParts) ? implode(" ", $titleParts) : null;
+        return !empty($titleParts) ? implode(' ', $titleParts) : null;
     }
 
     /**
@@ -962,71 +962,71 @@ class ObjectAddDigitalObjectAction extends sfAction
      */
     private function generateDescriptionFromExif($metadataCollection)
     {
-        if (!isset($metadataCollection["exif"])) {
+        if (!isset($metadataCollection['exif'])) {
             return null;
         }
 
-        $exif = $metadataCollection["exif"];
+        $exif = $metadataCollection['exif'];
         $descriptionParts = [];
 
         // Camera and shooting information
-        if (isset($exif["camera_make"]) && isset($exif["camera_model"])) {
+        if (isset($exif['camera_make']) && isset($exif['camera_model'])) {
             $descriptionParts[] =
-                "Photograph captured using " .
-                trim($exif["camera_make"] . " " . $exif["camera_model"]) .
-                ".";
+                'Photograph captured using ' .
+                trim($exif['camera_make'] . ' ' . $exif['camera_model']) .
+                '.';
         }
 
         // Technical shooting details
         $techDetails = [];
-        if (isset($exif["focal_length"])) {
-            $focalLength = (float)$exif["focal_length"];
-            $techDetails[] = "focal length: " . $focalLength . "mm";
+        if (isset($exif['focal_length'])) {
+            $focalLength = (float)$exif['focal_length'];
+            $techDetails[] = 'focal length: ' . $focalLength . 'mm';
         }
-        if (isset($exif["aperture"])) {
-            $aperture = (float)$exif["aperture"];
-            $techDetails[] = "aperture: f/" . $aperture;
+        if (isset($exif['aperture'])) {
+            $aperture = (float)$exif['aperture'];
+            $techDetails[] = 'aperture: f/' . $aperture;
         }
-        if (isset($exif["shutter_speed"])) {
-            $shutterSpeed = (float)$exif["shutter_speed"];
+        if (isset($exif['shutter_speed'])) {
+            $shutterSpeed = (float)$exif['shutter_speed'];
             if ($shutterSpeed < 1) {
                 $techDetails[] =
-                    "shutter speed: 1/" . round(1 / $shutterSpeed) . "s";
+                    'shutter speed: 1/' . round(1 / $shutterSpeed) . 's';
             } else {
-                $techDetails[] = "shutter speed: " . $shutterSpeed . "s";
+                $techDetails[] = 'shutter speed: ' . $shutterSpeed . 's';
             }
         }
-        if (isset($exif["iso"])) {
-            $techDetails[] = "ISO: " . $exif["iso"];
+        if (isset($exif['iso'])) {
+            $techDetails[] = 'ISO: ' . $exif['iso'];
         }
 
         if (!empty($techDetails)) {
             $descriptionParts[] =
-                "Camera settings: " . implode(", ", $techDetails) . ".";
+                'Camera settings: ' . implode(', ', $techDetails) . '.';
         }
 
         // Image properties
-        if (isset($exif["width"]) && isset($exif["height"])) {
+        if (isset($exif['width']) && isset($exif['height'])) {
             $descriptionParts[] =
-                "Image dimensions: " .
-                $exif["width"] .
-                " × " .
-                $exif["height"] .
-                " pixels.";
+                'Image dimensions: ' .
+                $exif['width'] .
+                ' × ' .
+                $exif['height'] .
+                ' pixels.';
         }
 
         // GPS information if available
-        if (isset($exif["gps_latitude"]) && isset($exif["gps_longitude"])) {
+        if (isset($exif['gps_latitude']) && isset($exif['gps_longitude'])) {
             $descriptionParts[] =
-                "Geographic location: " .
-                $exif["gps_latitude"] .
-                ", " .
-                $exif["gps_longitude"] .
-                ".";
+                'Geographic location: ' .
+                $exif['gps_latitude'] .
+                ', ' .
+                $exif['gps_longitude'] .
+                '.';
         }
 
         return !empty($descriptionParts)
-            ? implode(" ", $descriptionParts)
+            ? implode(' ', $descriptionParts)
             : null;
     }
 
@@ -1035,40 +1035,40 @@ class ObjectAddDigitalObjectAction extends sfAction
      */
     private function generateCreatorFromExif($metadataCollection)
     {
-        if (!isset($metadataCollection["exif"])) {
+        if (!isset($metadataCollection['exif'])) {
             return null;
         }
 
-        $exif = $metadataCollection["exif"];
+        $exif = $metadataCollection['exif'];
 
         // Try to create a meaningful creator name from device info
-        if (isset($exif["camera_make"]) && isset($exif["camera_model"])) {
+        if (isset($exif['camera_make']) && isset($exif['camera_model'])) {
             $deviceName = trim(
-                $exif["camera_make"] . " " . $exif["camera_model"]
+                $exif['camera_make'] . ' ' . $exif['camera_model']
             );
 
             // For mobile devices, create a more descriptive name
             if (
-                stripos($deviceName, "huawei") !== false ||
-                stripos($deviceName, "samsung") !== false ||
-                stripos($deviceName, "iphone") !== false ||
-                stripos($deviceName, "pixel") !== false
+                stripos($deviceName, 'huawei') !== false ||
+                stripos($deviceName, 'samsung') !== false ||
+                stripos($deviceName, 'iphone') !== false ||
+                stripos($deviceName, 'pixel') !== false
             ) {
-                return "Mobile Photographer (" . $deviceName . ")";
+                return 'Mobile Photographer (' . $deviceName . ')';
             }
 
             // For traditional cameras
             if (
-                stripos($deviceName, "canon") !== false ||
-                stripos($deviceName, "nikon") !== false ||
-                stripos($deviceName, "sony") !== false ||
-                stripos($deviceName, "olympus") !== false
+                stripos($deviceName, 'canon') !== false ||
+                stripos($deviceName, 'nikon') !== false ||
+                stripos($deviceName, 'sony') !== false ||
+                stripos($deviceName, 'olympus') !== false
             ) {
-                return "Photographer (" . $deviceName . ")";
+                return 'Photographer (' . $deviceName . ')';
             }
 
             // Generic fallback
-            return "Photographer (" . $deviceName . ")";
+            return 'Photographer (' . $deviceName . ')';
         }
 
         return null;
@@ -1079,98 +1079,98 @@ class ObjectAddDigitalObjectAction extends sfAction
      */
     private function generateKeywordsFromExif($metadataCollection)
     {
-        if (!isset($metadataCollection["exif"])) {
+        if (!isset($metadataCollection['exif'])) {
             return [];
         }
 
-        $exif = $metadataCollection["exif"];
+        $exif = $metadataCollection['exif'];
         $keywords = [];
 
         // Add camera brand as keyword
-        if (isset($exif["camera_make"])) {
-            $make = strtolower(trim($exif["camera_make"]));
+        if (isset($exif['camera_make'])) {
+            $make = strtolower(trim($exif['camera_make']));
             if (
                 in_array($make, [
-                    "canon",
-                    "nikon",
-                    "sony",
-                    "olympus",
-                    "fujifilm",
-                    "pentax",
-                    "panasonic",
-                    "leica",
+                    'canon',
+                    'nikon',
+                    'sony',
+                    'olympus',
+                    'fujifilm',
+                    'pentax',
+                    'panasonic',
+                    'leica',
                 ])
             ) {
-                $keywords[] = ucfirst($make) . " Photography";
+                $keywords[] = ucfirst($make) . ' Photography';
             } elseif (
                 in_array($make, [
-                    "huawei",
-                    "samsung",
-                    "apple",
-                    "google",
-                    "xiaomi",
-                    "oneplus",
+                    'huawei',
+                    'samsung',
+                    'apple',
+                    'google',
+                    'xiaomi',
+                    'oneplus',
                 ])
             ) {
-                $keywords[] = "Mobile Photography";
-                $keywords[] = ucfirst($make) . " Device";
+                $keywords[] = 'Mobile Photography';
+                $keywords[] = ucfirst($make) . ' Device';
             }
         }
 
         // Add photography type based on focal length
-        if (isset($exif["focal_length"])) {
-            $focalLength = (float)$exif["focal_length"];
+        if (isset($exif['focal_length'])) {
+            $focalLength = (float)$exif['focal_length'];
             if ($focalLength <= 35) {
-                $keywords[] = "Wide Angle Photography";
+                $keywords[] = 'Wide Angle Photography';
             } elseif ($focalLength >= 85) {
-                $keywords[] = "Telephoto Photography";
+                $keywords[] = 'Telephoto Photography';
             } elseif ($focalLength >= 200) {
-                $keywords[] = "Long Telephoto Photography";
+                $keywords[] = 'Long Telephoto Photography';
             }
         }
 
         // Add macro photography if close focus detected
-        if (isset($exif["focal_length"]) && isset($exif["aperture"])) {
-            $focalLength = (float)$exif["focal_length"];
-            $aperture = (float)$exif["aperture"];
+        if (isset($exif['focal_length']) && isset($exif['aperture'])) {
+            $focalLength = (float)$exif['focal_length'];
+            $aperture = (float)$exif['aperture'];
 
             // Macro indicators: high magnification settings
             if ($focalLength > 50 && $aperture >= 5.6) {
-                $keywords[] = "Macro Photography";
+                $keywords[] = 'Macro Photography';
             }
         }
 
         // Add technical photography terms
-        if (isset($exif["iso"])) {
-            $iso = intval($exif["iso"]);
+        if (isset($exif['iso'])) {
+            $iso = intval($exif['iso']);
             if ($iso >= 1600) {
-                $keywords[] = "High ISO Photography";
+                $keywords[] = 'High ISO Photography';
             } elseif ($iso <= 200) {
-                $keywords[] = "Low ISO Photography";
+                $keywords[] = 'Low ISO Photography';
             }
         }
 
         // Add time-based keywords
-        if (isset($exif["date_taken"])) {
+        if (isset($exif['date_taken'])) {
             try {
                 $date = DateTime::createFromFormat(
-                    "Y:m:d H:i:s",
-                    $exif["date_taken"]
+                    'Y:m:d H:i:s',
+                    $exif['date_taken']
                 );
                 if ($date) {
-                    $hour = intval($date->format("H"));
+                    $hour = intval($date->format('H'));
                     if ($hour >= 5 && $hour < 12) {
-                        $keywords[] = "Morning Photography";
+                        $keywords[] = 'Morning Photography';
                     } elseif ($hour >= 12 && $hour < 17) {
-                        $keywords[] = "Afternoon Photography";
+                        $keywords[] = 'Afternoon Photography';
                     } elseif ($hour >= 17 && $hour < 20) {
-                        $keywords[] = "Evening Photography";
+                        $keywords[] = 'Evening Photography';
                     } else {
-                        $keywords[] = "Night Photography";
+                        $keywords[] = 'Night Photography';
                     }
 
                     // Add year
-                    $keywords[] = $date->format("Y") . " Photography";
+                    $keywords[] = $date->format('Y') . ' Photography';
                 }
             } catch (Exception $e) {
                 // Continue without date-based keywords
@@ -1178,13 +1178,13 @@ class ObjectAddDigitalObjectAction extends sfAction
         }
 
         // Add location-based keywords if GPS available
-        if (isset($exif["gps_latitude"]) && isset($exif["gps_longitude"])) {
-            $keywords[] = "Geotagged Photography";
-            $keywords[] = "Location Photography";
+        if (isset($exif['gps_latitude']) && isset($exif['gps_longitude'])) {
+            $keywords[] = 'Geotagged Photography';
+            $keywords[] = 'Location Photography';
         }
 
         // Add digital photography
-        $keywords[] = "Digital Photography";
+        $keywords[] = 'Digital Photography';
 
         return array_unique($keywords);
     }
@@ -1200,65 +1200,65 @@ class ObjectAddDigitalObjectAction extends sfAction
             // Remove any existing metadata sections first
             if (
                 $currentPhysical &&
-                strpos($currentPhysical, "Technical Metadata:") !== false
+                strpos($currentPhysical, 'Technical Metadata:') !== false
             ) {
                 $currentPhysical = preg_replace(
                     '/\n\nTechnical Metadata:.*$/s',
-                    "",
+                    '',
                     $currentPhysical
                 );
                 error_log(
-                    "METADATA: Removed existing metadata from master upload"
+                    'METADATA: Removed existing metadata from master upload'
                 );
             }
 
             $metadataSections = [];
 
             // Add EXIF data
-            if (isset($metadataCollection["exif"]["all_exif"])) {
+            if (isset($metadataCollection['exif']['all_exif'])) {
                 $metadataSections[] =
-                    "EXIF Data:\n" . $metadataCollection["exif"]["all_exif"];
+                    'EXIF Data:\n' . $metadataCollection['exif']['all_exif'];
             }
 
             // Add IPTC data
-            if (isset($metadataCollection["iptc"]["all_iptc"])) {
+            if (isset($metadataCollection['iptc']['all_iptc'])) {
                 $metadataSections[] =
-                    "IPTC Data:\n" . $metadataCollection["iptc"]["all_iptc"];
+                    'IPTC Data:\n' . $metadataCollection['iptc']['all_iptc'];
             }
 
             // Add XMP data
-            if (isset($metadataCollection["xmp"]["all_xmp"])) {
+            if (isset($metadataCollection['xmp']['all_xmp'])) {
                 $metadataSections[] =
-                    "XMP Data:\n" . $metadataCollection["xmp"]["all_xmp"];
+                    'XMP Data:\n' . $metadataCollection['xmp']['all_xmp'];
             }
 
             if (!empty($metadataSections)) {
                 $newMetadata =
-                    "\n\nTechnical Metadata:\n\n" .
-                    implode("\n\n", $metadataSections);
+                    '\n\nTechnical Metadata:\n\n' .
+                    implode('\n\n', $metadataSections);
 
                 // Fix encoding issues with special characters
                 $cleanedMetadata = mb_convert_encoding(
                     $newMetadata,
-                    "UTF-8",
-                    "UTF-8"
+                    'UTF-8',
+                    'UTF-8'
                 );
                 $cleanedMetadata = preg_replace(
                     '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/',
-                    "",
+                    '',
                     $cleanedMetadata
                 );
                 $this->resource->setPhysicalCharacteristics(
-                    ($currentPhysical ?: "") . $cleanedMetadata
+                    ($currentPhysical ?: '') . $cleanedMetadata
                 );
 
                 error_log(
-                    "METADATA: Successfully added comprehensive metadata from master upload"
+                    'METADATA: Successfully added comprehensive metadata from master upload'
                 );
             }
         } catch (Exception $e) {
             error_log(
-                "METADATA: Error adding comprehensive metadata from master upload: " .
+                'METADATA: Error adding comprehensive metadata from master upload: ' .
                     $e->getMessage()
             );
         }
@@ -1270,90 +1270,90 @@ class ObjectAddDigitalObjectAction extends sfAction
     private function setGpsCoordinatesOnDigitalObject($digitalObject)
     {
         try {
-            error_log("GPS DEBUG: setGpsCoordinatesOnDigitalObject called");
+            error_log('GPS DEBUG: setGpsCoordinatesOnDigitalObject called');
             error_log(
-                "GPS DEBUG: Digital object ID: " .
-                    ($digitalObject ? $digitalObject->id : "NULL")
+                'GPS DEBUG: Digital object ID: ' .
+                    ($digitalObject ? $digitalObject->id : 'NULL')
             );
             error_log(
-                "GPS DEBUG: Has gpsLatitude: " .
+                'GPS DEBUG: Has gpsLatitude: ' .
                     (isset($this->gpsLatitude)
-                        ? "YES (" . $this->gpsLatitude . ")"
-                        : "NO")
+                        ? 'YES (' . $this->gpsLatitude . ')'
+                        : 'NO')
             );
             error_log(
-                "GPS DEBUG: Has gpsLongitude: " .
+                'GPS DEBUG: Has gpsLongitude: ' .
                     (isset($this->gpsLongitude)
-                        ? "YES (" . $this->gpsLongitude . ")"
-                        : "NO")
+                        ? 'YES (' . $this->gpsLongitude . ')'
+                        : 'NO')
             );
 
             if (!isset($this->gpsLatitude) || !isset($this->gpsLongitude)) {
-                error_log("GPS DEBUG: Missing GPS coordinates, exiting");
+                error_log('GPS DEBUG: Missing GPS coordinates, exiting');
                 return;
             }
 
             if (!$digitalObject || !$digitalObject->id) {
                 error_log(
-                    "GPS DEBUG: Digital object is null or has no ID, exiting"
+                    'GPS DEBUG: Digital object is null or has no ID, exiting'
                 );
                 return;
             }
 
-            error_log("GPS DEBUG: Attempting to set latitude property");
+            error_log('GPS DEBUG: Attempting to set latitude property');
             // Set latitude property
-            $latProperty = $digitalObject->getPropertyByName("latitude");
+            $latProperty = $digitalObject->getPropertyByName('latitude');
             error_log(
-                "GPS DEBUG: Existing latitude property: " .
-                    ($latProperty && $latProperty->objectId ? "EXISTS" : "NEW")
+                'GPS DEBUG: Existing latitude property: ' .
+                    ($latProperty && $latProperty->objectId ? 'EXISTS' : 'NEW')
             );
 
             if (empty($latProperty->objectId)) {
                 $latProperty = new QubitProperty();
                 $latProperty->objectId = $digitalObject->id;
                 $latProperty->editable = true;
-                $latProperty->name = "latitude";
-                error_log("GPS DEBUG: Created new latitude property");
+                $latProperty->name = 'latitude';
+                error_log('GPS DEBUG: Created new latitude property');
             }
             $latProperty->value = $this->gpsLatitude;
             $latProperty->save();
             error_log(
-                "GPS DEBUG: Saved latitude property: " . $this->gpsLatitude
+                'GPS DEBUG: Saved latitude property: ' . $this->gpsLatitude
             );
 
-            error_log("GPS DEBUG: Attempting to set longitude property");
+            error_log('GPS DEBUG: Attempting to set longitude property');
             // Set longitude property
-            $lonProperty = $digitalObject->getPropertyByName("longitude");
+            $lonProperty = $digitalObject->getPropertyByName('longitude');
             error_log(
-                "GPS DEBUG: Existing longitude property: " .
-                    ($lonProperty && $lonProperty->objectId ? "EXISTS" : "NEW")
+                'GPS DEBUG: Existing longitude property: ' .
+                    ($lonProperty && $lonProperty->objectId ? 'EXISTS' : 'NEW')
             );
 
             if (empty($lonProperty->objectId)) {
                 $lonProperty = new QubitProperty();
                 $lonProperty->objectId = $digitalObject->id;
                 $lonProperty->editable = true;
-                $lonProperty->name = "longitude";
-                error_log("GPS DEBUG: Created new longitude property");
+                $lonProperty->name = 'longitude';
+                error_log('GPS DEBUG: Created new longitude property');
             }
             $lonProperty->value = $this->gpsLongitude;
             $lonProperty->save();
             error_log(
-                "GPS DEBUG: Saved longitude property: " . $this->gpsLongitude
+                'GPS DEBUG: Saved longitude property: ' . $this->gpsLongitude
             );
 
             error_log(
-                "GPS DEBUG: Successfully set GPS coordinates on digital object - Lat: " .
+                'GPS DEBUG: Successfully set GPS coordinates on digital object - Lat: ' .
                     $this->gpsLatitude .
-                    ", Lon: " .
+                    ', Lon: ' .
                     $this->gpsLongitude
             );
         } catch (Exception $e) {
             error_log(
-                "GPS DEBUG: Exception in setGpsCoordinatesOnDigitalObject: " .
+                'GPS DEBUG: Exception in setGpsCoordinatesOnDigitalObject: ' .
                     $e->getMessage()
             );
-            error_log("GPS DEBUG: Stack trace: " . $e->getTraceAsString());
+            error_log('GPS DEBUG: Stack trace: ' . $e->getTraceAsString());
         }
     }
 
