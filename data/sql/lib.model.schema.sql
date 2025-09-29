@@ -233,7 +233,7 @@ CREATE TABLE `favorites`
 	`archival_description_id` VARCHAR(50),
 	`archival_description` VARCHAR(1024),
 	`slug` VARCHAR(1024),
-	`completed_at` DATETIME NOT NULL,
+	`completed_at` DATETIME,
 	`created_at` DATETIME NOT NULL,
 	PRIMARY KEY (`id`)
 )Engine=InnoDB;
@@ -252,7 +252,7 @@ CREATE TABLE `cart`
 	`archival_description_id` VARCHAR(50),
 	`archival_description` VARCHAR(1024),
 	`slug` VARCHAR(1024),
-	`completed_at` DATETIME NOT NULL,
+	`completed_at` DATETIME,
 	`created_at` DATETIME NOT NULL,
 	PRIMARY KEY (`id`)
 )Engine=InnoDB;
