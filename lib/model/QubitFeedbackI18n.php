@@ -17,6 +17,4 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitFeedbackI18n extends BaseFeedbackI18n
-{
-}
+class QubitFeedbackI18n extends BaseFeedbackI18n {}

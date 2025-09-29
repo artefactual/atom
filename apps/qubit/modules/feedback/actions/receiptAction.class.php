@@ -19,24 +19,23 @@
 
 class BookoutObjectReceiptAction extends sfAction
 {
-
     public function execute($request)
     {
         if (!isset($request->limit)) {
             $request->limit = sfConfig::get('app_hits_per_page');
         }
-        
+
         $this->resource = $this->getRoute()->resource;
-        
-        $criteria = new Criteria;
-		BaseBookoutObject::addSelectColumns($criteria);
-		BaseBookoutObjectI18n::addSelectColumns($criteria);
+
+        $criteria = new Criteria();
+        BaseBookoutObject::addSelectColumns($criteria);
+        BaseBookoutObjectI18n::addSelectColumns($criteria);
         $criteria->addJoin(QubitBookoutObject::ID, QubitBookoutObjectI18n::ID);
         $criteria->add(QubitBookoutObject::ID, $request->source);
-        
-	    $this->pager = new QubitPager('QubitBookoutObject');
-	    $this->pager->setCriteria($criteria);
-	    $this->pager->setMaxPerPage(1);
-	    $this->pager->setPage(1);
+
+        $this->pager = new QubitPager('QubitBookoutObject');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage(1);
+        $this->pager->setPage(1);
     }
 }

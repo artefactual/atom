@@ -1,35 +1,35 @@
-<?php decorate_with('layout_1col.php') ?>
+<?php decorate_with('layout_1col.php'); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 	<h1 class="multiline"> <!--changed from 'label'-->
-		<?php echo render_title(__('Feedback')) ?>
+		<?php echo render_title(__('Feedback')); ?>
 		<br>
 		<br>
-		<?php echo render_title($resource) ?>
+		<?php echo render_title($resource); ?>
 	</h1>
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 	<body>
-	<?php echo $form->renderGlobalErrors() ?>
-	<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'feedback', 'action' => 'editFeedback'))) ?>
-	<?php echo $form->renderHiddenFields() ?>
+	<?php echo $form->renderGlobalErrors(); ?>
+	<?php echo $form->renderFormTag(url_for([$resource, 'module' => 'feedback', 'action' => 'editFeedback'])); ?>
+	<?php echo $form->renderHiddenFields(); ?>
     <section id="content">
 		<fieldset class="collapsible">
-		<legend><?php echo __('Identification area') ?></legend>
+		<legend><?php echo __('Identification area'); ?></legend>
 			<table width="100%" cellspacing=0 border="0" cellpadding="0" align="left" summary="">
 				<div class="content">
 					<tr>
 						<td colspan=1>
-							<?php echo $form->name->renderRow(array('size' => 50, 'readonly'=>'true'), 'Name of Collection/Item')  ?>
+							<?php echo $form->name->renderRow(['size' => 50, 'readonly' => 'true'], 'Name of Collection/Item'); ?>
 						</td>
 						<td colspan=2>
-							<?php echo $form->identifier->renderRow(array('size' => 50, 'readonly'=>'true'), 'Identifier')  ?>
+							<?php echo $form->identifier->renderRow(['size' => 50, 'readonly' => 'true'], 'Identifier'); ?>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<?php echo $form->unique_identifier->renderRow(array('readonly'=>'true'), 'Unique Identifier') ?>
+							<?php echo $form->unique_identifier->renderRow(['readonly' => 'true'], 'Unique Identifier'); ?>
 						</td>
 						<td>
 						</td>
@@ -38,7 +38,7 @@
 			</table>
 		</fieldset>
 		<fieldset class="collapsible">
-		<legend><?php echo __('Feedback area') ?></legend>
+		<legend><?php echo __('Feedback area'); ?></legend>
 			<tr>
 				<td colspan=3>
 					<?php echo $form->remarks->label(__('Remarks/Feedback/Comments'))->renderRow(); ?>
@@ -73,20 +73,20 @@
 			</tr>
 			<tr>
 				<td colspan=3>
-					<?php echo $form->createdAt->renderRow(array('size' => 50, 'readonly'=>'true'), 'Created On')  ?>
+					<?php echo $form->createdAt->renderRow(['size' => 50, 'readonly' => 'true'], 'Created On'); ?>
 				</td>
 			</tr>
-			<?php if ($resource->statusId != QubitTerm::PENDING_ID) { ?>
+			<?php if (QubitTerm::PENDING_ID != $resource->statusId) { ?>
 				<tr>
 					<td colspan=3>
 						<?php echo $form->completedAt->label(__('Completed At'))->renderRow(); ?>
 					</td>
 				</tr>
 			<?php } ?>
-			<?php if ($resource->statusId == QubitTerm::PENDING_ID) { ?>
+			<?php if (QubitTerm::PENDING_ID == $resource->statusId) { ?>
 				<tr>
 					<td colspan=3>
-						<p style="color:#424242"><input type="checkbox" name="cbCompleted" value="true" checked="true" /><?php echo __('Complete') ?>
+						<p style="color:#424242"><input type="checkbox" name="cbCompleted" value="true" checked="true" /><?php echo __('Complete'); ?>
 					</td>
 				</tr>
 			<?php } ?>
@@ -95,12 +95,12 @@
 	<section class="actions">
 		<table width="100%" cellspacing=0 border="0" cellpadding="0" align="left" summary="">
 		  <ul class="clearfix links">
-			<li><?php echo link_to(__('Back to List'), array('module' => 'feedback', 'action' => 'browse'), array('title' => __('Back to list'), 'class' => 'c-btn')) ?></li>
-			<?php if ($resource->statusId == QubitTerm::PENDING_ID) { ?>
-				<li><input class="c-btn c-btn-submit" type="submit" id="feedback"  value="<?php echo __('Submit') ?>"/></li>
+			<li><?php echo link_to(__('Back to List'), ['module' => 'feedback', 'action' => 'browse'], ['title' => __('Back to list'), 'class' => 'c-btn']); ?></li>
+			<?php if (QubitTerm::PENDING_ID == $resource->statusId) { ?>
+				<li><input class="c-btn c-btn-submit" type="submit" id="feedback"  value="<?php echo __('Submit'); ?>"/></li>
 			<?php } ?>
 		  </ul>
 		</table>
 	</section>
 </body>
-<?php end_slot() ?>
+<?php end_slot(); ?>

@@ -2,13 +2,11 @@
 
 class QubitFavorites extends BaseFavorites
 {
-  
   public function __toString()
   {
-    $string = $this->name;	
-    if (!isset($string))
-    {
-      $string = $this->getName(array('sourceCulture' => true));  
+    $string = $this->name;
+    if (!isset($string)) {
+      $string = $this->getName(['sourceCulture' => true]);
     }
 
     return (string) $string;
@@ -19,16 +17,14 @@ class QubitFavorites extends BaseFavorites
     return parent::insert($connection);
   }
 
- /**
+  /**
    * Overwrite BaseFavorites::delete() method to add cascading delete
-   * logic
+   * logic.
    *
    * @param mixed $connection a database connection object
    */
   public function delete($connection = null)
   {
-
     parent::delete($connection);
   }
-
 }

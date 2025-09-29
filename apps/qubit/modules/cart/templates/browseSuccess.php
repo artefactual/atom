@@ -1,6 +1,6 @@
-<?php use_helper('Date') ?>
+<?php use_helper('Date'); ?>
 
-<h1><?php echo __('Browse Cart Items %1%', array('%1%' => sfConfig::get('app_ui_label_cart'))) ?></h1>
+<h1><?php echo __('Browse Cart Items %1%', ['%1%' => sfConfig::get('app_ui_label_cart')]); ?></h1>
 
 <table class="table table-bordered sticky-enabled"> 
   <thead>
@@ -13,49 +13,49 @@
 	</style>
     <tr>
       <th>
-        <?php echo __('Archival Description') ?>
+        <?php echo __('Archival Description'); ?>
       </th>
 	  <th>
-        <?php echo __('Level of Description') ?>
+        <?php echo __('Level of Description'); ?>
       </th>
 	  <th>
-        <?php echo __('Remove item') ?>
+        <?php echo __('Remove item'); ?>
       </th>
     </tr>
   </thead><tbody>
-  	<?php echo $form->renderGlobalErrors() ?>
-	<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'cart', 'action' => 'browse'))) ?>
-	<?php echo $form->renderHiddenFields() ?>
-	<?php if ($pager->getNbResults() == 0) { ?>
+  	<?php echo $form->renderGlobalErrors(); ?>
+	<?php echo $form->renderFormTag(url_for([$resource, 'module' => 'cart', 'action' => 'browse'])); ?>
+	<?php echo $form->renderHiddenFields(); ?>
+	<?php if (0 == $pager->getNbResults()) { ?>
 			<tr>
 				<td colspan=3>
-					<blink><b><?php echo "Cart is empty" ?></b></blink>
+					<blink><b><?php echo 'Cart is empty'; ?></b></blink>
 				</td>
 			</tr>
 			
 		<?php }	?>
     <?php foreach ($pager->getResults() as $item) { 	?>
-	  <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+	  <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?>">
 		<td>
 			<?php $informationObjectsCart = QubitInformationObject::getById($item->archivalDescriptionId); ?>
-			<?php if (isset($informationObjectsCart->identifier)) { ?> <?php echo link_to($informationObjectsCart, array($informationObjectsCart, 'module' => 'informationobject')) ?> <?php } ?>
+			<?php if (isset($informationObjectsCart->identifier)) { ?> <?php echo link_to($informationObjectsCart, [$informationObjectsCart, 'module' => 'informationobject']); ?> <?php } ?>
 		</td>
 		<td>
 			
-			<?php echo $informationObjectsCart->levelOfDescription ?>
+			<?php echo $informationObjectsCart->levelOfDescription; ?>
 		</td>
 		<td>
-			<?php echo link_to("Remove" , array($this->resource, 'module' => 'cart', 'action' => 'removeCart', 'id' => $item->id)) ?>
+			<?php echo link_to('Remove', [$this->resource, 'module' => 'cart', 'action' => 'removeCart', 'id' => $item->id]); ?>
 		</td>
 	  </tr>
     <?php } ?>
   </tbody>
 </table>
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<?php echo get_partial('default/pager', ['pager' => $pager]); ?>
    <section id="content">
 		<fieldset class="collapsible">
 		<fieldset class="collapsible">
-		<legend><?php echo __('Request To Publish area') ?></legend>
+		<legend><?php echo __('Request To Publish area'); ?></legend>
 			<tr>
 				<td colspan=3>
 				</td>
@@ -103,9 +103,9 @@
 	<section class="actions">
 		<table width="100%" cellspacing=0 border="0" cellpadding="0" align="left" summary="">
 		  <ul class="clearfix links">
-			<li><?php echo link_to(__('Back to List'), array('module' => 'requesttopublish', 'action' => 'browse'), array('title' => __('Back to list'), 'class' => 'c-btn')) ?></li>
+			<li><?php echo link_to(__('Back to List'), ['module' => 'requesttopublish', 'action' => 'browse'], ['title' => __('Back to list'), 'class' => 'c-btn']); ?></li>
 			<?php if ($resource->unique_identifier != $this->context->user->getAttribute('user_id') && $pager->getNbResults() > 0) { ?>
-					<li><input class="c-btn c-btn-submit" type="submit" id="requesttopublishcart"  value="<?php echo __('Submit') ?>"/></li>
+					<li><input class="c-btn c-btn-submit" type="submit" id="requesttopublishcart"  value="<?php echo __('Submit'); ?>"/></li>
 			<?php } ?>
 		  </ul>
 		</table>

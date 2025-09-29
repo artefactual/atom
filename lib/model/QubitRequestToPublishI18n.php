@@ -17,6 +17,4 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitRequestToPublishI18n extends BaseRequestToPublishI18n
-{
-}
+class QubitRequestToPublishI18n extends BaseRequestToPublishI18n {}

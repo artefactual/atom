@@ -1,28 +1,28 @@
-<?php decorate_with('layout_1col.php') ?>
+<?php decorate_with('layout_1col.php'); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 	<h1 class="multiline"> <!--changed from 'label'-->
-		<?php echo render_title(__('Feedback')) ?>
+		<?php echo render_title(__('Feedback')); ?>
 		<br>
 		<br>
-		<?php echo render_title($feedback) ?>
+		<?php echo render_title($feedback); ?>
 	</h1>
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php 
-$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-$config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
-$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+<?php
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) ? 'https' : 'http');
+$config['base_url'] .= '://'.$_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 	<body>
-	<?php echo $form->renderGlobalErrors() ?>
-	<?php echo $form->renderFormTag(url_for(array($feedback, 'module' => 'feedback', 'action' => 'editFeedbackGeneral'))) ?>
-	<?php echo $form->renderHiddenFields() ?>
+	<?php echo $form->renderGlobalErrors(); ?>
+	<?php echo $form->renderFormTag(url_for([$feedback, 'module' => 'feedback', 'action' => 'editFeedbackGeneral'])); ?>
+	<?php echo $form->renderHiddenFields(); ?>
     <section id="content">
 		<fieldset class="collapsible">
-		<legend><?php echo __('Feedback area') ?></legend>
+		<legend><?php echo __('Feedback area'); ?></legend>
 			<tr>
 				<td colspan=3>
 					<?php echo $form->feed_type->label(__('Feedback Type'))->renderRow(); ?>
@@ -65,10 +65,10 @@ $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER
 	<section class="actions">
 		<table width="100%" cellspacing=0 border="0" cellpadding="0" align="left" summary="">
 		  <ul class="clearfix links">
-			<li><a href="<?php echo $config['base_url'] ?>" class="c-btn">Cancel</a></li>
-			<li><input class="c-btn c-btn-submit" type="submit" id="feedback"  value="<?php echo __('Submit') ?>"/></li>
+			<li><a href="<?php echo $config['base_url']; ?>" class="c-btn">Cancel</a></li>
+			<li><input class="c-btn c-btn-submit" type="submit" id="feedback"  value="<?php echo __('Submit'); ?>"/></li>
 		  </ul>
 		</table>
 	</section>
 </body>
-<?php end_slot() ?>
+<?php end_slot(); ?>

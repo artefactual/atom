@@ -1,6 +1,6 @@
-<?php use_helper('Date') ?>
+<?php use_helper('Date'); ?>
 
-<h1><?php echo __('Browse Request To Publish Items %1%', array('%1%' => sfConfig::get('app_ui_label_requesttopublish'))) ?></h1>
+<h1><?php echo __('Browse Request To Publish Items %1%', ['%1%' => sfConfig::get('app_ui_label_requesttopublish')]); ?></h1>
 
 <div>
   <ul class="nav nav-tabs" id="job-tabs">
@@ -15,66 +15,66 @@
   <thead>
     <tr>
 	  <th>
-        <?php echo __('Status') ?>
+        <?php echo __('Status'); ?>
       </th>
       <th class="sortable">
-        <?php echo __('Archival Description') ?>
+        <?php echo __('Archival Description'); ?>
       </th>
 	  <th>
-        <?php echo __('Action') ?>
+        <?php echo __('Action'); ?>
       </th>
 	  <th>
-        <?php echo __('Name') ?>
+        <?php echo __('Name'); ?>
       </th>
 	  <th>
-        <?php echo __('Surname') ?>
+        <?php echo __('Surname'); ?>
       </th>
 	  <th>
-        <?php echo __('Phone number') ?>
+        <?php echo __('Phone number'); ?>
       </th>
 	  <th>
-        <?php echo __('e-Mail address') ?>
+        <?php echo __('e-Mail address'); ?>
       </th>
 	  <th>
-        <?php echo __('Institution') ?>
+        <?php echo __('Institution'); ?>
       </th>
 	  <th>
-        <?php echo __('Planned use') ?>
+        <?php echo __('Planned use'); ?>
       </th>
 	  <th>
-        <?php echo __('Motivation') ?>
+        <?php echo __('Motivation'); ?>
       </th>
 	  <th>
-        <?php echo __('Need image by') ?>
+        <?php echo __('Need image by'); ?>
       </th>
 	  <th>
-        <?php echo __('Created date') ?>
+        <?php echo __('Created date'); ?>
       </th>
 	  <th>
-        <?php echo __('Completed date') ?>
+        <?php echo __('Completed date'); ?>
       </th>
     </tr>
   </thead><tbody>
-    <?php foreach ($pager->getResults() as $item): ?>
-      <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+    <?php foreach ($pager->getResults() as $item) { ?>
+      <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?>">
 		<td>
-		     <?php if ($item->statusId == QubitTerm::IN_REVIEW_ID) { ?>
-				<?php echo "In review"; ?>
-			 <?php } else if ($item->statusId == QubitTerm::REJECTED_ID) {?>
-				<?php echo "Rejected"; ?>
+		     <?php if (QubitTerm::IN_REVIEW_ID == $item->statusId) { ?>
+				<?php echo 'In review'; ?>
+			 <?php } elseif (QubitTerm::REJECTED_ID == $item->statusId) {?>
+				<?php echo 'Rejected'; ?>
 			 <?php } else {
-				 echo "Approved";
-					} ?>
+                 echo 'Approved';
+                    } ?>
 		</td>
         <td>
 			<?php $informationObjectsRequestToPublish = QubitInformationObject::getById($item->object_id); ?>
-			<?php if (isset($informationObjectsRequestToPublish->identifier)) { ?> <?php echo link_to($informationObjectsRequestToPublish, array($informationObjectsRequestToPublish, 'module' => 'informationobject')) ?> <?php } ?>
+			<?php if (isset($informationObjectsRequestToPublish->identifier)) { ?> <?php echo link_to($informationObjectsRequestToPublish, [$informationObjectsRequestToPublish, 'module' => 'informationobject']); ?> <?php } ?>
         </td>
         <td>
-			<?php echo link_to(render_title('Action'), array($item, 'module' => 'requesttopublish', 'action' => 'editRequestToPublish')) ?>
+			<?php echo link_to(render_title('Action'), [$item, 'module' => 'requesttopublish', 'action' => 'editRequestToPublish']); ?>
         </td>
         <td>
-			<?php echo $item->rtp_name ?>
+			<?php echo $item->rtp_name; ?>
         </td>
 		<td>
 			<?php echo $item->rtp_surname; ?>
@@ -98,16 +98,16 @@
 			<?php echo $item->rtp_need_image_by; ?>
 		</td>
 		<td>
-          <?php echo $item->createdAt ?>
+          <?php echo $item->createdAt; ?>
 		</td>
 		<td>
-          <?php echo $item->completedAt ?>
+          <?php echo $item->completedAt; ?>
 		</td>
 	  </tr>
-    <?php endforeach; ?>
+    <?php } ?>
   </tbody>
 </table>
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
  <section class="actions">
       <ul>

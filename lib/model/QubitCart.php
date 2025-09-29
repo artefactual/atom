@@ -18,16 +18,13 @@
  */
 class QubitCart extends BaseCart
 {
-  
   public function __toString()
   {
-    $string = $this->name;	
-    if (!isset($string))
-    {
-      $string = $this->getName(array('sourceCulture' => true));  
+    $string = $this->name;
+    if (!isset($string)) {
+      $string = $this->getName(['sourceCulture' => true]);
     }
 
     return (string) $string;
   }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Qubit Toolkit.
  *
@@ -18,32 +19,32 @@
 /**
  * Physical Object edit component.
  *
- * @package    qubit
- * @subpackage Cart
  * @author     Johan Pieterse <johan.pieterse@sita.co.za>
+ *
  * @version    SVN: $Id
  */
-class favoritesRemoveFavoritesAction extends DefaultEditAction {
+class favoritesRemoveFavoritesAction extends DefaultEditAction
+{
+    public function execute($request)
+    {
+        $this->resource = $this->getRoute()->resource;
+         $params = $this->request->id;
 
-	protected function earlyExecute() {
-		//$this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-		$this->resource = $this->getRoute()->resource;
-		
-		// Check that this isn't the root
-		if (!isset($this->resource->parent)) {
-			$this->forward404();
-		}
-
-	}
-	
-	public function execute($request) {
-		$this->resource = $this->getRoute()->resource;
-		 $params = $this->request->id;
-				
-        $sql = 'DELETE FROM favorites WHERE id = "' . $params . '";';
+        $sql = 'DELETE FROM favorites WHERE id = "'.$params.'";';
 
         QubitPdo::prepareAndExecute($sql);
 
-		$this->redirect(array($this->resource, 'module' => 'favorites', 'action' => 'browse'));
-	}
+        $this->redirect([$this->resource, 'module' => 'favorites', 'action' => 'browse']);
+    }
+
+    protected function earlyExecute()
+    {
+        // $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+    }
 }

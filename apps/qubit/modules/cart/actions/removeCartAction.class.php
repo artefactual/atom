@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Qubit Toolkit.
  *
@@ -18,33 +19,33 @@
 /**
  * Physical Object edit component.
  *
- * @package    qubit
- * @subpackage Cart
  * @author     Johan Pieterse <johan.pieterse@sita.co.za>
+ *
  * @version    SVN: $Id
  */
-class cartRemoveCartAction extends DefaultEditAction {
+class cartRemoveCartAction extends DefaultEditAction
+{
+    public function execute($request)
+    {
+         $params = $this->request->id;
 
-	protected function earlyExecute() {
-		//$this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-		$this->resource = $this->getRoute()->resource;
-		
-		// Check that this isn't the root
-		if (!isset($this->resource->parent)) {
-			$this->forward404();
-		}
+        $this->resource = $this->getRoute()->resource;
 
-	}
-	
-	public function execute($request) {
-		 $params = $this->request->id;
-		 
-		$this->resource = $this->getRoute()->resource;
-				
-        $sql = 'DELETE FROM cart WHERE id = "' . $params . '";';
-//echo $sql."<br>";
+        $sql = 'DELETE FROM cart WHERE id = "'.$params.'";';
+// echo $sql."<br>";
         QubitPdo::prepareAndExecute($sql);
 
-		$this->redirect(array($this->resource, 'module' => 'cart', 'action' => 'browse'));
-	}
+        $this->redirect([$this->resource, 'module' => 'cart', 'action' => 'browse']);
+    }
+
+    protected function earlyExecute()
+    {
+        // $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+    }
 }

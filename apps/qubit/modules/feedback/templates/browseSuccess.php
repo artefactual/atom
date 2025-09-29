@@ -1,6 +1,6 @@
-<?php use_helper('Date') ?>
+<?php use_helper('Date'); ?>
 
-<h1><?php echo __('Browse Feedback Items %1%', array('%1%' => sfConfig::get('app_ui_label_feedback'))) ?></h1>
+<h1><?php echo __('Browse Feedback Items %1%', ['%1%' => sfConfig::get('app_ui_label_feedback')]); ?></h1>
 
 <div>
   <ul class="nav nav-tabs" id="job-tabs">
@@ -14,51 +14,51 @@
   <thead>
     <tr>
       <th class="sortable">
-        <?php echo __('Archival Description') ?>
+        <?php echo __('Archival Description'); ?>
       </th>
       <th class="sortable">
-        <?php echo __('Feedback Description') ?>
+        <?php echo __('Feedback Description'); ?>
       </th>
 	  <th>
-        <?php echo __('Remarks') ?>
+        <?php echo __('Remarks'); ?>
       </th>
 	  <th>
-        <?php echo __('Name') ?>
+        <?php echo __('Name'); ?>
       </th>
 	  <th>
-        <?php echo __('Surname') ?>
+        <?php echo __('Surname'); ?>
       </th>
 	  <th>
-        <?php echo __('Phone number') ?>
+        <?php echo __('Phone number'); ?>
       </th>
 	  <th>
-        <?php echo __('e-Mail address') ?>
+        <?php echo __('e-Mail address'); ?>
       </th>
 	  <th>
-        <?php echo __('Relationship') ?>
+        <?php echo __('Relationship'); ?>
       </th>
 	  <th>
-        <?php echo __('Feedback Type') ?>
+        <?php echo __('Feedback Type'); ?>
       </th>
 	  <th>
-        <?php echo __('Created date') ?>
+        <?php echo __('Created date'); ?>
       </th>
 	  <th>
-        <?php echo __('Status') ?>
+        <?php echo __('Status'); ?>
       </th>
 	  <th>
-        <?php echo __('Completed date') ?>
+        <?php echo __('Completed date'); ?>
       </th>
     </tr>
   </thead><tbody>
-    <?php foreach ($pager->getResults() as $item): ?>
-      <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+    <?php foreach ($pager->getResults() as $item) { ?>
+      <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?>">
         <td>
 			<?php $informationObjectsFeedback = QubitInformationObject::getById($item->object_id); ?>
-			<?php if (isset($informationObjectsFeedback->identifier)) { ?> <?php echo link_to($informationObjectsFeedback, array($informationObjectsFeedback, 'module' => 'informationobject')) ?> <?php } ?>
+			<?php if (isset($informationObjectsFeedback->identifier)) { ?> <?php echo link_to($informationObjectsFeedback, [$informationObjectsFeedback, 'module' => 'informationobject']); ?> <?php } ?>
         </td>
         <td>
-			<?php echo link_to(render_title($item), array($item, 'module' => 'feedback', 'action' => 'editFeedback')) ?>
+			<?php echo link_to(render_title($item), [$item, 'module' => 'feedback', 'action' => 'editFeedback']); ?>
         </td>
 		<td>
 			<?php echo $item->remarks; ?> 
@@ -79,38 +79,38 @@
 			<?php echo $item->feed_relationship; ?>
 		</td>
 		<td>
-			<?php if ($item->feedTypeId == 0 ) {
-					echo "General";
-				} else if ($item->feedTypeId == 1 ) {
-					echo "Error";
-				} else if ($item->feedTypeId == 2 ) {
-					echo "Suggestion";
-				} else if ($item->feedTypeId == 3 ) {
-					echo "Correction";
-				} else if ($item->feedTypeId == 4 ) {
-					echo "Need assistance";
-				} else {
-					echo "Unknown";
-				}?>
+			<?php if (0 == $item->feedTypeId) {
+                    echo 'General';
+                } elseif (1 == $item->feedTypeId) {
+                    echo 'Error';
+                } elseif (2 == $item->feedTypeId) {
+                    echo 'Suggestion';
+                } elseif (3 == $item->feedTypeId) {
+                    echo 'Correction';
+                } elseif (4 == $item->feedTypeId) {
+                    echo 'Need assistance';
+                } else {
+                    echo 'Unknown';
+                }?>
 		</td>
 		<td>
-          <?php echo $item->createdAt ?>
+          <?php echo $item->createdAt; ?>
 		</td>
 		<td>
-		     <?php if ($item->statusId == QubitTerm::PENDING_ID) { ?>
-				<?php echo "Pending"; ?>
+		     <?php if (QubitTerm::PENDING_ID == $item->statusId) { ?>
+				<?php echo 'Pending'; ?>
 			 <?php } else {?>
-				<?php echo "Completed"; ?>
+				<?php echo 'Completed'; ?>
 			 <?php } ?>
 		</td>
 		<td>
-          <?php echo $item->completedAt ?>
+          <?php echo $item->completedAt; ?>
 		</td>
 	  </tr>
-    <?php endforeach; ?>
+    <?php } ?>
   </tbody>
 </table>
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
  <section class="actions">
       <ul>
