@@ -27,7 +27,9 @@ class DigitalObjectEditAction extends sfAction
     public function execute($request)
     {
         $this->form = new sfForm();
-        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+        $this->form
+            ->getValidatorSchema()
+            ->setOption("allow_extra_fields", true);
 
         $this->resource = $this->getRoute()->resource;
 
@@ -40,11 +42,8 @@ class DigitalObjectEditAction extends sfAction
 
         // Check user authorization
         if (
-            !QubitAcl::check($this->object, 'update')
-            && !$this->getUser()->hasGroup(QubitAcl
-
-
-::EDITOR_ID)
+            !QubitAcl::check($this->object, "update") &&
+            !$this->getUser()->hasGroup(QubitAcl::EDITOR_ID)
         ) {
             QubitAcl::forwardUnauthorized();
         }
@@ -56,21 +55,32 @@ class DigitalObjectEditAction extends sfAction
 
         // Get representations
         $this->representations = [
-            QubitTerm::REFERENCE_ID => $this->resource->getChildByUsageId(QubitTerm::REFERENCE_ID),
-            QubitTerm::THUMBNAIL_ID => $this->resource->getChildByUsageId(QubitTerm::THUMBNAIL_ID),
+            QubitTerm::REFERENCE_ID => $this->resource->getChildByUsageId(
+                QubitTerm::REFERENCE_ID
+            ),
+            QubitTerm::THUMBNAIL_ID => $this->resource->getChildByUsageId(
+                QubitTerm::THUMBNAIL_ID
+            ),
         ];
 
         // Get video track files
         $this->videoTracks = [
-            QubitTerm::CHAPTERS_ID => $this->resource->getChildByUsageId(QubitTerm::CHAPTERS_ID),
-            QubitTerm::SUBTITLES_ID => $this->resource->getChildByUsageId(QubitTerm::SUBTITLES_ID),
+            QubitTerm::CHAPTERS_ID => $this->resource->getChildByUsageId(
+                QubitTerm::CHAPTERS_ID
+            ),
+            QubitTerm::SUBTITLES_ID => $this->resource->getChildByUsageId(
+                QubitTerm::SUBTITLES_ID
+            ),
         ];
 
         $this->addFormFields();
 
         // Process forms
-        if ($request->isMethod('post')) {
-            $this->form->bind($request->getPostParameters(), $request->getFiles());
+        if ($request->isMethod("post")) {
+            $this->form->bind(
+                $request->getPostParameters(),
+                $request->getFiles()
+            );
             if ($this->form->isValid()) {
                 $this->processForm();
 
@@ -80,7 +90,10 @@ class DigitalObjectEditAction extends sfAction
                     $this->object->updateXmlExports();
                 }
 
-                $this->redirect([$this->object, 'module' => 'informationobject']);
+                $this->redirect([
+                    $this->object,
+                    "module" => "informationobject",
+                ]);
             }
         }
     }
@@ -92,19 +105,26 @@ class DigitalObjectEditAction extends sfAction
      */
     public function processForm()
     {
-		error_log("=== PROCESSFORM CALLED ===");
+        error_log("=== PROCESSFORM CALLED ===");
         // Set property 'displayAsCompound'
-        $this->resource->setDisplayAsCompoundObject($this->form->getValue('displayAsCompound'));
+        $this->resource->setDisplayAsCompoundObject(
+            $this->form->getValue("displayAsCompound")
+        );
 
-        $this->resource->setDigitalObjectAltText($this->form->getValue('digitalObjectAltText'));
+        $this->resource->setDigitalObjectAltText(
+            $this->form->getValue("digitalObjectAltText")
+        );
 
         // Update media type
-        $this->resource->mediaTypeId = $this->form->getValue('mediaType');
+        $this->resource->mediaTypeId = $this->form->getValue("mediaType");
 
         // Upload new representations
         $uploadedFiles = [];
         foreach ($this->representations as $usageId => $representation) {
-            if (null !== $uploadedFile = $this->form->getValue("repFile_{$usageId}")) {
+            if (
+                null !==
+                ($uploadedFile = $this->form->getValue("repFile_{$usageId}"))
+            ) {
                 $uploadedFiles[$usageId] = $uploadedFile;
             }
         }
@@ -115,31 +135,54 @@ class DigitalObjectEditAction extends sfAction
             // Extract EXIF metadata before processing the image
             $exifData = $this->extractExifMetadata($uploadFile->getTempName());
 
-            if (QubitDigitalObject::isImageFile($uploadFile->getOriginalName())) {
-                $tmpFile = Qubit::saveTemporaryFile($uploadFile->getOriginalName(), $content);
+            if (
+                QubitDigitalObject::isImageFile($uploadFile->getOriginalName())
+            ) {
+                $tmpFile = Qubit::saveTemporaryFile(
+                    $uploadFile->getOriginalName(),
+                    $content
+                );
 
                 if (QubitTerm::REFERENCE_ID == $usageId) {
-                    $maxwidth = (sfConfig::get('app_reference_image_maxwidth')) ? sfConfig::get('app_reference_image_maxwidth') : 480;
+                    $maxwidth = sfConfig::get("app_reference_image_maxwidth")
+                        ? sfConfig::get("app_reference_image_maxwidth")
+                        : 480;
                     $maxheight = null;
                 } elseif (QubitTerm::THUMBNAIL_ID == $usageId) {
-                    list($maxwidth, $maxheight) = QubitDigitalObject::getImageMaxDimensions(QubitTerm::THUMBNAIL_ID);
+                    list(
+                        $maxwidth,
+                        $maxheight,
+                    ) = QubitDigitalObject::getImageMaxDimensions(
+                        QubitTerm::THUMBNAIL_ID
+                    );
                 }
 
-                $content = QubitDigitalObject::resizeImage($tmpFile, $maxwidth, $maxheight);
+                $content = QubitDigitalObject::resizeImage(
+                    $tmpFile,
+                    $maxwidth,
+                    $maxheight
+                );
 
                 @unlink($tmpFile);
             }
 
             $representation = new QubitDigitalObject();
             $representation->usageId = $usageId;
-            $representation->assets[] = new QubitAsset($uploadFile->getOriginalName(), $content);
+            $representation->assets[] = new QubitAsset(
+                $uploadFile->getOriginalName(),
+                $content
+            );
             $representation->parentId = $this->resource->id;
             $representation->createDerivatives = false;
 
             $representation->save();
 
             // Apply EXIF metadata to the information object (only for reference images)
-            if (QubitTerm::REFERENCE_ID == $usageId && $exifData && $this->object instanceof QubitInformationObject) {
+            if (
+                QubitTerm::REFERENCE_ID == $usageId &&
+                $exifData &&
+                $this->object instanceof QubitInformationObject
+            ) {
                 $this->applyExifToInformationObject($exifData);
             }
         }
@@ -147,39 +190,60 @@ class DigitalObjectEditAction extends sfAction
         // Upload new video track files
         $uploadedTracks = [];
         foreach ($this->videoTracks as $usageId => $videoTrack) {
-            if (null !== $uploadedTrack = $this->form->getValue("trackFile_{$usageId}")) {
+            if (
+                null !==
+                ($uploadedTrack = $this->form->getValue("trackFile_{$usageId}"))
+            ) {
                 $lang = $this->form->getValue("lang_{$usageId}");
-                $uploadedTracks[$usageId] = ['track' => $uploadedTrack, 'language' => $lang];
+                $uploadedTracks[$usageId] = [
+                    "track" => $uploadedTrack,
+                    "language" => $lang,
+                ];
             }
         }
 
         foreach ($uploadedTracks as $usageId => $uploadTrack) {
-            $content = file_get_contents($uploadTrack['track']->getTempName());
+            $content = file_get_contents($uploadTrack["track"]->getTempName());
 
             $track = new QubitDigitalObject();
             $track->usageId = $usageId;
-            $track->assets[] = new QubitAsset($uploadTrack['track']->getOriginalName(), $content);
+            $track->assets[] = new QubitAsset(
+                $uploadTrack["track"]->getOriginalName(),
+                $content
+            );
             $track->parentId = $this->resource->id;
             $track->createDerivatives = false;
-            $track->language = $uploadTrack['language'];
+            $track->language = $uploadTrack["language"];
 
             $track->save();
         }
 
         // Generate new reference
-        if (null != $this->form->getValue('generateDerivative_'.QubitTerm::REFERENCE_ID)) {
+        if (
+            null !=
+            $this->form->getValue(
+                "generateDerivative_" . QubitTerm::REFERENCE_ID
+            )
+        ) {
             $this->resource->createReferenceImage();
         }
 
         // Generate new thumb
-        if (null != $this->form->getValue('generateDerivative_'.QubitTerm::THUMBNAIL_ID)) {
+        if (
+            null !=
+            $this->form->getValue(
+                "generateDerivative_" . QubitTerm::THUMBNAIL_ID
+            )
+        ) {
             $this->resource->createThumbnail();
         }
 
         // Store latitude and longitude as properties
-        foreach (['latitude', 'longitude'] as $geoPropertyField) {
+        foreach (["latitude", "longitude"] as $geoPropertyField) {
             // Create or update property
-            $geoProperty = $this->resource->getPropertyByName($geoPropertyField);
+            $geoProperty = $this->resource->getPropertyByName(
+                $geoPropertyField
+            );
 
             // Intialize property if new
             if (empty($geoProperty->objectId)) {
@@ -195,203 +259,141 @@ class DigitalObjectEditAction extends sfAction
         }
     }
 
-	/**
-	 * Extract EXIF metadata from uploaded image file
-	 */
-	private function extractExifMetadata($filePath)
-	{
-		// Check if EXIF extension is loaded
-		if (!extension_loaded('exif')) {
-			return null;
-		}
+    private function appendEmbeddedTechMetadata($digitalObject)
+    {
+        try {
+            if (
+                class_exists("arEmbeddedMetadataParser", /*autoload*/ true) &&
+                isset($digitalObject) &&
+                $digitalObject instanceof QubitDigitalObject
+            ) {
+                $absPath = method_exists($digitalObject, "getAbsolutePath")
+                    ? $digitalObject->getAbsolutePath()
+                    : (string) $digitalObject->getPath();
 
-		// Check if file exists and is a supported image type
-		if (!file_exists($filePath) || !$this->isSupportedImageType($filePath)) {
-			return null;
-		}
+                if ($absPath && is_readable($absPath)) {
+                    $meta = arEmbeddedMetadataParser::extract($absPath);
+                    if (is_array($meta)) {
+                        $summary = arEmbeddedMetadataParser::formatSummary(
+                            $meta
+                        );
 
-		try {
-			$exif = exif_read_data($filePath, 'ANY_TAG', true);
-			
-			if (!$exif) {
-				return null;
-			}
+                        if (
+                            $this->object instanceof QubitInformationObject &&
+                            $summary !== ""
+                        ) {
+                            $existing =
+                                (string) $this->object->physicalCharacteristics;
+                            $this->object->physicalCharacteristics = $existing
+                                ? $existing . "\n\n" . $summary
+                                : $summary;
+                            $this->object->save();
+                        }
+                    }
+                }
+            }
+        } catch (Throwable $e) {
+            // swallow everything
+        }
+    }
 
-			// Extract ALL relevant EXIF data
-			$extractedData = [
-				'all_exif' => $this->formatAllExifData($exif)
-			];
+    /**
+     * Extract EXIF metadata from uploaded image file
+     */
+    private function extractExifMetadata($filePath)
+    {
+        // Check if EXIF extension is loaded
+        if (!extension_loaded("exif")) {
+            return null;
+        }
 
-			// Still extract specific fields for other uses
-			if (isset($exif['EXIF']['DateTimeOriginal'])) {
-				$extractedData['date_taken'] = $exif['EXIF']['DateTimeOriginal'];
-			} elseif (isset($exif['EXIF']['DateTime'])) {
-				$extractedData['date_taken'] = $exif['EXIF']['DateTime'];
-			}
+        // Use the helper class
+        $meta = arEmbeddedMetadataParser::extract($filePath);
 
-			if (isset($exif['IFD0']['Artist'])) {
-				$extractedData['artist'] = trim($exif['IFD0']['Artist']);
-			}
+        if (!$meta) {
+            return null;
+        }
 
-			return $extractedData;
+        // Extract specific fields for backward compatibility
+        $extractedData = [
+            "all_exif" => arEmbeddedMetadataParser::formatSummary($meta),
+        ];
 
-		} catch (Exception $e) {
-			error_log("EXIF extraction failed for {$filePath}: " . $e->getMessage());
-			return null;
-		}
-	}
+        // Get normalized data
+        $norm = $meta["_norm"] ?? [];
 
-	/**
-	 * Format all EXIF data into a readable string
-	 */
-	private function formatAllExifData($exif)
-	{
-		$formatted = [];
-		
-		// Camera and basic info
-		if (isset($exif['IFD0']['Make'])) $formatted[] = "Camera Make: " . $exif['IFD0']['Make'];
-		if (isset($exif['IFD0']['Model'])) $formatted[] = "Camera Model: " . $exif['IFD0']['Model'];
-		if (isset($exif['IFD0']['Software'])) $formatted[] = "Software: " . $exif['IFD0']['Software'];
-		if (isset($exif['IFD0']['DateTime'])) $formatted[] = "File DateTime: " . $exif['IFD0']['DateTime'];
-		
-		// Image technical details
-		if (isset($exif['EXIF']['DateTimeOriginal'])) $formatted[] = "Date Taken: " . $exif['EXIF']['DateTimeOriginal'];
-		if (isset($exif['EXIF']['DateTimeDigitized'])) $formatted[] = "Date Digitized: " . $exif['EXIF']['DateTimeDigitized'];
-		
-		// Camera settings
-		if (isset($exif['EXIF']['ExposureTime'])) $formatted[] = "Exposure Time: " . $exif['EXIF']['ExposureTime'] . " sec";
-		if (isset($exif['EXIF']['FNumber'])) $formatted[] = "F-Number: f/" . $exif['EXIF']['FNumber'];
-		if (isset($exif['EXIF']['ISOSpeedRatings'])) $formatted[] = "ISO: " . $exif['EXIF']['ISOSpeedRatings'];
-		if (isset($exif['EXIF']['FocalLength'])) $formatted[] = "Focal Length: " . $exif['EXIF']['FocalLength'] . "mm";
-		if (isset($exif['EXIF']['FocalLengthIn35mmFilm'])) $formatted[] = "35mm Equivalent: " . $exif['EXIF']['FocalLengthIn35mmFilm'] . "mm";
-		
-		// Additional camera settings
-		if (isset($exif['EXIF']['ExposureProgram'])) {
-			$exposurePrograms = [
-				0 => 'Not defined', 1 => 'Manual', 2 => 'Normal program', 3 => 'Aperture priority',
-				4 => 'Shutter priority', 5 => 'Creative program', 6 => 'Action program', 7 => 'Portrait mode',
-				8 => 'Landscape mode'
-			];
-			$programText = $exposurePrograms[$exif['EXIF']['ExposureProgram']] ?? $exif['EXIF']['ExposureProgram'];
-			$formatted[] = "Exposure Program: " . $programText;
-		}
-		
-		if (isset($exif['EXIF']['MeteringMode'])) {
-			$meteringModes = [
-				0 => 'Unknown', 1 => 'Average', 2 => 'Center-weighted average', 3 => 'Spot',
-				4 => 'Multi-spot', 5 => 'Pattern', 6 => 'Partial', 255 => 'Other'
-			];
-			$modeText = $meteringModes[$exif['EXIF']['MeteringMode']] ?? $exif['EXIF']['MeteringMode'];
-			$formatted[] = "Metering Mode: " . $modeText;
-		}
-		
-		if (isset($exif['EXIF']['Flash'])) $formatted[] = "Flash: " . ($exif['EXIF']['Flash'] ? 'Fired' : 'No flash');
-		if (isset($exif['EXIF']['WhiteBalance'])) $formatted[] = "White Balance: " . ($exif['EXIF']['WhiteBalance'] == 0 ? 'Auto' : 'Manual');
-		if (isset($exif['EXIF']['ExposureMode'])) {
-			$exposureModes = [0 => 'Auto', 1 => 'Manual', 2 => 'Auto bracket'];
-			$modeText = $exposureModes[$exif['EXIF']['ExposureMode']] ?? $exif['EXIF']['ExposureMode'];
-			$formatted[] = "Exposure Mode: " . $modeText;
-		}
-		
-		// Image properties
-		if (isset($exif['COMPUTED']['Width'], $exif['COMPUTED']['Height'])) {
-			$formatted[] = "Image Size: " . $exif['COMPUTED']['Width'] . " x " . $exif['COMPUTED']['Height'] . " pixels";
-		}
-		if (isset($exif['IFD0']['XResolution'], $exif['IFD0']['YResolution'])) {
-			$formatted[] = "Resolution: " . $exif['IFD0']['XResolution'] . " x " . $exif['IFD0']['YResolution'] . " DPI";
-		}
-		if (isset($exif['EXIF']['ColorSpace'])) {
-			$colorSpace = $exif['EXIF']['ColorSpace'] == 1 ? 'sRGB' : 'Uncalibrated';
-			$formatted[] = "Color Space: " . $colorSpace;
-		}
-		
-		// GPS information
-		if (isset($exif['GPS'])) {
-			if (isset($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLongitude'])) {
-				$lat = $this->convertGpsCoordinate($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-				$lon = $this->convertGpsCoordinate($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-				$formatted[] = "GPS Coordinates: " . $lat . ", " . $lon;
-			}
-			if (isset($exif['GPS']['GPSAltitude'])) {
-				$altitude = $this->evaluateFraction($exif['GPS']['GPSAltitude']);
-				$formatted[] = "GPS Altitude: " . $altitude . "m";
-			}
-			if (isset($exif['GPS']['GPSDateStamp'], $exif['GPS']['GPSTimeStamp'])) {
-				$formatted[] = "GPS Date/Time: " . $exif['GPS']['GPSDateStamp'] . " " . implode(':', $exif['GPS']['GPSTimeStamp']);
-			}
-		}
-		
-		// Additional metadata
-		if (isset($exif['IFD0']['Artist'])) $formatted[] = "Artist: " . $exif['IFD0']['Artist'];
-		if (isset($exif['IFD0']['Copyright'])) $formatted[] = "Copyright: " . $exif['IFD0']['Copyright'];
-		if (isset($exif['IFD0']['ImageDescription'])) $formatted[] = "Description: " . $exif['IFD0']['ImageDescription'];
-		
-		// File information
-		if (isset($exif['FILE']['FileSize'])) $formatted[] = "File Size: " . round($exif['FILE']['FileSize'] / 1024, 1) . " KB";
-		if (isset($exif['FILE']['MimeType'])) $formatted[] = "MIME Type: " . $exif['FILE']['MimeType'];
-		
-		return implode("\n", $formatted);
-	}
+        if (isset($norm["createDate"])) {
+            $extractedData["date_taken"] = $norm["createDate"];
+        }
 
-	/**
-	 * Apply EXIF metadata to the information object
-	 */
-	private function applyExifToInformationObject($exifData)
-	{
-		if (!$exifData || !($this->object instanceof QubitInformationObject)) {
-			return;
-		}
+        if (isset($norm["creator"])) {
+            $extractedData["artist"] = $norm["creator"];
+        }
 
-		// Handle creation date
-		if (isset($exifData['date_taken'])) {
-			$this->addCreationDate($exifData['date_taken']);
-		}
+        return $extractedData;
+    }
 
-		// Handle creator/artist
-		if (isset($exifData['artist'])) {
-			$this->addCreator($exifData['artist']);
-		}
+    /**
+     * Apply EXIF metadata to the information object
+     */
+    private function applyExifToInformationObject($exifData)
+    {
+        if (!$exifData || !($this->object instanceof QubitInformationObject)) {
+            return;
+        }
 
-		// Add ALL EXIF data to physical characteristics
-		if (isset($exifData['all_exif'])) {
-			$this->addAllExifData($exifData['all_exif']);
-		}
+        // Handle creation date
+        if (isset($exifData["date_taken"])) {
+            $this->addCreationDate($exifData["date_taken"]);
+        }
 
-		// Save the information object
-		$this->object->save();
-	}
+        // Handle creator/artist
+        if (isset($exifData["artist"])) {
+            $this->addCreator($exifData["artist"]);
+        }
+
+        // Add ALL EXIF data to physical characteristics
+        if (isset($exifData["all_exif"])) {
+            $this->addAllExifData($exifData["all_exif"]);
+        }
+
+        // Save the information object
+        $this->object->save();
+    }
 
     /**
      * Add creation date from EXIF
      */
-	private function addCreationDate($dateString)
-	{
-		try {
-			$date = DateTime::createFromFormat('Y:m:d H:i:s', $dateString);
-			if ($date) {
-				// Check if creation date already exists - use correct constant
-				$criteria = new Criteria();
-				$criteria->add(QubitEvent::OBJECT_ID, $this->object->id);  // Changed from INFORMATION_OBJECT_ID
-				$criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
-				
-				$existingEvent = QubitEvent::getOne($criteria);
-				
-				if (!$existingEvent) {
-					$event = new QubitEvent();
-					$event->setObjectId($this->object->id);  // Changed from setInformationObjectId
-					$event->setTypeId(QubitTerm::CREATION_ID);
-					$event->setDate($date->format('Y-m-d'));
-					$event->save();
-					
-					error_log("EXIF: Added creation date: " . $date->format('Y-m-d'));
-				} else {
-					error_log("EXIF: Creation date already exists, skipping");
-				}
-			}
-		} catch (Exception $e) {
-			error_log("Failed to parse EXIF date: " . $e->getMessage());
-		}
-	} 
+    private function addCreationDate($dateString)
+    {
+        try {
+            $date = DateTime::createFromFormat("Y:m:d H:i:s", $dateString);
+            if ($date) {
+                // Check if creation date already exists - use correct constant
+                $criteria = new Criteria();
+                $criteria->add(QubitEvent::OBJECT_ID, $this->object->id); // Changed from INFORMATION_OBJECT_ID
+                $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
+
+                $existingEvent = QubitEvent::getOne($criteria);
+
+                if (!$existingEvent) {
+                    $event = new QubitEvent();
+                    $event->setObjectId($this->object->id); // Changed from setInformationObjectId
+                    $event->setTypeId(QubitTerm::CREATION_ID);
+                    $event->setDate($date->format("Y-m-d"));
+                    $event->save();
+
+                    error_log(
+                        "EXIF: Added creation date: " . $date->format("Y-m-d")
+                    );
+                } else {
+                    error_log("EXIF: Creation date already exists, skipping");
+                }
+            }
+        } catch (Exception $e) {
+            error_log("Failed to parse EXIF date: " . $e->getMessage());
+        }
+    }
 
     /**
      * Add creator from EXIF artist field
@@ -416,9 +418,9 @@ class DigitalObjectEditAction extends sfAction
             $criteria->add(QubitRelation::SUBJECT_ID, $actor->id);
             $criteria->add(QubitRelation::OBJECT_ID, $this->object->id);
             $criteria->add(QubitRelation::TYPE_ID, QubitTerm::CREATION_ID);
-            
+
             $existingRelation = QubitRelation::getOne($criteria);
-            
+
             if (!$existingRelation) {
                 $relation = new QubitRelation();
                 $relation->setSubjectId($actor->id);
@@ -432,180 +434,41 @@ class DigitalObjectEditAction extends sfAction
     }
 
     /**
-     * Add content to scope and content field
+     * Add all EXIF data to physical characteristics
      */
-    private function addToScopeAndContent($content, $label)
+    private function addAllExifData($allExifText)
     {
-        $currentScope = $this->object->getScopeAndContent();
-        $newContent = "\n\n{$label}: {$content}";
-        
-        // Only add if not already present
-        if (strpos($currentScope, $newContent) === false) {
-            $this->object->setScopeAndContent($currentScope . $newContent);
+        try {
+            $currentPhysical = $this->object->getPhysicalCharacteristics();
+
+            // Remove any existing EXIF data first
+            if (
+                $currentPhysical &&
+                strpos($currentPhysical, "EXIF Technical Data:") !== false
+            ) {
+                // Remove everything from "EXIF Technical Data:" to the end or next section
+                $currentPhysical = preg_replace(
+                    '/\n\nEXIF Technical Data:.*$/s',
+                    "",
+                    $currentPhysical
+                );
+                error_log("EXIF: Removed existing EXIF data");
+            }
+
+            $newExifData = "\n\nEXIF Technical Data:\n" . $allExifText;
+
+            $this->object->setPhysicalCharacteristics(
+                ($currentPhysical ?: "") . $newExifData
+            );
+            $this->object->save(); // Force save immediately
+
+            error_log("EXIF: Successfully added comprehensive EXIF data");
+        } catch (Exception $e) {
+            error_log(
+                "EXIF: Error adding comprehensive EXIF data: " .
+                    $e->getMessage()
+            );
         }
-    }
-
-	/**
-	 * Add technical metadata to physical characteristics
-	 */
-	private function addTechnicalMetadata($exifData)
-	{
-		error_log("EXIF: Starting addTechnicalMetadata");
-		
-		$technicalInfo = [];
-		
-		if (isset($exifData['camera_make'])) {
-			$technicalInfo[] = "Camera: " . $exifData['camera_make'];
-		}
-		if (isset($exifData['camera_model'])) {
-			$technicalInfo[] = "Model: " . $exifData['camera_model'];
-		}
-		if (isset($exifData['technical_data'])) {
-			foreach ($exifData['technical_data'] as $key => $value) {
-				$technicalInfo[] = ucfirst(str_replace('_', ' ', $key)) . ": " . $value;
-			}
-		}
-
-		if (!empty($technicalInfo)) {
-			try {
-				$currentPhysical = $this->object->getPhysicalCharacteristics();
-				$newTechnical = "\n\nEXIF Technical Data:\n" . implode("; ", $technicalInfo);
-				
-				// Only add if not already present
-				if (strpos($currentPhysical ?: '', $newTechnical) === false) {
-					$this->object->setPhysicalCharacteristics(($currentPhysical ?: '') . $newTechnical);
-					
-					// Force save immediately
-					$this->object->save();
-					error_log("EXIF: Successfully saved technical data to physical characteristics");
-					
-					// Verify it was saved
-					$savedPhysical = $this->object->getPhysicalCharacteristics();
-					error_log("EXIF: Verified saved data: " . substr($savedPhysical, -200)); // Log last 200 chars
-				} else {
-					error_log("EXIF: Technical data already present");
-				}
-			} catch (Exception $e) {
-				error_log("EXIF: Error saving technical data: " . $e->getMessage());
-			}
-		} else {
-			error_log("EXIF: No technical info to save");
-		}
-	}
-
-	/**
-	 * Add all EXIF data to physical characteristics
-	 */
-	private function addAllExifData($allExifText)
-	{
-		try {
-			$currentPhysical = $this->object->getPhysicalCharacteristics();
-			
-			// Remove any existing EXIF data first
-			if ($currentPhysical && strpos($currentPhysical, 'EXIF Technical Data:') !== false) {
-				// Remove everything from "EXIF Technical Data:" to the end or next section
-				$currentPhysical = preg_replace('/\n\nEXIF Technical Data:.*$/s', '', $currentPhysical);
-				error_log("EXIF: Removed existing EXIF data");
-			}
-			
-			$newExifData = "\n\nEXIF Technical Data:\n" . $allExifText;
-			
-			$this->object->setPhysicalCharacteristics(($currentPhysical ?: '') . $newExifData);
-			$this->object->save(); // Force save immediately
-			
-			error_log("EXIF: Successfully added comprehensive EXIF data");
-			
-		} catch (Exception $e) {
-			error_log("EXIF: Error adding comprehensive EXIF data: " . $e->getMessage());
-		}
-	}
-
-    /**
-     * Add GPS coordinates as properties
-     */
-    private function addGpsCoordinates($latitude, $longitude)
-    {
-        // Set latitude property
-        $latProperty = $this->resource->getPropertyByName('latitude');
-        if (empty($latProperty->objectId)) {
-            $latProperty = new QubitProperty();
-            $latProperty->objectId = $this->resource->id;
-            $latProperty->editable = true;
-            $latProperty->name = 'latitude';
-        }
-        $latProperty->value = $latitude;
-        $latProperty->save();
-
-        // Set longitude property
-        $lonProperty = $this->resource->getPropertyByName('longitude');
-        if (empty($lonProperty->objectId)) {
-            $lonProperty = new QubitProperty();
-            $lonProperty->objectId = $this->resource->id;
-            $lonProperty->editable = true;
-            $lonProperty->name = 'longitude';
-        }
-        $lonProperty->value = $longitude;
-        $lonProperty->save();
-    }
-
-    /**
-     * Add copyright information
-     */
-    private function addCopyrightInfo($copyright)
-    {
-        $this->addToScopeAndContent($copyright, 'Copyright');
-    }
-
-    /**
-     * Check if file is a supported image type for EXIF extraction
-     */
-    private function isSupportedImageType($filePath)
-    {
-        if (!file_exists($filePath)) {
-            return false;
-        }
-        
-        $imageType = @exif_imagetype($filePath);
-        $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM];
-        
-        return in_array($imageType, $supportedTypes);
-    }
-
-    /**
-     * Convert GPS coordinate from EXIF format to decimal degrees
-     */
-    private function convertGpsCoordinate($coordinate, $hemisphere)
-    {
-        if (!is_array($coordinate) || count($coordinate) < 3) {
-            return null;
-        }
-
-        $degrees = count($coordinate) > 0 ? $this->evaluateFraction($coordinate[0]) : 0;
-        $minutes = count($coordinate) > 1 ? $this->evaluateFraction($coordinate[1]) : 0;
-        $seconds = count($coordinate) > 2 ? $this->evaluateFraction($coordinate[2]) : 0;
-
-        $flip = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
-        
-        $decimal = $flip * ($degrees + $minutes / 60 + $seconds / 3600);
-        
-        return round($decimal, 6);
-    }
-
-    /**
-     * Evaluate fraction strings from EXIF data
-     */
-    private function evaluateFraction($fraction)
-    {
-        if (is_numeric($fraction)) {
-            return (float)$fraction;
-        }
-
-        $parts = explode('/', (string)$fraction);
-        if (count($parts) == 2 && $parts[1] != 0) {
-            return $parts[0] / $parts[1];
-        }
-
-        return (float)$fraction;
     }
 
     protected function addFormFields()
@@ -615,14 +478,20 @@ class DigitalObjectEditAction extends sfAction
         $criteria = new Criteria();
         $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
         foreach (QubitTerm::get($criteria) as $item) {
-            $choices[$item->id] = $item->getName(['cultureFallback' => true]);
+            $choices[$item->id] = $item->getName(["cultureFallback" => true]);
         }
 
         asort($choices); // Sort media types by name
 
-        $this->form->setValidator('mediaType', new sfValidatorChoice(['choices' => array_keys($choices)]));
-        $this->form->setWidget('mediaType', new sfWidgetFormSelect(['choices' => $choices]));
-        $this->form->setDefault('mediaType', $this->resource->mediaTypeId);
+        $this->form->setValidator(
+            "mediaType",
+            new sfValidatorChoice(["choices" => array_keys($choices)])
+        );
+        $this->form->setWidget(
+            "mediaType",
+            new sfWidgetFormSelect(["choices" => $choices])
+        );
+        $this->form->setDefault("mediaType", $this->resource->mediaTypeId);
 
         // Only display "compound digital object" toggle if we have a child with a
         // digital object
@@ -638,33 +507,56 @@ class DigitalObjectEditAction extends sfAction
         }
 
         if ($this->showCompoundObjectToggle) {
-            $this->form->setValidator('displayAsCompound', new sfValidatorBoolean());
-            $this->form->setWidget('displayAsCompound', new sfWidgetFormSelectRadio(
-                ['choices' => [
-                    '1' => $this->context->i18n->__('Yes'),
-                    '0' => $this->context->i18n->__('No'),
-                ]]
-            ));
+            $this->form->setValidator(
+                "displayAsCompound",
+                new sfValidatorBoolean()
+            );
+            $this->form->setWidget(
+                "displayAsCompound",
+                new sfWidgetFormSelectRadio([
+                    "choices" => [
+                        "1" => $this->context->i18n->__("Yes"),
+                        "0" => $this->context->i18n->__("No"),
+                    ],
+                ])
+            );
 
             // Set "displayAsCompound" value from QubitProperty
             $criteria = new Criteria();
             $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-            $criteria->add(QubitProperty::NAME, 'displayAsCompound');
+            $criteria->add(QubitProperty::NAME, "displayAsCompound");
 
-            if (null != $compoundProperty = QubitProperty::getOne($criteria)) {
-                $this->form->setDefault('displayAsCompound', $compoundProperty->getValue(['sourceCulture' => true]));
+            if (
+                null != ($compoundProperty = QubitProperty::getOne($criteria))
+            ) {
+                $this->form->setDefault(
+                    "displayAsCompound",
+                    $compoundProperty->getValue(["sourceCulture" => true])
+                );
             }
         }
 
-        $this->form->setValidator('digitalObjectAltText', new sfValidatorString());
-        $this->form->setWidget('digitalObjectAltText', new sfWidgetFormTextarea());
-        if (null !== $this->digitalObjectAltText = $this->resource->getDigitalObjectAltText()) {
-            $this->form->setDefault('digitalObjectAltText', $this->digitalObjectAltText);
+        $this->form->setValidator(
+            "digitalObjectAltText",
+            new sfValidatorString()
+        );
+        $this->form->setWidget(
+            "digitalObjectAltText",
+            new sfWidgetFormTextarea()
+        );
+        if (
+            null !==
+            ($this->digitalObjectAltText = $this->resource->getDigitalObjectAltText())
+        ) {
+            $this->form->setDefault(
+                "digitalObjectAltText",
+                $this->digitalObjectAltText
+            );
         }
 
         $maxUploadSize = QubitDigitalObject::getMaxUploadSize();
 
-        ProjectConfiguration::getActive()->loadHelpers('Qubit');
+        ProjectConfiguration::getActive()->loadHelpers("Qubit");
 
         // If reference representation doesn't exist, include upload widget
         foreach ($this->representations as $usageId => $representation) {
@@ -676,14 +568,23 @@ class DigitalObjectEditAction extends sfAction
                 $this->form->setWidget($repName, new sfWidgetFormInputFile());
 
                 if (-1 < $maxUploadSize) {
-                    $this->form->getWidgetSchema()->{$repName}->setHelp($this->context->i18n->__('Max. size ~%1%', ['%1%' => hr_filesize($maxUploadSize)]));
+                    $this->form
+                        ->getWidgetSchema()
+                        ->{$repName}->setHelp(
+                            $this->context->i18n->__("Max. size ~%1%", [
+                                "%1%" => hr_filesize($maxUploadSize),
+                            ])
+                        );
                 } else {
-                    $this->form->getWidgetSchema()->{$repName}->setHelp('');
+                    $this->form->getWidgetSchema()->{$repName}->setHelp("");
                 }
 
                 // Add "auto-generate" checkbox
                 $this->form->setValidator($derName, new sfValidatorBoolean());
-                $this->form->setWidget($derName, new sfWidgetFormInputCheckbox([], ['value' => 1]));
+                $this->form->setWidget(
+                    $derName,
+                    new sfWidgetFormInputCheckbox([], ["value" => 1])
+                );
             }
         }
 
@@ -694,49 +595,95 @@ class DigitalObjectEditAction extends sfAction
                 if (null === $videoTrack) {
                     $trackName = "trackFile_{$usageId}";
 
-                    $this->form->setValidator($trackName, new sfValidatorAnd([
-                        new QubitValidatorMimeType(['mime_types' => ['text/vtt', 'application/x-subrip']]),
-                        new sfValidatorFile(),
-                    ]));
-                    $this->form->setWidget($trackName, new sfWidgetFormInputFile());
+                    $this->form->setValidator(
+                        $trackName,
+                        new sfValidatorAnd([
+                            new QubitValidatorMimeType([
+                                "mime_types" => [
+                                    "text/vtt",
+                                    "application/x-subrip",
+                                ],
+                            ]),
+                            new sfValidatorFile(),
+                        ])
+                    );
+                    $this->form->setWidget(
+                        $trackName,
+                        new sfWidgetFormInputFile()
+                    );
 
                     if (-1 < $maxUploadSize) {
-                        $this->form->getWidgetSchema()->{$trackName}->setHelp($this->context->i18n->__('Max. size ~%1%', ['%1%' => hr_filesize($maxUploadSize)]));
+                        $this->form
+                            ->getWidgetSchema()
+                            ->{$trackName}->setHelp(
+                                $this->context->i18n->__("Max. size ~%1%", [
+                                    "%1%" => hr_filesize($maxUploadSize),
+                                ])
+                            );
                     } else {
-                        $this->form->getWidgetSchema()->{$trackName}->setHelp('');
+                        $this->form
+                            ->getWidgetSchema()
+                            ->{$trackName}->setHelp("");
                     }
                 }
             } else {
                 $trackName = "trackFile_{$usageId}";
                 $langName = "lang_{$usageId}";
 
-                $this->form->setValidator($trackName, new sfValidatorAnd([
-                    new QubitValidatorMimeType(['mime_types' => ['text/vtt', 'application/x-subrip']]),
-                    new sfValidatorFile(),
-                ]));
+                $this->form->setValidator(
+                    $trackName,
+                    new sfValidatorAnd([
+                        new QubitValidatorMimeType([
+                            "mime_types" => [
+                                "text/vtt",
+                                "application/x-subrip",
+                            ],
+                        ]),
+                        new sfValidatorFile(),
+                    ])
+                );
                 $this->form->setWidget($trackName, new sfWidgetFormInputFile());
 
-                $this->form->setValidator($langName, new sfValidatorI18nChoiceLanguage());
-                $this->form->setWidget($langName, new sfWidgetFormI18nChoiceLanguage());
+                $this->form->setValidator(
+                    $langName,
+                    new sfValidatorI18nChoiceLanguage()
+                );
+                $this->form->setWidget(
+                    $langName,
+                    new sfWidgetFormI18nChoiceLanguage()
+                );
 
                 if (-1 < $maxUploadSize) {
-                    $this->form->getWidgetSchema()->{$trackName}->setHelp($this->context->i18n->__('Max. size ~%1%', ['%1%' => hr_filesize($maxUploadSize)]));
+                    $this->form
+                        ->getWidgetSchema()
+                        ->{$trackName}->setHelp(
+                            $this->context->i18n->__("Max. size ~%1%", [
+                                "%1%" => hr_filesize($maxUploadSize),
+                            ])
+                        );
                 } else {
-                    $this->form->getWidgetSchema()->{$trackName}->setHelp('');
+                    $this->form->getWidgetSchema()->{$trackName}->setHelp("");
                 }
             }
         }
 
         // Add latitude and longitude fields
-        foreach (['latitude', 'longitude'] as $geoPropertyField) {
-            $this->form->setValidator($geoPropertyField, new sfValidatorNumber());
+        foreach (["latitude", "longitude"] as $geoPropertyField) {
+            $this->form->setValidator(
+                $geoPropertyField,
+                new sfValidatorNumber()
+            );
             $this->form->setWidget($geoPropertyField, new sfWidgetFormInput());
 
-            $fieldProperty = $this->resource->getPropertyByName($geoPropertyField);
+            $fieldProperty = $this->resource->getPropertyByName(
+                $geoPropertyField
+            );
             if (isset($fieldProperty->value)) {
-                $this->form->setDefault($geoPropertyField, $fieldProperty->value);
+                $this->form->setDefault(
+                    $geoPropertyField,
+                    $fieldProperty->value
+                );
             }
         }
     }
-		
 }

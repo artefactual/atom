@@ -135,130 +135,38 @@ class InformationObjectMultiFileUploadAction extends sfAction
         $this->redirect([$this->resource, 'module' => 'informationobject', 'action' => 'multiFileUpdate', 'items' => implode(',', $informationObjectSlugList)]);
     }
 
-    /**
-     * Extract EXIF metadata from uploaded image file
-     */
-    private function extractExifMetadata($filePath)
-    {
-        // Check if EXIF extension is loaded
-        if (!extension_loaded('exif')) {
-            return null;
-        }
-
-        // Check if file exists and is a supported image type
-        if (!file_exists($filePath) || !$this->isSupportedImageType($filePath)) {
-            return null;
-        }
-
-        try {
-            $exif = exif_read_data($filePath, 'ANY_TAG', true);
-            
-            if (!$exif) {
-                return null;
-            }
-
-            // Extract ALL relevant EXIF data
-            $extractedData = [
-                'all_exif' => $this->formatAllExifData($exif)
-            ];
-
-            // Still extract specific fields for other uses
-            if (isset($exif['EXIF']['DateTimeOriginal'])) {
-                $extractedData['date_taken'] = $exif['EXIF']['DateTimeOriginal'];
-            } elseif (isset($exif['EXIF']['DateTime'])) {
-                $extractedData['date_taken'] = $exif['EXIF']['DateTime'];
-            }
-
-            if (isset($exif['IFD0']['Artist'])) {
-                $extractedData['artist'] = trim($exif['IFD0']['Artist']);
-            }
-
-            error_log("EXIF: Extracted data from multi-file upload: " . json_encode(array_keys($extractedData)));
-            return $extractedData;
-
-        } catch (Exception $e) {
-            error_log("EXIF extraction failed for multi-file upload {$filePath}: " . $e->getMessage());
-            return null;
-        }
+private function extractExifMetadata($filePath)
+{
+    if (!file_exists($filePath)) {
+        return null;
     }
 
-    /**
-     * Format all EXIF data into a readable string
-     */
-    private function formatAllExifData($exif)
-    {
-        $formatted = [];
-        
-        // Camera and basic info
-        if (isset($exif['IFD0']['Make'])) $formatted[] = "Camera Make: " . $exif['IFD0']['Make'];
-        if (isset($exif['IFD0']['Model'])) $formatted[] = "Camera Model: " . $exif['IFD0']['Model'];
-        if (isset($exif['IFD0']['Software'])) $formatted[] = "Software: " . $exif['IFD0']['Software'];
-        if (isset($exif['IFD0']['DateTime'])) $formatted[] = "File DateTime: " . $exif['IFD0']['DateTime'];
-        
-        // Image technical details
-        if (isset($exif['EXIF']['DateTimeOriginal'])) $formatted[] = "Date Taken: " . $exif['EXIF']['DateTimeOriginal'];
-        if (isset($exif['EXIF']['DateTimeDigitized'])) $formatted[] = "Date Digitized: " . $exif['EXIF']['DateTimeDigitized'];
-        
-        // Camera settings
-        if (isset($exif['EXIF']['ExposureTime'])) $formatted[] = "Exposure Time: " . $exif['EXIF']['ExposureTime'] . " sec";
-        if (isset($exif['EXIF']['FNumber'])) $formatted[] = "F-Number: f/" . $exif['EXIF']['FNumber'];
-        if (isset($exif['EXIF']['ISOSpeedRatings'])) $formatted[] = "ISO: " . $exif['EXIF']['ISOSpeedRatings'];
-        if (isset($exif['EXIF']['FocalLength'])) $formatted[] = "Focal Length: " . $exif['EXIF']['FocalLength'] . "mm";
-        if (isset($exif['EXIF']['FocalLengthIn35mmFilm'])) $formatted[] = "35mm Equivalent: " . $exif['EXIF']['FocalLengthIn35mmFilm'] . "mm";
-        
-        // Additional camera settings
-        if (isset($exif['EXIF']['ExposureProgram'])) {
-            $exposurePrograms = [
-                0 => 'Not defined', 1 => 'Manual', 2 => 'Normal program', 3 => 'Aperture priority',
-                4 => 'Shutter priority', 5 => 'Creative program', 6 => 'Action program', 7 => 'Portrait mode',
-                8 => 'Landscape mode'
-            ];
-            $programText = $exposurePrograms[$exif['EXIF']['ExposureProgram']] ?? $exif['EXIF']['ExposureProgram'];
-            $formatted[] = "Exposure Program: " . $programText;
-        }
-        
-        if (isset($exif['EXIF']['MeteringMode'])) {
-            $meteringModes = [
-                0 => 'Unknown', 1 => 'Average', 2 => 'Center-weighted average', 3 => 'Spot',
-                4 => 'Multi-spot', 5 => 'Pattern', 6 => 'Partial', 255 => 'Other'
-            ];
-            $modeText = $meteringModes[$exif['EXIF']['MeteringMode']] ?? $exif['EXIF']['MeteringMode'];
-            $formatted[] = "Metering Mode: " . $modeText;
-        }
-        
-        if (isset($exif['EXIF']['Flash'])) $formatted[] = "Flash: " . ($exif['EXIF']['Flash'] ? 'Fired' : 'No flash');
-        if (isset($exif['EXIF']['WhiteBalance'])) $formatted[] = "White Balance: " . ($exif['EXIF']['WhiteBalance'] == 0 ? 'Auto' : 'Manual');
-        
-        // Image properties
-        if (isset($exif['COMPUTED']['Width'], $exif['COMPUTED']['Height'])) {
-            $formatted[] = "Image Size: " . $exif['COMPUTED']['Width'] . " x " . $exif['COMPUTED']['Height'] . " pixels";
-        }
-        if (isset($exif['IFD0']['XResolution'], $exif['IFD0']['YResolution'])) {
-            $formatted[] = "Resolution: " . $exif['IFD0']['XResolution'] . " x " . $exif['IFD0']['YResolution'] . " DPI";
-        }
-        
-        // GPS information
-        if (isset($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLongitude'])) {
-            $lat = $this->convertGpsCoordinate($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
-            $lon = $this->convertGpsCoordinate($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
-            $formatted[] = "GPS Coordinates: " . $lat . ", " . $lon;
-        }
-        if (isset($exif['GPS']['GPSAltitude'])) {
-            $altitude = $this->evaluateFraction($exif['GPS']['GPSAltitude']);
-            $formatted[] = "GPS Altitude: " . $altitude . "m";
-        }
-        
-        // Additional metadata
-        if (isset($exif['IFD0']['Artist'])) $formatted[] = "Artist: " . $exif['IFD0']['Artist'];
-        if (isset($exif['IFD0']['Copyright'])) $formatted[] = "Copyright: " . $exif['IFD0']['Copyright'];
-        if (isset($exif['IFD0']['ImageDescription'])) $formatted[] = "Description: " . $exif['IFD0']['ImageDescription'];
-        
-        // File information
-        if (isset($exif['FILE']['FileSize'])) $formatted[] = "File Size: " . round($exif['FILE']['FileSize'] / 1024, 1) . " KB";
-        if (isset($exif['FILE']['MimeType'])) $formatted[] = "MIME Type: " . $exif['FILE']['MimeType'];
-        
-        return implode("\n", $formatted);
+    // Use the helper class
+    $meta = arEmbeddedMetadataParser::extract($filePath);
+    
+    if (!$meta) {
+        return null;
     }
+
+    // Extract specific fields for backward compatibility
+    $extractedData = [
+        'all_exif' => arEmbeddedMetadataParser::formatSummary($meta)
+    ];
+
+    // Get normalized data
+    $norm = $meta['_norm'] ?? [];
+    
+    if (isset($norm['createDate'])) {
+        $extractedData['date_taken'] = $norm['createDate'];
+    }
+    
+    if (isset($norm['creator'])) {
+        $extractedData['artist'] = $norm['creator'];
+    }
+
+    error_log("EXIF: Extracted data from multi-file upload: " . json_encode(array_keys($extractedData)));
+    return $extractedData;
+}
 
     /**
      * Apply EXIF metadata to the information object
@@ -287,6 +195,28 @@ class InformationObjectMultiFileUploadAction extends sfAction
         $informationObject->save();
         error_log("EXIF: Applied EXIF data to information object from multi-file upload");
     }
+
+private function addAllExifData($allExifText, $informationObject)
+{
+    try {
+        $currentPhysical = $informationObject->getPhysicalCharacteristics();
+        
+        // Remove any existing EXIF data first
+        if ($currentPhysical && strpos($currentPhysical, 'Technical Metadata:') !== false) {
+            $currentPhysical = preg_replace('/\n\nTechnical Metadata:.*$/s', '', $currentPhysical);
+            error_log("EXIF: Removed existing EXIF data from multi-file upload");
+        }
+        
+        $newExifData = "\n\nTechnical Metadata:\n" . $allExifText;
+        
+        $informationObject->setPhysicalCharacteristics(($currentPhysical ?: '') . $newExifData);
+        
+        error_log("EXIF: Successfully added comprehensive EXIF data from multi-file upload");
+        
+    } catch (Exception $e) {
+        error_log("EXIF: Error adding comprehensive EXIF data from multi-file upload: " . $e->getMessage());
+    }
+}
 
     /**
      * Add creation date from EXIF
@@ -356,82 +286,5 @@ class InformationObjectMultiFileUploadAction extends sfAction
         } catch (Exception $e) {
             error_log("Failed to add EXIF creator from multi-file upload: " . $e->getMessage());
         }
-    }
-
-    /**
-     * Add all EXIF data to physical characteristics
-     */
-    private function addAllExifData($allExifText, $informationObject)
-    {
-        try {
-            $currentPhysical = $informationObject->getPhysicalCharacteristics();
-            
-            // Remove any existing EXIF data first
-            if ($currentPhysical && strpos($currentPhysical, 'EXIF Technical Data:') !== false) {
-                $currentPhysical = preg_replace('/\n\nEXIF Technical Data:.*$/s', '', $currentPhysical);
-                error_log("EXIF: Removed existing EXIF data from multi-file upload");
-            }
-            
-            $newExifData = "\n\nEXIF Technical Data:\n" . $allExifText;
-            
-            $informationObject->setPhysicalCharacteristics(($currentPhysical ?: '') . $newExifData);
-            
-            error_log("EXIF: Successfully added comprehensive EXIF data from multi-file upload");
-            
-        } catch (Exception $e) {
-            error_log("EXIF: Error adding comprehensive EXIF data from multi-file upload: " . $e->getMessage());
-        }
-    }
-
-    /**
-     * Check if file is a supported image type for EXIF extraction
-     */
-    private function isSupportedImageType($filePath)
-    {
-        if (!file_exists($filePath)) {
-            return false;
-        }
-        
-        $imageType = @exif_imagetype($filePath);
-        $supportedTypes = [IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM];
-        
-        return in_array($imageType, $supportedTypes);
-    }
-
-    /**
-     * Convert GPS coordinate from EXIF format to decimal degrees
-     */
-    private function convertGpsCoordinate($coordinate, $hemisphere)
-    {
-        if (!is_array($coordinate) || count($coordinate) < 3) {
-            return null;
-        }
-
-        $degrees = count($coordinate) > 0 ? $this->evaluateFraction($coordinate[0]) : 0;
-        $minutes = count($coordinate) > 1 ? $this->evaluateFraction($coordinate[1]) : 0;
-        $seconds = count($coordinate) > 2 ? $this->evaluateFraction($coordinate[2]) : 0;
-
-        $flip = ($hemisphere == 'W' || $hemisphere == 'S') ? -1 : 1;
-        
-        $decimal = $flip * ($degrees + $minutes / 60 + $seconds / 3600);
-        
-        return round($decimal, 6);
-    }
-
-    /**
-     * Evaluate fraction strings from EXIF data
-     */
-    private function evaluateFraction($fraction)
-    {
-        if (is_numeric($fraction)) {
-            return (float)$fraction;
-        }
-
-        $parts = explode('/', (string)$fraction);
-        if (count($parts) == 2 && $parts[1] != 0) {
-            return $parts[0] / $parts[1];
-        }
-
-        return (float)$fraction;
     }
 }
