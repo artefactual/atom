@@ -237,7 +237,7 @@ class arEmbeddedMetadataParser
         $clean = rtrim((string) $clean);
 
         $io->physicalCharacteristics = $clean
-            ? $clean . '\n\n' . $summary
+            ? $clean . "\n\n" . $summary
             : $summary;
         $io->save();
     }

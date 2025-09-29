@@ -245,7 +245,7 @@ class ObjectAddDigitalObjectAction extends sfAction
                         ) {
                             $existing = (string) $io->physicalCharacteristics;
                             $io->physicalCharacteristics = $existing
-                                ? $existing . '\n\n' . $summary
+                                ? $existing . "\n\n" . $summary
                                 : $summary;
                             $io->save();
                         }
@@ -1235,7 +1235,7 @@ class ObjectAddDigitalObjectAction extends sfAction
             if (!empty($metadataSections)) {
                 $newMetadata =
                     '\n\nTechnical Metadata:\n\n' .
-                    implode('\n\n', $metadataSections);
+                    implode("\n\n", $metadataSections);
 
                 // Fix encoding issues with special characters
                 $cleanedMetadata = mb_convert_encoding(

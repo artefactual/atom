@@ -106,7 +106,7 @@ class InformationObjectMultiFileUploadAction extends sfAction
             // Save description
             $informationObject->save();
 
-            if (file_exists('{$tmpPath}/{$file['tmpName']}')) {
+            if (file_exists("{$tmpPath}/{$file['tmpName']}")) {
                 // Extract EXIF metadata before creating digital object
                 $exifData = $this->extractExifMetadata('{$tmpPath}/{$file['tmpName']}');
                 

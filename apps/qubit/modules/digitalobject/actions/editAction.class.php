@@ -285,7 +285,7 @@ class DigitalObjectEditAction extends sfAction
                             $existing =
                                 (string) $this->object->physicalCharacteristics;
                             $this->object->physicalCharacteristics = $existing
-                                ? $existing . '\n\n' . $summary
+                                ? $existing . "\n\n" . $summary
                                 : $summary;
                             $this->object->save();
                         }
