@@ -1356,4 +1356,22 @@ class ObjectAddDigitalObjectAction extends sfAction
             error_log("GPS DEBUG: Stack trace: " . $e->getTraceAsString());
         }
     }
+
+    protected function addFields($request)
+    {
+        // Single upload
+        if (0 < count($request->getFiles())) {
+            $this->form->setValidator('file', new sfValidatorFile());
+        }
+
+        $this->form->setWidget('file', new sfWidgetFormInputFile());
+
+        // URL
+        if (isset($request->url) && 'http://' != $request->url) {
+            $this->form->setValidator('url', new QubitValidatorUrl());
+        }
+
+        $this->form->setDefault('url', 'http://');
+        $this->form->setWidget('url', new sfWidgetFormInput());
+    }
 }
