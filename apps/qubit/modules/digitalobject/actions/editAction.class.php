@@ -42,8 +42,8 @@ class DigitalObjectEditAction extends sfAction
 
         // Check user authorization
         if (
-            !QubitAcl::check($this->object, 'update') &&
-            !$this->getUser()->hasGroup(QubitAcl::EDITOR_ID)
+            !QubitAcl::check($this->object, 'update')
+            && !$this->getUser()->hasGroup(QubitAcl::EDITOR_ID)
         ) {
             QubitAcl::forwardUnauthorized();
         }
@@ -123,7 +123,7 @@ class DigitalObjectEditAction extends sfAction
         foreach ($this->representations as $usageId => $representation) {
             if (
                 null !==
-                ($uploadedFile = $this->form->getValue('repFile_{$usageId}'))
+                ($uploadedFile = $this->form->getValue("repFile_{$usageId}"))
             ) {
                 $uploadedFiles[$usageId] = $uploadedFile;
             }
@@ -179,9 +179,9 @@ class DigitalObjectEditAction extends sfAction
 
             // Apply EXIF metadata to the information object (only for reference images)
             if (
-                QubitTerm::REFERENCE_ID == $usageId &&
-                $exifData &&
-                $this->object instanceof QubitInformationObject
+                QubitTerm::REFERENCE_ID == $usageId
+                && $exifData
+                && $this->object instanceof QubitInformationObject
             ) {
                 $this->applyExifToInformationObject($exifData);
             }
@@ -192,9 +192,9 @@ class DigitalObjectEditAction extends sfAction
         foreach ($this->videoTracks as $usageId => $videoTrack) {
             if (
                 null !==
-                ($uploadedTrack = $this->form->getValue('trackFile_{$usageId}'))
+                ($uploadedTrack = $this->form->getValue("trackFile_{$usageId}"))
             ) {
-                $lang = $this->form->getValue('lang_{$usageId}');
+                $lang = $this->form->getValue("lang_{$usageId}");
                 $uploadedTracks[$usageId] = [
                     'track' => $uploadedTrack,
                     'language' => $lang,
@@ -222,7 +222,7 @@ class DigitalObjectEditAction extends sfAction
         if (
             null !=
             $this->form->getValue(
-                'generateDerivative_' . QubitTerm::REFERENCE_ID
+                'generateDerivative_'.QubitTerm::REFERENCE_ID
             )
         ) {
             $this->resource->createReferenceImage();
@@ -232,7 +232,7 @@ class DigitalObjectEditAction extends sfAction
         if (
             null !=
             $this->form->getValue(
-                'generateDerivative_' . QubitTerm::THUMBNAIL_ID
+                'generateDerivative_'.QubitTerm::THUMBNAIL_ID
             )
         ) {
             $this->resource->createThumbnail();
@@ -259,218 +259,6 @@ class DigitalObjectEditAction extends sfAction
         }
     }
 
-    private function appendEmbeddedTechMetadata($digitalObject)
-    {
-        try {
-            if (
-                class_exists('arEmbeddedMetadataParser', /*autoload*/ true) &&
-                isset($digitalObject) &&
-                $digitalObject instanceof QubitDigitalObject
-            ) {
-                $absPath = method_exists($digitalObject, 'getAbsolutePath')
-                    ? $digitalObject->getAbsolutePath()
-                    : (string) $digitalObject->getPath();
-
-                if ($absPath && is_readable($absPath)) {
-                    $meta = arEmbeddedMetadataParser::extract($absPath);
-                    if (is_array($meta)) {
-                        $summary = arEmbeddedMetadataParser::formatSummary(
-                            $meta
-                        );
-
-                        if (
-                            $this->object instanceof QubitInformationObject &&
-                            $summary !== ''
-                        ) {
-                            $existing =
-                                (string) $this->object->physicalCharacteristics;
-                            $this->object->physicalCharacteristics = $existing
-                                ? $existing . "\n\n" . $summary
-                                : $summary;
-                            $this->object->save();
-                        }
-                    }
-                }
-            }
-        } catch (Throwable $e) {
-            // swallow everything
-        }
-    }
-
-    /**
-     * Extract EXIF metadata from uploaded image file
-     */
-    private function extractExifMetadata($filePath)
-    {
-        // Check if EXIF extension is loaded
-        if (!extension_loaded('exif')) {
-            return null;
-        }
-
-        // Use the helper class
-        $meta = arEmbeddedMetadataParser::extract($filePath);
-
-        if (!$meta) {
-            return null;
-        }
-
-        // Extract specific fields for backward compatibility
-        $extractedData = [
-            'all_exif' => arEmbeddedMetadataParser::formatSummary($meta),
-        ];
-
-        // Get normalized data
-        $norm = $meta['_norm'] ?? [];
-
-        if (isset($norm['createDate'])) {
-            $extractedData['date_taken'] = $norm['createDate'];
-        }
-
-        if (isset($norm['creator'])) {
-            $extractedData['artist'] = $norm['creator'];
-        }
-
-        return $extractedData;
-    }
-
-    /**
-     * Apply EXIF metadata to the information object
-     */
-    private function applyExifToInformationObject($exifData)
-    {
-        if (!$exifData || !($this->object instanceof QubitInformationObject)) {
-            return;
-        }
-
-        // Handle creation date
-        if (isset($exifData['date_taken'])) {
-            $this->addCreationDate($exifData['date_taken']);
-        }
-
-        // Handle creator/artist
-        if (isset($exifData['artist'])) {
-            $this->addCreator($exifData['artist']);
-        }
-
-        // Add ALL EXIF data to physical characteristics
-        if (isset($exifData['all_exif'])) {
-            $this->addAllExifData($exifData['all_exif']);
-        }
-
-        // Save the information object
-        $this->object->save();
-    }
-
-    /**
-     * Add creation date from EXIF
-     */
-    private function addCreationDate($dateString)
-    {
-        try {
-            $date = DateTime::createFromFormat('Y:m:d H:i:s', $dateString);
-            if ($date) {
-                // Check if creation date already exists - use correct constant
-                $criteria = new Criteria();
-                $criteria->add(QubitEvent::OBJECT_ID, $this->object->id); // Changed from INFORMATION_OBJECT_ID
-                $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
-
-                $existingEvent = QubitEvent::getOne($criteria);
-
-                if (!$existingEvent) {
-                    $event = new QubitEvent();
-                    $event->setObjectId($this->object->id); // Changed from setInformationObjectId
-                    $event->setTypeId(QubitTerm::CREATION_ID);
-                    $event->setDate($date->format('Y-m-d'));
-                    $event->save();
-
-                    error_log(
-                        'EXIF: Added creation date: ' . $date->format('Y-m-d')
-                    );
-                } else {
-                    error_log('EXIF: Creation date already exists, skipping');
-                }
-            }
-        } catch (Exception $e) {
-            error_log('Failed to parse EXIF date: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Add creator from EXIF artist field
-     */
-    private function addCreator($artistName)
-    {
-        try {
-            // Check if creator already exists
-            $criteria = new Criteria();
-            $criteria->add(QubitActor::AUTHORIZED_FORM_OF_NAME, $artistName);
-            $actor = QubitActor::getOne($criteria);
-
-            if (!$actor) {
-                $actor = new QubitActor();
-                $actor->setAuthorizedFormOfName($artistName);
-                $actor->setEntityTypeId(QubitTerm::PERSON_ID);
-                $actor->save();
-            }
-
-            // Check if relationship already exists
-            $criteria = new Criteria();
-            $criteria->add(QubitRelation::SUBJECT_ID, $actor->id);
-            $criteria->add(QubitRelation::OBJECT_ID, $this->object->id);
-            $criteria->add(QubitRelation::TYPE_ID, QubitTerm::CREATION_ID);
-
-            $existingRelation = QubitRelation::getOne($criteria);
-
-            if (!$existingRelation) {
-                $relation = new QubitRelation();
-                $relation->setSubjectId($actor->id);
-                $relation->setObjectId($this->object->id);
-                $relation->setTypeId(QubitTerm::CREATION_ID);
-                $relation->save();
-            }
-        } catch (Exception $e) {
-            error_log('Failed to add EXIF creator: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Add all EXIF data to physical characteristics
-     */
-    private function addAllExifData($allExifText)
-    {
-        try {
-            $currentPhysical = $this->object->getPhysicalCharacteristics();
-
-            // Remove any existing EXIF data first
-            if (
-                $currentPhysical &&
-                strpos($currentPhysical, 'EXIF Technical Data:') !== false
-            ) {
-                // Remove everything from 'EXIF Technical Data:' to the end or next section
-                $currentPhysical = preg_replace(
-                    '/\n\nEXIF Technical Data:.*$/s',
-                    '',
-                    $currentPhysical
-                );
-                error_log('EXIF: Removed existing EXIF data');
-            }
-
-            $newExifData = '\n\nEXIF Technical Data:\n' . $allExifText;
-
-            $this->object->setPhysicalCharacteristics(
-                ($currentPhysical ?: '') . $newExifData
-            );
-            $this->object->save(); // Force save immediately
-
-            error_log('EXIF: Successfully added comprehensive EXIF data');
-        } catch (Exception $e) {
-            error_log(
-                'EXIF: Error adding comprehensive EXIF data: ' .
-                    $e->getMessage()
-            );
-        }
-    }
-
     protected function addFormFields()
     {
         // Media type field
@@ -493,7 +281,7 @@ class DigitalObjectEditAction extends sfAction
         );
         $this->form->setDefault('mediaType', $this->resource->mediaTypeId);
 
-        // Only display 'compound digital object' toggle if we have a child with a
+        // Only display "compound digital object" toggle if we have a child with a
         // digital object
         $this->showCompoundObjectToggle = false;
         if ($this->object instanceof QubitInformationObject) {
@@ -521,7 +309,7 @@ class DigitalObjectEditAction extends sfAction
                 ])
             );
 
-            // Set 'displayAsCompound' value from QubitProperty
+            // Set "displayAsCompound" value from QubitProperty
             $criteria = new Criteria();
             $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
             $criteria->add(QubitProperty::NAME, 'displayAsCompound');
@@ -561,8 +349,8 @@ class DigitalObjectEditAction extends sfAction
         // If reference representation doesn't exist, include upload widget
         foreach ($this->representations as $usageId => $representation) {
             if (null === $representation) {
-                $repName = 'repFile_{$usageId}';
-                $derName = 'generateDerivative_{$usageId}';
+                $repName = "repFile_{$usageId}";
+                $derName = "generateDerivative_{$usageId}";
 
                 $this->form->setValidator($repName, new sfValidatorFile());
                 $this->form->setWidget($repName, new sfWidgetFormInputFile());
@@ -579,7 +367,7 @@ class DigitalObjectEditAction extends sfAction
                     $this->form->getWidgetSchema()->{$repName}->setHelp('');
                 }
 
-                // Add 'auto-generate' checkbox
+                // Add "auto-generate" checkbox
                 $this->form->setValidator($derName, new sfValidatorBoolean());
                 $this->form->setWidget(
                     $derName,
@@ -593,7 +381,7 @@ class DigitalObjectEditAction extends sfAction
         foreach ($this->videoTracks as $usageId => $videoTrack) {
             if (QubitTerm::SUBTITLES_ID != $usageId) {
                 if (null === $videoTrack) {
-                    $trackName = 'trackFile_{$usageId}';
+                    $trackName = "trackFile_{$usageId}";
 
                     $this->form->setValidator(
                         $trackName,
@@ -627,8 +415,8 @@ class DigitalObjectEditAction extends sfAction
                     }
                 }
             } else {
-                $trackName = 'trackFile_{$usageId}';
-                $langName = 'lang_{$usageId}';
+                $trackName = "trackFile_{$usageId}";
+                $langName = "lang_{$usageId}";
 
                 $this->form->setValidator(
                     $trackName,
@@ -684,6 +472,228 @@ class DigitalObjectEditAction extends sfAction
                     $fieldProperty->value
                 );
             }
+        }
+    }
+
+    private function appendEmbeddedTechMetadata($digitalObject)
+    {
+        try {
+            if (
+                class_exists('arEmbeddedMetadataParser', /* autoload */ true)
+                && isset($digitalObject)
+                && $digitalObject instanceof QubitDigitalObject
+            ) {
+                $absPath = method_exists($digitalObject, 'getAbsolutePath')
+                    ? $digitalObject->getAbsolutePath()
+                    : (string) $digitalObject->getPath();
+
+                if ($absPath && is_readable($absPath)) {
+                    $meta = arEmbeddedMetadataParser::extract($absPath);
+                    if (is_array($meta)) {
+                        $summary = arEmbeddedMetadataParser::formatSummary(
+                            $meta
+                        );
+
+                        if (
+                            $this->object instanceof QubitInformationObject
+                            && '' !== $summary
+                        ) {
+                            $existing =
+                                (string) $this->object->physicalCharacteristics;
+                            $this->object->physicalCharacteristics = $existing
+                                ? $existing."\n\n".$summary
+                                : $summary;
+                            $this->object->save();
+                        }
+                    }
+                }
+            }
+        } catch (Throwable $e) {
+            // swallow everything
+        }
+    }
+
+    /**
+     * Extract EXIF metadata from uploaded image file.
+     *
+     * @param mixed $filePath
+     */
+    private function extractExifMetadata($filePath)
+    {
+        // Check if EXIF extension is loaded
+        if (!extension_loaded('exif')) {
+            return null;
+        }
+
+        // Use the helper class
+        $meta = arEmbeddedMetadataParser::extract($filePath);
+
+        if (!$meta) {
+            return null;
+        }
+
+        // Extract specific fields for backward compatibility
+        $extractedData = [
+            'all_exif' => arEmbeddedMetadataParser::formatSummary($meta),
+        ];
+
+        // Get normalized data
+        $norm = $meta['_norm'] ?? [];
+
+        if (isset($norm['createDate'])) {
+            $extractedData['date_taken'] = $norm['createDate'];
+        }
+
+        if (isset($norm['creator'])) {
+            $extractedData['artist'] = $norm['creator'];
+        }
+
+        return $extractedData;
+    }
+
+    /**
+     * Apply EXIF metadata to the information object.
+     *
+     * @param mixed $exifData
+     */
+    private function applyExifToInformationObject($exifData)
+    {
+        if (!$exifData || !($this->object instanceof QubitInformationObject)) {
+            return;
+        }
+
+        // Handle creation date
+        if (isset($exifData['date_taken'])) {
+            $this->addCreationDate($exifData['date_taken']);
+        }
+
+        // Handle creator/artist
+        if (isset($exifData['artist'])) {
+            $this->addCreator($exifData['artist']);
+        }
+
+        // Add ALL EXIF data to physical characteristics
+        if (isset($exifData['all_exif'])) {
+            $this->addAllExifData($exifData['all_exif']);
+        }
+
+        // Save the information object
+        $this->object->save();
+    }
+
+    /**
+     * Add creation date from EXIF.
+     *
+     * @param mixed $dateString
+     */
+    private function addCreationDate($dateString)
+    {
+        try {
+            $date = DateTime::createFromFormat('Y:m:d H:i:s', $dateString);
+            if ($date) {
+                // Check if creation date already exists - use correct constant
+                $criteria = new Criteria();
+                $criteria->add(QubitEvent::OBJECT_ID, $this->object->id); // Changed from INFORMATION_OBJECT_ID
+                $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
+
+                $existingEvent = QubitEvent::getOne($criteria);
+
+                if (!$existingEvent) {
+                    $event = new QubitEvent();
+                    $event->setObjectId($this->object->id); // Changed from setInformationObjectId
+                    $event->setTypeId(QubitTerm::CREATION_ID);
+                    $event->setDate($date->format('Y-m-d'));
+                    $event->save();
+
+                    error_log(
+                        'EXIF: Added creation date: '.$date->format('Y-m-d')
+                    );
+                } else {
+                    error_log('EXIF: Creation date already exists, skipping');
+                }
+            }
+        } catch (Exception $e) {
+            error_log('Failed to parse EXIF date: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Add creator from EXIF artist field.
+     *
+     * @param mixed $artistName
+     */
+    private function addCreator($artistName)
+    {
+        try {
+            // Check if creator already exists
+            $criteria = new Criteria();
+            $criteria->add(QubitActor::AUTHORIZED_FORM_OF_NAME, $artistName);
+            $actor = QubitActor::getOne($criteria);
+
+            if (!$actor) {
+                $actor = new QubitActor();
+                $actor->setAuthorizedFormOfName($artistName);
+                $actor->setEntityTypeId(QubitTerm::PERSON_ID);
+                $actor->save();
+            }
+
+            // Check if relationship already exists
+            $criteria = new Criteria();
+            $criteria->add(QubitRelation::SUBJECT_ID, $actor->id);
+            $criteria->add(QubitRelation::OBJECT_ID, $this->object->id);
+            $criteria->add(QubitRelation::TYPE_ID, QubitTerm::CREATION_ID);
+
+            $existingRelation = QubitRelation::getOne($criteria);
+
+            if (!$existingRelation) {
+                $relation = new QubitRelation();
+                $relation->setSubjectId($actor->id);
+                $relation->setObjectId($this->object->id);
+                $relation->setTypeId(QubitTerm::CREATION_ID);
+                $relation->save();
+            }
+        } catch (Exception $e) {
+            error_log('Failed to add EXIF creator: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Add all EXIF data to physical characteristics.
+     *
+     * @param mixed $allExifText
+     */
+    private function addAllExifData($allExifText)
+    {
+        try {
+            $currentPhysical = $this->object->getPhysicalCharacteristics();
+
+            // Remove any existing EXIF data first
+            if (
+                $currentPhysical
+                && false !== strpos($currentPhysical, 'EXIF Technical Data:')
+            ) {
+                // Remove everything from "EXIF Technical Data:" to the end or next section
+                $currentPhysical = preg_replace(
+                    '/\n\nEXIF Technical Data:.*$/s',
+                    '',
+                    $currentPhysical
+                );
+                error_log('EXIF: Removed existing EXIF data');
+            }
+
+            $newExifData = "\n\nEXIF Technical Data:\n".$allExifText;
+
+            $this->object->setPhysicalCharacteristics(
+                ($currentPhysical ?: '').$newExifData
+            );
+            $this->object->save(); // Force save immediately
+
+            error_log('EXIF: Successfully added comprehensive EXIF data');
+        } catch (Exception $e) {
+            error_log(
+                'EXIF: Error adding comprehensive EXIF data: '.
+                    $e->getMessage()
+            );
         }
     }
 }

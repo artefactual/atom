@@ -57,9 +57,9 @@ class DigitalObjectUploadAction extends sfAction
 
         foreach ($_FILES as $file) {
             if (
-                null != $repo &&
-                0 <= $uploadLimit &&
-                $uploadLimit < $diskUsage + $file['size']
+                null != $repo
+                && 0 <= $uploadLimit
+                && $uploadLimit < $diskUsage + $file['size']
             ) {
                 $uploadFiles = [
                     'error' => $this->context->i18n->__(
@@ -120,7 +120,9 @@ class DigitalObjectUploadAction extends sfAction
     }
 
     /**
-     * Extract EXIF metadata from uploaded image file
+     * Extract EXIF metadata from uploaded image file.
+     *
+     * @param mixed $filePath
      */
     private function extractExifMetadata($filePath)
     {

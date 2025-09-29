@@ -1,8 +1,9 @@
 <?php
+
 /**
  * arEmbeddedMetadataParser — EXIF/XMP/IPTC extractor for AtoM 2.9 (PHP 8.3)
  * - Prefers exiftool, falls back to basic image props
- * - Returns structured array + pretty summary for Physical characteristics
+ * - Returns structured array + pretty summary for Physical characteristics.
  */
 class arEmbeddedMetadataParser
 {
@@ -43,6 +44,7 @@ class arEmbeddedMetadataParser
         }
 
         $meta['_norm'] = self::normalize($meta);
+
         return $meta;
     }
 
@@ -56,45 +58,45 @@ class arEmbeddedMetadataParser
         $lines[] = 'Technical Metadata:';
         $lines[] = '';
         if (!empty($n['dimensions'])) {
-            $lines[] = 'Image Size: ' . $n['dimensions'];
+            $lines[] = 'Image Size: '.$n['dimensions'];
         }
         if (!empty($n['dpi'])) {
-            $lines[] = 'Resolution (DPI): ' . $n['dpi'];
+            $lines[] = 'Resolution (DPI): '.$n['dpi'];
         }
         if (!empty($n['bitDepth'])) {
-            $lines[] = 'Bit Depth: ' . $n['bitDepth'];
+            $lines[] = 'Bit Depth: '.$n['bitDepth'];
         }
         if (!empty($n['compression'])) {
-            $lines[] = 'Compression: ' . $n['compression'];
+            $lines[] = 'Compression: '.$n['compression'];
         }
         if (!empty($n['colorModel'])) {
-            $lines[] = 'Color Model: ' . $n['colorModel'];
+            $lines[] = 'Color Model: '.$n['colorModel'];
         }
         if (!empty($meta['FileSize'])) {
-            $lines[] = 'File Size: ' . self::fmtBytes($meta['FileSize']);
+            $lines[] = 'File Size: '.self::fmtBytes($meta['FileSize']);
         }
         if (!empty($meta['MIMEType'])) {
-            $lines[] = 'MIME Type: ' . $meta['MIMEType'];
+            $lines[] = 'MIME Type: '.$meta['MIMEType'];
         }
 
         $desc = [];
         if (!empty($n['title'])) {
-            $desc[] = 'Title: ' . $n['title'];
+            $desc[] = 'Title: '.$n['title'];
         }
         if (!empty($n['creator'])) {
-            $desc[] = 'Creator: ' . $n['creator'];
+            $desc[] = 'Creator: '.$n['creator'];
         }
         if (!empty($n['description'])) {
-            $desc[] = 'Description: ' . $n['description'];
+            $desc[] = 'Description: '.$n['description'];
         }
         if (!empty($n['createDate'])) {
-            $desc[] = 'Created: ' . $n['createDate'];
+            $desc[] = 'Created: '.$n['createDate'];
         }
         if (!empty($n['software'])) {
-            $desc[] = 'Software: ' . $n['software'];
+            $desc[] = 'Software: '.$n['software'];
         }
         if (!empty($n['rights'])) {
-            $desc[] = 'Rights: ' . $n['rights'];
+            $desc[] = 'Rights: '.$n['rights'];
         }
 
         if ($desc) {
@@ -104,15 +106,36 @@ class arEmbeddedMetadataParser
                 $lines[] = $d;
             }
         }
-        return trim(implode('\n', $lines));
+
+        return trim(implode("\n", $lines));
+    }
+
+    public static function applySummaryToInformationObject(
+        QubitInformationObject $io,
+        string $summary
+    ): void {
+        if ('' === $summary) {
+            return;
+        }
+        $existing = (string) $io->physicalCharacteristics;
+
+        // Remove any previous "Technical Metadata:" block (replace on re-upload/edit)
+        $clean = preg_replace('/\n?Technical Metadata:.*\z/s', '', $existing);
+        $clean = rtrim((string) $clean);
+
+        $io->physicalCharacteristics = $clean
+            ? $clean."\n\n".$summary
+            : $summary;
+        $io->save();
     }
 
     private static function which(string $bin): ?string
     {
         $out = @shell_exec(
-            'command -v ' . escapeshellarg($bin) . ' 2>/dev/null'
+            'command -v '.escapeshellarg($bin).' 2>/dev/null'
         );
         $path = is_string($out) ? trim($out) : '';
+
         return $path && is_executable($path) ? $path : null;
     }
 
@@ -125,8 +148,9 @@ class arEmbeddedMetadataParser
         $i = 0;
         while ($b >= 1024 && $i < count($u) - 1) {
             $b /= 1024;
-            $i++;
+            ++$i;
         }
+
         return sprintf('%.1f %s', $b, $u[$i]);
     }
 
@@ -136,13 +160,13 @@ class arEmbeddedMetadataParser
         $w = $m['ImageWidth'] ?? ($m['ExifImageWidth'] ?? null);
         $h = $m['ImageHeight'] ?? ($m['ExifImageHeight'] ?? null);
         if ($w && $h) {
-            $n['dimensions'] = '$w x $h pixels';
+            $n['dimensions'] = "{$w} x {$h} pixels";
         }
 
         $xdpi = $m['XResolution'] ?? ($m['XResolutionDPI'] ?? null);
         $ydpi = $m['YResolution'] ?? ($m['YResolutionDPI'] ?? null);
         if ($xdpi && $ydpi) {
-            $n['dpi'] = '$xdpi x $ydpi';
+            $n['dpi'] = "{$xdpi} x {$ydpi}";
         } elseif ($xdpi) {
             $n['dpi'] = (string) $xdpi;
         }
@@ -176,18 +200,20 @@ class arEmbeddedMetadataParser
             $m['Copyright'] ?? null,
         ]);
 
-        return array_filter($n, fn($v) => $v !== null && $v !== '');
+        return array_filter($n, fn ($v) => null !== $v && '' !== $v);
     }
 
     private static function firstNonEmpty(array $c): ?string
     {
         foreach ($c as $v) {
-            if (is_string($v) && trim($v) !== '') {
+            if (is_string($v) && '' !== trim($v)) {
                 return trim($v);
             }
         }
+
         return null;
     }
+
     private static function collapseLangAlt($v): ?string
     {
         if (is_string($v)) {
@@ -195,18 +221,20 @@ class arEmbeddedMetadataParser
         }
         if (is_array($v)) {
             foreach (['x-default', 'en', 'en-ZA', 'en-US'] as $k) {
-                if (isset($v[$k]) && is_string($v[$k]) && trim($v[$k]) !== '') {
+                if (isset($v[$k]) && is_string($v[$k]) && '' !== trim($v[$k])) {
                     return trim($v[$k]);
                 }
             }
             foreach ($v as $vv) {
-                if (is_string($vv) && trim($vv) !== '') {
+                if (is_string($vv) && '' !== trim($vv)) {
                     return trim($vv);
                 }
             }
         }
+
         return null;
     }
+
     private static function collapseArray($v): ?string
     {
         if (is_string($v)) {
@@ -214,31 +242,13 @@ class arEmbeddedMetadataParser
         }
         if (is_array($v)) {
             $flat = array_filter(
-                array_map(fn($x) => is_string($x) ? trim($x) : '', $v)
+                array_map(fn ($x) => is_string($x) ? trim($x) : '', $v)
             );
             if ($flat) {
                 return implode(', ', $flat);
             }
         }
+
         return null;
-    }
-
-    public static function applySummaryToInformationObject(
-        QubitInformationObject $io,
-        string $summary
-    ): void {
-        if ($summary === '') {
-            return;
-        }
-        $existing = (string) $io->physicalCharacteristics;
-
-        // Remove any previous 'Technical Metadata:' block (replace on re-upload/edit)
-        $clean = preg_replace('/\n?Technical Metadata:.*\z/s', '', $existing);
-        $clean = rtrim((string) $clean);
-
-        $io->physicalCharacteristics = $clean
-            ? $clean . "\n\n" . $summary
-            : $summary;
-        $io->save();
     }
 }

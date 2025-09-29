@@ -45,8 +45,8 @@ class InformationObjectMultiFileUploadAction extends sfAction
         $this->maxPostSize = QubitDigitalObject::getMaxPostSize();
 
         // Paths for uploader javascript
-        $this->uploadResponsePath = '{$this->context->routing->generate(null, ['module' => 'digitalobject', 'action' => 'upload'])}?'.http_build_query([session_name() => session_id()]);
-        $this->uploadTmpDir = '{$this->request->getRelativeUrlRoot()}/uploads/tmp';
+        $this->uploadResponsePath = "{$this->context->routing->generate(null, ['module' => 'digitalobject', 'action' => 'upload'])}?".http_build_query([session_name() => session_id()]);
+        $this->uploadTmpDir = "{$this->request->getRelativeUrlRoot()}/uploads/tmp";
 
         // Build form
         $this->form->setValidator('files', new QubitValidatorCountable(['required' => true]));
@@ -108,16 +108,16 @@ class InformationObjectMultiFileUploadAction extends sfAction
 
             if (file_exists("{$tmpPath}/{$file['tmpName']}")) {
                 // Extract EXIF metadata before creating digital object
-                $exifData = $this->extractExifMetadata('{$tmpPath}/{$file['tmpName']}');
-                
+                $exifData = $this->extractExifMetadata("{$tmpPath}/{$file['tmpName']}");
+
                 // Upload asset and create digital object
                 $digitalObject = new QubitDigitalObject();
                 $digitalObject->object = $informationObject;
                 $digitalObject->usageId = QubitTerm::MASTER_ID;
-                $digitalObject->assets[] = new QubitAsset($file['name'], file_get_contents('{$tmpPath}/{$file['tmpName']}'));
+                $digitalObject->assets[] = new QubitAsset($file['name'], file_get_contents("{$tmpPath}/{$file['tmpName']}"));
 
                 $digitalObject->save();
-                
+
                 // Apply EXIF metadata to information object
                 if ($exifData) {
                     $this->applyExifToInformationObject($exifData, $informationObject);
@@ -127,8 +127,8 @@ class InformationObjectMultiFileUploadAction extends sfAction
             $informationObjectSlugList[] = $informationObject->slug;
 
             // Clean up temp files
-            if (file_exists('{$tmpPath}/{$file['tmpName']}')) {
-                unlink('{$tmpPath}/{$file['tmpName']}');
+            if (file_exists("{$tmpPath}/{$file['tmpName']}")) {
+                unlink("{$tmpPath}/{$file['tmpName']}");
             }
         }
 
@@ -143,33 +143,37 @@ private function extractExifMetadata($filePath)
 
     // Use the helper class
     $meta = arEmbeddedMetadataParser::extract($filePath);
-    
+
     if (!$meta) {
         return null;
     }
 
     // Extract specific fields for backward compatibility
     $extractedData = [
-        'all_exif' => arEmbeddedMetadataParser::formatSummary($meta)
+        'all_exif' => arEmbeddedMetadataParser::formatSummary($meta),
     ];
 
     // Get normalized data
     $norm = $meta['_norm'] ?? [];
-    
+
     if (isset($norm['createDate'])) {
         $extractedData['date_taken'] = $norm['createDate'];
     }
-    
+
     if (isset($norm['creator'])) {
         $extractedData['artist'] = $norm['creator'];
     }
 
-    error_log('EXIF: Extracted data from multi-file upload: ' . json_encode(array_keys($extractedData)));
+    error_log('EXIF: Extracted data from multi-file upload: '.json_encode(array_keys($extractedData)));
+
     return $extractedData;
 }
 
     /**
-     * Apply EXIF metadata to the information object
+     * Apply EXIF metadata to the information object.
+     *
+     * @param mixed $exifData
+     * @param mixed $informationObject
      */
     private function applyExifToInformationObject($exifData, $informationObject)
     {
@@ -200,26 +204,28 @@ private function addAllExifData($allExifText, $informationObject)
 {
     try {
         $currentPhysical = $informationObject->getPhysicalCharacteristics();
-        
+
         // Remove any existing EXIF data first
-        if ($currentPhysical && strpos($currentPhysical, 'Technical Metadata:') !== false) {
+        if ($currentPhysical && false !== strpos($currentPhysical, 'Technical Metadata:')) {
             $currentPhysical = preg_replace('/\n\nTechnical Metadata:.*$/s', '', $currentPhysical);
             error_log('EXIF: Removed existing EXIF data from multi-file upload');
         }
-        
-        $newExifData = '\n\nTechnical Metadata:\n' . $allExifText;
-        
-        $informationObject->setPhysicalCharacteristics(($currentPhysical ?: '') . $newExifData);
-        
+
+        $newExifData = "\n\nTechnical Metadata:\n".$allExifText;
+
+        $informationObject->setPhysicalCharacteristics(($currentPhysical ?: '').$newExifData);
+
         error_log('EXIF: Successfully added comprehensive EXIF data from multi-file upload');
-        
     } catch (Exception $e) {
-        error_log('EXIF: Error adding comprehensive EXIF data from multi-file upload: ' . $e->getMessage());
+        error_log('EXIF: Error adding comprehensive EXIF data from multi-file upload: '.$e->getMessage());
     }
 }
 
     /**
-     * Add creation date from EXIF
+     * Add creation date from EXIF.
+     *
+     * @param mixed $dateString
+     * @param mixed $informationObject
      */
     private function addCreationDate($dateString, $informationObject)
     {
@@ -230,26 +236,29 @@ private function addAllExifData($allExifText, $informationObject)
                 $criteria = new Criteria();
                 $criteria->add(QubitEvent::OBJECT_ID, $informationObject->id);
                 $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
-                
+
                 $existingEvent = QubitEvent::getOne($criteria);
-                
+
                 if (!$existingEvent) {
                     $event = new QubitEvent();
                     $event->setObjectId($informationObject->id);
                     $event->setTypeId(QubitTerm::CREATION_ID);
                     $event->setDate($date->format('Y-m-d'));
                     $event->save();
-                    
-                    error_log('EXIF: Added creation date from multi-file upload: ' . $date->format('Y-m-d'));
+
+                    error_log('EXIF: Added creation date from multi-file upload: '.$date->format('Y-m-d'));
                 }
             }
         } catch (Exception $e) {
-            error_log('Failed to parse EXIF date from multi-file upload: ' . $e->getMessage());
+            error_log('Failed to parse EXIF date from multi-file upload: '.$e->getMessage());
         }
     }
 
     /**
-     * Add creator from EXIF artist field
+     * Add creator from EXIF artist field.
+     *
+     * @param mixed $artistName
+     * @param mixed $informationObject
      */
     private function addCreator($artistName, $informationObject)
     {
@@ -271,20 +280,20 @@ private function addAllExifData($allExifText, $informationObject)
             $criteria->add(QubitRelation::SUBJECT_ID, $actor->id);
             $criteria->add(QubitRelation::OBJECT_ID, $informationObject->id);
             $criteria->add(QubitRelation::TYPE_ID, QubitTerm::CREATION_ID);
-            
+
             $existingRelation = QubitRelation::getOne($criteria);
-            
+
             if (!$existingRelation) {
                 $relation = new QubitRelation();
                 $relation->setSubjectId($actor->id);
                 $relation->setObjectId($informationObject->id);
                 $relation->setTypeId(QubitTerm::CREATION_ID);
                 $relation->save();
-                
-                error_log('EXIF: Added creator from multi-file upload: ' . $artistName);
+
+                error_log('EXIF: Added creator from multi-file upload: '.$artistName);
             }
         } catch (Exception $e) {
-            error_log('Failed to add EXIF creator from multi-file upload: ' . $e->getMessage());
+            error_log('Failed to add EXIF creator from multi-file upload: '.$e->getMessage());
         }
     }
 }
