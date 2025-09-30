@@ -48,67 +48,102 @@ class arEmbeddedMetadataParser
         return $meta;
     }
 
-    public static function formatSummary(array $meta): string
-    {
-        $n =
-            isset($meta['_norm']) && is_array($meta['_norm'])
-                ? $meta['_norm']
-                : [];
-        $lines = [];
-        $lines[] = 'Technical Metadata:';
-        $lines[] = '';
-        if (!empty($n['dimensions'])) {
-            $lines[] = 'Image Size: '.$n['dimensions'];
-        }
-        if (!empty($n['dpi'])) {
-            $lines[] = 'Resolution (DPI): '.$n['dpi'];
-        }
-        if (!empty($n['bitDepth'])) {
-            $lines[] = 'Bit Depth: '.$n['bitDepth'];
-        }
-        if (!empty($n['compression'])) {
-            $lines[] = 'Compression: '.$n['compression'];
-        }
-        if (!empty($n['colorModel'])) {
-            $lines[] = 'Color Model: '.$n['colorModel'];
-        }
-        if (!empty($meta['FileSize'])) {
-            $lines[] = 'File Size: '.self::fmtBytes($meta['FileSize']);
-        }
-        if (!empty($meta['MIMEType'])) {
-            $lines[] = 'MIME Type: '.$meta['MIMEType'];
-        }
 
-        $desc = [];
-        if (!empty($n['title'])) {
-            $desc[] = 'Title: '.$n['title'];
-        }
-        if (!empty($n['creator'])) {
-            $desc[] = 'Creator: '.$n['creator'];
-        }
-        if (!empty($n['description'])) {
-            $desc[] = 'Description: '.$n['description'];
-        }
-        if (!empty($n['createDate'])) {
-            $desc[] = 'Created: '.$n['createDate'];
-        }
-        if (!empty($n['software'])) {
-            $desc[] = 'Software: '.$n['software'];
-        }
-        if (!empty($n['rights'])) {
-            $desc[] = 'Rights: '.$n['rights'];
-        }
-
-        if ($desc) {
-            $lines[] = '';
-            $lines[] = 'Embedded Metadata:';
-            foreach ($desc as $d) {
-                $lines[] = $d;
-            }
-        }
-
-        return trim(implode("\n", $lines));
+public static function formatSummary(array $meta): string
+{
+    // LOG THE RAW METADATA FIRST
+    error_log("=== RAW METADATA DUMP ===");
+    error_log(print_r($meta, true));
+    error_log("=== END RAW METADATA ===");
+    
+    $n = isset($meta['_norm']) && is_array($meta['_norm'])
+        ? $meta['_norm']
+        : [];
+    
+    $lines = [];
+    $lines[] = 'Technical Metadata:';
+    $lines[] = '';
+    
+    // Display normalized fields first
+    if (!empty($n['dimensions'])) {
+        $lines[] = 'Image Size: '.$n['dimensions'];
     }
+    if (!empty($n['dpi'])) {
+        $lines[] = 'Resolution (DPI): '.$n['dpi'];
+    }
+    if (!empty($n['bitDepth'])) {
+        $lines[] = 'Bit Depth: '.$n['bitDepth'];
+    }
+    if (!empty($n['compression'])) {
+        $lines[] = 'Compression: '.$n['compression'];
+    }
+    if (!empty($n['colorModel'])) {
+        $lines[] = 'Color Model: '.$n['colorModel'];
+    }
+    if (!empty($meta['FileSize'])) {
+        $lines[] = 'File Size: '.self::fmtBytes($meta['FileSize']);
+    }
+    if (!empty($meta['MIMEType'])) {
+        $lines[] = 'MIME Type: '.$meta['MIMEType'];
+    }
+
+    // Descriptive metadata
+    $desc = [];
+    if (!empty($n['title'])) {
+        $desc[] = 'Title: '.$n['title'];
+    }
+    if (!empty($n['creator'])) {
+        $desc[] = 'Creator: '.$n['creator'];
+    }
+    if (!empty($n['description'])) {
+        $desc[] = 'Description: '.$n['description'];
+    }
+    if (!empty($n['createDate'])) {
+        $desc[] = 'Created: '.$n['createDate'];
+    }
+    if (!empty($n['software'])) {
+        $desc[] = 'Software: '.$n['software'];
+    }
+    if (!empty($n['rights'])) {
+        $desc[] = 'Rights: '.$n['rights'];
+    }
+
+    if ($desc) {
+        $lines[] = '';
+        $lines[] = 'Embedded Metadata:';
+        foreach ($desc as $d) {
+            $lines[] = $d;
+        }
+    }
+
+    // DYNAMICALLY extract ALL remaining metadata
+    $lines[] = '';
+    $lines[] = 'Complete EXIF/XMP/IPTC Data:';
+    
+    $skipFields = ['_norm', 'SourceFile'];
+    $fieldCount = 0;
+
+    foreach ($meta as $key => $value) {
+        if (in_array($key, $skipFields)) {
+            continue;
+        }
+
+        if (is_array($value)) {
+            $value = json_encode($value);
+        } elseif (is_bool($value)) {
+            $value = $value ? 'Yes' : 'No';
+        } elseif (null === $value) {
+            continue;
+        }
+
+        $label = str_replace(['_', '-'], ' ', $key);
+        $lines[] = $label.': '.$value;
+        ++$fieldCount;
+    }
+  
+    return trim(implode("\n", $lines));
+
+}
 
     public static function applySummaryToInformationObject(
         QubitInformationObject $io,

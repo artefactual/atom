@@ -139,70 +139,23 @@ class ObjectAddDigitalObjectAction extends sfAction
 
             // Add digital object to resource
             $this->resource->digitalObjectsRelatedByobjectId[] = $digitalObject;
+			
+			// **SAVE THE PARENT RESOURCE FIRST** (this creates the relationship)
+			$this->resource->save();
 
-            // NOW check for GPS coordinates (after metadata is processed)
-            error_log(
-                'GPS DEBUG: processForm - checking for GPS coordinates after comprehensive metadata'
-            );
-            error_log(
-                'GPS DEBUG: processForm - has gpsLatitude: '.
-                    (isset($this->gpsLatitude)
-                        ? 'YES ('.$this->gpsLatitude.')'
-                        : 'NO')
-            );
-            error_log(
-                'GPS DEBUG: processForm - has gpsLongitude: '.
-                    (isset($this->gpsLongitude)
-                        ? 'YES ('.$this->gpsLongitude.')'
-                        : 'NO')
-            );
+			// **CRITICAL: SAVE THE DIGITAL OBJECT SO FILE EXISTS ON DISK**
+			$digitalObject->save();
+			
+            // Handle GPS coordinates
+			if (isset($this->gpsLatitude, $this->gpsLongitude)) {
+				$this->setGpsCoordinatesOnDigitalObject($digitalObject);
+			}
 
-            if (isset($this->gpsLatitude, $this->gpsLongitude)) {
-                try {
-                    error_log(
-                        'GPS DEBUG: processForm - about to save digital object'
-                    );
-                    $digitalObject->save(); // Ensure digital object has an ID
-                    error_log(
-                        'GPS DEBUG: processForm - digital object saved successfully, ID: '.
-                            $digitalObject->id
-                    );
+			// Extract and save technical metadata (file now exists on disk)
+			if ($digitalObject instanceof QubitDigitalObject) {
+				$this->appendEmbeddedTechMetadata($digitalObject);
+			}
 
-                    error_log(
-                        'GPS DEBUG: processForm - about to call setGpsCoordinatesOnDigitalObject'
-                    );
-                    $this->setGpsCoordinatesOnDigitalObject($digitalObject);
-                    error_log(
-                        'GPS DEBUG: processForm - setGpsCoordinatesOnDigitalObject completed'
-                    );
-                } catch (Exception $e) {
-                    error_log(
-                        'GPS DEBUG: processForm - EXCEPTION: '.
-                            $e->getMessage()
-                    );
-                    error_log(
-                        'GPS DEBUG: processForm - STACK TRACE: '.
-                            $e->getTraceAsString()
-                    );
-                }
-            } else {
-                error_log('GPS DEBUG: processForm - no GPS coordinates to set');
-            }
-
-            error_log('GPS DEBUG: processForm - GPS section completed');
-
-            // Exif The AHG
-            if (
-                isset($digitalObject)
-                && $digitalObject instanceof QubitDigitalObject
-            ) {
-                $this->appendEmbeddedTechMetadata($digitalObject);
-            } elseif (
-                isset($this->digitalObject)
-                && $this->digitalObject instanceof QubitDigitalObject
-            ) {
-                $this->appendEmbeddedTechMetadata($this->digitalObject);
-            }
         } elseif (null !== $this->form->getValue('url')) {
             // Catch errors trying to download remote resource
             try {
@@ -233,81 +186,53 @@ class ObjectAddDigitalObjectAction extends sfAction
         $this->form->setWidget('url', new sfWidgetFormInput());
     }
 
-    private function appendEmbeddedTechMetadata($digitalObject)
-    {
-        try {
-            if (
-                class_exists('arEmbeddedMetadataParser', /* autoload */ true)
-                && isset($digitalObject)
-                && $digitalObject instanceof QubitDigitalObject
-            ) {
-                $absPath = method_exists($digitalObject, 'getAbsolutePath')
-                    ? $digitalObject->getAbsolutePath()
-                    : (string) $digitalObject->getPath();
+	private function appendEmbeddedTechMetadata($digitalObject)
+	{
+		try {
+			if (
+				class_exists('arEmbeddedMetadataParser', /* autoload */ true)
+				&& isset($digitalObject)
+				&& $digitalObject instanceof QubitDigitalObject
+			) {
+				$absPath = method_exists($digitalObject, 'getAbsolutePath')
+					? $digitalObject->getAbsolutePath()
+					: (string) $digitalObject->getPath();
 
-                if ($absPath && is_readable($absPath)) {
-                    $meta = arEmbeddedMetadataParser::extract($absPath);
-                    if (is_array($meta)) {
-                        $summary = arEmbeddedMetadataParser::formatSummary(
-                            $meta
-                        );
-                        $io = isset($this->resource)
-                            ? $this->resource
-                            : (isset($this->informationObject)
-                                ? $this->informationObject
-                                : null);
-
-                        if (
-                            $io instanceof QubitInformationObject
-                            && '' !== $summary
-                        ) {
-                            $existing = (string) $io->physicalCharacteristics;
-                            $io->physicalCharacteristics = $existing
-                                ? $existing."\n\n".$summary
-                                : $summary;
-                            $io->save();
-                        }
-                    }
-                }
-            }
-        } catch (Throwable $e) {
-            // swallow everything
-        }
-    }
-
-    /**
-     * Apply EXIF metadata to the information object.
-     *
-     * @param mixed $exifData
-     */
-    private function applyExifToInformationObject($exifData)
-    {
-        if (
-            !$exifData
-            || !($this->resource instanceof QubitInformationObject)
-        ) {
-            return;
-        }
-
-        // Handle creation date
-        if (isset($exifData['date_taken'])) {
-            $this->addCreationDate($exifData['date_taken']);
-        }
-
-        // Handle creator/artist
-        if (isset($exifData['artist'])) {
-            $this->addCreator($exifData['artist']);
-        }
-
-        // Add ALL EXIF data to physical characteristics
-        if (isset($exifData['all_exif'])) {
-            $this->addAllExifData($exifData['all_exif']);
-        }
-
-        error_log(
-            'EXIF: Applied EXIF data to information object from master upload'
-        );
-    }
+				if ($absPath && is_readable($absPath)) {
+					// Extract metadata using the helper
+					$meta = arEmbeddedMetadataParser::extract($absPath);
+					
+					if (is_array($meta)) {
+						// Format and save summary
+						$summary = arEmbeddedMetadataParser::formatSummary($meta);
+						
+						if ('' !== $summary) {
+							$io = $this->resource;
+							
+							if ($io instanceof QubitInformationObject) {
+								$existing = (string) $io->physicalCharacteristics;
+								
+								// Remove existing Technical Metadata section
+								if ($existing && false !== strpos($existing, 'Technical Metadata:')) {
+									$existing = preg_replace('/\n?Technical Metadata:.*\z/s', '', $existing);
+									$existing = rtrim($existing);
+								}
+								
+								$io->physicalCharacteristics = $existing
+									? $existing."\n\n".$summary
+									: $summary;
+								$io->save();
+								
+								error_log('Successfully saved technical metadata to physical characteristics');
+							}
+						}
+					}
+				}
+			}
+		} catch (Throwable $e) {
+			error_log('Error in appendEmbeddedTechMetadata: '.$e->getMessage());
+		}
+	}
 
     /**
      * Add creation date from EXIF.
@@ -763,48 +688,6 @@ class ObjectAddDigitalObjectAction extends sfAction
         error_log(
             'METADATA: Applied comprehensive metadata to information object from master upload'
         );
-    }
-
-    /**
-     * Add all EXIF data to physical characteristics.
-     *
-     * @param mixed $allExifText
-     */
-    private function addAllExifData($allExifText)
-    {
-        try {
-            $currentPhysical = $this->resource->getPhysicalCharacteristics();
-
-            // Remove any existing EXIF data first
-            if (
-                $currentPhysical
-                && false !== strpos($currentPhysical, 'EXIF Technical Data:')
-            ) {
-                $currentPhysical = preg_replace(
-                    '/\n\nEXIF Technical Data:.*$/s',
-                    '',
-                    $currentPhysical
-                );
-                error_log(
-                    'EXIF: Removed existing EXIF data from master upload'
-                );
-            }
-
-            $newExifData = "\n\nEXIF Technical Data:\n".$allExifText;
-
-            $this->resource->setPhysicalCharacteristics(
-                ($currentPhysical ?: '').$newExifData
-            );
-
-            error_log(
-                'EXIF: Successfully added comprehensive EXIF data from master upload'
-            );
-        } catch (Exception $e) {
-            error_log(
-                'EXIF: Error adding comprehensive EXIF data from master upload: '.
-                    $e->getMessage()
-            );
-        }
     }
 
     /**
