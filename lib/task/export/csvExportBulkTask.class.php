@@ -73,6 +73,8 @@ class csvExportBulkTask extends exportBulkBaseTask
         $writer->user = $context->getUser();
         $writer->setOptions($options);
 
+        $prevPath = $arguments['path'];
+
         foreach ($rows as $row) {
             $writer->user->setCulture($row['culture']);
             $resource = QubitInformationObject::getById($row['id']);
@@ -103,6 +105,19 @@ class csvExportBulkTask extends exportBulkBaseTask
                   $resource, 'csv', $options['standard']
                 );
                 $filePath = sprintf('%s/%s', $arguments['path'], $filename);
+            }
+
+            // Make a new writer
+            if ($prevPath !== $filePath) {
+                $writer = new csvInformationObjectExport(
+                    $filePath,
+                    $options['standard'],
+                    $options['rows-per-file']
+                );
+                $writer->user = $context->getUser();
+                $writer->setOptions($options);
+
+                $prevPath = $filePath;
             }
 
             $writer->exportResource($resource);
