@@ -110,7 +110,7 @@ class csvExportBulkTask extends exportBulkBaseTask
 
             ++$itemsExported;
 
-            if (0 == $itemsExported++ % 1000) {
+            if (0 === ($itemsExported % 1000)) {
                 Qubit::clearClassCaches();
             }
         }
