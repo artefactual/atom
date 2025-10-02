@@ -24,7 +24,7 @@ class ClipboardViewAction extends DefaultBrowseAction
         parent::execute($request);
 
         if ('print' == $request->getGetParameter('media')) {
-            $this->getResponse()->addStylesheet('print-preview', 'last');
+            $this->getResponse()->addStylesheet('print-preview', 'last', ['media' => 'all']);
 
             // Negate paging when printing
             $maxPerPage = arElasticSearchPluginConfiguration::getMaxResultWindow();
