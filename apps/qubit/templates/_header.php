@@ -22,7 +22,7 @@
     }
   </style>
 <?php } ?>
-<header id="top-bar" class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
+<header id="top-bar" class="navbar navbar-expand-lg navbar-dark d-print-none" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
   <div class="container-fluid">
     <?php if (sfConfig::get('app_toggleLogo') || sfConfig::get('app_toggleTitle')) { ?>
       <a class="navbar-brand d-flex flex-wrap flex-lg-nowrap align-items-center py-0 me-0" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('Home'); ?>" rel="home">
@@ -70,7 +70,7 @@
 </header>
 
 <?php if (sfConfig::get('app_toggleDescription') && !empty(sfConfig::get('app_siteDescription'))) { ?>
-  <div class="bg-secondary text-white">
+  <div class="bg-secondary text-white d-print-none">
     <div class="container-xl py-1">
       <?php echo esc_specialchars(sfConfig::get('app_siteDescription')); ?>
     </div>
