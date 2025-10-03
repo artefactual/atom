@@ -18,7 +18,21 @@
   <h1 class="do-print"><?php echo $this->i18n->__('Physical storage locations'); ?></h1>
 
   <h1 class="label">
-    <?php echo render_title($resource); ?>
+    <?php
+      $displayTitle = '';
+
+      if (!empty($resource->identifier)) {
+        $displayTitle .= sprintf('%s - ', $resource->identifier);
+      }
+
+      if (!empty($resource->title)) {
+        $displayTitle .= $resource->title;
+      } else {
+        $displayTitle .= $this->i18n->__('Untitled');
+      }
+
+      echo render_title($displayTitle);
+    ?>
   </h1>
 
   <table class="sticky-enabled">
