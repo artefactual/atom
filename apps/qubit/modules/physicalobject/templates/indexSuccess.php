@@ -67,7 +67,19 @@
 <?php
     $accessions = [];
     foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitAccession', $resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]) as $item) {
-      $accessions[] = link_to(render_title($item), [$item, 'module' => 'accession']);
+      $displayTitle = '';
+
+      if (!empty($item->identifier)) {
+        $displayTitle .= sprintf('%s - ', $item->identifier);
+      }
+
+      if (!empty($item->title)) {
+        $displayTitle .= $item->title;
+      } else {
+        $displayTitle .= __('Untitled');
+      }
+
+      $accessions[] = link_to(render_title($displayTitle), [$item, 'module' => 'accession']);
     }
     echo render_show(__('Related accessions'), $accessions, ['valueClass' => 'field', 'renderAsIs' => true]);
 ?>
