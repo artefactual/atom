@@ -2170,17 +2170,6 @@ class QubitInformationObject extends BaseInformationObject
             $sf_user = sfContext::getInstance()->getUser();
             $culture = $sf_user->getCulture();
 
-            $selectClause = '
-                SELECT io.id
-                FROM information_object io
-                INNER JOIN information_object_i18n io_i18n 
-                    ON io_i18n.id = io.id 
-                AND io_i18n.culture = :culture
-            ';
-            $whereClause = '
-                WHERE io.identifier = :identifier
-                AND io_i18n.title = :title
-            ';
             // Parameters for the query.
             $params = [
                 ':identifier' => $identifier,
@@ -2188,24 +2177,93 @@ class QubitInformationObject extends BaseInformationObject
                 ':culture' => $culture,
             ];
 
-            // If a repository name is provided, add joins and condition on the repository authorized name.
             if (null !== $repoName) {
-                $selectClause .= '
-                    INNER JOIN repository r 
-                        ON r.id = io.repository_id
-                    INNER JOIN actor a 
-                        ON a.id = io.repository_id
-                    INNER JOIN actor_i18n a_i18n 
-                        ON a_i18n.id = a.id 
-                    AND a_i18n.culture = :culture
-                ';
-                $whereClause .= '
-                    AND a_i18n.authorized_form_of_name = :repoName
-                ';
                 $params[':repoName'] = $repoName;
-            }
 
-            $sql = $selectClause.$whereClause.' LIMIT 1';
+                // Select the repository id of the nearest parent that has one set.
+                $sql = '
+                    WITH RECURSIVE InformationHierarchy AS (
+                        SELECT
+                            id AS original_id,
+                            parent_id,
+                            repository_id AS effective_repo_id,
+                            id AS current_node_id,
+                            1 AS depth
+                        FROM
+                            information_object
+
+                        UNION ALL
+
+                        SELECT
+                            child.original_id,
+                            parent.parent_id,
+                            COALESCE(child.effective_repo_id, parent.repository_id) AS effective_repo_id,
+                            parent.id AS current_node_id,
+                            child.depth + 1
+                        FROM
+                            InformationHierarchy child
+                        INNER JOIN
+                            information_object parent ON parent.id = child.parent_id
+                        WHERE
+                            child.effective_repo_id IS NULL AND child.parent_id IS NOT NULL
+                    )
+                    SELECT
+                        io.id
+                    FROM
+                        information_object io
+                    INNER JOIN (
+                        SELECT
+                            original_id,
+                            effective_repo_id,
+                            ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
+                        FROM
+                            InformationHierarchy
+                        WHERE
+                            effective_repo_id IS NOT NULL
+                    ) AS resolved
+                    ON
+                        io.id = resolved.original_id
+                        AND resolved.rn = 1
+                        AND io.identifier = :identifier
+                    INNER JOIN
+                        information_object_i18n io_i18n
+                    ON
+                        io_i18n.id = io.id
+                        AND io_i18n.culture = :culture
+                        AND io_i18n.title = :title
+                    INNER JOIN
+                        repository r
+                    ON
+                        r.id = resolved.effective_repo_id
+                    INNER JOIN
+                        actor a
+                    ON
+                        a.id = resolved.effective_repo_id
+                    INNER JOIN
+                        actor_i18n a_i18n
+                    ON
+                        a_i18n.id = a.id
+                        AND a_i18n.culture = :culture
+                        AND a_i18n.authorized_form_of_name = :repoName
+                    LIMIT 1;
+                ';
+            } else {
+                $sql = '
+                    SELECT
+                        io.id
+                    FROM
+                        information_object io
+                    INNER JOIN
+                        information_object_i18n io_i18n
+                    ON
+                        io_i18n.id = io.id
+                        AND io_i18n.culture = :culture
+                        AND io_i18n.title = :title
+                    WHERE
+                        io.identifier = :identifier
+                    LIMIT 1;
+                ';
+            }
 
             // If a matching record is found, return its ID.
             if ($row = QubitPdo::fetchOne($sql, $params)) {
