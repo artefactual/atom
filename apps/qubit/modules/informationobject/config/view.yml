@@ -1,6 +1,4 @@
 browseSuccess:
-  stylesheets:
-    /vendor/jquery-ui/jquery-ui.min.css:
   javascripts:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
