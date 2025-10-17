@@ -2156,6 +2156,10 @@ class QubitInformationObject extends BaseInformationObject
     /**
      * Try to match informationObject to an existing one in system.
      *
+     * If $repoName is set, then the repository is searched for recursively in parent records
+     * until a non-NULL repository is found. This enables matching by repository even when the
+     * repository is inherited from a parent record.
+     *
      * @param string $identifier informationObject identifier
      * @param string $title      informationObject title
      * @param string $repoName   repository authorizedFormOfName
@@ -2181,13 +2185,26 @@ class QubitInformationObject extends BaseInformationObject
                 $params[':repoName'] = $repoName;
 
                 // Select the repository id of the nearest parent that has one set.
+
+                // hierarchy table: Recursively searches until a parent record is found that has
+                // the repository_id set. This repository_id is set in the effective_repo_id. It
+                // may be NULL if there is no repository to inherit! Terminates when the effective
+                // repo ID is null, or when the parent_id is NULL (reached the top of the hierarchy)
+
+                // resolved table: Filter the hierarchy table for the first non-NULL
+                // effective_repo_id. For this part:
+                //
+                //   ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
+                //
+                // the recursive query will terminate when effective_repo_id != NULL. The repo ID
+                // at this point is at the maximum depth, so sorting the depth in descending order
+                // returns the first parent that had a repository_id set.
                 $sql = '
-                    WITH RECURSIVE InformationHierarchy AS (
+                    WITH RECURSIVE hierarchy AS (
                         SELECT
                             id AS original_id,
                             parent_id,
-                            repository_id AS effective_repo_id,
-                            id AS current_node_id,
+                            repository_id AS effective_repo_id,  -- <- Inherited repo ID
                             1 AS depth
                         FROM
                             information_object
@@ -2198,12 +2215,13 @@ class QubitInformationObject extends BaseInformationObject
                             child.original_id,
                             parent.parent_id,
                             COALESCE(child.effective_repo_id, parent.repository_id) AS effective_repo_id,
-                            parent.id AS current_node_id,
                             child.depth + 1
                         FROM
-                            InformationHierarchy child
+                            hierarchy child
                         INNER JOIN
-                            information_object parent ON parent.id = child.parent_id
+                            information_object parent
+                        ON
+                            parent.id = child.parent_id
                         WHERE
                             child.effective_repo_id IS NULL AND child.parent_id IS NOT NULL
                     )
@@ -2217,7 +2235,7 @@ class QubitInformationObject extends BaseInformationObject
                             effective_repo_id,
                             ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
                         FROM
-                            InformationHierarchy
+                            hierarchy
                         WHERE
                             effective_repo_id IS NOT NULL
                     ) AS resolved
