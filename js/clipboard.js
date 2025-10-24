@@ -406,7 +406,13 @@ import Tooltip from "bootstrap/js/dist/tooltip";
      * @param {Array} slug The slug of the item to add
      * @param {String} type The type of item the slug is for
      */
-    bulkAddItems(slugs, type) {
+    bulkAddItems(
+      slugs,
+      type,
+      singleAddedMessage = "Added 1 item to the clipboard",
+      pluralAddedMessage = "Added %1% items to the clipboard",
+      alreadyAddedMessage = "All items are already on the clipboard"
+    ) {
       if (!slugs) {
         return;
       }
@@ -420,13 +426,13 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       });
 
       if (numAdded === 0) {
-        this.showAlert("All items are already on the clipboard!", "alert-warning");
+        this.showAlert(alreadyAddedMessage, "alert-warning");
       }
       else if (numAdded === 1) {
-        this.showAlert("Added 1 item to the clipboard", "alert-success");
+        this.showAlert(singleAddedMessage, "alert-success");
       }
       else {
-        this.showAlert(`Added ${numAdded} items to the clipboard`, "alert-success");
+        this.showAlert(pluralAddedMessage.replace("%1%", numAdded), "alert-success");
       }
     }
 
