@@ -68,23 +68,27 @@
             <?php if (count($informationObjects) > 0) { ?>
               <?php $informationObjectSlugs = array_map(fn ($i) => $i->slug, $informationObjects); ?>
               <li>
-                <a href="#"
-                   class="dropdown-item pe-auto"
-                   id="add-info-objects-to-clipboard"
-                   data-slugs="<?php echo htmlspecialchars(json_encode($informationObjectSlugs), ENT_QUOTES, 'UTF-8'); ?>">
+                <button class="dropdown-item pe-auto"
+                        id="add-info-objects-to-clipboard"
+                        data-slugs="<?php echo htmlspecialchars(json_encode($informationObjectSlugs), ENT_QUOTES, 'UTF-8'); ?>"
+                        data-single-added-message="<?php echo __('Added 1 item to the clipboard'); ?>"
+                        data-plural-added-message="<?php echo __('Added %1% items to the clipboard'); ?>"
+                        data-already-added-message="<?php echo __('All items are already on the clipboard'); ?>">
                   <?php echo __('Add archival descriptions to clipboard'); ?>
-                </a>
+                </button>
               </li>
             <?php } ?>
             <?php if (count($accessionObjects) > 0) { ?>
               <?php $accessionSlugs = array_map(fn ($a) => $a->slug, $accessionObjects); ?>
               <li>
-                <a href="#"
-                   class="dropdown-item pe-auto"
-                   id="add-accessions-to-clipboard"
-                   data-slugs="<?php echo htmlspecialchars(json_encode($accessionSlugs), ENT_QUOTES, 'UTF-8'); ?>">
+                <button class="dropdown-item pe-auto"
+                        id="add-accessions-to-clipboard"
+                        data-slugs="<?php echo htmlspecialchars(json_encode($accessionSlugs), ENT_QUOTES, 'UTF-8'); ?>"
+                        data-single-added-message="<?php echo __('Added 1 item to the clipboard'); ?>"
+                        data-plural-added-message="<?php echo __('Added %1% items to the clipboard'); ?>"
+                        data-already-added-message="<?php echo __('All items are already on the clipboard'); ?>">
                   <?php echo __('Add accessions to clipboard'); ?>
-                </a>
+                </button>
               </li>
             <?php } ?>
           </ul>
