@@ -25,6 +25,7 @@ class digitalObjectExtractTextTask extends sfBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('local', null, sfCommandOption::PARAMETER_NONE, 'Extract text from only local PDFs and not remote ones'),
         ]);
 
         $this->namespace = 'digitalobject';
@@ -44,6 +45,9 @@ class digitalObjectExtractTextTask extends sfBaseTask
 
         // Get all master digital objects
         $query = 'SELECT id FROM digital_object WHERE parent_id IS NULL AND mime_type = \'application/pdf\'';
+        if ($options['local']) {
+            $query = 'SELECT id FROM digital_object WHERE parent_id IS NULL AND mime_type = \'application/pdf\' AND path NOT LIKE \'http%\'';
+        }
 
         // Do work
         foreach (QubitPdo::fetchAll($query) as $item) {
