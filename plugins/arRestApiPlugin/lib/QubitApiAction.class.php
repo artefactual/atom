@@ -80,6 +80,14 @@ class QubitApiAction extends sfAction
 
     protected function prepareEsPagination(Elastica\Query &$query, $limit = null)
     {
+        // Elasticsearch 7 requires explicitly enabling full hit counting via track_total_hits.
+        // Check for the method to support both ES7+ environments and legacy Elastic installs
+        if (method_exists($query, 'setTrackTotalHits')) {
+            $query->setTrackTotalHits(true); // to cap work
+        } else {
+            $query->setParam('track_total_hits', true);
+        }
+
         $limit = empty($limit) ? sfConfig::get('app_hits_per_page', 10) : $limit;
         $limit = $this->request->getGetParameter('limit', $limit);
         if ($limit > 100) {
