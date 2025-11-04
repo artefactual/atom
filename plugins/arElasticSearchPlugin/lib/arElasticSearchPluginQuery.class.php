@@ -41,9 +41,8 @@ class arElasticSearchPluginQuery
         // but older Elastic clients do not include this method.
         // Older Elastica doesn’t have that method, so we check first
         // and fall back to setting the track_total_hits param manually.
-
         if (method_exists($this->query, 'setTrackTotalHits')) {
-            $this->query->setTrackTotalHits(true);     
+            $this->query->setTrackTotalHits(true);
         } else {
             $this->query->setParam('track_total_hits', true);
         }
