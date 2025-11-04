@@ -54,8 +54,8 @@ AtoM was originally developed using the Symfony 1.x framework, and the Propel
 AtoM also currently uses Elasticsearch for its search index, Twitter Bootstrap
 for theming, and several other libraries. MySQL is used for data storage. We
 keep all our code in a git repository, so being comfortable with git or other
-distributed version control systems will also help you. There are a lot of
-resources out there on all of these.
+distributed version control systems will also help you.
+There are useful resources within these guidelines.
 
 ### Setting up your development environment
 
@@ -69,7 +69,7 @@ resources out there on all of these.
 ## Contributing code
 
 We welcome code contributions to the public AtoM project. Thank you for
-sharing with the community! This guide will help familiarize yourself with
+sharing with the community! This guide will help you familiarize yourself with
 our coding style and code review guidelines.
 
 Here's an outline of the contribution process:
@@ -77,7 +77,7 @@ Here's an outline of the contribution process:
 1. Fork the Artefactual project on GitHub, and commit your changes to a [branch](#multi-line-assignments)
 2. Do your own [testing](#testing) and initial review of your work
 3. [Ready to contribute?](#ready-to-contribute) Open a [pull request](#submitting-a-pull-request)
-4. Back and forth discussion with developers on the branch
+4. Back and forth discussion with developers on the pull request
 5. Once clarity has been reached in the discussions, make any outstanding
 changes suggested by reviewers
 6. Repeat 3 and 4 as necessary
@@ -113,7 +113,8 @@ if your change requires it
 
 ### Submitting a pull request
 
-Artefactual uses [GitHub's pull request feature](https://help.github.com/articles/using-pull-requests)  for code review. Every change being submitted to an Artefactual project should be submitted as a pull request
+Artefactual uses [GitHub's pull request feature](https://help.github.com/articles/using-pull-requests) for code review.
+Every change being submitted to an Artefactual project should be submitted as a pull request
 to the appropriate repository, and the appropriate branch - in general, to the
 latest development branch (named ```qa/[verison]```). A pull request being
 submitted for code review should only contain commits covering a related
@@ -153,7 +154,10 @@ through subsequent releases, and simplifies some of the code review.
 development branch (qa/2.x), resolve any conflicts, and perform basic testing
 to ensure the fix or feature works with the latest release.
 
-5. In general, AtoM modules and large features are based on [Symfony 1.x framework's plugin development model](https://symfony.com/legacy/doc/gentle-introduction/1_4/en/17-Extending-Symfony#chapter_17_plug_ins). Please refer to our [qtSwordPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/qtSwordPlugin) or [arRestApiPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/arRestApiPlugin) for reference when developming new plugins for AtoM.
+5. In general, AtoM modules and large features are based on [Symfony 1.x framework's plugin development model](https://symfony.com/legacy/doc/gentle-introduction/1_4/en/17-Extending-Symfony#chapter_17_plug_ins).
+Please refer to our [qtSwordPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/qtSwordPlugin) or
+[arRestApiPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/arRestApiPlugin)
+for reference when developming new plugins for AtoM.
 
 6. Spend some time reading existing AtoM code - especially in areas of the
 application that relate to the work you are doing. We’re aiming for code
@@ -197,7 +201,8 @@ If you are making a bug fix or enhancement to an existing file, simply add your 
  */
  ```
 
-If you're contributing a new file, you need to add the following license header at the very top of the file. Copy both sections, in full, exactly as it is written here, filling in the information where indicated.
+If you're contributing a new file, you need to add the following license header at the very top of the file.
+Copy both sections, in full, exactly as it is written here, filling in the information where indicated.
 
 ```code
 /*
@@ -277,7 +282,8 @@ and the [PSR-12 coding style specification](https://www.php-fig.org/psr/psr-12/)
 
 The PHP CS Fixer tool is included in the AtoM project's Composer dependencies
 for development. PHP CS Fixer's configuration is tracked as part of the
-project's source code (see [.php-cs-fixer.dist.php](https://github.com/artefactual/atom/blob/qa/2.x/.php-cs-fixer.dist.php)) and it's used in the
+project's source code (see [.php-cs-fixer.dist.php](https://github.com/artefactual/atom/blob/qa/2.x/.php-cs-fixer.dist.php))
+and it's used in the
 [Continuous Integration process](https://github.com/artefactual/atom/actions/workflows/syntax-checks.yml)
 to check the code on every pull request and commit merged to the `stable/**`
 and `qa/**` branches.
@@ -285,8 +291,8 @@ and `qa/**` branches.
 Contributors to the AtoM project should run PHP CS Fixer locally to ensure
 their modifications meet the coding standards. There are a number of options
 for running PHP CS Fixer on your code: [PHP CS Fixer's README file](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer#editor-integration)
-links to plugins for several popular code editors (e.g. VS Studio Code,
-atom.io, Sublime text), you can configure a git [pre-commit hook to run PHP CS Fixer when commiting changes](https://itnext.io/learning-to-add-git-hook-tasks-php-cs-fixer-41f34d99aa8a)
+links to plugins for several popular code editors (e.g. VS Studio Code, Sublime text), you can configure a git
+[pre-commit hook to run PHP CS Fixer when commiting changes](https://itnext.io/learning-to-add-git-hook-tasks-php-cs-fixer-41f34d99aa8a)
 , or PHP CS Fixer can be [run manually](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer#usage).
 
 ### Coding standards that are not handled by PHP CS Fixer
@@ -400,8 +406,10 @@ with the project maintainers for further advice by commenting on your issue, pul
 
 ### Unit tests
 
-[AtoM's unit tests](https://github.com/artefactual/atom/tree/qa/2.x/test) are developed with [PHPUnit](https://phpunit.de/). The
-required dependencies are managed with Composer and included in the development
+[AtoM's unit tests](https://github.com/artefactual/atom/tree/qa/2.x/test) are developed with
+[PHPUnit](https://phpunit.de/). The
+required dependencies are managed with Composer and
+included in the development
 environments. At the moment, these tests require a configured instance and
 connection to the MySQL and Elasticsearch servers.
 
@@ -422,7 +430,7 @@ If you would like to [help us improve the AtoM documentation, please see our
 wiki](https://wiki.accesstomemory.org/Resources/Documentation) for more information.
 
 Additionally, with each new AtoM release we include user interface
-translations generously provided by our volunteer translator community.Here is the
+translations generously provided by our volunteer translator community. Here is the
 information on [how to help contribute translations](https://wiki.accesstomemory.org/Resources/Translation)
 
 ## Additional Resources
