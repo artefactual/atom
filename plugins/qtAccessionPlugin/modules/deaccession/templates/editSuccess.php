@@ -51,7 +51,7 @@
                     .'</span>'
                   ),
                 null,
-                ['type' => 'date']
+                ['type' => 'string']
             ); ?>
 
             <?php echo render_field($form->description

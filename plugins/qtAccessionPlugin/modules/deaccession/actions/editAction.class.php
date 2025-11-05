@@ -120,9 +120,26 @@ class DeaccessionEditAction extends DefaultEditAction
                 }
 
                 $this->form->setWidget('date', new sfWidgetFormInput([], ['max' => '9999-12-31']));
-                $this->form->setValidator('date', new sfValidatorDate([
-                    'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
-                    'date_format_error' => 'YYYY-MM-DD',
+                // Custom validator to allow YYYY or YYYY-MM-DD
+                $this->form->setValidator('date', new sfValidatorCallback([
+                    'callback' => function ($validator, $value) {
+                        $value = trim($value);
+
+                        // Match YYYY
+                        if (preg_match('/^\d{4}$/', $value)) {
+                            return $value;
+                        }
+
+                        // Match YYYY-MM-DD
+                        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+                            list($year, $month, $day) = explode('-', $value);
+                            if (checkdate((int) $month, (int) $day, (int) $year)) {
+                                return $value;
+                            }
+                        }
+
+                        throw new sfValidatorError($validator, 'Invalid date format. Use YYYY or YYYY-MM-DD.');
+                    },
                 ]));
 
                 break;
