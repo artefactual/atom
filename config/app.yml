@@ -65,7 +65,7 @@ all:
   csp:
       # Configure CSP response header to be either
       # 'Content-Security-Policy-Report-Only' or 'Content-Security-Policy'
-      response_header: Content-Security-Policy-Report-Only
+      response_header: Content-Security-Policy
       # Configure CSP response directives.
       directives: >
         default-src 'self';
