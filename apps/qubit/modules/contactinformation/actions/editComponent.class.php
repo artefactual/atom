@@ -130,7 +130,6 @@ class ContactInformationEditComponent extends sfComponent
 
                 break;
 
-            case 'streetAddress':
             case 'note':
                 $this->form->setValidator($name, new sfValidatorString());
                 $this->form->setWidget($name, new sfWidgetFormTextArea([], ['rows' => 2]));
