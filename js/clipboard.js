@@ -363,10 +363,12 @@ import Tooltip from "bootstrap/js/dist/tooltip";
     }
 
     /**
-     * Add a new item to the clipboard of a given type
+     * Add a new item to the clipboard of a given type.
+     *
      * @param {String} slug The slug of the item to add
-     * @param {String} type The type of item the slug is for
-     * @returns true if the item was added, false if not
+     * @param {String} type The type of item the slug is for (e.g., "informationObject"). See
+     *    this.types for valid types
+     * @returns {boolean} true if the item was added, false otherwise
      */
     addItem(slug, type) {
       this.items = JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
@@ -402,17 +404,21 @@ import Tooltip from "bootstrap/js/dist/tooltip";
     }
 
     /**
-     * Add multiple new items to the clipboard of a single given type
-     * @param {Array} slug The slug of the item to add
-     * @param {String} type The type of item the slug is for
+     * Add multiple new items to the clipboard of a single given type. Displays a message to the
+     * user after items are added.
+     *
+     * @param {Array} slugs The slugs of the items to add
+     * @param {String} type The type of item the slugs are for (e.g., "informationObject"). See
+     *    this.types for valid types
+     * @param {String} singleAddedMessage Message displayed to user when one item is added to the
+     *    clipboard
+     * @param {String} pluralAddedMessage Message displayed to user when mutliple items are added
+     *    to the clipboard. Expected to have a %1% placeholder which will be replaced by the number
+     * @param {String} alreadyAddedMessage Message displayed to user when items already exist on
+     *    the clipboard
+     * @returns {void}
      */
-    bulkAddItems(
-      slugs,
-      type,
-      singleAddedMessage = "Added 1 item to the clipboard",
-      pluralAddedMessage = "Added %1% items to the clipboard",
-      alreadyAddedMessage = "All items are already on the clipboard"
-    ) {
+    bulkAddItems(slugs, type, singleAddedMessage, pluralAddedMessage, alreadyAddedMessage) {
       if (!slugs) {
         return;
       }
