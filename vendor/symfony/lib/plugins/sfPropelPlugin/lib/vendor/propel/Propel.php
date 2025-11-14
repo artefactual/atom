@@ -171,7 +171,6 @@ class Propel
 		'DBAdapter'       => 'propel/adapter/DBAdapter.php',
 		'DBMSSQL'         => 'propel/adapter/DBMSSQL.php',
 		'MssqlPropelPDO'  => 'propel/adapter/MSSQL/MssqlPropelPDO.php',
-		'MssqlDebugPDO'   => 'propel/adapter/MSSQL/MssqlDebugPDO.php',
 		'MssqlDateTime'   => 'propel/adapter/MSSQL/MssqlDateTime.class.php',
 		'DBMySQL'         => 'propel/adapter/DBMySQL.php',
 		'DBMySQLi'        => 'propel/adapter/DBMySQLi.php',
