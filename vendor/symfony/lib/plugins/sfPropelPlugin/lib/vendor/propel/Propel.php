@@ -103,11 +103,6 @@ class Propel
 	const CLASS_PROPEL_PDO = 'PropelPDO';
 
 	/**
-	 * The class name for a DebugPDO object.
-	 */
-	const CLASS_DEBUG_PDO = 'DebugPDO';
-
-	/**
 	 * Constant used to request a READ connection (applies to replication).
 	 */
 	const CONNECTION_READ = 'read';
@@ -213,9 +208,6 @@ class Propel
 		'PropelPDO'           => 'propel/util/PropelPDO.php',
 		'PropelPager'         => 'propel/util/PropelPager.php',
 		'PropelDateTime'      => 'propel/util/PropelDateTime.php',
-		'DebugPDO'            => 'propel/util/DebugPDO.php',
-		'DebugPDOStatement'   => 'propel/util/DebugPDOStatement.php',
-
 
 		'BasicValidator'      => 'propel/validator/BasicValidator.php',
 		'MatchValidator'      => 'propel/validator/MatchValidator.php',
