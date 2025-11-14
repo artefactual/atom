@@ -412,7 +412,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
      *    this.types for valid types
      * @param {String} singleAddedMessage Message displayed to user when one item is added to the
      *    clipboard
-     * @param {String} pluralAddedMessage Message displayed to user when mutliple items are added
+     * @param {String} pluralAddedMessage Message displayed to user when multiple items are added
      *    to the clipboard. Expected to have a %1% placeholder which will be replaced by the number
      * @param {String} alreadyAddedMessage Message displayed to user when items already exist on
      *    the clipboard
