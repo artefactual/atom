@@ -183,7 +183,7 @@ $search_yml = <<<EOT
 all:
   server:
     host: {$parts['host']}
-    post: {$parts['port']}
+    port: {$parts['port']}
 
 EOT;
 

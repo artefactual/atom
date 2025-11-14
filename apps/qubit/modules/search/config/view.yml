@@ -5,8 +5,6 @@ globalReplaceSuccess:
     multiRow:
 
 descriptionUpdatesSuccess:
-  stylesheets:
-    /vendor/jquery-ui/jquery-ui.min.css:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     clipboardToggleAll:

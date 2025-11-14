@@ -1,0 +1,34 @@
+html[media="print"] {
+  @media screen {
+    /* This is a print-only style, but make it look the same on screens, too. */
+    .d-print-none {
+      display: none !important;
+    }
+  }
+
+  @media all {
+    #sfWebDebug {
+      display: none !important;
+    }
+
+    #wrapper {
+      padding: 0 !important;
+    }
+
+    :root,
+    html {
+      font-size: 10pt !important;
+    }
+
+    .img-thumbnail {
+      max-height: 300px !important;
+    }
+  }
+}
+
+@media print {
+  /* Hide the preview when printing */
+  #preview-message {
+    display: none !important;
+  }
+}

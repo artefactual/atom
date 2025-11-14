@@ -50,7 +50,7 @@ class QubitLimitIpTest extends TestCase
     public function testBypassLimitEmptyLimit()
     {
         $debug = false;
-        $limit = explode(';', '');
+        $limit = null;
         $firstCall = true;
         $module = 'settings';
         $action = 'global';

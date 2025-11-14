@@ -33,11 +33,6 @@ default:
     /vendor/yui/element/element-min:
     /vendor/yui/button/button-min:
     /vendor/modernizr:
-    /vendor/jquery-ui/jquery-ui.min.js:
-    /vendor/jquery.expander.js:
-    /vendor/jquery.masonry.js:
-    /vendor/jquery.imagesloaded.js:
-    /vendor/bootstrap/js/bootstrap:
     /vendor/URI.js:
     /vendor/meetselva/attrchange:
     qubit:

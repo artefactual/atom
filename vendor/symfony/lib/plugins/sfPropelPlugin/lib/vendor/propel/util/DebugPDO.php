@@ -320,29 +320,30 @@ class DebugPDO extends PropelPDO
 	}
 
 	/**
-	 * Executes an SQL statement, returning a result set as a PDOStatement object.  Despite its signature here,
-	 * this method takes a variety of parameters.
+	 * Executes an SQL statement, returning a result set as a PDOStatement object.
 	 *
 	 * Overridden for query counting and logging.
 	 *
 	 * @see        http://php.net/manual/en/pdo.query.php for a description of the possible parameters.
 	 * @return     PDOStatement
 	 */
-	public function query()
+	#[\ReturnTypeWillChange]
+	public function query($query, mixed ...$otherArgs)
 	{
 		$debug	= $this->getDebugSnapshot();
-		$args	= func_get_args();
+		$args   = func_get_args();
+
 		if (version_compare(PHP_VERSION, '5.3', '<')) {
-			$return	= call_user_func_array(array($this, 'parent::query'), $args);
+			$return = call_user_func_array(array($this, 'parent::query'), $args);
 		} else {
-			$return	= call_user_func_array('parent::query', $args);
+			$return = call_user_func_array('parent::query', $args);
 		}
-		
-		$sql = $args[0];
+
+		$sql = $query;
 		$this->log($sql, null, __METHOD__, $debug);
 		$this->setLastExecutedQuery($sql);
 		$this->incrementQueryCount();
-		
+
 		return $return;
 	}
 

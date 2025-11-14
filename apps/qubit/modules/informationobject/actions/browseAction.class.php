@@ -179,11 +179,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
             $this->template = $infoObjectTemplate->getValue(['sourceCulture' => true]);
         }
 
-        // Add print preview style
-        if ('print' == $request->media) {
-            $this->getResponse()->addStylesheet('print-preview', 'last');
-        }
-
         // Default to show only top level descriptions
         $this->topLod = true;
         if (isset($request->topLod) && !filter_var($request->topLod, FILTER_VALIDATE_BOOLEAN)) {
