@@ -20,11 +20,8 @@
 /**
  * arMetadataExtractionPlugin configuration.
  *
- * @package    arMetadataExtractionPlugin
- * @subpackage config
  * @author     Johan Pieterse The Archive and Heritage Group <johan@theahg.co.za>
  */
-
 class arMetadataExtractionPluginConfiguration extends sfPluginConfiguration
 {
     protected static $settingsInitialized = false;
@@ -68,6 +65,7 @@ class arMetadataExtractionPluginConfiguration extends sfPluginConfiguration
             if ($digitalObject instanceof QubitDigitalObject) {
                 // Determine target field for technical metadata
                 $targetField = 'physicalCharacteristics';
+
                 try {
                     if (class_exists('QubitSetting')) {
                         if ($s = QubitSetting::getByName('technical_metadata_target_field')) {
@@ -98,17 +96,17 @@ class arMetadataExtractionPluginConfiguration extends sfPluginConfiguration
     {
         try {
             $settings = [
-                'metadata_extraction_enabled'       => true,
-                'extract_exif'                      => true,
-                'extract_iptc'                      => true,
-                'extract_xmp'                       => true,
-                'overwrite_title'                   => false,
-                'overwrite_description'             => false,
-                'auto_generate_keywords'            => true,
-                'extract_gps_coordinates'           => true,
-                'add_technical_metadata'            => true,
+                'metadata_extraction_enabled' => true,
+                'extract_exif' => true,
+                'extract_iptc' => true,
+                'extract_xmp' => true,
+                'overwrite_title' => false,
+                'overwrite_description' => false,
+                'auto_generate_keywords' => true,
+                'extract_gps_coordinates' => true,
+                'add_technical_metadata' => true,
                 // NEW: field where technical metadata summary is stored
-                'technical_metadata_target_field'   => 'physicalCharacteristics',
+                'technical_metadata_target_field' => 'physicalCharacteristics',
             ];
 
             foreach ($settings as $name => $default) {

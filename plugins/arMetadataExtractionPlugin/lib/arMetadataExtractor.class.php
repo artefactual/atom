@@ -18,13 +18,10 @@
  */
 
 /**
- * Metadata extraction service for digital objects
+ * Metadata extraction service for digital objects.
  *
- * @package    arMetadataExtractionPlugin
- * @subpackage lib
  * @author     Johan Pieterse The Archive and Heritage Group <johan@theahg.co.za>
  */
-
 class arMetadataExtractor
 {
     protected $settings = [];
@@ -48,8 +45,44 @@ class arMetadataExtractor
         }
     }
 
+    public function processDigitalObject(QubitDigitalObject $digitalObject)
+    {
+        if (empty($this->settings['metadata_extraction_enabled'])) {
+            return false;
+        }
+
+        $filePath = $digitalObject->getAbsolutePath();
+
+        if (!$filePath || !file_exists($filePath)) {
+            $this->log('Metadata extraction: File not found at '.$filePath, 'warning');
+
+            return false;
+        }
+
+        $metadata = $this->extractMetadata($filePath);
+
+        if (!$metadata) {
+            return false;
+        }
+
+        $informationObject = $digitalObject->getInformationObject();
+
+        if (!$informationObject) {
+            $this->log('Metadata extraction: No information object linked to digital object', 'warning');
+
+            return false;
+        }
+
+        $this->applyMetadata($informationObject, $digitalObject, $metadata);
+
+        return true;
+    }
+
     /**
      * Safe logging method that handles null logger.
+     *
+     * @param mixed $message
+     * @param mixed $level
      */
     protected function log($message, $level = 'info')
     {
@@ -61,14 +94,20 @@ class arMetadataExtractor
             case 'error':
             case 'err':
                 $this->logger->err($message);
+
                 break;
+
             case 'warning':
             case 'warn':
                 $this->logger->warning($message);
+
                 break;
+
             case 'debug':
                 $this->logger->debug($message);
+
                 break;
+
             default:
                 $this->logger->info($message);
         }
@@ -77,17 +116,17 @@ class arMetadataExtractor
     protected function loadSettings()
     {
         $defaults = [
-            'metadata_extraction_enabled'       => true,
-            'extract_exif'                      => true,
-            'extract_iptc'                      => true,
-            'extract_xmp'                       => true,
-            'overwrite_title'                   => false,
-            'overwrite_description'             => false,
-            'auto_generate_keywords'            => true,
-            'extract_gps_coordinates'           => true,
-            'add_technical_metadata'            => true,
+            'metadata_extraction_enabled' => true,
+            'extract_exif' => true,
+            'extract_iptc' => true,
+            'extract_xmp' => true,
+            'overwrite_title' => false,
+            'overwrite_description' => false,
+            'auto_generate_keywords' => true,
+            'extract_gps_coordinates' => true,
+            'add_technical_metadata' => true,
             // NEW default for target field
-            'technical_metadata_target_field'   => 'physicalCharacteristics',
+            'technical_metadata_target_field' => 'physicalCharacteristics',
         ];
 
         $this->settings = $defaults;
@@ -112,41 +151,11 @@ class arMetadataExtractor
         }
     }
 
-    public function processDigitalObject(QubitDigitalObject $digitalObject)
-    {
-        if (empty($this->settings['metadata_extraction_enabled'])) {
-            return false;
-        }
-
-        $filePath = $digitalObject->getAbsolutePath();
-
-        if (!$filePath || !file_exists($filePath)) {
-            $this->log('Metadata extraction: File not found at '.$filePath, 'warning');
-            return false;
-        }
-
-        $metadata = $this->extractMetadata($filePath);
-
-        if (!$metadata) {
-            return false;
-        }
-
-        $informationObject = $digitalObject->getInformationObject();
-
-        if (!$informationObject) {
-            $this->log('Metadata extraction: No information object linked to digital object', 'warning');
-            return false;
-        }
-
-        $this->applyMetadata($informationObject, $digitalObject, $metadata);
-
-        return true;
-    }
-
     protected function extractMetadata($filePath)
     {
         if (!class_exists('arEmbeddedMetadataParser')) {
             $this->log('arEmbeddedMetadataParser class not found', 'error');
+
             return null;
         }
 
@@ -160,6 +169,7 @@ class arMetadataExtractor
             return $this->normalizeMetadata($rawMetadata);
         } catch (Exception $e) {
             $this->log('Metadata extraction failed: '.$e->getMessage(), 'error');
+
             return null;
         }
     }
@@ -167,16 +177,16 @@ class arMetadataExtractor
     protected function normalizeMetadata($rawMetadata)
     {
         $metadata = [
-            'title'       => null,
+            'title' => null,
             'description' => null,
-            'creator'     => null,
-            'date'        => null,
-            'keywords'    => [],
-            'gps'         => null,
-            'technical'   => [],
-            'rights'      => null,
+            'creator' => null,
+            'date' => null,
+            'keywords' => [],
+            'gps' => null,
+            'technical' => [],
+            'rights' => null,
             // we keep raw payload if needed later
-            '_raw'        => $rawMetadata,
+            '_raw' => $rawMetadata,
         ];
 
         $norm = $rawMetadata['_norm'] ?? [];
@@ -213,7 +223,7 @@ class arMetadataExtractor
 
         if (isset($rawMetadata['GPSLatitude'], $rawMetadata['GPSLongitude'])) {
             $metadata['gps'] = [
-                'latitude'  => $rawMetadata['GPSLatitude'],
+                'latitude' => $rawMetadata['GPSLatitude'],
                 'longitude' => $rawMetadata['GPSLongitude'],
             ];
         }
@@ -311,6 +321,9 @@ class arMetadataExtractor
 
     /**
      * Add technical metadata summary to a configurable field on the IO.
+     *
+     * @param mixed $informationObject
+     * @param mixed $technical
      */
     protected function addTechnicalMetadata($informationObject, $technical)
     {
@@ -364,7 +377,7 @@ class arMetadataExtractor
             $setter = 'setPhysicalCharacteristics';
         }
 
-        $current = (string) $informationObject->$getter();
+        $current = (string) $informationObject->{$getter}();
 
         if ($current) {
             // Remove existing Technical Metadata section if present
@@ -375,7 +388,7 @@ class arMetadataExtractor
             $newValue = $summary;
         }
 
-        $informationObject->$setter($newValue);
+        $informationObject->{$setter}($newValue);
 
         $this->log(sprintf(
             'Added technical metadata to %s for IO ID %d',

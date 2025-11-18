@@ -18,10 +18,8 @@
  */
 
 /**
- * Metadata extraction settings action
+ * Metadata extraction settings action.
  *
- * @package    arMetadataExtractionPlugin
- * @subpackage admin
  * @author     Johan Pieterse <pieterse.johan3@gmail.com>
  */
 class MetadataExtractionSettingsAction extends DefaultEditAction
@@ -44,7 +42,7 @@ class MetadataExtractionSettingsAction extends DefaultEditAction
     public function earlyExecute()
     {
         parent::earlyExecute();
-        
+
         $this->updateMessage = __('Settings saved successfully');
     }
 
@@ -57,7 +55,7 @@ class MetadataExtractionSettingsAction extends DefaultEditAction
 
             if ($this->form->isValid()) {
                 $this->processForm();
-                
+
                 $this->getUser()->setFlash('notice', $this->updateMessage);
                 $this->redirect(['module' => 'settings', 'action' => 'metadataExtraction']);
             }
@@ -72,15 +70,15 @@ class MetadataExtractionSettingsAction extends DefaultEditAction
         $form->setWidget('metadata_extraction_enabled', new sfWidgetFormSelectRadio(
             ['choices' => [
                 1 => __('Enabled'),
-                0 => __('Disabled')
+                0 => __('Disabled'),
             ]],
             ['class' => 'radio']
         ));
         $form->setValidator('metadata_extraction_enabled', new sfValidatorChoice(
             ['choices' => [0, 1]]
         ));
-        $form->setDefault('metadata_extraction_enabled', 
-            QubitSetting::getByName('metadata_extraction_enabled') ? 
+        $form->setDefault('metadata_extraction_enabled',
+            QubitSetting::getByName('metadata_extraction_enabled') ?
             QubitSetting::getByName('metadata_extraction_enabled')->getValue(['sourceCulture' => true]) : 1
         );
 
@@ -157,7 +155,7 @@ class MetadataExtractionSettingsAction extends DefaultEditAction
             'overwrite_description',
             'auto_generate_keywords',
             'extract_gps_coordinates',
-            'add_technical_metadata'
+            'add_technical_metadata',
         ];
 
         foreach ($settings as $name) {

@@ -18,7 +18,7 @@
  */
 
 /**
- * Digital Object edit component - Simplified version using metadata extraction plugin
+ * Digital Object edit component - Simplified version using metadata extraction plugin.
  *
  * @author     david juhasz <david@artefactual.com>
  * Modified by Johan Pieterse to use arMetadataExtractionPlugin
@@ -128,7 +128,7 @@ class ObjectAddDigitalObjectAction extends sfAction
 
             // Add digital object to resource
             $this->resource->digitalObjectsRelatedByobjectId[] = $digitalObject;
-            
+
             // Save the parent resource first (creates the relationship)
             $this->resource->save();
 
@@ -137,19 +137,18 @@ class ObjectAddDigitalObjectAction extends sfAction
 
             // Save the digital object so file exists on disk
             $digitalObject->save();
-            
+
             // The plugin's event listener will automatically extract metadata
             // when the digital object is saved (via the 'digital_object.post_create' event)
-            
+
             // However, if you want to manually trigger extraction:
             if (class_exists('arMetadataExtractor')) {
                 $extractor = new arMetadataExtractor();
                 $extractor->processDigitalObject($digitalObject);
             }
-            
+
             // Also still run the embedded technical metadata extraction if available
             $this->appendEmbeddedTechMetadata($digitalObject);
-
         } elseif (null !== $this->form->getValue('url')) {
             // Catch errors trying to download remote resource
             try {
@@ -182,7 +181,9 @@ class ObjectAddDigitalObjectAction extends sfAction
 
     /**
      * Append embedded technical metadata using arEmbeddedMetadataParser
-     * This remains as a backup/additional method for technical metadata
+     * This remains as a backup/additional method for technical metadata.
+     *
+     * @param mixed $digitalObject
      */
     private function appendEmbeddedTechMetadata($digitalObject)
     {
@@ -199,28 +200,28 @@ class ObjectAddDigitalObjectAction extends sfAction
                 if ($absPath && is_readable($absPath)) {
                     // Extract metadata using the helper
                     $meta = arEmbeddedMetadataParser::extract($absPath);
-                    
+
                     if (is_array($meta)) {
                         // Format and save summary
                         $summary = arEmbeddedMetadataParser::formatSummary($meta);
-                        
+
                         if ('' !== $summary) {
                             $io = $this->resource;
-                            
+
                             if ($io instanceof QubitInformationObject) {
                                 $existing = (string) $io->physicalCharacteristics;
-                                
+
                                 // Remove existing Technical Metadata section
                                 if ($existing && false !== strpos($existing, 'Technical Metadata:')) {
                                     $existing = preg_replace('/\n?Technical Metadata:.*\z/s', '', $existing);
                                     $existing = rtrim($existing);
                                 }
-                                
+
                                 $io->physicalCharacteristics = $existing
                                     ? $existing."\n\n".$summary
                                     : $summary;
                                 $io->save();
-                                
+
                                 error_log('Successfully saved technical metadata to physical characteristics');
                             }
                         }
