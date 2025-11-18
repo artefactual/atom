@@ -1,0 +1,27 @@
+# arIiifPlugin IIIF Configuration
+# This file is processed by sfDefineEnvironmentConfigHandler
+
+# IIIF Image Server Configuration
+iiif_base_url: ~
+iiif_api_version: 2
+iiif_server_type: cantaloupe
+iiif_enable_manifests: true
+
+# Carousel Settings
+iiif_carousel_auto_rotate: true
+iiif_carousel_rotate_interval: 5000
+iiif_carousel_show_navigation: true
+iiif_carousel_show_thumbnails: false
+iiif_carousel_viewer_height: 600
+
+# Viewer Settings
+iiif_viewer_enable_zoom: true
+iiif_viewer_enable_rotation: true
+iiif_viewer_enable_fullscreen: true
+iiif_viewer_max_zoom_level: 4
+
+# Thumbnail Settings
+iiif_thumbnail_width: 150
+iiif_thumbnail_height: ~
+iiif_thumbnail_quality: default
+iiif_thumbnail_format: jpg
