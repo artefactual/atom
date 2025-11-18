@@ -10,8 +10,8 @@
   <h1><?php echo render_title($resource); ?></h1>
 
   <?php if (isset($errorSchema)) { ?>
-    <div class="messages error">
-      <ul>
+    <div class="alert alert-danger" role="alert">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($errorSchema as $error) { ?>
           <?php $error = sfOutputEscaper::unescape($error); ?>
           <li><?php echo $error->getMessage(); ?></li>
@@ -20,24 +20,24 @@
     </div>
   <?php } ?>
 
-  <section class="breadcrumb">
-    <ul>
-      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), ['module' => 'repository', 'action' => 'browse']); ?></li>
-      <li><span><?php echo render_title($resource); ?></span></li>
-    </ul>
-  </section>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), ['module' => 'repository', 'action' => 'browse']); ?></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo render_title($resource); ?></li>
+    </ol>
+  </nav>
 
   <?php if ($resource->existsBanner()) { ?>
-    <div class="row" id="repository-banner">
-      <div class="span7">
-        <?php echo image_tag($resource->getBannerPath(), ['alt' => '']); ?>
+    <div class="row mb-3" id="repository-banner">
+      <div class="col-md-9">
+        <?php echo image_tag($resource->getBannerPath(), ['alt' => '', 'class' => 'img-fluid rounded']); ?>
       </div>
     </div>
   <?php } ?>
 
   <?php if ($sf_data->getRaw('htmlSnippet')) { ?>
     <div class="row" id="repository-html-snippet">
-      <div class="span7">
+      <div class="col-md-9">
         <?php echo render_value_html($sf_data->getRaw('htmlSnippet')); ?>
       </div>
     </div>
@@ -48,84 +48,86 @@
 <?php end_slot(); ?>
 
 <?php slot('context-menu'); ?>
-  <ul>
-    <li>
-      <?php echo __('Clipboard'); ?>
-    </li>
-  </ul>
-  <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'repository']); ?>
 
-  <?php if (isset($primaryContact)) { ?>
-    <section id="primary-contact">
-      <h4><?php echo __('Primary contact'); ?></h4>
-      <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
-      <div class="context-actions">
-        <?php if (null !== $website = $primaryContact->getWebsite()) { ?>
-          <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
-            <?php $website = 'http://'.$website; ?>
+  <nav>
+
+    <h4 class="h5 mb-2"><?php echo __('Clipboard'); ?></h4>
+    <ul class="list-unstyled">
+      <li>
+        <?php echo get_component('clipboard', 'button', ['slug' => $resource->slug, 'wide' => true, 'type' => 'repository']); ?>
+      </li>
+    </ul>
+
+    <?php if (isset($primaryContact)) { ?>
+      <section id="primary-contact" class="mb-3">
+        <h4 class="h5 mb-2"><?php echo __('Primary contact'); ?></h4>
+        <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(['simple' => true])); ?>
+        <div class="d-flex gap-2 flex-wrap">
+          <?php if (null !== $website = $primaryContact->getWebsite()) { ?>
+            <?php if (null === parse_url($website, PHP_URL_SCHEME)) { ?>
+              <?php $website = 'http://'.$website; ?>
+            <?php } ?>
+            <a class="btn atom-btn-white" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
           <?php } ?>
+          <?php if (null !== $email = $primaryContact->email) { ?>
+            <a class="btn atom-btn-white" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
+          <?php } ?>
+        </div>
+      </section>
+    <?php } ?>
 
-          <a class="btn btn-small" href="<?php echo esc_entities($website); ?>"><?php echo __('Website'); ?></a>
-        <?php } ?>
-        <?php if (null !== $email = $primaryContact->email) { ?>
-          <a class="btn btn-small" href="mailto:<?php echo esc_entities($email); ?>"><?php echo __('Email'); ?></a>
-        <?php } ?>
-      </div>
-    </section>
-  <?php } ?>
+  </nav>
 
 <?php end_slot(); ?>
 
 <?php if (isset($latitude, $longitude) && $mapApiKey = sfConfig::get('app_google_maps_api_key')) { ?>
-  <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
+  <style <?php echo __(sfConfig::get('csp_nonce', '')); ?>></style>
+  <div class="p-1 border-bottom">
+    <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey; ?>" data-latitude="<?php echo $latitude; ?>" data-longitude="<?php echo $longitude; ?>"></div>
+  </div>
 <?php } ?>
 
-<section id="identifyArea">
+<?php
+    // TODO: Move this to the controller when we only have B5 themes
+    $headingsCondition = SecurityPrivileges::editCredentials($sf_user, 'repository');
+    $headingsUrl = [$resource, 'module' => 'repository', 'action' => 'edit'];
+?>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Identity area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'identityArea', 'title' => __('Edit identity area')]); ?>
+<section id="identifyArea" class="border-bottom">
+
+  <?php echo render_b5_section_heading(
+      __('Identity area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'identity-collapse', 'class' => 'rounded-top']
+  ); ?>
 
   <?php echo render_show(__('Identifier'), $resource->identifier); ?>
 
-  <?php echo render_show(__('Authorized form of name'), render_value($resource)); ?>
+  <?php echo render_show(__('Authorized form of name'), render_value_inline($resource)); ?>
 
-  <div class="field">
-    <h3><?php echo __('Parallel form(s) of name'); ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID]) as $item) { ?>
-          <li><?php echo render_value_inline($item->__toString()); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
+  <?php echo render_show(__('Parallel form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID])); ?>
 
-  <div class="field">
-    <h3><?php echo __('Other form(s) of name'); ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID]) as $item) { ?>
-          <li><?php echo render_value_inline($item->__toString()); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
+  <?php echo render_show(__('Other form(s) of name'), $resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID])); ?>
 
-  <div class="field">
-    <h3><?php echo __('Type'); ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) { ?>
-          <li><?php echo render_value_inline($item->term->__toString()); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
+  <?php
+      $terms = [];
+      foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) {
+          $terms[] = $item->term;
+      }
+      echo render_show(__('Type'), $terms);
+  ?>
 
 </section>
 
-<section id="contactArea">
+<section id="contactArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Contact area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'contactArea', 'title' => __('Edit contact area')]); ?>
+  <?php echo render_b5_section_heading(
+      __('Contact area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'contact-collapse']
+  ); ?>
 
   <?php foreach ($resource->contactInformations as $contactItem) { ?>
     <?php echo get_partial('contactinformation/contactInformation', ['contactInformation' => $contactItem]); ?>
@@ -133,9 +135,14 @@
 
 </section>
 
-<section id="descriptionArea">
+<section id="descriptionArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Description area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'descriptionArea', 'title' => __('Edit description area')]); ?>
+  <?php echo render_b5_section_heading(
+      __('Description area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'description-collapse']
+  ); ?>
 
   <?php echo render_show(__('History'), render_value($resource->getHistory(['cultureFallback' => true]))); ?>
 
@@ -155,9 +162,14 @@
 
 </section>
 
-<section id="accessArea">
+<section id="accessArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'accessArea', 'title' => __('Edit access area')]); ?>
+  <?php echo render_b5_section_heading(
+      __('Access area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'access-collapse']
+  ); ?>
 
   <?php echo render_show(__('Opening times'), render_value($resource->getOpeningTimes(['cultureFallback' => true]))); ?>
 
@@ -167,9 +179,14 @@
 
 </section>
 
-<section id="servicesArea">
+<section id="servicesArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Services area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'servicesArea', 'title' => __('Edit services area')]); ?>
+  <?php echo render_b5_section_heading(
+      __('Services area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'services-collapse']
+  ); ?>
 
   <?php echo render_show(__('Research services'), render_value($resource->getResearchServices(['cultureFallback' => true]))); ?>
 
@@ -179,43 +196,42 @@
 
 </section>
 
-<section id="controlArea">
+<section id="controlArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'controlArea', 'title' => __('Edit control area')]); ?>
+  <?php echo render_b5_section_heading(
+      __('Control area'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'control-collapse']
+  ); ?>
 
-  <?php echo render_show(__('Description identifier'), render_value($resource->descIdentifier)); ?>
+  <?php echo render_show(__('Description identifier'), render_value_inline($resource->descIdentifier)); ?>
 
-  <?php echo render_show(__('Institution identifier'), render_value($resource->getDescInstitutionIdentifier(['cultureFallback' => true]))); ?>
+  <?php echo render_show(__('Institution identifier'), render_value_inline($resource->getDescInstitutionIdentifier(['cultureFallback' => true]))); ?>
 
   <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getDescRules(['cultureFallback' => true]))); ?>
 
-  <?php echo render_show(__('Status'), render_value($resource->descStatus)); ?>
+  <?php echo render_show(__('Status'), render_value_inline($resource->descStatus)); ?>
 
-  <?php echo render_show(__('Level of detail'), render_value($resource->descDetail)); ?>
+  <?php echo render_show(__('Level of detail'), render_value_inline($resource->descDetail)); ?>
 
   <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getDescRevisionHistory(['cultureFallback' => true]))); ?>
 
-  <div class="field">
-    <h3><?php echo __('Language(s)'); ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->language as $code) { ?>
-          <li><?php echo format_language($code); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
+  <?php
+      $languages = [];
+      foreach ($resource->language as $code) {
+          $languages[] = format_language($code);
+      }
+      echo render_show(__('Language(s)'), $languages);
+  ?>
 
-  <div class="field">
-    <h3><?php echo __('Script(s)'); ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->script as $code) { ?>
-          <li><?php echo format_script($code); ?></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
+  <?php
+      $scripts = [];
+      foreach ($resource->script as $code) {
+          $scripts[] = format_script($code);
+      }
+      echo render_show(__('Script(s)'), $scripts);
+  ?>
 
   <?php echo render_show(__('Sources'), render_value($resource->getDescSources(['cultureFallback' => true]))); ?>
 
@@ -223,13 +239,19 @@
 
 </section>
 
-<section id="accessPointsArea">
+<section id="accessPointsArea" class="border-bottom">
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access points').'</h2>', [$resource, 'module' => 'repository', 'action' => 'edit'], ['anchor' => 'accessPointsArea', 'title' => __('Edit access points')]); ?>
-  <div class="field">
-    <h3><?php echo __('Access Points'); ?></h3>
-    <div>
-      <ul>
+  <?php echo render_b5_section_heading(
+      __('Access points'),
+      $headingsCondition,
+      $headingsUrl,
+      ['anchor' => 'points-collapse']
+  ); ?>
+
+  <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+    <?php echo render_b5_show_label(__('Access Points')); ?>
+    <div class="<?php echo render_b5_show_value_css_classes(); ?>">
+      <ul class="<?php echo render_b5_show_list_css_classes(); ?>">
         <?php foreach ($resource->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item) { ?>
           <li><?php echo __(render_value_inline($item->term)); ?> (Thematic area)</li>
         <?php } ?>
@@ -239,32 +261,30 @@
       </ul>
     </div>
   </div>
+
 </section>
 
 <?php if (QubitAcl::check($resource, ['update', 'delete', 'create'])) { ?>
 
   <?php slot('after-content'); ?>
 
-    <section class="actions">
-      <ul>
-        <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
-          <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'repository', 'action' => 'edit'], ['class' => 'c-btn', 'title' => __('Edit')]); ?></li>
-        <?php } ?>
-        <?php if (QubitAcl::check($resource, 'delete')) { ?>
-          <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'repository', 'action' => 'delete'], ['class' => 'c-btn c-btn-delete', 'title' => __('Delete')]); ?></li>
-        <?php } ?>
-        <?php if (QubitAcl::check($resource, 'create')) { ?>
-          <li><?php echo link_to(__('Add new'), ['module' => 'repository', 'action' => 'add'], ['class' => 'c-btn', 'title' => __('Add new')]); ?></li>
-        <?php } ?>
-        <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) { ?>
-          <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'c-btn', 'title' => __('Add description')]); ?></li>
-        <?php } ?>
-        <li class="divider"></li>
-        <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
-          <li><?php echo link_to(__('Edit theme'), [$resource, 'module' => 'repository', 'action' => 'editTheme'], ['class' => 'c-btn', 'title' => 'Edit theme']); ?></li>
-        <?php } ?>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
+        <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'repository', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php } ?>
+      <?php if (QubitAcl::check($resource, 'delete')) { ?>
+        <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'repository', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger']); ?></li>
+      <?php } ?>
+      <?php if (QubitAcl::check($resource, 'create')) { ?>
+        <li><?php echo link_to(__('Add new'), ['module' => 'repository', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php } ?>
+      <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')) { ?>
+        <li><?php echo link_to(__('Add description'), ['module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php } ?>
+      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) { ?>
+        <li><?php echo link_to(__('Edit theme'), [$resource, 'module' => 'repository', 'action' => 'editTheme'], ['class' => 'btn atom-btn-outline-light']); ?></li>
+      <?php } ?>
+    </ul>
 
   <?php end_slot(); ?>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-07-28T20:04:33Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2025-09-26T19:34:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -60,10 +60,6 @@
         <source>Identity area</source>
         <target>Chỉnh vùng ID</target>
       </trans-unit>
-      <trans-unit id="16">
-        <source>Edit identity area</source>
-        <target>Hiệu vùng ID</target>
-      </trans-unit>
       <trans-unit id="17">
         <source>Type</source>
         <target>Loại 
@@ -85,10 +81,6 @@
         <source>Context area</source>
         <target>Khu vực bối cảnh</target>
       </trans-unit>
-      <trans-unit id="22">
-        <source>Edit context area</source>
-        <target>Hiệu chỉnh vùng bối cảnh</target>
-      </trans-unit>
       <trans-unit id="23">
         <source>Description</source>
         <target>Mô tả </target>
@@ -104,10 +96,6 @@
       <trans-unit id="26">
         <source>Relationships area</source>
         <target>Khu vực mối quan hệ</target>
-      </trans-unit>
-      <trans-unit id="27">
-        <source>Edit relationships area</source>
-        <target>Hiệu khu của mối quan hệ</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Related function</source>
@@ -144,10 +132,6 @@
       <trans-unit id="36">
         <source>Control area</source>
         <target>Vùng kiểm soát</target>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>Edit control area</source>
-        <target>Hiệu chỉnh vùng kiểm soát</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Description identifier</source>
@@ -246,10 +230,6 @@
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
         <target>Xác định các loại thực thể được mô tả trong biểu ghi này. "(ISAAR 5.1.1) Chọn cơ quan hợp nhất, gia đình hoặc cá nhân từ trình đơn thả xuống.</target>
       </trans-unit>
-      <trans-unit id="62">
-        <source>This is a mandatory element.</source>
-        <target>Đây là yếu tố bắt buộc phải có.</target>
-      </trans-unit>
       <trans-unit id="63">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
         <target>Ghi lại các tên có thẩm quyền của các chức năng được mô tả. Trong trường hợp tên là không đủ, thêm từ hạn định để làm cho nó độc đáo như phạm vi lãnh thổ, quản trị hoặc tên của tổ chức, thực hiện nó. Yếu tố này được sử dụng kết hợp với các chức năng mô tả yếu tố định danh (5.4.1). "(ISDF 5.1.2)</target>
@@ -336,6 +316,38 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Please complete all required fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Actions</source>
+        <target>Hành động</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Close</source>
+        <target>Đóng</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
       </trans-unit>
     </body>

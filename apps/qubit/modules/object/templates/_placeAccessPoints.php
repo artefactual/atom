@@ -1,15 +1,15 @@
-<div class="field">
+<div class="field<?php echo isset($sidebar) ? '' : ' '.render_b5_show_field_css_classes(); ?>">
 
   <?php if (isset($sidebar)) { ?>
-    <h4><?php echo __('Related places'); ?></h4>
+    <h4 class="h5 mb-2"><?php echo __('Related places'); ?></h4>
   <?php } elseif (isset($mods)) { ?>
-    <h3><?php echo __('Places'); ?></h3>
+    <?php echo render_b5_show_label(__('Places')); ?>
   <?php } else { ?>
-    <h3><?php echo __('Place access points'); ?></h3>
+    <?php echo render_b5_show_label(__('Place access points')); ?>
   <?php } ?>
 
-  <div>
-    <ul>
+  <div<?php echo isset($sidebar) ? '' : ' class="'.render_b5_show_value_css_classes().'"'; ?>>
+    <ul class="<?php echo isset($sidebar) ? 'list-unstyled' : render_b5_show_list_css_classes(); ?>">
       <?php foreach ($resource->getPlaceAccessPoints() as $item) { ?>
         <li>
           <?php foreach ($item->term->ancestors->andSelf()->orderBy('lft') as $key => $place) { ?>

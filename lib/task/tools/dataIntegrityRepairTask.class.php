@@ -152,20 +152,39 @@ EOF;
             AND st.status_id IS NULL;';
         $this->logSection('data-integrity-repair', sprintf("  - Descriptions without publication status: %d\n", QubitPdo::fetchColumn($sql)));
 
+        $sql = 'SELECT COUNT(o.id)
+            FROM information_object_i18n o
+            WHERE o.id<>1
+            AND coalesce(o.access_conditions, o.accruals, o.acquisition, o.alternate_title, o.appraisal, o.archival_history, o.arrangement, o.edition, o.extent_and_medium, o.finding_aids, o.location_of_copies, o.location_of_originals, o.physical_characteristics, o.related_units_of_description, o.reproduction_conditions, o.revision_history, o.rules, o.scope_and_content, o.sources, o.title) IS NULL;';
+        $this->logSection('data-integrity-repair', sprintf("  - Descriptions with all fields NULL: %d\n", QubitPdo::fetchColumn($sql)));
+
         $sql = 'SELECT io.id, o.id as object_id, io.parent_id, p.id as parent, st.id as status, st.status_id
             FROM information_object io
             LEFT JOIN object o ON io.id=o.id
             LEFT JOIN information_object p ON io.parent_id=p.id
             LEFT JOIN status st ON io.id=st.object_id AND st.type_id=158
+            INNER JOIN information_object_i18n i18n ON o.id=i18n.id
             WHERE io.id<>1
             AND (o.id IS NULL OR io.parent_id IS NULL
             OR p.id IS NULL
             OR st.id IS NULL
-            OR st.status_id IS NULL);';
+            OR st.status_id IS NULL
+            OR coalesce(i18n.access_conditions, i18n.accruals, i18n.acquisition, i18n.alternate_title, i18n.appraisal, i18n.archival_history, i18n.arrangement, i18n.edition, i18n.extent_and_medium, i18n.finding_aids, i18n.location_of_copies, i18n.location_of_originals, i18n.physical_characteristics, i18n.related_units_of_description, i18n.reproduction_conditions, i18n.revision_history, i18n.rules, i18n.scope_and_content, i18n.sources, i18n.title) IS NULL);';
         $affectedIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
         $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions: %d\n", count($affectedIos)));
 
-        if (0 == count($affectedIos)) {
+        $this->logSection('data-integrity-repair', "Checking for invalid descriptions:\n");
+
+        $sql = 'SELECT s.object_id, s.slug
+            FROM slug s
+            INNER JOIN object o
+            ON o.id = s.object_id
+            WHERE class_name="QubitInformationObject"
+            AND object_id NOT IN (SELECT id FROM information_object);';
+        $invalidIos = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_ASSOC]);
+        $this->logSection('data-integrity-repair', sprintf("  - Invalid descriptions: %d\n", count($invalidIos)));
+
+        if (0 == count($affectedIos) && 0 == count($invalidIos)) {
             $this->logSection('data-integrity-repair', "All descriptions seem to be okay.\n");
         } else {
             $affectedIosAndDescendantIds = [];
@@ -176,7 +195,7 @@ EOF;
             }
             $this->logSection('data-integrity-repair', sprintf("  - Affected descriptions (including descendants): %d\n", count($affectedIosAndDescendantIds)));
 
-            $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds);
+            $this->report($filename, $affectedIosById, $affectedIosAndDescendantIds, $invalidIos);
 
             switch ($options['mode']) {
                 case 'fix':
@@ -185,7 +204,7 @@ EOF;
                     break;
 
                 case 'delete':
-                    $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds);
+                    $this->deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds, $invalidIos);
 
                     break;
             }
@@ -228,10 +247,22 @@ EOF;
         $affectedIosAndDescendantIds[] = $id;
     }
 
-    private function report($filename, $affectedIosById, $affectedIosAndDescendantIds)
+    private function report($filename, $affectedIosById, $affectedIosAndDescendantIds, $invalidIos)
     {
         $csvFile = fopen($filename, 'w');
         fputcsv($csvFile, ['id', 'parent_id', 'slug', 'issue(s)']);
+
+        if (count($invalidIos) > 0) {
+            foreach ($invalidIos as $io) {
+                $details = [];
+
+                $details[] = $io['object_id'];
+                $details[] = 'parent not set';
+                $details[] = $io['slug'];
+                $details[] = 'invalid description entry';
+                fputcsv($csvFile, $details);
+            }
+        }
 
         // Reverse IOs to show ancestors first on the report
         foreach (array_reverse($affectedIosAndDescendantIds) as $id) {
@@ -246,17 +277,27 @@ EOF;
             // Check issues
             $issues = [];
             if (isset($affectedIosById[$id])) {
+                $flag = false;
                 if (!isset($affectedIosById[$id]['object_id'])) {
                     $issues[] = 'missing object row';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['parent'])) {
                     $issues[] = 'parent does not exist';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['parent_id'])) {
                     $issues[] = 'parent not set';
+                    $flag = true;
                 }
                 if (!isset($affectedIosById[$id]['status_id']) || !isset($affectedIosById[$id]['status'])) {
                     $issues[] = 'missing publication status';
+                    $flag = true;
+                }
+
+                // If none of the above issues has been flagged, this is an empty IO
+                if (!$flag) {
+                    $issues[] = 'empty information object with no data';
                 }
             } else {
                 $issues[] = 'descendant';
@@ -309,10 +350,29 @@ EOF;
         $this->logSection('data-integrity-repair', sprintf("%d descriptions fixed.\n", count($affectedIosById)));
     }
 
-    private function deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds)
+    private function deleteDescriptions($affectedIosById, $affectedIosAndDescendantIds, $invalidIos)
     {
         $count = 0;
         $this->logSection('data-integrity-repair', "Deleting descriptions ...\n");
+
+        if (count($invalidIos) > 0) {
+            $sql = 'DELETE FROM object
+                WHERE id IN (
+                    SELECT * FROM (
+                        SELECT object_id
+                        FROM slug s
+                        INNER JOIN object o
+                        ON o.id = s.object_id
+                        WHERE class_name="QubitInformationObject"
+                        AND object_id NOT IN (SELECT id FROM information_object)
+                    ) as temp
+                );';
+            $stmt = QubitPdo::prepareAndExecute($sql);
+            $count = count($invalidIos);
+            if (0 == $count % 100) {
+                $this->logSection('data-integrity-repair', sprintf("%d descriptions deleted ...\n", $count));
+            }
+        }
 
         // Description trees are already flattened and reversed to avoid foreign key issues
         foreach ($affectedIosAndDescendantIds as $id) {

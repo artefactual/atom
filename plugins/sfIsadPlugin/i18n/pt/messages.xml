@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:07Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-09-26T19:34:42Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -81,14 +81,6 @@
       <trans-unit id="471">
         <source>Date(s)</source>
         <target>Data(s)</target>
-      </trans-unit>
-      <trans-unit id="765">
-        <source>Edit identity area</source>
-        <target>Editar zona de identificação</target>
-      </trans-unit>
-      <trans-unit id="766">
-        <source>Edit context area</source>
-        <target>Editar zona de contexto</target>
       </trans-unit>
       <trans-unit id="800">
         <source>Rules or conventions</source>
@@ -182,10 +174,6 @@
         <source>Content and structure area</source>
         <target>Zona do conteúdo e estrutura</target>
       </trans-unit>
-      <trans-unit id="914">
-        <source>Edit content and structure area</source>
-        <target>Editar zona do conteúdo e estrutura</target>
-      </trans-unit>
       <trans-unit id="915">
         <source>Scope and content</source>
         <target>Âmbito e conteúdo</target>
@@ -197,10 +185,6 @@
       <trans-unit id="917">
         <source>Conditions of access and use area</source>
         <target>Zona de condições de acesso e utilização </target>
-      </trans-unit>
-      <trans-unit id="918">
-        <source>Edit conditions of access and use area</source>
-        <target>Editar zona das condições de acesso e utilização</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Language of material</source>
@@ -218,10 +202,6 @@
         <source>Allied materials area</source>
         <target>Zona de documentação associada</target>
       </trans-unit>
-      <trans-unit id="923">
-        <source>Edit alied materials area</source>
-        <target>Editar zona da documentação associada</target>
-      </trans-unit>
       <trans-unit id="924">
         <source>Publication note</source>
         <target>Nota de publicação</target>
@@ -230,25 +210,13 @@
         <source>Notes area</source>
         <target>Zona das notas</target>
       </trans-unit>
-      <trans-unit id="926">
-        <source>Edit notes area</source>
-        <target>Editar zona das notas</target>
-      </trans-unit>
       <trans-unit id="927">
         <source>Access points</source>
         <target>Pontos de acesso</target>
       </trans-unit>
-      <trans-unit id="928">
-        <source>Edit access points</source>
-        <target>Editar pontos de acesso</target>
-      </trans-unit>
       <trans-unit id="929">
         <source>Description control area</source>
         <target>Zona do controlo da descrição</target>
-      </trans-unit>
-      <trans-unit id="930">
-        <source>Edit description control area</source>
-        <target>Editar zona do controlo da descrição </target>
       </trans-unit>
       <trans-unit id="931">
         <source>Rules and/or conventions used</source>
@@ -273,10 +241,6 @@
       <trans-unit id="937">
         <source>This is a duplicate of record %1%</source>
         <target>Registo duplicado de %1%</target>
-      </trans-unit>
-      <trans-unit id="938">
-        <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Name of creator(s)</source>
@@ -482,6 +446,26 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       <trans-unit id="1034">
         <source>Add new</source>
         <target>Adicionar novo</target>
+      </trans-unit>
+      <trans-unit id="1035">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1036">
+        <source>Delete</source>
+        <target>Apagar</target>
+      </trans-unit>
+      <trans-unit id="1037">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1038">
+        <source>Languages of the material</source>
+        <target>Idiomas do material</target>
+      </trans-unit>
+      <trans-unit id="1039">
+        <source>Scripts of the material</source>
+        <target>Escrita do material</target>
       </trans-unit>
     </body>
   </file>

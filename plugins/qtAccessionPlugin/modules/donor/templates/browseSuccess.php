@@ -6,66 +6,61 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search donors'),
+        'landmarkLabel' => __('Donor'),
+    ]); ?>
 
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search donors'),
-            'landmarkLabel' => __('Donor'), ]); ?>
-      </div>
-
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'alphabetic' => __('Name'),
-                  'lastUpdated' => __('Date modified'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
+    <div class="d-flex flex-wrap gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'alphabetic' => __('Name'),
+          'lastUpdated' => __('Date modified'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
     </div>
-  </section>
-
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Name'); ?>
-        </th>
-        <?php if ('alphabetic' != $sf_request->sort) { ?>
-          <th>
-            <?php echo __('Updated'); ?>
-          </th>
-        <?php } ?>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $item) { ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td>
-            <?php echo link_to(render_title($item), [$item, 'module' => 'donor']); ?>
-          </td>
+          <th>
+            <?php echo __('Name'); ?>
+          </th>
           <?php if ('alphabetic' != $sf_request->sort) { ?>
-            <td>
-              <?php echo format_date($item->updatedAt, 'f'); ?>
-            </td>
+            <th>
+              <?php echo __('Updated'); ?>
+            </th>
           <?php } ?>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $item) { ?>
+          <tr>
+            <td>
+              <?php echo link_to(render_title($item), [$item, 'module' => 'donor']); ?>
+            </td>
+            <?php if ('alphabetic' != $sf_request->sort) { ?>
+              <td>
+                <?php echo format_date($item->updatedAt, 'f'); ?>
+              </td>
+            <?php } ?>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>
 
   <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
-  <section class="actions">
-    <ul>
-      <li><?php echo link_to(__('Add new'), ['module' => 'donor', 'action' => 'add'], ['class' => 'c-btn']); ?></li>
-    </ul>
+  <section class="actions mb-3">
+    <?php echo link_to(__('Add new'), ['module' => 'donor', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?>
   </section>
 
 <?php end_slot(); ?>

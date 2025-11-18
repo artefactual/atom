@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2025-07-28T20:02:49Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2025-09-26T19:34:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -91,10 +91,6 @@
       <trans-unit id="26">
         <source>Title proper</source>
         <target>Főcím</target>
-      </trans-unit>
-      <trans-unit id="27">
-        <source>This is a mandatory element.</source>
-        <target>Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -220,10 +216,6 @@
         <source>Dates of creation area</source>
         <target>Létrehozási dátum adatcsoport</target>
       </trans-unit>
-      <trans-unit id="59">
-        <source>Add new name and/or date(s)</source>
-        <target>Új név és/vagy dátum(ok) hozzáadása</target>
-      </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
         <target>Fizikai leírás adatcsoport</target>
@@ -291,10 +283,6 @@
       <trans-unit id="76">
         <source>Archival description area</source>
         <target>Iratleírás adatcsoport</target>
-      </trans-unit>
-      <trans-unit id="77">
-        <source>Edit authority record</source>
-        <target>Iratképző leírásának szerkesztése</target>
       </trans-unit>
       <trans-unit id="78">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
@@ -515,17 +503,9 @@ Publikációt meghatározó kifejezéseket illetően:
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>Jelölje meg a levéltári anyag leírásához használt nyelvet (nyelveket).</target>
       </trans-unit>
-      <trans-unit id="132">
-        <source>Language</source>
-        <target>Nyelv</target>
-      </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Jelölje meg a levéltári anyag leírásához használt írásrendszert (írásrendszereket).</target>
-      </trans-unit>
-      <trans-unit id="134">
-        <source>Script</source>
-        <target>Írásrendszer</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -534,10 +514,6 @@ Publikációt meghatározó kifejezéseket illetően:
       <trans-unit id="136">
         <source>Sources</source>
         <target>Források</target>
-      </trans-unit>
-      <trans-unit id="137">
-        <source>Edit title and statement of responsibility area</source>
-        <target>Cím és felelősségnyilatkozat adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Parallel title</source>
@@ -555,41 +531,13 @@ Publikációt meghatározó kifejezéseket illetően:
         <source>Repository</source>
         <target>Levéltár</target>
       </trans-unit>
-      <trans-unit id="142">
-        <source>Edit edition area</source>
-        <target>Kiadási adatcsoport szerkesztése</target>
-      </trans-unit>
       <trans-unit id="143">
         <source>Edition statement of responsibility</source>
         <target>Kiadási felelősségnyilatkozat</target>
       </trans-unit>
-      <trans-unit id="144">
-        <source>Edit class of material specific details area</source>
-        <target>Anyagspecifikus részletek osztályának adatcsoportja szerkesztése</target>
-      </trans-unit>
-      <trans-unit id="145">
-        <source>Edit dates of creation area</source>
-        <target>Létrehozási dátum adatcsoport szerkesztése</target>
-      </trans-unit>
-      <trans-unit id="146">
-        <source>Edit physical description area</source>
-        <target>Fizikai leírás adatcsoport szerkesztése</target>
-      </trans-unit>
-      <trans-unit id="147">
-        <source>Edit publisher's series area</source>
-        <target>Kiadói sorozat adatcsoport szerkesztése</target>
-      </trans-unit>
       <trans-unit id="148">
         <source>Parallel titles of publisher's series</source>
         <target>A kiadói sorozatok hasonló címei</target>
-      </trans-unit>
-      <trans-unit id="149">
-        <source>Edit archival description area</source>
-        <target>Iratleírás adatcsoport szerkesztése</target>
-      </trans-unit>
-      <trans-unit id="150">
-        <source>Edit notes area</source>
-        <target>Megjegyzések adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Arrangement</source>
@@ -615,21 +563,9 @@ Publikációt meghatározó kifejezéseket illetően:
         <source>General note</source>
         <target>Általános jegyzet</target>
       </trans-unit>
-      <trans-unit id="157">
-        <source>Edit standard number area</source>
-        <target>Szabványszám adatcsoport szerkesztése</target>
-      </trans-unit>
       <trans-unit id="158">
         <source>Standard number</source>
         <target>Szabványos szám</target>
-      </trans-unit>
-      <trans-unit id="159">
-        <source>Edit access points</source>
-        <target>Hozzáférési pontok szerkesztése</target>
-      </trans-unit>
-      <trans-unit id="160">
-        <source>Edit control area</source>
-        <target>Ellenőrző adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Description record identifier</source>
@@ -670,6 +606,26 @@ Publikációt meghatározó kifejezéseket illetően:
       <trans-unit id="170">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>Names and dates</source>
+        <target>Nevek és dátumok</target>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>Languages of the material</source>
+        <target>Az anyag nyelvei</target>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>Scripts of the material</source>
+        <target>Az anyag írásrendszere</target>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>Language(s)</source>
+        <target>Nyelv(ek)</target>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Script(s)</source>
+        <target>Írásrendszer(ek)</target>
       </trans-unit>
     </body>
   </file>

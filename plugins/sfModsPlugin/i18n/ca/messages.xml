@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-07-28T20:04:10Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-09-26T19:34:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -24,10 +24,6 @@
         <source>Elements area</source>
         <target>Àrea d'elements</target>
       </trans-unit>
-      <trans-unit id="10">
-        <source>Edit elements area</source>
-        <target>Edita l'àrea d'elements </target>
-      </trans-unit>
       <trans-unit id="11">
         <source>Identifier</source>
         <target>Identificador </target>
@@ -39,10 +35,6 @@
       <trans-unit id="13">
         <source>Type of resource</source>
         <target>Tipus de recurs </target>
-      </trans-unit>
-      <trans-unit id="14">
-        <source>Language</source>
-        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Internet media type</source>
@@ -88,10 +80,6 @@
         <source>Names and origin info</source>
         <target>Informació dels noms i l'origen</target>
       </trans-unit>
-      <trans-unit id="27">
-        <source>Add new name and/or origin info</source>
-        <target>Afegeix un nou nom i/o informació d'origen </target>
-      </trans-unit>
       <trans-unit id="28">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target>Un terme que especifica les característiques i tipus general de contingut del recurs. Assigne tants tipus com siguen aplicables. Les opcions de tipus de recurs estan limitades als valors dels elements de nivell superior, en els tipus de recursos MODS.</target>
@@ -111,10 +99,6 @@
       <trans-unit id="33">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target>Informació sobre restriccions imposades a l'accés al recurs. Per a més informació sobre l'ús d'aquest camp, vegeu les condicions d'accés MODS per l'element de nivell superior.</target>
-      </trans-unit>
-      <trans-unit id="34">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>Identifiqueu la institució o fons del repositori propietari del recurs. Cerqueu un nom de repositori existent escrivint les primeres lletres del nom. Alternativament, escriuviu un nou nom per crear i enllaçar a un nou registre de repositori.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Places</source>
@@ -144,8 +128,28 @@
         <source>Add new</source>
         <target>Afegeix</target>
       </trans-unit>
-      <trans-unit id="42">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+      <trans-unit id="43">
+        <source>Delete</source>
+        <target>Suprimeix</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Utilitze aquests dos camps per a agregar nivells inferiors a una descripció a nivell de col·lecció. Pressionar Agregar nou per a agregar tants nivells descendents com siga necessari. Identificador: ingresse un número únic estàndard o codi que identifique distintivament al recurs. Títol: ingresse una paraula, frase, caràcter, o grup de caràcters, que normalment apareix en un recurs, que ho nomene o al treball contingut en ell.</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Types of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

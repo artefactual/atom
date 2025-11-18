@@ -1,30 +1,39 @@
-<?php use_helper('Text'); ?>
-
-<section class="masonry">
-
+<div class="row g-3 mb-3 masonry">
   <?php foreach ($pager->getResults() as $hit) { ?>
     <?php $doc = $hit->getData(); ?>
-    <?php $authorizedFormOfName = get_search_i18n($doc, 'authorizedFormOfName', ['allowEmpty' => false, 'culture' => $selectedCulture]); ?>
-    <?php $hasLogo = file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png'); ?>
-    <?php if ($hasLogo) { ?>
-      <div class="brick">
-    <?php } else { ?>
-      <div class="brick brick-only-text">
-    <?php } ?>
-      <a href="<?php echo url_for(['module' => 'repository', 'slug' => $doc['slug']]); ?>">
-        <?php if ($hasLogo) { ?>
-          <div class="preview">
-            <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png',
-                  ['alt' => truncate_text(strip_markdown($authorizedFormOfName), 100)]); ?>
-          </div>
+    <?php $authorizedFormOfName = get_search_i18n(
+        $doc,
+        'authorizedFormOfName',
+        ['allowEmpty' => false, 'culture' => $selectedCulture]
+    ); ?>
+
+    <div class="col-sm-6 col-lg-4 masonry-item">
+      <div class="card">
+        <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')) { ?>
+          <a href="<?php echo url_for(['module' => 'repository', 'slug' => $doc['slug']]); ?>">
+            <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png', [
+                'alt' => strip_markdown($authorizedFormOfName),
+                'class' => 'card-img-top',
+            ]); ?>
+          </a>
         <?php } else { ?>
-          <h5><?php echo render_title($authorizedFormOfName); ?></h5>
+          <a class="p-3" href="<?php echo url_for(['module' => 'repository', 'slug' => $doc['slug']]); ?>">
+            <?php echo render_title($authorizedFormOfName); ?>
+          </a>
         <?php } ?>
-      </a>
-      <div class="bottom">
-        <?php echo get_component('clipboard', 'button', ['slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true, 'type' => 'repository']); ?><?php echo render_title($authorizedFormOfName); ?>
+
+        <div class="card-body">
+          <div class="card-text d-flex align-items-start gap-2">
+            <span><?php echo render_title($authorizedFormOfName); ?></span>
+            <?php echo get_component('clipboard', 'button', [
+                'slug' => $doc['slug'],
+                'wide' => false,
+                'type' => 'repository',
+            ]); ?>
+          </div>
+        </div>
       </div>
     </div>
   <?php } ?>
 
-</section>
+</div>

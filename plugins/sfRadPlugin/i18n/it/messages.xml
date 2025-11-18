@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2025-07-28T20:04:04Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2025-09-26T19:34:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="8">
@@ -11,10 +11,6 @@
       <trans-unit id="14">
         <source>Title and statement of responsibility area</source>
         <target>Area del titolo e dell'indicazione di responsabilità</target>
-      </trans-unit>
-      <trans-unit id="15">
-        <source>Edit title and statement of responsibility area</source>
-        <target>Modifica area del titolo e dell'indicazione di responsabilità</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Title proper</source>
@@ -56,10 +52,6 @@
         <source>Edition area</source>
         <target>Area dell'edizione</target>
       </trans-unit>
-      <trans-unit id="26">
-        <source>Edit edition area</source>
-        <target>Modifica area dell'edizione</target>
-      </trans-unit>
       <trans-unit id="27">
         <source>Edition statement</source>
         <target>Indicazioni sull'edizione</target>
@@ -71,10 +63,6 @@
       <trans-unit id="29">
         <source>Class of material specific details area</source>
         <target>Area dei dettagli sulla tipologia del materiale</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Edit class of material specific details area</source>
-        <target>Modifica l'area dei dettagli sulla tipologia del materiale</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Statement of scale (cartographic)</source>
@@ -100,17 +88,9 @@
         <source>Dates of creation area</source>
         <target>Area delle date di creazione</target>
       </trans-unit>
-      <trans-unit id="37">
-        <source>Edit dates of creation area</source>
-        <target>Modifica area delle date di creazione</target>
-      </trans-unit>
       <trans-unit id="38">
         <source>Physical description area</source>
         <target>Area della descrizione fisica</target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>Edit physical description area</source>
-        <target>Modifica area della descrizione fisica</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Physical description</source>
@@ -119,10 +99,6 @@
       <trans-unit id="41">
         <source>Publisher's series area</source>
         <target>Area della serie editoriale</target>
-      </trans-unit>
-      <trans-unit id="42">
-        <source>Edit publisher's series area</source>
-        <target>Modifica l'area della serie editoriale</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Title proper of publisher's series</source>
@@ -152,10 +128,6 @@
         <source>Archival description area</source>
         <target>Area della descrizione archivistica</target>
       </trans-unit>
-      <trans-unit id="50">
-        <source>Edit archival description area</source>
-        <target>Modifica area della descrizione archivistica</target>
-      </trans-unit>
       <trans-unit id="51">
         <source>Custodial history</source>
         <target>Nota archivistica</target>
@@ -167,10 +139,6 @@
       <trans-unit id="53">
         <source>Notes area</source>
         <target>Area delle note</target>
-      </trans-unit>
-      <trans-unit id="54">
-        <source>Edit notes area</source>
-        <target>Modifica area delle note</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Physical condition</source>
@@ -220,10 +188,6 @@
         <source>Standard number area</source>
         <target>Area del numero standard</target>
       </trans-unit>
-      <trans-unit id="70">
-        <source>Edit standard number area</source>
-        <target>Modifica l'area del numero standard</target>
-      </trans-unit>
       <trans-unit id="71">
         <source>Standard number</source>
         <target>Numero standard</target>
@@ -232,17 +196,9 @@
         <source>Access points</source>
         <target>Punti di accesso</target>
       </trans-unit>
-      <trans-unit id="73">
-        <source>Edit access points</source>
-        <target>Modifica i punti d'accesso</target>
-      </trans-unit>
       <trans-unit id="74">
         <source>Control area</source>
         <target>Area del controllo</target>
-      </trans-unit>
-      <trans-unit id="75">
-        <source>Edit control area</source>
-        <target>Modifica area di controllo</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Description record identifier</source>
@@ -295,10 +251,6 @@
       <trans-unit id="92">
         <source>Biographical sketch</source>
         <target>Nota biografica</target>
-      </trans-unit>
-      <trans-unit id="93">
-        <source>Edit authority record</source>
-        <target>Modifica record d'autorità</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Subject access points</source>
@@ -368,10 +320,6 @@
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Inserire il titolo proprio (originale o attribuito) (RAD 1.1B).</target>
       </trans-unit>
-      <trans-unit id="117">
-        <source>This is a mandatory element.</source>
-        <target>Questo è un elemento obbligatorio.</target>
-      </trans-unit>
       <trans-unit id="118">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
         <target>Selezionare la Tipologia di materiale (GMD) al più alto livello di descrizione. Se ve ne sono più di tre, selezionare Molteplici tipologie"(RAD 1.1C).</target>
@@ -431,10 +379,6 @@
       <trans-unit id="135">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>"Indicare il nome della giurisdizione (ad esempio, governo) responsabile dell'emissione del documento filatelico" (RAD 12.3B.1). "Per tutte le unità caratterizzate da un valore/taglio (ad esempio, francobolli, bolli, articoli di cancelleria postali), indicare il valore/taglio in una forma normalizzata, utilizzando le cifre arabe seguite dal nome della valuta. Fornire tali informazioni anche se il valore/taglio è già registrato come parte del titolo proprio o in altre informazioni sul titolo" (RAD 12.3C.1).</target>
-      </trans-unit>
-      <trans-unit id="136">
-        <source>Add new name and/or date(s)</source>
-        <target>Aggiungi nuovo name e/o date</target>
       </trans-unit>
       <trans-unit id="137">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
@@ -560,17 +504,9 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>Indica le lingue usate per descrivere il materiale archivistico.</target>
       </trans-unit>
-      <trans-unit id="171">
-        <source>Language</source>
-        <target>Lingua</target>
-      </trans-unit>
       <trans-unit id="172">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Indica le scritture usate per descrivere il materiale archivistico.</target>
-      </trans-unit>
-      <trans-unit id="173">
-        <source>Script</source>
-        <target>Scrittura</target>
       </trans-unit>
       <trans-unit id="174">
         <source>Name access points (subjects)</source>
@@ -667,6 +603,26 @@
       <trans-unit id="205">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="206">
+        <source>Names and dates</source>
+        <target>Nomi e date</target>
+      </trans-unit>
+      <trans-unit id="207">
+        <source>Languages of the material</source>
+        <target>Lingue dei materiali</target>
+      </trans-unit>
+      <trans-unit id="208">
+        <source>Scripts of the material</source>
+        <target>Scrittura del materiale</target>
+      </trans-unit>
+      <trans-unit id="209">
+        <source>Language(s)</source>
+        <target>Lingue</target>
+      </trans-unit>
+      <trans-unit id="210">
+        <source>Script(s)</source>
+        <target>Scritture</target>
       </trans-unit>
     </body>
   </file>

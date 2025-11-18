@@ -20,31 +20,29 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="privacy-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#privacy-collapse" aria-expanded="true" aria-controls="privacy-collapse">
+            <?php echo __('Privacy Notification Settings'); ?>
+          </button>
+        </h2>
+        <div id="privacy-collapse" class="accordion-collapse collapse show" aria-labelledby="privacy-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->privacy_notification_enabled
+                ->label(__('Display Privacy Notification on first visit to site'))); ?>
 
-      <fieldset class="collapsible">
-
-        <legend><?php echo __('Privacy Notification Settings'); ?></legend>
-
-        <?php echo $form->privacy_notification_enabled
-            ->label(__('Display Privacy Notification on first visit to site'))
-            ->renderRow(); ?>
-
-        <?php echo get_partial('settings/i18n_form_field',
-          [
-              'name' => 'privacy_notification',
-              'label' => __('Privacy Notification Message'),
-              'settings' => $settings,
-              'form' => $form, ]); ?>
-
-      </fieldset>
-
+            <?php echo render_field(
+                $form->privacy_notification
+                    ->label(__('Privacy Notification Message')),
+                $settings['privacy_notification']); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

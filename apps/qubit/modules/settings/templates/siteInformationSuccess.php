@@ -16,71 +16,43 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/siteInformation'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'siteInformation'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="site-information-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#site-information-collapse" aria-expanded="true" aria-controls="site-information-collapse">
+            <?php echo __('Site information settings'); ?>
+          </button>
+        </h2>
+        <div id="site-information-collapse" class="accordion-collapse collapse show" aria-labelledby="site-information-heading">
+          <div class="accordion-body">
+            <?php echo render_field(
+                $form->siteTitle
+                    ->label(__('Site title'))
+                    ->help(__('The name of the website for display in the header')),
+                $settings['siteTitle']); ?>
 
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <?php echo $form->siteTitle->renderLabel(
-                           'Site title', ['title' => 'The name of the website for display in the header']); ?>
-            </td>
-            <td>
-              <?php echo get_partial('settings/i18n_form_field',
-                [
-                    'name' => 'siteTitle',
-                    'label' => null,
-                    'settings' => $settings,
-                    'form' => $form, ]); ?>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <?php echo $form->siteDescription->renderLabel(
-                           'Site description', ['title' => 'A brief site description or &quot;tagline&quot; for the header']); ?>
-            </td>
-            <td>
-              <?php echo get_partial('settings/i18n_form_field',
-                [
-                    'name' => 'siteDescription',
-                    'label' => null,
-                    'settings' => $settings,
-                    'form' => $form, ]); ?>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <?php
-                echo $form->siteBaseUrl->renderLabel(
-                  'Site base URL (used in MODS and EAD exports)',
-                  [
-                      'title' => 'Used to create absolute URLs, pointing to resources, in XML exports',
-                  ]
-                ); ?>
-            </td>
-            <td>
-              <?php echo $form->siteBaseUrl->render(); ?>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <?php echo render_field(
+                $form->siteDescription
+                    ->label(__('Site description'))
+                    ->help(__('A brief site description or &quot;tagline&quot; for the header')),
+                $settings['siteDescription']); ?>
 
+            <?php echo render_field(
+                $form->siteBaseUrl
+                    ->label(__('Site base URL (used in MODS and EAD exports)'))
+                    ->help(__('Used to create absolute URLs, pointing to resources, in XML exports')),
+                $settings['siteBaseUrl']); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

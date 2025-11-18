@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-07-28T20:04:14Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-09-26T19:34:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -27,10 +27,6 @@
       <trans-unit id="12">
         <source>Identity elements</source>
         <target>Elements d'identitat </target>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Edit identity elements</source>
-        <target>Edita els elements d'identitat </target>
       </trans-unit>
       <trans-unit id="14">
         <source>Reference code</source>
@@ -64,10 +60,6 @@
         <source>Content and structure elements</source>
         <target>Elements de contingut i d'estructura </target>
       </trans-unit>
-      <trans-unit id="22">
-        <source>Edit context and structure elements</source>
-        <target>Edita els elements de context i estructura </target>
-      </trans-unit>
       <trans-unit id="23">
         <source>Scope and content</source>
         <target>Abast i contingut </target>
@@ -79,10 +71,6 @@
       <trans-unit id="25">
         <source>Conditions of access and use elements</source>
         <target>Condicions d'accés i ús dels elements</target>
-      </trans-unit>
-      <trans-unit id="26">
-        <source>Edit conditions of access and use elements</source>
-        <target>Edita els elements referents a les condicions d'accés i ús</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Conditions governing access</source>
@@ -120,10 +108,6 @@
         <source>Acquisition and appraisal elements</source>
         <target>Elements d'adquisició i valoració</target>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Edit acquisition and appraisal elements</source>
-        <target>Editar els elements d'adquisició i valoració</target>
-      </trans-unit>
       <trans-unit id="37">
         <source>Custodial history</source>
         <target>Historial de la custòdia </target>
@@ -143,10 +127,6 @@
       <trans-unit id="41">
         <source>Related materials elements</source>
         <target>Elements dels materials relacionats</target>
-      </trans-unit>
-      <trans-unit id="42">
-        <source>Edit related materials elements</source>
-        <target>Edita els elements dels materials relacionats</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Existence and location of originals</source>
@@ -168,10 +148,6 @@
         <source>Notes element</source>
         <target>Element notes</target>
       </trans-unit>
-      <trans-unit id="48">
-        <source>Edit notes element</source>
-        <target>Edita els element referents a les notes</target>
-      </trans-unit>
       <trans-unit id="49">
         <source>General note</source>
         <target>Nota general </target>
@@ -183,10 +159,6 @@
       <trans-unit id="51">
         <source>Description control element</source>
         <target>Àrea de control de la descripció</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Edit description control element</source>
-        <target>Edita l'element de control de descripció </target>
       </trans-unit>
       <trans-unit id="53">
         <source>Rules or conventions</source>
@@ -203,10 +175,6 @@
       <trans-unit id="56">
         <source>Access points</source>
         <target>Punts d'accés </target>
-      </trans-unit>
-      <trans-unit id="57">
-        <source>Edit access points</source>
-        <target>Edita els punts d'accés </target>
       </trans-unit>
       <trans-unit id="58">
         <source>Rights area</source>
@@ -227,10 +195,6 @@
       <trans-unit id="63">
         <source>Identifier</source>
         <target>Identificador </target>
-      </trans-unit>
-      <trans-unit id="64">
-        <source>This is a mandatory element.</source>
-        <target>Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>

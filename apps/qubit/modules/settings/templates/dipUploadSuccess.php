@@ -16,33 +16,28 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/dipUpload'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'dipUpload'])); ?>
+   
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
-
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?php echo __('Strip file extensions from information object names'); ?></td>
-            <td><?php echo $form->stripExtensions; ?></td>
-          </tr>
-        </tbody>
-      </table>
-
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="dip-upload-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dip-upload-collapse" aria-expanded="true" aria-controls="dip-upload-collapse">
+            <?php echo __('DIP Upload settings'); ?>
+          </button>
+        </h2>
+        <div id="dip-upload-collapse" class="accordion-collapse collapse show" aria-labelledby="dip-upload-heading">
+          <div class="accordion-body">
+            <?php echo render_field($form->stripExtensions
+                ->label(__('Strip file extensions from information object names'))); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

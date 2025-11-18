@@ -11,13 +11,11 @@
   <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'rightsholder', 'action' => 'delete']), ['method' => 'delete']); ?>
 
     <?php echo $form->renderHiddenFields(); ?>
-    
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'rightsholder'], ['class' => 'c-btn']); ?></li>
-        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete'); ?>"/></li>
-      </ul>
-    </section>
+
+    <ul class="actions mb-3 nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'rightsholder'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-danger" type="submit" value="<?php echo __('Delete'); ?>"></li>
+    </ul>
 
   </form>
 

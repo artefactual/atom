@@ -1,6 +1,6 @@
 <h1><?php echo __('Upload limit exceeded'); ?></h1>
 
-<div class="messages error">
+<div class="alert alert-danger" role="alert">
   <?php echo __('The upload limit of %1% GB for <a href="%2%">%3%</a> has been exceeded (%4% GB currently used)', [
       '%1%' => $resource->uploadLimit,
       '%2%' => url_for([$resource, 'module' => 'repository']),
@@ -16,8 +16,6 @@
   </ul>
 </div>
 
-<section class="actions">
-  <ul>
-    <li><a class="c-btn" href="#" onClick="history.back(); return false;"><?php echo __('Back'); ?></a></li>
-  </ul>
+<section class="actions mb-3">
+  <a class="btn atom-btn-outline-light" href="#" onClick="history.back(); return false;"><?php echo __('Back'); ?></a>
 </section>

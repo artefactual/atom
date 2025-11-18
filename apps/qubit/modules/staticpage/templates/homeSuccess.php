@@ -8,32 +8,39 @@
 
   <?php echo get_component('menu', 'staticPagesMenu'); ?>
 
-  <section>
-    <h2><?php echo __('Browse by'); ?></h2>
-    <ul>
-      <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID); ?>
-      <?php if ($browseMenu->hasChildren()) { ?>
+  <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID); ?>
+  <?php if ($browseMenu->hasChildren()) { ?>
+    <section class="card mb-3">
+      <h2 class="h5 p-3 mb-0">
+        <?php echo __('Browse by'); ?>
+      </h2>
+      <div class="list-group list-group-flush">
         <?php foreach ($browseMenu->getChildren() as $item) { ?>
-          <li><a href="<?php echo url_for($item->getPath(['getUrl' => true, 'resolveAlias' => true])); ?>"><?php echo esc_specialchars($item->getLabel(['cultureFallback' => true])); ?></a></li>
+          <a
+            class="list-group-item list-group-item-action"
+            href="<?php echo url_for($item->getPath(['getUrl' => true, 'resolveAlias' => true])); ?>">
+            <?php echo esc_specialchars($item->getLabel(['cultureFallback' => true])); ?>
+          </a>
         <?php } ?>
-      <?php } ?>
-    </ul>
-  </section>
+      </div>
+    </section>
+  <?php } ?>
 
-  <?php echo get_component('default', 'popular', ['limit' => 10, 'sf_cache_key' => $sf_user->getCulture()]); ?>
+  <?php echo get_component('default', 'popular', [
+      'limit' => 10,
+      'sf_cache_key' => $sf_user->getCulture(),
+  ]); ?>
 
 <?php end_slot(); ?>
 
-<div class="page">
+<div class="page p-3">
   <?php echo render_value_html($sf_data->getRaw('content')); ?>
 </div>
 
 <?php if (QubitAcl::check($resource, 'update')) { ?>
   <?php slot('after-content'); ?>
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['title' => __('Edit this page'), 'class' => 'c-btn']); ?></li>
-      </ul>
+    <section class="actions mb-3">
+      <?php echo link_to(__('Edit'), [$resource, 'module' => 'staticpage', 'action' => 'edit'], ['class' => 'btn atom-btn-outline-light']); ?>
     </section>
   <?php end_slot(); ?>
 <?php } ?>

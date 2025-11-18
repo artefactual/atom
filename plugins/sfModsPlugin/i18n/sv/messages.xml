@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2025-07-28T20:03:02Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2025-09-26T19:34:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -39,10 +39,6 @@
       <trans-unit id="9">
         <source>Names and origin info</source>
         <target>Namn- och ursprungsinformation</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Add new name and/or origin info</source>
-        <target>Lägg till nytt namn och/eller ursprungsinformation</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
@@ -96,10 +92,6 @@
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target>Information om begränsningar för åtkomst till en resurs. Se högsta nivåns element i MODS accessCondition för mer information om hur detta fält ska användas.</target>
       </trans-unit>
-      <trans-unit id="25">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>Identifierar institutionen eller arkivinstitutionen som förvaltar resursen. Sök efter en befintlig arkivinstitution genom att skriva in de första bokstäverna i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny arkivinstitution.</target>
-      </trans-unit>
       <trans-unit id="26">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
         <target>En sammanfattning, innehållsförteckning eller beskrivning av materialets omfattning och innehåll</target>
@@ -107,14 +99,6 @@
       <trans-unit id="27">
         <source>Description</source>
         <target>Beskrivning</target>
-      </trans-unit>
-      <trans-unit id="32">
-        <source>Edit elements area</source>
-        <target>Redigera element</target>
-      </trans-unit>
-      <trans-unit id="33">
-        <source>Language</source>
-        <target>Språk</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internet media type</source>
@@ -144,8 +128,28 @@
         <source>Add new</source>
         <target>Lägg till ny</target>
       </trans-unit>
-      <trans-unit id="41">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+      <trans-unit id="42">
+        <source>Delete</source>
+        <target>Ta bort</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Använd dessa två fält för att lägga till lägre nivåer till en beskrivning på samlingsnivå. Tryck på Lägg till ny för att lägga till så många underordnade nivåer som nödvändigt. Signum: ange ett unikt standardnummer eller kod som identifierar just den resursen. Titel: Ange ett ord, fras, tecken eller grupp av tecken som förekommer i en resurs, som namnger den eller informationen som ingår i den.</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Types of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

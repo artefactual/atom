@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2025-07-28T20:02:56Z" product-name="messages">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2025-09-26T19:34:35Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -27,10 +27,6 @@
       <trans-unit id="7">
         <source>Authorized form of name</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>This is a mandatory element.</source>
-        <target>Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
@@ -292,16 +288,8 @@
         <source>View accession record</source>
         <target/>
       </trans-unit>
-      <trans-unit id="82">
-        <source>Edit donor/transferring body area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="84">
-        <source>Edit administrative area</source>
         <target/>
       </trans-unit>
       <trans-unit id="85">
@@ -348,10 +336,6 @@
         <source>Rights area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="96">
-        <source>Edit rights area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
         <target/>
@@ -378,10 +362,6 @@
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="109">
-        <source>Edit deaccession record</source>
         <target/>
       </trans-unit>
       <trans-unit id="110">
@@ -438,10 +418,6 @@
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier unavailable.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="124">
-        <source>Loading...</source>
         <target/>
       </trans-unit>
       <trans-unit id="125">
@@ -528,14 +504,6 @@
         <source>Please complete all required fields.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="149">
-        <source>This is the legal entity field and provides the contact
-                information for the person(s) or the institution that donated or
-                transferred the materials. It has the option of multiple
-                instances and provides the option of creating more than one
-                contact record using the same form.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="150">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to %1% records. To view the last records in the current result set, try changing the sort direction.</source>
         <target/>
@@ -574,6 +542,70 @@
       </trans-unit>
       <trans-unit id="159">
         <source>Location information - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Accession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>You are not allowed to export this entity type.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Your %entity_type% export package is being built.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>The %open_link%job management page%close_link% will show progress and a download link when complete.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Export CSV</source>
+        <target>Экспортировать CSV</target>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Last updated</source>
+        <target>Последнее обновление</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Actions</source>
+        <target>Действия</target>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>Close</source>
+        <target>Закрыть</target>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>Add alternative identifier(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Clipboard</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,52 +1,94 @@
-<?php use_helper('Text'); ?>
-
-<?php if (!empty($doc['hasDigitalObject'])) { ?>
-  <article class="search-result has-preview">
-<?php } else { ?>
-  <article class="search-result">
-<?php } ?>
-
+<article class="search-result row g-0 p-3 border-bottom">
   <?php if (!empty($doc['hasDigitalObject'])) { ?>
-    <div class="search-result-preview">
-      <a href="<?php echo url_for(['module' => 'actor', 'slug' => $doc['slug']]); ?>">
-        <div class="preview-container">
-          <?php if (isset($doc['digitalObject']['thumbnailPath'])) { ?>
-            <?php echo image_tag($doc['digitalObject']['thumbnailPath'],
-              ['alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown(get_search_i18n($doc, 'authorizedFormOfName', ['allowEmpty' => false, 'culture' => $culture])), 100)]); ?>
-          <?php } else { ?>
-            <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
-              ['alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown(get_search_i18n($doc, 'authorizedFormOfName', ['allowEmpty' => false, 'culture' => $culture])), 100)]); ?>
-          <?php } ?>
-        </div>
+    <div class="col-12 col-lg-3 pb-2 pb-lg-0 pe-lg-3">
+      <a href="<?php echo url_for(
+          ['module' => 'actor', 'slug' => $doc['slug']]
+      ); ?>">
+        <?php echo image_tag(
+            $doc['digitalObject']['thumbnailPath']
+            ?: QubitDigitalObject::getGenericIconPathByMediaTypeId(
+                $doc['digitalObject']['mediaTypeId'] ?: null
+            ),
+            [
+                'alt' => $doc['digitalObject']['digitalObjectAltText'] ?: strip_markdown(
+                    get_search_i18n(
+                        $doc,
+                        'authorizedFormOfName',
+                        ['allowEmpty' => false, 'culture' => $culture]
+                    )
+                ),
+                'class' => 'img-thumbnail',
+            ]
+        ); ?>
       </a>
     </div>
   <?php } ?>
 
-  <div class="search-result-description">
+  <div class="col-12<?php echo empty($doc['hasDigitalObject']) ? '' : ' col-lg-9'; ?> d-flex flex-column gap-1">
+    <div class="d-flex align-items-center gap-2 mw-100">
+      <?php echo link_to(
+          render_title(get_search_i18n(
+              $doc,
+              'authorizedFormOfName',
+              ['allowEmpty' => false, 'culture' => $culture]
+          )),
+          ['module' => 'actor', 'slug' => $doc['slug']],
+          ['class' => 'h5 mb-0 text-truncate'],
+      ); ?>
 
-    <p class="title"><?php echo link_to(render_value_inline(get_search_i18n($doc, 'authorizedFormOfName', ['allowEmpty' => false, 'culture' => $culture])), ['module' => 'actor', 'slug' => $doc['slug']]); ?></p>
+      <?php echo get_component('clipboard', 'button', [
+          'slug' => $doc['slug'],
+          'type' => $clipboardType,
+          'wide' => false,
+      ]); ?>
+    </div>
 
-    <?php echo get_component('clipboard', 'button', ['slug' => $doc['slug'], 'wide' => false, 'type' => $clipboardType]); ?>
+    <div class="d-flex flex-column gap-2">
+      <div class="d-flex flex-wrap">
+        <?php $showDash = false; ?>
+        <?php if (!empty($doc['descriptionIdentifier'])) { ?>
+          <span class="text-primary">
+            <?php echo $doc['descriptionIdentifier']; ?>
+          </span>
+          <?php $showDash = true; ?>
+        <?php } ?>
 
-    <ul class="result-details">
+        <?php if (
+            !empty($doc['entityTypeId'])
+            && null !== $term = QubitTerm::getById($doc['entityTypeId'])
+        ) { ?>
+          <?php if ($showDash) { ?>
+            <span class="text-muted mx-2"> · </span>
+          <?php } ?>
+          <span class="text-muted">
+            <?php echo render_value_inline($term); ?>
+          </span>
+          <?php $showDash = true; ?>
+        <?php } ?>
 
-      <?php if (!empty($doc['descriptionIdentifier'])) { ?>
-        <li class="reference-code"><?php echo $doc['descriptionIdentifier']; ?></li>
+        <?php if (strlen($dates = get_search_i18n(
+            $doc,
+            'datesOfExistence',
+            ['culture' => $culture])) > 0
+        ) { ?>
+          <?php if ($showDash) { ?>
+            <span class="text-muted mx-2"> · </span>
+          <?php } ?>
+          <span class="text-muted">
+            <?php echo render_value_inline($dates); ?>
+          </span>
+        <?php } ?>
+      </div>
+
+      <?php if (strlen($history = get_search_i18n(
+          $doc,
+          'history',
+          ['culture' => $culture])) > 0
+      ) { ?>
+        <span class="text-block d-none">
+          <?php echo render_value($history); ?>
+        </span>
       <?php } ?>
-
-      <?php if (!empty($doc['entityTypeId']) && null !== $term = QubitTerm::getById($doc['entityTypeId'])) { ?>
-        <li><?php echo render_value_inline($term); ?></li>
-      <?php } ?>
-
-      <?php if (strlen($dates = get_search_i18n($doc, 'datesOfExistence', ['culture' => $culture])) > 0) { ?>
-        <li><?php echo render_value_inline($dates); ?></li>
-      <?php } ?>
-
-    </ul>
-
-    <?php if (null !== $history = get_search_i18n($doc, 'history', ['culture' => $culture])) { ?>
-      <div class="history"><?php echo render_value($history); ?></div>
-    <?php } ?>
+    </div>
   </div>
-
 </article>

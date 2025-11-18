@@ -24,8 +24,6 @@ class ClipboardViewAction extends DefaultBrowseAction
         parent::execute($request);
 
         if ('print' == $request->getGetParameter('media')) {
-            $this->getResponse()->addStylesheet('print-preview', 'last');
-
             // Negate paging when printing
             $maxPerPage = arElasticSearchPluginConfiguration::getMaxResultWindow();
         } else {
@@ -38,7 +36,10 @@ class ClipboardViewAction extends DefaultBrowseAction
 
         $slugs = $request->getPostParameter('slugs', []);
 
-        if (empty($slugs)) {
+        $canExportAccessions = $this->context->user->hasCredential(['editor', 'administrator'], false);
+
+        // Do not try searching for results if the user is not allowed to export accessions
+        if (empty($slugs) || ('QubitAccession' == $this->entityType && !$canExportAccessions)) {
             $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query(), []);
         } else {
             $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
@@ -66,6 +67,11 @@ class ClipboardViewAction extends DefaultBrowseAction
             'repository' => sfConfig::get('app_ui_label_repository'),
         ];
 
+        // Some users cannot export accessions - don't show them the option to export them
+        if ($canExportAccessions) {
+            $this->uiLabels['accession'] = sfConfig::get('app_ui_label_accession');
+        }
+
         // Remove slugs parameter. In some templates (entity type dropdown
         // for example) the links are generated with all the request params
         // (including POST) which appends the slugs from the Ajax request.
@@ -85,6 +91,11 @@ class ClipboardViewAction extends DefaultBrowseAction
         // IOs and Repos have identifier sort option in common
         if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository'])) {
             $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
+        }
+
+        if ('QubitAccession' == $this->entityType) {
+            $this->sortOptions['identifier'] = $this->context->i18n->__('Accession number');
+            $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
         }
 
         // IO specific sort options
@@ -125,9 +136,9 @@ class ClipboardViewAction extends DefaultBrowseAction
 
                 break;
 
-            // Sort by title if information object, go with authorized form of name if repository / actor
+            // Sort by title if information object or accession, go with authorized form of name if repository / actor
             case 'alphabetic':
-                $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
+                $fieldName = in_array($this->entityType, ['QubitInformationObject', 'QubitAccession']) ? 'title' : 'authorizedFormOfName';
                 $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
                 $this->search->query->addSort([$field => $request->sortDir]);
 

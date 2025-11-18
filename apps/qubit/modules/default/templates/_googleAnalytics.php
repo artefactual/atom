@@ -1,4 +1,9 @@
-<?php $gaKey = sfConfig::get('app_google_analytics_api_key', ''); ?>
+<?php
+$gaKey = QubitSetting::getByName('google_analytics');
+if (empty($gaKey)) {
+    $gaKey = sfConfig::get('app_google_analytics_api_key', '');
+}
+?>
 <?php if (!empty($gaKey)) { ?>
     <script <?php echo __(sfConfig::get('csp_nonce', '')); ?> async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $gaKey; ?>"></script>
     <script <?php echo __(sfConfig::get('csp_nonce', '')); ?>>

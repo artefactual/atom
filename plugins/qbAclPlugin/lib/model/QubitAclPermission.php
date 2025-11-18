@@ -181,6 +181,11 @@ class QubitAclPermission extends BaseAclPermission
 
                 break;
 
+            case 0:
+                $access = 'Deny';
+
+                break;
+
             case null:
                 $access = 'Inherit';
 

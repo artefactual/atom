@@ -18,7 +18,7 @@
  */
 
 /**
- * Bulk export data to XML.
+ * Export information objects to a single CSV file.
  *
  * @author     Mike Cantelon <mike@artefactual.com>
  */

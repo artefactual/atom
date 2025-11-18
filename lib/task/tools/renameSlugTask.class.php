@@ -131,6 +131,7 @@ EOF;
         } else {
             $oldSlugObject->slug = $newSlug;
             $oldSlugObject->save();
+            QubitObject::getBySlug($newSlug)->save();
             $this->logSection('rename-slug', "Slug {$oldSlug} updated to {$newSlug} successfully.");
             $this->addToLogFile($oldSlug, $newSlug);
         }

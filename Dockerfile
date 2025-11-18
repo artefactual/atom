@@ -53,7 +53,6 @@ RUN set -xe \
       bash \
       gnu-libiconv \
       fcgi \
-    && npm install -g "less@<4.0.0" \
     && curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
     && ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop \
     && echo "extension=ldap.so" > /usr/local/etc/php/conf.d/docker-php-ext-ldap.ini
@@ -75,8 +74,6 @@ WORKDIR /atom/src
 RUN set -xe \
     && mv /atom/build/vendor/composer vendor/ \
     && mv /atom/build/node_modules . \
-    && make -C plugins/arDominionPlugin \
-    && make -C plugins/arArchivesCanadaPlugin \
     && npm run build \
     && rm -rf /atom/build
 

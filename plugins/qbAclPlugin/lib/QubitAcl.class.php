@@ -498,6 +498,9 @@ class QubitAcl
                             // user has grant permission on ANY repository. This will force
                             // showing ONLY resources in allowed repositories
                             $forceBan = count($rows) > 0;
+                        } elseif ($permission->grantDeny) {
+                            // Handle description-specific viewDraft permissions
+                            $ids[] = $permission->objectId;
                         }
 
                         break;

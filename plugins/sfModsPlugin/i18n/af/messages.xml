@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-03-05T18:29:37Z" product-name="messages">
+  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-09-26T19:20:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -40,10 +40,6 @@
         <source>Names and origin info</source>
         <target/>
       </trans-unit>
-      <trans-unit id="10">
-        <source>Add new name and/or origin info</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
         <target/>
@@ -66,10 +62,6 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Add new</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="17">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
         <target/>
       </trans-unit>
       <trans-unit id="18">
@@ -104,24 +96,12 @@
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="26">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="27">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
         <target/>
       </trans-unit>
       <trans-unit id="28">
         <source>Description</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="29">
-        <source>Edit elements area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Language</source>
         <target/>
       </trans-unit>
       <trans-unit id="31">
@@ -146,6 +126,30 @@
       </trans-unit>
       <trans-unit id="36">
         <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Types of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

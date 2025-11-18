@@ -6,42 +6,38 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
-
-  <section class="header-options">
-    <div class="row">
-      <div class="span5">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]), ]); ?>
-      </div>
-    </div>
-  </section>
-
+  <div class="d-inline-block mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
+    ]); ?>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
-
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Name'); ?>
-        </th><th>
-          <?php echo __('Updated'); ?>
-        </th>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($pager->getResults() as $item) { ?>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-          <td>
-            <?php echo link_to(render_title($item), $item); ?>
-          </td><td>
-            <?php echo format_date($item->updatedAt, 'f'); ?>
-          </td>
+          <th>
+            <?php echo __('Name'); ?>
+          </th><th>
+            <?php echo __('Updated'); ?>
+          </th>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        <?php foreach ($pager->getResults() as $item) { ?>
+          <tr>
+            <td>
+              <?php echo link_to(render_title($item), $item); ?>
+            </td><td>
+              <?php echo format_date($item->updatedAt, 'f'); ?>
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('after-content'); ?>

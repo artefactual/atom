@@ -1,10 +1,11 @@
-<section class="vcard">
-
+<section class="contact-info">
   <?php if (!empty($contactInformation->contactPerson)) { ?>
-    <div class="field">
-      <h3>&nbsp;</h3>
-      <div class="agent">
-        <?php echo render_value_inline($contactInformation->contactPerson); ?>
+    <div class="field <?php echo render_b5_show_field_css_classes(); ?>">
+      <?php echo render_b5_show_label(''); ?>
+      <div class="agent <?php echo render_b5_show_value_css_classes(); ?>">
+        <span class="text-primary">
+          <?php echo render_value_inline($contactInformation->contactPerson); ?>
+        </span>
         <?php if ($contactInformation->primaryContact) { ?>
           <span class="primary-contact">
             <?php echo __('Primary contact'); ?>
@@ -14,91 +15,33 @@
     </div>
   <?php } ?>
 
-  <div class="field">
-    <h3><?php echo __('Type'); ?></h3>
-    <div class="type">
-      <?php echo render_value_inline($contactInformation->getContactType(['cultureFallback' => true])); ?>
-    </div>
-  </div>
+  <?php echo render_show(__('Type'), render_value_inline($contactInformation->getContactType(['cultureFallback' => true])), ['valueClass' => 'type']); ?>
 
-  <div class="field adr">
+  <div class="field adr <?php echo render_b5_show_field_css_classes(); ?>">
+    <?php echo render_b5_show_label(__('Address')); ?>
+    <div class="<?php echo render_b5_show_value_css_classes(); ?>">
 
-    <h3><?php echo __('Address'); ?></h3>
+      <?php echo render_show(__('Street address'), render_value_inline($contactInformation->streetAddress), ['isSubField' => true]); ?>
 
-    <div>
+      <?php echo render_show(__('Locality'), render_value_inline($contactInformation->getCity(['cultureFallback' => true])), ['isSubField' => true]); ?>
 
-      <div class="field">
-        <h3><?php echo __('Street address'); ?></h3>
-        <div class="street-address">
-          <?php echo render_value_inline($contactInformation->streetAddress); ?>
-        </div>
-      </div>
+      <?php echo render_show(__('Region'), render_value_inline($contactInformation->getRegion(['cultureFallback' => true])), ['isSubField' => true]); ?>
 
-      <div class="field">
-        <h3><?php echo __('Locality'); ?></h3>
-        <div class="locality">
-          <?php echo render_value_inline($contactInformation->getCity(['cultureFallback' => true])); ?>
-        </div>
-      </div>
+      <?php echo render_show(__('Country name'), format_country($contactInformation->countryCode), ['isSubField' => true]); ?>
 
-      <div class="field">
-        <h3><?php echo __('Region'); ?></h3>
-        <div class="region">
-          <?php echo render_value_inline($contactInformation->getRegion(['cultureFallback' => true])); ?>
-        </div>
-      </div>
-
-      <div class="field">
-        <h3><?php echo __('Country name'); ?></h3>
-        <div class="country-name">
-          <?php echo format_country($contactInformation->countryCode); ?>
-        </div>
-      </div>
-
-      <div class="field">
-        <h3><?php echo __('Postal code'); ?></h3>
-        <div class="postal-code">
-          <?php echo render_value_inline($contactInformation->postalCode); ?>
-        </div>
-      </div>
+      <?php echo render_show(__('Postal code'), render_value_inline($contactInformation->postalCode), ['isSubField' => true]); ?>
 
     </div>
 
   </div>
 
-  <div class="field">
-    <h3><?php echo __('Telephone'); ?></h3>
-    <div class="tel">
-      <?php echo render_value_inline($contactInformation->telephone); ?>
-    </div>
-  </div>
+  <?php echo render_show(__('Telephone'), render_value_inline($contactInformation->telephone), ['valueClass' => 'tel']); ?>
 
-  <div class="field">
-    <h3 class="type"><?php echo __('Fax'); ?></h3>
-    <div class="fax">
-      <?php echo render_value_inline($contactInformation->fax); ?>
-    </div>
-  </div>
+  <?php echo render_show(__('Fax'), render_value_inline($contactInformation->fax), ['valueClass' => 'fax']); ?>
 
-  <div class="field">
-    <h3><?php echo __('Email'); ?></h3>
-    <div class="email">
-      <?php echo render_value_inline($contactInformation->email); ?>
-    </div>
-  </div>
+  <?php echo render_show(__('Email'), render_value_inline($contactInformation->email), ['valueClass' => 'email']); ?>
 
-  <div class="field">
-    <h3><?php echo __('URL'); ?></h3>
-    <div class="url">
-      <?php echo render_value_inline($contactInformation->website); ?>
-    </div>
-  </div>
+  <?php echo render_show(__('URL'), render_value_inline($contactInformation->website), ['valueClass' => 'url']); ?>
 
-  <div class="field">
-    <h3><?php echo __('Note'); ?></h3>
-    <div class="note">
-      <?php echo render_value_inline($contactInformation->getNote(['cultureFallback' => true])); ?>
-    </div>
-  </div>
-
+  <?php echo render_show(__('Note'), render_value($contactInformation->getNote(['cultureFallback' => true])), ['valueClass' => 'note']); ?>
 </section>

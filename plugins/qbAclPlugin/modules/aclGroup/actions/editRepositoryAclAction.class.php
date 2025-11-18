@@ -29,6 +29,7 @@ class AclGroupEditRepositoryAclAction extends AclGroupEditDefaultAclAction
 
         // Always include root repository permissions
         $this->repositories = [QubitRepository::ROOT_ID => null];
+        $this->permissions = null;
 
         // Get repository permissions for this group
         $criteria = new Criteria();
@@ -39,6 +40,11 @@ class AclGroupEditRepositoryAclAction extends AclGroupEditDefaultAclAction
 
         if (null !== $permissions = QubitAclPermission::get($criteria)) {
             foreach ($permissions as $p) {
+                // Populating permissions for index page
+                if (QubitRepository::ROOT_ID == $p->objectId) {
+                    $this->permissions[$p->action] = $p;
+                }
+
                 $this->repositories[$p->objectId][$p->action] = $p;
             }
         }

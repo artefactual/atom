@@ -9,16 +9,28 @@ Access to Memory (AtoM) is a fully web-based toolkit that will allow institution
 The goal is to provide an easy-to-use, flexible toolkit that complies with open standards (e.g. Dublin Core, ICA-ISAD, MODS, EAD, METS) and is developed using an open architecture that takes advantage of emerging web-based tools and practices.
   </description>
   <lead>
+    <name>Anvit Srivastav</name>
+    <user>anvit</user>
+    <email>maintainers@artefactual.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Melanie Kung</name>
+    <user>melaniekung</user>
+    <email>maintainers@artefactual.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
     <name>David Juhasz</name>
     <user>djjuhasz</user>
-    <email>david@artefactual.com</email>
-    <active>yes</active>
+    <email>maintainers@artefactual.com</email>
+    <active>no</active>
   </lead>
   <lead>
     <name>Jesús Garcia Crespo</name>
     <user>sevein</user>
-    <email>jesus@sevein.com</email>
-    <active>yes</active>
+    <email>maintainers@artefactual.com</email>
+    <active>no</active>
   </lead>
   <version>
     <api>1.0.0</api>
@@ -28,6 +40,11 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <contents>
     <file name="index.php" role="php"/>
     <file name="qubit_dev.php" role="php"/>
+    <file name="composer.json" role="data"/>
+    <file name="composer.lock" role="data"/>
+    <file name="package.json" role="data"/>
+    <file name="package-lock.json" role="data"/>
+    <file name="webpack.config.js" role="data"/>
     <file name="symfony" role="php"/>
     <file name="apps/qubit//*" role="php"/>
     <file name="lib//*" role="php"/>
@@ -55,7 +72,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <dependencies>
     <required>
       <php>
-        <min>7.2.0</min>
+        <min>8.0.0</min>
       </php>
       <pearinstaller>
         <min>1.4.1</min>

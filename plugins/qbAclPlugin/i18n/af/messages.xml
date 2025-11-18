@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-03-05T18:29:38Z" product-name="messages">
+  <file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2025-09-26T19:20:09Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -44,16 +44,8 @@
         <source>Permissions</source>
         <target/>
       </trans-unit>
-      <trans-unit id="11">
-        <source>Taxonomy name</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="12">
         <source>Add permissions by taxonomy</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Add taxonomy</source>
         <target/>
       </trans-unit>
       <trans-unit id="14">
@@ -112,14 +104,6 @@
         <source>Create</source>
         <target/>
       </trans-unit>
-      <trans-unit id="28">
-        <source>Edit %1% permissions</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="29">
-        <source>Edit permissions</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="30">
         <source>Add permissions by %1%</source>
         <target/>
@@ -158,6 +142,14 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Taxonomy: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Submit</source>
         <target/>
       </trans-unit>
     </body>

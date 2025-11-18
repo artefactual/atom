@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2025-07-28T20:04:30Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2025-09-26T19:34:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -51,10 +51,6 @@
       <trans-unit id="18">
         <source>Identifier</source>
         <target>Identificador </target>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>This is a mandatory element.</source>
-        <target>Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
@@ -296,10 +292,6 @@
         <source>Name access points (subjects)</source>
         <target>Punt d'accés per nom (matèria)</target>
       </trans-unit>
-      <trans-unit id="80">
-        <source>Edit identity elements</source>
-        <target>Editar elements d'identitat </target>
-      </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
         <target>Codi de referència</target>
@@ -316,14 +308,6 @@
         <source>Related function</source>
         <target>Funció relacionada </target>
       </trans-unit>
-      <trans-unit id="85">
-        <source>Edit context and structure elements</source>
-        <target>Editar elements de context i estructura </target>
-      </trans-unit>
-      <trans-unit id="86">
-        <source>Edit conditions of access and use elements</source>
-        <target>Editar elements de condicions d'accés i ús</target>
-      </trans-unit>
       <trans-unit id="87">
         <source>Conditions governing reproduction</source>
         <target>Condicions de reproducció </target>
@@ -331,10 +315,6 @@
       <trans-unit id="88">
         <source>Finding aids</source>
         <target>Instruments de descripció </target>
-      </trans-unit>
-      <trans-unit id="89">
-        <source>Edit acquisition and appraisal elements</source>
-        <target>Editar els elements d'adquisició i valoració</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
@@ -344,17 +324,9 @@
         <source>Accruals</source>
         <target>Ingressos </target>
       </trans-unit>
-      <trans-unit id="92">
-        <source>Edit related materials elements</source>
-        <target>Editar elements de materials relacionats</target>
-      </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
         <target>Notes de publicació </target>
-      </trans-unit>
-      <trans-unit id="94">
-        <source>Edit notes element</source>
-        <target>Editar element de notes</target>
       </trans-unit>
       <trans-unit id="95">
         <source>General note</source>
@@ -364,17 +336,9 @@
         <source>Specialized notes</source>
         <target/>
       </trans-unit>
-      <trans-unit id="97">
-        <source>Edit description control element</source>
-        <target>Editar element de control de descripció </target>
-      </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
         <target>Nota de l'arxiver </target>
-      </trans-unit>
-      <trans-unit id="99">
-        <source>Edit access points</source>
-        <target>Editar punts d'accés </target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>

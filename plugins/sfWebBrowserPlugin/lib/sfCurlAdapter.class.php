@@ -124,7 +124,15 @@ class sfCurlAdapter
 
     public function __destruct()
     {
-        curl_close($this->curl);
+        $this->close();
+    }
+
+    public function close()
+    {
+        // If curl handle exists, set it to null to close connection
+        if ($this->curl) {
+            $this->curl = null;
+        }
     }
 
     /**

@@ -24,64 +24,87 @@
     <?php echo include_partial('default/breadcrumb', ['resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft')]); ?>
   <?php } ?>
 
-<?php end_slot(); ?>
-
-<?php slot('before-content'); ?>
   <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
+
 <?php end_slot(); ?>
 
 <?php slot('context-menu'); ?>
 
-  <div class="sidebar">
+  <nav>
+
     <?php echo get_partial('term/format', ['resource' => $resource]); ?>
 
     <?php if ($addBrowseElements) { ?>
       <?php echo get_partial('term/rightContextMenu', ['resource' => $resource, 'results' => $pager->getNbResults()]); ?>
     <?php } ?>
-  </div>
+
+  </nav>
 
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
 
   <div id="content">
+    <?php echo render_b5_section_heading(
+        __('Elements area'),
+        QubitAcl::check($resource, 'update'),
+        [$resource, 'module' => 'term', 'action' => 'edit'],
+        ['anchor' => 'elements-collapse', 'class' => 'rounded-top']
+    ); ?>
+
     <?php echo get_partial('term/fields', ['resource' => $resource]); ?>
   </div>
 
   <?php echo get_partial('term/actions', ['resource' => $resource]); ?>
 
   <?php if ($addBrowseElements) { ?>
-    <h1><?php echo __('%1% %2% results for %3%', ['%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_informationobject'), '%3%' => render_title($resource)]); ?></h1>
+    <h1>
+      <?php echo __('%1% %2% results for %3%', [
+          '%1%' => $pager->getNbResults(),
+          '%2%' => sfConfig::get('app_ui_label_informationobject'),
+          '%3%' => render_title($resource), ]);
+      ?>
+    </h1>
 
-    <section class="header-options">
+    <div class="d-flex flex-wrap gap-2">
       <?php if (isset($sf_request->onlyDirect)) { ?>
-        <span class="search-filter">
-          <?php echo __('Only results directly related'); ?>
-          <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
-          <?php unset($params['onlyDirect']); ?>
-          <?php unset($params['page']); ?>
-          <a href="<?php echo url_for([$resource, 'module' => 'term'] + $params); ?>" class="remove-filter" aria-label="<?php echo __('Remove filter'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
-        </span>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
+        <?php unset($params['onlyDirect']); ?>
+        <?php unset($params['page']); ?>
+        <a
+          href="<?php echo url_for(
+              [$resource, 'module' => 'term']
+              + $params
+          ); ?>"
+          class="btn btn-sm atom-btn-white align-self-start mw-100 filter-tag d-flex">
+          <span class="visually-hidden">
+            <?php echo __('Remove filter:'); ?>
+          </span>
+          <span class="text-truncate d-inline-block">
+            <?php echo __('Only results directly related'); ?>
+          </span>
+          <i aria-hidden="true" class="fas fa-times ms-2 align-self-center"></i>
+        </a>
       <?php } ?>
 
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers', [
-            'options' => [
-                'lastUpdated' => __('Date modified'),
-                'alphabetic' => __('Title'),
-                'referenceCode' => __('Reference code'),
-                'date' => __('Start date'), ], ]); ?>
+
+      <div class="d-flex flex-wrap gap-2 ms-auto mb-3">
+        <?php echo get_partial('default/sortPickers', ['options' => [
+            'lastUpdated' => __('Date modified'),
+            'alphabetic' => __('Title'),
+            'referenceCode' => __('Reference code'),
+            'date' => __('Start date'),
+        ]]); ?>
       </div>
-    </section>
+    </div>
 
     <div id="content">
-
       <?php echo get_partial('term/directTerms', [
           'resource' => $resource,
-          'aggs' => $aggs, ]); ?>
+          'aggs' => $aggs,
+      ]); ?>
 
       <?php echo get_partial('search/searchResults', ['pager' => $pager, 'culture' => $culture]); ?>
-
     </div>
   <?php } ?>
 

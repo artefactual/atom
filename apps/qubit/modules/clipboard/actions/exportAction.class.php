@@ -46,6 +46,11 @@ class ClipboardExportAction extends DefaultEditAction
 
                 break;
 
+            case 'accession':
+                $className = 'QubitAccession';
+
+                break;
+
             case 'repository':
                 $className = 'QubitRepository';
 
@@ -60,7 +65,7 @@ class ClipboardExportAction extends DefaultEditAction
         // Currently 'switch' to process the inbound parameter, validate and set
         // default - could be if/then if preferred
         $this->formatType = trim(strtolower($request->getParameter('format')));
-        if ('xml' != $this->formatType || 'repository' == $this->objectType) {
+        if ('xml' != $this->formatType || 'repository' == $this->objectType || 'accession' == $this->objectType) {
             $this->formatType = 'csv';
         }
 
@@ -166,6 +171,15 @@ class ClipboardExportAction extends DefaultEditAction
             return $this->renderText(json_encode(['error' => $message]));
         }
 
+        if ('QubitAccession' === $className && !$this->context->user->hasCredential(['editor', 'administrator'], false)) {
+            $this->response->setStatusCode(403);
+            $message = $this->context->i18n->__(
+                'You are not allowed to export this entity type.'
+            );
+
+            return $this->renderText(json_encode(['error' => $message]));
+        }
+
         $this->processForm();
 
         // Create array of selections to pass to background job where
@@ -224,6 +238,7 @@ class ClipboardExportAction extends DefaultEditAction
             'informationObject' => sfConfig::get('app_ui_label_informationobject'),
             'actor' => sfConfig::get('app_ui_label_actor'),
             'repository' => sfConfig::get('app_ui_label_repository'),
+            'accession' => sfConfig::get('app_ui_label_accession'),
         ];
 
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
@@ -326,7 +341,7 @@ class ClipboardExportAction extends DefaultEditAction
                 ));
                 $choices = [];
                 $choices['csv'] = $this->context->i18n->__('CSV');
-                if ('repository' != $this->objectType) {
+                if ('repository' != $this->objectType && 'accession' != $this->objectType) {
                     $choices['xml'] = $this->context->i18n->__('XML');
                 }
                 $this->form->setWidget('format', new sfWidgetFormSelect(
@@ -525,6 +540,9 @@ class ClipboardExportAction extends DefaultEditAction
                 }
 
                 return 'arActorXmlExportJob';
+
+            case 'accession':
+                return 'arAccessionCsvExportJob';
 
             case 'repository':
                 return 'arRepositoryCsvExportJob';

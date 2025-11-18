@@ -339,6 +339,8 @@ mapping:
       size_on_disk: { type: long }
       digital_object_count: { type: integer }
       created_at: { type: date }
+      all:
+        type: text
 
   term:
     _attributes:
@@ -354,6 +356,8 @@ mapping:
       taxonomy_id: { type: integer }
       is_protected: { type: boolean }
       number_of_descendants: { type: integer }
+      all:
+        type: text
 
   actor:
     _attributes:
@@ -397,8 +401,10 @@ mapping:
           media_type_id: { type: integer }
           usage_id: { type: integer }
           thumbnail_path: { type: keyword }
-          filename: { type: text, copy_to: _all }
-          digital_object_alt_text: { type: text, copy_to: _all }
+          filename: { type: text, copy_to: all }
+          digital_object_alt_text: { type: text, copy_to: all }
+      all:
+        type: text
 
   accession:
     _attributes:
@@ -433,6 +439,8 @@ mapping:
           untouched:
             type: keyword
       date: { type: date }
+      all:
+        type: text
 
   repository:
     _attributes:
@@ -458,6 +466,8 @@ mapping:
       geographic_subregions: { type: integer }
       thematic_areas: { type: integer }
       logo_path: { type: keyword }
+      all:
+        type: text
 
   function_object:
     _attributes:
@@ -477,6 +487,8 @@ mapping:
         fields:
           untouched:
             type: keyword
+      all:
+        type: text
 
   information_object:
     _attributes:
@@ -485,7 +497,7 @@ mapping:
       autocompleteFields: [title]
       rawFields:  [title]
       sortFields: [title]
-      # Select which foreign type i18n fields we'll include when searching _all
+      # Select which foreign type i18n fields we'll include when searching all
       i18nIncludeInAll:
         - repository.authorizedFormOfName
         - names.authorizedFormOfName
@@ -599,7 +611,7 @@ mapping:
       children: { type: integer }
       copyright_status_id: { type: integer }
       material_type_id: { type: integer }
-      transcript: { type: text, copy_to: _all }
+      transcript: { type: text, copy_to: all }
       direct_subjects: { type: integer }
       direct_places: { type: integer }
       direct_genres: { type: integer }
@@ -607,7 +619,7 @@ mapping:
       finding_aid:
         type: object
         properties:
-          transcript: { type: text, copy_to: _all }
+          transcript: { type: text, copy_to: all }
           status: { type: integer }
       digital_object:
         type: object
@@ -615,16 +627,16 @@ mapping:
           media_type_id: { type: integer }
           usage_id: { type: integer }
           thumbnail_path: { type: keyword }
-          filename: { type: text, copy_to: _all }
-          digital_object_alt_text: { type: text, copy_to: _all }
+          filename: { type: text, copy_to: all }
+          digital_object_alt_text: { type: text, copy_to: all }
       alternative_identifiers:
         type: object
         properties:
-          label: { type: text, copy_to: _all }
-          identifier: { type: text, copy_to: _all }
+          label: { type: text, copy_to: all }
+          identifier: { type: text, copy_to: all }
       reference_code:
         type: text
-        copy_to: _all
+        copy_to: all
         fields:
           untouched:
             type: keyword
@@ -637,3 +649,5 @@ mapping:
       # Not nested date fields for sorting
       start_date_sort: { type: date }
       end_date_sort: { type: date }
+      all:
+        type: text

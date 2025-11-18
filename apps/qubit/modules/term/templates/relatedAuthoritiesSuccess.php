@@ -1,6 +1,5 @@
-<?php decorate_with('layout_3col'); ?> 
+<?php decorate_with('layout_3col'); ?>
 <?php use_helper('Date'); ?>
-<?php use_helper('Text'); ?>
 
 <?php slot('sidebar'); ?>
 
@@ -34,11 +33,13 @@
 
 <?php slot('context-menu'); ?>
 
-  <div class="sidebar">
+  <nav>
+
     <?php echo get_partial('term/format', ['resource' => $resource]); ?>
 
     <?php echo get_partial('term/rightContextMenu', ['resource' => $resource, 'results' => $pager->getNbResults()]); ?>
-  </div>
+
+  </nav>
 
 <?php end_slot(); ?>
 
@@ -50,37 +51,50 @@
 
   <?php echo get_partial('term/actions', ['resource' => $resource]); ?>
 
-  <h1><?php echo __('%1% %2% results for %3%',
-                   ['%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_actor'), '%3%' => render_title($resource)]); ?></h1>
+  <h1>
+    <?php echo __('%1% %2% results for %3%', [
+        '%1%' => $pager->getNbResults(),
+        '%2%' => sfConfig::get('app_ui_label_actor'),
+        '%3%' => render_title($resource), ]);
+    ?>
+  </h1>
 
-  <section class="header-options">
-
+  <div class="d-flex flex-wrap gap-2">
     <?php if (isset($sf_request->onlyDirect)) { ?>
-      <span class="search-filter">
-        <?php echo __('Only results directly related'); ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
-        <?php unset($params['onlyDirect']); ?>
-        <?php unset($params['page']); ?>
-        <a href="<?php echo url_for([$resource, 'module' => 'term', 'action' => 'relatedAuthorities'] + $params); ?>" class="remove-filter" aria-label="<?php echo __('Remove filter'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
-      </span>
+      <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
+      <?php unset($params['onlyDirect']); ?>
+      <?php unset($params['page']); ?>
+      <a
+        href="<?php echo url_for(
+            [$resource, 'module' => 'term', 'action' => 'relatedAuthorities']
+            + $params
+        ); ?>"
+        class="btn btn-sm atom-btn-white align-self-start mw-100 filter-tag d-flex">
+        <span class="visually-hidden">
+          <?php echo __('Remove filter:'); ?>
+        </span>
+        <span class="text-truncate d-inline-block">
+          <?php echo __('Only results directly related'); ?>
+        </span>
+        <i aria-hidden="true" class="fas fa-times ms-2 align-self-center"></i>
+      </a>
     <?php } ?>
 
-    <div class="pickers">
-      <?php echo get_partial('default/sortPickers',
-        [
-            'options' => [
-                'lastUpdated' => __('Date modified'),
-                'alphabetic' => __('Name'),
-                'identifier' => __('Identifier'), ], ]); ?>
+    <div class="d-flex flex-wrap gap-2 ms-auto mb-3">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'lastUpdated' => __('Date modified'),
+          'alphabetic' => __('Name'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
     </div>
-
-  </section>
+  </div>
 
   <div id="content">
 
     <?php echo get_partial('term/directTerms', [
         'resource' => $resource,
-        'aggs' => $aggs, ]); ?>
+        'aggs' => $aggs,
+    ]); ?>
 
     <?php if ($pager->getNbResults()) { ?>
 
@@ -91,8 +105,8 @@
 
     <?php } else { ?>
 
-      <div>
-        <h2><?php echo __('We couldn\'t find any results matching your search.'); ?></h2>
+      <div class="p-3">
+        <?php echo __('We couldn\'t find any results matching your search.'); ?>
       </div>
 
     <?php } ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2025-07-28T20:03:21Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2025-09-26T19:34:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -76,10 +76,6 @@
         <source>Identity area</source>
         <target>Área de identidade</target>
       </trans-unit>
-      <trans-unit id="22">
-        <source>Edit identity area</source>
-        <target>Editar área de identidade</target>
-      </trans-unit>
       <trans-unit id="23">
         <source>Type of entity</source>
         <target>Tipo de entidade</target>
@@ -107,10 +103,6 @@
       <trans-unit id="29">
         <source>Description area</source>
         <target>Área de descrición</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Edit description area</source>
-        <target>Editar área de descrición</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Dates of existence</source>
@@ -148,10 +140,6 @@
         <source>Relationships area</source>
         <target>Área de relacións</target>
       </trans-unit>
-      <trans-unit id="40">
-        <source>Edit relationships area</source>
-        <target>Editar área de relacións</target>
-      </trans-unit>
       <trans-unit id="41">
         <source>Related entity</source>
         <target>Entidade relacionada</target>
@@ -167,10 +155,6 @@
       <trans-unit id="47">
         <source>Control area</source>
         <target>Área de control</target>
-      </trans-unit>
-      <trans-unit id="48">
-        <source>Edit control area</source>
-        <target>Editar área de control</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Institution identifier</source>
@@ -208,10 +192,6 @@
         <source>Maintenance notes</source>
         <target>Notas de mantención</target>
       </trans-unit>
-      <trans-unit id="60">
-        <source>Edit</source>
-        <target>Editar</target>
-      </trans-unit>
       <trans-unit id="63">
         <source>Edit %1% - ISAAR</source>
         <target>Editar %1% - ISAAR</target>
@@ -219,10 +199,6 @@
       <trans-unit id="64">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="65">
-        <source>This is a mandatory element.</source>
-        <target>Este é un termo obrigatorio.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
@@ -420,10 +396,6 @@
         <source>Access points area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="116">
-        <source>Edit access points area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="117">
         <source>Occupations</source>
         <target/>
@@ -463,6 +435,50 @@
       <trans-unit id="128">
         <source>Dates of relationship</source>
         <target>Datas de relación</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>The following resources could not be created:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Could not load relation data.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Actions</source>
+        <target>Accións</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Edit row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Add new</source>
+        <target>Engadir novo</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Show more</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Related resource</source>
+        <target>Recurso relacionado</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>Close</source>
+        <target>Pechar</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

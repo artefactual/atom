@@ -1,152 +1,149 @@
-<?php $sf_response->addJavaScript('date', 'last'); ?>
-<?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min', 'last'); ?>
-<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last'); ?>
-<?php $sf_response->addJavaScript('dialog', 'last'); ?>
-<?php $sf_response->addJavaScript('multiDelete', 'last'); ?>
+<h3 class="fs-6 mb-2">
+  <?php echo __('Related resources'); ?>
+</h3>
 
-<?php use_helper('Javascript'); ?>
-
-<div class="section">
-
-  <table id="relatedResourceDisplay" class="table table-bordered">
-    <caption>
-      <?php echo __('Related resources'); ?>
-    </caption><thead>
-      <tr>
-        <th style="width: 25%">
-          <?php echo __('Identifier/title'); ?>
-        </th><th style="width: 30%">
-          <?php echo __('Nature of relationship'); ?>
-        </th><th style="width: 20%">
-          <?php echo __('Dates'); ?>
-        </th><th style="text-align: center; width: 10%">
-        </th>
-      </tr>
-    </thead><tbody>
-      <?php foreach ($isdf->relatedResource as $item) { ?>
-        <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd'; ?> related_obj_<?php echo $item->id; ?>" id="<?php echo url_for([$item, 'module' => 'relation']); ?>">
-          <td>
-            <?php echo render_title($item->object); ?>
-          </td><td>
-            <?php echo render_value_inline($item->description); ?>
-          </td><td>
-            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)); ?>
-          </td><td style="text-align: right">
-            <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for([$item, 'module' => 'relation']); ?>"/>
-          </td>
-        </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-
-<?php
-
-// Template for new display table rows
-$editHtml = image_tag('pencil', ['alt' => __('Edit'), 'style' => 'align: top']);
-
-$rowTemplate = json_encode(<<<value
-<tr id="{{$form->getWidgetSchema()->generateName('id')}}">
-  <td>
-    {{$form->resource->renderName()}}
-  </td><td>
-    {{$form->description->renderName()}}
-  </td><td>
-    {{$form->date->renderName()}}
-  </td><td style="text-align: right">
-    {$editHtml} <button class="delete-small" name="delete" type="button"/>
-  </td>
-</tr>
-
-value
-);
-
-echo javascript_tag(<<<content
-Drupal.behaviors.relatedResource = {
-  attach: function (context)
-    {
-      // Add validator to ensure a related record is selected
-      var validator = function(data) {
-          var relation = data["relatedResource[resource]"];
-
-          if (!relation.length) {
-            // Display error message
-            jQuery('#relatedResourceError').css('display', 'block');
-
-            return false;
-          } else {
-            // Hide error message until required again
-            jQuery('#relatedResourceError').css('display', 'none');
-          }
-      }
-
-      // Hide error on cancel
-      var afterCancelLogic = function () {
-          jQuery('#relatedResourceError').css('display', 'none');
-      }
-
-      // Define dialog
-      var dialog = new QubitDialog('relatedResource', {
-        'displayTable': 'relatedResourceDisplay',
-        'handleFieldRender': handleFieldRender,
-        'newRowTemplate': {$rowTemplate},
-        'validator': validator,
-        'afterCancelLogic': afterCancelLogic,
-        'relationTableMap': function (response)
-          {
-            response.resource = response.object;
-
-            return response;
-          } });
-
-      // Add edit button to rows
-      jQuery('#relatedResourceDisplay tr[id]', context)
-        .click(function ()
-          {
-            dialog.open(this.id);
-          })
-        .find('td:last')
-        .prepend('{$editHtml}');
-    } }
-
-content
-); ?>
-
-  <!-- NOTE dialog.js wraps this *entire* table in a YUI dialog -->
-  <div class="date section" id="relatedResource">
-
-    <h3><?php echo __('Related resource'); ?></h3>
-
-    <div>
-
-      <div class="messages error" id="relatedResourceError" style="display: none">
-        <ul>
-          <li><?php echo __('Please complete all required fields.'); ?></li>
-        </ul>
-      </div>
-
-      <div class="form-item">
-        <?php echo $form->resource
-            ->label(__('Title'))
-            ->renderLabel(); ?>
-        <?php echo $form->resource->render(['class' => 'form-autocomplete']); ?>
-        <input class="list" type="hidden" value="<?php echo url_for(['module' => 'informationobject', 'action' => 'autocomplete']); ?>"/>
-        <?php echo $form->resource
-            ->help(__('Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)'))
-            ->renderHelp(); ?>
-      </div>
-
-      <?php echo $form->description
-          ->label(__('Nature of relationship'))
-          ->renderRow(); ?>
-
-      <?php echo $form->date->renderRow(); ?>
-
-      <?php echo $form->startDate->renderRow(); ?>
-
-      <?php echo $form->endDate->renderRow(); ?>
-
-    </div>
-
+<div
+  class="atom-table-modal"
+  data-current-resource="<?php echo url_for([$resource]); ?>"
+  data-required-fields="<?php echo $form->resource->renderId(); ?>"
+  data-delete-field-name="deleteRelations"
+  data-iframe-error="<?php echo __('The following resources could not be created:'); ?>">
+  <div class="alert alert-danger d-none load-error" role="alert">
+    <?php echo __('Could not load relation data.'); ?>
   </div>
 
+  <div class="table-responsive">
+    <table class="table table-bordered mb-0">
+      <thead class="table-light">
+	<tr>
+          <th class="w-30">
+            <?php echo __('Identifier/title'); ?>
+          </th>
+          <th class="w-40">
+            <?php echo __('Nature of relationship'); ?>
+          </th>
+          <th class="w-30">
+            <?php echo __('Dates'); ?>
+          </th>
+          <th>
+            <span class="visually-hidden"><?php echo __('Actions'); ?></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-template d-none">
+          <td data-field-id="<?php echo $form->resource->renderId(); ?>"></td>
+          <td data-field-id="<?php echo $form->description->renderId(); ?>"></td>
+          <td data-field-id="<?php echo $form->date->renderId(); ?>"></td>
+          <td class="text-nowrap">
+            <button type="button" class="btn atom-btn-white me-1 edit-row">
+              <i class="fas fa-fw fa-pencil-alt" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Edit row'); ?></span>
+            </button>
+            <button type="button" class="btn atom-btn-white delete-row">
+              <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+              <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+            </button>
+          </td>
+        </tr>
+        <?php foreach ($isdf->relatedResource as $item) { ?>
+          <tr id="<?php echo url_for([$item, 'module' => 'relation']); ?>">
+            <td data-field-id="<?php echo $form->resource->renderId(); ?>">
+              <?php echo render_title($item->object); ?>
+            </td>
+            <td data-field-id="<?php echo $form->description->renderId(); ?>">
+              <?php echo render_value_inline($item->description); ?>
+            </td>
+            <td data-field-id="<?php echo $form->date->renderId(); ?>">
+              <?php echo render_value_inline(Qubit::renderDateStartEnd(
+                  $item->date,
+                  $item->startDate,
+                  $item->endDate
+              )); ?>
+            </td>
+            <td class="text-nowrap">
+              <button type="button" class="btn atom-btn-white me-1 edit-row">
+                <i class="fas fa-fw fa-pencil-alt" aria-hidden="true"></i>
+                <span class="visually-hidden"><?php echo __('Edit row'); ?></span>
+              </button>
+              <button type="button" class="btn atom-btn-white delete-row">
+                <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                <span class="visually-hidden"><?php echo __('Delete row'); ?></span>
+              </button>
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <button type="button" class="btn atom-btn-white add-row">
+              <i class="fas fa-plus me-1" aria-hidden="true"></i>
+              <?php echo __('Add new'); ?>
+            </button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div 
+    class="modal fade"
+    data-bs-backdrop="static"
+    tabindex="-1"
+    aria-labelledby="related-resource-heading"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="h5 modal-title" id="related-resource-heading">
+            <?php echo __('Related resource'); ?>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+            <span class="visually-hidden"><?php echo __('Close'); ?></span>
+          </button>
+        </div>
+
+        <div class="modal-body pb-2">
+          <div class="alert alert-danger d-none validation-error" role="alert">
+            <?php echo __('Please complete all required fields.'); ?>
+          </div>
+
+          <?php echo $form->renderHiddenFields(); ?>
+
+          <?php
+              $extraInputs = '<input class="list" type="hidden" value="'
+                  .url_for(['module' => 'informationobject', 'action' => 'autocomplete'])
+                  .'">';
+              echo render_field(
+                  $form->resource
+                      ->label(__('Title'))
+                      ->help(__(
+                        'Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)'
+                      )),
+                  null,
+                  ['class' => 'form-autocomplete', 'extraInputs' => $extraInputs]
+              );
+          ?>
+
+          <?php echo render_field($form->description->label(__('Nature of relationship'))); ?>
+
+          <div class="date">
+            <?php echo render_field($form->date); ?>
+            <?php echo render_field($form->startDate); ?>
+            <?php echo render_field($form->endDate); ?>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <?php echo __('Cancel'); ?>
+          </button>
+          <button type="button" class="btn btn-success modal-submit">
+            <?php echo __('Submit'); ?>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

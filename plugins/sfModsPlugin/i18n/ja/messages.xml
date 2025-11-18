@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-07-28T20:04:16Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2025-09-26T19:34:34Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -9,10 +9,6 @@
       <trans-unit id="46">
         <source>Title</source>
         <target>タイトル</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Language</source>
-        <target>言語</target>
       </trans-unit>
       <trans-unit id="537">
         <source>Subject</source>
@@ -45,10 +41,6 @@
       <trans-unit id="835">
         <source>Names and origin info</source>
         <target>名称と元の情報</target>
-      </trans-unit>
-      <trans-unit id="836">
-        <source>Add new name and/or origin info</source>
-        <target>新規の名称および/または原情報を追加</target>
       </trans-unit>
       <trans-unit id="837">
         <source>Add new child levels (if describing a collection)</source>
@@ -95,10 +87,6 @@
         <target>資料へのアクセスに関して課せられた制限についての情報。
 どのようにこのフイールドを使用するかに関しての情報についてのトップレベルのエレメントのMODSアクセス条件を参照してください。</target>
       </trans-unit>
-      <trans-unit id="849">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>資料を所有する機関やリポジトリを識別する。名称の冒頭の文字を入力して既存のリポジトリ名を検索する。もしくは、作成して新規のリポジトリーのレコードへのリンクを貼るために新規の名称 を入力する。</target>
-      </trans-unit>
       <trans-unit id="850">
         <source>Rights area</source>
         <target>権利のエリア</target>
@@ -109,10 +97,6 @@
       </trans-unit>
       <trans-unit id="853">
         <source>Elements area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="858">
-        <source>Edit elements area</source>
         <target/>
       </trans-unit>
       <trans-unit id="859">
@@ -143,8 +127,28 @@
         <source>Add new</source>
         <target>新規追加</target>
       </trans-unit>
-      <trans-unit id="866">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+      <trans-unit id="867">
+        <source>Delete</source>
+        <target>削除</target>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>低いコレクションレベルの記述するにはこの２つのフィールドを使用してください。必要な数だけ低いレベルを追加するには新規作成をクリックしてください。識別子：特定のリソースを識別する固有の標準番号またはコードを入力します。タイトル：通常はリソースに表示されている言葉、フレーズ、文字、または文字のグループをを入力します。</target>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="871">
+        <source>Types of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

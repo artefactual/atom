@@ -62,7 +62,8 @@ class arStorageServiceUtils
         curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
-        curl_close($ch);
+        // set curl handle to null to close connection
+        $ch = null;
 
         return $status;
     }

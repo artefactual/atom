@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-07-28T20:02:59Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-09-26T19:34:34Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -65,10 +65,6 @@
       <trans-unit id="439">
         <source>Numbering within publisher's series</source>
         <target>출판자의 시리즈 내에서 번호 부여</target>
-      </trans-unit>
-      <trans-unit id="638">
-        <source>Edit authority record</source>
-        <target>전거레코드 편집</target>
       </trans-unit>
       <trans-unit id="709">
         <source>Title proper</source>
@@ -154,10 +150,6 @@
         <source>Title and statement of responsibility area</source>
         <target>제목과 책임 영역 기술</target>
       </trans-unit>
-      <trans-unit id="842">
-        <source>Edit title and statement of responsibility area</source>
-        <target>제목과 책임 영역 편집</target>
-      </trans-unit>
       <trans-unit id="843">
         <source>Title statements of responsibility</source>
         <target>책임 영역 제목</target>
@@ -170,10 +162,6 @@
         <source>Edition area</source>
         <target>판 영역</target>
       </trans-unit>
-      <trans-unit id="846">
-        <source>Edit edition area</source>
-        <target>판 영역 편집</target>
-      </trans-unit>
       <trans-unit id="847">
         <source>Edition statement of responsibility</source>
         <target>판사항의 책임사항</target>
@@ -182,33 +170,17 @@
         <source>Class of material specific details area</source>
         <target>자료의 특정한 부분</target>
       </trans-unit>
-      <trans-unit id="849">
-        <source>Edit class of material specific details area</source>
-        <target>자료의 특정한 부분 편집</target>
-      </trans-unit>
       <trans-unit id="850">
         <source>Dates of creation area</source>
         <target>영역 생산 일자</target>
-      </trans-unit>
-      <trans-unit id="851">
-        <source>Edit dates of creation area</source>
-        <target>생성 일자 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="852">
         <source>Physical description area</source>
         <target>물리적 기술 영역</target>
       </trans-unit>
-      <trans-unit id="853">
-        <source>Edit physical description area</source>
-        <target>물리적 기술 영역 편집하기</target>
-      </trans-unit>
       <trans-unit id="854">
         <source>Publisher's series area</source>
         <target>출판자 시리즈 영역</target>
-      </trans-unit>
-      <trans-unit id="855">
-        <source>Edit publisher's series area</source>
-        <target>출판자 시리즈 영역 편집</target>
       </trans-unit>
       <trans-unit id="856">
         <source>Parallel titles of publisher's series</source>
@@ -222,10 +194,6 @@
         <source>Archival description area</source>
         <target>기록물 기술 영역</target>
       </trans-unit>
-      <trans-unit id="859">
-        <source>Edit archival description area</source>
-        <target>기록물 기술 영역 편집하기</target>
-      </trans-unit>
       <trans-unit id="860">
         <source>Scope and content</source>
         <target>범위와 내용</target>
@@ -233,10 +201,6 @@
       <trans-unit id="861">
         <source>Notes area</source>
         <target>주기사항</target>
-      </trans-unit>
-      <trans-unit id="862">
-        <source>Edit notes area</source>
-        <target>주기사항 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="863">
         <source>Arrangement</source>
@@ -266,10 +230,6 @@
         <source>Standard number area</source>
         <target>표준 번호 영역</target>
       </trans-unit>
-      <trans-unit id="871">
-        <source>Edit standard number area</source>
-        <target>표준 번호 영역 편집하기 </target>
-      </trans-unit>
       <trans-unit id="872">
         <source>Standard number</source>
         <target>표준 번호</target>
@@ -277,14 +237,6 @@
       <trans-unit id="873">
         <source>Access points</source>
         <target>접근점</target>
-      </trans-unit>
-      <trans-unit id="874">
-        <source>Edit access points</source>
-        <target>접근점 편집</target>
-      </trans-unit>
-      <trans-unit id="875">
-        <source>Edit control area</source>
-        <target>제어 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="877">
         <source>Language of description</source>
@@ -366,10 +318,6 @@
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>기록에 표시되어 있거나 혹은 이관시 제공된 본제목을 입력하시오. (RAD 1.1B)</target>
       </trans-unit>
-      <trans-unit id="904">
-        <source>This is a mandatory element.</source>
-        <target>이 항목은 필수 요소입니다.</target>
-      </trans-unit>
       <trans-unit id="905">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
         <target>가장 상위의 기술 수준에서 일반 자료 지정을 선택하시오. 만일 3개 이상이라면 "다중 매체"를 선택하시오. (RAD 1.1C)</target>
@@ -429,10 +377,6 @@
       <trans-unit id="922">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>"우표 기록의 발행에 대해 책임이 있는 관할부서(예를들어 정부) 이름을 기입하시오." (RAD 12.3B1)  "금전적 가치를 가진 모든 단위에 대해  (예를들어 우표, 수입인지, 우편문구류) 표준화된 형식으로 금액 정보를 기입하고 통화단위명과 액면가 숫자를  숫자로 기록하시오. 액면가가 이미 본제목이나 다른 제목 정보에 포함되어 있다면, 보증서에 관한 정보를 포함시키시오." (RAD 12.3C1)</target>
-      </trans-unit>
-      <trans-unit id="923">
-        <source>Add new name and/or date(s)</source>
-        <target>이름 및 날짜(일시) 추가</target>
       </trans-unit>
       <trans-unit id="924">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
@@ -558,17 +502,9 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>기록물을 기술하는데 사용된 언어(들)을 기입하시오.</target>
       </trans-unit>
-      <trans-unit id="958">
-        <source>Language</source>
-        <target>언어</target>
-      </trans-unit>
       <trans-unit id="959">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>기록 자료의 기술을 만드는 데 사용되는 스크립트(들)을 밝히시오.</target>
-      </trans-unit>
-      <trans-unit id="960">
-        <source>Script</source>
-        <target>규약</target>
       </trans-unit>
       <trans-unit id="961">
         <source>Name access points (subjects)</source>
@@ -665,6 +601,26 @@
       <trans-unit id="992">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="993">
+        <source>Names and dates</source>
+        <target>이름 및 일자</target>
+      </trans-unit>
+      <trans-unit id="994">
+        <source>Languages of the material</source>
+        <target>자료의 언어</target>
+      </trans-unit>
+      <trans-unit id="995">
+        <source>Scripts of the material</source>
+        <target>자료의 규약들</target>
+      </trans-unit>
+      <trans-unit id="996">
+        <source>Language(s)</source>
+        <target>언어(들)</target>
+      </trans-unit>
+      <trans-unit id="997">
+        <source>Script(s)</source>
+        <target>규약(들)</target>
       </trans-unit>
     </body>
   </file>

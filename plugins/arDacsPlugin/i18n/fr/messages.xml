@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2025-07-28T20:03:34Z" product-name="messages">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2025-09-26T19:34:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -39,10 +39,6 @@
       <trans-unit id="16">
         <source>Identifier</source>
         <target>Identifiant</target>
-      </trans-unit>
-      <trans-unit id="17">
-        <source>This is a mandatory element.</source>
-        <target>Cet élément est obligatoire.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Name and location of repository</source>
@@ -176,10 +172,6 @@
         <source>Rights area</source>
         <target>Zone des droits</target>
       </trans-unit>
-      <trans-unit id="55">
-        <source>Edit identity elements</source>
-        <target>Modifier la zone d'identification</target>
-      </trans-unit>
       <trans-unit id="56">
         <source>Level of description</source>
         <target>Niveau de description</target>
@@ -192,14 +184,6 @@
         <source>Related function</source>
         <target>Fonction associée</target>
       </trans-unit>
-      <trans-unit id="59">
-        <source>Edit context and structure elements</source>
-        <target>Modifier la zone du contenu et de la structure</target>
-      </trans-unit>
-      <trans-unit id="60">
-        <source>Edit conditions of access and use elements</source>
-        <target>Modifier la zone des conditions d'accès et d'utilisation</target>
-      </trans-unit>
       <trans-unit id="61">
         <source>Conditions governing reproduction</source>
         <target>Conditions de reproduction</target>
@@ -207,10 +191,6 @@
       <trans-unit id="62">
         <source>Finding aids</source>
         <target>Instruments de recherche</target>
-      </trans-unit>
-      <trans-unit id="63">
-        <source>Edit acquisition and appraisal elements</source>
-        <target>Modifier les éléments d'acquisition et d'évaluation</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Immediate source of acquisition</source>
@@ -220,29 +200,13 @@
         <source>Accruals</source>
         <target>Accroissements</target>
       </trans-unit>
-      <trans-unit id="66">
-        <source>Edit related materials elements</source>
-        <target>Modifier la zone des sources complémentaires</target>
-      </trans-unit>
       <trans-unit id="67">
         <source>Publication notes</source>
         <target>Notes de publication</target>
       </trans-unit>
-      <trans-unit id="68">
-        <source>Edit notes element</source>
-        <target>Modifier la zone des notes</target>
-      </trans-unit>
-      <trans-unit id="70">
-        <source>Edit description control element</source>
-        <target>Modifier la zone du contrôle de la description</target>
-      </trans-unit>
       <trans-unit id="71">
         <source>Archivist's note</source>
         <target>Note de l'archiviste</target>
-      </trans-unit>
-      <trans-unit id="72">
-        <source>Edit access points</source>
-        <target>Modifier les index</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Accession area</source>

@@ -1,10 +1,10 @@
-<div class="field">
+<div class="field <?php echo render_b5_show_field_css_classes(); ?>">
 
-  <h3><?php echo __('Alternative identifier(s)'); ?></h3>
+  <?php echo render_b5_show_label(__('Alternative identifier(s)')); ?>
 
-  <div>
+  <div class="<?php echo render_b5_show_value_css_classes(); ?>">
     <?php foreach ($resource->getProperties(null, 'alternativeIdentifiers') as $item) { ?>
-      <?php echo render_show(render_value_inline($item->name), $item->getValue(['cultureFallback' => true])); ?>
+      <?php echo render_show(render_value_inline($item->name), $item->getValue(['cultureFallback' => true]), ['isSubField' => true]); ?>
     <?php } ?>
   </div>
 

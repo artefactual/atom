@@ -6,65 +6,49 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search accessions'),
+        'landmarkLabel' => __('Accession'),
+    ]); ?>
 
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search accessions'),
-            'landmarkLabel' => __('Accession'), ]); ?>
-      </div>
-
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers', ['options' => $sortOptions]); ?>
-      </div>
+    <div class="d-flex flex-wrap gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => $sortOptions]); ?>
     </div>
-  </section>
-
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
+    <?php $canExportAccessions = $sf_user->hasCredential(['editor', 'administrator'], false); ?>
 
-  <table class="table table-bordered sticky-enabled">
-    <thead>
-      <tr>
-        <th>
-          <?php echo __('Accession number'); ?>
-        </th>
-        <th>
-          <?php echo __('Title'); ?>
-        </th>
-        <th>
-          <?php echo __('Acquisition date'); ?>
-        </th>
-        <?php if ('lastUpdated' == $sf_request->sort) { ?>
-          <th>
-            <?php echo __('Updated'); ?>
-          </th>
-        <?php } ?>
-      </tr>
-    </thead><tbody>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <?php if ($sf_user->isAuthenticated() && $canExportAccessions && !isset($sf_request->subquery)) { ?>
+        <a
+          class="btn btn-sm atom-btn-white"
+          href="<?php echo url_for(array_merge(
+              $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+              ['module' => 'accession', 'action' => 'exportCsv']
+          )); ?>">
+          <i class="fas fa-upload me-1" aria-hidden="true"></i>
+          <?php echo __('Export CSV'); ?>
+        </a>
+      <?php } ?>
+    </div>
+
+    <div id="content">
+
       <?php foreach ($pager->getResults() as $hit) { ?>
         <?php $doc = $hit->getData(); ?>
-        <tr>
-          <td width="20%">
-            <?php echo link_to($doc['identifier'], ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-          </td>
-          <td>
-            <?php echo link_to(render_title(get_search_i18n($doc, 'title')), ['module' => 'accession', 'slug' => $doc['slug']]); ?>
-          </td>
-          <td width="20%">
-            <?php echo format_date($doc['date'], 'i'); ?>
-          </td>
-          <?php if ('lastUpdated' == $sf_request->sort) { ?>
-            <td width="20%">
-              <?php echo format_date($doc['updatedAt'], 'f'); ?>
-            </td>
-          <?php } ?>
-        </tr>
+        <?php echo include_partial('accession/searchResult', [
+            'doc' => $doc,
+            'pager' => $pager,
+            'culture' => $selectedCulture,
+            'clipboardType' => 'accession',
+            'canExportAccessions' => $canExportAccessions,
+        ]); ?>
       <?php } ?>
-    </tbody>
-  </table>
+
+    </div>
 
 <?php end_slot(); ?>
 
@@ -72,10 +56,8 @@
 
   <?php echo get_partial('default/pager', ['pager' => $pager]); ?>
 
-  <section class="actions">
-    <ul>
-      <li><?php echo link_to(__('Add new'), ['module' => 'accession', 'action' => 'add'], ['class' => 'c-btn']); ?></li>
-    </ul>
+  <section class="actions mb-3">
+    <?php echo link_to(__('Add new'), ['module' => 'accession', 'action' => 'add'], ['class' => 'btn atom-btn-outline-light']); ?>
   </section>
 
 <?php end_slot(); ?>

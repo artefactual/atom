@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-09-26T19:34:46Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -64,10 +64,6 @@
       </trans-unit>
       <trans-unit id="453">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="631">
-        <source>Edit authority record</source>
         <target/>
       </trans-unit>
       <trans-unit id="702">
@@ -154,10 +150,6 @@
         <source>Title and statement of responsibility area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="835">
-        <source>Edit title and statement of responsibility area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="836">
         <source>Title statements of responsibility</source>
         <target/>
@@ -170,10 +162,6 @@
         <source>Edition area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="839">
-        <source>Edit edition area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="840">
         <source>Edition statement of responsibility</source>
         <target/>
@@ -182,32 +170,16 @@
         <source>Class of material specific details area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="842">
-        <source>Edit class of material specific details area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="843">
         <source>Dates of creation area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="844">
-        <source>Edit dates of creation area</source>
         <target/>
       </trans-unit>
       <trans-unit id="845">
         <source>Physical description area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="846">
-        <source>Edit physical description area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="847">
         <source>Publisher's series area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="848">
-        <source>Edit publisher's series area</source>
         <target/>
       </trans-unit>
       <trans-unit id="849">
@@ -222,20 +194,12 @@
         <source>Archival description area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="852">
-        <source>Edit archival description area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="853">
         <source>Scope and content</source>
         <target/>
       </trans-unit>
       <trans-unit id="854">
         <source>Notes area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="855">
-        <source>Edit notes area</source>
         <target/>
       </trans-unit>
       <trans-unit id="856">
@@ -266,24 +230,12 @@
         <source>Standard number area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="864">
-        <source>Edit standard number area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="865">
         <source>Standard number</source>
         <target/>
       </trans-unit>
       <trans-unit id="866">
         <source>Access points</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="867">
-        <source>Edit access points</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="868">
-        <source>Edit control area</source>
         <target/>
       </trans-unit>
       <trans-unit id="870">
@@ -366,10 +318,6 @@
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="897">
-        <source>This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="898">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
         <target/>
@@ -428,10 +376,6 @@
       </trans-unit>
       <trans-unit id="915">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="916">
-        <source>Add new name and/or date(s)</source>
         <target/>
       </trans-unit>
       <trans-unit id="917">
@@ -558,16 +502,8 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="951">
-        <source>Language</source>
-        <target>&#x632;&#x628;&#x627;&#x646;</target>
-      </trans-unit>
       <trans-unit id="952">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="953">
-        <source>Script</source>
         <target/>
       </trans-unit>
       <trans-unit id="954">
@@ -664,6 +600,26 @@
       </trans-unit>
       <trans-unit id="985">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="986">
+        <source>Names and dates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="987">
+        <source>Languages of the material</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="988">
+        <source>Scripts of the material</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="989">
+        <source>Language(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="990">
+        <source>Script(s)</source>
         <target/>
       </trans-unit>
     </body>

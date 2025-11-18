@@ -115,8 +115,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
         $q1 = new \Elastica\Query\Term();
         $q1->setTerm('ancestors', $resource->id);
         $queryBool->addMust($q1);
-        $q2 = new \Elastica\Query\Terms();
-        $q2->setTerms('levelOfDescriptionId', self::getLevels());
+        $q2 = new \Elastica\Query\Terms('levelOfDescriptionId', self::getLevels());
         $queryBool->addMust($q2);
 
         $i18n = sprintf('i18n.%s.', sfContext::getInstance()->getUser()->getCulture());

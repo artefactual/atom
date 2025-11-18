@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 194
+    value: 197
   milestone:
     name: milestone
     editable: 0
@@ -680,7 +680,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: 'نوع المادة'
+      ar: 'نوع المادة (قائمة مُحكمة)'
       bs: 'Tip građe'
       ca: 'Tipus de material'
       ca@valencia: 'Tipus de material'
@@ -906,6 +906,47 @@ QubitSetting:
       pt: 'Relacionamentos de registro de autoridade'
       pt_BR: 'Relacionamentos de registro de autoridade'
       sr: 'Односи нормативних записа'
+  QubitSetting_accession:
+    name: accession
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      ar: الإضافة
+      bs: Akcesija
+      ca: Ingrés
+      ca@valencia: Adhesió
+      cy: Derbyn
+      de: Akzession
+      de_AT: Akzession
+      de_CH: Akzession
+      el: Πρόσκτηση
+      en: Accession
+      es: Ingreso
+      eu: Atxikimendua
+      fr: Acquisition
+      gl: Ingreso
+      hr: Akcesija
+      hu: Gyarapodás
+      id: Akuisisi
+      is: Afhending
+      it: Acquisizione
+      ja: 受入
+      ka: დაშვება
+      ko: 인수
+      mk: Пристапување
+      pl: Nabycie
+      pt: Incorporação
+      pt_BR: Ingresso
+      sl: 'Prevzem gradiva'
+      sr: 'Улазни инвентар'
+      sv: Accession
+      ta: சேர்வு
+      th: การเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish'
+      vi: 'Truy cập'
+      zh: 登记
   QubitSetting_26:
     name: en
     scope: i18n_languages
@@ -1039,6 +1080,14 @@ QubitSetting:
     source_culture: en
     value:
       en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
+  QubitSetting_googleAnalytics:
+    name: google_analytics
+    editable: 1
+    value: ''
+  QubitSetting_headerBackgroundColour:
+    name: header_background_colour
+    editable: 1
+    value: '#212529'
   Qubit_Settings_visibleElements_IsadImmediateSource:
     name: isad_immediate_source
     scope: element_visibility
@@ -1497,3 +1546,41 @@ QubitSetting:
   Qubit_Settings_csvValidatorDefaultImportBehaviour:
     name: csv_validator_default_import_behaviour
     value: 0
+  QubitSettings_descriptioncount:
+    name: descriptioncount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      ar: '&nbsp;:عدد أوصاف الأرشيف'
+      en: 'Archival description count:&nbsp;'
+      fr: 'Nombre de descriptions archivistiques:&nbsp;'
+  QubitSettings_authorityrecordcount:
+    name: authorityrecordcount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      ar: '&nbsp;:عدد سجلات الهيئة الاستنادية'
+      en: 'Authority record count:&nbsp;'
+      fr: 'Nombre de notices d''autorité:&nbsp;'
+  QubitSettings_repositorycount:
+    name: repositorycount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      ar: '&nbsp;:عدد المؤسسات الأرشيفية'
+      en: 'Archival institution count:&nbsp;'
+      fr: 'Nombre d''institutions archivistiques:&nbsp;'
+  QubitSettings_accessioncount:
+    name: accessioncount
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Accession count:&nbsp;'

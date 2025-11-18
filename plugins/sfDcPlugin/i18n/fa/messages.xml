@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-07-28T20:03:12Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2025-09-26T19:34:46Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -21,10 +21,6 @@
       <trans-unit id="115">
         <source>Description</source>
         <target>&#x62A;&#x648;&#x636;&#x64A;&#x62D;</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Language</source>
-        <target>&#x632;&#x628;&#x627;&#x646;</target>
       </trans-unit>
       <trans-unit id="571">
         <source>Subject</source>
@@ -66,24 +62,12 @@
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="835">
-        <source>This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="836">
         <source>The name given to this resource.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="837">
-        <source>Names and dates</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="839">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="842">
-        <source>Child levels (if describing a collection)</source>
         <target/>
       </trans-unit>
       <trans-unit id="845">
@@ -150,10 +134,6 @@
         <source>Elements area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="870">
-        <source>Edit elements area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="871">
         <source>Date(s)</source>
         <target>&#x62A;&#x627;&#x631;&#x64A;&#x62E; (&#x647;&#x627;)</target>
@@ -200,6 +180,34 @@
       </trans-unit>
       <trans-unit id="882">
         <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="883">
+        <source>Delete</source>
+        <target>&#x62D;&#x630;&#x641;</target>
+      </trans-unit>
+      <trans-unit id="884">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="885">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="886">
+        <source>Add new child levels (if describing a collection)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="887">
+        <source>Subjects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="888">
+        <source>Types</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="889">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

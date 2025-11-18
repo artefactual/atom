@@ -462,6 +462,12 @@ class QubitMenu extends BaseMenu
         // Parse module and action from path
         $path = $this->getPath(['getUrl' => true, 'resolveAlias' => true]);
         $route = $context->getRouting()->findRoute($path);
+
+        // If the route does not exist, just return true
+        if (false == $route) {
+            return true;
+        }
+
         $module = $route['parameters']['module'];
         $action = $route['parameters']['action'];
 

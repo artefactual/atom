@@ -28,15 +28,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     /**
      * Minimum version of Elasticsearch supported.
      */
-    public const MIN_VERSION = '6.0.0';
-
-    /**
-     * Dummy type for the ElasticSearch index.
-     * This is required in ES 6.x but it is optional in
-     * ES 7.x and can be removed when ElasticSearch and
-     * Elastica are upgraded.
-     */
-    public const ES_TYPE = '_doc';
+    public const MIN_VERSION = '7.0.0';
 
     /**
      * Elastic_Client object.
@@ -161,7 +153,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     public function optimize($args = [])
     {
-        return $this->client->optimizeAll($args);
+        return $this->client->forcemergeAll($args);
     }
 
     /*
@@ -341,10 +333,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $document = new \Elastica\Document($id, $data);
 
-        // Setting a dummy type since it is required in ES 6.x
-        // but it can be removed in 7.x when it becomes optional
-        $document->setType(self::ES_TYPE);
-
         if ($this->batchMode) {
             if (!$this->currentBatchIndexName) {
                 $this->currentBatchIndexName = $indexName;
@@ -390,10 +378,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $indexName = get_class($object);
 
         $document = new \Elastica\Document($object->id, $data);
-
-        // Setting a dummy type since it is required in ES 6.x
-        // but it can be removed in 7.x when it becomes optional
-        $document->setType(self::ES_TYPE);
 
         try {
             $this->index->updateDocuments($indexName, [$document]);
@@ -451,7 +435,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
             // the document to be deleted and add this document object to the batch delete
             // queue.
             $document = new \Elastica\Document($object->id);
-            $document->setType(self::ES_TYPE);
 
             if ($this->currentBatchIndexName != $indexName) {
                 $this->flushBatch();
@@ -530,21 +513,17 @@ class arElasticSearchPlugin extends QubitSearchEngine
             return;
         }
 
-        // In ES 7.x if the mapping type is updated to a dummy type,
-        // this may need to include a param for include_type_name
-        // set to false in order to avoid automatically creating a
-        // type for the index that was just created
         $index->create(
             $this->config['index']['configuration'],
-            ['recreate' => true]
+            ['recreate' => true],
+            ['include_type_name' => false],
         );
 
         // Define mapping in elasticsearch
-        $mapping = new \Elastica\Type\Mapping();
+        $mapping = new \Elastica\Mapping();
 
         // Setting a dummy type since it is required in ES 6.x
         // but it can be removed in 7.x when it becomes optional
-        $mapping->setType($index->getType(self::ES_TYPE));
         $mapping->setProperties($indexProperties['properties']);
 
         // Parse other parameters
@@ -562,7 +541,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // $mapping->send($index, [ 'include_type_name' => false ])
         // which can be removed in 8.x since that is the default behaviour
         // and will have be removed by 9.x when it is discontinued
-        $mapping->send();
+        $mapping->send($index, ['include_type_name' => false]);
     }
 
     private function loadDiacriticsMappings()

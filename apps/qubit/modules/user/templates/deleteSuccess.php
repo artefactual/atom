@@ -6,10 +6,10 @@
 
 <?php slot('content'); ?>
   <?php if ($noteCount = $resource->getNotes()->count()) { ?>
-    <div id="content"><h2>
+    <div id="content" class="p-3">
       <?php echo __('This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.',
                     ['%1%' => $noteCount]); ?>
-    </h2></div>
+    </div>
   <?php } ?>
 
   <?php echo $form->renderGlobalErrors(); ?>
@@ -18,12 +18,10 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'user'], ['class' => 'c-btn']); ?></li>
-        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions mb-3 nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'user'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-danger" type="submit" value="<?php echo __('Delete'); ?>"></li>
+    </ul>
 
   </form>
 

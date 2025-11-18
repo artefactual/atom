@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-07-28T20:03:07Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2025-09-26T19:34:41Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
         <target>Título</target>
-      </trans-unit>
-      <trans-unit id="111">
-        <source>Language</source>
-        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
@@ -66,25 +62,13 @@
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
         <target>O código de referência para identificar este recurso é ambíguo.</target>
       </trans-unit>
-      <trans-unit id="910">
-        <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório.</target>
-      </trans-unit>
       <trans-unit id="911">
         <source>The name given to this resource.</source>
         <target>Nome atribuído a este recurso.</target>
       </trans-unit>
-      <trans-unit id="912">
-        <source>Names and dates</source>
-        <target>Nomes e datas</target>
-      </trans-unit>
       <trans-unit id="914">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target>O tópico do recurso. Poderá, alternativamente, digitar um nome para fazer uma ligação com um novo assunto.</target>
-      </trans-unit>
-      <trans-unit id="917">
-        <source>Child levels (if describing a collection)</source>
-        <target>Nível dependente (para uma colecção)</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Related material(s) from which this resource is derived.</source>
@@ -150,10 +134,6 @@
         <source>Elements area</source>
         <target>Área de elementos</target>
       </trans-unit>
-      <trans-unit id="945">
-        <source>Edit elements area</source>
-        <target>Editar Área de elementos</target>
-      </trans-unit>
       <trans-unit id="946">
         <source>Date(s)</source>
         <target>Data(s)</target>
@@ -200,6 +180,34 @@
       </trans-unit>
       <trans-unit id="957">
         <source>%1%Title%2% - This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="958">
+        <source>Delete</source>
+        <target>Apagar</target>
+      </trans-unit>
+      <trans-unit id="959">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="960">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="961">
+        <source>Add new child levels (if describing a collection)</source>
+        <target>Adicionar novos níveis inferiores (ao descrever um colecção)</target>
+      </trans-unit>
+      <trans-unit id="962">
+        <source>Subjects</source>
+        <target>Assuntos</target>
+      </trans-unit>
+      <trans-unit id="963">
+        <source>Types</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="964">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

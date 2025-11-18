@@ -1,55 +1,34 @@
-var Qubit = Qubit || {};
+// Maintain Qubit and Drupal global variables
+// for legacy reasons. Used to share functions
+// and prototypes, and to be able to trigger
+// JS functions over dynamically loaded content.
+var Qubit = {
+  treeviewTypes: {
+    default: { icon: "fas fa-folder" },
+    Item: { icon: "fas fa-file-alt" },
+    File: { icon: "fas fa-file-alt" },
+    Series: { icon: "fas fa-folder" },
+    Subseries: { icon: "fas fa-folder" },
+    subfonds: { icon: "fas fa-folder" },
+    "Sous-fonds": { icon: "fas fa-folder" },
+    Fonds: { icon: "fas fa-archive" },
+    Collection: { icon: "fas fa-archive" },
+  },
+};
+var Drupal = { behaviors: {} };
 
-// Usage: log('inside coolFunc',this,arguments);
-// http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
-window.log = function()
-  {
-    log.history = log.history || [];
-    log.history.push(arguments);
+Drupal.attachBehaviors = (context) => {
+  context = context || document;
+  // Can't use arrow function here in order
+  // to access `this` and its methods.
+  $.each(Drupal.behaviors, function () {
+    this.attach(context);
+  });
+};
 
-    if (this.console)
-    {
-      console.log( Array.prototype.slice.call(arguments) );
-    }
-  };
+// Attach all behaviors on document ready
+$(() => Drupal.attachBehaviors(document));
 
-// jQuery expander
-Drupal.behaviors.expander = {
-  attach: function (context)
-    {
-      jQuery('div.field:not(:has(div.field)) > div, article.search-result .scope-and-content, article.search-result .history').each(function (index, element) {
-        var $element = jQuery(element);
-        // Don't apply expander to fields with only one child, if that child is a list
-        if ($element.children().length !== 1 || !$element.children().first().is('ul')) {
-          $element.expander({
-            slicePoint: 255,
-            expandText: '&raquo;',
-            expandPrefix: '... ',
-            userCollapseText: '&laquo;',
-            widow: 4,
-            expandEffect: 'show'
-          });
-
-          (function ($) {
-            'use strict';
-            // Get i18n text for read more/less links from footer
-            var $i18n = $('#js-i18n #read-more-less-links');
-
-            // Get read more/less link elements
-            var $readMoreLink = $element.find('.read-more a');
-            var $readLessLink = $element.find('.read-less a');
-
-            $(function() {
-              // Add accessibility label to read more link
-              $readMoreLink.attr('aria-label', $i18n.data('read-more-text'));
-
-              // Add accessibility label to read less link
-              $readLessLink.attr('aria-label', $i18n.data('read-less-text'));
-            });
-
-          })(jQuery);
-
-        }
-      });
-    }
-  };
+// Explicitly add vars to window for Webpack build
+window.Qubit = Qubit;
+window.Drupal = Drupal;

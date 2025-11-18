@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2025-07-28T20:03:44Z" product-name="messages">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2025-09-26T19:34:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -95,10 +95,6 @@
       <trans-unit id="23">
         <source>Identifier</source>
         <target>Identifikatzailea</target>
-      </trans-unit>
-      <trans-unit id="24">
-        <source>This is a mandatory element.</source>
-        <target>Hau derrigorrezko elementu bat da.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
@@ -372,14 +368,6 @@
         <source>Sources</source>
         <target>Iturriak</target>
       </trans-unit>
-      <trans-unit id="93">
-        <source>Edit identity area</source>
-        <target>Nortasun eremua editatu</target>
-      </trans-unit>
-      <trans-unit id="94">
-        <source>Edit context area</source>
-        <target>Testuinguru eremua editatu</target>
-      </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
         <target>Erlazionaturiko funtzioa</target>
@@ -392,10 +380,6 @@
         <source>Archival history</source>
         <target>Artxiboaren historia</target>
       </trans-unit>
-      <trans-unit id="98">
-        <source>Edit content and structure area</source>
-        <target>Eduki eta egitura eremua editatu</target>
-      </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
         <target>Esparrua eta edukia</target>
@@ -404,37 +388,17 @@
         <source>Accruals</source>
         <target>Sortzapenak</target>
       </trans-unit>
-      <trans-unit id="101">
-        <source>Edit conditions of access and use area</source>
-        <target>Sarrerarako baldintzak eta erabilpen eremua editatu</target>
-      </trans-unit>
       <trans-unit id="102">
         <source>Finding aids</source>
         <target>Lokalizazio medioak</target>
-      </trans-unit>
-      <trans-unit id="103">
-        <source>Edit alied materials area</source>
-        <target>Erlazionaturiko materialeen eremua editatu</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Publication note</source>
         <target>Argitalpen oharra</target>
       </trans-unit>
-      <trans-unit id="105">
-        <source>Edit notes area</source>
-        <target>Ohar eremua editatu</target>
-      </trans-unit>
       <trans-unit id="106">
         <source>Note</source>
         <target>Oharra</target>
-      </trans-unit>
-      <trans-unit id="107">
-        <source>Edit access points</source>
-        <target>Sarrera puntuak editatu</target>
-      </trans-unit>
-      <trans-unit id="108">
-        <source>Edit description control area</source>
-        <target>Deskribapen kontrolerako eremua editatu</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Rules and/or conventions used</source>
@@ -479,6 +443,26 @@
       <trans-unit id="119">
         <source>Add new</source>
         <target>Berria gehitu</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>This field is marked as mandatory in the relevant descriptive standard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Delete</source>
+        <target>Ezabatu</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Languages of the material</source>
+        <target>Materialaren hizkuntzak</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Scripts of the material</source>
+        <target>Materialaren script-a</target>
       </trans-unit>
     </body>
   </file>

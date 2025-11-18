@@ -36,6 +36,17 @@ class arElasticSearchPluginQuery
         $this->query->setSize($limit);
         $this->query->setFrom($skip);
 
+        // Elasticsearch 7 changed total hit counting — full result counts are not returned by default.
+        // Newer versions of Elastic provide setTrackTotalHits() to enable full hit tracking,
+        // but older Elastic clients do not include this method.
+        // Older Elastica doesn’t have that method, so we check first
+        // and fall back to setting the track_total_hits param manually.
+        if (method_exists($this->query, 'setTrackTotalHits')) {
+            $this->query->setTrackTotalHits(true);
+        } else {
+            $this->query->setParam('track_total_hits', true);
+        }
+
         $this->queryBool = new \Elastica\Query\BoolQuery();
     }
 
@@ -250,7 +261,7 @@ class arElasticSearchPluginQuery
      * Each set of parameters is numbered, starting at zero, and includes three
      * properties: query text (prefixed by "sq"), operation (prefixed by "so":
      * "and" or "or"), and fields (prefixed by "sf") to return (defaulting to
-     * "_all").
+     * "all").
      *
      * For example:
      *
@@ -275,7 +286,7 @@ class arElasticSearchPluginQuery
             $query = $params['sq'.$count];
 
             if (!empty($query)) {
-                $field = '_all';
+                $field = 'all';
                 if (!empty($params['sf'.$count])) {
                     $field = $params['sf'.$count];
                 }
@@ -415,7 +426,7 @@ class arElasticSearchPluginQuery
 
                 break;
 
-            case '_all':
+            case 'all':
             default:
                 if ('isaar' == $archivalStandard) {
                     $documentType = 'actor';

@@ -197,10 +197,9 @@ class RightEditAction extends sfAction
                     // try and find pre-existing record with this id
                     $grantedRight = $this->right->grantedRightsFindById($data['id']);
 
-                    // if one was found, but user
-                    // has requested it be deleted
+                    // if one was found, but user has requested it be deleted
                     // then lets delete it.
-                    if (null !== $grantedRight && 'true' === $data['delete']) {
+                    if ($grantedRight && 'true' === $data['delete']) {
                         $grantedRight->delete();
 
                         continue;

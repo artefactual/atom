@@ -63,6 +63,10 @@ class SettingsMenuComponent extends sfComponent
                 'action' => 'global',
             ],
             [
+                'label' => $i18n->__('Header customizations'),
+                'action' => 'header',
+            ],
+            [
                 'label' => $i18n->__('I18n languages'),
                 'action' => 'language',
             ],
@@ -124,6 +128,10 @@ class SettingsMenuComponent extends sfComponent
             [
                 'label' => $i18n->__('User interface labels'),
                 'action' => 'interfaceLabel',
+            ],
+            [
+                'label' => $i18n->__('Web analytics'),
+                'action' => 'analytics',
             ],
         ];
 

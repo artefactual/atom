@@ -103,7 +103,7 @@ class RepositoryEditThemeAction extends sfAction
             case 'backgroundColor':
                 $this->form->setDefault('backgroundColor', $this->resource->backgroundColor);
                 $this->form->setValidator('backgroundColor', new sfValidatorRegex(['pattern' => '/^#(?:[0-9a-fA-F]{3}){1,2}$/'], ['invalid' => $this->context->i18n->__('Only hexadecimal color value')]));
-                $this->form->setWidget('backgroundColor', new sfWidgetFormInput(['type' => 'minicolors']));
+                $this->form->setWidget('backgroundColor', new sfWidgetFormInput(['type' => 'color']));
 
                 break;
 
@@ -126,7 +126,7 @@ class RepositoryEditThemeAction extends sfAction
                     'required' => false,
                 ]));
 
-                $this->form->setWidget($name, new arWidgetFormInputFileEditable([
+                $this->form->setWidget($name, new arB5WidgetFormInputFileEditable([
                     'label' => $this->context->i18n->__('Banner'),
                     'help' => $this->context->i18n->__(
                         'Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
@@ -136,8 +136,6 @@ class RepositoryEditThemeAction extends sfAction
                         ]
                     ),
                     'file_src' => $this->existsBanner ? public_path($this->resource->getBannerPath()) : false,
-                    'edit_mode' => true,
-                    'is_image' => true,
                     'with_delete' => $this->existsBanner,
                 ]));
 
@@ -163,7 +161,7 @@ class RepositoryEditThemeAction extends sfAction
                     'required' => false,
                 ]));
 
-                $this->form->setWidget($name, new arWidgetFormInputFileEditable([
+                $this->form->setWidget($name, new arB5WidgetFormInputFileEditable([
                     'label' => $this->context->i18n->__('Logo'),
                     'help' => $this->context->i18n->__(
                         'Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
@@ -173,8 +171,6 @@ class RepositoryEditThemeAction extends sfAction
                         ]
                     ),
                     'file_src' => $this->existsLogo ? public_path($this->resource->getLogoPath()) : false,
-                    'edit_mode' => true,
-                    'is_image' => true,
                     'with_delete' => $this->existsLogo,
                 ]));
 

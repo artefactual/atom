@@ -18,11 +18,11 @@
     "jquery-ui-dist": "^1.13.2",
     "jstree": "^3.3.11",
     "masonry-layout": "^4.2.2",
-    "mediaelement": "^4.2.16"
+    "mediaelement": "^3.0.0"
   },
   "devDependencies": {
     "css-loader": "^6.3.0",
-    "cypress": "^14.0.1",
+    "cypress": "^14.5.3",
     "cypress-file-upload": "^5.0.8",
     "cypress-wait-until": "^1.7.2",
     "expose-loader": "^3.0.0",

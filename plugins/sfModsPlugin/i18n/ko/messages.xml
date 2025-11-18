@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-07-28T20:02:56Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2025-09-26T19:34:34Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -9,10 +9,6 @@
       <trans-unit id="46">
         <source>Title</source>
         <target>제목</target>
-      </trans-unit>
-      <trans-unit id="120">
-        <source>Language</source>
-        <target>언어</target>
       </trans-unit>
       <trans-unit id="537">
         <source>Subject</source>
@@ -45,10 +41,6 @@
       <trans-unit id="835">
         <source>Names and origin info</source>
         <target>이름 및 출신 정보</target>
-      </trans-unit>
-      <trans-unit id="836">
-        <source>Add new name and/or origin info</source>
-        <target>이름 및 출신 추가</target>
       </trans-unit>
       <trans-unit id="837">
         <source>Add new child levels (if describing a collection)</source>
@@ -94,10 +86,6 @@
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
         <target>기록물 이용에 부여된 이용 제한에 관한 정보. 이 필드를 사용하는 방법에 관한 자세한 정보는 MODS 접근조건 최상위 요소를 살펴보시오.</target>
       </trans-unit>
-      <trans-unit id="849">
-        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target>기록물을  소장하고 있는 기관 또는 보존 기관을 명시하시오. 이름의 처음 몇 글자를 입력하여 보존 기관을 검색하거나, 검색되지 않으면 새 기관명을 입력하고 새 보존기관 기록과 링크를 걸어두시오.</target>
-      </trans-unit>
       <trans-unit id="850">
         <source>Rights area</source>
         <target>권한 영역</target>
@@ -109,10 +97,6 @@
       <trans-unit id="853">
         <source>Elements area</source>
         <target>요소 영역</target>
-      </trans-unit>
-      <trans-unit id="858">
-        <source>Edit elements area</source>
-        <target>요소 </target>
       </trans-unit>
       <trans-unit id="859">
         <source>Places</source>
@@ -142,8 +126,28 @@
         <source>Add new</source>
         <target>새 항목 추가</target>
       </trans-unit>
-      <trans-unit id="866">
-        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+      <trans-unit id="867">
+        <source>Delete</source>
+        <target>삭제</target>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Delete row</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifier: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>컬렉션 계층 기술에서 하위 계층을 추가하기 위해 이 두 필드를 사용하시오. 필요한 새 하위 계층을 추가하기 위해 새 필드 추가를 클릭하시오. 식별자: 자원을 식별할 수 있는 고유 표준번호나 코드를 입력하시오. 제목: 단어, 구, 글자, 글자 그룹, 자원에서 일반적으로 나타나는 단어, 자원 또는 자원에 포함된 저작을 입력하시오.</target>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. Alternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="871">
+        <source>Types of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>Languages</source>
         <target/>
       </trans-unit>
     </body>

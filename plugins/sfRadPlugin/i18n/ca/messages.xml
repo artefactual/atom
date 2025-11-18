@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-07-28T20:04:14Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2025-09-26T19:34:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -69,10 +69,6 @@
         <source>Title and statement of responsibility area</source>
         <target>Àrea del títol i de la menció de responsabilitat</target>
       </trans-unit>
-      <trans-unit id="25">
-        <source>Edit title and statement of responsibility area</source>
-        <target>Edita l'àrea del títol i les mencions responsabilitat </target>
-      </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
         <target>Títol propi</target>
@@ -113,10 +109,6 @@
         <source>Edition area</source>
         <target>Àrea d'edició </target>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Edit edition area</source>
-        <target>Edita l'àrea d'edició </target>
-      </trans-unit>
       <trans-unit id="37">
         <source>Edition statement</source>
         <target>Menció d'edició </target>
@@ -128,10 +120,6 @@
       <trans-unit id="39">
         <source>Class of material specific details area</source>
         <target>Àrea de detalls específics del tipus de material</target>
-      </trans-unit>
-      <trans-unit id="40">
-        <source>Edit class of material specific details area</source>
-        <target>Edita l'àrea de detalls específics de classe de material</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Statement of scale (cartographic)</source>
@@ -157,17 +145,9 @@
         <source>Dates of creation area</source>
         <target>Àrea de dates de creació</target>
       </trans-unit>
-      <trans-unit id="47">
-        <source>Edit dates of creation area</source>
-        <target>Edita l'àrea de dates de creació </target>
-      </trans-unit>
       <trans-unit id="48">
         <source>Physical description area</source>
         <target>Àrea de la descripció física </target>
-      </trans-unit>
-      <trans-unit id="49">
-        <source>Edit physical description area</source>
-        <target>Edita l'àrea de descripció física </target>
       </trans-unit>
       <trans-unit id="50">
         <source>Physical description</source>
@@ -176,10 +156,6 @@
       <trans-unit id="51">
         <source>Publisher's series area</source>
         <target>Àrea de les col·leccions editorials</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Edit publisher's series area</source>
-        <target>Edita l'àrea de les col·leccions editorials</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Title proper of publisher's series</source>
@@ -209,10 +185,6 @@
         <source>Archival description area</source>
         <target>Àrea de la descripció arxivística </target>
       </trans-unit>
-      <trans-unit id="60">
-        <source>Edit archival description area</source>
-        <target>Edita l'àrea de descripció arxivística </target>
-      </trans-unit>
       <trans-unit id="61">
         <source>Custodial history</source>
         <target>Historial de la custòdia </target>
@@ -224,10 +196,6 @@
       <trans-unit id="63">
         <source>Notes area</source>
         <target>Àrea de notes</target>
-      </trans-unit>
-      <trans-unit id="64">
-        <source>Edit notes area</source>
-        <target>Edita l'àrea de notes</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Physical condition</source>
@@ -285,10 +253,6 @@
         <source>Standard number area</source>
         <target>Àrea de números normalitzats</target>
       </trans-unit>
-      <trans-unit id="80">
-        <source>Edit standard number area</source>
-        <target>Edita l'àrea del número normalitzat</target>
-      </trans-unit>
       <trans-unit id="81">
         <source>Standard number</source>
         <target>Número normalitzat</target>
@@ -297,17 +261,9 @@
         <source>Access points</source>
         <target>Punts d'accés </target>
       </trans-unit>
-      <trans-unit id="83">
-        <source>Edit access points</source>
-        <target>Edita els punts d'accés </target>
-      </trans-unit>
       <trans-unit id="84">
         <source>Control area</source>
         <target>Àrea de control</target>
-      </trans-unit>
-      <trans-unit id="85">
-        <source>Edit control area</source>
-        <target>Edita l'àrea de control</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Description record identifier</source>
@@ -360,10 +316,6 @@
       <trans-unit id="99">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>Assigneu un títol propi, que pot ser formal, transcrit o atribuït. (RAD 1.1B)</target>
-      </trans-unit>
-      <trans-unit id="100">
-        <source>This is a mandatory element.</source>
-        <target>Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -434,10 +386,6 @@
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
         <target>"Lliure el nom de la jurisdicció (ex. govern) responsable d'emetre els registres filatèlics." (RAD 12.3B1) "Per a totes les unitats que posseeixen una denominació (ex. segells de correu, timbres fiscals, articles de papereria postal), lliure la denominació en un format estandarditzat , registrant el número de denominació en numerals aràbics seguits pel nom de la unitat de moneda. Incloga una declaració de denominació fins i tot si la denominació ja ha sigut registrada com a part del títol o una altra informació del títol." (RAD 12.3C1)</target>
       </trans-unit>
-      <trans-unit id="119">
-        <source>Add new name and/or date(s)</source>
-        <target>Afegeix un nou nom i/o data(es)</target>
-      </trans-unit>
       <trans-unit id="120">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
         <target>En tots els nivells consigneu l'extensió de la unitat que es descriu, tot indicant el nombre d'unitats físiques en números aràbics i la designació específica del material, com s'indica en la subregla .5B en el capítol(s) que tracta de la classe(s) generals de material a la qual pertany la unitat que es descriu." (RAD 1.5B1) Incloeu altres detalls físics i dimensions com s'especifica en RAD 1.5C i 1.5D. Separeu entrades múltiples en aquest camp amb un retorn de carro (p. e. polseu la tecla Enter en el seu teclat).</target>
@@ -477,10 +425,6 @@
       <trans-unit id="129">
         <source>Biographical sketch</source>
         <target>Esquema biogràfic </target>
-      </trans-unit>
-      <trans-unit id="130">
-        <source>Edit authority record</source>
-        <target>Edita el registre d'autoritat </target>
       </trans-unit>
       <trans-unit id="131">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
@@ -614,17 +558,9 @@
         <source>Indicate the language(s) used to create the description of the archival material.</source>
         <target>Indiqueu l'idioma(es) utilitzat(s) per crear la descripció del material d'arxiu.</target>
       </trans-unit>
-      <trans-unit id="164">
-        <source>Language</source>
-        <target>Idioma</target>
-      </trans-unit>
       <trans-unit id="165">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Indiqueu l'escriptura(es) utilitzada per crear la descripció del material d'arxiu.</target>
-      </trans-unit>
-      <trans-unit id="166">
-        <source>Script</source>
-        <target>Escriptura </target>
       </trans-unit>
       <trans-unit id="167">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -669,6 +605,26 @@
       <trans-unit id="177">
         <source>Scope and content - This field is marked as mandatory in the relevant descriptive standard.</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="178">
+        <source>Names and dates</source>
+        <target>Noms i dates</target>
+      </trans-unit>
+      <trans-unit id="179">
+        <source>Languages of the material</source>
+        <target>Idiomes del material </target>
+      </trans-unit>
+      <trans-unit id="180">
+        <source>Scripts of the material</source>
+        <target>Escriptures dels documents</target>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Language(s)</source>
+        <target>Idioma(es)</target>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Script(s)</source>
+        <target>Escriptura(es)</target>
       </trans-unit>
     </body>
   </file>

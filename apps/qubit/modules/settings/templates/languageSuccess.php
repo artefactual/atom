@@ -21,50 +21,50 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/language'); ?>" method="post">
-
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'language'])); ?>
+    
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div id="content">
+    <div class="accordion mb-3">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="language-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#language-collapse" aria-expanded="true" aria-controls="language-collapse">
+            <?php echo __('i18n language settings'); ?>
+          </button>
+        </h2>
+        <div id="language-collapse" class="accordion-collapse collapse show" aria-labelledby="language-heading">
+          <div class="accordion-body">
+            <?php foreach ($i18nLanguages as $setting) { ?>
+              <div class="row mb-3">
+                <label class="col-11 col-form-label">
+                  <?php echo format_language($setting->getName()); ?>
+                  <code class="ms-1"><?php echo $setting->getName(); ?></code>
+                </label>
+                <div class="col-1 px-2 text-end align-middle">
+                  <?php if ($setting->deleteable) { ?>
+                    <a class="btn atom-btn-white" href="<?php echo url_for([$setting, 'module' => 'settings', 'action' => 'delete']); ?>">
+                      <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                      <span class="visually-hidden"><?php echo __('Delete'); ?></span>
+                    </a>
+                  <?php } else { ?>
+                    <span class="btn disabled" aria-hidden="true">
+                      <i class="fas fa-fw fa-lock"></i>
+                    </span>
+                  <?php } ?>
+                </div>
+              </div>
+            <?php } ?>
 
-      <table class="table sticky-enabled">
-        <thead>
-          <tr>
-            <th><?php echo __('Name'); ?></th>
-            <th><?php echo __('Value'); ?></th>
-            <th><?php echo __('Delete'); ?></th>
-          </tr>
-        </thead>
-          <tbody>
-          <?php foreach ($i18nLanguages as $setting) { ?>
-            <tr>
-              <td>
-                <?php echo $setting->getName(); ?>
-              </td>
-              <td>
-                <?php echo format_language($setting->getName()); ?>
-              </td>
-              <td>
-                <?php if ($setting->deleteable) { ?>
-                  <?php echo link_to(image_tag('delete', ['alt' => __('Delete')]), [$setting, 'module' => 'settings', 'action' => 'delete']); ?>
-                <?php } ?>
-              </td>
-            </tr>
-          <?php } ?>
-          <tr>
-            <td colspan="3">
-              <?php echo $form->languageCode->renderRow(); ?>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <hr>
 
+            <?php echo render_field($form->languageCode); ?>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Add'); ?>"/></li>
-      </ul>
+    <section class="actions mb-3">
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Add'); ?>">
     </section>
 
   </form>
