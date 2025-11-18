@@ -7,11 +7,11 @@ class arZoomPanViewerAction extends sfAction
         $this->digitalObject = QubitDigitalObject::getById($request->getParameter('id'));
 
         if (!$this->digitalObject) {
-            return $this->renderText("<h1>ZoomPan Error: DigitalObject not found</h1>");
+            return $this->renderText('<h1>ZoomPan Error: DigitalObject not found</h1>');
         }
 
         // DEBUG
-        //error_log("[ZoomPan] ViewerAction loaded for ID: " . $this->digitalObject->id);
+        // error_log("[ZoomPan] ViewerAction loaded for ID: " . $this->digitalObject->id);
 
         return sfView::SUCCESS;
     }

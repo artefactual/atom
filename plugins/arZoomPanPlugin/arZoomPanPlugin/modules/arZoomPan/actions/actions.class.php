@@ -3,37 +3,37 @@
 class arZoomPanActions extends sfActions
 {
     /**
-     * Viewer action (loads viewerSuccess.php)
+     * Viewer action (loads viewerSuccess.php).
      */
     public function executeViewer(sfWebRequest $request)
     {
         $id = $request->getParameter('id');
 
         if (!$id) {
-            return $this->renderText("<h1>Error: No ID provided</h1>");
+            return $this->renderText('<h1>Error: No ID provided</h1>');
         }
 
         $this->digitalObject = QubitDigitalObject::getById($id);
 
         if (!$this->digitalObject) {
-            return $this->renderText("<h1>Error: Digital Object not found (ID $id)</h1>");
+            return $this->renderText("<h1>Error: Digital Object not found (ID {$id})</h1>");
         }
 
         // Debug log
-        error_log("[ZoomPan] executeViewer loaded — ID=$id");
+        error_log("[ZoomPan] executeViewer loaded — ID={$id}");
 
         return sfView::SUCCESS;
     }
 
     /**
-     * Serve image tiles for OpenSeadragon
+     * Serve image tiles for OpenSeadragon.
      */
     public function executeTile(sfWebRequest $request)
     {
         $id = $request->getParameter('id');
-        $z  = $request->getParameter('z');
-        $x  = $request->getParameter('x');
-        $y  = $request->getParameter('y');
+        $z = $request->getParameter('z');
+        $x = $request->getParameter('x');
+        $y = $request->getParameter('y');
         $format = $request->getParameter('format', 'jpg');
 
         $digitalObject = QubitDigitalObject::getById($id);
@@ -51,13 +51,13 @@ class arZoomPanActions extends sfActions
             $this->generateTile($digitalObject, $z, $x, $y, $format, $tilePath);
         }
 
-        $this->serveFile($tilePath, 'image/' . $format);
+        $this->serveFile($tilePath, 'image/'.$format);
+
         return sfView::NONE;
     }
 
-
     /**
-     * Return document information
+     * Return document information.
      */
     public function executeInfo(sfWebRequest $request)
     {
@@ -80,13 +80,12 @@ class arZoomPanActions extends sfActions
         return sfView::NONE;
     }
 
-
     /**
-     * Render PDF page to image
+     * Render PDF page to image.
      */
     public function executePdfPage(sfWebRequest $request)
     {
-        $id   = $request->getParameter('id');
+        $id = $request->getParameter('id');
         $page = $request->getParameter('page', 1);
 
         $digitalObject = QubitDigitalObject::getById($id);
@@ -94,7 +93,7 @@ class arZoomPanActions extends sfActions
             $this->forward404('Digital object not found');
         }
 
-        if ($digitalObject->getMimeType() !== 'application/pdf') {
+        if ('application/pdf' !== $digitalObject->getMimeType()) {
             $this->forward404('Not a PDF');
         }
 
@@ -104,9 +103,8 @@ class arZoomPanActions extends sfActions
         return sfView::NONE;
     }
 
-
     /**
-     * Render text document as HTML
+     * Render text document as HTML.
      */
     public function executeTextDocument(sfWebRequest $request)
     {
@@ -118,12 +116,12 @@ class arZoomPanActions extends sfActions
         }
 
         $mimeType = $digitalObject->getMimeType();
-        $textTypes = array(
+        $textTypes = [
             'text/plain', 'text/html', 'text/xml', 'application/xml',
             'application/msword',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.oasis.opendocument.text'
-        );
+            'application/vnd.oasis.opendocument.text',
+        ];
 
         if (!in_array($mimeType, $textTypes)) {
             $this->forward404('Not a text document');
@@ -137,27 +135,25 @@ class arZoomPanActions extends sfActions
         return sfView::NONE;
     }
 
-
     /* ===========================================================
        Helper Methods (unchanged)
        =========================================================== */
 
     protected function generateTile($digitalObject, $z, $x, $y, $format, $tilePath)
     {
-		$settings = sfConfig::get('app_zoom_pan_settings');
-		if (!is_array($settings)) {
-			$settings = array(
-				'tile_size'      => 256,
-				'max_zoom_level' => 12,
-				'cache_directory'=> sfConfig::get('sf_root_dir') . '/cache/zoompan',
-			);
-		}
-		$tileSize = $settings['tile_size'];
+        $settings = sfConfig::get('app_zoom_pan_settings');
+        if (!is_array($settings)) {
+            $settings = [
+                'tile_size' => 256,
+                'max_zoom_level' => 12,
+                'cache_directory' => sfConfig::get('sf_root_dir').'/cache/zoompan',
+            ];
+        }
+        $tileSize = $settings['tile_size'];
 
         $source = $digitalObject->getAbsolutePath(QubitDigitalObject::DERIVATIVE_TYPE_MASTER)
     ?: $digitalObject->getAbsolutePath(QubitDigitalObject::DERIVATIVE_TYPE_REFERENCE)
     ?: $digitalObject->getAbsolutePath();
-
 
         $scale = pow(2, $z);
         $x1 = $x * $tileSize;
@@ -176,58 +172,55 @@ class arZoomPanActions extends sfActions
         exec($cmd);
     }
 
-
     protected function getTilePath($digitalObject, $z, $x, $y, $format)
     {
-		$settings = sfConfig::get('app_zoom_pan_settings');
-		if (!is_array($settings)) {
-			$settings = array(
-				'tile_size'      => 256,
-				'max_zoom_level' => 12,
-				'cache_directory'=> sfConfig::get('sf_root_dir') . '/cache/zoompan',
-			);
-		}
-		$cache = $settings['cache_directory'];
+        $settings = sfConfig::get('app_zoom_pan_settings');
+        if (!is_array($settings)) {
+            $settings = [
+                'tile_size' => 256,
+                'max_zoom_level' => 12,
+                'cache_directory' => sfConfig::get('sf_root_dir').'/cache/zoompan',
+            ];
+        }
+        $cache = $settings['cache_directory'];
 
-		return sprintf(
-			'%s/%d/%d/%d/%d.%s',
-			$cache,
-			$digitalObject->id,
-			$z,
-			$x,
-			$y,
-			$format
-		);
+        return sprintf(
+            '%s/%d/%d/%d/%d.%s',
+            $cache,
+            $digitalObject->id,
+            $z,
+            $x,
+            $y,
+            $format
+        );
     }
-
 
     protected function getDocumentInfo($digitalObject)
     {
         $path = $digitalObject->getAbsolutePath();
         $mime = $digitalObject->getMimeType();
 
-        $info = array(
-            'id'       => $digitalObject->id,
-            'name'     => $digitalObject->getName(),
+        $info = [
+            'id' => $digitalObject->id,
+            'name' => $digitalObject->getName(),
             'mimeType' => $mime,
             'fileSize' => filesize($path),
-        );
+        ];
 
-        if (strpos($mime, 'image/') === 0) {
-            $s    = getimagesize($path);
-            $info['width']  = $s[0];
+        if (0 === strpos($mime, 'image/')) {
+            $s = getimagesize($path);
+            $info['width'] = $s[0];
             $info['height'] = $s[1];
-            $info['type']   = 'image';
+            $info['type'] = 'image';
         }
 
         return $info;
     }
 
-
     protected function convertPdfPage($digitalObject, $page)
     {
         $settings = sfConfig::get('app_zoom_pan_settings');
-        $cache    = $settings['cache_directory'];
+        $cache = $settings['cache_directory'];
 
         $cachePath = sprintf('%s/pdf/%d/page_%d.jpg', $cache, $digitalObject->id, $page);
 
@@ -245,12 +238,10 @@ class arZoomPanActions extends sfActions
         return $cachePath;
     }
 
-
     protected function convertToHtml($digitalObject)
     {
-        return "<pre>Preview not implemented.</pre>";
+        return '<pre>Preview not implemented.</pre>';
     }
-
 
     protected function serveFile($path, $mime)
     {

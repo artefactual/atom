@@ -2,26 +2,26 @@
 
 class arZoomPanPluginConfiguration extends sfPluginConfiguration
 {
-    const VERSION = '1.0.0';
+    public const VERSION = '1.0.0';
 
     public function initialize()
     {
         // 1. Load custom routes
         $this->dispatcher->connect(
             'routing.load_configuration',
-            array($this, 'addRoutes')
+            [$this, 'addRoutes']
         );
 
         // 2. Load helper
         $this->dispatcher->connect(
             'template.filter_parameters',
-            array($this, 'registerHelpers')
+            [$this, 'registerHelpers']
         );
 
         // 3. Inject JS/CSS
         $this->dispatcher->connect(
             'response.filter_content',
-            array($this, 'injectAssets')
+            [$this, 'injectAssets']
         );
     }
 
@@ -34,8 +34,8 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
             'zoompan_viewer',
             new sfRoute(
                 '/zoompan/viewer/:id',
-                array('module' => 'arZoomPan', 'action' => 'viewer'),
-                array('id' => '\d+')
+                ['module' => 'arZoomPan', 'action' => 'viewer'],
+                ['id' => '\d+']
             )
         );
 
@@ -44,8 +44,8 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
             'zoompan_info',
             new sfRoute(
                 '/zoompan/info/:id',
-                array('module' => 'arZoomPan', 'action' => 'info'),
-                array('id' => '\d+')
+                ['module' => 'arZoomPan', 'action' => 'info'],
+                ['id' => '\d+']
             )
         );
 
@@ -54,14 +54,14 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
             'zoompan_tile',
             new sfRoute(
                 '/zoompan/tile/:id/:z/:x/:y.:format',
-                array('module' => 'arZoomPan', 'action' => 'tile'),
-                array(
-                    'id'     => '\d+',
-                    'z'      => '\d+',
-                    'x'      => '\d+',
-                    'y'      => '\d+',
-                    'format' => '(jpg|png)'
-                )
+                ['module' => 'arZoomPan', 'action' => 'tile'],
+                [
+                    'id' => '\d+',
+                    'z' => '\d+',
+                    'x' => '\d+',
+                    'y' => '\d+',
+                    'format' => '(jpg|png)',
+                ]
             )
         );
     }
@@ -69,6 +69,7 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
     public function registerHelpers($event, $params)
     {
         $params['helpers'][] = 'ZoomPan';
+
         return $params;
     }
 
@@ -88,14 +89,12 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
         $css = '<link rel="stylesheet" href="/plugins/arZoomPanPlugin/css/zoom-pan.css">';
 
         // Plugin JS
-        $js  = '<script src="/plugins/arZoomPanPlugin/js/zoom-pan.js"></script>';
+        $js = '<script src="/plugins/arZoomPanPlugin/js/zoom-pan.js"></script>';
 
-        if (strpos($content, 'zoom-pan.js') !== false) {
+        if (false !== strpos($content, 'zoom-pan.js')) {
             return $content;
         }
 
-        return str_replace('</head>', $osd . "\n" . $css . "\n" . $js . "\n</head>", $content);
+        return str_replace('</head>', $osd."\n".$css."\n".$js."\n</head>", $content);
     }
 }
-
-?>
