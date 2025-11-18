@@ -1,4 +1,4 @@
-<?php echo "<!-- LOADED DEBUG VIEWER -->"; ?>
+<?php echo '<!-- LOADED DEBUG VIEWER -->'; ?>
 
 <?php
 /**
@@ -7,20 +7,19 @@
  * Shows every step of the IIIF path, encoding, and
  * viewer lifecycle. Nothing is hidden.
  */
-
-header("X-Debug-Viewer: loaded");
+header('X-Debug-Viewer: loaded');
 
 // Input from arIiifPlugin
-$raw = isset($iiifUrl) ? trim($iiifUrl) : "";
-$viewerId = isset($viewerId) ? $viewerId : "iiif-debug-viewer";
+$raw = isset($iiifUrl) ? trim($iiifUrl) : '';
+$viewerId = isset($viewerId) ? $viewerId : 'iiif-debug-viewer';
 $viewerHeight = isset($viewerHeight) ? $viewerHeight : 600;
 
 // DEBUG: Show raw input
-echo "<!-- RAW iiifUrl: $raw -->\n";
+echo "<!-- RAW iiifUrl: {$raw} -->\n";
 
 // Normalize
 $clean = preg_replace('#^/uploads/#', '', $raw);
-$clean = trim($clean, "/");
+$clean = trim($clean, '/');
 
 // Extract
 $filename = basename($clean);
@@ -30,32 +29,32 @@ $folder = dirname($clean);
 $encodedFolder = str_replace('/', '_SL_', $folder);
 
 // Final ID
-$encoded = $encodedFolder . "_SL_" . $filename;
+$encoded = $encodedFolder.'_SL_'.$filename;
 
 // IIIF URL
-$base = rtrim(sfConfig::get("app_base_url"), "/");
-$iiifInfo = $base . "/iiif/2/" . $encoded . "/info.json";
+$base = rtrim(sfConfig::get('app_base_url'), '/');
+$iiifInfo = $base.'/iiif/2/'.$encoded.'/info.json';
 
 // DEBUG dump
-echo "<!-- CLEAN=$clean -->\n";
-echo "<!-- FOLDER=$folder -->\n";
-echo "<!-- FILE=$filename -->\n";
-echo "<!-- ENCODED=$encoded -->\n";
-echo "<!-- IIIF INFO=$iiifInfo -->\n";
+echo "<!-- CLEAN={$clean} -->\n";
+echo "<!-- FOLDER={$folder} -->\n";
+echo "<!-- FILE={$filename} -->\n";
+echo "<!-- ENCODED={$encoded} -->\n";
+echo "<!-- IIIF INFO={$iiifInfo} -->\n";
 ?>
 
 <div style="background:#222;color:#0f0;padding:6px;font-size:12px;">
   <b>IIIF DEBUG PANEL</b><br>
-  RAW: <?=htmlspecialchars($raw)?><br>
-  CLEAN: <?=htmlspecialchars($clean)?><br>
-  FOLDER: <?=htmlspecialchars($folder)?><br>
-  FILE: <?=htmlspecialchars($filename)?><br>
-  ENCODED ID: <?=htmlspecialchars($encoded)?><br>
-  IIIF INFO.JSON: <a style="color:#0f0;" href="<?=$iiifInfo?>" target="_blank"><?=$iiifInfo?></a>
+  RAW: <?php echo htmlspecialchars($raw); ?><br>
+  CLEAN: <?php echo htmlspecialchars($clean); ?><br>
+  FOLDER: <?php echo htmlspecialchars($folder); ?><br>
+  FILE: <?php echo htmlspecialchars($filename); ?><br>
+  ENCODED ID: <?php echo htmlspecialchars($encoded); ?><br>
+  IIIF INFO.JSON: <a style="color:#0f0;" href="<?php echo $iiifInfo; ?>" target="_blank"><?php echo $iiifInfo; ?></a>
 </div>
 
-<div id="<?=$viewerId?>" style="width:100%; height:<?=$viewerHeight?>px; background:#000;">
-  <div style="color:white;padding:10px" id="<?=$viewerId?>-debug-msg">
+<div id="<?php echo $viewerId; ?>" style="width:100%; height:<?php echo $viewerHeight; ?>px; background:#000;">
+  <div style="color:white;padding:10px" id="<?php echo $viewerId; ?>-debug-msg">
     Initializing IIIF Viewer…
   </div>
 </div>
@@ -66,8 +65,8 @@ echo "<!-- IIIF INFO=$iiifInfo -->\n";
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    const viewerId = "<?=$viewerId?>";
-    const infoJson = "<?=$iiifInfo?>";
+    const viewerId = "<?php echo $viewerId; ?>";
+    const infoJson = "<?php echo $iiifInfo; ?>";
 
     debug("Viewer starting");
     debug("Info.json: " + infoJson);
