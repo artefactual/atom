@@ -15,9 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
+ *
  * IIIF module actions.
  *
  * IIIF Image Carousel Plugin for AtoM
