@@ -15,6 +15,6 @@
     </div>
   </div>
 
-  <p><a href="javascript:history.go(-1)"><?php echo __('Back to previous page.'); ?></a></p>
+  <p><a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></p>
 
 <?php end_slot(); ?>
