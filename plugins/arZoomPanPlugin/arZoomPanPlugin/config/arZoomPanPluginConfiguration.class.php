@@ -18,9 +18,12 @@
  */
 
 /**
- * arZoomPanPluginConfiguration
+ * arZoomPanPluginConfiguration.
  *
  * Modified by Johan Pieterse to use arMetadataExtractionPlugin
+ *
+ * @package    arZoomPanPlugin
+ * @subpackage config
  */
  
 class arZoomPanPluginConfiguration extends sfPluginConfiguration
