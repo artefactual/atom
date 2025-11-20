@@ -47,35 +47,35 @@ function get_zoom_pan_viewer($digitalObject, $options = [])
  */
 function detect_viewer_type($digitalObject)
 {
-  $mimeType = $digitalObject->getMimeType();
+    $mimeType = $digitalObject->getMimeType();
 
-  // Image types
-  if (0 === strpos($mimeType, 'image/')) {
+    // Image types
+    if (0 === strpos($mimeType, 'image/')) {
+        return 'image';
+    }
+
+    // PDF
+    if ('application/pdf' === $mimeType) {
+        return 'pdf';
+    }
+
+    // Text documents
+    $textTypes = [
+        'text/plain',
+        'text/html',
+        'text/xml',
+        'application/xml',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.oasis.opendocument.text',
+    ];
+
+    if (in_array($mimeType, $textTypes)) {
+        return 'text';
+    }
+
+    // Default to image viewer for unknown types
     return 'image';
-  }
-
-  // PDF
-  if ('application/pdf' === $mimeType) {
-    return 'pdf';
-  }
-
-  // Text documents
-  $textTypes = [
-      'text/plain',
-      'text/html',
-      'text/xml',
-      'application/xml',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.oasis.opendocument.text',
-  ];
-
-  if (in_array($mimeType, $textTypes)) {
-    return 'text';
-  }
-
-  // Default to image viewer for unknown types
-  return 'image';
 }
 
 /**
@@ -87,16 +87,16 @@ function detect_viewer_type($digitalObject)
  */
 function is_zoom_pan_supported($digitalObject)
 {
-  if (!$digitalObject) {
-    return false;
-  }
+    if (!$digitalObject) {
+        return false;
+    }
 
-  $settings = sfConfig::get('app_zoom_pan_settings', []);
-  $supportedFormats = isset($settings['supported_formats']) ? $settings['supported_formats'] : [];
+    $settings = sfConfig::get('app_zoom_pan_settings', []);
+    $supportedFormats = isset($settings['supported_formats']) ? $settings['supported_formats'] : [];
 
-  $extension = strtolower(pathinfo($digitalObject->getName(), PATHINFO_EXTENSION));
+    $extension = strtolower(pathinfo($digitalObject->getName(), PATHINFO_EXTENSION));
 
-  return in_array($extension, $supportedFormats);
+    return in_array($extension, $supportedFormats);
 }
 
 /**
@@ -109,41 +109,41 @@ function is_zoom_pan_supported($digitalObject)
  */
 function get_zoom_pan_thumbnail($digitalObject, $options = [])
 {
-  if (!$digitalObject || !$digitalObject->id) {
-    return '';
-  }
+    if (!$digitalObject || !$digitalObject->id) {
+        return '';
+    }
 
-  $defaults = [
-      'size' => 'thumbnail',
-      'class' => 'zoom-pan-thumbnail',
-      'link' => true,
-      'alt' => $digitalObject->getName(),
-  ];
+    $defaults = [
+        'size' => 'thumbnail',
+        'class' => 'zoom-pan-thumbnail',
+        'link' => true,
+        'alt' => $digitalObject->getName(),
+    ];
 
-  $options = array_merge($defaults, $options);
+    $options = array_merge($defaults, $options);
 
-  // Get thumbnail URL
-  $thumbnailUrl = $digitalObject->getThumbnailUrl($options['size']);
+    // Get thumbnail URL
+    $thumbnailUrl = $digitalObject->getThumbnailUrl($options['size']);
 
-  // Build image tag
-  $img = sprintf(
-    '<img src="%s" alt="%s" class="%s">',
-    htmlspecialchars($thumbnailUrl),
-    htmlspecialchars($options['alt']),
-    htmlspecialchars($options['class'])
-  );
-
-  // Add link if requested
-  if ($options['link']) {
-    $viewerUrl = url_for([$digitalObject, 'module' => 'digitalobject']);
+    // Build image tag
     $img = sprintf(
-      '<a href="%s" class="zoom-pan-thumbnail-link">%s</a>',
-      htmlspecialchars($viewerUrl),
-      $img
+        '<img src="%s" alt="%s" class="%s">',
+        htmlspecialchars($thumbnailUrl),
+        htmlspecialchars($options['alt']),
+        htmlspecialchars($options['class'])
     );
-  }
 
-  return $img;
+    // Add link if requested
+    if ($options['link']) {
+        $viewerUrl = url_for([$digitalObject, 'module' => 'digitalobject']);
+        $img = sprintf(
+            '<a href="%s" class="zoom-pan-thumbnail-link">%s</a>',
+            htmlspecialchars($viewerUrl),
+            $img
+        );
+    }
+
+    return $img;
 }
 
 /**
@@ -153,21 +153,21 @@ function get_zoom_pan_thumbnail($digitalObject, $options = [])
  */
 function include_zoom_pan_assets()
 {
-  $html = '';
+    $html = '';
 
-  // OpenSeadragon
-  $html .= '<script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>'."\n";
+    // OpenSeadragon
+    $html .= '<script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"></script>'."\n";
 
-  // PDF.js
-  $html .= '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>'."\n";
+    // PDF.js
+    $html .= '<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>'."\n";
 
-  // Plugin CSS
-  $html .= '<link rel="stylesheet" href="/plugins/arZoomPanPlugin/css/zoom-pan.css">'."\n";
+    // Plugin CSS
+    $html .= '<link rel="stylesheet" href="/plugins/arZoomPanPlugin/css/zoom-pan.css">'."\n";
 
-  // Plugin JS
-  $html .= '<script src="/plugins/arZoomPanPlugin/js/zoom-pan.js"></script>'."\n";
+    // Plugin JS
+    $html .= '<script src="/plugins/arZoomPanPlugin/js/zoom-pan.js"></script>'."\n";
 
-  return $html;
+    return $html;
 }
 
 /**
@@ -180,21 +180,21 @@ function include_zoom_pan_assets()
  */
 function get_zoom_pan_config($digitalObject, $options = [])
 {
-  $config = [
-      'digitalObjectId' => $digitalObject->id,
-      'viewerType' => detect_viewer_type($digitalObject),
-      'tileSize' => 256,
-      'maxZoom' => 10,
-      'minZoom' => 0.5,
-      'enableRotation' => true,
-      'enableFullscreen' => true,
-      'enableDownload' => true,
-      'showNavigator' => true,
-  ];
+    $config = [
+        'digitalObjectId' => $digitalObject->id,
+        'viewerType' => detect_viewer_type($digitalObject),
+        'tileSize' => 256,
+        'maxZoom' => 10,
+        'minZoom' => 0.5,
+        'enableRotation' => true,
+        'enableFullscreen' => true,
+        'enableDownload' => true,
+        'showNavigator' => true,
+    ];
 
-  $config = array_merge($config, $options);
+    $config = array_merge($config, $options);
 
-  return json_encode($config, JSON_PRETTY_PRINT);
+    return json_encode($config, JSON_PRETTY_PRINT);
 }
 
 /**
@@ -208,9 +208,9 @@ function get_zoom_pan_config($digitalObject, $options = [])
  */
 function get_zoom_pan_init_script($elementId, $digitalObject, $options = [])
 {
-  $config = get_zoom_pan_config($digitalObject, $options);
+    $config = get_zoom_pan_config($digitalObject, $options);
 
-  return <<<SCRIPT
+    return <<<SCRIPT
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var config = {$config};

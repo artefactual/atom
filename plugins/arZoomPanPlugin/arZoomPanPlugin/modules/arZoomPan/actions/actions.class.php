@@ -11,7 +11,7 @@
  *
  * Modified by Johan Pieterse The Archive and Heritage Group <johan@theahg.co.za> to use arMetadataExtractionPlugin
  */
- 
+
 class arZoomPanActions extends sfActions
 {
     /**
@@ -174,9 +174,12 @@ class arZoomPanActions extends sfActions
         $cmd = sprintf(
             'convert "%s" -crop %dx%d+%d+%d -resize %dx%d "%s"',
             escapeshellarg($source),
-            $tileSize / $scale, $tileSize / $scale,
-            $x1 / $scale, $y1 / $scale,
-            $tileSize, $tileSize,
+            $tileSize / $scale,
+            $tileSize / $scale,
+            $x1 / $scale,
+            $y1 / $scale,
+            $tileSize,
+            $tileSize,
             escapeshellarg($tilePath)
         );
 

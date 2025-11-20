@@ -25,7 +25,7 @@
  * @package    arZoomPanPlugin
  * @subpackage config
  */
- 
+
 class arZoomPanPluginConfiguration extends sfPluginConfiguration
 {
     public const VERSION = '1.0.0';
