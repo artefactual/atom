@@ -5,7 +5,17 @@
  *
  * Helper functions for easy integration of zoom/pan viewer in templates
  *
- * Modified by Johan Pieterse to use arMetadataExtractionPlugin
+ * @package    arZoomPanPlugin
+ * @subpackage helper
+ */
+
+/**
+ * Get zoom/pan viewer HTML.
+ *
+ * @param QubitDigitalObject $digitalObject The digital object to display
+ * @param array              $options       Viewer options
+ *
+ * @return string HTML for the viewer
  */
 function get_zoom_pan_viewer($digitalObject, $options = [])
 {
@@ -150,6 +160,8 @@ function get_zoom_pan_thumbnail($digitalObject, $options = [])
  * Include zoom/pan viewer assets.
  *
  * Call this in your template's head section if auto-loading doesn't work
+ *
+ * @return string
  */
 function include_zoom_pan_assets()
 {
@@ -210,7 +222,7 @@ function get_zoom_pan_init_script($elementId, $digitalObject, $options = [])
 {
     $config = get_zoom_pan_config($digitalObject, $options);
 
-    return <<<SCRIPT
+    $script = <<<SCRIPT
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var config = {$config};
@@ -218,4 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 SCRIPT;
+
+    return $script;
 }

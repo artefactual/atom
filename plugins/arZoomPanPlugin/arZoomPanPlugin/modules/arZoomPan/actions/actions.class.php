@@ -5,17 +5,16 @@
  *
  * Helper functions for easy integration of zoom/pan viewer in templates
  *
- * Get zoom/pan viewer HTML.
- *
- * @param QubitDigitalObject $digitalObject The digital object to display
- *
  * Modified by Johan Pieterse The Archive and Heritage Group <johan@theahg.co.za> to use arMetadataExtractionPlugin
  */
-
 class arZoomPanActions extends sfActions
 {
     /**
      * Viewer action (loads viewerSuccess.php).
+     *
+     * @param sfWebRequest $request
+     *
+     * @return string
      */
     public function executeViewer(sfWebRequest $request)
     {
@@ -39,6 +38,10 @@ class arZoomPanActions extends sfActions
 
     /**
      * Serve image tiles for OpenSeadragon.
+     *
+     * @param sfWebRequest $request
+     *
+     * @return string
      */
     public function executeTile(sfWebRequest $request)
     {
@@ -63,13 +66,17 @@ class arZoomPanActions extends sfActions
             $this->generateTile($digitalObject, $z, $x, $y, $format, $tilePath);
         }
 
-        $this->serveFile($tilePath, 'image/'.$format);
+        $this->serveFile($tilePath, 'image/' . $format);
 
         return sfView::NONE;
     }
 
     /**
      * Return document information.
+     *
+     * @param sfWebRequest $request
+     *
+     * @return string
      */
     public function executeInfo(sfWebRequest $request)
     {
@@ -94,6 +101,10 @@ class arZoomPanActions extends sfActions
 
     /**
      * Render PDF page to image.
+     *
+     * @param sfWebRequest $request
+     *
+     * @return string
      */
     public function executePdfPage(sfWebRequest $request)
     {
@@ -117,6 +128,10 @@ class arZoomPanActions extends sfActions
 
     /**
      * Render text document as HTML.
+     *
+     * @param sfWebRequest $request
+     *
+     * @return string
      */
     public function executeTextDocument(sfWebRequest $request)
     {
@@ -129,7 +144,10 @@ class arZoomPanActions extends sfActions
 
         $mimeType = $digitalObject->getMimeType();
         $textTypes = [
-            'text/plain', 'text/html', 'text/xml', 'application/xml',
+            'text/plain',
+            'text/html',
+            'text/xml',
+            'application/xml',
             'application/msword',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'application/vnd.oasis.opendocument.text',
@@ -147,10 +165,22 @@ class arZoomPanActions extends sfActions
         return sfView::NONE;
     }
 
-    /* ===========================================================
-       Helper Methods (unchanged)
-       =========================================================== */
+    /*
+     * ===========================================================
+     * Helper Methods
+     * ===========================================================
+     */
 
+    /**
+     * Generate tile for OpenSeadragon.
+     *
+     * @param QubitDigitalObject $digitalObject
+     * @param int                $z
+     * @param int                $x
+     * @param int                $y
+     * @param string             $format
+     * @param string             $tilePath
+     */
     protected function generateTile($digitalObject, $z, $x, $y, $format, $tilePath)
     {
         $settings = sfConfig::get('app_zoom_pan_settings');
@@ -158,14 +188,14 @@ class arZoomPanActions extends sfActions
             $settings = [
                 'tile_size' => 256,
                 'max_zoom_level' => 12,
-                'cache_directory' => sfConfig::get('sf_root_dir').'/cache/zoompan',
+                'cache_directory' => sfConfig::get('sf_root_dir') . '/cache/zoompan',
             ];
         }
         $tileSize = $settings['tile_size'];
 
         $source = $digitalObject->getAbsolutePath(QubitDigitalObject::DERIVATIVE_TYPE_MASTER)
-    ?: $digitalObject->getAbsolutePath(QubitDigitalObject::DERIVATIVE_TYPE_REFERENCE)
-    ?: $digitalObject->getAbsolutePath();
+            ?: $digitalObject->getAbsolutePath(QubitDigitalObject::DERIVATIVE_TYPE_REFERENCE)
+            ?: $digitalObject->getAbsolutePath();
 
         $scale = pow(2, $z);
         $x1 = $x * $tileSize;
@@ -187,6 +217,17 @@ class arZoomPanActions extends sfActions
         exec($cmd);
     }
 
+    /**
+     * Get tile path.
+     *
+     * @param QubitDigitalObject $digitalObject
+     * @param int                $z
+     * @param int                $x
+     * @param int                $y
+     * @param string             $format
+     *
+     * @return string
+     */
     protected function getTilePath($digitalObject, $z, $x, $y, $format)
     {
         $settings = sfConfig::get('app_zoom_pan_settings');
@@ -194,7 +235,7 @@ class arZoomPanActions extends sfActions
             $settings = [
                 'tile_size' => 256,
                 'max_zoom_level' => 12,
-                'cache_directory' => sfConfig::get('sf_root_dir').'/cache/zoompan',
+                'cache_directory' => sfConfig::get('sf_root_dir') . '/cache/zoompan',
             ];
         }
         $cache = $settings['cache_directory'];
@@ -210,6 +251,13 @@ class arZoomPanActions extends sfActions
         );
     }
 
+    /**
+     * Get document information.
+     *
+     * @param QubitDigitalObject $digitalObject
+     *
+     * @return array
+     */
     protected function getDocumentInfo($digitalObject)
     {
         $path = $digitalObject->getAbsolutePath();
@@ -232,6 +280,14 @@ class arZoomPanActions extends sfActions
         return $info;
     }
 
+    /**
+     * Convert PDF page to image.
+     *
+     * @param QubitDigitalObject $digitalObject
+     * @param int                $page
+     *
+     * @return string
+     */
     protected function convertPdfPage($digitalObject, $page)
     {
         $settings = sfConfig::get('app_zoom_pan_settings');
@@ -253,11 +309,24 @@ class arZoomPanActions extends sfActions
         return $cachePath;
     }
 
+    /**
+     * Convert document to HTML.
+     *
+     * @param QubitDigitalObject $digitalObject
+     *
+     * @return string
+     */
     protected function convertToHtml($digitalObject)
     {
         return '<pre>Preview not implemented.</pre>';
     }
 
+    /**
+     * Serve file to browser.
+     *
+     * @param string $path
+     * @param string $mime
+     */
     protected function serveFile($path, $mime)
     {
         if (!file_exists($path)) {

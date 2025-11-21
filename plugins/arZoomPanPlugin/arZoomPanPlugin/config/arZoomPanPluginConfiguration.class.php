@@ -22,10 +22,8 @@
  *
  * Modified by Johan Pieterse to use arMetadataExtractionPlugin
  *
- * @package    arZoomPanPlugin
  * @subpackage config
  */
-
 class arZoomPanPluginConfiguration extends sfPluginConfiguration
 {
     public const VERSION = '1.0.0';
@@ -92,6 +90,14 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
         );
     }
 
+    /**
+     * Register helper functions.
+     *
+     * @param sfEvent $event
+     * @param array   $params
+     *
+     * @return array
+     */
     public function registerHelpers($event, $params)
     {
         $params['helpers'][] = 'ZoomPan';
@@ -99,12 +105,25 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
         return $params;
     }
 
+    /**
+     * Inject assets into the response.
+     *
+     * @param sfEvent $event
+     * @param string  $content
+     *
+     * @return string
+     */
     public function injectAssets(sfEvent $event, $content)
     {
         $request = sfContext::getInstance()->getRequest();
 
         // Only inject on pages displaying digital objects
         if (!preg_match('#/(informationobject|digitalobject)#i', $request->getPathInfo())) {
+            return $content;
+        }
+
+        // Check if assets already injected
+        if (false !== strpos($content, 'zoom-pan.js')) {
             return $content;
         }
 
@@ -117,10 +136,6 @@ class arZoomPanPluginConfiguration extends sfPluginConfiguration
         // Plugin JS
         $js = '<script src="/plugins/arZoomPanPlugin/js/zoom-pan.js"></script>';
 
-        if (false !== strpos($content, 'zoom-pan.js')) {
-            return $content;
-        }
-
-        return str_replace('</head>', $osd."\n".$css."\n".$js."\n</head>", $content);
+        return str_replace('</head>', $osd . "\n" . $css . "\n" . $js . "\n" . '</head>', $content);
     }
 }
