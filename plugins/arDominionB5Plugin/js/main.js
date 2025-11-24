@@ -40,3 +40,4 @@ import "/js/deletePhysicalStorage";
 import "/js/settingsFindingAid";
 import "/js/refreshJobs";
 import "/js/historyNavigation";
+import "/js/physicalStorageAddToClipboard";
