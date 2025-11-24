@@ -17,7 +17,8 @@
       <li class="sfTLinkMessage">
         <?php echo link_to('Proceed to login', sfConfig::get('sf_login_module') . '/' . sfConfig::get('sf_login_action')); ?>
       </li>
-      <li class="sfTLinkMessage"><a href="#" data-action="back"
+      <li class="sfTLinkMessage">
+        <a href="#" data-action="back"
           data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
         </a>
       </li>

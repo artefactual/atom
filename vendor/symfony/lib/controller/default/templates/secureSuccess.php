@@ -17,7 +17,8 @@
   <dt>What's next</dt>
   <dd>
     <ul class="sfTIconList">
-      <li class="sfTLinkMessage"><a href="#" data-action="back"
+      <li class="sfTLinkMessage">
+        <a href="#" data-action="back"
           data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
         </a>
       </li>
