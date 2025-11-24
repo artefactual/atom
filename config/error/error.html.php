@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <?php $path = sfConfig::get('sf_relative_url_root', preg_replace('#/[^/]+\.php5?$#', '', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['ORIG_SCRIPT_NAME']) ? $_SERVER['ORIG_SCRIPT_NAME'] : ''))); ?>
 <html>
+  <head>
+    <title>Error</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>/plugins/arDominionPlugin/css/main.css"/>
+  </head>
+  <body class="yui-skin-sam admin error">
 
-<head>
-  <title>Error</title>
-  <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>/plugins/arDominionPlugin/css/main.css" />
-</head>
+    <div id="wrapper" class="container">
 
-<body class="yui-skin-sam admin error">
+      <section class="admin-message" id="error-404">
 
-  <div id="wrapper" class="container">
+        <h2>
+          <img alt="" src="<?php echo $path; ?>/images/logo.png"/>
+          Oops! An Error Occurred
+        </h2>
 
-    <section class="admin-message" id="error-404">
-
-      <h2>
-        <img alt="" src="<?php echo $path; ?>/images/logo.png" />
-        Oops! An Error Occurred
-      </h2>
-
-      <p>
-        Sorry, something went wrong.<br />
-        The server returned a <code><?php echo $code; ?> <?php echo $text; ?></code>.
-      </p>
-
-      <div class="tips">
         <p>
-          Try again a little later or ask in the <a href="https://groups.google.com/g/ica-atom-users">discussion
-            group</a>.<br />
-          <a href="#" data-action="back"
-            data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a>
+          Sorry, something went wrong.<br />
+          The server returned a <code><?php echo $code; ?> <?php echo $text; ?></code>.
         </p>
-      </div>
 
-    </section>
+        <div class="tips">
+          <p>
+            Try again a little later or ask in the <a href="https://groups.google.com/g/ica-atom-users">discussion group</a>.<br />
+            <a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a>
+          </p>
+        </div>
 
-  </div>
+      </section>
 
-</body>
+    </div>
 
+  </body>
 </html>

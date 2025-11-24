@@ -15,15 +15,14 @@
           <?php echo __('The existing term values are required by the application to operate correctly'); ?>
         <?php } else { ?>
           <?php echo __(
-            'This is a non-preferred term and cannot be edited - please use <a href="%1%">%2%</a>.',
-            ['%1%' => url_for([$use, 'module' => 'term']), '%2%' => $use->__toString()]
+              'This is a non-preferred term and cannot be edited - please use <a href="%1%">%2%</a>.',
+              ['%1%' => url_for([$use, 'module' => 'term']), '%2%' => $use->__toString()]
           ); ?>
         <?php } ?>
       </p>
 
       <p class="mb-0">
-        <a href="#" data-action="back"
-          data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a><br>
+        <a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a><br>
         <?php echo link_to(__('Go to homepage.'), '@homepage'); ?>
       </p>
     </div>

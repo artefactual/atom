@@ -9,22 +9,18 @@
 </div>
 <dl class="sfTMessageInfo">
   <dt>Did you type the URL?</dt>
-  <dd>You may have typed the address (URL) incorrectly. Check it to make sure you've got the exact right spelling,
-    capitalization, etc.</dd>
+  <dd>You may have typed the address (URL) incorrectly. Check it to make sure you've got the exact right spelling, capitalization, etc.</dd>
 
   <dt>Did you follow a link from somewhere else at this site?</dt>
-  <dd>If you reached this page from another part of this site, please email us at <?php echo mail_to('[email]') ?> so we
-    can correct our mistake.</dd>
+  <dd>If you reached this page from another part of this site, please email us at <?php echo mail_to('[email]') ?> so we can correct our mistake.</dd>
 
   <dt>Did you follow a link from another site?</dt>
-  <dd>Links from other sites can sometimes be outdated or misspelled. Email us at <?php echo mail_to('[email]') ?> where
-    you came from and we can try to contact the other site in order to fix the problem.</dd>
+  <dd>Links from other sites can sometimes be outdated or misspelled. Email us at <?php echo mail_to('[email]') ?> where you came from and we can try to contact the other site in order to fix the problem.</dd>
 
   <dt>What's next</dt>
   <dd>
     <ul class="sfTIconList">
-      <li class="sfTLinkMessage"><a href="#" data-action="back"
-          data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></li>
+      <li class="sfTLinkMessage"><a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></li>
       <li class="sfTLinkMessage"><?php echo link_to('Go to Homepage', '@homepage'); ?></li>
     </ul>
   </dd>
