@@ -15,6 +15,7 @@
     </div>
   </div>
 
-  <p><a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></p>
+  <p><a href="#" data-action="back" 
+    data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></p>
 
 <?php end_slot(); ?>
