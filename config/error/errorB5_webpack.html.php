@@ -40,7 +40,8 @@
               discussion group.
             </a><br>
             <a href="#" data-action="back"
-              data-fallback-url="<?php echo url_for('@homepage'); ?>">Back to previous page</a>
+              data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
+            </a>
           </p>
         </div>
       </div>

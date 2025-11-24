@@ -40,7 +40,8 @@
     <dd>
       <ul class="sfTIconList">
           <li class="sfTLinkMessage"><a href="#" data-action="back"
-              data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a>
+              data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
+            </a>
           </li>
           <li class="sfTLinkMessage"><?php echo link_to('Go to Homepage', '@homepage'); ?></li>
         </ul>
