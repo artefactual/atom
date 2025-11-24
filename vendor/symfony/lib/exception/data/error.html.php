@@ -31,19 +31,21 @@
     </div>
   </div>
 
-  <dl class="sfTMessageInfo">
-    <dt>Something is broken</dt>
-    <dd>Please e-mail us at [email] and let us know what you were doing when this error occurred. We will fix it as soon as possible.
-    Sorry for any inconvenience caused.</dd>
+    <dl class="sfTMessageInfo">
+      <dt>Something is broken</dt>
+      <dd>Please e-mail us at [email] and let us know what you were doing when this error occurred. We will fix it as soon as possible.
+        Sorry for any inconvenience caused.</dd>
 
-    <dt>What's next</dt>
-    <dd>
-      <ul class="sfTIconList">
-        <li class="sfTLinkMessage"><a href="#" class="js-back-link"  data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a></li>
-        <li class="sfTLinkMessage"><?php echo link_to('Go to Homepage', '@homepage'); ?></li>
-      </ul>
-    </dd>
-  </dl>
-</div>
+      <dt>What's next</dt>
+      <dd>
+        <ul class="sfTIconList">
+          <li class="sfTLinkMessage"><a href="#" data-action="back"
+              data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?></a>
+          </li>
+          <li class="sfTLinkMessage"><?php echo link_to('Go to Homepage', '@homepage'); ?></li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
 </body>
 </html>
