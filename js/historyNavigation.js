@@ -6,7 +6,7 @@
   });
 
   function historyNavigation() {
-    document.querySelectorAll('.js-back-link').forEach(function (el) {
+    document.querySelectorAll('[data-action="back"]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
 
