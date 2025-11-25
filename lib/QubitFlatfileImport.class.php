@@ -1672,12 +1672,14 @@ class QubitFlatfileImport
 
             // Add language properties
             if (isset($self->languageMap, $self->languageMap[$columnName]) && $value) {
-                $self->storeLanguageSerializedProperty($self->languageMap[$columnName], explode('|', $value));
+                $value = explode('|', $value);
+                $self->storeLanguageSerializedProperty($self->languageMap[$columnName], array_map('trim', $value));
             }
 
             // Add script properties
             if (isset($self->scriptMap, $self->scriptMap[$columnName]) && $value) {
-                $self->storeScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
+                $value = explode('|', $value);
+                $self->storeScriptSerializedProperty($self->scriptMap[$columnName], array_map('trim', $value));
             }
         });
 
