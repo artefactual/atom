@@ -74,7 +74,7 @@ class ClipboardExportCheckAction extends sfAction
                 $message .= ' '.$this->context->i18n->__(
                     '%1%Refresh the page%2% for progress updates.',
                     [
-                        '%1%' => '<a href="javascript:location.reload();">',
+                        '%1%' => '<a data-action="refresh" href="#"">',
                         '%2%' => '</a>',
                     ]
                 );
