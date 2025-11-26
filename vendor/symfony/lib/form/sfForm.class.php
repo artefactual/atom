@@ -926,7 +926,7 @@ $this->widgetSchema->setFormFormatterName($name);
    */
   public function isCSRFProtected()
   {
-    return null !== $this->validatorSchema[self::$CSRFFieldName];
+    return null !== $this->validatorSchema && null !== $this->validatorSchema[self::$CSRFFieldName];
   }
 
   /**

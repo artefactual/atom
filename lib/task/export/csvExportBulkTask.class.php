@@ -63,18 +63,7 @@ class csvExportBulkTask extends exportBulkBaseTask
 
         echo 'Exporting as '.strtoupper($options['standard']).".\n";
 
-        // Instantiate CSV writer
-        $writer = new csvInformationObjectExport(
-            $arguments['path'],
-            $options['standard'],
-            $options['rows-per-file']
-        );
-
-        $writer->user = $context->getUser();
-        $writer->setOptions($options);
-
         foreach ($rows as $row) {
-            $writer->user->setCulture($row['culture']);
             $resource = QubitInformationObject::getById($row['id']);
 
             // Don't export draft descriptions with public option
@@ -105,13 +94,23 @@ class csvExportBulkTask extends exportBulkBaseTask
                 $filePath = sprintf('%s/%s', $arguments['path'], $filename);
             }
 
+            // Make a new writer for each row
+            $writer = new csvInformationObjectExport(
+                $filePath,
+                $options['standard'],
+                $options['rows-per-file']
+            );
+            $writer->user = $context->getUser();
+            $writer->user->setCulture($row['culture']);
+            $writer->setOptions($options);
+
             $writer->exportResource($resource);
 
             $this->indicateProgress($options['items-until-update']);
 
             ++$itemsExported;
 
-            if (0 == $itemsExported++ % 1000) {
+            if (0 === ($itemsExported % 1000)) {
                 Qubit::clearClassCaches();
             }
         }

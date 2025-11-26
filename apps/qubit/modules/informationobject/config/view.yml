@@ -1,6 +1,4 @@
 browseSuccess:
-  stylesheets:
-    /vendor/jquery-ui/jquery-ui.min.css:
   javascripts:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
@@ -16,10 +14,7 @@ physicalObjects:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
 multiFileUploadSuccess:
-  stylesheets:
-    /vendor/uppy/uppy-bundle.css:
   javascripts:
-    /vendor/uppy/uppy-bundle.js:
     multiFileUpload:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:

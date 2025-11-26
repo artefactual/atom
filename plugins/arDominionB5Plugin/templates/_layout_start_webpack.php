@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="<?php echo $sf_user->getCulture(); ?>" dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction; ?>">
+<html lang="<?php echo $sf_user->getCulture(); ?>"
+      dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction; ?>"
+      media="<?php echo isset($_GET['media']) ? htmlspecialchars($_GET['media'], ENT_QUOTES, 'UTF-8') : 'screen'; ?>">
   <head>
     <?php echo get_partial('default/googleAnalytics'); ?>
     <meta charset="utf-8">

@@ -39,3 +39,4 @@ import "/js/fullWidthTreeView";
 import "/js/deletePhysicalStorage";
 import "/js/settingsFindingAid";
 import "/js/refreshJobs";
+import "/js/physicalStorageAddToClipboard";

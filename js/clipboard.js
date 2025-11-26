@@ -362,6 +362,86 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       });
     }
 
+    /**
+     * Add a new item to the clipboard of a given type.
+     *
+     * @param {String} slug The slug of the item to add
+     * @param {String} type The type of item the slug is for (e.g., "informationObject"). See
+     *    this.types for valid types
+     * @returns {boolean} true if the item was added, false otherwise
+     */
+    addItem(slug, type) {
+      this.items = JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
+
+      if (!this.items[type]) {
+        return false;
+      }
+
+      const index = this.items[type].indexOf(slug);
+
+      // Item is already on clipboard
+      if (index !== -1) {
+        return false;
+      }
+
+      this.items[type].push(slug);
+
+      // Check to see if there's a button that should be updated
+      const button = document.querySelector(
+        `button[data-clipboard-slug='${slug}'][data-clipboard-type='${type}']`
+      )
+
+      if (null !== button) {
+        // Convert button to a jQuery element
+        const $button = $(button);
+        this.updateButton($button, true);
+      }
+
+      this.storage.setItem("clipboard", JSON.stringify(this.items));
+      this.updateCounts();
+
+      return true;
+    }
+
+    /**
+     * Add multiple new items to the clipboard of a single given type. Displays a message to the
+     * user after items are added.
+     *
+     * @param {Array} slugs The slugs of the items to add
+     * @param {String} type The type of item the slugs are for (e.g., "informationObject"). See
+     *    this.types for valid types
+     * @param {String} singleAddedMessage Message displayed to user when one item is added to the
+     *    clipboard
+     * @param {String} pluralAddedMessage Message displayed to user when multiple items are added
+     *    to the clipboard. Expected to have a %1% placeholder which will be replaced by the number
+     * @param {String} alreadyAddedMessage Message displayed to user when items already exist on
+     *    the clipboard
+     * @returns {void}
+     */
+    bulkAddItems(slugs, type, singleAddedMessage, pluralAddedMessage, alreadyAddedMessage) {
+      if (!slugs) {
+        return;
+      }
+
+      let numAdded = 0;
+
+      slugs.forEach((slug) => {
+        if (this.addItem(slug, type)) {
+          numAdded += 1;
+        }
+      });
+
+      if (numAdded === 0) {
+        this.showAlert(alreadyAddedMessage, "alert-warning");
+      }
+      else if (numAdded === 1) {
+        this.showAlert(singleAddedMessage, "alert-success");
+      }
+      else {
+        this.showAlert(pluralAddedMessage.replace("%1%", numAdded), "alert-success");
+      }
+    }
+
     toggle(event) {
       if (typeof event.preventDefault === "function") {
         event.preventDefault();
@@ -579,6 +659,11 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
   $(() => {
     var $clipboard = $("#clipboard-menu");
-    if ($clipboard.length) new Clipboard($clipboard);
+    if ($clipboard.length) {
+      window.atomClipboard = new Clipboard($clipboard);
+    }
+    else {
+      window.atomClipboard = null;
+    }
   });
 })(jQuery);

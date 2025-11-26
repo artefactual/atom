@@ -60,7 +60,7 @@ class QubitLimitIpFilter extends sfFilter
 
     public function setLimit()
     {
-        $this->limit = explode(';', sfConfig::get('app_limit_admin_ip', []));
+        $this->limit = explode(';', sfConfig::get('app_limit_admin_ip', ''));
     }
 
     /**

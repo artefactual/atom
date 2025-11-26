@@ -1,4 +1,4 @@
-<footer>
+<footer class="d-print-none">
 
   <?php if (QubitAcl::check('userInterface', 'translate')) { ?>
     <?php echo get_component('sfTranslatePlugin', 'translate'); ?>

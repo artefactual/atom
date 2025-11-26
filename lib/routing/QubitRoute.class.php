@@ -146,7 +146,7 @@ class QubitRoute extends sfRoute
         foreach ($tokens as $token) {
             switch ($token[0]) {
                 case 'variable':
-                    if (!$optional || !isset($this->defaults[$token[3]]) || $parameters[$token[3]] != $this->defaults[$token[3]]) {
+                    if ((!$optional || !isset($this->defaults[$token[3]]) || $parameters[$token[3]] != $this->defaults[$token[3]]) && null !== $parameters[$token[3]]) {
                         $url[] = QubitRoute::urlencode3986($parameters[$token[3]]);
                         $optional = false;
                     }

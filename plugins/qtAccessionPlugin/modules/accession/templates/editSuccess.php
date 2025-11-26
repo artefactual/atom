@@ -52,7 +52,7 @@
                     ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
                     ->label(__('Acquisition date').' <span class="form-required" title="'.__('This field is marked as mandatory in the relevant descriptive standard.').'">*</span><span class="visually-hidden">'.__('This field is marked as mandatory in the relevant descriptive standard.').'</span>'),
                 null,
-                ['type' => 'date']
+                ['type' => 'string']
             ); ?>
 
             <?php echo render_field($form->sourceOfAcquisition

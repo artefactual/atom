@@ -508,7 +508,7 @@ class QubitFlatfileImport
         if (isset($this->className)) {
             $skipRowProcessing = $this->fetchOrCreateObjectByClass();
 
-            if (property_exists(get_class($this->object), 'disableNestedSetUpdating')) {
+            if (!$skipRowProcessing && property_exists(get_class($this->object), 'disableNestedSetUpdating')) {
                 $this->object->disableNestedSetUpdating = $this->disableNestedSetUpdating;
             }
         } else {

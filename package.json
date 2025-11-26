@@ -18,7 +18,7 @@
     "jquery-ui-dist": "^1.13.2",
     "jstree": "^3.3.11",
     "masonry-layout": "^4.2.2",
-    "mediaelement": "^4.2.16"
+    "mediaelement": "^3.0.0"
   },
   "devDependencies": {
     "css-loader": "^6.3.0",
