@@ -382,7 +382,7 @@ class arElasticSearchPluginUtil
      * Scroll through search, returning hit IDs as an array.
      *
      * Scrolled queries are a way to return search result sets larger than the limit
-     * index.max_result_window sets. Scrolled results, however, by default expire
+     * max_result_window set. Scrolled results, however, by default expire
      * fairly quickly to free Elasticsearch resources. Returning these results as an
      * array allows the results to be processed even after the scroll result expires.
      *
