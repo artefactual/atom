@@ -108,7 +108,7 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         'CSV row numbers where issues were found: 2, 3, 4',
-                        'Listing invalid date values: 1990-?, 1992-01-?, 1992?, 1998?',
+                        'Listing invalid date values: "1990-?, 1992-01-?, 1992?, 1998?"',
                     ],
                 ],
             ],

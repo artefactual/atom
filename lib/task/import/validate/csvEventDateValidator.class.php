@@ -95,7 +95,7 @@ class CsvEventDateValidator extends CsvBaseValidator
 
         if (!empty($this->getCsvRowList())) {
             $this->testData->addDetail(sprintf('CSV row numbers where issues were found: %s', implode(', ', $this->getCsvRowList())));
-            $this->testData->addDetail(sprintf('Listing invalid date values: %s', implode(', ', $this->invalidEventDates)));
+            $this->testData->addDetail(sprintf('Listing invalid date values: "%s"', implode(', ', $this->invalidEventDates)));
         }
 
         return parent::getTestResult();
