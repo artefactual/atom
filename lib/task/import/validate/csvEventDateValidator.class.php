@@ -87,7 +87,7 @@ class CsvEventDateValidator extends CsvBaseValidator
     public function getTestResult()
     {
         if (0 < $this->rowsWithInvalidDates) {
-            $this->testData->setStatusError();
+            $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf('Rows with invalid event date values: %s', $this->rowsWithInvalidDates));
         } else {
             $this->testData->addResult(sprintf("All ''eventStartDate' and 'eventEndDate' columns contain dates in a valid format."));
@@ -108,9 +108,19 @@ class CsvEventDateValidator extends CsvBaseValidator
             return true;
         }
 
-        // Check for YYYY-MM-DD format for dates
+        // Check for YYYY-MM-DD/YYYYMMDD format for dates
         $date = trim($eventDate);
-        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $date)) {
+        if (preg_match('/^[0-9]{4}-?(0[1-9]|1[0-2])-?(0[1-9]|[1-2][0-9]|3[0-1])$/', $date)) {
+            return true;
+        }
+
+        // Check for YYYY-MM format for dates
+        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])$/', $date)) {
+            return true;
+        }
+
+        // Check for YYYY format for dates
+        if (preg_match('/^[0-9]{4}$/', $date)) {
             return true;
         }
 
