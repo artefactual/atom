@@ -8,12 +8,12 @@
 
         if (window.history.length > 1) {
           window.history.back();
-        } else {
-          const fallbackUrl = el.getAttribute("data-fallback-url");
-          if (fallbackUrl) {
-            window.location.href = fallbackUrl;
-            return;
-          }
+          return;
+        }
+
+        const fallbackUrl = el.getAttribute("data-fallback-url");
+        if (fallbackUrl) {
+          window.location.href = fallbackUrl;
         }
       });
     });
