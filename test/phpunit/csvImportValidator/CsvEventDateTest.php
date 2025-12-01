@@ -28,7 +28,8 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
             '"","","","title","","","1990","Creation","1990","1991","","en"',
             '"","","","title","","","1992","Accumulation","1992-01","1992-03-04","","en"',
             '"","","","another title","","","1995","Creation","19950101","","","en"',
-            '"","","","yet another title","","","1997|1998","Creation|Accumulation","1997-01-01|1998-01-01","","","en"',
+            '"","","","yet another title","","","1997|1998","Creation|Accumulation","1997-01-01 | 1998-01-01","","","en"',
+            '"","","","fifth title","","","1997","Creation","19970204    ","","","en"',
         ];
 
         // Test for invalid values in one or both fields

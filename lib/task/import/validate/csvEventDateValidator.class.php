@@ -110,17 +110,17 @@ class CsvEventDateValidator extends CsvBaseValidator
 
         // Check for YYYY-MM-DD/YYYYMMDD format for dates
         $date = trim($eventDate);
-        if (preg_match('/^[0-9]{4}-?(0[1-9]|1[0-2])-?(0[1-9]|[1-2][0-9]|3[0-1])$/', $date)) {
+        if (preg_match('/^[0-9]{4}-?(0[1-9]|1[0-2])-?(0[1-9]|[1-2][0-9]|3[0-1])(\s*)$/', $date)) {
             return true;
         }
 
         // Check for YYYY-MM format for dates
-        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])$/', $date)) {
+        if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])(\s*)$/', $date)) {
             return true;
         }
 
         // Check for YYYY format for dates
-        if (preg_match('/^[0-9]{4}$/', $date)) {
+        if (preg_match('/^[0-9]{4}(\s*)$/', $date)) {
             return true;
         }
 
