@@ -2,10 +2,6 @@
   "use strict";
 
   $(() => {
-    historyNavigation();
-  });
-
-  function historyNavigation() {
     document.querySelectorAll('[data-action="back"]').forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.preventDefault();
@@ -21,5 +17,5 @@
         }
       });
     });
-  }
+  });
 })(jQuery);
