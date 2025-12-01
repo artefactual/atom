@@ -18,7 +18,7 @@
  */
 
 /**
- * CSV event date validity test. Checks if eventStartDate and eventEndDate
+ * CSV event date validity test. Checks if eventStartDates and eventEndDates
  * all contain a permissible date format.
  *
  * @author     Anvit Srivastav <asrivastav@artefactual.com>
@@ -54,27 +54,27 @@ class CsvEventDateValidator extends CsvBaseValidator
 
         $row = $this->combineRow($header, $row);
 
-        if (false !== strpos($row['eventStartDate'], '|')) {
-            foreach (explode($row['eventStartDate'], '|') as $date) {
+        if (false !== strpos($row['eventStartDates'], '|')) {
+            foreach (explode('|', $row['eventStartDates']) as $date) {
                 if (!$this->checkDate($date)) {
                     $this->invalidEventDates[] = $date;
                     $invalidDateFound = true;
                 }
             }
-        } elseif (!$this->checkDate($row['eventStartDate'])) {
-            $this->invalidEventDates[] = $row['eventStartDate'];
+        } elseif (!$this->checkDate($row['eventStartDates'])) {
+            $this->invalidEventDates[] = $row['eventStartDates'];
             $invalidDateFound = true;
         }
 
-        if (false !== strpos($row['eventEndDate'], '|')) {
-            foreach (explode($row['eventEndDate'], '|') as $date) {
+        if (false !== strpos($row['eventEndDates'], '|')) {
+            foreach (explode('|', $row['eventEndDates']) as $date) {
                 if (!$this->checkDate($date)) {
                     $this->invalidEventDates[] = $date;
                     $invalidDateFound = true;
                 }
             }
-        } elseif (!$this->checkDate($row['eventEndDate'])) {
-            $this->invalidEventDates[] = $row['eventEndDate'];
+        } elseif (!$this->checkDate($row['eventEndDates'])) {
+            $this->invalidEventDates[] = $row['eventEndDates'];
             $invalidDateFound = true;
         }
 
@@ -90,7 +90,7 @@ class CsvEventDateValidator extends CsvBaseValidator
             $this->testData->setStatusWarn();
             $this->testData->addResult(sprintf('Rows with invalid event date values: %s', $this->rowsWithInvalidDates));
         } else {
-            $this->testData->addResult(sprintf("All ''eventStartDate' and 'eventEndDate' columns contain dates in a valid format."));
+            $this->testData->addResult(sprintf("All ''eventStartDates' and 'eventEndDates' columns contain dates in a valid format."));
         }
 
         if (!empty($this->getCsvRowList())) {
