@@ -23,6 +23,7 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
 
         $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,eventDates,eventTypes,eventStartDates,eventEndDates,repository,culture';
 
+        // Test for YYYY, YYYYMMDD, YYYY-MM-DD formats
         $this->csvData = [
             '"","","","title","","","1990","Creation","1990","1991","","en"',
             '"","","","title","","","1992","Accumulation","1992-01","1992-03-04","","en"',
@@ -30,8 +31,11 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
             '"","","","yet another title","","","1997|1998","Creation|Accumulation","1997-01-01|1998-01-01","","","en"',
         ];
 
+        // Test for invalid values in one or both fields
         $this->csvInvalidData = [
             '"","","","title","","","1990?","Creation","1990-?","1991","","en"',
+            '"","","","another title","","","1992?","Creation","1992-01-?","1992?","","en"',
+            '"","","","yet another title","","","1997|1998?","Creation|Accumulation","1997-01-01|1998?","19970102|1999","","en"',
         ];
 
         // define virtual file system
@@ -99,11 +103,11 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvEventDateValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_WARN,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "Rows with invalid event date values: 1",
+                        'Rows with invalid event date values: 3',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
-                      "CSV row numbers where issues were found: 2",
-                      "Listing invalid date values: 1990-?"
+                        'CSV row numbers where issues were found: 2, 3, 4',
+                        'Listing invalid date values: 1990-?, 1992-01-?, 1992?, 1998?',
                     ],
                 ],
             ],
