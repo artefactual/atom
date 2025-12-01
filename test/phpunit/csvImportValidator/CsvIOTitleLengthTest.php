@@ -5,7 +5,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @internal
  *
- * @covers \CsvFieldLengthValidator
+ * @covers \CsvIOTitleLengthValidator
  */
 class CsvIOTitleLengthTest extends \PHPUnit\Framework\TestCase
 {

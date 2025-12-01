@@ -5,7 +5,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @internal
  *
- * @covers \CsvFieldLengthValidator
+ * @covers \CsvLanguageScriptValidator
  */
 class CsvLanguageScriptTest extends \PHPUnit\Framework\TestCase
 {
@@ -28,6 +28,10 @@ class CsvLanguageScriptTest extends \PHPUnit\Framework\TestCase
             '"","","","another title","","","","","","","","en"',
         ];
 
+        $this->csvEmptyData = [
+            '"","","","another title","","","","","","","","en"',
+        ];
+
         $this->csvInvalidData = [
             '"","","","title","","","en|fr","Latn | Cyrl","en|fr","Latn|Cyrl","","en"',
             '"","","","another title","","","en | fr","Latn|Cyrl","en|fr","Latn|Cyrl","","en"',
@@ -38,6 +42,7 @@ class CsvLanguageScriptTest extends \PHPUnit\Framework\TestCase
         // define virtual file system
         $directory = [
             'unix_csv_valid.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
+            'unix_csv_empty.csv' => $this->csvHeader."\n".implode("\n", $this->csvEmptyData),
             'unix_csv_invalid.csv' => $this->csvHeader."\n".implode("\n", $this->csvInvalidData),
         ];
 
@@ -72,14 +77,15 @@ class CsvLanguageScriptTest extends \PHPUnit\Framework\TestCase
 
         return [
             /*
-             * Test CsvFieldLengthValidator.class.php
+             * Test CsvLanguageScriptValidator.class.php
              *
              * Tests:
-             * - Valid title
-             * - Title field with more than 1024 characters
+             * - No spaces in language, script, languageOfDescription, scriptOfDescription
+             * - Empty language, script, languageOfDescription, scriptOfDescription
+             * - Spaces present in language, script, languageOfDescription, scriptOfDescription
              */
             [
-                'CsvLanguageScriptValidator-LengthCheckValid' => [
+                'CsvLanguageScriptValidator-NoSpaces' => [
                     'csvValidatorClasses' => 'CsvLanguageScriptValidator',
                     'filename' => '/unix_csv_valid.csv',
                     'testname' => 'CsvLanguageScriptValidator',
@@ -93,7 +99,21 @@ class CsvLanguageScriptTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             [
-                'CsvLanguageScriptValidator-LengthCheckValid' => [
+                'CsvLanguageScriptValidator-Empty' => [
+                    'csvValidatorClasses' => 'CsvLanguageScriptValidator',
+                    'filename' => '/unix_csv_empty.csv',
+                    'testname' => 'CsvLanguageScriptValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvLanguageScriptValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        'All language and script columns contain valid characters.',
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
+                    ],
+                ],
+            ],
+            [
+                'CsvLanguageScriptValidator-SpacesPresent' => [
                     'csvValidatorClasses' => 'CsvLanguageScriptValidator',
                     'filename' => '/unix_csv_invalid.csv',
                     'testname' => 'CsvLanguageScriptValidator',

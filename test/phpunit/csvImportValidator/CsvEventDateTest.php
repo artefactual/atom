@@ -5,7 +5,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @internal
  *
- * @covers \CsvFieldLengthValidator
+ * @covers \CsvEventDateValidator
  */
 class CsvEventDateTest extends \PHPUnit\Framework\TestCase
 {
@@ -75,14 +75,14 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
 
         return [
             /*
-             * Test CsvFieldLengthValidator.class.php
+             * Test CsvEventDateValidator.class.php
              *
              * Tests:
-             * - Valid title
-             * - Title field with more than 1024 characters
+             * - YYYY-MM-DD, YYYYMMDD, YYYY-MM, YYYY dates
+             * - Non standard dates present in eventStartDates and/or eventEndDates
              */
             [
-                'CsvEventDateValidator-LengthCheckValid' => [
+                'CsvEventDateValidator-DateValid' => [
                     'csvValidatorClasses' => 'CsvEventDateValidator',
                     'filename' => '/unix_csv_valid.csv',
                     'testname' => 'CsvEventDateValidator',
@@ -96,7 +96,7 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             [
-                'CsvEventDateValidator-LengthCheckValid' => [
+                'CsvEventDateValidator-DateInvalid' => [
                     'csvValidatorClasses' => 'CsvEventDateValidator',
                     'filename' => '/unix_csv_invalid.csv',
                     'testname' => 'CsvEventDateValidator',
