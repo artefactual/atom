@@ -5,7 +5,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * @internal
  *
- * @covers \CsvFieldLengthValidator
+ * @covers \CsvAccessionTitleLengthValidator
  */
 class CsvAccessionTitleLengthTest extends \PHPUnit\Framework\TestCase
 {
@@ -52,6 +52,8 @@ class CsvAccessionTitleLengthTest extends \PHPUnit\Framework\TestCase
     {
         $filename = $this->vfs->url().$options['filename'];
         $validatorOptions = isset($options['validatorOptions']) ? $options['validatorOptions'] : null;
+
+        $validatorOptions['className'] = 'QubitAccession';
 
         $csvValidator = new CsvImportValidator($this->context, null, $validatorOptions);
         $this->runValidator($csvValidator, $filename, $options['csvValidatorClasses']);

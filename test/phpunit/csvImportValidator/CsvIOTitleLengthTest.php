@@ -69,7 +69,7 @@ class CsvIOTitleLengthTest extends \PHPUnit\Framework\TestCase
 
         return [
             /*
-             * Test CsvFieldLengthValidator.class.php
+             * Test CsvIOTitleLengthValidator.class.php
              *
              * Tests:
              * - Valid title
