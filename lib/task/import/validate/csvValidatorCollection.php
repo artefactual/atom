@@ -44,7 +44,6 @@ class CsvValidatorCollection
         'CsvRepoValidator' => CsvRepoValidator::class,
         'CsvIOTitleLengthValidator' => CsvIOTitleLengthValidator::class,
         'CsvAccessionTitleLengthValidator' => CsvAccessionTitleLengthValidator::class,
-        'CsvLanguageScriptValidator' => CsvLanguageScriptValidator::class,
         'CsvEventDateValidator' => CsvEventDateValidator::class,
     ];
 
