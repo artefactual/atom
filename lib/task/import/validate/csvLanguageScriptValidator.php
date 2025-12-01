@@ -56,6 +56,7 @@ class CsvLanguageScriptValidator extends CsvBaseValidator
 
     public function testRow(array $header, array $row)
     {
+        $invalidValueFound = false;
         parent::testRow($header, $row);
         $row = $this->combineRow($header, $row);
 
@@ -67,8 +68,13 @@ class CsvLanguageScriptValidator extends CsvBaseValidator
             // check if these fields contains a space
             if (false !== strpos(trim($row[$field]), ' ')) {
                 $this->invalidValues[] = $row[$field];
-                ++$this->rowsWithInvalidValues;
+                $invalidValueFound = true;
             }
+        }
+
+        if ($invalidValueFound) {
+            ++$this->rowsWithInvalidValues;
+            $this->appendToCsvRowList();
         }
     }
 
@@ -76,7 +82,9 @@ class CsvLanguageScriptValidator extends CsvBaseValidator
     {
         if (0 < $this->rowsWithInvalidValues) {
             $this->testData->setStatusError();
-            $this->testData->addResult(sprintf('Rows with invalid language/script values: %s', $this->rowsWithInvalidDates));
+            $this->testData->addResult(sprintf('Rows with invalid language/script values: %s', $this->rowsWithInvalidValues));
+        } else {
+            $this->testData->addResult('All language and script columns contain valid characters.');
         }
 
         if (!empty($this->getCsvRowList())) {
