@@ -1015,15 +1015,15 @@ class QubitXmlImport
                 $passesLimitFunctionName = 'passesLimitOptionForIo';
                 $deleteFunctionName = 'deleteFullHierarchy';
 
-                $matchId = QubitInformationObject::getByTitleIdentifierAndRepo(
+                $matchIds = QubitInformationObject::getByTitleIdentifierAndRepo(
                     $resource->identifier,
                     $resource->title,
                     // EAD XML does not include repo in child recs - Use parent's repo.
                     ($this->rootObject !== $resource) ? $this->rootObject->repository->authorizedFormOfName : $resource->repository->authorizedFormOfName
                 );
 
-                if ($matchId) {
-                    $matchResource = QubitInformationObject::getById($matchId);
+                if (1 === count($matchIds)) {
+                    $matchResource = QubitInformationObject::getById($matchIds[0]);
                 }
 
                 // If resource not found, try matching against keymap table. eadUrl is

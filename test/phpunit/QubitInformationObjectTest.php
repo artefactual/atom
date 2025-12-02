@@ -53,13 +53,15 @@ class QubitInformationObjectTest extends TransactionTestCase
 
         if (null === $expectedTitle) {
             // No match expected.
-            $this->assertNull($result, 'Expected null result when no matching record exists.');
+            $this->assertIsArray($result);
+            $this->assertCount(0, $result, 'Expected empty result when no matching record exists.');
         } else {
             // A match is expected.
-            $this->assertNotNull($result, 'Expected a valid integer id when data should match.');
-            $this->assertIsInt($result, 'Expected the returned id to be an integer.');
+            $this->assertIsArray($result);
+            $this->assertCount(1, $result, 'Expected exactly one matching id.');
+            $this->assertIsInt($result[0], 'Expected the returned id to be an integer.');
 
-            $resultIo = QubitInformationObject::getById($result);
+            $resultIo = QubitInformationObject::getById($result[0]);
             $this->assertNotNull($resultIo, 'Expected a valid information object.');
             $this->assertEquals($expectedTitle.$randomString, $resultIo->title, 'The information object title does not match expected.');
         }
@@ -139,12 +141,14 @@ class QubitInformationObjectTest extends TransactionTestCase
         );
 
         if (null === $expectedTitle) {
-            $this->assertNull($result, 'Expected null result when no matching record exists.');
+            $this->assertIsArray($result, 'Expected array result when no matching record exists.');
+            $this->assertCount(0, $result, 'Expected empty result when no matching record exists.');
         } else {
-            $this->assertNotNull($result, 'Expected a valid integer id when data should match.');
-            $this->assertIsInt($result, 'Expected the returned id to be an integer.');
+            $this->assertIsArray($result, 'Expected array result when data should match.');
+            $this->assertCount(1, $result, 'Expected exactly one matching id when data should match.');
+            $this->assertIsInt($result[0], 'Expected the returned id to be an integer.');
 
-            $resultIo = QubitInformationObject::getById($result);
+            $resultIo = QubitInformationObject::getById($result[0]);
             $this->assertNotNull($resultIo, 'Expected a valid information object.');
             $this->assertEquals($expectedTitle.$randomString, $resultIo->title, 'The information object title does not match expected.');
         }
@@ -214,11 +218,11 @@ class QubitInformationObjectTest extends TransactionTestCase
             'TestChildTitle'.$randomString,
             'TestRepository'.$randomString
         );
+        $this->assertIsArray($result, 'Expected an array of ids when repository is inherited from grandparent.');
+        $this->assertCount(1, $result, 'Expected exactly one matching id.');
+        $this->assertIsInt($result[0], 'Expected the returned id to be an integer.');
 
-        $this->assertNotNull($result, 'Expected a valid integer id when repository is inherited from grandparent.');
-        $this->assertIsInt($result, 'Expected the returned id to be an integer.');
-
-        $resultIo = QubitInformationObject::getById($result);
+        $resultIo = QubitInformationObject::getById($result[0]);
         $this->assertNotNull($resultIo, 'Expected a valid information object.');
         $this->assertEquals('TestChildTitle'.$randomString, $resultIo->title, 'The information object title does not match expected.');
     }
@@ -272,10 +276,11 @@ class QubitInformationObjectTest extends TransactionTestCase
             'TestParentRepository'.$randomString
         );
 
-        $this->assertNotNull($result, 'Expected a valid integer id when matching nearest parent repository.');
-        $this->assertIsInt($result, 'Expected the returned id to be an integer.');
+        $this->assertIsArray($result, 'Expected an array of ids.');
+        $this->assertCount(1, $result, 'Expected exactly one matching id when matching nearest parent repository.');
+        $this->assertIsInt($result[0], 'Expected the returned id to be an integer.');
 
-        $resultIo = QubitInformationObject::getById($result);
+        $resultIo = QubitInformationObject::getById($result[0]);
         $this->assertNotNull($resultIo, 'Expected a valid information object.');
         $this->assertEquals('TestChildTitle'.$randomString, $resultIo->title, 'The information object title does not match expected.');
 
@@ -285,6 +290,248 @@ class QubitInformationObjectTest extends TransactionTestCase
             'TestGrandparentRepository'.$randomString
         );
 
-        $this->assertNull($resultWithWrongRepo, 'Expected null when searching with grandparent repository since nearest parent has different repository.');
+        $this->assertIsArray($resultWithWrongRepo, 'Expected an array of ids.');
+        $this->assertCount(0, $resultWithWrongRepo, 'Expected empty result when searching with grandparent repository since nearest parent has different repository.');
+    }
+
+    /**
+     * Ensure matching works when the title exists only in the source/default culture
+     * and the current/default culture has no translation. Option A should be
+     * culture-agnostic for title matching.
+     */
+    public function testGetByTitleIdentifierAndRepoMatchesWhenTitleOnlyInSourceCulture()
+    {
+        $random = rand(1000000, 9999999);
+
+        // Remember current culture and ensure we write English-only data first.
+        $prevCulture = sfPropel::getDefaultCulture();
+        sfPropel::setDefaultCulture('en');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('en');
+        }
+
+        $io = new QubitInformationObject();
+        $io->indexOnSave = false;
+        $io->title = 'TitleEn'.$random; // only in English
+        $io->identifier = 'Identifier'.$random;
+        $io->save();
+
+        // Switch to a different culture without adding translations
+        sfPropel::setDefaultCulture('fr');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('fr');
+        }
+
+        $result = QubitInformationObject::getByTitleIdentifierAndRepo(
+            'Identifier'.$random,
+            'TitleEn'.$random,
+            null
+        );
+
+        $this->assertIsArray($result, 'Expected an array of ids.');
+        $this->assertCount(1, $result, 'Expected a single match even when current culture lacks a title translation.');
+        $this->assertIsInt($result[0]);
+
+        // Restore culture
+        sfPropel::setDefaultCulture($prevCulture);
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture($prevCulture);
+        }
+    }
+
+    /**
+     * Ensure matching works when the repository name exists only in the source/default culture
+     * and the current/default culture has no translation. Option A should be
+     * culture-agnostic for repository name matching.
+     */
+    public function testGetByTitleIdentifierAndRepoMatchesWhenRepoNameOnlyInSourceCulture()
+    {
+        $random = rand(1000000, 9999999);
+
+        // Remember current culture
+        $prevCulture = sfPropel::getDefaultCulture();
+
+        // Create repository with English-only name
+        sfPropel::setDefaultCulture('en');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('en');
+        }
+
+        $repository = new QubitRepository();
+        $repository->indexOnSave = false;
+        $repository->setAuthorizedFormOfName('RepoEn'.$random);
+        $repository->save();
+
+        // Create IO linked to repository; title only in English
+        $io = new QubitInformationObject();
+        $io->indexOnSave = false;
+        $io->title = 'TitleEn'.$random;
+        $io->identifier = 'Identifier'.$random;
+        $io->setRepositoryId($repository->id);
+        $io->save();
+
+        // Switch to a different culture without adding translations
+        sfPropel::setDefaultCulture('fr');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('fr');
+        }
+
+        $result = QubitInformationObject::getByTitleIdentifierAndRepo(
+            'Identifier'.$random,
+            'TitleEn'.$random,
+            'RepoEn'.$random
+        );
+
+        $this->assertIsArray($result, 'Expected an array of ids.');
+        $this->assertCount(1, $result, 'Expected a single match even when current culture lacks a repository name translation.');
+        $this->assertIsInt($result[0]);
+
+        // Restore culture
+        sfPropel::setDefaultCulture($prevCulture);
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture($prevCulture);
+        }
+    }
+
+    /**
+     * Ensure inherited repository matching works when the repo name exists only in source culture.
+     */
+    public function testGetByTitleIdentifierAndRepoInheritedRepoNameOnlyInSourceCulture()
+    {
+        $random = rand(1000000, 9999999);
+
+        $prevCulture = sfPropel::getDefaultCulture();
+
+        // English-only repository name on parent
+        sfPropel::setDefaultCulture('en');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('en');
+        }
+
+        $repo = new QubitRepository();
+        $repo->indexOnSave = false;
+        $repo->setAuthorizedFormOfName('RepoEn'.$random);
+        $repo->save();
+
+        $parent = new QubitInformationObject();
+        $parent->indexOnSave = false;
+        $parent->title = 'ParentTitleEn'.$random;
+        $parent->identifier = 'ParentIdentifier'.$random;
+        $parent->setRepositoryId($repo->id);
+        $parent->save();
+
+        $child = new QubitInformationObject();
+        $child->indexOnSave = false;
+        $child->title = 'ChildTitleEn'.$random;
+        $child->identifier = 'ChildIdentifier'.$random;
+        $child->parentId = $parent->id; // inherits repo
+        $child->save();
+
+        // Switch to different culture without adding translations
+        sfPropel::setDefaultCulture('fr');
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture('fr');
+        }
+
+        $result = QubitInformationObject::getByTitleIdentifierAndRepo(
+            'ChildIdentifier'.$random,
+            'ChildTitleEn'.$random,
+            'RepoEn'.$random
+        );
+
+        $this->assertIsArray($result, 'Expected an array of ids.');
+        $this->assertCount(1, $result, 'Expected a single match when repo is inherited and repo name only exists in source culture.');
+        $this->assertIsInt($result[0]);
+
+        // Restore culture
+        sfPropel::setDefaultCulture($prevCulture);
+        if (sfContext::hasInstance()) {
+            sfContext::getInstance()->getUser()->setCulture($prevCulture);
+        }
+    }
+
+    /**
+     * When no repository is supplied and multiple information objects share
+     * the same identifier and title, expect multiple results in ascending id order.
+     */
+    public function testGetByTitleIdentifierAndRepoReturnsMultipleWithoutRepo()
+    {
+        $random = rand(1000000, 9999999);
+
+        $title = 'MultiTitle'.$random;
+        $identifier = 'MultiIdentifier'.$random;
+
+        $io1 = new QubitInformationObject();
+        $io1->indexOnSave = false;
+        $io1->title = $title;
+        $io1->identifier = $identifier;
+        $io1->save();
+
+        $io2 = new QubitInformationObject();
+        $io2->indexOnSave = false;
+        $io2->title = $title;
+        $io2->identifier = $identifier;
+        $io2->save();
+
+        $result = QubitInformationObject::getByTitleIdentifierAndRepo($identifier, $title, null);
+
+        $this->assertIsArray($result);
+        $this->assertCount(2, $result, 'Expected two matching ids for duplicate identifier+title.');
+
+        $expected = [min((int) $io1->id, (int) $io2->id), max((int) $io1->id, (int) $io2->id)];
+        $this->assertSame($expected, $result, 'Expected results ordered ascending by id.');
+    }
+
+    /**
+     * When a repository is supplied and multiple information objects in that repository
+     * share the same identifier and title, expect multiple results in ascending id order.
+     */
+    public function testGetByTitleIdentifierAndRepoReturnsMultipleWithRepo()
+    {
+        $random = rand(1000000, 9999999);
+
+        $title = 'MultiTitle'.$random;
+        $identifier = 'MultiIdentifier'.$random;
+        $repoName = 'MultiRepo'.$random;
+
+        $repo = new QubitRepository();
+        $repo->indexOnSave = false;
+        $repo->setAuthorizedFormOfName($repoName);
+        $repo->save();
+
+        $io1 = new QubitInformationObject();
+        $io1->indexOnSave = false;
+        $io1->title = $title;
+        $io1->identifier = $identifier;
+        $io1->setRepositoryId($repo->id);
+        $io1->save();
+
+        $io2 = new QubitInformationObject();
+        $io2->indexOnSave = false;
+        $io2->title = $title;
+        $io2->identifier = $identifier;
+        $io2->setRepositoryId($repo->id);
+        $io2->save();
+
+        // Add an IO with same identifier+title but different repo to ensure it is excluded
+        $otherRepo = new QubitRepository();
+        $otherRepo->indexOnSave = false;
+        $otherRepo->setAuthorizedFormOfName('MultiRepoOther'.$random);
+        $otherRepo->save();
+
+        $io3 = new QubitInformationObject();
+        $io3->indexOnSave = false;
+        $io3->title = $title;
+        $io3->identifier = $identifier;
+        $io3->setRepositoryId($otherRepo->id);
+        $io3->save();
+
+        $result = QubitInformationObject::getByTitleIdentifierAndRepo($identifier, $title, $repoName);
+
+        $this->assertIsArray($result);
+        $this->assertCount(2, $result, 'Expected two matching ids for duplicate identifier+title within the same repository.');
+
+        $expected = [min((int) $io1->id, (int) $io2->id), max((int) $io1->id, (int) $io2->id)];
+        $this->assertSame($expected, $result, 'Expected results ordered ascending by id and excluding other repository.');
     }
 }

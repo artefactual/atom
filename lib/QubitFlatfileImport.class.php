@@ -1672,12 +1672,14 @@ class QubitFlatfileImport
 
             // Add language properties
             if (isset($self->languageMap, $self->languageMap[$columnName]) && $value) {
-                $self->storeLanguageSerializedProperty($self->languageMap[$columnName], explode('|', $value));
+                $value = explode('|', $value);
+                $self->storeLanguageSerializedProperty($self->languageMap[$columnName], array_map('trim', $value));
             }
 
             // Add script properties
             if (isset($self->scriptMap, $self->scriptMap[$columnName]) && $value) {
-                $self->storeScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
+                $value = explode('|', $value);
+                $self->storeScriptSerializedProperty($self->scriptMap[$columnName], array_map('trim', $value));
             }
         });
 
@@ -1856,24 +1858,51 @@ class QubitFlatfileImport
 
             if (null === $this->object) {
                 // No match found in keymap, try to match on title, repository and identifier.
-                $this->setInformationObjectByFields();
+                $ids = $this->setInformationObjectByFields();
+
+                if (1 < count($ids)) {
+                    $msg = sprintf(
+                        'Multiple matching descriptions found for row (identifier: %s, title: %s, culture: %s). Skipping record.',
+                        $this->columnExists('title') ? $this->columnValue('title') : '',
+                        $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                        $this->columnExists('culture') ? $this->columnValue('culture') : ''
+                    );
+                    echo $this->logError($msg);
+
+                    return true; // Skip row processing
+                }
             }
         }
 
         $this->checkInformationObjectMatchLimit(); // Handle --limit option.
 
+        if (null === $this->object && ($this->skipUnmatched || $this->roundtrip)) {
+            $msg = sprintf(
+                'Unable to match row (identifier: %s, title: %s, culture: %s). Skipping record.',
+                $this->columnExists('title') ? $this->columnValue('title') : '',
+                $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                $this->columnExists('culture') ? $this->columnValue('culture') : ''
+            );
+
+            echo $this->logError($msg);
+
+            return true; // Skip row processing
+        }
+
+        // Still no match found, create IO if not roundtripping or if --skip-unmatched is not set.
         if (null === $this->object) {
-            // Still no match found, create IO if not roundtripping or if --skip-unmatched is not set in options.
-            return $this->createNewInformationObject();
+            $this->createNewInformationObject();
+
+            return false;
         }
 
         if ($this->object->sourceCulture == $this->columnValue('culture')) {
             $msg = sprintf(
-                'Matching description found, %s; row (id: %s, culture: %s, legacyId: %s)...',
+                'Matching description found, %s; row (identifier: %s, title: %s, culture: %s)',
                 $this->getActionDescription(),
-                $this->object->id,
-                $this->object->sourceCulture,
-                $legacyId
+                $this->columnExists('title') ? $this->columnValue('title') : '',
+                $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                $this->columnExists('culture') ? $this->columnValue('culture') : ''
             );
 
             if ($this->isUpdating()) {
@@ -1938,21 +1967,7 @@ class QubitFlatfileImport
      */
     private function createNewInformationObject()
     {
-        if ($this->skipUnmatched || $this->roundtrip) {
-            $msg = sprintf(
-                'Unable to match row. Skipping record: %s (id: %s)',
-                $this->columnExists('title') ? trim($this->columnValue('title')) : '',
-                $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : ''
-            );
-
-            echo $this->logError($msg);
-
-            return true;
-        }
-
         $this->object = new $this->className();
-
-        return false;
     }
 
     /**
@@ -1990,17 +2005,21 @@ class QubitFlatfileImport
      */
     private function setInformationObjectByFields()
     {
+        $objectIds = [];
+
         if ($this->columnExists('identifier') && $this->columnExists('title') && $this->columnExists('repository')) {
-            $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
+            $objectIds = QubitInformationObject::getByTitleIdentifierAndRepo(
                 $this->columnValue('identifier'),
                 $this->columnValue('title'),
                 $this->columnValue('repository')
             );
 
-            if ($objectId) {
-                $this->object = QubitInformationObject::getById($objectId);
+            if (1 === count($objectIds)) {
+                $this->object = QubitInformationObject::getById($objectIds[0]);
             }
         }
+
+        return $objectIds;
     }
 
     private function setInformationObjectByKeymap($legacyId)

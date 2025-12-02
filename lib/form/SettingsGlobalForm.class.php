@@ -78,7 +78,7 @@ class SettingsGlobalForm extends sfForm
             'permissive_slug_creation' => $this->i18n->__('Use any valid URI path segment and uppercase character in slugs'),
             'require_strong_passwords' => $this->i18n->__('Require strong passwords'),
             'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)'),
-            'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports as public user'),
+            'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports from public records'),
             'cache_xml_on_save' => $this->i18n->__('Cache description XML exports upon creation/modification'),
         ]);
 

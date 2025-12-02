@@ -31,6 +31,7 @@ all:
         number_of_shards: 4
         number_of_replicas: 1
         mapping.total_fields.limit: 3000
+        max_result_window: 10000
 
         analysis:
 
