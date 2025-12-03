@@ -1553,7 +1553,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: '&nbsp;:عدد أوصاف الأرشيف'
+      ar: 'عدد تسجيلات وصف المواد الأرشيفية:&nbsp;'
       en: 'Archival description count:&nbsp;'
       fr: 'Nombre de descriptions archivistiques:&nbsp;'
   QubitSettings_authorityrecordcount:
@@ -1563,7 +1563,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: '&nbsp;:عدد سجلات الهيئة الاستنادية'
+      ar: 'عدد تسجيلا وصف السجلات الاستنادية:&nbsp;'
       en: 'Authority record count:&nbsp;'
       fr: 'Nombre de notices d''autorité:&nbsp;'
   QubitSettings_repositorycount:
@@ -1573,7 +1573,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ar: '&nbsp;:عدد المؤسسات الأرشيفية'
+      ar: 'عدد تسجيلات وصف المؤسسات الأرشيفية:&nbsp;'
       en: 'Archival institution count:&nbsp;'
       fr: 'Nombre d''institutions archivistiques:&nbsp;'
   QubitSettings_accessioncount:
@@ -1583,4 +1583,5 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'عدد الإضافات الأرشيفية:&nbsp;'
       en: 'Accession count:&nbsp;'
