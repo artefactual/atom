@@ -238,8 +238,11 @@ class ClipboardExportAction extends DefaultEditAction
             'informationObject' => sfConfig::get('app_ui_label_informationobject'),
             'actor' => sfConfig::get('app_ui_label_actor'),
             'repository' => sfConfig::get('app_ui_label_repository'),
-            'accession' => sfConfig::get('app_ui_label_accession'),
         ];
+
+        if ($this->context->user->hasCredential(['editor', 'administrator'], false)) {
+            $this->typeChoices['accession'] = sfConfig::get('app_ui_label_accession');
+        }
 
         $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
     }
