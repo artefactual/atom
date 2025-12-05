@@ -174,6 +174,7 @@
       {
         case 'actor':
         case 'repository':
+        case 'accession':
           url += type;
 
           break;
