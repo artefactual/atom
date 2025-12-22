@@ -16,7 +16,7 @@
             .first()
             .attr("name")
             .match(/\d+/)
-            .shift()
+            .shift(),
         );
 
         // Replace YUI div with form-autocomplete elements
@@ -33,10 +33,10 @@
                   id: id,
                   name: name,
                   class: "form-autocomplete form-control",
-                })
+                }),
               )
               .append(inputAdd)
-              .append(inputList)
+              .append(inputList),
           );
         });
 
@@ -79,7 +79,7 @@
         $table.children("tbody").append($newRow);
         Drupal.behaviors.autocomplete.attach();
         $newRow.show(250, () =>
-          $newRow.find(":input:focusable").first().trigger("focus")
+          $newRow.find(":input:focusable").first().trigger("focus"),
         );
       });
 
@@ -114,7 +114,7 @@
               .first()
               .attr("name")
               .match(/\d+/)
-              .shift()
+              .shift(),
           );
 
           rowNumber--;

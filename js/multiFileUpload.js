@@ -26,7 +26,7 @@ import Dashboard from "@uppy/dashboard";
     this.$submitButton = this.$element.find('input[type="submit"]');
     this.$cancelButton = this.$element.find('a[title="Cancel"]');
     this.$retryButton = $(
-      '<a class="btn atom-btn-outline-light" title="retry"/>'
+      '<a class="btn atom-btn-outline-light" title="retry"/>',
     )
       .attr("type", "hidden")
       .text(this.$element.data("multifileupload-i18n-retry"))
@@ -46,13 +46,13 @@ import Dashboard from "@uppy/dashboard";
           "%{maxFileSizeMessage}",
           this.$element.data("multifileupload-i18n-max-file-size-message") +
             this.$element.data("multifileupload-max-file-size") / 1024 / 1024 +
-            "MB"
+            "MB",
         )
         .replace(
           "%{maxPostSizeMessage}",
           this.$element.data("multifileupload-i18n-max-post-size-message") +
             this.$element.data("multifileupload-max-post-size") / 1024 / 1024 +
-            "MB"
+            "MB",
         );
 
       this.uppy
@@ -80,12 +80,12 @@ import Dashboard from "@uppy/dashboard";
               done: this.$element.data("multifileupload-i18n-save"),
               // 'Add more' hover text.
               addMoreFiles: this.$element.data(
-                "multifileupload-i18n-add-more-files"
+                "multifileupload-i18n-add-more-files",
               ),
               // 'Add more' button label.
               addMore: this.$element.data("multifileupload-i18n-add-more"),
               addingMoreFiles: this.$element.data(
-                "multifileupload-i18n-adding-more-files"
+                "multifileupload-i18n-adding-more-files",
               ),
               xFilesSelected: {
                 0: this.$element.data("multifileupload-i18n-file-selected"),
@@ -95,24 +95,24 @@ import Dashboard from "@uppy/dashboard";
               uploading: this.$element.data("multifileupload-i18n-uploading"),
               complete: this.$element.data("multifileupload-i18n-complete"),
               uploadFailed: this.$element.data(
-                "multifileupload-i18n-upload-failed"
+                "multifileupload-i18n-upload-failed",
               ),
               // Remove file hover text.
               removeFile: this.$element.data(
-                "multifileupload-i18n-remove-file"
+                "multifileupload-i18n-remove-file",
               ),
               // Main 'drop here' message.
               dropPaste: this.$element.data("multifileupload-i18n-drop-file"),
               filesUploadedOfTotal: {
                 0: this.$element.data(
-                  "multifileupload-i18n-file-uploaded-of-total"
+                  "multifileupload-i18n-file-uploaded-of-total",
                 ),
                 1: this.$element.data(
-                  "multifileupload-i18n-files-uploaded-of-total"
+                  "multifileupload-i18n-files-uploaded-of-total",
                 ),
               },
               dataUploadedOfTotal: this.$element.data(
-                "multifileupload-i18n-data-uploaded-of-total"
+                "multifileupload-i18n-data-uploaded-of-total",
               ),
               // When `showProgressDetails` is set, shows an estimation of how long the upload will take to complete.
               xTimeLeft: this.$element.data("multifileupload-i18n-time-left"),
@@ -131,7 +131,7 @@ import Dashboard from "@uppy/dashboard";
               // Edit Title dialog message.
               editing: this.$element.data("multifileupload-i18n-editing"),
               failedToUpload: this.$element.data(
-                "multifileupload-i18n-failed-to-upload"
+                "multifileupload-i18n-failed-to-upload",
               ),
             },
           },
@@ -142,7 +142,7 @@ import Dashboard from "@uppy/dashboard";
             {
               id: "title",
               name: this.$element.data(
-                "multifileupload-i18n-info-object-title"
+                "multifileupload-i18n-info-object-title",
               ),
             },
           ],
@@ -178,7 +178,7 @@ import Dashboard from "@uppy/dashboard";
           this.$retryButton.hide();
           this.showAlert(
             this.$element.data("multifileupload-i18n-retry-success"),
-            "alert-info"
+            "alert-info",
           );
         }
       });
@@ -206,7 +206,7 @@ import Dashboard from "@uppy/dashboard";
       if (this.uppy.getFiles().length == 0) {
         this.showAlert(
           this.$element.data("multifileupload-i18n-no-files-error"),
-          "alert-info"
+          "alert-info",
         );
 
         return false;
@@ -218,7 +218,7 @@ import Dashboard from "@uppy/dashboard";
           this.$cancelButton.removeAttr("href").attr("disabled", "disabled");
           this.showAlert(
             this.$element.data("multifileupload-i18n-importing"),
-            "alert-info"
+            "alert-info",
           );
           // Post any successful uploads.
           $("#multiFileUploadForm").submit();
@@ -226,9 +226,9 @@ import Dashboard from "@uppy/dashboard";
           // In error state with zero successful uploads. Prevent POST.
           this.showAlert(
             this.$element.data(
-              "multifileupload-i18n-no-successful-files-error"
+              "multifileupload-i18n-no-successful-files-error",
             ),
-            "alert-danger"
+            "alert-danger",
           );
 
           return false;
@@ -240,15 +240,15 @@ import Dashboard from "@uppy/dashboard";
             this.checkUploadSuccessful() === true
               ? this.showAlert(
                   this.$element.data(
-                    "multifileupload-i18n-some-files-failed-error"
+                    "multifileupload-i18n-some-files-failed-error",
                   ),
-                  "alert-danger"
+                  "alert-danger",
                 )
               : this.showAlert(
                   this.$element.data(
-                    "multifileupload-i18n-no-successful-files-error"
+                    "multifileupload-i18n-no-successful-files-error",
                   ),
-                  "alert-danger"
+                  "alert-danger",
                 );
 
             this.$retryButton.show();
@@ -257,7 +257,7 @@ import Dashboard from "@uppy/dashboard";
             this.$cancelButton.removeAttr("href").attr("disabled", "disabled");
             this.showAlert(
               this.$element.data("multifileupload-i18n-importing"),
-              "alert-info"
+              "alert-info",
             );
             // Post to multiFileUpload.
             $("#multiFileUploadForm").submit();
@@ -286,7 +286,7 @@ import Dashboard from "@uppy/dashboard";
       $.each(result.successful, function (key, file) {
         // Get the corresponding upload response.
         var fileResponse = uploadItems.find(
-          (x) => x.file.id === file.id
+          (x) => x.file.id === file.id,
         ).response;
 
         // Add hidden form elements for each successfully uploaded file.
@@ -324,7 +324,7 @@ import Dashboard from "@uppy/dashboard";
             '"/>' +
             "</div>" +
             "</div>" +
-            "</div>"
+            "</div>",
         ).appendTo("#uploads");
       });
     },
@@ -403,7 +403,7 @@ import Dashboard from "@uppy/dashboard";
         parentSlug: this.$element.data("multifileupload-slug"),
         title: this.replacePlaceHolder(
           $("input#title").val(),
-          this.nextImageNum++
+          this.nextImageNum++,
         ),
       });
     },
@@ -434,13 +434,13 @@ import Dashboard from "@uppy/dashboard";
       var $alert = $(
         '<div class="alert ' +
           type +
-          ' alert-dismissible fade show" role="alert">'
+          ' alert-dismissible fade show" role="alert">',
       )
         .append(message)
         .append(
           '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
             this.$element.data("multifileupload-i18n-alert-close") +
-            '"></button>'
+            '"></button>',
         )
         .prependTo($("#uploaderContainer"));
 

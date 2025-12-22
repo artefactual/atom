@@ -29,7 +29,7 @@
         .on(
           "click",
           ".add-new-criteria .dropdown-item",
-          this.addCriterion.bind(this)
+          this.addCriterion.bind(this),
         )
         .on("click", "input.reset", this.reset.bind(this))
         .on("click", "a.delete-criterion", this.deleteCriterion.bind(this))
@@ -69,7 +69,7 @@
 
     reset(event) {
       window.location.replace(
-        this.$form.attr("action") + "?showAdvanced=1&topLod=0"
+        this.$form.attr("action") + "?showAdvanced=1&topLod=0",
       );
     }
 
@@ -109,7 +109,7 @@
 
       var $criterion = $(event.target.closest(".criterion"));
       var targetNumber = parseInt(
-        $criterion.find("input:first").attr("name").match(/\d+/).shift()
+        $criterion.find("input:first").attr("name").match(/\d+/).shift(),
       );
 
       // First criterion without siblings, just clear that criterion.
@@ -122,7 +122,7 @@
       $criterion.nextAll(".criterion").each(function () {
         var $this = $(this);
         var number = parseInt(
-          $this.find("input:first").attr("name").match(/\d+/).shift()
+          $this.find("input:first").attr("name").match(/\d+/).shift(),
         );
         $this.find("input, select").each(function (index, element) {
           var name = this.getAttribute("name").replace(/[\d+]/, number - 1);

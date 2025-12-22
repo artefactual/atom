@@ -25,7 +25,7 @@
       $copyrightCollapse.on(
         "click",
         "input[name=preview]",
-        this.previewStatement.bind(this)
+        this.previewStatement.bind(this),
       );
     }
 

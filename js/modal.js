@@ -50,14 +50,14 @@
       this.$modal.on(
         "change",
         'input[name="relatedDonor[resource]"]',
-        this.updateContactInformation.bind(this)
+        this.updateContactInformation.bind(this),
       );
 
       // Extra listener for related actor relation type
       this.$modal.on(
         "change",
         'select[name="relatedAuthorityRecord[type]"]',
-        this.toggleSubTypeInput.bind(this)
+        this.toggleSubTypeInput.bind(this),
       );
     }
 
@@ -110,7 +110,7 @@
       // Focus first input after modal show, using `one()` to remove
       // the listener after this load and avoid the focus on edit.
       this.$modal.one("shown.bs.modal", () =>
-        this.$modal.find("input:focusable:first").trigger("focus")
+        this.$modal.find("input:focusable:first").trigger("focus"),
       );
       this.b5Modal.show();
     }
@@ -199,7 +199,7 @@
           data["_sourceCulture"]["fields"][key]
         ) {
           var $translation = $("<div>", { class: "default-translation" }).text(
-            data["_sourceCulture"]["fields"][key]
+            data["_sourceCulture"]["fields"][key],
           );
           if (data["_sourceCulture"]["direction"]) {
             $translation.attr("dir", data["_sourceCulture"]["direction"]);
@@ -371,7 +371,7 @@
               // Create new iframe if there is value but not URI
               var addParts = $addInput.val().split(" ");
               var $iframe = $(
-                '<iframe src="' + addParts[0] + '" class="d-none">'
+                '<iframe src="' + addParts[0] + '" class="d-none">',
               );
               // Add it to the body directly to trigger initial load
               $iframe.appendTo("body");
@@ -437,7 +437,7 @@
                   resolve();
                 }
               });
-            })
+            }),
           );
 
           // Add autocomplete value to iframe and submit form
@@ -482,7 +482,7 @@
                 name +
                 '" value="' +
                 relationId +
-                '">'
+                '">',
             );
           }
 
@@ -508,7 +508,7 @@
               value = value.uri;
             }
             this.$form.append(
-              '<input type="hidden" name="' + name + '" value="' + value + '">'
+              '<input type="hidden" name="' + name + '" value="' + value + '">',
             );
           });
 
@@ -529,7 +529,7 @@
               index +
               ']" value="' +
               rowId +
-              '"/>'
+              '"/>',
           );
         });
 

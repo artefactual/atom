@@ -23,7 +23,7 @@
     attach: function (context) {
       $("#l10n-client-hide").click(function () {
         $(
-          "#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl"
+          "#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl",
         ).hide();
         $("#l10n-client").height("2em");
         $("#l10n-client-hide").hide();
@@ -33,7 +33,7 @@
 
       $("#l10n-client-show").click(function () {
         $(
-          "#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl"
+          "#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl",
         ).show();
         $("#l10n-client").height("22em");
         $("#l10n-client-hide").show();
@@ -86,14 +86,14 @@
       // Mark all strings depending on whether they are translated or not.
       for (var i in Drupal.l10nTargetMessages) {
         $($("#l10n-client-string-select li")[i]).addClass(
-          Drupal.l10nTargetMessages[i] == "" ? "untranslated" : "translated"
+          Drupal.l10nTargetMessages[i] == "" ? "untranslated" : "translated",
         );
       }
 
       // Copy source text to translation field on button click.
       $("#l10n-client-form #edit-copy").click(function () {
         $("#l10n-client-form #edit-target").val(
-          $("#l10n-client-string-editor .source-text").text()
+          $("#l10n-client-string-editor .source-text").text(),
         );
       });
 

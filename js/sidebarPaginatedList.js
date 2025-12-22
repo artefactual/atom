@@ -3,8 +3,8 @@
 
   $(() =>
     $(".sidebar-paginated-list").each(
-      (_, element) => new PaginatedListView($(element))
-    )
+      (_, element) => new PaginatedListView($(element)),
+    ),
   );
 
   // Thresholds for the spinning timer and page input.
@@ -75,7 +75,7 @@
         this.updatePageLinkState(this.$prev, this.currentPage == 1);
         this.updatePageLinkState(
           this.$next,
-          this.currentPage == this.totalPages
+          this.currentPage == this.totalPages,
         );
       }
     }
@@ -111,7 +111,7 @@
               $('<a class="list-group-item list-group-item-action">')
                 .attr("href", data["results"][i]["url"])
                 .attr("title", data["results"][i]["title"])
-                .append(data["results"][i]["title"])
+                .append(data["results"][i]["title"]),
             );
           }
 

@@ -17,7 +17,7 @@
         .find(".password-strength-settings")
         .get(0).dataset;
       this.requireStrongPassword = !!JSON.parse(
-        this.settings.requireStrongPassword
+        this.settings.requireStrongPassword,
       );
 
       // Prevent the form from running its validation logic when the form is
@@ -40,7 +40,7 @@
       const score = PasswordStrength.score(
         password,
         this.settings.username,
-        this.settings
+        this.settings,
       );
 
       // Update the progress bar.
@@ -67,7 +67,7 @@
         $container.append(score.message).find("ul").addClass("text-danger");
 
       input.setCustomValidity(
-        score.strength < 100 ? this.settings.notStrong : ""
+        score.strength < 100 ? this.settings.notStrong : "",
       );
     }
 

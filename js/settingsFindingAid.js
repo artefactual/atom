@@ -4,7 +4,7 @@
   $(() => {
     let $faControls = $("#finding-aid-collapse > .accordion-body > div").slice(
       1,
-      4
+      4,
     );
 
     function isEnabled() {

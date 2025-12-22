@@ -68,12 +68,12 @@
         .on(
           "mouseenter.treeview.atom",
           ".list-group-item",
-          this.listItemMouseEnter.bind(this)
+          this.listItemMouseEnter.bind(this),
         )
         .on(
           "mouseleave.treeview.atom",
           ".list-group-item",
-          this.listItemMouseLeave.bind(this)
+          this.listItemMouseLeave.bind(this),
         )
         .bind("scroll", this.scroll.bind(this))
         .bind("scroll-debounced", this.debouncedScroll.bind(this))
@@ -85,18 +85,18 @@
         .on(
           "mouseenter.treeview.atom",
           ".list-group-item",
-          this.listItemMouseEnter.bind(this)
+          this.listItemMouseEnter.bind(this),
         )
         .on(
           "mouseleave.treeview.atom",
           ".list-group-item",
-          this.listItemMouseLeave.bind(this)
+          this.listItemMouseLeave.bind(this),
         );
 
       this.$list.on(
         "click.treeview.atom",
         ".pagination a",
-        this.clickPagerButton.bind(this)
+        this.clickPagerButton.bind(this),
       );
 
       // Search box auto focus.
@@ -180,7 +180,7 @@
         .end()
         .find(this.nodesSelector)
         .append(
-          '<i class="grip fas fa-xs fa-grip-lines" aria-hidden="true"></i>'
+          '<i class="grip fas fa-xs fa-grip-lines" aria-hidden="true"></i>',
         );
 
       return this;
@@ -263,7 +263,7 @@
           this.$element.height()
       ) {
         this.$element.scrollTop(
-          this.$element.get(0).scrollHeight - this.$element.height()
+          this.$element.get(0).scrollHeight - this.$element.height(),
         );
         killEvent(e);
       }
@@ -454,7 +454,7 @@
     }
     showAlert($container, message, classes) {
       const $alert = $(
-        '<div class="no-results alert rounded-0 rounded-bottom" role="alert"></div>'
+        '<div class="no-results alert rounded-0 rounded-bottom" role="alert"></div>',
       )
         .html(message)
         .addClass(classes);
@@ -471,7 +471,7 @@
 
       // Obtain queryField value.
       var queryField = this.$search.find(
-        'input[type="radio"][name="queryField"]:checked'
+        'input[type="radio"][name="queryField"]:checked',
       );
       if (queryField.length > 0) {
         var queryFieldValue = queryField.val();
@@ -498,23 +498,23 @@
             this.showAlert(
               this.$search,
               event.target.getAttribute("data-not-found"),
-              ["border-top-0", "alert-warning"]
+              ["border-top-0", "alert-warning"],
             );
           } else {
             this.showAlert(
               this.$search,
               event.target.getAttribute("data-error"),
-              ["border-top-0", "alert-warning"]
+              ["border-top-0", "alert-warning"],
             );
           }
         })
 
         .done(function (data) {
           const $listGroup = $(
-            '<div class="list-group list-group-flush rounded-0 border border-top-0"></div>'
+            '<div class="list-group list-group-flush rounded-0 border border-top-0"></div>',
           );
           const $listItemTmpl = $(
-            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
+            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>',
           );
 
           // Inject results.
@@ -540,10 +540,10 @@
               $(
                 '<a class="btn atom-btn-white w-100 border-0 rounded-0">' +
                   '<i class="fas fa-search me-1" aria-hidden="true"></i>' +
-                  "</a>"
+                  "</a>",
               )
                 .attr("href", href)
-                .append(" " + text)
+                .append(" " + text),
             );
           }
 
@@ -631,10 +631,10 @@
 
         .done(function (data) {
           const $listGroup = $(
-            '<div class="list-group list-group-flush rounded-0 border"></div>'
+            '<div class="list-group list-group-flush rounded-0 border"></div>',
           );
           const $listItemTmpl = $(
-            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>'
+            '<a href="#" class="list-group-item list-group-item-action text-truncate"></a>',
           );
 
           // Inject results.
@@ -687,12 +687,12 @@
       updatePagerLink(
         $nav.find(".previous"),
         $prevLink.attr("href"),
-        $prevLink.length > 0
+        $prevLink.length > 0,
       );
       updatePagerLink(
         $nav.find(".next"),
         $nextLink.attr("href"),
-        $nextLink.length > 0
+        $nextLink.length > 0,
       );
 
       return $nav;

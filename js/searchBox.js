@@ -28,7 +28,7 @@
             data.repos = $repos.val();
           }
           $.ajax($element.data("url"), { data: data }).done((res) =>
-            callback(res)
+            callback(res),
           );
         },
         searchPost: (response, $element) => {

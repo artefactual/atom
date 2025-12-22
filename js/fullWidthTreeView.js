@@ -17,7 +17,7 @@
       this.pager = new Qubit.TreeviewPager(
         this.itemsPerPage,
         this.$fwTreeView,
-        this.collectionUrl + this.pathToApi
+        this.collectionUrl + this.pathToApi,
       );
       this.treeViewCollapseEnabled =
         this.$treeViewConfig.data("collapse-enabled") == "yes";
@@ -27,7 +27,7 @@
         this.$fwTreeViewRow
           .append(this.$fwTreeView)
           .animate({ height: "200px" }, 500)
-          .resizable({ handles: "s" })
+          .resizable({ handles: "s" }),
       );
 
       this.addTreeviewToAccordion();
@@ -105,7 +105,7 @@
             node,
             node_parent,
             node_position,
-            more
+            more,
           ) => {
             // Operations allowed:
             // - Before and after drag and drop between siblings
@@ -162,7 +162,7 @@
         this.$accordionCollapsibleSection,
         {
           toggle: !this.treeViewCollapseEnabled,
-        }
+        },
       );
 
       // This will scroll every time the accordion is opened.
@@ -170,7 +170,7 @@
         "shown.bs.collapse",
         (e) => {
           this.scrollToActive();
-        }
+        },
       );
 
       // TODO restore window.history states
@@ -246,7 +246,7 @@
       var $alert = $(
         '<div class="alert ' +
           type +
-          ' alert-dismissible fade show" role="alert">'
+          ' alert-dismissible fade show" role="alert">',
       ).append(message);
 
       var closeButton =
@@ -302,14 +302,14 @@
           var breadcrumbDestinationSelector = ".full-treeview-section";
 
           $(breadcrumbDestinationSelector).after(
-            $("<nav>", { id: "breadcrumb" })
+            $("<nav>", { id: "breadcrumb" }),
           );
         }
         $("#breadcrumb").replaceWith($(response.find("#breadcrumb")));
 
         // Replace description content
         $("#main-column .row").replaceWith(
-          $(response.find("#main-column .row").first())
+          $(response.find("#main-column .row").first()),
         );
 
         // If translation links exist in the response page, create element, if necessary,
@@ -319,11 +319,11 @@
           !$(".translation-links").length
         ) {
           $("#breadcrumb").after(
-            $('<div class="btn-group translation-links"></div>')
+            $('<div class="btn-group translation-links"></div>'),
           );
         }
         $(".translation-links").replaceWith(
-          $(response.find(".translation-links"))
+          $(response.find(".translation-links")),
         );
 
         // Replace error message
@@ -363,7 +363,7 @@
             oldPosition: data.old_position,
             newPosition: data.position,
           },
-        }).responseText
+        }).responseText,
       );
 
       this.deleteAlerts();
@@ -397,22 +397,32 @@
 
         $.ajax({
           url: url,
-          type: 'GET',
-          dataType: 'json',
+          type: "GET",
+          dataType: "json",
           success: (response) => {
-            if ("repair_successful" in response && response["repair_successful"] === true) {
+            if (
+              "repair_successful" in response &&
+              response["repair_successful"] === true
+            ) {
               // Refresh parent's child nodes if a repair was needed and was successful
               this.$fwTreeView.jstree("refresh_node", parent);
-            } else if ("repair_successful" in response && response["repair_successful"] === false) {
+            } else if (
+              "repair_successful" in response &&
+              response["repair_successful"] === false
+            ) {
               // Allow for syncing to be attempted again if a repair was needed, but failed
               delete this.syncInitiated[parent];
             }
 
-            this.commandNodeAndChildren(this.$fwTreeView, parent, "enable_node");
+            this.commandNodeAndChildren(
+              this.$fwTreeView,
+              parent,
+              "enable_node",
+            );
           },
           error: (response) => {
             console.error(response);
-          }
+          },
         });
       }
     };
