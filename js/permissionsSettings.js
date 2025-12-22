@@ -44,7 +44,7 @@
         },
         function () {
           $(this).removeClass("hover");
-        },
+        }
       )
       .on("click", function (event) {
         if (event.target.tagName === "LI") {

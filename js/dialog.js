@@ -41,7 +41,7 @@
           thisDialog.fields[this.name] = [];
           thisDialog.initialValues[this.name] = $(
             'input[name="' + this.name + '"]',
-            thisDialog.table,
+            thisDialog.table
           )
             .each(function () {
               thisDialog.fields[this.name].push(this);
@@ -74,7 +74,7 @@
       function () {
         var subTypeField = $(
           "input[id=relatedAuthorityRecord_subType]",
-          thisDialog.table,
+          thisDialog.table
         );
 
         if (this.value == "") {
@@ -82,7 +82,7 @@
         } else {
           subTypeField.prop("disabled", false).focus();
         }
-      },
+      }
     );
 
     // Create YUI container for dialog
@@ -96,7 +96,7 @@
         '  </div><div class="bd">' +
         "    <form/>" +
         "  </div>" +
-        "</div>",
+        "</div>"
     ).appendTo("body");
 
     // Set overflow and height if options.height provided
@@ -170,8 +170,8 @@
           fn: handleYuiCancel,
           scope: this.yuiDialog,
           correctScope: true,
-        },
-      ).enable(),
+        }
+      ).enable()
     );
 
     // Remove all showEvent listeners to prevent default "focusFirst"
@@ -207,8 +207,8 @@
 
         $(
           $(iframe.selector, iframe.iframe[0].contentWindow.document).val(
-            iframe.value,
-          )[0].form,
+            iframe.value
+          )[0].form
         ).submit();
       }
 
@@ -283,7 +283,7 @@
       // Disable relatedAuthorityRecord_subType field. The property is removed on YUI autocomplete first load
       var subTypeField = $(
         "input[id=relatedAuthorityRecord_subType]",
-        thisDialog.table,
+        thisDialog.table
       );
       if (subTypeField.length > 0) {
         subTypeField.prop("disabled", "disabled");
@@ -322,7 +322,7 @@
           if (undefined !== thisDialog.options.relationTableMap) {
             response = thisDialog.options.relationTableMap.call(
               thisDialog,
-              response,
+              response
             );
           }
 
@@ -406,7 +406,7 @@
                   // Set value + actor name for subType field
                   this.next(".form-autocomplete").val(
                     response.results[0] +
-                      thisData["relatedAuthorityRecord[actor]"],
+                      thisData["relatedAuthorityRecord[actor]"]
                   );
                 } else {
                   this.next(".form-autocomplete").val(response.results[0]);
@@ -420,7 +420,7 @@
         if (fieldname == "relatedAuthorityRecord[type]") {
           $("input[id=relatedAuthorityRecord_subType]", thisDialog.table).prop(
             "disabled",
-            false,
+            false
           );
         }
       }
@@ -568,7 +568,7 @@
 
       var tr = newRowTemplate.replace(
         "{" + this.fieldPrefix + "[id]}",
-        this.id,
+        this.id
       );
       for (fname in this.fields) {
         if (0 < fname.length) {
@@ -631,7 +631,7 @@
         if (null != id && "new" !== id.substr(0, 3)) {
           var name = outputPrefix + "[" + i + "][id]";
           this.$form.append(
-            '<input type="hidden" name="' + name + '" value="' + id + '"/>',
+            '<input type="hidden" name="' + name + '" value="' + id + '"/>'
           );
         }
 
@@ -650,7 +650,7 @@
               name +
               '" value="' +
               thisData[j] +
-              '"/>',
+              '"/>'
           );
           $hidden.appendTo(this.$form);
 
@@ -669,7 +669,7 @@
 
                   // Decrement count of listeners and submit if all done
                   thisDialog.done();
-                },
+                }
               );
             }
           }
@@ -683,7 +683,7 @@
         this.$form.append(
           '<input type="hidden" name="deleteRelations[' +
             this.deletes[k] +
-            ']" value="delete"/>',
+            ']" value="delete"/>'
         );
       }
     };

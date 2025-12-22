@@ -37,18 +37,18 @@
               var $input = $(input);
               $input.prop(
                 "id",
-                $input.prop("id").replace("{objectId}", objectId),
+                $input.prop("id").replace("{objectId}", objectId)
               );
               $input.prop(
                 "name",
-                $input.prop("name").replace("{objectId}", objectId),
+                $input.prop("name").replace("{objectId}", objectId)
               );
             });
             $newTable.find("label").each((_, label) => {
               var $label = $(label);
               $label.prop(
                 "for",
-                $label.prop("for").replace("{objectId}", objectId),
+                $label.prop("for").replace("{objectId}", objectId)
               );
             });
             // Append before the trigger button and make it visible

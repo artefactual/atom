@@ -47,7 +47,7 @@
                   index++ +
                   ']" value="' +
                   this.value +
-                  '"/></li>',
+                  '"/></li>'
               )
                 // Bind click event to new list item
                 .click(function (event) {

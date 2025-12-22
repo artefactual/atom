@@ -53,7 +53,7 @@
             .attr("id", buttonId)
             .attr("data-bs-target", "#" + contentId)
             .attr("aria-controls", contentId)
-            .html(this.newText),
+            .html(this.newText)
         )
         .insertBefore(this.$addButton.parent());
 
@@ -128,14 +128,14 @@
             $input
               .attr("id")
               .replace(/_\d+_/, "_" + index + "_")
-              .replace("_blank_", "_grantedRights_" + index + "_"),
+              .replace("_blank_", "_grantedRights_" + index + "_")
           );
           $input.attr(
             "name",
             $input
               .attr("name")
               .replace(/\[\d+\]/, "[" + index + "]")
-              .replace("[blank]", "[grantedRights][" + index + "]"),
+              .replace("[blank]", "[grantedRights][" + index + "]")
           );
         });
 
@@ -147,7 +147,7 @@
             $label
               .attr("for")
               .replace(/_\d+_/, "_" + index + "_")
-              .replace("_blank_", "_grantedRights_" + index + "_"),
+              .replace("_blank_", "_grantedRights_" + index + "_")
           );
         });
       });

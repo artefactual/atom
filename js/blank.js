@@ -12,7 +12,7 @@
                 .filter(function () {
                   return 3 == this.nodeType;
                 })
-                .text(),
+                .text()
             )
           );
         })

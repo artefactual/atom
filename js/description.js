@@ -85,7 +85,7 @@
 
                 // Show the tooltip
                 $description.show();
-              },
+              }
         )
         .focusout(
           window.description_focusout
@@ -99,7 +99,7 @@
 
                 $("div.yui-panel > .description-dialog").remove();
                 $("div.modal > .description-dialog").remove();
-              },
+              }
         );
     },
   };

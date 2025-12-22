@@ -14,7 +14,7 @@
     init: function () {
       this.$generateIdentifierBtn.on(
         "click",
-        $.proxy(this.genIdentifier, this),
+        $.proxy(this.genIdentifier, this)
       );
       this.$identifier.on("input", $.proxy(this.identifierChanged, this));
     },

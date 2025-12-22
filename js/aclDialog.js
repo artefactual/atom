@@ -16,7 +16,7 @@ function QubitAclDialog(dialogId, tableTemplate, $) {
       '<form action="" method="post" style="border: none"></form>' +
       "</div>" +
       "</div>" +
-      "</div>",
+      "</div>"
   );
 
   $("#" + dialogId)
@@ -109,7 +109,7 @@ function QubitAclDialog(dialogId, tableTemplate, $) {
         .focus();
     },
     this,
-    true,
+    true
   );
 
   // Wrap YUI dialog show method

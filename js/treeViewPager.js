@@ -48,14 +48,14 @@
   // Update count of remaining nodes, etc.
   Qubit.TreeviewPager.prototype.updateMoreLink = function (
     $moreButton,
-    $resetButton,
+    $resetButton
   ) {
     var scrollOffset = 0;
 
     if (this.getRemaining() > 0) {
       // Update count shown in paging button
       $moreButton.val(
-        $moreButton.data("label").replace("%1%", this.getRemaining()),
+        $moreButton.data("label").replace("%1%", this.getRemaining())
       );
       $moreButton.show();
     } else {

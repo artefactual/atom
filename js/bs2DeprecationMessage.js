@@ -11,7 +11,7 @@
     listen() {
       this.$button.on(
         "click",
-        $.proxy(this.onBs2DeprecationMessageButton, this),
+        $.proxy(this.onBs2DeprecationMessageButton, this)
       );
     }
 

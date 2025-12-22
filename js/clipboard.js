@@ -45,24 +45,24 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       $(document).on(
         "click",
         "button#clipboard-clear, li#node_clearClipboard a",
-        this.clear.bind(this),
+        this.clear.bind(this)
       );
       $(document).on(
         "click",
         "a#clipboard-save, li#node_saveClipboard a",
-        this.save.bind(this),
+        this.save.bind(this)
       );
       $(document).on("click", "button#clipboard-send", this.send.bind(this));
       $(document).on("submit", "#clipboard-load-form", this.load.bind(this));
       $(document).on(
         "submit",
         "#clipboard-export-form",
-        this.export.bind(this),
+        this.export.bind(this)
       );
       $(document).on(
         "click",
         ".clipboard-all, .clipboard-none",
-        this.toggleAll.bind(this),
+        this.toggleAll.bind(this)
       );
 
       this.updateCounts();
@@ -147,7 +147,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
         error: function () {
           this.showAlert(
             this.$element.data("load-alert-message"),
-            "alert-danger",
+            "alert-danger"
           );
         },
       });
@@ -251,7 +251,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       // Show sending alert and assign it to a variable
       var $sendingAlert = this.showAlert(
         $sendButton.data("message"),
-        "alert-info",
+        "alert-info"
       );
 
       $form.appendTo(document.body);
@@ -267,7 +267,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (type === "accession" && !this.showAccessions) {
         this.showAlert(
           this.$element.data("export-alert-message"),
-          "alert-danger",
+          "alert-danger"
         );
 
         return;
@@ -277,7 +277,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       if (this.items[type].length === 0) {
         this.showAlert(
           this.$element.data("export-alert-message"),
-          "alert-danger",
+          "alert-danger"
         );
 
         return;
@@ -303,7 +303,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
             this.exportTokens.push(responseData.token);
             this.storage.setItem(
               "exportTokens",
-              JSON.stringify(this.exportTokens),
+              JSON.stringify(this.exportTokens)
             );
           }
         },
@@ -334,7 +334,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
               this.showAlert(
                 alert.message,
                 "alert-" + alert.type,
-                alert.deleteUrl,
+                alert.deleteUrl
               );
             }, this);
           }
@@ -351,7 +351,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
             this.storage.setItem(
               "exportTokens",
-              JSON.stringify(this.exportTokens),
+              JSON.stringify(this.exportTokens)
             );
           }
         },
@@ -389,7 +389,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       // Check to see if there's a button that should be updated
       const button = document.querySelector(
-        `button[data-clipboard-slug='${slug}'][data-clipboard-type='${type}']`,
+        `button[data-clipboard-slug='${slug}'][data-clipboard-type='${type}']`
       );
 
       if (null !== button) {
@@ -424,7 +424,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       type,
       singleAddedMessage,
       pluralAddedMessage,
-      alreadyAddedMessage,
+      alreadyAddedMessage
     ) {
       if (!slugs) {
         return;
@@ -445,7 +445,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       } else {
         this.showAlert(
           pluralAddedMessage.replace("%1%", numAdded),
-          "alert-success",
+          "alert-success"
         );
       }
     }
@@ -562,7 +562,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
             totalCount +
             '<span class="visually-hidden">' +
             this.$element.data("total-count-label") +
-            "</span></span>",
+            "</span></span>"
         );
       } else if (totalCount > 0) {
         $buttonSpan.text(totalCount);
@@ -574,17 +574,17 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var isRTL = $("html").attr("dir") === "rtl";
       var countText = "";
       var infoLabel = this.$menuHeaderCount.attr(
-        "data-information-object-label",
+        "data-information-object-label"
       );
       var actorLabel = this.$menuHeaderCount.attr("data-actor-object-label");
       var repoLabel = this.$menuHeaderCount.attr(
-        "data-repository-object-label",
+        "data-repository-object-label"
       );
 
       var accessionLabel = "";
       if (this.showAccessions) {
         accessionLabel = this.$menuHeaderCount.attr(
-          "data-accession-object-label",
+          "data-accession-object-label"
         );
       }
 
@@ -632,7 +632,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       var $alert = $(
         '<div class="alert ' +
           type +
-          ' alert-dismissible fade show" role="alert">',
+          ' alert-dismissible fade show" role="alert">'
       ).append(message);
       var closeButton =
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' +
@@ -659,7 +659,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       ) {
         this.showAlert(
           this.$element.data("delete-alert-message"),
-          "alert-danger alert-clipboard-remove",
+          "alert-danger alert-clipboard-remove"
         );
       }
     }

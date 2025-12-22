@@ -85,7 +85,7 @@
     window.initializeSimpleMap = function () {
       var location = new google.maps.LatLng(
         $container.data("latitude"),
-        $container.data("longitude"),
+        $container.data("longitude")
       );
       var map = new google.maps.Map($container.get(0), {
         zoom: 16,
@@ -106,7 +106,7 @@
 
     $.getScript(
       "https://maps.google.com/maps/api/js?sensor=false&callback=initializeSimpleMap&key=" +
-        $container.data("key"),
+        $container.data("key")
     );
   });
 
@@ -221,7 +221,7 @@
       .find("#search-realm");
     this.$form = this.$element.parents("form");
     this.$menu = $(
-      '<div id="search-suggestions" class="search-popover"></div>',
+      '<div id="search-suggestions" class="search-popover"></div>'
     ).appendTo(this.$form);
 
     this.source = this.$element.closest("form").data("autocomplete");
@@ -254,7 +254,7 @@
       this.$realm.on(
         "change",
         "input[type=radio]",
-        $.proxy(this.changeRealm, this),
+        $.proxy(this.changeRealm, this)
       );
 
       // Validate form
@@ -509,7 +509,7 @@
 
         e.preventDefault();
         $this.autocomplete();
-      },
+      }
     );
   });
 
@@ -600,7 +600,7 @@
         .on(
           "click",
           ".add-new-criteria .dropdown-menu a",
-          $.proxy(this.addCriterion, this),
+          $.proxy(this.addCriterion, this)
         )
         .on("click", "input.reset", $.proxy(this.reset, this))
         .on("click", "a.delete-criterion", $.proxy(this.deleteCriterion, this))
@@ -610,7 +610,7 @@
       this.$collectionFilter.on("change", $.proxy(this.checkReposFilter, this));
       this.$dateRangeHelpIcon.on(
         "click",
-        $.proxy(this.toggleDateRangeHelp, this),
+        $.proxy(this.toggleDateRangeHelp, this)
       );
     },
 
@@ -655,7 +655,7 @@
 
     reset: function (event) {
       window.location.replace(
-        this.$form.attr("action") + "?showAdvanced=1&topLod=0",
+        this.$form.attr("action") + "?showAdvanced=1&topLod=0"
       );
     },
 
@@ -695,7 +695,7 @@
 
       var $criterion = $(event.target.closest(".criterion"));
       var targetNumber = parseInt(
-        $criterion.find("input:first").attr("name").match(/\d+/).shift(),
+        $criterion.find("input:first").attr("name").match(/\d+/).shift()
       );
 
       // First criterion without siblings, just clear that criterion
@@ -708,7 +708,7 @@
       $criterion.nextAll(".criterion").each(function () {
         var $this = $(this);
         var number = parseInt(
-          $this.find("input:first").attr("name").match(/\d+/).shift(),
+          $this.find("input:first").attr("name").match(/\d+/).shift()
         );
         $this.find("input, select").each(function (index, element) {
           var name = this.getAttribute("name").replace(/[\d+]/, number - 1);
@@ -748,7 +748,7 @@
   $(function () {
     // Find search for if on an appropriate page
     var $advancedSearch = $(
-      "body.informationobject.browse,body.actor.browse,body.search.descriptionUpdates",
+      "body.informationobject.browse,body.actor.browse,body.search.descriptionUpdates"
     );
     if (0 < $advancedSearch.length) {
       new AdvancedSearch($advancedSearch.get(0));

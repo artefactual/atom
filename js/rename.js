@@ -51,7 +51,7 @@
         var field = fields[index];
         $fields[field].attr(
           "disabled",
-          !$fieldCheckboxes[field].is(":checked"),
+          !$fieldCheckboxes[field].is(":checked")
         );
       }
     }
@@ -70,7 +70,7 @@
       if ($fieldCheckboxes["slug"].is(":checked")) {
         fetchSlugPreview(
           $fields["authorizedFormOfName"].val(),
-          fetchSlugPreviewCallback,
+          fetchSlugPreviewCallback
         );
       }
     }

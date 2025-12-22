@@ -39,6 +39,6 @@
     "build": "webpack",
     "watch": "webpack watch",
     "format": "prettier --write .",
-    "check-format": "prettier --check . --loglevel debug"
+    "check-format": "prettier --check ."
   }
 }

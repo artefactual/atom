@@ -6,7 +6,7 @@
     this.$reposFilter = this.$element.find('select[name="repos"]');
     this.$collectionFilter = this.$element.find('input[name="collection"]');
     this.$collectionFilterAutoComp = this.$element.find(
-      'input[id="collection"]',
+      'input[id="collection"]'
     );
 
     this.$skipUnmatched = this.$element.find('input[name="skipUnmatched"]');
@@ -40,12 +40,12 @@
     listen: function () {
       this.$collectionFilter.on(
         "change",
-        $.proxy(this.toggleReposFilter, this),
+        $.proxy(this.toggleReposFilter, this)
       );
       this.$updateTypeSelect.on("change", $.proxy(this.togglePanels, this));
       this.$objectTypeSelect.on(
         "change",
-        $.proxy(this.onObjectTypeChange, this),
+        $.proxy(this.onObjectTypeChange, this)
       );
     },
 

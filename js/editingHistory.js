@@ -25,7 +25,7 @@
   function constructRowElement(rowData) {
     var row = $("<tr>");
     var td = $("<td></td>").append(
-      $("<a></a>").attr("href", rowData.slug).text(rowData.title),
+      $("<a></a>").attr("href", rowData.slug).text(rowData.title)
     );
     var td2 = $("<td></td>").text(rowData.createdAt);
     var td3 = $("<td></td>").text(rowData.actionType);

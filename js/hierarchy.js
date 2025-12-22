@@ -31,7 +31,7 @@
     var pager = new Qubit.TreeviewPager(
       itemsPerPage,
       $fwTreeView,
-      window.location.pathname + url,
+      window.location.pathname + url
     );
 
     // Show always reset button in hierarchy browse page
@@ -44,7 +44,7 @@
     // Add tree-view div after main header (sizing to fill vertical space)
     var height = $(document).height() - $("#main-column").offset().top - 50;
     $mainHeader.after(
-      $fwTreeViewRow.append($fwTreeView).animate({ height: height }, 500),
+      $fwTreeViewRow.append($fwTreeView).animate({ height: height }, 500)
     );
 
     // Declare jsTree options
@@ -100,7 +100,7 @@
           node,
           node_parent,
           node_position,
-          more,
+          more
         ) {
           // Restrict possible client-side manipulation of tree
           return operation === "deselect_all" || operation === "create_node";

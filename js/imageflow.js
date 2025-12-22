@@ -18,7 +18,7 @@
             dots: true,
             centerMode: true,
             instructionsText: $(node).data(
-              "carousel-instructions-text-image-link",
+              "carousel-instructions-text-image-link"
             ),
             regionLabel: $(node).data("carousel-images-region-label"),
             variableWidth: true,
@@ -42,7 +42,7 @@
             arrows: false,
             fade: true,
             instructionsText: $(node).data(
-              "carousel-instructions-text-text-link",
+              "carousel-instructions-text-text-link"
             ),
             regionLabel: $(node).data("carousel-title-region-label"),
           });
@@ -66,7 +66,7 @@
             let maxSlidesScroll = 3;
             let jump = Math.min(
               Math.ceil(absDelta / sensitivity),
-              maxSlidesScroll,
+              maxSlidesScroll
             );
 
             let targetSlide =

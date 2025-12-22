@@ -13,7 +13,7 @@
           $(option).val() +
           '"/><span>' +
           $(option).html() +
-          "</span></li>",
+          "</span></li>"
       )
         .click(function () {
           // On click, remove <li> and enable <option>
@@ -68,7 +68,7 @@
               Drupal.behaviors.select.select(
                 $("option:selected", this)[0],
                 name,
-                $ul,
+                $ul
               );
 
               // Clear <select>

@@ -16,7 +16,7 @@
         "informationObject",
         $(this).data("single-added-message"),
         $(this).data("plural-added-message"),
-        $(this).data("already-added-message"),
+        $(this).data("already-added-message")
       );
     });
   }
@@ -36,7 +36,7 @@
         "accession",
         $(this).data("single-added-message"),
         $(this).data("plural-added-message"),
-        $(this).data("already-added-message"),
+        $(this).data("already-added-message")
       );
     });
   }

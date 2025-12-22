@@ -13,7 +13,7 @@
       .find('option[value="xml"]')
       .text();
     this.$includeAllLevels = this.$element.find(
-      'input[name="includeAllLevels"]',
+      'input[name="includeAllLevels"]'
     );
     if (0 != this.$includeAllLevels.length) {
       this.$includeAllLevelsHolder = this.$includeAllLevels.parent().parent();
@@ -24,10 +24,10 @@
     }
     this.$levelSelect = this.$element.find('select[id="levels"]');
     this.$includeDescendants = this.$element.find(
-      'input[name="includeDescendants"]',
+      'input[name="includeDescendants"]'
     );
     this.$includeDigitalObjects = this.$element.find(
-      'input[name="includeDigitalObjects"]',
+      'input[name="includeDigitalObjects"]'
     );
     this.$includeDrafts = this.$element.find('input[name="includeDrafts"]');
     this.$exportSubmit = this.$element.find('input[id="exportSubmit"]');
@@ -50,25 +50,25 @@
       if (0 != this.$genericHelpIcon.length) {
         this.$genericHelpIcon.on(
           "click",
-          $.proxy(this.toggleGenericHelp, this),
+          $.proxy(this.toggleGenericHelp, this)
         );
       }
       if (0 != this.$includeDescendants.length) {
         this.$includeDescendants.on(
           "change",
-          $.proxy(this.onExclusiveChange, this, 1),
+          $.proxy(this.onExclusiveChange, this, 1)
         );
       }
       if (0 != this.$includeDigitalObjects.length) {
         this.$includeDigitalObjects.on(
           "change",
-          $.proxy(this.onExclusiveChange, this, 2),
+          $.proxy(this.onExclusiveChange, this, 2)
         );
       }
       if (0 != this.$includeAllLevels.length) {
         this.$includeAllLevels.on(
           "change",
-          $.proxy(this.onIncludeAllLevelsChange, this),
+          $.proxy(this.onIncludeAllLevelsChange, this)
         );
       }
       this.$exportSubmit.on("click", $.proxy(this.onExportSubmit, this));
@@ -196,7 +196,7 @@
       ) {
         $(
           '<div class="alert alert-danger">' +
-            '<button type="button" data-dismiss="alert" class="close">&times;</button>',
+            '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
           .append(this.$exportDiv.data("export-alert-message"))
           .prependTo($("#wrapper.container"));

@@ -64,7 +64,7 @@
           $inputUser,
           $inputHidden,
           iframeSrc,
-          rrFormInputId,
+          rrFormInputId
         ) {
           // If relatedResourceForm has already been created for this $inputUser,
           // return it
@@ -81,7 +81,7 @@
             $inputUser,
             $inputHidden,
             iframeSrc,
-            rrFormInputId,
+            rrFormInputId
           );
         }
 
@@ -107,7 +107,7 @@
           $inputUser,
           $inputHidden,
           iframeSrc,
-          rrFormInputId,
+          rrFormInputId
         ) {
           // Add hidden <iframe/>
           var $iframe = $("<iframe/>").width(0).height(0).css("border", 0);
@@ -175,7 +175,7 @@
         $(document).on(
           "loadFunctions",
           "select.form-autocomplete",
-          createYuiDiv,
+          createYuiDiv
         );
 
         // This function help us to know if a .multiple select has
@@ -247,7 +247,7 @@
 
           // Use hidden input to store and POST URI of related resource
           var $hidden = $(
-            '<input name="' + $select.attr("name") + '" type="hidden" />',
+            '<input name="' + $select.attr("name") + '" type="hidden" />'
           );
 
           if (data[1]) {
@@ -286,7 +286,7 @@
 
                   // Remove relatedResourceForm from stack
                   relatedResourceForms.remove(
-                    $input.data("relatedResourceForm"),
+                    $input.data("relatedResourceForm")
                   );
                 }
               })
@@ -320,7 +320,7 @@
               $select.attr("class") +
               '" id="' +
               $select.attr("id") +
-              '"/>',
+              '"/>'
           );
 
           if ($select.attr("aria-describedby")) {
@@ -347,7 +347,7 @@
                   $(this).val() +
                   '"/><span>' +
                   $(this).html() +
-                  "</span></li>",
+                  "</span></li>"
               )
                 .click(function () {
                   // On click, remove <li/> and hide <ul/> if has not siblings
@@ -371,7 +371,7 @@
                 $(this).attr("name") +
                 '" type="hidden" value="' +
                 ($(this).val() ? $(this).val() : "") +
-                '"/>',
+                '"/>'
             ).insertAfter(this);
 
             $input
@@ -461,7 +461,7 @@
           var autoComplete = new YAHOO.widget.AutoComplete(
             $input[0],
             $("<div/>").insertAfter(this)[0],
-            dataSource,
+            dataSource
           );
 
           // Display up to 20 results in the container
@@ -517,7 +517,7 @@
           ) {
             autoComplete.generateRequest = function (query) {
               var repository = $(
-                "section.advanced-search select[name=repos]",
+                "section.advanced-search select[name=repos]"
               ).val();
 
               return "&repository=" + repository + "&query=" + query;
@@ -593,12 +593,9 @@
                 data[0].substring(0, data[0].indexOf("<b>")) +
                   data[0].substring(
                     data[0].indexOf("<b>") + 3,
-                    data[0].indexOf("</b>"),
+                    data[0].indexOf("</b>")
                   ) +
-                  data[0].substring(
-                    data[0].indexOf("</b>") + 4,
-                    data[0].length,
-                  ),
+                  data[0].substring(data[0].indexOf("</b>") + 4, data[0].length)
               );
             } else {
               $input.val(data[0]);
@@ -700,7 +697,7 @@
                       $input,
                       $hidden,
                       uri,
-                      rrFormInputId,
+                      rrFormInputId
                     );
                   }
                 } else {
@@ -722,7 +719,7 @@
                     $li.find("input[type=text]"),
                     $li.find("input[type=hidden]"),
                     uri,
-                    rrFormInputId,
+                    rrFormInputId
                   );
                 }
               } else {

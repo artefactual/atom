@@ -36,7 +36,7 @@
               $("div:visible", $parentRows).hide("normal", function () {
                 $parentRows.hide();
               });
-            },
+            }
           );
         })
 

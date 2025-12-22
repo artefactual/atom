@@ -13,9 +13,9 @@
             "<span>" +
               Qubit.updateCheck.notificationMessage.replace(
                 /\%\d+\%/g,
-                version,
+                version
               ) +
-              "</span>",
+              "</span>"
           )
             .prependTo("#update-check")
             .parent()

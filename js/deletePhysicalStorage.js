@@ -9,7 +9,7 @@
           type: "hidden",
           name: "delete_relations[]",
           value: $this.attr("id"),
-        }),
+        })
       );
       var $row = $this.closest("tr");
       $row.hide(250, () => $row.remove());
