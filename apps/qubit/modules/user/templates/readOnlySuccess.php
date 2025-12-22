@@ -4,9 +4,10 @@
 
   <h2 style="font-size: 20px;"><?php echo __('The system is currently in read-only mode. Please try again later.'); ?></h2>
 
-  <a href="javascript:history.go(-1)"><?php echo __('Back to previous page'); ?></a>
-
-  <br/>
+  <a href="#" data-action="back"
+    data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
+  </a>
+  <br />
 
   <?php echo link_to(__('Go to homepage'), '@homepage'); ?>
 

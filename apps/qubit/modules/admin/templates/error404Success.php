@@ -12,9 +12,10 @@
       </p>
 
       <p class="mb-0">
-        <a href="javascript:history.go(-1)">
-          <?php echo __('Back to previous page.'); ?>
-        </a><br>
+        <a href="#" data-action="back"
+          data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
+        </a>
+        <br>
         <?php echo link_to(__('Go to homepage.'), '@homepage'); ?>
       </p>
     </div>

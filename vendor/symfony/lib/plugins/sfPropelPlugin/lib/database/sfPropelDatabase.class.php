@@ -118,14 +118,6 @@ class sfPropelDatabase extends sfPDODatabase
 
     $propelConfiguration = Propel::getConfiguration(PropelConfiguration::TYPE_OBJECT);
 
-    if ($this->hasParameter('debug'))
-    {
-      $propelConfiguration->setParameter('debugpdo.logging', sfToolkit::arrayDeepMerge(
-        $propelConfiguration->getParameter('debugpdo.logging', array()),
-        $this->getParameter('debug')
-      ));
-    }
-
     $event = new sfEvent($propelConfiguration, 'propel.filter_connection_config', array('name' => $this->getParameter('datasource'), 'database' => $this));
     $event = sfProjectConfiguration::getActive()->getEventDispatcher()->filter($event, array(
       'adapter'    => $this->getParameter('phptype'),

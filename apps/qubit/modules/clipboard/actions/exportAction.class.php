@@ -258,7 +258,7 @@ class ClipboardExportAction extends DefaultEditAction
                 throw new sfException($this->context->i18n->__(
                     'No records were exported for your current selection. Please %open_link%refresh the page and choose different export options %close_link%.',
                     [
-                        '%open_link%' => '<a class="alert-link" href="javascript:location.reload();">',
+                        '%open_link%' => '<a class="alert-link" data-action="refresh" href="#"">',
                         '%close_link%' => '</a>',
                     ]
                 ));
@@ -300,7 +300,7 @@ class ClipboardExportAction extends DefaultEditAction
             $responseData['success'] .= $this->context->i18n->__(
                 'Please %open_link%refresh the page%close_link% to see progress and a download link when complete.',
                 [
-                    '%open_link%' => '<strong><a class="alert-link" href="javascript:location.reload();">',
+                    '%open_link%' => '<strong><a class="alert-link" data-action="refresh" href="#">',
                     '%close_link%' => '</a></strong>',
                 ]
             );

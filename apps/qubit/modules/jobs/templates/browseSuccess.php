@@ -127,7 +127,7 @@
 <!-- Action buttons -->
 <ul class="actions mb-3 nav gap-2">
   <li>
-    <a class="btn atom-btn-outline-light" id="jobs-refresh-button" href="#">
+    <a class="btn atom-btn-outline-light" data-action="refresh" href="#">
       <i class="fas fa-sync-alt me-1" aria-hidden="true"></i>
       <?php echo __('Refresh'); ?>
     </a>

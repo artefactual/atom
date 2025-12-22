@@ -2164,133 +2164,109 @@ class QubitInformationObject extends BaseInformationObject
      * @param string $title      informationObject title
      * @param string $repoName   repository authorizedFormOfName
      *
-     * @return int InfoObj id
+     * @return int[] matching information object IDs (ascending by id)
      */
-    public static function getByTitleIdentifierAndRepo($identifier, $title, $repoName): ?int
+    public static function getByTitleIdentifierAndRepo($identifier, $title, $repoName): array
     {
         // Proceed only if both identifier and title are provided.
-        if (null !== $identifier && null !== $title) {
-            // Get the current culture from the user session.
-            $sf_user = sfContext::getInstance()->getUser();
-            $culture = $sf_user->getCulture();
-
-            // Parameters for the query.
-            $params = [
-                ':identifier' => $identifier,
-                ':title' => $title,
-                ':culture' => $culture,
-            ];
-
-            if (null !== $repoName) {
-                $params[':repoName'] = $repoName;
-
-                // Select the repository id of the nearest parent that has one set.
-
-                // hierarchy table: Recursively searches until a parent record is found that has
-                // the repository_id set. This repository_id is set in the effective_repo_id. It
-                // may be NULL if there is no repository to inherit! Terminates when the effective
-                // repo ID is null, or when the parent_id is NULL (reached the top of the hierarchy)
-
-                // resolved table: Filter the hierarchy table for the first non-NULL
-                // effective_repo_id. For this part:
-                //
-                //   ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
-                //
-                // the recursive query will terminate when effective_repo_id != NULL. The repo ID
-                // at this point is at the maximum depth, so sorting the depth in descending order
-                // returns the first parent that had a repository_id set.
-                $sql = '
-                    WITH RECURSIVE hierarchy AS (
-                        SELECT
-                            id AS original_id,
-                            parent_id,
-                            repository_id AS effective_repo_id,  -- <- Inherited repo ID
-                            1 AS depth
-                        FROM
-                            information_object
-
-                        UNION ALL
-
-                        SELECT
-                            child.original_id,
-                            parent.parent_id,
-                            COALESCE(child.effective_repo_id, parent.repository_id) AS effective_repo_id,
-                            child.depth + 1
-                        FROM
-                            hierarchy child
-                        INNER JOIN
-                            information_object parent
-                        ON
-                            parent.id = child.parent_id
-                        WHERE
-                            child.effective_repo_id IS NULL AND child.parent_id IS NOT NULL
-                    )
-                    SELECT
-                        io.id
-                    FROM
-                        information_object io
-                    INNER JOIN (
-                        SELECT
-                            original_id,
-                            effective_repo_id,
-                            ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
-                        FROM
-                            hierarchy
-                        WHERE
-                            effective_repo_id IS NOT NULL
-                    ) AS resolved
-                    ON
-                        io.id = resolved.original_id
-                        AND resolved.rn = 1
-                        AND io.identifier = :identifier
-                    INNER JOIN
-                        information_object_i18n io_i18n
-                    ON
-                        io_i18n.id = io.id
-                        AND io_i18n.culture = :culture
-                        AND io_i18n.title = :title
-                    INNER JOIN
-                        repository r
-                    ON
-                        r.id = resolved.effective_repo_id
-                    INNER JOIN
-                        actor a
-                    ON
-                        a.id = resolved.effective_repo_id
-                    INNER JOIN
-                        actor_i18n a_i18n
-                    ON
-                        a_i18n.id = a.id
-                        AND a_i18n.culture = :culture
-                        AND a_i18n.authorized_form_of_name = :repoName
-                    LIMIT 1;
-                ';
-            } else {
-                $sql = '
-                    SELECT
-                        io.id
-                    FROM
-                        information_object io
-                    INNER JOIN
-                        information_object_i18n io_i18n
-                    ON
-                        io_i18n.id = io.id
-                        AND io_i18n.culture = :culture
-                        AND io_i18n.title = :title
-                    WHERE
-                        io.identifier = :identifier
-                    LIMIT 1;
-                ';
-            }
-
-            // If a matching record is found, return its ID.
-            if ($row = QubitPdo::fetchOne($sql, $params)) {
-                return $row->id;
-            }
+        if (null === $identifier || null === $title) {
+            return [];
         }
 
-        // Return null if no match is found.
-        return null;
+        // 1) Find candidate IO by identifier + title in any culture.
+        //
+        // Culture handling:
+        // - Match culture-agnostically using EXISTS against information_object_i18n,
+        //   so any translation (including the source culture) will satisfy the title match.
+        $sqlCandidate = '
+            SELECT io.id
+            FROM information_object io
+            WHERE io.identifier = :identifier
+              AND EXISTS (
+                SELECT 1
+                FROM information_object_i18n t
+                WHERE t.id = io.id AND t.title = :title
+              )
+            ORDER BY io.id ASC;
+        ';
+
+        $candidateIds = QubitPdo::fetchAll($sqlCandidate, [
+            ':identifier' => $identifier,
+            ':title' => $title,
+        ], ['fetchMode' => PDO::FETCH_COLUMN]);
+
+        if (empty($candidateIds)) {
+            return [];
+        }
+
+        // 2) No repo filter: return all candidate ids (identifier + title), ordered by id ASC.
+        //    Culture-agnostic; caller decides how to handle zero/one/many.
+        if (null === $repoName) {
+            return array_map('intval', $candidateIds);
+        }
+
+        // 3) Find the nearest inherited repository starting from the candidate ids and
+        //    match the repository name in any culture.
+        //
+        // Repository inheritance via recursive CTE:
+        // - hierarchy CTE: Anchored at the set of candidates (CTE `candidates`). For each
+        //   original_id, propagate the first non-NULL repository_id encountered into
+        //   effective_repo_id and move up the tree via parent_id until either a repo is found
+        //   or we reach the root.
+        // - resolved CTE: For each original_id, pick the nearest ancestor with a non-NULL
+        //   effective_repo_id using ROW_NUMBER() ordered by depth DESC.
+        //
+        // Culture handling for repository name:
+        // - Join actor_i18n without a culture constraint and compare the provided
+        //   authorized_form_of_name across any available translation.
+        $sqlRepo = '
+            WITH RECURSIVE candidates AS (
+                SELECT io.id, io.parent_id, io.repository_id
+                FROM information_object io
+                WHERE io.identifier = :identifier
+                  AND EXISTS (
+                    SELECT 1
+                    FROM information_object_i18n t
+                    WHERE t.id = io.id AND t.title = :title
+                  )
+            ),
+            hierarchy AS (
+                SELECT c.id AS original_id,
+                       c.parent_id,
+                       c.repository_id AS effective_repo_id,
+                       1 AS depth
+                FROM candidates c
+                UNION ALL
+                SELECT h.original_id,
+                       p.parent_id,
+                       COALESCE(h.effective_repo_id, p.repository_id) AS effective_repo_id,
+                       h.depth + 1
+                FROM hierarchy h
+                JOIN information_object p ON p.id = h.parent_id
+                WHERE h.effective_repo_id IS NULL AND h.parent_id IS NOT NULL
+            ),
+            resolved AS (
+                SELECT original_id,
+                       effective_repo_id,
+                       ROW_NUMBER() OVER (PARTITION BY original_id ORDER BY depth DESC) AS rn
+                FROM hierarchy
+                WHERE effective_repo_id IS NOT NULL
+            )
+            SELECT DISTINCT r.original_id AS id
+            FROM resolved r
+            JOIN actor_i18n ai ON ai.id = r.effective_repo_id
+            WHERE r.rn = 1
+              AND ai.authorized_form_of_name = :repoName
+            ORDER BY r.original_id ASC;
+        ';
+
+        $matches = QubitPdo::fetchAll($sqlRepo, [
+            ':identifier' => $identifier,
+            ':title' => $title,
+            ':repoName' => $repoName,
+        ], ['fetchMode' => PDO::FETCH_COLUMN]);
+
+        return array_map('intval', $matches);
     }
 
     // Publication Status

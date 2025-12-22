@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2025-09-26T19:34:48Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2025-12-03T19:56:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target>"Donnez les proportions de l’unité archivistique à décrire (...) sous la forme d’une fraction représentative (FR) exprimée par un rapport (1 : ). La mention du rapport est précédée du terme Échelle. On donnera l’échelle même si elle est déjà transcrite comme faisant partie du titre propre ou du complément du titre." (RDDA 5.3B1)</target>
+        <target>"Donnez les proportions de l'unité archivistique à décrire (...) sous la forme d'une fraction représentative (FR) exprimée par un rapport (1 : ). La mention du rapport est précédée du terme Échelle. On donnera l'échelle même si elle est déjà transcrite comme faisant partie du titre propre ou du complément du titre." (RDDA 5.3B1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of scale (cartographic)</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="52">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target>"On transcrira la mention de projection si elle apparaît dans les sources d’information prescrites." (RDDA 5.3C1)</target>
+        <target>"On transcrira la mention de projection si elle apparaît dans les sources d'information prescrites." (RDDA 5.3C1)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Statement of projection (cartographic)</source>
@@ -170,7 +170,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target>"Au niveau du fonds, de la série et du dossier, on indiquera les coordonnées maximales fournies par les documents en autant qu’elles sont contiguës." (RDDA 5.3D)</target>
+        <target>"Au niveau du fonds, de la série et du dossier, on indiquera les coordonnées maximales fournies par les documents, pour autant qu'elles sont raisonnablement contiguës." (RDDA 5.3D)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Statement of coordinates (cartographic)</source>
@@ -178,7 +178,7 @@
       </trans-unit>
       <trans-unit id="56">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target>On indiquera, en français, l’échelle de l’unité de mesure de l’unité archivistique à décrire. Si l’unité de mesure ne peut être indiquée par un équivalent en français, on transcrira, entre guillemets, celle inscrite sur l’unité archivistique à décrire." (RDDA 6.3B)</target>
+        <target>On indiquera, en français, l'échelle de l'unité de mesure de l'unité archivistique à décrire. Si l'unité de mesure ne peut être indiquée par un équivalent en français, on transcrira, entre guillemets, celle inscrite sur l'unité archivistique à décrire." (RDDA 6.3B)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Statement of scale (architectural)</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target>"Aux niveaux du fonds, de la série, et de la collection, et si nécessaire aux niveaux du dossier et de la pièce, on indiquera le niveau décrit et on donnera de l’information sur la portée, la structure interne ou classification et le contenu des documents de l’unité archivistique à décrire." (RDDA 1.7D) "L'information sur la portée d’une unité archivistique à décrire contiendra des renseignements sur les fonctions et les activités à l'origine de la création des documents, sur la période couverte par son contenu, sur le(s) sujet(s), et sur les lieux géographiques sur lesquels il porte. L'information sur le contenu d’une unité archivistique à décrire traitera de sa structure interne par la description de sa classification et de son classement, et/ou l'énumération de son niveau de description inférieur immédiat. On donnera une liste sommaire des principales formes documentaires (par exemple : rapports, procès-verbaux, correspondance, dessins, discours)." (RDDA 1.7D1)</target>
+        <target>"Aux niveaux du fonds, de la série, et de la collection, et si nécessaire aux niveaux du dossier et de la pièce, on indiquera le niveau décrit et on donnera de l'information sur la portée, la structure interne ou classification et le contenu des documents de l'unité archivistique à décrire." (RDDA 1.7D) "L'information sur la portée d'une unité archivistique à décrire contiendra des renseignements sur les fonctions et les activités à l'origine de la création des documents, sur la période couverte par son contenu, sur le(s) sujet(s), et sur les lieux géographiques sur lesquels il porte. L'information sur le contenu d'une unité archivistique à décrire traitera de sa structure interne par la description de sa classification et de son classement, et/ou l'énumération de son niveau de description inférieur immédiat. On donnera une liste sommaire des principales formes documentaires (par exemple : rapports, procès-verbaux, correspondance, dessins, discours)." (RDDA 1.7D1)</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Scope and content</source>
@@ -386,7 +386,7 @@
       </trans-unit>
       <trans-unit id="115">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>"Choisez la provenance, l'auteur et et tous les autres points d'accès non liés au sujet à partir de la description, au besoin. Tous les points d'accès doivent figurer en évidence dans la description à laquelle ils se rapportent." (RDDA 21.0B) Les valeurs de ce champ sont tirées du champ Forme autorisée du nom dans les notices d'autorité. Recherchez un nom déjà existant en saisissant les premiers caractères du nom. Sinon saisir un nouveau nom pour le créer et le lier à une nouvelle notice d'autorité.</target>
+        <target>"Choisissez la provenance, l'auteur et tous les autres points d'accès non liés au sujet à partir de la description, au besoin. Tous les points d'accès doivent figurer en évidence dans la description à laquelle ils se rapportent." (RDDA 21.0B) Les valeurs de ce champ sont tirées du champ Forme autorisée du nom dans les notices d'autorité. Recherchez un nom déjà existant en saisissant les premiers caractères du nom. Sinon saisir un nouveau nom pour le créer et le lier à une nouvelle notice d'autorité.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Control area</source>

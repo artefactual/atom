@@ -2,7 +2,7 @@
 
 /**
  * sfPropelPlugin configuration.
- * 
+ *
  * @package    sfPropelPlugin
  * @subpackage config
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
@@ -45,11 +45,6 @@ class sfPropelPluginConfiguration extends sfPluginConfiguration
 
     $this->dispatcher->connect('user.change_culture', array('sfPropel', 'listenToChangeCultureEvent'));
 
-    if (sfConfig::get('sf_web_debug'))
-    {
-      $this->dispatcher->connect('debug.web.load_panels', array('sfWebDebugPanelPropel', 'listenToAddPanelEvent'));
-    }
-
     if (sfConfig::get('sf_test'))
     {
       $this->dispatcher->connect('context.load_factories', array($this, 'clearAllInstancePools'));
@@ -58,7 +53,7 @@ class sfPropelPluginConfiguration extends sfPluginConfiguration
 
   /**
    * Clears all instance pools.
-   * 
+   *
    * This method is used to clear Propel's static instance pools between
    * requests performed in functional tests.
    */

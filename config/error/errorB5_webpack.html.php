@@ -39,7 +39,9 @@
             <a href="https://groups.google.com/g/ica-atom-users">
               discussion group.
             </a><br>
-            <a href="javascript:history.go(-1)">Back to previous page.</a>
+            <a href="#" data-action="back"
+              data-fallback-url="<?php echo url_for('@homepage'); ?>"><?php echo __('Back to previous page'); ?>
+            </a>
           </p>
         </div>
       </div>

@@ -113,7 +113,9 @@ class CsvFieldLengthValidator extends CsvBaseValidator
 
         foreach ($this->columnsFound as $columnName => $errorCount) {
             if (0 < $errorCount) {
-                $this->testData->setStatusWarn();
+                CsvValidatorResult::RESULT_WARN === $this->fieldAction[$columnName] ?
+                  $this->testData->setStatusWarn() :
+                  $this->testData->setStatusError();
                 $this->testData->addResult(sprintf("'%s' column may have invalid values.", $columnName));
             }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-09-26T19:37:14Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2025-12-03T19:59:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="32e271bec7e31df1838efd94cf39df8b980c7283" xml:space="preserve">
@@ -199,14 +199,14 @@
         <target xml:space="preserve" state="final">%1% &#x627;&#x644;&#x632;&#x64A;&#x627;&#x631;&#x627;&#x62A;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_popular.php</note>
       </trans-unit>
-      <trans-unit id="46609ae6fb26e88741bf4379c10034d5d59961fa">
+      <trans-unit id="46609ae6fb26e88741bf4379c10034d5d59961fa" xml:space="preserve">
         <source xml:space="preserve">%1%'s current password</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">%1% &#x643;&#x644;&#x645;&#x629; &#x627;&#x644;&#x633;&#x631; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x64A;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editSuccess.mod_standard.php</note>
       </trans-unit>
-      <trans-unit id="595a621ce02ef3060e316a2028107c872b4acb5f">
+      <trans-unit id="595a621ce02ef3060e316a2028107c872b4acb5f" xml:space="preserve">
         <source xml:space="preserve">%1%'s current password does not match our records</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">%1% &#x643;&#x644;&#x645;&#x629; &#x627;&#x644;&#x633;&#x631; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x64A;&#x629; &#x63A;&#x64A;&#x631; &#x645;&#x62A;&#x637;&#x627;&#x628;&#x642;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="e3d1028b31fadd55009d342064c067a627b8cbc4" xml:space="preserve">
@@ -429,6 +429,11 @@
         <target xml:space="preserve" state="final">&#x623;&#x636;&#x641;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/buttonComponent.class.php</note>
       </trans-unit>
+      <trans-unit id="c7cd998c98d24812e49666e83724f19b40a86564">
+        <source xml:space="preserve">Add accessions to clipboard</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
+      </trans-unit>
       <trans-unit id="ad2d7898a708aa8ba66717f60d65641cb3ddb9e0" xml:space="preserve">
         <source xml:space="preserve">Add alternative identifier(s)</source>
         <target xml:space="preserve" state="final">&#x627;&#x636;&#x627;&#x641;&#x629; &#x645;&#x639;&#x631;&#x641;(&#x645;&#x639;&#x631;&#x641;&#x627;&#x62A;) &#x628;&#x62F;&#x64A;&#x644;</target>
@@ -438,6 +443,11 @@
         <source xml:space="preserve">Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
         <target xml:space="preserve" state="final">&#x623;&#x636;&#x641; &#x631;&#x645;&#x632;&#x64B;&#x627; &#x623;&#x628;&#x62C;&#x62F;&#x64A;&#x64B;&#x627; &#x631;&#x642;&#x645;&#x64A;&#x64B;&#x627; &#x644;&#x62A;&#x639;&#x631;&#x64A;&#x641; &#x645;&#x633;&#x62A;&#x648;&#x62F;&#x639; OAI &#x627;&#x644;&#x645;&#x639;&#x64A;&#x651;&#x646; &#x628;&#x634;&#x643;&#x644; &#x641;&#x631;&#x64A;&#x62F; &#x641;&#x64A; &#x646;&#x637;&#x627;&#x642; &#x634;&#x628;&#x643;&#x62A;&#x647;&#x627; &#x644;&#x625;&#x646;&#x634;&#x627;&#x621; &#x645;&#x639;&#x631;&#x651;&#x641; &#x641;&#x631;&#x64A;&#x62F; &#x645;&#x62A;&#x648;&#x627;&#x641;&#x642; &#x645;&#x639; OAI &#x60C; &#x639;&#x644;&#x649; &#x633;&#x628;&#x64A;&#x644; &#x627;&#x644;&#x645;&#x62B;&#x627;&#x644; OAI: foo.org: repositorycode_10001</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="e9dc580aa5fbcb42ff8b654f2ff6d973472f70f7">
+        <source xml:space="preserve">Add archival descriptions to clipboard</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="a84d1bcde446d597125baa5356ce054d95555ca3" xml:space="preserve">
         <source xml:space="preserve">Add container links (duplicate links will be ignored)</source>
@@ -534,6 +544,16 @@
         <target state="final" xml:space="preserve">&#x623;&#x636;&#x641; &#x643;&#x627;&#x626;&#x646;&#x627;&#x62A;&#x643; &#x627;&#x644;&#x631;&#x642;&#x645;&#x64A;&#x629; &#x628;&#x633;&#x62D;&#x628; &#x648;&#x625;&#x641;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x645;&#x644;&#x641;&#x627;&#x62A; &#x627;&#x644;&#x645;&#x62D;&#x644;&#x64A;&#x629; &#x641;&#x64A; &#x627;&#x644;&#x646;&#x627;&#x641;&#x630;&#x629; &#x623;&#x62F;&#x646;&#x627;&#x647;&#x60C; &#x623;&#x648; &#x628;&#x627;&#x644;&#x646;&#x642;&#x631; &#x639;&#x644;&#x649; &#x631;&#x627;&#x628;&#x637; &#x627;&#x644;&#x62A;&#x635;&#x641;&#x62D; &#x644;&#x641;&#x62A;&#x62D; &#x645;&#x64F;&#x633;&#x62A;&#x639;&#x631;&#x636; &#x627;&#x644;&#x645;&#x644;&#x641;&#x627;&#x62A; &#x627;&#x644;&#x645;&#x62D;&#x644;&#x64A; &#x644;&#x62F;&#x64A;&#x643;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
+      <trans-unit id="317813951dbfacaaf8e2a6a1e7ceff661a3147ab">
+        <source xml:space="preserve">Added %1% items to the clipboard</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="cc8bc026f24a5101aaa97187baa4b8c741b2a96d">
+        <source xml:space="preserve">Added 1 item to the clipboard</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
+      </trans-unit>
       <trans-unit id="c0ade02f2c45f074ee5d1a1033eebbb594379450" xml:space="preserve">
         <source xml:space="preserve">Adding more files</source>
         <target state="final" xml:space="preserve">&#x625;&#x636;&#x627;&#x641;&#x629; &#x645;&#x644;&#x641;&#x627;&#x62A; &#x623;&#x62E;&#x631;&#x649;</target>
@@ -603,6 +623,11 @@
         <source xml:space="preserve">All descriptions</source>
         <target xml:space="preserve" state="final">&#x62C;&#x645;&#x64A;&#x639; &#x627;&#x644;&#x623;&#x648;&#x635;&#x627;&#x641;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="4243b52707219318327792c180d76ceccccd0b10">
+        <source xml:space="preserve">All items are already on the clipboard</source>
+        <target xml:space="preserve"/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="d2262656d78d6c79fc787ec41329007c523a4a70" xml:space="preserve">
         <source xml:space="preserve">All jobs</source>
@@ -804,9 +829,9 @@
         <target xml:space="preserve" state="final">&#x627;&#x644;&#x645;&#x635;&#x637;&#x644;&#x62D;&#x627;&#x62A; &#x627;&#x644;&#x645;&#x631;&#x62A;&#x628;&#x637;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/_fields.php</note>
       </trans-unit>
-      <trans-unit id="53d3e39ade1b019a862014f9bfff2a6e173f0ef4">
+      <trans-unit id="53d3e39ade1b019a862014f9bfff2a6e173f0ef4" xml:space="preserve">
         <source xml:space="preserve">AtoM logo</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x634;&#x639;&#x627;&#x631; AtoM</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/templates/_header.php</note>
       </trans-unit>
       <trans-unit id="5f8a32349b6b13e78f20a6c92111bd667380ecfc" xml:space="preserve">
@@ -844,14 +869,9 @@
         <target xml:space="preserve" state="final">&#x639;&#x648;&#x62F;&#x629; &#x644;&#x644;&#x635;&#x641;&#x62D;&#x629; &#x627;&#x644;&#x631;&#x626;&#x64A;&#x633;&#x64A;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/readOnlySuccess.php</note>
       </trans-unit>
-      <trans-unit id="aa98926049679386ccb311e11a2c620586b7b531" xml:space="preserve">
-        <source xml:space="preserve">Back to previous page.</source>
-        <target xml:space="preserve" state="final">&#x639;&#x648;&#x62F;&#x629; &#x644;&#x644;&#x635;&#x641;&#x62D;&#x629; &#x627;&#x644;&#x633;&#x627;&#x628;&#x642;&#x629;.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/errorSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1876e37786789aa4b7027f9a4e134181f7ee89f9">
+      <trans-unit id="1876e37786789aa4b7027f9a4e134181f7ee89f9" xml:space="preserve">
         <source xml:space="preserve">Background colour</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x648;&#x646; &#x627;&#x644;&#x62E;&#x644;&#x641;&#x64A;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/headerAction.class.php</note>
       </trans-unit>
       <trans-unit id="c8af83fb4c1ea103238bcdedb758767604d9423c" xml:space="preserve">
@@ -1054,9 +1074,9 @@
         <target state="final" xml:space="preserve">&#x639;&#x631;&#x636; &#x627;&#x644;&#x628;&#x637;&#x627;&#x642;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_viewPicker.php</note>
       </trans-unit>
-      <trans-unit id="54ab1a1a7ac7695b43ca94bdd65db5ff4872bb9b">
+      <trans-unit id="54ab1a1a7ac7695b43ca94bdd65db5ff4872bb9b" xml:space="preserve">
         <source xml:space="preserve">Change header background colour</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x63A;&#x64A;&#x64A;&#x631; &#x644;&#x648;&#x646; &#x62E;&#x644;&#x641;&#x64A;&#x629; &#x627;&#x644;&#x642;&#x633;&#x645; &#x627;&#x644;&#x639;&#x644;&#x648;&#x64A;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="3dd95831dd043b1461bcef703231ae2eecedd52f" xml:space="preserve">
@@ -1236,9 +1256,9 @@
         <target xml:space="preserve" state="final">&#x634;&#x631;&#x648;&#x637; &#x627;&#x644;&#x648;&#x635;&#x648;&#x644; &#x648;&#x627;&#x644;&#x627;&#x633;&#x62A;&#x62E;&#x62F;&#x627;&#x645;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
-      <trans-unit id="f85039fd8e49f782229c7c4e0f1b3b2a0f95e9e4">
+      <trans-unit id="f85039fd8e49f782229c7c4e0f1b3b2a0f95e9e4" xml:space="preserve">
         <source xml:space="preserve">Confirm new password</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x623;&#x643;&#x64A;&#x62F; &#x643;&#x644;&#x645;&#x629; &#x627;&#x644;&#x633;&#x631; &#x627;&#x644;&#x62C;&#x62F;&#x64A;&#x62F;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editSuccess.mod_standard.php</note>
       </trans-unit>
       <trans-unit id="4a7c565d4c4430e3bb8fa6c560125d5eb37e7c3d" xml:space="preserve">
@@ -1521,14 +1541,14 @@
         <target xml:space="preserve" state="final">&#x639;&#x631;&#x636; &#x62A;&#x633;&#x62C;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x648;&#x635;&#x641; &#x627;&#x644;&#x623;&#x631;&#x634;&#x64A;&#x641;&#x64A; &#x627;&#x644;&#x627;&#x641;&#x62A;&#x631;&#x627;&#x636;&#x64A;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="e5dc321e3ec8422bb4bd467787ea1332300b8ac4">
+      <trans-unit id="e5dc321e3ec8422bb4bd467787ea1332300b8ac4" xml:space="preserve">
         <source xml:space="preserve">Default favicon not found.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x645; &#x64A;&#x62A;&#x645; &#x627;&#x644;&#x639;&#x62B;&#x648;&#x631; &#x639;&#x644;&#x649; &#x627;&#x644;&#x631;&#x645;&#x632; &#x627;&#x644;&#x645;&#x641;&#x636;&#x644; &#x627;&#x644;&#x627;&#x641;&#x62A;&#x631;&#x627;&#x636;&#x64A;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/headerAction.class.php</note>
       </trans-unit>
-      <trans-unit id="b507167fa8662f821b6a7f84306ae2d78b545380">
+      <trans-unit id="b507167fa8662f821b6a7f84306ae2d78b545380" xml:space="preserve">
         <source xml:space="preserve">Default logo not found.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x645; &#x64A;&#x62A;&#x645; &#x627;&#x644;&#x639;&#x62B;&#x648;&#x631; &#x639;&#x644;&#x649; &#x627;&#x644;&#x634;&#x639;&#x627;&#x631; &#x627;&#x644;&#x627;&#x641;&#x62A;&#x631;&#x627;&#x636;&#x64A;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/headerAction.class.php</note>
       </trans-unit>
       <trans-unit id="1da02ea734093bf0ebea985668dfdf3587b10259" xml:space="preserve">
@@ -2376,14 +2396,14 @@
         <target xml:space="preserve" state="final">&#x627;&#x646;&#x62A;&#x627;&#x62C;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_findingAid.php</note>
       </trans-unit>
-      <trans-unit id="476bf2a66a81f62a9b7efb38647e734d1c7a788c">
+      <trans-unit id="476bf2a66a81f62a9b7efb38647e734d1c7a788c" xml:space="preserve">
         <source xml:space="preserve">Generate Finding Aid from public records</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x625;&#x646;&#x634;&#x627;&#x621; &#x648;&#x633;&#x627;&#x626;&#x644; &#x625;&#x64A;&#x62C;&#x627;&#x62F; &#x645;&#x646; &#x627;&#x644;&#x648;&#x62B;&#x627;&#x626;&#x642; &#x627;&#x644;&#x639;&#x627;&#x645;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsFindingAidForm.class.php</note>
       </trans-unit>
-      <trans-unit id="83943099c04cc659ec521820d9365f061042921d" xml:space="preserve">
-        <source xml:space="preserve">Generate archival description reports as public user</source>
-        <target xml:space="preserve" state="final">&#x627;&#x646;&#x62A;&#x627;&#x62C; &#x62A;&#x642;&#x627;&#x631;&#x64A;&#x631; &#x648;&#x635;&#x641; &#x623;&#x631;&#x634;&#x64A;&#x641;&#x64A; &#x644;&#x644;&#x627;&#x633;&#x62A;&#x62E;&#x62F;&#x627;&#x645; &#x627;&#x644;&#x639;&#x627;&#x645;</target>
+      <trans-unit id="ff97ccf0859bbfdda31069b5b532c4a6b0e132dd">
+        <source xml:space="preserve">Generate archival description reports from public records</source>
+        <target xml:space="preserve"/>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="fe30ba52b3b4d528aebf46574a8063e20b51e8d5" xml:space="preserve">
@@ -2481,9 +2501,9 @@
         <target state="final" xml:space="preserve">&#x627;&#x644;&#x627;&#x646;&#x62A;&#x642;&#x627;&#x644; &#x625;&#x644;&#x649; &#x627;&#x644;&#x645;&#x627;&#x62F;&#x629; &#x630;&#x627;&#x62A; &#x627;&#x644;&#x639;&#x644;&#x627;&#x642;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/plugins/arDominionB5Plugin/modules/jobs/templates/browseSuccess.php</note>
       </trans-unit>
-      <trans-unit id="c3c077aeb696c854a122a908eb15eab65064d7b4">
+      <trans-unit id="c3c077aeb696c854a122a908eb15eab65064d7b4" xml:space="preserve">
         <source xml:space="preserve">Google Analytics tracking ID</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x631;&#x642;&#x645; &#x627;&#x644;&#x647;&#x648;&#x64A;&#x629; &#x644;&#x627;&#x62A;&#x62A;&#x628;&#x639; &#x625;&#x62D;&#x635;&#x627;&#x626;&#x64A;&#x627;&#x62A; &#x62C;&#x648;&#x62C;&#x644;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/analyticsAction.class.php</note>
       </trans-unit>
       <trans-unit id="8fb9f922c48325ec6b1d9d2e7e07b92a98cd688b" xml:space="preserve">
@@ -2491,9 +2511,9 @@
         <target xml:space="preserve" state="final">Google API Javascript API key (&#x644;&#x639;&#x631;&#x636; &#x627;&#x644;&#x62E;&#x631;&#x627;&#x626;&#x637; &#x627;&#x644;&#x62F;&#x64A;&#x646;&#x627;&#x645;&#x64A;&#x643;&#x64A;&#x629;)</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="06c1973f88d29053095bf89ceb8aa1c3fd6610bc">
+      <trans-unit id="06c1973f88d29053095bf89ceb8aa1c3fd6610bc" xml:space="preserve">
         <source xml:space="preserve">Google analytics is currently set in the app.yml.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x645; &#x62A;&#x639;&#x64A;&#x64A;&#x646; &#x62A;&#x62D;&#x644;&#x64A;&#x644;&#x627;&#x62A; &#x62C;&#x648;&#x62C;&#x644; Google Analytics &#x62D;&#x627;&#x644;&#x64A;&#x64B;&#x627; &#x641;&#x64A; &#x645;&#x644;&#x641; app.yml.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/analyticsSuccess.php</note>
       </trans-unit>
       <trans-unit id="0524a68bbf49da748d2e1aab162bd304ba8f2d8b" xml:space="preserve">
@@ -2506,14 +2526,14 @@
         <target xml:space="preserve" state="final">&#x644;&#x62F;&#x64A;&#x643; &#x62D;&#x633;&#x627;&#x628;&#x61F;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/_userMenu.php</note>
       </trans-unit>
-      <trans-unit id="74da81ea1f43e93e6220293a89e83a38ac6db759">
+      <trans-unit id="74da81ea1f43e93e6220293a89e83a38ac6db759" xml:space="preserve">
         <source xml:space="preserve">Header customizations</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x62E;&#x635;&#x64A;&#x635;&#x627;&#x62A; &#x627;&#x644;&#x62A;&#x631;&#x648;&#x64A;&#x633;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
-      <trans-unit id="4a42d31bf9699aeccf6405846146b7cdd10a6b9e">
+      <trans-unit id="4a42d31bf9699aeccf6405846146b7cdd10a6b9e" xml:space="preserve">
         <source xml:space="preserve">Header customizations settings saved.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x645; &#x62D;&#x641;&#x638; &#x625;&#x639;&#x62F;&#x627;&#x62F;&#x627;&#x62A; &#x62A;&#x62E;&#x635;&#x64A;&#x635;&#x627;&#x62A; &#x627;&#x644;&#x62A;&#x631;&#x648;&#x64A;&#x633;&#x629;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/headerAction.class.php</note>
       </trans-unit>
       <trans-unit id="c47ae15370cfe1ed2781eedc1dc2547d12d9e972" xml:space="preserve">
@@ -3241,9 +3261,9 @@
         <target xml:space="preserve" state="final">&#x627;&#x644;&#x645;&#x62C;&#x627;&#x644; &#x627;&#x644;&#x631;&#x626;&#x64A;&#x633;&#x64A;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="efd197f3fce450112a4bdd0c3db3118a46b8002c">
+      <trans-unit id="efd197f3fce450112a4bdd0c3db3118a46b8002c" xml:space="preserve">
         <source xml:space="preserve">Main navigation</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x627;&#x644;&#x62A;&#x646;&#x642;&#x644; &#x627;&#x644;&#x631;&#x626;&#x64A;&#x633;&#x64A;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/templates/_header.php</note>
       </trans-unit>
       <trans-unit id="ff0041634809ff3c6e0ce164139cd538f87a1198" xml:space="preserve">
@@ -3611,14 +3631,14 @@
         <target xml:space="preserve" state="final">&#x645;&#x644;&#x627;&#x62D;&#x638;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
-      <trans-unit id="19781d1e35ffa4b56c2d77533fa113d14e79465e">
+      <trans-unit id="19781d1e35ffa4b56c2d77533fa113d14e79465e" xml:space="preserve">
         <source xml:space="preserve">Note that browser cache may need to be cleared after uploading a new favicon.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x627;&#x62D;&#x638; &#x623;&#x646;&#x647; &#x642;&#x62F; &#x64A;&#x644;&#x632;&#x645; &#x645;&#x633;&#x62D; &#x630;&#x627;&#x643;&#x631;&#x629; &#x627;&#x644;&#x62A;&#x62E;&#x632;&#x64A;&#x646; &#x627;&#x644;&#x645;&#x624;&#x642;&#x62A; &#x644;&#x644;&#x645;&#x62A;&#x635;&#x641;&#x62D; &#x628;&#x639;&#x62F; &#x62A;&#x62D;&#x645;&#x64A;&#x644; &#x631;&#x645;&#x632; &#x645;&#x641;&#x636;&#x644; &#x62C;&#x62F;&#x64A;&#x62F;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
-      <trans-unit id="ac20b9ed086261468a3da599da1eb2393480586c">
+      <trans-unit id="ac20b9ed086261468a3da599da1eb2393480586c" xml:space="preserve">
         <source xml:space="preserve">Note that browser cache may need to be cleared after uploading a new logo.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x627;&#x62D;&#x638; &#x623;&#x646;&#x647; &#x642;&#x62F; &#x64A;&#x644;&#x632;&#x645; &#x645;&#x633;&#x62D; &#x630;&#x627;&#x643;&#x631;&#x629; &#x627;&#x644;&#x62A;&#x62E;&#x632;&#x64A;&#x646; &#x627;&#x644;&#x645;&#x624;&#x642;&#x62A; &#x644;&#x644;&#x645;&#x62A;&#x635;&#x641;&#x62D; &#x628;&#x639;&#x62F; &#x62A;&#x62D;&#x645;&#x64A;&#x644; &#x634;&#x639;&#x627;&#x631; &#x62C;&#x62F;&#x64A;&#x62F;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="a6228fc361c1fe8d8fbdc7fa3b247c876fd5ecb8" xml:space="preserve">
@@ -4011,9 +4031,9 @@
         <target xml:space="preserve" state="final">&#x64A;&#x631;&#x62C;&#x649; &#x645;&#x633;&#x62D; &#x630;&#x627;&#x643;&#x631;&#x629; &#x627;&#x644;&#x62A;&#x62E;&#x632;&#x64A;&#x646; &#x627;&#x644;&#x645;&#x624;&#x642;&#x62A; &#x644;&#x644;&#x62A;&#x637;&#x628;&#x64A;&#x642; &#x648;&#x625;&#x639;&#x627;&#x62F;&#x629; &#x625;&#x646;&#x634;&#x627;&#x621; &#x641;&#x647;&#x631;&#x633; &#x627;&#x644;&#x628;&#x62D;&#x62B; &#x625;&#x630;&#x627; &#x643;&#x646;&#x62A; &#x62A;&#x642;&#x648;&#x645; &#x628;&#x62A;&#x63A;&#x64A;&#x64A;&#x631; &#x625;&#x639;&#x62F;&#x627;&#x62F; &#x641;&#x648;&#x627;&#x635;&#x644; &#x627;&#x644;&#x631;&#x645;&#x632; &#x627;&#x644;&#x645;&#x631;&#x62C;&#x639;&#x64A;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
-      <trans-unit id="e3a20e3db7c385a6396740ed9ff105ac954713bb">
+      <trans-unit id="e3a20e3db7c385a6396740ed9ff105ac954713bb" xml:space="preserve">
         <source xml:space="preserve">Please clear the cache and restart PHP-FPM after adding tracking ID.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x64A;&#x631;&#x62C;&#x649; &#x645;&#x633;&#x62D; &#x630;&#x627;&#x643;&#x631;&#x629; &#x627;&#x644;&#x62A;&#x62E;&#x632;&#x64A;&#x646; &#x627;&#x644;&#x645;&#x624;&#x642;&#x62A; &#x648;&#x625;&#x639;&#x627;&#x62F;&#x629; &#x62A;&#x634;&#x63A;&#x64A;&#x644; PHP-FPM &#x628;&#x639;&#x62F; &#x625;&#x636;&#x627;&#x641;&#x629; &#x645;&#x639;&#x631;&#x641; &#x627;&#x644;&#x62A;&#x62A;&#x628;&#x639;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/analyticsSuccess.php</note>
       </trans-unit>
       <trans-unit id="b865b30453389cd32fa6d7553cb6059b528c59fe" xml:space="preserve">
@@ -4501,14 +4521,14 @@
         <target state="final" xml:space="preserve">&#x625;&#x639;&#x627;&#x62F;&#x629; &#x62A;&#x639;&#x64A;&#x64A;&#x646; &#x627;&#x644;&#x628;&#x62D;&#x62B;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/moveSuccess.php</note>
       </trans-unit>
-      <trans-unit id="70f27f591a759dc8a686ab8906731fe563bcf45b">
+      <trans-unit id="70f27f591a759dc8a686ab8906731fe563bcf45b" xml:space="preserve">
         <source xml:space="preserve">Restore favicon</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x627;&#x633;&#x62A;&#x639;&#x627;&#x62F;&#x629; &#x627;&#x644;&#x631;&#x645;&#x632; &#x627;&#x644;&#x645;&#x641;&#x636;&#x644;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1aebdac37222f847fe5573f559eaf818a7173d05">
+      <trans-unit id="1aebdac37222f847fe5573f559eaf818a7173d05" xml:space="preserve">
         <source xml:space="preserve">Restore logo</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x627;&#x633;&#x62A;&#x639;&#x627;&#x62F;&#x629; &#x627;&#x644;&#x634;&#x639;&#x627;&#x631;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="5de586111229c2b8cc98041889974bf6e62d0bc5" xml:space="preserve">
@@ -4976,9 +4996,9 @@
         <target xml:space="preserve" state="final">&#x62A;&#x62E;&#x637;&#x64A; &#x627;&#x644;&#x62A;&#x633;&#x62C;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x645;&#x62A;&#x637;&#x627;&#x628;&#x642;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
-      <trans-unit id="be504f616fd1d37b2a0143949516a1f34b40e9cf">
+      <trans-unit id="be504f616fd1d37b2a0143949516a1f34b40e9cf" xml:space="preserve">
         <source xml:space="preserve">Skip to main content</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x627;&#x646;&#x62A;&#x642;&#x644; &#x625;&#x644;&#x649; &#x627;&#x644;&#x645;&#x62D;&#x62A;&#x648;&#x649; &#x627;&#x644;&#x631;&#x626;&#x64A;&#x633;&#x64A;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/templates/_header.php</note>
       </trans-unit>
       <trans-unit id="513f6616664a74321951cef60a869d014487a51f" xml:space="preserve">
@@ -5326,9 +5346,9 @@
         <target xml:space="preserve" state="final">&#x64A;&#x637;&#x644;&#x628; &#x645;&#x646; &#x627;&#x644;&#x642;&#x64A;&#x645; &#x627;&#x644;&#x62A;&#x637;&#x628;&#x64A;&#x642; &#x627;&#x644;&#x642;&#x64A;&#x645; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x64A;&#x629; &#x644;&#x644;&#x639;&#x645;&#x644; &#x628;&#x634;&#x643;&#x644; &#x635;&#x62D;&#x64A;&#x62D;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1309b7df06ebc414b48c54ec0af510ed53b5c363">
+      <trans-unit id="1309b7df06ebc414b48c54ec0af510ed53b5c363" xml:space="preserve">
         <source xml:space="preserve">The favicon file must be in ICO file format.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x64A;&#x62C;&#x628; &#x623;&#x646; &#x64A;&#x643;&#x648;&#x646; &#x645;&#x644;&#x641; favicon &#x628;&#x62A;&#x646;&#x633;&#x64A;&#x642; &#x645;&#x644;&#x641; ICO.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="6ea0bc329663e95978fef17039c5131cd07da44e" xml:space="preserve">
@@ -5341,9 +5361,9 @@
         <target state="final" xml:space="preserve">&#x62A;&#x639;&#x630;&#x651;&#x631; &#x625;&#x646;&#x634;&#x627;&#x621; &#x627;&#x644;&#x645;&#x648;&#x627;&#x62F; &#x627;&#x644;&#x62A;&#x627;&#x644;&#x64A;&#x629;:</target>
         <note>https://github.com/artefactual/atom/blob/master/plugins/arDominionB5Plugin/modules/sfIsaarPlugin/templates/_event.php</note>
       </trans-unit>
-      <trans-unit id="367992df825b198f1e003402edc6d35b42a2b663">
+      <trans-unit id="367992df825b198f1e003402edc6d35b42a2b663" xml:space="preserve">
         <source xml:space="preserve">The logo file must be in &#x201C;Portable Network Graphics&#x201D; (PNG) format and the maximum height recommendation for a logo is 50px.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x64A;&#x62C;&#x628; &#x623;&#x646; &#x64A;&#x643;&#x648;&#x646; &#x645;&#x644;&#x641; &#x627;&#x644;&#x634;&#x639;&#x627;&#x631; &#x628;&#x62A;&#x646;&#x633;&#x64A;&#x642; "&#x631;&#x633;&#x648;&#x645;&#x627;&#x62A; &#x627;&#x644;&#x634;&#x628;&#x643;&#x629; &#x627;&#x644;&#x645;&#x62D;&#x645;&#x648;&#x644;&#x629;" (PNG) &#x648;&#x64A;&#x62C;&#x628; &#x623;&#x646; &#x64A;&#x643;&#x648;&#x646; &#x627;&#x644;&#x62D;&#x62F; &#x627;&#x644;&#x623;&#x642;&#x635;&#x649; &#x644;&#x627;&#x631;&#x62A;&#x641;&#x627;&#x639; &#x627;&#x644;&#x634;&#x639;&#x627;&#x631; &#x627;&#x644;&#x645;&#x648;&#x635;&#x649; &#x628;&#x647; &#x647;&#x648; 50 &#x628;&#x643;&#x633;&#x644;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="f19ac75efc1ab54cf37d987d1f0c343148ae36bf" xml:space="preserve">
@@ -5566,9 +5586,9 @@
         <target xml:space="preserve" state="final">&#x644;&#x62A;&#x62D;&#x645;&#x64A;&#x644; %1% &#x62C;&#x62F;&#x64A;&#x62F;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1ec0b00d7e4a7ebd7e91c21e91a99ece12fa858a">
+      <trans-unit id="1ec0b00d7e4a7ebd7e91c21e91a99ece12fa858a" xml:space="preserve">
         <source xml:space="preserve">Toggle navigation</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x641;&#x62A;&#x62D;/&#x63A;&#x644;&#x642; &#x627;&#x644;&#x642;&#x627;&#x626;&#x645;&#x629;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/templates/_header.php</note>
       </trans-unit>
       <trans-unit id="cae0435c41e816c24f0838fdf4e76c044c8b4e00" xml:space="preserve">
@@ -5746,9 +5766,9 @@
         <target state="final" xml:space="preserve">&#x641;&#x634;&#x644; &#x627;&#x644;&#x62A;&#x62D;&#x645;&#x64A;&#x644;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
-      <trans-unit id="a11f3968e726804ff0e7234c8a1a8e4410d86162">
+      <trans-unit id="a11f3968e726804ff0e7234c8a1a8e4410d86162" xml:space="preserve">
         <source xml:space="preserve">Upload favicon</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x62D;&#x645;&#x64A;&#x644; &#x627;&#x644;&#x631;&#x645;&#x632; &#x627;&#x644;&#x645;&#x641;&#x636;&#x644;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="15ec5b7b53bb5062f13ed531ae1cd10d7468cfcd" xml:space="preserve">
@@ -5776,9 +5796,9 @@
         <target state="final" xml:space="preserve">&#x62A;&#x645; &#x627;&#x644;&#x648;&#x635;&#x648;&#x644; &#x625;&#x644;&#x649; &#x62D;&#x62F; &#x627;&#x644;&#x62A;&#x62D;&#x645;&#x64A;&#x644; &#x627;&#x644;&#x628;&#x627;&#x644;&#x63A; &#x200E;%{maxPostSize}&#x200E; &#x645;&#x64A;&#x63A;&#x627; &#x628;&#x627;&#x64A;&#x62A;. &#x644;&#x627; &#x64A;&#x645;&#x643;&#x646; &#x625;&#x636;&#x627;&#x641;&#x629; &#x645;&#x644;&#x641;&#x627;&#x62A; &#x625;&#x636;&#x627;&#x641;&#x64A;&#x629;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
-      <trans-unit id="a564e951ed29cd11801dbf45b6fd48be85f20eb2">
+      <trans-unit id="a564e951ed29cd11801dbf45b6fd48be85f20eb2" xml:space="preserve">
         <source xml:space="preserve">Upload logo</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x62D;&#x645;&#x64A;&#x644; &#x627;&#x644;&#x634;&#x639;&#x627;&#x631;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/headerSuccess.php</note>
       </trans-unit>
       <trans-unit id="6a60d27f2abe69321fe9c28e5eccc297da33b099" xml:space="preserve">
@@ -6011,21 +6031,23 @@
         <target state="final" xml:space="preserve">&#x62A;&#x645; &#x62A;&#x648;&#x62C;&#x64A;&#x647;&#x643; &#x625;&#x644;&#x649; &#x627;&#x644;&#x635;&#x641;&#x62D;&#x629; &#x627;&#x644;&#x623;&#x648;&#x644;&#x649; &#x645;&#x646; &#x627;&#x644;&#x646;&#x62A;&#x627;&#x626;&#x62C;. &#x648;&#x644;&#x62A;&#x62C;&#x646;&#x628; &#x627;&#x633;&#x62A;&#x647;&#x644;&#x627;&#x643; &#x643;&#x645;&#x64A;&#x627;&#x62A; &#x643;&#x628;&#x64A;&#x631;&#x629; &#x645;&#x646; &#x627;&#x644;&#x630;&#x627;&#x643;&#x631;&#x629;&#x60C; &#x64A;&#x64F;&#x62D;&#x650;&#x62F; &#x646;&#x638;&#x627;&#x645; AtoM &#x62A;&#x631;&#x642;&#x64A;&#x645; &#x627;&#x644;&#x635;&#x641;&#x62D;&#x627;&#x62A; &#x625;&#x644;&#x649; %1% &#x62A;&#x633;&#x62C;&#x64A;&#x644;&#x629;. &#x644;&#x639;&#x631;&#x636; &#x627;&#x644;&#x62A;&#x633;&#x62C;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x623;&#x62E;&#x64A;&#x631;&#x629; &#x641;&#x64A; &#x645;&#x62C;&#x645;&#x648;&#x639;&#x629; &#x627;&#x644;&#x646;&#x62A;&#x627;&#x626;&#x62C; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x64A;&#x629;&#x60C; &#x62D;&#x627;&#x648;&#x644; &#x62A;&#x63A;&#x64A;&#x64A;&#x631; &#x627;&#x62A;&#x62C;&#x627;&#x647; &#x627;&#x644;&#x641;&#x631;&#x632; (&#x627;&#x644;&#x62A;&#x635;&#x641;&#x64A;&#x629;).</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/taxonomy/actions/indexAction.class.php</note>
       </trans-unit>
-      <trans-unit id="7eb11aa4671b293ee2dd366e4f340d6952572f59">
+      <trans-unit id="7eb11aa4671b293ee2dd366e4f340d6952572f59" xml:space="preserve">
         <source xml:space="preserve">Web analytics</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x62D;&#x644;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x648;&#x64A;&#x628;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
-      <trans-unit id="3601e7580900a557ad39e4292b1524c8ce5884d0">
+      <trans-unit id="3601e7580900a557ad39e4292b1524c8ce5884d0" xml:space="preserve">
         <source xml:space="preserve">Web analytics settings saved.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x62A;&#x645; &#x62D;&#x641;&#x638; &#x625;&#x639;&#x62F;&#x627;&#x62F;&#x627;&#x62A; &#x62A;&#x62D;&#x644;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x648;&#x64A;&#x628;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/analyticsAction.class.php</note>
       </trans-unit>
-      <trans-unit id="fc76985e1c645b88a8a276f9784f22e1d4a4baa7">
+      <trans-unit id="fc76985e1c645b88a8a276f9784f22e1d4a4baa7" xml:space="preserve">
         <source xml:space="preserve">When disabled: Finding Aid links are not displayed, Finding Aid generation is
 disabled, and the 'Advanced Search &gt; Finding Aid' filter is hidden
 </source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x639;&#x646;&#x62F; &#x627;&#x644;&#x62A;&#x639;&#x637;&#x64A;&#x644; &#x644;&#x627; &#x64A;&#x62A;&#x645; &#x639;&#x631;&#x636; &#x648;&#x633;&#x627;&#x626;&#x644; &#x627;&#x644;&#x625;&#x64A;&#x62C;&#x627;&#x62F; &#x648;&#x64A;&#x62A;&#x645; &#x62A;&#x639;&#x637;&#x64A;&#x644; &#x625;&#x646;&#x634;&#x627;&#x621;&#x647;&#x627;
+&#x648;&#x645;&#x62D;&#x62F;&#x62F;&#x627;&#x62A; &#x627;&#x644;&#x62A;&#x635;&#x641;&#x64A;&#x629; &#x641;&#x64A; &#x645;&#x62D;&#x631;&#x643; &#x627;&#x644;&#x628;&#x62D;&#x62B; &gt; &#x62A;&#x643;&#x648;&#x646; &#x645;&#x62E;&#x641;&#x64A;&#x629;
+</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsFindingAidForm.class.php</note>
       </trans-unit>
       <trans-unit id="40d418bc31781a74944b309e740c43c749195d10" xml:space="preserve">
@@ -6058,11 +6080,13 @@ disabled, and the 'Advanced Search &gt; Finding Aid' filter is hidden
         <target xml:space="preserve" state="final">&#x639;&#x646;&#x62F; &#x627;&#x644;&#x62A;&#x639;&#x64A;&#x64A;&#x646; &#x639;&#x644;&#x649;&amp;quot;&#x646;&#x639;&#x645;&amp;quot;&#x60C; &#x633;&#x64A;&#x62A;&#x645; &#x628;&#x646;&#x627;&#x621; &#x633;&#x644;&#x633;&#x644;&#x629; &#x627;&#x644;&#x631;&#x645;&#x632; &#x627;&#x644;&#x645;&#x631;&#x62C;&#x639;&#x628; &#x628;&#x627;&#x633;&#x62A;&#x62E;&#x62F;&#x627;&#x645; &#x645;&#x639;&#x631;&#x641; &#x643;&#x627;&#x626;&#x646; &#x627;&#x644;&#x645;&#x639;&#x644;&#x648;&#x645;&#x627;&#x62A; &#x628;&#x627;&#x644;&#x625;&#x636;&#x627;&#x641;&#x629; &#x625;&#x644;&#x649; &#x645;&#x639;&#x631;&#x641;&#x627;&#x62A; &#x62C;&#x645;&#x64A;&#x639; &#x623;&#x633;&#x644;&#x627;&#x641;&#x647;&#x627;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="3c4b89f7b90ce8619d7c3567c8a5b5b5d3966105">
+      <trans-unit id="3c4b89f7b90ce8619d7c3567c8a5b5b5d3966105" xml:space="preserve">
         <source xml:space="preserve">When set to 'yes' generated Finding Aids will exclude unpublished records and
 hidden elements
 </source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x639;&#x646;&#x62F;&#x645;&#x627; &#x62A;&#x636;&#x63A;&#x637; &#x646;&#x639;&#x645; &#x639;&#x644;&#x649; &#x625;&#x646;&#x634;&#x627;&#x621; &#x648;&#x633;&#x627;&#x626;&#x644; &#x627;&#x644;&#x625;&#x64A;&#x62C;&#x627;&#x62F; &#x633;&#x648;&#x641; &#x62A;&#x62A;&#x636;&#x645;&#x646; &#x627;&#x644;&#x62A;&#x633;&#x62C;&#x64A;&#x644;&#x627;&#x62A; &#x627;&#x644;&#x63A;&#x64A;&#x631; &#x645;&#x646;&#x634;&#x648;&#x631;&#x629; &#x648;
+&#x627;&#x644;&#x639;&#x646;&#x627;&#x635;&#x631; &#x627;&#x644;&#x645;&#x62E;&#x641;&#x64A;&#x629;
+</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsFindingAidForm.class.php</note>
       </trans-unit>
       <trans-unit id="27f5b3961867d8deedb691b8ed7f9ec07878b706" xml:space="preserve">
@@ -6105,9 +6129,9 @@ hidden elements
         <target xml:space="preserve" state="final">&#x646;&#x639;&#x645;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="75b2f87e288fbec167e5f726893c4a53d7babc7c">
+      <trans-unit id="75b2f87e288fbec167e5f726893c4a53d7babc7c" xml:space="preserve">
         <source xml:space="preserve">You are not allowed to export this entity type.</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x644;&#x627; &#x64A;&#x64F;&#x633;&#x645;&#x62D; &#x644;&#x643; &#x628;&#x62A;&#x635;&#x62F;&#x64A;&#x631; &#x647;&#x630;&#x627; &#x627;&#x644;&#x646;&#x648;&#x639; &#x645;&#x646; &#x627;&#x644;&#x643;&#x64A;&#x627;&#x646;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/clipboard/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="eed3e4f531667474ddcdc4d60a3cd06255e86513" xml:space="preserve">
@@ -6160,9 +6184,9 @@ hidden elements
         <target xml:space="preserve" state="final">&#x645;&#x62A;&#x635;&#x641;&#x62D;&#x643; &#x644;&#x627; &#x64A;&#x62F;&#x639;&#x645; &#x62C;&#x627;&#x641;&#x627; &#x633;&#x643;&#x631;&#x64A;&#x628;&#x62A;. &#x627;&#x646;&#x638;&#x631; %1% &#x627;&#x644;&#x62D;&#x62F; &#x627;&#x644;&#x623;&#x62F;&#x646;&#x649; &#x645;&#x646; &#x627;&#x644;&#x645;&#x62A;&#x637;&#x644;&#x628;&#x627;&#x62A; %2%.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
-      <trans-unit id="b4b52614d933dc2b2a05937b1ba2cbef1bc48fc2">
+      <trans-unit id="b4b52614d933dc2b2a05937b1ba2cbef1bc48fc2" xml:space="preserve">
         <source xml:space="preserve">Your current password is required to confirm your identity before making changes to this user's account</source>
-        <target xml:space="preserve"/>
+        <target xml:space="preserve" state="final">&#x643;&#x644;&#x645;&#x629; &#x627;&#x644;&#x645;&#x631;&#x648;&#x631; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x64A;&#x629; &#x645;&#x637;&#x644;&#x648;&#x628;&#x629; &#x644;&#x62A;&#x623;&#x643;&#x64A;&#x62F; &#x647;&#x648;&#x64A;&#x62A;&#x643; &#x642;&#x628;&#x644; &#x625;&#x62C;&#x631;&#x627;&#x621; &#x623;&#x64A; &#x62A;&#x63A;&#x64A;&#x64A;&#x631;&#x627;&#x62A; &#x639;&#x644;&#x649; &#x62D;&#x633;&#x627;&#x628; &#x647;&#x630;&#x627; &#x627;&#x644;&#x645;&#x633;&#x62A;&#x62E;&#x62F;&#x645;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editSuccess.mod_standard.php</note>
       </trans-unit>
       <trans-unit id="7c6ebbcaa294e78319d052103c0780f99d305c52" xml:space="preserve">

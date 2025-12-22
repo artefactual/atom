@@ -56,8 +56,8 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
         $maxResultWindow = 10000;
         $indexConfig = self::$config['index']['configuration'];
 
-        if (!empty($indexConfig['index.max_result_window'])) {
-            $maxResultWindow = (int) $indexConfig['index.max_result_window'];
+        if (!empty($indexConfig['settings']['max_result_window'])) {
+            $maxResultWindow = (int) $indexConfig['settings']['max_result_window'];
         }
 
         return $maxResultWindow;
