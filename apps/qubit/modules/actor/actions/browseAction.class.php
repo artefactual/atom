@@ -455,7 +455,7 @@ class ActorBrowseAction extends DefaultBrowseAction
         // Filter by whether or not an actor has a digital object attached
         if (isset($this->request->hasDigitalObject)) {
             $queryField = new \Elastica\Query\Term();
-            $queryField->setTerm('hasDigitalObject', $this->request->hasDigitalObject);
+            $queryField->setTerm('hasDigitalObject', filter_var($this->request->hasDigitalObject, FILTER_VALIDATE_BOOLEAN));
             $this->search->queryBool->addMust($queryField);
         }
 
