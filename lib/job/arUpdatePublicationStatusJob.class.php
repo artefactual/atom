@@ -29,6 +29,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
     protected $extraRequiredParameters = [
         'objectId',
         'publicationStatusId',
+        'updateDescendants',
     ];
 
     public function runJob($parameters)
@@ -66,6 +67,23 @@ class arUpdatePublicationStatusJob extends arBaseJob
             ':lft' => $resource->lft,
             ':rgt' => $resource->rgt,
         ];
+
+        if ($parameters['updateDescendants']) {
+            $sql2 = 'UPDATE object o
+                JOIN information_object io ON o.id = io.id
+                SET o.updated_at = :updated_at
+                WHERE io.lft > :lft
+                AND io.rgt < :rgt';
+
+            QubitPdo::modify(
+                $sql2,
+                [
+                    ':updated_at' => date('Y-m-d H:i:s'),
+                    ':lft' => $resource->lft,
+                    ':rgt' => $resource->rgt,
+                ]
+            );
+        }
 
         $descriptionsUpdated = QubitPdo::modify(
             $sql,
