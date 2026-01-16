@@ -179,38 +179,27 @@ EOF;
             return;
         }
 
-        $lftParams = [];
-        $rgtParams = [];
-        $idParams = [];
+        $lftCases = [];
+        $rgtCases = [];
+        $ids = [];
 
         foreach ($this->pendingUpdates as $node) {
-            // WHEN id THEN lft
-            $lftParams[] = $node['id'];
-            $lftParams[] = $node['lft'];
-
-            // WHEN id THEN rgt
-            $rgtParams[] = $node['id'];
-            $rgtParams[] = $node['rgt'];
-
-            $idParams[] = $node['id'];
+            $lftCases[] = sprintf('WHEN %d THEN %d', $node['id'], $node['lft']);
+            $rgtCases[] = sprintf('WHEN %d THEN %d', $node['id'], $node['rgt']);
+            $ids[] = $node['id'];
         }
-
-        $numUpdates = count($this->pendingUpdates);
-
-        $casePlaceholders = implode(' ', array_fill(0, $numUpdates, 'WHEN ? THEN ?'));
-        $idPlaceholders = implode(',', array_fill(0, $numUpdates, '?'));
 
         $sql = sprintf(
             'UPDATE %s SET %s = CASE id %s END, %s = CASE id %s END WHERE id IN (%s);',
             $classname::TABLE_NAME,
             $classname::LFT,
-            $casePlaceholders,  // <- $lftParams maps to these
+            implode(' ', $lftCases),
             $classname::RGT,
-            $casePlaceholders,  // <- $rgtParams maps to these
-            $idPlaceholders,  // <- $idParams maps to these
+            implode(' ', $rgtCases),
+            implode(',', $ids),
         );
 
-        QubitPdo::modify($sql, [...$lftParams, ...$rgtParams, ...$idParams]);
+        QubitPdo::modify($sql, []);
 
         $this->pendingUpdates = [];
     }
