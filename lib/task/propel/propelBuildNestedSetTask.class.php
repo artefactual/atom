@@ -73,11 +73,10 @@ class propelBuildNestedSetTask extends arBaseTask
 
             // Build hash of child rows keyed on parent_id
             foreach ($this->conn->query($sql, PDO::FETCH_ASSOC) as $item) {
-                if (isset($this->children[$item['parent_id']])) {
-                    array_push($this->children[$item['parent_id']], $item['id']);
-                } else {
-                    $this->children[$item['parent_id']] = [$item['id']];
+                if (!isset($this->children[$item['parent_id']])) {
+                    $this->children[$item['parent_id']] = [];
                 }
+                $this->children[$item['parent_id']][] = $item['id'];
             }
 
             $rootNode = [
