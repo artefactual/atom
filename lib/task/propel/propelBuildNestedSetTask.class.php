@@ -199,7 +199,7 @@ EOF;
             implode(',', $ids),
         );
 
-        QubitPdo::modify($sql, []);
+        $this->conn->exec($sql);
 
         $this->pendingUpdates = [];
     }
