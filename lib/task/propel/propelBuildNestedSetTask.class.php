@@ -26,6 +26,8 @@ class propelBuildNestedSetTask extends arBaseTask
 {
     private $children;
     private $conn;
+    private $pendingUpdates = [];
+    private $batchSize = 64;
 
     /**
      * @see sfTask
@@ -86,6 +88,7 @@ class propelBuildNestedSetTask extends arBaseTask
 
             try {
                 self::recursivelyUpdateTree($rootNode, $classname);
+                $this->flushUpdates($classname);
             } catch (PDOException $e) {
                 $this->conn->rollback();
 
@@ -153,20 +156,64 @@ EOF;
 
         $node['rgt'] = $node['lft'] + $width - 1;
 
-        $sql = 'UPDATE '.$classname::TABLE_NAME;
-        $sql .= ' SET lft = '.$node['lft'];
-        $sql .= ', rgt = '.$node['rgt'];
-        $sql .= ' WHERE id = '.$node['id'].';';
+        $this->pendingUpdates[] = $node;
 
-        $this->conn->exec($sql);
+        if (count($this->pendingUpdates) >= $this->batchSize) {
+            $this->flushUpdates($classname);
+        }
 
-        if ($options['index']) {
-            if ($node['id'] != $classname::ROOT_ID) {
-                $this->reindexLft($classname, $node['id'], $node['lft']);
-            }
+        if ($this->options['index'] && $node['id'] != $classname::ROOT_ID) {
+            $this->reindexLft($classname, $node['id'], $node['lft']);
         }
 
         return $width;
+    }
+
+    /**
+     * Write all pending updates to the database.
+     *
+     * @param mixed $classname The object type for which the nested set update is taking place
+     */
+    protected function flushUpdates($classname)
+    {
+        if (empty($this->pendingUpdates)) {
+            return;
+        }
+
+        $lftParams = [];
+        $rgtParams = [];
+        $idParams = [];
+
+        foreach ($this->pendingUpdates as $node) {
+            // WHEN id THEN lft
+            $lftParams[] = $node['id'];
+            $lftParams[] = $node['lft'];
+
+            // WHEN id THEN rgt
+            $rgtParams[] = $node['id'];
+            $rgtParams[] = $node['rgt'];
+
+            $idParams[] = $node['id'];
+        }
+
+        $numUpdates = count($this->pendingUpdates);
+
+        $casePlaceholders = implode(' ', array_fill(0, $numUpdates, 'WHEN ? THEN ?'));
+        $idPlaceholders = implode(',', array_fill(0, $numUpdates, '?'));
+
+        $sql = sprintf(
+            'UPDATE %s SET %s = CASE id %s END, %s = CASE id %s END WHERE id IN (%s);',
+            $classname::TABLE_NAME,
+            $classname::LFT,
+            $casePlaceholders,  // <- $lftParams maps to these
+            $classname::RGT,
+            $casePlaceholders,  // <- $rgtParams maps to these
+            $idPlaceholders,  // <- $idParams maps to these
+        );
+
+        QubitPdo::modify($sql, [...$lftParams, ...$rgtParams, ...$idParams]);
+
+        $this->pendingUpdates = [];
     }
 
     protected function reindexLft(string $classname, int $id, int $lft)
