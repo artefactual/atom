@@ -231,11 +231,13 @@ class arGenerateReportJob extends arBaseJob
                 $creationDates[] = $item->getDate(['cultureFallback' => true]);
             }
 
-            // Write reference code, container name, title, creation dates
             foreach ($informationObject->getPhysicalObjects() as $item) {
                 $results[] = [
                     'referenceCode' => $informationObject->referenceCode,
-                    'physicalObjectName' => $item->__toString(),
+                    'physicalObjectName' => $item->getName(['cultureFallback' => true]),
+                    'physicalObjectSlug' => $item->slug,
+                    'physicalObjectType' => $item->getType(['cultureFallback' => true]),
+                    'physicalObjectLocation' => $item->getLocation(['cultureFallback' => true]),
                     'title' => $informationObject->__toString(),
                     'creationDates' => implode('|', $creationDates),
                 ];
