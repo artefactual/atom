@@ -4,6 +4,8 @@ function QubitAclDialog(dialogId, tableTemplate, $) {
   this.label = $("a#" + dialogId + "Link").text();
 
   // Create YUI container for dialog
+  // Ignoring prettier since we prefer this code block to be indented
+  // prettier-ignore
   this.wrapper = $(
     '<div class="yui-skin-sam">' +
       '<div id="' +
