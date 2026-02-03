@@ -7,16 +7,16 @@ function QubitAclDialog(dialogId, tableTemplate, $) {
   this.wrapper = $(
     '<div class="yui-skin-sam">' +
       '<div id="' +
-      dialogId +
+        dialogId +
       'Wrapper">' +
-      '<div class="hd">' +
-      this.label +
+        '<div class="hd">' +
+          this.label +
+        "</div>" +
+        '<div class="bd">' +
+          '<form action="" method="post" style="border: none"></form>' +
+        "</div>" +
       "</div>" +
-      '<div class="bd">' +
-      '<form action="" method="post" style="border: none"></form>' +
-      "</div>" +
-      "</div>" +
-      "</div>"
+    "</div>"
   );
 
   $("#" + dialogId)
