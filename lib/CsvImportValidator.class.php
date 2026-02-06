@@ -152,7 +152,7 @@ class CsvImportValidator
             // Iterate csv rows, calling each test/row.
             foreach ($this->rows as $row) {
                 if ($this->showDisplayProgress) {
-                    echo $this->renderProgressDescription();
+                    $this->renderProgressDescription();
                 }
 
                 $this->validatorCollection->testRow($this->header, $row);
@@ -167,7 +167,7 @@ class CsvImportValidator
         }
 
         if ($this->showDisplayProgress) {
-            echo $this->renderProgressDescription(true);
+            $this->renderProgressDescription(true);
         }
 
         return $this->resultCollection;
@@ -365,13 +365,51 @@ class CsvImportValidator
 
     public function renderProgressDescription(bool $complete = false)
     {
-        $output = '.';
+        // Periodic single-line summaries to STDERR; final summary to STDOUT when complete.
+        static $startTime = null;
+        static $lastLogTime = null;
+        static $processedCount = 0;
 
         if ($complete) {
-            return "\nAnalysis complete.\n";
+            if (null === $startTime) {
+                return ''; // Nothing processed
+            }
+
+            $totalDuration = microtime(true) - $startTime;
+            $finalRate = $processedCount / max($totalDuration, 1e-9);
+            echo sprintf(
+                "\rProcessed %d rows total in %.2fs (%.1f/s)\n",
+                $processedCount,
+                $totalDuration,
+                $finalRate
+            );
+
+            // Reset for potential reuse; no stdout/stderr output
+            $startTime = null;
+            $lastLogTime = null;
+            $processedCount = 0;
+
+            return '';
         }
 
-        return $output;
+        if (null === $startTime) {
+            $startTime = microtime(true);
+            $lastLogTime = $startTime;
+        }
+
+        ++$processedCount;
+
+        $now = microtime(true);
+        if ($now - $lastLogTime >= 5) {
+            // Ensure elapsed is never zero (avoid div by zero in rate calc below)
+            $elapsed = max($now - $startTime, 1e-9);
+            $rate = $processedCount / $elapsed;
+            fwrite(STDERR, sprintf("\rProcessed %d rows (%.1f/s)", $processedCount, $rate));
+            fflush(STDERR);
+            $lastLogTime = $now;
+        }
+
+        return '';
     }
 
     protected function getLongestRow(): int
