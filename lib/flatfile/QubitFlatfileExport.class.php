@@ -529,6 +529,10 @@ class QubitFlatfileExport
     {
         if (!isset($this->currentFileHandle)) {
             $this->currentFileHandle = fopen($filePath, 'a');
+
+            if (false === $this->currentFileHandle) {
+                throw new sfException("Failed to open the file at the path '{$filePath}'");
+            }
         }
 
         fputcsv($this->currentFileHandle, $row);
