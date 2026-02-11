@@ -127,17 +127,11 @@ EOF;
                 rename($file, $move_destination);
             }
 
-            if (!$options['verbose']) {
-                echo '.';
-            }
-
             if ($importer->hasErrors()) {
                 foreach ($importer->getErrors() as $message) {
                     $this->log('('.$file.'): '.$message);
                 }
             }
-
-            echo '.';
 
             // Try to free up memory
             unset($importer);
@@ -176,7 +170,16 @@ EOF;
             QubitSearch::getInstance()->optimize();
         }
 
-        $this->log("\nImported ".$count.' XML/CSV files in '.$timer->elapsed().' s. '.memory_get_peak_usage().' bytes used.');
+        if (!empty($options['verbose'])) {
+            $elapsed = $timer->elapsed();
+            $peakMb = round(memory_get_peak_usage() / 1048576, 2);
+            $this->log(sprintf(
+                'Imported %d XML/CSV files in %.2fs, peak %.2f MB',
+                $count,
+                $elapsed,
+                $peakMb
+            ));
+        }
     }
 
     protected function dir_tree($dir)

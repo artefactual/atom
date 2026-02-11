@@ -175,7 +175,7 @@ class QubitCsvImport
         }
 
         // Warnings
-        $this->errors = $output;
+        $this->errors = isset($output) ? $output : [];
 
         return $this;
     }
