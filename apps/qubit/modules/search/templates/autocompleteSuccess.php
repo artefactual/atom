@@ -134,6 +134,39 @@
   <?php $addDivider = true; ?>
 <?php } ?>
 
+<?php if ($genres->getTotalHits() > 0) { ?>
+  <?php if ($addDivider) { ?>
+    <li><hr class="dropdown-divider"></li>
+  <?php } ?>
+  <li>
+    <h6 class="dropdown-header">
+      <i class="fas fa-lg fa-tag me-2" aria-hidden="true"></i>
+      <?php echo sfConfig::get('app_ui_label_genre'); ?>
+    </h6>
+  </li>
+  <?php foreach ($genres->getResults() as $hit) { ?>
+    <?php $doc = $hit->getData(); ?>
+    <li>
+      <?php echo link_to(
+          render_title(get_search_i18n($doc, 'name')),
+          ['module' => 'term', 'slug' => $doc['slug']],
+          ['class' => 'dropdown-item text-wrap']
+      ); ?>
+    </li>
+  <?php } ?>
+  <?php if ($genres->getTotalHits() > 3) { ?>
+    <li>
+      <?php echo link_to(
+          __('all matching places'),
+          ['module' => 'taxonomy', 'action' => 'index', 'slug' => 'places', 'subqueryField' => 'allLabels']
+              + $sf_data->getRaw('allMatchingParams'),
+          ['class' => 'dropdown-item text-wrap text-muted fst-italic']
+      ); ?>
+    </li>
+  <?php } ?>
+  <?php $addDivider = true; ?>
+<?php } ?>
+
 <?php if ($subjects->getTotalHits() > 0) { ?>
   <?php if ($addDivider) { ?>
     <li><hr class="dropdown-divider"></li>

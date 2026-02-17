@@ -71,6 +71,12 @@ class SearchAutocompleteAction extends sfAction
                 'fields' => ['slug', sprintf('i18n.%s.name', $culture)],
                 'term_filter' => ['taxonomyId' => QubitTaxonomy::SUBJECT_ID],
             ],
+            [
+                'type' => 'QubitTerm',
+                'field' => sprintf('i18n.%s.name', $culture),
+                'fields' => ['slug', sprintf('i18n.%s.name', $culture)],
+                'term_filter' => ['taxonomyId' => QubitTaxonomy::GENRE_ID],
+            ],
         ];
 
         // Wrapper to access ElasticSearch indices
@@ -121,6 +127,7 @@ class SearchAutocompleteAction extends sfAction
         $this->actors = $resultSets[2];
         $this->places = $resultSets[3];
         $this->subjects = $resultSets[4];
+        $this->genres = $resultSets[5];
 
         // Return a blank response if there are no results
         if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->places->getTotalHits() + $this->subjects->getTotalHits()) {
