@@ -165,7 +165,7 @@
       switch (type) {
         case "actor":
         case "repository":
-        case 'accession':
+        case "accession":
           url += type;
 
           break;
