@@ -49,6 +49,7 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
                     $options = [
                         'objectId' => $this->resource->id,
                         'publicationStatusId' => $publicationStatusId,
+                        'updateDescendants' => true,
                     ];
 
                     QubitJob::runJob('arUpdatePublicationStatusJob', $options);

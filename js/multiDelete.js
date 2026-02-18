@@ -1,11 +1,11 @@
-(function($) {
+(function ($) {
   /**
    * On page load, replace "multiDelete" checkboxes with delete icons
    */
   Drupal.behaviors.multiDelete = {
-    attach: function(context) {
+    attach: function (context) {
       $(".multiDelete", context)
-        .after(function() {
+        .after(function () {
           var $input = $(this);
 
           // Prevent a delete button from being added twice if the attach code is ran
@@ -16,7 +16,7 @@
           $input.data("deleteButtonAdded", true);
 
           return $('<button class="delete-small" type="button"/>').click(
-            function(event) {
+            function (event) {
               event.stopPropagation();
 
               $input.attr("checked", "checked");
@@ -33,7 +33,7 @@
 
                 .wrapInner('<div class="animateNicely"/>');
 
-              $("div:visible", $parentRows).hide("normal", function() {
+              $("div:visible", $parentRows).hide("normal", function () {
                 $parentRows.hide();
               });
             }
@@ -45,6 +45,6 @@
         // with hide()) if $('.multiDelete').lenght is zero
         .filter("input")
         .hide();
-    }
+    },
   };
 })(jQuery);

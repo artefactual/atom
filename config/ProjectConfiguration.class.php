@@ -50,7 +50,8 @@ class ProjectConfiguration extends sfProjectConfiguration
 
         // Check if the OIDC plugin should be enabled.
         $filePath = 'activate-oidc-plugin';
-        if (file_exists($filePath) && 0 === filesize($filePath)) {
+        $activateOidcEnv = filter_var(getenv('ATOM_ACTIVATE_OIDC_PLUGIN'), FILTER_VALIDATE_BOOLEAN);
+        if ((file_exists($filePath) && 0 === filesize($filePath)) || $activateOidcEnv) {
             $plugins[] = 'arOidcPlugin';
         }
 

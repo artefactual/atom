@@ -371,7 +371,8 @@ import Tooltip from "bootstrap/js/dist/tooltip";
      * @returns {boolean} true if the item was added, false otherwise
      */
     addItem(slug, type) {
-      this.items = JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
+      this.items =
+        JSON.parse(this.storage.getItem("clipboard")) || this.initialItems;
 
       if (!this.items[type]) {
         return false;
@@ -389,7 +390,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
       // Check to see if there's a button that should be updated
       const button = document.querySelector(
         `button[data-clipboard-slug='${slug}'][data-clipboard-type='${type}']`
-      )
+      );
 
       if (null !== button) {
         // Convert button to a jQuery element
@@ -418,7 +419,13 @@ import Tooltip from "bootstrap/js/dist/tooltip";
      *    the clipboard
      * @returns {void}
      */
-    bulkAddItems(slugs, type, singleAddedMessage, pluralAddedMessage, alreadyAddedMessage) {
+    bulkAddItems(
+      slugs,
+      type,
+      singleAddedMessage,
+      pluralAddedMessage,
+      alreadyAddedMessage
+    ) {
       if (!slugs) {
         return;
       }
@@ -433,12 +440,13 @@ import Tooltip from "bootstrap/js/dist/tooltip";
 
       if (numAdded === 0) {
         this.showAlert(alreadyAddedMessage, "alert-warning");
-      }
-      else if (numAdded === 1) {
+      } else if (numAdded === 1) {
         this.showAlert(singleAddedMessage, "alert-success");
-      }
-      else {
-        this.showAlert(pluralAddedMessage.replace("%1%", numAdded), "alert-success");
+      } else {
+        this.showAlert(
+          pluralAddedMessage.replace("%1%", numAdded),
+          "alert-success"
+        );
       }
     }
 
@@ -661,8 +669,7 @@ import Tooltip from "bootstrap/js/dist/tooltip";
     var $clipboard = $("#clipboard-menu");
     if ($clipboard.length) {
       window.atomClipboard = new Clipboard($clipboard);
-    }
-    else {
+    } else {
       window.atomClipboard = null;
     }
   });

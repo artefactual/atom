@@ -1,7 +1,7 @@
 (function ($) {
   Drupal.behaviors.autocomplete = {
     attach: function (context) {
-      $('form:has(select.form-autocomplete)', context).each(function () {
+      $("form:has(select.form-autocomplete)", context).each(function () {
         // Share <form/> with nested scopes
         var $form = $(this);
 
@@ -16,7 +16,7 @@
           }
 
           return this;
-        }
+        };
 
         // Remove an item from the array, by value
         relatedResourceForms.remove = function (item) {
@@ -27,7 +27,7 @@
           }
 
           return this;
-        }
+        };
 
         function done($relatedResourceForm) {
           // Remove $relatedResourceForm from stack
@@ -68,11 +68,11 @@
         ) {
           // If relatedResourceForm has already been created for this $inputUser,
           // return it
-          if ($inputUser.data('relatedResourceForm')) {
+          if ($inputUser.data("relatedResourceForm")) {
             // Make sure the related form is in the relatedResourceForms list
-            relatedResourceForms.add($inputUser.data('relatedResourceForm'));
+            relatedResourceForms.add($inputUser.data("relatedResourceForm"));
 
-            return $inputUser.data('relatedResourceForm');
+            return $inputUser.data("relatedResourceForm");
           }
 
           // Otherwise create a new iframe and load the web page (iframeSrc) that
@@ -110,14 +110,11 @@
           rrFormInputId
         ) {
           // Add hidden <iframe/>
-          var $iframe = $('<iframe/>')
-            .width(0)
-            .height(0)
-            .css('border', 0);
+          var $iframe = $("<iframe/>").width(0).height(0).css("border", 0);
 
           // Wait until iframe contents have loaded so $input and $relatedResourceForm
           // selectors work
-          $iframe.one('load', function () {
+          $iframe.one("load", function () {
             // Get iframe > form > input for setting the new resource label
             var $input = $iframe.contents().find(rrFormInputId);
 
@@ -129,12 +126,12 @@
             var submitCallback = function () {
               // After iframe form is submitted, wait for HTTP response to trigger
               // "load" event
-              $iframe.one('load', function () {
+              $iframe.one("load", function () {
                 // Add the resulting page URI (e.g. "/newSubjectName") of the
                 // response to the $inputHidden element
                 $inputHidden
                   .val(this.contentWindow.document.location)
-                  .trigger('change');
+                  .trigger("change");
 
                 // Submit $form when all relatedResourceForms have returned and
                 // $inputHidden has been updated with the new URI
@@ -145,23 +142,23 @@
               $input.val($inputUser.val());
 
               $relatedResourceForm.submit();
-            }
+            };
 
             // Add $relatedResourceForm to stack of forms to be submitted
             relatedResourceForms.add($relatedResourceForm);
 
             // Bind submit handler to fire on first form submit
-            $relatedResourceForm.one('submit', submitCallback);
+            $relatedResourceForm.one("submit", submitCallback);
 
             // Store a link from this input to the relatedResourceForm
-            $inputUser.data('relatedResourceForm', $relatedResourceForm);
+            $inputUser.data("relatedResourceForm", $relatedResourceForm);
           });
 
           // Set iframe source to load page *after* defining onload handler
-          $iframe.attr('src', iframeSrc);
+          $iframe.attr("src", iframeSrc);
 
           // Add $iframe to bottom of HTML DOM
-          $iframe.appendTo('body');
+          $iframe.appendTo("body");
 
           return $relatedResourceForm;
         }
@@ -172,10 +169,14 @@
           return submitRelatedResourceForms();
         });
 
-        $('select.form-autocomplete', this).each(createYuiDiv);
+        $("select.form-autocomplete", this).each(createYuiDiv);
 
         // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
-        $(document).on('loadFunctions', 'select.form-autocomplete', createYuiDiv);
+        $(document).on(
+          "loadFunctions",
+          "select.form-autocomplete",
+          createYuiDiv
+        );
 
         // This function help us to know if a .multiple select has
         // already a given value and highlight it if wished
@@ -186,17 +187,18 @@
 
           $listitems.each(function (i) {
             var $li = $(this);
-            var text = $li.find('span').text() || $li.find('input[type=text]').val();
+            var text =
+              $li.find("span").text() || $li.find("input[type=text]").val();
 
             if (val === text.trim().toLowerCase()) {
               found = true;
 
-              if (opts.hasOwnProperty('highlight') || opts.highlight === true) {
-                var $span = $('span', this);
+              if (opts.hasOwnProperty("highlight") || opts.highlight === true) {
+                var $span = $("span", this);
                 if ($span) {
-                  $span.css('background', 'yellow');
+                  $span.css("background", "yellow");
                   setTimeout(function () {
-                    $span.css('background', 'none');
+                    $span.css("background", "none");
                   }, 1000);
                 }
               }
@@ -211,7 +213,11 @@
 
         function addMultiSelectItem($select, $ul, data) {
           // Only if not found we are adding a new item to the list
-          if (multipleSelectHasMatches($ul.children('li'), data[0], { highlight: true })) {
+          if (
+            multipleSelectHasMatches($ul.children("li"), data[0], {
+              highlight: true,
+            })
+          ) {
             return;
           }
 
@@ -223,38 +229,39 @@
           // one root <element/>, but not, I suspect, for
           // strings with multiple root <element/>s or text
           // outside the root <element/>
-          var $li = $('<li title="Remove item">')
-            .click(function () {
-              // On click, remove <li/>
-              $(this).hide('fast', function () {
-                $(this).remove();
+          var $li = $('<li title="Remove item">').click(function () {
+            // On click, remove <li/>
+            $(this).hide("fast", function () {
+              $(this).remove();
 
-                // Toggle <ul/> based on children length
-                // jQuery.toggle() expects a boolean parameter
-                $ul.toggle(!!$ul.children().length);
-              });
-
-              // Remove relatedResourceForm from stack
-              relatedResourceForms.remove($input.data('relatedResourceForm'));
+              // Toggle <ul/> based on children length
+              // jQuery.toggle() expects a boolean parameter
+              $ul.toggle(!!$ul.children().length);
             });
+
+            // Remove relatedResourceForm from stack
+            relatedResourceForms.remove($input.data("relatedResourceForm"));
+          });
 
           $li.appendTo($ul);
 
           // Use hidden input to store and POST URI of related resource
-          var $hidden = $('<input name="' + $select.attr('name') + '" type="hidden" />');
+          var $hidden = $(
+            '<input name="' + $select.attr("name") + '" type="hidden" />'
+          );
 
           if (data[1]) {
             // If an existing resource was selected from the YUI autocomplete
             // $select then data[0] is the resource name, and data[1] is the URI
-            $hidden.val(data[1]);  // Hidden URI
-            $('<span>' + data[0] + '</span>').appendTo($li); // User-friendly label
+            $hidden.val(data[1]); // Hidden URI
+            $("<span>" + data[0] + "</span>").appendTo($li); // User-friendly label
           } else {
             // If a new "unmatched" value was entered in the YUI autocomplete,
             // then data[0] will be the string entered by the user
 
             // Clear hidden <input /> value, it will be set from the iframe
             // response
-            $hidden.val('')
+            $hidden.val("");
 
             // Make a new visible <input/> to display the user entered string
             var $input = $('<input type="text" class="yui-ac-input" />');
@@ -267,26 +274,28 @@
                 var $this = $(this);
                 var val = $(this).val();
                 if (multipleSelectHasMatches($li.siblings(), val)) {
-                  val = '';
+                  val = "";
                 }
 
                 // if text is empty, remove <li/> and cancel addition of
                 // new choice
                 if (!val) {
-                  $li.hide('fast', function () {
+                  $li.hide("fast", function () {
                     $(this).remove();
                   });
 
                   // Remove relatedResourceForm from stack
-                  relatedResourceForms.remove($input.data('relatedResourceForm'));
+                  relatedResourceForms.remove(
+                    $input.data("relatedResourceForm")
+                  );
                 }
               })
 
-              .click((function (event) {
+              .click(function (event) {
                 // Prevent parent <li /> click event from firing and removing
                 // the element
                 event.stopPropagation();
-              }))
+              })
 
               .appendTo($li);
           }
@@ -294,7 +303,7 @@
           $hidden.appendTo($li);
 
           // Reveal the <ul />
-          $ul.show()
+          $ul.show();
 
           return $li;
         }
@@ -306,29 +315,43 @@
 
           // Make autocomplete <input/>, copy @class from <select/>, copy @id from <select/>
           // so <label for="..."/> is correct, and copy aria-describedby and disabled attribute.
-          var $input = $('<input type="text" class="' + $select.attr('class') + '" id="' + $select.attr('id') + '"/>');
+          var $input = $(
+            '<input type="text" class="' +
+              $select.attr("class") +
+              '" id="' +
+              $select.attr("id") +
+              '"/>'
+          );
 
-          if ($select.attr('aria-describedby')) {
-            $input.attr('aria-describedby', $select.attr('aria-describedby'))
+          if ($select.attr("aria-describedby")) {
+            $input.attr("aria-describedby", $select.attr("aria-describedby"));
           }
 
-          if ($select.attr('disabled')) {
-            $input.attr('disabled', $select.attr('disabled'))
+          if ($select.attr("disabled")) {
+            $input.attr("disabled", $select.attr("disabled"));
           }
 
           $input.insertAfter(this);
 
-          if ($(this).attr('multiple')) {
+          if ($(this).attr("multiple")) {
             // If multiple <select/>, make <ul/> of selected <option/>s
-            var $ul = $('<ul/>').hide().insertAfter(this);
+            var $ul = $("<ul/>").hide().insertAfter(this);
 
-            $('option:selected', this).each(function () {
+            $("option:selected", this).each(function () {
               // Make <li/> of hidden <input/> with <option/> value, and
               // <span/> with <option/> HTML contents
-              $('<li title="Remove item"><input name="' + $select.attr('name') + '" type="hidden" value="' + $(this).val() + '"/><span>' + $(this).html() + '</span></li>')
+              $(
+                '<li title="Remove item"><input name="' +
+                  $select.attr("name") +
+                  '" type="hidden" value="' +
+                  $(this).val() +
+                  '"/><span>' +
+                  $(this).html() +
+                  "</span></li>"
+              )
                 .click(function () {
                   // On click, remove <li/> and hide <ul/> if has not siblings
-                  $(this).hide('fast', function () {
+                  $(this).hide("fast", function () {
                     $(this).remove();
 
                     // Toggle <ul/> based on children length
@@ -338,24 +361,29 @@
                 })
                 .appendTo($ul.show());
             });
-          }
-          else {
+          } else {
             // If single <select/>, make one hidden <input/> with
             // <option/> value,
             // TODO Upgrade to jQuery 1.4.3,
             // http://dev.jquery.com/ticket/5163
-            var $hidden = $('<input name="' + $(this).attr('name') + '" type="hidden" value="' + ($(this).val() ? $(this).val() : '') + '"/>').insertAfter(this);
+            var $hidden = $(
+              '<input name="' +
+                $(this).attr("name") +
+                '" type="hidden" value="' +
+                ($(this).val() ? $(this).val() : "") +
+                '"/>'
+            ).insertAfter(this);
 
             $input
 
               // Copy <option/> value to autocomplete <input/>
-              .val($('option:selected', this).text())
+              .val($("option:selected", this).text())
 
               // Give user chance to remove a selection, in case the text
               // field is completely removed, hidden value is cleared.
               .change(function () {
                 if (!$input.val().length) {
-                  $hidden.val('').trigger('change');
+                  $hidden.val("").trigger("change");
                 }
               });
           }
@@ -365,12 +393,12 @@
           // the specified URI
           //
           // NOTE: $('~ .list', this) stopped working in jQuery 1.4.4
-          var value = $(this).siblings('.list').val();
+          var value = $(this).siblings(".list").val();
           if (value) {
             var uri, rrFormInputId;
 
             // Split into URI and selector like jQuery load()
-            [uri, rrFormInputId] = value.split(' ', 2);
+            [uri, rrFormInputId] = value.split(" ", 2);
 
             var dataSource = new YAHOO.util.XHRDataSource(uri);
 
@@ -386,26 +414,28 @@
             // skip isArray(fields) check
             dataSource.parseHTMLTableData = function (request, response) {
               var results = [];
-              $('tbody tr', response).each(function () {
+              $("tbody tr", response).each(function () {
                 // For each item, select HTML contents and @href of
                 // <a/> in first cell
-                results.push([$('td a', this).html(), $('td a', this).attr('href')]);
+                results.push([
+                  $("td a", this).html(),
+                  $("td a", this).attr("href"),
+                ]);
               });
 
               // Storing the results so we can use them later
-              $select.data('xhrResults', results);
+              $select.data("xhrResults", results);
 
               return { results: results };
             };
-          }
-          else {
+          } else {
             // Otherwise add each enabled <option/> to static list of
             // items
             var dataSource = new YAHOO.util.LocalDataSource();
 
             // :enabled removed, it is broken in Chrome, see issue 2348
             // See also http://bugs.jquery.com/ticket/11872
-            $('option', this).each(function () {
+            $("option", this).each(function () {
               if ($(this).val()) {
                 // For each item, select HTML contents and value of
                 // <option/>
@@ -426,9 +456,13 @@
           var event;
           $input.keydown(function () {
             event = arguments[0];
-          })
+          });
 
-          var autoComplete = new YAHOO.widget.AutoComplete($input[0], $('<div/>').insertAfter(this)[0], dataSource);
+          var autoComplete = new YAHOO.widget.AutoComplete(
+            $input[0],
+            $("<div/>").insertAfter(this)[0],
+            dataSource
+          );
 
           // Display up to 20 results in the container
           autoComplete.maxResultsDisplayed = 20;
@@ -440,43 +474,62 @@
           // Give user chance to type something, one second may still
           // be too little,
           // http://developer.yahoo.com/yui/autocomplete/#delay
-          autoComplete.queryDelay = parseFloat($select.data('autocomplete-delay')) || 1;
+          autoComplete.queryDelay =
+            parseFloat($select.data("autocomplete-delay")) || 1;
 
           // Add other fields from the form to the autocomplete request
-          if ($(this).attr('name') == 'relatedAuthorityRecord[subType]') {
+          if ($(this).attr("name") == "relatedAuthorityRecord[subType]") {
             autoComplete.generateRequest = function (query) {
-              var parent = $('#relatedAuthorityRecord_type').val();
+              var parent = $("#relatedAuthorityRecord_type").val();
 
-              return '&parent=' + parent + '&query=' + query;
+              return "&parent=" + parent + "&query=" + query;
             };
-          }
-          else if (($(this).attr('name') == 'parent' || $(this).attr('name') == 'relatedTerms[]') && $(this).siblings('.list').val().indexOf('/term/autocomplete') != -1) {
+          } else if (
+            ($(this).attr("name") == "parent" ||
+              $(this).attr("name") == "relatedTerms[]") &&
+            $(this).siblings(".list").val().indexOf("/term/autocomplete") != -1
+          ) {
             autoComplete.generateRequest = function (query) {
-              var taxonomy = $('input[name=taxonomy]').val();
+              var taxonomy = $("input[name=taxonomy]").val();
 
-              return '?taxonomy=' + taxonomy + '&query=' + query;
+              return "?taxonomy=" + taxonomy + "&query=" + query;
             };
-          }
-          else if ($(this).attr('name') == 'converseTerm' && $(this).siblings('.list').val().indexOf('/term/autocomplete') != -1) {
+          } else if (
+            $(this).attr("name") == "converseTerm" &&
+            $(this).siblings(".list").val().indexOf("/term/autocomplete") != -1
+          ) {
             autoComplete.generateRequest = function (query) {
-              var taxonomy = $('input[name=taxonomy]').val();
-              var parent = $('input[name=parent]').val();
+              var taxonomy = $("input[name=taxonomy]").val();
+              var parent = $("input[name=parent]").val();
 
-              return '?taxonomy=' + taxonomy + '&parent=' + parent + '&query=' + query;
+              return (
+                "?taxonomy=" +
+                taxonomy +
+                "&parent=" +
+                parent +
+                "&query=" +
+                query
+              );
             };
-          }
-          else if ($(this).attr('name') == 'collection' && $(this).closest('section.advanced-search').length) {
+          } else if (
+            $(this).attr("name") == "collection" &&
+            $(this).closest("section.advanced-search").length
+          ) {
             autoComplete.generateRequest = function (query) {
-              var repository = $('section.advanced-search select[name=repos]').val();
+              var repository = $(
+                "section.advanced-search select[name=repos]"
+              ).val();
 
-              return '&repository=' + repository + '&query=' + query;
+              return "&repository=" + repository + "&query=" + query;
             };
           }
           // Alternatively use try/catch?
-          else if ('undefined' !== typeof dataSource.liveData.indexOf
-            && -1 != dataSource.liveData.indexOf('?')) {
+          else if (
+            "undefined" !== typeof dataSource.liveData.indexOf &&
+            -1 != dataSource.liveData.indexOf("?")
+          ) {
             autoComplete.generateRequest = function (query) {
-              return '&query=' + query;
+              return "&query=" + query;
             };
           }
 
@@ -489,11 +542,11 @@
           autoComplete.dataRequestEvent.subscribe(function () {
             var thisId = ++id;
 
-            $input.addClass('throbbing');
+            $input.addClass("throbbing");
 
             autoComplete.dataReturnEvent.subscribe(function () {
               if (id == thisId) {
-                $input.removeClass('throbbing');
+                $input.removeClass("throbbing");
               }
             });
           });
@@ -505,7 +558,7 @@
           // Callback function used when itemSelectEvent is fired but also
           // used when textboxBlurEvent under certain circumstances
           var selectItem = function (data) {
-            if ($select.attr('multiple')) {
+            if ($select.attr("multiple")) {
               // Cancel default action of saved DOM event so as not
               // to loose focus when selecting multiple items
               if (event) {
@@ -517,16 +570,15 @@
               // Select autocomplete <input/> contents so typing will
               // replace it
               $input.select();
-            }
-            else {
+            } else {
               // On single <select/> item select, simply update the
               // value of this input
-              $hidden.val(data[1]).trigger('change');
+              $hidden.val(data[1]).trigger("change");
 
               // Trigger event to load item data if it's needed
               $input.trigger({
-                type: 'itemSelected',
-                itemValue: $hidden.attr('value')
+                type: "itemSelected",
+                itemValue: $hidden.attr("value"),
               });
             }
 
@@ -535,23 +587,27 @@
             //
             // Use XML() constructor as with multiple <select/>, but
             // use toString() to get text of parsed HTML
-            if (data[0].indexOf('<b>') >= 0 && data[0].indexOf('</b>') >= 0) {
+            if (data[0].indexOf("<b>") >= 0 && data[0].indexOf("</b>") >= 0) {
               // Remove bold tags
-              $input.val(data[0].substring(0, data[0].indexOf('<b>'))
-                + data[0].substring(data[0].indexOf('<b>') + 3, data[0].indexOf('</b>'))
-                + data[0].substring(data[0].indexOf('</b>') + 4, data[0].length));
-            }
-            else {
+              $input.val(
+                data[0].substring(0, data[0].indexOf("<b>")) +
+                  data[0].substring(
+                    data[0].indexOf("<b>") + 3,
+                    data[0].indexOf("</b>")
+                  ) +
+                  data[0].substring(data[0].indexOf("</b>") + 4, data[0].length)
+              );
+            } else {
               $input.val(data[0]);
             }
           };
 
           // Reuse autocomplete's suggested value when the user entried
           // the same text in order to avoid duplicates.
-          if (!$select.attr('multiple')) {
+          if (!$select.attr("multiple")) {
             autoComplete.textboxBlurEvent.subscribe(function () {
-              var val = $input.val().trim().toLowerCase()
-              var results = $select.data('xhrResults') || [];
+              var val = $input.val().trim().toLowerCase();
+              var results = $select.data("xhrResults") || [];
               if (val && val.length && results.length) {
                 for (var i = 0; i < results.length; i++) {
                   if (results[i][0].trim().toLowerCase() === val) {
@@ -568,9 +624,9 @@
           // blur
           //
           // TODO Don't clear if event.preventDefault() was called?
-          if ($select.attr('multiple')) {
+          if ($select.attr("multiple")) {
             autoComplete.textboxBlurEvent.subscribe(function () {
-              $input.val('');
+              $input.val("");
             });
           }
 
@@ -606,18 +662,18 @@
           // responses, and can't figure out how to get access to the
           // URI of the final response,
           // http://www.w3.org/TR/XMLHttpRequest/#notcovered
-          var $add = $(this).siblings('.add'); // $('~ .add', this) stopped working in jQuery 1.4.4
+          var $add = $(this).siblings(".add"); // $('~ .add', this) stopped working in jQuery 1.4.4
           var value = $add.val();
           if (value) {
             // Split into URI and selector like jQuery load()
             var uri, rrFormInputId;
 
-            [uri, rrFormInputId] = value.split(' ', 2);
+            [uri, rrFormInputId] = value.split(" ", 2);
 
             // Support for data-link-existing="true"
-            if ($add.data('link-existing') === true) {
+            if ($add.data("link-existing") === true) {
               // No need to care for '#', param existence nor encoding
-              uri += (uri.match(/[\?]/g) ? '&' : '?') + 'linkExisting=true';
+              uri += (uri.match(/[\?]/g) ? "&" : "?") + "linkExisting=true";
             }
 
             // The following applies to both single and multiple <select/>
@@ -625,16 +681,24 @@
               var $relatedResourceForm;
 
               // Stop throbbing
-              $input.removeClass('throbbing');
+              $input.removeClass("throbbing");
 
               if ($input.val()) {
-                if (!$select.attr('multiple')) {
+                if (!$select.attr("multiple")) {
                   // Create iframe which will be submitted to create a new
                   // related resource from the "unmatched" value
 
                   // Exclude new additions to be handled by dialog.js and arDominionB5Plugin modal.js
-                  if ($input.parents('div.yui-dialog, .atom-table-modal').length == 0) {
-                    $relatedResourceForm = getRelatedResourceForm($input, $hidden, uri, rrFormInputId);
+                  if (
+                    $input.parents("div.yui-dialog, .atom-table-modal")
+                      .length == 0
+                  ) {
+                    $relatedResourceForm = getRelatedResourceForm(
+                      $input,
+                      $hidden,
+                      uri,
+                      rrFormInputId
+                    );
                   }
                 } else {
                   // Cancel default action of saved DOM event so as
@@ -652,22 +716,21 @@
                   // Get or create form (in an iframe) to create the related
                   // resource
                   $relatedResourceForm = getRelatedResourceForm(
-                    $li.find('input[type=text]'),
-                    $li.find('input[type=hidden]'),
+                    $li.find("input[type=text]"),
+                    $li.find("input[type=hidden]"),
                     uri,
                     rrFormInputId
                   );
                 }
-              }
-              else {
-                $hidden.val('').trigger('change');
+              } else {
+                $hidden.val("").trigger("change");
 
                 // If unmatched item is empty, remove form from stack
                 relatedResourceForms.remove($relatedResourceForm);
               }
             });
 
-            if (!$select.attr('multiple')) {
+            if (!$select.attr("multiple")) {
               // Selecting existing item cancels addition of a new
               // choice
               autoComplete.itemSelectEvent.subscribe(function () {
@@ -676,20 +739,19 @@
 
                 // Trigger event to load item data if it's needed
                 $input.trigger({
-                  type: 'itemSelected',
-                  itemValue: $hidden.attr('value')
+                  type: "itemSelected",
+                  itemValue: $hidden.attr("value"),
                 });
               });
             }
-          }
-          else {
+          } else {
             // Otherwise new choices can't be added to this input,
             // http://developer.yahoo.com/yui/autocomplete/#force
 
             // Clear both autocomplete <input/> and hidden <input/>
             autoComplete.unmatchedItemSelectEvent.subscribe(function () {
-              $hidden.val('').trigger('change');
-              $input.val('');
+              $hidden.val("").trigger("change");
+              $input.val("");
             });
           }
 
@@ -697,6 +759,6 @@
           $(this).remove();
         }
       });
-    }
+    },
   };
 })(jQuery);

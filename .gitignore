@@ -50,3 +50,6 @@ cypress.env.json
 # IDE-specific files
 .vscode/
 *.code-workspace
+
+# OIDC plugin activation flag
+activate-oidc-plugin

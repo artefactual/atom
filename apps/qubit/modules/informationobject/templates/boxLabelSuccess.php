@@ -31,6 +31,10 @@
         </th><th>
           <?php echo $this->i18n->__('Physical object name'); ?>
         </th><th>
+          <?php echo $this->i18n->__('Physical object type'); ?>
+        </th><th>
+          <?php echo $this->i18n->__('Physical object location'); ?>
+        </th><th>
           <?php echo $this->i18n->__('Title'); ?>
         </th><th>
           <?php echo $this->i18n->__('Creation date(s)'); ?>
@@ -45,7 +49,11 @@
           </td><td>
             <?php echo render_value_inline($item['referenceCode']); ?>
           </td><td>
-            <?php echo render_value_inline($item['physicalObjectName']); ?>
+            <?php echo link_to(render_value_inline($item['physicalObjectName']), sfConfig::get('app_siteBaseUrl').'/'.$item['physicalObjectSlug']); ?>
+          </td><td>
+            <?php echo render_value_inline($item['physicalObjectType']); ?>
+          </td><td>
+            <?php echo render_value_inline($item['physicalObjectLocation']); ?>
           </td><td>
             <?php echo render_value_inline($item['title']); ?>
           </td><td>
