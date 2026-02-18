@@ -2,7 +2,11 @@
   <div id="content" class="d-inline-block mt-5 text-start" role="alert">
     <h1 class="h2 mb-0 p-3 border-bottom d-flex align-items-center">
       <i class="fas fa-fw fa-lg fa-exclamation-triangle me-3" aria-hidden="true"></i>
-      <?php echo __('Sorry, you do not have permission to access that page'); ?>
+      <?php if ($sf_user->isAuthenticated()) { ?>
+        <?php echo __('Sorry, you do not have permission to access that page'); ?>
+      <?php } else { ?>
+        <?php echo __('Sorry, page does not exist'); ?>
+      <?php } ?>
     </h1>
 
     <div class="p-3">
