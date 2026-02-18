@@ -1,5 +1,5 @@
 <?php if (isset($pager) && $pager->haveToPaginate()) { ?>
-<nav aria-label="<?php echo __('Page navigation'); ?>">
+<nav aria-label="<?php echo __('Page navigation'); ?>" class="d-print-none">
 
   <div class="result-count text-center mb-2">
     <?php if (0 < $pager->getNbResults()) { ?>

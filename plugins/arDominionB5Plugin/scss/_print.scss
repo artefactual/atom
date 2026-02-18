@@ -13,6 +13,11 @@ html[media="print"] {
 
     #wrapper {
       padding: 0 !important;
+
+      .row {
+        display: flex;
+        justify-content: center;
+      }
     }
 
     :root,
@@ -24,6 +29,16 @@ html[media="print"] {
       max-height: 300px !important;
     }
   }
+}
+
+#preview-message {
+  background-color: $gray-400;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media print {

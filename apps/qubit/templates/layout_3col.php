@@ -3,7 +3,7 @@
 <div id="wrapper" class="container-xxl pt-3 flex-grow-1">
   <?php echo get_partial('alerts'); ?>
   <div class="row">
-    <div id="sidebar" class="col-md-3">
+    <div id="sidebar" class="col-md-3 d-print-none">
       <?php include_slot('sidebar'); ?>
     </div>
     <div id="main-column" role="main" class="col-md-9">
