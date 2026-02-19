@@ -212,11 +212,18 @@
                 <td>
                   <?php if (
                       null !== $repository = (isset($doc['repository']))
-                          ? render_title(get_search_i18n(
-                              $doc['repository'],
-                              'authorizedFormOfName',
-                              ['allowEmpty' => false]
-                          ))
+                          ? link_to(
+                              render_title(
+                                get_search_i18n(
+                                  $doc['repository'],
+                                  'authorizedFormOfName',
+                                  ['allowEmpty' => false]
+                                )
+                              ), [
+                                  'slug' => $doc['repository']['slug'],
+                                  'module' => 'repository',
+                              ]
+                            )
                           : null
                   ) { ?>
                     <?php echo $repository; ?>
