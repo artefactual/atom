@@ -35,7 +35,7 @@
 
       <table class="table table-bordered mb-0">
         <thead>
-	  <tr>
+	        <tr>
             <th class="w-40">
               <?php echo __('Title'); ?>
             </th>
@@ -73,9 +73,15 @@
               ]); ?>
             </td>
             <td>
-              <?php if (!empty($io->repository)) { ?>
-                <?php echo link_to(render_title($io->repository->authorizedFormOfName), [
-                    'slug' => $io->repository->slug,
+              <?php if (empty($io->repository)) { ?>
+                <?php $repo = $io->getAncestor($io->parentId)->repository; ?>
+              <?php } else { ?>
+                <?php $repo = $io->repository; ?>
+              <?php } ?>
+
+              <?php if ($repo) { ?>
+                <?php echo link_to(render_title($repo->authorizedFormOfName), [
+                    'slug' => $repo->slug,
                     'module' => 'repository',
                 ]); ?>
               <?php } ?>
@@ -99,7 +105,7 @@
 
       <table class="table table-bordered mb-0">
         <thead>
-	  <tr>
+	        <tr>
             <?php if (
                 'QubitInformationObject' == $className
                 && 0 < sfConfig::get('app_multi_repository')

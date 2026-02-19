@@ -2683,6 +2683,36 @@ class QubitInformationObject extends BaseInformationObject
         return Qubit::generateIdentifierFromCounterAndMask($counterValue, sfConfig::get('app_identifier_mask', ''));
     }
 
+    /**
+     * Return the ancestor information object with the given ID.
+     *
+     * @param int $id The ancestor ID
+     *
+     * @return QubitInformationObject The ancestor information object
+     */
+    public function getAncestor($id)
+    {
+        if (null === $id) {
+            return null;
+        }
+
+        $io = QubitInformationObject::getById($id);
+
+        if (!$io) {
+            return null;
+        }
+
+        if (isset($io->repository)) {
+            return $io;
+        }
+
+        if (null === $io->parentId || $io->parentId === $io->id) {
+            return null;
+        }
+
+        return self::getAncestor($io->parentId);
+    }
+
     protected function insert($connection = null)
     {
         if (!isset($this->slug)) {
