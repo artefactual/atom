@@ -188,7 +188,6 @@ abstract class exportBulkBaseTask extends sfBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
         ]);
     }
 
@@ -233,11 +232,24 @@ abstract class exportBulkBaseTask extends sfBaseTask
         return $databaseManager->getDatabase('propel')->getConnection();
     }
 
-    protected function indicateProgress($itemsUntilUpdate)
+    protected function indicateProgress(int $processedCount = 0)
     {
-        // If progress indicator should be displayed, display it
-        if (!isset($itemsUntilUpdate) || !($itemsExported % $itemsUntilUpdate)) {
-            echo '.';
+        // Periodic single-line summaries to STDERR; keep signature for BC
+        static $startTime = null;
+        static $lastLogTime = null;
+
+        if (null === $startTime) {
+            $startTime = microtime(true);
+            $lastLogTime = $startTime;
+        }
+
+        $now = microtime(true);
+        if ($now - $lastLogTime >= 5) {
+            $elapsed = max($now - $startTime, 1e-9);
+            $rate = $processedCount / $elapsed;
+            fwrite(STDERR, sprintf("\rProcessed %d items (%.1f/s)", $processedCount, $rate));
+            fflush(STDERR);
+            $lastLogTime = $now;
         }
     }
 }

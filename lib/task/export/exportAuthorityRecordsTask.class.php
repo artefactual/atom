@@ -58,8 +58,7 @@ EOF;
 
             $writer->exportResource($actor);
 
-            $this->indicateProgress($options['items-until-update']);
-            ++$itemsExported;
+            $this->indicateProgress(++$itemsExported);
         }
 
         $this->log('');

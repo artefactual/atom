@@ -79,8 +79,7 @@ class eacExportTask extends exportBulkBaseTask
                 }
 
                 file_put_contents($filePath, $xml);
-                $this->indicateProgress($options['items-until-update']);
-                ++$itemsExported;
+                $this->indicateProgress(++$itemsExported);
             } else {
                 $this->log("{$filePath} already exists, skipping...");
             }
@@ -102,7 +101,6 @@ class eacExportTask extends exportBulkBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
             new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
         ]);
     }

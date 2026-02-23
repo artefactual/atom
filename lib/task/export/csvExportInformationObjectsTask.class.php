@@ -83,9 +83,7 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
 
             $writer->exportResource($resource);
 
-            $this->indicateProgress($options['items-until-update']);
-
-            ++$itemsExported;
+            $this->indicateProgress(++$itemsExported);
         }
 
         echo "\nExport complete (".$itemsExported." descriptions exported).\n";

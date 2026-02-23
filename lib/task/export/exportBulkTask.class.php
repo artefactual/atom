@@ -100,9 +100,9 @@ class exportBulkTask extends exportBulkBaseTask
                 throw new sfException("Cannot write to path: {$filePath}");
             }
 
-            $this->indicateProgress($options['items-until-update']);
+            $this->indicateProgress(++$itemsExported);
 
-            if (0 == $itemsExported++ % 1000) {
+            if (0 == $itemsExported % 1000) {
                 Qubit::clearClassCaches();
             }
         }
