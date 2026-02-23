@@ -57,7 +57,11 @@ EOF;
             return 1;
         }
 
-        $n = 0;
+        // Progress: periodic single-line summaries to STDERR, final summary to STDOUT
+        $startTime = microtime(true);
+        $lastLogTime = $startTime;
+        $processedCount = 0;
+
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
             $id = $row['object_id'];
             $resource = QubitInformationObject::getById($id);
@@ -72,13 +76,29 @@ EOF;
                     $this->log('Warning: got error while deleting: '.$e->getMessage());
                 }
 
-                if (0 == ++$n % 10) {
-                    echo '.';
-                    fflush(STDOUT);
+                ++$processedCount;
+                // Periodic progress to STDERR (single updating line)
+                $now = microtime(true);
+                if ($now - $lastLogTime >= 5) {
+                    $elapsed = max($now - $startTime, 1e-9);
+                    $rate = $processedCount / $elapsed;
+                    fwrite(STDERR, sprintf("\rProcessed %d items (%.1f/s)", $processedCount, $rate));
+                    fflush(STDERR);
+                    $lastLogTime = $now;
                 }
             }
         }
 
-        $this->logSection('delete-drafts', "Finished! {$n} items deleted.");
+        // Final summary to STDOUT for logs
+        $totalDuration = microtime(true) - $startTime;
+        $finalRate = $processedCount / max($totalDuration, 1e-9);
+        fwrite(STDERR, "\r");
+        fflush(STDERR);
+        $this->logSection('delete-drafts', sprintf(
+            "Deleted %d items total in %.2fs (%.1f/s)\n",
+            $processedCount,
+            $totalDuration,
+            $finalRate
+        ));
     }
 }
