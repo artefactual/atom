@@ -179,6 +179,10 @@
   ];
 
   foreach ($dacsSpecializedNotes as $name => $xmlType) {
+      if (!is_array($termData['dacsSpecializedNoteTypes']['en'])) {
+        continue;
+      }
+
       $noteTypeId = array_search($name, $termData['dacsSpecializedNoteTypes']['en']);
 
       if (0 < count($notes = $resource->getNotesByType(['noteTypeId' => $noteTypeId]))) {
