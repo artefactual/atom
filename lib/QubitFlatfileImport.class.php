@@ -1863,8 +1863,8 @@ class QubitFlatfileImport
                 if (1 < count($ids)) {
                     $msg = sprintf(
                         'Multiple matching descriptions found for row (identifier: %s, title: %s, culture: %s). Skipping record.',
-                        $this->columnExists('title') ? $this->columnValue('title') : '',
                         $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                        $this->columnExists('title') ? $this->columnValue('title') : '',
                         $this->columnExists('culture') ? $this->columnValue('culture') : ''
                     );
                     echo $this->logError($msg);
@@ -1879,8 +1879,8 @@ class QubitFlatfileImport
         if (null === $this->object && ($this->skipUnmatched || $this->roundtrip)) {
             $msg = sprintf(
                 'Unable to match row (identifier: %s, title: %s, culture: %s). Skipping record.',
-                $this->columnExists('title') ? $this->columnValue('title') : '',
                 $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                $this->columnExists('title') ? $this->columnValue('title') : '',
                 $this->columnExists('culture') ? $this->columnValue('culture') : ''
             );
 
@@ -1900,8 +1900,8 @@ class QubitFlatfileImport
             $msg = sprintf(
                 'Matching description found, %s; row (identifier: %s, title: %s, culture: %s)',
                 $this->getActionDescription(),
-                $this->columnExists('title') ? $this->columnValue('title') : '',
                 $this->columnExists('identifier') ? $this->columnValue('identifier') : '',
+                $this->columnExists('title') ? $this->columnValue('title') : '',
                 $this->columnExists('culture') ? $this->columnValue('culture') : ''
             );
 
