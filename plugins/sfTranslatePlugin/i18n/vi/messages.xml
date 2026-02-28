@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>%language% translation</source>
-        <target>%Ngôn ngữ% phiên dịch</target>
+        <target>%language% phiên dịch</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Save translation</source>

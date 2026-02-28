@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>%language% translation</source>
-        <target>%言語% 翻訳</target>
+        <target>%language% 翻訳</target>
       </trans-unit>
     </body>
   </file>
