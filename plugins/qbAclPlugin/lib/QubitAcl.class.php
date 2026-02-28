@@ -775,8 +775,12 @@ class QubitAcl
             case 'QubitFunctionObject':
             case 'QubitRightsHolder':
             case 'QubitContactInformation':
-                $hasAccess = $user->isAuthenticated() && ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID)
-                            || $user->hasGroup(QubitAclGroup::EDITOR_ID));
+                $hasAccess = QubitContactInformationAcl::isAllowed(
+                    $user,
+                    $resource,
+                    $action,
+                    $options
+                );
 
                 break;
 
