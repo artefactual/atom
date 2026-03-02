@@ -51,19 +51,11 @@ class QubitContactInformationAcl extends QubitAcl
         //
         // If the contact information is linked to either, do the permission check on the parent object instead.
 
-        $criteria = new Criteria();
-        $criteria->add(QubitRepository::ID, $resource->actorId);
-        $repository = QubitRepository::getOne($criteria);
-
-        if ($repository) {
+        if (null !== $repository = QubitRepository::getById($resource->actorId)) {
             return parent::isAllowed($user, $repository, $action, $options);
         }
 
-        $criteria = new Criteria();
-        $criteria->add(QubitActor::ID, $resource->actorId);
-        $actor = QubitActor::getOne($criteria);
-
-        if ($actor) {
+        if (null !== $actor = QubitActor::getById($resource->actorId)) {
             return parent::isAllowed($user, $actor, $action, $options);
         }
 
