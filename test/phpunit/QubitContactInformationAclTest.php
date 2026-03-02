@@ -101,7 +101,7 @@ class QubitContactInformationAclTest extends TransactionTestCase
         $resource->actorId = $actor->id;
 
         // With default ACL settings, the authenticated group has read
-        // permission. Delegating to the donor should return true.
+        // permission. Delegating to the actor should return true.
         $this->assertTrue(
             QubitContactInformationAcl::isAllowed($contextUser, $resource, 'read')
         );

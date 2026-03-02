@@ -47,7 +47,7 @@ class QubitContactInformationAcl extends QubitAcl
 
         // A contact information may be a child of a:
         // - QubitRepository
-        // - QubitActor (and it's various sub-classes, like QubitDonor)
+        // - QubitActor (and its various sub-classes, like QubitDonor)
         //
         // If the contact information is linked to either, do the permission check on the parent object instead.
 
