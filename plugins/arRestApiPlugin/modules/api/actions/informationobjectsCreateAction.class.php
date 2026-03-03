@@ -81,7 +81,15 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
         $this->io = new QubitInformationObject();
         $this->io->parentId = $parent->id;
 
+        // Enforce culture early so subsequent i18n field assignments hit correct locale
+        if (!empty($payload->culture)) {
+            $this->processField('culture', $payload->culture);
+        }
+
         foreach ($payload as $field => $value) {
+            if ('culture' === $field) {
+                continue; // already handled
+            }
             $this->processField($field, $value);
         }
 
@@ -143,6 +151,19 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
     protected function processField($field, $value)
     {
         switch ($field) {
+            case 'culture':
+                $fields = array_keys(sfCultureInfo::getInstance()->getLanguages());
+
+                // Fail on invalid value (normalizing by case when checking value validity)
+                if (false === $vocabularyIndex = array_search(strtolower($value), array_map('strtolower', $fields))) {
+                    throw new QubitApiBadRequestException(sprintf('Invalid %s: %s', $field, $value));
+                }
+
+                $culture = $fields[$vocabularyIndex];
+                $this->io->sourceCulture = $culture;
+
+                break;
+
             case 'identifier':
             case 'level_of_description_id':
             case 'title':
@@ -166,7 +187,7 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
             case 'physicalCharacteristics':
             case 'revisionHistory':
                 $field = lcfirst(sfInflector::camelize($field));
-                $this->io->{$field} = $value;
+                $this->io->__set($field, $value, ['sourceCulture' => true]);
 
                 break;
 
