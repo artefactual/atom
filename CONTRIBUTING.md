@@ -55,16 +55,348 @@ AtoM also currently uses Elasticsearch for its search index, Twitter Bootstrap
 for theming, and several other libraries. MySQL is used for data storage. We
 keep all our code in a git repository, so being comfortable with git or other
 distributed version control systems will also help you.
-There are useful resources within these guidelines.
+There are useful resources within these guidelines and in the
+[Contributors Portal](https://contributors.artefactual.com/index.html).
 
 ### Setting up your development environment
 
 * [Docker installation](https://www.accesstomemory.org/en/docs/latest/dev-manual/env/compose/#dev-env-compose)
 * [Vagrant installation](https://www.accesstomemory.org/docs/latest/dev-manual/env/vagrant/)
 
+#### Useful commands
+
+*Click on the arrow to expand the section.*
+
+For pre-commit commands, see the section on running [pre-commit checks](#submitting-a-pull-request).
+Also check out the [Developer Guidance](https://contributors.artefactual.com/guidelines.html)
+on the Contributors Portal for other userful commands and tips.
+
+<details>
+<summary><b>Loading AtoM data in Docker</b></summary> 
+You will need to customize the path to your mysqldump file in the first line.
+Also, change the charset and collation if you’re working with stable/2.5.x or
+lower (CHARACTER SET utf8 COLLATE utf8_unicode_ci).
+
+```bash
+docker cp ~/artefactual/data/sql/atom_24.sql docker-percona-1:/atom.sql && \
+docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "DROP DATABASE IF EXISTS atom;" 
+docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "CREATE DATABASE atom CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;" && \
+docker compose exec percona bash -c "mysql -h localhost -u atom -patom_12345 atom < /atom.sql" && \
+docker compose exec atom php -d memory_limit=-1 symfony tools:upgrade-sql --no-confirmation && \
+docker compose exec atom php -d memory_limit=-1 symfony search:populate
+```
+
+If you plan to use this command often, it is recommended that you turn it into a script for ease of use.
+
+</details>
+
+<details>
+<summary><b>Clearing AtoM caches</b></summary>
+
+```bash
+docker compose exec atom php symfony cc && \
+docker compose restart atom && \
+docker compose restart memcached && \
+docker compose restart atom_worker
+```
+
+</details>
+
+<details>
+<summary><b>Run symfony without a memory limit</b></summary>
+
+This script is useful for deleting a database and setting up a demo username/password.
+
+```bash
+docker compose exec atom php -d memory_limit=-1 symfony tools:purge --demo
+```
+
+You can also use the `-d memory-limit=-1` option with any command.
+
+</details>
+
+#### Debugging and troubleshooting
+These commands and scripts can help with some common issues during development.
+
+<details>
+<summary><b>If the Elasticsearch container keeps shutting down</b></summary>
+
+If your Elasticsearch container constantly shuts down within a few seconds of
+starting it, you may need to `increase vm.max_map_count` to 262144 or higher in
+your host system. More information is available
+[here](https://github.com/artefactual-labs/am/tree/master/compose#elasticsearch-container).
+
+Run
+
+```bash
+sudo sysctl -w vm.max_map_count=262144
+```
+
+before starting the ES docker container.
+
+</details>
+
+<details>
+<summary><b>Enable symfony debugging panel</b></summary>
+
+From version 2.10.1, you can run the symfony debugging panel. In atom’s root folder, open `index.php` and change (Line 5):
+
+```php
+$configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
+```
+
+to
+
+```php
+$configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'dev', false);
+```
+
+This will enable the symfony debugging panel in AtoM. Remember to change it
+back before you commit any code!
+
+Also note that changing the last parameter to 'true' enables php warnings:
+
+```php
+$configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'dev', true);
+```
+
+</details>
+Note: this debugging panel is broken between AtoM v2.8 and v2.10.1
+
+<details>
+<summary><b>AtoM PHP logger</b></summary>
+Use this to print the log messages directly into
+Docker. It's useful if you don’t already have
+logging in place.
+
+```php
+function log_docker($message, $value = "")
+{
+    if (is_string($value)) {
+        $val = $value."\\n";
+    } else {
+        $val = json_encode($value)."\\n";
+    }
+
+    if ($value != "" && $message != "") {
+        $message = $message.": ";
+    }
+
+    file_put_contents('php://stdout', ($message));
+    file_put_contents('php://stdout', ($val));
+} 
+```
+
+For logging into the qubit_prod file directly:
+
+```php
+function prodlog($message = "", $value = "")
+{
+    $logFile = "./log/qubit_prod.log";
+
+    if ($value != null) {
+        $logMessage = $message.": ";
+        if (is_string($value)) {
+            $logMessage .= $value;
+        } elseif (is_bool($value)) {
+            $logMessage .= $value ? 'true' : 'false';
+        } else {
+            $logMessage .= json_encode($value);
+        }
+    } else {
+        $logMessage =json_encode($message);
+    }
+
+    error_log("PROD LOG -- " . $logMessage . "\n", 3, $logFile);
+}
+```
+
+</details>
+
 ### Theme development
 
 [Custom theming documentation](https://www.accesstomemory.org/docs/latest/admin-manual/customization/theming/#create-a-custom-theme)
+
+Below are a number of useful code snippets that will help you add
+common customizations to a theme.
+
+*Click on the arrow to expand the section.*
+
+<details>
+<summary><b>Splash on homepage</b></summary>
+
+```html
+plugins/arXyzB5Plugin/modules/staticpage/templates/homeSuccess.php:
+<?php decorate_with('layout_homepage');
+
+plugins/arXyzB5Plugin/templates/layout_homepage.php:
+<?php echo get_partial('layout_start'); ?>
+```
+
+</details>
+
+<details>
+<summary><b>Homepage carousel</b></summary>
+
+These code snippets will help set up a homepage carousel.
+You need to include class pages. Carousels can be updated.
+
+```code
+plugins/arXyzB5Plugin/
+├── carousel
+│   ├── config.yml                                          # sets captions for each image
+│   ├── image01.jpg
+│   ├── image02.jpg
+│   └── image03.jpg
+├── js
+│   ├── carousel.js                                         # use as template
+│   └── main.js                                             # import
+└── modules
+    └── staticpage
+        ├── actions
+        │   └── homeAction.class.php                        # calls and sets $carouselItems array from /carousel directory
+        └── templates
+            └── homeSuccess.php
+```
+
+Carousel `homeaction.class.php` snippet:
+
+```php
+class StaticPageHomeAction extends StaticPageIndexAction
+{
+  public function execute($request)
+  {
+    parent::execute($request);
+
+    if (null === $this->carouselItems) {
+      $this->carouselItems = sfYaml::load('plugins/arXyzB5Plugin/carousel/config.yml');
+    }
+
+    $culture = $this->context->user->getCulture();
+    if (!in_array($culture, ['en', 'fr'])) {
+      $culture = 'en';
+    }
+    $this->culture = $culture;
+  }
+}
+```
+
+Carousel `homeSuccess.php` div snippet:
+
+```php
+ <div id="carousel" class="carousel carousel-fade slide">
+    <div class="carousel-inner">
+      <?php foreach ($carouselItems as $key => $item) { ?>
+        <div class="item<?php if (0 == $n++) echo " active" ?>">
+          <?php echo image_tag('/plugins/arXyzB5Plugin/carousel/' . $key) ?>
+          <?php if ($item['fr'] && $sf_user->getCulture() == 'fr') { ?>
+            <div class="carousel-caption">
+              <p>
+                <?php echo $item['fr'] ?>
+              </p>
+            </div>
+          <?php } else { ?>
+            <div class="carousel-caption">
+              <p>
+                <?php echo $item['en'] ?>
+              </p>
+            </div>
+          <?php } ?>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+```
+
+Carousel js snippet:
+
+```js
+(($) => {
+  "use strict";
+
+  $(() => {
+    var node = $("#carousel");
+
+    $(node)
+      .imagesLoaded()
+      .always(() => {
+        $(".carousel-inner").slick({
+          autoplay: true,
+          autoplaySpeed: 5000,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          draggable: false,
+          swipe: false,
+          arrows: true,
+          dots: false,
+        });
+})(jQuery);
+```
+To execute the custom carousel script, run the following command:
+
+`npm run build`
+
+</details>
+
+<details>
+<summary><b>Newest Additions components</b></summary>
+These snippets allow you to update the popular this week section on the homepage with a newest additions section.
+
+`modules/default/templates/_newest.php` template snippet:
+```php
+<section id="newest-additions" class="card mb-3">
+  <h2 class="h5 p-3 mb-0">
+    <?php echo __('Newest additions'); ?>
+  </h2>
+  <div class="list-group list-group-flush">
+<?php foreach ($newestAdditions as $item) { ?>
+    <?php $object = QubitObject::getById($item); ?>
+      <a
+        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-break"
+        href="<?php echo url_for([$object]); ?>">
+        <?php echo render_title(esc_entities($object->__toString())) ?>
+      </a>
+    <?php } ?>
+  </div>
+</section>
+```
+
+`modules/default/actions/newestComponent.class.php` action code snippet:
+
+```php
+class DefaultNewestComponent extends sfComponent
+{
+    private function getNewestAdditions()
+    {
+        $rootIds = array(QubitInformationObject::ROOT_ID, QubitRepository::ROOT_ID, QubitActor::ROOT_ID);
+
+        $sql = 'SELECT o.id FROM object o LEFT JOIN status s ON o.id = s.object_id WHERE o.class_name IN ("QubitInformationObject", "QubitRepository", "QubitActor") AND o.id NOT IN ( ' . implode(',', $rootIds) . ') AND s.status_id <> ? ORDER BY created_at DESC LIMIT 10';
+
+        $rows = QubitPdo::fetchAll($sql, array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
+        return array_map(function($x) { return $x->id; }, $rows);
+    }
+
+    public function execute($request)
+    {
+        $this->newestAdditions = $this->getNewestAdditions();
+
+        if (0 == count($this->newestAdditions)) {
+            return sfView::NONE;
+        }
+    }
+}
+```
+
+`modules/staticpage/templates/homeSuccess.php` homeSuccess snippet:
+
+```php
+ <?php echo get_component('default', 'newest', [
+      'limit' => 10,
+      'sf_cache_key' => $sf_user->getCulture(),
+  ]); ?>
+```
+
+</details>
 
 ## Contributing code
 
@@ -113,29 +445,43 @@ if your change requires it
 
 ### Submitting a pull request
 
-Artefactual uses [GitHub's pull request feature](https://help.github.com/articles/using-pull-requests) for code review.
-Every change being submitted to an Artefactual project should be submitted as a pull request
-to the appropriate repository, and the appropriate branch - in general, to the
-latest development branch (named ```qa/[verison]```). A pull request being
-submitted for code review should only contain commits covering a related
-section of code. Try not to bundle unrelated changes together in one branch; it
-makes review harder.
+The Developer Guidance in the Contributor's Portal has more details on submitting pull requests in GitHub.
 
-Commit summaries should be short (no more than 50 characters) and clear.
+Before submitting a pull request, we recommend running pre-commit checks. Running these checks will allow you to address any issues before submission.
 
-Here are a few blog posts from around the web that offer more help and
-overviews using pull requests:
+Run PHP style checker:
+```bash
+docker compose exec atom composer php-cs-fix -- fix --dry-run -v
+```
 
-* The GitHub blog has a post on ["how to write the perfect pull request"](https://github.com/blog/1943-how-to-write-the-perfect-pull-request)
-* The SpringSource community blog has [useful a post on pull requests](https://spring.io/blog/2010/12/21/social-coding-in-spring-projects)
-* Otaku, Cedric's Blog has a [quick guide to pull requests](https://www.beust.com/weblog/a-quick-guide-to-pull-requests/)
+Locally run automated tests:
+
+**Note: this command will wipe the database**
+```bash
+npx cypress run -b {browser name}.
+```
+
+For example:
+```bash
+npx cypress run -b firefox
+```
+
+PHP Unit tests (to run all of them):
+```bash
+docker compose exec atom composer test-cov
+```
+
+Prettier fix styling
+```bash
+npm run format
+```
 
 ### Tips for submitting code to AtoM
 
 1. Before starting on any new development work, review open issues to check if any describe your work. If there is an issue, comment on it with your intentions to provide a fix. If there isn't an open issue, open a new one so
 the project maintainers and community members know not to duplicate work.
 
-> **Note** If you plan to submit a pull request on an issue, leave a
+> **Note:** If you plan to submit a pull request on an issue, leave a
 > comment for our developers that you are working on it and
 > we will add the ***work-in-progress*** tag so that all contributors are aware
 > that work is being done on this issue.
@@ -163,7 +509,7 @@ for reference when developming new plugins for AtoM.
 application that relate to the work you are doing. We’re aiming for code
 consistency, which helps us better maintain the application.
 
-7. For large pull requests, we greatly prefer if these can be broken up into
+7. For large pull requests, we prefer if these can be broken up into
 **atomic commits**. It simplifies code review as overly large pull requests may not
 be merged if to complex. With atomic commits, our developers can review each
 change and its rationale incrementally, making specific change requests for any
@@ -319,8 +665,6 @@ Due to an issue formatting the Symfony templates, the `ensure_fully_multiline` o
 > function or array) does not constitute splitting the argument list itself.
 
 ```php
-<?php
-
 $foo->bar(
     $longArgument,
     $longerArgument,
@@ -341,8 +685,6 @@ formatting, with the additional rule:
 > the end of the line, not a mix of both.
 
 ```php
-<?php
-
 if (
     $expr1
     && $expr2
@@ -373,8 +715,6 @@ indentation.
 For example:
 
 ```php
-<?php
-
 $foo = $condition
     ? 'true value'
     : 'false value';
