@@ -45,8 +45,9 @@ $patterns = array_map(function (string $path) {
 }, $prefixes);
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestPath = parse_url($requestUri, PHP_URL_PATH) ?? '/';
 foreach ($patterns as $pattern) {
-    if (preg_match($pattern, $requestUri)) {
+    if (preg_match($pattern, $requestPath)) {
         return;
     }
 }
