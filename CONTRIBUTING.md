@@ -78,8 +78,8 @@ Also, change the charset and collation if you’re working with stable/2.5.x or
 lower (CHARACTER SET utf8 COLLATE utf8_unicode_ci).
 
 ```bash
-docker cp ~/artefactual/data/sql/atom_24.sql docker-percona-1:/atom.sql && \
-docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "DROP DATABASE IF EXISTS atom;" 
+docker compose cp ~/artefactual/data/sql/atom_24.sql percona:/atom.sql && \
+docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "DROP DATABASE IF EXISTS atom;" && \
 docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "CREATE DATABASE atom CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;" && \
 docker compose exec percona bash -c "mysql -h localhost -u atom -patom_12345 atom < /atom.sql" && \
 docker compose exec atom php -d memory_limit=-1 symfony tools:upgrade-sql --no-confirmation && \
@@ -447,7 +447,9 @@ if your change requires it
 
 The Developer Guidance in the Contributor's Portal has more details on submitting pull requests in GitHub.
 
-Before submitting a pull request, we recommend running pre-commit checks. Running these checks will allow you to address any issues before submission.
+When you make a new pull request, a set of Actions run in the AtoM GitHub repository to check your code for formatting issues and to ensure all tests succeed. These actions are all required to succeed before merging your pull request, so it's recommended to check that your code is formatted correctly and the tests succeed **before making a pull request**.
+
+The pre-commit checks below describe how to check your code's formatting and how to run tests locally before making a pull request or pushing new commits.
 
 Run PHP style checker:
 ```bash
