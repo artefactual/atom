@@ -36,7 +36,7 @@
 
   <?php } ?>
 
-  <?php if ('dc' != $defTemplate && 0 < strlen($value = ${$resourceVar}->getTitle(['cultureFallback' => true]))) { ?>
+  <?php if ('dc' != $defTemplate && 0 < strlen($value = ${$resourceVar}->getTitle(['cultureFallback' => true]) ?? '')) { ?>
     <unittitle encodinganalog="<?php echo $ead->getMetadataParameter('unittitle'); ?>"><?php echo escape_dc(esc_specialchars($value)); ?></unittitle>
   <?php } ?>
 
@@ -61,7 +61,7 @@
   <?php } ?>
 
   <?php $repository = null; ?>
-  <?php if ('dc' != $defTemplate && 0 < strlen(${$resourceVar}->getIdentifier())) { ?>
+  <?php if ('dc' != $defTemplate && 0 < strlen(${$resourceVar}->getIdentifier() ?? '')) { ?>
     <?php foreach (${$resourceVar}->ancestors->andSelf()->orderBy('rgt') as $item) { ?>
       <?php if (isset($item->repository)) { ?>
         <?php $repository = $item->repository; ?>
