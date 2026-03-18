@@ -1,6 +1,6 @@
 <?php
 $gaKey = QubitSetting::getByName('google_analytics');
-if (empty($gaKey)) {
+if ('' !== $gaKey) {
     $gaKey = sfConfig::get('app_google_analytics_api_key', '');
 }
 ?>
