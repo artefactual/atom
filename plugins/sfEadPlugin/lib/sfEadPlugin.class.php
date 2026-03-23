@@ -201,6 +201,7 @@ class sfEadPlugin
             }
 
             if (null !== $agency = $this->resource->getRepository(['inherit' => true])->getIdentifier()) {
+                $agency = esc_specialchars($agency);
                 $mainAgencyCode = " mainagencycode=\"{$agency}\"";
             }
         }
