@@ -372,7 +372,7 @@ class CsvImportValidator
 
         if ($complete) {
             if (null === $startTime) {
-                return ''; // Nothing processed
+                return; // Nothing processed
             }
 
             $totalDuration = microtime(true) - $startTime;
@@ -389,7 +389,7 @@ class CsvImportValidator
             $lastLogTime = null;
             $processedCount = 0;
 
-            return '';
+            return;
         }
 
         if (null === $startTime) {
@@ -408,8 +408,6 @@ class CsvImportValidator
             fflush(STDERR);
             $lastLogTime = $now;
         }
-
-        return '';
     }
 
     protected function getLongestRow(): int

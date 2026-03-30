@@ -595,8 +595,6 @@ class QubitFlatfileImport
             fflush(STDERR);
             $lastLogTime = $now;
         }
-
-        return '';
     }
 
     /*

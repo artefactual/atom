@@ -172,7 +172,8 @@ EOF;
 
         if (!empty($options['verbose'])) {
             $elapsed = $timer->elapsed();
-            $peakMb = round(memory_get_peak_usage() / 1048576, 2);
+            // Convert to MB and round to 2 decimal places
+            $peakMb = round(memory_get_peak_usage() / (1024 * 1024), 2);
             $this->log(sprintf(
                 'Imported %d XML/CSV files in %.2fs, peak %.2f MB',
                 $count,
