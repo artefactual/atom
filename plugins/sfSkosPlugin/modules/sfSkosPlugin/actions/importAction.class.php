@@ -63,7 +63,7 @@ class sfSkosPluginImportAction extends DefaultEditAction
     {
         switch ($name) {
             case 'file':
-                $this->form->setWidget('file', new sfWidgetFormInputFile());
+                $this->form->setWidget('file', new sfWidgetFormInputFile([], ['accept' => '.skos,.rdf,.xml,.ttl']));
                 $this->form->setValidator('file', new sfValidatorFile());
 
                 break;

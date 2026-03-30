@@ -45,7 +45,7 @@
           <div class="accordion-body">
             <div class="mb-3">
               <label for="file-input" class="form-label"><?php echo __('Select a CSV file to validate'); ?></label>
-              <input class="form-control" type="file" id="file-input" name="file">
+              <input class="form-control" type="file" id="file-input" name="file" accept=".csv">
             </div>
           </div>
         </div>
