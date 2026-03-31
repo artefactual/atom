@@ -40,10 +40,10 @@
   <div class="col-12<?php echo empty($doc['hasDigitalObject']) ? '' : ' col-lg-9'; ?> d-flex flex-column gap-1">
     <div class="d-flex align-items-center gap-2">
       <?php echo link_to(
-          render_title(get_search_i18n(
+          render_title_with_highlights(get_search_i18n(
               $doc,
               'title',
-              ['allowEmpty' => false, 'culture' => $culture]
+              ['allowEmpty' => false, 'culture' => $culture, 'highlights' => $highlights],
           )),
           ['module' => 'informationobject', 'slug' => $doc['slug']],
           ['class' => 'h5 mb-0 text-truncate'],
@@ -64,10 +64,22 @@
               '1' == sfConfig::get('app_inherit_code_informationobject', 1)
               && isset($doc['referenceCode']) && !empty($doc['referenceCode'])
           ) { ?>
-            <span class="text-primary"><?php echo $doc['referenceCode']; ?></span>
+            <span class="text-primary">
+              <?php if (array_key_exists('referenceCode', $highlights)) { ?>
+              <?php echo render_value_with_highlights($highlights['referenceCode'][0]); ?>
+              <?php } else { ?>
+              <?php echo $doc['referenceCode']; ?>
+              <?php } ?>
+            </span>
             <?php $showDash = true; ?>
           <?php } elseif (isset($doc['identifier']) && !empty($doc['identifier'])) { ?>
-            <span class="text-primary"><?php echo $doc['identifier']; ?></span>
+            <span class="text-primary">
+            <?php if (array_key_exists('identifier', $highlights)) { ?>
+            <?php echo render_value_with_highlights($highlights['identifier'][0]); ?>
+            <?php } else { ?>
+            <?php echo $doc['identifier']; ?>
+            <?php } ?>
+            </span>
             <?php $showDash = true; ?>
           <?php } ?>
 
@@ -125,17 +137,17 @@
                 )),
                 ['slug' => $doc['partOf']['slug'], 'module' => 'informationobject']
             ); ?>
-          </span> 
+          </span>
         <?php } ?>
       </div>
 
       <?php if (null !== $scopeAndContent = get_search_i18n(
           $doc,
           'scopeAndContent',
-          ['culture' => $culture]
+          ['culture' => $culture, 'highlights' => $highlights],
       )) { ?>
         <span class="text-block d-none">
-          <?php echo render_value($scopeAndContent); ?>
+          <?php echo render_value_with_highlights($scopeAndContent); ?>
         </span>
       <?php } ?>
 
