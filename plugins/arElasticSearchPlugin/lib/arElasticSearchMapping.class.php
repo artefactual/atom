@@ -305,7 +305,7 @@ class arElasticSearchMapping
 
                     // Main i18n object
                     $this->setIfNotSet($typeProperties['properties'], 'i18n', [
-                        'type' => 'object',
+                        'type' => 'nested',
                         'dynamic' => 'strict',
                         'include_in_root' => true,
                         'properties' => $nestedI18nObjects,
@@ -392,7 +392,7 @@ class arElasticSearchMapping
 
                 // Main i18n object
                 $this->setIfNotSet($mapping['properties'], 'i18n', [
-                    'type' => 'object',
+                    'type' => 'nested',
                     'dynamic' => 'strict',
                     'include_in_root' => true,
                     'properties' => $nestedI18nObjects,
@@ -463,7 +463,6 @@ class arElasticSearchMapping
             $mapping[$culture] = [
                 'type' => 'object',
                 'dynamic' => 'strict',
-                'include_in_parent' => false,
                 'properties' => $nestedI18nFields,
             ];
         }
