@@ -244,8 +244,9 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
-        // Add search term highlighting when a query is present
-        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)) {
+        // Add search term highlighting when any search criteria are present
+        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)
+            || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0)) {
             $this->search->query->setHighlight([
                 'pre_tags' => ['<mark>'],
                 'post_tags' => ['</mark>'],
