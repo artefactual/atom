@@ -389,6 +389,20 @@ function render_title($value, $renderMarkdown = true)
     return '<em>'.sfContext::getInstance()->i18n->__('Untitled').'</em>';
 }
 
+function render_title_with_highlights($value, $renderMarkdown = true)
+{
+    // Temporarily replace <mark> highlight tags with placeholders
+    // so they survive Parsedown's safe mode HTML escaping.
+    $value = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
+    $value = str_replace('</mark>', "\x00MARK_CLOSE\x00", $value);
+
+    $value = render_title($value);
+
+    $value = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
+
+    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $value);
+}
+
 function render_value($value)
 {
     // Parse using Parsedown's text method in safe mode
@@ -403,6 +417,20 @@ function render_value_inline($value)
     $options = ['inline' => true];
 
     return QubitMarkdown::getInstance()->parse($value, $options);
+}
+
+function render_value_with_highlights($value)
+{
+    // Temporarily replace <mark> highlight tags with placeholders
+    // so they survive Parsedown's safe mode HTML escaping.
+    $value = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
+    $value = str_replace('</mark>', "\x00MARK_CLOSE\x00", $value);
+
+    $value = render_value_inline($value);
+
+    $value = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
+
+    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $value);
 }
 
 function render_value_html($value)
@@ -691,12 +719,22 @@ function get_search_i18n($hit, $fieldName, $options = [])
         $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
     }
 
-    $accessField = function ($culture) use ($hit, $fieldName) {
+    $highlights = isset($options['highlights']) ? $options['highlights'] : [];
+
+    $accessField = function ($culture) use ($hit, $fieldName, $highlights) {
         if (empty($hit['i18n'][$culture][$fieldName])) {
             return false;
         }
 
-        return $hit['i18n'][$culture][$fieldName];
+        $searchIndexFieldName = "i18n.{$culture}.{$fieldName}";
+
+        if (array_key_exists($searchIndexFieldName, $highlights)) {
+            $val = $highlights[$searchIndexFieldName][0];
+        } else {
+            $val = $hit['i18n'][$culture][$fieldName];
+        }
+
+        return $val;
     };
 
     if (isset($options['culture'])) {
