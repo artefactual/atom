@@ -97,17 +97,17 @@ header i.fa-2x {
     /* Highlight search result matches */
     mark {
       background-color: rgba(var(--bs-primary-rgb), 0.1);
+      color: inherit;
     }
 
-    .search-matched-other {
+    .search-highlight-other {
       margin-top: 1em;
       padding: 0.5em;
       border-left: solid $gray-600;
       background-color: $gray-100;
 
-      .search-highlight-title {
+      .search-highlight-fragment {
         font-style: italic;
-        margin-bottom: 1em;
       }
     }
   }

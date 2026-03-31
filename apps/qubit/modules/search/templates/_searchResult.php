@@ -160,16 +160,23 @@
         </span>
       <?php } ?>
 
-      <?php $skipShowing = ["i18n.{$culture}.title", "i18n.{$culture}.scopeAndContent", 'referenceCode']; ?>
+      <?php $skipShowing = ["i18n.{$culture}.title", "i18n.{$culture}.scopeAndContent", 'referenceCode', 'identifier']; ?>
       <?php $remainingHighlights = array_diff_key($highlights, array_flip($skipShowing)); ?>
       <?php if (!empty($remainingHighlights)) { ?>
         <?php $firstHighlight = current($remainingHighlights); ?>
-        <div class="search-matched-other d-print-none">
-          <div class="search-highlight-title">
-            <?php echo __('Search matched on %1% field:', ['%1%' => array_key_first($remainingHighlights)]); ?>
-          </div>
+        <?php $highlightFieldKey = array_key_first($remainingHighlights); ?>
+        <div class="search-highlight-other d-print-none">
           <div class="text-block highlight-summary summary">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            &nbsp;
+            <?php if ('transcript' === $highlightFieldKey) {
+            echo __('Excerpt from digital object transcript:');
+            } ?>
+            <span class="search-highlight-fragment">
+            &hellip;
             <?php echo render_value_with_highlights($firstHighlight[0]); ?>
+            &hellip;
+            </span>
           </div>
         </div>
       <?php } ?>
