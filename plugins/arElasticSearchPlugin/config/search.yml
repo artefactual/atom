@@ -12,8 +12,7 @@ all:
     # Server defaults to localhost:9200 if omitted
     # It can also be used to configure a cluster of ElasticSearch nodes
     # See more info at: http://ruflin.github.com/Elastica/
-    host: 127.0.0.1
-    port: 9200
+    hosts: ['http://127.0.0.1:9200']
 
     # This will write the JSON request in the file given
     # log: '/tmp/elastica.log'

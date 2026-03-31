@@ -596,12 +596,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     private function getVersion()
     {
-        $data = $this->client->request('/')->getData();
-        if (null === $version = @$data['version']['number']) {
-            throw new \Elastica\Exception\ResponseException('Unexpected response');
-        }
-
-        return $version;
+        return $this->client->getVersion();
     }
 
     /**

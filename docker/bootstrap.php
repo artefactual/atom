@@ -182,8 +182,7 @@ $parts = get_host_and_port($CONFIG['atom.elasticsearch_host'], 9200);
 $search_yml = <<<EOT
 all:
   server:
-    host: {$parts['host']}
-    port: {$parts['port']}
+    hosts: ['{$parts['host']}:{$parts['port']}']
 
 EOT;
 
