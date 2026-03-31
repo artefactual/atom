@@ -244,6 +244,42 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
+        // Add search term highlighting when a query is present
+        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)) {
+            $this->search->query->setHighlight([
+                'pre_tags' => ['<mark>'],
+                'post_tags' => ['</mark>'],
+                'fields' => [
+                    'transcript' => [
+                        'number_of_fragments' => 1,
+                        'fragment_size' => 150,
+                    ],
+                    'i18n.*' => [
+                        'number_of_fragments' => 1,
+                        'fragment_size' => 150,
+                    ],
+                    // May be rendered in results. Don't fragment in this case
+                    'i18n.*.scopeAndContent' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                    // May be rendered in results. Don't fragment in this case
+                    'i18n.*.title' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                    'referenceCode' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                    'identifier' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                ],
+            ]);
+        }
+
         $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->search->getQuery(false, true));
 
         // Page results

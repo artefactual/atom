@@ -1,4 +1,5 @@
 <?php $doc = $hit->getData(); ?>
+<?php $highlights = reset($hit->getHighlights()); ?>
 
 <article class="search-result row g-0 p-3 border-bottom">
   <?php if (!empty($doc['hasDigitalObject'])) { ?>
