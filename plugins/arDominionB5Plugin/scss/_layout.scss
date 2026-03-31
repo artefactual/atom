@@ -93,6 +93,23 @@ header i.fa-2x {
     .text-block :last-child {
       margin-bottom: 0;
     }
+
+    /* Highlight search result matches */
+    mark {
+      background-color: rgba(var(--bs-primary-rgb), 0.1);
+    }
+
+    .search-matched-other {
+      margin-top: 1em;
+      padding: 0.5em;
+      border-left: solid $gray-600;
+      background-color: $gray-100;
+
+      .search-highlight-title {
+        font-style: italic;
+        margin-bottom: 1em;
+      }
+    }
   }
 }
 

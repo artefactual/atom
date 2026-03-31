@@ -159,6 +159,20 @@
           <?php echo render_value_inline($creationDetails); ?>
         </span>
       <?php } ?>
+
+      <?php $skipShowing = ["i18n.{$culture}.title", "i18n.{$culture}.scopeAndContent", 'referenceCode']; ?>
+      <?php $remainingHighlights = array_diff_key($highlights, array_flip($skipShowing)); ?>
+      <?php if (!empty($remainingHighlights)) { ?>
+        <?php $firstHighlight = current($remainingHighlights); ?>
+        <div class="search-matched-other d-print-none">
+          <div class="search-highlight-title">
+            <?php echo __('Search matched on %1% field:', ['%1%' => array_key_first($remainingHighlights)]); ?>
+          </div>
+          <div class="text-block highlight-summary summary">
+            <?php echo render_value_with_highlights($firstHighlight[0]); ?>
+          </div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 </article>
