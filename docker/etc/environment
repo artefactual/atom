@@ -3,7 +3,10 @@ bootstrap.memory_lock=true
 cluster.routing.allocation.disk.threshold_enabled=false
 discovery.type=single-node
 ES_JAVA_OPTS=-Xms640m -Xmx640m
-bootstrap.system_call_filter=false
+#bootstrap.system_call_filter=false
+xpack.security.enabled=false
+xpack.security.http.ssl.enabled=false
+xpack.ml.enabled=false
 
 # MySQL
 MYSQL_ROOT_PASSWORD=my-secret-pw
