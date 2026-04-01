@@ -389,18 +389,90 @@ function render_title($value, $renderMarkdown = true)
     return '<em>'.sfContext::getInstance()->i18n->__('Untitled').'</em>';
 }
 
+/**
+ * Temporarily escape <mark></mark> tags meant for highlighting text. These bypass the markdown
+ * parser's HTML escaping.
+ *
+ * @param string $value The string to escape
+ *
+ * @return string The escaped string
+ */
+function escape_marks($value)
+{
+    $currPos = 0;
+
+    $openingMarks = [];
+    $closingMarks = [];
+
+    while (($currPos = strpos($value, '<mark>', $currPos)) !== false) {
+        $openingMarks[] = $currPos;
+        $currPos += strlen('<mark>');
+    }
+
+    $currPos = 0;
+
+    while (($currPos = strpos($value, '</mark>', $currPos)) !== false) {
+        $closingMarks[] = $currPos;
+        $currPos += strlen('</mark>');
+    }
+
+    if (0 === count($openingMarks) && 0 === count($closingMarks)) {
+        return $value;
+    }
+
+    if (count($openingMarks) != count($closingMarks)) {
+        return $value;
+    }
+
+    $replaced = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
+
+    return str_replace('</mark>', "\x00MARK_CLOSE\x00", $replaced);
+}
+
+/**
+ * Strip mark placeholders from markdown link URLs so Parsedown
+ * can parse the links correctly. Placeholders in link text are kept.
+ *
+ * @param string $value The string with mark placeholders
+ *
+ * @return string The string with placeholders removed from link URLs
+ */
+function strip_marks_from_link_urls($value)
+{
+    return preg_replace_callback(
+        '/\]\(([^)]*)\)/',
+        function ($matches) {
+            $url = str_replace("\x00MARK_OPEN\x00", '', $matches[1]);
+            $url = str_replace("\x00MARK_CLOSE\x00", '', $url);
+
+            return ']('.$url.')';
+        },
+        $value
+    );
+}
+
+/**
+ * Replace <mark></mark> tags that had previously been escaped.
+ *
+ * @param string $value The escaped string
+ *
+ * @return string The string with proper <mark></mark> tags
+ */
+function replace_marks($value)
+{
+    $replaced = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
+
+    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $replaced);
+}
+
 function render_title_with_highlights($value, $renderMarkdown = true)
 {
-    // Temporarily replace <mark> highlight tags with placeholders
-    // so they survive Parsedown's safe mode HTML escaping.
-    $value = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
-    $value = str_replace('</mark>', "\x00MARK_CLOSE\x00", $value);
+    $escaped = escape_marks($value);
+    $escaped = strip_marks_from_link_urls($escaped);
 
-    $value = render_title($value);
+    $rendered = render_title($escaped);
 
-    $value = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
-
-    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $value);
+    return replace_marks($rendered);
 }
 
 function render_value($value)
@@ -421,16 +493,12 @@ function render_value_inline($value)
 
 function render_value_with_highlights($value)
 {
-    // Temporarily replace <mark> highlight tags with placeholders
-    // so they survive Parsedown's safe mode HTML escaping.
-    $value = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
-    $value = str_replace('</mark>', "\x00MARK_CLOSE\x00", $value);
+    $escaped = escape_marks($value);
+    $escaped = strip_marks_from_link_urls($escaped);
 
-    $value = render_value_inline($value);
+    $rendered = render_value_inline($escaped);
 
-    $value = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
-
-    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $value);
+    return replace_marks($rendered);
 }
 
 function render_value_html($value)
