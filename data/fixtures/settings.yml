@@ -1042,6 +1042,9 @@ QubitSetting:
   QubitSetting_showTooltips:
     name: show_tooltips
     value: 1
+  QubitSetting_highlightSearchResults:
+    name: highlight_search_results
+    value: 1
   QubitSetting_accessionMask:
     name: accession_mask
     value: '%Y-%m-%d/#i'
