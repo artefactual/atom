@@ -244,9 +244,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
+        // Determine whether search highlighting is required
+        $hasQuery = 1 !== preg_match('/^[\s\t\r\n]*$/', $request->query) || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0);
+        $highlightSetting = QubitSetting::getByName('highlight_search_results');
+        $highlightValue = null === $highlightSetting ? 0 : intval($highlightSetting->getValue());
+        $highlightEnabled = 1 === $highlightValue;
+
         // Add search term highlighting when any search criteria are present
-        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)
-            || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0)) {
+        if ($hasQuery && $highlightEnabled) {
             $this->search->query->setHighlight([
                 'pre_tags' => ['<mark>'],
                 'post_tags' => ['</mark>'],
