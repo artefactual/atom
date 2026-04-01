@@ -719,17 +719,15 @@ function get_search_i18n($hit, $fieldName, $options = [])
         $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
     }
 
-    $highlights = isset($options['highlights']) ? $options['highlights'] : [];
+    $highlight = $options['highlight'] ?? null;
 
-    $accessField = function ($culture) use ($hit, $fieldName, $highlights) {
+    $accessField = function ($culture) use ($hit, $fieldName, $highlight) {
         if (empty($hit['i18n'][$culture][$fieldName])) {
             return false;
         }
 
-        $searchIndexFieldName = "i18n.{$culture}.{$fieldName}";
-
-        if (array_key_exists($searchIndexFieldName, $highlights)) {
-            $val = $highlights[$searchIndexFieldName][0];
+        if (null !== $highlight && '' !== $highlight) {
+            $val = $highlight;
         } else {
             $val = $hit['i18n'][$culture][$fieldName];
         }
@@ -764,12 +762,8 @@ function get_search_i18n($hit, $fieldName, $options = [])
     return $showUntitled();
 }
 
-function get_search_creation_details($hit, $culture = null)
+function get_search_creation_details($hit, $options = [])
 {
-    if (!isset($culture)) {
-        $culture = sfContext::getInstance()->user->getCulture();
-    }
-
     if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass()) {
         $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
     }
@@ -778,8 +772,9 @@ function get_search_creation_details($hit, $culture = null)
 
     // Get creators
     $creators = $hit['creators'];
+
     if (null !== $creators && 0 < count($creators)) {
-        $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', ['allowEmpty' => false, 'cultureFallback' => true]);
+        $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', $options);
     }
 
     // WIP, we are not showing labels for now. See #5202.
