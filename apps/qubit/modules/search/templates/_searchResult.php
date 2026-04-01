@@ -23,6 +23,8 @@ $highlightsRenderedElsewhere = [
 ];
 
 $otherHighlights = array_diff_key($highlights, array_flip($highlightsRenderedElsewhere));
+
+$maxFragmentSize = 150;
 ?>
 
 <article class="search-result row g-0 p-3 border-bottom">
@@ -184,20 +186,29 @@ $otherHighlights = array_diff_key($highlights, array_flip($highlightsRenderedEls
 
       <?php if (!empty($otherHighlights)) { ?>
         <?php
-        $firstHighlight = current($otherHighlights);
+        $firstHighlightText = current($otherHighlights)[0];
         $highlightFieldKey = array_key_first($otherHighlights);
+        $ellipsize = strlen($firstHighlightText) >= $maxFragmentSize;
         ?>
         <div class="search-highlight-other d-print-none">
           <div class="text-block highlight-summary summary">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            &nbsp;
-            <?php if ('transcript' === $highlightFieldKey) {
-            echo __('Excerpt from digital object transcript:');
-            } ?>
+            <span>
+              <i class="fas fa-search" aria-hidden="true"></i>
+              &nbsp;
+              <?php if ('transcript' === $highlightFieldKey) {
+              echo __('Search matched digital object transcript:');
+              } else {
+              echo __('Search matched:');
+              } ?>
+            </span>
             <span class="search-highlight-fragment">
-            &hellip;
-            <?php echo render_value_with_highlights($firstHighlight[0]); ?>
-            &hellip;
+              <?php if ($ellipsize) {
+              echo '&hellip;';
+              } ?>
+              <?php echo render_value_with_highlights($firstHighlightText); ?>
+              <?php if ($ellipsize) {
+              echo '&hellip;';
+              } ?>
             </span>
           </div>
         </div>
