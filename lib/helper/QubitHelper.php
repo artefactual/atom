@@ -430,8 +430,8 @@ function escape_marks($value)
 }
 
 /**
- * Strip mark placeholders from markdown link URLs so Parsedown
- * can parse the links correctly. Placeholders in link text are kept.
+ * Strip mark tags from markdown link URLs so Parsedown can parse the links
+ * correctly. Placeholders in link text are kept.
  *
  * @param string $value The string with mark placeholders
  *
@@ -442,8 +442,8 @@ function strip_marks_from_link_urls($value)
     return preg_replace_callback(
         '/\]\(([^)]*)\)/',
         function ($matches) {
-            $url = str_replace("\x00MARK_OPEN\x00", '', $matches[1]);
-            $url = str_replace("\x00MARK_CLOSE\x00", '', $url);
+            $url = str_replace('<mark>', '', $matches[1]);
+            $url = str_replace('</mark>', '', $url);
 
             return ']('.$url.')';
         },
@@ -467,8 +467,8 @@ function replace_marks($value)
 
 function render_title_with_highlights($value, $renderMarkdown = true)
 {
-    $escaped = escape_marks($value);
-    $escaped = strip_marks_from_link_urls($escaped);
+    $escaped = strip_marks_from_link_urls($value);
+    $escaped = escape_marks($escaped);
 
     $rendered = render_title($escaped);
 
@@ -493,8 +493,8 @@ function render_value_inline($value)
 
 function render_value_with_highlights($value)
 {
-    $escaped = escape_marks($value);
-    $escaped = strip_marks_from_link_urls($escaped);
+    $escaped = strip_marks_from_link_urls($value);
+    $escaped = escape_marks($escaped);
 
     $rendered = render_value_inline($escaped);
 
