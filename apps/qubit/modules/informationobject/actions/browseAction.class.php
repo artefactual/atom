@@ -256,29 +256,22 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
                 'pre_tags' => ['<mark>'],
                 'post_tags' => ['</mark>'],
                 'fields' => [
-                    'transcript' => [
+                    // This wildcard captures highlighting for all fields. More specific configs
+                    // are set below which override this wildcard
+                    '*' => [
                         'number_of_fragments' => 1,
                         'fragment_size' => 150,
                     ],
-                    'i18n.*' => [
-                        'number_of_fragments' => 1,
-                        'fragment_size' => 150,
-                    ],
-                    // May be rendered in results. Don't fragment in this case
+                    // The following fields may be rendered in results. Don't fragment in this case
                     'i18n.*.scopeAndContent' => [
                         'number_of_fragments' => 0,
                         'fragment_size' => 0,
                     ],
-                    // May be rendered in results. Don't fragment in this case
                     'i18n.*.title' => [
                         'number_of_fragments' => 0,
                         'fragment_size' => 0,
                     ],
-                    'referenceCode' => [
-                        'number_of_fragments' => 0,
-                        'fragment_size' => 0,
-                    ],
-                    'identifier' => [
+                    'creators.i18n.*.authorizedFormOfName' => [
                         'number_of_fragments' => 0,
                         'fragment_size' => 0,
                     ],
