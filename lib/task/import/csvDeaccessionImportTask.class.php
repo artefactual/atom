@@ -60,6 +60,9 @@ EOF;
             // Pass context
             'context' => sfContext::createInstance($this->configuration),
 
+            // Allow silencing of progress info
+            'displayProgress' => !$options['quiet'],
+
             // How many rows should import until we display an import status update?
             'rowsUntilProgressDisplay' => $options['rows-until-update'],
 

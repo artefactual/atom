@@ -113,6 +113,7 @@ EOF;
 
         $this->import = new QubitFlatfileImport([
             'context' => sfContext::createInstance($this->configuration),
+            'displayProgress' => !$options['quiet'],
 
             'status' => [
                 'updateMode' => $updateMode,

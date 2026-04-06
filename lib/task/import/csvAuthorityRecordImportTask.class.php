@@ -109,6 +109,9 @@ EOF;
             // What type of object are we importing?
             'className' => 'QubitActor',
 
+            // Allow silencing of progress info
+            'displayProgress' => !$options['quiet'],
+
             // How many rows should import until we display an import status update?
             'rowsUntilProgressDisplay' => $options['rows-until-update'],
 

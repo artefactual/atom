@@ -75,6 +75,9 @@ EOF;
             // Pass context
             'context' => sfContext::createInstance($this->configuration),
 
+            // Allow silencing of progress info
+            'displayProgress' => !$options['quiet'],
+
             'status' => [
                 'sourceName' => $sourceName,
                 'eventTypes' => $termData['eventTypes'],
