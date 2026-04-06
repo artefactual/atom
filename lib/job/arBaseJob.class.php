@@ -106,6 +106,12 @@ class arBaseJob extends Net_Gearman_Job_Common
 
             $this->runJob($parameters);
 
+            // Try to remove tmp file from uploads/tmp.
+            if (isset($parameters['file']) && false === unlink($parameters['file']['tmp_name'])) {
+                // Issue warning if unable to delete but do not show job as failed because of this.
+                $this->error($this->i18n->__('Failed to delete temporary file %1 -- please check your folder permissions.', ['%1' => $parameters['file']['tmp_name']]));
+            }
+
             QubitSearch::getInstance()->flushBatch();
 
             $this->signOut();
