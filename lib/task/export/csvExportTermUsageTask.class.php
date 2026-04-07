@@ -36,6 +36,8 @@ class csvExportTermUsageTask extends exportBulkBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
         $sf_context = sfContext::createInstance($configuration);
         $conn = $this->getDatabaseConnection();

@@ -40,6 +40,8 @@ EOF;
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         $this->checkPathIsWritable($arguments['path']);
 
         $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);

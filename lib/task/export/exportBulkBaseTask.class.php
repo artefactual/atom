@@ -24,6 +24,8 @@
  */
 abstract class exportBulkBaseTask extends sfBaseTask
 {
+    protected $itemsUntilUpdate;
+
     /**
      * @see sfTask
      */
@@ -188,6 +190,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
         ]);
     }
 
@@ -232,24 +235,70 @@ abstract class exportBulkBaseTask extends sfBaseTask
         return $databaseManager->getDatabase('propel')->getConnection();
     }
 
+    // Parse the export progress option once at task startup and treat 0
+    // as a request to suppress periodic progress output.
+    protected function setItemsUntilUpdateOption(array $options): void
+    {
+        $value = $options['items-until-update'];
+
+        if (null === $value || '' === $value) {
+            $this->itemsUntilUpdate = null;
+
+            return;
+        }
+
+        if (!is_numeric($value) || (int) $value != $value || 0 > (int) $value) {
+            throw new sfException('items-until-update must be a non-negative integer');
+        }
+
+        $this->itemsUntilUpdate = (int) $value;
+    }
+
+    // Emit progress either on a fixed item interval or, when no interval is
+    // configured, on the default time-based cadence.
     protected function indicateProgress(int $processedCount = 0)
     {
         // Periodic single-line summaries to STDERR; keep signature for BC
         static $startTime = null;
         static $lastLogTime = null;
+        $shouldShowProgress = false;
 
+        if (0 === $this->itemsUntilUpdate) {
+            return;
+        }
+
+        // If itemsUntilUpdate is set, use that to determine when to show progress.
+        // Otherwise, show progress every 5 seconds.
         if (null === $startTime) {
             $startTime = microtime(true);
             $lastLogTime = $startTime;
         }
 
-        $now = microtime(true);
-        if ($now - $lastLogTime >= 5) {
-            $elapsed = max($now - $startTime, 1e-9);
-            $rate = $processedCount / $elapsed;
-            fwrite(STDERR, sprintf("\rProcessed %d items (%.1f/s)", $processedCount, $rate));
-            fflush(STDERR);
-            $lastLogTime = $now;
+        // If itemsUntilUpdate is set, only show progress when the number of processed items
+        // is a multiple of itemsUntilUpdate.
+        if (null !== $this->itemsUntilUpdate) {
+            $shouldShowProgress = 0 === $processedCount % $this->itemsUntilUpdate;
+        } else {
+            // If itemsUntilUpdate is not set, show progress every 5 seconds.
+            $now = microtime(true);
+            $shouldShowProgress = $now - $lastLogTime >= 5;
         }
+
+        if (!$shouldShowProgress) {
+            return;
+        }
+
+        $this->writeProgressUpdate($processedCount, $startTime);
+        $lastLogTime = microtime(true);
+    }
+
+    // Centralize formatting/writing of the single-line progress update so both
+    // progress update modes (item-based and time-based) share the same output behavior.
+    protected function writeProgressUpdate(int $processedCount, float $startTime): void
+    {
+        $elapsed = max(microtime(true) - $startTime, 1e-9);
+        $rate = $processedCount / $elapsed;
+        fwrite(STDERR, sprintf("\rProcessed %d items (%.1f/s)", $processedCount, $rate));
+        fflush(STDERR);
     }
 }

@@ -36,6 +36,8 @@ class exportBulkTask extends exportBulkBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         $format = $this->normalizeExportFormat(
             $options['format'],
             ['ead', 'mods']

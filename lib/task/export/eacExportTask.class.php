@@ -37,6 +37,8 @@ class eacExportTask extends exportBulkBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         $this->checkPathIsWritable($arguments['path']);
 
         sfContext::createInstance($this->configuration);

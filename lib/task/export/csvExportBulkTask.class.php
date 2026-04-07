@@ -34,6 +34,8 @@ class csvExportBulkTask extends exportBulkBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         // Make sure standard is lower case
         $options['standard'] = $this->normalizeExportFormat(
             $options['standard'],

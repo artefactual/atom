@@ -45,6 +45,8 @@ EOF;
      */
     public function execute($arguments = [], $options = [])
     {
+        $this->setItemsUntilUpdateOption($options);
+
         $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
         $this->context = sfContext::createInstance($configuration);
 
