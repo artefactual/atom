@@ -78,7 +78,7 @@ Also, change the charset and collation if you’re working with stable/2.5.x or
 lower (CHARACTER SET utf8 COLLATE utf8_unicode_ci).
 
 ```bash
-docker compose cp ~/artefactual/data/sql/atom_24.sql percona:/atom.sql && \
+docker compose cp [mysql source path] percona:[target save path in container] && \
 docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "DROP DATABASE IF EXISTS atom;" && \
 docker compose exec percona mysql -h localhost -u atom -patom_12345 -e "CREATE DATABASE atom CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;" && \
 docker compose exec percona bash -c "mysql -h localhost -u atom -patom_12345 atom < /atom.sql" && \
@@ -111,7 +111,8 @@ This script is useful for deleting a database and setting up a demo username/pas
 docker compose exec atom php -d memory_limit=-1 symfony tools:purge --demo
 ```
 
-You can also use the `-d memory-limit=-1` option with any command.
+You can also use the `-d memory-limit=-1` option with any command. This option
+sets the PHP memory limit to unlimited.
 
 </details>
 
