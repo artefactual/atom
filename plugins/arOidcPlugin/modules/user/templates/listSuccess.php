@@ -1,20 +1,43 @@
 <h1><?php echo __('List users'); ?></h1>
 
-<section class="header-options">
-  <div class="row">
-    <div class="span6">
-      <?php echo get_component('search', 'inlineSearch', [
-          'label' => __('Search users'),
-          'landmarkLabel' => __('User'),
-          'route' => url_for(['module' => 'user', 'action' => 'list']), ]); ?>
-    </div>
-  </div>
-</section>
+<div class="d-inline-block mb-3">
+  <?php echo get_component('search', 'inlineSearch', [
+      'label' => __('Search users'),
+      'landmarkLabel' => __('User'),
+      'route' => url_for(['module' => 'user', 'action' => 'list']),
+  ]); ?>
+</div>
 
-<ul class="nav nav-pills">
-  <li<?php if ('onlyInactive' != $sf_request->filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Show active only'), ['filter' => 'onlyActive'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
-  <li<?php if ('onlyInactive' == $sf_request->filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Show inactive only'), ['filter' => 'onlyInactive'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>
-</ul>
+<nav>
+  <ul class="nav nav-pills mb-3 d-flex gap-2">
+    <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
+    <?php if ('onlyInactive' != $sf_request->filter) { ?>
+      <?php $options['class'] .= ' active'; ?>
+      <?php $options['aria-current'] = 'page'; ?>
+    <?php } ?>
+    <li class="nav-item">
+      <?php echo link_to(
+          __('Show active only'),
+          ['filter' => 'onlyActive']
+          + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+          $options
+      ); ?>
+    </li>
+    <?php $options = ['class' => 'btn atom-btn-white active-primary text-wrap']; ?>
+    <?php if ('onlyInactive' == $sf_request->filter) { ?>
+      <?php $options['class'] .= ' active'; ?>
+      <?php $options['aria-current'] = 'page'; ?>
+    <?php } ?>
+    <li class="nav-item">
+      <?php echo link_to(
+          __('Show inactive only'),
+          ['filter' => 'onlyInactive']
+          + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+          $options
+      ); ?>
+    </li>
+  </ul>
+</nav>
 
 <table class="table table-bordered sticky-enabled">
   <thead>
