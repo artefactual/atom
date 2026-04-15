@@ -179,7 +179,13 @@ class ObjectImportSelectAction extends DefaultEditAction
             $this->redirect($importSelectRoute);
         }
 
-        // Redirect user if they are attempting to upload an invalid CSV file
+        // Redirect user if they are attempting to upload an invalid CSV/XML file
+        if ('xml' == $importType && 'xml' !== strtolower(pathinfo($file['name'], PATHINFO_EXTENSION))) {
+            $errorMessage = $this->context->i18n->__('Not an XML file.');
+            $this->context->user->setFlash('error', $errorMessage);
+            $this->redirect($importSelectRoute);
+        }
+
         if ('csv' == $importType && !$this->checkForValidCsvFile($request, $file['tmp_name'])) {
             $errorMessage = $this->context->i18n->__('Not a CSV file (or CSV columns not recognized).');
             $this->context->user->setFlash('error', $errorMessage);

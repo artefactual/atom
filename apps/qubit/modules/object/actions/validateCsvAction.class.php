@@ -73,6 +73,12 @@ class ObjectValidateCsvAction extends DefaultEditAction
             $this->redirect($validateCsvRoute);
         }
 
+        if ('csv' !== strtolower(pathinfo($file['name'], PATHINFO_EXTENSION))) {
+            $errorMessage = $this->context->i18n->__('Not a CSV file.');
+            $this->context->user->setFlash('error', $errorMessage);
+            $this->redirect($validateCsvRoute);
+        }
+
         // if we got here without a file upload, go to file selection
         if (0 == count($file) || empty($file['tmp_name'])) {
             $this->redirect($validateCsvRoute);
@@ -83,7 +89,7 @@ class ObjectValidateCsvAction extends DefaultEditAction
             // Choose import type based on importType parameter
             // This decision used to be based in the file extension but some users
             // experienced problems when the extension was omitted
-            'importType' => $importType,
+            'importType' => 'csv',
             'file' => $file,
         ];
 
