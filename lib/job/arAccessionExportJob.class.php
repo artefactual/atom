@@ -44,7 +44,7 @@ class arAccessionExportJob extends arExportJob
         );
 
         // If slugs contains '*', export all records; otherwise filter by specific slugs
-        if (in_array('*', $parameters['params']['slugs'])) {
+        if (!empty($parameters['params']['slugs']) && in_array('*', $parameters['params']['slugs'])) {
             $query->queryBool->addMust(new \Elastica\Query\MatchAll());
         } else {
             $query->queryBool->addMust(
