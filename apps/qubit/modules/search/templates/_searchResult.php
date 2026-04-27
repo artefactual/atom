@@ -1,28 +1,52 @@
 <?php
 $doc = $hit->getData();
 
+// The selected language might be different from the user's culture. This is a fallback culture.
+$sfCulture = $sf_user->getCulture();
+
 // The highlights contain a mapping from search index field name to an array of fragments
 // containing the parts of that field that matched the query in the search index. If a field did
 // not return results for the query, or higlighting is disabled, the key for that field will not
 // exist in this array.
 $highlights = reset($hit->getHighlights());
-$titleHighlight = $highlights["i18n.{$culture}.title"][0] ?? null;
-$scopeHighlight = $highlights["i18n.{$culture}.scopeAndContent"][0] ?? null;
-$creatorHighlight = $highlights["creators.i18n.{$culture}.authorizedFormOfName"][0] ?? null;
+
+$titleHighlight = get_search_highlight($hit, 'title', ['culture' => $culture]);
+$scopeHighlight = get_search_highlight($hit, 'scopeAndContent', ['culture' => $culture]);
+
+$creatorHighlight = $highlights["creators.i18n.{$culture}.authorizedFormOfName"][0]
+    ?? $highlights["creators.i18n.{$sfCulture}.authorizedFormOfName"][0]
+    ?? null;
+
 $refCodeHighlight = $highlights['referenceCode'][0] ?? null;
 $identifierHighlight = $highlights['identifier'][0] ?? null;
 
-// We can render other highlights, but we want to ensure that they're not already rendered in the
-// search result.
-$highlightsRenderedElsewhere = [
-    "i18n.{$culture}.title",
-    "i18n.{$culture}.scopeAndContent",
-    "creators.i18n.{$culture}.authorizedFormOfName",
-    'referenceCode',
-    'identifier',
+// We can render other highlights, but ignore:
+// - Identifiers
+// - The language filter itself
+// - Scope and content, title, creators in other languages
+$skippedFieldNames = ['referenceCode', 'identifier', 'i18n.languages'];
+$skippedFieldPatterns = [
+    '/^i18n\.[^.]+\.title$/',
+    '/^i18n\.[^.]+\.scopeAndContent$/',
+    '/^creators\.i18n\.[^.]+\.authorizedFormOfName$/',
 ];
 
-$otherHighlights = array_diff_key($highlights, array_flip($highlightsRenderedElsewhere));
+$otherHighlights = array_filter(
+    $highlights,
+    function ($key) use ($skippedFieldNames, $skippedFieldPatterns) {
+        if (in_array($key, $skippedFieldNames, true)) {
+            return false;
+        }
+        foreach ($skippedFieldPatterns as $pattern) {
+            if (preg_match($pattern, $key)) {
+                return false;
+            }
+        }
+
+        return true;
+    },
+    ARRAY_FILTER_USE_KEY
+);
 
 $maxFragmentSize = 150;
 ?>

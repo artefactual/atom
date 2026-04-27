@@ -830,6 +830,69 @@ function get_search_i18n($hit, $fieldName, $options = [])
     return $showUntitled();
 }
 
+/**
+ * Return the highlight fragment for an i18n field on an Elastica search hit,
+ * picked from the same culture whose value get_search_i18n would render.
+ *
+ * The culture-fallback chain mirrors get_search_i18n():
+ *   1. the "culture" option (typically the selected/filtered culture),
+ *   2. the user/site culture (sf_user->getCulture()),
+ *   3. when the "cultureFallback" option is true (the default), the
+ *      document's sourceCulture.
+ *
+ * @param mixed $hit
+ * @param mixed $fieldName
+ * @param mixed $options
+ */
+function get_search_highlight($hit, $fieldName, $options = [])
+{
+    if (empty($hit)) {
+        return null;
+    }
+
+    if (
+        !($hit instanceof sfOutputEscaperObjectDecorator)
+        || 'Elastica\Result' != $hit->getClass()
+    ) {
+        return null;
+    }
+
+    $highlights = $hit->getHighlights();
+    $highlights = reset($highlights);
+
+    if (empty($highlights)) {
+        return null;
+    }
+
+    $data = $hit->getData();
+
+    $cultureFallback = $options['cultureFallback'] ?? true;
+
+    $hasField = function ($culture) use ($data, $fieldName) {
+        return !empty($culture) && !empty($data['i18n'][$culture][$fieldName]);
+    };
+
+    // Resolve the effective culture using the same priority chain as
+    // get_search_i18n: requested culture, then sf_culture, then sourceCulture.
+    $effective = null;
+    if (isset($options['culture']) && $hasField($options['culture'])) {
+        $effective = $options['culture'];
+    } elseif ($hasField($sfCulture = sfContext::getInstance()->user->getCulture())) {
+        $effective = $sfCulture;
+    } elseif ($cultureFallback) {
+        $sourceCulture = $data['sourceCulture'] ?? null;
+        if ($hasField($sourceCulture)) {
+            $effective = $sourceCulture;
+        }
+    }
+
+    if (null === $effective) {
+        return null;
+    }
+
+    return $highlights["i18n.{$effective}.{$fieldName}"][0] ?? null;
+}
+
 function get_search_creation_details($hit, $options = [])
 {
     if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass()) {
