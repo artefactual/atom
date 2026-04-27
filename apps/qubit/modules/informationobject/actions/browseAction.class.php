@@ -247,7 +247,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         // Determine whether search highlighting is required
         $hasQuery = 1 !== preg_match('/^[\s\t\r\n]*$/', $request->query) || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0);
         $highlightSetting = QubitSetting::getByName('highlight_search_results');
-        $highlightValue = null === $highlightSetting ? 0 : intval($highlightSetting->getValue());
+        $highlightValue = null === $highlightSetting ? 0 : intval($highlightSetting->getValue(['sourceCulture' => true]));
         $highlightEnabled = 1 === $highlightValue;
 
         // Add search term highlighting when any search criteria are present
