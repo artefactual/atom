@@ -96,8 +96,19 @@ header i.fa-2x {
 
     /* Highlight search result matches */
     mark {
-      background-color: rgba(var(--bs-primary-rgb), 0.1);
+      background-color: rgba(var(--bs-primary-rgb), 0.15);
       color: inherit;
+      font-weight: 600;
+      padding: 0 0.25em;
+      border-radius: 0.2em;
+      text-decoration: underline;
+      text-decoration-color: rgba(var(--bs-primary-rgb), 0.85);
+      text-decoration-thickness: 2px;
+    }
+
+    /* Ensure marks remain readable when nested in primary-coloured text */
+    .text-primary mark {
+      color: var(--bs-body-color);
     }
 
     .search-highlight-other {
