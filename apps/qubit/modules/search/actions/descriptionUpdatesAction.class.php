@@ -104,7 +104,26 @@ class SearchDescriptionUpdatesAction extends sfAction
 
         // Add repository restriction, if specified
         if (null !== $this->form->getValue('repository')) {
-            $criteria->add(QubitInformationObject::REPOSITORY_ID, $this->form->getValue('repository'));
+            $repo = QubitRepository::getById($this->form->getValue('repository'));
+
+            if (null !== $repo) {
+                $sql = 'SELECT io.id
+                    FROM information_object io
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM information_object ancestor_io
+                        WHERE ancestor_io.repository_id = ?
+                        AND ancestor_io.lft <= io.lft
+                        AND ancestor_io.rgt >= io.rgt
+                    )';
+
+                $stmt = QubitPdo::prepareAndExecute($sql, [$repo->id]);
+                $ioIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+                if (!empty($ioIds)) {
+                    $criteria->add(QubitAuditLog::OBJECT_ID, $ioIds, Criteria::IN);
+                }
+            }
         }
 
         // Add user restriction, if specified
