@@ -10,7 +10,7 @@
   <div class="accordion-item border-0">
     <h2 class="accordion-header rounded-0 rounded-top border border-bottom-0" id="heading-carousel">
       <button class="accordion-button rounded-0 rounded-top text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-carousel" aria-expanded="true" aria-controls="collapse-carousel">
-        <span><?php echo __('Image carousel'); ?></span>
+        <span><?php echo __(sfConfig::get('app_ui_label_carousel')); ?></span>
       </button>
     </h2>
     <div id="collapse-carousel" class="accordion-collapse collapse show" aria-labelledby="heading-carousel">
