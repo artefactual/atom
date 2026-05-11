@@ -3,7 +3,7 @@
 <?php slot('title'); ?>
   <div class="multiline-header d-flex flex-column mb-3">
     <h1 class="mb-0" aria-describedby="heading-label">
-      <?php echo __('Update digital object titles'); ?>
+      <?php echo __(sfConfig::get('app_ui_label_update_do_titles')); ?>
     </h1>
     <span class="small" id="heading-label">
       <?php echo render_title(new sfIsadPlugin($resource)); ?>

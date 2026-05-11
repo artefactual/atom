@@ -57,7 +57,7 @@
             <?php } ?>
 
             <?php if ((null === $resource->repository || 0 != $resource->repository->uploadLimit) && QubitDigitalObject::isUploadAllowed()) { ?>
-              <li><?php echo link_to(__('Import digital objects'), [$resource, 'module' => 'informationobject', 'action' => 'multiFileUpload'], ['class' => 'dropdown-item']); ?></li>
+              <li><?php echo link_to(sfConfig::get('app_ui_label_import_dos'), [$resource, 'module' => 'informationobject', 'action' => 'multiFileUpload'], ['class' => 'dropdown-item']); ?></li>
             <?php } ?>
 
             <li><hr class="dropdown-divider"></li>

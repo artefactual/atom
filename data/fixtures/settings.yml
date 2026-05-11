@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 197
+    value: 200
   milestone:
     name: milestone
     editable: 0
@@ -1585,3 +1585,43 @@ QubitSetting:
     value:
       ar: 'عدد الإضافات الأرشيفية:&nbsp;'
       en: 'Accession count:&nbsp;'
+  QubitSettings_import_dos:
+    name: import_dos
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Import digital objects'
+  QubitSettings_browse_dos:
+    name: browse_dos
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Browse digital objects'
+  QubitSettings_update_do_titles:
+    name: update_do_titles
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Update digital object titles'
+  QubitSettings_import_multiple_dos:
+    name: import_multiple_dos
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Import multiple digital objects'
+  QubitSettings_show_do_results:
+    name: show_do_results
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Show results with digital objects'

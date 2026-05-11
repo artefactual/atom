@@ -231,7 +231,7 @@
                   + ['onlyMedia' => true]
               ); ?>">
               <i class="fas fa-search me-1" aria-hidden="true"></i>
-              <?php echo __('Show results with digital objects'); ?>
+              <?php echo __(sfConfig::get('app_ui_label_show_do_results')); ?>
             </a>
           </div>
         <?php } ?>

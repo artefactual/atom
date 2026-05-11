@@ -4,7 +4,7 @@
 <?php slot('title'); ?>
   <div class="multiline-header d-flex flex-column mb-3">
     <h1 class="mb-0" aria-describedby="heading-label">
-      <?php echo __('Import multiple digital objects'); ?>
+      <?php echo __(sfConfig::get('app_ui_label_import_multiple_dos')); ?>
     </h1>
     <span class="small" id="heading-label">
       <?php echo render_title(new sfIsadPlugin($resource)); ?>
@@ -89,7 +89,7 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="upload-heading">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#upload-collapse" aria-expanded="true" aria-controls="upload-collapse">
-                <?php echo __('Import multiple digital objects'); ?>
+                <?php echo __(sfConfig::get('app_ui_label_import_multiple_dos')); ?>
               </button>
             </h2>
             <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading">
@@ -110,7 +110,7 @@
                 ); ?>
 
                 <h3 class="fs-6 mb-2">
-                  <?php echo __('Digital objects'); ?>
+                  <?php echo __(sfConfig::get('app_ui_label_digitalobject')); ?>
                 </h3>
 
                 <div id="uploads"></div>

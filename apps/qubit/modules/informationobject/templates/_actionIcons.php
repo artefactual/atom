@@ -56,7 +56,7 @@
             'view' => 'card',
             'onlyMedia' => true, ]); ?>">
           <i class="fas fa-fw fa-image me-1" aria-hidden="true">
-          </i><?php echo __('Browse digital objects'); ?>
+          </i><?php echo __(sfConfig::get('app_ui_label_browse_dos')); ?>
         </a>
       </li>
     <?php } ?>
