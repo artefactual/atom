@@ -132,7 +132,7 @@ abstract class BaseProperty implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -441,12 +441,15 @@ abstract class BaseProperty implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $propertyI18ns = array();
     foreach ($this->propertyI18ns as $propertyI18n)
     {
       $propertyI18n->id = $this->id;
 
-      $propertyI18n->save($connection);
+      $propertyI18ns[] = $propertyI18n;
     }
+
+    QubitPropertyI18n::bulkSave($propertyI18ns, $connection);
 
     return $this;
   }

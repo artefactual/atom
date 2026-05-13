@@ -132,7 +132,7 @@ abstract class BaseAclGroup implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -330,7 +330,7 @@ abstract class BaseAclGroup implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentaclGroupI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentaclGroupI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentaclGroupI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -507,12 +507,15 @@ abstract class BaseAclGroup implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $aclGroupI18ns = array();
     foreach ($this->aclGroupI18ns as $aclGroupI18n)
     {
       $aclGroupI18n->id = $this->id;
 
-      $aclGroupI18n->save($connection);
+      $aclGroupI18ns[] = $aclGroupI18n;
     }
+
+    QubitAclGroupI18n::bulkSave($aclGroupI18ns, $connection);
 
     return $this;
   }

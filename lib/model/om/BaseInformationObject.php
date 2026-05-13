@@ -119,7 +119,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitObject::__isset', $args);
+      return parent::__isset(...$args);
     }
     catch (sfException $e)
     {
@@ -178,7 +178,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitObject::__get', $args);
+      return parent::__get(...$args);
     }
     catch (sfException $e)
     {
@@ -301,7 +301,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array('QubitObject::__set', $args);
+    parent::__set(...$args);
 
     call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__set'), $args);
 
@@ -318,7 +318,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array('QubitObject::__unset', $args);
+    parent::__unset(...$args);
 
     call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__unset'), $args);
 
@@ -339,12 +339,15 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
   {
     parent::save($connection);
 
+    $informationObjectI18ns = array();
     foreach ($this->informationObjectI18ns as $informationObjectI18n)
     {
       $informationObjectI18n->id = $this->id;
 
-      $informationObjectI18n->save($connection);
+      $informationObjectI18ns[] = $informationObjectI18n;
     }
+
+    QubitInformationObjectI18n::bulkSave($informationObjectI18ns, $connection);
 
     return $this;
   }

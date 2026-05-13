@@ -136,7 +136,7 @@ abstract class BaseGrantedRight implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {

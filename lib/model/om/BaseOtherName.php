@@ -134,7 +134,7 @@ abstract class BaseOtherName implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -266,7 +266,7 @@ abstract class BaseOtherName implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentotherNameI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentotherNameI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentotherNameI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -443,12 +443,15 @@ abstract class BaseOtherName implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $otherNameI18ns = array();
     foreach ($this->otherNameI18ns as $otherNameI18n)
     {
       $otherNameI18n->id = $this->id;
 
-      $otherNameI18n->save($connection);
+      $otherNameI18ns[] = $otherNameI18n;
     }
+
+    QubitOtherNameI18n::bulkSave($otherNameI18ns, $connection);
 
     return $this;
   }
