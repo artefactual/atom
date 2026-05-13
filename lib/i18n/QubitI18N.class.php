@@ -32,31 +32,48 @@ class QubitI18N
      */
     public static function getTranslations($string)
     {
-        $translations = [];
+        $translations = self::getTranslationsForStrings([$string]);
 
-        // Index the array with all the language codes available in the application
+        return $translations[$string];
+    }
+
+    /**
+     * Return translations for several source strings in one pass over the
+     * configured application languages. This keeps getTranslations() compatible
+     * while allowing install tasks to avoid rebuilding i18n state for each
+     * string.
+     */
+    public static function getTranslationsForStrings(array $strings)
+    {
+        $translations = [];
+        foreach ($strings as $string) {
+            $translations[$string] = [];
+        }
+
+        // Index the language codes available in the application.
+        $languageCodes = [];
         foreach (new DirectoryIterator(sfConfig::get('sf_app_i18n_dir')) as $fileInfo) {
             if ($fileInfo->isDot()) {
                 continue;
             }
 
-            $translations[$fileInfo->getBasename()] = '';
+            $languageCodes[] = $fileInfo->getBasename();
         }
 
         $configuration = sfContext::getInstance()->getConfiguration();
-        $cache = new sfNoCache();
-        foreach ($translations as $langCode => &$value) {
-            $i18n = new sfI18N($configuration, $cache, ['culture' => $langCode]);
+        foreach ($languageCodes as $langCode) {
+            $i18n = new sfI18N($configuration, new sfNoCache(), ['culture' => $langCode]);
 
-            // Mark untranslated messages
+            // Mark untranslated messages so they can be omitted below.
             $i18n->getMessageFormat()->setUntranslatedPS(['[T]', '[/T]']);
 
-            // Update the value of this language in the dictionary
-            $value = $i18n->__($string);
+            foreach ($strings as $string) {
+                $value = $i18n->__($string);
 
-            // But discard the message if it's untranslated
-            if (empty($value) || 0 === strpos($value, '[T]', 0)) {
-                unset($translations[$langCode]);
+                // Discard empty and untranslated messages.
+                if (!empty($value) && 0 !== strpos($value, '[T]', 0)) {
+                    $translations[$string][$langCode] = $value;
+                }
             }
         }
 

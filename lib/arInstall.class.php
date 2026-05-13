@@ -387,6 +387,12 @@ class arInstall
         $accessConditionalWarning = $i18n->__(
             'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
         );
+        $translations = QubitI18N::getTranslationsForStrings([
+            $accessDisallowWarning,
+            $accessConditionalWarning,
+        ]);
+        $accessDisallowWarningTranslations = $translations[$accessDisallowWarning];
+        $accessConditionalWarningTranslations = $translations[$accessConditionalWarning];
 
         foreach (
             QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item
@@ -396,9 +402,7 @@ class arInstall
             $setting->scope = 'access_statement';
             $setting->setValue($accessDisallowWarning, ['culture' => 'en']);
 
-            foreach (
-                QubitI18N::getTranslations($accessDisallowWarning) as $langCode => $message
-            ) {
+            foreach ($accessDisallowWarningTranslations as $langCode => $message) {
                 $setting->setValue($message, ['culture' => $langCode]);
             }
 
@@ -409,9 +413,7 @@ class arInstall
             $setting->scope = 'access_statement';
             $setting->setValue($accessConditionalWarning, ['culture' => 'en']);
 
-            foreach (
-                QubitI18N::getTranslations($accessConditionalWarning) as $langCode => $message
-            ) {
+            foreach ($accessConditionalWarningTranslations as $langCode => $message) {
                 $setting->setValue($message, ['culture' => $langCode]);
             }
 
