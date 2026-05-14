@@ -60,8 +60,8 @@ class SettingsHeaderAction extends SettingsEditAction
                 break;
 
             case 'favicon':
-                $this->form->setWidget($name, new sfWidgetFormInputFile([], ['accept' => '.ico']));
-                $this->form->setValidator($name, new sfValidatorFile(['mime_types' => ['image/x-icon', 'image/vnd.microsoft.icon']]));
+                $this->form->setWidget($name, new sfWidgetFormInputFile([], ['accept' => '.ico,.svg']));
+                $this->form->setValidator($name, new sfValidatorFile(['mime_types' => ['image/x-icon', 'image/vnd.microsoft.icon', 'image/svg+xml']]));
 
                 break;
 
@@ -102,10 +102,14 @@ class SettingsHeaderAction extends SettingsEditAction
             case 'favicon':
                 $faviconFile = $this->form->getValue('favicon');
 
-                $faviconImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon.ico';
-
                 if (null !== $faviconFile) {
+                    $extension = strtolower($faviconFile->getOriginalExtension());
+                    $faviconImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon'.('.svg' === $extension ? '.svg' : '.ico');
                     $faviconFile->save($faviconImgPath);
+
+                    if ('.ico' === $extension) {
+                        @unlink($this->staticDir.DIRECTORY_SEPARATOR.'favicon.svg');
+                    }
                 }
 
                 break;
@@ -147,12 +151,18 @@ class SettingsHeaderAction extends SettingsEditAction
     protected function restoreDefaultFavicon()
     {
         $faviconImgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon.ico';
+        $faviconSvgPath = $this->staticDir.DIRECTORY_SEPARATOR.'favicon.svg';
         $defaultAtoMFaviconPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'default_atom_favicon.ico';
+        $defaultAtoMFaviconSvgPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'default_atom_favicon.svg';
 
         if (file_exists($defaultAtoMFaviconPath)) {
             copy($defaultAtoMFaviconPath, $faviconImgPath);
         } else {
             $this->updateMessage = $this->i18n->__('Default favicon not found.');
+        }
+
+        if (file_exists($defaultAtoMFaviconSvgPath)) {
+            copy($defaultAtoMFaviconSvgPath, $faviconSvgPath);
         }
     }
 }

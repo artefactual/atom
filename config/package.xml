@@ -67,6 +67,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="js//*" role="data"/>
     <file name="ead.dtd" role="data"/>
     <file name="favicon.ico" role="data"/>
+    <file name="favicon.svg" role="data"/>
     <file name="robots.txt" role="data"/>
   </contents>
   <dependencies>

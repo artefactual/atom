@@ -54,7 +54,7 @@
     <div id="favicon-collapse" class="accordion-collapse collapse show" aria-labelledby="sending-heading">
 
       <div class="alert alert-info m-3 mb-0">
-        <p><?php echo __('The favicon file must be in ICO file format.'); ?></p>
+        <p><?php echo __('The favicon file must be in ICO or SVG file format.'); ?></p>
         <p><?php echo __('Note that browser cache may need to be cleared after uploading a new favicon.'); ?></p>
       </div>
 
