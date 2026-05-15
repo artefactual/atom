@@ -228,7 +228,7 @@ class digitalObjectLoadTask extends arBaseTask
             Qubit::clearClassCaches();
         }
 
-        $this->logSection('digital-object', 'Successfully Loaded '.self::$count.' digital objects.');
+        $this->logSection('digital-object', 'Successfully Loaded '.self::$count.' digital objects and skipped '.$this->skippedCount.'.');
 
         // Warn user to manually update search index
         if (!$options['index']) {
@@ -374,7 +374,7 @@ class digitalObjectLoadTask extends arBaseTask
 
         $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
         $operation = $options['replace'] ? 'Replacing with' : 'Loading';
-        $message = sprintf("%s '%s' (%d of %d remaining", $operation, $filename, $this->curObjNum, $remainingImportCount);
+        $message = sprintf("%s '%s' (%d of %d digital objects", $operation, $filename, $this->curObjNum, $remainingImportCount);
 
         if (isset($options['limit'])) {
             $message .= sprintf(': limited to %d imports', $options['limit']);
