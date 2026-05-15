@@ -66,7 +66,7 @@ class ApiInformationObjectsDownloadDigitalObjectAction extends QubitApiAction
             }
         }
 
-        $this->downloadDigitalObject($request);
+        return $this->downloadDigitalObject($request);
     }
 
     protected function downloadDigitalObject($request)
@@ -97,8 +97,8 @@ class ApiInformationObjectsDownloadDigitalObjectAction extends QubitApiAction
             ob_end_clean();
         }
 
-        $this->getResponse()->setContent(readfile($this->path));
-        $this->getResponse()->sendContent();
+        readfile($this->path);
+        $this->getResponse()->setHeaderOnly(true);
 
         return 'DigitalObject';
     }
