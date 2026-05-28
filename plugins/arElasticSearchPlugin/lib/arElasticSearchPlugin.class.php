@@ -562,7 +562,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             throw new sfException('You must create a diacritics_mapping.yml file.');
         }
 
-        $this->config['index']['configuration']['analysis']['char_filter']['diacritics_lowercase'] = sfYaml::load(array_shift($diacriticsFiles));
+        $this->config['index']['configuration']['settings']['analysis']['char_filter']['diacritics_lowercase'] = sfYaml::load(array_shift($diacriticsFiles));
     }
 
     /**
@@ -573,20 +573,20 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Based on markdown_enabled setting, add a new filter to strip Markdown tags
         if (
             sfConfig::get('app_markdown_enabled', true)
-            && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md'])
+            && isset($this->config['index']['configuration']['settings']['analysis']['char_filter']['strip_md'])
         ) {
-            foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer) {
+            foreach ($this->config['index']['configuration']['settings']['analysis']['analyzer'] as $key => $analyzer) {
                 $filters = ['strip_md'];
 
-                if ($this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']) {
-                    $filters = array_merge($filters, $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter']);
+                if ($this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter']) {
+                    $filters = array_merge($filters, $this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter']);
                 }
 
                 if (sfConfig::get('app_diacritics')) {
                     $filters = array_merge($filters, ['diacritics_lowercase']);
                 }
 
-                $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = $filters;
+                $this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter'] = $filters;
             }
         }
     }
