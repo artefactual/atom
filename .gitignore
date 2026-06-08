@@ -53,3 +53,6 @@ cypress.env.json
 
 # OIDC plugin activation flag
 activate-oidc-plugin
+
+# Docker cert files for keycloak
+docker/certs

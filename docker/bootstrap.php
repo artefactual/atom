@@ -44,6 +44,8 @@ $CONFIG = [
     'atom.elasticsearch_host' => getenv_or_fail('ATOM_ELASTICSEARCH_HOST'),
     'atom.memcached_host' => getenv_or_fail('ATOM_MEMCACHED_HOST'),
     'atom.gearmand_host' => getenv_or_fail('ATOM_GEARMAND_HOST'),
+    'atom.keycloak_host' => getenv_default('ATOM_KEYCLOAK_HOST', ''),
+    'atom.keycloak_port' => getenv_default('ATOM_KEYCLOAK_PORT', '9000'),
     'atom.mysql_dsn' => getenv_or_fail('ATOM_MYSQL_DSN'),
     'atom.mysql_username' => getenv_or_fail('ATOM_MYSQL_USERNAME'),
     'atom.mysql_password' => getenv_or_fail('ATOM_MYSQL_PASSWORD'),
@@ -113,7 +115,7 @@ all:
   read_only: false
   htmlpurifier_enabled: false
   csp:
-    response_header: Content-Security-Policy
+    response_header: Content-Security-Policy-Report-Only
     directives: >
       default-src 'self';
       font-src 'self' https://fonts.gstatic.com;
@@ -124,8 +126,64 @@ all:
       worker-src 'self' blob:;
       connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
       frame-ancestors 'self';
+EOT;
+
+    if (!empty($CONFIG['atom.keycloak_host'])) {
+        $keycloakParts = get_host_and_port($CONFIG['atom.keycloak_host'], $CONFIG['atom.keycloak_port']);
+        $keycloakBaseUrl = 'http://localhost:' . $keycloakParts['port'];
+
+        $app_yml .= <<<EOT
+
+  oidc:
+    providers:
+      primary:
+        url: 'http://{$CONFIG["atom.keycloak_host"]}:{$CONFIG["atom.keycloak_port"]}/realms/artefactual'
+        issuer: '{$keycloakBaseUrl}/realms/artefactual'
+        client_id: 'artefactual-atom'
+        client_secret: 'example-secret'
+        authorization_endpoint: '{$keycloakBaseUrl}/realms/artefactual/protocol/openid-connect/auth'
+        token_endpoint: '{$keycloakBaseUrl}/realms/artefactual/protocol/openid-connect/token'
+        userinfo_endpoint: '{$keycloakBaseUrl}/realms/artefactual/protocol/openid-connect/userinfo'
+        jwks_uri: '{$keycloakBaseUrl}/realms/artefactual/protocol/openid-connect/certs'
+
+        send_oidc_logout: true
+
+        enable_refresh_token_use: true
+
+        server_cert: 'docker/certs/cert.pem'
+
+        set_groups_from_attributes: true
+        user_groups:
+          administrator:
+            attribute_value: 'atom-admin'
+            group_id: 100
+          editor:
+            attribute_value: 'atom-editor'
+            group_id: 101
+          contributor:
+            attribute_value: 'atom-contributor'
+            group_id: 102
+          translator:
+            attribute_value: 'atom-translator'
+            group_id: 103
+
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+
+        roles_source: 'access-token'
+        roles_path:
+          - 'realm_access'
+          - 'roles'
+
+        user_matching_source: 'oidc-email'
+        auto_create_atom_user: true
+    redirect_url: 'http://127.0.0.1:63001/index.php/oidc/login'
+    logout_redirect_url: 'http://127.0.0.1:63001'
 
 EOT;
+    }
 
     file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
 }
