@@ -34,8 +34,8 @@ class OidcLoginAction extends sfAction
             $this->context->user->setAttribute('atom-login-referer', $request->getReferer());
         }
 
-        if ($request->isMethod('post') || isset($_REQUEST['code'])) {
-            if (null !== $providerId = $this->context->user->parseProviderIdFromUrl($this->context->user->getAttribute('atom-login-referer', null))) {
+        if (($request->isMethod('post') || isset($_REQUEST['code'])) && null !== $this->context->user->getAttribute('atom-login-referer')) {
+            if (null !== $providerId = $this->context->user->parseProviderIdFromUrl($this->context->user->getAttribute('atom-login-referer'))) {
                 $this->context->user->validateProviderId($providerId, true);
             }
 
