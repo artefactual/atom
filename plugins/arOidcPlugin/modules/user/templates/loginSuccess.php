@@ -7,7 +7,7 @@
 
     <div class="offset4 span4">
 
-      <div id="content">
+      <div id="content" class="p-3">
 
         <?php if ('user' != $sf_request->module || 'login' != $sf_request->action) { ?>
           <h1><?php echo __('Please log in to access that page'); ?></h1>
@@ -21,7 +21,7 @@
 
           <?php echo $form->renderHiddenFields(); ?>
 
-          <button type="submit"><?php echo __('Log in with SSO'); ?></button>
+          <button type="submit" class="btn atom-btn-white active-primary text-wrap"><?php echo __('Log in with SSO'); ?></button>
 
         </form>
 
