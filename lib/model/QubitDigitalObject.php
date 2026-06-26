@@ -3025,7 +3025,7 @@ class QubitDigitalObject extends BaseDigitalObject
             return;
         }
 
-        $command = sprintf('pdftotext %s - 2> /dev/null', $path);
+        $command = sprintf('pdftotext %s - 2> /dev/null', escapeshellarg($path));
         exec($command, $output, $status);
 
         if (0 == $status && 0 < count($output)) {

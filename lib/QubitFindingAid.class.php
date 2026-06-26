@@ -392,7 +392,7 @@ class QubitFindingAid
             sprintf('Extracting finding aid text from "%s"', $this->getPath())
         );
 
-        $command = sprintf('pdftotext %s - 2> /dev/null', $this->getPath());
+        $command = sprintf('pdftotext %s - 2> /dev/null', escapeshellarg($this->getPath()));
         exec($command, $output, $status);
 
         if (0 !== $status) {
