@@ -406,6 +406,10 @@ abstract class csvImportBaseTask extends arBaseTask
      */
     public static function arraySearchCaseInsensitive($search, $array)
     {
+        if (!is_array($array)) {
+            return false;
+        }
+
         return array_search(strtolower($search), array_map('strtolower', $array));
     }
 
