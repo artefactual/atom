@@ -740,6 +740,11 @@ class sfWebRequest extends sfRequest
    */
   public function setRequestFormat($format)
   {
+    $validFormats = ['xml', 'ead', 'dc', 'csv', 'html', 'json'];
+
+    if (false === array_search($format, $validFormats)) {
+        $format = 'html';
+    }
     $this->format = $format;
   }
 
