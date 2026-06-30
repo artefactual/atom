@@ -2886,16 +2886,26 @@ class QubitDigitalObject extends BaseDigitalObject
 
         // Get the duration of the video and calculate the position of its thumbnail at 50%
         $thumbnailPosition = 0;
-        $command = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {$originalPath}";
+        $command = sprintf(
+            'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 %s',
+            escapeshellarg($originalPath),
+        );
         exec($command, $output, $status);
+
         if (0 === $status && is_array($output) && 1 === count($output)) {
             // ffprobe outputs duration as SS.MICROSECONDS
             $thumbnailPosition = intval(floatval($output[0]) / 2);
         }
 
         // Do conversion to jpeg
-        $command = "ffmpeg -y -ss {$thumbnailPosition} -i {$originalPath} -vframes 1 -vf \"scale='min({$width},iw):-1'\" {$newPath}";
-        exec($command.' 2>&1', $output, $status);
+        $command = sprintf(
+            'ffmpeg -y -ss %d -i %s -vframes 1 -vf "scale=\'min(%d,iw):-1\'" %s 2>&1',
+            $thumbnailPosition,
+            escapeshellarg($originalPath),
+            $width,
+            escapeshellarg($newPath),
+        );
+        exec($command, $output, $status);
 
         chmod($newPath, 0644);
 
