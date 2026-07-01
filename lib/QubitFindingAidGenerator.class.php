@@ -441,13 +441,12 @@ EOL;
         $foFilePath = tempnam(sys_get_temp_dir(), 'ATM');
 
         $cmd = sprintf(
-            "java -cp '%s:%s' net.sf.saxon.Transform -s:'%s' -xsl:'%s' -o:'%s' -catalog:'%s' 2>&1",
-            $this->getSaxonPath(),
-            $this->getResolverPath(),
-            $eadFilePath,
-            $xslTmpPath,
-            $foFilePath,
-            $this->getCatalogPath(),
+            'java -cp %s net.sf.saxon.Transform -s:%s -xsl:%s -o:%s -catalog:%s 2>&1',
+            escapeshellarg($this->getSaxonPath().PATH_SEPARATOR.$this->getResolverPath()),
+            escapeshellarg($eadFilePath),
+            escapeshellarg($xslTmpPath),
+            escapeshellarg($foFilePath),
+            escapeshellarg($this->getCatalogPath()),
         );
 
         $this->logger->info(sprintf('Running: %s', $cmd));
@@ -513,9 +512,10 @@ EOL;
 
         // Use FO file generated in previous step to generate finding aid
         $cmd = sprintf(
-            "fop -r -q -a -fo '%s' -%s '%s' 2>&1",
-            $foFilePath, $this->getFormat(),
-            $findingAidPath
+            'fop -r -q -a -fo %s -%s %s 2>&1',
+            escapeshellarg($foFilePath),
+            $this->getFormat(),
+            escapeshellarg($findingAidPath)
         );
 
         $this->logger->info(sprintf('Running: %s', $cmd));
