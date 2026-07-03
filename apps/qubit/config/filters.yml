@@ -10,6 +10,9 @@ security: ~
 settings:
   class: QubitSettingsFilter
 
+culture_header:
+  class: QubitCultureHeaderFilter
+
 QubitLimitIp:
   class: QubitLimitIpFilter
 
