@@ -105,7 +105,8 @@ docker compose restart atom_worker
 <details>
 <summary><b>Run symfony without a memory limit</b></summary>
 
-This script is useful for deleting a database and setting up a demo username/password.
+This script is useful for deleting a database and setting up a demo email/password
+(email: demo@example.com and password: demo).
 
 ```bash
 docker compose exec atom php -d memory_limit=-1 symfony tools:purge --demo
@@ -403,7 +404,9 @@ class DefaultNewestComponent extends sfComponent
 
 We welcome code contributions to the public AtoM project. Thank you for
 sharing with the community! This guide will help you familiarize yourself with
-our coding style and code review guidelines.
+our coding style and code review guidelines. Where possible, we ask for unit tests
+to help maintain code quality and improve maintenance. More guidance is available in
+the [unit testing](#unit-tests) section.
 
 Here's an outline of the contribution process:
 
@@ -427,7 +430,7 @@ When naming branches, Artefactual uses the following naming format:
 * `dev/` marks it as being a development branch, not for QA integration or
   a stable release
 
-* `issue-####` is the issue that the work is mostly related to
+* `issue-####` is the issue number that the work is mostly related to. This is *not* the pull request number.
 
 * `short-description` is a description of the branch in a few words, to make it
   easier to remember what the topic is. Example: `dev/issue-7129-csv-validator`
@@ -439,7 +442,7 @@ GitHub, consult their [guide](https://help.github.com/articles/fork-a-repo/).
 
 * Make sure to sign [Contributor's Agreement here](https://drive.google.com/file/d/1rX_BIeToUpa0jJ69jLdxsvyKd3R-L6p4/view?usp=sharing)
 * Learn about our [Coding standard](#coding-standards)
-* Make sure you have [tests](#testing) for your change
+* Make sure you have added [tests](#testing) when possible for your changes
 * Submit a [pull request](#submitting-a-pull-request) with a clear commit history
 * Submit a pull request to update to the [AtoM documentation](https://github.com/artefactual/atom-docs)
 if your change requires it
