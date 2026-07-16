@@ -126,7 +126,7 @@ class QubitGrantedRight extends BaseGrantedRight
          */
         $permissions = QubitSetting::getByName('premisAccessRightValues');
 
-        return [$act->id, unserialize($permissions->getValue(['sourceCulture' => true]))];
+        return [$act->id, Qubit::safeUnserialize($permissions->getValue(['sourceCulture' => true]), [])];
     }
 
     /**
