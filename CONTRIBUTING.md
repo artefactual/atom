@@ -55,22 +55,43 @@ AtoM also currently uses Elasticsearch for its search index, Twitter Bootstrap
 for theming, and several other libraries. MySQL is used for data storage. We
 keep all our code in a git repository, so being comfortable with git or other
 distributed version control systems will also help you.
-There are useful resources within these guidelines.
+There are useful resources within these guidelines and in the
+[Contributors Portal](https://contributors.artefactual.com/index.html).
 
 ### Setting up your development environment
 
 * [Docker installation](https://www.accesstomemory.org/en/docs/latest/dev-manual/env/compose/#dev-env-compose)
 * [Vagrant installation](https://www.accesstomemory.org/docs/latest/dev-manual/env/vagrant/)
 
-### Theme development
+#### Useful commands
 
-[Custom theming documentation](https://www.accesstomemory.org/docs/latest/admin-manual/customization/theming/#create-a-custom-theme)
+For pre-commit commands, see the section on running [pre-commit checks](#submitting-a-pull-request).
+Also check out the [Developer Guidance](https://contributors.artefactual.com/guidelines.html)
+on the Contributors Portal for other useful generic commands and tips.
+
+For useful Docker Compose commands on loading data, clearing caches, debugging and troubleshooting, see
+the **Useful Commands** section in the [AtoM documentation](https://www.accesstomemory.org/en/docs/latest/dev-manual/env/compose/#dev-env-compose).
+
+We currently do not have similar getting started documentation for Vagrant, but if you would like to contribute your
+work to the Vagrant section in the [AtoM documentation](https://www.accesstomemory.org/docs/latest/dev-manual/env/vagrant/),
+we welcome contributions.
+
+
+### Getting started with theme development
+
+* [Custom theming documentation](https://www.accesstomemory.org/docs/latest/admin-manual/customization/theming/#create-a-custom-theme)
+* [Sample Bootstrap 5 theme plugin](https://github.com/artefactual-labs/arSampleThemeB5Plugin/)
+
+This documentation includes useful snippets for add carousels to the homepage, spashes, newest additions lists and more.
+We welcome contributions, including theming snippets and sample theme plugins.
 
 ## Contributing code
 
 We welcome code contributions to the public AtoM project. Thank you for
 sharing with the community! This guide will help you familiarize yourself with
-our coding style and code review guidelines.
+our coding style and code review guidelines. Where possible, we ask for unit tests
+to help maintain code quality and improve maintenance. More guidance is available in
+the [unit testing](#unit-tests) section.
 
 Here's an outline of the contribution process:
 
@@ -94,7 +115,7 @@ When naming branches, Artefactual uses the following naming format:
 * `dev/` marks it as being a development branch, not for QA integration or
   a stable release
 
-* `issue-####` is the issue that the work is mostly related to
+* `issue-####` is the issue number that the work is mostly related to. This is *not* the pull request number.
 
 * `short-description` is a description of the branch in a few words, to make it
   easier to remember what the topic is. Example: `dev/issue-7129-csv-validator`
@@ -106,36 +127,52 @@ GitHub, consult their [guide](https://help.github.com/articles/fork-a-repo/).
 
 * Make sure to sign [Contributor's Agreement here](https://drive.google.com/file/d/1rX_BIeToUpa0jJ69jLdxsvyKd3R-L6p4/view?usp=sharing)
 * Learn about our [Coding standard](#coding-standards)
-* Make sure you have [tests](#testing) for your change
+* Make sure you have added [tests](#testing) when possible for your changes
 * Submit a [pull request](#submitting-a-pull-request) with a clear commit history
 * Submit a pull request to update to the [AtoM documentation](https://github.com/artefactual/atom-docs)
 if your change requires it
 
 ### Submitting a pull request
 
-Artefactual uses [GitHub's pull request feature](https://help.github.com/articles/using-pull-requests) for code review.
-Every change being submitted to an Artefactual project should be submitted as a pull request
-to the appropriate repository, and the appropriate branch - in general, to the
-latest development branch (named ```qa/[verison]```). A pull request being
-submitted for code review should only contain commits covering a related
-section of code. Try not to bundle unrelated changes together in one branch; it
-makes review harder.
+The Developer Guidance in the Contributor's Portal has more details on submitting pull requests in GitHub.
 
-Commit summaries should be short (no more than 50 characters) and clear.
+When you make a new pull request, a set of Actions run in the AtoM GitHub repository to check your code for formatting issues and to ensure all tests succeed. These actions are all required to succeed before merging your pull request, so it's recommended to check that your code is formatted correctly and the tests succeed **before making a pull request**.
 
-Here are a few blog posts from around the web that offer more help and
-overviews using pull requests:
+The pre-commit checks below describe how to check your code's formatting and how to run tests locally before making a pull request or pushing new commits.
 
-* The GitHub blog has a post on ["how to write the perfect pull request"](https://github.com/blog/1943-how-to-write-the-perfect-pull-request)
-* The SpringSource community blog has [useful a post on pull requests](https://spring.io/blog/2010/12/21/social-coding-in-spring-projects)
-* Otaku, Cedric's Blog has a [quick guide to pull requests](https://www.beust.com/weblog/a-quick-guide-to-pull-requests/)
+Run PHP style checker:
+```bash
+docker compose exec atom composer php-cs-fix -- fix --dry-run -v
+```
+
+Locally run automated tests:
+
+**Note: this command will wipe the database**
+```bash
+npx cypress run -b {browser name}.
+```
+
+For example:
+```bash
+npx cypress run -b firefox
+```
+
+PHP Unit tests (to run all of them):
+```bash
+docker compose exec atom composer test-cov
+```
+
+Prettier fix styling
+```bash
+npm run format
+```
 
 ### Tips for submitting code to AtoM
 
 1. Before starting on any new development work, review open issues to check if any describe your work. If there is an issue, comment on it with your intentions to provide a fix. If there isn't an open issue, open a new one so
 the project maintainers and community members know not to duplicate work.
 
-> **Note** If you plan to submit a pull request on an issue, leave a
+> **Note:** If you plan to submit a pull request on an issue, leave a
 > comment for our developers that you are working on it and
 > we will add the ***work-in-progress*** tag so that all contributors are aware
 > that work is being done on this issue.
@@ -163,7 +200,7 @@ for reference when developming new plugins for AtoM.
 application that relate to the work you are doing. We’re aiming for code
 consistency, which helps us better maintain the application.
 
-7. For large pull requests, we greatly prefer if these can be broken up into
+7. For large pull requests, we prefer if these can be broken up into
 **atomic commits**. It simplifies code review as overly large pull requests may not
 be merged if to complex. With atomic commits, our developers can review each
 change and its rationale incrementally, making specific change requests for any
@@ -319,8 +356,6 @@ Due to an issue formatting the Symfony templates, the `ensure_fully_multiline` o
 > function or array) does not constitute splitting the argument list itself.
 
 ```php
-<?php
-
 $foo->bar(
     $longArgument,
     $longerArgument,
@@ -341,8 +376,6 @@ formatting, with the additional rule:
 > the end of the line, not a mix of both.
 
 ```php
-<?php
-
 if (
     $expr1
     && $expr2
@@ -373,8 +406,6 @@ indentation.
 For example:
 
 ```php
-<?php
-
 $foo = $condition
     ? 'true value'
     : 'false value';
