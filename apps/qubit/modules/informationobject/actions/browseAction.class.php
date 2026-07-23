@@ -139,10 +139,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
                 'image' => QubitTerm::IMAGE_ID,
                 'text' => QubitTerm::TEXT_ID,
                 'video' => QubitTerm::VIDEO_ID,
+                'other' => QubitTerm::OTHER_ID,
             ];
 
             if (false == array_search($this->getParameters['mediatypes'], $validMediaTypes)) {
-                $this->getParameters['mediatypes'] = QubitTerm::IMAGE_ID;
+                $this->getParameters['mediatypes'] = QubitTerm::OTHER_ID;
             }
         }
 
