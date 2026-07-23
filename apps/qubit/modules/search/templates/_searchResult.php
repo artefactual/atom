@@ -213,6 +213,7 @@ $maxFragmentSize = 150;
         $firstHighlightText = current($otherHighlights)[0];
         $highlightFieldKey = array_key_first($otherHighlights);
         $ellipsize = strlen($firstHighlightText) >= $maxFragmentSize;
+        $numHighlightsHidden = count($otherHighlights) - 1;
         ?>
         <div class="search-highlight-other d-print-none">
           <div class="text-block highlight-summary summary">
@@ -234,6 +235,15 @@ $maxFragmentSize = 150;
               echo '&hellip;';
               } ?>
             </span>
+            <?php if (1 === $numHighlightsHidden) { ?>
+              <div class="search-highlight-count text-muted small">
+                <?php echo __('Search also matched 1 other field'); ?>
+              </div>
+            <?php } elseif ($numHighlightsHidden > 1) { ?>
+              <div class="search-highlight-count text-muted small">
+                <?php echo __('Search also matched %1% other fields', ['%1%' => $numHighlightsHidden]); ?>
+              </div>
+            <?php } ?>
           </div>
         </div>
       <?php } ?>

@@ -120,6 +120,12 @@ header i.fa-2x {
       .search-highlight-fragment {
         font-style: italic;
       }
+
+      .search-highlight-count {
+        margin-top: 0.5em;
+        font-size: $small-font-size;
+        font-weight: $font-weight-light;
+      }
     }
   }
 }
