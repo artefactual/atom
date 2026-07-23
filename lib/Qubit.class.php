@@ -19,6 +19,8 @@
 
 class Qubit
 {
+    private const MAX_UNSERIALIZE_INSPECTION_DEPTH = 100;
+
     /**
      * Safely unserialize stored application data without rehydrating objects.
      *
@@ -546,17 +548,24 @@ class Qubit
     /**
      * Detect object placeholders that remain after class-disabled unserialize.
      *
+     * PHP unserialize() preserves array references, so reject overly deep
+     * structures before recursive traversal can loop or exhaust memory.
+     *
      * @param mixed $value
      */
-    private static function containsObject($value)
+    private static function containsObject($value, int $depth = 0)
     {
+        if ($depth > self::MAX_UNSERIALIZE_INSPECTION_DEPTH) {
+            return true;
+        }
+
         if (is_object($value)) {
             return true;
         }
 
         if (is_array($value)) {
             foreach ($value as $item) {
-                if (self::containsObject($item)) {
+                if (self::containsObject($item, $depth + 1)) {
                     return true;
                 }
             }

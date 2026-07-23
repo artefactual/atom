@@ -28,4 +28,20 @@ class QubitTest extends TestCase
         $this->assertSame([], Qubit::safeUnserialize(serialize(new stdClass()), []));
         $this->assertSame([], Qubit::safeUnserialize(serialize(['nested' => new stdClass()]), []));
     }
+
+    public function testSafeUnserializeRejectsRecursiveArrays()
+    {
+        $this->assertSame([], Qubit::safeUnserialize('a:1:{i:0;R:1;}', []));
+    }
+
+    public function testSafeUnserializeRejectsDeeplyNestedArrays()
+    {
+        $value = 'value';
+
+        for ($i = 0; $i < 101; ++$i) {
+            $value = [$value];
+        }
+
+        $this->assertSame([], Qubit::safeUnserialize(serialize($value), []));
+    }
 }
