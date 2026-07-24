@@ -39,6 +39,7 @@
     },
     "scripts": {
         "test": "phpunit",
+        "test-framework": "phpunit -c phpunit.framework.xml",
         "test-debug": [
             "@putenv XDEBUG_SESSION=1",
             "phpunit"
