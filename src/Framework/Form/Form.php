@@ -226,9 +226,23 @@ class Form implements \ArrayAccess, \Countable, \IteratorAggregate
 
     public function getValue(string $field): mixed
     {
-        return $this->isBound && array_key_exists($field, $this->values)
+        $value = $this->isBound && array_key_exists($field, $this->values)
             ? $this->values[$field]
             : null;
+
+        $widget = $this->widgetSchema[$field] ?? null;
+        if (
+            $widget instanceof Widget
+            && (bool) $widget->getOption('multiple', false)
+        ) {
+            if (is_array($value)) {
+                return $value;
+            }
+
+            return null === $value || '' === $value ? [] : [$value];
+        }
+
+        return $value;
     }
 
     public function getName(): false|string

@@ -125,6 +125,69 @@ final class RoutingAdapterTest extends TestCase
         );
     }
 
+    public function testGeneratesUrlsForResourcesWithoutSlugs(): void
+    {
+        $resource = new \stdClass();
+        $resource->id = 104;
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'id/default',
+                [
+                    'module' => 'aclGroup',
+                    'id' => '104',
+                    'action' => 'index',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/aclGroup/index/id/104');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/aclGroup/index/id/104',
+            $routing->generate(null, [
+                $resource,
+                'module' => 'aclGroup',
+            ]),
+        );
+    }
+
+    public function testGeneratesActionUrlsForResourcesWithoutSlugs(): void
+    {
+        $resource = new \stdClass();
+        $resource->id = 104;
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'id/default',
+                [
+                    'module' => 'aclGroup',
+                    'action' => 'delete',
+                    'id' => '104',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/aclGroup/delete/id/104');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/aclGroup/delete/id/104',
+            $routing->generate(null, [
+                $resource,
+                'module' => 'aclGroup',
+                'action' => 'delete',
+            ]),
+        );
+    }
+
     public function testHidesLegacyModulesInResourcePermalinks(): void
     {
         $resource = new \stdClass();

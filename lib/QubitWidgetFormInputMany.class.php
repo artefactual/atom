@@ -84,5 +84,6 @@ EOF;
         parent::configure($options, $attributes);
         $this->addRequiredOption('defaults');
         $this->addOption('fieldname', 'name');
+        $this->setOption('multiple', true);
     }
 }

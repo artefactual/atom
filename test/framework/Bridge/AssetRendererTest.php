@@ -84,6 +84,12 @@ final class AssetRendererTest extends TestCase
         $response = new ResponseAdapter(new Response());
         $response->addJavaScript('/vendor/jquery');
         $response->addJavaScript('/vendor/modernizr');
+        $response->addJavaScript(
+            '/plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader',
+        );
+        $response->addJavaScript(
+            '/plugins/sfDrupalPlugin/vendor/drupal/modules/user/user',
+        );
         $response->addJavaScript('clipboard');
         $renderer = new AssetRenderer();
 

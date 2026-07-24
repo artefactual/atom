@@ -22,6 +22,8 @@ final readonly class AssetRenderer
     private const B5_BUNDLED_JAVASCRIPTS = [
         '/vendor/jquery',
         '/plugins/sfDrupalPlugin/vendor/drupal/misc/drupal',
+        '/plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader',
+        '/plugins/sfDrupalPlugin/vendor/drupal/modules/user/user',
         '/vendor/yui/yahoo-dom-event/yahoo-dom-event',
         '/vendor/imageflow/imageflow.packed.js',
         'qubit',

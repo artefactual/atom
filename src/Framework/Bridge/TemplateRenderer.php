@@ -36,6 +36,10 @@ final class TemplateRenderer
         $sf_request = $context->getRequest();
         $sf_response = $context->getResponse();
         $sf_user = $context->getUser();
+        $variables += [
+            'parent' => null,
+            'user' => null,
+        ];
         $variables = [
             'sf_context' => $sf_context,
             'sf_request' => $sf_request,
@@ -65,8 +69,28 @@ final class TemplateRenderer
             $variables = $escaped;
         }
 
+        unset($name, $value);
         extract($variables, \EXTR_SKIP);
         ob_start();
+        $previousHandler = set_error_handler(
+            static function (
+                int $severity,
+                string $message,
+                string $file,
+                int $line,
+            ) use (&$previousHandler): bool {
+                if (
+                    \E_WARNING === $severity
+                    && str_starts_with($message, 'Undefined variable $')
+                ) {
+                    return true;
+                }
+
+                return null === $previousHandler
+                    ? false
+                    : $previousHandler($severity, $message, $file, $line);
+            }
+        );
 
         try {
             include $templatePath;
@@ -78,6 +102,8 @@ final class TemplateRenderer
             }
 
             throw $exception;
+        } finally {
+            restore_error_handler();
         }
     }
 

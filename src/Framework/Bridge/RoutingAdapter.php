@@ -225,6 +225,10 @@ final readonly class RoutingAdapter
             return 'slug';
         }
 
+        if (isset($parameters['id'], $parameters['module'])) {
+            return 'id/default';
+        }
+
         return isset($parameters['action']) ? 'default' : 'default_index';
     }
 
@@ -248,7 +252,25 @@ final readonly class RoutingAdapter
 
             if (null !== $slug && '' !== (string) $slug) {
                 $parameters['slug'] ??= (string) $slug;
+            } else {
+                try {
+                    $id = $resource->id;
+                } catch (\Throwable) {
+                    $id = null;
+                }
+
+                if (null !== $id && '' !== (string) $id) {
+                    $parameters['id'] ??= (string) $id;
+                }
             }
+        }
+
+        if (
+            isset($parameters['id'], $parameters['module'])
+            && $selectRoute
+            && !isset($parameters['sf_route'])
+        ) {
+            $parameters['action'] ??= 'index';
         }
 
         if (

@@ -340,6 +340,10 @@ function render_b5_section_heading(
 ) {
     if ($condition) {
         $linkClasses = 'text-primary text-decoration-none';
+        $linkOptions += [
+            'class' => '',
+            'title' => '',
+        ];
         $linkOptions['class'] = $linkOptions['class']
             ? $linkOptions['class'].' '.$linkClasses
             : $linkClasses;

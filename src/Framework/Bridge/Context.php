@@ -143,6 +143,13 @@ final class Context
         return $this->viewRuntime;
     }
 
+    public function getViewCacheManager(): ?object
+    {
+        $manager = $this->objects['view_cache_manager'] ?? null;
+
+        return is_object($manager) ? $manager : null;
+    }
+
     public function get(string $name): mixed
     {
         if (!$this->has($name)) {

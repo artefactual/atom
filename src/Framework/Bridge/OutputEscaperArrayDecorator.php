@@ -77,6 +77,6 @@ final class OutputEscaperArrayDecorator extends OutputEscaperGetterDecorator imp
 
     public function getRaw(int|string $key): mixed
     {
-        return $this->value[$key];
+        return $this->value[$key] ?? null;
     }
 }

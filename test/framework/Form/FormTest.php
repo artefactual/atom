@@ -225,6 +225,38 @@ final class FormTest extends TestCase
         ], $widget->getChoices());
     }
 
+    public function testReturnsArraysForMultipleWidgets(): void
+    {
+        $form = new \sfForm([], [], false);
+        $form->setWidget('terms', new \sfWidgetFormSelect([
+            'choices' => [],
+            'multiple' => true,
+        ]));
+        $form->setValidator('terms', new \sfValidatorPass());
+        $form->setWidget('names', new \sfWidgetFormInput([
+            'multiple' => true,
+        ]));
+        $form->setValidator('names', new \sfValidatorPass());
+        $form->bind([
+            'terms' => null,
+            'names' => '',
+        ]);
+
+        self::assertSame([], $form->getValue('terms'));
+        self::assertSame([], $form->getValue('names'));
+
+        $form->bind([
+            'terms' => ['/subjects'],
+            'names' => ['new' => 'Alternative name'],
+        ]);
+
+        self::assertSame(['/subjects'], $form->getValue('terms'));
+        self::assertSame(
+            ['new' => 'Alternative name'],
+            $form->getValue('names'),
+        );
+    }
+
     public function testEmbedsAndValidatesNestedForms(): void
     {
         $child = new \sfForm([], [], false);

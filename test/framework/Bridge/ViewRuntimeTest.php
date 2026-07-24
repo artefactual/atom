@@ -104,6 +104,10 @@ final class ViewRuntimeTest extends TestCase
                             <?= get_component('bridgefixture', 'greeting', ['name' => 'AtoM']) ?>
                             <?= $sf_data->getRaw('sf_request') === $sf_request ? '<em>Request</em>' : '' ?>
                             <?= $this->context === $sf_context ? '<b>Context</b>' : '' ?>
+                            <?= null === $parent ? '<u>Parent default</u>' : '' ?>
+                            <mark><?= $user ?></mark>
+                            <?= $legacyOptional ?>
+                            <?= $sf_data->getRaw('legacyMissing') ?>
                             PHP,
                         '_message.php' => '<p><?= $value ?></p>',
                         '_path.php' => '<code><?= $path ?></code>',
@@ -161,6 +165,13 @@ final class ViewRuntimeTest extends TestCase
         );
         Context::setInstance($context);
         self::assertSame($context->getRequest(), $context->get('request'));
+        self::assertNull($context->getViewCacheManager());
+        $viewCacheManager = new \stdClass();
+        $context->set('view_cache_manager', $viewCacheManager);
+        self::assertSame(
+            $viewCacheManager,
+            $context->getViewCacheManager(),
+        );
         self::assertFalse($context->has('thumbnailAdapter'));
         $context->set('thumbnailAdapter', 'sfGDAdapter');
         self::assertSame(
@@ -174,24 +185,46 @@ final class ViewRuntimeTest extends TestCase
         $runtime->begin('bridgefixture', 'index', 'Success');
         $path = $templates->find('bridgefixture', 'index');
         self::assertNotNull($path);
-        $variables = ['unsafe' => '<script>alert(1)</script>'];
-        $content = $runtime->render(
-            $path,
-            $variables,
-            'bridgefixture',
+        $variables = [
+            'unsafe' => '<script>alert(1)</script>',
+            'user' => 'Supplied user',
+        ];
+        $warnings = [];
+        set_error_handler(
+            static function (
+                int $severity,
+                string $message,
+            ) use (&$warnings): bool {
+                $warnings[] = [$severity, $message];
+
+                return true;
+            }
         );
 
-        $html = preg_replace(
-            '/>\s+</',
-            '><',
-            trim($runtime->decorate($content, $variables)),
-        );
+        try {
+            $content = $runtime->render(
+                $path,
+                $variables,
+                'bridgefixture',
+            );
+
+            $html = preg_replace(
+                '/>\s+</',
+                '><',
+                trim($runtime->decorate($content, $variables)),
+            );
+        } finally {
+            restore_error_handler();
+        }
+
+        self::assertSame([], $warnings);
 
         self::assertStringContainsString(
             '<main><span>&lt;script&gt;alert(1)&lt;/script&gt;</span>'
                 .'<p>Body</p><code>/download.pdf</code>'
                 .'<strong>Hello AtoM</strong><i>Unset</i>'
-                .'<em>Request</em><b>Context</b></main>'
+                .'<em>Request</em><b>Context</b>'
+                .'<u>Parent default</u><mark>Supplied user</mark></main>'
                 .'<aside>Side</aside>',
             $html,
         );
