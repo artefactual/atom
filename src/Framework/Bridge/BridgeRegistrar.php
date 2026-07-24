@@ -35,6 +35,7 @@ final class BridgeRegistrar
         [Component::class, 'sfComponent'],
         [Action::class, 'sfAction'],
         [Actions::class, 'sfActions'],
+        [PropelBridge::class, 'sfPropel'],
         [BridgeException::class, 'sfException'],
         [BridgeException::class, 'sfConfigurationException'],
         [BridgeException::class, 'sfControllerException'],

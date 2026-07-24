@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace Atom;
 
 use Atom\Controller\LegacyController;
+use Atom\EventSubscriber\PropelRequestSubscriber;
 use Atom\Framework\Autoload\LegacyClassDirectories;
 use Atom\Framework\Autoload\LegacyClassLoader;
 use Atom\Framework\Bridge\ActionRunner;
@@ -40,6 +41,7 @@ use Atom\Framework\Configuration\ConstantReplacer;
 use Atom\Framework\Configuration\DirectoryParameters;
 use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
+use Atom\Framework\Database\PropelBootstrap;
 use Atom\Framework\Module\ActionLocator;
 use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
@@ -63,8 +65,10 @@ class Kernel extends BaseKernel
     public function boot(): void
     {
         (new BridgeRegistrar())->register();
+        $directories = new LegacyClassDirectories($this->getProjectDir());
         $this->legacyClassLoader ??= new LegacyClassLoader(
-            new LegacyClassDirectories($this->getProjectDir()),
+            $directories,
+            includePaths: $directories->includePaths(),
         );
         $this->legacyClassLoader->register();
 
@@ -169,6 +173,10 @@ class Kernel extends BaseKernel
         $services->set(TemplateLocator::class);
         $services->set(TemplateRenderer::class);
         $services->set(ActionRunner::class);
+        $services->set(PropelBootstrap::class)->args([
+            $configuration->load('config/config.php'),
+        ]);
+        $services->set(PropelRequestSubscriber::class);
         $services
             ->set(LegacyController::class)
             ->public()

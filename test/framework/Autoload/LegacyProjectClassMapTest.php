@@ -59,6 +59,12 @@ final class LegacyProjectClassMapTest extends TestCase
             $loader->findFile('Criteria'),
         );
         self::assertNull($loader->findFile('sfAction'));
+        self::assertSame([
+            $projectDirectory
+                .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor',
+        ], (new LegacyClassDirectories(
+            $projectDirectory,
+        ))->includePaths());
     }
 
     public function testLoadsGeneratedModelsWithoutSymfonyRuntime(): void

@@ -25,10 +25,12 @@ final class LegacyClassLoader
 {
     private ?array $classMap = null;
     private bool $registered = false;
+    private ?string $originalIncludePath = null;
 
     public function __construct(
         private readonly iterable $directories,
         private readonly ClassMapBuilder $classMapBuilder = new ClassMapBuilder(),
+        private readonly iterable $includePaths = [],
     ) {}
 
     public function register(): void
@@ -37,6 +39,7 @@ final class LegacyClassLoader
             return;
         }
 
+        $this->registerIncludePaths();
         spl_autoload_register([$this, 'load']);
         $this->registered = true;
     }
@@ -48,6 +51,12 @@ final class LegacyClassLoader
         }
 
         spl_autoload_unregister([$this, 'load']);
+
+        if (null !== $this->originalIncludePath) {
+            set_include_path($this->originalIncludePath);
+            $this->originalIncludePath = null;
+        }
+
         $this->registered = false;
     }
 
@@ -65,5 +74,26 @@ final class LegacyClassLoader
         );
 
         return $this->classMap[strtolower(ltrim($class, '\\'))] ?? null;
+    }
+
+    private function registerIncludePaths(): void
+    {
+        $paths = [];
+
+        foreach ($this->includePaths as $path) {
+            if (is_string($path) && is_dir($path)) {
+                $paths[] = $path;
+            }
+        }
+
+        if ([] === $paths) {
+            return;
+        }
+
+        $this->originalIncludePath = get_include_path();
+        set_include_path(implode(\PATH_SEPARATOR, [
+            ...$paths,
+            $this->originalIncludePath,
+        ]));
     }
 }

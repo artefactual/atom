@@ -74,6 +74,14 @@ final readonly class LegacyClassDirectories implements \IteratorAggregate
         return array_values(array_unique($directories));
     }
 
+    public function includePaths(): array
+    {
+        $directory = $this->projectDirectory
+            .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor';
+
+        return is_dir($directory) ? [$directory] : [];
+    }
+
     private function appendModuleDirectories(
         array &$directories,
         string $modulesDirectory,
