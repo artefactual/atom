@@ -24,6 +24,7 @@ namespace Atom;
 use Atom\Controller\LegacyController;
 use Atom\EventSubscriber\PropelRequestSubscriber;
 use Atom\EventSubscriber\ResourceRouteSubscriber;
+use Atom\EventSubscriber\UserRequestSubscriber;
 use Atom\Framework\Autoload\LegacyClassDirectories;
 use Atom\Framework\Autoload\LegacyClassLoader;
 use Atom\Framework\Bridge\ActionRunner;
@@ -161,12 +162,24 @@ class Kernel extends BaseKernel
             'router' => [
                 'utf8' => true,
             ],
+            'session' => [
+                'enabled' => true,
+                'storage_factory_id' => 'test' === $this->environment
+                    ? 'session.storage.factory.mock_file'
+                    : 'session.storage.factory.native',
+                'name' => 'symfony',
+                'cookie_secure' => true,
+                'cookie_httponly' => true,
+                'cookie_samesite' => 'strict',
+                'save_path' => '%kernel.cache_dir%/sessions',
+            ],
             'test' => 'test' === $this->environment,
         ]);
 
         $services = $container->services();
         $services->defaults()->autowire()->autoconfigure();
         $services->set(User::class)->public();
+        $services->set(UserRequestSubscriber::class);
         $services->set(EventDispatcher::class);
         $services->set(RuntimeConfiguration::class)->args([
             self::APPLICATION,

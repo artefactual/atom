@@ -81,6 +81,17 @@ class ParameterHolder implements \Serializable
         return $value;
     }
 
+    public function removeNamespace(string $namespace): void
+    {
+        $prefix = rtrim($namespace, '/').'/';
+
+        foreach (array_keys($this->parameters) as $name) {
+            if (str_starts_with((string) $name, $prefix)) {
+                unset($this->parameters[$name]);
+            }
+        }
+    }
+
     public function set(int|string $name, mixed $value): void
     {
         $this->parameters[$name] = $value;
