@@ -23,6 +23,7 @@ namespace Atom;
 
 use Atom\Controller\LegacyController;
 use Atom\EventSubscriber\PropelRequestSubscriber;
+use Atom\EventSubscriber\ResourceRouteSubscriber;
 use Atom\Framework\Autoload\LegacyClassDirectories;
 use Atom\Framework\Autoload\LegacyClassLoader;
 use Atom\Framework\Bridge\ActionRunner;
@@ -46,6 +47,11 @@ use Atom\Framework\Module\ActionLocator;
 use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
 use Atom\Framework\Plugin\PluginRegistry;
+use Atom\Framework\Routing\PropelResourceRepository;
+use Atom\Framework\Routing\QubitResourceClassifier;
+use Atom\Framework\Routing\ResourceClassifier;
+use Atom\Framework\Routing\ResourceRepository;
+use Atom\Framework\Routing\ResourceRouteResolver;
 use Atom\Framework\Routing\RouteCompiler;
 use Atom\Framework\Routing\RouteConfigurationLoader;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -177,6 +183,18 @@ class Kernel extends BaseKernel
             $configuration->load('config/config.php'),
         ]);
         $services->set(PropelRequestSubscriber::class);
+        $services->set(PropelResourceRepository::class);
+        $services->alias(
+            ResourceRepository::class,
+            PropelResourceRepository::class,
+        );
+        $services->set(QubitResourceClassifier::class);
+        $services->alias(
+            ResourceClassifier::class,
+            QubitResourceClassifier::class,
+        );
+        $services->set(ResourceRouteResolver::class);
+        $services->set(ResourceRouteSubscriber::class);
         $services
             ->set(LegacyController::class)
             ->public()

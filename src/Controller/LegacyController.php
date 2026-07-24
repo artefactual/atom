@@ -52,6 +52,9 @@ final readonly class LegacyController
             'sf_route',
             $request->attributes->get('sf_route', new RouteState()),
         );
+        $request->attributes->get('sf_route')->resource = $request
+            ->attributes
+            ->get('_atom_resource');
         $context = new Context(
             new RequestAdapter($request),
             new ResponseAdapter(new Response()),
