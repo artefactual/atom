@@ -22,6 +22,7 @@
  *
  * @author     Mike Cantelon <mike@artefactual.com>
  */
+#[AllowDynamicProperties]
 class QubitFlatfileImport
 {
     public $context;                   // optional sfContext
@@ -41,7 +42,6 @@ class QubitFlatfileImport
     public $limitToId = 0;     // id of repository or TLD to limit our update matching under
     public $status = []; // place to store data related to overall import
     public $rowStatusVars = []; // place to store data related to current row
-    public $object; // object being imported for the current row
 
     public $columnNames = []; // column names from first row of imported CSV
     public $ignoreColumns = []; // columns in CSV to ignore
@@ -68,12 +68,11 @@ class QubitFlatfileImport
 
     // Replaceable logic to filter content before entering Qubit
     public $contentFilterLogic;
-    protected $timer;
 
     public function __construct($options = [])
     {
         // Replaceable logic to filter content before entering Qubit
-        $this->contentFilterLogic = function ($text) {
+        $this->contentLogic = function ($text) {
             return $text;
         };
 

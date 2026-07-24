@@ -16,6 +16,7 @@ namespace Atom\Framework\Log;
 use Atom\Framework\Bridge\Event;
 use Atom\Framework\Bridge\EventDispatcher;
 
+#[\AllowDynamicProperties]
 abstract class Logger
 {
     public const EMERG = 0;

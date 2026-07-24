@@ -19,8 +19,6 @@
 
 class arJobLogger extends sfLogger
 {
-    protected $job;
-
     public function initialize(sfEventDispatcher $dispatcher, $options = [])
     {
         $this->dispatcher = $dispatcher;
