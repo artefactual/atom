@@ -40,6 +40,14 @@ class QubitDigitalObjectTest extends TransactionTestCase
         $this->assertSame(1, $pageCount);
     }
 
+    public function testGetsMaximumUploadSizeFromIniValues()
+    {
+        $size = QubitDigitalObject::getMaxUploadSize();
+
+        $this->assertIsInt($size);
+        $this->assertNotSame(0, $size);
+    }
+
     /**
      * Test creating thumbnails from valid images.
      *

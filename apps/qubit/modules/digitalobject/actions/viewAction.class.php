@@ -82,8 +82,14 @@ class DigitalObjectViewAction extends sfAction
         $this->response->setContentType($this->resource->mimeType);
 
         // Using X-Accel-Redirect (Nginx) unless ATOM_XSENDFILE is set
-        if (false === filter_var($_SERVER['ATOM_XSENDFILE'], FILTER_VALIDATE_BOOLEAN)) {
-            $urlPath = preg_replace('\/?[^\/]+\.php$', '', $_SERVER['SCRIPT_NAME']);
+        $xSendfile = $_SERVER['ATOM_XSENDFILE']
+            ?? getenv('ATOM_XSENDFILE');
+        if (false === filter_var($xSendfile, FILTER_VALIDATE_BOOLEAN)) {
+            $urlPath = preg_replace(
+                '#/?[^/]+\.php$#',
+                '',
+                $_SERVER['SCRIPT_NAME'],
+            );
             $this->response->setHttpHeader('X-Accel-Redirect', $urlPath.'/private'.$this->resource->getFullPath());
         } else {
             $this->response->setHttpHeader('X-Sendfile', sprintf(

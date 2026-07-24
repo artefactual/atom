@@ -67,6 +67,10 @@ class DigitalObjectShowComponent extends sfComponent
         if (!isset($this->iconOnly)) {
             $this->iconOnly = false;
         }
+
+        if (!isset($this->editForm)) {
+            $this->editForm = false;
+        }
     }
 
     /**

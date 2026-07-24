@@ -3514,22 +3514,23 @@ class QubitDigitalObject extends BaseDigitalObject
     {
         $val = trim($val);
         $last = strtolower(substr($val, -1));
+        $bytes = (float) $val;
 
         switch ($last) {
             // The 'G' modifier is available since PHP 5.1.0
             case 'g':
-                $val *= 1024;
+                $bytes *= 1024;
 
                 // no break
             case 'm':
-                $val *= 1024;
+                $bytes *= 1024;
 
                 // no break
             case 'k':
-                $val *= 1024;
+                $bytes *= 1024;
         }
 
-        return $val;
+        return (int) $bytes;
     }
 
     /**

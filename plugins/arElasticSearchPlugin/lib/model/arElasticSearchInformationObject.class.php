@@ -109,7 +109,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             $serialized['i18n'][$serialized['sourceCulture']]['title']));
 
         // Update descendants if requested and they exists
-        if ($options['updateDescendants'] && $object->rgt - $object->lft > 1) {
+        if (
+            ($options['updateDescendants'] ?? false)
+            && $object->rgt - $object->lft > 1
+        ) {
             self::updateDescendants($object);
         }
     }

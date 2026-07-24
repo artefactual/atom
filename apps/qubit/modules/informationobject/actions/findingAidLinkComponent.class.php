@@ -29,8 +29,8 @@ class InformationObjectFindingAidLinkComponent extends sfComponent
         $findingAid = new QubitFindingAid($this->resource);
         $this->path = $findingAid->getPath();
 
-        if (!isset($this->path)) {
-            return;
+        if (empty($this->path)) {
+            return sfView::NONE;
         }
 
         $this->filename = basename($this->path);

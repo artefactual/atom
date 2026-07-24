@@ -133,6 +133,7 @@ class DigitalObjectEditAction extends sfAction
         }
 
         // Upload new video track files
+        $uploadedTracks = [];
         foreach ($this->videoTracks as $usageId => $videoTrack) {
             if (null !== $uploadedTrack = $this->form->getValue("trackFile_{$usageId}")) {
                 $lang = $this->form->getValue("lang_{$usageId}");
