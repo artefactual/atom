@@ -25,6 +25,7 @@
         "jumbojett/openid-connect-php": "^1.0",
         "geoip2/geoip2": "~2.0",
         "symfony/framework-bundle": "^7.4",
+        "symfony/routing": "^7.4",
         "symfony/yaml": "^7.4"
     },
     "autoload": {

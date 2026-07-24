@@ -40,14 +40,8 @@ final readonly class ApplicationConfiguration
 
     public function load(string $configPath): array
     {
-        $configurations = array_map(
-            $this->fileLoader->load(...),
-            $this->paths($configPath),
-        );
-
-        $configuration = $this->merger->mergeConfigurations($configurations);
         $configuration = $this->merger->forEnvironment(
-            $configuration,
+            $this->loadRaw($configPath),
             $this->environment,
         );
 
@@ -55,6 +49,16 @@ final readonly class ApplicationConfiguration
             $configuration,
             $this->constants,
         );
+    }
+
+    public function loadRaw(string $configPath): array
+    {
+        $configurations = array_map(
+            $this->fileLoader->load(...),
+            $this->paths($configPath),
+        );
+
+        return $this->merger->mergeConfigurations($configurations);
     }
 
     public function parameters(string $configPath, string $prefix = ''): array
