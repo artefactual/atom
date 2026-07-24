@@ -35,6 +35,7 @@ use Atom\Framework\Bridge\EventDispatcher;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\TemplateRenderer;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -44,6 +45,7 @@ use Atom\Framework\Configuration\DirectoryParameters;
 use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
+use Atom\Framework\Configuration\ViewConfiguration;
 use Atom\Framework\Database\PropelBootstrap;
 use Atom\Framework\Filter\CspFilter;
 use Atom\Framework\Filter\FilterConfiguration;
@@ -61,6 +63,8 @@ use Atom\Framework\Filter\SslRequirementFilter;
 use Atom\Framework\Filter\SwordHttpAuthFilter;
 use Atom\Framework\Filter\TransactionFilter;
 use Atom\Framework\Module\ActionLocator;
+use Atom\Framework\Module\ComponentLocator;
+use Atom\Framework\Module\LayoutLocator;
 use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
 use Atom\Framework\Plugin\PdoPluginSettingsReader;
@@ -209,6 +213,7 @@ class Kernel extends BaseKernel
             $this->environment,
             $plugins,
             $this->debug,
+            $this->getProjectDir(),
         ]);
         $services->set(ModuleDirectories::class)->args([
             $this->getProjectDir(),
@@ -216,13 +221,22 @@ class Kernel extends BaseKernel
             $plugins,
         ]);
         $services->set(ActionLocator::class);
+        $services->set(ComponentLocator::class);
         $services->set(TemplateLocator::class);
+        $services->set(LayoutLocator::class)->args([
+            $this->getProjectDir(),
+            self::APPLICATION,
+            $parameters['sf_decorator_dirs'],
+        ]);
         $services->set(TemplateRenderer::class);
         $services->set(ModuleConfigurationLoader::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,
             $plugins,
         ]);
+        $services->set(ConfigurationMerger::class);
+        $services->set(ViewConfiguration::class);
+        $services->set(ViewRuntimeFactory::class);
         $services->set(SecurityConfiguration::class);
         $services->set(SecurityEnforcer::class);
         $services->set(FilterConfiguration::class);

@@ -45,6 +45,26 @@ final readonly class TemplateLocator
         return null;
     }
 
+    public function findPartial(
+        string $module,
+        string $partial,
+    ): ?string {
+        $partial = preg_replace('/\.php$/i', '', $partial) ?? $partial;
+        $partial = ltrim($partial, '_');
+        $this->validateName($partial, 'partial');
+        $filename = '_'.$partial.'.php';
+
+        foreach ($this->directories->templates($module) as $directory) {
+            $path = $directory.'/'.$filename;
+
+            if (is_readable($path)) {
+                return $path;
+            }
+        }
+
+        return null;
+    }
+
     private function validateName(string $name, string $type): void
     {
         if (1 !== preg_match('/^[a-z0-9_]+$/i', $name)) {

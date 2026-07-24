@@ -31,6 +31,7 @@ use Atom\Framework\Bridge\RouteState;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\StopException;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Filter\FilterPipeline;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,7 @@ final readonly class LegacyController
         private RuntimeConfiguration $configuration,
         private EventDispatcher $eventDispatcher,
         private FilterPipeline $filters,
+        private ViewRuntimeFactory $viewRuntimeFactory,
     ) {}
 
     public function __invoke(Request $request): Response
@@ -64,6 +66,7 @@ final readonly class LegacyController
             $this->configuration,
             $this->eventDispatcher,
             $this->router,
+            $this->viewRuntimeFactory,
         );
         Context::setInstance($context);
 

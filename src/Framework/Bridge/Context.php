@@ -28,6 +28,7 @@ final class Context
     public readonly RoutingAdapter $routing;
     public readonly Translator $i18n;
     public readonly ControllerProxy $controller;
+    private readonly ViewRuntime $viewRuntime;
     private static ?self $instance = null;
 
     public function __construct(
@@ -37,11 +38,13 @@ final class Context
         private readonly RuntimeConfiguration $configuration,
         private readonly EventDispatcher $eventDispatcher,
         RouterInterface $router,
+        ViewRuntimeFactory $viewRuntimeFactory,
         private readonly LoggerAdapter $logger = new LoggerAdapter(),
     ) {
         $this->routing = new RoutingAdapter($router, $request);
         $this->i18n = new Translator();
         $this->controller = new ControllerProxy($this);
+        $this->viewRuntime = $viewRuntimeFactory->create($this);
     }
 
     public static function getInstance(): self
@@ -99,6 +102,11 @@ final class Context
     public function getLogger(): LoggerAdapter
     {
         return $this->logger;
+    }
+
+    public function getViewRuntime(): ViewRuntime
+    {
+        return $this->viewRuntime;
     }
 
     public function getModuleName(): ?string

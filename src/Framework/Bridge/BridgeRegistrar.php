@@ -70,6 +70,7 @@ final class BridgeRegistrar
             class_alias($class, $alias);
         }
 
+        require_once __DIR__.'/functions.php';
         self::$registered = true;
     }
 }

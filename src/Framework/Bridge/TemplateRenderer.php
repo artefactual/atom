@@ -28,6 +28,7 @@ final class TemplateRenderer
         array $variables,
         Context $context,
     ): string {
+        $bufferLevel = ob_get_level();
         $sf_context = $context;
         $sf_request = $context->getRequest();
         $sf_response = $context->getResponse();
@@ -42,7 +43,9 @@ final class TemplateRenderer
 
             return (string) ob_get_clean();
         } catch (\Throwable $exception) {
-            ob_end_clean();
+            while (ob_get_level() > $bufferLevel) {
+                ob_end_clean();
+            }
 
             throw $exception;
         }

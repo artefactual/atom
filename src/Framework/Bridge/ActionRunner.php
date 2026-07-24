@@ -35,7 +35,6 @@ final readonly class ActionRunner
     public function __construct(
         private ActionLocator $actions,
         private TemplateLocator $templates,
-        private TemplateRenderer $renderer,
         private SecurityEnforcer $security,
     ) {}
 
@@ -141,11 +140,32 @@ final readonly class ActionRunner
             ));
         }
 
-        $response->setContent($this->renderer->render(
+        $context->getConfiguration()->loadHelpers(
+            (array) Configuration::get('sf_standard_helpers', []),
+        );
+        $runtime = $context->getViewRuntime();
+        $layout = null;
+
+        if (
+            $component instanceof Action
+            && $component->hasLayoutOverride()
+        ) {
+            $layout = $component->getLayout() ?? false;
+        }
+
+        $runtime->begin(
+            $module,
+            $action,
+            $view,
+            $layout,
+        );
+        $variables = $component->getVarHolder()->getAll();
+        $content = $runtime->render(
             $path,
-            $component->getVarHolder()->getAll(),
-            $context,
-        ));
+            $variables,
+            $templateModule,
+        );
+        $response->setContent($runtime->decorate($content, $variables));
 
         return $response;
     }

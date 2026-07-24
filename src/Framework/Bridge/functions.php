@@ -1,0 +1,386 @@
+<?php
+
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * AtoM is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
+ */
+
+use Atom\Framework\Bridge\Context;
+
+if (!function_exists('__')) {
+    function __(mixed $message, array $arguments = [], ?string $catalogue = null): string
+    {
+        return Context::getInstance()->i18n->__(
+            (string) $message,
+            $arguments,
+            $catalogue,
+        );
+    }
+}
+
+if (!function_exists('use_helper')) {
+    function use_helper(mixed ...$helpers): void
+    {
+        Context::getInstance()->getConfiguration()->loadHelpers($helpers);
+    }
+}
+
+if (!function_exists('get_partial')) {
+    function get_partial(string $name, array $variables = []): string
+    {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getPartial($name, $variables);
+    }
+}
+
+if (!function_exists('include_partial')) {
+    function include_partial(string $name, array $variables = []): void
+    {
+        echo get_partial($name, $variables);
+    }
+}
+
+if (!function_exists('get_component')) {
+    function get_component(
+        string $module,
+        string $component,
+        array $variables = [],
+    ): string {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getComponent($module, $component, $variables);
+    }
+}
+
+if (!function_exists('include_component')) {
+    function include_component(
+        string $module,
+        string $component,
+        array $variables = [],
+    ): void {
+        echo get_component($module, $component, $variables);
+    }
+}
+
+if (!function_exists('get_component_slot')) {
+    function get_component_slot(
+        string $name,
+        array $variables = [],
+    ): string {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getComponentSlot($name, $variables);
+    }
+}
+
+if (!function_exists('include_component_slot')) {
+    function include_component_slot(
+        string $name,
+        array $variables = [],
+    ): void {
+        echo get_component_slot($name, $variables);
+    }
+}
+
+if (!function_exists('has_component_slot')) {
+    function has_component_slot(string $name): bool
+    {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->hasComponentSlot($name);
+    }
+}
+
+if (!function_exists('decorate_with')) {
+    function decorate_with(false|string $layout): void
+    {
+        Context::getInstance()
+            ->getViewRuntime()
+            ->decorateWith($layout);
+    }
+}
+
+if (!function_exists('slot')) {
+    function slot(string $name, mixed $value = null): void
+    {
+        Context::getInstance()
+            ->getViewRuntime()
+            ->startSlot($name, $value);
+    }
+}
+
+if (!function_exists('end_slot')) {
+    function end_slot(): void
+    {
+        Context::getInstance()->getViewRuntime()->endSlot();
+    }
+}
+
+if (!function_exists('has_slot')) {
+    function has_slot(string $name): bool
+    {
+        return Context::getInstance()->getViewRuntime()->hasSlot($name);
+    }
+}
+
+if (!function_exists('get_slot')) {
+    function get_slot(string $name, string $default = ''): string
+    {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getSlot($name, $default);
+    }
+}
+
+if (!function_exists('include_slot')) {
+    function include_slot(string $name, string $default = ''): bool
+    {
+        $content = get_slot($name, $default);
+
+        if ('' === $content) {
+            return false;
+        }
+
+        echo $content;
+
+        return true;
+    }
+}
+
+if (!function_exists('esc_specialchars')) {
+    function esc_specialchars(mixed $value): mixed
+    {
+        return is_string($value)
+            ? htmlspecialchars(
+                $value,
+                \ENT_QUOTES | \ENT_SUBSTITUTE,
+                (string) sfConfig::get('sf_charset', 'UTF-8'),
+            )
+            : $value;
+    }
+}
+
+if (!function_exists('esc_entities')) {
+    function esc_entities(mixed $value): mixed
+    {
+        return is_string($value)
+            ? htmlentities(
+                $value,
+                \ENT_QUOTES | \ENT_SUBSTITUTE,
+                (string) sfConfig::get('sf_charset', 'UTF-8'),
+            )
+            : $value;
+    }
+}
+
+if (!function_exists('esc_raw')) {
+    function esc_raw(mixed $value): mixed
+    {
+        return $value;
+    }
+}
+
+if (!function_exists('_parse_attributes')) {
+    function _parse_attributes(mixed $attributes): array
+    {
+        if (is_array($attributes)) {
+            return $attributes;
+        }
+
+        if (!is_string($attributes) || '' === trim($attributes)) {
+            return [];
+        }
+
+        parse_str(str_replace(' ', '&', trim($attributes)), $parsed);
+
+        return $parsed;
+    }
+}
+
+if (!function_exists('_tag_options')) {
+    function _tag_options(mixed $attributes = []): string
+    {
+        $html = '';
+
+        foreach (_parse_attributes($attributes) as $name => $value) {
+            if (false === $value || null === $value) {
+                continue;
+            }
+
+            if (true === $value) {
+                $value = $name;
+            } elseif (is_array($value)) {
+                $value = implode(' ', $value);
+            }
+
+            $html .= sprintf(
+                ' %s="%s"',
+                $name,
+                htmlspecialchars(
+                    (string) $value,
+                    \ENT_QUOTES | \ENT_SUBSTITUTE,
+                    'UTF-8',
+                ),
+            );
+        }
+
+        return $html;
+    }
+}
+
+if (!function_exists('tag')) {
+    function tag(
+        string $name,
+        mixed $attributes = [],
+        bool $open = false,
+    ): string {
+        if ('' === $name) {
+            return '';
+        }
+
+        return '<'.$name._tag_options($attributes).($open ? '>' : ' />');
+    }
+}
+
+if (!function_exists('content_tag')) {
+    function content_tag(
+        string $name,
+        mixed $content = '',
+        mixed $attributes = [],
+    ): string {
+        if ('' === $name) {
+            return '';
+        }
+
+        return '<'.$name._tag_options($attributes).'>'
+            .$content.'</'.$name.'>';
+    }
+}
+
+if (!function_exists('url_for')) {
+    function url_for(
+        array|string $target,
+        array|bool $parameters = [],
+        bool $absolute = false,
+    ): string {
+        if (is_bool($parameters)) {
+            $absolute = $parameters;
+            $parameters = [];
+        }
+
+        if (
+            is_string($target)
+            && '' !== $target
+            && '@' !== $target[0]
+            && !str_contains($target, '/')
+            && [] !== $parameters
+        ) {
+            return Context::getInstance()
+                ->getRouting()
+                ->generate($target, $parameters, $absolute);
+        }
+
+        $url = Context::getInstance()->urlFor($target);
+
+        if (!$absolute || preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+
+        return Context::getInstance()
+            ->getRequest()
+            ->getUriPrefix().$url;
+    }
+}
+
+if (!function_exists('link_to')) {
+    function link_to(
+        mixed $name,
+        array|string $target,
+        array $attributes = [],
+    ): string {
+        $absolute = (bool) ($attributes['absolute'] ?? false);
+        unset($attributes['absolute']);
+        $attributes['href'] = url_for($target, $absolute);
+
+        return content_tag(
+            'a',
+            '' === (string) $name ? $attributes['href'] : (string) $name,
+            $attributes,
+        );
+    }
+}
+
+if (!function_exists('public_path')) {
+    function public_path(string $path, bool $absolute = false): string
+    {
+        $request = Context::getInstance()->getRequest();
+        $path = '/'.ltrim($path, '/');
+        $root = rtrim($request->getRelativeUrlRoot(), '/');
+        $path = $root.$path;
+
+        return $absolute ? $request->getUriPrefix().$path : $path;
+    }
+}
+
+if (!function_exists('image_path')) {
+    function image_path(string $source, bool $absolute = false): string
+    {
+        if (
+            preg_match('#^(?:https?:)?//#i', $source)
+            || str_starts_with($source, '/')
+        ) {
+            $path = $source;
+        } else {
+            $path = '/images/'.$source;
+
+            if (!str_contains(basename($path), '.')) {
+                $path .= '.png';
+            }
+        }
+
+        return $absolute
+            ? Context::getInstance()->getRequest()->getUriPrefix().$path
+            : $path;
+    }
+}
+
+if (!function_exists('image_tag')) {
+    function image_tag(string $source, array $attributes = []): string
+    {
+        if ('' === $source) {
+            return '';
+        }
+
+        if (isset($attributes['size'])) {
+            [$attributes['width'], $attributes['height']] = array_pad(
+                explode('x', (string) $attributes['size'], 2),
+                2,
+                null,
+            );
+            unset($attributes['size']);
+        }
+
+        $absolute = (bool) ($attributes['absolute'] ?? false);
+        unset($attributes['absolute']);
+        $attributes['src'] = image_path($source, $absolute);
+
+        return tag('img', $attributes);
+    }
+}
+
+if (!function_exists('include_title')) {
+    function include_title(): void
+    {
+        echo content_tag(
+            'title',
+            esc_specialchars(
+                Context::getInstance()->getResponse()->getTitle(),
+            ),
+        )."\n";
+    }
+}

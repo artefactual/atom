@@ -28,6 +28,7 @@ abstract class Action extends Component
     private ?string $template = null;
     private ?string $templateModule = null;
     private ?string $layout = null;
+    private bool $layoutSet = false;
     private ?string $viewClass = null;
 
     public function preExecute(): void {}
@@ -193,11 +194,17 @@ abstract class Action extends Component
     public function setLayout(false|string $layout): void
     {
         $this->layout = false === $layout ? null : $layout;
+        $this->layoutSet = true;
     }
 
     public function getLayout(): ?string
     {
         return $this->layout;
+    }
+
+    public function hasLayoutOverride(): bool
+    {
+        return $this->layoutSet;
     }
 
     public function setViewClass(string $viewClass): void

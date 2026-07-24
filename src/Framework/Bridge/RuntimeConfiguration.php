@@ -23,11 +23,28 @@ namespace Atom\Framework\Bridge;
 
 final readonly class RuntimeConfiguration
 {
+    private const STANDARD_HELPERS = [
+        'Asset',
+        'Cache',
+        'Date',
+        'Debug',
+        'Escaping',
+        'Helper',
+        'I18N',
+        'Javascript',
+        'Number',
+        'Partial',
+        'Tag',
+        'Text',
+        'Url',
+    ];
+
     public function __construct(
         private string $application,
         private string $environment,
         private array $plugins,
         private bool $debug,
+        private string $projectDirectory,
     ) {}
 
     public function getApplication(): string
@@ -50,5 +67,39 @@ final readonly class RuntimeConfiguration
         return $this->debug;
     }
 
-    public function loadHelpers(array|string $helpers): void {}
+    public function loadHelpers(array|string $helpers): void
+    {
+        foreach ((array) $helpers as $helper) {
+            if (is_array($helper)) {
+                $this->loadHelpers($helper);
+
+                continue;
+            }
+
+            if (
+                !is_string($helper)
+                || 1 !== preg_match('/^[a-z0-9_]+$/i', $helper)
+            ) {
+                throw new BridgeException(
+                    'Helper names must be safe strings.',
+                );
+            }
+
+            if (in_array($helper, self::STANDARD_HELPERS, true)) {
+                continue;
+            }
+
+            $path = rtrim($this->projectDirectory, '/\\')
+                .'/lib/helper/'.$helper.'Helper.php';
+
+            if (!is_readable($path)) {
+                throw new BridgeException(sprintf(
+                    'Helper "%s" was not found.',
+                    $helper,
+                ));
+            }
+
+            require_once $path;
+        }
+    }
 }
