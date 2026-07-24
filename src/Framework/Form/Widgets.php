@@ -131,6 +131,11 @@ class InputPasswordWidget extends InputWidget
 
 class SelectWidget extends Widget
 {
+    public function getChoices(): array
+    {
+        return $this->choices();
+    }
+
     public function render(
         string $name,
         mixed $value = null,

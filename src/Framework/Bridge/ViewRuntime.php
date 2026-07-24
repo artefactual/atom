@@ -211,9 +211,10 @@ final class ViewRuntime
     public function getPartial(string $name, array $variables = []): string
     {
         [$module, $partial] = $this->splitPartialName($name);
+        $format = $this->context->getRequest()->getRequestFormat();
         $path = 'global' === $module
             ? $this->layouts->findPartial($partial)
-            : $this->templates->findPartial($module, $partial);
+            : $this->templates->findPartial($module, $partial, $format);
 
         if (null === $path && $module === $this->currentModule()) {
             $path = $this->layouts->findPartial($partial);
@@ -258,7 +259,11 @@ final class ViewRuntime
             return '';
         }
 
-        $path = $this->templates->findPartial($module, $component);
+        $path = $this->templates->findPartial(
+            $module,
+            $component,
+            $this->context->getRequest()->getRequestFormat(),
+        );
 
         if (null === $path) {
             throw new ModuleException(sprintf(

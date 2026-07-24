@@ -135,10 +135,12 @@ final readonly class ActionRunner
         $templateAction = $component instanceof Action
             ? $component->getTemplate() ?? $action
             : $action;
+        $format = $context->getRequest()->getRequestFormat();
         $path = $this->templates->find(
             $templateModule,
             $templateAction,
             $view,
+            $format,
         );
 
         if (null === $path) {
@@ -155,12 +157,25 @@ final readonly class ActionRunner
         );
         $runtime = $context->getViewRuntime();
         $layout = null;
+        $mimeType = null === $format
+            ? null
+            : $context->getRequest()->getMimeType($format);
 
         if (
             $component instanceof Action
             && $component->hasLayoutOverride()
         ) {
             $layout = $component->getLayout() ?? false;
+        } elseif (
+            null !== $mimeType
+            && null !== $format
+            && 'html' !== $format
+        ) {
+            $layout = false;
+        }
+
+        if (null !== $mimeType) {
+            $context->getResponse()->setContentType($mimeType);
         }
 
         $runtime->begin(

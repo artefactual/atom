@@ -29,10 +29,16 @@ final readonly class TemplateLocator
         string $module,
         string $action,
         string $view = 'Success',
+        ?string $format = null,
     ): ?string {
         $this->validateName($action, 'action');
         $this->validateName($view, 'view');
         $filename = $action.$view.'.php';
+
+        if (null !== $format && 'html' !== $format) {
+            $this->validateName($format, 'format');
+            $filename = $action.$view.'.'.$format.'.php';
+        }
 
         foreach ($this->directories->templates($module) as $directory) {
             $path = $directory.'/'.$filename;
@@ -48,11 +54,17 @@ final readonly class TemplateLocator
     public function findPartial(
         string $module,
         string $partial,
+        ?string $format = null,
     ): ?string {
         $partial = preg_replace('/\.php$/i', '', $partial) ?? $partial;
         $partial = ltrim($partial, '_');
         $this->validateName($partial, 'partial');
         $filename = '_'.$partial.'.php';
+
+        if (null !== $format && 'html' !== $format) {
+            $this->validateName($format, 'format');
+            $filename = '_'.$partial.'.'.$format.'.php';
+        }
 
         foreach ($this->directories->templates($module) as $directory) {
             $path = $directory.'/'.$filename;

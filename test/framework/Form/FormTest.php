@@ -179,6 +179,21 @@ final class FormTest extends TestCase
         self::assertFalse(isset($form->status->choices));
     }
 
+    public function testReturnsResolvedSelectChoices(): void
+    {
+        $widget = new \sfWidgetFormSelect([
+            'choices' => fn (): array => [
+                'draft' => 'Draft',
+                'published' => 'Published',
+            ],
+        ]);
+
+        self::assertSame([
+            'draft' => 'Draft',
+            'published' => 'Published',
+        ], $widget->getChoices());
+    }
+
     public function testEmbedsAndValidatesNestedForms(): void
     {
         $child = new \sfForm([], [], false);

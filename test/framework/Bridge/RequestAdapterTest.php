@@ -101,6 +101,26 @@ final class RequestAdapterTest extends TestCase
         );
     }
 
+    public function testDerivesRequestFormatFromLegacyParameter(): void
+    {
+        $adapter = new RequestAdapter(Request::create(
+            '/record?sf_format=xml',
+        ));
+
+        self::assertSame('xml', $adapter->getRequestFormat());
+        self::assertSame('text/xml', $adapter->getMimeType('xml'));
+    }
+
+    public function testPrefersAnExplicitlySetRequestFormat(): void
+    {
+        $adapter = new RequestAdapter(Request::create(
+            '/record?sf_format=xml',
+        ));
+        $adapter->setRequestFormat('json');
+
+        self::assertSame('json', $adapter->getRequestFormat());
+    }
+
     public function testReturnsArrayInputAndArrayDefaults(): void
     {
         $request = new Request(

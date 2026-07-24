@@ -47,7 +47,7 @@ abstract class Component implements \ArrayAccess
 
     public function __isset(string $name): bool
     {
-        return $this->varHolder->has($name);
+        return null !== $this->varHolder->get($name);
     }
 
     public function __unset(string $name): void

@@ -83,6 +83,8 @@ final class ViewRuntimeTest extends TestCase
                                 public function execute($request)
                                 {
                                     $this->greeting = 'Hello '.$this->name;
+                                    $this->optional = null;
+                                    $this->nullValueIsSet = isset($this->optional);
                                 }
                             }
                             PHP,
@@ -104,7 +106,9 @@ final class ViewRuntimeTest extends TestCase
                             PHP,
                         '_message.php' => '<p><?= $value ?></p>',
                         '_path.php' => '<code><?= $path ?></code>',
-                        '_greeting.php' => '<strong><?= $greeting ?></strong>',
+                        '_greeting.php' => <<<'PHP'
+                            <strong><?= $greeting ?></strong><?= $nullValueIsSet ? '<i>Set</i>' : '<i>Unset</i>' ?>
+                            PHP,
                     ],
                 ]],
             ]],
@@ -179,7 +183,7 @@ final class ViewRuntimeTest extends TestCase
 
         self::assertStringContainsString(
             '<main><p>Body</p><code>/download.pdf</code>'
-                .'<strong>Hello AtoM</strong>'
+                .'<strong>Hello AtoM</strong><i>Unset</i>'
                 .'<em>Request</em><b>Context</b></main>'
                 .'<aside>Side</aside>',
             $html,
@@ -203,7 +207,7 @@ final class ViewRuntimeTest extends TestCase
             $html,
         );
         self::assertSame(
-            '<strong>Hello Footer</strong>',
+            '<strong>Hello Footer</strong><i>Unset</i>',
             get_component_slot('footer'),
         );
         self::assertSame(

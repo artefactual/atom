@@ -274,7 +274,24 @@ final class RequestAdapter implements \ArrayAccess
 
     public function getRequestFormat(?string $default = 'html'): ?string
     {
+        $requestFormat = $this->request->getRequestFormat(null);
+
+        if (null !== $requestFormat) {
+            return $requestFormat;
+        }
+
+        $format = $this->getParameter('sf_format');
+
+        if (is_string($format) && '' !== $format) {
+            $this->request->setRequestFormat($format);
+        }
+
         return $this->request->getRequestFormat($default);
+    }
+
+    public function getMimeType(string $format): ?string
+    {
+        return $this->request->getMimeType($format);
     }
 
     public function getSymfonyRequest(): Request

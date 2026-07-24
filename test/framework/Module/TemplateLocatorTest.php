@@ -63,4 +63,58 @@ final class TemplateLocatorTest extends TestCase
             $locator->find('sfIsadPlugin', 'index'),
         );
     }
+
+    public function testFindsFormatSpecificPluginTemplates(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $locator = new TemplateLocator(new ModuleDirectories(
+            $projectDirectory,
+            'qubit',
+            ['sfEadPlugin'],
+        ));
+
+        self::assertSame(
+            $projectDirectory
+                .'/plugins/sfEadPlugin/modules/sfEadPlugin/templates/'
+                .'indexSuccess.xml.php',
+            $locator->find('sfEadPlugin', 'index', 'Success', 'xml'),
+        );
+    }
+
+    public function testFindsFormatSpecificPluginPartials(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $locator = new TemplateLocator(new ModuleDirectories(
+            $projectDirectory,
+            'qubit',
+            ['sfDcPlugin'],
+        ));
+
+        self::assertSame(
+            $projectDirectory
+                .'/plugins/sfDcPlugin/modules/sfDcPlugin/templates/'
+                .'_dc.xml.php',
+            $locator->findPartial('sfDcPlugin', 'dc', 'xml'),
+        );
+    }
+
+    public function testDoesNotFallBackToHtmlForAnotherFormat(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $locator = new TemplateLocator(new ModuleDirectories(
+            $projectDirectory,
+            'qubit',
+        ));
+
+        self::assertNull(
+            $locator->find('staticpage', 'home', 'Success', 'xml'),
+        );
+        self::assertNull(
+            $locator->findPartial(
+                'informationobject',
+                'actionIcons',
+                'xml',
+            ),
+        );
+    }
 }
