@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace Atom\Framework\Routing;
 
 use Atom\Framework\Configuration\ApplicationConfiguration;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Routing\RouteCollection;
 
 final readonly class RouteConfigurationLoader
@@ -34,8 +35,14 @@ final readonly class RouteConfigurationLoader
     public function load(
         string $configPath = 'config/routing.yml',
     ): RouteCollection {
-        return $this->compiler->compile(
+        $routes = $this->compiler->compile(
             $this->configuration->loadRaw($configPath),
         );
+
+        foreach ($this->configuration->paths($configPath) as $path) {
+            $routes->addResource(new FileResource($path));
+        }
+
+        return $routes;
     }
 }

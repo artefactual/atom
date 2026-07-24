@@ -1,0 +1,32 @@
+default:
+  .actions:
+    error_404_module: default
+    error_404_action: error404
+    login_module: default
+    login_action: login
+    secure_module: default
+    secure_action: secure
+    module_disabled_module: default
+    module_disabled_action: disabled
+
+  .settings:
+    use_database: true
+    i18n: false
+    compressed: false
+    check_lock: false
+    csrf_secret: false
+    escaping_strategy: false
+    escaping_method: ESC_SPECIALCHARS
+    no_script_name: false
+    cache: false
+    etag: true
+    web_debug: false
+    error_reporting: <?php echo (E_PARSE | E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR | E_USER_ERROR)."\n" ?>
+    file_link_format: ~
+    admin_web_dir: /sf/sf_admin
+    web_debug_web_dir: /sf/sf_web_debug
+    standard_helpers: [Partial, Cache]
+    enabled_modules: [default]
+    charset: utf-8
+    logging_enabled: true
+    default_culture: en

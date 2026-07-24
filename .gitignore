@@ -16,6 +16,7 @@
 /log/
 /sf
 /build/
+/config/reference.php
 
 # Symlinks or dirctories are possible
 /downloads
