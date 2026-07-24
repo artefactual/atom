@@ -29,4 +29,9 @@ final readonly class SafeValue
     {
         return (string) $this->value;
     }
+
+    public function getValue(): mixed
+    {
+        return $this->value;
+    }
 }

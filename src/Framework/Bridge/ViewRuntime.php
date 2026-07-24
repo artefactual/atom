@@ -183,7 +183,7 @@ final class ViewRuntime
 
         $html = $this->render(
             $path,
-            ['sf_content' => $content] + $variables,
+            ['sf_content' => new SafeValue($content)] + $variables,
         );
 
         return $this->assets->inject(
@@ -210,6 +210,7 @@ final class ViewRuntime
 
     public function getPartial(string $name, array $variables = []): string
     {
+        $variables = OutputEscaper::unescape($variables);
         [$module, $partial] = $this->splitPartialName($name);
         $format = $this->context->getRequest()->getRequestFormat();
         $path = 'global' === $module
@@ -235,6 +236,7 @@ final class ViewRuntime
         string $component,
         array $variables = [],
     ): string {
+        $variables = OutputEscaper::unescape($variables);
         $descriptor = $this->components->find($module, $component);
 
         if (null === $descriptor) {

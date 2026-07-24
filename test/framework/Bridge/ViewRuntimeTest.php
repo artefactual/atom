@@ -98,6 +98,7 @@ final class ViewRuntimeTest extends TestCase
                         'indexSuccess.php' => <<<'PHP'
                             <?php decorate_with('shell'); ?>
                             <?php slot('aside'); ?>Side<?php end_slot(); ?>
+                            <span><?= $unsafe ?></span>
                             <?= get_partial('message', ['value' => 'Body']) ?>
                             <?= get_partial('path', ['path' => '/download.pdf']) ?>
                             <?= get_component('bridgefixture', 'greeting', ['name' => 'AtoM']) ?>
@@ -173,16 +174,22 @@ final class ViewRuntimeTest extends TestCase
         $runtime->begin('bridgefixture', 'index', 'Success');
         $path = $templates->find('bridgefixture', 'index');
         self::assertNotNull($path);
-        $content = $runtime->render($path, [], 'bridgefixture');
+        $variables = ['unsafe' => '<script>alert(1)</script>'];
+        $content = $runtime->render(
+            $path,
+            $variables,
+            'bridgefixture',
+        );
 
         $html = preg_replace(
             '/>\s+</',
             '><',
-            trim($runtime->decorate($content, [])),
+            trim($runtime->decorate($content, $variables)),
         );
 
         self::assertStringContainsString(
-            '<main><p>Body</p><code>/download.pdf</code>'
+            '<main><span>&lt;script&gt;alert(1)&lt;/script&gt;</span>'
+                .'<p>Body</p><code>/download.pdf</code>'
                 .'<strong>Hello AtoM</strong><i>Unset</i>'
                 .'<em>Request</em><b>Context</b></main>'
                 .'<aside>Side</aside>',

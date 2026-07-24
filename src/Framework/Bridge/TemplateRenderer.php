@@ -36,12 +36,34 @@ final class TemplateRenderer
         $sf_request = $context->getRequest();
         $sf_response = $context->getResponse();
         $sf_user = $context->getUser();
-        $sf_data = new ParameterHolder([
+        $variables = [
             'sf_context' => $sf_context,
             'sf_request' => $sf_request,
             'sf_response' => $sf_response,
             'sf_user' => $sf_user,
-        ] + $variables);
+        ] + $variables;
+
+        OutputEscaper::markClassesAsSafe([
+            'sfForm',
+            'sfFormField',
+            'sfFormFieldSchema',
+            'sfModelGeneratorHelper',
+        ]);
+        $escapingMethod = $this->escapingMethod();
+        $sf_data = OutputEscaper::escape(
+            $escapingMethod,
+            $variables,
+        );
+
+        if ((bool) Configuration::get('sf_escaping_strategy', true)) {
+            $escaped = [];
+
+            foreach ($sf_data as $name => $value) {
+                $escaped[$name] = $value;
+            }
+
+            $variables = $escaped;
+        }
 
         extract($variables, \EXTR_SKIP);
         ob_start();
@@ -57,5 +79,30 @@ final class TemplateRenderer
 
             throw $exception;
         }
+    }
+
+    private function escapingMethod(): string
+    {
+        if (!(bool) Configuration::get('sf_escaping_strategy', true)) {
+            return 'esc_raw';
+        }
+
+        $method = (string) Configuration::get(
+            'sf_escaping_method',
+            'ESC_SPECIALCHARS',
+        );
+
+        if (defined($method)) {
+            $method = (string) constant($method);
+        }
+
+        if (!is_callable($method)) {
+            throw new BridgeException(sprintf(
+                'The escaping method "%s" is not available.',
+                $method,
+            ));
+        }
+
+        return $method;
     }
 }

@@ -317,7 +317,7 @@ function render_b5_show_value($value, $options = [])
     }
 
     $finalValue = $value;
-    if (is_iterable($value)) {
+    if (is_array($value) || $value instanceof sfOutputEscaperObjectDecorator || $value instanceof sfOutputEscaperArrayDecorator) {
         $finalValue = '<ul class="'.render_b5_show_list_css_classes().'">';
         foreach ($value as $item) {
             if (isset($options['renderAsIs'])) {
@@ -340,11 +340,10 @@ function render_b5_section_heading(
 ) {
     if ($condition) {
         $linkClasses = 'text-primary text-decoration-none';
-        $linkOptions['class'] = ($linkOptions['class'] ?? null)
+        $linkOptions['class'] = $linkOptions['class']
             ? $linkOptions['class'].' '.$linkClasses
             : $linkClasses;
-        $linkOptions['title'] = ($linkOptions['title'] ?? null)
-            ?: __('Edit').' '.$text;
+        $linkOptions['title'] = $linkOptions['title'] ?: __('Edit').' '.$text;
         $content = link_to($text, $url, $linkOptions);
     } else {
         $content = render_b5_show_container(
