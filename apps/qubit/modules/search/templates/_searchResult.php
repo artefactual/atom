@@ -214,9 +214,10 @@ $maxFragmentSize = 150;
         $highlightFieldKey = array_key_first($otherHighlights);
         $ellipsize = strlen($firstHighlightText) >= $maxFragmentSize;
         $numHighlightsHidden = count($otherHighlights) - 1;
+        $additionalHighlightsId = 'search-highlight-additional-'.$hit->getId();
         ?>
         <div class="search-highlight-other d-print-none">
-          <div class="text-block highlight-summary summary">
+          <div class="highlight-summary">
             <span>
               <i class="fas fa-search" aria-hidden="true"></i>
               &nbsp;
@@ -235,14 +236,38 @@ $maxFragmentSize = 150;
               echo '&hellip;';
               } ?>
             </span>
-            <?php if (1 === $numHighlightsHidden) { ?>
-              <div class="search-highlight-count text-muted small">
-                <?php echo __('Search also matched 1 other field'); ?>
-              </div>
-            <?php } elseif ($numHighlightsHidden > 1) { ?>
-              <div class="search-highlight-count text-muted small">
-                <?php echo __('Search also matched %1% other fields', ['%1%' => $numHighlightsHidden]); ?>
-              </div>
+            <?php if ($numHighlightsHidden > 0) { ?>
+              <button
+                class="search-highlight-count btn btn-link collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#<?php echo $additionalHighlightsId; ?>"
+                aria-expanded="false"
+                aria-controls="<?php echo $additionalHighlightsId; ?>">
+                <?php if (1 === $numHighlightsHidden) { ?>
+                  <?php echo __('Search also matched 1 other field'); ?>
+                <?php } else { ?>
+                  <?php echo __('Search also matched %1% other fields', ['%1%' => $numHighlightsHidden]); ?>
+                <?php } ?>
+                <i class="fas fa-chevron-down ms-1" aria-hidden="true"></i>
+              </button>
+              <ul id="<?php echo $additionalHighlightsId; ?>" class="search-highlight-additional collapse mb-0">
+                <?php foreach (array_slice($otherHighlights, 1) as $highlightTexts) { ?>
+                  <?php
+                  $highlightText = $highlightTexts[0];
+                  $ellipsize = strlen($highlightText) >= $maxFragmentSize;
+                  ?>
+                  <li class="search-highlight-fragment">
+                    <?php if ($ellipsize) {
+                    echo '&hellip;';
+                    } ?>
+                    <?php echo render_value_with_highlights($highlightText); ?>
+                    <?php if ($ellipsize) {
+                    echo '&hellip;';
+                    } ?>
+                  </li>
+                <?php } ?>
+              </ul>
             <?php } ?>
           </div>
         </div>
