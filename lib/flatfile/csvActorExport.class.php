@@ -147,7 +147,23 @@ class csvActorExport extends QubitFlatfileExport
         $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
 
         if (null !== $note = QubitNote::getOne($criteria)) {
-            $this->setColumn('maintenanceNotes', (string) $note);
+            $content = null;
+
+            foreach ($note->noteI18ns as $i18n) {
+                if ($i18n->culture === $this->user->getCulture()) {
+                    $content = $i18n->content;
+
+                    break;
+                }
+
+                if ($i18n->culture === $note->sourceCulture) {
+                    $content = $i18n->content;
+                }
+            }
+
+            if (null !== $content) {
+                $this->setColumn('maintenanceNotes', $content);
+            }
         }
     }
 

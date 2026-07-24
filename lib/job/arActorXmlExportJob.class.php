@@ -48,22 +48,22 @@ class arActorXmlExportJob extends arActorExportJob
      */
     protected function exportResource($resource, $path, $options = [])
     {
+        $errLevel = error_reporting(E_ALL);
+
         try {
             // Print warnings/notices here too, as they are often important.
-            $errLevel = error_reporting(E_ALL);
-
             $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
                 $resource,
                 self::XML_STANDARD
             );
             $xml = Qubit::tidyXml($rawXml);
-
-            error_reporting($errLevel);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new sfException($this->i18n->__(
                 'Invalid XML generated for object %1%.',
-                ['%1%' => $row['id']]
+                ['%1%' => $resource->id]
             ));
+        } finally {
+            error_reporting($errLevel);
         }
 
         $filename = exportBulkBaseTask::generateSortableFilename(

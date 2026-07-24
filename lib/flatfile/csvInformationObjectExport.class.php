@@ -81,7 +81,10 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
         // Set repository column and resposible institution identifier
         $repository = $this->resource->getRepository(['inherit' => true]);
-        $this->setColumn('repository', $repository->authorizedFormOfName);
+        $this->setColumn(
+            'repository',
+            $repository?->authorizedFormOfName,
+        );
 
         // Set other groups of columns
         $this->setAccessPointColumns();
@@ -99,19 +102,25 @@ class csvInformationObjectExport extends QubitFlatfileExport
         // Set level of description
         $this->setColumn(
             'levelOfDescription',
-            $this->levelOfDescriptionTerms[$this->resource->levelOfDescriptionId]
+            $this->levelOfDescriptionTerms[
+                $this->resource->levelOfDescriptionId
+            ] ?? null
         );
 
         // Set level of detail
         $this->setColumn(
             'levelOfDetail',
-            $this->levelOfDetailTerms[$this->resource->descriptionDetailId]
+            $this->levelOfDetailTerms[
+                $this->resource->descriptionDetailId
+            ] ?? null
         );
 
         // Set description status
         $this->setColumn(
             'descriptionStatus',
-            $this->descriptionStatusTerms[$this->resource->descriptionStatusId]
+            $this->descriptionStatusTerms[
+                $this->resource->descriptionStatusId
+            ] ?? null
         );
 
         // Set publication status
@@ -256,14 +265,14 @@ class csvInformationObjectExport extends QubitFlatfileExport
         $events = $this->resource->getEventsRelatedByobjectId();
 
         foreach ($events as $event) {
-            $types[] = $this->eventTypeTerms[$event->typeId] ? $this->eventTypeTerms[$event->typeId] : 'NULL';
+            $types[] = $this->eventTypeTerms[$event->typeId] ?? 'NULL';
             $dates[] = $event->date ? $event->date : 'NULL';
             $startDates[] = $event->startDate ? $event->startDate : 'NULL';
             $endDates[] = $event->endDate ? $event->endDate : 'NULL';
             $descriptions[] = $event->description ? $event->description : 'NULL';
-            $actors[] = $event->actor->authorizedFormOfName ? $event->actor->authorizedFormOfName : 'NULL';
-            $actorHistories[] = $event->actor->history ? $event->actor->history : 'NULL';
-            $places[] = $event->getPlace()->name ? $event->getPlace()->name : 'NULL';
+            $actors[] = $event->actor?->authorizedFormOfName ?: 'NULL';
+            $actorHistories[] = $event->actor?->history ?: 'NULL';
+            $places[] = $event->getPlace()?->name ?: 'NULL';
         }
 
         $this->setColumn('eventTypes', $types);

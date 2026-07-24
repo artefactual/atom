@@ -109,8 +109,7 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
         // Force loading of information object configuration, then modify writer
         // configuration
         $writer->loadResourceSpecificConfiguration('QubitInformationObject');
-        array_unshift($writer->columnNames, 'referenceCode');
-        array_unshift($writer->standardColumns, 'referenceCode');
+        $writer->prependStandardColumn('referenceCode');
 
         return $writer;
     }

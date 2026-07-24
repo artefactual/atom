@@ -23,6 +23,8 @@
  */
 class arActorCsvExportJob extends arActorExportJob
 {
+    protected $csvWriter;
+
     /**
      * Export search results as CSV, and include related digital objects when
      * requested.
@@ -48,7 +50,23 @@ class arActorCsvExportJob extends arActorExportJob
      */
     protected function exportResource($resource, $path, $options = [])
     {
-        $this->csvWriter->exportResource($resource);
+        $cultures = array_keys(
+            DefaultTranslationLinksComponent::getOtherCulturesAvailable(
+                $resource->actorI18ns,
+                'authorizedFormOfName',
+                $resource->getAuthorizedFormOfName(['sourceCulture' => true])
+            )
+        );
+        $originalCulture = $this->user->getCulture();
+
+        try {
+            foreach ($cultures as $culture) {
+                $this->user->setCulture($culture);
+                $this->csvWriter->exportResource($resource);
+            }
+        } finally {
+            $this->user->setCulture($originalCulture);
+        }
 
         $this->addDigitalObject($resource, $path);
 
@@ -67,6 +85,7 @@ class arActorCsvExportJob extends arActorExportJob
         $writer = new csvActorExport($path, null, 10000);
         $writer->user = $this->user;
         $writer->setOptions($this->params);
+        $writer->setParams($this->params);
         $writer->loadResourceSpecificConfiguration('QubitActor');
 
         return $writer;

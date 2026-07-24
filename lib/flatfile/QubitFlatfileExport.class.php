@@ -42,7 +42,7 @@ class QubitFlatfileExport
     protected $rowsPerFile = 1000;           // how many rows until creating new export file
 
     protected $separatorChar = '|';          // character to use when imploding arrays to a single value
-    protected $params;
+    protected $params = [];
     protected $nonVisibleElementsIncluded;
     protected $nonVisibleElementsIndexes = [];
     protected $path;
@@ -135,7 +135,7 @@ class QubitFlatfileExport
             }
         }
 
-        $this->cacheTaxonomies($config['cacheTaxonomies']);
+        $this->cacheTaxonomies($config['cacheTaxonomies'] ?? []);
 
         // Apply custom configuration logic defined by child classes
         $this->config($config);
@@ -227,6 +227,19 @@ class QubitFlatfileExport
     }
 
     /**
+     * Prepend a direct resource column before exporting any rows.
+     *
+     * @param string $column column name
+     */
+    public function prependStandardColumn($column)
+    {
+        array_unshift($this->columnNames, $column);
+        array_unshift($this->standardColumns, $column);
+        array_unshift($this->row, null);
+        ++$this->totalColumnsIncludingHidden;
+    }
+
+    /**
      * Set column value in current row to store notes if the column's being exported.
      *
      * @param string $column     column name
@@ -256,7 +269,7 @@ class QubitFlatfileExport
             $this->loadResourceSpecificConfiguration(get_class($resource));
         }
 
-        if (!$this->params['nonVisibleElementsIncluded']) {
+        if (empty($this->params['nonVisibleElementsIncluded'])) {
             $this->getHiddenVisibleElementCsvHeaders();
         }
 
@@ -380,7 +393,10 @@ class QubitFlatfileExport
         $nonVisibleElementsIncluded = [];
         $nonVisibleElements = [];
 
-        if (!$this->params['nonVisibleElementsIncluded']) {
+        if (
+            empty($this->params['nonVisibleElementsIncluded'])
+            && !empty($this->params['objectType'])
+        ) {
             $template = sfConfig::get('app_default_template_'.strtolower($this->params['objectType']));
 
             // Get list of elements hidden from settings
@@ -501,7 +517,7 @@ class QubitFlatfileExport
 
         // QubitFlatfileImport::getTaxonomyTerms has changed to allow a better
         // culture matching on import. On export we're still only using english terms
-        return $terms['en'];
+        return $terms['en'] ?? [];
     }
 
     /**

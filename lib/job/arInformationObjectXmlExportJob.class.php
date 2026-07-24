@@ -85,7 +85,7 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
             } catch (Exception $e) {
                 throw new sfException($this->i18n->__(
                     'Invalid XML generated for object %1%.',
-                    ['%1%' => $row['id']]
+                    ['%1%' => $resource->id]
                 ));
             }
         }
@@ -101,7 +101,7 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
                 $parts = explode(' ', $element, 2);
 
                 // Set regular expression to match xml headers
-                if ('' != $parts[1]) {
+                if (isset($parts[1])) {
                     $pattern = '/<'.$element.'.*?<\/'.$parts[0].'>/s';
                 } else {
                     $pattern = '/<'.$element.'.*?<\/'.$element.'>/s';
@@ -125,7 +125,7 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
             ));
         }
 
-        $this->addDigitalObject($resource, $path, $errors);
+        $this->addDigitalObject($resource, $path);
 
         ++$this->itemsExported;
         $this->logExportProgress();

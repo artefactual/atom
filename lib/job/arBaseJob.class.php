@@ -40,6 +40,10 @@ class arBaseJob extends Net_Gearman_Job_Common
     protected $waitForRetryTime = 10;
     protected $maxRetries = 10;
     protected $dispatcher;
+    protected $i18n;
+    protected $job;
+    protected $logger;
+    protected $user;
     /*
      * Required parameters:
      *

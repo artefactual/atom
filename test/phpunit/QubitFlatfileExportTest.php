@@ -151,6 +151,35 @@ class QubitFlatfileExportTest extends TestCase
         $this->assertEquals(['A', 'B', 'C'], $rowData);
     }
 
+    public function testPrependsStandardColumnBeforeExport(): void
+    {
+        $csvFile = $this->vfs->url().'/output.csv';
+        $mockExporter = $this->createMockExporter(
+            outputPath: $csvFile,
+            columnNames: ['colA', 'colB'],
+            hiddenColumns: [],
+        );
+        $mockExporter->loadResourceSpecificConfiguration('stdClass');
+        $mockExporter->prependStandardColumn('referenceCode');
+        $mockResource = $this->createMockResource(properties: [
+            'referenceCode' => 'REF-1',
+            'colA' => 'A',
+            'colB' => 'B',
+        ]);
+
+        $mockExporter->exportResource($mockResource);
+
+        $rows = str_getcsv(file_get_contents($csvFile), "\n");
+        $this->assertEquals(
+            ['referenceCode', 'colA', 'colB'],
+            str_getcsv($rows[0]),
+        );
+        $this->assertEquals(
+            ['REF-1', 'A', 'B'],
+            str_getcsv($rows[1]),
+        );
+    }
+
     public function testExportSingleResourceWithArrayContent(): void
     {
         $csvFile = $this->vfs->url().'/output.csv';
