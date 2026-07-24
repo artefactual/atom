@@ -21,10 +21,12 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework;
 
+use Atom\Framework\Bridge\User;
 use Atom\Framework\Routing\RouteCompiler;
 use Atom\Kernel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -91,13 +93,61 @@ final class KernelTest extends TestCase
 
             $router = $container->get('router');
             self::assertInstanceOf(RouterInterface::class, $router);
-            self::assertSame([
-                '_route' => 'informationobject/action',
-                'module' => 'informationobject',
-                RouteCompiler::CLASS_ATTRIBUTE => 'QubitResourceRoute',
-                'slug' => 'peanut',
-                'action' => 'fileList',
-            ], $router->match('/peanut/fileList'));
+            $match = $router->match('/peanut/fileList');
+            self::assertSame(
+                'informationobject/action',
+                $match['_route'],
+            );
+            self::assertSame('informationobject', $match['module']);
+            self::assertSame(
+                'QubitResourceRoute',
+                $match[RouteCompiler::CLASS_ATTRIBUTE],
+            );
+            self::assertSame('peanut', $match['slug']);
+            self::assertSame('fileList', $match['action']);
+            self::assertArrayHasKey('_controller', $match);
+        } finally {
+            $kernel->shutdown();
+        }
+    }
+
+    public function testDispatchesUnchangedAtoMAction(): void
+    {
+        $kernel = new class('test', true, $this->cacheDirectory) extends Kernel {
+            public function __construct(
+                string $environment,
+                bool $debug,
+                private readonly string $testCacheDirectory,
+            ) {
+                parent::__construct($environment, $debug);
+            }
+
+            public function getCacheDir(): string
+            {
+                return $this->testCacheDirectory;
+            }
+
+            public function getBuildDir(): string
+            {
+                return $this->testCacheDirectory;
+            }
+        };
+
+        try {
+            $request = Request::create(
+                '/default/privacyMessageDismiss',
+                'POST',
+            );
+            $response = $kernel->handle($request);
+
+            self::assertSame(200, $response->getStatusCode());
+            self::assertSame('', $response->getContent());
+            self::assertTrue(
+                $kernel
+                    ->getContainer()
+                    ->get(User::class)
+                    ->getAttribute('privacy_message_dismissed'),
+            );
         } finally {
             $kernel->shutdown();
         }

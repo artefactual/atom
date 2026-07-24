@@ -71,7 +71,7 @@ final class LegacyProjectClassMapTest extends TestCase
         try {
             self::assertTrue(class_exists('Criteria'));
             self::assertTrue(class_exists('QubitInformationObject'));
-            self::assertFalse(class_exists('sfContext'));
+            self::assertNull($loader->findFile('sfContext'));
         } finally {
             $loader->unregister();
         }

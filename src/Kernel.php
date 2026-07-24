@@ -21,8 +21,17 @@ declare(strict_types=1);
 
 namespace Atom;
 
+use Atom\Controller\LegacyController;
 use Atom\Framework\Autoload\LegacyClassDirectories;
 use Atom\Framework\Autoload\LegacyClassLoader;
+use Atom\Framework\Bridge\ActionRunner;
+use Atom\Framework\Bridge\BridgeRegistrar;
+use Atom\Framework\Bridge\Configuration;
+use Atom\Framework\Bridge\Context;
+use Atom\Framework\Bridge\EventDispatcher;
+use Atom\Framework\Bridge\RuntimeConfiguration;
+use Atom\Framework\Bridge\TemplateRenderer;
+use Atom\Framework\Bridge\User;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -31,6 +40,9 @@ use Atom\Framework\Configuration\ConstantReplacer;
 use Atom\Framework\Configuration\DirectoryParameters;
 use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
+use Atom\Framework\Module\ActionLocator;
+use Atom\Framework\Module\ModuleDirectories;
+use Atom\Framework\Module\TemplateLocator;
 use Atom\Framework\Plugin\PluginRegistry;
 use Atom\Framework\Routing\RouteCompiler;
 use Atom\Framework\Routing\RouteConfigurationLoader;
@@ -50,6 +62,7 @@ class Kernel extends BaseKernel
 
     public function boot(): void
     {
+        (new BridgeRegistrar())->register();
         $this->legacyClassLoader ??= new LegacyClassLoader(
             new LegacyClassDirectories($this->getProjectDir()),
         );
@@ -57,6 +70,10 @@ class Kernel extends BaseKernel
 
         try {
             parent::boot();
+            Configuration::clear();
+            Configuration::add(
+                $this->getContainer()->getParameterBag()->all(),
+            );
         } catch (\Throwable $exception) {
             $this->legacyClassLoader->unregister();
 
@@ -69,6 +86,8 @@ class Kernel extends BaseKernel
         try {
             parent::shutdown();
         } finally {
+            Context::setInstance(null);
+            Configuration::clear();
             $this->legacyClassLoader?->unregister();
         }
     }
@@ -86,15 +105,22 @@ class Kernel extends BaseKernel
 
     public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
-        return (new RouteConfigurationLoader(
+        $routes = (new RouteConfigurationLoader(
             $this->applicationConfiguration(),
             new RouteCompiler(),
         ))->load();
+
+        foreach ($routes as $route) {
+            $route->setDefault('_controller', LegacyController::class);
+        }
+
+        return $routes;
     }
 
     protected function configureContainer(
         ContainerConfigurator $container,
     ): void {
+        $plugins = (new PluginRegistry($this->getProjectDir()))->enabled();
         $configuration = $this->applicationConfiguration();
         $parameters = array_replace(
             $configuration->parameters('config/app.yml', 'app_'),
@@ -124,6 +150,29 @@ class Kernel extends BaseKernel
             ],
             'test' => 'test' === $this->environment,
         ]);
+
+        $services = $container->services();
+        $services->defaults()->autowire()->autoconfigure();
+        $services->set(User::class)->public();
+        $services->set(EventDispatcher::class);
+        $services->set(RuntimeConfiguration::class)->args([
+            self::APPLICATION,
+            $this->environment,
+            $plugins,
+        ]);
+        $services->set(ModuleDirectories::class)->args([
+            $this->getProjectDir(),
+            self::APPLICATION,
+            $plugins,
+        ]);
+        $services->set(ActionLocator::class);
+        $services->set(TemplateLocator::class);
+        $services->set(TemplateRenderer::class);
+        $services->set(ActionRunner::class);
+        $services
+            ->set(LegacyController::class)
+            ->public()
+            ->tag('controller.service_arguments');
     }
 
     private function applicationConfiguration(): ApplicationConfiguration
