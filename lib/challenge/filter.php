@@ -17,7 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once __DIR__.'/../../vendor/symfony/lib/yaml/sfYaml.php';
+use Symfony\Component\Yaml\Yaml;
+
+require_once __DIR__.'/../../vendor/composer/autoload.php';
 
 $configFile = __DIR__.'/../../config/appChallenge.yml';
 // If the js challenge feature config file is missing, skip.
@@ -25,7 +27,7 @@ if (!is_readable($configFile)) {
     return;
 }
 
-$config = sfYaml::load($configFile);
+$config = Yaml::parseFile($configFile);
 
 // If the js challenge feature is disabled or user is already on the challenge page, skip.
 $activated = (bool) ($config['activated'] ?? false);

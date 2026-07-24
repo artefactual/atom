@@ -16,10 +16,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
+use Symfony\Component\Yaml\Yaml;
+
 // Standalone JS challenge endpoint.
 
 // Load YAML parser and challenge config.
-require_once __DIR__.'/../../vendor/symfony/lib/yaml/sfYaml.php';
+require_once __DIR__.'/../../vendor/composer/autoload.php';
 $configFile = __DIR__.'/../../config/appChallenge.yml';
 
 // If the js challenge feature config file is missing, the feature is disabled
@@ -29,7 +33,7 @@ if (!is_readable($configFile)) {
 
     exit;
 }
-$config = sfYaml::load($configFile);
+$config = Yaml::parseFile($configFile);
 
 // If the js challenge feature is disabled, return 404.
 $activated = (bool) ($config['activated'] ?? false);
