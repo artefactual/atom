@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 /*
@@ -10,11 +9,18 @@
  * any later version.
  */
 
-use Atom\Console\ApplicationRunner;
+declare(strict_types=1);
 
-$projectDirectory = __DIR__;
-chdir($projectDirectory);
+namespace Atom\Framework\Database;
 
-require $projectDirectory.'/vendor/composer/autoload.php';
+final readonly class Database
+{
+    public function __construct(private string $name) {}
 
-exit((new ApplicationRunner())->run($projectDirectory));
+    public function getConnection(): \PropelPDO
+    {
+        return \Propel::getConnection(
+            'propel' === $this->name ? null : $this->name,
+        );
+    }
+}

@@ -21,6 +21,11 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Console\CommandArgument;
+use Atom\Framework\Console\CommandOption;
+use Atom\Framework\Console\Formatter;
+use Atom\Framework\Console\Task;
+use Atom\Framework\Database\DatabaseManager;
 use Atom\Framework\Form\AndValidator;
 use Atom\Framework\Form\BooleanValidator;
 use Atom\Framework\Form\CallbackValidator;
@@ -74,6 +79,17 @@ final class BridgeRegistrar
         [CultureInfo::class, 'sfCultureInfo'],
         [DateFormatter::class, 'sfDateFormat'],
         [NumberFormatter::class, 'sfNumberFormat'],
+        [CommandArgument::class, 'sfCommandArgument'],
+        [CommandOption::class, 'sfCommandOption'],
+        [Formatter::class, 'sfFormatter'],
+        [Formatter::class, 'sfAnsiColorFormatter'],
+        [Task::class, 'sfTask'],
+        [Task::class, 'sfCommandApplicationTask'],
+        [Task::class, 'sfBaseTask'],
+        [DatabaseManager::class, 'sfDatabaseManager'],
+        [RuntimeConfiguration::class, 'sfProjectConfiguration'],
+        [RuntimeConfiguration::class, 'sfApplicationConfiguration'],
+        [RuntimeConfiguration::class, 'ProjectConfiguration'],
         [Form::class, 'sfForm'],
         [FormField::class, 'sfFormField'],
         [FormField::class, 'sfFormFieldSchema'],

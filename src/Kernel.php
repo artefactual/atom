@@ -48,6 +48,8 @@ use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
 use Atom\Framework\Configuration\ViewConfiguration;
+use Atom\Framework\Console\CliContextFactory;
+use Atom\Framework\Console\ConsoleRuntime;
 use Atom\Framework\Database\PropelBootstrap;
 use Atom\Framework\Filter\CspFilter;
 use Atom\Framework\Filter\FilterConfiguration;
@@ -221,6 +223,8 @@ class Kernel extends BaseKernel
             $this->debug,
             $this->getProjectDir(),
         ]);
+        $services->set(CliContextFactory::class);
+        $services->set(ConsoleRuntime::class)->public();
         $services->set(ModuleDirectories::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,

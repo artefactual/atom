@@ -21,7 +21,14 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
-final readonly class RuntimeConfiguration
+use Atom\Framework\Configuration\ApplicationConfiguration;
+use Atom\Framework\Configuration\ConfigurationMerger;
+use Atom\Framework\Configuration\ConfigurationPathResolver;
+use Atom\Framework\Configuration\ConstantReplacer;
+use Atom\Framework\Configuration\HybridYamlFileLoader;
+use Atom\Framework\Configuration\ParameterCompiler;
+
+final class RuntimeConfiguration
 {
     private const STANDARD_HELPERS = [
         'Asset',
@@ -39,13 +46,35 @@ final readonly class RuntimeConfiguration
         'Url',
     ];
 
+    private static ?self $active = null;
+
     public function __construct(
-        private string $application,
-        private string $environment,
-        private array $plugins,
-        private bool $debug,
-        private string $projectDirectory,
+        private readonly string $application,
+        private readonly string $environment,
+        private readonly array $plugins,
+        private readonly bool $debug,
+        private readonly string $projectDirectory,
     ) {}
+
+    public static function setActive(?self $configuration): void
+    {
+        self::$active = $configuration;
+    }
+
+    public static function getApplicationConfiguration(
+        string $application = 'qubit',
+        string $environment = 'cli',
+        bool $debug = false,
+        mixed ...$ignored,
+    ): self {
+        if (null === self::$active) {
+            throw new BridgeException(
+                'No AtoM runtime configuration is active.',
+            );
+        }
+
+        return self::$active;
+    }
 
     public function getApplication(): string
     {
@@ -101,5 +130,70 @@ final readonly class RuntimeConfiguration
 
             require_once $path;
         }
+    }
+
+    public function getPlugins(): array
+    {
+        return $this->plugins;
+    }
+
+    public function getRootDir(): string
+    {
+        return $this->projectDirectory;
+    }
+
+    public function getConfigPaths(string $path): array
+    {
+        return $this->pathResolver()->resolve($path);
+    }
+
+    public function getPluginPaths(): array
+    {
+        return $this->getAllPluginPaths();
+    }
+
+    public function getAllPluginPaths(): array
+    {
+        return array_combine(
+            $this->plugins,
+            array_map(
+                fn (string $plugin): string => $this->projectDirectory
+                    .'/plugins/'.$plugin,
+                $this->plugins,
+            ),
+        ) ?: [];
+    }
+
+    public function getPluginSubPaths(string $path): array
+    {
+        return array_values(array_filter(array_map(
+            static fn (string $pluginPath): string => rtrim(
+                $pluginPath,
+                '/\\',
+            ).'/'.ltrim($path, '/\\'),
+            $this->getAllPluginPaths(),
+        ), is_dir(...)));
+    }
+
+    public function loadConfiguration(string $path): array
+    {
+        return (new ApplicationConfiguration(
+            $this->pathResolver(),
+            new HybridYamlFileLoader(),
+            new ConfigurationMerger(),
+            new ConstantReplacer(),
+            new ParameterCompiler(),
+            $this->environment,
+            Configuration::getAll(),
+        ))->load($path);
+    }
+
+    private function pathResolver(): ConfigurationPathResolver
+    {
+        return new ConfigurationPathResolver(
+            $this->projectDirectory,
+            $this->application,
+            $this->plugins,
+        );
     }
 }

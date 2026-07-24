@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 /*
@@ -10,11 +9,11 @@
  * any later version.
  */
 
-use Atom\Console\ApplicationRunner;
+declare(strict_types=1);
 
-$projectDirectory = __DIR__;
-chdir($projectDirectory);
+namespace Atom\Framework\Database;
 
-require $projectDirectory.'/vendor/composer/autoload.php';
-
-exit((new ApplicationRunner())->run($projectDirectory));
+final class DatabaseManagerProxy extends DatabaseManager
+{
+    public function __construct() {}
+}

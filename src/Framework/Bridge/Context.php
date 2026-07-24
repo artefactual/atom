@@ -21,6 +21,8 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Database\DatabaseManager;
+use Atom\Framework\Database\DatabaseManagerProxy;
 use Symfony\Component\Routing\RouterInterface;
 
 final class Context
@@ -28,6 +30,7 @@ final class Context
     public readonly RoutingAdapter $routing;
     public readonly Translator $i18n;
     public readonly ControllerProxy $controller;
+    public readonly DatabaseManager $databaseManager;
     private readonly ViewRuntime $viewRuntime;
     private static ?self $instance = null;
 
@@ -45,7 +48,15 @@ final class Context
         $this->routing = new RoutingAdapter($router, $request);
         $this->i18n = $translatorFactory->create($user->getCulture());
         $this->controller = new ControllerProxy($this);
+        $this->databaseManager = new DatabaseManagerProxy();
         $this->viewRuntime = $viewRuntimeFactory->create($this);
+    }
+
+    public static function createInstance(mixed $configuration = null): self
+    {
+        new DatabaseManager();
+
+        return self::getInstance();
     }
 
     public static function getInstance(): self
