@@ -21,6 +21,16 @@ class AccessionCheckIdentifierAvailableAction extends sfAction
 {
     public function execute($request)
     {
+        $this->resource = empty($request->accession_id)
+            ? new QubitAccession()
+            : QubitAccession::getById($request->accession_id);
+
+        if (null === $this->resource) {
+            $this->getResponse()->setStatusCode(400);
+
+            return sfView::NONE;
+        }
+
         // Check user authorization
         if (!QubitAcl::check($this->resource, 'create') && !QubitAcl::check($this->resource, 'update')) {
             $this->getResponse()->setStatusCode(401);

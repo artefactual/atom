@@ -41,7 +41,7 @@ class QubitAccession extends BaseAccession
             $item->save($connection);
         }
 
-        if ($indexOnSave) {
+        if ($this->indexOnSave) {
             QubitSearch::getInstance()->update($this);
         }
 

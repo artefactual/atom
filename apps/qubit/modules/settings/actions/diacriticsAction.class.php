@@ -74,7 +74,23 @@ class SettingsDiacriticsAction extends SettingsEditAction
 
                 $diacriticsMappingPath = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.'diacritics_mapping.yml';
 
-                if (null !== $file) {
+                if (null === $file) {
+                    if (!$this->form->getValue('diacritics')) {
+                        if (is_file($diacriticsMappingPath)) {
+                            unlink($diacriticsMappingPath);
+                        }
+
+                        break;
+                    }
+
+                    if (is_file($diacriticsMappingPath)) {
+                        break;
+                    }
+
+                    QubitSetting::findAndSave('diacritics', 0, ['sourceCulture' => true]);
+                    $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritics mapping yaml file.'));
+                    unset($this->updateMessage);
+                } else {
                     try {
                         sfYaml::load($file->getTempName());
 
@@ -86,16 +102,12 @@ class SettingsDiacriticsAction extends SettingsEditAction
                         }
                     } catch (Exception $e) {
                         QubitSetting::findAndSave('diacritics', 0, ['sourceCulture' => true]);
-                        unlink($diacriticsMappingPath);
+                        if (is_file($diacriticsMappingPath)) {
+                            unlink($diacriticsMappingPath);
+                        }
                         $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritics mapping yaml file.'));
                         unset($this->updateMessage);
                     }
-                } else {
-                    // Reset diacritics settings when uploading yaml fails
-                    QubitSetting::findAndSave('diacritics', 0, ['sourceCulture' => true]);
-                    unlink($diacriticsMappingPath);
-                    $this->getUser()->setFlash('error', $this->context->i18n->__('Unable to upload diacritics mapping yaml file.'));
-                    unset($this->updateMessage);
                 }
 
                 break;

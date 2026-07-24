@@ -35,7 +35,12 @@ class EventEditComponent extends sfComponent
         }
 
         foreach ($params as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
             // Continue only if user typed something
+            $value = '';
             foreach ($item as $value) {
                 if (0 < strlen($value)) {
                     break;
