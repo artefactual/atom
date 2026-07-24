@@ -134,7 +134,8 @@ class CsvImportValidator
     public function validate()
     {
         if (empty($this->getValidatorCollection())) {
-            $this->validatorCollection = CsvValidatorCollection::getValidatorCollection($this->getClassName(), $this->getOptions());
+            $options = $this->getOptions();
+            $this->validatorCollection = CsvValidatorCollection::getValidatorCollection($this->getClassName(), $options);
         }
 
         foreach ($this->filenames as $displayFilename => $filename) {

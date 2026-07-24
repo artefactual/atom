@@ -867,6 +867,10 @@ EOF;
 
         // Rebuild entire nested set for IOs
         if (!$options['skip-nested-set-build']) {
+            if ($options['index']) {
+                QubitSearch::getInstance()->flushBatch();
+            }
+
             $this->updateIosNestedSet();
         }
     }

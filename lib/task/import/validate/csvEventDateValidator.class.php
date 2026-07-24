@@ -53,28 +53,30 @@ class CsvEventDateValidator extends CsvBaseValidator
         }
 
         $row = $this->combineRow($header, $row);
+        $eventStartDates = $row['eventStartDates'] ?? '';
+        $eventEndDates = $row['eventEndDates'] ?? '';
 
-        if (false !== strpos($row['eventStartDates'], '|')) {
-            foreach (explode('|', $row['eventStartDates']) as $date) {
+        if (false !== strpos($eventStartDates, '|')) {
+            foreach (explode('|', $eventStartDates) as $date) {
                 if (!$this->checkDate($date)) {
                     $this->invalidEventDates[] = $date;
                     $invalidDateFound = true;
                 }
             }
-        } elseif (!$this->checkDate($row['eventStartDates'])) {
-            $this->invalidEventDates[] = $row['eventStartDates'];
+        } elseif (!$this->checkDate($eventStartDates)) {
+            $this->invalidEventDates[] = $eventStartDates;
             $invalidDateFound = true;
         }
 
-        if (false !== strpos($row['eventEndDates'], '|')) {
-            foreach (explode('|', $row['eventEndDates']) as $date) {
+        if (false !== strpos($eventEndDates, '|')) {
+            foreach (explode('|', $eventEndDates) as $date) {
                 if (!$this->checkDate($date)) {
                     $this->invalidEventDates[] = $date;
                     $invalidDateFound = true;
                 }
             }
-        } elseif (!$this->checkDate($row['eventEndDates'])) {
-            $this->invalidEventDates[] = $row['eventEndDates'];
+        } elseif (!$this->checkDate($eventEndDates)) {
+            $this->invalidEventDates[] = $eventEndDates;
             $invalidDateFound = true;
         }
 

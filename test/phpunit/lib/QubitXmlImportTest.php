@@ -26,6 +26,22 @@ use PHPUnit\Framework\TestCase;
  */
 class QubitXmlImportTest extends TestCase
 {
+    public function testReplacesLineBreaksWithTextNodesPresent()
+    {
+        $document = new DOMDocument();
+        $document->loadXML(
+            '<physdesc>Text <extent>1<lb/> item</extent> tail</physdesc>'
+        );
+
+        $value = QubitXmlImport::replaceLineBreaks(
+            $document->documentElement
+        );
+
+        $this->assertStringContainsString("1\n item", $value);
+        $this->assertStringContainsString('Text ', $value);
+        $this->assertStringContainsString(' tail', $value);
+    }
+
     public function testLoadXmlDoesNotSubstituteExternalEntities()
     {
         // Imported XML must not substitute external entity content into the DOM.

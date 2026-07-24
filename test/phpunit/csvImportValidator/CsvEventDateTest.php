@@ -43,6 +43,7 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
         $directory = [
             'unix_csv_valid.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
             'unix_csv_invalid.csv' => $this->csvHeader."\n".implode("\n", $this->csvInvalidData),
+            'unix_csv_without_event_dates.csv' => "legacyId,title,culture\n1,title,en",
         ];
 
         $this->vfs = vfsStream::setup('root', null, $directory);
@@ -109,6 +110,20 @@ class CsvEventDateTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_DETAILS => [
                         'CSV row numbers where issues were found: 2, 3, 4',
                         'Listing invalid date values: "1990-?, 1992-01-?, 1992?, 1998?"',
+                    ],
+                ],
+            ],
+            [
+                'CsvEventDateValidator-ColumnsAbsent' => [
+                    'csvValidatorClasses' => 'CsvEventDateValidator',
+                    'filename' => '/unix_csv_without_event_dates.csv',
+                    'testname' => 'CsvEventDateValidator',
+                    CsvValidatorResult::TEST_TITLE => CsvEventDateValidator::TITLE,
+                    CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_INFO,
+                    CsvValidatorResult::TEST_RESULTS => [
+                        "All ''eventStartDates' and 'eventEndDates' columns contain dates in a valid format.",
+                    ],
+                    CsvValidatorResult::TEST_DETAILS => [
                     ],
                 ],
             ],

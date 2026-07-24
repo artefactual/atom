@@ -25,6 +25,10 @@ class ObjectValidateCsvAction extends DefaultEditAction
     public function execute($request)
     {
         parent::execute($request);
+        $this->title = $this->context->i18n->__('Validate CSV');
+        $this->response->setTitle(
+            "{$this->title} - {$this->response->getTitle()}",
+        );
 
         if ($request->isMethod('post')) {
             $this->form->bind($request->getPostParameters());
@@ -36,9 +40,6 @@ class ObjectValidateCsvAction extends DefaultEditAction
 
                 $this->setTemplate('validateCsv');
             }
-        } else {
-            $this->title = $this->context->i18n->__('Validate CSV');
-            $this->response->setTitle("{$this->title} - {$this->response->getTitle()}");
         }
     }
 

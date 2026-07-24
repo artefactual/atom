@@ -222,6 +222,17 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
         $context = sfContext::getInstance();
         $route = $context->getRouting()->findRoute($url);
+
+        if (
+            false === $route
+            || !isset(
+                $route['parameters']['module'],
+                $route['parameters']['action'],
+            )
+        ) {
+            return false;
+        }
+
         $routeParams = $route['parameters'];
 
         return $context->getController()->actionExists($routeParams['module'], $routeParams['action']);

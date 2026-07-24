@@ -41,6 +41,7 @@ class QubitCsvImport
         $commandSkipUnmatched = '';
         $commandLimit = '';
         $exitCode = 0;
+        $transformedFile = null;
 
         if (null === $csvOrigFileName) {
             // WebUI passes a temp file name in $csvFile. e.g. /tmp/phpLjBIBv

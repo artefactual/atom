@@ -78,9 +78,9 @@ abstract class csvImportBaseTask extends arBaseTask
     public function importDigitalObject($self)
     {
         if (null === $self->object->getDigitalObject()) {
-            if ($uri = $self->rowStatusVars['digitalObjectURI']) {
+            if ($uri = $self->rowStatusVars['digitalObjectURI'] ?? null) {
                 $this->addDigitalObjectFromURI($self, $uri);
-            } elseif ($path = $self->rowStatusVars['digitalObjectPath']) {
+            } elseif ($path = $self->rowStatusVars['digitalObjectPath'] ?? null) {
                 $this->addDigitalObjectFromPath($self, $path);
             }
         }
@@ -98,8 +98,9 @@ abstract class csvImportBaseTask extends arBaseTask
         $do = new QubitDigitalObject();
         $do->object = $self->object;
         $do->indexOnSave = false;
+        $options = [];
 
-        if ($self->status['options']['skip-derivatives']) {
+        if (!empty($self->status['options']['skip-derivatives'])) {
             // Don't download remote resource or create derivatives
             $do->createDerivatives = false;
         } else {

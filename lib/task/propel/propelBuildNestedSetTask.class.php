@@ -28,6 +28,7 @@ class propelBuildNestedSetTask extends arBaseTask
     private $conn;
     private $pendingUpdates = [];
     private $batchSize = 64;
+    private $index = false;
 
     /**
      * @see sfTask
@@ -41,6 +42,7 @@ class propelBuildNestedSetTask extends arBaseTask
 
         $databaseManager = new sfDatabaseManager($this->configuration);
         $this->conn = $databaseManager->getDatabase('propel')->getConnection();
+        $this->index = (bool) ($options['index'] ?? false);
 
         $tables = [
             'information_object' => 'QubitInformationObject',
@@ -161,7 +163,7 @@ EOF;
             $this->flushUpdates($classname);
         }
 
-        if ($this->options['index'] && $node['id'] != $classname::ROOT_ID) {
+        if ($this->index && $node['id'] != $classname::ROOT_ID) {
             $this->reindexLft($classname, $node['id'], $node['lft']);
         }
 

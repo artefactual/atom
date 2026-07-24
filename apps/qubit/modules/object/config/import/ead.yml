@@ -39,11 +39,6 @@ information_object:
       Method:  setSourceStandard
       Parameters: ["'http://www.loc.gov/ead/ead.xsd'"]
 
-    publicationStatus:
-      XPath:   "."    # not really a match, just use self
-      Method:  setStatus
-      Parameters: ["array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID))"]
-
     # each of the following XPath expressions are relative to the current matched node:
     title:
       XPath: "did/unittitle[not(@type)]"

@@ -33,6 +33,9 @@ class QubitXmlImport
     protected $eadUrl;
     protected $sourceName;
     protected $options = [];
+    protected $collectionRoot;
+    protected $i18n;
+    protected $schemaMap = [];
 
     public function import($xmlFile, $options = [], $xmlOrigFileName = null)
     {
@@ -40,7 +43,12 @@ class QubitXmlImport
         $this->i18n = sfContext::getInstance()->i18n;
 
         // Save options so we can access from processMethods
-        $this->options = $options;
+        $this->options = array_replace([
+            'limit' => null,
+            'skip-matched' => false,
+            'skip-unmatched' => false,
+            'update' => false,
+        ], $options);
         $this->validateOptions();
 
         // load the XML document into a DOMXML object
@@ -410,7 +418,10 @@ class QubitXmlImport
         foreach ($node->childNodes as $child) {
             if ('lb' == $child->nodeName) {
                 $nodeValue .= "\n";
-            } elseif (in_array($child->tagName, $fieldsArray)) {
+            } elseif (
+                $child instanceof DOMElement
+                && in_array($child->tagName, $fieldsArray)
+            ) {
                 foreach ($child->childNodes as $childNode) {
                     if ('lb' == $childNode->nodeName) {
                         $nodeValue .= "\n";
