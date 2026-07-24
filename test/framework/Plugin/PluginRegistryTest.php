@@ -21,7 +21,10 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework\Plugin;
 
+use Atom\Framework\Module\ActionLocator;
+use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Plugin\PluginRegistry;
+use Atom\Framework\Plugin\PluginSettingsReader;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,9 +34,12 @@ use PHPUnit\Framework\TestCase;
  */
 final class PluginRegistryTest extends TestCase
 {
-    public function testReturnsCorePluginsInApplicationOrder(): void
+    public function testReturnsInstalledPluginsInApplicationOrder(): void
     {
+        $projectDirectory = dirname(__DIR__, 3);
+
         self::assertSame([
+            'arDominionB5Plugin',
             'qbAclPlugin',
             'qtAccessionPlugin',
             'sfDrupalPlugin',
@@ -44,13 +50,92 @@ final class PluginRegistryTest extends TestCase
             'sfTranslatePlugin',
             'sfWebBrowserPlugin',
             'sfPluginAdminPlugin',
-        ], (new PluginRegistry('/srv/atom', false))->enabled());
+            'sfDcPlugin',
+            'sfEacPlugin',
+            'sfEadPlugin',
+            'sfIsaarPlugin',
+            'sfIsadPlugin',
+            'arDacsPlugin',
+            'sfIsdfPlugin',
+            'sfIsdiahPlugin',
+            'sfModsPlugin',
+            'sfRadPlugin',
+            'sfSkosPlugin',
+        ], (new PluginRegistry($projectDirectory, false))->enabled());
     }
 
     public function testAppendsOidcPluginWhenActivated(): void
     {
-        $plugins = (new PluginRegistry('/srv/atom', true))->enabled();
+        $projectDirectory = dirname(__DIR__, 3);
+        $settings = new class implements PluginSettingsReader {
+            public function read(): ?array
+            {
+                return [];
+            }
+        };
+        $plugins = (new PluginRegistry(
+            $projectDirectory,
+            true,
+            $settings,
+        ))->enabled();
 
         self::assertSame('arOidcPlugin', $plugins[array_key_last($plugins)]);
+    }
+
+    public function testUsesConfiguredPluginsAndIgnoresMissingOnes(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $settings = new class implements PluginSettingsReader {
+            public function read(): ?array
+            {
+                return [
+                    'arRestApiPlugin',
+                    'missingPlugin',
+                    'arDominionB5Plugin',
+                ];
+            }
+        };
+
+        self::assertSame([
+            'arDominionB5Plugin',
+            'qbAclPlugin',
+            'qtAccessionPlugin',
+            'sfDrupalPlugin',
+            'sfHistoryPlugin',
+            'arElasticSearchPlugin',
+            'sfPropelPlugin',
+            'sfThumbnailPlugin',
+            'sfTranslatePlugin',
+            'sfWebBrowserPlugin',
+            'sfPluginAdminPlugin',
+            'arRestApiPlugin',
+        ], (new PluginRegistry(
+            $projectDirectory,
+            false,
+            $settings,
+        ))->enabled());
+    }
+
+    public function testMakesMetadataPluginActionsDiscoverable(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $plugins = (new PluginRegistry(
+            $projectDirectory,
+            false,
+        ))->enabled();
+        $locator = new ActionLocator(new ModuleDirectories(
+            $projectDirectory,
+            'qubit',
+            $plugins,
+        ));
+        $action = $locator->find('sfIsadPlugin', 'index');
+
+        self::assertNotNull($action);
+        self::assertSame(
+            $projectDirectory
+                .'/plugins/sfIsadPlugin/modules/sfIsadPlugin'
+                .'/actions/indexAction.class.php',
+            $action->path,
+        );
     }
 }

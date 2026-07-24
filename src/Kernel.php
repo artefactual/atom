@@ -63,7 +63,9 @@ use Atom\Framework\Filter\TransactionFilter;
 use Atom\Framework\Module\ActionLocator;
 use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
+use Atom\Framework\Plugin\PdoPluginSettingsReader;
 use Atom\Framework\Plugin\PluginRegistry;
+use Atom\Framework\Plugin\PluginRuntimeParameters;
 use Atom\Framework\Routing\PropelResourceRepository;
 use Atom\Framework\Routing\QubitResourceClassifier;
 use Atom\Framework\Routing\ResourceClassifier;
@@ -86,6 +88,7 @@ class Kernel extends BaseKernel
     private const APPLICATION = 'qubit';
 
     private ?LegacyClassLoader $legacyClassLoader = null;
+    private ?array $enabledPlugins = null;
 
     public function boot(): void
     {
@@ -149,12 +152,17 @@ class Kernel extends BaseKernel
     protected function configureContainer(
         ContainerConfigurator $container,
     ): void {
-        $plugins = (new PluginRegistry($this->getProjectDir()))->enabled();
+        $plugins = $this->enabledPlugins();
         $configuration = $this->applicationConfiguration();
         $parameters = array_replace(
             $configuration->parameters('config/app.yml', 'app_'),
             $configuration->parameters('config/settings.yml', 'sf_'),
             $this->directoryParameters(),
+        );
+        $parameters = (new PluginRuntimeParameters())->apply(
+            $parameters,
+            $plugins,
+            $this->getProjectDir(),
         );
 
         if (false !== $readOnly = getenv('ATOM_READ_ONLY')) {
@@ -261,15 +269,16 @@ class Kernel extends BaseKernel
             ->tag('controller.service_arguments');
     }
 
-    private function applicationConfiguration(): ApplicationConfiguration
-    {
+    private function applicationConfiguration(
+        ?array $plugins = null,
+    ): ApplicationConfiguration {
         $parameters = $this->directoryParameters();
 
         return new ApplicationConfiguration(
             new ConfigurationPathResolver(
                 $this->getProjectDir(),
                 self::APPLICATION,
-                (new PluginRegistry($this->getProjectDir()))->enabled(),
+                $plugins ?? $this->enabledPlugins(),
             ),
             new HybridYamlFileLoader(),
             new ConfigurationMerger(),
@@ -278,6 +287,26 @@ class Kernel extends BaseKernel
             $this->environment,
             $parameters,
         );
+    }
+
+    private function enabledPlugins(): array
+    {
+        if (null !== $this->enabledPlugins) {
+            return $this->enabledPlugins;
+        }
+
+        $settings = null;
+
+        if ('test' !== $this->environment) {
+            $databases = $this->applicationConfiguration([])
+                ->load('config/config.php');
+            $settings = new PdoPluginSettingsReader($databases);
+        }
+
+        return $this->enabledPlugins = (new PluginRegistry(
+            $this->getProjectDir(),
+            settings: $settings,
+        ))->enabled();
     }
 
     private function directoryParameters(): array

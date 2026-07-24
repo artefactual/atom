@@ -90,6 +90,11 @@ final class KernelTest extends TestCase
             self::assertTrue(
                 $container->getParameter('sf_escaping_strategy'),
             );
+            self::assertTrue($container->getParameter('app_b5_theme'));
+            self::assertContains(
+                'sfIsadPlugin',
+                $container->getParameter('sf_enabled_modules'),
+            );
 
             $router = $container->get('router');
             self::assertInstanceOf(RouterInterface::class, $router);

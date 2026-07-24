@@ -36,9 +36,25 @@ final readonly class PluginRegistry
         'sfPluginAdminPlugin',
     ];
 
+    private const DEFAULT_PLUGINS = [
+        'sfDcPlugin',
+        'arDominionB5Plugin',
+        'sfEacPlugin',
+        'sfEadPlugin',
+        'sfIsaarPlugin',
+        'sfIsadPlugin',
+        'arDacsPlugin',
+        'sfIsdfPlugin',
+        'sfIsdiahPlugin',
+        'sfModsPlugin',
+        'sfRadPlugin',
+        'sfSkosPlugin',
+    ];
+
     public function __construct(
         private string $projectDirectory,
         private ?bool $activateOidc = null,
+        private ?PluginSettingsReader $settings = null,
     ) {}
 
     public function enabled(): array
@@ -49,7 +65,32 @@ final readonly class PluginRegistry
             $plugins[] = 'arOidcPlugin';
         }
 
-        return $plugins;
+        $configured = $this->settings?->read() ?? self::DEFAULT_PLUGINS;
+
+        foreach ($configured as $plugin) {
+            if (!is_string($plugin) || !$this->validName($plugin)) {
+                throw new PluginException(
+                    'Configured plugin names must be safe strings.',
+                );
+            }
+
+            if ($this->available($plugin)) {
+                $plugins[] = $plugin;
+            }
+        }
+
+        $plugins = array_values(array_unique($plugins));
+
+        if (false !== $theme = array_search(
+            'arDominionB5Plugin',
+            $plugins,
+            true,
+        )) {
+            unset($plugins[$theme]);
+            array_unshift($plugins, 'arDominionB5Plugin');
+        }
+
+        return array_values($plugins);
     }
 
     private function oidcIsActive(): bool
@@ -66,5 +107,15 @@ final readonly class PluginRegistry
         );
 
         return $markerExists || $environmentEnabled;
+    }
+
+    private function available(string $plugin): bool
+    {
+        return is_dir($this->projectDirectory.'/plugins/'.$plugin);
+    }
+
+    private function validName(string $plugin): bool
+    {
+        return 1 === preg_match('/^[a-z0-9_.-]+$/i', $plugin);
     }
 }
