@@ -9,7 +9,12 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Clean-ups
 rm -rf /usr/local/etc/php-fpm.d/*
-rm -rf ${__dir}/../cache/*
+
+# The FPM and worker containers share this directory and start concurrently.
+# Letting both remove it races with Symfony while it warms its cache.
+if [ "${1:-}" = "fpm" ]; then
+    rm -rf "${__dir}/../cache/"*
+fi
 
 # Populate configuration files
 php ${__dir}/bootstrap.php $@

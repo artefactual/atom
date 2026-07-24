@@ -21,6 +21,7 @@ use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
+use Atom\Framework\Routing\ResourceRouteResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -34,6 +35,7 @@ final readonly class CliContextFactory
         private RouterInterface $router,
         private TranslatorFactory $translatorFactory,
         private ViewRuntimeFactory $viewRuntimeFactory,
+        private ResourceRouteResolver $resourceRouteResolver,
     ) {}
 
     public function create(): Context
@@ -50,6 +52,7 @@ final readonly class CliContextFactory
             $this->router,
             $this->translatorFactory,
             $this->viewRuntimeFactory,
+            resourceRouteResolver: $this->resourceRouteResolver,
         );
     }
 }

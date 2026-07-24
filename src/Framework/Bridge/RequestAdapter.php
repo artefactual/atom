@@ -23,7 +23,7 @@ namespace Atom\Framework\Bridge;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class RequestAdapter
+final class RequestAdapter implements \ArrayAccess
 {
     private ParameterHolder $parameters;
 
@@ -54,6 +54,31 @@ final class RequestAdapter
     public function __isset(string $name): bool
     {
         return $this->hasParameter($name);
+    }
+
+    public function __unset(string $name): void
+    {
+        $this->parameters->remove($name);
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return $this->__isset((string) $offset);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->__get((string) $offset);
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->__set((string) $offset, $value);
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->__unset((string) $offset);
     }
 
     public function getParameter(

@@ -34,6 +34,7 @@ use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Filter\FilterPipeline;
+use Atom\Framework\Routing\ResourceRouteResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -50,6 +51,7 @@ final readonly class LegacyController
         private FilterPipeline $filters,
         private TranslatorFactory $translatorFactory,
         private ViewRuntimeFactory $viewRuntimeFactory,
+        private ResourceRouteResolver $resourceRouteResolver,
     ) {}
 
     public function __invoke(Request $request): Response
@@ -70,6 +72,7 @@ final readonly class LegacyController
             $this->router,
             $this->translatorFactory,
             $this->viewRuntimeFactory,
+            resourceRouteResolver: $this->resourceRouteResolver,
         );
         Context::setInstance($context);
 

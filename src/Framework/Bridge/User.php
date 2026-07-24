@@ -25,7 +25,9 @@ use Atom\Framework\Security\SecurityConfiguration;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class User implements \ArrayAccess
+require_once __DIR__.'/ZendAclRoleInterface.php';
+
+class User implements \ArrayAccess, \Zend_Acl_Role_Interface
 {
     public const ATTRIBUTE_NAMESPACE = 'symfony/user/sfUser/attributes';
     public const CULTURE_NAMESPACE = 'symfony/user/sfUser/culture';

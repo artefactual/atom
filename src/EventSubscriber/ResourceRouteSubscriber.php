@@ -23,6 +23,7 @@ namespace Atom\EventSubscriber;
 
 use Atom\Framework\Bridge\NotFoundException;
 use Atom\Framework\Routing\ResourceRouteResolver;
+use Atom\Framework\Routing\RouteCompiler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -54,6 +55,19 @@ final readonly class ResourceRouteSubscriber implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $parameters = $request->attributes->all();
+        $legacyResource = null;
+
+        if (
+            !isset($parameters[RouteCompiler::CLASS_ATTRIBUTE])
+            && is_string($slug = $request->query->get('slug'))
+            && '' !== $slug
+        ) {
+            $legacyResource = $this->resolver->resolve([
+                RouteCompiler::CLASS_ATTRIBUTE => 'QubitMetadataRoute',
+                'slug' => $slug,
+                'action' => $parameters['action'] ?? 'index',
+            ])?->resource;
+        }
 
         try {
             while (null === $resolved = $this->resolver->resolve($parameters)) {
@@ -83,10 +97,10 @@ final readonly class ResourceRouteSubscriber implements EventSubscriberInterface
         unset($routeParameters['_route'], $routeParameters['_controller']);
         $request->attributes->set('_route_params', $routeParameters);
 
-        if (null !== $resolved->resource) {
+        if (null !== $resource = $resolved->resource ?? $legacyResource) {
             $request->attributes->set(
                 '_atom_resource',
-                $resolved->resource,
+                $resource,
             );
         }
     }

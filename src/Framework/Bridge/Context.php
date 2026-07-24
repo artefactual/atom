@@ -23,6 +23,7 @@ namespace Atom\Framework\Bridge;
 
 use Atom\Framework\Database\DatabaseManager;
 use Atom\Framework\Database\DatabaseManagerProxy;
+use Atom\Framework\Routing\ResourceRouteResolver;
 use Symfony\Component\Routing\RouterInterface;
 
 final class Context
@@ -44,8 +45,13 @@ final class Context
         TranslatorFactory $translatorFactory,
         ViewRuntimeFactory $viewRuntimeFactory,
         private readonly LoggerAdapter $logger = new LoggerAdapter(),
+        ?ResourceRouteResolver $resourceRouteResolver = null,
     ) {
-        $this->routing = new RoutingAdapter($router, $request);
+        $this->routing = new RoutingAdapter(
+            $router,
+            $request,
+            $resourceRouteResolver,
+        );
         $this->i18n = $translatorFactory->create($user->getCulture());
         $this->controller = new ControllerProxy($this);
         $this->databaseManager = new DatabaseManagerProxy();
@@ -151,17 +157,11 @@ final class Context
             }
 
             if (str_contains($target, '/')) {
-                [$module, $action] = explode('/', $target, 2);
-
-                return $this->routing->generate('default', [
-                    'module' => $module,
-                    'action' => $action,
-                ]);
+                return $this->routing->generateInternalUri($target);
             }
         }
 
         $parameters = (array) $target;
-        unset($parameters[0]);
 
         return $this->routing->generate(null, $parameters);
     }

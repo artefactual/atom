@@ -98,6 +98,7 @@ final class ViewRuntimeTest extends TestCase
                             <?php slot('aside'); ?>Side<?php end_slot(); ?>
                             <?= get_partial('message', ['value' => 'Body']) ?>
                             <?= get_component('bridgefixture', 'greeting', ['name' => 'AtoM']) ?>
+                            <?= $sf_data->getRaw('sf_request') === $sf_request ? '<em>Request</em>' : '' ?>
                             PHP,
                         '_message.php' => '<p><?= $value ?></p>',
                         '_greeting.php' => '<strong><?= $greeting ?></strong>',
@@ -167,10 +168,12 @@ final class ViewRuntimeTest extends TestCase
         );
 
         self::assertStringContainsString(
-            '<main><p>Body</p><strong>Hello AtoM</strong></main>'
+            '<main><p>Body</p><strong>Hello AtoM</strong>'
+                .'<em>Request</em></main>'
                 .'<aside>Side</aside>',
             $html,
         );
+        self::assertStringContainsString('<em>Request</em>', $html);
         self::assertStringContainsString(
             '<meta http-equiv="X-UA-Compatible" content="IE=edge" />',
             $html,

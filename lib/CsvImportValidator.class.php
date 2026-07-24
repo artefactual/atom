@@ -74,7 +74,7 @@ class CsvImportValidator
         $options = []
     ) {
         if (null === $context) {
-            $context = new sfContext(ProjectConfiguration::getActive());
+            $context = sfContext::getInstance();
         }
 
         $this->setContext($context);

@@ -21,6 +21,9 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Module\ActionLocator;
+use Atom\Framework\Module\ModuleDirectories;
+use Atom\Framework\Module\ModuleException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 final readonly class ControllerProxy
@@ -46,5 +49,30 @@ final readonly class ControllerProxy
     public function inCLI(): bool
     {
         return \PHP_SAPI === 'cli';
+    }
+
+    public function actionExists(mixed $module, mixed $action): bool
+    {
+        if (
+            !is_string($module)
+            || '' === $module
+            || !is_string($action)
+            || '' === $action
+        ) {
+            return false;
+        }
+
+        $configuration = $this->context->getConfiguration();
+        $locator = new ActionLocator(new ModuleDirectories(
+            $configuration->getRootDir(),
+            $configuration->getApplication(),
+            $configuration->getPlugins(),
+        ));
+
+        try {
+            return null !== $locator->find($module, $action);
+        } catch (ModuleException) {
+            return false;
+        }
     }
 }

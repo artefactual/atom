@@ -33,7 +33,12 @@ final class TemplateRenderer
         $sf_request = $context->getRequest();
         $sf_response = $context->getResponse();
         $sf_user = $context->getUser();
-        $sf_data = new ParameterHolder($variables);
+        $sf_data = new ParameterHolder([
+            'sf_context' => $sf_context,
+            'sf_request' => $sf_request,
+            'sf_response' => $sf_response,
+            'sf_user' => $sf_user,
+        ] + $variables);
 
         extract($variables, \EXTR_SKIP);
         ob_start();

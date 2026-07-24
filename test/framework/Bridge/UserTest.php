@@ -77,6 +77,7 @@ final class UserTest extends TestCase
         $user = new User();
         $user->addCredential('editor');
 
+        self::assertInstanceOf(\Zend_Acl_Role_Interface::class, $user);
         self::assertTrue($user->hasCredential([
             ['administrator', 'editor'],
         ]));
