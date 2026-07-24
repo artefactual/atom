@@ -53,6 +53,26 @@ class FormField implements \ArrayAccess, \Countable, \IteratorAggregate
         return $clone;
     }
 
+    public function __isset(string $name): bool
+    {
+        return $this->widget->hasOption($name);
+    }
+
+    public function __get(string $name): mixed
+    {
+        return $this->widget->getOption($name);
+    }
+
+    public function __set(string $name, mixed $value): void
+    {
+        $this->widget->setOption($name, $value);
+    }
+
+    public function __unset(string $name): void
+    {
+        $this->widget->setOption($name, null);
+    }
+
     public function render(array $attributes = []): string
     {
         if ($this->widget instanceof WidgetSchema) {

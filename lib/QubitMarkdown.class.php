@@ -43,7 +43,7 @@ class QubitMarkdown
             return;
         }
 
-        $this->parsedown = new ParsedownExtra();
+        $this->parsedown = new QubitParsedownExtra();
     }
 
     public static function getInstance()

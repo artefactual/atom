@@ -30,6 +30,7 @@ final class ResponseAdapter
     private array $stylesheets = [];
     private array $httpMetadata = [];
     private array $metadata = [];
+    private bool $headerOnly = false;
 
     public function __construct(private readonly Response $response) {}
 
@@ -43,9 +44,11 @@ final class ResponseAdapter
         return $this->response->getContent();
     }
 
-    public function setStatusCode(int $statusCode): void
-    {
-        $this->response->setStatusCode($statusCode);
+    public function setStatusCode(
+        int $statusCode,
+        ?string $statusText = null,
+    ): void {
+        $this->response->setStatusCode($statusCode, $statusText);
     }
 
     public function setHttpHeader(
@@ -59,6 +62,26 @@ final class ResponseAdapter
     public function setContentType(string $contentType): void
     {
         $this->response->headers->set('Content-Type', $contentType);
+    }
+
+    public function clearHttpHeaders(): void
+    {
+        $this->response->headers->replace();
+    }
+
+    public function sendHttpHeaders(): void
+    {
+        $this->response->sendHeaders();
+    }
+
+    public function setHeaderOnly(bool $headerOnly): void
+    {
+        $this->headerOnly = $headerOnly;
+    }
+
+    public function isHeaderOnly(): bool
+    {
+        return $this->headerOnly;
     }
 
     public function setTitle(string $title): void

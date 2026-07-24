@@ -183,19 +183,37 @@ final class RuntimeConfiguration
 
     public function getPluginPaths(): array
     {
-        return $this->getAllPluginPaths();
+        $available = $this->getAllPluginPaths();
+        $enabled = [];
+
+        foreach ($this->plugins as $plugin) {
+            if (isset($available[$plugin])) {
+                $enabled[] = $available[$plugin];
+            }
+        }
+
+        return $enabled;
     }
 
     public function getAllPluginPaths(): array
     {
-        return array_combine(
-            $this->plugins,
-            array_map(
-                fn (string $plugin): string => $this->projectDirectory
-                    .'/plugins/'.$plugin,
-                $this->plugins,
-            ),
-        ) ?: [];
+        $paths = [];
+
+        foreach ([
+            $this->projectDirectory.'/vendor/symfony/lib/plugins',
+            $this->projectDirectory.'/plugins',
+        ] as $directory) {
+            $plugins = glob($directory.'/*Plugin', \GLOB_ONLYDIR) ?: [];
+            sort($plugins);
+
+            foreach ($plugins as $plugin) {
+                $paths[basename($plugin)] = $plugin;
+            }
+        }
+
+        ksort($paths);
+
+        return $paths;
     }
 
     public function getPluginSubPaths(string $path): array
@@ -205,7 +223,7 @@ final class RuntimeConfiguration
                 $pluginPath,
                 '/\\',
             ).'/'.ltrim($path, '/\\'),
-            $this->getAllPluginPaths(),
+            $this->getPluginPaths(),
         ), is_dir(...)));
     }
 

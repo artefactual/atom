@@ -23,6 +23,7 @@ namespace Atom\Tests\Framework\Bridge;
 
 use Atom\Framework\Bridge\RequestAdapter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -44,5 +45,114 @@ final class RequestAdapterTest extends TestCase
 
         self::assertSame('/', $adapter->next);
         self::assertFalse(isset($adapter['email']));
+        self::assertSame(['next' => '/'], $adapter->getParameters());
+    }
+
+    public function testProvidesLegacyRequestLocationMethods(): void
+    {
+        $request = Request::create(
+            'https://archives.test/atom/record',
+            'GET',
+            [],
+            [],
+            [],
+            [
+                'SCRIPT_NAME' => '/atom/index.php',
+                'SCRIPT_FILENAME' => '/srv/atom/index.php',
+            ],
+        );
+        $adapter = new RequestAdapter($request);
+
+        self::assertSame('/atom', $adapter->getPathInfoPrefix());
+        self::assertSame('archives.test', $adapter->getHost());
+        self::assertSame(
+            'https://archives.test',
+            $adapter->getUriPrefix(),
+        );
+        self::assertTrue($adapter->isSecure());
+        self::assertSame(
+            'archives.test',
+            $adapter->getPathInfoArray()['HTTP_HOST'],
+        );
+    }
+
+    public function testProvidesLegacyRequestContentMethods(): void
+    {
+        $request = Request::create(
+            '/api',
+            'POST',
+            [],
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json; charset=UTF-8'],
+            '{"title":"Example"}',
+        );
+        $adapter = new RequestAdapter($request);
+
+        self::assertSame('POST', $adapter->getMethod());
+        self::assertSame('application/json', $adapter->getContentType());
+        self::assertSame(
+            'application/json; charset=UTF-8',
+            $adapter->getContentType(false),
+        );
+        self::assertSame(
+            '{"title":"Example"}',
+            $adapter->getContent(),
+        );
+    }
+
+    public function testReturnsArrayInputAndArrayDefaults(): void
+    {
+        $request = new Request(
+            ['filters' => ['published' => true]],
+            ['slugs' => ['first', 'second']],
+        );
+        $request->cookies->set('preferences', ['culture' => 'fr']);
+        $adapter = new RequestAdapter($request);
+
+        self::assertSame(
+            ['published' => true],
+            $adapter->getGetParameter('filters', []),
+        );
+        self::assertSame(
+            ['first', 'second'],
+            $adapter->getPostParameter('slugs', []),
+        );
+        self::assertSame(
+            ['culture' => 'fr'],
+            $adapter->getCookie('preferences', []),
+        );
+        self::assertSame(
+            [],
+            $adapter->getPostParameter('missing', []),
+        );
+    }
+
+    public function testNormalizesUploadedFilesForLegacyActions(): void
+    {
+        $upload = new UploadedFile(
+            __FILE__,
+            'records.csv',
+            'text/csv',
+            \UPLOAD_ERR_OK,
+            true,
+        );
+        $request = Request::create(
+            '/import',
+            'POST',
+            [],
+            [],
+            ['file' => $upload],
+        );
+        $adapter = new RequestAdapter($request);
+
+        self::assertSame([
+            'name' => 'records.csv',
+            'type' => 'text/csv',
+            'tmp_name' => __FILE__,
+            'error' => \UPLOAD_ERR_OK,
+            'size' => filesize(__FILE__),
+        ], $adapter->getFiles('file'));
+        self::assertSame([], $adapter->getFiles('missing'));
     }
 }

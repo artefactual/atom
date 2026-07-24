@@ -1,6 +1,9 @@
 (function ($) {
   "use strict";
 
+  var supportsInputPlaceholder =
+    "placeholder" in document.createElement("input");
+
   /****
    ****
    ****  Tools
@@ -453,7 +456,7 @@
       }, 150);
 
       // Add placeholder as value in browsers without support
-      if (!Modernizr.input.placeholder) {
+      if (!supportsInputPlaceholder) {
         self.$element.val(self.$element.attr("placeholder"));
       }
 
@@ -461,7 +464,7 @@
     },
 
     focus: function (e) {
-      if (!Modernizr.input.placeholder) {
+      if (!supportsInputPlaceholder) {
         this.$element.val("");
       }
 
@@ -515,7 +518,7 @@
 
   // Add placeholder as value in search box for browsers without support
   $(function () {
-    if (!Modernizr.input.placeholder) {
+    if (!supportsInputPlaceholder) {
       $('#search-form-wrapper input[name="query"]').each(function () {
         var $this = $(this);
 

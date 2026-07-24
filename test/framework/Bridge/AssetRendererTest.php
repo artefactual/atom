@@ -40,8 +40,10 @@ final class AssetRendererTest extends TestCase
 
         self::assertSame(
             '<script defer="defer" src="/js/runtime.js"></script>'."\n"
-                .'<script src="/js/application.js"></script>'."\n"
-                .'<script src="/js/analytics.js"></script>'."\n",
+                .'<script defer="defer"'
+                .' src="/js/application.js"></script>'."\n"
+                .'<script defer="defer"'
+                .' src="/js/analytics.js"></script>'."\n",
             $renderer->javaScripts($response),
         );
         self::assertSame(

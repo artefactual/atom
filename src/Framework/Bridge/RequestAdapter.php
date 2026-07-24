@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RequestAdapter implements \ArrayAccess
@@ -108,6 +109,11 @@ final class RequestAdapter implements \ArrayAccess
         return $this->parameters->getAll();
     }
 
+    public function getParameters(): array
+    {
+        return $this->parameters->getAll();
+    }
+
     public function getGetParameters(): array
     {
         return $this->request->query->all();
@@ -115,7 +121,11 @@ final class RequestAdapter implements \ArrayAccess
 
     public function getGetParameter(string $name, mixed $default = null): mixed
     {
-        return $this->request->query->get($name, $default);
+        $parameters = $this->request->query->all();
+
+        return array_key_exists($name, $parameters)
+            ? $parameters[$name]
+            : $default;
     }
 
     public function getPostParameters(): array
@@ -127,12 +137,16 @@ final class RequestAdapter implements \ArrayAccess
         string $name,
         mixed $default = null,
     ): mixed {
-        return $this->request->request->get($name, $default);
+        $parameters = $this->request->request->all();
+
+        return array_key_exists($name, $parameters)
+            ? $parameters[$name]
+            : $default;
     }
 
     public function getMethod(): string
     {
-        return strtolower($this->request->getMethod());
+        return strtoupper($this->request->getMethod());
     }
 
     public function isMethod(string $method): bool
@@ -147,6 +161,26 @@ final class RequestAdapter implements \ArrayAccess
         return $this->request->headers->get($name, $default);
     }
 
+    public function getContentType(bool $trim = true): ?string
+    {
+        $contentType = $this->request->headers->get('Content-Type');
+
+        if (
+            $trim
+            && is_string($contentType)
+            && false !== $position = strpos($contentType, ';')
+        ) {
+            return substr($contentType, 0, $position);
+        }
+
+        return $contentType;
+    }
+
+    public function getContent(): string
+    {
+        return (string) $this->request->getContent();
+    }
+
     public function getReferer(): ?string
     {
         return $this->request->headers->get('referer');
@@ -154,12 +188,18 @@ final class RequestAdapter implements \ArrayAccess
 
     public function getCookie(string $name, mixed $default = null): mixed
     {
-        return $this->request->cookies->get($name, $default);
+        $cookies = $this->request->cookies->all();
+
+        return array_key_exists($name, $cookies)
+            ? $cookies[$name]
+            : $default;
     }
 
-    public function getFiles(): array
+    public function getFiles(?string $key = null): array
     {
-        return $this->request->files->all();
+        $files = $this->normalizeFiles($this->request->files->all());
+
+        return null === $key ? $files : ($files[$key] ?? []);
     }
 
     public function getFile(string $name, mixed $default = null): mixed
@@ -182,6 +222,16 @@ final class RequestAdapter implements \ArrayAccess
         return $this->request->getPathInfo();
     }
 
+    public function getPathInfoArray(): array
+    {
+        return $this->request->server->all();
+    }
+
+    public function getPathInfoPrefix(): string
+    {
+        return $this->request->getBaseUrl();
+    }
+
     public function getUri(): string
     {
         return $this->request->getUri();
@@ -192,6 +242,11 @@ final class RequestAdapter implements \ArrayAccess
         return $this->request->getSchemeAndHttpHost();
     }
 
+    public function getHost(): string
+    {
+        return $this->request->getHost();
+    }
+
     public function getScriptName(): string
     {
         return $this->request->getScriptName();
@@ -200,6 +255,11 @@ final class RequestAdapter implements \ArrayAccess
     public function getRelativeUrlRoot(): string
     {
         return $this->request->getBaseUrl();
+    }
+
+    public function isSecure(): bool
+    {
+        return $this->request->isSecure();
     }
 
     public function isXmlHttpRequest(): bool
@@ -220,5 +280,24 @@ final class RequestAdapter implements \ArrayAccess
     public function getSymfonyRequest(): Request
     {
         return $this->request;
+    }
+
+    private function normalizeFiles(array $files): array
+    {
+        foreach ($files as $name => $file) {
+            if ($file instanceof UploadedFile) {
+                $files[$name] = [
+                    'name' => $file->getClientOriginalName(),
+                    'type' => $file->getClientMimeType(),
+                    'tmp_name' => $file->getPathname(),
+                    'error' => $file->getError(),
+                    'size' => $file->getSize(),
+                ];
+            } elseif (is_array($file)) {
+                $files[$name] = $this->normalizeFiles($file);
+            }
+        }
+
+        return $files;
     }
 }

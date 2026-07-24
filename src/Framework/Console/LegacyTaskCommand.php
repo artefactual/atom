@@ -115,6 +115,12 @@ final class LegacyTaskCommand extends Command
                 : $option->getDefault();
         }
 
+        foreach (self::GLOBAL_OPTIONS as $name) {
+            if ($input->hasOption($name)) {
+                $options[$name] = $input->getOption($name);
+            }
+        }
+
         if (true === ($options['application'] ?? null)) {
             $options['application'] = $this->configuration->getApplication();
         }

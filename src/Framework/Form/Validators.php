@@ -497,20 +497,87 @@ class FileValidator extends Validator
 
         $constraint = new Assert\File(
             maxSize: $this->getOption('max_size'),
-            mimeTypes: null === $mimeTypes ? [] : (array) $mimeTypes,
         );
         $this->assert($uploaded, $constraint, $this->fileErrorCode($uploaded));
+        $mimeType = $this->guessMimeType($uploaded);
+
+        if (
+            null !== $mimeTypes
+            && !$this->mimeTypeMatches($mimeType, (array) $mimeTypes)
+        ) {
+            throw new ValidatorError($this, 'mime_types', [
+                'mime_type' => $mimeType,
+                'mime_types' => $mimeTypes,
+                'value' => '',
+            ]);
+        }
+
         $class = $this->getOption('validated_file_class');
 
         return new $class(
             $uploaded->getClientOriginalName(),
-            $uploaded->getMimeType()
-                ?? $uploaded->getClientMimeType()
-                ?? 'application/octet-stream',
+            $mimeType,
             $uploaded->getPathname(),
             $uploaded->getSize(),
             $this->getOption('path'),
         );
+    }
+
+    private function guessMimeType(UploadedFile $file): string
+    {
+        $path = $file->getPathname();
+
+        if (class_exists(\Symfony\Component\Mime\MimeTypes::class)) {
+            $mimeType = $file->getMimeType();
+
+            if (is_string($mimeType) && '' !== $mimeType) {
+                return strtolower($mimeType);
+            }
+        }
+
+        if (class_exists(\finfo::class)) {
+            $mimeType = (new \finfo(\FILEINFO_MIME_TYPE))->file($path);
+
+            if (is_string($mimeType) && '' !== $mimeType) {
+                return strtolower($mimeType);
+            }
+        }
+
+        if (function_exists('mime_content_type')) {
+            $mimeType = mime_content_type($path);
+
+            if (is_string($mimeType) && '' !== $mimeType) {
+                return strtolower($mimeType);
+            }
+        }
+
+        return strtolower(
+            $file->getClientMimeType() ?: 'application/octet-stream',
+        );
+    }
+
+    private function mimeTypeMatches(
+        string $mimeType,
+        array $allowedMimeTypes,
+    ): bool {
+        foreach ($allowedMimeTypes as $allowedMimeType) {
+            $allowedMimeType = strtolower((string) $allowedMimeType);
+
+            if (
+                $mimeType === $allowedMimeType
+                || (
+                    str_ends_with($allowedMimeType, '/*')
+                    && str_starts_with(
+                        $mimeType,
+                        substr($allowedMimeType, 0, -1),
+                    )
+                )
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function fileErrorCode(UploadedFile $file): string

@@ -23,9 +23,11 @@ namespace Atom\Tests\Framework\Form;
 
 use Atom\Framework\Bridge\BridgeRegistrar;
 use Atom\Framework\Bridge\Configuration;
+use Atom\Framework\Form\FileValidator;
 use Atom\Framework\Form\Form;
 use Atom\Framework\Form\InputWidget;
 use Atom\Framework\Form\StringValidator;
+use Atom\Framework\Form\ValidatedFile;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -129,6 +131,54 @@ final class FormTest extends TestCase
         );
     }
 
+    public function testRendersLegacyCheckboxValues(): void
+    {
+        $widget = new \sfWidgetFormInputCheckbox();
+
+        $html = $widget->render('enabled', true);
+
+        self::assertStringContainsString('type="checkbox"', $html);
+        self::assertStringContainsString('checked="checked"', $html);
+        self::assertStringNotContainsString(' value=', $html);
+        self::assertStringNotContainsString(
+            'checked="checked"',
+            $widget->render('enabled', false),
+        );
+
+        $widget = new \sfWidgetFormInputCheckbox([
+            'value_attribute_value' => 'custom',
+        ]);
+
+        self::assertStringContainsString(
+            'value="custom"',
+            $widget->render('enabled', 'custom'),
+        );
+    }
+
+    public function testReadsAndWritesWidgetOptionsThroughAField(): void
+    {
+        $form = new \sfForm([], [], false);
+        $form->setWidget('status', new \sfWidgetFormChoice([
+            'choices' => ['draft' => 'Draft'],
+        ]));
+
+        self::assertTrue(isset($form->status->choices));
+        self::assertSame(
+            ['draft' => 'Draft'],
+            $form->status->choices,
+        );
+
+        $form->status->choices += ['published' => 'Published'];
+
+        self::assertSame(
+            ['draft' => 'Draft', 'published' => 'Published'],
+            $form->status->choices,
+        );
+
+        unset($form->status->choices);
+        self::assertFalse(isset($form->status->choices));
+    }
+
     public function testEmbedsAndValidatesNestedForms(): void
     {
         $child = new \sfForm([], [], false);
@@ -165,5 +215,20 @@ final class FormTest extends TestCase
 
         self::assertTrue($form->isValid());
         self::assertSame('An archive', $form->getValue('title'));
+    }
+
+    public function testValidatesLegacyUploadedFileArrays(): void
+    {
+        $file = (new FileValidator())->clean([
+            'name' => 'record.php',
+            'type' => 'text/x-php',
+            'tmp_name' => __FILE__,
+            'error' => \UPLOAD_ERR_OK,
+            'size' => filesize(__FILE__),
+        ]);
+
+        self::assertInstanceOf(ValidatedFile::class, $file);
+        self::assertSame('record.php', $file->getOriginalName());
+        self::assertSame(__FILE__, $file->getTempName());
     }
 }

@@ -86,6 +86,7 @@ final class ConsoleTest extends TestCase
         self::assertStringContainsString('HELLO', $tester->getDisplay());
         self::assertSame('hello', $task->received[0]['message']);
         self::assertTrue($task->received[1]['upper']);
+        self::assertFalse($task->received[1]['quiet']);
     }
 
     public function testTaskDiscoveryFindsRenamedTaskClass(): void

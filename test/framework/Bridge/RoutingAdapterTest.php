@@ -101,6 +101,151 @@ final class RoutingAdapterTest extends TestCase
         );
     }
 
+    public function testGeneratesUrlsFromBareResourceObjects(): void
+    {
+        $resource = new \stdClass();
+        $resource->slug = 'example-record';
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'slug',
+                ['slug' => 'example-record'],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record',
+            $routing->generate(null, $resource),
+        );
+    }
+
+    public function testHidesLegacyModulesInResourcePermalinks(): void
+    {
+        $resource = new \stdClass();
+        $resource->slug = 'example-record';
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'slug',
+                ['slug' => 'example-record'],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record',
+            $routing->generate(null, [
+                $resource,
+                'module' => 'actor',
+            ]),
+        );
+    }
+
+    public function testGeneratesCanonicalResourceEditUrls(): void
+    {
+        $resource = new \stdClass();
+        $resource->slug = 'example-record';
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'edit',
+                [
+                    'action' => 'edit',
+                    'slug' => 'example-record',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record/edit');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record/edit',
+            $routing->generate(null, [
+                $resource,
+                'module' => 'actor',
+                'action' => 'edit',
+            ]),
+        );
+    }
+
+    public function testPreservesExplicitResourceRouteOverrides(): void
+    {
+        $resource = new \stdClass();
+        $resource->slug = 'example-record';
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'slug/default',
+                [
+                    'module' => 'right',
+                    'action' => 'edit',
+                    'slug' => 'example-record',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record/right/edit');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record/right/edit',
+            $routing->generate(null, [
+                $resource,
+                'sf_route' => 'slug/default',
+                'module' => 'right',
+                'action' => 'edit',
+            ]),
+        );
+    }
+
+    public function testPreservesExplicitMetadataTemplates(): void
+    {
+        $resource = new \stdClass();
+        $resource->slug = 'example-record';
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'slug;template',
+                [
+                    'slug' => 'example-record',
+                    'template' => 'eac',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record;eac');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record;eac',
+            $routing->generate(null, [
+                $resource,
+                'module' => 'sfEacPlugin',
+            ]),
+        );
+    }
+
     public function testGeneratesHomepageForEmptyTargets(): void
     {
         $router = $this->createMock(RouterInterface::class);
@@ -198,6 +343,63 @@ final class RoutingAdapterTest extends TestCase
                 'module' => 'staticpage',
             ],
         ], $routing->findRoute('/about'));
+    }
+
+    public function testParsesResourcesWithLegacyRouteState(): void
+    {
+        $resource = (object) ['slug' => 'about'];
+        $router = $this->createMock(RouterInterface::class);
+        $router->method('match')->willReturn([
+            '_route' => 'slug',
+            RouteCompiler::CLASS_ATTRIBUTE => 'QubitMetadataRoute',
+            'slug' => 'about',
+            'action' => 'index',
+        ]);
+        $repository = new class($resource) implements ResourceRepository {
+            public function __construct(private readonly object $resource) {}
+
+            public function findBySlug(string $slug): ?object
+            {
+                return $this->resource;
+            }
+
+            public function defaultTemplate(string $module): false|string
+            {
+                return false;
+            }
+
+            public function informationObjectTemplate(
+                object $resource,
+            ): false|string {
+                return false;
+            }
+        };
+        $classifier = new class implements ResourceClassifier {
+            public function classify(object $resource): ?string
+            {
+                return 'static_page';
+            }
+        };
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+            new ResourceRouteResolver($repository, $classifier),
+        );
+
+        $parameters = $routing->parse('/about');
+
+        self::assertIsArray($parameters);
+        self::assertSame('about', $parameters['slug']);
+        self::assertSame('index', $parameters['action']);
+        self::assertSame('staticpage', $parameters['module']);
+        self::assertInstanceOf(
+            RouteState::class,
+            $parameters['_sf_route'],
+        );
+        self::assertSame(
+            $resource,
+            $parameters['_sf_route']->resource,
+        );
     }
 
     public function testGeneratesStoredInternalUrisWithQueryParameters(): void

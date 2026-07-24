@@ -23,11 +23,14 @@ namespace Atom\Framework\Bridge;
 
 final class TemplateRenderer
 {
+    private Context $context;
+
     public function render(
-        string $path,
+        string $templatePath,
         array $variables,
         Context $context,
     ): string {
+        $this->context = $context;
         $bufferLevel = ob_get_level();
         $sf_context = $context;
         $sf_request = $context->getRequest();
@@ -44,7 +47,7 @@ final class TemplateRenderer
         ob_start();
 
         try {
-            include $path;
+            include $templatePath;
 
             return (string) ob_get_clean();
         } catch (\Throwable $exception) {

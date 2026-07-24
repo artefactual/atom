@@ -215,7 +215,8 @@ class Kernel extends BaseKernel
                 'cookie_secure' => true,
                 'cookie_httponly' => true,
                 'cookie_samesite' => 'strict',
-                'save_path' => '%kernel.cache_dir%/sessions',
+                'save_path' => '%kernel.project_dir%/cache/sessions/'
+                    .'%kernel.environment%',
             ],
             'test' => 'test' === $this->environment,
         ]);

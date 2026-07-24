@@ -745,11 +745,14 @@ class QubitAcl
     protected static function log($allowed, $role, $resource, $action)
     {
         $result = $allowed ? 'ALLOW' : 'DENY';
+        $resourceId = is_object($resource)
+            ? ($resource->id ?? get_class($resource))
+            : (string) $resource;
         $msg = sprintf(
             '{QubitAcl} User: "%s", Action: "%s", Resource id:%s, Result: "%s"',
             $role,
             $action,
-            $resource->id,
+            $resourceId,
             $result,
         );
 

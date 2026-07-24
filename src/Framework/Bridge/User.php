@@ -231,7 +231,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
     public function setFlash(
         string $name,
         mixed $value,
-        bool $persist = true,
+        array|bool $persist = true,
     ): void {
         $this->flashes->set($name, $value);
     }

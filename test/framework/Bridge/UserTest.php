@@ -86,4 +86,15 @@ final class UserTest extends TestCase
             'editor',
         ]));
     }
+
+    public function testAcceptsLegacyFlashOptions(): void
+    {
+        $user = new User();
+
+        $user->setFlash('notice', 'Import started', [
+            'persist' => false,
+        ]);
+
+        self::assertSame('Import started', $user->getFlash('notice'));
+    }
 }

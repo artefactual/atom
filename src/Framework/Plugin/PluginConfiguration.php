@@ -25,16 +25,48 @@ class PluginConfiguration
 
     public function __construct(
         RuntimeConfiguration $configuration,
-        string $rootDirectory = '',
-        string $name = '',
+        ?string $rootDirectory = null,
+        ?string $name = null,
     ) {
         $this->configuration = $configuration;
         $this->dispatcher = new EventDispatcher();
-        $this->rootDir = $rootDirectory;
-        $this->name = $name;
+        $this->rootDir = null === $rootDirectory
+            ? $this->guessRootDir()
+            : (realpath($rootDirectory) ?: $rootDirectory);
+        $this->name = $name ?? $this->guessName();
+
+        $this->setup();
+        $this->configure();
     }
+
+    public function setup() {}
+
+    public function configure() {}
 
     public function initialize() {}
 
     public function initializeAutoload() {}
+
+    public function getRootDir(): string
+    {
+        return $this->rootDir;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    protected function guessRootDir(): string
+    {
+        $reflection = new \ReflectionClass($this);
+
+        return realpath(dirname((string) $reflection->getFileName()).'/..')
+            ?: '';
+    }
+
+    protected function guessName(): string
+    {
+        return substr(static::class, 0, -13);
+    }
 }

@@ -114,10 +114,18 @@ final readonly class ActionRunner
             return $result;
         }
 
-        $view = null === $result ? View::SUCCESS : (string) $result;
         $response = $context->getResponse()->getSymfonyResponse();
 
-        if (View::NONE === $view || View::HEADER_ONLY === $view) {
+        if (
+            View::HEADER_ONLY === $result
+            || $context->getResponse()->isHeaderOnly()
+        ) {
+            return $response;
+        }
+
+        $view = null === $result ? View::SUCCESS : (string) $result;
+
+        if (View::NONE === $view) {
             return $response;
         }
 

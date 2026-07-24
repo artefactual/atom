@@ -31,6 +31,19 @@ use Symfony\Component\Routing\RouterInterface;
 
 final readonly class RoutingAdapter
 {
+    private const METADATA_MODULES = [
+        'sfIsaarPlugin' => 'isaar',
+        'sfEacPlugin' => 'eac',
+        'sfEadPlugin' => 'ead',
+        'sfIsadPlugin' => 'isad',
+        'sfDcPlugin' => 'dc',
+        'sfSkosPlugin' => 'skos',
+        'sfRadPlugin' => 'rad',
+        'sfModsPlugin' => 'mods',
+        'arDacsPlugin' => 'dacs',
+        'sfIsdfPlugin' => 'isdf',
+    ];
+
     public function __construct(
         private RouterInterface $router,
         private RequestAdapter $request,
@@ -39,7 +52,7 @@ final readonly class RoutingAdapter
 
     public function generate(
         ?string $route,
-        array $parameters = [],
+        array|object $parameters = [],
         bool $absolute = false,
     ): string {
         $parameters = $this->normalizeParameters($parameters);
@@ -94,6 +107,35 @@ final readonly class RoutingAdapter
 
     public function findRoute(string $url): array|false
     {
+        $match = $this->match($url);
+
+        if (false === $match) {
+            return false;
+        }
+
+        unset($match['resource']);
+
+        return $match;
+    }
+
+    public function parse(string $url): array|false
+    {
+        $match = $this->match($url);
+
+        if (false === $match) {
+            return false;
+        }
+
+        $route = new RouteState();
+        $route->resource = $match['resource'];
+        $parameters = $match['parameters'];
+        $parameters['_sf_route'] = $route;
+
+        return $parameters;
+    }
+
+    private function match(string $url): array|false
+    {
         $path = parse_url($url, \PHP_URL_PATH);
 
         if (!is_string($path)) {
@@ -108,12 +150,15 @@ final readonly class RoutingAdapter
             return false;
         }
 
+        $resource = null;
+
         try {
             while (null !== $this->resourceResolver) {
                 $resolved = $this->resourceResolver->resolve($parameters);
 
                 if (null !== $resolved) {
                     $parameters = $resolved->parameters;
+                    $resource = $resolved->resource;
 
                     break;
                 }
@@ -138,6 +183,7 @@ final readonly class RoutingAdapter
             'name' => $name,
             'pattern' => $path,
             'parameters' => $parameters,
+            'resource' => $resource,
         ];
     }
 
@@ -158,6 +204,14 @@ final readonly class RoutingAdapter
             return 'slug;template';
         }
 
+        if (
+            isset($parameters['slug'])
+            && 'edit' === ($parameters['action'] ?? null)
+            && !isset($parameters['module'])
+        ) {
+            return 'edit';
+        }
+
         if (isset($parameters['slug'], $parameters['module'])) {
             return isset($parameters['action'])
                 ? 'slug/default'
@@ -171,8 +225,12 @@ final readonly class RoutingAdapter
         return isset($parameters['action']) ? 'default' : 'default_index';
     }
 
-    private function normalizeParameters(array $parameters): array
+    private function normalizeParameters(array|object $parameters): array
     {
+        if (is_object($parameters)) {
+            $parameters = [$parameters];
+        }
+
         $resource = OutputEscaper::unescape($parameters[0] ?? null);
         unset($parameters[0]);
 
@@ -188,6 +246,26 @@ final readonly class RoutingAdapter
 
         if (null !== $slug && '' !== (string) $slug) {
             $parameters['slug'] ??= (string) $slug;
+        }
+
+        if (
+            isset($parameters['slug'], $parameters['module'])
+            && !isset($parameters['sf_route'])
+            && in_array(
+                $parameters['action'] ?? 'index',
+                ['index', 'edit'],
+                true,
+            )
+        ) {
+            if (
+                'index' === ($parameters['action'] ?? 'index')
+                && isset(self::METADATA_MODULES[$parameters['module']])
+            ) {
+                $parameters['template'] =
+                    self::METADATA_MODULES[$parameters['module']];
+            }
+
+            unset($parameters['module']);
         }
 
         return $parameters;

@@ -209,7 +209,15 @@ EOF;
             }
 
             $this->log("New ability: {$ability}");
-            $worker->addAbility(QubitJob::getJobPrefix().$ability);
+            $jobClass = new ReflectionClass($ability);
+            $worker->addAbility(
+                QubitJob::getJobPrefix().$ability,
+                null,
+                [
+                    'class_name' => $ability,
+                    'path' => $jobClass->getFileName(),
+                ]
+            );
         }
 
         $worker->attachCallback(

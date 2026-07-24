@@ -97,10 +97,13 @@ final class ViewRuntimeTest extends TestCase
                             <?php decorate_with('shell'); ?>
                             <?php slot('aside'); ?>Side<?php end_slot(); ?>
                             <?= get_partial('message', ['value' => 'Body']) ?>
+                            <?= get_partial('path', ['path' => '/download.pdf']) ?>
                             <?= get_component('bridgefixture', 'greeting', ['name' => 'AtoM']) ?>
                             <?= $sf_data->getRaw('sf_request') === $sf_request ? '<em>Request</em>' : '' ?>
+                            <?= $this->context === $sf_context ? '<b>Context</b>' : '' ?>
                             PHP,
                         '_message.php' => '<p><?= $value ?></p>',
+                        '_path.php' => '<code><?= $path ?></code>',
                         '_greeting.php' => '<strong><?= $greeting ?></strong>',
                     ],
                 ]],
@@ -152,6 +155,13 @@ final class ViewRuntimeTest extends TestCase
             $factory,
         );
         Context::setInstance($context);
+        self::assertSame($context->getRequest(), $context->get('request'));
+        self::assertFalse($context->has('thumbnailAdapter'));
+        $context->set('thumbnailAdapter', 'sfGDAdapter');
+        self::assertSame(
+            'sfGDAdapter',
+            $context->get('thumbnailAdapter'),
+        );
         $runtime = $context->getViewRuntime();
         $runtime->prepare('bridgefixture', 'index');
         self::assertSame('Fixture', $context->getResponse()->getTitle());
@@ -168,8 +178,9 @@ final class ViewRuntimeTest extends TestCase
         );
 
         self::assertStringContainsString(
-            '<main><p>Body</p><strong>Hello AtoM</strong>'
-                .'<em>Request</em></main>'
+            '<main><p>Body</p><code>/download.pdf</code>'
+                .'<strong>Hello AtoM</strong>'
+                .'<em>Request</em><b>Context</b></main>'
                 .'<aside>Side</aside>',
             $html,
         );
@@ -187,7 +198,8 @@ final class ViewRuntimeTest extends TestCase
             $html,
         );
         self::assertStringContainsString(
-            '<script src="/js/application.js"></script></body>',
+            '<script defer="defer"'
+                .' src="/js/application.js"></script></body>',
             $html,
         );
         self::assertSame(

@@ -37,6 +37,7 @@ class QubitTestMarkdown extends TestCase
 
             // Links
             '[Link](https://example.com)' => '<p><a href="https://example.com">Link</a></p>',
+            'A bracketed [phrase] is not a link' => '<p>A bracketed [phrase] is not a link</p>',
 
             // Images
             '![Alt text](https://example.com/image.jpg)' => '<p><img src="https://example.com/image.jpg" alt="Alt text" /></p>',

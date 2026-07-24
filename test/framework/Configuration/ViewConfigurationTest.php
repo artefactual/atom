@@ -53,5 +53,76 @@ final class ViewConfigurationTest extends TestCase
             '/vendor/imageflow/imageflow.packed.css',
             $view['stylesheets'],
         );
+        self::assertArrayHasKey(
+            '/vendor/imageflow/imageflow.js',
+            $view['javascripts'],
+        );
+        $this->assertBrowserReadyScripts(
+            $projectDirectory,
+            $view['javascripts'],
+        );
+    }
+
+    public function testConfiguredApplicationScriptsAreBrowserReady(): void
+    {
+        $projectDirectory = dirname(__DIR__, 3);
+        $configuration = new ViewConfiguration(
+            new ModuleConfigurationLoader(
+                $projectDirectory,
+                'qubit',
+                ['arDominionB5Plugin'],
+            ),
+            new ConfigurationMerger(),
+        );
+        $view = $configuration->for(
+            'default',
+            'index',
+            'Success',
+        );
+
+        $this->assertBrowserReadyScripts(
+            $projectDirectory,
+            $view['javascripts'],
+        );
+    }
+
+    private function assertBrowserReadyScripts(
+        string $projectDirectory,
+        array $scripts,
+    ): void {
+        foreach (array_keys($scripts) as $source) {
+            if (preg_match('#^(?:https?:)?//#', (string) $source)) {
+                continue;
+            }
+
+            $path = str_starts_with((string) $source, '/')
+                ? (string) $source
+                : '/js/'.$source;
+
+            if (!str_contains(basename($path), '.')) {
+                $path .= '.js';
+            }
+
+            $file = $projectDirectory.$path;
+
+            self::assertFileExists($file, (string) $source);
+            self::assertDoesNotMatchRegularExpression(
+                '/^\s*(?:import|export)\s/m',
+                (string) file_get_contents($file),
+                sprintf(
+                    'Configured script "%s" must load without a bundler.',
+                    $source,
+                ),
+            );
+            self::assertDoesNotMatchRegularExpression(
+                '/\beval\s*\(|\bset(?:Timeout|Interval)'
+                    .'\s*\(\s*(?:[\'"]|this\.)/',
+                (string) file_get_contents($file),
+                sprintf(
+                    'Configured script "%s" must comply with CSP.',
+                    $source,
+                ),
+            );
+        }
     }
 }

@@ -35,6 +35,9 @@
         "symfony/security-csrf": "^7.4"
     },
     "autoload": {
+        "classmap": [
+            "vendor/FreeBeerIso639Map.php"
+        ],
         "psr-4": {
             "Atom\\": "src/"
         }

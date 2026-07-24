@@ -60,7 +60,7 @@ final readonly class ConsoleRuntime
                 $this->eventDispatcher,
                 $formatter,
             );
-            $application->add(new LegacyTaskCommand(
+            $application->addCommand(new LegacyTaskCommand(
                 $task,
                 $this->configuration,
             ));

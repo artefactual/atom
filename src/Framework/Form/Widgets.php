@@ -49,10 +49,7 @@ class InputCheckboxWidget extends InputWidget
             $attributes,
         );
 
-        if (
-            true === $value
-            || (null !== $value && (string) $value === (string) $checkValue)
-        ) {
+        if (null !== $value && false !== $value) {
             $attributes['checked'] = true;
         }
 
@@ -65,7 +62,7 @@ class InputCheckboxWidget extends InputWidget
     ) {
         parent::configure($options, $attributes);
         $this->setOption('type', 'checkbox');
-        $this->addOption('value_attribute_value', 1);
+        $this->addOption('value_attribute_value');
     }
 }
 

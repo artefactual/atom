@@ -95,4 +95,9 @@ final class LegacyProjectClassMapTest extends TestCase
             $loader->unregister();
         }
     }
+
+    public function testComposerLoadsLegacyIso639Map(): void
+    {
+        self::assertTrue(class_exists('fbISO639_Map'));
+    }
 }

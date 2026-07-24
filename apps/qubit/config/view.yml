@@ -27,17 +27,10 @@ default:
     # print: { media: print, position: last }
 
   javascripts:
-    /vendor/jquery:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/drupal:
-    /vendor/yui/yahoo-dom-event/yahoo-dom-event:
     /vendor/yui/element/element-min:
     /vendor/yui/button/button-min:
-    /vendor/modernizr:
     /vendor/URI.js:
     /vendor/meetselva/attrchange:
-    qubit:
-    treeView:
-    clipboard:
     dominion: { position: last }
 
   has_layout:     true

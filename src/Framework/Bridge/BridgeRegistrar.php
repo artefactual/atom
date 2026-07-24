@@ -28,6 +28,7 @@ use Atom\Framework\Cache\MemcacheCache;
 use Atom\Framework\Configuration\ConfigHandler;
 use Atom\Framework\Configuration\FactoryConfigHandler;
 use Atom\Framework\Configuration\YamlConfigHandler;
+use Atom\Framework\Console\CacheClearTask;
 use Atom\Framework\Console\CommandArgument;
 use Atom\Framework\Console\CommandOption;
 use Atom\Framework\Console\Formatter;
@@ -107,6 +108,7 @@ final class BridgeRegistrar
         [NumberFormatter::class, 'sfNumberFormat'],
         [CommandArgument::class, 'sfCommandArgument'],
         [CommandOption::class, 'sfCommandOption'],
+        [CacheClearTask::class, 'sfCacheClearTask'],
         [Formatter::class, 'sfFormatter'],
         [Formatter::class, 'sfAnsiColorFormatter'],
         [Task::class, 'sfTask'],

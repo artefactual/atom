@@ -21,9 +21,9 @@ declare(strict_types=1);
 
 namespace Atom\EventSubscriber;
 
-use Atom\Framework\Bridge\Configuration;
 use Atom\Framework\Bridge\PropelBridge;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Filter\SettingsRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -32,7 +32,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final readonly class UserRequestSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private User $user) {}
+    public function __construct(
+        private User $user,
+        private SettingsRepository $settings,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -50,21 +53,30 @@ final readonly class UserRequestSubscriber implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $this->user->beginRequest($request);
-        $culture = trim((string) $request->headers->get(
-            'X-Atom-Culture',
-            '',
+        $query = $request->query->all();
+        $cookies = $request->cookies->all();
+        $culture = trim((string) (
+            $query['sf_culture']
+            ?? $request->headers->get('X-Atom-Culture')
+            ?? $cookies['atom_culture']
+            ?? ''
         ));
-        $allowedCultures = Configuration::get(
-            'app_i18n_languages',
-            [],
-        );
 
         if (
             '' !== $culture
-            && is_array($allowedCultures)
-            && in_array($culture, $allowedCultures, true)
+            && $culture !== $this->user->getCulture()
         ) {
-            $this->user->setCulture($culture);
+            $settings = $this->settings->all(
+                $this->user->getCulture(),
+            );
+            $allowedCultures = $settings['app_i18n_languages'] ?? [];
+
+            if (
+                is_array($allowedCultures)
+                && in_array($culture, $allowedCultures, true)
+            ) {
+                $this->user->setCulture($culture);
+            }
         }
 
         PropelBridge::setDefaultCulture($this->user->getCulture());

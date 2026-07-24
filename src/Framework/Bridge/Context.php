@@ -33,6 +33,7 @@ final class Context
     public readonly ControllerProxy $controller;
     public readonly DatabaseManager $databaseManager;
     private readonly ViewRuntime $viewRuntime;
+    private array $objects;
     private static ?self $instance = null;
 
     public function __construct(
@@ -56,6 +57,16 @@ final class Context
         $this->controller = new ControllerProxy($this);
         $this->databaseManager = new DatabaseManagerProxy();
         $this->viewRuntime = $viewRuntimeFactory->create($this);
+        $this->objects = [
+            'request' => $this->request,
+            'response' => $this->response,
+            'user' => $this->user,
+            'routing' => $this->routing,
+            'i18n' => $this->i18n,
+            'controller' => $this->controller,
+            'databaseManager' => $this->databaseManager,
+            'logger' => $this->logger,
+        ];
     }
 
     public static function createInstance(mixed $configuration = null): self
@@ -130,6 +141,28 @@ final class Context
     public function getViewRuntime(): ViewRuntime
     {
         return $this->viewRuntime;
+    }
+
+    public function get(string $name): mixed
+    {
+        if (!$this->has($name)) {
+            throw new BridgeException(sprintf(
+                'The "%s" object does not exist in the current context.',
+                $name,
+            ));
+        }
+
+        return $this->objects[$name];
+    }
+
+    public function set(string $name, mixed $object): void
+    {
+        $this->objects[$name] = $object;
+    }
+
+    public function has(string $name): bool
+    {
+        return isset($this->objects[$name]);
     }
 
     public function getModuleName(): ?string

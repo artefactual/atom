@@ -40,6 +40,7 @@ final readonly class AssetRenderer
         $html = '';
 
         foreach ($response->getJavascripts() as $source => $options) {
+            $options += ['defer' => true];
             $options['src'] = $this->path(
                 (string) $source,
                 'js',

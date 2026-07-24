@@ -34,7 +34,7 @@ RUN set -xe \
     && cd /pecl-memcache-8.2 \
     && phpize && ./configure && make && make install \
     && cd / && rm -rf /pecl-memcache-8.2 \
-    && docker-php-ext-enable apcu imagick memcache pcov xdebug \
+    && docker-php-ext-enable apcu imagick memcache pcov \
     && apk add --no-cache --virtual .phpext-rundeps \
       gettext \
       libxslt \
@@ -61,6 +61,7 @@ RUN set -xe \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.* /atom/build/
+COPY vendor/FreeBeerIso639Map.php /atom/build/vendor/FreeBeerIso639Map.php
 
 RUN set -xe && composer install -d /atom/build
 
