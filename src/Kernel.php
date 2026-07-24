@@ -41,6 +41,7 @@ use Atom\Framework\Configuration\ConfigurationPathResolver;
 use Atom\Framework\Configuration\ConstantReplacer;
 use Atom\Framework\Configuration\DirectoryParameters;
 use Atom\Framework\Configuration\HybridYamlFileLoader;
+use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
 use Atom\Framework\Database\PropelBootstrap;
 use Atom\Framework\Module\ActionLocator;
@@ -54,6 +55,8 @@ use Atom\Framework\Routing\ResourceRepository;
 use Atom\Framework\Routing\ResourceRouteResolver;
 use Atom\Framework\Routing\RouteCompiler;
 use Atom\Framework\Routing\RouteConfigurationLoader;
+use Atom\Framework\Security\SecurityConfiguration;
+use Atom\Framework\Security\SecurityEnforcer;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -178,6 +181,13 @@ class Kernel extends BaseKernel
         $services->set(ActionLocator::class);
         $services->set(TemplateLocator::class);
         $services->set(TemplateRenderer::class);
+        $services->set(ModuleConfigurationLoader::class)->args([
+            $this->getProjectDir(),
+            self::APPLICATION,
+            $plugins,
+        ]);
+        $services->set(SecurityConfiguration::class);
+        $services->set(SecurityEnforcer::class);
         $services->set(ActionRunner::class);
         $services->set(PropelBootstrap::class)->args([
             $configuration->load('config/config.php'),

@@ -145,6 +145,33 @@ abstract class Action extends Component
         return $this->security;
     }
 
+    public function setSecurityConfiguration(array $security): void
+    {
+        $this->security = $security;
+    }
+
+    public function getSecurityValue(
+        string $name,
+        mixed $default = null,
+    ): mixed {
+        $action = strtolower($this->getActionName());
+
+        return $this->security[$action][$name]
+            ?? $this->security['all'][$name]
+            ?? $this->security['default'][$name]
+            ?? $default;
+    }
+
+    public function isSecure(): bool
+    {
+        return (bool) $this->getSecurityValue('is_secure', false);
+    }
+
+    public function getCredential(): mixed
+    {
+        return $this->getSecurityValue('credentials');
+    }
+
     public function setTemplate(
         string $template,
         ?string $module = null,

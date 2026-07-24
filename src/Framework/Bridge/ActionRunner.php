@@ -25,6 +25,7 @@ use Atom\Framework\Module\ActionDescriptor;
 use Atom\Framework\Module\ActionLocator;
 use Atom\Framework\Module\ModuleException;
 use Atom\Framework\Module\TemplateLocator;
+use Atom\Framework\Security\SecurityEnforcer;
 use Symfony\Component\HttpFoundation\Response;
 
 final readonly class ActionRunner
@@ -35,6 +36,7 @@ final readonly class ActionRunner
         private ActionLocator $actions,
         private TemplateLocator $templates,
         private TemplateRenderer $renderer,
+        private SecurityEnforcer $security,
     ) {}
 
     public function run(Context $context): Response
@@ -90,6 +92,14 @@ final readonly class ActionRunner
         }
 
         if ($component instanceof Action) {
+            $configuration = $this->security->enforce(
+                $context->getUser(),
+                $module,
+                $action,
+            );
+            $component->setSecurityConfiguration([
+                strtolower($action) => $configuration,
+            ]);
             $component->preExecute();
         }
 

@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
-class User
+class User implements \ArrayAccess
 {
     public mixed $user = null;
 
@@ -111,16 +111,34 @@ class User
         array|string $credentials,
         bool $useAnd = true,
     ): bool {
-        $matches = array_map(
-            fn (string $credential): bool => isset(
-                $this->credentials[$credential],
-            ),
-            (array) $credentials,
-        );
+        if (!is_array($credentials)) {
+            return isset($this->credentials[$credentials]);
+        }
 
-        return $useAnd
-            ? !in_array(false, $matches, true)
-            : in_array(true, $matches, true);
+        foreach ($credentials as $credential) {
+            $matches = $this->hasCredential($credential, !$useAnd);
+
+            if (($useAnd && !$matches) || (!$useAnd && $matches)) {
+                return !$useAnd;
+            }
+        }
+
+        return $useAnd;
+    }
+
+    public function getCredentials(): array
+    {
+        return array_keys($this->credentials);
+    }
+
+    public function clearCredentials(): void
+    {
+        $this->credentials = [];
+    }
+
+    public function removeCredential(string $credential): void
+    {
+        unset($this->credentials[$credential]);
     }
 
     public function isAdministrator(): bool
@@ -131,5 +149,25 @@ class User
     public function hasGroup(int|string $group): bool
     {
         return false;
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return $this->hasAttribute((string) $offset);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->getAttribute((string) $offset, false);
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->setAttribute((string) $offset, $value);
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->attributes->remove((string) $offset);
     }
 }
