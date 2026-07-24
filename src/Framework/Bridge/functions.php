@@ -19,6 +19,10 @@ defined('ESC_RAW') || define('ESC_RAW', 'esc_raw');
 if (!function_exists('__')) {
     function __(mixed $message, array $arguments = [], ?string $catalogue = null): string
     {
+        if (!Context::hasInstance()) {
+            return strtr((string) $message, $arguments);
+        }
+
         return Context::getInstance()->i18n->__(
             (string) $message,
             $arguments,
