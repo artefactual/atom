@@ -19,36 +19,29 @@
 
 declare(strict_types=1);
 
-namespace Atom\Framework\Bridge;
+namespace Atom\Tests\Framework\Filter;
 
-final readonly class RuntimeConfiguration
+use Atom\Framework\Filter\IpRangeMatcher;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class IpRangeMatcherTest extends TestCase
 {
-    public function __construct(
-        private string $application,
-        private string $environment,
-        private array $plugins,
-        private bool $debug,
-    ) {}
-
-    public function getApplication(): string
+    public function testMatchesAddressesAndRanges(): void
     {
-        return $this->application;
-    }
+        $matcher = new IpRangeMatcher();
+        $limits = [
+            '192.0.2.10',
+            '2001:db8::10-2001:db8::20',
+        ];
 
-    public function getEnvironment(): string
-    {
-        return $this->environment;
+        self::assertTrue($matcher->matches('192.0.2.10', $limits));
+        self::assertTrue($matcher->matches('2001:db8::15', $limits));
+        self::assertFalse($matcher->matches('192.0.2.11', $limits));
+        self::assertFalse($matcher->matches('not-an-address', $limits));
     }
-
-    public function isPluginEnabled(string $plugin): bool
-    {
-        return in_array($plugin, $this->plugins, true);
-    }
-
-    public function isDebug(): bool
-    {
-        return $this->debug;
-    }
-
-    public function loadHelpers(array|string $helpers): void {}
 }

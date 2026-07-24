@@ -31,6 +31,7 @@ use Atom\Framework\Bridge\RouteState;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\StopException;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Filter\FilterPipeline;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,6 +45,7 @@ final readonly class LegacyController
         private User $user,
         private RuntimeConfiguration $configuration,
         private EventDispatcher $eventDispatcher,
+        private FilterPipeline $filters,
     ) {}
 
     public function __invoke(Request $request): Response
@@ -66,7 +68,10 @@ final readonly class LegacyController
         Context::setInstance($context);
 
         try {
-            return $this->runner->run($context);
+            return $this->filters->run(
+                $context,
+                fn (): Response => $this->runner->run($context),
+            );
         } catch (StopException $exception) {
             return $exception->response
                 ?? $context->getResponse()->getSymfonyResponse();

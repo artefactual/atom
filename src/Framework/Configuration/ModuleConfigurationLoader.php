@@ -45,9 +45,17 @@ final readonly class ModuleConfigurationLoader
 
     public function load(string $module, string $filename): array
     {
+        return $this->merger->mergeConfigurations(
+            $this->layers($module, $filename),
+        );
+    }
+
+    public function layers(string $module, string $filename): array
+    {
         $this->validateName($module, 'module');
         $this->validateName($filename, 'configuration file');
-        $configurations = array_map(
+
+        return array_map(
             $this->files->load(...),
             $this->paths->resolve(sprintf(
                 'modules/%s/config/%s',
@@ -55,8 +63,6 @@ final readonly class ModuleConfigurationLoader
                 $filename,
             )),
         );
-
-        return $this->merger->mergeConfigurations($configurations);
     }
 
     private function validateName(string $name, string $type): void

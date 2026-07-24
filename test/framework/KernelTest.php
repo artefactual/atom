@@ -148,6 +148,17 @@ final class KernelTest extends TestCase
                     ->get(User::class)
                     ->getAttribute('privacy_message_dismissed'),
             );
+            self::assertSame(
+                'default',
+                $kernel
+                    ->getContainer()
+                    ->get(User::class)
+                    ->getAttribute(
+                        'moduleName',
+                        null,
+                        'sfHistoryPlugin',
+                    ),
+            );
         } finally {
             $kernel->shutdown();
         }

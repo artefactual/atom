@@ -19,36 +19,9 @@
 
 declare(strict_types=1);
 
-namespace Atom\Framework\Bridge;
+namespace Atom\Framework\Filter;
 
-final readonly class RuntimeConfiguration
+interface SettingsRepository
 {
-    public function __construct(
-        private string $application,
-        private string $environment,
-        private array $plugins,
-        private bool $debug,
-    ) {}
-
-    public function getApplication(): string
-    {
-        return $this->application;
-    }
-
-    public function getEnvironment(): string
-    {
-        return $this->environment;
-    }
-
-    public function isPluginEnabled(string $plugin): bool
-    {
-        return in_array($plugin, $this->plugins, true);
-    }
-
-    public function isDebug(): bool
-    {
-        return $this->debug;
-    }
-
-    public function loadHelpers(array|string $helpers): void {}
+    public function all(string $culture): array;
 }

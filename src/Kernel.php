@@ -45,6 +45,21 @@ use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
 use Atom\Framework\Database\PropelBootstrap;
+use Atom\Framework\Filter\CspFilter;
+use Atom\Framework\Filter\FilterConfiguration;
+use Atom\Framework\Filter\FilterPipeline;
+use Atom\Framework\Filter\HistoryFilter;
+use Atom\Framework\Filter\IpLimitFilter;
+use Atom\Framework\Filter\IpRangeMatcher;
+use Atom\Framework\Filter\MetaFilter;
+use Atom\Framework\Filter\PropelSettingsRepository;
+use Atom\Framework\Filter\RestApiFilter;
+use Atom\Framework\Filter\ResultLimitFilter;
+use Atom\Framework\Filter\RuntimeSettingsFilter;
+use Atom\Framework\Filter\SettingsRepository;
+use Atom\Framework\Filter\SslRequirementFilter;
+use Atom\Framework\Filter\SwordHttpAuthFilter;
+use Atom\Framework\Filter\TransactionFilter;
 use Atom\Framework\Module\ActionLocator;
 use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
@@ -185,6 +200,7 @@ class Kernel extends BaseKernel
             self::APPLICATION,
             $this->environment,
             $plugins,
+            $this->debug,
         ]);
         $services->set(ModuleDirectories::class)->args([
             $this->getProjectDir(),
@@ -201,6 +217,27 @@ class Kernel extends BaseKernel
         ]);
         $services->set(SecurityConfiguration::class);
         $services->set(SecurityEnforcer::class);
+        $services->set(FilterConfiguration::class);
+        $services->set(PropelSettingsRepository::class);
+        $services->alias(
+            SettingsRepository::class,
+            PropelSettingsRepository::class,
+        );
+        $services->set(RuntimeSettingsFilter::class)->arg(
+            '$environment',
+            $this->environment,
+        );
+        $services->set(HistoryFilter::class);
+        $services->set(IpRangeMatcher::class);
+        $services->set(IpLimitFilter::class);
+        $services->set(SslRequirementFilter::class);
+        $services->set(MetaFilter::class);
+        $services->set(ResultLimitFilter::class);
+        $services->set(TransactionFilter::class);
+        $services->set(CspFilter::class);
+        $services->set(RestApiFilter::class);
+        $services->set(SwordHttpAuthFilter::class);
+        $services->set(FilterPipeline::class);
         $services->set(ActionRunner::class);
         $services->set(PropelBootstrap::class)->args([
             $configuration->load('config/config.php'),

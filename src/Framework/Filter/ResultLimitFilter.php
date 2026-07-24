@@ -19,36 +19,32 @@
 
 declare(strict_types=1);
 
-namespace Atom\Framework\Bridge;
+namespace Atom\Framework\Filter;
 
-final readonly class RuntimeConfiguration
+use Atom\Framework\Bridge\Configuration;
+use Atom\Framework\Bridge\Context;
+use Symfony\Component\HttpFoundation\Response;
+
+final readonly class ResultLimitFilter implements FilterHandler
 {
-    public function __construct(
-        private string $application,
-        private string $environment,
-        private array $plugins,
-        private bool $debug,
-    ) {}
-
-    public function getApplication(): string
+    public function process(Context $context, callable $next): Response
     {
-        return $this->application;
-    }
+        $request = $context->getRequest();
+        $limit = $request->getParameter('limit');
+        $maximum = Configuration::get('app_hits_per_page');
 
-    public function getEnvironment(): string
-    {
-        return $this->environment;
-    }
+        if (
+            null !== $limit
+            && is_numeric($maximum)
+            && (
+                !is_string($limit)
+                || !ctype_digit($limit)
+                || (int) $limit > (int) $maximum
+            )
+        ) {
+            $request->setParameter('limit', (int) $maximum);
+        }
 
-    public function isPluginEnabled(string $plugin): bool
-    {
-        return in_array($plugin, $this->plugins, true);
+        return $next();
     }
-
-    public function isDebug(): bool
-    {
-        return $this->debug;
-    }
-
-    public function loadHelpers(array|string $helpers): void {}
 }

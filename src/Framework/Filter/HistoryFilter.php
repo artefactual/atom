@@ -19,36 +19,33 @@
 
 declare(strict_types=1);
 
-namespace Atom\Framework\Bridge;
+namespace Atom\Framework\Filter;
 
-final readonly class RuntimeConfiguration
+use Atom\Framework\Bridge\Context;
+use Symfony\Component\HttpFoundation\Response;
+
+final readonly class HistoryFilter implements FilterHandler
 {
-    public function __construct(
-        private string $application,
-        private string $environment,
-        private array $plugins,
-        private bool $debug,
-    ) {}
-
-    public function getApplication(): string
+    public function process(Context $context, callable $next): Response
     {
-        return $this->application;
-    }
+        $response = $next();
+        $user = $context->getUser();
+        $user->setAttribute(
+            'moduleName',
+            $context->getModuleName(),
+            'sfHistoryPlugin',
+        );
+        $user->setAttribute(
+            'actionName',
+            $context->getActionName(),
+            'sfHistoryPlugin',
+        );
+        $user->setAttribute(
+            'currentInternalUri',
+            $context->getRouting()->getCurrentInternalUri(),
+            'sfHistoryPlugin',
+        );
 
-    public function getEnvironment(): string
-    {
-        return $this->environment;
+        return $response;
     }
-
-    public function isPluginEnabled(string $plugin): bool
-    {
-        return in_array($plugin, $this->plugins, true);
-    }
-
-    public function isDebug(): bool
-    {
-        return $this->debug;
-    }
-
-    public function loadHelpers(array|string $helpers): void {}
 }
