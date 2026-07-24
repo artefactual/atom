@@ -26,6 +26,7 @@ final readonly class ViewRuntimeFactory
         private LayoutLocator $layouts,
         private TemplateRenderer $renderer,
         private ViewConfiguration $configuration,
+        private AssetRenderer $assets,
     ) {}
 
     public function create(Context $context): ViewRuntime
@@ -37,6 +38,7 @@ final readonly class ViewRuntimeFactory
             $this->layouts,
             $this->renderer,
             $this->configuration,
+            $this->assets,
         );
     }
 }

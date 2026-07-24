@@ -90,6 +90,8 @@ final readonly class ActionRunner
             ));
         }
 
+        $context->getViewRuntime()->prepare($module, $action);
+
         if ($component instanceof Action) {
             $configuration = $this->security->enforce(
                 $context->getUser(),

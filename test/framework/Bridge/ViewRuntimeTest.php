@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework\Bridge;
 
+use Atom\Framework\Bridge\AssetRenderer;
 use Atom\Framework\Bridge\BridgeRegistrar;
 use Atom\Framework\Bridge\Context;
 use Atom\Framework\Bridge\EventDispatcher;
@@ -54,15 +55,22 @@ final class ViewRuntimeTest extends TestCase
                 default:
                   has_layout: true
                   layout: layout
+                  http_metas:
+                    X-UA-Compatible: IE=edge
                   metas:
                     title: Fixture
+                    description: Bridge fixture
+                  stylesheets:
+                    theme: { media: print }
+                  javascripts:
+                    application:
                 YAML]],
             'apps' => ['qubit' => [
                 'config' => [],
                 'templates' => [
                     'layout.php' => '<default><?= $sf_content ?></default>',
                     'shell.php' => <<<'PHP'
-                        <main><?= $sf_content ?></main><aside><?php include_slot('aside'); ?></aside>
+                        <html><head></head><body><main><?= $sf_content ?></main><aside><?php include_slot('aside'); ?></aside></body></html>
                         PHP,
                 ],
                 'modules' => ['bridgefixture' => [
@@ -118,6 +126,7 @@ final class ViewRuntimeTest extends TestCase
             new LayoutLocator('vfs://project', 'qubit'),
             $renderer,
             $viewConfiguration,
+            new AssetRenderer(),
         );
         $request = Request::create('/');
         $request->attributes->add([
@@ -141,24 +150,48 @@ final class ViewRuntimeTest extends TestCase
         );
         Context::setInstance($context);
         $runtime = $context->getViewRuntime();
+        $runtime->prepare('bridgefixture', 'index');
+        self::assertSame('Fixture', $context->getResponse()->getTitle());
+        $context->getResponse()->setTitle('Action - Fixture');
         $runtime->begin('bridgefixture', 'index', 'Success');
         $path = $templates->find('bridgefixture', 'index');
         self::assertNotNull($path);
         $content = $runtime->render($path, [], 'bridgefixture');
 
-        self::assertSame(
+        $html = preg_replace(
+            '/>\s+</',
+            '><',
+            trim($runtime->decorate($content, [])),
+        );
+
+        self::assertStringContainsString(
             '<main><p>Body</p><strong>Hello AtoM</strong></main>'
                 .'<aside>Side</aside>',
-            preg_replace(
-                '/>\s+</',
-                '><',
-                trim($runtime->decorate($content, [])),
-            ),
+            $html,
+        );
+        self::assertStringContainsString(
+            '<meta http-equiv="X-UA-Compatible" content="IE=edge" />',
+            $html,
+        );
+        self::assertStringContainsString(
+            '<meta name="description" content="Bridge fixture" />',
+            $html,
+        );
+        self::assertStringContainsString(
+            '<link media="print" rel="stylesheet" href="/css/theme.css" />',
+            $html,
+        );
+        self::assertStringContainsString(
+            '<script src="/js/application.js"></script></body>',
+            $html,
         );
         self::assertSame(
             '<strong>Hello Footer</strong>',
             get_component_slot('footer'),
         );
-        self::assertSame('Fixture', $context->getResponse()->getTitle());
+        self::assertSame(
+            'Action - Fixture',
+            $context->getResponse()->getTitle(),
+        );
     }
 }

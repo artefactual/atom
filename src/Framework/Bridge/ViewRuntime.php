@@ -24,10 +24,15 @@ final class ViewRuntime
 {
     private array $componentSlots = [];
     private bool $hasLayout = true;
+    private bool $httpMetasIncluded = false;
+    private bool $javaScriptsIncluded = false;
     private string $layout = 'layout';
+    private bool $metasIncluded = false;
     private array $moduleStack = [];
+    private ?string $preparedTitle = null;
     private array $slotStack = [];
     private array $slots = [];
+    private bool $stylesheetsIncluded = false;
 
     public function __construct(
         private readonly Context $context,
@@ -36,6 +41,7 @@ final class ViewRuntime
         private readonly LayoutLocator $layouts,
         private readonly TemplateRenderer $renderer,
         private readonly ViewConfiguration $configuration,
+        private readonly AssetRenderer $assets,
     ) {}
 
     public function begin(
@@ -46,10 +52,14 @@ final class ViewRuntime
     ): void {
         $this->componentSlots = [];
         $this->hasLayout = true;
+        $this->httpMetasIncluded = false;
+        $this->javaScriptsIncluded = false;
         $this->layout = 'layout';
+        $this->metasIncluded = false;
         $this->moduleStack = [$module];
         $this->slotStack = [];
         $this->slots = [];
+        $this->stylesheetsIncluded = false;
         $configuration = $this->configuration->for(
             $module,
             $action,
@@ -77,7 +87,18 @@ final class ViewRuntime
         if (is_array($metas)) {
             foreach ($metas as $name => $value) {
                 if ('title' === $name) {
-                    $this->context->getResponse()->setTitle((string) $value);
+                    $currentTitle = $this->context
+                        ->getResponse()
+                        ->getTitle();
+
+                    if (
+                        '' === $currentTitle
+                        || $currentTitle === $this->preparedTitle
+                    ) {
+                        $this->context->getResponse()->setTitle(
+                            (string) $value,
+                        );
+                    }
                 } else {
                     $this->context->getResponse()->addMeta(
                         (string) $name,
@@ -86,6 +107,44 @@ final class ViewRuntime
                 }
             }
         }
+
+        $httpMetas = $configuration['http_metas'] ?? [];
+
+        if (is_array($httpMetas)) {
+            foreach ($httpMetas as $name => $value) {
+                $this->context->getResponse()->addHttpMeta(
+                    (string) $name,
+                    (string) $value,
+                );
+            }
+        }
+
+        $this->addConfiguredAssets(
+            $configuration['stylesheets'] ?? [],
+            $this->context->getResponse()->addStylesheet(...),
+        );
+        $this->addConfiguredAssets(
+            $configuration['javascripts'] ?? [],
+            $this->context->getResponse()->addJavaScript(...),
+        );
+    }
+
+    public function prepare(string $module, string $action): void
+    {
+        $configuration = $this->configuration->for(
+            $module,
+            $action,
+            View::SUCCESS,
+        );
+        $metas = $configuration['metas'] ?? [];
+        $title = is_array($metas) ? ($metas['title'] ?? null) : null;
+
+        if (null === $title) {
+            return;
+        }
+
+        $this->preparedTitle = (string) $title;
+        $this->context->getResponse()->setTitle($this->preparedTitle);
     }
 
     public function render(
@@ -122,9 +181,18 @@ final class ViewRuntime
             ));
         }
 
-        return $this->render(
+        $html = $this->render(
             $path,
             ['sf_content' => $content] + $variables,
+        );
+
+        return $this->assets->inject(
+            $html,
+            $this->context->getResponse(),
+            $this->stylesheetsIncluded,
+            $this->javaScriptsIncluded,
+            $this->metasIncluded,
+            $this->httpMetasIncluded,
         );
     }
 
@@ -286,6 +354,36 @@ final class ViewRuntime
         return $this->slots[$name] ?? $default;
     }
 
+    public function getStylesheets(): string
+    {
+        $this->stylesheetsIncluded = true;
+
+        return $this->assets->stylesheets($this->context->getResponse());
+    }
+
+    public function getJavaScripts(): string
+    {
+        $this->javaScriptsIncluded = true;
+
+        return $this->assets->javaScripts($this->context->getResponse());
+    }
+
+    public function getMetas(): string
+    {
+        $this->metasIncluded = true;
+
+        return $this->assets->metas($this->context->getResponse());
+    }
+
+    public function getHttpMetas(): string
+    {
+        $this->httpMetasIncluded = true;
+
+        return $this->assets->httpMetas(
+            $this->context->getResponse(),
+        );
+    }
+
     private function splitPartialName(string $name): array
     {
         if (str_contains($name, '/')) {
@@ -300,6 +398,30 @@ final class ViewRuntime
     private function currentModule(): string
     {
         return (string) end($this->moduleStack);
+    }
+
+    private function addConfiguredAssets(
+        mixed $assets,
+        callable $add,
+    ): void {
+        if (!is_array($assets)) {
+            return;
+        }
+
+        foreach ($assets as $source => $options) {
+            if (is_int($source)) {
+                $source = $options;
+                $options = [];
+            }
+
+            if (!is_string($source)) {
+                continue;
+            }
+
+            $options = is_array($options) ? $options : [];
+            $position = (string) ($options['position'] ?? '');
+            $add($source, $position, $options);
+        }
     }
 
     /**

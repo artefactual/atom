@@ -28,6 +28,7 @@ final class ResponseAdapter
     private string $title = '';
     private array $javaScripts = [];
     private array $stylesheets = [];
+    private array $httpMetadata = [];
     private array $metadata = [];
 
     public function __construct(private readonly Response $response) {}
@@ -73,15 +74,37 @@ final class ResponseAdapter
     public function addJavaScript(
         string $path,
         string $position = '',
+        array $options = [],
     ): void {
-        $this->javaScripts[$position][] = $path;
+        $this->addAsset(
+            $this->javaScripts,
+            $path,
+            $position,
+            $options,
+        );
     }
 
     public function addStylesheet(
         string $path,
         string $position = '',
+        array $options = [],
     ): void {
-        $this->stylesheets[$position][] = $path;
+        $this->addAsset(
+            $this->stylesheets,
+            $path,
+            $position,
+            $options,
+        );
+    }
+
+    public function getJavascripts(): array
+    {
+        return $this->orderedAssets($this->javaScripts);
+    }
+
+    public function getStylesheets(): array
+    {
+        return $this->orderedAssets($this->stylesheets);
     }
 
     public function addMeta(string $key, string $value): void
@@ -89,8 +112,61 @@ final class ResponseAdapter
         $this->metadata[$key] = $value;
     }
 
+    public function getMetas(): array
+    {
+        return $this->metadata;
+    }
+
+    public function addHttpMeta(string $key, string $value): void
+    {
+        $this->httpMetadata[$key] = $value;
+    }
+
+    public function getHttpMetas(): array
+    {
+        return $this->httpMetadata;
+    }
+
     public function getSymfonyResponse(): Response
     {
         return $this->response;
+    }
+
+    private function addAsset(
+        array &$assets,
+        string $path,
+        string $position,
+        array $options,
+    ): void {
+        if (isset($options['position'])) {
+            $position = (string) $options['position'];
+            unset($options['position']);
+        }
+
+        foreach ($assets as &$positionAssets) {
+            unset($positionAssets[$path]);
+        }
+        unset($positionAssets);
+
+        $assets[$position][$path] = $options;
+    }
+
+    private function orderedAssets(array $assets): array
+    {
+        $ordered = [];
+
+        foreach (['first', '', 'last'] as $position) {
+            foreach ($assets[$position] ?? [] as $path => $options) {
+                $ordered[$path] = $options;
+            }
+        }
+
+        foreach (array_diff(array_keys($assets), ['first', '', 'last']) as $position) {
+            foreach ($assets[$position] as $path => $options) {
+                $ordered[$path] = $options;
+            }
+        }
+
+        return $ordered;
     }
 }

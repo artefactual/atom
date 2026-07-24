@@ -28,6 +28,7 @@ use Atom\EventSubscriber\UserRequestSubscriber;
 use Atom\Framework\Autoload\LegacyClassDirectories;
 use Atom\Framework\Autoload\LegacyClassLoader;
 use Atom\Framework\Bridge\ActionRunner;
+use Atom\Framework\Bridge\AssetRenderer;
 use Atom\Framework\Bridge\BridgeRegistrar;
 use Atom\Framework\Bridge\Configuration;
 use Atom\Framework\Bridge\Context;
@@ -229,6 +230,7 @@ class Kernel extends BaseKernel
             $parameters['sf_decorator_dirs'],
         ]);
         $services->set(TemplateRenderer::class);
+        $services->set(AssetRenderer::class);
         $services->set(ModuleConfigurationLoader::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,

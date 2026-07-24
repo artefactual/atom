@@ -373,6 +373,81 @@ if (!function_exists('image_tag')) {
     }
 }
 
+if (!function_exists('javascript_path')) {
+    function javascript_path(
+        string $source,
+        bool $absolute = false,
+    ): string {
+        if (
+            preg_match('#^(?:https?:)?//#i', $source)
+            || str_starts_with($source, '/')
+        ) {
+            $path = $source;
+        } else {
+            $path = '/js/'.$source;
+        }
+
+        if (!str_contains(basename($path), '.')) {
+            $path .= '.js';
+        }
+
+        return $absolute
+            ? Context::getInstance()->getRequest()->getUriPrefix().$path
+            : $path;
+    }
+}
+
+if (!function_exists('javascript_include_tag')) {
+    function javascript_include_tag(
+        string $source,
+        array $attributes = [],
+    ): string {
+        $absolute = (bool) ($attributes['absolute'] ?? false);
+        unset($attributes['absolute']);
+        $attributes['src'] = javascript_path($source, $absolute);
+
+        return content_tag('script', '', $attributes);
+    }
+}
+
+if (!function_exists('stylesheet_path')) {
+    function stylesheet_path(
+        string $source,
+        bool $absolute = false,
+    ): string {
+        if (
+            preg_match('#^(?:https?:)?//#i', $source)
+            || str_starts_with($source, '/')
+        ) {
+            $path = $source;
+        } else {
+            $path = '/css/'.$source;
+        }
+
+        if (!str_contains(basename($path), '.')) {
+            $path .= '.css';
+        }
+
+        return $absolute
+            ? Context::getInstance()->getRequest()->getUriPrefix().$path
+            : $path;
+    }
+}
+
+if (!function_exists('stylesheet_tag')) {
+    function stylesheet_tag(
+        string $source,
+        array $attributes = [],
+    ): string {
+        $absolute = (bool) ($attributes['absolute'] ?? false);
+        unset($attributes['absolute']);
+        $attributes += ['media' => 'screen', 'rel' => 'stylesheet'];
+        $attributes['href'] = stylesheet_path($source, $absolute);
+
+        return tag('link', $attributes);
+    }
+}
+
 if (!function_exists('include_title')) {
     function include_title(): void
     {
@@ -382,5 +457,84 @@ if (!function_exists('include_title')) {
                 Context::getInstance()->getResponse()->getTitle(),
             ),
         )."\n";
+    }
+}
+
+if (!function_exists('get_stylesheets')) {
+    function get_stylesheets(): string
+    {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getStylesheets();
+    }
+}
+
+if (!function_exists('include_stylesheets')) {
+    function include_stylesheets(): void
+    {
+        echo get_stylesheets();
+    }
+}
+
+if (!function_exists('get_javascripts')) {
+    function get_javascripts(): string
+    {
+        return Context::getInstance()
+            ->getViewRuntime()
+            ->getJavaScripts();
+    }
+}
+
+if (!function_exists('include_javascripts')) {
+    function include_javascripts(): void
+    {
+        echo get_javascripts();
+    }
+}
+
+if (!function_exists('get_metas')) {
+    function get_metas(): string
+    {
+        return Context::getInstance()->getViewRuntime()->getMetas();
+    }
+}
+
+if (!function_exists('include_metas')) {
+    function include_metas(): void
+    {
+        echo get_metas();
+    }
+}
+
+if (!function_exists('include_http_metas')) {
+    function include_http_metas(): void
+    {
+        echo Context::getInstance()
+            ->getViewRuntime()
+            ->getHttpMetas();
+    }
+}
+
+if (!function_exists('use_stylesheet')) {
+    function use_stylesheet(
+        string $source,
+        string $position = '',
+        array $options = [],
+    ): void {
+        Context::getInstance()
+            ->getResponse()
+            ->addStylesheet($source, $position, $options);
+    }
+}
+
+if (!function_exists('use_javascript')) {
+    function use_javascript(
+        string $source,
+        string $position = '',
+        array $options = [],
+    ): void {
+        Context::getInstance()
+            ->getResponse()
+            ->addJavaScript($source, $position, $options);
     }
 }
