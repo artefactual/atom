@@ -21,6 +21,8 @@ declare(strict_types=1);
 
 namespace Atom;
 
+use Atom\Framework\Autoload\LegacyClassDirectories;
+use Atom\Framework\Autoload\LegacyClassLoader;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -43,6 +45,33 @@ class Kernel extends BaseKernel
     use MicroKernelTrait;
 
     private const APPLICATION = 'qubit';
+
+    private ?LegacyClassLoader $legacyClassLoader = null;
+
+    public function boot(): void
+    {
+        $this->legacyClassLoader ??= new LegacyClassLoader(
+            new LegacyClassDirectories($this->getProjectDir()),
+        );
+        $this->legacyClassLoader->register();
+
+        try {
+            parent::boot();
+        } catch (\Throwable $exception) {
+            $this->legacyClassLoader->unregister();
+
+            throw $exception;
+        }
+    }
+
+    public function shutdown(): void
+    {
+        try {
+            parent::shutdown();
+        } finally {
+            $this->legacyClassLoader?->unregister();
+        }
+    }
 
     public function getCacheDir(): string
     {
