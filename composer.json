@@ -16,13 +16,21 @@
         "friendsofphp/php-cs-fixer": "^3.0"
     },
     "require": {
+        "php": "^8.3",
         "phing/phing": "2.*",
         "league/csv": "^9.4",
         "apereo/phpcas": "^1.6.1",
         "ezyang/htmlpurifier": "^4.13",
         "ruflin/elastica": "7.*",
         "jumbojett/openid-connect-php": "^1.0",
-        "geoip2/geoip2": "~2.0"
+        "geoip2/geoip2": "~2.0",
+        "symfony/framework-bundle": "^7.4",
+        "symfony/yaml": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Atom\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
