@@ -95,6 +95,12 @@ final class KernelTest extends TestCase
                 'sfIsadPlugin',
                 $container->getParameter('sf_enabled_modules'),
             );
+            self::assertSame(
+                'elasticsearch',
+                \arElasticSearchPluginConfiguration::$config['server'][
+                    'host'
+                ],
+            );
 
             $router = $container->get('router');
             self::assertInstanceOf(RouterInterface::class, $router);

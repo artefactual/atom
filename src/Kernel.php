@@ -73,12 +73,14 @@ use Atom\Framework\Module\ModuleDirectories;
 use Atom\Framework\Module\TemplateLocator;
 use Atom\Framework\Plugin\PdoPluginSettingsReader;
 use Atom\Framework\Plugin\PluginRegistry;
+use Atom\Framework\Plugin\PluginRuntimeInitializer;
 use Atom\Framework\Plugin\PluginRuntimeParameters;
 use Atom\Framework\Routing\PropelResourceRepository;
 use Atom\Framework\Routing\QubitResourceClassifier;
 use Atom\Framework\Routing\ResourceClassifier;
 use Atom\Framework\Routing\ResourceRepository;
 use Atom\Framework\Routing\ResourceRouteResolver;
+use Atom\Framework\Routing\RestApiRoutes;
 use Atom\Framework\Routing\RouteCompiler;
 use Atom\Framework\Routing\RouteConfigurationLoader;
 use Atom\Framework\Security\SecurityConfiguration;
@@ -118,6 +120,9 @@ class Kernel extends BaseKernel
                 'sf_default_timezone',
                 'UTC',
             ));
+            $this->getContainer()
+                ->get(PluginRuntimeInitializer::class)
+                ->initialize();
         } catch (\Throwable $exception) {
             $this->legacyClassLoader->unregister();
 
@@ -153,6 +158,10 @@ class Kernel extends BaseKernel
             $this->applicationConfiguration(),
             new RouteCompiler(),
         ))->load();
+
+        if (in_array('arRestApiPlugin', $this->enabledPlugins(), true)) {
+            $routes = (new RestApiRoutes())->prependTo($routes);
+        }
 
         foreach ($routes as $route) {
             $route->setDefault('_controller', LegacyController::class);
@@ -225,6 +234,7 @@ class Kernel extends BaseKernel
         ]);
         $services->set(CliContextFactory::class);
         $services->set(ConsoleRuntime::class)->public();
+        $services->set(PluginRuntimeInitializer::class)->public();
         $services->set(ModuleDirectories::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,

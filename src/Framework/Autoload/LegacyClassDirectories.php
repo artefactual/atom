@@ -46,8 +46,24 @@ final readonly class LegacyClassDirectories implements \IteratorAggregate
             $this->projectDirectory
                 .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor/propel',
         );
+        $this->appendIfDirectory(
+            $directories,
+            $this->projectDirectory.'/vendor/parsedown',
+        );
+        $this->appendIfDirectory(
+            $directories,
+            $this->projectDirectory.'/vendor/net_gearman/Net/Gearman',
+        );
+        $this->appendIfDirectory(
+            $directories,
+            $this->projectDirectory.'/vendor/easyrdf/EasyRdf',
+        );
 
         foreach ($this->pluginDirectories() as $pluginDirectory) {
+            $this->appendIfDirectory(
+                $directories,
+                $pluginDirectory.'/config',
+            );
             $this->appendIfDirectory(
                 $directories,
                 $pluginDirectory.'/lib',

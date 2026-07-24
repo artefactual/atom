@@ -44,10 +44,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
             '/plugins/sfDcPlugin/lib/sfDcPlugin.class.php',
             '/plugins/sfIsaarPlugin/lib/sfIsaarPlugin.class.php',
             '/plugins/sfEacPlugin/lib/sfEacPlugin.class.php',
-            '/vendor/symfony/lib/helper/UrlHelper.php',
-            '/vendor/symfony/lib/helper/I18NHelper.php',
             '/vendor/FreeBeerIso639Map.php',
-            '/vendor/symfony/lib/helper/EscapingHelper.php',
             '/lib/helper/QubitHelper.php',
         ];
 

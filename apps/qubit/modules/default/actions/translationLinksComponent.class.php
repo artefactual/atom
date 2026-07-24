@@ -1,7 +1,5 @@
 <?php
 
-require_once 'vendor/symfony/lib/helper/I18NHelper.php';
-
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *

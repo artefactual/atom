@@ -58,6 +58,19 @@ final class LegacyProjectClassMapTest extends TestCase
             '/sfPropelPlugin/lib/vendor/propel/util/Criteria.php',
             $loader->findFile('Criteria'),
         );
+        self::assertSame(
+            $projectDirectory.'/vendor/parsedown/ParsedownExtra.php',
+            $loader->findFile('ParsedownExtra'),
+        );
+        self::assertSame(
+            $projectDirectory
+                .'/vendor/net_gearman/Net/Gearman/Worker.php',
+            $loader->findFile('Net_Gearman_Worker'),
+        );
+        self::assertSame(
+            $projectDirectory.'/vendor/easyrdf/EasyRdf/Graph.php',
+            $loader->findFile('EasyRdf_Graph'),
+        );
         self::assertNull($loader->findFile('sfAction'));
         self::assertSame([
             $projectDirectory
