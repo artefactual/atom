@@ -40,6 +40,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     protected $waitForRetryTime = 10;
     protected $maxRetries = 10;
     protected $dispatcher;
+    protected $context;
     protected $i18n;
     protected $job;
     protected $logger;
@@ -56,6 +57,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     public function run($parameters)
     {
         $context = sfContext::getInstance();
+        $this->context = $context;
         $this->i18n = $context->i18n;
         $this->user = $context->user;
         $this->dispatcher = $context->getEventDispatcher();

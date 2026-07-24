@@ -1363,9 +1363,7 @@ var domReadyEvent =
 			else
 			{
 				/* Not ready yet, wait a little more.*/
-				setTimeout(function() {
-					domReadyEvent.schedule();
-				}, 100);
+				setTimeout(this.name + ".schedule()", 100);
 			}
 		}
 		else if(document.getElementById("__ie_onload"))
@@ -1390,9 +1388,7 @@ var domReadyEvent =
 				else
 				{
 					/* Not ready yet, wait a little more. */
-					setTimeout(function() {
-						domReadyEvent.schedule();
-					}, 250);
+					setTimeout(this.name + ".schedule()", 250);
 				}
 			}
 		}
@@ -1408,9 +1404,7 @@ var domReadyEvent =
 		}
 
 		/* Schedule to run the init function.*/
-		setTimeout(function() {
-			domReadyEvent.schedule();
-		}, 100);
+		setTimeout("domReadyEvent.schedule()", 100);
 
 		function run()
 		{

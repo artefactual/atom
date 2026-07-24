@@ -400,7 +400,7 @@
       <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource]); ?>
     </div>
 
-    <?php echo get_partial('informationobject/editActions', ['resource' => (isset($parent) ? $parent : $resource)]); ?>
+    <?php echo get_partial('informationobject/editActions', ['resource' => (null !== $parent ? $parent : $resource)]); ?>
 
   </form>
 

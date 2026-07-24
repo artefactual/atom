@@ -52,7 +52,7 @@ class arFileImportJob extends arBaseJob
 
                     if (SettingsCsvValidatorAction::VALIDATOR_OFF < $csvValidatorAction) {
                         $this->info($this->i18n->__('Validating file: %1.', ['%1' => $parameters['file']['name']]));
-                        $validationResultString = $this->runCsvValidator(sfContext::getInstance(), $parameters);
+                        $validationResultString = $this->runCsvValidator($this->context, $parameters);
                         $this->info($validationResultString);
 
                         $this->createZipFileDownload($this->verboseReportContents);

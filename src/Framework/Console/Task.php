@@ -37,6 +37,7 @@ abstract class Task
     protected $formatter;
     protected $configuration;
     protected $commandApplication;
+    protected $context;
     private ?InputInterface $input = null;
 
     public function __construct(

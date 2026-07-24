@@ -15,6 +15,20 @@ namespace Atom\Framework\Bridge;
 
 final readonly class AssetRenderer
 {
+    private const B5_JAVASCRIPT_REPLACEMENTS = [
+        '/vendor/modernizr' => '/js/modernizrInputShim.js',
+    ];
+
+    private const B5_BUNDLED_JAVASCRIPTS = [
+        '/vendor/jquery',
+        '/plugins/sfDrupalPlugin/vendor/drupal/misc/drupal',
+        '/vendor/yui/yahoo-dom-event/yahoo-dom-event',
+        '/vendor/imageflow/imageflow.packed.js',
+        'qubit',
+        'treeView',
+        'clipboard',
+    ];
+
     public function stylesheets(ResponseAdapter $response): string
     {
         $html = '';
@@ -40,6 +54,18 @@ final readonly class AssetRenderer
         $html = '';
 
         foreach ($response->getJavascripts() as $source => $options) {
+            if (Configuration::get('app_b5_theme', false)) {
+                if (isset(self::B5_JAVASCRIPT_REPLACEMENTS[$source])) {
+                    $source = self::B5_JAVASCRIPT_REPLACEMENTS[$source];
+                } elseif (in_array(
+                    (string) $source,
+                    self::B5_BUNDLED_JAVASCRIPTS,
+                    true,
+                )) {
+                    continue;
+                }
+            }
+
             $options += ['defer' => true];
             $options['src'] = $this->path(
                 (string) $source,

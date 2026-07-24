@@ -43,7 +43,7 @@ class arValidateCsvJob extends arBaseJob
         $this->info($this->i18n->__('Validating file: %1.', ['%1' => $parameters['file']['name']]));
 
         // Run CsvValidator and output short report to log panel.
-        $validationResultString = $this->runCsvValidator(sfContext::getInstance(), $parameters);
+        $validationResultString = $this->runCsvValidator($this->context, $parameters);
         $this->info($validationResultString);
 
         // Attempt export of verbose report.

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Atom\Tests\Framework\Bridge;
 
 use Atom\Framework\Bridge\AssetRenderer;
+use Atom\Framework\Bridge\Configuration;
 use Atom\Framework\Bridge\ResponseAdapter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class AssetRendererTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        Configuration::clear();
+    }
+
     public function testRendersAssetsInConfiguredPositionOrder(): void
     {
         $response = new ResponseAdapter(new Response());
@@ -69,6 +75,22 @@ final class AssetRendererTest extends TestCase
             '<meta name="description"'
                 .' content="AtoM &amp; archives" />'."\n",
             $renderer->metas($response),
+        );
+    }
+
+    public function testSkipsAssetsAlreadyInTheB5Bundle(): void
+    {
+        Configuration::set('app_b5_theme', true);
+        $response = new ResponseAdapter(new Response());
+        $response->addJavaScript('/vendor/jquery');
+        $response->addJavaScript('/vendor/modernizr');
+        $response->addJavaScript('clipboard');
+        $renderer = new AssetRenderer();
+
+        self::assertSame(
+            '<script defer="defer"'
+                .' src="/js/modernizrInputShim.js"></script>'."\n",
+            $renderer->javaScripts($response),
         );
     }
 }

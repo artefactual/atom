@@ -46,17 +46,17 @@ class InformationObjectAdvancedSearchComponent extends sfComponent
         $this->showArchivalHistory = false;
         if (
             (
-                'rad' == $this->template
+                'rad' == $template
                 && check_field_visibility(
                     'app_element_visibility_rad_archival_history'
                 )
             ) || (
-                'isad' == $this->template
+                'isad' == $template
                 && check_field_visibility(
                     'app_element_visibility_isad_archival_history'
                 )
             ) || (
-                'isad' != $this->template && 'rad' != $this->template
+                'isad' != $template && 'rad' != $template
             )
         ) {
             $this->showArchivalHistory = true;

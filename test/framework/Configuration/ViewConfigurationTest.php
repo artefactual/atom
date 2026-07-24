@@ -13,10 +13,14 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework\Configuration;
 
+use Atom\Framework\Bridge\AssetRenderer;
+use Atom\Framework\Bridge\Configuration;
+use Atom\Framework\Bridge\ResponseAdapter;
 use Atom\Framework\Configuration\ConfigurationMerger;
 use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ViewConfiguration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
@@ -25,6 +29,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class ViewConfigurationTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        Configuration::clear();
+    }
+
     public function testMergesApplicationAndModuleViewConventions(): void
     {
         $projectDirectory = dirname(__DIR__, 3);
@@ -54,7 +63,7 @@ final class ViewConfigurationTest extends TestCase
             $view['stylesheets'],
         );
         self::assertArrayHasKey(
-            '/vendor/imageflow/imageflow.js',
+            '/vendor/imageflow/imageflow.packed.js',
             $view['javascripts'],
         );
         $this->assertBrowserReadyScripts(
@@ -90,7 +99,23 @@ final class ViewConfigurationTest extends TestCase
         string $projectDirectory,
         array $scripts,
     ): void {
-        foreach (array_keys($scripts) as $source) {
+        Configuration::set('app_b5_theme', true);
+        $response = new ResponseAdapter(new Response());
+
+        foreach ($scripts as $source => $options) {
+            $response->addJavaScript(
+                (string) $source,
+                options: is_array($options) ? $options : [],
+            );
+        }
+
+        preg_match_all(
+            '/\bsrc="([^"]+)"/',
+            (new AssetRenderer())->javaScripts($response),
+            $matches,
+        );
+
+        foreach ($matches[1] as $source) {
             if (preg_match('#^(?:https?:)?//#', (string) $source)) {
                 continue;
             }

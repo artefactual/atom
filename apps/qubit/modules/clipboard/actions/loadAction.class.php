@@ -68,7 +68,6 @@ class ClipboardLoadAction extends DefaultEditAction
             'informationObject' => [],
             'actor' => [],
             'repository' => [],
-            'accession' => [],
         ];
         $addedCount = 0;
 

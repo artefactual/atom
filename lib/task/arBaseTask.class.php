@@ -21,8 +21,6 @@ abstract class arBaseTask extends sfBaseTask
 {
     public const MAX_LINE_SIZE = 2048;
 
-    protected $context;
-
     /**
      * @see sfCommandApplicationTask
      */

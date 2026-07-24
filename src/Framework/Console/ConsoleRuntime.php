@@ -38,6 +38,11 @@ final readonly class ConsoleRuntime
         $application = new Application('AtoM', 'Symfony 7.4');
         $formatter = new Formatter();
 
+        $application->addCommand(new LegacyTaskCommand(
+            new CacheClearTask($this->eventDispatcher, $formatter),
+            $this->configuration,
+        ));
+
         foreach (
             (new TaskDiscovery($projectDirectory))->classes(
                 $this->configuration->getPlugins(),
