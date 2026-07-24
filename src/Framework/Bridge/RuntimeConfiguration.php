@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace Atom\Framework\Bridge;
 
 use Atom\Framework\Configuration\ApplicationConfiguration;
+use Atom\Framework\Configuration\ConfigCache;
 use Atom\Framework\Configuration\ConfigurationMerger;
 use Atom\Framework\Configuration\ConfigurationPathResolver;
 use Atom\Framework\Configuration\ConstantReplacer;
@@ -30,6 +31,8 @@ use Atom\Framework\Configuration\ParameterCompiler;
 
 final class RuntimeConfiguration
 {
+    public const VERSION = '2.10.2';
+
     private const STANDARD_HELPERS = [
         'Asset',
         'Cache',
@@ -47,6 +50,7 @@ final class RuntimeConfiguration
     ];
 
     private static ?self $active = null;
+    private ?ConfigCache $configCache = null;
 
     public function __construct(
         private readonly string $application,
@@ -73,7 +77,28 @@ final class RuntimeConfiguration
             );
         }
 
-        return self::$active;
+        if (
+            self::$active->application === $application
+            && self::$active->environment === $environment
+            && self::$active->debug === $debug
+        ) {
+            return self::$active;
+        }
+
+        return new self(
+            $application,
+            $environment,
+            self::$active->plugins,
+            $debug,
+            self::$active->projectDirectory,
+        );
+    }
+
+    public static function getActive(): self
+    {
+        return self::$active ?? throw new BridgeException(
+            'No AtoM runtime configuration is active.',
+        );
     }
 
     public function getApplication(): string
@@ -147,6 +172,15 @@ final class RuntimeConfiguration
         return $this->pathResolver()->resolve($path);
     }
 
+    public function getConfigCache(): ConfigCache
+    {
+        return $this->configCache ??= new ConfigCache(
+            $this,
+            $this->projectDirectory.'/cache/'.$this->application
+                .'/'.$this->environment.'/config',
+        );
+    }
+
     public function getPluginPaths(): array
     {
         return $this->getAllPluginPaths();
@@ -186,6 +220,24 @@ final class RuntimeConfiguration
             $this->environment,
             Configuration::getAll(),
         ))->load($path);
+    }
+
+    public static function getConfigForEnvironment(
+        string $name,
+        string $environment,
+        string $configFile,
+    ): mixed {
+        $active = self::getActive();
+        $configuration = new self(
+            $active->application,
+            $environment,
+            $active->plugins,
+            $active->debug,
+            $active->projectDirectory,
+        );
+        $values = $configuration->loadConfiguration($configFile);
+
+        return $values['.settings'][$name] ?? $values[$name] ?? null;
     }
 
     private function pathResolver(): ConfigurationPathResolver

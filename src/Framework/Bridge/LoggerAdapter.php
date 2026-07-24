@@ -69,4 +69,18 @@ final readonly class LoggerAdapter
     {
         $this->logger->debug($message);
     }
+
+    public function log(string $message, int $priority = 6): void
+    {
+        match ($priority) {
+            0 => $this->emerg($message),
+            1 => $this->alert($message),
+            2 => $this->crit($message),
+            3 => $this->err($message),
+            4 => $this->warning($message),
+            5 => $this->notice($message),
+            7 => $this->debug($message),
+            default => $this->info($message),
+        };
+    }
 }

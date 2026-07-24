@@ -54,6 +54,13 @@ class ParameterHolder implements \Serializable
         return $default;
     }
 
+    public function getRaw(
+        int|string $name,
+        mixed $default = null,
+    ): mixed {
+        return $this->get($name, $default);
+    }
+
     public function getNames(): array
     {
         return array_keys($this->parameters);

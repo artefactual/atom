@@ -21,6 +21,13 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Cache\ApcCache;
+use Atom\Framework\Cache\Cache;
+use Atom\Framework\Cache\CacheException;
+use Atom\Framework\Cache\MemcacheCache;
+use Atom\Framework\Configuration\ConfigHandler;
+use Atom\Framework\Configuration\FactoryConfigHandler;
+use Atom\Framework\Configuration\YamlConfigHandler;
 use Atom\Framework\Console\CommandArgument;
 use Atom\Framework\Console\CommandOption;
 use Atom\Framework\Console\Formatter;
@@ -66,11 +73,30 @@ use Atom\Framework\Form\ValidatorError;
 use Atom\Framework\Form\ValidatorErrorSchema;
 use Atom\Framework\Form\Widget;
 use Atom\Framework\Form\WidgetSchema;
+use Atom\Framework\Log\CommandLogger;
+use Atom\Framework\Log\ConsoleLogger;
+use Atom\Framework\Log\FileLogger;
+use Atom\Framework\Log\Logger;
+use Atom\Framework\Log\NullLogger;
+use Atom\Framework\Plugin\PluginConfiguration;
+use Atom\Framework\Utility\CallableReference;
+use Atom\Framework\Utility\Finder;
+use Atom\Framework\Utility\Inflector;
+use Atom\Framework\Utility\Pager;
+use Atom\Framework\Utility\PropelPager;
+use Atom\Framework\Utility\Toolkit;
+use Atom\Framework\Utility\Yaml;
+use Atom\Framework\Utility\YamlDumper;
+use Atom\Framework\Utility\YamlParser;
 
 final class BridgeRegistrar
 {
     private const ALIASES = [
         [Configuration::class, 'sfConfig'],
+        [Cache::class, 'sfCache'],
+        [CacheException::class, 'sfCacheException'],
+        [ApcCache::class, 'sfAPCCache'],
+        [MemcacheCache::class, 'sfMemcacheCache'],
         [ParameterHolder::class, 'sfParameterHolder'],
         [View::class, 'sfView'],
         [Event::class, 'sfEvent'],
@@ -90,6 +116,30 @@ final class BridgeRegistrar
         [RuntimeConfiguration::class, 'sfProjectConfiguration'],
         [RuntimeConfiguration::class, 'sfApplicationConfiguration'],
         [RuntimeConfiguration::class, 'ProjectConfiguration'],
+        [RuntimeConfiguration::class, 'qubitConfiguration'],
+        [PluginConfiguration::class, 'sfPluginConfiguration'],
+        [PluginConfiguration::class, 'sfPluginConfigurationGeneric'],
+        [Inflector::class, 'sfInflector'],
+        [Finder::class, 'sfFinder'],
+        [CallableReference::class, 'sfCallable'],
+        [Yaml::class, 'sfYaml'],
+        [YamlParser::class, 'sfYamlParser'],
+        [YamlDumper::class, 'sfYamlDumper'],
+        [Pager::class, 'sfPager'],
+        [PropelPager::class, 'sfPropelPager'],
+        [Logger::class, 'sfLogger'],
+        [NullLogger::class, 'sfNoLogger'],
+        [FileLogger::class, 'sfFileLogger'],
+        [ConsoleLogger::class, 'sfConsoleLogger'],
+        [CommandLogger::class, 'sfCommandLogger'],
+        [Toolkit::class, 'sfToolkit'],
+        [ConfigHandler::class, 'sfConfigHandler'],
+        [YamlConfigHandler::class, 'sfYamlConfigHandler'],
+        [YamlConfigHandler::class, 'sfSimpleYamlConfigHandler'],
+        [FactoryConfigHandler::class, 'sfFactoryConfigHandler'],
+        [RequestAdapter::class, 'sfRequest'],
+        [RequestAdapter::class, 'sfWebRequest'],
+        [ResponseAdapter::class, 'sfWebResponse'],
         [Form::class, 'sfForm'],
         [FormField::class, 'sfFormField'],
         [FormField::class, 'sfFormFieldSchema'],
