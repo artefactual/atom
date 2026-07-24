@@ -17,6 +17,8 @@
     },
     "require": {
         "php": "^8.3",
+        "erusev/parsedown": "~1.7.4",
+        "erusev/parsedown-extra": "~0.8.1",
         "phing/phing": "2.*",
         "league/csv": "^9.4",
         "apereo/phpcas": "^1.6.1",

@@ -43,7 +43,7 @@ class QubitMarkdown
             return;
         }
 
-        $this->parsedown = new QubitParsedownExtra();
+        $this->parsedown = new Atom\Framework\Compatibility\ParsedownExtra();
     }
 
     public static function getInstance()
