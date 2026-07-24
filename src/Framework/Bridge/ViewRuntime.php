@@ -80,6 +80,15 @@ final class ViewRuntime
             $this->hasLayout = true;
         } elseif (false === $layout) {
             $this->hasLayout = false;
+        } elseif (
+            $this->context->getRequest()->isXmlHttpRequest()
+            && !$this->configuration->hasLocalLayout(
+                $module,
+                $action,
+                $view,
+            )
+        ) {
+            $this->hasLayout = false;
         }
 
         $metas = $configuration['metas'] ?? [];

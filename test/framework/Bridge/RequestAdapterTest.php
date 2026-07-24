@@ -101,6 +101,23 @@ final class RequestAdapterTest extends TestCase
         );
     }
 
+    public function testAppliesLegacyPostMethodOverrides(): void
+    {
+        $adapter = new RequestAdapter(Request::create(
+            '/record/delete',
+            'POST',
+            ['sf_method' => 'delete', 'token' => 'secret'],
+        ));
+
+        self::assertSame('DELETE', $adapter->getMethod());
+        self::assertTrue($adapter->isMethod('delete'));
+        self::assertSame(
+            ['token' => 'secret'],
+            $adapter->getPostParameters(),
+        );
+        self::assertFalse($adapter->hasParameter('sf_method'));
+    }
+
     public function testDerivesRequestFormatFromLegacyParameter(): void
     {
         $adapter = new RequestAdapter(Request::create(

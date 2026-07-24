@@ -30,6 +30,7 @@ final class RequestAdapter implements \ArrayAccess
 
     public function __construct(private readonly Request $request)
     {
+        $this->applyLegacyMethodOverride();
         $attributes = array_filter(
             $request->attributes->all(),
             static fn (string $name): bool => !str_starts_with($name, '_'),
@@ -297,6 +298,24 @@ final class RequestAdapter implements \ArrayAccess
     public function getSymfonyRequest(): Request
     {
         return $this->request;
+    }
+
+    private function applyLegacyMethodOverride(): void
+    {
+        if (!$this->request->isMethod('POST')) {
+            return;
+        }
+
+        $method = $this->request->request->get('sf_method')
+            ?? $this->request->query->get('sf_method');
+
+        if (!is_string($method) || '' === $method) {
+            return;
+        }
+
+        $this->request->setMethod(strtoupper($method));
+        $this->request->request->remove('sf_method');
+        $this->request->query->remove('sf_method');
     }
 
     private function normalizeFiles(array $files): array

@@ -131,7 +131,7 @@ abstract class OutputEscaper
     public static function isClassMarkedAsSafe(string $class): bool
     {
         foreach (self::$safeClasses as $safeClass) {
-            if ($class === $safeClass || is_subclass_of($class, $safeClass)) {
+            if (is_a($class, $safeClass, true)) {
                 return true;
             }
         }

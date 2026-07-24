@@ -18,6 +18,7 @@ use Atom\Framework\Bridge\OutputEscaper;
 use Atom\Framework\Bridge\OutputEscaperArrayDecorator;
 use Atom\Framework\Bridge\OutputEscaperObjectDecorator;
 use Atom\Framework\Bridge\SafeValue;
+use Atom\Framework\Form\Form;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -87,6 +88,18 @@ final class OutputEscaperTest extends TestCase
                 'esc_specialchars',
                 new SafeValue('<strong>Safe</strong>'),
             ),
+        );
+    }
+
+    public function testRecognizesAliasedSafeClassNames(): void
+    {
+        OutputEscaper::markClassAsSafe('sfForm');
+        $form = new Form();
+
+        self::assertTrue(OutputEscaper::isClassMarkedAsSafe(Form::class));
+        self::assertSame(
+            $form,
+            OutputEscaper::escape('esc_specialchars', $form),
         );
     }
 }

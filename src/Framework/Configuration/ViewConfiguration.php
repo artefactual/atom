@@ -35,6 +35,21 @@ final readonly class ViewConfiguration
         );
     }
 
+    public function hasLocalLayout(
+        string $module,
+        string $action,
+        string $view,
+    ): bool {
+        $configuration = $this->loader->load($module, 'view.yml');
+        $section = $this->section(
+            $configuration,
+            $action.$view,
+        );
+
+        return array_key_exists('has_layout', $section)
+            || array_key_exists('layout', $section);
+    }
+
     private function section(array $configuration, string $name): array
     {
         $section = $configuration[$name] ?? [];

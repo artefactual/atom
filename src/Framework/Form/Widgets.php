@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Form;
 
+use Atom\Framework\Bridge\Configuration;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Intl\Languages;
 
@@ -236,29 +237,43 @@ class SelectRadioWidget extends SelectWidget
         array|ValidatorError|null $errors = [],
     ) {
         $inputs = [];
+        $idName = str_ends_with($name, '[]') ? $name : $name.'[]';
+        $inputName = substr($idName, 0, -2);
+        $bootstrap = (bool) Configuration::get('app_b5_theme', false);
 
         foreach ($this->choices() as $key => $label) {
+            $id = $this->generateId($idName, $key);
             $inputAttributes = array_replace(
                 [
                     'type' => 'radio',
-                    'name' => $name,
+                    'name' => $inputName,
                     'value' => $key,
+                    'id' => $id,
                 ],
                 $this->attributes,
                 $attributes,
             );
+
+            if ($bootstrap) {
+                $inputAttributes['class'] = 'form-check-input';
+            }
 
             if ((string) $key === (string) $value) {
                 $inputAttributes['checked'] = true;
             }
 
             $input = $this->renderTag('input', $inputAttributes);
-            $inputs[] = [
+            $inputs[(string) $id] = [
                 'input' => $input,
                 'label' => $this->renderContentTag(
                     'label',
                     (string) $label,
-                    ['for' => $this->generateId($name, $key)],
+                    array_filter([
+                        'for' => $id,
+                        'class' => $bootstrap
+                            ? 'form-check-label'
+                            : null,
+                    ]),
                 ),
             ];
         }
@@ -273,6 +288,19 @@ class SelectRadioWidget extends SelectWidget
                 .$this->getOption('label_separator').$input['label'],
             $inputs,
         );
+
+        if ((bool) Configuration::get('app_b5_theme', false)) {
+            return implode(
+                $this->getOption('separator'),
+                array_map(
+                    static fn (string $row): string => sprintf(
+                        '<div class="form-check">%s</div>',
+                        $row,
+                    ),
+                    $rows,
+                ),
+            );
+        }
 
         return $this->renderContentTag(
             'ul',

@@ -155,6 +155,37 @@ final class FormTest extends TestCase
         );
     }
 
+    public function testRendersLegacyRadioIdsAndBootstrapMarkup(): void
+    {
+        Configuration::set('app_b5_theme', true);
+        $widget = new \sfWidgetFormSelectRadio([
+            'choices' => ['1' => 'Enabled', '0' => 'Disabled'],
+        ]);
+
+        $html = $widget->render(
+            'finding_aid[finding_aids_enabled]',
+            '1',
+        );
+
+        self::assertStringContainsString(
+            'id="finding_aid_finding_aids_enabled_1"',
+            $html,
+        );
+        self::assertStringContainsString(
+            'id="finding_aid_finding_aids_enabled_0"',
+            $html,
+        );
+        self::assertStringContainsString(
+            'name="finding_aid[finding_aids_enabled]"',
+            $html,
+        );
+        self::assertStringContainsString(
+            '<div class="form-check">',
+            $html,
+        );
+        self::assertStringNotContainsString('<ul', $html);
+    }
+
     public function testReadsAndWritesWidgetOptionsThroughAField(): void
     {
         $form = new \sfForm([], [], false);

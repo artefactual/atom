@@ -55,7 +55,10 @@ final readonly class RoutingAdapter
         array|object $parameters = [],
         bool $absolute = false,
     ): string {
-        $parameters = $this->normalizeParameters($parameters);
+        $parameters = $this->normalizeParameters(
+            $parameters,
+            null === $route,
+        );
         $route ??= $this->routeFor($parameters);
         unset($parameters['sf_route']);
 
@@ -225,8 +228,10 @@ final readonly class RoutingAdapter
         return isset($parameters['action']) ? 'default' : 'default_index';
     }
 
-    private function normalizeParameters(array|object $parameters): array
-    {
+    private function normalizeParameters(
+        array|object $parameters,
+        bool $selectRoute,
+    ): array {
         if (is_object($parameters)) {
             $parameters = [$parameters];
         }
@@ -234,22 +239,21 @@ final readonly class RoutingAdapter
         $resource = OutputEscaper::unescape($parameters[0] ?? null);
         unset($parameters[0]);
 
-        if (!is_object($resource)) {
-            return $parameters;
-        }
+        if (is_object($resource)) {
+            try {
+                $slug = $resource->slug;
+            } catch (\Throwable) {
+                $slug = null;
+            }
 
-        try {
-            $slug = $resource->slug;
-        } catch (\Throwable) {
-            return $parameters;
-        }
-
-        if (null !== $slug && '' !== (string) $slug) {
-            $parameters['slug'] ??= (string) $slug;
+            if (null !== $slug && '' !== (string) $slug) {
+                $parameters['slug'] ??= (string) $slug;
+            }
         }
 
         if (
             isset($parameters['slug'], $parameters['module'])
+            && $selectRoute
             && !isset($parameters['sf_route'])
             && in_array(
                 $parameters['action'] ?? 'index',

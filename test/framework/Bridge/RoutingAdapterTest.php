@@ -152,6 +152,60 @@ final class RoutingAdapterTest extends TestCase
         );
     }
 
+    public function testHidesLegacyModulesInSlugPermalinks(): void
+    {
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'slug',
+                ['slug' => 'example-record'],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record',
+            $routing->generate(null, [
+                'slug' => 'example-record',
+                'module' => 'informationobject',
+            ]),
+        );
+    }
+
+    public function testGeneratesCanonicalSlugEditUrls(): void
+    {
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects(self::once())
+            ->method('generate')
+            ->with(
+                'edit',
+                [
+                    'action' => 'edit',
+                    'slug' => 'example-record',
+                ],
+                UrlGeneratorInterface::ABSOLUTE_PATH,
+            )
+            ->willReturn('/example-record/edit');
+        $routing = new RoutingAdapter(
+            $router,
+            new RequestAdapter(Request::create('/')),
+        );
+
+        self::assertSame(
+            '/example-record/edit',
+            $routing->generate(null, [
+                'slug' => 'example-record',
+                'module' => 'informationobject',
+                'action' => 'edit',
+            ]),
+        );
+    }
+
     public function testGeneratesCanonicalResourceEditUrls(): void
     {
         $resource = new \stdClass();

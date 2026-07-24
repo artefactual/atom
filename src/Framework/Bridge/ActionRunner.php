@@ -69,7 +69,14 @@ final readonly class ActionRunner
         string $module,
         string $action,
     ): Response {
-        $descriptor = $this->actions->find($module, $action);
+        try {
+            $descriptor = $this->actions->find($module, $action);
+        } catch (ModuleException $exception) {
+            throw new NotFoundException(
+                sprintf('Action "%s/%s" was not found.', $module, $action),
+                previous: $exception,
+            );
+        }
 
         if (null === $descriptor) {
             throw new NotFoundException(sprintf(

@@ -95,6 +95,29 @@ final class ViewConfigurationTest extends TestCase
         );
     }
 
+    public function testDetectsActionSpecificLayoutConfiguration(): void
+    {
+        $configuration = new ViewConfiguration(
+            new ModuleConfigurationLoader(
+                dirname(__DIR__, 3),
+                'qubit',
+                ['arOaiPlugin'],
+            ),
+            new ConfigurationMerger(),
+        );
+
+        self::assertFalse($configuration->hasLocalLayout(
+            'search',
+            'autocomplete',
+            'Success',
+        ));
+        self::assertTrue($configuration->hasLocalLayout(
+            'arOaiPlugin',
+            'identify',
+            'Success',
+        ));
+    }
+
     private function assertBrowserReadyScripts(
         string $projectDirectory,
         array $scripts,

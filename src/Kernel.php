@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace Atom;
 
 use Atom\Controller\LegacyController;
+use Atom\Controller\LegacyErrorController;
 use Atom\EventSubscriber\PropelRequestSubscriber;
 use Atom\EventSubscriber\ResourceRouteSubscriber;
 use Atom\EventSubscriber\UserRequestSubscriber;
@@ -90,6 +91,8 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollection;
+
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 class Kernel extends BaseKernel
 {
@@ -202,6 +205,7 @@ class Kernel extends BaseKernel
         $container->extension('framework', [
             'secret' => $this->frameworkSecret($parameters),
             'default_locale' => $parameters['sf_default_culture'] ?? 'en',
+            'error_controller' => LegacyErrorController::class,
             'handle_all_throwables' => true,
             'router' => [
                 'utf8' => true,
@@ -306,6 +310,14 @@ class Kernel extends BaseKernel
         $services->set(ResourceRouteSubscriber::class);
         $services
             ->set(LegacyController::class)
+            ->public()
+            ->tag('controller.service_arguments');
+        $services
+            ->set(LegacyErrorController::class)
+            ->args([
+                service(LegacyController::class),
+                service('error_controller'),
+            ])
             ->public()
             ->tag('controller.service_arguments');
     }
