@@ -11,6 +11,11 @@
 
 use Atom\Framework\Bridge\Context;
 
+defined('ESC_ENTITIES') || define('ESC_ENTITIES', 'esc_entities');
+defined('ESC_SPECIALCHARS')
+    || define('ESC_SPECIALCHARS', 'esc_specialchars');
+defined('ESC_RAW') || define('ESC_RAW', 'esc_raw');
+
 if (!function_exists('__')) {
     function __(mixed $message, array $arguments = [], ?string $catalogue = null): string
     {
@@ -536,5 +541,126 @@ if (!function_exists('use_javascript')) {
         Context::getInstance()
             ->getResponse()
             ->addJavaScript($source, $position, $options);
+    }
+}
+
+if (!function_exists('format_date')) {
+    function format_date(
+        mixed $date,
+        array|string|null $format = 'd',
+        ?string $culture = null,
+        ?string $charset = null,
+    ): ?string {
+        $culture ??= Context::getInstance()->getUser()->getCulture();
+
+        return (new sfDateFormat($culture))->format(
+            $date,
+            $format,
+            null,
+            $charset ?? (string) sfConfig::get('sf_charset', 'UTF-8'),
+        );
+    }
+}
+
+if (!function_exists('format_datetime')) {
+    function format_datetime(
+        mixed $date,
+        array|string|null $format = 'F',
+        ?string $culture = null,
+        ?string $charset = null,
+    ): ?string {
+        return format_date($date, $format, $culture, $charset);
+    }
+}
+
+if (!function_exists('format_language')) {
+    function format_language(
+        string $language,
+        ?string $culture = null,
+    ): string {
+        $culture ??= Context::getInstance()->getUser()->getCulture();
+
+        return sfCultureInfo::getInstance($culture)
+            ->getLanguage($language);
+    }
+}
+
+if (!function_exists('format_country')) {
+    function format_country(
+        string $country,
+        ?string $culture = null,
+    ): string {
+        $culture ??= Context::getInstance()->getUser()->getCulture();
+
+        return sfCultureInfo::getInstance($culture)->getCountry($country);
+    }
+}
+
+if (!function_exists('format_number')) {
+    function format_number(
+        float|int|null $number,
+        ?string $culture = null,
+    ): ?string {
+        if (null === $number) {
+            return null;
+        }
+
+        $culture ??= Context::getInstance()->getUser()->getCulture();
+
+        return (new sfNumberFormat($culture))->format($number);
+    }
+}
+
+if (!function_exists('format_currency')) {
+    function format_currency(
+        float|int|null $amount,
+        ?string $currency = null,
+        ?string $culture = null,
+    ): ?string {
+        if (null === $amount) {
+            return null;
+        }
+
+        $culture ??= Context::getInstance()->getUser()->getCulture();
+
+        return (new sfNumberFormat($culture))->format(
+            $amount,
+            'c',
+            $currency,
+        );
+    }
+}
+
+if (!function_exists('truncate_text')) {
+    function truncate_text(
+        mixed $text,
+        int $length = 30,
+        string $suffix = '...',
+        bool $lastSpace = false,
+    ): string {
+        $text = (string) $text;
+
+        if (mb_strlen($text) <= $length) {
+            return $text;
+        }
+
+        $truncated = mb_substr(
+            $text,
+            0,
+            max(0, $length - mb_strlen($suffix)),
+        );
+
+        if ($lastSpace && false !== $space = mb_strrpos($truncated, ' ')) {
+            $truncated = mb_substr($truncated, 0, $space);
+        }
+
+        return $truncated.$suffix;
+    }
+}
+
+if (!function_exists('wrap_text')) {
+    function wrap_text(mixed $text, int $width = 80): string
+    {
+        return wordwrap((string) $text, $width, "\n", true);
     }
 }

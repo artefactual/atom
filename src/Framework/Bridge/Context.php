@@ -38,11 +38,12 @@ final class Context
         private readonly RuntimeConfiguration $configuration,
         private readonly EventDispatcher $eventDispatcher,
         RouterInterface $router,
+        TranslatorFactory $translatorFactory,
         ViewRuntimeFactory $viewRuntimeFactory,
         private readonly LoggerAdapter $logger = new LoggerAdapter(),
     ) {
         $this->routing = new RoutingAdapter($router, $request);
-        $this->i18n = new Translator();
+        $this->i18n = $translatorFactory->create($user->getCulture());
         $this->controller = new ControllerProxy($this);
         $this->viewRuntime = $viewRuntimeFactory->create($this);
     }
@@ -92,6 +93,11 @@ final class Context
     public function getConfiguration(): RuntimeConfiguration
     {
         return $this->configuration;
+    }
+
+    public function getI18N(): Translator
+    {
+        return $this->i18n;
     }
 
     public function getEventDispatcher(): EventDispatcher

@@ -30,6 +30,7 @@ use Atom\Framework\Bridge\ResponseAdapter;
 use Atom\Framework\Bridge\RouteState;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\StopException;
+use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Filter\FilterPipeline;
@@ -47,6 +48,7 @@ final readonly class LegacyController
         private RuntimeConfiguration $configuration,
         private EventDispatcher $eventDispatcher,
         private FilterPipeline $filters,
+        private TranslatorFactory $translatorFactory,
         private ViewRuntimeFactory $viewRuntimeFactory,
     ) {}
 
@@ -66,6 +68,7 @@ final readonly class LegacyController
             $this->configuration,
             $this->eventDispatcher,
             $this->router,
+            $this->translatorFactory,
             $this->viewRuntimeFactory,
         );
         Context::setInstance($context);

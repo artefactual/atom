@@ -21,6 +21,7 @@ use Atom\Framework\Bridge\RequestAdapter;
 use Atom\Framework\Bridge\ResponseAdapter;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\TemplateRenderer;
+use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -146,6 +147,7 @@ final class ViewRuntimeTest extends TestCase
             ),
             new EventDispatcher(),
             $this->createMock(RouterInterface::class),
+            new TranslatorFactory('vfs://project', 'qubit', []),
             $factory,
         );
         Context::setInstance($context);

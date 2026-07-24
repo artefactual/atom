@@ -35,6 +35,7 @@ use Atom\Framework\Bridge\Context;
 use Atom\Framework\Bridge\EventDispatcher;
 use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\TemplateRenderer;
+use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Configuration\ApplicationConfiguration;
@@ -111,6 +112,10 @@ class Kernel extends BaseKernel
             Configuration::add(
                 $this->getContainer()->getParameterBag()->all(),
             );
+            date_default_timezone_set((string) Configuration::get(
+                'sf_default_timezone',
+                'UTC',
+            ));
         } catch (\Throwable $exception) {
             $this->legacyClassLoader->unregister();
 
@@ -231,6 +236,11 @@ class Kernel extends BaseKernel
         ]);
         $services->set(TemplateRenderer::class);
         $services->set(AssetRenderer::class);
+        $services->set(TranslatorFactory::class)->args([
+            $this->getProjectDir(),
+            self::APPLICATION,
+            $plugins,
+        ]);
         $services->set(ModuleConfigurationLoader::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,

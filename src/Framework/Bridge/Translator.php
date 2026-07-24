@@ -21,13 +21,37 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
-final class Translator
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+final readonly class Translator
 {
+    public function __construct(
+        private TranslatorInterface $translator,
+    ) {}
+
     public function __(
         string $message,
         array $arguments = [],
         ?string $catalogue = null,
     ): string {
-        return strtr($message, $arguments);
+        foreach ($arguments as $name => $value) {
+            if (
+                is_object($value)
+                && method_exists($value, '__toString')
+            ) {
+                $arguments[$name] = (string) $value;
+            }
+        }
+
+        return $this->translator->trans(
+            $message,
+            $arguments,
+            $catalogue ?? 'messages',
+        );
+    }
+
+    public function getCulture(): string
+    {
+        return $this->translator->getLocale();
     }
 }
