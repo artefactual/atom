@@ -21,6 +21,7 @@
     "mediaelement": "^3.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
     "css-loader": "^6.3.0",
     "cypress": "^15.15.0",
     "cypress-file-upload": "^5.0.8",
@@ -39,6 +40,8 @@
     "build": "webpack",
     "watch": "webpack watch",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "test:playwright": "playwright test",
+    "test:playwright:coverage": "PLAYWRIGHT_COVERAGE=1 playwright test"
   }
 }
