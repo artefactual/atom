@@ -16,6 +16,7 @@ docker/docker-compose*.yml
 docker/etc/php
 docker/rehearse-upgrade.sh
 docker/verify-image.sh
+docker/verify-runtime.sh
 docs
 downloads
 log

@@ -21,3 +21,67 @@ jobs:
           .
     - name: Verify production image
       run: docker/verify-image.sh atom:production "${GITHUB_SHA}"
+    - name: Start runtime dependencies
+      env:
+        COMPOSE_PROJECT_NAME: atom-production
+      run: |
+        docker compose \
+          -f docker/docker-compose.test.yml \
+          up -d percona elasticsearch memcached gearmand
+    - name: Wait for runtime dependencies
+      run: |
+        for attempt in {1..60}; do
+          if docker run --rm \
+            --network atom-production_default \
+            --env-file docker/etc/environment \
+            --entrypoint php \
+            atom:production \
+            docker/healthcheck.php ready
+          then
+            exit 0
+          fi
+
+          sleep 2
+        done
+
+        exit 1
+    - name: Install the production database
+      run: |
+        docker run --rm \
+          --network atom-production_default \
+          --env-file docker/etc/environment \
+          --env ATOM_DEVELOPMENT_MODE=off \
+          --env NODE_ENV=production \
+          atom:production \
+          php symfony tools:install \
+          --database-host=percona \
+          --database-port=3306 \
+          --database-name=atom \
+          --database-user=atom \
+          --database-password=atom_12345 \
+          --search-host=elasticsearch \
+          --search-port=9200 \
+          --search-index=atom \
+          --demo \
+          --no-confirmation
+    - name: Verify production runtime
+      run: |
+        docker/verify-runtime.sh \
+          atom:production \
+          atom-production_default
+    - name: Print runtime dependency logs
+      if: failure()
+      env:
+        COMPOSE_PROJECT_NAME: atom-production
+      run: |
+        docker compose \
+          -f docker/docker-compose.test.yml \
+          logs
+    - name: Stop runtime dependencies
+      if: always()
+      env:
+        COMPOSE_PROJECT_NAME: atom-production
+      run: |
+        docker compose \
+          -f docker/docker-compose.test.yml \
+          down --volumes
