@@ -218,14 +218,15 @@ class QubitMigrate
 
     public static function findForeignKeys(array $tables, $configuration)
     {
+        $columns = [];
         $finder = sfFinder::type('file')->name('*schema.yml')->prune('doctrine');
         $dirs = array_merge([sfConfig::get('sf_config_dir')], $configuration->getPluginSubPaths('/config'));
         $schemas = $finder->in($dirs);
         if (!count($schemas)) {
-            throw new sfCommandException('You must create a schema.yml file.');
+            throw new RuntimeException('You must create a schema.yml file.');
         }
 
-        $dbSchema = new sfPropelDatabaseSchema();
+        $schemaConverter = new \Atom\Framework\Database\PropelSchemaConverter();
 
         foreach ($schemas as $schema) {
             $schemaArray = sfYaml::load($schema);
@@ -236,7 +237,7 @@ class QubitMigrate
 
             if (!isset($schemaArray['classes'])) {
                 // Old schema syntax: we convert it
-                $schemaArray = $dbSchema->convertOldToNewYaml($schemaArray);
+                $schemaArray = $schemaConverter->oldToNew($schemaArray);
             }
 
             foreach ($schemaArray['classes'] as $classKey => $class) {
@@ -249,11 +250,11 @@ class QubitMigrate
                         continue;
                     }
 
-                    if ('integer' != $column['type']) {
+                    if ('integer' != ($column['type'] ?? null)) {
                         continue;
                     }
 
-                    if (!in_array($column['foreignTable'], $tables)) {
+                    if (!in_array($column['foreignTable'] ?? null, $tables)) {
                         continue;
                     }
 

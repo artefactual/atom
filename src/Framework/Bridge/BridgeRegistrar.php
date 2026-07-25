@@ -82,6 +82,7 @@ use Atom\Framework\Log\Logger;
 use Atom\Framework\Log\NullLogger;
 use Atom\Framework\Plugin\PluginConfiguration;
 use Atom\Framework\Utility\CallableReference;
+use Atom\Framework\Utility\Filesystem;
 use Atom\Framework\Utility\Finder;
 use Atom\Framework\Utility\Inflector;
 use Atom\Framework\Utility\Pager;
@@ -122,6 +123,7 @@ final class BridgeRegistrar
         [RuntimeConfiguration::class, 'qubitConfiguration'],
         [PluginConfiguration::class, 'sfPluginConfiguration'],
         [PluginConfiguration::class, 'sfPluginConfigurationGeneric'],
+        [Filesystem::class, 'sfFilesystem'],
         [Inflector::class, 'sfInflector'],
         [Finder::class, 'sfFinder'],
         [CallableReference::class, 'sfCallable'],
