@@ -22,6 +22,9 @@ docs
 downloads
 log
 node_modules
+output
+playwright
+playwright.config.js
 sf
 test
 uploads

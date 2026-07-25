@@ -191,6 +191,9 @@ RUN set -eux \
       uploads \
       var \
     && test ! -d node_modules \
+    && test ! -d output \
+    && test ! -d playwright \
+    && test ! -e playwright.config.js \
     && test ! -e vendor/bin/phpunit \
     && test ! -e vendor/symfony/lib/action/sfAction.class.php
 

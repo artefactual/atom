@@ -45,6 +45,9 @@ docker run --rm --entrypoint sh "${image}" -ec '
     test ! -e /usr/local/bin/node
     test ! -e /usr/local/bin/npm
     test ! -d /atom/src/node_modules
+    test ! -d /atom/src/output
+    test ! -d /atom/src/playwright
+    test ! -e /atom/src/playwright.config.js
     test ! -e /atom/src/vendor/bin/phpunit
     test ! -e /atom/src/docker/create-upgrade-fixture.sh
     test ! -e /atom/src/docker/rehearse-upgrade.sh

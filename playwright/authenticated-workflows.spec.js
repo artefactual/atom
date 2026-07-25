@@ -59,22 +59,26 @@ test('[surface:workflow-admin-profile] opens the administrator profile', async (
 test('[surface:workflow-inline-translation] opens the translation editor', async ({
   page,
 }) => {
-  await page.goto('/?sf_culture=fr')
+  try {
+    await page.goto('/?sf_culture=fr')
 
-  const editor = page.locator('#l10n-client')
+    const editor = page.locator('#l10n-client')
 
-  await expect(editor).toBeAttached()
-  await editor.locator('#l10n-client-show').click()
-  const messages = editor.locator('.string-list li')
+    await expect(editor).toBeAttached()
+    await editor.locator('#l10n-client-show').click()
+    const messages = editor.locator('.string-list li')
 
-  await expect(messages.first()).toBeVisible()
-  await messages.first().click()
-  const source = editor.locator('textarea[name="source[]"]:visible')
-  const target = editor.locator('textarea[name="target[]"]:visible')
+    await expect(messages.first()).toBeVisible()
+    await messages.first().click()
+    const source = editor.locator('textarea[name="source[]"]:visible')
+    const target = editor.locator('textarea[name="target[]"]:visible')
 
-  await expect(source).toHaveAttribute('readonly', 'readonly')
-  await expect(source).not.toHaveValue('')
-  await expect(target).toBeVisible()
+    await expect(source).toHaveAttribute('readonly', 'readonly')
+    await expect(source).not.toHaveValue('')
+    await expect(target).toBeVisible()
+  } finally {
+    await page.goto('/?sf_culture=en')
+  }
 })
 
 test('[surface:workflow-authority-crud] manages an authority record', async ({
