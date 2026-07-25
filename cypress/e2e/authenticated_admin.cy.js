@@ -18,6 +18,28 @@ describe('Authenticated administrator workflows', () => {
     updatedLocation: 'Cypress shelf B',
   }
 
+  const contentCreationPages = [
+    '/accession/add',
+    '/informationobject/add',
+    '/actor/add',
+    '/repository/add',
+    '/term/add',
+    '/function/add',
+  ]
+  const importPages = [
+    {
+      path: '/object/importSelect?type=xml',
+      expectedPath: '/object/importSelect',
+      expectedSearch: '?type=xml',
+    },
+    {
+      path: '/object/importSelect?type=csv',
+      expectedPath: '/object/importSelect',
+      expectedSearch: '?type=csv',
+    },
+    '/object/validateCsv',
+    '/sfSkosPlugin/import',
+  ]
   const adminPages = [
     '/user/list',
     '/aclGroup/list',
@@ -80,12 +102,17 @@ describe('Authenticated administrator workflows', () => {
       const path = 'string' === typeof page ? page : page.path
       const expectedPath =
         'string' === typeof page ? page : page.expectedPath
+      const expectedSearch =
+        'string' === typeof page ? undefined : page.expectedSearch
 
       cy.log(`Opening ${path}`)
       cy.visit(path)
       cy.location('pathname').should('equal', expectedPath)
+      if (expectedSearch) {
+        cy.location('search').should('equal', expectedSearch)
+      }
       cy.get('#main-column h1').should('be.visible').and('not.be.empty')
-      cy.get('#main-column .alert-danger').should('not.exist')
+      cy.get('#main-column > .alert-danger:visible').should('not.exist')
     })
   }
 
@@ -123,6 +150,14 @@ describe('Authenticated administrator workflows', () => {
 
   it('Loads the administrator menu destinations', () => {
     assertPagesLoad(adminPages)
+  })
+
+  it('Loads the content creation menu destinations', () => {
+    assertPagesLoad(contentCreationPages)
+  })
+
+  it('Loads the import menu destinations', () => {
+    assertPagesLoad(importPages)
   })
 
   it('Loads the management menu destinations', () => {
@@ -237,5 +272,17 @@ describe('Authenticated administrator workflows', () => {
           originalHitsPerPage = undefined
         })
       })
+  })
+
+  it('Opens the administrator profile and logs out', () => {
+    cy.visit('/')
+    cy.get('#user-menu').click()
+    cy.contains('a.dropdown-item', 'My profile').click()
+    cy.get('#main-column h1').should('contain', 'User demo')
+
+    cy.get('#user-menu').click()
+    cy.contains('a.dropdown-item', 'Log out').click()
+    cy.get('#admin-menu').should('not.exist')
+    cy.get('#user-menu').should('contain', 'Log in')
   })
 })
