@@ -5,6 +5,8 @@ on:
     branches:
     - qa/**
     - stable/**
+permissions:
+  contents: read
 jobs:
   unit-tests:
     runs-on: ubuntu-24.04
@@ -13,7 +15,7 @@ jobs:
       COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Start containerized services
       run: |
         sudo sysctl -w vm.max_map_count=262144

@@ -6,6 +6,9 @@ on:
     - qa/**
     - stable/**
 
+permissions:
+  contents: read
+
 jobs:
   generate-sbom:
     runs-on: ubuntu-latest
@@ -15,7 +18,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Set up cache
         uses: actions/cache@v4
         with:

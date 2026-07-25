@@ -5,6 +5,8 @@ on:
     branches:
     - qa/**
     - stable/**
+permissions:
+  contents: read
 jobs:
   integration-tests:
     runs-on: ubuntu-24.04
@@ -39,15 +41,18 @@ jobs:
         key: 24.04-8.3-composer-${{ hashFiles('composer.lock') }}
     - name: Install Composer dependencies
       run: composer install
-    - name: Cache NPM dependencies
-      uses: actions/cache@v3
+    - name: Set up Node.js 22
+      uses: actions/setup-node@v6
       with:
-        path: |
-          ~/.npm
-          ~/.cache/ms-playwright
-        key: npm-${{ hashFiles('package-lock.json') }}
+        node-version: 22
+        cache: npm
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install NPM dependencies
-      run: sudo npm install -g npm && npm ci
+      run: npm ci
     - name: Install Playwright browsers
       run: npx playwright install --with-deps firefox
     - name: Modify Gearman config
@@ -55,9 +60,7 @@ jobs:
         echo -e "all:\n  servers:\n    default: 127.0.0.1:4730" \
           > apps/qubit/config/gearman.yml
     - name: Build themes
-      run: |
-        sudo npm install -g "less@<4.0.0"
-        npm run build
+      run: npm run build
     - name: Run the installer
       run: |
         php symfony tools:install \

@@ -5,6 +5,8 @@ on:
     branches:
     - qa/**
     - stable/**
+permissions:
+  contents: read
 jobs:
   production:
     runs-on: ubuntu-24.04
