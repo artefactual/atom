@@ -33,6 +33,16 @@ final class LegacyTaskCommand extends Command
         'no-interaction',
     ];
 
+    private const GLOBAL_SHORTCUTS = [
+        'h',
+        'q',
+        'v',
+        'vv',
+        'vvv',
+        'V',
+        'n',
+    ];
+
     public function __construct(
         private readonly Task $task,
         private readonly RuntimeConfiguration $configuration,
@@ -84,7 +94,7 @@ final class LegacyTaskCommand extends Command
 
             $this->addOption(
                 $option->getName(),
-                $option->getShortcut(),
+                $this->availableShortcut($option->getShortcut()),
                 $mode,
                 $option->getHelp(),
                 InputOption::VALUE_NONE === $mode
@@ -129,5 +139,23 @@ final class LegacyTaskCommand extends Command
         $this->task->setIo($input, $output);
 
         return $this->task->invoke($arguments, $options);
+    }
+
+    private function availableShortcut(?string $shortcut): ?string
+    {
+        if (null === $shortcut) {
+            return null;
+        }
+
+        $shortcuts = array_filter(
+            explode('|', $shortcut),
+            static fn (string $candidate): bool => !in_array(
+                $candidate,
+                self::GLOBAL_SHORTCUTS,
+                true,
+            ),
+        );
+
+        return [] === $shortcuts ? null : implode('|', $shortcuts);
     }
 }

@@ -96,4 +96,46 @@ final class ConsoleTest extends TestCase
         self::assertContains('QubitUpgradeSqlTask', $classes);
         self::assertContains('arBaseTask', $classes);
     }
+
+    public function testLegacyOptionDropsConflictingGlobalShortcut(): void
+    {
+        $task = new class(new EventDispatcher(), new Formatter()) extends Task {
+            public array $received = [];
+
+            protected function configure()
+            {
+                $this->namespace = 'test';
+                $this->name = 'upgrade';
+                $this->addOptions([
+                    new CommandOption(
+                        'number',
+                        'n',
+                        CommandOption::PARAMETER_OPTIONAL,
+                    ),
+                ]);
+            }
+
+            protected function execute($arguments = [], $options = [])
+            {
+                $this->received = $options;
+            }
+        };
+        $configuration = new RuntimeConfiguration(
+            'qubit',
+            'cli',
+            [],
+            false,
+            dirname(__DIR__, 3),
+        );
+        $application = new Application();
+        $application->add(new LegacyTaskCommand($task, $configuration));
+        $command = $application->find('test:upgrade');
+        $tester = new CommandTester($command);
+
+        self::assertNull(
+            $command->getDefinition()->getOption('number')->getShortcut(),
+        );
+        self::assertSame(0, $tester->execute(['--number' => '197']));
+        self::assertSame('197', $task->received['number']);
+    }
 }
