@@ -8,9 +8,17 @@ image="${1:?Usage: docker/verify-image.sh IMAGE [REVISION]}"
 expected_revision="${2:-}"
 
 actual_user="$(docker image inspect --format '{{.Config.User}}' "${image}")"
+healthcheck="$(
+    docker image inspect --format '{{json .Config.Healthcheck.Test}}' "${image}"
+)"
 
 if [[ "${actual_user}" != "atom" ]]; then
     echo "Expected image user atom, got ${actual_user}" >&2
+    exit 1
+fi
+
+if [[ "${healthcheck}" != '["CMD","php","docker/healthcheck.php","ready"]' ]]; then
+    echo "Expected the production readiness health check" >&2
     exit 1
 fi
 
@@ -54,5 +62,9 @@ docker run --rm --entrypoint sh "${image}" -ec '
     php -m | grep -Eq "^(intl|memcache)$"
     ! php -m | grep -Eq "^(pcov|xdebug)$"
 '
+
+docker run --rm --entrypoint php "${image}" \
+    docker/healthcheck.php live \
+    | grep -q '"status":"ok"'
 
 echo "Production image verification passed"
