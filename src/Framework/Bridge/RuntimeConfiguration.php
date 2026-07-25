@@ -240,6 +240,16 @@ final class RuntimeConfiguration
         ))->load($path);
     }
 
+    public function loadParameters(
+        string $path,
+        string $prefix = '',
+    ): array {
+        return (new ParameterCompiler())->compile(
+            $this->loadConfiguration($path),
+            $prefix,
+        );
+    }
+
     public static function getConfigForEnvironment(
         string $name,
         string $environment,

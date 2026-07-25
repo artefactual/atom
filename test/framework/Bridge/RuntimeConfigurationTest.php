@@ -41,4 +41,30 @@ final class RuntimeConfigurationTest extends TestCase
             $configuration->getPluginPaths(),
         );
     }
+
+    public function testLoadsLegacyModuleParameters(): void
+    {
+        $configuration = new RuntimeConfiguration(
+            'qubit',
+            'test',
+            ['arOaiPlugin'],
+            false,
+            dirname(__DIR__, 3),
+        );
+
+        self::assertSame(
+            ['verb'],
+            $configuration->loadParameters(
+                'modules/arOaiPlugin/config/module.yml',
+                'mod_aroaiplugin_',
+            )['mod_aroaiplugin_IdentifyAllowed'],
+        );
+        self::assertSame(
+            ['identifier', 'metadataPrefix'],
+            $configuration->loadParameters(
+                'modules/arOaiPlugin/config/module.yml',
+                'mod_aroaiplugin_',
+            )['mod_aroaiplugin_GetRecordMandatory'],
+        );
+    }
 }

@@ -86,6 +86,13 @@ final readonly class ActionRunner
             ));
         }
 
+        Configuration::add(
+            $context->getConfiguration()->loadParameters(
+                sprintf('modules/%s/config/module.yml', $module),
+                sprintf('mod_%s_', strtolower($module)),
+            ),
+        );
+
         require_once $descriptor->path;
         $class = $this->resolveClass($descriptor);
         $component = new $class($context, $module, $action);

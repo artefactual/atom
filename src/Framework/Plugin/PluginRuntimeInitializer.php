@@ -51,9 +51,9 @@ final readonly class PluginRuntimeInitializer
             $this->configuration->isPluginEnabled('sfPluginAdminPlugin')
             && class_exists('sfPluginAdminPluginConfiguration')
         ) {
-            \sfPluginAdminPluginConfiguration::$pluginNames = $this
-                ->configuration
-                ->getPlugins();
+            \sfPluginAdminPluginConfiguration::$pluginNames = PluginRegistry::builtIn(
+                $this->configuration->getPlugins(),
+            );
         }
     }
 

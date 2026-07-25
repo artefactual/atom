@@ -59,11 +59,9 @@ final readonly class PluginRegistry
 
     public function enabled(): array
     {
-        $plugins = self::CORE_PLUGINS;
-
-        if ($this->oidcIsActive()) {
-            $plugins[] = 'arOidcPlugin';
-        }
+        $plugins = self::builtIn(
+            $this->oidcIsActive() ? ['arOidcPlugin'] : [],
+        );
 
         $configured = $this->settings?->read() ?? self::DEFAULT_PLUGINS;
 
@@ -91,6 +89,17 @@ final readonly class PluginRegistry
         }
 
         return array_values($plugins);
+    }
+
+    public static function builtIn(array $enabled = []): array
+    {
+        $plugins = self::CORE_PLUGINS;
+
+        if (in_array('arOidcPlugin', $enabled, true)) {
+            $plugins[] = 'arOidcPlugin';
+        }
+
+        return $plugins;
     }
 
     private function oidcIsActive(): bool

@@ -80,6 +80,20 @@ final class PluginRegistryTest extends TestCase
         self::assertSame('arOidcPlugin', $plugins[array_key_last($plugins)]);
     }
 
+    public function testIdentifiesPluginsManagedOutsideTheDatabase(): void
+    {
+        $plugins = PluginRegistry::builtIn([
+            'arOaiPlugin',
+            'arOidcPlugin',
+            'arRestApiPlugin',
+        ]);
+
+        self::assertContains('sfPluginAdminPlugin', $plugins);
+        self::assertContains('arOidcPlugin', $plugins);
+        self::assertNotContains('arOaiPlugin', $plugins);
+        self::assertNotContains('arRestApiPlugin', $plugins);
+    }
+
     public function testUsesConfiguredPluginsAndIgnoresMissingOnes(): void
     {
         $projectDirectory = dirname(__DIR__, 3);
