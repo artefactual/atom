@@ -23,7 +23,7 @@ namespace Atom\Framework\Bridge;
 
 use Symfony\Component\HttpFoundation\Response;
 
-final class ResponseAdapter
+class ResponseAdapter
 {
     private string $title = '';
     private array $javaScripts = [];
@@ -86,6 +86,10 @@ final class ResponseAdapter
 
     public function setTitle(string $title): void
     {
+        if (class_exists('\\QubitMarkdown')) {
+            $title = \QubitMarkdown::getInstance()->strip($title);
+        }
+
         $this->title = $title;
     }
 

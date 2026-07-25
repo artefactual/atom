@@ -6,6 +6,7 @@ set -o pipefail
 
 image="${1:?Usage: docker/verify-image.sh IMAGE [REVISION]}"
 expected_revision="${2:-}"
+script_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 actual_user="$(docker image inspect --format '{{.Config.User}}' "${image}")"
 healthcheck="$(
@@ -69,5 +70,8 @@ docker run --rm --entrypoint sh "${image}" -ec '
 docker run --rm --entrypoint php "${image}" \
     docker/healthcheck.php live \
     | grep -q '"status":"ok"'
+
+docker run --rm --interactive --entrypoint php "${image}" \
+    < "${script_directory}/verify-autoload.php"
 
 echo "Production image verification passed"

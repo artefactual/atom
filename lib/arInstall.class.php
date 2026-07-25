@@ -94,15 +94,6 @@ class arInstall
         }
     }
 
-    public static function createSfSymlink()
-    {
-        $file = sfConfig::get('sf_root_dir').'/vendor/symfony/data/web/sf';
-        $link = sfConfig::get('sf_root_dir').'/sf';
-        if (!file_exists($link) && false === symlink($file, $link)) {
-            throw new Exception("Can't write sf symlink");
-        }
-    }
-
     public static function configureDatabase($options)
     {
         $dsn = 'mysql:dbname='.$options['databaseName'];

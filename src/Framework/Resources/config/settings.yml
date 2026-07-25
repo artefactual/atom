@@ -23,8 +23,6 @@ default:
     web_debug: false
     error_reporting: <?php echo (E_PARSE | E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR | E_USER_ERROR)."\n" ?>
     file_link_format: ~
-    admin_web_dir: /sf/sf_admin
-    web_debug_web_dir: /sf/sf_web_debug
     standard_helpers: [Partial, Cache]
     enabled_modules: [default]
     charset: utf-8

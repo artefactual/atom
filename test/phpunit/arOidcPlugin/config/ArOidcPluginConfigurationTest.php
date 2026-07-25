@@ -10,7 +10,6 @@ require_once 'plugins/arOidcPlugin/config/arOidcPluginConfiguration.class.php';
  * @covers \arOidcPluginConfiguration
  * @covers \BaseSetting
  * @covers \BaseSettingI18n
- * @covers \QubitApcUniversalClassLoader
  * @covers \QubitQuery
  */
 class ArOidcPluginConfigurationTest extends TestCase

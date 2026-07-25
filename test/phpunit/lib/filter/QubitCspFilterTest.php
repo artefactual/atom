@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \QubitApcUniversalClassLoader
  * @covers \QubitCSP
  */
 class QubitCspFilterTest extends TestCase

@@ -17,6 +17,7 @@ docker/etc/php
 docker/create-upgrade-fixture.sh
 docker/rehearse-upgrade.sh
 docker/verify-image.sh
+docker/verify-autoload.php
 docker/verify-runtime.sh
 docs
 downloads

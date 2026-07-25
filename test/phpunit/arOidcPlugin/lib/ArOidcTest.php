@@ -9,7 +9,6 @@ require_once 'plugins/arOidcPlugin/lib/arOidc.class.php';
  * @internal
  *
  * @covers \arOidc
- * @covers \QubitApcUniversalClassLoader::findFile
  */
 class ArOidcTest extends TestCase
 {

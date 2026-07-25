@@ -19,6 +19,7 @@
  */
 class sfWebBrowser
 {
+    protected $adapter;
     protected $defaultHeaders = [];
     protected $stack = [];
     protected $stackPosition = -1;

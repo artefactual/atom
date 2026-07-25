@@ -28,6 +28,7 @@
         "geoip2/geoip2": "~2.0",
         "symfony/framework-bundle": "^7.4",
         "symfony/console": "^7.4",
+        "symfony/css-selector": "^7.4",
         "symfony/routing": "^7.4",
         "symfony/yaml": "^7.4",
         "symfony/translation": "^7.4",

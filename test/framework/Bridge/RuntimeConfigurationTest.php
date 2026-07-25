@@ -21,6 +21,19 @@ use PHPUnit\Framework\TestCase;
  */
 final class RuntimeConfigurationTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        RuntimeConfiguration::setActive(null);
+    }
+
+    public function testReportsWhetherAConfigurationIsActive(): void
+    {
+        RuntimeConfiguration::setActive(null);
+        self::assertFalse(RuntimeConfiguration::hasActive());
+        RuntimeConfiguration::setActive(new RuntimeConfiguration());
+        self::assertTrue(RuntimeConfiguration::hasActive());
+    }
+
     public function testDistinguishesAvailableAndEnabledPluginPaths(): void
     {
         $projectDirectory = dirname(__DIR__, 3);

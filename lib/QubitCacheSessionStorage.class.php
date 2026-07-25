@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitCacheSessionStorage extends sfCacheSessionStorage
+class QubitCacheSessionStorage extends \Atom\Framework\Bridge\SessionStorage
 {
     public function initialize($options = null)
     {

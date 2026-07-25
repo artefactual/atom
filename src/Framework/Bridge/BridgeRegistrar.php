@@ -107,6 +107,7 @@ final class BridgeRegistrar
         [Context::class, 'sfContext'],
         [CultureInfo::class, 'sfCultureInfo'],
         [DateFormatter::class, 'sfDateFormat'],
+        [DomCssSelector::class, 'sfDomCssSelector'],
         [NumberFormatter::class, 'sfNumberFormat'],
         [CommandArgument::class, 'sfCommandArgument'],
         [CommandOption::class, 'sfCommandOption'],

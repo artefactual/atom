@@ -86,6 +86,11 @@ final class RuntimeConfiguration
         self::$active = $configuration;
     }
 
+    public static function hasActive(): bool
+    {
+        return null !== self::$active;
+    }
+
     public static function getApplicationConfiguration(
         string $application = 'qubit',
         string $environment = 'cli',

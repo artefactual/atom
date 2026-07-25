@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitWebResponse extends sfWebResponse
+class QubitWebResponse extends \Atom\Framework\Bridge\ResponseAdapter
 {
     /**
      * Sets title for the current web response.
@@ -25,10 +25,10 @@ class QubitWebResponse extends sfWebResponse
      * @param string $title  Title name
      * @param bool   $escape false, for escaping the title
      */
-    public function setTitle($title, $escape = false)
-    {
-        // Remove Markdown from title
-        $title = QubitMarkdown::getInstance()->strip($title);
-        $this->addMeta('title', $title, true, $escape);
+    public function setTitle(
+        string $title,
+        bool $escape = false
+    ): void {
+        parent::setTitle($title);
     }
 }

@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \QubitApcUniversalClassLoader::findFile
  * @covers \QubitMarkdown::__construct
  * @covers \QubitMarkdown::getInstance
  * @covers \QubitMarkdown::getUnescapedString
