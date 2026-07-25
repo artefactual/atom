@@ -69,6 +69,22 @@ jobs:
         docker/verify-runtime.sh \
           atom:production \
           atom-production_default
+    - name: Create upgrade fixture
+      env:
+        COMPOSE_PROJECT_NAME: atom-production
+        ATOM_REHEARSAL_COMPOSE_FILE: docker/docker-compose.test.yml
+      run: |
+        docker/create-upgrade-fixture.sh \
+          "${RUNNER_TEMP}/atom-v193.sql"
+    - name: Rehearse production upgrade
+      env:
+        COMPOSE_PROJECT_NAME: atom-production
+        ATOM_REHEARSAL_COMPOSE_FILE: docker/docker-compose.test.yml
+        ATOM_REHEARSAL_NETWORK: atom-production_default
+      run: |
+        docker/rehearse-upgrade.sh \
+          "${RUNNER_TEMP}/atom-v193.sql" \
+          atom:production
     - name: Print runtime dependency logs
       if: failure()
       env:

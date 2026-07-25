@@ -45,6 +45,7 @@ docker run --rm --entrypoint sh "${image}" -ec '
     test ! -e /usr/local/bin/npm
     test ! -d /atom/src/node_modules
     test ! -e /atom/src/vendor/bin/phpunit
+    test ! -e /atom/src/docker/create-upgrade-fixture.sh
     test ! -e /atom/src/docker/rehearse-upgrade.sh
     test ! -e /atom/src/docker/verify-runtime.sh
 

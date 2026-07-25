@@ -14,6 +14,7 @@ cache
 cypress
 docker/docker-compose*.yml
 docker/etc/php
+docker/create-upgrade-fixture.sh
 docker/rehearse-upgrade.sh
 docker/verify-image.sh
 docker/verify-runtime.sh
