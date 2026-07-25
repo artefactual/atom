@@ -41,6 +41,11 @@
         "classmap": [
             "vendor/FreeBeerIso639Map.php"
         ],
+        "exclude-from-classmap": [
+            "src/Framework/Bridge/ZendAclRoleInterface.php",
+            "src/Framework/Form/Validators.php",
+            "src/Framework/Form/Widgets.php"
+        ],
         "psr-4": {
             "Atom\\": "src/"
         }
