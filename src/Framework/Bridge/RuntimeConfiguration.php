@@ -52,13 +52,34 @@ final class RuntimeConfiguration
     private static ?self $active = null;
     private ?ConfigCache $configCache = null;
 
+    private readonly string $application;
+    private readonly string $environment;
+    private readonly array $plugins;
+    private readonly bool $debug;
+    private readonly string $projectDirectory;
+
     public function __construct(
-        private readonly string $application,
-        private readonly string $environment,
-        private readonly array $plugins,
-        private readonly bool $debug,
-        private readonly string $projectDirectory,
-    ) {}
+        $application = 'qubit',
+        $environment = 'prod',
+        $plugins = [],
+        $debug = false,
+        $projectDirectory = null,
+    ) {
+        if (is_bool($environment)) {
+            $debug = $environment;
+            $environment = $application;
+            $application = 'qubit';
+        }
+
+        $this->application = (string) $application;
+        $this->environment = (string) $environment;
+        $this->plugins = is_array($plugins) ? $plugins : [];
+        $this->debug = (bool) $debug;
+        $this->projectDirectory = is_string($projectDirectory)
+            && '' !== $projectDirectory
+            ? $projectDirectory
+            : dirname(__DIR__, 3);
+    }
 
     public static function setActive(?self $configuration): void
     {

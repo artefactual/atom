@@ -20,7 +20,10 @@ class CsvValidatorTest extends \PHPUnit\Framework\TestCase
     {
         $csvValidator = new CsvImportValidator(null, $this->vdbcon, null);
 
-        $this->assertSame(sfContext::class, get_class($csvValidator->getContext()));
+        $this->assertInstanceOf(
+            sfContext::class,
+            $csvValidator->getContext()
+        );
     }
 
     public function testSetInvalidOptionsException()

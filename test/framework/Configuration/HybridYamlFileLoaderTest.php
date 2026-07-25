@@ -68,6 +68,30 @@ final class HybridYamlFileLoaderTest extends TestCase
         );
     }
 
+    public function testLoadsLegacyPercentPlaceholders(): void
+    {
+        vfsStream::setup('root', null, [
+            'factories.yml' => <<<'YAML'
+                test:
+                  storage:
+                    param:
+                      session_path: %SF_TEST_CACHE_DIR%/sessions
+                YAML,
+        ]);
+
+        self::assertSame([
+            'test' => [
+                'storage' => [
+                    'param' => [
+                        'session_path' => '%SF_TEST_CACHE_DIR%/sessions',
+                    ],
+                ],
+            ],
+        ], (new HybridYamlFileLoader())->load(
+            'vfs://root/factories.yml',
+        ));
+    }
+
     public function testRejectsScalarConfiguration(): void
     {
         vfsStream::setup('root', null, [

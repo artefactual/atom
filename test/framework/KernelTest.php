@@ -186,6 +186,28 @@ final class KernelTest extends TestCase
         }
     }
 
+    public function testSelectsOidcUserWhenPluginIsActive(): void
+    {
+        $previous = getenv('ATOM_ACTIVATE_OIDC_PLUGIN');
+        putenv('ATOM_ACTIVATE_OIDC_PLUGIN=true');
+        $kernel = $this->kernel();
+
+        try {
+            $kernel->boot();
+
+            self::assertInstanceOf(
+                'oidcUser',
+                $kernel->getContainer()->get(User::class),
+            );
+            self::assertFalse(class_exists('sfCoreAutoload', false));
+        } finally {
+            false === $previous
+                ? putenv('ATOM_ACTIVATE_OIDC_PLUGIN')
+                : putenv('ATOM_ACTIVATE_OIDC_PLUGIN='.$previous);
+            $kernel->shutdown();
+        }
+    }
+
     private function kernel(): Kernel
     {
         return new class('test', true, $this->cacheDirectory) extends Kernel {

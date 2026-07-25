@@ -41,6 +41,12 @@ final class HybridYamlFileLoader
             return $returned;
         }
 
+        $contents = preg_replace(
+            '/^(\s*[^#\r\n]+:\s*)(%[A-Z0-9_]+%[^\s#]*)(\s*(?:#.*)?)$/m',
+            "$1'$2'$3",
+            $contents,
+        );
+
         try {
             $configuration = Yaml::parse($contents);
         } catch (ParseException $exception) {

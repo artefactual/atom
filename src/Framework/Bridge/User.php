@@ -38,7 +38,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         'symfony/user/sfUser/credentials';
     public const FLASH_NAMESPACE = 'symfony/user/sfUser/flash';
 
-    public mixed $user = null;
+    public $user;
 
     private ParameterHolder $attributes;
     private ParameterHolder $flashes;
@@ -50,10 +50,21 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
     private bool $timedOut = false;
     private bool $cultureChanged = false;
 
+    private readonly ?SecurityConfiguration $security;
+
     public function __construct(
-        private readonly ?SecurityConfiguration $security = null,
+        EventDispatcher|SecurityConfiguration|null $security = null,
+        ?Storage $storage = null,
+        array $options = [],
     ) {
+        $this->security = $security instanceof SecurityConfiguration
+            ? $security
+            : null;
         $this->reset();
+
+        if ($security instanceof EventDispatcher && null !== $storage) {
+            $this->initialize($security, $storage, $options);
+        }
     }
 
     public function __toString(): string
@@ -61,6 +72,15 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return is_object($this->user)
             ? (string) ($this->user->username ?? '')
             : 'NULL';
+    }
+
+    public function initialize(
+        EventDispatcher $dispatcher,
+        Storage $storage,
+        array $options = [],
+    ) {
+        // The Symfony 7 request subscriber owns session hydration. This
+        // method preserves construction of configured legacy user classes.
     }
 
     public function beginRequest(Request $request): void
@@ -161,7 +181,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return $this->cultureChanged;
     }
 
-    public function getRoleId(): mixed
+    public function getRoleId()
     {
         if ($this->isAuthenticated()) {
             return $this->getUserID();
@@ -216,11 +236,11 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return $this->attributes->has($namespace.'/'.$name);
     }
 
-    public function removeAttribute(
-        string $name,
-        string $namespace = self::ATTRIBUTE_NAMESPACE,
-    ): mixed {
-        return $this->attributes->remove($namespace.'/'.$name);
+    public function removeAttribute($name)
+    {
+        return $this->attributes->remove(
+            self::ATTRIBUTE_NAMESPACE.'/'.$name,
+        );
     }
 
     public function getAttributeHolder(): ParameterHolder
@@ -246,7 +266,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return $this->flashes->has($name);
     }
 
-    public function isAuthenticated(): bool
+    public function isAuthenticated()
     {
         return !Configuration::get('app_read_only', false)
             && $this->authenticated;
@@ -331,7 +351,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         unset($this->credentials[$credential]);
     }
 
-    public function signIn(object $user): void
+    public function signIn($user)
     {
         $this->setAuthenticated(true);
         $this->user = $user;
@@ -349,7 +369,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         $this->setAttribute('user_name', $user->username ?? null);
     }
 
-    public function signOut(): void
+    public function signOut()
     {
         $this->attributes->removeNamespace('credentialScope');
         $this->setAuthenticated(false);
@@ -366,30 +386,30 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         }
     }
 
-    public function getUserID(): mixed
+    public function getUserID()
     {
         return $this->getAttribute('user_id');
     }
 
-    public function getUserSlug(): mixed
+    public function getUserSlug()
     {
         return $this->getAttribute('user_slug');
     }
 
-    public function getUserName(): mixed
+    public function getUserName()
     {
         return $this->getAttribute('user_name');
     }
 
-    public function authenticate(string $username, string $password): bool
+    public function authenticate($username, $password)
     {
         return $this->authenticateWithBasicAuth($username, $password);
     }
 
     public function authenticateWithBasicAuth(
-        string $username,
-        string $password,
-    ): bool {
+        $username,
+        $password,
+    ) {
         if ('anonymous' === $username || !class_exists('QubitUser')) {
             return false;
         }
@@ -409,12 +429,12 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return true;
     }
 
-    public function getQubitUser(): mixed
+    public function getQubitUser()
     {
         return $this->user;
     }
 
-    public function getAclGroups(): array
+    public function getAclGroups()
     {
         if ($this->isAuthenticated() && is_object($this->user)) {
             return $this->user->getAclGroups();
@@ -429,7 +449,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
         return [];
     }
 
-    public function hasGroup(array|int|string $groups): bool
+    public function hasGroup($groups)
     {
         if ($this->isAuthenticated() && is_object($this->user)) {
             return $this->user->hasGroup($groups);
@@ -443,7 +463,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
             );
     }
 
-    public function listGroups(): array
+    public function listGroups()
     {
         if ($this->isAuthenticated() && is_object($this->user)) {
             $groups = [\QubitAclGroup::getById(
@@ -461,9 +481,9 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
     }
 
     public function checkModuleActionAccess(
-        string $module,
-        string $action,
-    ): bool {
+        $module,
+        $action,
+    ) {
         if (null === $this->security) {
             return true;
         }
@@ -481,12 +501,11 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
     }
 
     public function getModuleSecurityValue(
-        string $action,
-        string $setting,
-        mixed $default = null,
-        ?string $module = null,
-    ): mixed {
-        $module ??= Context::hasInstance()
+        $action,
+        $setting,
+        $default = null,
+    ) {
+        $module = Context::hasInstance()
             ? Context::getInstance()->getModuleName()
             : null;
 
@@ -499,7 +518,7 @@ class User implements \ArrayAccess, \Zend_Acl_Role_Interface
             ?? $default;
     }
 
-    public function isAdministrator(): bool
+    public function isAdministrator()
     {
         return class_exists('QubitAclGroup')
             ? $this->hasGroup(\QubitAclGroup::ADMINISTRATOR_ID)

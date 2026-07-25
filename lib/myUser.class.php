@@ -221,17 +221,7 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
      */
     public function checkModuleActionAccess($module, $action)
     {
-        // Set security property to module's security configuration
-        $securityFilePath = 'modules/'.$module.'/config/security.yml';
-        if ($file = sfContext::getInstance()->getConfigCache()->checkConfig($securityFilePath, true)) {
-            require $file;
-        }
-
-        // Get credentials, using security.yml parsing convention
-        $credentials = $this->getModuleSecurityValue($action, 'credentials');
-
-        // Allow access if action isn't secured or user has appropriate credentials
-        return !$this->getModuleSecurityValue($action, 'is_secure', false) || $this->hasCredential($credentials);
+        return parent::checkModuleActionAccess($module, $action);
     }
 
     /**
@@ -246,21 +236,11 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
      */
     public function getModuleSecurityValue($action, $securitySetting, $default = null)
     {
-        // These values get lower-cased when security.yml's rendered to PHP
-        $action = strtolower($action);
-        $securitySetting = strtolower($securitySetting);
-
-        // If a property's specifically set for the action, return it
-        if (isset($this->security[$action][$securitySetting])) {
-            return $this->security[$action][$securitySetting];
-        }
-
-        // If a property's set for all actions that don't override it, return it
-        if (isset($this->security['all'][$securitySetting])) {
-            return $this->security['all'][$securitySetting];
-        }
-
-        return $default;
+        return parent::getModuleSecurityValue(
+            $action,
+            $securitySetting,
+            $default
+        );
     }
 
     /**

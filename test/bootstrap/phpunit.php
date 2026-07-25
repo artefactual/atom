@@ -1,21 +1,37 @@
 <?php
 
 /*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * AtoM is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  */
 
-$_test_dir = realpath(dirname(__FILE__).'/..');
+declare(strict_types=1);
 
-// configuration
-require_once dirname(__FILE__).'/../../config/ProjectConfiguration.class.php';
-$configuration = ProjectConfiguration::hasActive() ? ProjectConfiguration::getActive() : new ProjectConfiguration(realpath($_test_dir.'/..'));
+use Atom\Framework\Bridge\Context;
+use Atom\Framework\Bridge\RuntimeConfiguration;
+use Atom\Framework\Console\ConsoleRuntime;
+use Atom\Framework\Database\DatabaseManager;
+use Atom\Kernel;
 
-sfContext::createInstance($configuration->getApplicationConfiguration(
-    'qubit',
-    'test',
-    true
-));
+$projectDirectory = dirname(__DIR__, 2);
+
+require $projectDirectory.'/vendor/composer/autoload.php';
+
+$kernel = new Kernel('test', true);
+$kernel->boot();
+$kernel
+    ->getContainer()
+    ->get(ConsoleRuntime::class)
+    ->createApplication($projectDirectory);
+new DatabaseManager();
+
+register_shutdown_function(static function () use ($kernel): void {
+    Context::setInstance(null);
+    RuntimeConfiguration::setActive(null);
+    DatabaseManager::setBootstrap(null);
+    $kernel->shutdown();
+});

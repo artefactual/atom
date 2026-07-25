@@ -139,7 +139,7 @@ class QubitSlug extends BaseSlug
                 // Keep letters, marks, numbers, spaces, and hyphen; turn other runs into dashes.
                 $slug = preg_replace('/[^\p{L}\p{M}\p{N}\p{Zs}-]+/u', '-', $slug);
 
-                if ((false !== $result = iconv('utf-8', 'ascii//TRANSLIT', $slug)) || (false !== $result = iconv('utf-8', 'ascii', $slug))) {
+                if (false !== $result = iconv('utf-8', 'ascii//TRANSLIT//IGNORE', $slug)) {
                     $slug = $result;
                 }
 

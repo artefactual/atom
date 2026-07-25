@@ -103,7 +103,11 @@ final readonly class CultureInfo
 
     public function getLanguages(?array $languages = null): array
     {
-        $names = Languages::getNames($this->displayCulture());
+        $displayCulture = $this->displayCulture();
+        $names = array_replace(
+            Languages::getNames($displayCulture),
+            Locales::getNames($displayCulture),
+        );
 
         return null === $languages
             ? $names
@@ -114,6 +118,9 @@ final readonly class CultureInfo
     {
         return Languages::getName(
             strtolower($language),
+            $this->displayCulture(),
+        ) ?: Locales::getName(
+            $language,
             $this->displayCulture(),
         ) ?: $language;
     }

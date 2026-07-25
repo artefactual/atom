@@ -26,6 +26,7 @@ use Atom\Framework\Cache\Cache;
 use Atom\Framework\Cache\CacheException;
 use Atom\Framework\Cache\MemcacheCache;
 use Atom\Framework\Configuration\ConfigHandler;
+use Atom\Framework\Configuration\DefineEnvironmentConfigHandler;
 use Atom\Framework\Configuration\FactoryConfigHandler;
 use Atom\Framework\Configuration\YamlConfigHandler;
 use Atom\Framework\Console\CacheClearTask;
@@ -138,10 +139,18 @@ final class BridgeRegistrar
         [ConfigHandler::class, 'sfConfigHandler'],
         [YamlConfigHandler::class, 'sfYamlConfigHandler'],
         [YamlConfigHandler::class, 'sfSimpleYamlConfigHandler'],
+        [
+            DefineEnvironmentConfigHandler::class,
+            'sfDefineEnvironmentConfigHandler',
+        ],
         [FactoryConfigHandler::class, 'sfFactoryConfigHandler'],
         [RequestAdapter::class, 'sfRequest'],
         [RequestAdapter::class, 'sfWebRequest'],
         [ResponseAdapter::class, 'sfWebResponse'],
+        [Storage::class, 'sfStorage'],
+        [SessionStorage::class, 'sfSessionStorage'],
+        [SessionTestStorage::class, 'sfSessionTestStorage'],
+        [Filter::class, 'sfFilter'],
         [Form::class, 'sfForm'],
         [FormField::class, 'sfFormField'],
         [FormField::class, 'sfFormFieldSchema'],

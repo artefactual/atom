@@ -89,7 +89,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     {
         $importer = new PhysicalObjectCsvImporter(null, $this->vdbcon);
 
-        $this->assertSame(sfContext::class, get_class($importer->context));
+        $this->assertInstanceOf(sfContext::class, $importer->context);
     }
 
     public function testMagicGetInvalidPropertyException()

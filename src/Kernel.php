@@ -38,6 +38,7 @@ use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\TemplateRenderer;
 use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Bridge\UserFactory;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Cache\MemcacheCache;
 use Atom\Framework\Configuration\ApplicationConfiguration;
@@ -280,7 +281,18 @@ class Kernel extends BaseKernel
             ]);
         }
 
-        $services->set(User::class)->public();
+        $services->set(UserFactory::class);
+        $services
+            ->set(User::class)
+            ->factory([
+                service(UserFactory::class),
+                'create',
+            ])
+            ->args([
+                $this->userClass($configuration, $plugins),
+                service(SecurityConfiguration::class),
+            ])
+            ->public();
         $services->set(UserRequestSubscriber::class);
         $services->set(EventDispatcher::class);
         $services->set(RuntimeConfiguration::class)->args([
@@ -448,5 +460,25 @@ class Kernel extends BaseKernel
         throw new ConfigurationException(
             'Set APP_SECRET or configure csrf_secret before booting AtoM.',
         );
+    }
+
+    private function userClass(
+        ApplicationConfiguration $configuration,
+        array $plugins,
+    ): string {
+        if (in_array('arOidcPlugin', $plugins, true)) {
+            return 'oidcUser';
+        }
+
+        if (in_array('arCasPlugin', $plugins, true)) {
+            return 'casUser';
+        }
+
+        $factories = $configuration->load('config/factories.yml');
+        $class = $factories['user']['class'] ?? User::class;
+
+        return is_string($class) && '' !== $class
+            ? $class
+            : User::class;
     }
 }

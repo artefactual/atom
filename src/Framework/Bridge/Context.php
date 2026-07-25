@@ -26,7 +26,7 @@ use Atom\Framework\Database\DatabaseManagerProxy;
 use Atom\Framework\Routing\ResourceRouteResolver;
 use Symfony\Component\Routing\RouterInterface;
 
-final class Context
+class Context
 {
     public readonly RoutingAdapter $routing;
     public readonly Translator $i18n;

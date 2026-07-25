@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace Atom\Controller;
 
 use Atom\Framework\Bridge\ActionRunner;
+use Atom\Framework\Bridge\ArrayStorage;
 use Atom\Framework\Bridge\Context;
 use Atom\Framework\Bridge\EventDispatcher;
 use Atom\Framework\Bridge\NotFoundException;
@@ -77,6 +78,12 @@ final readonly class LegacyController
         Context::setInstance($context);
 
         try {
+            $this->user->initialize(
+                $this->eventDispatcher,
+                new ArrayStorage(['auto_shutdown' => false]),
+                ['timeout' => 1800],
+            );
+
             return $this->filters->run(
                 $context,
                 fn (): Response => $this->runner->run($context),
