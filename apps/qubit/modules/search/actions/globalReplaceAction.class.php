@@ -17,99 +17,178 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchGlobalReplaceAction extends SearchAdvancedAction
+class SearchGlobalReplaceAction extends InformationObjectBrowseAction
 {
     public function execute($request)
     {
+        $this->hasSearchCriteria = $this->hasSearchCriteria($request);
+        if ($this->hasSearchCriteria) {
+            $request->limit = (string) arElasticSearchPluginConfiguration::getMaxResultWindow();
+        }
+
         parent::execute($request);
 
         $this->addFields();
+        $this->bindForm($request);
 
         $this->title = $this->context->i18n->__('Global search/replace');
+        $this->searchFields = $this->getSearchFields();
 
-        if ($request->isMethod('post')) {
-            // Make sure we have required information for search/replace
-            if (empty($request->pattern) || empty($request->replacement)) {
-                $this->error = $this->context->i18n->__('Both source and replacement fields are required.');
-
-                return;
-            }
-            // Make sure we have confirmed the action
-            if (!isset($request->confirm)) {
-                $this->title = $this->context->i18n->__('Are you sure you want to replace "%1%" with "%2%" in %3%?', ['%1%' => $request->pattern, '%2%' => $request->replacement, '%3%' => sfInflector::humanize(sfInflector::underscore($request->column))]);
-
-                return;
-            }
-
-            // Process replacement on each IO
-            // NB: could this be made faster by reading a batch of IDs?
-            foreach ($this->pager->hits as $hit) {
-                $io = QubitInformationObject::getById($hit->getDocument()->id);
-
-                // Omit iteration if the column does not exist
-                if (!$io->__isset($request->column)) {
-                    continue;
-                }
-
-                if (isset($request->allowRegex)) {
-                    $pattern = '/'.strtr($request->pattern, ['/' => '\/']).'/';
-                    if (!isset($request->caseSensitive)) {
-                        $pattern .= 'i';
-                    }
-
-                    $replacement = strtr($request->replacement, ['/' => '\/']);
-
-                    $replaced = preg_replace($pattern, $replacement, $io->__get($request->column));
-                } elseif (isset($request->caseSensitive)) {
-                    $replaced = str_replace($request->pattern, $request->replacement, $io->__get($request->column));
-                } else {
-                    $replaced = str_ireplace($request->pattern, $request->replacement, $io->__get($request->column));
-                }
-
-                $io->__set($request->column, $replaced);
-                $io->save();
-            }
-
-            // force refresh of index to keep sync
-            QubitSearch::getInstance()->optimize();
-
-            // When complete, redirect to GSR home
-            $this->redirect(['module' => 'search', 'action' => 'globalReplace']);
+        if (!$this->hasSearchCriteria) {
+            unset($this->pager);
         }
+
+        if (!$request->isMethod('post')) {
+            return;
+        }
+
+        if (!$this->hasSearchCriteria || !isset($this->pager) || 0 === $this->pager->getNbResults()) {
+            $this->error = $this->context->i18n->__('Search for at least one description before replacing text.');
+
+            return;
+        }
+
+        if (empty($request->pattern) || empty($request->replacement) || empty($request->column)) {
+            $this->error = $this->context->i18n->__('Both source and replacement fields are required.');
+
+            return;
+        }
+
+        if (isset($request->allowRegex) && false === @preg_match($this->getRegex($request), '')) {
+            $this->error = $this->context->i18n->__('The regular expression is invalid.');
+
+            return;
+        }
+
+        if (!isset($request->confirm)) {
+            $this->title = $this->context->i18n->__(
+                'Are you sure you want to replace "%1%" with "%2%" in %3%?',
+                [
+                    '%1%' => $request->pattern,
+                    '%2%' => $request->replacement,
+                    '%3%' => sfInflector::humanize(sfInflector::underscore($request->column)),
+                ]
+            );
+
+            return;
+        }
+
+        if (count($this->pager->getResults()) < $this->pager->getNbResults()) {
+            $this->error = $this->context->i18n->__(
+                'The search matches more than %1% descriptions. Refine the search before replacing text.',
+                ['%1%' => arElasticSearchPluginConfiguration::getMaxResultWindow()]
+            );
+
+            return;
+        }
+
+        foreach ($this->pager->getResults() as $hit) {
+            $io = QubitInformationObject::getById($hit->getId());
+
+            if (null === $io || !$io->__isset($request->column)) {
+                continue;
+            }
+
+            if (isset($request->allowRegex)) {
+                $replaced = preg_replace(
+                    $this->getRegex($request),
+                    $request->replacement,
+                    $io->__get($request->column)
+                );
+            } elseif (isset($request->caseSensitive)) {
+                $replaced = str_replace($request->pattern, $request->replacement, $io->__get($request->column));
+            } else {
+                $replaced = str_ireplace($request->pattern, $request->replacement, $io->__get($request->column));
+            }
+
+            $io->__set($request->column, $replaced);
+            $io->save();
+        }
+
+        QubitSearch::getInstance()->optimize();
+
+        $this->redirect(['module' => 'search', 'action' => 'globalReplace']);
     }
 
-    public function addFields()
+    private function addFields()
     {
-        // Information object attribute (db column) to perform s/r on
         $map = new InformationObjectI18nTableMap();
+        $choices = [];
 
-        foreach ($map->getColumns() as $col) {
-            if (!$col->isPrimaryKey() && !$col->isForeignKey()) {
-                $col_name = $col->getPhpName();
-                $choices[$col_name] = sfInflector::humanize(sfInflector::underscore($col_name));
+        foreach ($map->getColumns() as $column) {
+            if (!$column->isPrimaryKey() && !$column->isForeignKey()) {
+                $columnName = $column->getPhpName();
+                $choices[$columnName] = sfInflector::humanize(sfInflector::underscore($columnName));
             }
         }
         $choices['identifier'] = $this->context->i18n->__('Identifier');
 
-        $this->form->setValidator('column', new sfValidatorString());
-        $this->form->setWidget('column', new sfWidgetFormSelect(['choices' => $choices], ['style' => 'width: auto']));
+        $this->form->setValidator('column', new sfValidatorChoice([
+            'choices' => array_keys($choices),
+            'required' => false,
+        ]));
+        $this->form->setWidget('column', new sfWidgetFormSelect(['choices' => $choices]));
 
-        // Search-replace values
-        $this->form->setValidator('pattern', new sfValidatorString());
+        $this->form->setValidator('pattern', new sfValidatorString(['required' => false]));
         $this->form->setWidget('pattern', new sfWidgetFormInput());
 
-        $this->form->setValidator('replacement', new sfValidatorString());
+        $this->form->setValidator('replacement', new sfValidatorString(['required' => false]));
         $this->form->setWidget('replacement', new sfWidgetFormInput());
 
-        $this->form->setValidator('caseSensitive', new sfValidatorBoolean());
+        $this->form->setValidator('caseSensitive', new sfValidatorBoolean(['required' => false]));
         $this->form->setWidget('caseSensitive', new sfWidgetFormInputCheckbox());
 
-        $this->form->setValidator('allowRegex', new sfValidatorBoolean());
+        $this->form->setValidator('allowRegex', new sfValidatorBoolean(['required' => false]));
         $this->form->setWidget('allowRegex', new sfWidgetFormInputCheckbox());
 
-        if ($this->request->isMethod('post') && !isset($this->request->confirm) && !empty($this->request->pattern) && !empty($this->request->replacement)) {
-            $this->form->setValidator('confirm', new sfValidatorBoolean());
+        if ($this->request->isMethod('post') && !isset($this->request->confirm)) {
+            $this->form->setValidator('confirm', new sfValidatorBoolean(['required' => false]));
             $this->form->setWidget('confirm', new sfWidgetFormInputHidden([], ['value' => true]));
         }
+    }
+
+    private function bindForm($request)
+    {
+        $params = array_filter(
+            $request->getRequestParameters() + $request->getGetParameters(),
+            fn ($value) => null !== $value && '' !== $value
+        );
+
+        $this->form->bind($params);
+    }
+
+    private function getRegex($request)
+    {
+        $regex = '/'.str_replace('/', '\\/', $request->pattern).'/';
+
+        if (!isset($request->caseSensitive)) {
+            $regex .= 'i';
+        }
+
+        return $regex;
+    }
+
+    private function getSearchFields()
+    {
+        return [
+            '' => $this->context->i18n->__('Any field'),
+            'title' => $this->context->i18n->__('Title'),
+            'scopeAndContent' => $this->context->i18n->__('Scope and content'),
+            'archivalHistory' => $this->context->i18n->__('Archival history'),
+            'extentAndMedium' => $this->context->i18n->__('Extent and medium'),
+            'identifier' => $this->context->i18n->__('Identifier'),
+            'referenceCode' => $this->context->i18n->__('Reference code'),
+        ];
+    }
+
+    private function hasSearchCriteria($request)
+    {
+        foreach ($request->getGetParameters() as $name => $value) {
+            if (preg_match('/^(query|sq\d+)$/', $name) && '' !== trim((string) $value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

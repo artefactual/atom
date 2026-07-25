@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test')
 const {
+  createDescription,
   deleteResource,
   deleteUser,
   login,
@@ -28,6 +29,11 @@ const editor = {
   username: 'playwright-permissions-editor',
   email: 'playwright-permissions-editor@example.com',
   password: 'AtoM-Playwright-2026-Editor',
+}
+const globalReplacement = {
+  identifier: 'PLAYWRIGHT-GLOBAL-REPLACE',
+  title: 'Playwright global replacement before',
+  updatedTitle: 'Playwright global replacement after',
 }
 
 test('[surface:workflow-logout] signs out', async ({ page }) => {
@@ -172,6 +178,59 @@ test('[surface:workflow-global-setting] saves and restores a setting', async ({
     )
   } finally {
     await save(original)
+  }
+})
+
+test('[surface:workflow-global-replace] replaces one description title', async ({
+  page,
+}) => {
+  let slug
+
+  try {
+    slug = await createDescription(page.request, {
+      identifier: globalReplacement.identifier,
+      title: globalReplacement.title,
+    })
+
+    await page.goto('/search/globalReplace')
+    await page.getByLabel('Search', { exact: true }).last().fill(
+      globalReplacement.title
+    )
+    await page
+      .getByLabel('Field', { exact: true })
+      .last()
+      .selectOption('title')
+    await page
+      .locator('#main-column')
+      .getByRole('button', { name: 'Search', exact: true })
+      .click()
+
+    await expect(page.locator('#main-column')).toContainText(
+      '1 descriptions match this search.'
+    )
+
+    await page.getByLabel('Replace', { exact: true }).fill('before')
+    await page.getByLabel('With', { exact: true }).fill('after')
+    await page
+      .getByLabel('Field', { exact: true })
+      .last()
+      .selectOption('title')
+    await page.getByRole('button', { name: 'Review replacement' }).click()
+
+    await expect(page.getByText('This action cannot be undone!')).toBeVisible()
+    await expect(page.locator('#main-column')).toContainText(
+      'This will permanently modify 1 descriptions.'
+    )
+    await page.getByRole('button', { name: 'Replace', exact: true }).click()
+
+    await page.goto(`/${slug}`)
+    await expect(page.locator('#main-column h1')).toContainText(
+      globalReplacement.updatedTitle
+    )
+  } finally {
+    if (slug) {
+      await deleteResource(page.request, slug, 'informationobject')
+    }
   }
 })
 

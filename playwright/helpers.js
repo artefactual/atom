@@ -42,6 +42,40 @@ async function getCsrfToken(request, url) {
   return csrfToken(await response.text())
 }
 
+async function createDescription(request, body) {
+  const form = await request.get('/informationobject/add')
+
+  if (!form.ok()) {
+    throw new Error('Unable to load the description form')
+  }
+
+  const html = await form.text()
+  const parent = hiddenInputValue(html, 'parent')
+  const response = await request.post('/informationobject/add', {
+    form: {
+      ...body,
+      _csrf_token: csrfToken(html),
+      parent,
+    },
+    maxRedirects: 0,
+  })
+
+  if (302 !== response.status()) {
+    throw new Error(`Unable to create description: HTTP ${response.status()}`)
+  }
+
+  const location = response.headers().location
+
+  if (!location) {
+    throw new Error('Description creation did not return a location')
+  }
+
+  return new URL(location, 'http://localhost').pathname
+    .split('/')
+    .filter(Boolean)
+    .pop()
+}
+
 async function deleteResource(request, slug, module) {
   const resource = await request.get(`/${slug}`)
 
@@ -87,7 +121,21 @@ async function deleteUser(page, username) {
   }
 }
 
+function hiddenInputValue(html, name) {
+  const input = html
+    .match(/<input\b[^>]*>/gi)
+    ?.find((tag) => new RegExp(`\\bname=["']${name}["']`, 'i').test(tag))
+  const value = input?.match(/\bvalue=["']([^"']*)["']/i)?.[1]
+
+  if (undefined === value) {
+    throw new Error(`Unable to find hidden input ${name}`)
+  }
+
+  return value
+}
+
 module.exports = {
+  createDescription,
   deleteResource,
   deleteUser,
   login,

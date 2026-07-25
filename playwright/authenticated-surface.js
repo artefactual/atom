@@ -124,7 +124,6 @@ const routes = [
     id: 'admin-global-replace',
     group: 'admin',
     path: '/search/globalReplace',
-    fixme: 'Returns HTTP 500 in the current test stack',
   },
   {
     id: 'admin-visible-elements',
@@ -250,6 +249,7 @@ const workflows = [
   { id: 'workflow-repository-crud' },
   { id: 'workflow-accession-crud' },
   { id: 'workflow-global-setting' },
+  { id: 'workflow-global-replace' },
   { id: 'workflow-editor-boundary' },
 ]
 

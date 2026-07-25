@@ -1,9 +1,3 @@
-globalReplaceSuccess:
-  javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    multiRow:
-
 descriptionUpdatesSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
