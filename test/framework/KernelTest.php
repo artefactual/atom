@@ -85,7 +85,7 @@ final class KernelTest extends TestCase
                 [
                     'cache_limiter' => '0',
                     'name' => 'symfony',
-                    'cookie_secure' => true,
+                    'cookie_secure' => 'auto',
                     'cookie_httponly' => true,
                     'cookie_samesite' => 'lax',
                 ],

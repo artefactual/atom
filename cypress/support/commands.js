@@ -46,7 +46,10 @@ Cypress.Commands.add('getCsrfToken', (url, form) =>
   })
 )
 
-Cypress.Commands.add('login', () =>
+Cypress.Commands.add('login', (
+  email = Cypress.env('adminEmail'),
+  password = Cypress.env('adminPassword')
+) =>
   cy.getCsrfToken('/user/login', '#main-column form').then(token =>
     cy.request({
       method: 'POST',
@@ -54,12 +57,70 @@ Cypress.Commands.add('login', () =>
       followRedirect: false,
       form: true,
       body: {
-        email: Cypress.env('adminEmail'),
-        password: Cypress.env('adminPassword'),
+        email,
+        password,
         _csrf_token: token,
       }
     })
   )
+)
+
+Cypress.Commands.add('createUser', user => {
+  cy.visit('/user/add')
+  cy.get('#username').type(user.username)
+  cy.get('#email').type(user.email)
+  cy.get('#password').type(user.password)
+  cy.get('#confirmPassword').type(user.password)
+
+  if (false === user.active) {
+    cy.get('#active').uncheck()
+  }
+
+  if (user.group) {
+    cy.contains('button', 'Access control').click()
+    cy.get('#groups').type(user.group)
+    cy.contains(
+      '.yui-ac-content li',
+      new RegExp(`^${Cypress._.escapeRegExp(user.group)}$`)
+    ).click()
+    cy.get('input[name="groups[]"]').should('exist')
+  }
+
+  cy.get('#main-column form').submit()
+  cy.get('#main-column h1').should('contain', `User ${user.username}`)
+
+  return cy.location('pathname').then(path =>
+    path.split('/').filter(Boolean).pop()
+  )
+})
+
+Cypress.Commands.add('deleteUser', username =>
+  cy.request(`/user/list?subquery=${encodeURIComponent(username)}`)
+  .its('body')
+  .then(body => {
+    const link = Cypress.$(body)
+      .find('#main-column table a')
+      .filter((_, element) =>
+        Cypress.$(element).text().trim() === username
+      )
+      .first()
+      .attr('href')
+
+    if (!link) {
+      return
+    }
+
+    return cy.getCsrfToken(`${link}/user/delete`, '#main-column form')
+    .then(token =>
+      cy.request({
+        method: 'DELETE',
+        url: `${link}/user/delete`,
+        followRedirect: false,
+        form: true,
+        body: {_csrf_token: token},
+      })
+    )
+  })
 )
 
 Cypress.Commands.add('createDescription', body =>

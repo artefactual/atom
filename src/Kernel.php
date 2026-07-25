@@ -212,7 +212,7 @@ class Kernel extends BaseKernel
                 ? 'session.storage.factory.mock_file'
                 : 'session.storage.factory.native',
             'name' => 'symfony',
-            'cookie_secure' => true,
+            'cookie_secure' => 'auto',
             'cookie_httponly' => true,
             'cookie_samesite' => 'lax',
         ];
