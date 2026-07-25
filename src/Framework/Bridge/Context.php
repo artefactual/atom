@@ -43,7 +43,7 @@ class Context
         private readonly RuntimeConfiguration $configuration,
         private readonly EventDispatcher $eventDispatcher,
         RouterInterface $router,
-        TranslatorFactory $translatorFactory,
+        private readonly TranslatorFactory $translatorFactory,
         ViewRuntimeFactory $viewRuntimeFactory,
         private readonly LoggerAdapter $logger = new LoggerAdapter(),
         ?ResourceRouteResolver $resourceRouteResolver = null,
@@ -123,9 +123,22 @@ class Context
         return $this->configuration;
     }
 
+    public function getDatabaseConnection(
+        string $name = 'propel',
+    ): \PropelPDO {
+        return $this->databaseManager
+            ->getDatabase($name)
+            ->getConnection();
+    }
+
     public function getI18N(): Translator
     {
         return $this->i18n;
+    }
+
+    public function getI18NForCulture(string $culture): Translator
+    {
+        return $this->translatorFactory->create($culture);
     }
 
     public function getEventDispatcher(): EventDispatcher

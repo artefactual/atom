@@ -578,7 +578,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
             foreach ($this->config['index']['configuration']['settings']['analysis']['analyzer'] as $key => $analyzer) {
                 $filters = ['strip_md'];
 
-                if ($this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter']) {
+                if (!empty($this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter'])) {
                     $filters = array_merge($filters, $this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter']);
                 }
 

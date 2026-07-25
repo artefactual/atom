@@ -1,0 +1,23 @@
+dev:
+  propel:
+    param:
+      classname: PropelPDO
+      debug:
+        realmemoryusage: true
+
+test:
+  propel:
+    param:
+      classname: PropelPDO
+
+all:
+  propel:
+    class: sfPropelDatabase
+    param:
+      classname: PropelPDO
+      dsn: mysql:dbname=atom;host=localhost
+      username: atom
+      password:
+      encoding: utf8mb4
+      persistent: true
+      pooling: true

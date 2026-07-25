@@ -84,7 +84,7 @@ class CacheClearTask extends Task
                 continue;
             }
 
-            if ('cli' !== \PHP_SAPI && 'symfony' === basename($target)) {
+            if ('symfony' === basename($target)) {
                 $deferred[] = $target;
 
                 continue;
@@ -100,8 +100,7 @@ class CacheClearTask extends Task
 
             foreach ($items as $item) {
                 if (
-                    'cli' !== \PHP_SAPI
-                    && 'symfony' === $item->getBasename()
+                    'symfony' === $item->getBasename()
                 ) {
                     $deferred[] = $item->getPathname();
 

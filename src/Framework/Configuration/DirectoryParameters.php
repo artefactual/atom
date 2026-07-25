@@ -57,6 +57,7 @@ final readonly class DirectoryParameters
             'sf_debug' => $this->debug,
             'sf_app_dir' => $applicationDirectory,
             'sf_app_config_dir' => $applicationDirectory.'/config',
+            'sf_app_i18n_dir' => $applicationDirectory.'/i18n',
             'sf_app_lib_dir' => $applicationDirectory.'/lib',
             'sf_app_module_dir' => $applicationDirectory.'/modules',
             'sf_app_template_dir' => $applicationDirectory.'/templates',

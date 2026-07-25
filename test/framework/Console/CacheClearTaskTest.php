@@ -50,6 +50,16 @@ final class CacheClearTaskTest extends TestCase
             'cached',
         );
         mkdir(
+            $this->projectDirectory.'/cache/qubit/prod/symfony',
+            0777,
+            true,
+        );
+        file_put_contents(
+            $this->projectDirectory
+                .'/cache/qubit/prod/symfony/container.php',
+            'active',
+        );
+        mkdir(
             $this->projectDirectory.'/cache/sessions/prod',
             0777,
             true,
@@ -119,6 +129,10 @@ final class CacheClearTaskTest extends TestCase
         self::assertFileExists(
             $this->projectDirectory
                 .'/cache/sessions/prod/session',
+        );
+        self::assertFileExists(
+            $this->projectDirectory
+                .'/cache/qubit/prod/symfony/container.php',
         );
     }
 }

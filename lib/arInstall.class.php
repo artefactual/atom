@@ -35,7 +35,6 @@ class arInstall
 
         $pathsToCheck = [
             sfConfig::get('sf_cache_dir'),
-            sfConfig::get('sf_data_dir'),
             sfConfig::get('sf_log_dir'),
             sfConfig::get('sf_upload_dir'),
             sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'downloads',
@@ -59,94 +58,28 @@ class arInstall
     {
         $databasesYmlPath = sfConfig::get('sf_config_dir').'/databases.yml';
 
-        // Read databases.yml contents from existing databases.yml,
-        // databases.yml.tmpl (for a git checkout), or symfony
-        // skeleton databases.yml, whichever is found first.
-        $databasesYmlPaths = [];
-        $databasesYmlPaths[] = $databasesYmlPath;
-        $databasesYmlPaths[] = $databasesYmlPath.'.tmpl';
-        $databasesYmlPaths[] = sfConfig::get('sf_lib_dir')
-            .'/task/generator/skeleton/project/config/databases.yml';
-
-        foreach ($databasesYmlPaths as $path) {
-            if (false !== $content = file_get_contents($path)) {
-                break;
-            }
-        }
-
-        if (false === file_put_contents($databasesYmlPath, $content)) {
-            throw new Exception(
-                "Can't write configuration file {$databasesYmlPath}"
-            );
-        }
+        self::createConfigFromTemplate($databasesYmlPath);
     }
 
     public static function createPropelIni()
     {
         $propelIniPath = sfConfig::get('sf_config_dir').'/propel.ini';
 
-        // Read propel.ini contents from existing propel.ini,
-        // propel.ini.tmpl (for a git checkout), or symfony
-        // skeleton propel.ini, whichever is found first.
-        $propelIniPaths = [];
-        $propelIniPaths[] = $propelIniPath;
-        $propelIniPaths[] = $propelIniPath.'.tmpl';
-        $propelIniPaths[] = sfConfig::get('sf_lib_dir')
-            .'/task/generator/skeleton/project/config/propel.ini';
-
-        foreach ($propelIniPaths as $path) {
-            if (false !== $content = file_get_contents($path)) {
-                break;
-            }
-        }
-
-        if (false === file_put_contents($propelIniPath, $content)) {
-            throw new Exception(
-                "Can't write configuration file {$propelIniPath}"
-            );
-        }
+        self::createConfigFromTemplate($propelIniPath);
     }
 
     public static function createAppChallengeYml()
     {
         $appChallengePath = sfConfig::get('sf_config_dir').'/appChallenge.yml';
 
-        // Read appChallenge.yml, from appChallenge.yml.tmpl.
-        $appChallengePaths = [];
-        $appChallengePaths[] = $appChallengePath;
-        $appChallengePaths[] = $appChallengePath.'.tmpl';
-
-        foreach ($appChallengePaths as $path) {
-            if (false !== $content = file_get_contents($path)) {
-                break;
-            }
-        }
-
-        if (false === file_put_contents($appChallengePath, $content)) {
-            throw new Exception(
-                "Can't write configuration file {$appChallengePath}"
-            );
-        }
+        self::createConfigFromTemplate($appChallengePath);
     }
 
     public static function createSettingsYml()
     {
         $settingsYmlPath = sfConfig::get('sf_app_config_dir').'/settings.yml';
 
-        // Read settings.yml contents from existing settings.yml,
-        // settings.yml.tmpl (for a git checkout), or symfony
-        // skeleton settings.yml, whichever is found first.
-        $settingsYmlPaths = [];
-        $settingsYmlPaths[] = $settingsYmlPath;
-        $settingsYmlPaths[] = $settingsYmlPath.'.tmpl';
-        $settingsYmlPaths[] = sfConfig::get('sf_lib_dir')
-            .'/task/generator/skeleton/app/app/config/settings.yml';
-
-        foreach ($settingsYmlPaths as $path) {
-            if (false !== $content = file_get_contents($path)) {
-                break;
-            }
-        }
+        $content = self::readConfigTemplate($settingsYmlPath);
 
         // Generate and set CSRF secret
         $content = str_replace(
@@ -352,8 +285,14 @@ class arInstall
         ]);
         $object->save();
 
-        $loadData = new sfPropelDataLoadTask($dispatcher, $formatter);
-        $loadData->run();
+        $configuration = \Atom\Framework\Bridge\RuntimeConfiguration::getActive();
+        $fixturePaths = array_merge(
+            [sfConfig::get('sf_data_dir').'/fixtures'],
+            $configuration->getPluginSubPaths('/data/fixtures')
+        );
+        (new \Atom\Framework\Database\FixtureLoader(
+            sfConfig::get('sf_root_dir')
+        ))->load($fixturePaths);
 
         $premisAccessRightValues = [];
         foreach (
@@ -432,5 +371,28 @@ class arInstall
     {
         $setting = QubitSetting::createNewSetting($name, $value, $options);
         $setting->save();
+    }
+
+    private static function createConfigFromTemplate($path)
+    {
+        $content = self::readConfigTemplate($path);
+
+        if (false === file_put_contents($path, $content)) {
+            throw new Exception("Can't write configuration file {$path}");
+        }
+    }
+
+    private static function readConfigTemplate($path)
+    {
+        foreach ([$path, $path.'.tmpl'] as $candidate) {
+            if (
+                is_readable($candidate)
+                && false !== $content = file_get_contents($candidate)
+            ) {
+                return $content;
+            }
+        }
+
+        throw new Exception("Can't read configuration template {$path}.tmpl");
     }
 }

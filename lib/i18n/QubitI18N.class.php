@@ -60,18 +60,15 @@ class QubitI18N
             $languageCodes[] = $fileInfo->getBasename();
         }
 
-        $configuration = sfContext::getInstance()->getConfiguration();
+        $context = sfContext::getInstance();
         foreach ($languageCodes as $langCode) {
-            $i18n = new sfI18N($configuration, new sfNoCache(), ['culture' => $langCode]);
-
-            // Mark untranslated messages so they can be omitted below.
-            $i18n->getMessageFormat()->setUntranslatedPS(['[T]', '[/T]']);
+            $i18n = $context->getI18NForCulture($langCode);
 
             foreach ($strings as $string) {
                 $value = $i18n->__($string);
 
                 // Discard empty and untranslated messages.
-                if (!empty($value) && 0 !== strpos($value, '[T]', 0)) {
+                if (!empty($value) && $value !== $string) {
                     $translations[$string][$langCode] = $value;
                 }
             }

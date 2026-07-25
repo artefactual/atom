@@ -198,21 +198,27 @@ EOF;
     {
         $this->logSection($this->name, 'Initializing database');
 
-        $insertSql = new sfPropelInsertSqlTask(
-            $this->dispatcher,
-            $this->formatter
-        );
-        $ret = $insertSql->run(
-            [],
-            ['no-confirmation' => $options['no-confirmation']]
-        );
-
-        // Stop when the insert SQL task is aborted
-        if ($ret) {
+        if (
+            !$options['no-confirmation']
+            && !$this->askConfirmation(
+                [
+                    'WARNING: All data in the database will be removed.',
+                    '',
+                    'Are you sure you want to proceed? (y/N)',
+                ],
+                'QUESTION_LARGE',
+                false
+            )
+        ) {
             $this->logSection($this->name, 'Aborted');
 
             exit(1);
         }
+
+        (new \Atom\Framework\Database\SchemaInstaller())->install(
+            sfConfig::get('sf_data_dir').'/sql',
+            $options['connection'] ?? 'propel'
+        );
 
         arInstall::modifySql();
 
@@ -458,7 +464,6 @@ EOF;
             arInstall::createPropelIni();
             arInstall::createAppChallengeYml();
             arInstall::createSettingsYml();
-            arInstall::createSfSymlink();
             arInstall::configureDatabase($options['database']);
             arInstall::configureSearch($options['search']);
         } catch (Exception $e) {
@@ -482,8 +487,12 @@ EOF;
             $this->formatter
         );
         $cacheClear->run();
-        Propel::configure($rootDir.'/config/config.php');
-        Propel::setDefaultDB('propel');
+        $databaseConfig = include $rootDir.'/config/config.php';
+        $databases = (new \Atom\Framework\Configuration\ConfigurationMerger())
+            ->forEnvironment($databaseConfig, 'cli');
+        $propel = new \Atom\Framework\Database\PropelBootstrap($databases);
+        \Atom\Framework\Database\DatabaseManager::setBootstrap($propel);
+        $propel->initialize();
         sfConfig::set('app_avoid_routing_propel_exceptions', true);
         $this->configuration = ProjectConfiguration::getApplicationConfiguration(
             'qubit',
