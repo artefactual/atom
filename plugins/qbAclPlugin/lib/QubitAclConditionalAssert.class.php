@@ -24,6 +24,8 @@
  */
 class QubitAclConditionalAssert implements Zend_Acl_Assert_Interface
 {
+    private $permission;
+
     public function __construct($permission)
     {
         $this->permission = $permission;

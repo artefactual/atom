@@ -104,6 +104,12 @@ jobs:
         PLAYWRIGHT_COVERAGE_MINIMUM: 100
         LIBGL_ALWAYS_SOFTWARE: 1
       run: npx playwright test --project=${{ matrix.browser }}
+    - name: Check runtime diagnostics
+      if: always()
+      run: |
+        test/check-runtime-logs.sh \
+          ${{ github.workspace }}/log/qubit_prod.log \
+          /var/log/php8.3-fpm.log
     - name: Print logs
       if: failure()
       run: |

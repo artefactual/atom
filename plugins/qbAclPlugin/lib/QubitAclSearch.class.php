@@ -167,12 +167,15 @@ class QubitAclSearch
 
         // Filter out 'draft' items by repository
         $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
-        if (1 !== count($repositoryViewDrafts)) {
+        if (0 === count($repositoryViewDrafts)) {
+            return;
+        }
+
+        $globalRule = array_pop($repositoryViewDrafts);
+        if (0 < count($repositoryViewDrafts)) {
             // Get last rule in list, it will be the global rule with the opposite
             // access of the preceeding rules (e.g. if last rule is "DENY ALL" then
             // preceeding rules will be "ALLOW" rules)
-            $globalRule = array_pop($repositoryViewDrafts);
-
             $query = new \Elastica\Query\BoolQuery();
 
             while ($repo = array_shift($repositoryViewDrafts)) {
@@ -190,7 +193,7 @@ class QubitAclSearch
         }
 
         // Filter out 'draft' items by repository and descriptions
-        if (QubitAcl::DENY == $repositoryViewDrafts[0]['access']) {
+        if (QubitAcl::DENY == $globalRule['access']) {
             if (count($permissions) > 0) {
                 $query = new \Elastica\Query\BoolQuery();
 

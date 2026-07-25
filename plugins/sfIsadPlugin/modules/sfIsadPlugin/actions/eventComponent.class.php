@@ -39,11 +39,15 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         $finalEventIds = [];
 
         foreach ($params as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
             // Continue only if user typed something
             if (
-                1 > strlen($item['date'])
-                && 1 > strlen($item['endDate'])
-                && 1 > strlen($item['startDate'])
+                1 > strlen($item['date'] ?? '')
+                && 1 > strlen($item['endDate'] ?? '')
+                && 1 > strlen($item['startDate'] ?? '')
             ) {
                 continue;
             }

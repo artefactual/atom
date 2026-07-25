@@ -87,9 +87,7 @@
               <div class="col-xl-auto mb-3">
                 <select class="form-select" name="sf<?php echo $count; ?>">
                   <?php foreach ($fieldTypes as $val => $label) { ?>
-                    <option value="<?php echo $val; ?>"<?php
-                      echo ($item['field'] === $val) ? ' selected' : '';
-                    ?>>
+                    <option value="<?php echo $val; ?>">
                       <?php echo $label; ?>
                     </option>
                   <?php } ?>
