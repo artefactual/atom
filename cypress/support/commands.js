@@ -153,3 +153,25 @@ Cypress.Commands.add('deleteDescription', slug =>
     })
   )
 )
+
+Cypress.Commands.add('deleteResource', (slug, module) =>
+  cy.request({
+    url: `/${slug}`,
+    failOnStatusCode: false,
+  }).then(response => {
+    if (404 === response.status) {
+      return
+    }
+
+    return cy.getCsrfToken(`/${slug}/${module}/delete`, '#main-column form')
+    .then(token =>
+      cy.request({
+        method: 'DELETE',
+        url: `/${slug}/${module}/delete`,
+        followRedirect: false,
+        form: true,
+        body: {_csrf_token: token},
+      })
+    )
+  })
+)
