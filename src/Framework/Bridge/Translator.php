@@ -21,12 +21,15 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Translation\TranslationStore;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class Translator
 {
     public function __construct(
         private TranslatorInterface $translator,
+        private ?RequestAdapter $request = null,
+        private ?TranslationStore $store = null,
     ) {}
 
     public function __(
@@ -43,15 +46,32 @@ final readonly class Translator
             }
         }
 
-        return $this->translator->trans(
+        $translated = $this->translator->trans(
             $message,
             $arguments,
             $catalogue ?? 'messages',
         );
+
+        if (
+            null !== $this->request
+            && (null === $catalogue || 'messages' === $catalogue)
+            && null !== ($translation = $this->store?->find($message))
+        ) {
+            $messages = $this->request->getAttribute('messages', []);
+            $messages[$message] = $translation['target'];
+            $this->request->setAttribute('messages', $messages);
+        }
+
+        return $translated;
     }
 
     public function getCulture(): string
     {
         return $this->translator->getLocale();
+    }
+
+    public function update(string $source, string $target): bool
+    {
+        return $this->store?->update($source, $target) ?? false;
     }
 }

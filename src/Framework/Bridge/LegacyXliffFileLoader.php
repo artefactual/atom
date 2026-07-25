@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Translation\XliffFile;
 use Symfony\Component\Translation\Exception\InvalidResourceException;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
@@ -31,48 +32,27 @@ final readonly class LegacyXliffFileLoader implements LoaderInterface
             ));
         }
 
-        $contents = file_get_contents($resource);
-
-        if (false === $contents) {
-            throw new InvalidResourceException(sprintf(
-                'Translation resource "%s" could not be read.',
-                $resource,
-            ));
-        }
-
-        $contents = preg_replace(
-            '/<!DOCTYPE[^>]*>/i',
-            '',
-            $contents,
-        ) ?? $contents;
-        $previous = libxml_use_internal_errors(true);
-
         try {
-            $xml = simplexml_load_string(
-                $contents,
-                \SimpleXMLElement::class,
-                \LIBXML_NONET | \LIBXML_NOCDATA,
+            $messages = (new XliffFile())->read($resource);
+        } catch (\RuntimeException $exception) {
+            throw new InvalidResourceException(
+                $exception->getMessage(),
+                0,
+                $exception,
             );
-        } finally {
-            libxml_clear_errors();
-            libxml_use_internal_errors($previous);
-        }
-
-        if (false === $xml) {
-            throw new InvalidResourceException(sprintf(
-                'Translation resource "%s" is not valid XLIFF.',
-                $resource,
-            ));
         }
 
         $catalogue = new MessageCatalogue($locale);
 
-        foreach ($xml->file->body->{'trans-unit'} as $unit) {
-            $source = (string) $unit->source;
-            $target = (string) $unit->target;
+        foreach ($messages as $source => $message) {
+            $target = $message['target'];
 
-            if ('' !== $source && '' !== $target) {
-                $catalogue->set($source, $target, $domain);
+            if ('' !== $source) {
+                $catalogue->set(
+                    $source,
+                    '' === $target ? $source : $target,
+                    $domain,
+                );
             }
         }
 

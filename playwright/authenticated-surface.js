@@ -249,6 +249,7 @@ const workflows = [
   { id: 'workflow-login-request' },
   { id: 'workflow-logout' },
   { id: 'workflow-admin-profile' },
+  { id: 'workflow-inline-translation' },
   { id: 'workflow-description-create-gui' },
   { id: 'workflow-description-create-request' },
   { id: 'workflow-description-delete-gui' },

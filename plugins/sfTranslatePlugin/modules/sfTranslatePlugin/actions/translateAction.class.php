@@ -31,23 +31,28 @@ class sfTranslatePluginTranslateAction extends sfAction
         $error = [];
         $status = [];
 
-        $messageSource = $this->context->i18n->getMessageSource();
-
         $sourceMessages = $request->getParameter('source', []);
         $targetMessages = $request->getParameter('target', []);
         foreach ($sourceMessages as $key => $sourceMessage) {
-            if (!$messageSource->update($sourceMessage, $targetMessages[$key], null)) {
-                $error[] = $sourceMessage.$targetMessages[$key];
+            $targetMessage = $targetMessages[$key] ?? null;
+
+            if (
+                !is_string($sourceMessage)
+                || !is_string($targetMessage)
+                || !$this->context->i18n->update(
+                    $sourceMessage,
+                    $targetMessage,
+                )
+            ) {
+                $error[] = (string) $sourceMessage.(string) $targetMessage;
             } else {
-                $status[] = $sourceMessage.$targetMessages[$key];
+                $status[] = $sourceMessage.$targetMessage;
             }
         }
 
         if (!empty($error)) {
             $this->forward($user->getAttribute('moduleName', 'default', 'sfHistoryPlugin'), $user->getAttribute('actionName', 'index', 'sfHistoryPlugin'));
         }
-
-        $messageSource->getCache()->clean();
 
         if (null !== $redirectUrl = Qubit::filterRedirectTarget($request->getReferer())) {
             $this->redirect($redirectUrl);

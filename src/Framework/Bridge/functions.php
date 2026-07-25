@@ -306,6 +306,37 @@ if (!function_exists('url_for')) {
     }
 }
 
+if (!function_exists('form_tag')) {
+    function form_tag(
+        array|string $target = '',
+        mixed $attributes = [],
+    ): string {
+        $attributes = _parse_attributes($attributes);
+        $method = strtolower((string) ($attributes['method'] ?? 'post'));
+        $attributes['action'] = url_for($target);
+        $hidden = '';
+
+        if (!in_array($method, ['get', 'post'], true)) {
+            $hidden = tag('input', [
+                'type' => 'hidden',
+                'name' => 'sf_method',
+                'value' => $method,
+            ]);
+            $method = 'post';
+        }
+
+        $attributes['method'] = $method;
+
+        if (!empty($attributes['multipart'])) {
+            $attributes['enctype'] = 'multipart/form-data';
+        }
+
+        unset($attributes['multipart']);
+
+        return tag('form', $attributes, true).$hidden;
+    }
+}
+
 if (!function_exists('link_to')) {
     function link_to(
         mixed $name,

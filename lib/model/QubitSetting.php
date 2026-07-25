@@ -37,8 +37,8 @@ class QubitSetting extends BaseSetting
         'disallow_thumb' => 0,
     ];
     // List of scopes with translatable settings,
-    // QubitI18nConsolidatedExtract checks this array to add those
-    // settings value from /data/fixtures/settings.yml to the XLIFF files
+    // TranslationCatalogue checks this array to add those settings values
+    // from /data/fixtures/settings.yml to the XLIFF files.
     public static $translatableScopes = ['ui_label'];
 
     public function __toString()

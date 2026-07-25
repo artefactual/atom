@@ -76,22 +76,22 @@ EOF;
         if (0 == count($files)) {
             $this->logSection('i18n', 'No valid files found.  Please check path and filename');
 
-            return;
+            return [];
         }
 
         // Extract translation strings
         foreach ($files as $file) {
             $culture = self::getTargetCulture($file);
-            $xliff = new sfMessageSource_XLIFF(substr($file, 0, strrpos($file, '/')));
-
-            if (!($messages = $xliff->loadData($file))) {
-                continue;
-            }
+            $messages = (new \Atom\Framework\Translation\XliffFile())->read(
+                $file
+            );
 
             // Build list of translations, keyed on source value
             foreach ($messages as $source => $message) {
-                if (0 < strlen($message[0])) {
-                    $translations[$source][$culture] = trim($message[0]);
+                if (0 < strlen($message['target'])) {
+                    $translations[$source][$culture] = trim(
+                        $message['target']
+                    );
                 }
             }
         }

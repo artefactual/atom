@@ -34,15 +34,18 @@ class i18nConsolidateTask extends sfBaseTask
     public function execute($arguments = [], $options = [])
     {
         if (!file_exists($arguments['target'])) {
-            throw new sfException('Target directory "'.$arguments['target'].'" doesn\t exist');
+            throw new sfException(
+                'Target directory "'.$arguments['target'].'" does not exist'
+            );
         }
 
         $this->logSection('i18n', sprintf('Consolidating "%s" i18n messages', $arguments['culture']));
 
-        $i18n = new sfI18N($this->configuration, new sfNoCache(), ['source' => 'XLIFF', 'debug' => false]);
-        $extract = new QubitI18nConsolidatedExtract($i18n, $arguments['culture'], ['target' => $arguments['target']]);
-        $extract->extract();
-        $extract->save();
+        $count = (new \Atom\Framework\Translation\TranslationCatalogue(
+            sfConfig::get('sf_root_dir'),
+            $this->configuration->getApplication()
+        ))->consolidate($arguments['culture'], $arguments['target']);
+        $this->logSection('i18n', sprintf('Wrote %d messages', $count));
     }
 
     /**

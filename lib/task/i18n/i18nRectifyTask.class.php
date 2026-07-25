@@ -35,49 +35,11 @@ class i18nRectifyTask extends sfBaseTask
     {
         $this->logSection('i18n', sprintf('Rectifying existing i18n strings for the "%s" application', $options['application']));
 
-        // get i18n configuration from factories.yml
-        $config = sfFactoryConfigHandler::getConfiguration($this->configuration->getConfigPaths('config/factories.yml'));
-
-        $class = $config['i18n']['class'];
-        $params = $config['i18n']['param'];
-        unset($params['cache']);
-
-        // Get current (saved) messages from ALL sources (app and plugin)
-        $this->i18n = new $class($this->configuration, new sfNoCache(), $params);
-        $this->i18n->getMessageSource()->setCulture($arguments['culture']);
-        $this->i18n->getMessageSource()->load();
-
-        $currentMessages = [];
-        foreach ($this->i18n->getMessageSource()->read() as $catalogue => $translations) {
-            foreach ($translations as $key => $value) {
-                // Use first message that has a valid translation
-                if (0 < strlen(trim($value[0])) && !isset($currentMessages[$key][0])) {
-                    $currentMessages[$key] = $value;
-                }
-            }
-        }
-
-        // Loop through plugins
-        $pluginNames = sfFinder::type('dir')->maxdepth(0)->relative()->not_name('.')->in(sfConfig::get('sf_plugins_dir'));
-        foreach ($pluginNames as $pluginName) {
-            $this->logSection('i18n', sprintf('rectifying %s plugin strings', $pluginName));
-
-            $messageSource = sfMessageSource::factory($config['i18n']['param']['source'], sfConfig::get('sf_plugins_dir').'/'.$pluginName.'/i18n');
-            $messageSource->setCulture($arguments['culture']);
-            $messageSource->load();
-
-            // If the current plugin source *doesn't* have a translation, then try
-            // and get translated value from $currentMessages
-            foreach ($messageSource->read() as $catalogue => $translations) {
-                foreach ($translations as $key => &$value) {
-                    if (isset($currentMessages[$key])) {
-                        $messageSource->update($key, $currentMessages[$key][0], $value[2]);
-                    }
-                }
-            }
-
-            $messageSource->save();
-        }
+        $changed = (new \Atom\Framework\Translation\TranslationCatalogue(
+            sfConfig::get('sf_root_dir'),
+            $this->configuration->getApplication()
+        ))->rectifyPlugins($arguments['culture']);
+        $this->logSection('i18n', sprintf('Updated %d translations', $changed));
     }
 
     /**

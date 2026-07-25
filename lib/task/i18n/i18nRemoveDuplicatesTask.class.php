@@ -48,52 +48,8 @@ class I18nRemoveDuplicatesTask extends sfBaseTask
 
     public function deleteDuplicateSource($filename)
     {
-        $modified = false;
-
-        // create a new dom, import the existing xml
-        $doc = new DOMDocument();
-        $doc->formatOutput = true;
-        $doc->preserveWhiteSpace = false;
-        $doc->load($filename);
-
-        $xpath = new DOMXPath($doc);
-
-        foreach ($xpath->query('//trans-unit') as $unit) {
-            foreach ($xpath->query('./target', $unit) as $target) {
-                break; // Only one target
-            }
-
-            foreach ($xpath->query('./source', $unit) as $source) {
-                // If this is a duplicate source key, then delete it
-                if (isset($sourceStrings[$source->nodeValue])) {
-                    // If original target string is null, but *this* node has a valid
-                    // translation
-                    if (
-                        0 == strlen($sourceStrings[$source->nodeValue]->nodeValue)
-                        && 0 < strlen($target->nodeValue)
-                    ) {
-                        // Copy this translated string to the trans-unit node we are keeping
-                        $sourceStrings[$source->nodeValue]->nodeValue = $target->nodeValue;
-                    }
-
-                    // Remove duplicate
-                    $unit->parentNode->removeChild($unit);
-                    $modified = true;
-                } else {
-                    $sourceStrings[$source->nodeValue] = $target;
-                }
-
-                break; // Only one source
-            }
-        }
-
-        // Update xliff file if modified
-        if ($modified) {
-            $fileNode = $xpath->query('//file')->item(0);
-            $fileNode->setAttribute('date', @date('Y-m-d\TH:i:s\Z'));
-
-            $doc->save($filename);
-        }
+        return (new \Atom\Framework\Translation\XliffFile())
+            ->removeDuplicateSources($filename);
     }
 
     /**

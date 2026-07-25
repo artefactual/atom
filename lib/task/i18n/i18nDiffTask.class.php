@@ -45,32 +45,30 @@ class i18nDiffTask extends sfBaseTask
             $this->logSection('i18n', sprintf('Diff i18n strings for the "%s" application', $arguments['application']));
         }
 
-        // get i18n configuration from factories.yml
-        $config = sfFactoryConfigHandler::getConfiguration($this->configuration->getConfigPaths('config/factories.yml'));
-
-        $class = $config['i18n']['class'];
-        $params = $config['i18n']['param'];
-        unset($params['cache']);
-
-        $this->i18n = new $class($this->configuration, new sfNoCache(), $params);
-        $extract = new sfI18nApplicationExtract($this->i18n, $arguments['culture']);
-        $extract->extract();
+        $catalogue = new \Atom\Framework\Translation\TranslationCatalogue(
+            sfConfig::get('sf_root_dir'),
+            $arguments['application']
+        );
+        $current = $catalogue->readCulture($arguments['culture']);
+        $extracted = $catalogue->extractMessages();
+        $oldMessages = array_diff_key($current, $extracted);
+        $newMessages = array_diff_key($extracted, $current);
 
         if ('stdout' != strtolower($options['file'])) {
-            $this->logSection('i18n', sprintf('found "%d" new i18n strings', count($extract->getNewMessages())));
-            $this->logSection('i18n', sprintf('found "%d" old i18n strings', count($extract->getOldMessages())));
+            $this->logSection('i18n', sprintf('found "%d" new i18n strings', count($newMessages)));
+            $this->logSection('i18n', sprintf('found "%d" old i18n strings', count($oldMessages)));
         }
 
         // Column headers
-        $rows[0] = ['Action', 'Source', 'Target'];
+        $rows = [['Action', 'Source', 'Target']];
 
         // Old messages
-        foreach ($this->getOldTranslations($extract) as $source => $target) {
-            $rows[] = ['Removed', $source, $target];
+        foreach ($oldMessages as $source => $message) {
+            $rows[] = ['Removed', $source, $message['target']];
         }
 
         // New messages
-        foreach ($extract->getNewMessages() as $message) {
+        foreach (array_keys($newMessages) as $message) {
             $rows[] = ['Added', $message];
         }
 
@@ -100,30 +98,6 @@ class i18nDiffTask extends sfBaseTask
         } else {
             echo $output;
         }
-    }
-
-    /**
-     * Loads old translations currently saved in the message sources.
-     *
-     * @param sfI18nApplicationExtract $extract
-     *
-     * @return array of source and target translations
-     */
-    public function getOldTranslations($extract)
-    {
-        $oldMessages = array_diff($extract->getCurrentMessages(), $extract->getAllSeenMessages());
-
-        foreach ($this->i18n->getMessageSource()->read() as $catalogue => $translations) {
-            foreach ($translations as $key => $value) {
-                $allTranslations[$key] = $value[0];
-            }
-        }
-
-        foreach ($oldMessages as $message) {
-            $oldTranslations[$message] = $allTranslations[$message];
-        }
-
-        return $oldTranslations;
     }
 
     /**

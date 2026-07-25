@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework\Bridge;
 
+use Atom\Framework\Bridge\RequestAdapter;
 use Atom\Framework\Bridge\TranslatorFactory;
+use Atom\Framework\Translation\XliffFile;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @internal
@@ -54,5 +57,75 @@ final class TranslatorTest extends TestCase
         ))->create('en');
 
         self::assertSame('Home', $translator->__('Home'));
+    }
+
+    public function testTracksAndUpdatesTheFirstLegacyCatalogue(): void
+    {
+        $directory = sys_get_temp_dir().'/atom-translator-'.bin2hex(
+            random_bytes(8),
+        );
+        $application = $directory.'/apps/qubit/i18n/fr';
+        $plugin = $directory.'/plugins/examplePlugin/i18n/fr';
+        mkdir($application, 0777, true);
+        mkdir($plugin, 0777, true);
+        $xliff = new XliffFile();
+        $xliff->write($application.'/messages.xml', 'fr', [
+            'Hello %name%' => [
+                'target' => 'Bonjour %name%',
+                'id' => 'application',
+            ],
+        ]);
+        $xliff->write($plugin.'/messages.xml', 'fr', [
+            'Hello %name%' => [
+                'target' => 'Salut %name%',
+                'id' => 'plugin',
+            ],
+        ]);
+
+        try {
+            $request = new RequestAdapter(new Request());
+            $factory = new TranslatorFactory(
+                $directory,
+                'qubit',
+                ['examplePlugin'],
+            );
+            $translator = $factory->create('fr', $request);
+
+            self::assertSame(
+                'Bonjour Alice',
+                $translator->__('Hello %name%', [
+                    '%name%' => 'Alice',
+                ]),
+            );
+            self::assertSame([
+                'Hello %name%' => 'Bonjour %name%',
+            ], $request->getAttribute('messages'));
+            self::assertTrue($translator->update(
+                'Hello %name%',
+                'Bienvenue %name%',
+            ));
+            self::assertSame(
+                'Bienvenue Alice',
+                $factory->create('fr')->__('Hello %name%', [
+                    '%name%' => 'Alice',
+                ]),
+            );
+        } finally {
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator(
+                    $directory,
+                    \FilesystemIterator::SKIP_DOTS,
+                ),
+                \RecursiveIteratorIterator::CHILD_FIRST,
+            );
+
+            foreach ($iterator as $item) {
+                $item->isDir()
+                    ? rmdir($item->getPathname())
+                    : unlink($item->getPathname());
+            }
+
+            rmdir($directory);
+        }
     }
 }

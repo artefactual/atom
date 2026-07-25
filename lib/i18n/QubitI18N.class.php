@@ -20,9 +20,8 @@
 class QubitI18N
 {
     /**
-     * Similar to sfI18N::__($string) but returning a dictionary with all the
-     * translations available indexed by their language codes. Untranslated
-     * messages are omitted.
+     * Translate a string into every configured language and return a dictionary
+     * indexed by language code. Untranslated messages are omitted.
      *
      * This function is probably very slow to be used in the
      * request/response cycle but it is probably okay to use it during the

@@ -53,7 +53,10 @@ class Context
             $request,
             $resourceRouteResolver,
         );
-        $this->i18n = $translatorFactory->create($user->getCulture());
+        $this->i18n = $translatorFactory->create(
+            $user->getCulture(),
+            $request,
+        );
         $this->controller = new ControllerProxy($this);
         $this->databaseManager = new DatabaseManagerProxy();
         $this->viewRuntime = $viewRuntimeFactory->create($this);

@@ -47,16 +47,7 @@ dev:
 
 all:
   i18n:
-    class: sfTranslateI18N
-    param:
-      cache:
-        # class: sfAPCCache
-        class: sfFileCache
-        param:
-          automatic_cleaning_factor: 0
-          cache_dir: %SF_TEMPLATE_CACHE_DIR%
-          lifetime: 86400
-          prefix: %SF_APP_DIR%/template
+    class: Atom\Framework\Bridge\Translator
 
   response:
     class: QubitWebResponse

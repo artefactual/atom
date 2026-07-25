@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Translation\TranslationStore;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
 
 final readonly class TranslatorFactory
@@ -27,15 +28,19 @@ final readonly class TranslatorFactory
         $this->projectDirectory = rtrim($projectDirectory, '/\\');
     }
 
-    public function create(string $culture): Translator
-    {
+    public function create(
+        string $culture,
+        ?RequestAdapter $request = null,
+    ): Translator {
         $translator = new SymfonyTranslator($culture);
         $translator->addLoader(
             'atom_xliff',
             new LegacyXliffFileLoader(),
         );
 
-        foreach ($this->directories() as $directory) {
+        $directories = $this->directories();
+
+        foreach (array_reverse($directories) as $directory) {
             $path = $directory.'/'.$culture.'/messages.xml';
 
             if (is_readable($path)) {
@@ -48,7 +53,11 @@ final readonly class TranslatorFactory
             }
         }
 
-        return new Translator($translator);
+        return new Translator(
+            $translator,
+            $request,
+            new TranslationStore($directories, $culture),
+        );
     }
 
     private function directories(): array
