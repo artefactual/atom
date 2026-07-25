@@ -24,7 +24,7 @@ class CoverageReporter {
     const percentage = Number(
       ((covered.length / expected.length) * 100).toFixed(2)
     )
-    const minimum = Number(process.env.PLAYWRIGHT_COVERAGE_MINIMUM || 80)
+    const minimum = Number(process.env.PLAYWRIGHT_COVERAGE_MINIMUM || 100)
     const report = {
       metric: 'authenticated UI surface',
       minimum,

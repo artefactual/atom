@@ -43,12 +43,6 @@ config/error/errorB5.html.php
 /.php-cs-fixer.cache
 .coverage
 
-# Cypress
-cypress/downloads
-cypress/screenshots
-cypress/videos
-cypress.env.json
-
 # Playwright
 /output/playwright/
 

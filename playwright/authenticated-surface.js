@@ -243,14 +243,31 @@ const routes = [
 ]
 
 const workflows = [
-  { id: 'workflow-login' },
+  { id: 'workflow-login-page' },
+  { id: 'workflow-login-menu' },
+  { id: 'workflow-login-errors' },
+  { id: 'workflow-login-request' },
   { id: 'workflow-logout' },
+  { id: 'workflow-admin-profile' },
+  { id: 'workflow-description-create-gui' },
+  { id: 'workflow-description-create-request' },
+  { id: 'workflow-description-delete-gui' },
+  { id: 'workflow-description-delete-request' },
   { id: 'workflow-authority-crud' },
   { id: 'workflow-repository-crud' },
   { id: 'workflow-accession-crud' },
   { id: 'workflow-global-setting' },
   { id: 'workflow-global-replace' },
   { id: 'workflow-editor-boundary' },
+  { id: 'workflow-editor-crud' },
+  { id: 'workflow-contributor-boundary' },
+  { id: 'workflow-search-stopwords' },
+  { id: 'workflow-search-all-stopwords' },
+  { id: 'workflow-finding-aid-setting' },
+  { id: 'workflow-oai-protocol' },
+  { id: 'workflow-rest-protocol' },
+  { id: 'workflow-sword-protocol' },
+  { id: 'workflow-csv-import-order' },
 ]
 
 module.exports = {

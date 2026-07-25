@@ -5,7 +5,7 @@ const { login } = require('./helpers')
 
 const authState = 'output/playwright/admin.json'
 
-test('[surface:workflow-login] signs in as an administrator', async ({
+test('[surface:workflow-login-page] signs in as an administrator', async ({
   page,
 }) => {
   await login(page)

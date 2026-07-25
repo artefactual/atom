@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test')
 const {
   createDescription,
+  createUser,
   deleteResource,
   deleteUser,
   login,
@@ -44,6 +45,15 @@ test('[surface:workflow-logout] signs out', async ({ page }) => {
 
   await expect(page.locator('#admin-menu')).toHaveCount(0)
   await expect(page.locator('#user-menu')).toContainText('Log in')
+})
+
+test('[surface:workflow-admin-profile] opens the administrator profile', async ({
+  page,
+}) => {
+  await page.goto('/')
+  await page.locator('#user-menu').click()
+  await page.getByRole('link', { name: 'My profile' }).click()
+  await expect(page.locator('#main-column h1')).toContainText('User demo')
 })
 
 test('[surface:workflow-authority-crud] manages an authority record', async ({
@@ -234,30 +244,17 @@ test('[surface:workflow-global-replace] replaces one description title', async (
   }
 })
 
-test('[surface:workflow-editor-boundary] enforces editor permissions', async ({
+test('[surface:workflow-editor-boundary][surface:workflow-editor-crud] enforces editor permissions', async ({
   browser,
   page,
   baseURL,
 }) => {
   test.setTimeout(60000)
   await deleteUser(page, editor.username)
+  let descriptionSlug
 
   try {
-    await page.goto('/user/add')
-    await page.locator('#username').fill(editor.username)
-    await page.locator('#email').fill(editor.email)
-    await page.locator('#password').fill(editor.password)
-    await page.locator('#confirmPassword').fill(editor.password)
-    await page.getByRole('button', { name: 'Access control' }).click()
-    await page.locator('#groups').fill('editor')
-    await page
-      .locator('.yui-ac-content li')
-      .filter({ hasText: /^editor$/ })
-      .click()
-    await submitForm(page.locator('#main-column form'))
-    await expect(page.locator('#main-column h1')).toContainText(
-      `User ${editor.username}`
-    )
+    await createUser(page, { ...editor, group: 'editor' })
 
     const context = await browser.newContext({
       baseURL,
@@ -284,10 +281,36 @@ test('[surface:workflow-editor-boundary] enforces editor permissions', async ({
       expect(await denied.text()).toContain(
         'Sorry, you do not have permission to access that page'
       )
+
+      descriptionSlug = await createDescription(editorPage.request, {
+        identifier: 'playwright-editor-permissions',
+        title: 'Playwright editor permission description',
+      })
+      await editorPage.goto(`/${descriptionSlug}`)
+      await expect(editorPage.locator('#main-column h1')).toContainText(
+        'Playwright editor permission description'
+      )
+
+      await deleteResource(
+        editorPage.request,
+        descriptionSlug,
+        'informationobject'
+      )
+      expect(
+        (await editorPage.request.get(`/${descriptionSlug}`)).status()
+      ).toBe(404)
+      descriptionSlug = undefined
     } finally {
       await context.close()
     }
   } finally {
+    if (descriptionSlug) {
+      await deleteResource(
+        page.request,
+        descriptionSlug,
+        'informationobject'
+      )
+    }
     await deleteUser(page, editor.username)
   }
 })

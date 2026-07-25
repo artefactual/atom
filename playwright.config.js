@@ -41,5 +41,14 @@ module.exports = defineConfig({
         storageState: authState,
       },
     },
+    {
+      name: 'firefox',
+      testIgnore: /.*\.setup\.js/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: authState,
+      },
+    },
   ],
 })

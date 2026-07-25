@@ -145,16 +145,18 @@ Run PHP style checker:
 docker compose exec atom composer php-cs-fix -- fix --dry-run -v
 ```
 
-Locally run automated tests:
+Locally run automated browser tests:
 
-**Note: this command will wipe the database**
 ```bash
-npx cypress run -b {browser name}.
+npm run test:playwright
 ```
 
-For example:
+To run one browser and enforce the authenticated surface coverage gate:
+
 ```bash
-npx cypress run -b firefox
+npm run test:playwright:chrome
+npm run test:playwright:firefox
+npm run test:playwright:coverage
 ```
 
 PHP Unit tests (to run all of them):
@@ -449,7 +451,8 @@ AtoM directory.
 
 ### Integration tests
 
-[AtoM's integration tests](https://github.com/artefactual/atom/tree/qa/2.x/cypress) are developed with [Cypress](https://www.cypress.io/).
+[AtoM's integration tests](https://github.com/artefactual/atom/tree/qa/2.x/playwright)
+are developed with [Playwright](https://playwright.dev/).
 The required dependencies are managed with NPM but they are not included by
 default in the development environments. These tests require a browser and they
 are meant to be run in the host of the development environment or in a

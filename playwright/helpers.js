@@ -10,6 +10,25 @@ async function login(page, email = 'demo@example.com', password = 'demo') {
   await expect(page.locator('#user-menu')).not.toContainText('Log in')
 }
 
+async function loginViaRequest(
+  request,
+  email = 'demo@example.com',
+  password = 'demo'
+) {
+  const response = await request.post('/user/login', {
+    form: {
+      email,
+      password,
+      _csrf_token: await getCsrfToken(request, '/user/login'),
+    },
+    maxRedirects: 0,
+  })
+
+  if (302 !== response.status()) {
+    throw new Error(`Unable to log in: HTTP ${response.status()}`)
+  }
+}
+
 async function submitForm(form) {
   await form
     .locator(
@@ -76,6 +95,34 @@ async function createDescription(request, body) {
     .pop()
 }
 
+async function createUser(page, user) {
+  await page.goto('/user/add')
+  await page.locator('#username').fill(user.username)
+  await page.locator('#email').fill(user.email)
+  await page.locator('#password').fill(user.password)
+  await page.locator('#confirmPassword').fill(user.password)
+
+  if (false === user.active) {
+    await page.locator('#active').uncheck()
+  }
+
+  if (user.group) {
+    await page.getByRole('button', { name: 'Access control' }).click()
+    await page.locator('#groups').fill(user.group)
+    await page
+      .locator('.yui-ac-content li')
+      .filter({ hasText: new RegExp(`^${user.group}$`) })
+      .click()
+  }
+
+  await submitForm(page.locator('#main-column form'))
+  await expect(page.locator('#main-column h1')).toContainText(
+    `User ${user.username}`
+  )
+
+  return new URL(page.url()).pathname.split('/').filter(Boolean).pop()
+}
+
 async function deleteResource(request, slug, module) {
   const resource = await request.get(`/${slug}`)
 
@@ -97,13 +144,25 @@ async function deleteResource(request, slug, module) {
 }
 
 async function deleteUser(page, username) {
-  await page.goto(`/user/list?subquery=${encodeURIComponent(username)}`)
-  const link = page
-    .locator('#main-column table a')
-    .filter({ hasText: new RegExp(`^${username}$`) })
-    .first()
+  let link
 
-  if (0 === (await link.count())) {
+  for (const filter of ['onlyActive', 'onlyInactive']) {
+    await page.goto(
+      `/user/list?filter=${filter}&subquery=${encodeURIComponent(username)}`
+    )
+    const candidate = page
+      .locator('#main-column table a')
+      .filter({ hasText: new RegExp(`^${username}$`) })
+      .first()
+
+    if (await candidate.count()) {
+      link = candidate
+
+      break
+    }
+  }
+
+  if (!link) {
     return
   }
 
@@ -121,6 +180,15 @@ async function deleteUser(page, username) {
   }
 }
 
+async function publishDescription(page, slug) {
+  await page.goto(`/${slug}/informationobject/updatePublicationStatus`)
+  await page.locator('#publicationStatus').selectOption('160')
+  await submitForm(
+    page.locator('[data-cy="update-publication-status-form"]')
+  )
+  await expect(page).toHaveURL(new RegExp(`/${slug}$`))
+}
+
 function hiddenInputValue(html, name) {
   const input = html
     .match(/<input\b[^>]*>/gi)
@@ -136,8 +204,11 @@ function hiddenInputValue(html, name) {
 
 module.exports = {
   createDescription,
+  createUser,
   deleteResource,
   deleteUser,
   login,
+  loginViaRequest,
+  publishDescription,
   submitForm,
 }
