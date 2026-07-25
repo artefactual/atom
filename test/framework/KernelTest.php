@@ -49,25 +49,7 @@ final class KernelTest extends TestCase
 
     public function testBootsWithAtoMConfigurationAndRoutes(): void
     {
-        $kernel = new class('test', true, $this->cacheDirectory) extends Kernel {
-            public function __construct(
-                string $environment,
-                bool $debug,
-                private readonly string $testCacheDirectory,
-            ) {
-                parent::__construct($environment, $debug);
-            }
-
-            public function getCacheDir(): string
-            {
-                return $this->testCacheDirectory;
-            }
-
-            public function getBuildDir(): string
-            {
-                return $this->testCacheDirectory;
-            }
-        };
+        $kernel = $this->kernel();
 
         try {
             $kernel->boot();
@@ -99,6 +81,16 @@ final class KernelTest extends TestCase
                     'host'
                 ],
             );
+            self::assertSame(
+                [
+                    'cache_limiter' => '0',
+                    'name' => 'symfony',
+                    'cookie_secure' => true,
+                    'cookie_httponly' => true,
+                    'cookie_samesite' => 'lax',
+                ],
+                $container->getParameter('session.storage.options'),
+            );
 
             $router = $container->get('router');
             self::assertInstanceOf(RouterInterface::class, $router);
@@ -122,25 +114,7 @@ final class KernelTest extends TestCase
 
     public function testDispatchesUnchangedAtoMAction(): void
     {
-        $kernel = new class('test', true, $this->cacheDirectory) extends Kernel {
-            public function __construct(
-                string $environment,
-                bool $debug,
-                private readonly string $testCacheDirectory,
-            ) {
-                parent::__construct($environment, $debug);
-            }
-
-            public function getCacheDir(): string
-            {
-                return $this->testCacheDirectory;
-            }
-
-            public function getBuildDir(): string
-            {
-                return $this->testCacheDirectory;
-            }
-        };
+        $kernel = $this->kernel();
 
         try {
             $request = Request::create(
@@ -171,5 +145,73 @@ final class KernelTest extends TestCase
         } finally {
             $kernel->shutdown();
         }
+    }
+
+    public function testConfiguresTrustedIngress(): void
+    {
+        $_SERVER['ATOM_TRUSTED_PROXIES'] = '10.0.0.0/8';
+        $_SERVER['ATOM_TRUSTED_HOSTS'] = '^archive\\.example$';
+        $kernel = $this->kernel();
+
+        try {
+            $kernel->boot();
+
+            self::assertSame(
+                ['10.0.0.0/8'],
+                Request::getTrustedProxies(),
+            );
+            self::assertSame(
+                ['{^archive\\.example$}i'],
+                Request::getTrustedHosts(),
+            );
+
+            $request = Request::create('/', 'GET', server: [
+                'REMOTE_ADDR' => '10.1.2.3',
+                'HTTP_HOST' => 'archive.example',
+                'HTTP_X_FORWARDED_FOR' => '203.0.113.8',
+                'HTTP_X_FORWARDED_PROTO' => 'https',
+            ]);
+
+            self::assertTrue($request->isSecure());
+            self::assertSame('203.0.113.8', $request->getClientIp());
+            self::assertSame('archive.example', $request->getHost());
+        } finally {
+            unset(
+                $_SERVER['ATOM_TRUSTED_PROXIES'],
+                $_SERVER['ATOM_TRUSTED_HOSTS'],
+            );
+            Request::setTrustedProxies([], -1);
+            Request::setTrustedHosts([]);
+            $kernel->shutdown();
+        }
+    }
+
+    private function kernel(): Kernel
+    {
+        return new class('test', true, $this->cacheDirectory) extends Kernel {
+            public function __construct(
+                string $environment,
+                bool $debug,
+                private readonly string $testCacheDirectory,
+            ) {
+                parent::__construct($environment, $debug);
+            }
+
+            public function getCacheDir(): string
+            {
+                return $this->testCacheDirectory;
+            }
+
+            public function getBuildDir(): string
+            {
+                return $this->testCacheDirectory;
+            }
+
+            protected function getContainerClass(): string
+            {
+                return parent::getContainerClass()
+                    .substr(md5($this->testCacheDirectory), 0, 12);
+            }
+        };
     }
 }

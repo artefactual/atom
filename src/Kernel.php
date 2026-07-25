@@ -39,6 +39,7 @@ use Atom\Framework\Bridge\TemplateRenderer;
 use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
+use Atom\Framework\Cache\MemcacheCache;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -48,6 +49,7 @@ use Atom\Framework\Configuration\DirectoryParameters;
 use Atom\Framework\Configuration\HybridYamlFileLoader;
 use Atom\Framework\Configuration\ModuleConfigurationLoader;
 use Atom\Framework\Configuration\ParameterCompiler;
+use Atom\Framework\Configuration\RuntimeOptions;
 use Atom\Framework\Configuration\ViewConfiguration;
 use Atom\Framework\Console\CliContextFactory;
 use Atom\Framework\Console\ConsoleRuntime;
@@ -86,6 +88,7 @@ use Atom\Framework\Routing\RouteCompiler;
 use Atom\Framework\Routing\RouteConfigurationLoader;
 use Atom\Framework\Security\SecurityConfiguration;
 use Atom\Framework\Security\SecurityEnforcer;
+use Atom\Framework\Session\CacheSessionHandler;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -188,6 +191,7 @@ class Kernel extends BaseKernel
             $plugins,
             $this->getProjectDir(),
         );
+        $runtimeOptions = RuntimeOptions::fromGlobals();
 
         if (false !== $readOnly = getenv('ATOM_READ_ONLY')) {
             $parameters['app_read_only'] = filter_var(
@@ -202,7 +206,33 @@ class Kernel extends BaseKernel
             $container->parameters()->set($name, $value);
         }
 
-        $container->extension('framework', [
+        $session = [
+            'enabled' => true,
+            'storage_factory_id' => 'test' === $this->environment
+                ? 'session.storage.factory.mock_file'
+                : 'session.storage.factory.native',
+            'name' => 'symfony',
+            'cookie_secure' => true,
+            'cookie_httponly' => true,
+            'cookie_samesite' => 'lax',
+        ];
+        $sessionCache = null;
+
+        if ('test' !== $this->environment) {
+            $sessionOptions = $runtimeOptions->session(
+                $this->getProjectDir(),
+                $this->environment,
+            );
+
+            if ('memcache' === $sessionOptions['storage']) {
+                $session['handler_id'] = CacheSessionHandler::class;
+                $sessionCache = $sessionOptions;
+            } else {
+                $session['save_path'] = $sessionOptions['save_path'];
+            }
+        }
+
+        $framework = [
             'secret' => $this->frameworkSecret($parameters),
             'default_locale' => $parameters['sf_default_culture'] ?? 'en',
             'error_controller' => LegacyErrorController::class,
@@ -210,23 +240,46 @@ class Kernel extends BaseKernel
             'router' => [
                 'utf8' => true,
             ],
-            'session' => [
-                'enabled' => true,
-                'storage_factory_id' => 'test' === $this->environment
-                    ? 'session.storage.factory.mock_file'
-                    : 'session.storage.factory.native',
-                'name' => 'symfony',
-                'cookie_secure' => true,
-                'cookie_httponly' => true,
-                'cookie_samesite' => 'strict',
-                'save_path' => '%kernel.project_dir%/cache/sessions/'
-                    .'%kernel.environment%',
-            ],
+            'session' => $session,
             'test' => 'test' === $this->environment,
-        ]);
+        ];
+        $trustedProxies = $runtimeOptions->trustedProxies();
+        $trustedHosts = $runtimeOptions->trustedHosts();
+
+        if ([] !== $trustedProxies) {
+            $framework['trusted_proxies'] = $trustedProxies;
+            $framework['trusted_headers'] = [
+                'x-forwarded-for',
+                'x-forwarded-host',
+                'x-forwarded-proto',
+                'x-forwarded-port',
+                'x-forwarded-prefix',
+            ];
+        }
+
+        if ([] !== $trustedHosts) {
+            $framework['trusted_hosts'] = $trustedHosts;
+        }
+
+        $container->extension('framework', $framework);
 
         $services = $container->services();
         $services->defaults()->autowire()->autoconfigure();
+
+        if (null !== $sessionCache) {
+            $services->set('atom.session.cache', MemcacheCache::class)->args([[
+                'host' => $sessionCache['host'],
+                'port' => $sessionCache['port'],
+                'lifetime' => $sessionCache['ttl'],
+                'prefix' => $sessionCache['prefix'],
+                'persistent' => true,
+            ]]);
+            $services->set(CacheSessionHandler::class)->args([
+                service('atom.session.cache'),
+                $sessionCache['ttl'],
+            ]);
+        }
+
         $services->set(User::class)->public();
         $services->set(UserRequestSubscriber::class);
         $services->set(EventDispatcher::class);
