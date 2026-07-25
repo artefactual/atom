@@ -21,8 +21,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UtilityTest extends TestCase
 {

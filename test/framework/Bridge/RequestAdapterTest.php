@@ -28,8 +28,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RequestAdapterTest extends TestCase
 {

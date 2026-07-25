@@ -19,8 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ResponseAdapterTest extends TestCase
 {

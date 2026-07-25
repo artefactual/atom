@@ -36,8 +36,6 @@ use Symfony\Component\Routing\RequestContext;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RouteConfigurationLoaderTest extends TestCase
 {

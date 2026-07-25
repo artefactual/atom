@@ -19,8 +19,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Atom\Framework\Plugin\PluginConfiguration
  */
 final class PluginConfigurationTest extends TestCase
 {

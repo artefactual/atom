@@ -22,8 +22,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @internal
- *
- * @covers \Atom\Framework\Console\CacheClearTask
  */
 final class CacheClearTaskTest extends TestCase
 {

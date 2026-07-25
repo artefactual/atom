@@ -28,8 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SecurityConfigurationTest extends TestCase
 {

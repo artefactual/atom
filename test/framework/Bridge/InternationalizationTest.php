@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class InternationalizationTest extends TestCase
 {

@@ -19,8 +19,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Atom\Framework\Log\Logger
  */
 final class LoggerTest extends TestCase
 {

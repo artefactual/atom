@@ -32,13 +32,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Atom\Framework\Form\Form
- * @covers \Atom\Framework\Form\FormField
- * @covers \Atom\Framework\Form\SchemaValidator
- * @covers \Atom\Framework\Form\Validator
- * @covers \Atom\Framework\Form\Widget
- * @covers \Atom\Framework\Form\WidgetSchema
  */
 final class FormTest extends TestCase
 {

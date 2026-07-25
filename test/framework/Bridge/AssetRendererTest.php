@@ -21,8 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class AssetRendererTest extends TestCase
 {

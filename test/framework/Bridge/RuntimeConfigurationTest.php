@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Atom\Framework\Bridge\RuntimeConfiguration
  */
 final class RuntimeConfigurationTest extends TestCase
 {

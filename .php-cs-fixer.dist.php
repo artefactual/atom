@@ -67,6 +67,7 @@ return (new PhpCsFixer\Config())
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
         'no_superfluous_phpdoc_tags' => false,
         'operator_linebreak' => ['only_booleans' => true],
+        'php_unit_test_class_requires_covers' => false,
     ])
     ->setFinder($finder)
 ;

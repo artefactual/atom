@@ -22,8 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RestApiRoutesTest extends TestCase
 {

@@ -26,8 +26,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PropelBootstrapTest extends TestCase
 {

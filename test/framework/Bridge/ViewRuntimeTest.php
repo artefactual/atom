@@ -39,8 +39,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ViewRuntimeTest extends TestCase
 {

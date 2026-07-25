@@ -31,8 +31,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class KernelTest extends TestCase
 {

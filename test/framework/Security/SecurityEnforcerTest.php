@@ -32,8 +32,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class SecurityEnforcerTest extends TestCase
 {

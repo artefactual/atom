@@ -27,8 +27,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class TemplateLocatorTest extends TestCase
 {

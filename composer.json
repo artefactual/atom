@@ -50,14 +50,32 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
+        "test": [
+            "@test-application",
+            "@test-framework"
+        ],
+        "test-application": "phpunit",
         "test-framework": "phpunit -c phpunit.framework.xml",
         "test-debug": [
             "@putenv XDEBUG_SESSION=1",
-            "phpunit"
+            "@test"
         ],
-        "test-cov": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/html",
-        "test-cov-strict": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/html --strict-coverage",
+        "test-cov": [
+            "@test-application-cov",
+            "@test-framework-cov"
+        ],
+        "test-application-cov": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/application",
+        "test-framework-cov": "@php -dpcov.enabled=1 -dpcov.directory=src ./vendor/composer/bin/phpunit -c phpunit.framework.xml --coverage-html=.coverage/framework",
+        "test-cov-strict": [
+            "@test-application-cov-strict",
+            "@test-framework-cov-strict"
+        ],
+        "test-application-cov-strict": "@php -dpcov.enabled=1 -dpcov.directory=. ./vendor/composer/bin/phpunit --coverage-html=.coverage/application --strict-coverage",
+        "test-framework-cov-strict": "@php -dpcov.enabled=1 -dpcov.directory=src ./vendor/composer/bin/phpunit -c phpunit.framework.xml --coverage-html=.coverage/framework --strict-coverage",
+        "test-framework-cov-ci": [
+            "@php -dpcov.enabled=1 -dpcov.directory=src ./vendor/composer/bin/phpunit -c phpunit.framework.xml --coverage-clover=.coverage/framework.xml",
+            "@php test/coverage/check.php .coverage/framework.xml 50"
+        ],
         "php-cs-fixer": "php-cs-fixer"
     }
 }

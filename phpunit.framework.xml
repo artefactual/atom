@@ -12,4 +12,12 @@
             <directory>test/framework</directory>
         </testsuite>
     </testsuites>
+    <coverage
+        cacheDirectory=".coverage/cache/framework"
+        processUncoveredFiles="true"
+    >
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
 </phpunit>

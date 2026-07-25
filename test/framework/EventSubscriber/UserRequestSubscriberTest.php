@@ -34,8 +34,6 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UserRequestSubscriberTest extends TestCase
 {

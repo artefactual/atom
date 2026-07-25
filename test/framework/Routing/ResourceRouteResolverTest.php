@@ -30,8 +30,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ResourceRouteResolverTest extends TestCase
 {

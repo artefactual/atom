@@ -30,8 +30,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class UserTest extends TestCase
 {
