@@ -32,6 +32,10 @@ class DigitalObjectImageflowComponent extends sfComponent
 
         $this->thumbnails = [];
 
+        if (!$this->resource->isInTree()) {
+            return sfView::NONE;
+        }
+
         // Set limit (null for no limit)
         if (!isset($request->showFullImageflow) || 'true' != $request->showFullImageflow) {
             $this->limit = sfConfig::get('app_hits_per_page', 10);

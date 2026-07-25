@@ -47,12 +47,23 @@ async function saveTreeviewType(page, type) {
 }
 
 async function waitForImport(request) {
+  const unexpectedStatuses = []
+
   await expect
     .poll(
-      async () => (await request.get(`/${fondsSlug}`)).status(),
+      async () => {
+        const status = (await request.get(`/${fondsSlug}`)).status()
+        if (![200, 404].includes(status)) {
+          unexpectedStatuses.push(status)
+        }
+
+        return status
+      },
       { timeout: 45000 }
     )
     .toBe(200)
+
+  expect(unexpectedStatuses).toEqual([])
 }
 
 test('[surface:workflow-csv-import-order] preserves sibling order through the worker', async ({
@@ -82,14 +93,11 @@ test('[surface:workflow-csv-import-order] preserves sibling order through the wo
     const nodes = page.locator('li.jstree-node')
     await expect(nodes).toHaveCount(4, { timeout: 30000 })
 
-    const toggles = page.locator('li.jstree-closed > i')
-    for (const toggle of await toggles.all()) {
-      await toggle.click()
+    for (const expectedCount of [19, 29, orderedTitles.length]) {
+      await page.locator('li.jstree-closed > i').first().click()
+      await expect(nodes).toHaveCount(expectedCount, { timeout: 30000 })
     }
 
-    await expect(nodes).toHaveCount(orderedTitles.length, {
-      timeout: 30000,
-    })
     const actualTitles = await page
       .locator('li.jstree-node > a.jstree-anchor')
       .allTextContents()
