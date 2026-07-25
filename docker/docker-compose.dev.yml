@@ -8,7 +8,9 @@ volumes:
 services:
 
   atom:
-    build: ..
+    build:
+      context: ..
+      target: development
     env_file: etc/environment
     environment:
       - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
@@ -19,7 +21,9 @@ services:
       - ./etc/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
 
   atom_worker:
-    build: ..
+    build:
+      context: ..
+      target: development
     command: worker
     env_file: etc/environment
     environment:

@@ -43,7 +43,11 @@ case $1 in
         exec php ${__dir}/../symfony jobs:worker
         ;;
     'fpm')
-        exec php-fpm --allow-to-run-as-root
+        if [[ ${EUID} -eq 0 ]]; then
+            exec php-fpm --allow-to-run-as-root
+        fi
+
+        exec php-fpm
         ;;
 esac
 

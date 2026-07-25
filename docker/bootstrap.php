@@ -316,8 +316,6 @@ daemonize = no
 access.log = /proc/self/fd/2
 clear_env = no
 catch_workers_output = yes
-user = root
-group = root
 listen = [::]:9000
 pm = dynamic
 pm.max_children = 5
@@ -326,6 +324,14 @@ pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 
 EOT;
+
+if (0 === posix_geteuid()) {
+    $fpm_ini .= <<<'EOT'
+user = root
+group = root
+
+EOT;
+}
 
 // Get debug IPs:
 // - Always add the env. var. if it's defined.
@@ -355,9 +361,3 @@ EOT;
 
 @unlink(_ETC_DIR.'/php-fpm.d/atom.conf');
 file_put_contents(_ETC_DIR.'/php-fpm.d/atom.conf', $fpm_ini);
-
-//
-// sf symlink
-//
-
-@symlink(_ATOM_DIR.'/vendor/symfony/data/web/sf', _ATOM_DIR.'/sf');

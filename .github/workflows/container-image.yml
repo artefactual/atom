@@ -1,0 +1,23 @@
+name: Container image
+on:
+  pull_request:
+  push:
+    branches:
+    - qa/**
+    - stable/**
+jobs:
+  production:
+    runs-on: ubuntu-24.04
+    name: Production image
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Build production image
+      run: |
+        docker build \
+          --build-arg VCS_REF="${GITHUB_SHA}" \
+          --target production \
+          --tag atom:production \
+          .
+    - name: Verify production image
+      run: docker/verify-image.sh atom:production "${GITHUB_SHA}"
