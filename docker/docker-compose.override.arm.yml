@@ -1,5 +1,0 @@
-services:
-  elasticsearch:
-    platform: linux/amd64
-  percona:
-    platform: linux/amd64

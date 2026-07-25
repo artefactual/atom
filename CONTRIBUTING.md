@@ -46,10 +46,10 @@ AtoM slides, in the following resources:
 * [Overview AtoM documentation](https://www.accesstomemory.org/docs/latest/user-manual/overview/intro/)
 * [AtoM presentations](https://www.slideshare.net/accesstomemory/presentations)
 
-AtoM was originally developed using the Symfony 1.x framework, and the Propel
-1.x ORM. You might want to familiarize yourself with Symfony before beginning:
-
-* [Symfony 1.x documentation](http://symfony.com/legacy/doc)
+AtoM runs on Symfony 7.4 LTS while retaining its existing module, plugin,
+template, form, and Propel 1 model conventions. The bridge architecture and
+rules for keeping application code stable are described in the
+[Symfony 7 runtime architecture](docs/symfony-7-runtime.md).
 
 AtoM also currently uses Elasticsearch for its search index, Twitter Bootstrap
 for theming, and several other libraries. MySQL is used for data storage. We
@@ -142,7 +142,7 @@ The pre-commit checks below describe how to check your code's formatting and how
 
 Run PHP style checker:
 ```bash
-docker compose exec atom composer php-cs-fix -- fix --dry-run -v
+docker compose exec atom composer php-cs-fixer -- fix --dry-run -v
 ```
 
 Locally run automated browser tests:
@@ -193,10 +193,16 @@ through subsequent releases, and simplifies some of the code review.
 development branch (qa/2.x), resolve any conflicts, and perform basic testing
 to ensure the fix or feature works with the latest release.
 
-5. In general, AtoM modules and large features are based on [Symfony 1.x framework's plugin development model](https://symfony.com/legacy/doc/gentle-introduction/1_4/en/17-Extending-Symfony#chapter_17_plug_ins).
-Please refer to our [qtSwordPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/qtSwordPlugin) or
+5. Existing modules and plugins keep AtoM's established directory and YAML
+conventions, but new code must not depend on Symfony 1 classes. Put runtime
+integration in `src/Framework` and keep feature code inside the existing
+application or plugin boundary. Refer to
+[qtSwordPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/qtSwordPlugin)
+or
 [arRestApiPlugin](https://github.com/artefactual/atom/tree/qa/2.x/plugins/arRestApiPlugin)
-for reference when developming new plugins for AtoM.
+for application structure, and follow the
+[Symfony 7 runtime architecture](docs/symfony-7-runtime.md) for framework
+integration.
 
 6. Spend some time reading existing AtoM code - especially in areas of the
 application that relate to the work you are doing. We’re aiming for code
