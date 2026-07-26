@@ -184,6 +184,8 @@ RUN set -eux \
     && test ! -d node_modules \
     && test ! -d output \
     && test ! -d playwright \
+    && test ! -d cypress \
+    && test ! -d tmp.ignored \
     && test ! -e playwright.config.js \
     && test ! -e vendor/bin/phpunit \
     && test ! -e build.xml \

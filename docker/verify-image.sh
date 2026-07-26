@@ -47,6 +47,8 @@ docker run --rm --entrypoint sh "${image}" -ec '
     test ! -d /atom/src/node_modules
     test ! -d /atom/src/output
     test ! -d /atom/src/playwright
+    test ! -d /atom/src/cypress
+    test ! -d /atom/src/tmp.ignored
     test ! -e /atom/src/playwright.config.js
     test ! -e /atom/src/build.xml
     test ! -e /atom/src/vendor/bin/phpunit

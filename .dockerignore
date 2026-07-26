@@ -6,12 +6,14 @@
 .gitignore
 .php-cs-fixer.cache
 .phpunit.result.cache
+*.ignored
 build.xml
 apps/qubit/config/app.yml
 apps/qubit/config/factories.yml
 apps/qubit/config/gearman.yml
 apps/qubit/config/settings.yml
 cache
+cypress
 docker/docker-compose*.yml
 docker/etc/php
 docker/create-upgrade-fixture.sh
