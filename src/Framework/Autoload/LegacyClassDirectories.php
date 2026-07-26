@@ -48,10 +48,6 @@ final readonly class LegacyClassDirectories implements \IteratorAggregate
         );
         $this->appendIfDirectory(
             $directories,
-            $this->projectDirectory.'/vendor/parsedown',
-        );
-        $this->appendIfDirectory(
-            $directories,
             $this->projectDirectory.'/vendor/net_gearman/Net/Gearman',
         );
         $this->appendIfDirectory(

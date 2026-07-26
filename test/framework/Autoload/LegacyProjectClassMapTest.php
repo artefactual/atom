@@ -57,10 +57,6 @@ final class LegacyProjectClassMapTest extends TestCase
             $loader->findFile('Criteria'),
         );
         self::assertSame(
-            $projectDirectory.'/vendor/parsedown/ParsedownExtra.php',
-            $loader->findFile('ParsedownExtra'),
-        );
-        self::assertSame(
             $projectDirectory
                 .'/vendor/net_gearman/Net/Gearman/Worker.php',
             $loader->findFile('Net_Gearman_Worker'),
