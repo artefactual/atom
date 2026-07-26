@@ -90,15 +90,15 @@
     </exec>
 
     <echo>Install production dependencies with composer</echo>
-    <exec executable="composer" dir="${package.dir}" checkreturn="true">
+    <exec executable="composer" dir="${package.dir}" checkreturn="true" logoutput="true">
       <arg line="install --no-dev --no-interaction --no-progress --prefer-dist"/>
     </exec>
 
     <echo>Build Bootstrap 5 theme</echo>
-    <exec executable="npm" dir="${package.dir}" checkreturn="true">
+    <exec executable="npm" dir="${package.dir}" checkreturn="true" logoutput="true">
       <arg value="ci"/>
     </exec>
-    <exec executable="env" dir="${package.dir}" checkreturn="true">
+    <exec executable="env" dir="${package.dir}" checkreturn="true" logoutput="true">
       <arg value="NODE_ENV=production"/>
       <arg value="npm"/>
       <arg value="run"/>
@@ -107,15 +107,17 @@
     <delete dir="${package.dir}/node_modules"/>
 
     <echo>Run symfony release task</echo>
-    <exec executable="php" dir="${package.dir}" checkreturn="true">
+    <exec executable="env" dir="${package.dir}" checkreturn="true" logoutput="true">
+      <arg value="APP_SECRET=release-build"/>
+      <arg value="php"/>
       <arg line="symfony release --no-confirmation ${package.version} stable"/>
     </exec>
   </target>
 
   <target name="package" depends="prepare">
     <echo>Building pear package</echo>
-    <exec executable="pear" dir="${package.dir}" checkreturn="true">
-      <arg value="package"/>
+    <exec executable="pear" dir="${package.dir}" checkreturn="true" logoutput="true">
+      <arg line="-q package"/>
     </exec>
     <move file="${package.dir}/${package.pear.name}.tgz" tofile="${build.dir}/${package.name}.tar.gz" overwrite="true"/>
     <delete dir="${package.dir}"/>
