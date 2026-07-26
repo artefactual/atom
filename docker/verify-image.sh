@@ -48,6 +48,7 @@ docker run --rm --entrypoint sh "${image}" -ec '
     test ! -d /atom/src/output
     test ! -d /atom/src/playwright
     test ! -e /atom/src/playwright.config.js
+    test ! -e /atom/src/build.xml
     test ! -e /atom/src/vendor/bin/phpunit
     test ! -e /atom/src/docker/create-upgrade-fixture.sh
     test ! -e /atom/src/docker/rehearse-upgrade.sh
@@ -55,6 +56,16 @@ docker run --rm --entrypoint sh "${image}" -ec '
 
     test ! -d /atom/src/vendor/symfony
     test ! -d /atom/src/vendor/symfony2
+    test ! -d /atom/src/vendor/propel1/generator
+    test ! -d /atom/src/vendor/composer/phing
+    test ! -d /atom/src/vendor/FluentDOM/examples
+    test ! -d /atom/src/vendor/FluentDOM/tests
+    test ! -d /atom/src/vendor/FluentDOM/tutorials
+    test ! -d /atom/src/vendor/net_gearman/examples
+    test ! -d /atom/src/vendor/net_gearman/tests
+    test ! -d /atom/src/plugins/sfSkosPlugin/test
+    test ! -d /atom/src/plugins/sfThumbnailPlugin/test
+    test ! -d /atom/src/plugins/sfWebBrowserPlugin/test
     test -e /atom/src/vendor/propel1/runtime/propel/Propel.php
 
     test -e /atom/src/apps/qubit/modules/user/actions/editAction.class.php

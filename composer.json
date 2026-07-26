@@ -13,13 +13,13 @@
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
         "phpunit/phpunit": "^9.5",
-        "friendsofphp/php-cs-fixer": "^3.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phing/phing": "2.*"
     },
     "require": {
         "php": "^8.3",
         "erusev/parsedown": "~1.7.4",
         "erusev/parsedown-extra": "~0.8.1",
-        "phing/phing": "2.*",
         "league/csv": "^9.4",
         "apereo/phpcas": "^1.6.1",
         "ezyang/htmlpurifier": "^4.13",

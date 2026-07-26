@@ -672,9 +672,11 @@ targets. The production target:
 
 - contains built front-end assets;
 - installs Composer dependencies without development packages;
-- omits Node, npm, `node_modules`, Playwright, PHPUnit, and host-only scripts;
-- omits the Symfony 1 action runtime;
-- retains the Propel dependency required by the application;
+- omits Node, npm, `node_modules`, Playwright, PHPUnit, Phing, vendored test
+  fixtures, and host-only build scripts;
+- contains no Symfony 1 framework or plugin tree;
+- retains only the Propel runtime required by the application, not its
+  development generator;
 - runs as the unprivileged `atom` user with UID/GID 1000;
 - includes a role-aware readiness health check;
 - records the source revision as an OCI image label.

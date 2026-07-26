@@ -60,9 +60,10 @@ Run authenticated browser coverage in both supported browsers:
 npm run test:playwright:coverage
 ```
 
-The production image gate additionally proves that Symfony 1 core files and
-development dependencies are absent, then loads every retained project
-declaration and checks every referenced `sf*` class against the native runtime:
+The production image gate additionally proves that Symfony 1 files, Phing, the
+Propel generator, and vendored test/build fixtures are absent. It then loads
+every retained project declaration and checks every referenced `sf*` class
+against the native runtime:
 
 ```sh
 docker/verify-image.sh IMAGE REVISION

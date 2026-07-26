@@ -6,6 +6,7 @@
 .gitignore
 .php-cs-fixer.cache
 .phpunit.result.cache
+build.xml
 apps/qubit/config/app.yml
 apps/qubit/config/factories.yml
 apps/qubit/config/gearman.yml
@@ -30,6 +31,10 @@ test
 uploads
 var
 vendor/composer
+vendor/*/examples
+vendor/*/tests
+vendor/*/tutorials
+plugins/*Plugin/test
 config/appChallenge.yml
 config/config.php
 config/propel.ini

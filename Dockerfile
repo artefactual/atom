@@ -39,6 +39,7 @@ FROM frontend AS frontend-production
 
 RUN set -eux \
     && rm -rf node_modules \
+    && rm -rf vendor/propel1/generator \
     && rm -f package.json package-lock.json webpack.config.js
 
 FROM php:8.3-fpm-alpine@sha256:9fcec48321d890240d700ccdc2b475420c87d398826e68c3d8830b8fca663e5c AS php-runtime
@@ -185,7 +186,15 @@ RUN set -eux \
     && test ! -d playwright \
     && test ! -e playwright.config.js \
     && test ! -e vendor/bin/phpunit \
+    && test ! -e build.xml \
     && test ! -d vendor/symfony \
+    && test ! -d vendor/propel1/generator \
+    && test ! -d vendor/composer/phing \
+    && test ! -d vendor/FluentDOM/examples \
+    && test ! -d vendor/FluentDOM/tests \
+    && test ! -d vendor/net_gearman/examples \
+    && test ! -d vendor/net_gearman/tests \
+    && test ! -d plugins/sfThumbnailPlugin/test \
     && test -e vendor/propel1/runtime/propel/Propel.php
 
 USER atom
