@@ -370,22 +370,29 @@ if (!function_exists('public_path')) {
 if (!function_exists('image_path')) {
     function image_path(string $source, bool $absolute = false): string
     {
-        if (
-            preg_match('#^(?:https?:)?//#i', $source)
-            || str_starts_with($source, '/')
-        ) {
-            $path = $source;
-        } else {
-            $path = '/images/'.$source;
-
-            if (!str_contains(basename($path), '.')) {
-                $path .= '.png';
-            }
+        if (preg_match('#^(?:https?:)?//#i', $source)) {
+            return $source;
         }
 
-        return $absolute
+        $path = str_starts_with($source, '/')
+            ? $source
+            : '/images/'.$source;
+        $query = '';
+
+        if (false !== $position = strpos($path, '?')) {
+            $query = substr($path, $position);
+            $path = substr($path, 0, $position);
+        }
+
+        if (!str_contains(basename($path), '.')) {
+            $path .= '.png';
+        }
+
+        $path = $absolute
             ? Context::getInstance()->getRequest()->getUriPrefix().$path
             : $path;
+
+        return $path.$query;
     }
 }
 

@@ -37,6 +37,15 @@ test('Matches the authenticated navigation inventory', async ({ page }) => {
 for (const route of routes) {
   test(`[surface:${route.id}] loads ${route.path}`, async ({ page }) => {
     test.fixme(Boolean(route.fixme), route.fixme)
+    const failedResponses = []
+
+    page.on('response', (response) => {
+      if (response.status() >= 400) {
+        const url = new URL(response.url())
+
+        failedResponses.push(`${response.status()} ${url.pathname}`)
+      }
+    })
 
     const response = await page.goto(route.path)
 
@@ -48,5 +57,6 @@ for (const route of routes) {
     await expect(
       page.locator('#main-column > .alert-danger:visible')
     ).toHaveCount(0)
+    expect(failedResponses).toEqual([])
   })
 }
