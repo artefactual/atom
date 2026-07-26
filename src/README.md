@@ -623,8 +623,8 @@ At the time this guide was written, the branch had demonstrated:
 
 The latest full branch validation recorded:
 
-- 179 framework tests with 499 assertions;
-- 509 application tests with 1,002 assertions;
+- 179 framework tests with 498 assertions;
+- 546 application tests with 1,067 assertions;
 - 143 successful Playwright executions across Chrome and Firefox;
 - 74 authenticated route surfaces covered in each browser;
 - 100% coverage of the declared authenticated navigation inventory.
@@ -882,6 +882,11 @@ The main suites can also be run separately:
 docker compose exec atom composer test-application
 docker compose exec atom composer test-framework
 ```
+
+The active PHP tests live under `test/phpunit` and `test/framework`. The
+non-executable Symfony 1 Lime harness and its dormant suites have been removed;
+use PHPUnit for application and adapter regressions, and Playwright for real
+HTTP and browser workflows.
 
 Check PHP style without changing files:
 

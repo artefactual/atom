@@ -25,11 +25,7 @@ class sfSkosUniqueRelations implements Iterator, Countable
 {
     private $relations = [];
     private $visited = [];
-
-    public function __construct()
-    {
-        $this->position = 0;
-    }
+    private int $position = 0;
 
     public function insert($x, $y)
     {
@@ -60,34 +56,34 @@ class sfSkosUniqueRelations implements Iterator, Countable
 
     // Iterable
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = 0;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return $this->relations[$this->position];
     }
 
-    public function key()
+    public function key(): mixed
     {
         return $this->position;
     }
 
-    public function next()
+    public function next(): void
     {
         ++$this->position;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->relations[$this->position]);
     }
 
     // Countable
 
-    public function count()
+    public function count(): int
     {
         return count($this->relations);
     }

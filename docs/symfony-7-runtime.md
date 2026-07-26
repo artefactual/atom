@@ -54,6 +54,10 @@ Run both PHP suites:
 docker compose exec atom composer test
 ```
 
+Application and adapter regressions run through PHPUnit. Real HTTP, form,
+session, and permission workflows run through Playwright; no Symfony 1 Lime
+harness remains.
+
 Run authenticated browser coverage in both supported browsers:
 
 ```sh
