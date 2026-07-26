@@ -59,6 +59,15 @@ final class UtilityTest extends TestCase
             $files,
         );
         self::assertSame(['sfIsadPlugin'], $plugins);
+
+        $dotFiles = Finder::type('file')
+            ->ignore_dot_files(false)
+            ->maxdepth(0)
+            ->relative()
+            ->name('.dockerignore')
+            ->in($projectDirectory);
+
+        self::assertSame(['.dockerignore'], $dotFiles);
     }
 
     public function testYamlLoadsFilesAndPagerIterates(): void

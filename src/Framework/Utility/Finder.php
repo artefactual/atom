@@ -27,6 +27,7 @@ final class Finder
     private bool $followLinks = false;
     private bool $sortByName = false;
     private bool $ignoreVersionControl = true;
+    private bool $ignoreDotFiles = true;
 
     public static function type(string $type): self
     {
@@ -86,6 +87,13 @@ final class Finder
     public function ignore_version_control(bool $ignore = true): self
     {
         $this->ignoreVersionControl = $ignore;
+
+        return $this;
+    }
+
+    public function ignore_dot_files(bool $ignore = true): self
+    {
+        $this->ignoreDotFiles = $ignore;
 
         return $this;
     }
@@ -152,6 +160,7 @@ final class Finder
         }
 
         $finder->ignoreVCS($this->ignoreVersionControl);
+        $finder->ignoreDotFiles($this->ignoreDotFiles);
 
         if ($this->followLinks) {
             $finder->followLinks();

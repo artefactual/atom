@@ -117,7 +117,7 @@ class ReleaseTask extends sfBaseTask
         }
 
         // FIXME: Switch back to SvnFinder when it supports externals
-        $finder = new sfFinder();
+        $finder = (new sfFinder())->ignore_dot_files(false);
         foreach ($finder->in(sfConfig::get('sf_root_dir')) as $path) {
             if (0 == strncmp($path, sfConfig::get('sf_root_dir'), $len = strlen(sfConfig::get('sf_root_dir')))) {
                 $path = substr($path, $len);
