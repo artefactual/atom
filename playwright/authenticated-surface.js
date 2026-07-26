@@ -269,6 +269,7 @@ const workflows = [
   { id: 'workflow-rest-protocol' },
   { id: 'workflow-sword-protocol' },
   { id: 'workflow-csv-import-order' },
+  { id: 'workflow-private-file-boundary' },
 ]
 
 module.exports = {
