@@ -18,6 +18,7 @@ application runtime on this branch.
 - [Executive summary](#executive-summary)
 - [Why this work exists](#why-this-work-exists)
 - [The architectural decision](#the-architectural-decision)
+- [Long-term architectural direction](#long-term-architectural-direction)
 - [Goals and non-goals](#goals-and-non-goals)
 - [Solution architecture](#solution-architecture)
 - [How compatibility works](#how-compatibility-works)
@@ -186,6 +187,38 @@ This produces a useful division of responsibility:
 Minimal change does not mean preserving every historical implementation
 forever. It means sequencing the work so that the runtime can be replaced
 safely before the application is redesigned.
+
+## Long-term architectural direction
+
+This runtime replacement and a broader API-led architecture are not
+incompatible. They address different boundaries and can reinforce each other.
+
+The work in this branch modernizes the foundation beneath the existing AtoM
+application. It preserves the web interface, extensions, operational workflows,
+and domain behaviour while removing Symfony 1 as a runtime dependency. That is
+valuable independently of how future clients interact with AtoM.
+
+A new API boundary could evolve alongside it, offering a deliberate contract
+for integrations and new applications without exposing internal routes,
+actions, or database structures. The existing AtoM domain can remain
+authoritative at first, while implementation details behind the API are
+refactored or replaced gradually.
+
+Together, these approaches suggest an incremental architecture:
+
+- the Symfony 7 runtime provides a maintained home for the existing product;
+- a stable API provides a forward-looking boundary for new consumers;
+- domain data, permissions, and behaviour retain clear ownership;
+- capabilities move behind cleaner internal services when there is a proven
+  reason to extract them;
+- compatibility tests protect behaviour while those boundaries evolve.
+
+This avoids making a complete rewrite the price of modernization. It also
+avoids treating the compatibility layer as the final architecture. The runtime
+bridge creates safety and time; an API boundary can create room for new clients
+and deeper change. Each can progress at its own pace, provided that ownership
+remains explicit and the two paths do not develop competing versions of the
+same domain rules.
 
 ## Goals and non-goals
 
