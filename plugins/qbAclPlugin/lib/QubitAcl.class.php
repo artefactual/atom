@@ -327,9 +327,7 @@ class QubitAcl
     /**
      * Forwards the current request to the secure action.
      *
-     * Copied from sfBasicSecurityFilter
-     *
-     * @see lib/vendor/symfony/lib/filter/sfBasicSecurityFilter.class.php
+     * Preserves the established security-filter forwarding behaviour.
      *
      * @throws sfStopException
      */
@@ -343,9 +341,7 @@ class QubitAcl
     /**
      * Forwards the current request to the login action.
      *
-     * Copied from sfBasicSecurityFilter
-     *
-     * @see lib/vendor/symfony/lib/filter/sfBasicSecurityFilter.class.php
+     * Preserves the established security-filter forwarding behaviour.
      *
      * @throws sfStopException
      */

@@ -53,9 +53,9 @@ docker run --rm --entrypoint sh "${image}" -ec '
     test ! -e /atom/src/docker/rehearse-upgrade.sh
     test ! -e /atom/src/docker/verify-runtime.sh
 
-    test ! -e /atom/src/vendor/symfony/lib/action/sfAction.class.php
-    test -e \
-        /atom/src/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor/propel/Propel.php
+    test ! -d /atom/src/vendor/symfony
+    test ! -d /atom/src/vendor/symfony2
+    test -e /atom/src/vendor/propel1/runtime/propel/Propel.php
 
     test -e /atom/src/apps/qubit/modules/user/actions/editAction.class.php
     test -e /atom/src/apps/qubit/modules/user/templates/editSuccess.php

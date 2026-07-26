@@ -53,7 +53,7 @@ final class LegacyProjectClassMapTest extends TestCase
             $loader->findFile('UserEditAction'),
         );
         self::assertStringEndsWith(
-            '/sfPropelPlugin/lib/vendor/propel/util/Criteria.php',
+            '/vendor/propel1/runtime/propel/util/Criteria.php',
             $loader->findFile('Criteria'),
         );
         self::assertSame(
@@ -67,8 +67,7 @@ final class LegacyProjectClassMapTest extends TestCase
         );
         self::assertNull($loader->findFile('sfAction'));
         self::assertSame([
-            $projectDirectory
-                .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor',
+            $projectDirectory.'/vendor/propel1/runtime',
         ], (new LegacyClassDirectories(
             $projectDirectory,
         ))->includePaths());

@@ -43,8 +43,7 @@ final readonly class LegacyClassDirectories implements \IteratorAggregate
         // Deliberately index only its runtime, never the Symfony 1.x runtime.
         $this->appendIfDirectory(
             $directories,
-            $this->projectDirectory
-                .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor/propel',
+            $this->projectDirectory.'/vendor/propel1/runtime/propel',
         );
         $this->appendIfDirectory(
             $directories,
@@ -88,8 +87,7 @@ final readonly class LegacyClassDirectories implements \IteratorAggregate
 
     public function includePaths(): array
     {
-        $directory = $this->projectDirectory
-            .'/vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor';
+        $directory = $this->projectDirectory.'/vendor/propel1/runtime';
 
         return is_dir($directory) ? [$directory] : [];
     }

@@ -39,17 +39,7 @@ FROM frontend AS frontend-production
 
 RUN set -eux \
     && rm -rf node_modules \
-    && rm -f package.json package-lock.json webpack.config.js \
-    && mkdir -p /tmp/sfPropelPlugin \
-    && cp -a \
-      vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor \
-      /tmp/sfPropelPlugin/vendor \
-    && rm -rf vendor/symfony \
-    && mkdir -p vendor/symfony/lib/plugins/sfPropelPlugin/lib \
-    && mv \
-      /tmp/sfPropelPlugin/vendor \
-      vendor/symfony/lib/plugins/sfPropelPlugin/lib/vendor \
-    && rm -rf /tmp/sfPropelPlugin
+    && rm -f package.json package-lock.json webpack.config.js
 
 FROM php:8.3-fpm-alpine@sha256:9fcec48321d890240d700ccdc2b475420c87d398826e68c3d8830b8fca663e5c AS php-runtime
 
@@ -195,7 +185,8 @@ RUN set -eux \
     && test ! -d playwright \
     && test ! -e playwright.config.js \
     && test ! -e vendor/bin/phpunit \
-    && test ! -e vendor/symfony/lib/action/sfAction.class.php
+    && test ! -d vendor/symfony \
+    && test -e vendor/propel1/runtime/propel/Propel.php
 
 USER atom
 

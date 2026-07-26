@@ -225,16 +225,14 @@ final class RuntimeConfiguration
     {
         $paths = [];
 
-        foreach ([
-            $this->projectDirectory.'/vendor/symfony/lib/plugins',
-            $this->projectDirectory.'/plugins',
-        ] as $directory) {
-            $plugins = glob($directory.'/*Plugin', \GLOB_ONLYDIR) ?: [];
-            sort($plugins);
+        $plugins = glob(
+            $this->projectDirectory.'/plugins/*Plugin',
+            \GLOB_ONLYDIR,
+        ) ?: [];
+        sort($plugins);
 
-            foreach ($plugins as $plugin) {
-                $paths[basename($plugin)] = $plugin;
-            }
+        foreach ($plugins as $plugin) {
+            $paths[basename($plugin)] = $plugin;
         }
 
         ksort($paths);

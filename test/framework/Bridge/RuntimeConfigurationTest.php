@@ -48,7 +48,7 @@ final class RuntimeConfigurationTest extends TestCase
         $available = $configuration->getAllPluginPaths();
 
         self::assertArrayHasKey('arCasPlugin', $available);
-        self::assertArrayHasKey('sfPropelPlugin', $available);
+        self::assertArrayNotHasKey('sfPropelPlugin', $available);
         self::assertSame(
             [$projectDirectory.'/plugins/sfIsadPlugin'],
             $configuration->getPluginPaths(),

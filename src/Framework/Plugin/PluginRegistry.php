@@ -29,7 +29,6 @@ final readonly class PluginRegistry
         'sfDrupalPlugin',
         'sfHistoryPlugin',
         'arElasticSearchPlugin',
-        'sfPropelPlugin',
         'sfThumbnailPlugin',
         'sfTranslatePlugin',
         'sfWebBrowserPlugin',

@@ -28,8 +28,8 @@ AtoM bridge classes or maintained dependencies. They must never load the
 Symfony 1 runtime.
 
 Propel 1 remains the ORM for the generated model layer. The production image
-retains only that runtime from the old `sfPropelPlugin` tree and removes the
-rest of Symfony 1.
+loads its isolated runtime from `vendor/propel1`. No Symfony 1 framework or
+plugin code is retained.
 
 ## Change policy
 

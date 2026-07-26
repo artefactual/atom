@@ -18,18 +18,23 @@ URL:       http://commons.wikimedia.org/wiki/Image:Blochsphere.svg
 Copyright: http://en.wikipedia.org/wiki/User:MuncherOfSpleens
 License:   GNU Free Documentation License
 
-symfony
+Symfony
 -------
-Access to Memory (AtoM) is based on the symfony framework
+Access to Memory (AtoM) uses the Symfony framework and components.
 
-Url:       http://www.symfony-project.org/
+Url:       https://symfony.com/
 Copyright: Fabien Potencier <fabien.potencier@symfony-project.com>
-License:   MIT - see vendor/symfony/LICENSE
+License:   MIT - see the individual Composer packages
 
-symfony contains additional software.  See vendor/symfony/COPYRIGHT and
-vendor/symfony/licenses
+Propel 1
+--------
+Access to Memory (AtoM) uses a patched Propel 1 runtime and generator.
 
-Access to Memory (AtoM) also uses the following symfony plugins:
+Url:       https://propelorm.org/
+Copyright: The Propel project contributors
+License:   LGPL 2.1 - see vendor/propel1/LICENSE
+
+Access to Memory (AtoM) also uses the following historical Symfony plugins:
 
 sfThumbnailPlugin
 -----------------

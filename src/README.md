@@ -351,15 +351,16 @@ An `sf*` name on this branch is therefore not evidence that Symfony 1 is
 running. The important question is which class implements the name. Production
 verification explicitly checks that Symfony 1 action code is absent.
 
-### The remaining Symfony 1 vendor subtree
+### The isolated Propel 1 dependency
 
-Propel 1 is still the persistence layer. AtoM historically receives it through
-the old `sfPropelPlugin` vendor tree, so the production image retains the
-Propel portion of that tree.
+Propel 1 is still the persistence layer. Its exact AtoM-patched runtime is
+isolated under `vendor/propel1/runtime`; its generator lives alongside it as
+development-only build tooling. The historical `sfPropelPlugin` and Symfony 1
+vendor trees are not retained.
 
 That is a deliberate exception, not a hidden framework fallback:
 
-- Symfony 1 action and request runtime files are excluded;
+- no Symfony 1 framework or plugin files are present;
 - Propel is initialized by the new runtime;
 - generated Propel code is treated as generated code and is not hand-edited;
 - replacing Propel is a future bounded migration, not a prerequisite for
@@ -1462,8 +1463,8 @@ marketing decision.
 ### Is Symfony 1 still running?
 
 No. Symfony 7 is the only web and console runtime on this branch. The
-production image deliberately excludes Symfony 1 action runtime code. Propel 1
-is retained from its historical vendor location because it remains AtoM's
+production image contains no Symfony 1 framework or plugin code. The patched
+Propel 1 runtime is isolated under `vendor/propel1` because it remains AtoM's
 persistence layer.
 
 ### Why do some classes still begin with `sf`?
