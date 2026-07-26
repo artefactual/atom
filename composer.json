@@ -14,7 +14,7 @@
         "mikey179/vfsstream": "^1.6",
         "phpunit/phpunit": "^9.5",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phing/phing": "2.*"
+        "phing/phing": "^3.1"
     },
     "require": {
         "php": "^8.3",

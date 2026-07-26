@@ -6,45 +6,40 @@
   <!-- ===================================================================== -->
 
   <property name="build.dir" value="${phing.dir}/build"/>
+  <property name="package.dir" value="${build.dir}/package"/>
 
-  <!-- package.version: e.g. 1.4 -->
-  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.(\d)+\.\d'" outputProperty="package.version"/>
-
-  <!-- package.is_2: e.g. True -->
-  <php function="version_compare" returnProperty="package.is_2">
-    <param value="${package.version}"/>
-    <param value="2.0.0"/> <!-- ALWAYS 2.0.0, DO NOT CHANGE IT -->
-    <param value=">="/>
-  </php>
+  <!-- package.version: e.g. 2.10.2 -->
+  <exec executable="sed" outputProperty="package.version" checkreturn="true">
+    <arg value="-n"/>
+    <arg value="s/.*public const VERSION = '\([^']*\)'.*/\1/p"/>
+    <arg value="src/Framework/Bridge/RuntimeConfiguration.php"/>
+  </exec>
 
   <!-- package.hash: e.g. e074179cb205a43b20ac171b9917d1608a41b5dd -->
-  <exec command="git rev-parse HEAD" outputProperty="package.hash"/>
-  <exec command="git rev-parse HEAD | cut -c 1-16" outputProperty="package.hash16"/>
-
-  <!-- package.prefix -->
-  <if>
-    <equals arg1="${package.is_2}" arg2="true" />
-    <then>
-      <property name="package.prefix" value=""/>
-    </then>
-    <else>
-      <property name="package.prefix" value="ica"/>
-    </else>
-  </if>
+  <exec executable="git" outputProperty="package.hash" checkreturn="true">
+    <arg line="rev-parse HEAD"/>
+  </exec>
+  <exec executable="git" outputProperty="package.hash16" checkreturn="true">
+    <arg line="rev-parse --short=16 HEAD"/>
+  </exec>
 
   <!-- package.pear.name: e.g. atom-2.0.0 -->
   <property name="package.pear.name" value="${phing.project.name}-${package.version}"/>
 
   <!-- package.name: e.g. atom-2.0.0-20030101-e6471c09494dd6fe or atom-2.0.0 -->
-  <exec command="git show-ref --tags | grep 0d8bfe29934c3ad6ff2394dcc84e15bb6887df95 | grep -Po '\d\.\d(\.\d){0,1}'" returnProperty="return_code" outputProperty="package.tag"/>
+  <exec executable="git" outputProperty="package.tag" checkreturn="true">
+    <arg line="tag --points-at HEAD --list v${package.version}"/>
+  </exec>
   <if>
-    <equals arg1="${return_code}" arg2="0" />
+    <equals arg1="${package.tag}" arg2="v${package.version}"/>
     <then>
-      <property name="package.name" value="${package.prefix}${package.pear.name}-${package.tag}"/>
+      <property name="package.name" value="${package.pear.name}"/>
     </then>
     <else>
-      <exec command="date +'%Y%m%d'" outputProperty="date" />
-      <property name="package.name" value="${package.prefix}${package.pear.name}-${date}-${package.hash16}"/>
+      <exec executable="date" outputProperty="date">
+        <arg value="+%Y%m%d"/>
+      </exec>
+      <property name="package.name" value="${package.pear.name}-${date}-${package.hash16}"/>
     </else>
   </if>
 
@@ -58,6 +53,7 @@
     <echo>  - phing.file:          ${phing.file}</echo>
     <echo>  - build.dir:           ${build.dir}</echo>
     <echo>  - package.version:     ${package.version}</echo>
+    <echo>  - package.revision:    ${package.hash}</echo>
     <echo>  - package.name:        ${package.name}</echo>
   </target>
 
@@ -69,27 +65,60 @@
     depends="debug, prepare, package"
     description="Build a tarball"/>
 
-  <target name="prepare" depends="debug">
+  <target name="verify">
+    <exec executable="git" outputProperty="working.tree.status" checkreturn="true">
+      <arg line="status --porcelain --untracked-files=normal"/>
+    </exec>
+    <if>
+      <not>
+        <equals arg1="${working.tree.status}" arg2=""/>
+      </not>
+      <then>
+        <fail message="Commit or remove working-tree changes before building a release."/>
+      </then>
+    </if>
+  </target>
+
+  <target name="prepare" depends="debug, verify">
     <delete dir="${build.dir}"/>
-    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${package.dir}"/>
+
+    <echo>Export committed source tree</echo>
+    <exec executable="sh" dir="${phing.dir}" checkreturn="true">
+      <arg value="-c"/>
+      <arg value="git archive --format=tar HEAD | tar -xf - -C &quot;${package.dir}&quot;"/>
+    </exec>
 
     <echo>Install production dependencies with composer</echo>
-    <exec command="composer install --no-dev" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="composer" dir="${package.dir}" checkreturn="true">
+      <arg line="install --no-dev --no-interaction --no-progress --prefer-dist"/>
+    </exec>
 
     <echo>Build Bootstrap 5 theme</echo>
-    <exec command="npm install" dir="${phing.dir}" checkreturn="true"/>
-    <exec command="npm run build" dir="${phing.dir}" checkreturn="true"/>
-    <exec command="rm -rf node_modules" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="npm" dir="${package.dir}" checkreturn="true">
+      <arg value="ci"/>
+    </exec>
+    <exec executable="env" dir="${package.dir}" checkreturn="true">
+      <arg value="NODE_ENV=production"/>
+      <arg value="npm"/>
+      <arg value="run"/>
+      <arg value="build"/>
+    </exec>
+    <delete dir="${package.dir}/node_modules"/>
 
     <echo>Run symfony release task</echo>
-    <exec command="php symfony release --no-confirmation ${package.version} stable" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${package.dir}" checkreturn="true">
+      <arg line="symfony release --no-confirmation ${package.version} stable"/>
+    </exec>
   </target>
 
   <target name="package" depends="prepare">
     <echo>Building pear package</echo>
-    <exec command="pear package" dir="${phing.dir}" checkreturn="true"/>
-    <move file="${phing.dir}/${package.pear.name}.tgz" tofile="${build.dir}/${package.name}.tar.gz" overwrite="true"/>
-    <delete file="${phing.dir}/package.xml"/>
+    <exec executable="pear" dir="${package.dir}" checkreturn="true">
+      <arg value="package"/>
+    </exec>
+    <move file="${package.dir}/${package.pear.name}.tgz" tofile="${build.dir}/${package.name}.tar.gz" overwrite="true"/>
+    <delete dir="${package.dir}"/>
     <echo>Done! ${build.dir}/${package.name}.tar.gz</echo>
   </target>
 
@@ -99,7 +128,9 @@
 
   <target name="i18n-prepare">
     <mkdir dir=".tx/i18n"/>
-    <exec command="git diff --quiet" returnProperty="return_code"/>
+    <exec executable="git" returnProperty="return_code">
+      <arg line="diff --quiet"/>
+    </exec>
     <if>
       <equals arg1="${return_code}" arg2="0" />
       <then>
@@ -120,7 +151,10 @@
   </target>
 
   <target name="i18n-clean-tx">
-    <exec command="rm -rf .tx/*"/>
+    <exec executable="sh">
+      <arg value="-c"/>
+      <arg value="rm -rf .tx/*"/>
+    </exec>
   </target>
 
   <target name="i18n-extract">
@@ -132,7 +166,9 @@
     </foreach>
   </target>
   <target name="i18n-extract-subtask">
-    <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save ${lang}" dir="${phing.dir}" checkreturn="true" level="debug"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:extract --plugins --auto-delete --auto-save ${lang}"/>
+    </exec>
   </target>
 
   <!-- ===================================================================== -->
@@ -144,15 +180,22 @@
     description="Extract 'en' source strings from AtoM"/>
 
   <target name="i18n-extract-sources">
-    <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save en" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:extract --plugins --auto-delete --auto-save en"/>
+    </exec>
   </target>
 
   <target name="i18n-consolidate-sources">
-    <exec command="php symfony i18n:consolidate en .tx/i18n/" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:consolidate en .tx/i18n/"/>
+    </exec>
   </target>
 
   <target name="i18n-cleanup-sources">
-    <exec command="find . -not -path &quot;*/\.*&quot; -wholename &quot;*i18n/en&quot; -not \( -name &quot;.tx&quot; -prune \) | xargs -IF rm -rf F"/>
+    <exec executable="sh">
+      <arg value="-c"/>
+      <arg value="find . -not -path &quot;*/\.*&quot; -wholename &quot;*i18n/en&quot; -not \( -name &quot;.tx&quot; -prune \) | xargs -IF rm -rf F"/>
+    </exec>
   </target>
 
   <!-- ===================================================================== -->
@@ -172,7 +215,9 @@
     </foreach>
   </target>
   <target name="i18n-consolidate-translations-subtask">
-    <exec command="php symfony i18n:consolidate ${lang} .tx/i18n/" dir="${phing.dir}" checkreturn="true" level="debug"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:consolidate ${lang} .tx/i18n/"/>
+    </exec>
   </target>
 
   <!-- ===================================================================== -->
@@ -204,11 +249,15 @@
     </foreach>
   </target>
   <target name="i18n-rectify-subtask">
-    <exec command="php symfony i18n:rectify ${lang}" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:rectify ${lang}"/>
+    </exec>
   </target>
 
   <target name="i18n-update-fixtures">
-    <exec command="php symfony i18n:update-fixtures apps/qubit/i18n/" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:update-fixtures apps/qubit/i18n/"/>
+    </exec>
   </target>
 
   <target name="i18n-cleanup" depends="i18n-cleanup-create-plugin-i18n-folders-if-missing">
@@ -227,10 +276,14 @@
     </foreach>
   </target>
   <target name="i18n-cleanup-extract-subtask">
-    <exec command="php symfony i18n:extract --auto-save --auto-delete --plugins ${lang}" dir="${phing.dir}" checkreturn="true"/>
+    <exec executable="php" dir="${phing.dir}" checkreturn="true">
+      <arg line="symfony i18n:extract --auto-save --auto-delete --plugins ${lang}"/>
+    </exec>
   </target>
   <target name="i18n-cleanup-remove-empty-plugin-subdirs-subtask">
-    <exec command="rmdir plugins/${plugin}/i18n" dir="${phing.dir}"/>
+    <exec executable="rmdir" dir="${phing.dir}">
+      <arg value="plugins/${plugin}/i18n"/>
+    </exec>
   </target>
 
   <target name="i18n-cleanup-create-plugin-i18n-folders-if-missing">
@@ -242,7 +295,9 @@
     </foreach>
   </target>
   <target name="i18n-cleanup-create-plugin-subdirs-subtask">
-    <exec command="mkdir plugins/${plugin}/i18n" dir="${phing.dir}"/>
+    <exec executable="mkdir" dir="${phing.dir}">
+      <arg value="plugins/${plugin}/i18n"/>
+    </exec>
   </target>
 
 </project>

@@ -140,7 +140,7 @@ RUN set -eux \
     && apk del .devext-builddeps \
     && pecl clear-cache
 
-RUN apk add --no-cache make
+RUN apk add --no-cache git make
 
 COPY --from=composer-base /usr/bin/composer /usr/bin/composer
 COPY --from=frontend /usr/local/bin/node /usr/local/bin/node
