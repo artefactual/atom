@@ -24,6 +24,10 @@ if [ $status -ne 0 ]; then
     exit $status
 fi
 
+if [ "${1:-}" = "fpm" ]; then
+    php "${__dir}/warm-cache.php" prod
+fi
+
 case $1 in
     '')
         echo "Usage: (convenience shortcuts)"

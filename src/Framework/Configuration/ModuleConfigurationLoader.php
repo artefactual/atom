@@ -21,6 +21,8 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Configuration;
 
+use Atom\Framework\Cache\PhpArrayFileCache;
+
 final readonly class ModuleConfigurationLoader
 {
     private ConfigurationPathResolver $paths;
@@ -32,6 +34,8 @@ final readonly class ModuleConfigurationLoader
         string $application,
         array $plugins,
         ?string $frameworkDirectory = null,
+        ?string $cacheDirectory = null,
+        bool $debug = false,
     ) {
         $this->paths = new ConfigurationPathResolver(
             $projectDirectory,
@@ -39,7 +43,12 @@ final readonly class ModuleConfigurationLoader
             $plugins,
             $frameworkDirectory,
         );
-        $this->files = new HybridYamlFileLoader();
+        $this->files = new HybridYamlFileLoader(
+            null === $cacheDirectory
+                ? null
+                : new PhpArrayFileCache($cacheDirectory.'/yaml'),
+            $debug,
+        );
         $this->merger = new ConfigurationMerger();
     }
 

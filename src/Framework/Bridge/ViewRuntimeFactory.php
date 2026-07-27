@@ -27,6 +27,7 @@ final readonly class ViewRuntimeFactory
         private TemplateRenderer $renderer,
         private ViewConfiguration $configuration,
         private AssetRenderer $assets,
+        private ?ViewCacheManager $cacheManager = null,
     ) {}
 
     public function create(Context $context): ViewRuntime
@@ -39,6 +40,7 @@ final readonly class ViewRuntimeFactory
             $this->renderer,
             $this->configuration,
             $this->assets,
+            $this->cacheManager,
         );
     }
 }

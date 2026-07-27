@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Bridge;
 
+use Atom\Framework\Cache\PhpArrayFileCache;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigCache;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -255,7 +256,7 @@ final class RuntimeConfiguration
     {
         return (new ApplicationConfiguration(
             $this->pathResolver(),
-            new HybridYamlFileLoader(),
+            $this->yamlFileLoader(),
             new ConfigurationMerger(),
             new ConstantReplacer(),
             new ParameterCompiler(),
@@ -298,6 +299,17 @@ final class RuntimeConfiguration
             $this->projectDirectory,
             $this->application,
             $this->plugins,
+        );
+    }
+
+    private function yamlFileLoader(): HybridYamlFileLoader
+    {
+        return new HybridYamlFileLoader(
+            new PhpArrayFileCache(
+                $this->projectDirectory.'/cache/'.$this->application
+                    .'/'.$this->environment.'/config/bridge/yaml',
+            ),
+            $this->debug,
         );
     }
 }

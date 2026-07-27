@@ -42,6 +42,7 @@ final class ViewRuntime
         private readonly TemplateRenderer $renderer,
         private readonly ViewConfiguration $configuration,
         private readonly AssetRenderer $assets,
+        private readonly ?ViewCacheManager $cacheManager = null,
     ) {}
 
     public function begin(
@@ -246,6 +247,16 @@ final class ViewRuntime
         array $variables = [],
     ): string {
         $variables = OutputEscaper::unescape($variables);
+        $cached = $this->cacheManager?->getComponent(
+            $module,
+            $component,
+            $variables,
+        );
+
+        if (null !== $cached) {
+            return $cached;
+        }
+
         $descriptor = $this->components->find($module, $component);
 
         if (null === $descriptor) {
@@ -284,11 +295,18 @@ final class ViewRuntime
             ));
         }
 
-        return $this->render(
+        $content = $this->render(
             $path,
             $instance->getVarHolder()->getAll(),
             $module,
         );
+
+        return $this->cacheManager?->setComponent(
+            $module,
+            $component,
+            $variables,
+            $content,
+        ) ?? $content;
     }
 
     public function hasComponentSlot(string $name): bool

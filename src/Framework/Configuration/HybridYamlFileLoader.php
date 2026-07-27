@@ -21,12 +21,32 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Configuration;
 
+use Atom\Framework\Cache\PhpArrayFileCache;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 final class HybridYamlFileLoader
 {
+    public function __construct(
+        private readonly ?PhpArrayFileCache $cache = null,
+        private readonly bool $validateDependencies = false,
+    ) {}
+
     public function load(string $path): array
+    {
+        if (null === $this->cache) {
+            return $this->loadUncached($path);
+        }
+
+        return $this->cache->remember(
+            'hybrid-yaml-v1:'.$path,
+            fn (): array => $this->loadUncached($path),
+            [$path],
+            $this->validateDependencies,
+        );
+    }
+
+    private function loadUncached(string $path): array
     {
         if (!is_readable($path)) {
             throw new ConfigurationException(sprintf(

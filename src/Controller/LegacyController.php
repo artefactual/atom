@@ -33,6 +33,7 @@ use Atom\Framework\Bridge\RuntimeConfiguration;
 use Atom\Framework\Bridge\StopException;
 use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
+use Atom\Framework\Bridge\ViewCacheManager;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
 use Atom\Framework\Filter\FilterPipeline;
 use Atom\Framework\Routing\ResourceRouteResolver;
@@ -53,6 +54,7 @@ final readonly class LegacyController
         private TranslatorFactory $translatorFactory,
         private ViewRuntimeFactory $viewRuntimeFactory,
         private ResourceRouteResolver $resourceRouteResolver,
+        private ?ViewCacheManager $viewCacheManager = null,
     ) {}
 
     public function __invoke(Request $request): Response
@@ -76,6 +78,10 @@ final readonly class LegacyController
             resourceRouteResolver: $this->resourceRouteResolver,
         );
         Context::setInstance($context);
+
+        if (null !== $this->viewCacheManager) {
+            $context->set('view_cache_manager', $this->viewCacheManager);
+        }
 
         try {
             $this->user->initialize(

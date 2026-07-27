@@ -21,6 +21,8 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Autoload;
 
+use Atom\Framework\Cache\PhpArrayFileCache;
+
 final class LegacyClassLoader
 {
     private ?array $classMap = null;
@@ -31,6 +33,7 @@ final class LegacyClassLoader
         private readonly iterable $directories,
         private readonly ClassMapBuilder $classMapBuilder = new ClassMapBuilder(),
         private readonly iterable $includePaths = [],
+        private readonly ?PhpArrayFileCache $classMapCache = null,
     ) {}
 
     public function register(): void
@@ -69,11 +72,26 @@ final class LegacyClassLoader
 
     public function findFile(string $class): ?string
     {
-        $this->classMap ??= $this->classMapBuilder->build(
-            $this->directories,
-        );
+        return $this->classMap()[
+            strtolower(ltrim($class, '\\'))
+        ] ?? null;
+    }
 
-        return $this->classMap[strtolower(ltrim($class, '\\'))] ?? null;
+    public function warmUp(): void
+    {
+        $this->classMap();
+    }
+
+    private function classMap(): array
+    {
+        return $this->classMap ??= null === $this->classMapCache
+            ? $this->classMapBuilder->build($this->directories)
+            : $this->classMapCache->remember(
+                'legacy-class-map-v1',
+                fn (): array => $this->classMapBuilder->build(
+                    $this->directories,
+                ),
+            );
     }
 
     private function registerIncludePaths(): void

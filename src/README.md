@@ -327,6 +327,7 @@ The principal implementation locations are:
 | [`src/Console/`](Console/) | Symfony Console application entry and command registration |
 | [`src/Framework/Autoload/`](Framework/Autoload/) | Narrow loader for application, plugin, and generated classes |
 | [`src/Framework/Bridge/`](Framework/Bridge/) | AtoM context, dispatch, views, aliases, and compatibility entry points |
+| [`src/Framework/Cache/`](Framework/Cache/) | Runtime, session, and generated PHP-array cache adapters |
 | [`src/Framework/Configuration/`](Framework/Configuration/) | Existing configuration discovery, loading, merging, and compilation |
 | [`src/Framework/Console/`](Framework/Console/) | Existing task discovery and CLI context |
 | [`src/Framework/Database/`](Framework/Database/) | Propel initialization |
@@ -361,6 +362,26 @@ This map also shows the intended isolation: the new runtime is concentrated in
 Composer is authoritative for maintained dependencies and new namespaced code.
 The AtoM class loader is intentionally narrower: it resolves application,
 plugin, and generated classes without restoring Symfony 1's runtime loader.
+
+### Runtime caches
+
+The compatibility runtime preserves production caching without rebuilding
+legacy framework machinery. The legacy class map and parsed YAML files are
+stored as generated PHP arrays under
+`cache/qubit/<environment>/config/bridge`. OPcache can load those arrays
+without recursively scanning and parsing the source tree on every request.
+
+Production entries remain authoritative until the application cache is
+cleared. Debug environments validate YAML dependencies before reuse. Run
+`php symfony cache:clear` after adding or removing legacy classes or changing
+production configuration outside a deployment. Container startup clears the
+same environment caches and prewarms the production class map before PHP-FPM
+starts.
+
+Components explicitly enabled by existing module `cache.yml` files continue
+to use the configured AtoM cache backend and lifetime. Cache keys retain host,
+component, context, and caller-provided `sf_cache_key` boundaries, and existing
+menu invalidation calls continue to clear matching entries.
 
 ### The compatibility layer
 
@@ -888,6 +909,12 @@ Inspect commands and logs:
 docker compose exec atom php symfony list
 docker compose logs -f atom atom_worker nginx
 ```
+
+Xdebug is installed in the development image but starts only when a request
+contains an Xdebug trigger. This keeps normal browsing representative and
+avoids a debugger connection attempt on every request. Use `XDEBUG_TRIGGER=1`
+for a CLI command, or configure the equivalent browser cookie or query
+parameter when an IDE session is needed.
 
 Stop containers while retaining databases and caches:
 

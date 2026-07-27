@@ -22,8 +22,10 @@ declare(strict_types=1);
 namespace Atom\Tests\Framework\Autoload;
 
 use Atom\Framework\Autoload\LegacyClassLoader;
+use Atom\Framework\Cache\PhpArrayFileCache;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @internal
@@ -47,6 +49,52 @@ final class LegacyClassLoaderTest extends TestCase
             self::assertTrue(class_exists('AtomLegacyLoaderFixture'));
         } finally {
             $loader->unregister();
+        }
+    }
+
+    public function testReusesPersistedClassMap(): void
+    {
+        vfsStream::setup('root', null, [
+            'classes' => [
+                'LoaderFixture.php' => <<<'PHP'
+                    <?php
+
+                    class AtomPersistedLoaderFixture {}
+                    PHP,
+            ],
+        ]);
+        $cacheDirectory = sys_get_temp_dir()
+            .'/atom-legacy-class-cache-'.bin2hex(random_bytes(8));
+        $cache = new PhpArrayFileCache($cacheDirectory);
+        $path = 'vfs://root/classes/LoaderFixture.php';
+
+        try {
+            self::assertSame(
+                $path,
+                (new LegacyClassLoader(
+                    ['vfs://root/classes'],
+                    classMapCache: $cache,
+                ))->findFile('AtomPersistedLoaderFixture'),
+            );
+
+            unlink($path);
+
+            self::assertSame(
+                $path,
+                (new LegacyClassLoader(
+                    new class implements \IteratorAggregate {
+                        public function getIterator(): \Traversable
+                        {
+                            throw new \RuntimeException(
+                                'The cached map should avoid a source scan.',
+                            );
+                        }
+                    },
+                    classMapCache: $cache,
+                ))->findFile('AtomPersistedLoaderFixture'),
+            );
+        } finally {
+            (new Filesystem())->remove($cacheDirectory);
         }
     }
 }

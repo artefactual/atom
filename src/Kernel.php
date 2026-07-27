@@ -39,8 +39,12 @@ use Atom\Framework\Bridge\TemplateRenderer;
 use Atom\Framework\Bridge\TranslatorFactory;
 use Atom\Framework\Bridge\User;
 use Atom\Framework\Bridge\UserFactory;
+use Atom\Framework\Bridge\ViewCacheManager;
 use Atom\Framework\Bridge\ViewRuntimeFactory;
+use Atom\Framework\Cache\ApcCache;
+use Atom\Framework\Cache\Cache;
 use Atom\Framework\Cache\MemcacheCache;
+use Atom\Framework\Cache\PhpArrayFileCache;
 use Atom\Framework\Configuration\ApplicationConfiguration;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationMerger;
@@ -114,6 +118,9 @@ class Kernel extends BaseKernel
         $this->legacyClassLoader ??= new LegacyClassLoader(
             $directories,
             includePaths: $directories->includePaths(),
+            classMapCache: new PhpArrayFileCache(
+                $this->bridgeCacheDirectory().'/class-map',
+            ),
         );
         $this->legacyClassLoader->register();
 
@@ -266,6 +273,7 @@ class Kernel extends BaseKernel
 
         $services = $container->services();
         $services->defaults()->autowire()->autoconfigure();
+        $viewCacheManager = null;
 
         if (null !== $sessionCache) {
             $services->set('atom.session.cache', MemcacheCache::class)->args([[
@@ -329,10 +337,33 @@ class Kernel extends BaseKernel
             $this->getProjectDir(),
             self::APPLICATION,
             $plugins,
+            null,
+            $this->bridgeCacheDirectory(),
+            $this->debug,
         ]);
+
+        if ((bool) ($parameters['sf_cache'] ?? false)) {
+            $services->set(
+                'atom.view.cache',
+                $this->viewCacheClass(
+                    (string) ($parameters['app_cache_engine']
+                        ?? ApcCache::class),
+                ),
+            )->args([$this->viewCacheOptions($parameters)]);
+            $services->set(ViewCacheManager::class)->args([
+                service('atom.view.cache'),
+                service(ModuleConfigurationLoader::class),
+                service('request_stack'),
+            ]);
+            $viewCacheManager = service(ViewCacheManager::class);
+        }
+
         $services->set(ConfigurationMerger::class);
         $services->set(ViewConfiguration::class);
-        $services->set(ViewRuntimeFactory::class);
+        $services->set(ViewRuntimeFactory::class)->arg(
+            '$cacheManager',
+            $viewCacheManager,
+        );
         $services->set(SecurityConfiguration::class);
         $services->set(SecurityEnforcer::class);
         $services->set(FilterConfiguration::class);
@@ -375,6 +406,7 @@ class Kernel extends BaseKernel
         $services->set(ResourceRouteSubscriber::class);
         $services
             ->set(LegacyController::class)
+            ->arg('$viewCacheManager', $viewCacheManager)
             ->public()
             ->tag('controller.service_arguments');
         $services
@@ -398,7 +430,12 @@ class Kernel extends BaseKernel
                 self::APPLICATION,
                 $plugins ?? $this->enabledPlugins(),
             ),
-            new HybridYamlFileLoader(),
+            new HybridYamlFileLoader(
+                new PhpArrayFileCache(
+                    $this->bridgeCacheDirectory().'/yaml',
+                ),
+                $this->debug,
+            ),
             new ConfigurationMerger(),
             new ConstantReplacer(),
             new ParameterCompiler(),
@@ -425,6 +462,13 @@ class Kernel extends BaseKernel
             $this->getProjectDir(),
             settings: $settings,
         ))->enabled();
+    }
+
+    private function bridgeCacheDirectory(): string
+    {
+        return $this->getProjectDir()
+            .'/cache/'.self::APPLICATION.'/'.$this->environment
+            .'/config/bridge';
     }
 
     private function directoryParameters(): array
@@ -460,6 +504,43 @@ class Kernel extends BaseKernel
         throw new ConfigurationException(
             'Set APP_SECRET or configure csrf_secret before booting AtoM.',
         );
+    }
+
+    private function viewCacheClass(string $class): string
+    {
+        $class = ltrim($class, '\\');
+
+        if (in_array($class, ['sfAPCCache', ApcCache::class], true)) {
+            return ApcCache::class;
+        }
+
+        if (in_array($class, ['sfMemcacheCache', MemcacheCache::class], true)) {
+            return MemcacheCache::class;
+        }
+
+        if (is_a($class, Cache::class, true)) {
+            return $class;
+        }
+
+        throw new ConfigurationException(sprintf(
+            'View cache engine "%s" must extend "%s".',
+            $class,
+            Cache::class,
+        ));
+    }
+
+    private function viewCacheOptions(array $parameters): array
+    {
+        $prefix = 'app_cache_engine_param_';
+        $options = [];
+
+        foreach ($parameters as $name => $value) {
+            if (str_starts_with((string) $name, $prefix)) {
+                $options[substr((string) $name, strlen($prefix))] = $value;
+            }
+        }
+
+        return $options;
     }
 
     private function userClass(
