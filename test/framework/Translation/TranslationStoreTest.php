@@ -108,4 +108,24 @@ final class TranslationStoreTest extends TestCase
             )['Shared source']['target'],
         );
     }
+
+    public function testReusesDiscoveredCataloguePaths(): void
+    {
+        $store = new TranslationStore(
+            [$this->application, $this->plugin],
+            'fr',
+        );
+
+        self::assertSame(
+            'Application',
+            $store->find('Shared source')['target'],
+        );
+
+        unlink($this->application.'/fr/messages.xml');
+
+        self::assertSame(
+            'Application',
+            $store->find('Shared source')['target'],
+        );
+    }
 }

@@ -16,6 +16,7 @@ namespace Atom\Framework\Translation;
 final class TranslationStore
 {
     private array $catalogues = [];
+    private ?array $cataloguePaths = null;
 
     public function __construct(
         private readonly array $directories,
@@ -60,6 +61,10 @@ final class TranslationStore
 
     private function cataloguePaths(): array
     {
+        if (null !== $this->cataloguePaths) {
+            return $this->cataloguePaths;
+        }
+
         $paths = [];
 
         foreach ($this->directories as $directory) {
@@ -71,7 +76,7 @@ final class TranslationStore
             }
         }
 
-        return $paths;
+        return $this->cataloguePaths = $paths;
     }
 
     private function messages(string $path): array

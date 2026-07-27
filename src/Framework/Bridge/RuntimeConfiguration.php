@@ -52,6 +52,9 @@ final class RuntimeConfiguration
 
     private static ?self $active = null;
     private ?ConfigCache $configCache = null;
+    private ?ConfigurationPathResolver $configurationPathResolver = null;
+    private ?HybridYamlFileLoader $configurationFileLoader = null;
+    private ?array $allPluginPaths = null;
 
     private readonly string $application;
     private readonly string $environment;
@@ -224,6 +227,10 @@ final class RuntimeConfiguration
 
     public function getAllPluginPaths(): array
     {
+        if (null !== $this->allPluginPaths) {
+            return $this->allPluginPaths;
+        }
+
         $paths = [];
 
         $plugins = glob(
@@ -238,7 +245,7 @@ final class RuntimeConfiguration
 
         ksort($paths);
 
-        return $paths;
+        return $this->allPluginPaths = $paths;
     }
 
     public function getPluginSubPaths(string $path): array
@@ -295,16 +302,25 @@ final class RuntimeConfiguration
 
     private function pathResolver(): ConfigurationPathResolver
     {
-        return new ConfigurationPathResolver(
+        return $this->configurationPathResolver ??=
+            new ConfigurationPathResolver(
             $this->projectDirectory,
             $this->application,
             $this->plugins,
-        );
+            cache: $this->debug
+                ? null
+                : new PhpArrayFileCache(
+                    $this->projectDirectory.'/cache/'.$this->application
+                        .'/'.$this->environment
+                        .'/config/bridge/paths',
+                ),
+            );
     }
 
     private function yamlFileLoader(): HybridYamlFileLoader
     {
-        return new HybridYamlFileLoader(
+        return $this->configurationFileLoader ??=
+            new HybridYamlFileLoader(
             new PhpArrayFileCache(
                 $this->projectDirectory.'/cache/'.$this->application
                     .'/'.$this->environment.'/config/bridge/yaml',

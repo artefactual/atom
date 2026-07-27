@@ -21,16 +21,20 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Configuration;
 
-final readonly class ConfigurationPathResolver
+use Atom\Framework\Cache\PhpArrayFileCache;
+
+final class ConfigurationPathResolver
 {
     private string $projectDirectory;
     private string $frameworkDirectory;
+    private array $resolved = [];
 
     public function __construct(
         string $projectDirectory,
-        private string $application,
-        private array $plugins = [],
+        private readonly string $application,
+        private readonly array $plugins = [],
         ?string $frameworkDirectory = null,
+        private readonly ?PhpArrayFileCache $cache = null,
     ) {
         $this->projectDirectory = rtrim($projectDirectory, '/\\');
         $this->frameworkDirectory = rtrim(
@@ -55,6 +59,23 @@ final readonly class ConfigurationPathResolver
     public function resolve(string $configPath): array
     {
         $configPath = $this->normalizeConfigPath($configPath);
+
+        return $this->resolved[$configPath] ??= null === $this->cache
+            ? $this->resolveUncached($configPath)
+            : $this->cache->remember(
+                'configuration-paths-v1:'.hash('sha256', serialize([
+                    $this->projectDirectory,
+                    $this->application,
+                    $this->plugins,
+                    $this->frameworkDirectory,
+                    $configPath,
+                ])),
+                fn (): array => $this->resolveUncached($configPath),
+            );
+    }
+
+    private function resolveUncached(string $configPath): array
+    {
         $globalConfigPath = basename(dirname($configPath))
             .'/'.basename($configPath);
 

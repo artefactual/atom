@@ -21,10 +21,12 @@ declare(strict_types=1);
 
 namespace Atom\Tests\Framework\Configuration;
 
+use Atom\Framework\Cache\PhpArrayFileCache;
 use Atom\Framework\Configuration\ConfigurationException;
 use Atom\Framework\Configuration\ConfigurationPathResolver;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @internal
@@ -92,5 +94,39 @@ final class ConfigurationPathResolverTest extends TestCase
 
         $this->expectException(ConfigurationException::class);
         $resolver->resolve('../secrets.yml');
+    }
+
+    public function testReusesPersistedProductionPaths(): void
+    {
+        $projectDirectory = sys_get_temp_dir()
+            .'/atom-configuration-paths-'.bin2hex(random_bytes(8));
+        $configurationPath = $projectDirectory.'/config/settings.yml';
+        $cacheDirectory = $projectDirectory.'/cache';
+        $filesystem = new Filesystem();
+        $filesystem->dumpFile($configurationPath, 'all: []');
+
+        try {
+            self::assertSame(
+                [$configurationPath],
+                (new ConfigurationPathResolver(
+                    $projectDirectory,
+                    'qubit',
+                    cache: new PhpArrayFileCache($cacheDirectory),
+                ))->resolve('config/settings.yml'),
+            );
+
+            unlink($configurationPath);
+
+            self::assertSame(
+                [$configurationPath],
+                (new ConfigurationPathResolver(
+                    $projectDirectory,
+                    'qubit',
+                    cache: new PhpArrayFileCache($cacheDirectory),
+                ))->resolve('config/settings.yml'),
+            );
+        } finally {
+            $filesystem->remove($projectDirectory);
+        }
     }
 }

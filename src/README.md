@@ -366,17 +366,18 @@ plugin, and generated classes without restoring Symfony 1's runtime loader.
 ### Runtime caches
 
 The compatibility runtime preserves production caching without rebuilding
-legacy framework machinery. The legacy class map and parsed YAML files are
-stored as generated PHP arrays under
+legacy framework machinery. The legacy class map, resolved configuration and
+module paths, and parsed YAML files are stored as generated PHP arrays under
 `cache/qubit/<environment>/config/bridge`. OPcache can load those arrays
 without recursively scanning and parsing the source tree on every request.
 
 Production entries remain authoritative until the application cache is
 cleared. Debug environments validate YAML dependencies before reuse. Run
-`php symfony cache:clear` after adding or removing legacy classes or changing
-production configuration outside a deployment. Container startup clears the
-same environment caches and prewarms the production class map before PHP-FPM
-starts.
+`php symfony cache:clear` after adding or removing legacy classes, module
+directories, or production configuration outside a deployment. Container
+startup clears the same environment caches and prewarms the production class
+map before PHP-FPM starts. Within a request, repeated module configuration and
+translation catalogue lookups reuse their discovered metadata.
 
 Components explicitly enabled by existing module `cache.yml` files continue
 to use the configured AtoM cache backend and lifetime. Cache keys retain host,

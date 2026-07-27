@@ -23,11 +23,13 @@ namespace Atom\Framework\Configuration;
 
 use Atom\Framework\Cache\PhpArrayFileCache;
 
-final readonly class ModuleConfigurationLoader
+final class ModuleConfigurationLoader
 {
     private ConfigurationPathResolver $paths;
     private HybridYamlFileLoader $files;
     private ConfigurationMerger $merger;
+    private array $configurations = [];
+    private array $configurationLayers = [];
 
     public function __construct(
         string $projectDirectory,
@@ -42,6 +44,9 @@ final readonly class ModuleConfigurationLoader
             $application,
             $plugins,
             $frameworkDirectory,
+            null === $cacheDirectory || $debug
+                ? null
+                : new PhpArrayFileCache($cacheDirectory.'/paths'),
         );
         $this->files = new HybridYamlFileLoader(
             null === $cacheDirectory
@@ -54,17 +59,21 @@ final readonly class ModuleConfigurationLoader
 
     public function load(string $module, string $filename): array
     {
-        return $this->merger->mergeConfigurations(
-            $this->layers($module, $filename),
-        );
+        $key = $module.'/'.$filename;
+
+        return $this->configurations[$key] ??=
+            $this->merger->mergeConfigurations(
+                $this->layers($module, $filename),
+            );
     }
 
     public function layers(string $module, string $filename): array
     {
         $this->validateName($module, 'module');
         $this->validateName($filename, 'configuration file');
+        $key = $module.'/'.$filename;
 
-        return array_map(
+        return $this->configurationLayers[$key] ??= array_map(
             $this->files->load(...),
             $this->paths->resolve(sprintf(
                 'modules/%s/config/%s',

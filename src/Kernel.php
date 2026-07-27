@@ -313,10 +313,25 @@ class Kernel extends BaseKernel
         $services->set(CliContextFactory::class);
         $services->set(ConsoleRuntime::class)->public();
         $services->set(PluginRuntimeInitializer::class)->public();
+        $moduleDirectoryCache = null;
+
+        if (!$this->debug) {
+            $services->set(
+                'atom.module.directory_cache',
+                PhpArrayFileCache::class,
+            )->args([
+                $this->bridgeCacheDirectory().'/module-directories',
+            ]);
+            $moduleDirectoryCache = service(
+                'atom.module.directory_cache',
+            );
+        }
+
         $services->set(ModuleDirectories::class)->args([
             $this->getProjectDir(),
             self::APPLICATION,
             $plugins,
+            $moduleDirectoryCache,
         ]);
         $services->set(ActionLocator::class);
         $services->set(ComponentLocator::class);
@@ -429,6 +444,11 @@ class Kernel extends BaseKernel
                 $this->getProjectDir(),
                 self::APPLICATION,
                 $plugins ?? $this->enabledPlugins(),
+                cache: $this->debug
+                    ? null
+                    : new PhpArrayFileCache(
+                        $this->bridgeCacheDirectory().'/paths',
+                    ),
             ),
             new HybridYamlFileLoader(
                 new PhpArrayFileCache(

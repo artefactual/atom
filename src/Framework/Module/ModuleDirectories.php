@@ -21,14 +21,18 @@ declare(strict_types=1);
 
 namespace Atom\Framework\Module;
 
-final readonly class ModuleDirectories
+use Atom\Framework\Cache\PhpArrayFileCache;
+
+final class ModuleDirectories
 {
     private string $projectDirectory;
+    private array $resolved = [];
 
     public function __construct(
         string $projectDirectory,
-        private string $application,
-        private array $plugins = [],
+        private readonly string $application,
+        private readonly array $plugins = [],
+        private readonly ?PhpArrayFileCache $cache = null,
     ) {
         $this->projectDirectory = rtrim($projectDirectory, '/\\');
         $this->validateName($this->application, 'application');
@@ -57,6 +61,24 @@ final readonly class ModuleDirectories
         string $subdirectory,
     ): array {
         $this->validateName($module, 'module');
+        $key = $subdirectory.'/'.$module;
+
+        return $this->resolved[$key] ??= null === $this->cache
+            ? $this->resolve($module, $subdirectory)
+            : $this->cache->remember(
+                'module-directories-v1:'.hash('sha256', serialize([
+                    $this->projectDirectory,
+                    $this->application,
+                    $this->plugins,
+                    $module,
+                    $subdirectory,
+                ])),
+                fn (): array => $this->resolve($module, $subdirectory),
+            );
+    }
+
+    private function resolve(string $module, string $subdirectory): array
+    {
         $directories = [];
 
         foreach ($this->plugins as $plugin) {
