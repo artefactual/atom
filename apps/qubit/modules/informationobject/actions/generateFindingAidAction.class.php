@@ -28,6 +28,11 @@ class InformationObjectGenerateFindingAidAction extends sfAction
             $this->forward404();
         }
 
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'update')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
         // Check if a finding aid file already exists
         $findingAid = new QubitFindingAid($this->resource);
 

@@ -29,7 +29,7 @@ class InformationObjectDeleteFindingAidAction extends sfAction
         }
 
         // Check user authorization
-        if (!$this->context->user->isAuthenticated()) {
+        if (!QubitAcl::check($this->resource, 'update')) {
             QubitAcl::forwardUnauthorized();
         }
 
