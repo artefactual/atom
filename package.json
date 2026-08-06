@@ -40,5 +40,8 @@
     "watch": "webpack watch",
     "format": "prettier --write .",
     "check-format": "prettier --check ."
+  },
+  "allowScripts": {
+    "cypress@15.15.0": true
   }
 }
