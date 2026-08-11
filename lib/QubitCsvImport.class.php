@@ -97,7 +97,7 @@ class QubitCsvImport
         $commandIndexFlag = ('csv:event-import' != $taskClassName && $this->indexDuringImport) ? '--index' : '';
 
         // Figure out whether user option should be added to command
-        $commandUser = ('csv:import' == $taskClassName) ? sprintf('--user-id="%s"', sfContext::getInstance()->getUser()->getUserId()) : '';
+        $commandUser = ('csv:import' == $taskClassName) ? sprintf('--user-id=%s', escapeshellarg(sfContext::getInstance()->getUser()->getUserId())) : '';
 
         if ('' !== $this->updateType) {
             switch ($this->updateType) {
@@ -110,7 +110,7 @@ class QubitCsvImport
                 case 'delete-and-replace':
                     $commandUpdate = ('match-and-update' == $this->updateType) ? '--update="match-and-update"' : '--update="delete-and-replace"';
                     $commandSkipUnmatched = ($this->skipUnmatched) ? '--skip-unmatched' : '';
-                    $commandLimit = ('' !== $this->limit) ? "--limit=\"{$this->limit}\"" : '';
+                    $commandLimit = ('' !== $this->limit) ? sprintf('--limit=%s', escapeshellarg($this->limit)) : '';
 
                     break;
 
@@ -211,7 +211,7 @@ class QubitCsvImport
         );
 
         // Redirect stderr to stdout to logfile.
-        $command .= ' 2>&1 > '.$logFileName;
+        $command .= ' 2>&1 > '.escapeshellarg($logFileName);
 
         exec($command, $output, $exitCode);
 
