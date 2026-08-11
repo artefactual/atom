@@ -21,6 +21,10 @@ class ApiPhysicalObjectsCreateAction extends QubitApiAction
 {
     protected function post($request, $payload)
     {
+        if (!$this->context->user->hasCredential(['administrator', 'editor', 'contributor'], false)) {
+            throw new QubitApiNotAuthorizedException();
+        }
+
         // Optionally set culture
         $this->culture = 'en';
         if (!empty($payload->culture)) {
