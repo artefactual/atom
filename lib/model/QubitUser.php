@@ -60,7 +60,7 @@ class QubitUser extends BaseUser
     public function setPassword($password)
     {
         // Hash password first as SHA-1 (and salt) for backwards data compatibility
-        $salt = md5(rand(100000, 999999).$this->getEmail());
+        $salt = bin2hex(random_bytes(16));
         $this->setSalt($salt);
         $sha1Hash = sha1($salt.$password);
 
