@@ -21,6 +21,11 @@ class TaxonomyAutocompleteAction extends sfAction
 {
     public function execute($request)
     {
+        // Check user authorization
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
         $criteria = new Criteria();
         $criteria = QubitTaxonomy::addEditableTaxonomyCriteria($criteria);
         $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
