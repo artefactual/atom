@@ -21,6 +21,11 @@ class RepositoryAutocompleteAction extends sfAction
 {
     public function execute($request)
     {
+        // Check user authorization
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
         $criteria = new Criteria();
         $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
         $criteria->add(QubitActor::PARENT_ID, QubitRepository::ROOT_ID);
