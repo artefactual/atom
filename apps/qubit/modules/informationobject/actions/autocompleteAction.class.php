@@ -88,7 +88,8 @@ class InformationObjectAutocompleteAction extends sfAction
         }
 
         // Filter drafts
-        if (isset($request->filterDrafts) && $request->filterDrafts) {
+        if ((isset($request->filterDrafts) && $request->filterDrafts)
+          || !$this->getUser()->isAuthenticated()) {
             QubitAclSearch::filterDrafts($this->queryBool);
         }
 
