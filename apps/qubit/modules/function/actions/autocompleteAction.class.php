@@ -26,6 +26,11 @@ class FunctionAutocompleteAction extends sfAction
 {
     public function execute($request)
     {
+        // Check user authorization
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
         if (!isset($request->limit)) {
             $request->limit = sfConfig::get('app_hits_per_page');
         }
