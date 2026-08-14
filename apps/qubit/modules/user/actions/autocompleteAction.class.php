@@ -26,6 +26,10 @@ class UserAutocompleteAction extends sfAction
 {
     public function execute($request)
     {
+        if (!$this->getUser()->isAuthenticated() || !$this->getUser()->isAdministrator()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
         if (!isset($request->limit)) {
             $request->limit = sfConfig::get('app_hits_per_page', 10);
         }
