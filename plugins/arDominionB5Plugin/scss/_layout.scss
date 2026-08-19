@@ -93,6 +93,56 @@ header i.fa-2x {
     .text-block :last-child {
       margin-bottom: 0;
     }
+
+    /* Highlight search result matches */
+    mark {
+      background-color: rgba(var(--bs-primary-rgb), 0.15);
+      color: inherit;
+      font-weight: 600;
+      padding: 0 0.25em;
+      border-radius: 0.2em;
+      text-decoration: underline;
+      text-decoration-color: rgba(var(--bs-primary-rgb), 0.85);
+      text-decoration-thickness: 2px;
+    }
+
+    /* Ensure marks remain readable when nested in primary-coloured text */
+    .text-primary mark {
+      color: var(--bs-body-color);
+    }
+
+    .search-highlight-other {
+      margin-top: 0.5em;
+      padding: 0.5em;
+      border-left: solid $gray-600;
+      background-color: $gray-100;
+
+      .search-highlight-fragment {
+        font-style: italic;
+      }
+
+      .search-highlight-count {
+        display: block;
+        margin-top: 0.5em;
+        padding: 0;
+        font-size: $small-font-size;
+        font-weight: $font-weight-light;
+
+        i {
+          @include transition(transform 0.35s ease);
+        }
+
+        &:not(.collapsed) i {
+          transform: rotate(180deg);
+        }
+      }
+
+      .search-highlight-additional {
+        .search-highlight-fragment {
+          margin-top: 0.5em;
+        }
+      }
+    }
   }
 }
 

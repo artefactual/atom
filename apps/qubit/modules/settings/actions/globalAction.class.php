@@ -78,6 +78,7 @@ class SettingsGlobalAction extends sfAction
         $multiRepository = QubitSetting::getByName('multi_repository');
         $auditLogEnabled = QubitSetting::getByName('audit_log_enabled');
         $showTooltips = QubitSetting::getByName('show_tooltips');
+        $highlightSearchResults = QubitSetting::getByName('highlight_search_results');
         $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
         $draftNotificationEnabled = QubitSetting::getByName('draft_notification_enabled');
         $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
@@ -103,6 +104,7 @@ class SettingsGlobalAction extends sfAction
             'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(['sourceCulture' => true])) : QubitSlug::SLUG_BASIS_TITLE,
             'permissive_slug_creation' => (isset($permissiveSlugCreation)) ? intval($permissiveSlugCreation->getValue(['sourceCulture' => true])) : QubitSlug::SLUG_RESTRICTIVE,
             'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(['sourceCulture' => true])) : 1,
+            'highlight_search_results' => (isset($highlightSearchResults)) ? intval($highlightSearchResults->getValue(['sourceCulture' => true])) : 1,
             'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(['sourceCulture' => true]) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
             'draft_notification_enabled' => (isset($draftNotificationEnabled)) ? intval($draftNotificationEnabled->getValue(['sourceCulture' => true])) : 0,
             'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(['sourceCulture' => true]) : null,
@@ -240,6 +242,15 @@ class SettingsGlobalAction extends sfAction
 
             // Force sourceCulture update to prevent discrepency in settings between cultures
             $setting->setValue($showTooltips, ['sourceCulture' => true]);
+            $setting->save();
+        }
+
+        // Highlight search results
+        if (null !== $highlightSearchResults = $thisForm->getValue('highlight_search_results')) {
+            $setting = QubitSetting::getByName('highlight_search_results');
+
+            // Force sourceCulture update to prevent discrepency in settings between cultures
+            $setting->setValue($highlightSearchResults, ['sourceCulture' => true]);
             $setting->save();
         }
 

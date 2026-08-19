@@ -1,4 +1,55 @@
-<?php $doc = $hit->getData(); ?>
+<?php
+$doc = $hit->getData();
+
+// The selected language might be different from the user's culture. This is a fallback culture.
+$sfCulture = $sf_user->getCulture();
+
+// The highlights contain a mapping from search index field name to an array of fragments
+// containing the parts of that field that matched the query in the search index. If a field did
+// not return results for the query, or higlighting is disabled, the key for that field will not
+// exist in this array.
+$highlights = reset($hit->getHighlights());
+
+$titleHighlight = get_search_highlight($hit, 'title', ['culture' => $culture]);
+$scopeHighlight = get_search_highlight($hit, 'scopeAndContent', ['culture' => $culture]);
+
+$creatorHighlight = $highlights["creators.i18n.{$culture}.authorizedFormOfName"][0]
+    ?? $highlights["creators.i18n.{$sfCulture}.authorizedFormOfName"][0]
+    ?? null;
+
+$refCodeHighlight = $highlights['referenceCode'][0] ?? null;
+$identifierHighlight = $highlights['identifier'][0] ?? null;
+
+// We can render other highlights, but ignore:
+// - Identifiers
+// - The language filter itself
+// - Scope and content, title, creators in other languages
+$skippedFieldNames = ['referenceCode', 'identifier', 'i18n.languages'];
+$skippedFieldPatterns = [
+    '/^i18n\.[^.]+\.title$/',
+    '/^i18n\.[^.]+\.scopeAndContent$/',
+    '/^creators\.i18n\.[^.]+\.authorizedFormOfName$/',
+];
+
+$otherHighlights = array_filter(
+    $highlights,
+    function ($key) use ($skippedFieldNames, $skippedFieldPatterns) {
+        if (in_array($key, $skippedFieldNames, true)) {
+            return false;
+        }
+        foreach ($skippedFieldPatterns as $pattern) {
+            if (preg_match($pattern, $key)) {
+                return false;
+            }
+        }
+
+        return true;
+    },
+    ARRAY_FILTER_USE_KEY
+);
+
+$maxFragmentSize = 150;
+?>
 
 <article class="search-result row g-0 p-3 border-bottom">
   <?php if (!empty($doc['hasDigitalObject'])) { ?>
@@ -39,10 +90,10 @@
   <div class="col-12<?php echo empty($doc['hasDigitalObject']) ? '' : ' col-lg-9'; ?> d-flex flex-column gap-1">
     <div class="d-flex align-items-center gap-2">
       <?php echo link_to(
-          render_title(get_search_i18n(
+          render_title_with_highlights(get_search_i18n(
               $doc,
               'title',
-              ['allowEmpty' => false, 'culture' => $culture]
+              ['allowEmpty' => false, 'culture' => $culture, 'highlight' => $titleHighlight],
           )),
           ['module' => 'informationobject', 'slug' => $doc['slug']],
           ['class' => 'h5 mb-0 text-truncate'],
@@ -63,10 +114,20 @@
               '1' == sfConfig::get('app_inherit_code_informationobject', 1)
               && isset($doc['referenceCode']) && !empty($doc['referenceCode'])
           ) { ?>
-            <span class="text-primary"><?php echo $doc['referenceCode']; ?></span>
+            <span class="text-primary">
+              <?php
+              $refCode = null !== $refCodeHighlight ? render_value_with_highlights($refCodeHighlight) : $doc['referenceCode'];
+              echo $refCode;
+              ?>
+            </span>
             <?php $showDash = true; ?>
           <?php } elseif (isset($doc['identifier']) && !empty($doc['identifier'])) { ?>
-            <span class="text-primary"><?php echo $doc['identifier']; ?></span>
+            <span class="text-primary">
+              <?php
+              $identifier = null !== $identifierHighlight ? render_value_with_highlights($identifierHighlight) : $doc['identifier'];
+              echo $identifier;
+              ?>
+            </span>
             <?php $showDash = true; ?>
           <?php } ?>
 
@@ -124,27 +185,92 @@
                 )),
                 ['slug' => $doc['partOf']['slug'], 'module' => 'informationobject']
             ); ?>
-          </span> 
+          </span>
         <?php } ?>
       </div>
 
       <?php if (null !== $scopeAndContent = get_search_i18n(
           $doc,
           'scopeAndContent',
-          ['culture' => $culture]
+          ['culture' => $culture, 'highlight' => $scopeHighlight],
       )) { ?>
         <span class="text-block d-none">
-          <?php echo render_value($scopeAndContent); ?>
+          <?php echo render_value_with_highlights($scopeAndContent); ?>
         </span>
       <?php } ?>
 
       <?php if (
           isset($doc['creators'])
-          && null !== $creationDetails = get_search_creation_details($doc, $culture)
+          && null !== $creationDetails = get_search_creation_details($doc, ['allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true, 'highlight' => $creatorHighlight])
       ) { ?>
         <span class="text-muted">
-          <?php echo render_value_inline($creationDetails); ?>
+          <?php echo render_value_with_highlights($creationDetails); ?>
         </span>
+      <?php } ?>
+
+      <?php if (!empty($otherHighlights)) { ?>
+        <?php
+        $firstHighlightText = current($otherHighlights)[0];
+        $highlightFieldKey = array_key_first($otherHighlights);
+        $ellipsize = strlen($firstHighlightText) >= $maxFragmentSize;
+        $numHighlightsHidden = count($otherHighlights) - 1;
+        $additionalHighlightsId = 'search-highlight-additional-'.$hit->getId();
+        ?>
+        <div class="search-highlight-other d-print-none">
+          <div class="highlight-summary">
+            <span>
+              <i class="fas fa-search" aria-hidden="true"></i>
+              &nbsp;
+              <?php if ('transcript' === $highlightFieldKey) {
+              echo __('Search matched digital object transcript:');
+              } else {
+              echo __('Search matched:');
+              } ?>
+            </span>
+            <span class="search-highlight-fragment">
+              <?php if ($ellipsize) {
+              echo '&hellip;';
+              } ?>
+              <?php echo render_value_with_highlights($firstHighlightText); ?>
+              <?php if ($ellipsize) {
+              echo '&hellip;';
+              } ?>
+            </span>
+            <?php if ($numHighlightsHidden > 0) { ?>
+              <button
+                class="search-highlight-count btn btn-link collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#<?php echo $additionalHighlightsId; ?>"
+                aria-expanded="false"
+                aria-controls="<?php echo $additionalHighlightsId; ?>">
+                <?php if (1 === $numHighlightsHidden) { ?>
+                  <?php echo __('Search also matched 1 other field'); ?>
+                <?php } else { ?>
+                  <?php echo __('Search also matched %1% other fields', ['%1%' => $numHighlightsHidden]); ?>
+                <?php } ?>
+                <i class="fas fa-chevron-down ms-1" aria-hidden="true"></i>
+              </button>
+              <ul id="<?php echo $additionalHighlightsId; ?>" class="search-highlight-additional collapse mb-0">
+                <?php foreach (array_slice($otherHighlights, 1) as $highlightTexts) { ?>
+                  <?php
+                  $highlightText = $highlightTexts[0];
+                  $ellipsize = strlen($highlightText) >= $maxFragmentSize;
+                  ?>
+                  <li class="search-highlight-fragment">
+                    <?php if ($ellipsize) {
+                    echo '&hellip;';
+                    } ?>
+                    <?php echo render_value_with_highlights($highlightText); ?>
+                    <?php if ($ellipsize) {
+                    echo '&hellip;';
+                    } ?>
+                  </li>
+                <?php } ?>
+              </ul>
+            <?php } ?>
+          </div>
+        </div>
       <?php } ?>
     </div>
   </div>

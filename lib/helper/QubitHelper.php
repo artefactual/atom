@@ -389,6 +389,92 @@ function render_title($value, $renderMarkdown = true)
     return '<em>'.sfContext::getInstance()->i18n->__('Untitled').'</em>';
 }
 
+/**
+ * Temporarily escape <mark></mark> tags meant for highlighting text. These bypass the markdown
+ * parser's HTML escaping.
+ *
+ * @param string $value The string to escape
+ *
+ * @return string The escaped string
+ */
+function escape_marks($value)
+{
+    $currPos = 0;
+
+    $openingMarks = [];
+    $closingMarks = [];
+
+    while (($currPos = strpos($value, '<mark>', $currPos)) !== false) {
+        $openingMarks[] = $currPos;
+        $currPos += strlen('<mark>');
+    }
+
+    $currPos = 0;
+
+    while (($currPos = strpos($value, '</mark>', $currPos)) !== false) {
+        $closingMarks[] = $currPos;
+        $currPos += strlen('</mark>');
+    }
+
+    if (0 === count($openingMarks) && 0 === count($closingMarks)) {
+        return $value;
+    }
+
+    if (count($openingMarks) != count($closingMarks)) {
+        return $value;
+    }
+
+    $replaced = str_replace('<mark>', "\x00MARK_OPEN\x00", $value);
+
+    return str_replace('</mark>', "\x00MARK_CLOSE\x00", $replaced);
+}
+
+/**
+ * Strip mark tags from markdown link URLs so Parsedown can parse the links
+ * correctly. Placeholders in link text are kept.
+ *
+ * @param string $value The string with mark placeholders
+ *
+ * @return string The string with placeholders removed from link URLs
+ */
+function strip_marks_from_link_urls($value)
+{
+    return preg_replace_callback(
+        '/\]\(([^)]*)\)/',
+        function ($matches) {
+            $url = str_replace('<mark>', '', $matches[1]);
+            $url = str_replace('</mark>', '', $url);
+
+            return ']('.$url.')';
+        },
+        $value
+    );
+}
+
+/**
+ * Replace <mark></mark> tags that had previously been escaped.
+ *
+ * @param string $value The escaped string
+ *
+ * @return string The string with proper <mark></mark> tags
+ */
+function replace_marks($value)
+{
+    $replaced = str_replace("\x00MARK_OPEN\x00", '<mark>', $value);
+
+    return str_replace("\x00MARK_CLOSE\x00", '</mark>', $replaced);
+}
+
+function render_title_with_highlights($value, $renderMarkdown = true)
+{
+    $escaped = strip_marks_from_link_urls($value);
+    $escaped = escape_marks($escaped);
+
+    $rendered = render_title($escaped);
+
+    return replace_marks($rendered);
+}
+
 function render_value($value)
 {
     // Parse using Parsedown's text method in safe mode
@@ -403,6 +489,16 @@ function render_value_inline($value)
     $options = ['inline' => true];
 
     return QubitMarkdown::getInstance()->parse($value, $options);
+}
+
+function render_value_with_highlights($value)
+{
+    $escaped = strip_marks_from_link_urls($value);
+    $escaped = escape_marks($escaped);
+
+    $rendered = render_value_inline($escaped);
+
+    return replace_marks($rendered);
 }
 
 function render_value_html($value)
@@ -691,12 +787,20 @@ function get_search_i18n($hit, $fieldName, $options = [])
         $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
     }
 
-    $accessField = function ($culture) use ($hit, $fieldName) {
+    $highlight = $options['highlight'] ?? null;
+
+    $accessField = function ($culture) use ($hit, $fieldName, $highlight) {
         if (empty($hit['i18n'][$culture][$fieldName])) {
             return false;
         }
 
-        return $hit['i18n'][$culture][$fieldName];
+        if (null !== $highlight && '' !== $highlight) {
+            $val = $highlight;
+        } else {
+            $val = $hit['i18n'][$culture][$fieldName];
+        }
+
+        return $val;
     };
 
     if (isset($options['culture'])) {
@@ -726,12 +830,71 @@ function get_search_i18n($hit, $fieldName, $options = [])
     return $showUntitled();
 }
 
-function get_search_creation_details($hit, $culture = null)
+/**
+ * Return the highlight fragment for an i18n field on an Elastica search hit,
+ * picked from the same culture whose value get_search_i18n would render.
+ *
+ * The culture-fallback chain mirrors get_search_i18n():
+ *   1. the "culture" option (typically the selected/filtered culture),
+ *   2. the user/site culture (sf_user->getCulture()),
+ *   3. when the "cultureFallback" option is true (the default), the
+ *      document's sourceCulture.
+ *
+ * @param mixed $hit
+ * @param mixed $fieldName
+ * @param mixed $options
+ */
+function get_search_highlight($hit, $fieldName, $options = [])
 {
-    if (!isset($culture)) {
-        $culture = sfContext::getInstance()->user->getCulture();
+    if (empty($hit)) {
+        return null;
     }
 
+    if (
+        !($hit instanceof sfOutputEscaperObjectDecorator)
+        || 'Elastica\Result' != $hit->getClass()
+    ) {
+        return null;
+    }
+
+    $highlights = $hit->getHighlights();
+    $highlights = reset($highlights);
+
+    if (empty($highlights)) {
+        return null;
+    }
+
+    $data = $hit->getData();
+
+    $cultureFallback = $options['cultureFallback'] ?? true;
+
+    $hasField = function ($culture) use ($data, $fieldName) {
+        return !empty($culture) && !empty($data['i18n'][$culture][$fieldName]);
+    };
+
+    // Resolve the effective culture using the same priority chain as
+    // get_search_i18n: requested culture, then sf_culture, then sourceCulture.
+    $effective = null;
+    if (isset($options['culture']) && $hasField($options['culture'])) {
+        $effective = $options['culture'];
+    } elseif ($hasField($sfCulture = sfContext::getInstance()->user->getCulture())) {
+        $effective = $sfCulture;
+    } elseif ($cultureFallback) {
+        $sourceCulture = $data['sourceCulture'] ?? null;
+        if ($hasField($sourceCulture)) {
+            $effective = $sourceCulture;
+        }
+    }
+
+    if (null === $effective) {
+        return null;
+    }
+
+    return $highlights["i18n.{$effective}.{$fieldName}"][0] ?? null;
+}
+
+function get_search_creation_details($hit, $options = [])
+{
     if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass()) {
         $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
     }
@@ -740,8 +903,9 @@ function get_search_creation_details($hit, $culture = null)
 
     // Get creators
     $creators = $hit['creators'];
+
     if (null !== $creators && 0 < count($creators)) {
-        $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', ['allowEmpty' => false, 'cultureFallback' => true]);
+        $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', $options);
     }
 
     // WIP, we are not showing labels for now. See #5202.
