@@ -89,7 +89,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
         }
 
         $setting = QubitSetting::getByName('inventory_levels');
-        if (null === $setting || false === $value = unserialize($setting->getValue())) {
+        if (null === $setting || false === $value = Qubit::safeUnserialize($setting->getValue(), false)) {
             return;
         }
 

@@ -30,7 +30,7 @@ class SettingsOaiAction extends sfAction
     public function execute($request)
     {
         // Redirect to global settings form if the OAI plugin is not enabled
-        if (!in_array('arOaiPlugin', unserialize(sfConfig::get('app_plugins')))) {
+        if (!in_array('arOaiPlugin', Qubit::safeUnserialize(sfConfig::get('app_plugins'), []))) {
             $this->redirect('settings/global');
         }
 

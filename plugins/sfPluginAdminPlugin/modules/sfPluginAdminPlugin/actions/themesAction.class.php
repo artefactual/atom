@@ -35,7 +35,7 @@ class sfPluginAdminPluginThemesAction extends sfAction
         if (1 == count($query = QubitSetting::get($criteria))) {
             $setting = $query[0];
 
-            $this->form->setDefault('enabled', unserialize($setting->getValue(['sourceCulture' => true])));
+            $this->form->setDefault('enabled', Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []));
         }
 
         $configuration = ProjectConfiguration::getActive();
@@ -76,7 +76,7 @@ class sfPluginAdminPluginThemesAction extends sfAction
                     $setting->name = 'plugins';
                 }
 
-                $settings = unserialize($setting->getValue(['sourceCulture' => true]));
+                $settings = Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []);
 
                 foreach (array_keys($this->plugins) as $item) {
                     if (in_array($item, (array) $this->form->getValue('enabled'))) {

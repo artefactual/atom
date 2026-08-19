@@ -19,6 +19,49 @@
 
 class Qubit
 {
+    private const MAX_UNSERIALIZE_INSPECTION_DEPTH = 100;
+
+    /**
+     * Safely unserialize stored application data without rehydrating objects.
+     *
+     * @param mixed      $value
+     * @param null|mixed $default
+     */
+    public static function safeUnserialize($value, $default = null)
+    {
+        if (!is_string($value) || '' === $value) {
+            return $default;
+        }
+
+        // Application data only uses serialized arrays/scalars; object
+        // rehydration is intentionally disabled for stored values.
+        $unserializeWarning = false;
+
+        // Invalid serialized input returns false and raises E_WARNING; valid
+        // serialized false also returns false, but without raising a warning.
+        set_error_handler(function () use (&$unserializeWarning) {
+            $unserializeWarning = true;
+
+            return true;
+        }, E_WARNING);
+
+        try {
+            $data = unserialize($value, ['allowed_classes' => false]);
+        } finally {
+            restore_error_handler();
+        }
+
+        if ($unserializeWarning) {
+            return $default;
+        }
+
+        if (self::containsObject($data)) {
+            return $default;
+        }
+
+        return $data;
+    }
+
     public static function pathInfo($url, $request = null)
     {
         // Allow callers and tests to supply a request explicitly; otherwise use the current one.
@@ -500,5 +543,34 @@ class Qubit
         $baseUrlPort = isset($baseUrlParts['port']) ? (int) $baseUrlParts['port'] : null;
 
         return $urlPort === $baseUrlPort;
+    }
+
+    /**
+     * Detect object placeholders that remain after class-disabled unserialize.
+     *
+     * PHP unserialize() preserves array references, so reject overly deep
+     * structures before recursive traversal can loop or exhaust memory.
+     *
+     * @param mixed $value
+     */
+    private static function containsObject($value, int $depth = 0)
+    {
+        if ($depth > self::MAX_UNSERIALIZE_INSPECTION_DEPTH) {
+            return true;
+        }
+
+        if (is_object($value)) {
+            return true;
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $item) {
+                if (self::containsObject($item, $depth + 1)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
