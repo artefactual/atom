@@ -154,7 +154,7 @@ abstract class BaseContactInformation implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -286,7 +286,7 @@ abstract class BaseContactInformation implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentcontactInformationI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentcontactInformationI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentcontactInformationI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -463,12 +463,15 @@ abstract class BaseContactInformation implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $contactInformationI18ns = array();
     foreach ($this->contactInformationI18ns as $contactInformationI18n)
     {
       $contactInformationI18n->id = $this->id;
 
-      $contactInformationI18n->save($connection);
+      $contactInformationI18ns[] = $contactInformationI18n;
     }
+
+    QubitContactInformationI18n::bulkSave($contactInformationI18ns, $connection);
 
     return $this;
   }

@@ -134,7 +134,7 @@ abstract class BaseSetting implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -266,7 +266,7 @@ abstract class BaseSetting implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentsettingI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentsettingI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentsettingI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -443,12 +443,15 @@ abstract class BaseSetting implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $settingI18ns = array();
     foreach ($this->settingI18ns as $settingI18n)
     {
       $settingI18n->id = $this->id;
 
-      $settingI18n->save($connection);
+      $settingI18ns[] = $settingI18n;
     }
+
+    QubitSettingI18n::bulkSave($settingI18ns, $connection);
 
     return $this;
   }
