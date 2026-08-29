@@ -105,8 +105,7 @@ class arAccessionExportJob extends arExportJob
      */
     protected function csvActionExport($resource, $writer)
     {
-        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
-        $this->context = sfContext::createInstance($configuration);
+        $this->context = sfContext::getInstance();
 
         $cultures = array_keys(DefaultTranslationLinksComponent::getOtherCulturesAvailable(
             $resource->accessionI18ns,
@@ -115,8 +114,9 @@ class arAccessionExportJob extends arExportJob
         );
 
         foreach ($cultures as $culture) {
-            $this->context->getUser()->setCulture($culture);
-            $writer->exportResource($resource);
+            $this->withUserCulture($culture, function () use ($writer, $resource) {
+                $writer->exportResource($resource);
+            });
         }
 
         ++$this->itemsExported;

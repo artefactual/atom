@@ -93,6 +93,29 @@ class arExportJob extends arBaseJob
     }
 
     /**
+     * Run export code with a temporary user culture.
+     *
+     * The worker context is long-lived, so culture changes must be scoped to
+     * the row currently being exported.
+     *
+     * @param callable $callback
+     * @param mixed    $culture
+     *
+     * @return mixed
+     */
+    protected function withUserCulture($culture, $callback)
+    {
+        $previousCulture = $this->user->getCulture();
+        $this->user->setCulture($culture);
+
+        try {
+            return $callback();
+        } finally {
+            $this->user->setCulture($previousCulture);
+        }
+    }
+
+    /**
      * Copy a digital object to the temporary job directory for export.
      *
      * @param mixed  $resource the object to which the digital object is attached
