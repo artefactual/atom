@@ -455,7 +455,22 @@ class oidcUser extends myUser implements Zend_Acl_Role_Interface
             $this->oidcClient->setProviderUrl($provider['url']);
             $this->oidcClient->setClientID($provider['client_id']);
             $this->oidcClient->setClientSecret($provider['client_secret']);
-            $this->oidcClient->setIssuer($provider['url']);
+            if (isset($provider['issuer'])) {
+                $this->oidcClient->setIssuer($provider['issuer']);
+
+                $endpointOverrides = [];
+                foreach (['authorization_endpoint', 'token_endpoint', 'userinfo_endpoint', 'jwks_uri', 'end_session_endpoint'] as $endpointName) {
+                    if (!empty($provider[$endpointName])) {
+                        $endpointOverrides[$endpointName] = $provider[$endpointName];
+                    }
+                }
+
+                if (!empty($endpointOverrides)) {
+                    $this->oidcClient->providerConfigParam($endpointOverrides);
+                }
+            } else {
+                $this->oidcClient->setProviderUrl($provider['url']);
+            }
 
             return true;
         }
