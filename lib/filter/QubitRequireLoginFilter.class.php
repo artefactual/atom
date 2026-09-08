@@ -25,7 +25,7 @@
  * This setting is mutually exclusive with "read_only": if read_only is enabled
  * it takes precedence and requires_login is ignored.
  *
- * @author Daniel Lovegrove <Daniel.Lovegrove@umanitoba.ca>
+ * @author Daniel Lovegrove <d.lovegrove11@gmail.com>
  */
 class QubitRequireLoginFilter extends sfFilter
 {
