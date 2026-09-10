@@ -1,3 +1,14 @@
+// Font Awesome
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/solid";
+
+// Other components (CSS files)
+@use "@uppy/core/dist/style" as *;
+@use "@uppy/dashboard/dist/style" as *;
+@use "jquery-ui-dist/jquery-ui";
+@use "jstree/dist/themes/default/style";
+@use "mediaelement/build/mediaelementplayer";
+
 // Default variable overrides
 @import "variables";
 
@@ -47,16 +58,7 @@
 @import "bootstrap/scss/helpers";
 @import "bootstrap/scss/utilities/api";
 
-// Font Awesome
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "@fortawesome/fontawesome-free/scss/solid";
-
 // Other components (CSS files)
-@import "@uppy/core/dist/style";
-@import "@uppy/dashboard/dist/style";
-@import "jquery-ui-dist/jquery-ui";
-@import "jstree/dist/themes/default/style";
-@import "mediaelement/build/mediaelementplayer";
 @import "@accessible360/accessible-slick/slick/slick";
 @import "@accessible360/accessible-slick/slick/slick-theme";
 
