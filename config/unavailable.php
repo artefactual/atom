@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>AtoM</title>
+    <link rel="icon" type="image/svg+xml" href="<?php echo $path; ?>/favicon.svg"/>
     <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>/plugins/arDominionPlugin/css/main.css"/>
   </head>
   <body class="yui-skin-sam admin unavailable">
