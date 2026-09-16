@@ -6,6 +6,11 @@ settings: ~
 culture_header: ~
 QubitLimitIp: ~
 QubitSslRequirement: ~
+
+# Bypass the login requirement filter for REST API requests
+QubitRequireLogin:
+  enabled: false
+
 QubitMeta: ~
 QubitLimitResults: ~
 

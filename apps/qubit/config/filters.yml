@@ -19,6 +19,9 @@ QubitLimitIp:
 QubitSslRequirement:
   class: QubitSslRequirementFilter
 
+QubitRequireLogin:
+  class: QubitRequireLoginFilter
+
 QubitMeta:
   class: QubitMeta
 
