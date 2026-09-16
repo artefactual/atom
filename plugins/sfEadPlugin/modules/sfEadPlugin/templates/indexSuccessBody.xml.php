@@ -63,7 +63,7 @@
       <langusage>
         <language langcode="<?php echo strtolower($iso639convertor->getID2($exportLanguage)); ?>"><?php echo format_language($exportLanguage); ?></language>
         <?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString()) && ($authenticated || (1 == sfConfig::get('app_element_visibility_isad_control_languages') && !$findingAid))) { ?>
-          <?php $langsOfDesc = unserialize($languageOfDescription); ?>
+          <?php $langsOfDesc = Qubit::safeUnserialize($languageOfDescription, []); ?>
           <?php if (is_array($langsOfDesc)) { ?>
             <?php foreach ($langsOfDesc as $langcode) { ?>
               <?php if ($langcode != $exportLanguage) { ?>

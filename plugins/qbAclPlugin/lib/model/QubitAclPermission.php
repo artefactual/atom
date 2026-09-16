@@ -75,7 +75,7 @@ class QubitAclPermission extends BaseAclPermission
         $value = null;
 
         if (null !== $constants = parent::__get('constants', $options)) {
-            $value = unserialize($constants);
+            $value = Qubit::safeUnserialize($constants, []);
         }
 
         if (isset($options['name'])) {
@@ -94,7 +94,7 @@ class QubitAclPermission extends BaseAclPermission
         if (is_array($value)) {
             $constants = [];
             if (parent::__isset('constants', $options)) {
-                $constants = unserialize(parent::__get('constants', $options));
+                $constants = Qubit::safeUnserialize(parent::__get('constants', $options), []);
             }
 
             foreach ($value as $key => $val) {
@@ -124,7 +124,7 @@ class QubitAclPermission extends BaseAclPermission
             return true;
         }
 
-        $constants = unserialize($this->constants);
+        $constants = Qubit::safeUnserialize($this->constants, []);
 
         // Substitute constants
         if (preg_match_all('/%k\[(\w+)\]/', $conditional, $matches)) {

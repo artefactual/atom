@@ -60,7 +60,7 @@ class SettingsPermissionsForm extends sfForm
             throw new sfException('Setting premisAccessRightValues cannot be found');
         }
 
-        $premisAccessRightValues = unserialize($premisAccessRightValues->getValue(['sourceCulture' => true]));
+        $premisAccessRightValues = Qubit::safeUnserialize($premisAccessRightValues->getValue(['sourceCulture' => true]), []);
         $defaults = QubitSetting::$premisAccessRightValueDefaults;
 
         $form = new sfForm();

@@ -105,7 +105,7 @@ class QubitInformationObject extends BaseInformationObject
                     }
                 }
 
-                if (isset($this->values[$name]) && null !== $value = unserialize($this->values[$name]->__get('value', $options + ['sourceCulture' => true]))) {
+                if (isset($this->values[$name]) && null !== $value = Qubit::safeUnserialize($this->values[$name]->__get('value', $options + ['sourceCulture' => true]))) {
                     return $value;
                 }
 

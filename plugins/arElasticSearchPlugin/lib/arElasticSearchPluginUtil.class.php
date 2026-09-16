@@ -282,7 +282,7 @@ class arElasticSearchPluginUtil
         $statement->execute([$ioId]);
 
         foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $property) {
-            $value = unserialize($property->value);
+            $value = Qubit::safeUnserialize($property->value, []);
 
             switch ($property->name) {
                 case 'fitsAudio':
