@@ -18,7 +18,7 @@
  */
 
 /*
- * Add new setting for search highlighting.
+ * Add new settings for search highlighting.
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -35,6 +35,14 @@ class arMigration0198
             $setting->name = 'highlight_search_results';
             $setting->editable = 1;
             $setting->value = 1;
+            $setting->save();
+        }
+
+        if (null === QubitSetting::getByName('highlight_search_fragment_size')) {
+            $setting = new QubitSetting();
+            $setting->name = 'highlight_search_fragment_size';
+            $setting->editable = 1;
+            $setting->value = 150;
             $setting->save();
         }
 

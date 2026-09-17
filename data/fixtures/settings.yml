@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 197
+    value: 198
   milestone:
     name: milestone
     editable: 0
@@ -1045,6 +1045,9 @@ QubitSetting:
   QubitSetting_highlightSearchResults:
     name: highlight_search_results
     value: 1
+  QubitSetting_highlightSearchFragmentSize:
+    name: highlight_search_fragment_size
+    value: 150
   QubitSetting_accessionMask:
     name: accession_mask
     value: '%Y-%m-%d/#i'
