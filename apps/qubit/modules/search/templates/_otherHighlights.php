@@ -15,15 +15,19 @@ $skippedFieldPatterns = [
     '/^creators\.i18n\.[^.]+\.authorizedFormOfName$/',
 ];
 
-$otherHighlights = [];
+$otherHighlights = array_filter(
+  $highlights->getRawValue(),
+  function ($key) use ($skippedFieldPatterns) {
+      foreach ($skippedFieldPatterns as $pattern) {
+          if (preg_match($pattern, $key)) {
+              return false;
+          }
+      }
 
-foreach ($highlights->getRawValue() as $key => $value) {
-  foreach ($skippedFieldPatterns as $pattern) {
-    if (!preg_match($pattern, $key)) {
-      $otherHighlights[$key] = $value;
-    }
-  }
-}
+      return true;
+  },
+  ARRAY_FILTER_USE_KEY
+);
 
 if (empty($otherHighlights)) {
     return;
