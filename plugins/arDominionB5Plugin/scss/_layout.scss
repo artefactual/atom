@@ -94,23 +94,6 @@ header i.fa-2x {
       margin-bottom: 0;
     }
 
-    /* Highlight search result matches */
-    mark {
-      background-color: rgba(var(--bs-primary-rgb), 0.15);
-      color: inherit;
-      font-weight: 600;
-      padding: 0 0.25em;
-      border-radius: 0.2em;
-      text-decoration: underline;
-      text-decoration-color: rgba(var(--bs-primary-rgb), 0.85);
-      text-decoration-thickness: 2px;
-    }
-
-    /* Ensure marks remain readable when nested in primary-coloured text */
-    .text-primary mark {
-      color: var(--bs-body-color);
-    }
-
     .search-highlight-other {
       margin-top: 0.5em;
       padding: 0.5em;
@@ -143,6 +126,27 @@ header i.fa-2x {
         }
       }
     }
+  }
+}
+
+// Highlight serach result matches
+// #content is for the table view, .masonry is for the card view
+#content,
+.masonry {
+  mark {
+    background-color: rgba(var(--bs-primary-rgb), 0.15);
+    color: inherit;
+    font-weight: 600;
+    padding: 0 0.25em;
+    border-radius: 0.2em;
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--bs-primary-rgb), 0.85);
+    text-decoration-thickness: 2px;
+  }
+
+  /* Ensure marks remain readable when nested in primary-coloured text */
+  .text-primary mark {
+    color: var(--bs-body-color);
   }
 }
 
