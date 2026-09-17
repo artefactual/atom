@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 197
+    value: 198
   milestone:
     name: milestone
     editable: 0
@@ -29,6 +29,11 @@ QubitSetting:
     editable: 1
     deleteable: 0
     value: 1
+  QubitSetting_clipboard_export_xml_limit:
+    name: clipboard_export_xml_limit
+    editable: 1
+    deleteable: 0
+    value: 1000
   QubitSetting_sort_treeview:
     name: sort_treeview_informationobject
     editable: 1
