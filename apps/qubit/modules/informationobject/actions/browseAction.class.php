@@ -246,9 +246,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         // Determine whether search highlighting is required
         $hasQuery = 1 !== preg_match('/^[\s\t\r\n]*$/', $request->query) || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0);
-        $highlightSetting = QubitSetting::getByName('highlight_search_results');
-        $highlightValue = null === $highlightSetting ? 0 : intval($highlightSetting->getValue(['sourceCulture' => true]));
-        $highlightEnabled = 1 === $highlightValue;
+        $highlightEnabled = 1 === intval(sfConfig::get('app_highlight_search_results', 1));
 
         // Add search term highlighting when any search criteria are present
         if ($hasQuery && $highlightEnabled) {
@@ -260,7 +258,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
                     // are set below which override this wildcard
                     '*' => [
                         'number_of_fragments' => 1,
-                        'fragment_size' => 150,
+                        'fragment_size' => intval(sfConfig::get('app_highlight_search_fragment_size', 150)),
                     ],
                     // The following fields may be rendered in results. Don't fragment in this case
                     'i18n.*.scopeAndContent' => [

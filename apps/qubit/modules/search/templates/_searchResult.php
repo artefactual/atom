@@ -1,54 +1,37 @@
 <?php
 $doc = $hit->getData();
 
-// The selected language might be different from the user's culture. This is a fallback culture.
-$sfCulture = $sf_user->getCulture();
+$highlightingEnabled = false;
 
-// The highlights contain a mapping from search index field name to an array of fragments
-// containing the parts of that field that matched the query in the search index. If a field did
-// not return results for the query, or higlighting is disabled, the key for that field will not
-// exist in this array.
-$highlights = reset($hit->getHighlights());
+if (1 === intval(sfConfig::get('app_highlight_search_results', 1))) {
+  $highlightingEnabled = true;
 
-$titleHighlight = get_search_highlight($hit, 'title', ['culture' => $culture]);
-$scopeHighlight = get_search_highlight($hit, 'scopeAndContent', ['culture' => $culture]);
+  // The highlights contain a mapping from search index field name to an array of fragments
+  // containing the parts of that field that matched the query in the search index. If a field did
+  // not return results for the query, or higlighting is disabled, the key for that field will not
+  // exist in this array.
+  $highlights = reset($hit->getHighlights());
 
-$creatorHighlight = $highlights["creators.i18n.{$culture}.authorizedFormOfName"][0]
-    ?? $highlights["creators.i18n.{$sfCulture}.authorizedFormOfName"][0]
-    ?? null;
+  $titleHighlight = get_search_highlight($hit, 'title', ['culture' => $culture]);
+  $scopeHighlight = get_search_highlight($hit, 'scopeAndContent', ['culture' => $culture]);
 
-$refCodeHighlight = $highlights['referenceCode'][0] ?? null;
-$identifierHighlight = $highlights['identifier'][0] ?? null;
+  // The selected language might be different from the user's culture. This is a fallback culture.
+  $sfCulture = $sf_user->getCulture();
 
-// We can render other highlights, but ignore:
-// - Identifiers
-// - The language filter itself
-// - Scope and content, title, creators in other languages
-$skippedFieldNames = ['referenceCode', 'identifier', 'i18n.languages'];
-$skippedFieldPatterns = [
-    '/^i18n\.[^.]+\.title$/',
-    '/^i18n\.[^.]+\.scopeAndContent$/',
-    '/^creators\.i18n\.[^.]+\.authorizedFormOfName$/',
-];
+  $creatorHighlight = $highlights["creators.i18n.{$culture}.authorizedFormOfName"][0]
+      ?? $highlights["creators.i18n.{$sfCulture}.authorizedFormOfName"][0]
+      ?? null;
 
-$otherHighlights = array_filter(
-    $highlights,
-    function ($key) use ($skippedFieldNames, $skippedFieldPatterns) {
-        if (in_array($key, $skippedFieldNames, true)) {
-            return false;
-        }
-        foreach ($skippedFieldPatterns as $pattern) {
-            if (preg_match($pattern, $key)) {
-                return false;
-            }
-        }
-
-        return true;
-    },
-    ARRAY_FILTER_USE_KEY
-);
-
-$maxFragmentSize = 150;
+  $refCodeHighlight = $highlights['referenceCode'][0] ?? null;
+  $identifierHighlight = $highlights['identifier'][0] ?? null;
+} else {
+  $highlights = [];
+  $titleHighlight = null;
+  $scopeHighlight = null;
+  $creatorHighlight = null;
+  $refCodeHighlight = null;
+  $identifierHighlight = null;
+}
 ?>
 
 <article class="search-result row g-0 p-3 border-bottom">
@@ -208,70 +191,11 @@ $maxFragmentSize = 150;
         </span>
       <?php } ?>
 
-      <?php if (!empty($otherHighlights)) { ?>
-        <?php
-        $firstHighlightText = current($otherHighlights)[0];
-        $highlightFieldKey = array_key_first($otherHighlights);
-        $ellipsize = strlen($firstHighlightText) >= $maxFragmentSize;
-        $numHighlightsHidden = count($otherHighlights) - 1;
-        $additionalHighlightsId = 'search-highlight-additional-'.$hit->getId();
-        ?>
-        <div class="search-highlight-other d-print-none">
-          <div class="highlight-summary">
-            <span>
-              <i class="fas fa-search" aria-hidden="true"></i>
-              &nbsp;
-              <?php if ('transcript' === $highlightFieldKey) {
-              echo __('Search matched digital object transcript:');
-              } else {
-              echo __('Search matched:');
-              } ?>
-            </span>
-            <span class="search-highlight-fragment">
-              <?php if ($ellipsize) {
-              echo '&hellip;';
-              } ?>
-              <?php echo render_value_with_highlights($firstHighlightText); ?>
-              <?php if ($ellipsize) {
-              echo '&hellip;';
-              } ?>
-            </span>
-            <?php if ($numHighlightsHidden > 0) { ?>
-              <button
-                class="search-highlight-count btn btn-link collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#<?php echo $additionalHighlightsId; ?>"
-                aria-expanded="false"
-                aria-controls="<?php echo $additionalHighlightsId; ?>">
-                <?php if (1 === $numHighlightsHidden) { ?>
-                  <?php echo __('Search also matched 1 other field'); ?>
-                <?php } else { ?>
-                  <?php echo __('Search also matched %1% other fields', ['%1%' => $numHighlightsHidden]); ?>
-                <?php } ?>
-                <i class="fas fa-chevron-down ms-1" aria-hidden="true"></i>
-              </button>
-              <ul id="<?php echo $additionalHighlightsId; ?>" class="search-highlight-additional collapse mb-0">
-                <?php foreach (array_slice($otherHighlights, 1) as $highlightTexts) { ?>
-                  <?php
-                  $highlightText = $highlightTexts[0];
-                  $ellipsize = strlen($highlightText) >= $maxFragmentSize;
-                  ?>
-                  <li class="search-highlight-fragment">
-                    <?php if ($ellipsize) {
-                    echo '&hellip;';
-                    } ?>
-                    <?php echo render_value_with_highlights($highlightText); ?>
-                    <?php if ($ellipsize) {
-                    echo '&hellip;';
-                    } ?>
-                  </li>
-                <?php } ?>
-              </ul>
-            <?php } ?>
-          </div>
-        </div>
-      <?php } ?>
+      <?php
+      // Show extra highlights if highlighting is turned on
+      if ($highlightingEnabled) {
+        echo get_partial('search/otherHighlights', ['highlights' => $highlights, 'hit' => $hit]);
+      } ?>
     </div>
   </div>
 </article>
