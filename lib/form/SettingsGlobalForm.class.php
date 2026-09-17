@@ -47,6 +47,7 @@ class SettingsGlobalForm extends sfForm
             'audit_log_enabled' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
             'show_tooltips' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
             'highlight_search_results' => new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']),
+            'highlight_search_fragment_size' => new sfWidgetFormInput(),
             'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
             'permissive_slug_creation' => new sfWidgetFormSelectRadio(['choices' => [QubitSlug::SLUG_PERMISSIVE => $this->i18n->__('Yes'), QubitSlug::SLUG_RESTRICTIVE => $this->i18n->__('No')]], ['class' => 'radio']),
             'defaultPubStatus' => new sfWidgetFormSelectRadio(['choices' => [QubitTerm::PUBLICATION_STATUS_DRAFT_ID => $this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => $this->i18n->__('Published')]], ['class' => 'radio']),
@@ -72,6 +73,7 @@ class SettingsGlobalForm extends sfForm
             'audit_log_enabled' => $this->i18n->__('Enable description change logging'),
             'show_tooltips' => $this->i18n->__('Show tooltips'),
             'highlight_search_results' => $this->i18n->__('Highlight search results'),
+            'highlight_search_fragment_size' => $this->i18n->__('Highlighted snippet length'),
             'defaultPubStatus' => $this->i18n->__('Default publication status'),
             'draft_notification_enabled' => $this->i18n->__('Show available drafts notification upon user login'),
             'sword_deposit_dir' => $this->i18n->__('SWORD deposit directory'),
@@ -95,6 +97,7 @@ class SettingsGlobalForm extends sfForm
             'inherit_code_informationobject' => $this->i18n->__('When set to &quot;yes&quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors'),
             'escape_queries' => $this->i18n->__('A list of special chars, separated by coma, to be escaped in string queries'),
             'highlight_search_results' => $this->i18n->__('Visually highlight how the search criteria matches the search results'),
+            'highlight_search_fragment_size' => $this->i18n->__('Control how many characters of matching text are displayed for extra fields in search results'),
             'multi_repository' => $this->i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
             'enable_institutional_scoping' => $this->i18n->__('Applies to multi-repository sites only. When set to &quot;yes&quot;, additional search and browse options will be available at the repository level'),
             'defaultPubStatus' => $this->i18n->__('Default publication status for newly created or imported %1%', ['%1%' => sfConfig::get('app_ui_label_informationobject')]),
@@ -133,6 +136,7 @@ class SettingsGlobalForm extends sfForm
         $this->validatorSchema['audit_log_enabled'] = new sfValidatorInteger(['required' => false]);
         $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(['required' => false]);
         $this->validatorSchema['highlight_search_results'] = new sfValidatorInteger(['required' => false]);
+        $this->validatorSchema['highlight_search_fragment_size'] = new sfValidatorInteger(['required' => false, 'min' => 1]);
         $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(['choices' => [QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]]);
         $this->validatorSchema['draft_notification_enabled'] = new sfValidatorInteger(['required' => false]);
         $this->validatorSchema['sword_deposit_dir'] = new sfValidatorString(['required' => false]);
