@@ -244,6 +244,39 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         $this->setView($request);
 
+        // Determine whether search highlighting is required
+        $hasQuery = 1 !== preg_match('/^[\s\t\r\n]*$/', $request->query) || 1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0);
+        $highlightEnabled = 1 === intval(sfConfig::get('app_highlight_search_results', 1));
+
+        // Add search term highlighting when any search criteria are present
+        if ($hasQuery && $highlightEnabled) {
+            $this->search->query->setHighlight([
+                'pre_tags' => ['<mark>'],
+                'post_tags' => ['</mark>'],
+                'fields' => [
+                    // This wildcard captures highlighting for all fields. More specific configs
+                    // are set below which override this wildcard
+                    '*' => [
+                        'number_of_fragments' => 1,
+                        'fragment_size' => intval(sfConfig::get('app_highlight_search_fragment_size', 150)),
+                    ],
+                    // The following fields may be rendered in results. Don't fragment in this case
+                    'i18n.*.scopeAndContent' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                    'i18n.*.title' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                    'creators.i18n.*.authorizedFormOfName' => [
+                        'number_of_fragments' => 0,
+                        'fragment_size' => 0,
+                    ],
+                ],
+            ]);
+        }
+
         $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->search->getQuery(false, true));
 
         // Page results

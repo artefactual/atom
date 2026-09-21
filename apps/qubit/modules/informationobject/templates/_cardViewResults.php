@@ -2,10 +2,16 @@
 
 <?php foreach ($pager->getResults() as $hit) { ?>
   <?php $doc = $hit->getData(); ?>
-  <?php $title = get_search_i18n(
+  <?php
+  $titleHighlight = null;
+  if (1 === intval(sfConfig::get('app_highlight_search_results', 1))) {
+      $titleHighlight = get_search_highlight($hit, 'title', ['culture' => $selectedCulture]);
+  }
+
+  $title = get_search_i18n(
       $doc,
       'title',
-      ['allowEmpty' => false, 'culture' => $selectedCulture]
+      ['allowEmpty' => false, 'culture' => $selectedCulture, 'highlight' => $titleHighlight]
   ); ?>
 
   <div class="col-sm-6 col-lg-4 masonry-item">
@@ -37,13 +43,13 @@
         </a>
       <?php } else { ?>
         <a class="p-3" href="<?php echo url_for(['module' => 'informationobject', 'slug' => $doc['slug']]); ?>">
-          <?php echo render_title($title); ?>
+          <?php echo render_title_with_highlights($title); ?>
         </a>
       <?php } ?>
 
       <div class="card-body">
         <div class="card-text d-flex align-items-start gap-2">
-          <span><?php echo render_title($title); ?></span>
+          <span><?php echo render_title_with_highlights($title); ?></span>
           <?php echo get_component('clipboard', 'button', [
               'slug' => $doc['slug'],
               'wide' => false,
