@@ -71,25 +71,19 @@ class sfIsadPlugin implements ArrayAccess
         switch ($name) {
             case 'languageNotes':
                 $notes = $this->resource->getMemoryNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID]);
+                $note = $notes[0] ?? null;
 
-                if (is_countable($notes) && 0 === count($notes)) {
-                    $missingNote = true;
-                    $note = $notes;
-                } else {
-                    $missingNote = false;
-                    $note = $notes->offsetGet(0);
-                }
-
-                if (0 == strlen($value)) {
-                    // Delete note if it's available
-                    if (!$missingNote && is_countable($note)) {
+                // Clear the stored note when the field is empty; otherwise create the
+                // note if necessary and update its content.
+                if (0 === strlen($value)) {
+                    if (null !== $note) {
                         $note->delete();
                     }
 
                     break;
                 }
 
-                if ($missingNote) {
+                if (null === $note) {
                     $note = new QubitNote();
                     $note->typeId = QubitTerm::LANGUAGE_NOTE_ID;
                     $note->userId = sfContext::getInstance()->user->getAttribute('user_id');
