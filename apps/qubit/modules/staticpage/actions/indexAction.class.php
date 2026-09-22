@@ -43,19 +43,35 @@ class StaticPageIndexAction extends sfAction
         $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
         $cache = QubitCache::getInstance();
 
+        // If cache is unavailable, purify the content and return it
+        // without caching.
         if (null === $cache) {
-            return;
+            return $this->addCspNonceToInlineTags(
+                QubitHtmlPurifier::getInstance()->purify(
+                    $this->resource->getContent(['cultureFallback' => true])
+                )
+            );
         }
 
+        // If the content is cached, return it with the current CSP nonce
+        // added to inline tags.
         if ($cache->has($cacheKey)) {
-            return $cache->get($cacheKey);
+            return $this->addCspNonceToInlineTags($cache->get($cacheKey));
         }
 
-        $content = $this->resource->getContent(['cultureFallback' => true]);
-        $content = QubitHtmlPurifier::getInstance()->purify($content);
+        // Otherwise, purify the content, cache it, and return it with the
+        // current CSP nonce added to inline tags.
+        $content = QubitHtmlPurifier::getInstance()->purify(
+            $this->resource->getContent(['cultureFallback' => true])
+        );
 
         $cache->set($cacheKey, $content);
 
-        return $content;
+        return $this->addCspNonceToInlineTags($content);
+    }
+
+    protected function addCspNonceToInlineTags($content)
+    {
+        return QubitStaticPageNonce::addNonceToInlineTags($content);
     }
 }
