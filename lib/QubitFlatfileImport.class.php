@@ -33,6 +33,7 @@ class QubitFlatfileImport
     public $searchIndexingDisabled = true;  // disable per-object search indexing by default
     public $disableNestedSetUpdating = false; // update nested set on object creation
     public $matchAndUpdate = false; // match existing records & update them
+    public $clearAndUpdate = false; // clear matching records & update them
     public $deleteAndReplace = false; // delete matching records & replace them
     public $skipMatched = false; // skip creating new record if matching one is found
     public $skipUnmatched = false; // skip creating new record if matching one is not found
@@ -67,6 +68,10 @@ class QubitFlatfileImport
 
     // Replaceable logic to filter content before entering Qubit
     public $contentFilterLogic;
+    public $contentLogic;
+
+    // The object being imported/updated
+    public $object;
 
     public function __construct($options = [])
     {
@@ -132,6 +137,13 @@ class QubitFlatfileImport
                 case 'delete-and-replace':
                     // Delete any matching records, and re-import them (attach to existing entities if possible).
                     $this->deleteAndReplace = true;
+
+                    break;
+
+                case 'clear-and-update':
+                    // Clear matching records before updating them in-place
+                    $this->clearAndUpdate = true;
+                    $this->keepDigitalObjects = $options['keep-digital-objects'];
 
                     break;
 
@@ -563,7 +575,7 @@ class QubitFlatfileImport
 
     public function isUpdating()
     {
-        return $this->matchAndUpdate || $this->deleteAndReplace;
+        return $this->matchAndUpdate || $this->clearAndUpdate || $this->deleteAndReplace;
     }
 
     /**
@@ -953,7 +965,7 @@ class QubitFlatfileImport
         }
 
         // Change actor history when updating a match in the same repo
-        if ($this->matchAndUpdate) {
+        if ($this->matchAndUpdate || $this->clearAndUpdate) {
             $actor->history = $options['history'];
             $actor->save();
 
@@ -1939,6 +1951,10 @@ class QubitFlatfileImport
                     $this->handleDeleteAndReplace();
                 }
 
+                if ($this->clearAndUpdate) {
+                    $this->handleClearAndUpdate();
+                }
+
                 // Execute ad-hoc row pre-update logic (remove related data, etc.)
                 $this->executeClosurePropertyIfSet('updatePreparationLogic');
                 $skipRowProcessing = false;
@@ -1966,6 +1982,9 @@ class QubitFlatfileImport
         if ($this->matchAndUpdate) {
             return 'updating in place';
         }
+        if ($this->clearAndUpdate) {
+            return 'clearing and updating in place';
+        }
 
         return 'skipping';
     }
@@ -1985,6 +2004,131 @@ class QubitFlatfileImport
         $this->object->delete();
         $this->object = new QubitInformationObject();
         $this->object->slug = $oldSlug; // Retain previous record's slug
+    }
+
+    /**
+     * Clear the content of the given object to prepare it to be re-defined in place. This enables
+     * all fields of information to be re-written without having to delete the object.
+     *
+     * Clears:
+     * - Direct properties of the object
+     * - Properties on i18n objects for the selected culture
+     *
+     * Deletes:
+     * - Related QubitObjectTermRelation objects
+     * - Related QubitProperty objects
+     * - QubitRelation objects where this is the "Object" part of the relationship
+     * - QubitRelation objects where this is the "Subject" part of the relationship (except for
+     *   related description relationships which can't be imported via CSV)
+     */
+    private function handleClearAndUpdate()
+    {
+        $directProperties = [];
+
+        if ($this->object instanceof QubitInformationObject) {
+            $directProperties = [
+                'descriptionIdentifier',
+                'descriptionDetailId',
+                'descriptionStatusId',
+                'levelOfDescriptionId',
+                'repositoryId',
+            ];
+        } else {
+            throw new sfException(
+                'Cannot handle clear-and-update for objects that are not QubitInformationObject! Got: '.get_class($this->object)
+            );
+        }
+
+        // Clear all properties that exist on the object itself
+        // e.g., Description identifier, level of description
+        foreach ($directProperties as $directProperty) {
+            $this->object->{$directProperty} = null;
+        }
+
+        // Clear i18n object for the given culture
+        // e.g., Title, Scope and content
+        $culture = $this->columnValue('culture');
+        $i18ns = $this->object->informationObjectI18ns->indexBy('culture');
+
+        if (isset($i18ns[$culture])) {
+            $i18n = $i18ns[$culture];
+
+            foreach ($this->standardColumns as $column) {
+                if (in_array($column, ['createdAt', 'updatedAt', 'culture'])) {
+                    continue;
+                }
+                $i18n->{$column} = null;
+            }
+        }
+
+        // Remove all object-term relations
+        // e.g., Place access points, name access points
+        $criteria = new Criteria();
+        $criteria->add(QubitObjectTermRelation::OBJECT_ID, $this->object->id);
+        $objectTermRelations = QubitObjectTermRelation::get($criteria);
+
+        foreach ($objectTermRelations as $objectTermRelation) {
+            $objectTermRelation->delete();
+        }
+
+        // Remove all notes
+        // e.g., Archivist note, Credits note
+        $criteria = new Criteria();
+        $criteria->add(QubitNote::OBJECT_ID, $this->object->id);
+        $notes = QubitNote::get($criteria);
+
+        foreach ($notes as $note) {
+            $note->delete();
+        }
+
+        // Remove all events
+        $criteria = new Criteria();
+        $criteria->add(QubitEvent::OBJECT_ID, $this->object->id);
+        $events = QubitEvent::get($criteria);
+
+        foreach ($events as $event) {
+            $event->delete();
+        }
+
+        // Remove all special properties stored as QubitProperty objects
+        // e.g., Script of description, Alternative identifiers
+        $properties = $this->object->getProperties();
+
+        foreach ($properties as $property) {
+            $property->delete();
+        }
+
+        // Remove relationships where the relationship terminates at this object
+        // e.g., Physical object -> has -> Information object
+        $criteria = new Criteria();
+        $criteria = $this->object->addrelationsRelatedByobjectIdCriteria($criteria);
+        $objectRelations = QubitRelation::get($criteria);
+
+        foreach ($objectRelations as $relation) {
+            $relation->delete();
+        }
+
+        // Remove relationships where the relationship originates from this object
+        // e.g., Information object -> has -> Accession object
+        $criteria = new Criteria();
+        $criteria = $this->object->addrelationsRelatedBysubjectIdCriteria($criteria);
+        $subjectRelations = QubitRelation::get($criteria);
+
+        foreach ($subjectRelations as $relation) {
+            // There is no way to import this type of relationship, so skip removing it
+            if (QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID == $relation->typeId) {
+                continue;
+            }
+
+            $relation->delete();
+        }
+
+        // Remove digital object unless --keep-digital-objects is set
+        if (!$this->keepDigitalObjects) {
+            if (null !== $do = $this->object->getDigitalObject()) {
+                $do->delete();
+            }
+        }
     }
 
     /**
@@ -2155,8 +2299,8 @@ class QubitFlatfileImport
             // Execute ad-hoc row pre-update logic (remove related data, etc.)
             $this->executeClosurePropertyIfSet('updatePreparationLogic');
 
-            // Match and update: update current object
-            if ($this->matchAndUpdate) {
+            // Match and update & clear and update: update current object
+            if ($this->matchAndUpdate || $this->clearAndUpdate) {
                 return false;
             }
 
