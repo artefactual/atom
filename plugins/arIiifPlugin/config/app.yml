@@ -1,0 +1,39 @@
+# arIiifPlugin application configuration
+
+all:
+  # IIIF Image Server Configuration
+  iiif:
+    # Base URL for your IIIF Image Server
+    # Example: https://iiif.example.com/iiif/2
+    base_url: ~
+    
+    # IIIF API version (2 or 3)
+    api_version: 2
+    
+    # Image server type (cantaloupe, iipimage, loris, etc.)
+    server_type: cantaloupe
+    
+    # Enable IIIF Presentation API manifest generation
+    enable_manifests: true
+    
+    # Carousel default settings
+    carousel:
+      auto_rotate: true
+      rotate_interval: 5000  # milliseconds
+      show_navigation: true
+      show_thumbnails: false
+      viewer_height: 600     # pixels
+      
+    # Viewer settings
+    viewer:
+      enable_zoom: true
+      enable_rotation: true
+      enable_fullscreen: true
+      max_zoom_level: 4
+      
+    # Thumbnail settings
+    thumbnail:
+      width: 150
+      height: ~  # null = auto
+      quality: default
+      format: jpg
