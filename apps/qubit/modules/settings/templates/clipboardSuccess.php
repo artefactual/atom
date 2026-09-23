@@ -78,6 +78,14 @@
           <div class="accordion-body">
             <?php echo render_field($form->clipboard_export_digitalobjects_enabled
                 ->label(__('Enable digital object export'))); ?>
+
+            <?php echo render_field(
+                $form->clipboard_export_xml_limit
+                    ->label(__('Limit the number of information objects that can be exported as XML'))
+                    ->help(_('Affects XML clipboard exports only, not CSV exports')),
+                null,
+                ['type' => 'number'],
+            ); ?>
           </div>
         </div>
       </div>

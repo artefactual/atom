@@ -28,6 +28,7 @@ class SettingsClipboardAction extends SettingsEditAction
         'clipboard_send_message_html',
         'clipboard_send_http_method',
         'clipboard_export_digitalobjects_enabled',
+        'clipboard_export_xml_limit',
     ];
     public static $I18N = [
         'clipboard_send_button_text',
@@ -47,6 +48,7 @@ class SettingsClipboardAction extends SettingsEditAction
             'clipboard_send_message_html' => $this->i18n->__('Sending...'),
             'clipboard_send_http_method' => 'POST',
             'clipboard_export_digitalobjects_enabled' => '0',
+            'clipboard_export_xml_limit' => '1000',
         ];
     }
 
@@ -59,6 +61,12 @@ class SettingsClipboardAction extends SettingsEditAction
             case 'clipboard_send_button_text':
             case 'clipboard_send_message_html':
                 $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'clipboard_export_xml_limit':
+                $this->form->setValidator($name, new sfValidatorInteger(['min' => 1]));
                 $this->form->setWidget($name, new sfWidgetFormInput());
 
                 break;
