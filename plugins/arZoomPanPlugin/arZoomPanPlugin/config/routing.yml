@@ -1,0 +1,19 @@
+zoompan_viewer:
+  url:   /zoompan/viewer/:id
+  param: { module: arZoomPan, action: viewer }
+  requirements: { id: \d+ }
+
+zoompan_info:
+  url:   /zoompan/info/:id
+  param: { module: arZoomPan, action: info }
+  requirements: { id: \d+ }
+
+zoompan_tile:
+  url:   /zoompan/tile/:id/:z/:x/:y.:format
+  param: { module: arZoomPan, action: tile }
+  requirements:
+    id: \d+
+    z: \d+
+    x: \d+
+    y: \d+
+    format: (jpg|png)
