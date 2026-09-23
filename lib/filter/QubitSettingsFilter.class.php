@@ -26,8 +26,10 @@ class QubitSettingsFilter extends sfFilter
 
         // Get settings (from cache if exists)
         if ($cache->has($cacheKey)) {
-            $settings = unserialize($cache->get($cacheKey));
-        } else {
+            $settings = Qubit::safeUnserialize($cache->get($cacheKey));
+        }
+
+        if (!isset($settings)) {
             $settings = QubitSetting::getSettingsArray();
 
             $cache->set($cacheKey, serialize($settings));

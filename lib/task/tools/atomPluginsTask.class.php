@@ -35,7 +35,7 @@ class atomPluginsTask extends sfBaseTask
         }
 
         // Array of plugins
-        $plugins = array_values(unserialize($setting->getValue(['sourceCulture' => true])));
+        $plugins = array_values(Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []));
 
         if (in_array($arguments['action'], ['add', 'delete']) && !isset($arguments['plugin'])) {
             throw new sfException('Missing plugin name.');

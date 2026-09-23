@@ -36,7 +36,7 @@ class sfPluginAdminPluginPluginsAction extends sfAction
         if (1 == count($query = QubitSetting::get($criteria))) {
             $setting = $query[0];
 
-            $this->form->setDefault('enabled', unserialize($setting->getValue(['sourceCulture' => true])));
+            $this->form->setDefault('enabled', Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []));
         }
 
         $configuration = ProjectConfiguration::getActive();
@@ -77,7 +77,7 @@ class sfPluginAdminPluginPluginsAction extends sfAction
                     $setting->name = 'plugins';
                 }
 
-                $settings = unserialize($setting->getValue(['sourceCulture' => true]));
+                $settings = Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []);
 
                 $swordEnabled = in_array('qtSwordPlugin', $settings);
 

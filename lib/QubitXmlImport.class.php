@@ -208,7 +208,7 @@ class QubitXmlImport
                 $criteria = new Criteria();
                 $criteria->add(QubitSetting::NAME, 'plugins');
                 $setting = QubitSetting::getOne($criteria);
-                if (null === $setting || !in_array('sfSkosPlugin', unserialize($setting->getValue(['sourceCulture' => true])))) {
+                if (null === $setting || !in_array('sfSkosPlugin', Qubit::safeUnserialize($setting->getValue(['sourceCulture' => true]), []))) {
                     throw new sfException($this->i18n->__('The SKOS plugin is not enabled'));
                 }
                 $this->rootObject = QubitTaxonomy::getById($options['taxonomy']);

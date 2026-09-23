@@ -61,8 +61,9 @@ class SettingsInventoryAction extends DefaultEditAction
     {
         switch ($name) {
             case 'levels':
-                $value = unserialize(
-                    $this->settingLevels->getValue(['sourceCulture' => true])
+                $value = Qubit::safeUnserialize(
+                    $this->settingLevels->getValue(['sourceCulture' => true]),
+                    false
                 );
 
                 if (false !== $value) {
