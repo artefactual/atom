@@ -86,7 +86,7 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitActor::__isset', $args);
+      return parent::__isset(...$args);
     }
     catch (sfException $e)
     {
@@ -130,7 +130,7 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitActor::__get', $args);
+      return parent::__get(...$args);
     }
     catch (sfException $e)
     {
@@ -172,7 +172,7 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentrepositoryI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentrepositoryI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentrepositoryI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -196,7 +196,7 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array('QubitActor::__set', $args);
+    parent::__set(...$args);
 
     call_user_func_array(array($this->getCurrentrepositoryI18n($options), '__set'), $args);
 
@@ -213,7 +213,7 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array('QubitActor::__unset', $args);
+    parent::__unset(...$args);
 
     call_user_func_array(array($this->getCurrentrepositoryI18n($options), '__unset'), $args);
 
@@ -234,12 +234,15 @@ abstract class BaseRepository extends QubitActor implements ArrayAccess
   {
     parent::save($connection);
 
+    $repositoryI18ns = array();
     foreach ($this->repositoryI18ns as $repositoryI18n)
     {
       $repositoryI18n->id = $this->id;
 
-      $repositoryI18n->save($connection);
+      $repositoryI18ns[] = $repositoryI18n;
     }
+
+    QubitRepositoryI18n::bulkSave($repositoryI18ns, $connection);
 
     return $this;
   }

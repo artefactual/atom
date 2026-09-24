@@ -134,7 +134,7 @@ abstract class BaseContactInformationI18n implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -340,6 +340,196 @@ abstract class BaseContactInformationI18n implements ArrayAccess
 
   protected
     $deleted = false;
+
+  /**
+   * Insert new translations in groups that share the same populated columns.
+   *
+   * A multi-row INSERT reduces database round trips when a new record contains
+   * several translations. If any translation already exists, use save() for
+   * every object so updates retain their existing behavior. Grouping by column
+   * set also preserves database defaults for fields omitted from sparse rows.
+   */
+  public static function bulkSave(array $objects, $connection = null)
+  {
+    if (0 == count($objects))
+    {
+      return;
+    }
+
+    if (!isset($connection))
+    {
+      $connection = Propel::getConnection();
+    }
+
+    $hasExistingObjects = false;
+    $newObjects = array();
+    foreach ($objects as $object)
+    {
+      if ($object->deleted)
+      {
+        throw new PropelException('You cannot save an object that has been deleted.');
+      }
+
+      if ($object->new)
+      {
+        $newObjects[] = $object;
+      }
+      else
+      {
+        $hasExistingObjects = true;
+      }
+    }
+
+    if ($hasExistingObjects)
+    {
+      foreach ($objects as $object)
+      {
+        $object->save($connection);
+      }
+
+      return;
+    }
+
+    if (0 == count($newObjects))
+    {
+      return;
+    }
+
+    $databaseMap = Propel::getDatabaseMap(self::DATABASE_NAME);
+    $database = Propel::getDB(self::DATABASE_NAME);
+    $table = $databaseMap->getTable(self::TABLE_NAME);
+    $columns = $table->getColumns();
+    $insertGroups = array();
+    foreach ($newObjects as $object)
+    {
+      $insertColumns = array();
+      $insertParameters = array();
+      foreach ($columns as $column)
+      {
+        if (!array_key_exists($column->getPhpName(), $object->values))
+        {
+          if ('createdAt' == $column->getPhpName() || 'updatedAt' == $column->getPhpName())
+          {
+            $object->values[$column->getPhpName()] = new DateTime;
+          }
+
+          if ('sourceCulture' == $column->getPhpName())
+          {
+            $object->values['sourceCulture'] = sfPropel::getDefaultCulture();
+          }
+        }
+
+        if (array_key_exists($column->getPhpName(), $object->values))
+        {
+          $param = $object->param($column);
+          if (null !== $param)
+          {
+            $insertColumns[$column->getPhpName()] = $column;
+            $insertParameters[$column->getPhpName()] = $param;
+          }
+        }
+      }
+
+      $groupKey = implode("\0", array_keys($insertColumns));
+      if (!isset($insertGroups[$groupKey]))
+      {
+        $insertGroups[$groupKey] = array(
+          'columns' => $insertColumns,
+          'rows' => array(),
+        );
+      }
+
+      $insertGroups[$groupKey]['rows'][] = array(
+        'object' => $object,
+        'parameters' => $insertParameters,
+      );
+    }
+
+    foreach ($insertGroups as $insertGroup)
+    {
+      if (0 == count($insertGroup['columns']))
+      {
+        foreach ($insertGroup['rows'] as $row)
+        {
+          $row['object']->save($connection);
+        }
+
+        continue;
+      }
+
+      $columnNames = array();
+      foreach ($insertGroup['columns'] as $column)
+      {
+        $columnName = $column->getName();
+        if ($database->useQuoteIdentifier())
+        {
+          $columnName = $database->quoteIdentifier($columnName);
+        }
+
+        $columnNames[] = $columnName;
+      }
+
+      $parameterIndex = 1;
+      $placeholders = array();
+      $parameters = array();
+      foreach ($insertGroup['rows'] as $row)
+      {
+        $rowPlaceholders = array();
+        foreach ($insertGroup['columns'] as $column)
+        {
+          $rowPlaceholders[] = ':p'.$parameterIndex++;
+          $parameters[] = array(
+            'column' => $column->getName(),
+            'table' => self::TABLE_NAME,
+            'value' => $row['parameters'][$column->getPhpName()],
+          );
+        }
+
+        $placeholders[] = '('.implode(', ', $rowPlaceholders).')';
+      }
+
+      $sql = 'INSERT INTO '.self::TABLE_NAME.' ('.implode(', ', $columnNames).') VALUES '.implode(', ', $placeholders);
+
+      try
+      {
+        $statement = $connection->prepare($sql);
+        BasePeer::populateStmtValues($statement, $parameters, $databaseMap, $database);
+        $statement->execute();
+      }
+      catch (Exception $e)
+      {
+        Propel::log($e->getMessage(), Propel::LOG_ERR);
+
+        throw new PropelException('Unable to execute INSERT statement.', $e);
+      }
+
+      foreach ($insertGroup['rows'] as $row)
+      {
+        $object = $row['object'];
+        $offset = 0;
+        foreach ($object->tables as $table)
+        {
+          foreach ($table->getColumns() as $column)
+          {
+            if (array_key_exists($column->getPhpName(), $object->values))
+            {
+              $object->row[$offset] = $object->values[$column->getPhpName()];
+            }
+
+            if ($object->new && $column->isPrimaryKey())
+            {
+              $object->keys[$column->getPhpName()] = $object->values[$column->getPhpName()];
+            }
+
+            $offset++;
+          }
+        }
+
+        $object->new = false;
+        $object->values = array();
+      }
+    }
+  }
 
   public function save($connection = null)
   {

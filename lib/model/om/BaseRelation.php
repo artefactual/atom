@@ -86,7 +86,7 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__isset'), $args);
+      return parent::__isset(...$args);
     }
     catch (sfException $e)
     {
@@ -125,7 +125,7 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitObject::__get', $args);
+      return parent::__get(...$args);
     }
     catch (sfException $e)
     {
@@ -150,7 +150,7 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentrelationI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentrelationI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentrelationI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -174,7 +174,7 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__set'), $args);
+    parent::__set(...$args);
 
     call_user_func_array(array($this->getCurrentrelationI18n($options), '__set'), $args);
 
@@ -191,7 +191,7 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__unset'), $args);
+    parent::__unset(...$args);
 
     call_user_func_array(array($this->getCurrentrelationI18n($options), '__unset'), $args);
 
@@ -212,12 +212,15 @@ abstract class BaseRelation extends QubitObject implements ArrayAccess
   {
     parent::save($connection);
 
+    $relationI18ns = array();
     foreach ($this->relationI18ns as $relationI18n)
     {
       $relationI18n->id = $this->id;
 
-      $relationI18n->save($connection);
+      $relationI18ns[] = $relationI18n;
     }
+
+    QubitRelationI18n::bulkSave($relationI18ns, $connection);
 
     return $this;
   }
