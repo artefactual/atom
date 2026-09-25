@@ -110,6 +110,10 @@ class SettingsMenuComponent extends sfComponent
                 'action' => 'siteInformation',
             ],
             [
+                'label' => $i18n->__('Static page'),
+                'action' => 'staticPage',
+            ],
+            [
                 'label' => $i18n->__('Storage service'),
                 'module' => 'arStorageServiceSettings',
                 'action' => 'settings',
