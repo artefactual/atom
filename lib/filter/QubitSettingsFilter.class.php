@@ -34,7 +34,7 @@ class QubitSettingsFilter extends sfFilter
         }
 
         // Check environment vairables and overwrite/populate settings
-        $envHashmap = ['ATOM_READ_ONLY' => 'boolean'];
+        $envHashmap = ['ATOM_READ_ONLY' => 'boolean', 'ATOM_REQUIRES_LOGIN' => 'boolean'];
         foreach ($envHashmap as $env => $type) {
             if (false === $value = getenv($env)) {
                 continue;
