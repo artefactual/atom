@@ -23,6 +23,37 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
+    <div class="alert alert-info">
+      <p>
+        <?php echo __('
+          <a href="https://accesstomemory.org/en/docs/2.10/admin-manual/security/csp-headers/#security-csp-headers">Content 
+          Security Policy (CSP) Headers</a> are a security feature that helps prevent certain security risks (such as controlling 
+          which external resources are allowed to be loaded on your site).
+        '); ?>
+      </p>
+      <p>
+        <?php echo __('
+          Styling in static pages is limited to prevent potential security vulnerabilities, but can be achieved a couple different ways:
+        '); ?>
+      </p>
+      <ul>
+        <li>
+        <?php echo __('Format using <a href="https://daringfireball.net/projects/markdown/">Markdown</a>'); ?>
+        </li>
+        <li>
+        <?php echo __('Styling with <a href="https://getbootstrap.com/docs/5.0/customize/overview/">Bootstrap 5</a> classes'); ?>
+        </li>
+        <li>
+        <?php echo __('Adding custom css classes to your <a href="https://accesstomemory.org/en/docs/2.10/admin-manual/customization/theming/#customization-theming">AtoM theme</a>'); ?>
+        </li>
+      </ul>
+      <p>
+        <?php echo __('
+          See <a href="https://accesstomemory.org/en/docs/2.10/user-manual/administer/static-pages/#styling-static-pages">styling static pages</a> for more information and examples.
+        '); ?>
+      </p>
+    </div>
+
     <div class="accordion mb-3">
       <div class="accordion-item">
         <h2 class="accordion-header" id="elements-heading">
