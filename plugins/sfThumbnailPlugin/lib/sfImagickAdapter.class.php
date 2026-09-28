@@ -61,6 +61,7 @@ class sfImagickAdapter
         'image/ras',
         'image/sgi',
         'image/svg',
+        'image/svg+xml',
         'image/tga',
         'image/tiff',
         'image/vda',

@@ -44,23 +44,78 @@ class atomPluginsTask extends sfBaseTask
         switch ($arguments['action']) {
             case 'add':
                 $plugins[] = $arguments['plugin'];
-
-                // Save changes
-                $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
-                $setting->save();
+                $this->savePlugins($setting, $plugins);
 
                 break;
 
             case 'delete':
-                if (false !== $key = array_search($arguments['plugin'], $plugins)) {
-                    unset($plugins[$key]);
+                if (false !== $this->searchPlugins($arguments['plugin'], $plugins)) {
+                    unset($plugins[array_search($arguments['plugin'], $plugins)]);
                 } else {
                     throw new sfException('Plugin could not be found.');
                 }
 
-                // Save changes
-                $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
-                $setting->save();
+                $this->savePlugins($setting, $plugins);
+
+                break;
+
+            case 'set-theme':
+                $themePlugins = [];
+                $configuration = ProjectConfiguration::getActive();
+                $pluginPaths = $configuration->getAllPluginPaths();
+
+                // Get list of theme plugins
+                foreach (sfPluginAdminPluginConfiguration::$pluginNames as $name) {
+                    unset($pluginPaths[$name]);
+                }
+
+                foreach ($pluginPaths as $name => $path) {
+                    $className = $name.'Configuration';
+                    if (sfConfig::get('sf_plugins_dir') == substr($path, 0, strlen(sfConfig::get('sf_plugins_dir'))) && is_readable($classPath = $path.'/config/'.$className.'.class.php')) {
+                        $this->installPluginAssets($name, $path);
+
+                        require_once $classPath;
+
+                        $class = new $className($configuration);
+
+                        // Build a list of themes
+                        if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary)) {
+                            $themePlugins[] = $name;
+                        }
+                    }
+                }
+
+                // Get current theme plugin
+                $currentTheme = null;
+                $criteria = new Criteria();
+                $criteria->add(QubitSetting::NAME, 'plugins');
+                if (1 == count($query = QubitSetting::get($criteria))) {
+                    $setting = $query[0];
+
+                    foreach (unserialize($setting->getValue(['sourceCulture' => true])) as $plugin) {
+                        if (in_array($plugin, $themePlugins)) {
+                            $currentTheme = $plugin;
+
+                            break;
+                        }
+                    }
+                }
+
+                // Check if the new plugin is a theme plugin
+                if (in_array($arguments['plugin'], $themePlugins)) {
+                    // Delete current theme plugin
+                    if (false !== $this->searchPlugins($currentTheme, $plugins)) {
+                        unset($plugins[array_search($currentTheme, $plugins)]);
+                    }
+
+                    // Add new theme plugin
+                    $plugins[] = $arguments['plugin'];
+
+                    // Save new plugins array
+                    $this->savePlugins($setting, $plugins);
+                } else {
+                    throw new sfException(sprintf('%s is not a theme plugin.', $arguments['plugin']));
+                }
 
                 break;
 
@@ -76,10 +131,21 @@ class atomPluginsTask extends sfBaseTask
         }
     }
 
+    // Copied from sfPluginPublishAssetsTask
+    protected function installPluginAssets($name, $path)
+    {
+        $webDir = $path.'/web';
+
+        if (is_dir($webDir)) {
+            $filesystem = new sfFilesystem();
+            $filesystem->relativeSymlink($webDir, sfConfig::get('sf_web_dir').'/'.$name, true);
+        }
+    }
+
     protected function configure()
     {
         $this->addArguments([
-            new sfCommandArgument('action', sfCommandArgument::REQUIRED, 'The action (add, delete or list).'),
+            new sfCommandArgument('action', sfCommandArgument::REQUIRED, 'The action (add, delete, set-theme or list).'),
             new sfCommandArgument('plugin', sfCommandArgument::OPTIONAL, 'The plugin name.'),
         ]);
 
@@ -98,7 +164,21 @@ class atomPluginsTask extends sfBaseTask
 Manage AtoM plugins stored in the database. Examples:
  - symfony atom-plugins add arFoobarPlugin
  - symfony atom-plugins delete arFoobarPlugin
+ - symfony atom-plugins set-theme arFoobarPlugin
  - symfony atom-plugins list
 EOF;
+    }
+
+    private function searchPlugins($plugin, &$plugins)
+    {
+        $key = array_search($plugin, $plugins);
+
+        return $key;
+    }
+
+    private function savePlugins($setting, &$plugins)
+    {
+        $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
+        $setting->save();
     }
 }

@@ -175,14 +175,26 @@ class Qubit
             chmod($tmpDir, 0775);
         }
 
-        $pathInfo = pathinfo($name);
-        $extension = $pathInfo['extension'];
+        $tmpFileName = tempnam($tmpDir, 'QUBIT');
+        if (false === $tmpFileName) {
+            return false;
+        }
 
-        // Get a unique file name (to avoid clashing file names)
-        $tmpFileName = null;
-        while (null == $tmpFileName || file_exists($tmpFileName)) {
-            $uniqueString = substr(md5(time()), 0, 8);
-            $tmpFileName = $tmpDir.'/QUBIT'.$uniqueString.'.'.$extension;
+        $extension = '';
+        $pathInfo = pathinfo($name);
+        if (isset($pathInfo['extension']) && preg_match('/^[a-z0-9]+/i', $pathInfo['extension'], $matches)) {
+            $extension = strtolower($matches[0]);
+        }
+
+        if ('' !== $extension) {
+            $tmpFileNameWithExtension = $tmpFileName.'.'.$extension;
+            if (!rename($tmpFileName, $tmpFileNameWithExtension)) {
+                @unlink($tmpFileName);
+
+                return false;
+            }
+
+            $tmpFileName = $tmpFileNameWithExtension;
         }
 
         return false != file_put_contents($tmpFileName, $contents) ? $tmpFileName : false;

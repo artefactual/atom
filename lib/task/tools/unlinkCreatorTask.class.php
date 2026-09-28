@@ -22,7 +22,7 @@
  *
  * @author     Steve Breker <sbreker@artefactual.com>
  */
-class unlinkCreatorTask extends sfBaseTask
+class unlinkCreatorTask extends arBaseTask
 {
     protected $actor;
 
@@ -52,13 +52,14 @@ EOF;
 
     protected function execute($arguments = [], $options = [])
     {
+        parent::execute($arguments, $options);
+
         if ($options['creator-slug'] && $options['description-slug']) {
             throw new Exception(
                 'Creator and description filters cannot be set at the same time. Remove one and try again.'
             );
         }
 
-        sfContext::createInstance($this->configuration);
         $databaseManager = new sfDatabaseManager($this->configuration);
         $conn = $databaseManager->getDatabase('propel')->getConnection();
 

@@ -106,8 +106,7 @@ class arRepositoryCsvExportJob extends arExportJob
 
     protected function csvActionExport($resource, $writer)
     {
-        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
-        $this->context = sfContext::createInstance($configuration);
+        $this->context = sfContext::getInstance();
 
         // Export repositories and, optionally, related data
         $itemsExported = 0;
@@ -116,9 +115,9 @@ class arRepositoryCsvExportJob extends arExportJob
 
         // Write row to file and initialize row
         foreach ($cultures as $culture) {
-            $this->context->getUser()->setCulture($culture);
-
-            $writer->exportResource($resource);
+            $this->withUserCulture($culture, function () use ($writer, $resource) {
+                $writer->exportResource($resource);
+            });
 
             // Log progress every 1000 rows
             if ($itemsExported && (0 == $itemsExported % 1000)) {

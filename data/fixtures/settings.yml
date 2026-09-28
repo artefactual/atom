@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 198
+    value: 200
   milestone:
     name: milestone
     editable: 0
@@ -29,6 +29,11 @@ QubitSetting:
     editable: 1
     deleteable: 0
     value: 1
+  QubitSetting_clipboard_export_xml_limit:
+    name: clipboard_export_xml_limit
+    editable: 1
+    deleteable: 0
+    value: 1000
   QubitSetting_sort_treeview:
     name: sort_treeview_informationobject
     editable: 1
@@ -1591,3 +1596,11 @@ QubitSetting:
     value:
       ar: 'عدد الإضافات الأرشيفية:&nbsp;'
       en: 'Accession count:&nbsp;'
+  QubitSettings_carousel:
+    name: carousel
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Image Carousel'

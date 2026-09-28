@@ -79,8 +79,7 @@ class arActorExportJob extends arExportJob
 
     protected function csvActionExport($path, $resource)
     {
-        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'prod', false);
-        $this->context = sfContext::createInstance($configuration);
+        $this->context = sfContext::getInstance();
 
         // Prepare CSV exporter
         $writer = new csvActorExport($path);
@@ -92,9 +91,10 @@ class arActorExportJob extends arExportJob
         // Write row to file and initialize row
         foreach ($cultures as $culture) {
             $actor = QubitActor::getById($resource->id);
-            $this->context->getUser()->setCulture($culture);
 
-            $writer->exportResource($actor);
+            $this->withUserCulture($culture, function () use ($writer, $actor) {
+                $writer->exportResource($actor);
+            });
         }
 
         ++$this->itemsExported;

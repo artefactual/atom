@@ -18,27 +18,33 @@
  */
 
 /*
- * Add new setting for the maximum number of information objects that can be
- * exported as XML from the clipboard.
+ * Add new UI labels for Image carousel.
  *
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0198
+class arMigration0199
 {
-    public const VERSION = 198;
+    public const VERSION = 199;
     public const MIN_MILESTONE = 2;
 
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
     public function up($configuration)
     {
-        // Add clipboard XML export limit setting.
-        if (null === QubitSetting::getByName('clipboard_export_xml_limit')) {
-            $setting = new QubitSetting();
-            $setting->name = 'clipboard_export_xml_limit';
-            $setting->editable = 1;
-            $setting->value = '1000';
-            $setting->save();
-        }
+        $setting = new QubitSetting();
+        $setting->name = 'carousel';
+        $setting->scope = 'ui_label';
+        $setting->editable = 1;
+        $setting->deleteable = 0;
+        $setting->source_culture = 'en';
+        $setting->setValue('Image Carousel', ['culture' => 'en']);
+        $setting->save();
 
         return true;
     }
