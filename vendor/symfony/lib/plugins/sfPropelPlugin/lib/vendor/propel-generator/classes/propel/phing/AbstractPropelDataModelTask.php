@@ -235,7 +235,7 @@ abstract class AbstractPropelDataModelTask extends Task {
 	 */
 	public function setPackageObjectModel($v)
 	{
-		$this->packageObjectModel = ($v === '1' ? true : false);
+		$this->packageObjectModel = filter_var($v, FILTER_VALIDATE_BOOLEAN);
 	}
 
 	/**
@@ -416,6 +416,7 @@ abstract class AbstractPropelDataModelTask extends Task {
 			$srcDir = $fs->getDir($this->project);
 
 			$dataModelFiles = $ds->getIncludedFiles();
+			usort($dataModelFiles, array($this, 'compareDataModelFiles'));
 
 			$platform = $this->getGeneratorConfig()->getConfiguredPlatform();
 
@@ -494,6 +495,24 @@ abstract class AbstractPropelDataModelTask extends Task {
 		}
 
 		$this->dataModelsLoaded = true;
+	}
+
+	/**
+	 * Sort schema files deterministically, keeping the application schema before
+	 * plugin schemas so referrer generation remains stable.
+	 */
+	protected function compareDataModelFiles($a, $b)
+	{
+		$aBase = basename($a);
+		$bBase = basename($b);
+		$aIsMain = in_array($aBase, array('schema.xml', 'generated-schema.xml'), true);
+		$bIsMain = in_array($bBase, array('schema.xml', 'generated-schema.xml'), true);
+
+		if ($aIsMain !== $bIsMain) {
+			return $aIsMain ? -1 : 1;
+		}
+
+		return strcmp($a, $b);
 	}
 
 	/**

@@ -157,7 +157,7 @@ abstract class BaseMenu implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -321,7 +321,7 @@ abstract class BaseMenu implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentmenuI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentmenuI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentmenuI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -538,12 +538,15 @@ abstract class BaseMenu implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $menuI18ns = array();
     foreach ($this->menuI18ns as $menuI18n)
     {
       $menuI18n->id = $this->id;
 
-      $menuI18n->save($connection);
+      $menuI18ns[] = $menuI18n;
     }
+
+    QubitMenuI18n::bulkSave($menuI18ns, $connection);
 
     return $this;
   }

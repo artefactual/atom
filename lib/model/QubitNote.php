@@ -54,6 +54,12 @@ class QubitNote extends BaseNote
 
     public function save($connection = null)
     {
+        // A deleted language note may remain in its parent's loaded notes
+        // collection. Saving the parent must not try to persist it again.
+        if ($this->deleted) {
+            return $this;
+        }
+
         // TODO: $cleanObject = $this->object->clean;
         $cleanObjectId = $this->__get('objectId', ['clean' => true]);
 

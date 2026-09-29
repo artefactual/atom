@@ -88,7 +88,7 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__isset'), $args);
+      return parent::__isset(...$args);
     }
     catch (sfException $e)
     {
@@ -127,7 +127,7 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array(array($this, 'QubitObject::__get'), $args);
+      return parent::__get(...$args);
     }
     catch (sfException $e)
     {
@@ -152,7 +152,7 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentdeaccessionI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentdeaccessionI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentdeaccessionI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -176,7 +176,7 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__set'), $args);
+    parent::__set(...$args);
 
     call_user_func_array(array($this->getCurrentdeaccessionI18n($options), '__set'), $args);
 
@@ -193,7 +193,7 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array(array($this, 'QubitObject::__unset'), $args);
+    parent::__unset(...$args);
 
     call_user_func_array(array($this->getCurrentdeaccessionI18n($options), '__unset'), $args);
 
@@ -214,12 +214,15 @@ abstract class BaseDeaccession extends QubitObject implements ArrayAccess
   {
     parent::save($connection);
 
+    $deaccessionI18ns = array();
     foreach ($this->deaccessionI18ns as $deaccessionI18n)
     {
       $deaccessionI18n->id = $this->id;
 
-      $deaccessionI18n->save($connection);
+      $deaccessionI18ns[] = $deaccessionI18n;
     }
+
+    QubitDeaccessionI18n::bulkSave($deaccessionI18ns, $connection);
 
     return $this;
   }
