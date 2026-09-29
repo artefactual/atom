@@ -61,15 +61,6 @@ class QubitTest extends TestCase
         $this->assertSame('contents', file_get_contents($path));
     }
 
-    private function saveTemporaryFile(string $name, string $contents): string
-    {
-        $path = Qubit::saveTemporaryFile($name, $contents);
-        $this->assertNotFalse($path);
-        $this->temporaryFiles[] = $path;
-
-        return $path;
-    }
-
     public function testSafeUnserializeReturnsArraysAndScalars()
     {
         $this->assertSame(['a' => 1], Qubit::safeUnserialize(serialize(['a' => 1])));
@@ -104,5 +95,14 @@ class QubitTest extends TestCase
         }
 
         $this->assertSame([], Qubit::safeUnserialize(serialize($value), []));
+    }
+
+    private function saveTemporaryFile(string $name, string $contents): string
+    {
+        $path = Qubit::saveTemporaryFile($name, $contents);
+        $this->assertNotFalse($path);
+        $this->temporaryFiles[] = $path;
+
+        return $path;
     }
 }
