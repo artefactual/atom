@@ -175,7 +175,7 @@ class QubitCsvTransform extends QubitFlatfileImport
             }
 
             // Write CSV row data
-            $data = unserialize($row['data']);
+            $data = Qubit::safeUnserialize($row['data'], []);
 
             fputcsv($fhOut, $data);
 
