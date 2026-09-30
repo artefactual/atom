@@ -599,7 +599,6 @@ mapping:
       slug: { type: keyword }
       identifier:
         type: text
-        copy_to : all
         fields:
           untouched:
             type: keyword
