@@ -90,7 +90,7 @@ abstract class BaseActor extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitObject::__isset', $args);
+      return parent::__isset(...$args);
     }
     catch (sfException $e)
     {
@@ -149,7 +149,7 @@ abstract class BaseActor extends QubitObject implements ArrayAccess
 
     try
     {
-      return call_user_func_array('QubitObject::__get', $args);
+      return parent::__get(...$args);
     }
     catch (sfException $e)
     {
@@ -266,7 +266,7 @@ abstract class BaseActor extends QubitObject implements ArrayAccess
       $options = $args[2];
     }
 
-    call_user_func_array('QubitObject::__set', $args);
+    parent::__set(...$args);
 
     call_user_func_array(array($this->getCurrentactorI18n($options), '__set'), $args);
 
@@ -283,7 +283,7 @@ abstract class BaseActor extends QubitObject implements ArrayAccess
       $options = $args[1];
     }
 
-    call_user_func_array('QubitObject::__unset', $args);
+    parent::__unset(...$args);
 
     call_user_func_array(array($this->getCurrentactorI18n($options), '__unset'), $args);
 
@@ -304,12 +304,15 @@ abstract class BaseActor extends QubitObject implements ArrayAccess
   {
     parent::save($connection);
 
+    $actorI18ns = array();
     foreach ($this->actorI18ns as $actorI18n)
     {
       $actorI18n->id = $this->id;
 
-      $actorI18n->save($connection);
+      $actorI18ns[] = $actorI18n;
     }
+
+    QubitActorI18n::bulkSave($actorI18ns, $connection);
 
     return $this;
   }

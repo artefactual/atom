@@ -134,7 +134,7 @@ abstract class BaseNote implements ArrayAccess
       return $this->keys[$name];
     }
 
-    if (!array_key_exists($offset, $this->row))
+    if (is_array($this->row) && !array_key_exists($offset, $this->row))
     {
       if ($this->new)
       {
@@ -266,7 +266,7 @@ abstract class BaseNote implements ArrayAccess
 
     try
     {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentnoteI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
+      if (1 > strlen((string) $value = call_user_func_array(array($this->getCurrentnoteI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
       {
         return call_user_func_array(array($this->getCurrentnoteI18n(array('sourceCulture' => true) + $options), '__get'), $args);
       }
@@ -409,7 +409,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if ($this->deleted)
     {
-      return $this;
+      throw new PropelException('You cannot save an object that has been deleted.');
     }
 
     if ($this->new)
@@ -443,12 +443,15 @@ abstract class BaseNote implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
+    $noteI18ns = array();
     foreach ($this->noteI18ns as $noteI18n)
     {
       $noteI18n->id = $this->id;
 
-      $noteI18n->save($connection);
+      $noteI18ns[] = $noteI18n;
     }
+
+    QubitNoteI18n::bulkSave($noteI18ns, $connection);
 
     return $this;
   }

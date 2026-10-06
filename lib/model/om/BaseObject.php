@@ -263,7 +263,6 @@ abstract class BaseObject implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
-
   #[\ReturnTypeWillChange]
   public function offsetExists($offset)
   {
@@ -561,7 +560,6 @@ abstract class BaseObject implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
-
   #[\ReturnTypeWillChange]
   public function offsetGet($offset)
   {
@@ -616,7 +614,6 @@ abstract class BaseObject implements ArrayAccess
 
     return $this;
   }
-
 
   #[\ReturnTypeWillChange]
   public function offsetSet($offset, $value)
