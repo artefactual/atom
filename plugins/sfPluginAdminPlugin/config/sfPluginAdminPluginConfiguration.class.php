@@ -41,7 +41,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                 // http://accesstomemory.org/wiki/index.php?title=Autoload
                 $this->dispatcher->disconnect('autoload.filter_config', [$this->configuration, 'filterAutoloadConfig']);
 
-                $pluginNames = unserialize($query[0]->__get('value', ['sourceCulture' => true]));
+                $pluginNames = Qubit::safeUnserialize($query[0]->__get('value', ['sourceCulture' => true]), []);
 
                 // if (isset($_GET['t']))
                 // {

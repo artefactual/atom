@@ -124,7 +124,7 @@ class QubitMenu extends BaseMenu
             return false;
         }
 
-        $lockInfo = unserialize(sfConfig::get('app_menu_locking_info', []));
+        $lockInfo = Qubit::safeUnserialize(sfConfig::get('app_menu_locking_info', []), []);
 
         // If lock info isn't empty and the menu's ID or name indicates it should be locked, then lock it
         if (count($lockInfo) && (in_array($this->id, $lockInfo['byId']) || in_array($this->name, $lockInfo['byName']))) {
