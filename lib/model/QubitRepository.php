@@ -24,9 +24,7 @@ class QubitRepository extends BaseRepository
 {
     public const ROOT_ID = 6;
 
-    // Lifetime (in seconds) of the cross-request disk usage cache. It is
-    // invalidated on digital object save/delete; the TTL only bounds
-    // staleness from changes made outside of QubitDigitalObject.
+    // Lifetime (in seconds) of the disk usage cache
     private const DISK_USAGE_CACHE_TTL = 60;
 
     public function __get($name)
