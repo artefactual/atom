@@ -314,18 +314,16 @@ class QubitRepository extends BaseRepository
      */
     public function getDiskUsage($options = [])
     {
-        $repoDir = sfConfig::get('app_upload_dir').'/r/'.$this->slug;
+        $sql = 'SELECT SUM(byte_size) AS size '.
+            'FROM '.QubitDigitalObject::TABLE_NAME.' '.
+            "WHERE path LIKE CONCAT('/', :uploadDir, '/r/', :slug, '/%')";
 
-        if (!file_exists($repoDir)) {
-            return 0;
-        }
+        $params = [
+            ':uploadDir' => trim(sfConfig::get('app_upload_dir', 'uploads'), '/'),
+            ':slug' => $this->slug,
+        ];
 
-        $size = Qubit::getDirectorySize($repoDir, $options);
-        if ($size < 0) {
-            $size = 0;
-        }
-
-        return $size;
+        return (int) QubitPdo::fetchColumn($sql, $params);
     }
 
     // Import methods
