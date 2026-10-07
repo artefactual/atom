@@ -24,6 +24,11 @@ class QubitRepository extends BaseRepository
 {
     public const ROOT_ID = 6;
 
+    // Lifetime (in seconds) of the cross-request disk usage cache. It is
+    // invalidated on digital object save/delete; the TTL only bounds
+    // staleness from changes made outside of QubitDigitalObject.
+    private const DISK_USAGE_CACHE_TTL = 60;
+
     public function __get($name)
     {
         $args = func_get_args();
@@ -308,12 +313,25 @@ class QubitRepository extends BaseRepository
     /**
      * Get disk space used by digital objects in this repository.
      *
+     * Results are cached in the QubitCache because this operation can be expensive.
+     *
      * @param mixed $options
      *
      * @return int disk usage in bytes
      */
     public function getDiskUsage($options = [])
     {
+        $cacheKey = null;
+
+        if (isset($this->id)) {
+            $cacheKey = sprintf('disk-usage:%s', $this->id);
+            $cache = QubitCache::getInstance();
+
+            if (false !== $cachedSize = $cache->get($cacheKey, false)) {
+                return (int) $cachedSize;
+            }
+        }
+
         $sql = 'SELECT SUM(byte_size) AS size '.
             'FROM '.QubitDigitalObject::TABLE_NAME.' '.
             "WHERE path LIKE CONCAT('/', :uploadDir, '/r/', :slug, '/%')";
@@ -323,7 +341,18 @@ class QubitRepository extends BaseRepository
             ':slug' => $this->slug,
         ];
 
-        return (int) QubitPdo::fetchColumn($sql, $params);
+        $size = (int) QubitPdo::fetchColumn($sql, $params);
+
+        if (isset($this->id) and isset($cache)) {
+            $cache->set($cacheKey, $size, self::DISK_USAGE_CACHE_TTL);
+        }
+
+        return $size;
+    }
+
+    public static function clearDiskUsageCache()
+    {
+        QubitCache::getInstance()->removePattern('disk-usage:*');
     }
 
     // Import methods
