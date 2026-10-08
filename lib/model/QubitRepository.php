@@ -341,7 +341,7 @@ class QubitRepository extends BaseRepository
 
         $size = (int) QubitPdo::fetchColumn($sql, $params);
 
-        if (isset($this->id) and isset($cache)) {
+        if (isset($this->id, $cache) && null !== $cacheKey) {
             $cache->set($cacheKey, $size, self::DISK_USAGE_CACHE_TTL);
         }
 
