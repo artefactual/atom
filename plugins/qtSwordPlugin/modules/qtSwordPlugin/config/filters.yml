@@ -17,5 +17,9 @@ QubitTransaction: ~
 QubitCSP:
   enable: false
 
+# Bypass the login requirement filter for sword deposits
+QubitRequireLogin:
+  enabled: false
+
 cache: ~
 execution: ~
