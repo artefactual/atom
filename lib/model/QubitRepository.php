@@ -25,7 +25,7 @@ class QubitRepository extends BaseRepository
     public const ROOT_ID = 6;
 
     // Lifetime (in seconds) of the disk usage cache
-    private const DISK_USAGE_CACHE_TTL = 60;
+    private const DISK_USAGE_CACHE_TTL = 600;
 
     public function __get($name)
     {
