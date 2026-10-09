@@ -313,36 +313,49 @@ class QubitRepository extends BaseRepository
      *
      * Results are cached in the QubitCache because this operation can be expensive.
      *
-     * @param mixed $options
+     * @param array $options optional parameters: 'units' ('k', 'M' or 'G') to
+     *                       return the size in kB, MB or GB rounded to two
+     *                       decimals
      *
-     * @return int disk usage in bytes
+     * @return float|int disk usage in bytes, or in the requested units
      */
     public function getDiskUsage($options = [])
     {
-        $cacheKey = null;
+        $size = false;
 
         if (isset($this->id)) {
             $cacheKey = sprintf('disk-usage:%s', $this->id);
             $cache = QubitCache::getInstance();
+            $size = $cache->get($cacheKey, false);
+        }
 
-            if (false !== $cachedSize = $cache->get($cacheKey, false)) {
-                return (int) $cachedSize;
+        if (false === $size) {
+            // Escape LIKE wildcards, which may be present in permissive slugs
+            $escapeLikeSpecialChars = fn ($value) => strtr($value, ['!' => '!!', '%' => '!%', '_' => '!_']);
+
+            $sql = 'SELECT SUM(byte_size) AS size '.
+                'FROM '.QubitDigitalObject::TABLE_NAME.' '.
+                "WHERE path LIKE CONCAT('/', :uploadDir, '/r/', :slug, '/%') ESCAPE '!'";
+
+            $params = [
+                ':uploadDir' => $escapeLikeSpecialChars(trim(sfConfig::get('app_upload_dir', 'uploads'), '/')),
+                ':slug' => $escapeLikeSpecialChars($this->slug),
+            ];
+
+            $size = QubitPdo::fetchColumn($sql, $params);
+
+            if (isset($cache)) {
+                $cache->set($cacheKey, (int) $size, self::DISK_USAGE_CACHE_TTL);
             }
         }
 
-        $sql = 'SELECT SUM(byte_size) AS size '.
-            'FROM '.QubitDigitalObject::TABLE_NAME.' '.
-            "WHERE path LIKE CONCAT('/', :uploadDir, '/r/', :slug, '/%')";
+        $size = (int) $size;
 
-        $params = [
-            ':uploadDir' => trim(sfConfig::get('app_upload_dir', 'uploads'), '/'),
-            ':slug' => $this->slug,
-        ];
+        if (isset($options['units'])) {
+            $exponents = ['k' => 3, 'm' => 6, 'g' => 9];
+            $exponent = $exponents[strtolower($options['units'])] ?? 0;
 
-        $size = (int) QubitPdo::fetchColumn($sql, $params);
-
-        if (isset($this->id, $cache) && null !== $cacheKey) {
-            $cache->set($cacheKey, $size, self::DISK_USAGE_CACHE_TTL);
+            return round($size / pow(10, $exponent), 2);
         }
 
         return $size;
