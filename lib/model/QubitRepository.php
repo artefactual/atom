@@ -24,6 +24,9 @@ class QubitRepository extends BaseRepository
 {
     public const ROOT_ID = 6;
 
+    // Lifetime (in seconds) of the disk usage cache
+    private const DISK_USAGE_CACHE_TTL = 600;
+
     public function __get($name)
     {
         $args = func_get_args();
@@ -308,24 +311,59 @@ class QubitRepository extends BaseRepository
     /**
      * Get disk space used by digital objects in this repository.
      *
-     * @param mixed $options
+     * Results are cached in the QubitCache because this operation can be expensive.
      *
-     * @return int disk usage in bytes
+     * @param array $options optional parameters: 'units' ('k', 'M' or 'G') to
+     *                       return the size in kB, MB or GB rounded to two
+     *                       decimals
+     *
+     * @return float|int disk usage in bytes, or in the requested units
      */
     public function getDiskUsage($options = [])
     {
-        $repoDir = sfConfig::get('app_upload_dir').'/r/'.$this->slug;
+        $size = false;
 
-        if (!file_exists($repoDir)) {
-            return 0;
+        if (isset($this->id)) {
+            $cacheKey = sprintf('disk-usage:%s', $this->id);
+            $cache = QubitCache::getInstance();
+            $size = $cache->get($cacheKey, false);
         }
 
-        $size = Qubit::getDirectorySize($repoDir, $options);
-        if ($size < 0) {
-            $size = 0;
+        if (false === $size) {
+            // Escape LIKE wildcards, which may be present in permissive slugs
+            $escapeLikeSpecialChars = fn ($value) => strtr($value, ['!' => '!!', '%' => '!%', '_' => '!_']);
+
+            $sql = 'SELECT SUM(byte_size) AS size '.
+                'FROM '.QubitDigitalObject::TABLE_NAME.' '.
+                "WHERE path LIKE CONCAT('/', :uploadDir, '/r/', :slug, '/%') ESCAPE '!'";
+
+            $params = [
+                ':uploadDir' => $escapeLikeSpecialChars(trim(sfConfig::get('app_upload_dir', 'uploads'), '/')),
+                ':slug' => $escapeLikeSpecialChars($this->slug),
+            ];
+
+            $size = QubitPdo::fetchColumn($sql, $params);
+
+            if (isset($cache)) {
+                $cache->set($cacheKey, (int) $size, self::DISK_USAGE_CACHE_TTL);
+            }
+        }
+
+        $size = (int) $size;
+
+        if (isset($options['units'])) {
+            $exponents = ['k' => 3, 'm' => 6, 'g' => 9];
+            $exponent = $exponents[strtolower($options['units'])] ?? 0;
+
+            return round($size / pow(10, $exponent), 2);
         }
 
         return $size;
+    }
+
+    public static function clearDiskUsageCache()
+    {
+        QubitCache::getInstance()->removePattern('disk-usage:*');
     }
 
     // Import methods
