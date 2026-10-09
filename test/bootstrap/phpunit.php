@@ -19,3 +19,9 @@ sfContext::createInstance($configuration->getApplicationConfiguration(
     'test',
     true
 ));
+
+// Configure the QubitCache singleton to use a file-based cache so tests do
+// not depend on APC or memcached being available
+$cacheDir = sys_get_temp_dir().'/atom_phpunit_cache_'.getmypid();
+sfConfig::set('app_cache_engine', 'sfFileCache');
+sfConfig::set('app_cache_engine_param_cache_dir', $cacheDir);
