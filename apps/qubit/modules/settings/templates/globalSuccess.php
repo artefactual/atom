@@ -54,6 +54,10 @@
             <?php echo render_field($globalForm->default_repository_browse_view); ?>
 
             <?php echo render_field($globalForm->escape_queries); ?>
+
+            <?php echo render_field($globalForm->highlight_search_results); ?>
+
+            <?php echo render_field($globalForm->highlight_search_fragment_size); ?>
           </div>
         </div>
       </div>
