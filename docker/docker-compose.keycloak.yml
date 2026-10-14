@@ -1,0 +1,37 @@
+---
+volumes:
+  keycloak_data:
+
+networks:
+  default:
+    name: keycloak
+    external: true
+
+services:
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${latest:-latest}
+    platform: linux/amd64
+    environment:
+      KC_BOOTSTRAP_ADMIN_USER: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 9000
+      KC_LOG_LEVEL: DEBUG
+      KC_REALM_NAME: artefactual
+      KC_IMPORT: /opt/keycloak/data/import/realm.json
+    command:
+      - start-dev
+      - --import-realm
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+      - ./realm.json:/opt/keycloak/data/import/realm.json:ro
+    ports:
+      - "9000:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
+      interval: 15s
+      timeout: 2s
+      retries: 5
+      start_period: 40s
