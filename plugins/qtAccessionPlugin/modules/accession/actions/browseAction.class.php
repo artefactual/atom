@@ -80,9 +80,14 @@ class AccessionBrowseAction extends DefaultBrowseAction
             ->getIndex('QubitAccession')
             ->search($this->search->query);
 
+        $limit = sfConfig::get('app_hits_per_page', 10);
+        if (isset($request->limit) && ctype_digit($request->limit)) {
+            $limit = $request->limit;
+        }
+
         $this->pager = new QubitSearchPager($resultSet);
         $this->pager->setPage($request->page ?: 1);
-        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setMaxPerPage($limit);
         $this->pager->init();
 
         $this->populateAggs($resultSet);
