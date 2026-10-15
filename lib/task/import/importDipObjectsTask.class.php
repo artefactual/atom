@@ -46,6 +46,7 @@ class importDipObjectsTask extends arBaseTask
         $this->checkArgumentsAndOptions($arguments, $options);
 
         sfContext::createInstance($this->configuration);
+        sfConfig::add(QubitSetting::getSettingsArray());
 
         QubitSearch::getInstance()->enable();
 
