@@ -62,6 +62,47 @@ class QubitUserChallengeTest extends TestCase
         $this->assertTrue($userChallenge->shouldBypassChallenge('1.2.3.4', 'UA'), 'Should bypass if country is in exceptions.');
     }
 
+    /**
+     * @dataProvider noCountryExceptionsProvider
+     */
+    public function testSkipsCountryLookupWithoutCountryExceptions(array $config)
+    {
+        $this->geoIpHelper->expects($this->never())->method('getCountry');
+        $this->geoIpHelper->expects($this->once())->method('getAsn')->willReturn(12345);
+        $config['asn_exceptions'] = [12345];
+
+        $userChallenge = new QubitUserChallenge($config, $this->geoIpHelper);
+        $this->assertTrue($userChallenge->shouldBypassChallenge('192.0.2.1', 'UA'));
+    }
+
+    public function noCountryExceptionsProvider()
+    {
+        return [
+            'missing' => [[]],
+            'empty' => [['country_exceptions' => []]],
+        ];
+    }
+
+    /**
+     * @dataProvider noAsnExceptionsProvider
+     */
+    public function testSkipsAsnLookupWithoutAsnExceptions(array $config)
+    {
+        $this->geoIpHelper->expects($this->never())->method('getAsn');
+        $userChallenge = new QubitUserChallenge($config, $this->geoIpHelper);
+
+        $this->assertFalse($userChallenge->shouldBypassChallenge('192.0.2.1', 'UA'));
+    }
+
+    public function noAsnExceptionsProvider()
+    {
+        return [
+            'missing' => [[]],
+            'empty' => [['asn_exceptions' => [], 'asn_user_agent_exceptions' => []]],
+            'country only' => [['country_exceptions' => [['country' => 'CA']]]],
+        ];
+    }
+
     public function testShouldBypassChallengeByAsnUserAgent()
     {
         $config = [
@@ -89,8 +130,10 @@ class QubitUserChallengeTest extends TestCase
                 ],
             ],
         ];
-        $this->geoIpHelper->method('getCountry')->willReturn(null);
-        $this->geoIpHelper->method('getAsn')->willReturn(null);
+        $config['country_exceptions'] = [['country' => 'CA']];
+        $config['asn_exceptions'] = [12345];
+        $this->geoIpHelper->expects($this->never())->method('getCountry');
+        $this->geoIpHelper->expects($this->never())->method('getAsn');
         $this->geoIpHelper->method('ipInCidr')->willReturn(true);
 
         $userChallenge = new QubitUserChallenge($config, $this->geoIpHelper);
@@ -109,9 +152,13 @@ class QubitUserChallengeTest extends TestCase
 
     public function testShouldBypassChallengeByCidrOnly()
     {
-        $config = ['cidr_exceptions' => ['192.168.1.0/24']];
-        $this->geoIpHelper->method('getCountry')->willReturn(null);
-        $this->geoIpHelper->method('getAsn')->willReturn(null);
+        $config = [
+            'cidr_exceptions' => ['192.168.1.0/24'],
+            'country_exceptions' => [['country' => 'CA']],
+            'asn_exceptions' => [12345],
+        ];
+        $this->geoIpHelper->expects($this->never())->method('getCountry');
+        $this->geoIpHelper->expects($this->never())->method('getAsn');
         $this->geoIpHelper->method('ipInCidr')->willReturn(true);
 
         $userChallenge = new QubitUserChallenge($config, $this->geoIpHelper);
@@ -127,6 +174,36 @@ class QubitUserChallengeTest extends TestCase
 
         $userChallenge = new QubitUserChallenge($config, $this->geoIpHelper);
         $this->assertFalse($userChallenge->shouldBypassChallenge('8.8.8.8', 'SomeUA'), 'Should not bypass if no exceptions match.');
+    }
+
+    /**
+     * @dataProvider proxyGeoIpBypassProvider
+     */
+    public function testBypassWithProxyGeoIp(array $config, array $values, string $userAgent, bool $expected)
+    {
+        $geo = new QubitGeoIpHelper('', '', null, $values);
+        $userChallenge = new QubitUserChallenge($config, $geo);
+
+        $this->assertSame($expected, $userChallenge->shouldBypassChallenge('192.0.2.1', $userAgent));
+    }
+
+    public function proxyGeoIpBypassProvider()
+    {
+        $botConfig = ['asn_user_agent_exceptions' => [
+            'bingbot' => ['asn' => 8075, 'user_agent' => '.*bingbot.*'],
+        ]];
+
+        return [
+            'ASN only' => [['asn_exceptions' => [16276]], ['asn' => '16276'], 'UA', true],
+            'ASN and matching UA' => [$botConfig, ['asn' => '8075'], 'bingbot', true],
+            'ASN and wrong UA' => [$botConfig, ['asn' => '8075'], 'UA', false],
+            'wrong ASN and matching UA' => [$botConfig, ['asn' => '15169'], 'bingbot', false],
+            'country' => [['country_exceptions' => [['country' => 'CA']]], ['country' => 'ca'], 'UA', true],
+            'missing ASN' => [$botConfig, [], 'bingbot', false],
+            'invalid ASN' => [$botConfig, ['asn' => 'AS8075'], 'bingbot', false],
+            'missing country' => [['country_exceptions' => [['country' => 'CA']]], [], 'UA', false],
+            'CIDR without GeoIP' => [['cidr_exceptions' => ['192.0.2.1/32']], [], 'UA', true],
+        ];
     }
 
     public function testLogInfoFallsBackToErrorLogIfNoLogger()

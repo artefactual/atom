@@ -18,19 +18,18 @@
 
 // Standalone JS challenge endpoint.
 
-// Load YAML parser and challenge config.
-require_once __DIR__.'/../../vendor/symfony/lib/yaml/sfYaml.php';
+// Load challenge config without bootstrapping Symfony.
+require_once __DIR__.'/../../lib/QubitChallengeConfig.class.php';
 $configFile = __DIR__.'/../../config/appChallenge.yml';
+$config = QubitChallengeConfig::load($configFile, __DIR__.'/../../cache/challenge');
 
 // If the js challenge feature config file is missing, the feature is disabled
 // and so we should not be here (at /challenge). Return 404 error.
-if (!is_readable($configFile)) {
+if (null === $config) {
     header('HTTP/1.1 404 Internal Server Error');
 
     exit;
 }
-$config = sfYaml::load($configFile);
-
 // If the js challenge feature is disabled, return 404.
 $activated = (bool) ($config['activated'] ?? false);
 if (!$activated) {

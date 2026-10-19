@@ -17,15 +17,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once __DIR__.'/../../vendor/symfony/lib/yaml/sfYaml.php';
+require_once __DIR__.'/../QubitChallengeConfig.class.php';
 
 $configFile = __DIR__.'/../../config/appChallenge.yml';
+$config = QubitChallengeConfig::load($configFile, __DIR__.'/../../cache/challenge');
 // If the js challenge feature config file is missing, skip.
-if (!is_readable($configFile)) {
+if (null === $config) {
     return;
 }
-
-$config = sfYaml::load($configFile);
 
 // If the js challenge feature is disabled or user is already on the challenge page, skip.
 $activated = (bool) ($config['activated'] ?? false);
@@ -63,10 +62,21 @@ $headlessCookie = $config['cookiename_headless'] ?? 'atom_headless';
 $jsCookie = $config['cookiename_js'] ?? 'atom_js';
 
 $logger = null;
+$proxyGeoIp = null;
+$geoIpFromNginx = $config['geoip_from_nginx'] ?? 'auto';
+if (true === $geoIpFromNginx
+    || ('auto' === $geoIpFromNginx
+        && (array_key_exists('GEOIP_ASN', $_SERVER) || array_key_exists('GEOIP_COUNTRY', $_SERVER)))) {
+    $proxyGeoIp = [
+        'asn' => $_SERVER['GEOIP_ASN'] ?? '',
+        'country' => $_SERVER['GEOIP_COUNTRY'] ?? '',
+    ];
+}
 $geo = new QubitGeoIpHelper(
-    $config['geoip_asn_db_path'],
-    $config['geoip_city_db_path'],
-    $logger
+    $config['geoip_asn_db_path'] ?? '',
+    $config['geoip_city_db_path'] ?? '',
+    $logger,
+    $proxyGeoIp
 );
 $userChallenge = new QubitUserChallenge(
     $config,
@@ -102,8 +112,6 @@ if (
 }
 
 // GeoIP + User-Agent exceptions
-$country = $geo->getCountry($remoteIp);
-$asn = $geo->getAsn($remoteIp);
 $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
 // Allow user to bypass the challenge based on GeoIP, User-Agent etc.

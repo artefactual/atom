@@ -20,6 +20,7 @@
 require_once __DIR__.'/../vendor/composer/autoload.php';
 
 use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class QubitGeoIpHelper
@@ -27,17 +28,20 @@ class QubitGeoIpHelper
     protected string $asnDbPath;
     protected string $cityDbPath;
     protected ?LoggerInterface $logger;
+    protected ?array $proxyGeoIp;
 
     /**
      * @param string               $asnDbPath  Path to ASN GeoIP database
      * @param string               $cityDbPath Path to City GeoIP database
      * @param null|LoggerInterface $logger     Optional PSR-3 logger
+     * @param null|array           $proxyGeoIp Trusted proxy values; null uses local databases
      */
-    public function __construct(string $asnDbPath, string $cityDbPath, ?LoggerInterface $logger = null)
+    public function __construct(string $asnDbPath, string $cityDbPath, ?LoggerInterface $logger = null, ?array $proxyGeoIp = null)
     {
         $this->asnDbPath = $asnDbPath;
         $this->cityDbPath = $cityDbPath;
         $this->logger = $logger;
+        $this->proxyGeoIp = $proxyGeoIp;
     }
 
     /**
@@ -51,48 +55,12 @@ class QubitGeoIpHelper
      */
     public function isPrivateIP(string $ip): bool
     {
-        // Check IPv4 addresses.
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-            $long = ip2long($ip);
-
-            return ($long >= ip2long('10.0.0.0') && $long <= ip2long('10.255.255.255'))
-                || ($long >= ip2long('172.16.0.0') && $long <= ip2long('172.31.255.255'))
-                || ($long >= ip2long('192.168.0.0') && $long <= ip2long('192.168.255.255'))
-                || ($long >= ip2long('127.0.0.0') && $long <= ip2long('127.255.255.255'));
-        }
-        // Check IPv6 addresses.
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            // Loopback
-            if ('::1' === $ip) {
-                return true;
-            }
-
-            $ipBin = inet_pton($ip);
-            if (false === $ipBin) {
-                return false;
-            }
-
-            // Unique Local Addresses (ULA): fc00::/7
-            // The first 7 bits of the address must be 1111 110 (0xfc) when masked with 0xfe.
-            $firstByte = ord(substr($ipBin, 0, 1));
-            if (($firstByte & 0xFE) === 0xFC) {
-                return true;
-            }
-
-            // Link-local addresses: fe80::/10
-            // Check that the first byte is 0xfe and the first two bits of the second byte are 10.
-            if (0xFE === $firstByte) {
-                $secondByte = ord(substr($ipBin, 1, 1));
-                if (($secondByte & 0xC0) === 0x80) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        // If IP is neither valid IPv4 nor IPv6, return false.
-        return false;
+        return false !== filter_var($ip, FILTER_VALIDATE_IP)
+            && false === filter_var(
+                $ip,
+                FILTER_VALIDATE_IP,
+                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+            );
     }
 
     /**
@@ -168,6 +136,17 @@ class QubitGeoIpHelper
      */
     public function getAsn(string $ip): ?int
     {
+        if (null !== $this->proxyGeoIp) {
+            $asn = $this->proxyGeoIp['asn'] ?? '';
+            if (!is_string($asn) || !ctype_digit($asn)) {
+                return null;
+            }
+
+            $asn = filter_var($asn, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 4294967295]]);
+
+            return false === $asn ? null : $asn;
+        }
+
         if ($this->isPrivateIP($ip)) {
             return null;
         }
@@ -177,6 +156,10 @@ class QubitGeoIpHelper
             $record = $reader->asn($ip);
 
             return $record->autonomousSystemNumber;
+        } catch (AddressNotFoundException $e) {
+            $this->logger?->debug('GeoIP ASN lookup: '.$e->getMessage());
+
+            return null;
         } catch (\Exception $e) {
             $this->logInfo('GeoIP Error: can\'t find ASN DB or lookup failed: '.$e->getMessage());
 
@@ -193,6 +176,12 @@ class QubitGeoIpHelper
      */
     public function getCountry(string $ip): ?string
     {
+        if (null !== $this->proxyGeoIp) {
+            $country = $this->proxyGeoIp['country'] ?? '';
+
+            return is_string($country) && preg_match('/\A[a-z]{2}\z/i', $country) ? strtoupper($country) : null;
+        }
+
         if ($this->isPrivateIP($ip)) {
             return null;
         }
@@ -202,6 +191,10 @@ class QubitGeoIpHelper
             $record = $reader->city($ip);
 
             return $record->country->isoCode;
+        } catch (AddressNotFoundException $e) {
+            $this->logger?->debug('GeoIP country lookup: '.$e->getMessage());
+
+            return null;
         } catch (\Exception $e) {
             $this->logInfo('GeoIP Error: can\'t find City DB or lookup failed: '.$e->getMessage());
 

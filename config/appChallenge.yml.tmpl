@@ -40,8 +40,16 @@ cidr_exceptions:
   - '192.168.1.0/24'
   - '10.0.0.0/8'
 
-# GeoIp is required for user_challenge features. The country and asn filters
-# both require GeoIp to be set up.
-# Paths to the GeoIP2 databases (substitute %SF_ROOT_DIR% or an absolute path):
+# GeoIP source: auto (default), true (nginx only), false (local databases only).
+# Auto uses nginx if either GEOIP_ASN or GEOIP_COUNTRY FastCGI parameter exists,
+# even if empty. Otherwise it uses local databases. In nginx mode, missing or
+# invalid values are unknown and never trigger local lookups.
+# Set these parameters from nginx's GeoIP2 variables and restrict PHP-FPM access
+# to trusted web servers. Client HTTP headers are ignored.
+# See lib/challenge/README.md for nginx examples.
+geoip_from_nginx: auto
+
+# Local GeoIP2 databases, used when false or auto detects no nginx parameters.
+# Substitute %SF_ROOT_DIR% or an absolute path:
 geoip_asn_db_path:  '%SF_ROOT_DIR%/geoip/GeoLite2-ASN.mmdb'
 geoip_city_db_path: '%SF_ROOT_DIR%/geoip/GeoLite2-City.mmdb'

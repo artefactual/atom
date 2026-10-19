@@ -79,30 +79,31 @@ class QubitUserChallenge
      */
     public function shouldBypassChallenge(string $remoteIp, string $userAgent): bool
     {
-        // Country code exception
-        $country = $this->geoIpHelper->getCountry($remoteIp);
-        if (null !== $country && $this->matchesCountryException($country)) {
+        // IP-based exceptions do not require GeoIP lookups.
+        if ($this->matchesCidrException($remoteIp)
+            || $this->matchesNetworkUserAgentException($remoteIp, $userAgent)) {
             return true;
+        }
+
+        // Country code exception
+        if (!empty($this->config['country_exceptions'])) {
+            $country = $this->geoIpHelper->getCountry($remoteIp);
+            if (null !== $country && $this->matchesCountryException($country)) {
+                return true;
+            }
         }
 
         // ASN + UA exception
-        $asn = $this->geoIpHelper->getAsn($remoteIp);
-        if (null !== $asn && $this->matchesAsnUserAgentException($asn, $userAgent)) {
-            return true;
+        $asn = null;
+        if (!empty($this->config['asn_exceptions']) || !empty($this->config['asn_user_agent_exceptions'])) {
+            $asn = $this->geoIpHelper->getAsn($remoteIp);
         }
-
-        // Network + UA exception
-        if ($this->matchesNetworkUserAgentException($remoteIp, $userAgent)) {
+        if (null !== $asn && $this->matchesAsnUserAgentException($asn, $userAgent)) {
             return true;
         }
 
         // ASN-only exception
         if (null !== $asn && $this->matchesAsnException($asn)) {
-            return true;
-        }
-
-        // CIDR-only exception
-        if ($this->matchesCidrException($remoteIp)) {
             return true;
         }
 
