@@ -38,7 +38,7 @@ class QubitChallengeFilterTest extends TestCase
             'lib' => ['challenge' => ['filter.php' => file_get_contents($root.'/lib/challenge/filter.php')]],
             'vendor' => ['symfony' => ['lib' => ['yaml' => []]]],
         ];
-        foreach (['QubitChallengeConfig', 'QubitGeoIpHelper', 'QubitUserChallenge'] as $class) {
+        foreach (['QubitChallengeConfig', 'QubitChallengeDecisionLog', 'QubitChallengeProof', 'QubitGeoIpHelper', 'QubitUserChallenge'] as $class) {
             $tree['lib'][$class.'.class.php'] = '<?php require_once '.var_export($root.'/lib/'.$class.'.class.php', true).';';
         }
         $tree['vendor']['symfony']['lib']['yaml']['sfYaml.php'] = '<?php require_once '.var_export($root.'/vendor/symfony/lib/yaml/sfYaml.php', true).';';
@@ -79,6 +79,9 @@ class QubitChallengeFilterTest extends TestCase
         $localMatch = array_merge($local, ['asn_exceptions' => [15169]]);
 
         return [
+            'ALTCHA keeps ASN exceptions' => [array_merge($enabled, ['verification' => 'altcha', 'salt' => str_repeat('test-only-', 4)]), ['GEOIP_ASN' => '8075'], true],
+            'ALTCHA keeps country exceptions' => [array_merge($enabled, ['verification' => 'altcha', 'salt' => str_repeat('test-only-', 4)]), ['GEOIP_COUNTRY' => 'ca'], true],
+            'ALTCHA missing GeoIP still challenges' => [array_merge($enabled, ['verification' => 'altcha', 'salt' => str_repeat('test-only-', 4)]), [], false],
             'ASN parameter, no databases' => [$enabled, ['GEOIP_ASN' => '8075'], true],
             'country parameter, no databases' => [$enabled, ['GEOIP_COUNTRY' => 'ca'], true],
             'missing parameters, spoofed headers' => [$enabled, [], false],

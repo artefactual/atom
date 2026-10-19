@@ -46,6 +46,19 @@ if (!$remoteIp) {
     exit;
 }
 
+// ALTCHA endpoints share the existing front controller: no nginx changes.
+if ('altcha' === ($config['verification'] ?? 'legacy')) {
+    require __DIR__.'/altcha.php';
+
+    exit;
+}
+if (!in_array(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), ['/challenge', '/challenge/'], true)) {
+    http_response_code(404);
+
+    exit;
+}
+header('Cache-Control: no-store');
+
 // Compute cookie-key.
 $key = md5($remoteIp.':'.($config['salt'] ?? ''));
 

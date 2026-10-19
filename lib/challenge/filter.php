@@ -26,11 +26,13 @@ if (null === $config) {
     return;
 }
 
-// If the js challenge feature is disabled or user is already on the challenge page, skip.
+// If the challenge feature is disabled, skip.
 $activated = (bool) ($config['activated'] ?? false);
-if (!$activated || (0 === strpos($_SERVER['REQUEST_URI'], '/challenge'))) {
+if (!$activated) {
     return;
 }
+
+require_once __DIR__.'/../QubitChallengeDecisionLog.class.php';
 
 // Load helper class.
 require_once __DIR__.'/../../lib/QubitUserChallenge.class.php';
@@ -39,27 +41,54 @@ require_once __DIR__.'/../../lib/QubitUserChallenge.class.php';
 $prefixes = $config['endpoint_exceptions'] ?? [];
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 if (QubitUserChallenge::matchesEndpointException($requestUri, $prefixes)) {
+    QubitChallengeDecisionLog::write($config, 'skipped', 'endpoint_exception');
+
     return;
 }
-
-// Load helper class.
-require_once __DIR__.'/../../lib/QubitGeoIpHelper.class.php';
 
 // Get Remote IP from request.
 $remoteIp = $_SERVER['REMOTE_ADDR'] ?? null;
 if (!$remoteIp) {
+    QubitChallengeDecisionLog::write($config, 'error', 'missing_client_ip');
     header('HTTP/1.1 500 Internal Server Error');
 
     exit;
 }
 
-// Compute cookie key.
+$ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+$useAltcha = 'altcha' === ($config['verification'] ?? 'legacy');
+$proof = null;
+if ($useAltcha) {
+    require_once __DIR__.'/../QubitChallengeProof.class.php';
+
+    try {
+        $proof = new QubitChallengeProof($config, __DIR__.'/../../cache/challenge/replay');
+    } catch (RuntimeException $e) {
+        QubitChallengeDecisionLog::write($config, 'error', 'verification_unavailable');
+        http_response_code(503);
+        header('Cache-Control: no-store');
+        header('Content-Type: text/plain; charset=UTF-8');
+        echo 'Browser verification is temporarily unavailable. Please try again later.';
+
+        exit;
+    }
+    // Validate server-issued clearance before constructing any GeoIP helpers.
+    if ($proof->validClearance($_COOKIE[$config['cookiename_visited'] ?? 'atom_visited'] ?? null, $remoteIp, $ua)) {
+        QubitChallengeDecisionLog::write($config, 'visited', 'valid_clearance');
+
+        return;
+    }
+}
+
+// Compute legacy cookie key (never accepted in ALTCHA mode).
 $salt = $config['salt'] ?? '';
 $key = md5($remoteIp.':'.$salt);
 
 $visitedCookie = $config['cookiename_visited'] ?? 'atom_visited';
 $headlessCookie = $config['cookiename_headless'] ?? 'atom_headless';
 $jsCookie = $config['cookiename_js'] ?? 'atom_js';
+
+require_once __DIR__.'/../../lib/QubitGeoIpHelper.class.php';
 
 $logger = null;
 $proxyGeoIp = null;
@@ -86,9 +115,11 @@ $userChallenge = new QubitUserChallenge(
 
 // If user has 'visited' cookie, expire any challenge cookies.
 if (
-    isset($_COOKIE[$visitedCookie])
+    !$useAltcha
+    && isset($_COOKIE[$visitedCookie])
     && $_COOKIE[$visitedCookie] === $key
 ) {
+    QubitChallengeDecisionLog::write($config, 'visited', 'legacy_visited_cookie');
     if (isset($_COOKIE[$headlessCookie])) {
         // expire headless cookie via helper
         $userChallenge->setCookie(
@@ -112,19 +143,21 @@ if (
 }
 
 // GeoIP + User-Agent exceptions
-$ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
-
 // Allow user to bypass the challenge based on GeoIP, User-Agent etc.
 if ($userChallenge->shouldBypassChallenge($remoteIp, $ua)) {
+    QubitChallengeDecisionLog::write($config, 'skipped', 'configured_exception');
+
     return;
 }
 
 // If user passed the JS tests, grant visit and continue.
 if (
-    isset($_COOKIE[$jsCookie])
+    !$useAltcha
+    && isset($_COOKIE[$jsCookie])
     && $_COOKIE[$jsCookie] === $key
     && $userChallenge->checkHeadless($key)
 ) {
+    QubitChallengeDecisionLog::write($config, 'passed', 'legacy_js_verified');
     $expires = time() + 86400 * ($config['cookie_days'] ?? 90);
     // set 'visited' cookie via helper
     $userChallenge->setCookie(
@@ -137,10 +170,13 @@ if (
     return;
 }
 
+QubitChallengeDecisionLog::write($config, 'challenged', $useAltcha ? 'clearance_required' : 'legacy_challenge_required');
+
 // Use JS localStorage to save the originally requested URI so
 // user can be redirected later.
 $nonce = base64_encode(random_bytes(16));
-$rawUri = json_encode($_SERVER['REQUEST_URI']);
+$rawUri = json_encode($_SERVER['REQUEST_URI'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_INVALID_UTF8_SUBSTITUTE);
+header('Cache-Control: no-store');
 $noscriptMessage = htmlspecialchars(
   $config['noscript_message']
     ?? 'Please enable JavaScript in your browser and try again.',

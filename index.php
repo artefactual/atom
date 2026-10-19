@@ -1,7 +1,7 @@
 <?php
 
 // Handle challenge URL requests immediately.
-if (0 === strpos($_SERVER['REQUEST_URI'], '/challenge')) {
+if (in_array(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), ['/challenge', '/challenge/', '/challenge/proof', '/challenge/verify', '/challenge/report'], true)) {
     chdir(__DIR__.'/web/challenge');
 
     require 'index.php';

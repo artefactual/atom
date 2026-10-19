@@ -1,12 +1,45 @@
-# Javascript browser verification configuration. Js challenge will be run
-# when 'activated' setting is 'true'.
+# Browser verification configuration. Runs when activated is true.
 # IMPORTANT: The 'salt' value must be changed to a new secret string before
-# activating this feature.
+# activating this feature. Settings: lib/challenge/README.md.
+# Dependency upgrades: js/challenge/README.md.
 
-# Toggle the JS challenge feature on/off.
+# Toggle browser verification on/off.
 activated: false
 
-# If true, run headless-browser tests.
+# Opt-in proof-of-work mode; use legacy to retain the existing JS challenge.
+# ALTCHA mode rejects old cookies and requires a random salt >= 32 characters.
+verification: legacy
+
+# ALTCHA mode only. BotD is a browser signal that clients can falsify.
+botd_enabled: true
+# enforce blocks detections/errors; observe permits them but requires ALTCHA.
+# Enable decision logging below to record detections in either mode.
+botd_mode: enforce
+# Allow named kinds through BotD only, e.g. [selenium]. ALTCHA is still required.
+botd_allowed_kinds: []
+
+# Proof difficulty: maximum solver number (1-1000000); higher costs more CPU.
+altcha_max_number: 100000
+
+# Seconds allowed to solve and submit a proof (30-600), not session lifetime.
+altcha_ttl_seconds: 120
+
+# Seconds clearance lasts after verification (60-86400), not an idle timeout.
+# Expiry can interrupt an unsaved form submission; see the settings README.
+clearance_ttl_seconds: 3600
+
+# Set false to keep clearance valid when a mobile visitor changes IP.
+# Signatures, expiry and User-Agent binding remain enforced; proofs stay bound.
+# Changing this setting requires fresh verification. Use an unquoted boolean.
+clearance_bind_to_ip: true
+
+# Optional diagnostic JSON-lines log. No cookies, proofs, secrets or query strings.
+# Includes nginx ASN/country, reasons, and labelled browser BotD reports.
+# One file: appChallenge.decisions.log. Disable after collecting test evidence.
+decision_log_enabled: false
+decision_log_dir: '%SF_ROOT_DIR%/log'
+
+# If true, run headless-browser tests in legacy mode.
 test_headless: true
 
 # Cookie names.
@@ -26,13 +59,15 @@ endpoint_exceptions:
   - '/api'
   - '/qtSwordPlugin'
 
-# Secret salt used to sign cookie values.
+# Secret used to sign proofs and cookies. ALTCHA requires >= 32 characters.
+# Generate with: openssl rand -hex 32. Rotation invalidates existing clearance.
 salt: 'REPLACE_WITH_SECRET'
 
-# Challenge delay (in seconds) the user will have to wait to pass the challenge.
+# Challenge delay in seconds; also enforced by the server in ALTCHA mode (0-30).
 delay_seconds: 5
 
-# How many days the “visited” cookie should live.
+# Legacy mode only: visited-cookie lifetime in days.
+# ALTCHA mode uses clearance_ttl_seconds instead.
 cookie_days: 3
 
 # CIDR blocks which always bypass the challenge.

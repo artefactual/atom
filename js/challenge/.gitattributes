@@ -1,0 +1,2 @@
+# Preserve significant whitespace inside the pinned upstream template literal.
+altcha-2.3.0.js -whitespace
