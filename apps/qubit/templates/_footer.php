@@ -1,6 +1,6 @@
 <footer class="d-print-none">
 
-  <?php if (QubitAcl::check('userInterface', 'translate')) { ?>
+  <?php if (QubitTranslateBarAccess::hasExplicitTranslateAccess()) { ?>
     <?php echo get_component('sfTranslatePlugin', 'translate'); ?>
   <?php } ?>
 
