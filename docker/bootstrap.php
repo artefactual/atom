@@ -111,6 +111,7 @@ all:
     storeCacheInfo: true
     persistent: true
   read_only: false
+  requires_login: false
   htmlpurifier_enabled: false
   csp:
     response_header: Content-Security-Policy

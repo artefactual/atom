@@ -30,13 +30,21 @@ class UserLoginAction extends sfAction
             $this->redirect('@homepage');
         }
 
-        // Redirect to the current URI in case we're forwarded to the login page
-        $this->form->setDefault('next', $request->getUri());
-        if ('user' == $request->module && 'login' == $request->action) {
-            // Redirect to our referer otherwise
-            $this->form->setDefault('next', $request->getReferer());
+        // Set the default "next" value, in order of priority:
+        // - the explicit "next" parameter, if set
+        // - the referer, when the user loaded the login page directly
+        // - the current URI, when the user is forwarded to the login page
+        $next = null;
+
+        if (null !== $request->getParameter('next')) {
+            $next = $request->getParameter('next');
+        } elseif ('user' == $request->module && 'login' == $request->action) {
+            $next = $request->getReferer();
+        } else {
+            $next = $request->getUri();
         }
 
+        $this->form->setDefault('next', $next);
         $this->form->setValidator('next', new sfValidatorString());
         $this->form->setWidget('next', new sfWidgetFormInputHidden());
 

@@ -20,6 +20,13 @@ all:
   # by and environment variable called "ATOM_READ_ONLY"
   read_only: false
 
+  # Require users to log in before they can access any part of the site.
+  # When enabled, unauthenticated visitors are redirected to the login page.
+  # This setting is mutually exclusive with read_only: if read_only is enabled
+  # it takes precedence and requires_login is ignored. This setting may be
+  # overwritten by an environment variable called "ATOM_REQUIRES_LOGIN".
+  requires_login: false
+
   # Google Analitycs:
   # Set a GA property API key to track page view hits.
   # E.g.: UA-1234567-89
