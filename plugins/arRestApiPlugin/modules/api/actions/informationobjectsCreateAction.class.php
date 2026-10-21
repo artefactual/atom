@@ -19,6 +19,57 @@
 
 class ApiInformationObjectsCreateAction extends QubitApiAction
 {
+    /**
+     * Create keymap entry for object.
+     *
+     * @param string $sourceName Name of source data
+     * @param int    $sourceId   ID from source data
+     * @param object $object     Object to create entry for
+     */
+    public function createKeymapEntry($sourceName, $sourceId, $object = null)
+    {
+        // Default to imported object
+        if (null == $object) {
+            $object = $this->object;
+        }
+
+        // Determine target name using object class
+        $targetName = sfInflector::underscore(str_replace('Qubit', '', get_class($object)));
+
+        $keymap = new QubitKeymap();
+        $keymap->sourceName = $sourceName;
+        $keymap->sourceId = $sourceId;
+        $keymap->targetId = $object->id;
+        $keymap->targetName = $targetName;
+        $keymap->save();
+    }
+
+    /**
+     * Create a relation between two Qubit objects.
+     *
+     * @param int $subjectId subject ID
+     * @param int $objectId  object ID
+     * @param int $typeId    relation type
+     *
+     * @return QubitRelation created relation
+     */
+    public function createRelation($subjectId, $objectId, $typeId)
+    {
+        // Prevent duplicate relations.
+        if ($this->relationExists($subjectId, $objectId)) {
+            return;
+        }
+
+        $relation = new QubitRelation();
+        $relation->subjectId = $subjectId;
+        $relation->objectId = $objectId;
+        $relation->typeId = $typeId;
+        $relation->indexOnSave = false;
+        $relation->save();
+
+        return $relation;
+    }
+
     protected function post($request, $payload)
     {
         $parent = $this->getParent($payload);
@@ -29,10 +80,21 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
 
         $this->io = new QubitInformationObject();
         $this->io->parentId = $parent->id;
-        $this->io->setPublicationStatus($this->getPublicationStatusId($parent));
+
+        // Enforce culture early so subsequent i18n field assignments hit correct locale
+        if (!empty($payload->culture)) {
+            $this->processField('culture', $payload->culture);
+        }
 
         foreach ($payload as $field => $value) {
+            if ('culture' === $field) {
+                continue; // already handled
+            }
             $this->processField($field, $value);
+        }
+
+        if (!array_key_exists('publicationStatus', (array) $payload)) {
+            $this->io->setPublicationStatus($this->getPublicationStatusId($parent));
         }
 
         $this->io->save();
@@ -89,148 +151,221 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
     protected function processField($field, $value)
     {
         switch ($field) {
+            case 'culture':
+                $fields = array_keys(sfCultureInfo::getInstance()->getLanguages());
+
+                // Fail on invalid value (normalizing by case when checking value validity)
+                if (false === $vocabularyIndex = array_search(strtolower($value), array_map('strtolower', $fields))) {
+                    throw new QubitApiBadRequestException(sprintf('Invalid %s: %s', $field, $value));
+                }
+
+                $culture = $fields[$vocabularyIndex];
+                $this->io->sourceCulture = $culture;
+
+                break;
+
             case 'identifier':
             case 'level_of_description_id':
             case 'title':
+            case 'extentAndMedium':
+            case 'locationOfOriginals':
+            case 'locationOfCopies':
+            case 'scopeAndContent':
+            case 'accessConditions':
+            case 'archivalHistory':
+            case 'acquisition':
+            case 'revisionHistory':
+            case 'arrangement':
+            case 'accruals':
+            case 'sources':
+            case 'appraisal':
+            case 'reproductionConditions':
+            case 'descriptionIdentifier':
+            case 'institutionResponsibleIdentifier':
+            case 'relatedUnitsOfDescription':
+            case 'rules':
+            case 'physicalCharacteristics':
+            case 'revisionHistory':
                 $field = lcfirst(sfInflector::camelize($field));
-                $this->io->{$field} = $value;
+                $this->io->__set($field, $value, ['sourceCulture' => true]);
 
                 break;
 
-            case 'description':
-                $this->io->scopeAndContent = $value;
-
-                break;
-
-            case 'format':
-                $this->io->extentAndMedium = $value;
-
-                break;
-
-            case 'source':
-                $this->io->locationOfOriginals = $value;
-
-                break;
-
-            case 'rights':
-                $this->io->accessConditions = $value;
-
-                break;
-
-            case 'names':
-                // Multi-value not supported yet!
-                if (is_array($value)) {
-                    $value = array_pop($value);
+            case 'language':
+            case 'languageOfDescription':
+            case 'script':
+            case 'scriptOfDescription':
+                $values = explode('|', $value);
+                if ('script' === $field || 'scriptOfDescription' === $field) {
+                    $fields = array_keys(sfCultureInfo::getInstance()->getScripts());
+                } else {
+                    $fields = array_keys(sfCultureInfo::getInstance()->getLanguages());
                 }
-                if (empty($value) || empty($value->type_id)) {
-                    break;
-                }
-                $event = false;
-                if ('PUT' === $this->request->getMethod()) {
-                    foreach ($this->io->getActorEvents() as $item) {
-                        $event = $item;
 
-                        break;
+                foreach ($values as $valueIndex => $val) {
+                    // Fail on invalid value (normalizing by case when checking value validity)
+                    if (false === $vocabularyIndex = array_search(strtolower($val), array_map('strtolower', $fields))) {
+                        throw new QubitApiBadRequestException(sprintf('Invalid %s: %s', $field, $val));
+                    }
+
+                    // Normalize case of value
+                    $values[$valueIndex] = $fields[$vocabularyIndex];
+                }
+
+                // Create property manually rather than using addProperty model methods
+                // as they are implemented inconsistently
+                $property = new QubitProperty();
+                $property->name = $field;
+                $property->setValue(serialize(array_unique($values)), ['sourceCulture' => true]);
+
+                $this->io->propertys[] = $property;
+
+                break;
+
+            case 'descriptionStatusId':
+            case 'descriptionDetailId':
+                $taxonomyId = [
+                    'descriptionDetailId' => QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID,
+                    'descriptionStatusId' => QubitTaxonomy::DESCRIPTION_STATUS_ID,
+                ];
+                $descriptionMap = [];
+                foreach (QubitTaxonomy::getTermsById($taxonomyId[$field]) as $item) {
+                    $descriptionMap[$item->name] = $item->id;
+                }
+
+                if (!empty($value) && array_key_exists(ucwords($value), $descriptionMap)) {
+                    $this->io->{$field} = $descriptionMap[ucwords($value)];
+                }
+
+                break;
+
+            case 'nameAccessPoints':
+                // Multi-value supported
+                if (!is_array($value)) {
+                    $value = [$value];
+                }
+
+                foreach ($value as $item) {
+                    if (empty($item)) {
+                        continue;
+                    }
+
+                    $actor = null;
+
+                    // Find or create actor
+                    if (isset($item->name) && !isset($item->actor_id)) {
+                        $name = trim(preg_replace('/\s+/', ' ', $item->name));
+                        $actor = QubitActor::getByAuthorizedFormOfName($name, ['includeHistory' => true]);
+                        if (!$actor) {
+                            $actor = new QubitActor();
+                            $actor->authorizedFormOfName = $name;
+                            $actor->save();
+                        }
+                    } elseif (isset($item->actor_id)) {
+                        $actor = QubitActor::getById($item->actor_id);
+                        if (!$actor) {
+                            throw new QubitApiBadRequestException('Invalid actor_id for nameAccessPoints');
+                        }
+                    } else {
+                        throw new QubitApiBadRequestException('nameAccessPoints requires either name or actor_id');
+                    }
+
+                    if ($actor) {
+                        // Create relation with information object as subject and actor as object
+                        $relation = new QubitRelation();
+                        $relation->subjectId = $this->io->id;
+                        $relation->objectId = $actor->id;
+                        $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+
+                        // Add to the information object's relations array
+                        $this->io->relationsRelatedBysubjectId[] = $relation;
                     }
                 }
 
-                // The user passed a name but not the ID so I'll create
-                if (isset($value->authorized_form_of_name) && !isset($value->actor_id)) {
-                    $actor = new QubitActor();
-                    $actor->authorizedFormOfName = $value->authorized_form_of_name;
-                    $actor->save();
+                break;
 
-                    $value->actor_id = $actor->id;
+            case 'placeAccessPoints':
+            case 'genreAccessPoints':
+            case 'subjectAccessPoints':
+                $taxonomy = [
+                    'placeAccessPoints' => QubitTaxonomy::PLACE_ID,
+                    'genreAccessPoints' => QubitTaxonomy::GENRE_ID,
+                    'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
+                ];
+                // Multi-value supported
+                if (!is_array($value)) {
+                    $value = [$value];
                 }
 
-                if (false !== $event) {
-                    $event->typeId = $value->type_id;
-                    $event->actorId = $value->actor_id;
-                    $event->save();
-                } else {
-                    $event = new QubitEvent();
-                    $event->typeId = $value->type_id;
-                    $event->actorId = $value->actor_id;
+                foreach ($value as $item) {
+                    if (empty($item)) {
+                        continue;
+                    }
 
-                    $this->io->eventsRelatedByobjectId[] = $event;
+                    $term = null;
+
+                    // Try to find existing term by ID or name
+                    if (!empty($item->id)) {
+                        $term = QubitTerm::getById($item->id);
+
+                        // Verify term belongs to Subject taxonomy
+                        if ($term && $term->taxonomyId !== $taxonomy[$field]) {
+                            $term = null;
+                        }
+                    }
+
+                    if (!$term && !empty($item->name)) {
+                        // Search for term in Subject taxonomy
+                        $criteria = new Criteria();
+                        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomy[$field]);
+                        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+                        $criteria->add(QubitTermI18n::NAME, $item->name);
+
+                        $term = QubitTerm::getOne($criteria);
+                    }
+
+                    // Create new term if not found
+                    if (!$term && !empty($item->name)) {
+                        $term = new QubitTerm();
+                        $term->taxonomyId = $taxonomy[$field];
+                        $term->name = $item->name;
+                        $term->save();
+                    }
+
+                    if ($term) {
+                        // Create relation
+                        $relation = new QubitObjectTermRelation();
+                        $relation->termId = $term->id;
+
+                        // Add to information object's term relations array
+                        $this->io->objectTermRelationsRelatedByobjectId[] = $relation;
+                    }
                 }
 
                 break;
 
             case 'dates':
-                // Multi-value not supported yet!
-                if (is_array($value)) {
-                    $value = array_pop($value);
+                // Multi-value supported
+                if (!is_array($value)) {
+                    $value = [$value];
                 }
-                if (empty($value)) {
-                    break;
-                }
-                $event = false;
-                if ('PUT' === $this->request->getMethod()) {
-                    foreach ($this->io->getDates() as $item) {
-                        $event = $item;
 
+                foreach ($value as $item) {
+                    if (empty($item)) {
                         break;
                     }
-                }
 
-                if (false !== $event) {
-                    $event->startDate = $value->start_date;
-                    $event->endDate = $value->end_date;
-                    $event->date = $value->date;
-                    $event->save();
-                } else {
                     $event = new QubitEvent();
-                    $event->startDate = $value->start_date;
-                    $event->endDate = $value->end_date;
-                    $event->date = $value->date;
-                    $event->typeId = QubitTerm::CREATION_ID;
+                    $event->startDate = $item->start_date ?? null;
+                    $event->endDate = $item->end_date ?? null;
+                    $event->date = $item->date ?? null;
+                    if (isset($item->type) && 'accumulation' == strtolower($item->type)) {
+                            $event->typeId = QubitTerm::ACCUMULATION_ID;
+                    } else {
+                        $event->typeId = QubitTerm::CREATION_ID;
+                    }
 
                     $this->io->eventsRelatedByobjectId[] = $event;
-                }
-
-                break;
-
-            case 'notes':
-                // Multi-value not supported yet!
-                if (is_array($value)) {
-                    $value = array_pop($value);
-                }
-                if (empty($value)) {
-                    break;
-                }
-                $note = false;
-                if ('PUT' === $this->request->getMethod()) {
-                    foreach ($this->io->getNotes() as $item) {
-                        $note = $item;
-
-                        break;
-                    }
-                }
-
-                if (!empty($value->type)) {
-                    $combinedNoteTypeData = $this->getNoteTypeData() + $this->getRadNoteTypeData();
-                    $noteTypeId = array_search($value->type, $combinedNoteTypeData);
-                }
-
-                if (false !== $note) {
-                    $note->setContent($value->content);
-
-                    if (!empty($noteTypeId)) {
-                        $note->setTypeId($noteTypeId);
-                    }
-
-                    $note->save();
-                } else {
-                    $note = new QubitNote();
-
-                    $note->setScope('QubitInformationObject');
-                    $note->setContent($value->content);
-
-                    $noteTypeId = (!empty($noteTypeId)) ? $noteTypeId : QubitTerm::GENERAL_NOTE_ID;
-                    $note->setTypeId($noteTypeId);
-
-                    $this->io->notes[] = $note;
                 }
 
                 break;
@@ -269,6 +404,224 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
                 if (null !== $term = QubitTerm::getOne($criteria)) {
                     $this->io->levelOfDescriptionId = $term->id;
                 }
+
+                break;
+
+            case 'actor':
+                if (is_array($value) || empty($value)) {
+                    break;
+                }
+
+                $actor = null;
+
+                // Normalize incoming name to avoid mismatches due to extra
+                // whitespace or stray control characters.
+                if (!empty($value->authorized_form_of_name)) {
+                    $name = trim(preg_replace('/\s+/', ' ', (string) $value->authorized_form_of_name));
+                } else {
+                    $name = null;
+                }
+
+                if (!empty($value->id) && !empty($value->history)) {
+                    $actor = QubitActor::getById($value->id, ['history' => $value->history]);
+                } elseif (!empty($value->id)) {
+                    $actor = QubitActor::getById($value->id);
+                } elseif (!empty($name) && !empty($value->history)) {
+                    // First try matching including history
+                    $actor = QubitActor::getByAuthorizedFormOfName($name, ['history' => $value->history]);
+
+                    // If not found, fall back to matching without history
+                    if (null === $actor) {
+                        $actor = QubitActor::getByAuthorizedFormOfName($name);
+                    }
+                } elseif (!empty($name)) {
+                    $actor = QubitActor::getByAuthorizedFormOfName($name);
+                }
+
+                if (null === $actor) {
+                    $actor = new QubitActor();
+                    if (null !== $name) {
+                        $actor->authorizedFormOfName = $name;
+                    }
+                    if (!empty($value->history)) {
+                        $actor->history = $value->history;
+                    }
+                    $actor->save();
+                }
+
+                // Create a relation between the information object and the actor
+                $event = new QubitEvent();
+                $event->typeId = !empty($value->event_type_id)
+                    ? $value->event_type_id
+                    : QubitTerm::CREATION_ID; // Default to creation event
+                $event->actorId = $actor->id;
+
+                $this->io->relationsRelatedByobjectId[] = $event;
+
+                break;
+
+            case 'repository':
+                // Only 1 repo can be linked to a description
+                if (is_array($value) || empty($value)) {
+                    break;
+                }
+
+                if (!empty($value->slug)) {
+                    $repository = QubitRepository::getBySlug($value->slug);
+                } elseif (!empty($value->id)) {
+                    $repository = QubitRepository::getById($value->id);
+                } elseif (!empty($value->name)) {
+                    $repository = new QubitRepository();
+                    $repository->setAuthorizedFormOfName($value->name);
+                    $repository->save();
+                }
+                $this->io->setRepositoryId($repository->id);
+
+                break;
+
+            case 'accessionNumber':
+                if (empty($value)) {
+                    break;
+                }
+
+                if (!is_array($value)) {
+                    $value = [$value];
+                }
+
+                foreach ($value as $item) {
+                    $criteria = new Criteria();
+                    $criteria->add(QubitAccession::IDENTIFIER, $item);
+
+                    if (null === $accession = QubitAccession::getone($criteria)) {
+                        // Create new accession
+                        $accession = new QubitAccession();
+                        $accession->identifier = $item;
+                        $accession->save();
+                    }
+
+                    // Create relation object
+                    $relation = new QubitRelation();
+                    $relation->objectId = $accession->id;
+                    $relation->typeId = QubitTerm::ACCESSION_ID;
+
+                    // Add to the information object's relations array
+                    // When $this->io->save() is called, Symfony will automatically
+                    // save this relation WITH the correct subject ID
+                    $this->io->relationsRelatedBysubjectId[] = $relation;
+                }
+
+                break;
+
+            case 'digitalObjectURI':
+                $do = new QubitDigitalObject();
+
+                try {
+                    $do->usageId = QubitTerm::EXTERNAL_URI_ID;
+                    $do->path = $value;
+                    $do->name = basename(parse_url($value, PHP_URL_PATH));
+                    $do->createDerivatives = false;
+                    $do->save();
+
+                    // Link to information object
+                    $this->io->digitalObjectsRelatedByobjectId[] = $do;
+                } catch (Exception $e) {
+                    $this->log($e->getMessage(), sfLogger::ERR);
+                }
+
+                break;
+
+            case 'digitalObjectPath':
+                if (empty($value)) {
+                    break;
+                }
+
+                try {
+                    // Verify file exists and is readable
+                    if (!is_file($value) || !is_readable($value)) {
+                        throw new QubitApiBadRequestException("File not found or not readable: {$value}");
+                    }
+
+                    // Create digital object
+                    $digitalObject = new QubitDigitalObject();
+                    $digitalObject->usageId = QubitTerm::MASTER_ID;
+
+                    // Import the file as an asset
+                    $digitalObject->assets[] = new QubitAsset($value);
+
+                    // Set object properties
+                    $digitalObject->name = basename($value);
+
+                    // Add to information object's digital objects array
+                    // This will be saved automatically when $this->io->save() is called
+                    $this->io->digitalObjectsRelatedByobjectId[] = $digitalObject;
+                } catch (Exception $e) {
+                    $this->log($e->getMessage(), sfLogger::ERR);
+                }
+
+                break;
+
+            case 'languageNote':
+            case 'archivistNote':
+            case 'publicationNote':
+            case 'generalNote':
+                $noteId = [
+                    'archivistNote' => QubitTerm::ARCHIVIST_NOTE_ID,
+                    'publicationNote' => QubitTerm::PUBLICATION_NOTE_ID,
+                    'languageNote' => QubitTerm::LANGUAGE_NOTE_ID,
+                    'generalNote' => QubitTerm::GENERAL_NOTE_ID,
+                ];
+
+                // Multi-value not supported yet!
+                if (is_array($value)) {
+                    $value = array_pop($value);
+                }
+
+                if (empty($value)) {
+                    break;
+                }
+
+                $note = new QubitNote();
+
+                $note->typeId = $noteId[$field];
+
+                $this->io->notes[] = $note;
+
+                $note->content = $value;
+
+                break;
+
+            case 'publicationStatus':
+                if (empty($value) && ('draft' !== strtolower($value) || 'published' !== strtolower($value))) {
+                    break;
+                }
+
+                $publicationStatusId = ('published' === strtolower($value))
+                    ? QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
+                    : QubitTerm::PUBLICATION_STATUS_DRAFT_ID;
+
+                $this->io->setPublicationStatus($publicationStatusId);
+
+                break;
+
+            case 'alternativeIds':
+                if (empty($value)) {
+                    break;
+                }
+
+                foreach ($value as $altId => $altIdLabel) {
+                    $altIds[] = $altId;
+                    $altIdLabels[] = $altIdLabel;
+                }
+
+                if (count($altIdLabels) !== count($altIds)) {
+                    throw new QubitApiBadRequestException('Number of alternative ids does not match number of alt id labels');
+                }
+
+                for ($i = 0; $i < count($altIds); ++$i) {
+                    $this->io->addProperty($altIdLabels[$i], $altIds[$i], ['scope' => 'alternativeIdentifiers']);
+                }
+
+                $this->io->save();
 
                 break;
         }

@@ -217,6 +217,20 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
         $this->addItemToArray($ioData, 'name_access_points', $names);
 
+        $genres = [];
+        foreach ($this->resource->getGenreAccessPoints() as $item) {
+            $genres[] = $item->term->getName(['cultureFallback' => true]);
+        }
+
+        $this->addItemToArray($ioData, 'genre_access_points', $genres);
+
+        $accessionNumbers = [];
+        foreach (QubitRelation::getRelationsBySubjectId($this->resource->id, ['typeId' => QubitTerm::ACCESSION_ID]) as $item) {
+            $accessionNumbers[] = $item->object->identifier;
+        }
+
+        $this->addItemToArray($ioData, 'accessionNumber', $accessionNumbers);
+
         if (sfConfig::get('app_element_visibility_isad_control_description_identifier', false)) {
             $this->addItemToArray($ioData, 'description_identifier', $this->resource->getDescriptionIdentifier(['cultureFallback' => true]));
         }
