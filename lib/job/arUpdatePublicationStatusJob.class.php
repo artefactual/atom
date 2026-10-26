@@ -94,13 +94,6 @@ class arUpdatePublicationStatusJob extends arBaseJob
         $query = new \Elastica\Query\Term();
         $query->setTerm('ancestors', $resource->id);
 
-        $queryScript = \Elastica\Script\AbstractScript::create([
-            'script' => [
-                'source' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
-                'lang' => 'painless',
-            ],
-        ]);
-
         // Set to 'proceed' so index update does not abort if a document version
         // conflict occurs. This happens if an ES doc is updated during this update.
         // Ignore conflicts since conflict documents would still be indexed with the
@@ -109,7 +102,12 @@ class arUpdatePublicationStatusJob extends arBaseJob
             'conflicts' => 'proceed',
         ];
 
-        $response = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->updateByQuery($query, $queryScript, $options)->getData();
+        $response = QubitSearch::getInstance()->updateByQuery(
+            'QubitInformationObject',
+            $query,
+            'ctx._source.publicationStatusId = '.$publicationStatus->id,
+            $options
+        );
 
         $message = $this->i18n->__(
             'Index update completed in %1 ms.',

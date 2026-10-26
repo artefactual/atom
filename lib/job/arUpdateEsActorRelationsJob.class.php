@@ -100,14 +100,10 @@ class arUpdateEsActorRelationsJob extends arBaseJob
 
     public static function previousRelationActorIds($actorId)
     {
-        try {
-            // Get actor's previously indexed relations from Elasticsearch
-            $doc = QubitSearch::getInstance()->index->getIndex('QubitActor')->getDocument($actorId);
+        // Get actor's previously indexed relations from the search index
+        $doc = QubitSearch::getInstance()->getDocument('QubitActor', $actorId);
 
-            return self::uniqueIdsFromRelationData($doc->getData()['actorRelations']);
-        } catch (\Elastica\Exception\NotFoundException $e) {
-            return [];
-        }
+        return null === $doc ? [] : self::uniqueIdsFromRelationData($doc['actorRelations']);
     }
 
     public static function relationActorIds($actorId)
