@@ -67,9 +67,7 @@ class QubitLftSyncer
 
         // Get results
         $result = QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitInformationObject')
-            ->search($query->getQuery(false, false));
+            ->search('QubitInformationObject', $query->getQuery(false, false));
 
         // Amalgamate lft values in array
         $lft = [];
