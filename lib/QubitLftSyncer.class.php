@@ -89,17 +89,11 @@ class QubitLftSyncer
         $params = [':parentId' => $this->parentId];
         $results = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
 
-        $bulk = new Elastica\Bulk(QubitSearch::getInstance()->client);
-        $bulk->setIndex(QubitSearch::getInstance()->index->getIndex('QubitInformationObject'));
-
+        $partials = [];
         foreach ($results as $row) {
-            $bulk->addAction(
-                new Elastica\Bulk\Action\UpdateDocument(
-                    new Elastica\Document($row['id'], ['lft' => $row['lft']])
-                )
-            );
+            $partials[$row['id']] = ['lft' => $row['lft']];
         }
 
-        $bulk->send();
+        QubitSearch::getInstance()->bulkPartialUpdate('QubitInformationObject', $partials);
     }
 }
