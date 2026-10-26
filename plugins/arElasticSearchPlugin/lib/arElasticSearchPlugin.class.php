@@ -647,8 +647,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $index->create(
             $this->config['index']['configuration'],
-            ['recreate' => true],
-            ['include_type_name' => false],
+            ['recreate' => true]
         );
 
         // Define mapping in elasticsearch
@@ -669,11 +668,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $this->config['index']['name'].'_'.strtolower($indexName)
         ));
 
-        // In ES 7.x this should be changed to:
-        // $mapping->send($index, [ 'include_type_name' => false ])
-        // which can be removed in 8.x since that is the default behaviour
-        // and will have be removed by 9.x when it is discontinued
-        $mapping->send($index, ['include_type_name' => false]);
+        // Typeless mapping. include_type_name is not sent: false is the default
+        // from Elasticsearch 7.0 on, and OpenSearch refuses the parameter.
+        $mapping->send($index);
     }
 
     private function loadDiacriticsMappings()
