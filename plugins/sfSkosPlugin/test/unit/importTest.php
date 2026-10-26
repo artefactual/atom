@@ -968,15 +968,14 @@ withTransaction(function ($conn) use ($t, $vocabSimple) {
     $search->flushBatch();
 
     foreach ($parent->getDescendants() as $key => $item) {
-        try {
-            $search->index->getIndex('QubitTerm')->getDocument($item->id);
+        if (null !== $search->getDocument('QubitTerm', $item->id)) {
             $t->pass("Term {$key} is indexed");
-        } catch (Elastica\Exception\NotFoundException $e) {
+        } else {
             $t->fail("Term {$key} was not indexed");
         }
     }
 
-    $doc = $search->index->getIndex('QubitTerm')->getDocument($parent->id)->getData();
+    $doc = $search->getDocument('QubitTerm', $parent->id);
     $t->is($doc['numberOfDescendants'], count($importer->getGraph()->allOfType('skos:Concept')), 'Parent term ES document :numberOfDescendants: field is up to date');
 });
 
