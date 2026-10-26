@@ -38,11 +38,6 @@ class SearchAutocompleteAction extends sfAction
         // Current culture
         $culture = $this->context->user->getCulture();
 
-        $client = QubitSearch::getInstance()->client;
-
-        // Multisearch object
-        $mSearch = new \Elastica\Multi\Search($client);
-
         $items = [
             [
                 'type' => 'QubitInformationObject',
@@ -79,13 +74,10 @@ class SearchAutocompleteAction extends sfAction
             ],
         ];
 
-        // Wrapper to access ElasticSearch indices
-        $indexWrapper = QubitSearch::getInstance()->index;
+        // One search per item, sent together as a multi-search
+        $searches = [];
 
         foreach ($items as $item) {
-            $search = new \Elastica\Search($client);
-            $search->addIndex($indexWrapper->getIndex($item['type']));
-
             $query = new \Elastica\Query();
             $query->setSize(3)->setSource($item['fields']);
 
@@ -116,11 +108,10 @@ class SearchAutocompleteAction extends sfAction
             }
 
             $query->setQuery($queryBool);
-            $search->setQuery($query);
-            $mSearch->addSearch($search);
+            $searches[] = [$item['type'], $query];
         }
 
-        $resultSets = $mSearch->search();
+        $resultSets = QubitSearch::getInstance()->multiSearch($searches);
 
         $this->descriptions = $resultSets[0];
         $this->repositories = $resultSets[1];

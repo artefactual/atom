@@ -62,7 +62,7 @@ class TermNavigateRelatedComponent extends sfComponent
             QubitAclSearch::filterDrafts($search->queryBool);
         }
 
-        return QubitSearch::getInstance()->index->getIndex($relatedModelClass)->search($search->getQuery(false));
+        return QubitSearch::getInstance()->search($relatedModelClass, $search->getQuery(false));
     }
 
     public static function getEsDocsRelatedToTermCount($relatedModelClass, $termId, $search = null)

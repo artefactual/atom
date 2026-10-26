@@ -108,7 +108,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
         $query->setSize($limit);
         $query->setFrom($limit * ($page - 1));
 
-        return QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($query);
+        return QubitSearch::getInstance()->search('QubitInformationObject', $query);
     }
 
     public static function nestedActorAndEventTypeQuery($actorId, $eventTypeId)

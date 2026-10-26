@@ -22,6 +22,7 @@
  *
  * @author      MJ Suhonos <mj@suhonos.ca>
  * @author      Jesús García Crespo <jesus@sevein.com>
+ * @author      Johan Pieterse <johan@theahg.co.za>
  */
 class arElasticSearchPlugin extends QubitSearchEngine
 {
@@ -491,6 +492,137 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     /**
+     * Search the index of one model class.
+     *
+     * @param string $entity Model class of the index
+     * @param mixed  $query  \Elastica\Query or anything Elastica accepts
+     *
+     * @return \Elastica\ResultSet
+     */
+    public function search(string $entity, $query)
+    {
+        return $this->index->getIndex($entity)->search($query);
+    }
+
+    /**
+     * Run several searches in one request (_msearch).
+     *
+     * @param array $searches List of [model class, \Elastica\Query] pairs
+     *
+     * @return \Elastica\ResultSet[] In the same order as $searches
+     */
+    public function multiSearch(array $searches): array
+    {
+        $multiSearch = new \Elastica\Multi\Search($this->client);
+
+        foreach ($searches as [$entity, $query]) {
+            $search = new \Elastica\Search($this->client);
+            $search->addIndex($this->index->getIndex($entity));
+            $search->setQuery($query);
+            $multiSearch->addSearch($search);
+        }
+
+        return $multiSearch->search()->getResultSets();
+    }
+
+    /**
+     * The stored document of one object, or null if it is not indexed.
+     *
+     * @param int|string $id Object id
+     */
+    public function getDocument(string $entity, $id): ?array
+    {
+        try {
+            return $this->index->getIndex($entity)->getDocument($id)->getData();
+        } catch (\Elastica\Exception\NotFoundException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Number of documents in the index of one model class, or of the ones a
+     * query matches.
+     *
+     * @param null|mixed $query Optional query
+     */
+    public function count(string $entity, $query = null): int
+    {
+        return $this->index->getIndex($entity)->count($query ?? '');
+    }
+
+    /**
+     * Apply a Painless script to every document a query matches.
+     *
+     * @param mixed $query Query selecting the documents
+     *
+     * @return array Elasticsearch's response, including "took" and "failures"
+     */
+    public function updateByQuery(
+        string $entity,
+        $query,
+        string $script,
+        array $options = []
+    ): array {
+        $script = \Elastica\Script\AbstractScript::create([
+            'script' => [
+                'source' => $script,
+                'lang' => 'painless',
+            ],
+        ]);
+
+        return $this->index->getIndex($entity)
+            ->updateByQuery($query, $script, $options)
+            ->getData();
+    }
+
+    /**
+     * Ids of every document a query matches, read with the scroll API so the
+     * result window does not limit them.
+     *
+     * @param mixed $query Query
+     */
+    public function scrollIds(string $entity, $query): array
+    {
+        $search = $this->index->getIndex($entity)->createSearch($query);
+
+        return arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search);
+    }
+
+    /**
+     * Set some fields on many documents of one model class in one bulk request.
+     *
+     * @param array $partials Fields to set, keyed by document id
+     */
+    public function bulkPartialUpdate(string $entity, array $partials)
+    {
+        $bulk = new \Elastica\Bulk($this->client);
+        $bulk->setIndex($this->index->getIndex($entity));
+
+        foreach ($partials as $id => $fields) {
+            $bulk->addAction(
+                new \Elastica\Bulk\Action\UpdateDocument(
+                    new \Elastica\Document($id, $fields)
+                )
+            );
+        }
+
+        $bulk->send();
+    }
+
+    /**
+     * Obtain the version of the Elasticsearch server.
+     */
+    public function getVersion(): string
+    {
+        $data = $this->client->request('/')->getData();
+        if (null === $version = @$data['version']['number']) {
+            throw new \Elastica\Exception\ResponseException('Unexpected response');
+        }
+
+        return $version;
+    }
+
+    /**
      * Initialize indices wrapper.
      */
     private function initialize()
@@ -589,19 +721,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
                 $this->config['index']['configuration']['settings']['analysis']['analyzer'][$key]['char_filter'] = $filters;
             }
         }
-    }
-
-    /**
-     * Obtain the version of the Elasticsearch server.
-     */
-    private function getVersion()
-    {
-        $data = $this->client->request('/')->getData();
-        if (null === $version = @$data['version']['number']) {
-            throw new \Elastica\Exception\ResponseException('Unexpected response');
-        }
-
-        return $version;
     }
 
     /**

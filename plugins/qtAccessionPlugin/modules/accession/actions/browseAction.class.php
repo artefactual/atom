@@ -76,9 +76,7 @@ class AccessionBrowseAction extends DefaultBrowseAction
 
         // Do the search
         $resultSet = QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitAccession')
-            ->search($this->search->query);
+            ->search('QubitAccession', $this->search->query);
 
         $limit = sfConfig::get('app_hits_per_page', 10);
         if (isset($request->limit) && ctype_digit($request->limit)) {

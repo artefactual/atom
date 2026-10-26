@@ -30,7 +30,7 @@ class arSearchStatusTask extends arBaseTask
         $config = arElasticSearchPluginConfiguration::$config;
 
         $this->log('Elasticsearch server information:');
-        $this->log(sprintf(' - Version: %s', QubitSearch::getInstance()->client->getVersion()));
+        $this->log(sprintf(' - Version: %s', QubitSearch::getInstance()->getVersion()));
         $this->log(sprintf(' - Host: %s', $config['server']['host']));
         $this->log(sprintf(' - Port: %s', $config['server']['port']));
         $this->log(sprintf(' - Index name: %s', $config['index']['name']));
@@ -78,7 +78,7 @@ EOF;
         // Determine model class name from document type name
         $docTypeModelClass = 'Qubit'.ucfirst($docType);
 
-        return QubitSearch::getInstance()->index->getIndex($docTypeModelClass)->count();
+        return QubitSearch::getInstance()->count($docTypeModelClass);
     }
 
     private function objectsAvailableToIndex($docType)
