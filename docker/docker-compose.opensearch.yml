@@ -1,0 +1,19 @@
+---
+# OpenSearch in place of Elasticsearch, from its official open-source image.
+# Add it after the dev or test file, e.g.:
+#   export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml:$PWD/docker/docker-compose.opensearch.yml"
+# The service keeps the name "elasticsearch", so AtoM's settings and the
+# 63002 port are unchanged. The security plugin is off, as for development.
+volumes:
+  opensearch_data:
+
+services:
+
+  elasticsearch:
+    image: opensearchproject/opensearch:2.19.1
+    environment:
+      DISABLE_SECURITY_PLUGIN: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms640m -Xmx640m"
+    volumes:
+      - opensearch_data:/usr/share/opensearch/data
