@@ -32,6 +32,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
     public const MIN_VERSION = '7.0.0';
 
     /**
+     * Minimum version of OpenSearch supported. OpenSearch serves the same
+     * REST API as Elasticsearch 7.10, under its own version numbers.
+     */
+    public const MIN_OPENSEARCH_VERSION = '2.0.0';
+
+    /**
      * Elastic_Client object.
      *
      * @var mixed defaults to null
@@ -614,12 +620,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
      */
     public function getVersion(): string
     {
-        $data = $this->client->request('/')->getData();
-        if (null === $version = @$data['version']['number']) {
-            throw new \Elastica\Exception\ResponseException('Unexpected response');
-        }
-
-        return $version;
+        return $this->getServerVersion()['number'];
     }
 
     /**
@@ -732,9 +733,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         // This is slow as it hits the server
-        $version = $this->getVersion();
-        if (!version_compare($version, self::MIN_VERSION, '>=')) {
-            $message = sprintf('The version of Elasticsearch that you are running is out of date (%s), and no longer compatible with this version of AtoM. Please upgrade to version %s or newer.', $version, self::MIN_VERSION);
+        $server = $this->getServerVersion();
+        $isOpenSearch = 'opensearch' === $server['distribution'];
+        $minVersion = $isOpenSearch ? self::MIN_OPENSEARCH_VERSION : self::MIN_VERSION;
+        if (!version_compare($server['number'], $minVersion, '>=')) {
+            $message = sprintf(
+                'The version of %s that you are running is out of date (%s), and no longer compatible with this version of AtoM. Please upgrade to version %s or newer.',
+                $isOpenSearch ? 'OpenSearch' : 'Elasticsearch',
+                $server['number'],
+                $minVersion
+            );
 
             throw new \Elastica\Exception\ClientException($message);
         }
@@ -742,6 +750,25 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // We know at this point that the server meets the requirements. We cache it
         // for an hour.
         $this->cache->set('elasticsearch_version_ok', 1, 3600);
+    }
+
+    /**
+     * The server's version number and distribution ("elasticsearch" unless
+     * the server says otherwise, as OpenSearch does).
+     *
+     * @return array ['number' => string, 'distribution' => string]
+     */
+    private function getServerVersion(): array
+    {
+        $data = $this->client->request('/')->getData();
+        if (null === $number = @$data['version']['number']) {
+            throw new \Elastica\Exception\ResponseException('Unexpected response');
+        }
+
+        return [
+            'number' => $number,
+            'distribution' => $data['version']['distribution'] ?? 'elasticsearch',
+        ];
     }
 
     private function loadAndNormalizeMappings()
