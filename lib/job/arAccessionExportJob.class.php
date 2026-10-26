@@ -22,6 +22,11 @@
  */
 class arAccessionExportJob extends arExportJob
 {
+    /**
+     * Index the export searches (see QubitSearchEngine).
+     */
+    public const SEARCH_ENTITY = 'QubitAccession';
+
     protected $context;
 
     /**
@@ -30,11 +35,11 @@ class arAccessionExportJob extends arExportJob
     protected $downloadFileExtension = 'zip';
 
     /**
-     * Create and return an ES search for clipboard accession records.
+     * Create and return the search query for clipboard accession records.
      *
      * @param array $parameters job parameters
      *
-     * @return \Elastica\Search ES search object
+     * @return mixed Query for QubitSearch, on the SEARCH_ENTITY index
      */
     public static function findExportRecords($parameters)
     {
@@ -52,10 +57,7 @@ class arAccessionExportJob extends arExportJob
             $query->addAdvancedSearchFilters([], $parameters['params'], 'accession');
         }
 
-        return QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitAccession')
-            ->createSearch($query->queryBool);
+        return $query->queryBool;
     }
 
     /**
@@ -65,9 +67,10 @@ class arAccessionExportJob extends arExportJob
      */
     protected function doExport($path)
     {
-        $search = self::findExportRecords($this->params);
+        $query = self::findExportRecords($this->params);
 
-        if (0 == $search->count()) {
+        $count = QubitSearch::getInstance()->count(self::SEARCH_ENTITY, $query);
+        if (0 == $count) {
             return;
         }
 
@@ -75,14 +78,14 @@ class arAccessionExportJob extends arExportJob
 
         $this->info($this->i18n->__(
             'Exporting %1 clipboard item(s).',
-            ['%1' => $search->count()],
+            ['%1' => $count],
         ));
 
         // Prepare CSV exporter
         $writer = new csvAccessionExport($path);
 
         // Scroll through results then iterate through resulting IDs
-        foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
+        foreach (QubitSearch::getInstance()->scrollIds(self::SEARCH_ENTITY, $query) as $id) {
             if (null === $resource = QubitAccession::getById($id)) {
                 $this->error($this->i18n->__(
                     'Cannot fetch accession, id: %1',

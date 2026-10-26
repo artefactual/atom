@@ -23,16 +23,21 @@
 class arActorExportJob extends arExportJob
 {
     /**
+     * Index the export searches (see QubitSearchEngine).
+     */
+    public const SEARCH_ENTITY = 'QubitActor';
+
+    /**
      * @see arBaseJob::$requiredParameters
      */
     protected $downloadFileExtension = 'zip';
 
     /**
-     * Create and return an ES search for clipboard actor records.
+     * Create and return the search query for clipboard actor records.
      *
      * @param array $parameters job parameters
      *
-     * @return \Elastica\Search ES search object
+     * @return mixed Query for QubitSearch, on the SEARCH_ENTITY index
      */
     public static function findExportRecords($parameters)
     {
@@ -44,10 +49,7 @@ class arActorExportJob extends arExportJob
             new \Elastica\Query\Terms('slug', $parameters['params']['slugs'])
         );
 
-        return QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitActor')
-            ->createSearch($query->getQuery(false, false));
+        return $query->getQuery(false, false);
     }
 
     /**
@@ -57,12 +59,12 @@ class arActorExportJob extends arExportJob
      */
     protected function doExport($path)
     {
-        $search = self::findExportRecords($this->params);
+        $query = self::findExportRecords($this->params);
 
         $this->itemsExported = 0;
 
         // Scroll through results then iterate through resulting IDs
-        foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
+        foreach (QubitSearch::getInstance()->scrollIds(self::SEARCH_ENTITY, $query) as $id) {
             if (null === $resource = QubitActor::getById($id)) {
                 $this->error($this->i18n->__(
                     'Cannot fetch actor, id: %1',
