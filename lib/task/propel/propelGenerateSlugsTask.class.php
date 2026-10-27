@@ -311,7 +311,7 @@ EOF;
         $query->setQuery($queryBool);
         $query->setSize(1);
 
-        $results = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($query);
+        $results = QubitSearch::getInstance()->search('QubitInformationObject', $query);
 
         if (!$results->count()) {
             return null;

@@ -124,9 +124,7 @@ class DigitalObjectImageflowComponent extends sfComponent
         );
 
         $results = QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitInformationObject')
-            ->search($search->getQuery(false, true));
+            ->search('QubitInformationObject', $search->getQuery(false, true));
 
         return $results->getTotalHits();
     }

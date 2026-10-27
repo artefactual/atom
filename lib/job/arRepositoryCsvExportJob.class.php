@@ -85,13 +85,13 @@ class arRepositoryCsvExportJob extends arExportJob
     {
         $itemsExported = 0;
 
-        $search = QubitSearch::getInstance()->index->getIndex('QubitRepository')->createSearch($this->search->getQuery(false, false));
+        $query = $this->search->getQuery(false, false);
 
         $writer = new csvRepositoryExport($path, null, 10000);
         $writer->loadResourceSpecificConfiguration('QubitRepository');
 
         // Scroll through results then iterate through resulting IDs
-        foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
+        foreach (QubitSearch::getInstance()->scrollIds('QubitRepository', $query) as $id) {
             if (null === $resource = QubitRepository::getById($id)) {
                 $this->error($this->i18n->__('Cannot fetch repository, id: %1', ['%1' => $id]));
 

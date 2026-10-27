@@ -22,6 +22,7 @@
  *
  * @author      MJ Suhonos <mj@suhonos.ca>
  * @author      Jesús García Crespo <jesus@sevein.com>
+ * @author      Johan Pieterse <johan@theahg.co.za>
  */
 class arElasticSearchPlugin extends QubitSearchEngine
 {
@@ -29,6 +30,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
      * Minimum version of Elasticsearch supported.
      */
     public const MIN_VERSION = '7.0.0';
+
+    /**
+     * Minimum version of OpenSearch supported. OpenSearch serves the same
+     * REST API as Elasticsearch 7.10, under its own version numbers.
+     */
+    public const MIN_OPENSEARCH_VERSION = '2.0.0';
 
     /**
      * Elastic_Client object.
@@ -491,6 +498,132 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     /**
+     * Search the index of one model class.
+     *
+     * @param string $entity Model class of the index
+     * @param mixed  $query  \Elastica\Query or anything Elastica accepts
+     *
+     * @return \Elastica\ResultSet
+     */
+    public function search(string $entity, $query)
+    {
+        return $this->index->getIndex($entity)->search($query);
+    }
+
+    /**
+     * Run several searches in one request (_msearch).
+     *
+     * @param array $searches List of [model class, \Elastica\Query] pairs
+     *
+     * @return \Elastica\ResultSet[] In the same order as $searches
+     */
+    public function multiSearch(array $searches): array
+    {
+        $multiSearch = new \Elastica\Multi\Search($this->client);
+
+        foreach ($searches as [$entity, $query]) {
+            $search = new \Elastica\Search($this->client);
+            $search->addIndex($this->index->getIndex($entity));
+            $search->setQuery($query);
+            $multiSearch->addSearch($search);
+        }
+
+        return $multiSearch->search()->getResultSets();
+    }
+
+    /**
+     * The stored document of one object, or null if it is not indexed.
+     *
+     * @param int|string $id Object id
+     */
+    public function getDocument(string $entity, $id): ?array
+    {
+        try {
+            return $this->index->getIndex($entity)->getDocument($id)->getData();
+        } catch (\Elastica\Exception\NotFoundException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Number of documents in the index of one model class, or of the ones a
+     * query matches.
+     *
+     * @param null|mixed $query Optional query
+     */
+    public function count(string $entity, $query = null): int
+    {
+        return $this->index->getIndex($entity)->count($query ?? '');
+    }
+
+    /**
+     * Apply a Painless script to every document a query matches.
+     *
+     * @param mixed $query Query selecting the documents
+     *
+     * @return array Elasticsearch's response, including "took" and "failures"
+     */
+    public function updateByQuery(
+        string $entity,
+        $query,
+        string $script,
+        array $options = []
+    ): array {
+        $script = \Elastica\Script\AbstractScript::create([
+            'script' => [
+                'source' => $script,
+                'lang' => 'painless',
+            ],
+        ]);
+
+        return $this->index->getIndex($entity)
+            ->updateByQuery($query, $script, $options)
+            ->getData();
+    }
+
+    /**
+     * Ids of every document a query matches, read with the scroll API so the
+     * result window does not limit them.
+     *
+     * @param mixed $query Query
+     */
+    public function scrollIds(string $entity, $query): array
+    {
+        $search = $this->index->getIndex($entity)->createSearch($query);
+
+        return arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search);
+    }
+
+    /**
+     * Set some fields on many documents of one model class in one bulk request.
+     *
+     * @param array $partials Fields to set, keyed by document id
+     */
+    public function bulkPartialUpdate(string $entity, array $partials)
+    {
+        $bulk = new \Elastica\Bulk($this->client);
+        $bulk->setIndex($this->index->getIndex($entity));
+
+        foreach ($partials as $id => $fields) {
+            $bulk->addAction(
+                new \Elastica\Bulk\Action\UpdateDocument(
+                    new \Elastica\Document($id, $fields)
+                )
+            );
+        }
+
+        $bulk->send();
+    }
+
+    /**
+     * Obtain the version of the Elasticsearch server.
+     */
+    public function getVersion(): string
+    {
+        return $this->getServerVersion()['number'];
+    }
+
+    /**
      * Initialize indices wrapper.
      */
     private function initialize()
@@ -515,8 +648,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
         $index->create(
             $this->config['index']['configuration'],
-            ['recreate' => true],
-            ['include_type_name' => false],
+            ['recreate' => true]
         );
 
         // Define mapping in elasticsearch
@@ -537,11 +669,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
             $this->config['index']['name'].'_'.strtolower($indexName)
         ));
 
-        // In ES 7.x this should be changed to:
-        // $mapping->send($index, [ 'include_type_name' => false ])
-        // which can be removed in 8.x since that is the default behaviour
-        // and will have be removed by 9.x when it is discontinued
-        $mapping->send($index, ['include_type_name' => false]);
+        // Typeless mapping. include_type_name is not sent: false is the default
+        // from Elasticsearch 7.0 on, and OpenSearch refuses the parameter.
+        $mapping->send($index);
     }
 
     private function loadDiacriticsMappings()
@@ -592,19 +722,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     /**
-     * Obtain the version of the Elasticsearch server.
-     */
-    private function getVersion()
-    {
-        $data = $this->client->request('/')->getData();
-        if (null === $version = @$data['version']['number']) {
-            throw new \Elastica\Exception\ResponseException('Unexpected response');
-        }
-
-        return $version;
-    }
-
-    /**
      * Check if the server version is recent enough and cache it if so to avoid
      * hitting Elasticsearch again for each request.
      */
@@ -616,9 +733,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
         }
 
         // This is slow as it hits the server
-        $version = $this->getVersion();
-        if (!version_compare($version, self::MIN_VERSION, '>=')) {
-            $message = sprintf('The version of Elasticsearch that you are running is out of date (%s), and no longer compatible with this version of AtoM. Please upgrade to version %s or newer.', $version, self::MIN_VERSION);
+        $server = $this->getServerVersion();
+        $isOpenSearch = 'opensearch' === $server['distribution'];
+        $minVersion = $isOpenSearch ? self::MIN_OPENSEARCH_VERSION : self::MIN_VERSION;
+        if (!version_compare($server['number'], $minVersion, '>=')) {
+            $message = sprintf(
+                'The version of %s that you are running is out of date (%s), and no longer compatible with this version of AtoM. Please upgrade to version %s or newer.',
+                $isOpenSearch ? 'OpenSearch' : 'Elasticsearch',
+                $server['number'],
+                $minVersion
+            );
 
             throw new \Elastica\Exception\ClientException($message);
         }
@@ -626,6 +750,25 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // We know at this point that the server meets the requirements. We cache it
         // for an hour.
         $this->cache->set('elasticsearch_version_ok', 1, 3600);
+    }
+
+    /**
+     * The server's version number and distribution ("elasticsearch" unless
+     * the server says otherwise, as OpenSearch does).
+     *
+     * @return array ['number' => string, 'distribution' => string]
+     */
+    private function getServerVersion(): array
+    {
+        $data = $this->client->request('/')->getData();
+        if (null === $number = @$data['version']['number']) {
+            throw new \Elastica\Exception\ResponseException('Unexpected response');
+        }
+
+        return [
+            'number' => $number,
+            'distribution' => $data['version']['distribution'] ?? 'elasticsearch',
+        ];
     }
 
     private function loadAndNormalizeMappings()

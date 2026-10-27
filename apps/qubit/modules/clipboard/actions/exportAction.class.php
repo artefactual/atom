@@ -255,9 +255,9 @@ class ClipboardExportAction extends DefaultEditAction
 
         // Check if query matches any records, before attempting export
         if (method_exists($jobName, 'findExportRecords')) {
-            $search = $jobName::findExportRecords($options);
+            $query = $jobName::findExportRecords($options);
 
-            if (0 == $search->count()) {
+            if (0 == QubitSearch::getInstance()->count($jobName::SEARCH_ENTITY, $query)) {
                 throw new sfException($this->context->i18n->__(
                     'No records were exported for your current selection. Please %open_link%refresh the page and choose different export options %close_link%.',
                     [

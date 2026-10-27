@@ -95,7 +95,7 @@ class InformationObjectAutocompleteAction extends sfAction
 
         $this->query->setQuery($this->queryBool);
 
-        $resultSet = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($this->query);
+        $resultSet = QubitSearch::getInstance()->search('QubitInformationObject', $this->query);
 
         // Page results
         $this->pager = new QubitSearchPager($resultSet);

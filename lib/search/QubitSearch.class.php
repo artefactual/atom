@@ -19,6 +19,8 @@
 
 /**
  * Singleton factory class for QubitSearchEngine and subclasses.
+ *
+ * @author Johan Pieterse <johan@theahg.co.za>
  */
 class QubitSearch
 {
@@ -30,9 +32,14 @@ class QubitSearch
     public static function getInstance(array $options = [])
     {
         if (!isset(self::$instance)) {
-            // Using arElasticSearchPlugin but other classes could be
-            // implemented, for example: arSphinxSearchPlugin
-            self::$instance = new arElasticSearchPlugin($options);
+            // The engine is any QubitSearchEngine subclass; arElasticSearchPlugin
+            // unless the app_search_engine setting names another.
+            $engine = sfConfig::get('app_search_engine', 'arElasticSearchPlugin');
+            if (!is_subclass_of($engine, 'QubitSearchEngine')) {
+                throw new sfException(sprintf('Search engine "%s" is not a QubitSearchEngine.', $engine));
+            }
+
+            self::$instance = new $engine($options);
         }
 
         return self::$instance;

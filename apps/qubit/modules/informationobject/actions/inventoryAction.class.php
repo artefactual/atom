@@ -174,6 +174,6 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
         QubitAclSearch::filterDrafts($queryBool);
         $query->setQuery($queryBool);
 
-        return QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->search($query);
+        return QubitSearch::getInstance()->search('QubitInformationObject', $query);
     }
 }

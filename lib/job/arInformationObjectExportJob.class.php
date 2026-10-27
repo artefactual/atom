@@ -24,6 +24,11 @@
 class arInformationObjectExportJob extends arExportJob
 {
     /**
+     * Index the export searches (see QubitSearchEngine).
+     */
+    public const SEARCH_ENTITY = 'QubitInformationObject';
+
+    /**
      * @see arBaseJob::$requiredParameters
      */
     protected $extraRequiredParameters = ['params'];  // Search params
@@ -36,7 +41,7 @@ class arInformationObjectExportJob extends arExportJob
      *
      * @param array $parameters Export parameters
      *
-     * @return arElasticSearchPluginQuery AtoM Elasticsearch query
+     * @return mixed Query for QubitSearch, on the SEARCH_ENTITY index
      */
     public static function findExportRecords($parameters)
     {
@@ -62,10 +67,7 @@ class arInformationObjectExportJob extends arExportJob
 
         $query->query->setSort(['lft' => 'asc']);
 
-        return QubitSearch::getInstance()
-            ->index
-            ->getIndex('QubitInformationObject')
-            ->createSearch($query->getQuery(false, false));
+        return $query->getQuery(false, false);
     }
 
     /**
@@ -110,19 +112,20 @@ class arInformationObjectExportJob extends arExportJob
      */
     protected function doExport($path)
     {
-        $search = self::findExportRecords($this->params);
+        $query = self::findExportRecords($this->params);
 
-        if (0 == $search->count()) {
+        $count = QubitSearch::getInstance()->count(self::SEARCH_ENTITY, $query);
+        if (0 == $count) {
             return;
         }
 
         $this->info($this->i18n->__(
             'Exporting %1 clipboard item(s).',
-            ['%1' => $search->count()]
+            ['%1' => $count]
         ));
 
         // Scroll through results then iterate through resulting IDs
-        foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
+        foreach (QubitSearch::getInstance()->scrollIds(self::SEARCH_ENTITY, $query) as $id) {
             $resource = QubitInformationObject::getById($id);
 
             // Skip if ElasticSearch document is stale (no corresponding MySQL data)

@@ -164,16 +164,14 @@ EOF;
         $query = new \Elastica\Query\Term();
         $query->setTerm('ancestors', $resource->id);
 
-        $queryScript = \Elastica\Script\AbstractScript::create([
-            'script' => [
-                'source' => 'ctx._source.publicationStatusId = '.$publicationStatus->id,
-                'lang' => 'painless',
-            ],
-        ]);
-
         $options = ['conflicts' => 'proceed'];
 
-        $response = QubitSearch::getInstance()->index->getIndex('QubitInformationObject')->updateByQuery($query, $queryScript, $options)->getData();
+        $response = QubitSearch::getInstance()->updateByQuery(
+            'QubitInformationObject',
+            $query,
+            'ctx._source.publicationStatusId = '.$publicationStatus->id,
+            $options
+        );
 
         if (!empty($response['failures'])) {
             $this->failures += count($response['failures']);
