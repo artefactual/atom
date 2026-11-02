@@ -46,6 +46,10 @@ class qubitConfiguration extends sfApplicationConfiguration
             sfConfig::set('app_read_only', filter_var($readOnly, FILTER_VALIDATE_BOOLEAN));
         }
 
+        if (false !== $requiresLogin = getenv('ATOM_REQUIRES_LOGIN')) {
+            sfConfig::set('app_requires_login', filter_var($requiresLogin, FILTER_VALIDATE_BOOLEAN));
+        }
+
         // Force escaping
         sfConfig::set('sf_escaping_strategy', true);
     }
