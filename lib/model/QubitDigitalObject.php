@@ -1132,6 +1132,9 @@ class QubitDigitalObject extends BaseDigitalObject
 
     public function save($connection = null)
     {
+        // Invalidate the disk usage cache before changing data
+        QubitRepository::clearDiskUsageCache();
+
         // TODO: $cleanObject = $this->object->clean;
         $cleanObjectId = $this->__get('objectId', ['clean' => true]);
 
@@ -1216,6 +1219,9 @@ class QubitDigitalObject extends BaseDigitalObject
      */
     public function delete($connection = null)
     {
+        // Invalidate the disk usage cache before changing data
+        QubitRepository::clearDiskUsageCache();
+
         $criteria = new Criteria();
         $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
 

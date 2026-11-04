@@ -46,13 +46,15 @@ class DigitalObjectUploadAction extends sfAction
 
         $repo = $this->object->getRepository(['inherit' => true]);
 
-        if (isset($repo)) {
+        if (isset($repo) && -1 != $repo->uploadLimit) {
             $uploadLimit = $repo->uploadLimit;
             if (0 < $uploadLimit) {
                 $uploadLimit *= pow(10, 9); // Convert to bytes
             }
 
             $diskUsage = $repo->getDiskUsage();
+        } else {
+            $uploadLimit = -1;
         }
 
         foreach ($_FILES as $file) {
