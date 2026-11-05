@@ -1,25 +1,27 @@
 # Pinned challenge dependencies
 
-Served locally; no CDN requests at runtime. ALTCHA uses the v1 SHA-256
-protocol supported by widget 2.3.0. Review upstream changes and update the
-version, license and hashes together. BotD monitoring is disabled.
+Browser assets are served locally, with no CDN requests at runtime. Widget
+3.5.0 uses the v2 PBKDF2/SHA-256 protocol with the official PHP library
+`altcha-org/altcha` 2.3.0, installed through Composer. Review upstream changes
+and update versions, licenses and hashes together. BotD monitoring and the
+widget's optional Human Interaction Signature collector are disabled.
 Keep bundles byte-for-byte: ALTCHA contains significant template-literal
 whitespace, excluded from Git whitespace checks by `.gitattributes`.
 
-- `altcha-2.3.0.js`: https://cdn.jsdelivr.net/gh/altcha-org/altcha@2.3.0/dist/altcha.js
-  SHA-256: `7baf50cdd57bd393582341ccb47bd82bc08a47cef8713d42362f1737a3bf2e66`
+- `altcha-3.5.0.js`: https://cdn.jsdelivr.net/gh/altcha-org/altcha@v3.5.0/dist/main/altcha.js
+  SHA-256: `240732e1690e9fed906f298bb56ceccdc3cadfac65176e84b6bd91a04b7cee2a`
 - `botd-2.0.0.js`: https://cdn.jsdelivr.net/npm/@fingerprintjs/botd@2.0.0/dist/botd.esm.js
   SHA-256: `f438ed251dc7414ece9d4a2b6941441ad9ffae1a1905817f5f0c7366e701dd86`
-- `ALTCHA-LICENSE.txt`: https://raw.githubusercontent.com/altcha-org/altcha/v2.3.0/LICENSE.txt
-  SHA-256: `74aa56cabe930086caec41910278796acea0f4b0582af3a83ff3d3271674c702`
+- `ALTCHA-LICENSE.txt`: https://raw.githubusercontent.com/altcha-org/altcha/v3.5.0/LICENSE.txt
+  SHA-256: `bee1fb9d9c97d42c12c22332c5250f2fb1ef5c2321f6f82beb23e3b77be50a29`
 - `BOTD-LICENSE.txt`: https://raw.githubusercontent.com/fingerprintjs/BotD/v2.0.0/LICENSE
   SHA-256: `dda20c4ba0799b22561763c4263f7584b1d366887b05a547afc6935fd467ce13`
 
 ## One manifest for code updates
 
 [`lib/challenge/dependencies.php`](../../lib/challenge/dependencies.php) is the
-single place to change active versions, local module paths, bundle SHA-256
-checksums, and the ALTCHA stylesheet CSP hash. The challenge page reads its
+single place to change active browser versions, local module paths, bundle
+SHA-256 checksums, and the ALTCHA stylesheet CSP hash. The challenge page reads its
 imports and CSP from that manifest; do not edit JavaScript imports or the CSP
 header in the page just to bump a version. Bundle checksums are verified by
 unit tests, not reread on each request.
@@ -40,37 +42,40 @@ procedure; compatibility checks must not be skipped.
 
 ## Version status
 
-Checked against upstream releases on 2026-10-19:
+Checked against upstream releases on 2026-11-05:
 
 | Dependency | Bundled | Latest upstream stable |
 | --- | --- | --- |
-| ALTCHA widget | 2.3.0 | [3.4.1](https://github.com/altcha-org/altcha/releases/tag/v3.4.1) |
+| ALTCHA widget | 3.5.0 | [3.5.0](https://github.com/altcha-org/altcha/releases/tag/v3.5.0) |
+| ALTCHA PHP library | 2.3.0 | [2.3.0](https://github.com/altcha-org/altcha-lib-php/releases/tag/v2.3.0) |
 | BotD | 2.0.0 | [2.0.0](https://github.com/fingerprintjs/BotD/releases/tag/v2.0.0) |
 
 These are a dated snapshot, not a promise that the bundled versions stay latest.
 Check the [ALTCHA releases](https://github.com/altcha-org/altcha/releases) and
 [BotD releases](https://github.com/fingerprintjs/BotD/releases) before updating.
-ALTCHA 3 is a major release: review its migration notes and v1 challenge support
-before replacing the 2.3.0 bundle. This integration generates and verifies the
-v1 SHA-256 payload; it does not implement ALTCHA's newer proof protocol.
-Neither dependency updates itself or downloads code at runtime.
+Widget and PHP library version numbers are independent. This integration
+accepts only v2 PBKDF2/SHA-256 proofs with a signed derived key, not v1 proofs.
+Install the locked production PHP dependency with `composer install --no-dev`
+before enabling ALTCHA. Neither browser dependency updates itself or downloads
+code at runtime. Composer runs during deployment, not per request.
 
 ## Upgrade ALTCHA
 
 1. Work on a development branch and retain the previous version for rollback.
    Review the target release notes, browser requirements, license and protocol
-   compatibility. In particular check `challengeurl`, `customfetch`, `workers`,
-   `verify()`, `statechange` and `verified` events, and the base64 payload fields
-   `algorithm`, `challenge`, `number`, `salt`, and `signature` expected by
+   compatibility. In particular check `challenge`, `configure({fetch})`,
+   `workers`, `load`, `verify()`, `statechange` and `verified` events, and the
+   base64 payload containing `challenge.parameters`, `challenge.signature`,
+   `solution.counter`, and `solution.derivedKey` expected by
    `QubitChallengeProof::redeem()`. A protocol change requires server changes
    and regression tests; copying a new JavaScript file alone is insufficient.
-2. Download the pinned ES-module build and its license. For the existing 2.3.0
+2. Download the pinned ES-module build and its license. For the pinned v3
    packaging, the source URL pattern is:
 
    ```sh
-   version=2.3.0
+   version=3.5.0
    curl --fail --location \
-     "https://cdn.jsdelivr.net/gh/altcha-org/altcha@${version}/dist/altcha.js" \
+     "https://cdn.jsdelivr.net/gh/altcha-org/altcha@v${version}/dist/main/altcha.js" \
      --output "js/challenge/altcha-${version}.js"
    curl --fail --location \
      "https://raw.githubusercontent.com/altcha-org/altcha/v${version}/LICENSE.txt" \
@@ -86,11 +91,11 @@ Neither dependency updates itself or downloads code at runtime.
    Keep the version in the filename so browsers cannot reuse the previous build
    under the same cache key. Update the bundled version and source URLs above.
 4. Update ALTCHA's `style_hash` in `lib/challenge/dependencies.php`. In the tested
-   2.3.0 build the widget creates a style element named `__altcha-css`. On an
+   3.5.0 build the widget creates a style element named `altcha-css`. On an
    isolated test page, compute the hash of its exact runtime text in DevTools:
 
    ```js
-   const css = document.getElementById('__altcha-css').textContent;
+   const css = document.getElementById('altcha-css').textContent;
    const digest = await crypto.subtle.digest(
      'SHA-256', new TextEncoder().encode(css)
    );
@@ -105,6 +110,17 @@ Neither dependency updates itself or downloads code at runtime.
 5. Compute `sha256sum` for the new bundle and license. Set the bundle's `sha256`
    in the manifest, and update the inventory at the top of this README. Review
    the diff and run the validation below.
+
+## Upgrade the PHP proof library
+
+`composer.json` and `composer.lock` pin `altcha-org/altcha` to 2.3.0. Review the
+upstream PHP changelog and migration notes before changing that dependency;
+its version is unrelated to the widget's version. Run the proof and HTTP tests,
+including malformed payloads, signed metadata, expiry, binding and replay.
+Keep the mandatory `keySignature` check: missing or invalid signatures must
+never fall back to PBKDF2 derivation while verifying untrusted submissions.
+The minimum PHP version for this dependency is 8.1. Production deployments
+need the Composer package as well as the browser assets.
 
 ## Upgrade BotD
 
@@ -145,6 +161,14 @@ not sent to the server or written to logs.
 
 ## Validate and deploy either update
 
+The standalone challenge suite needs Composer dev dependencies but no AtoM
+SQL database, search index or Symfony configuration:
+
+```sh
+php vendor/composer/bin/phpunit -c test/phpunit/challenge.xml
+```
+
+
 - Run the challenge PHPUnit tests, including proof, filter, HTTP, configuration
   and logging tests, plus PHP CS Fixer and `git diff --check`. PHP tests alone
   cannot establish that a new widget's JavaScript API or solver is compatible.
@@ -157,7 +181,8 @@ not sent to the server or written to logs.
   failures, and unexpected third-party requests in DevTools.
 - Confirm nginx serves the versioned `/js/challenge/*.js` assets with a
   JavaScript MIME type and the challenge endpoints reach the front controller.
-  Deploy the dependency manifest, bundles and licenses in the same release.
+  Deploy the dependency manifest, bundles, licenses, Composer lock file and
+  installed production dependencies in the same release.
   Reload PHP-FPM when OPcache deployment settings require it.
 - Roll back the whole release if necessary, including the manifest, bundles and CSP
   hash. Do not leave an old widget with a new protocol validator or vice versa.

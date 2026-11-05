@@ -18,8 +18,12 @@ botd_mode: enforce
 # Allow named kinds through BotD only, e.g. [selenium]. ALTCHA is still required.
 botd_allowed_kinds: []
 
-# Proof difficulty: maximum solver number (1-1000000); higher costs more CPU.
-altcha_max_number: 100000
+# ALTCHA v2 PBKDF2/SHA-256: iterations per attempt (100-10000).
+# Higher values increase browser work and server challenge-generation cost.
+altcha_cost: 1000
+# Maximum counter searched by the browser (1-10000); higher costs browser CPU.
+# Verification uses HMACs and never repeats PBKDF2.
+altcha_max_counter: 1000
 
 # Seconds allowed to solve and submit a proof (30-600), not session lifetime.
 altcha_ttl_seconds: 120

@@ -17,8 +17,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use AltchaOrg\Altcha\Algorithm\Pbkdf2;
+use AltchaOrg\Altcha\Altcha;
+use AltchaOrg\Altcha\CreateChallengeOptions;
+use AltchaOrg\Altcha\Payload;
+use AltchaOrg\Altcha\VerifySolutionOptions;
+
 /**
- * ALTCHA v1 proof verification and server-only clearance, without Symfony.
+ * ALTCHA v2 proof verification and server-only clearance, without Symfony.
  *
  * BotD is an untrusted browser signal, never a substitute for proof of work.
  */
@@ -27,6 +33,7 @@ class QubitChallengeProof
     private $config;
     private $directory;
     private $clock;
+    private $altcha;
     private $failureReason = 'invalid_proof';
 
     public function __construct(array $config, string $directory, ?callable $clock = null)
@@ -44,24 +51,18 @@ class QubitChallengeProof
     {
         $now = ($this->clock)();
         $expires = $now + $this->option('altcha_ttl_seconds', 120, 30, 600);
-        $max = $this->option('altcha_max_number', 100000, 1, 1000000);
-        // All policy metadata is covered by the solved hash and its HMAC.
-        // ALTCHA's widget reads expiry from the salt query string.
-        $salt = base64_encode(json_encode([
-            'n' => bin2hex(random_bytes(16)),
-            'i' => $now,
-            'm' => $max,
-            'b' => $this->binding($ip, $ua),
-        ], JSON_THROW_ON_ERROR)).'?expires='.$expires;
-        $challenge = hash('sha256', $salt.random_int(0, $max));
+        $max = $this->option('altcha_max_counter', 1000, 1, 10000);
 
-        return [
-            'algorithm' => 'SHA-256',
-            'challenge' => $challenge,
-            'salt' => $salt,
-            'maxnumber' => $max,
-            'signature' => $this->sign('proof', $challenge),
-        ];
+        // One PBKDF2 derivation on issuance; browsers search for its counter.
+        // Both policy metadata and the derived-key HMAC are signed. Requiring
+        // keySignature below keeps verification on the HMAC-only fast path.
+        return $this->altcha()->createChallenge(new CreateChallengeOptions(
+            algorithm: new Pbkdf2(),
+            cost: $this->option('altcha_cost', 1000, 100, 10000),
+            counter: random_int(0, $max),
+            expiresAt: $expires,
+            data: ['v' => 2, 'i' => $now, 'm' => $max, 'b' => $this->binding($ip, $ua)],
+        ))->toArray();
     }
 
     /**
@@ -76,39 +77,58 @@ class QubitChallengeProof
         if (strlen($payload) > 8192) {
             return null;
         }
-        $data = json_decode((string) base64_decode($payload, true), true);
+        $data = json_decode((string) base64_decode($payload, true), true, 16);
         if (!is_array($data)
-            || 'SHA-256' !== ($data['algorithm'] ?? null)
-            || !is_string($data['challenge'] ?? null)
-            || !preg_match('/\A[0-9a-f]{64}\z/', $data['challenge'])
-            || !is_string($data['signature'] ?? null)
-            || !is_string($data['salt'] ?? null)
-            || strlen($data['salt']) > 1024
-            || !is_int($data['number'] ?? null)
-            || !empty($data['test'])
-            || !hash_equals($this->sign('proof', $data['challenge']), $data['signature'])
-            || !hash_equals($data['challenge'], hash('sha256', $data['salt'].$data['number']))) {
+            || array_diff(array_keys($data), ['challenge', 'solution'])
+            || !is_array($data['challenge'] ?? null)
+            || !is_array($data['challenge']['parameters'] ?? null)
+            || !is_array($data['solution'] ?? null)) {
             return null;
         }
-        $parts = explode('?expires=', $data['salt']);
-        if (2 !== count($parts) || !ctype_digit($parts[1])) {
-            return null;
-        }
-        $meta = json_decode((string) base64_decode($parts[0], true), true);
+        $challenge = $data['challenge'];
+        $params = $challenge['parameters'];
+        $solution = $data['solution'];
+        $meta = $params['data'] ?? null;
         $now = ($this->clock)();
-        $expires = (int) $parts[1];
-        if (!is_array($meta)
+        $expires = $params['expiresAt'] ?? null;
+        // Reject malformed or unexpected protocols before calling upstream.
+        // In particular, never allow a missing keySignature to trigger KDF work
+        // during verification of untrusted submissions.
+        if (array_diff(array_keys($challenge), ['parameters', 'signature'])
+            || array_diff(array_keys($params), ['algorithm', 'cost', 'keyLength', 'keyPrefix', 'keySignature', 'nonce', 'salt', 'expiresAt', 'data'])
+            || 'PBKDF2/SHA-256' !== ($params['algorithm'] ?? null)
+            || $this->option('altcha_cost', 1000, 100, 10000) !== ($params['cost'] ?? null)
+            || 32 !== ($params['keyLength'] ?? null)
+            || !self::isHex($params['nonce'] ?? null, 32)
+            || !self::isHex($params['salt'] ?? null, 32)
+            || !self::isHex($params['keyPrefix'] ?? null, 32)
+            || !self::isHex($params['keySignature'] ?? null, 64)
+            || !self::isHex($challenge['signature'] ?? null, 64)
+            || !self::isHex($solution['derivedKey'] ?? null, 64)
+            || !is_int($solution['counter'] ?? null)
+            || !is_array($meta)
+            || 2 !== ($meta['v'] ?? null)
             || !is_int($meta['i'] ?? null)
             || !is_int($meta['m'] ?? null)
-            || !is_string($meta['b'] ?? null)
-            || !is_string($meta['n'] ?? null)
-            || !preg_match('/\A[0-9a-f]{32}\z/', $meta['n'])
-            || $meta['i'] > $now
+            || !self::isHex($meta['b'] ?? null, 64)
+            || !is_int($expires)
+            || $meta['i'] > $now || $expires <= $meta['i']
             || $expires - $meta['i'] > $this->option('altcha_ttl_seconds', 120, 30, 600)
-            || $data['number'] < 0 || $data['number'] > $meta['m']
-            || $meta['m'] < 1 || $meta['m'] > $this->option('altcha_max_number', 100000, 1, 1000000)
-) {
+            || $meta['m'] < 1 || $meta['m'] > $this->option('altcha_max_counter', 1000, 1, 10000)
+            || $solution['counter'] < 0 || $solution['counter'] > $meta['m']) {
             return null;
+        }
+
+        try {
+            $result = $this->altcha()->verifySolution(new VerifySolutionOptions(
+                payload: Payload::fromArray($data),
+                algorithm: new Pbkdf2(),
+            ));
+        } catch (InvalidArgumentException|JsonException|TypeError|ValueError $e) {
+            return null;
+        }
+        if (!$result->verified) {
+            return $this->reject($result->expired ? 'expired_proof' : 'invalid_proof');
         }
 
         if ($expires <= $now) {
@@ -129,7 +149,7 @@ class QubitChallengeProof
         }
         // A directory claim is atomic across PHP-FPM workers and creates no
         // readable proof or secret file. Never remove a live claim.
-        $claim = $this->directory.'/'.$expires.'-'.$meta['n'];
+        $claim = $this->directory.'/'.$expires.'-'.$params['nonce'];
         if (!@mkdir($claim, 0700)) {
             if (is_dir($claim)) {
                 return $this->reject('replayed_proof');
@@ -239,9 +259,40 @@ class QubitChallengeProof
 
     private function sign(string $purpose, string $value): string
     {
-        $key = hash_hmac('sha256', 'atom-challenge-'.$purpose.'-v1', $this->config['salt'], true);
+        return hash_hmac('sha256', $value, $this->signingKey($purpose));
+    }
 
-        return hash_hmac('sha256', $value, $key);
+    private function altcha(): Altcha
+    {
+        if (null !== $this->altcha) {
+            return $this->altcha;
+        }
+        // Clearance validation needs only HMACs. Load the PHP proof library
+        // lazily so ordinary cleared requests retain the standalone fast path.
+        // The standalone endpoints run before Symfony's Composer bootstrap.
+        if (!class_exists(Altcha::class)) {
+            $autoload = __DIR__.'/../vendor/composer/autoload.php';
+            if (!is_readable($autoload)) {
+                throw new RuntimeException('Install Composer dependencies for ALTCHA verification.');
+            }
+
+            require_once $autoload;
+        }
+        if (!class_exists(Altcha::class)) {
+            throw new RuntimeException('The ALTCHA PHP dependency is unavailable.');
+        }
+
+        return $this->altcha = new Altcha($this->signingKey('proof-v2'), $this->signingKey('solution-v2'));
+    }
+
+    private function signingKey(string $purpose): string
+    {
+        return hash_hmac('sha256', 'atom-challenge-'.$purpose.'-v1', $this->config['salt'], true);
+    }
+
+    private static function isHex($value, int $length): bool
+    {
+        return is_string($value) && strlen($value) === $length && 1 === preg_match('/\A[0-9a-f]+\z/', $value);
     }
 
     private function option(string $name, int $default, int $min, int $max): int

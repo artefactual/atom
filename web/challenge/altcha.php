@@ -132,7 +132,7 @@ $escape = static function ($value) { return htmlspecialchars($value, ENT_QUOTES,
   <h1><?php echo $escape($config['dialog_title'] ?? 'Verifying Your Browser'); ?></h1>
   <p><?php echo $escape($config['dialog_message'] ?? 'Please verify your browser to continue.'); ?></p>
   <button id="verify" type="button" disabled>Verify and continue</button>
-  <altcha-widget id="proof" challengeurl="/challenge/proof" workers="2" hidden></altcha-widget>
+  <altcha-widget id="proof" challenge="/challenge/proof" workers="2" hidden></altcha-widget>
   <p id="status" role="status" aria-live="polite">Loading browser verification…</p>
   <button id="retry" type="button" hidden>Try again</button>
   <noscript><?php echo $escape($config['noscript_message'] ?? 'JavaScript is required to continue.'); ?></noscript>
@@ -230,15 +230,16 @@ button.addEventListener('click', async () => {
 });
 let loading = 'altcha';
 try {
+    const loaded = new Promise(resolve => widget.addEventListener('load', resolve, {once: true}));
     await import(<?php echo json_encode($dependencies['altcha']['asset'], JSON_UNESCAPED_SLASHES); ?>);
-    await customElements.whenDefined('altcha-widget');
+    await loaded;
     // Start the delay after the challenge response arrives, so a slow
     // connection cannot submit before the server's minimum proof age.
-    widget.customfetch = async (url, options) => {
+    widget.configure({fetch: async (url, options) => {
         const response = await fetch(url, {...options, cache: 'no-store'});
         started = Date.now();
         return response;
-    };
+    }, humanInteractionSignature: false});
     if (botdEnabled) {
         loading = 'botd';
         const botd = await import(<?php echo json_encode($dependencies['botd']['asset'], JSON_UNESCAPED_SLASHES); ?>);

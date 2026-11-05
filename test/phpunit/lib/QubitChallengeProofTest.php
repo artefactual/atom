@@ -19,8 +19,8 @@ class QubitChallengeProofTest extends TestCase
     protected function setUp(): void
     {
         $this->directory = sys_get_temp_dir().'/atom-proof-'.bin2hex(random_bytes(8));
-        $this->config = ['salt' => str_repeat('test-only-secret-', 3), 'altcha_max_number' => 10, 'delay_seconds' => 5];
-        $this->now = 1700000000;
+        $this->config = ['salt' => str_repeat('test-only-secret-', 3), 'altcha_max_counter' => 10, 'altcha_cost' => 100, 'delay_seconds' => 5];
+        $this->now = time();
         $this->proof = new QubitChallengeProof($this->config, $this->directory, function () { return $this->now; });
     }
 
@@ -162,14 +162,36 @@ class QubitChallengeProofTest extends TestCase
         $valid = json_decode(base64_decode($this->solve()), true);
         $this->now += 5;
         foreach ([
-            ['algorithm' => 'SHA-512'], ['challenge' => str_repeat('0', 64)],
-            ['signature' => str_repeat('0', 64)], ['salt' => $valid['salt'].'0'],
-            ['number' => (string) $valid['number']], ['number' => 0.5],
-            ['number' => -1], ['number' => []], ['salt' => []],
-            ['test' => true], ['signature' => []], ['challenge' => []],
-        ] as $change) {
-            $this->assertNull($this->proof->redeem(base64_encode(json_encode(array_merge($valid, $change))), 'not_bot', '192.0.2.1', 'browser'));
+            ['challenge', 'signature', str_repeat('0', 64)],
+            ['challenge.parameters', 'algorithm', 'SHA-256'],
+            ['challenge.parameters', 'cost', 1000000000],
+            ['challenge.parameters', 'keySignature', null],
+            ['challenge.parameters', 'keySignature', str_repeat('0', 64)],
+            ['challenge.parameters', 'keyPrefix', str_repeat('0', 32)],
+            ['challenge.parameters', 'nonce', []],
+            ['challenge.parameters', 'salt', str_repeat('0', 32)],
+            ['challenge.parameters', 'expiresAt', 0],
+            ['challenge.parameters.data', 'i', $this->now],
+            ['challenge.parameters.data', 'm', 1000000000],
+            ['challenge.parameters.data', 'b', str_repeat('0', 64)],
+            ['solution', 'counter', '1'], ['solution', 'counter', 0.5],
+            ['solution', 'counter', -1], ['solution', 'counter', 11],
+            ['solution', 'counter', []],
+            ['solution', 'derivedKey', str_repeat('0', 64)],
+            ['solution', 'derivedKey', []],
+        ] as [$path, $field, $value]) {
+            $tampered = $valid;
+            $target = &$tampered;
+            foreach (explode('.', $path) as $part) {
+                $target = &$target[$part];
+            }
+            $target[$field] = $value;
+            unset($target);
+            $this->assertNull($this->proof->redeem(base64_encode(json_encode($tampered)), 'not_bot', '192.0.2.1', 'browser'), $path.'.'.$field);
         }
+        $this->assertNull($this->proof->redeem(base64_encode(json_encode(array_merge($valid, ['test' => true]))), 'not_bot', '192.0.2.1', 'browser'));
+        $legacy = ['algorithm' => 'SHA-256', 'challenge' => str_repeat('a', 64), 'salt' => 'old', 'signature' => str_repeat('b', 64), 'number' => 0];
+        $this->assertNull($this->proof->redeem(base64_encode(json_encode($legacy)), 'not_bot', '192.0.2.1', 'browser'));
         foreach (['', 'invalid', base64_encode('null'), base64_encode('[]'), str_repeat('A', 8193)] as $invalid) {
             $this->assertNull($this->proof->redeem($invalid, 'not_bot', '192.0.2.1', 'browser'));
         }
@@ -237,6 +259,41 @@ class QubitChallengeProofTest extends TestCase
         $this->assertIsString($proof->redeem($payload, null, '192.0.2.1', 'browser'));
     }
 
+    public function testClearanceValidationDoesNotLoadTheProofLibrary()
+    {
+        $payload = $this->solve();
+        $this->now += 5;
+        $token = $this->proof->redeem($payload, 'not_bot', '192.0.2.1', 'browser');
+        $code = 'require '.var_export(dirname(__DIR__, 3).'/lib/QubitChallengeProof.class.php', true).';'
+            .'$proof = new QubitChallengeProof('.var_export($this->config, true).', '.var_export($this->directory, true).', static function () { return '.$this->now.'; });'
+            .'echo $proof->validClearance('.var_export($token, true).', "192.0.2.1", "browser") ? "valid" : "invalid";'
+            .'echo class_exists("AltchaOrg\\Altcha\\Altcha", false) ? ":loaded" : ":unloaded";';
+        $process = proc_open([PHP_BINARY, '-r', $code], [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        $this->assertIsResource($process);
+        $output = stream_get_contents($pipes[1]);
+        $errors = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        $this->assertSame(0, proc_close($process), $errors);
+        $this->assertSame('', $errors);
+        $this->assertSame('valid:unloaded', $output);
+    }
+
+    public function testV2ChallengePublishesSignedPolicyButNotTheSolution()
+    {
+        $data = $this->proof->createChallenge('192.0.2.1', 'browser');
+        $this->assertSame(['parameters', 'signature'], array_keys($data));
+        $this->assertSame('PBKDF2/SHA-256', $data['parameters']['algorithm']);
+        $this->assertSame(100, $data['parameters']['cost']);
+        $this->assertSame($this->now + 120, $data['parameters']['expiresAt']);
+        $this->assertSame(2, $data['parameters']['data']['v']);
+        $this->assertSame(10, $data['parameters']['data']['m']);
+        $this->assertMatchesRegularExpression('/\\A[0-9a-f]{64}\\z/', $data['parameters']['keySignature']);
+        $this->assertArrayNotHasKey('counter', $data['parameters']);
+        $this->assertArrayNotHasKey('derivedKey', $data['parameters']);
+        $this->assertStringNotContainsString($this->config['salt'], json_encode($data));
+    }
+
     public function testSecretMustBeConfigured()
     {
         $this->expectException(RuntimeException::class);
@@ -245,14 +302,17 @@ class QubitChallengeProofTest extends TestCase
 
     private function solve(): string
     {
-        $data = $this->proof->createChallenge('192.0.2.1', 'browser');
-        for ($number = 0; $number <= $data['maxnumber']; ++$number) {
-            if (hash('sha256', $data['salt'].$number) === $data['challenge']) {
-                // Exactly the fields returned by the real ALTCHA widget.
-                unset($data['maxnumber']);
-                $data['number'] = $number;
-
-                return base64_encode(json_encode($data));
+        $challenge = $this->proof->createChallenge('192.0.2.1', 'browser');
+        $params = $challenge['parameters'];
+        // Independent solver: exercise the wire format without using the
+        // upstream PHP solver or any signing secret.
+        for ($counter = 0; $counter <= $params['data']['m']; ++$counter) {
+            $key = hash_pbkdf2('sha256', hex2bin($params['nonce']).pack('N', $counter), hex2bin($params['salt']), $params['cost'], 32, true);
+            if (0 === strpos(bin2hex($key), $params['keyPrefix'])) {
+                return base64_encode(json_encode([
+                    'challenge' => $challenge,
+                    'solution' => ['counter' => $counter, 'derivedKey' => bin2hex($key)],
+                ]));
             }
         }
         $this->fail('No solution found.');

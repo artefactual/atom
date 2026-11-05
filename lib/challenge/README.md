@@ -95,7 +95,10 @@ The proof-of-work mode is opt-in. It runs before Symfony and reuses the GeoIP
 source and configuration cache described above. The existing challenge remains
 available as `verification: legacy` (also the default when omitted).
 
-For a test deployment, generate a secret with `openssl rand -hex 32`, then set
+Install the locked Composer dependencies (`composer install --no-dev`) before
+enabling ALTCHA. Its PHP proof library is a production dependency requiring
+PHP 8.1+, not a test-only package. For a test deployment, generate a secret
+with `openssl rand -hex 32`, then set
 these options in `config/appChallenge.yml`:
 
 ```yaml
@@ -103,7 +106,8 @@ activated: true
 verification: altcha
 salt: 'REPLACE_WITH_YOUR_GENERATED_SECRET'
 botd_enabled: true
-altcha_max_number: 100000
+altcha_cost: 1000
+altcha_max_counter: 1000
 altcha_ttl_seconds: 120
 delay_seconds: 5
 clearance_ttl_seconds: 3600
@@ -117,7 +121,8 @@ ALTCHA settings and defaults:
 | `botd_enabled` | `true` | Run BotD before ALTCHA. |
 | `botd_mode` | `enforce` | `enforce` blocks detections/errors; `observe` allows ALTCHA to continue. |
 | `botd_allowed_kinds` | `[]` | Permit named BotD kinds to continue to ALTCHA. |
-| `altcha_max_number` | `100000` | Solver search range, clamped to 1–1000000. |
+| `altcha_cost` | `1000` | PBKDF2 iterations per attempt, clamped to 100–10000. Also affects server generation cost. |
+| `altcha_max_counter` | `1000` | Maximum browser search counter, clamped to 1–10000. Verification stays HMAC-only. |
 | `altcha_ttl_seconds` | `120` | Proof submission lifetime, clamped to 30–600 seconds. |
 | `delay_seconds` | `5` | Minimum proof age enforced by the server, clamped to 0–30 seconds. |
 | `clearance_ttl_seconds` | `3600` | Fixed access lifetime after verification, clamped to 60–86400 seconds. |
@@ -135,10 +140,12 @@ mode refuses empty, placeholder and shorter-than-32-character secrets. Changing
 the salt invalidates outstanding proofs and clearance immediately.
 
 The page shows a **Verify and continue** button. Clicking runs BotD and solves
-an ALTCHA SHA-256 proof in the browser. The server verifies the proof before
+an ALTCHA v2 PBKDF2/SHA-256 proof in the browser. The server verifies the proof before
 issuing `atom_visited` (or `cookiename_visited`) with Secure, HttpOnly and
 SameSite=Lax attributes. The signature covers the expiry and client binding.
-The filter validates this cookie without accessing the replay cache or GeoIP.
+The filter validates this cookie without accessing the replay cache, GeoIP or
+loading the ALTCHA PHP library. Composer autoloading is deferred to proof
+generation and verification.
 Old visited/JS/headless cookies cannot grant access in ALTCHA mode. Existing
 exception rules still grant access independently of the challenge.
 
@@ -222,11 +229,24 @@ paths such as `/challenge-extra` do not bypass the filter.
 
 Proofs expire in 120 seconds by default (configurable 30–600 seconds), and the
 server enforces `delay_seconds` independently of the browser (clamped 0–30).
-The signed proof carries the difficulty and client binding; generation is
-stateless and does not disclose the solution. `altcha_max_number` is clamped to
-1–1000000; start with the default 100000 and measure on ordinary/mobile devices
-before increasing it. Clearance defaults to one hour (configurable 60–86400
-seconds), independently of legacy `cookie_days`.
+The signed proof carries its expiry, issuance time, difficulty, maximum counter
+and client binding. Generation is stateless: PHP computes one PBKDF2 result,
+signs the derived key with a separate domain-derived key, and publishes only a
+prefix. Browsers search for the answer. Verification requires the signed-key
+HMAC and never repeats PBKDF2; unsigned, missing-keySignature and v1 submissions
+are rejected before any expensive derivation. Start with `altcha_cost: 1000`
+and `altcha_max_counter: 1000`, and measure ordinary/mobile devices before
+increasing them. Raising cost also increases server generation cost; raising
+max counter increases browser search work without increasing generation work.
+
+When upgrading from this branch's earlier v1 implementation, replace
+`altcha_max_number` with these two settings; the old setting is ignored. Deploy
+the updated PHP dependency, validator, widget, manifest and CSP hash together.
+Outstanding v1 proofs require a fresh challenge. Existing server-issued
+clearance remains valid until expiry unless the salt or binding policy changes.
+Changing `altcha_cost` also invalidates outstanding proofs. Clearance defaults
+to one hour (configurable 60–86400 seconds), independently of legacy
+`cookie_days`.
 
 Single-use proof claims are created atomically in `cache/challenge/replay/`
 only after successful verification. The PHP-FPM user must be able to create
@@ -266,7 +286,8 @@ secret rotation, server-enforced delay, cookie flags, forged forwarding headers,
 and the real standalone HTTP endpoints. Browser checks should additionally
 cover local asset/CSP loading, retry behavior and same-origin return navigation.
 
-Upstream references: [ALTCHA widget 2.3.0](https://github.com/altcha-org/altcha/tree/v2.3.0),
+Upstream references: [ALTCHA widget 3.5.0](https://github.com/altcha-org/altcha/tree/v3.5.0),
+[ALTCHA PHP library 2.3.0](https://github.com/altcha-org/altcha-lib-php/tree/v2.3.0),
 [BotD 2.0.0](https://github.com/fingerprintjs/BotD/tree/v2.0.0).
 
 ## Optional decision logging
@@ -401,14 +422,43 @@ log files or directories. No nginx configuration changes are required.
 
 ## Cherry-picking onto older branches
 
-This change was developed on the QA base, where
-`QubitUserChallenge::matchesEndpointException()` already exists. When applying
-the commits to an older base such as AtoM 2.10.2, include upstream commit
-`ca895bc479c4ac6b46ea17c8812d561665d59f4b` ("Enhance JS Challenge endpoint
-exception matching") first. Otherwise the filter can fail with an undefined
-method error. If the method was added manually during deployment, reconcile
-that edit before applying the upstream commit to avoid duplicating it.
+This change was developed on the QA base. Rebuilding the deployment branch
+from `stable/2.10.x` required both earlier endpoint-exception fixes before the
+performance and ALTCHA commits, in this order:
 
-Then apply the performance/GeoIP commit, ALTCHA/BotD/logging commit and optional
-clearance-IP-binding commit in order. Test the resulting branch as a whole;
-passing tests on QA does not establish compatibility with every older base.
+1. `a06776fb015ed182585da6ab60355a6d1a5a35da` — Fix JS challenge endpoint
+   exceptions (#2312).
+2. `ca895bc479c4ac6b46ea17c8812d561665d59f4b` — Enhance JS Challenge endpoint
+   exception matching; adds `QubitUserChallenge::matchesEndpointException()`.
+3. `eee7e93c109e151363717017570131e84cbdfa7d` — Reduce challenge overhead and
+   reuse nginx GeoIP.
+4. `a11d35407e155f2e50fffb4cedd50c0c6c6c9044` — Add ALTCHA verification and
+   challenge logging, including mobile clearance and BotD policy settings.
+
+Check which fixes are already present in the target branch before applying
+this sequence; do not reapply equivalent changes that were backported manually.
+
+For the local source repository used in this test, after backing up and
+resetting the deployment branch to its stable base:
+
+```sh
+git fetch /home/maml/artefactual/atom-improve-challenge dev/improve-challenge-performance
+git cherry-pick a06776fb015ed182585da6ab60355a6d1a5a35da
+git cherry-pick ca895bc479c4ac6b46ea17c8812d561665d59f4b
+git cherry-pick eee7e93c109e151363717017570131e84cbdfa7d
+git cherry-pick a11d35407e155f2e50fffb4cedd50c0c6c6c9044
+```
+
+Adjust the fetch path for your source clone. If the helper method was added
+manually during deployment, reconcile that edit before applying the upstream
+commits to avoid duplicating it. Omitting the helper can cause an undefined
+method error in the filter.
+
+The ALTCHA commit listed above already includes the mobile setting, BotD policy
+options, logging improvements and dependency manifest; no separate mobile
+commit is needed. Apply the subsequent ALTCHA v3 widget/v2 protocol migration
+commit after these four commits when deploying the current branch. That
+migration also requires installing the updated Composer dependencies.
+
+Test the resulting branch as a whole: passing tests on QA does not establish
+compatibility with every older base.

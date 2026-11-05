@@ -1,0 +1,14 @@
+<phpunit bootstrap="../bootstrap/challenge.php" cacheResult="false">
+  <testsuites>
+    <testsuite name="challenge">
+      <file>lib/QubitChallengeProofTest.php</file>
+      <file>lib/QubitChallengeHttpTest.php</file>
+      <file>lib/QubitChallengeFilterTest.php</file>
+      <file>lib/QubitChallengeDependenciesTest.php</file>
+      <file>lib/QubitChallengeConfigTest.php</file>
+      <file>lib/QubitChallengeDecisionLogTest.php</file>
+      <file>lib/QubitUserChallengeTest.php</file>
+      <file>lib/QubitGeoIpHelperTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

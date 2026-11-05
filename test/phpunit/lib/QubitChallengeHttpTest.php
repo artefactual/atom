@@ -33,7 +33,7 @@ class QubitChallengeHttpTest extends TestCase
         }
         $front = explode('require_once dirname(__FILE__)', file_get_contents($root.'/index.php'))[0];
         file_put_contents($this->directory.'/index.php', $front.'echo "APPLICATION";');
-        file_put_contents($this->directory.'/config/appChallenge.yml', "activated: true\nverification: altcha\nsalt: 'http-test-only-secret-at-least-32-characters'\ngeoip_from_nginx: true\nbotd_enabled: true\naltcha_max_number: 10\ndelay_seconds: 0\ndecision_log_enabled: true\n");
+        file_put_contents($this->directory.'/config/appChallenge.yml', "activated: true\nverification: altcha\nsalt: 'http-test-only-secret-at-least-32-characters'\ngeoip_from_nginx: true\nbotd_enabled: true\naltcha_max_counter: 10\naltcha_cost: 100\ndelay_seconds: 0\ndecision_log_enabled: true\n");
         $socket = stream_socket_server('tcp://127.0.0.1:0', $errno, $error);
         $this->assertIsResource($socket, $error);
         $this->address = stream_socket_get_name($socket, false);
@@ -107,14 +107,7 @@ class QubitChallengeHttpTest extends TestCase
         [$body] = $this->request('/challenge/proof');
         $proof = json_decode($body, true);
         $this->assertArrayNotHasKey('_solution', $proof);
-        for ($number = 0; $number <= $proof['maxnumber']; ++$number) {
-            if ($proof['challenge'] === hash('sha256', $proof['salt'].$number)) {
-                break;
-            }
-        }
-        $proof['number'] = $number;
-        unset($proof['maxnumber']);
-        $payload = base64_encode(json_encode($proof));
+        $payload = $this->solve($proof);
         [, $headers] = $this->request('/challenge/verify', 'POST', json_encode(['payload' => $payload, 'botd' => 'bot']), ['Content-Type: application/json']);
         $this->assertStringContainsString('403', $headers[0]);
         [$body, $headers] = $this->request('/challenge/verify', 'POST', json_encode(['payload' => $payload, 'botd' => 'not_bot']), ['Content-Type: application/json']);
@@ -135,15 +128,10 @@ class QubitChallengeHttpTest extends TestCase
         // A verified solution must still fail closed when claims cannot be stored.
         [$body] = $this->request('/challenge/proof');
         $next = json_decode($body, true);
-        for ($number = 0; $number <= $next['maxnumber']; ++$number) {
-            if ($next['challenge'] === hash('sha256', $next['salt'].$number)) {
-                break;
-            }
-        }
-        $next['number'] = $number;
+        $nextPayload = $this->solve($next);
         $this->remove($this->directory.'/cache/challenge/replay');
         file_put_contents($this->directory.'/cache/challenge/replay', 'not a directory');
-        [, $headers] = $this->request('/challenge/verify', 'POST', json_encode(['payload' => base64_encode(json_encode($next)), 'botd' => 'not_bot']), ['Content-Type: application/json']);
+        [, $headers] = $this->request('/challenge/verify', 'POST', json_encode(['payload' => $nextPayload, 'botd' => 'not_bot']), ['Content-Type: application/json']);
         $this->assertStringContainsString('503', $headers[0]);
         $this->assertSame([], array_values(array_filter($headers, static function ($h) { return 0 === strpos($h, 'Set-Cookie:'); })));
         $this->assertStringNotContainsString('PHP Warning', file_get_contents($this->directory.'/server.log'));
@@ -185,6 +173,19 @@ class QubitChallengeHttpTest extends TestCase
         [, $headers] = $this->request('/challenge/report', 'POST', '{"reason":"botd_error"}', ['Content-Type: application/json']);
         $this->assertStringContainsString('204', $headers[0]);
         $this->assertSame($before, file_get_contents($file));
+    }
+
+    private function solve(array $challenge): string
+    {
+        $params = $challenge['parameters'];
+        $this->assertSame('PBKDF2/SHA-256', $params['algorithm']);
+        for ($counter = 0; $counter <= $params['data']['m']; ++$counter) {
+            $key = hash_pbkdf2('sha256', hex2bin($params['nonce']).pack('N', $counter), hex2bin($params['salt']), $params['cost'], 32, true);
+            if (0 === strpos(bin2hex($key), $params['keyPrefix'])) {
+                return base64_encode(json_encode(['challenge' => $challenge, 'solution' => ['counter' => $counter, 'derivedKey' => bin2hex($key)]]));
+            }
+        }
+        $this->fail('No solution found.');
     }
 
     private function request(string $path, string $method = 'GET', string $body = '', array $headers = []): array
