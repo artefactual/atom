@@ -38,6 +38,7 @@ class CsvValidatorCollection
         'CsvParentValidator' => CsvParentValidator::class,
         'CsvLegacyIdValidator' => CsvLegacyIdValidator::class,
         'CsvEventValuesValidator' => CsvEventValuesValidator::class,
+        'CsvAlternativeIdentifiersValidator' => CsvAlternativeIdentifiersValidator::class,
         'CsvDigitalObjectPathValidator' => CsvDigitalObjectPathValidator::class,
         'CsvDigitalObjectUriValidator' => CsvDigitalObjectUriValidator::class,
         'CsvScriptValidator' => CsvScriptValidator::class,
