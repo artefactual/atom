@@ -702,6 +702,7 @@ class arElasticSearchInformationObjectPdo
 
             $names = [
                 'id' => $node->id,
+                'sourceCulture' => $node->source_culture,
                 'i18n' => arElasticSearchModelBase::serializeI18ns(
                     $node->id,
                     ['QubitActor'],
@@ -721,6 +722,7 @@ class arElasticSearchInformationObjectPdo
 
             $creators = [
                 'id' => $node->id,
+                'sourceCulture' => $node->source_culture,
                 'i18n' => arElasticSearchModelBase::serializeI18ns(
                     $node->id,
                     ['QubitActor'],
@@ -740,6 +742,7 @@ class arElasticSearchInformationObjectPdo
 
             $inheritedCreators = [
                 'id' => $node->id,
+                'sourceCulture' => $node->source_culture,
                 'i18n' => arElasticSearchModelBase::serializeI18ns(
                     $node->id,
                     ['QubitActor'],
