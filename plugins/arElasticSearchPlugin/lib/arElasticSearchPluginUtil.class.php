@@ -481,12 +481,11 @@ class arElasticSearchPluginUtil
                 }
                 // Get string fields included in all
                 elseif (
-                    (
-                        isset($propertyProperties['copy_to'])
-                        && ('all' == $propertyProperties['copy_to'])
-                    ) && (
-                        isset($propertyProperties['type'])
-                        && 'text' == $propertyProperties['type']
+                        (!isset($propertyProperties['copy_to'])
+                            || (isset($propertyProperties['copy_to'])
+                                && ('all' == $propertyProperties['copy_to'])))
+                        && (isset($propertyProperties['type'])
+                            && 'text' == $propertyProperties['type']
                     )
                 ) {
                     self::handleNonI18nStringFields($rootIndexType, $fields, $prefix, $propertyName, $foreignType);
