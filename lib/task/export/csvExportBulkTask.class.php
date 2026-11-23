@@ -106,6 +106,13 @@ class csvExportBulkTask extends exportBulkBaseTask
             $writer->user->setCulture($row['culture']);
             $writer->setOptions($options);
 
+            // The CLI exports every column, including elements hidden by the
+            // visible elements settings.
+            $writer->setParams([
+                'nonVisibleElementsIncluded' => true,
+                'objectType' => 'informationObject',
+            ]);
+
             $writer->exportResource($resource);
 
             $this->indicateProgress(++$itemsExported);
