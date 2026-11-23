@@ -71,6 +71,13 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
         $writer->user = $context->getUser();
         $writer->setOptions($options);
 
+        // The CLI exports every column, including elements hidden by the
+        // visible elements settings.
+        $writer->setParams([
+            'nonVisibleElementsIncluded' => true,
+            'objectType' => 'informationObject',
+        ]);
+
         foreach ($rows as $row) {
             $writer->user->setCulture($row['culture']);
             $resource = QubitInformationObject::getById($row['id']);
