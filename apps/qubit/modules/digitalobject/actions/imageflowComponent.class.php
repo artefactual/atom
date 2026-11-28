@@ -41,11 +41,19 @@ class DigitalObjectImageflowComponent extends sfComponent
         $criteria = new Criteria();
         $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
 
-        $criteria->add(
+        // Bound LFT on both sides so the lft index gives a closed range;
+        // descendants always satisfy parent.lft < lft < parent.rgt.
+        $criterion = $criteria->getNewCriterion(
             QubitInformationObject::LFT,
             $this->resource->lft,
             Criteria::GREATER_THAN
         );
+        $criterion->addAnd($criteria->getNewCriterion(
+            QubitInformationObject::LFT,
+            $this->resource->rgt,
+            Criteria::LESS_THAN
+        ));
+        $criteria->add($criterion);
 
         $criteria->add(
             QubitInformationObject::RGT,
